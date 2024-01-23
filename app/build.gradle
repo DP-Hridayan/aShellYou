@@ -1,0 +1,49 @@
+plugins {
+    id 'com.android.application'
+}
+
+def keystoreFile = rootProject.file("app/sp.jks")
+
+android {
+    if (keystoreFile.exists()) {
+        signingConfigs {
+            release {
+                storeFile file("sp.jks")
+                storePassword "smartpack"
+                keyAlias "sp_key1"
+                keyPassword "smartpack"
+            }
+        }
+    }
+
+    namespace 'in.sunilpaulmathew.ashell'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "in.sunilpaulmathew.ashell"
+        minSdk 24
+        targetSdk 34
+        versionCode 9
+        versionName "v0.9"
+    }
+
+    buildTypes {
+        release {
+            if (keystoreFile.exists()) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        buildConfig = true
+    }
+}
+
+dependencies {
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation "dev.rikka.shizuku:api:12.1.0"
+    implementation "dev.rikka.shizuku:provider:12.1.0"
+}

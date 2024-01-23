@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="about">Sobre</string>
+    <string name="app_summary">Bem-vindo ao aShell: um shell ADB local para dispositivos Android com suporte ao Shizuku.</string>
+    <string name="app_working_message">aShell está em execução. Aguarde até que termine ou pare manualmente (clicando no botão de parar) para executar um novo comando.</string>
+    <string name="bookmark_added_message">\'%s\' foi adicionado aos favoritos</string>
+    <string name="bookmark_removed_message">\'%s\' foi removido dos favoritos</string>
+    <string name="cancel">Cancelar</string>
+    <string name="clear_all_message">Limpar tudo nesta tela?</string>
+    <string name="command_hint">Digite o comando ADB aqui</string>
+    <string name="command_title">Caixa de Comando aShell</string>
+    <string name="copy">Copiar</string>
+    <string name="dismiss">Dispensar</string>
+    <string name="examples">Exemplos</string>
+    <string name="press_back">Pressione voltar novamente para sair</string>
+    <string name="process_destroy_message">aShell está em execução. Deseja parar o processo atual?</string>
+    <string name="quit">Sair</string>
+    <string name="quit_app_message">Deseja sair do aShell?</string>
+    <string name="request_permission">Solicitar Permissão</string>
+    <string name="start">Iniciar</string>
+    <string name="shell_output_saved_message">A saída do último comando foi exportada para a pasta \'%s\'</string>
+    <string name="shizuku_about">Sobre o Shizuku</string>
+    <string name="shizuku_access_denied_message">Acesso ao serviço Shizuku foi negado para o aShell. O aShell não funcionará sem um ambiente Shizuku adequado.</string>
+    <string name="shizuku_unavailable_message">O Shizuku não está instalado ou configurado corretamente no seu dispositivo. O aShell não funcionará sem um ambiente Shizuku adequado. Clique aqui para saber mais sobre o Shizuku.</string>
+    <string name="su_warning_message">O aShell não é projetado para usos relacionados ao root. Abortando.</string>
+    <string name="yes">Sim</string>
+</resources>

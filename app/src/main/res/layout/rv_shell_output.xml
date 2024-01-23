@@ -1,0 +1,11 @@
+<com.google.android.material.textview.MaterialTextView
+    android:id="@+id/shell_output"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textIsSelectable="true"
+    android:layout_gravity="start"
+    android:textStyle="bold"
+    android:textSize="15sp"
+    android:padding="2dp" >
+</com.google.android.material.textview.MaterialTextView>

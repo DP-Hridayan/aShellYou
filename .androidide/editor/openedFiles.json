@@ -1,0 +1,35 @@
+{
+  "allFiles": [
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/README.md",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 1523,
+          "line": 42
+        },
+        "start": {
+          "column": 0,
+          "index": 1523,
+          "line": 42
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/drawable/ic_starred.xml",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    }
+  ],
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/drawable/ic_starred.xml"
+}

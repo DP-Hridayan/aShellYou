@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="about">"Névjegy"</string>
+    <string name="app_summary">"Üdvözöljük az aShellben: Egy helyi ADB héj, a Shizuku alapú android eszközökhöz."</string>
+    <string name="app_working_message">"Az aShell még mindig működik.  Kérjük várja meg amíg befejeződik, vagy manuálisan állítsa le (a leállítás gombra kattintva) egy új parancs futtatásához"</string>
+    <string name="bookmark_added_message">"'%s' könyvjelzővel ellátva"</string>
+    <string name="bookmark_removed_message">"'%s' eltávolítva a könyvjelzőkből"</string>
+    <string name="cancel">"Mégse"</string>
+    <string name="clear_all_message">"Töröl mindent a képernyőn?"</string>
+    <string name="command_hint">"Ide írja be az ADB parancsot"</string>
+    <string name="command_title">"aShell Command Box"</string>
+    <string name="copy">"Másolás"</string>
+    <string name="dismiss">"Elvetés"</string>
+    <string name="examples">"Példák"</string>
+    <string name="press_back">"Nyomja meg ismét a vissza gombot a kilépéshez"</string>
+    <string name="process_destroy_message">"Az aShell még mindig működik. Le akarja állítani a jelenlegi folyamatot?"</string>
+    <string name="quit">"Kilépés"</string>
+    <string name="quit_app_message">"Ki akar lépni az aShellből?"</string>
+    <string name="request_permission">"Engedély kérés"</string>
+    <string name="start">"Indítás"</string>
+    <string name="shell_output_saved_message">"'%s' mappába kerül exportálásra az utolsó parancs kimenete"</string>
+    <string name="shizuku_about">"A Shizukuról"</string>
+    <string name="shizuku_access_denied_message">"A hozzáférés a Shizuku szolgáltatáshoz, az aShell számára meg lett tagadva. Az aShell nem fog működni megfelelő Shizuku környezet nélkül."</string>
+    <string name="shizuku_unavailable_message">"A Shizuku nincs telepítve, vagy nincs megfelelően konfigurálva az eszközön. Az aShell nem fog működni megfelelő Shizuku környezet nélkül. Kattintson ide, ha többet szeretne megtudni a Shizukuról."</string>
+    <string name="su_warning_message">"Az aShell nem root alapú felhasználásra készült. Megszakítás."</string>
+    <string name="yes">"Igen"</string>
+</resources>

@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="about">"Tentang"</string>
+    <string name="app_summary">"Selamat datang di aShell: Sebuah shell ADB lokal untuk perangkat-perangkat android terdukung Shizuku"</string>
+    <string name="app_working_message">"aShell masih bekerja. Mohon menunggu hingga selesai atau menghentikannya (dengan mengklik tombol henti) untuk menjalankan perintah baru"</string>
+    <string name="bookmark_added_message">"'%s' telah ditandai"</string>
+    <string name="bookmark_removed_message">"'%s' telah dihapus dari penanda"</string>
+    <string name="cancel">"Batal"</string>
+    <string name="clear_all_message">"Kosongkan layar?"</string>
+    <string name="command_hint">"Masukkan perintah ADB di sini"</string>
+    <string name="command_title">"Kotak Perintah ADB"</string>
+    <string name="copy">"Salin"</string>
+    <string name="dismiss">"Hentikan"</string>
+    <string name="examples">"Contoh"</string>
+    <string name="press_back">"Tekan kembali lagi untuk keluar"</string>
+    <string name="process_destroy_message">"aShell masih bekerja. Apakah anda ingin menghentikan proses ini?"</string>
+    <string name="quit">"Keluar"</string>
+    <string name="quit_app_message">"Apakah anda ingin keluar dari aShell?"</string>
+    <string name="request_permission">"Meminta izin"</string>
+    <string name="start">"Mulai"</string>
+    <string name="shell_output_saved_message">"Keluaran perintah terakhir telah diekspor ke folder '%s'"</string>
+    <string name="shizuku_about">"Tentang Shizuku"</string>
+    <string name="shizuku_access_denied_message">"Akses aShell ke layanan Shizuku ditolak. aShell tidak dapat bekerja tanpa lingkungan Shizuku yang sesuai."</string>
+    <string name="shizuku_unavailable_message">"Shizuku tidak terpasang atau tidak terkonfigurasi dengan benar di perangkat anda. aShell tidak dapat bekerja tanpa lingkungan Shizuku yang sesuai. Klik di sini untuk mengetahui lebih lanjut tentang Shizuku."</string>
+    <string name="su_warning_message">"aShell tidak dirancang untuk penggunaan seputar root. Membatalkan."</string>
+    <string name="yes">"Ya"</string>
+</resources>

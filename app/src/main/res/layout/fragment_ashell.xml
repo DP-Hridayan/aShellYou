@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:textSize="34.0sp"
+                android:textStyle="bold"
+                android:gravity="start|center"
+                android:layout_gravity="start|center"
+                android:padding="1.0dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30.0dip"
+                android:text="@string/app_name"
+                android:fontFamily="@font/custom_font"
+                android:layout_marginStart="25.0dip"
+                android:letterSpacing="0.1" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:textStyle="italic"
+                android:textColor="?attr/colorPrimary"
+                android:gravity="center"
+                android:layout_gravity="start|center|top"
+                android:id="@+id/search_word"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20.0dip"
+                android:color="?attr/colorPrimary"
+                android:layout_marginStart="30.0dip"
+                android:layout_marginEnd="30.0dip" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_gravity="end"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10.0dip"
+                android:elevation="6.0dip">
+
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_history"
+                    android:background="@null"
+                    android:layout_margin="25dp"
+                    android:id="@+id/history"
+                    android:layout_gravity="center" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_search"
+                    android:background="@null"
+                    android:layout_margin="25dp"
+                    android:id="@+id/search"
+                    android:layout_gravity="end|center_vertical" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_refresh"
+                    android:layout_margin="25dp"
+                    android:background="@null"
+                    android:id="@+id/clear"
+                    android:layout_gravity="end|center_vertical" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_bookmarks"
+                    android:background="@null"
+                    android:layout_margin="25dp"
+                    android:id="@+id/bookmarks"
+                    android:layout_gravity="center|end" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_dots"
+                    android:background="@null"
+                    android:layout_margin="25dp"
+                    android:id="@+id/settings"
+                    android:layout_gravity="end|center_vertical" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_numbers"
+                android:background="@null"
+                android:clickable="false"
+                android:layout_gravity="start|center" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="70dp"
+                android:hint="@string/command_title"
+                android:padding="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginStart="20dp">
+
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:imeOptions="actionSend"
+                    android:paddingStart="10dp"
+                    android:layout_gravity="start|center"
+                    android:paddingEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/command_hint"
+                    android:cursorVisible="true"
+                    android:paddingBottom="15dp"
+                    android:maxLines="4"
+                    android:inputType="textMultiLine"
+                    android:id="@+id/shell_command"
+                    android:paddingTop="10dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:tint="?attr/colorOnPrimaryContainer"
+                android:visibility="gone"
+                android:layout_marginEnd="80dp"
+                android:background="@null"
+                android:id="@+id/bookmark"
+                android:layout_gravity="center|end" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="0dp"
+                app:cardCornerRadius="20dp"
+                android:layout_marginEnd="5dp"
+                android:id="@+id/send_card"
+                app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                app:cardElevation="5dp"
+                app:strokeWidth="0dp"
+                android:layout_gravity="end|center">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_help"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:layout_margin="12dp"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/send"
+                    android:tint="?attr/colorOnPrimaryContainer"
+                    android:layout_gravity="center" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:id="@+id/recycler_view_commands" />
+
+      <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler_view_output"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="5dp"
+    android:scrollbars="vertical"
+    android:scrollbarThumbVertical="@drawable/scrollbar"
+/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:background="@null"
+        android:alpha="0.5"
+        android:orientation="vertical"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="100dp">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:src="@drawable/ic_arrow"
+            android:background="@null"
+            android:layout_marginTop="75dp"
+            android:id="@+id/top"
+            android:layout_gravity="center|top" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="75dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_arrow"
+            android:background="@null"
+            android:rotation="180"
+            android:id="@+id/bottom"
+            android:layout_gravity="center|bottom" />
+
+    </FrameLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_margin="25dp"
+        android:layout_alignParentEnd="true"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="25dp"
+        app:strokeWidth="0dp"
+        android:id="@+id/save_card"
+        app:cardElevation="5dp">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/extended_FabActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            app:icon="@drawable/ic_save"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:clickable="false"
+        />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

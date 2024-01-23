@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation" >
+    <string name="app_name" translatable="false">aShell</string>
+
+    <string name="about">About</string>
+    <string name="app_summary">Welcome to aShell: A local ADB shell for Shizuku powered android devices.</string>
+    <string name="app_working_message">aShell is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
+    <string name="bookmark_added_message">\'%s\' is bookmarked</string>
+    <string name="bookmark_removed_message">\'%s\' has been removed from bookmark</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear_all_message">Clear everything on this screen?</string>
+    <string name="command_hint">Input ADB command here</string>
+    <string name="command_title">aShell Command Box</string>
+    <string name="copy">"Copy"</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="examples">Examples</string>
+    <string name="press_back">Press back again to exit</string>
+    <string name="process_destroy_message">aShell is still working. Do you want to stop the current process?</string>
+    <string name="quit">Quit</string>
+    <string name="quit_app_message">Do you want to quit aShell?</string>
+    <string name="request_permission">Request Permission</string>
+    <string name="start">Start</string>
+    <string name="shell_output_saved_message">The output of last command is exported to \'%s\' folder</string>
+    <string name="shizuku_about">About Shizuku</string>
+    <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell. aShell won\'t work without a proper Shizuku environment.</string>
+    <string name="shizuku_unavailable_message">Shizuku is not installed or not properly configured on your device. aShell won\'t work without a proper Shizuku environment. Click here to learn more about Shizuku.</string>
+    <string name="su_warning_message">aShell is not designed for root-related uses. Aborting.</string>
+    <string name="yes">Yes</string>
+</resources>

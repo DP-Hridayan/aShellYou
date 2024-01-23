@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/layout_main"
+        android:padding="10.0dip"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/adb_launcher"
+                android:layout_width="150.0dip"
+                android:layout_height="150.0dip"
+                android:layout_margin="15.0dip"
+                android:src="@mipmap/adb_launcher"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textview.MaterialTextView
+                android:textSize="70.0sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shell"
+                android:fontFamily="@font/custom_font"
+                android:layout_marginStart="5.0dip"
+                android:letterSpacing="0.1"
+                app:layout_constraintBottom_toBottomOf="@+id/adb_launcher"
+                app:layout_constraintStart_toEndOf="@+id/adb_launcher" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:textSize="17.0sp"
+            android:textStyle="bold|italic"
+            android:gravity="center"
+            android:id="@+id/about_text"
+            android:padding="10.0dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.google.android.material.card.MaterialCardView
+            android:gravity="bottom"
+            android:id="@+id/start_card"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10.0dip"
+            android:layout_marginBottom="50.0dip"
+            android:layout_alignParentBottom="true"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:cardCornerRadius="20.0dip"
+            app:cardElevation="6.0dip"
+            app:strokeWidth="0.0dip">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:textSize="17.0sp"
+                    android:textStyle="bold"
+                    android:tint="?attr/colorOnPrimaryContainer"
+                    android:layout_gravity="center"
+                    android:padding="10.0dip"
+                    android:clickable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </com.google.android.material.card.MaterialCardView>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:background="@null"
+            android:visibility="invisible"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_start"
+            android:layout_marginEnd="5.0dip" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>
