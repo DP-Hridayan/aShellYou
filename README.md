@@ -12,7 +12,7 @@
 Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/releases).
 
 ## Features
-* An elegantly designed user interface.
+* An elegantly designed user interface with material you themeing.
 * Included a bundle of examples about common ADB commands.
 * Handles continuously running commands, such as logcat, top, etc.
 * Search for specific text from the last command output.
