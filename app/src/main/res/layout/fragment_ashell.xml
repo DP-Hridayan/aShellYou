@@ -239,9 +239,9 @@
         android:visibility="gone"
         android:layout_margin="25dp"
         android:layout_alignParentEnd="true"
-        app:cardBackgroundColor="?attr/colorPrimaryContainer"
         android:layout_alignParentBottom="true"
         app:cardCornerRadius="25dp"
+        
         app:strokeWidth="0dp"
         android:id="@+id/save_card"
         app:cardElevation="5dp">
@@ -251,6 +251,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:icon="@drawable/ic_save"
             android:textColor="?attr/colorOnPrimaryContainer"
             android:clickable="false"
