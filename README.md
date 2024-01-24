@@ -1,5 +1,9 @@
 ## Material You redesign of ashell
 
+<p style="text-align: center"><img src="https://github.com/DP-Hridayan/ashell/assets/157479796/10550671-1898-42d7-aaee-05a39504a636" alt="" width="250" height="450" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/87de2f77-ccc6-437e-8f39-359995a1b559" alt="" width="250" height="450" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/e14ec709-09e7-44bf-8956-b13410e85e6e" alt="" width="250" height="450" /></p>
+
+
+
 # aShell - an ADB sell
 
 ### A local ADB shell for [Shizuku](https://shizuku.rikka.app/) powered android devices!
