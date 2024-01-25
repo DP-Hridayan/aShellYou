@@ -10,6 +10,7 @@
     app:cardCornerRadius="15.0dip"
     app:cardElevation="4.0dip"
     app:strokeWidth="0.0dip">
+  
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_gravity="center"
         android:orientation="vertical"
@@ -17,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10.0dip"
         app:cardCornerRadius="15.0dip">
+       
         <com.google.android.material.textview.MaterialTextView
             android:textSize="17.0sp"
             android:textStyle="bold"
@@ -26,6 +28,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/custom_font" />
+      
         <com.google.android.material.textview.MaterialTextView
             android:textSize="15.0sp"
             android:textStyle="italic"
@@ -33,5 +36,6 @@
             android:id="@+id/summary"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
+        
     </androidx.appcompat.widget.LinearLayoutCompat>
 </com.google.android.material.card.MaterialCardView>

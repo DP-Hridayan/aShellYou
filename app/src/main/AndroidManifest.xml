@@ -27,6 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+       <activity android:name=".activities.ChangelogActivity">
+    <!-- Add any necessary intent filters or configuration here -->
+</activity>
 
         <activity
                 android:name=".activities.aShellActivity"

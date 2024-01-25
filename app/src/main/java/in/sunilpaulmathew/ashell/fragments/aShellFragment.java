@@ -50,6 +50,7 @@ import java.util.concurrent.TimeUnit;
 
 import in.sunilpaulmathew.ashell.BuildConfig;
 import in.sunilpaulmathew.ashell.R;
+import in.sunilpaulmathew.ashell.activities.ChangelogActivity;
 import in.sunilpaulmathew.ashell.activities.ExamplesActivity;
 import in.sunilpaulmathew.ashell.adapters.CommandsAdapter;
 import in.sunilpaulmathew.ashell.adapters.ShellOutputAdapter;
@@ -194,30 +195,35 @@ mBookMarks.setVisibility(Utils.getBookmarks(requireActivity()).size() > 0 ? View
             }
         });
 
-        mSettingsButton.setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(requireContext(), mSettingsButton);
-            Menu menu = popupMenu.getMenu();
-            menu.add(Menu.NONE, 0, Menu.NONE, R.string.shizuku_about);
-            menu.add(Menu.NONE, 1, Menu.NONE, R.string.examples);
-            menu.add(Menu.NONE, 2, Menu.NONE, R.string.about);
-            popupMenu.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == 0) {
-                    Utils.loadShizukuWeb(requireActivity());
-                } else if (item.getItemId() == 1) {
-                    Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
-                    startActivity(examples);
-                } else if (item.getItemId() == 2) {
-                    new MaterialAlertDialogBuilder(requireActivity())
-                            .setIcon(R.mipmap.ic_launcher)
-                            .setTitle(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME)
-                            .setMessage("Copyright: © 2023–2024, sunilpaulmathew\n\nCredits:\nRikkaApps: Shizuku\n\nUI Redesign by Hridayan")
-                            .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
-                            }).show();
-                }
-                return false;
-            });
-            popupMenu.show();
-        });
+mSettingsButton.setOnClickListener(v -> {
+    PopupMenu popupMenu = new PopupMenu(requireContext(), mSettingsButton);
+    Menu menu = popupMenu.getMenu();
+    menu.add(Menu.NONE, 0, Menu.NONE, R.string.shizuku_about);
+    menu.add(Menu.NONE, 1, Menu.NONE, R.string.examples);
+    menu.add(Menu.NONE, 2, Menu.NONE, R.string.about);
+    menu.add(Menu.NONE, 3, Menu.NONE, R.string.changelogs);
+    popupMenu.setOnMenuItemClickListener(item -> {
+        if (item.getItemId() == 0) {
+            Utils.loadShizukuWeb(requireActivity());
+        } else if (item.getItemId() == 1) {
+            Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
+            startActivity(examples);
+        } else if (item.getItemId() == 2) {
+            new MaterialAlertDialogBuilder(requireActivity())
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME)
+                    .setMessage("Copyright: © 2023–2024, sunilpaulmathew\n\nCredits:\nRikkaApps: Shizuku\n\nUI Redesign by Hridayan")
+                    .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                    }).show();
+        } else if (item.getItemId() == 3) {
+            // Open the ChangelogActivity
+            Intent changelogIntent = new Intent(requireActivity(), ChangelogActivity.class);
+            startActivity(changelogIntent);
+        }
+        return false;
+    });
+    popupMenu.show();
+});
 
         mClearButton.setOnClickListener(v -> {
             if (mResult == null) return;
@@ -517,7 +523,7 @@ mBookMarks.setVisibility(Utils.getBookmarks(requireActivity()).size() > 0 ? View
         mSaveCard.setVisibility(View.GONE);
         mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
      
-        String mTitleText = "<font color=\"" + Utils.getColor(R.color.colorBlue, activity) + "\">shell@" + Utils.getDeviceName() + "</font># <i>" + finalCommand + "</i>";
+        String mTitleText = "<font color=\"" + Utils.getColor(R.color.colorBlue, activity) + "\">shell@" + Utils.getDeviceName() + "</font>  #  <i>" + finalCommand + "</i>";
 
         if (mResult == null) {
             mResult = new ArrayList<>();

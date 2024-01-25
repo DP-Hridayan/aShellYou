@@ -1,7 +1,37 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/fragment_ashell.xml",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_changelog.xml",
+      "selection": {
+        "end": {
+          "column": 68,
+          "index": 1569,
+          "line": 36
+        },
+        "start": {
+          "column": 68,
+          "index": 1569,
+          "line": 36
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/item_changelog.xml",
+      "selection": {
+        "end": {
+          "column": 22,
+          "index": 219,
+          "line": 6
+        },
+        "start": {
+          "column": 22,
+          "index": 219,
+          "line": 6
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/rv_shell_output.xml",
       "selection": {
         "end": {
           "column": 0,
@@ -14,7 +44,82 @@
           "line": 0
         }
       }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/fragment_ashell.xml",
+      "selection": {
+        "end": {
+          "column": 68,
+          "index": 9132,
+          "line": 205
+        },
+        "start": {
+          "column": 0,
+          "index": 9018,
+          "line": 204
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/sunilpaulmathew/ashell/activities/ChangelogActivity.java",
+      "selection": {
+        "end": {
+          "column": 53,
+          "index": 831,
+          "line": 25
+        },
+        "start": {
+          "column": 53,
+          "index": 831,
+          "line": 25
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/sunilpaulmathew/ashell/utils/ChangelogItem.java",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/sunilpaulmathew/ashell/adapters/ChangelogAdapter.java",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/build.gradle",
+      "selection": {
+        "end": {
+          "column": 22,
+          "index": 568,
+          "line": 25
+        },
+        "start": {
+          "column": 22,
+          "index": 568,
+          "line": 25
+        }
+      }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/fragment_ashell.xml"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/build.gradle"
 }
