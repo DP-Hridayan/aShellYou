@@ -107,7 +107,8 @@
 
         <FrameLayout
             android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:paddingBottom="15dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:layout_height="wrap_content"
@@ -182,22 +183,29 @@
 
         </FrameLayout>
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:visibility="gone"
             android:id="@+id/recycler_view_commands" />
 
-      <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recycler_view_output"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="15dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="5dp"
-    android:scrollbars="vertical"
-    android:scrollbarThumbVertical="@drawable/scrollbar"
-/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/output_background"
+            app:cardCornerRadius="20dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_output"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorSurfaceDim"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@drawable/scrollbar" />
+
+        </androidx.cardview.widget.CardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <FrameLayout
@@ -241,7 +249,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         app:cardCornerRadius="25dp"
-        
         app:strokeWidth="0dp"
         android:id="@+id/save_card"
         app:cardElevation="5dp">

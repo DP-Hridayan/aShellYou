@@ -7,5 +7,7 @@
     android:layout_gravity="start"
     android:textStyle="bold"
     android:textSize="15sp"
-    android:padding="2dp" >
+    android:padding="10dp"
+    android:layout_marginStart="5dp" 
+    android:layout_marginEnd="5dp">
 </com.google.android.material.textview.MaterialTextView>
