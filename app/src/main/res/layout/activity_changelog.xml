@@ -33,6 +33,6 @@
         android:layout_width="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-                        android:scrollbars="vertical"
-                android:scrollbarThumbVertical="@drawable/scrollbar" />
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@drawable/scrollbar" />
 </androidx.appcompat.widget.LinearLayoutCompat>

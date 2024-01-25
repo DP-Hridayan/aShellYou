@@ -24,12 +24,13 @@ public class ChangelogActivity extends AppCompatActivity {
 
     // Create a list of ChangelogItem
     List<ChangelogItem> changelogItems = new ArrayList<>();
+            changelogItems.add(
+        new ChangelogItem(
+            "Version 0.9.1 : \n\n    • Added changelogs into the app.\n\n    • Added highlighted shell output."));
     changelogItems.add(
         new ChangelogItem(
-            "Version 0.9 : \n\n• Added dynamic material themeing.\n\n• Revamped whole UI to give a fresh look."));
-    changelogItems.add(
-        new ChangelogItem(
-            "Version 0.9.1 : \n\n• Added changelogs into the app.\n\n• Added highlighted shell output."));
+            "Version 0.9 : \n\n    • Added dynamic material themeing.\n\n    • Revamped whole UI to give a fresh look."));
+
     // Add more items as needed
 
     ChangelogAdapter adapter = new ChangelogAdapter(changelogItems);
