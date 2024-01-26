@@ -22,16 +22,16 @@ public class ChangelogActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewChangelogs = findViewById(R.id.recycler_view_changelogs);
 
-    // Create a list of ChangelogItem
+  
     List<ChangelogItem> changelogItems = new ArrayList<>();
             changelogItems.add(
         new ChangelogItem(
-            "Version 0.9.1 : \n\n    • Added changelogs into the app.\n\n    • Added highlighted shell output."));
+            "Version 0.9.1 : \n\n    • Added changelogs into the app.\n\n    • Added highlighted shell output.\n\n    • Minor UI changes."));
     changelogItems.add(
         new ChangelogItem(
             "Version 0.9 : \n\n    • Added dynamic material themeing.\n\n    • Revamped whole UI to give a fresh look."));
 
-    // Add more items as needed
+   
 
     ChangelogAdapter adapter = new ChangelogAdapter(changelogItems);
     recyclerViewChangelogs.setAdapter(adapter);
