@@ -1,4 +1,4 @@
-package in.sunilpaulmathew.ashell.activities;
+package in.hridayan.ashell.activities;
 
 import android.os.Bundle;
 
@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.sunilpaulmathew.ashell.R;
-import in.sunilpaulmathew.ashell.adapters.ChangelogAdapter;
-import in.sunilpaulmathew.ashell.models.ChangelogItem;
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.adapters.ChangelogAdapter;
+import in.hridayan.ashell.models.ChangelogItem;
 
 public class ChangelogActivity extends AppCompatActivity {
 
@@ -24,6 +24,9 @@ public class ChangelogActivity extends AppCompatActivity {
 
   
     List<ChangelogItem> changelogItems = new ArrayList<>();
+        changelogItems.add(
+        new ChangelogItem(
+            "Version 1.0.0 : \n\n    • Added some more command examples.\n\n    • Minor UI changes.\n\n    • Changed package name to avoid version confusion with original app."));
             changelogItems.add(
         new ChangelogItem(
             "Version 0.9.1 : \n\n    • Added changelogs into the app.\n\n    • Added highlighted shell output.\n\n    • Minor UI changes."));

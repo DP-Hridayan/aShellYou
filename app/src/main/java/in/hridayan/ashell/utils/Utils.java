@@ -1,4 +1,4 @@
-package in.sunilpaulmathew.ashell.utils;
+package in.hridayan.ashell.utils;
 
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import in.sunilpaulmathew.ashell.R;
+import in.hridayan.ashell.R;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 28, 2022

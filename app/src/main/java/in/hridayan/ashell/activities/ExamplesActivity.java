@@ -1,4 +1,4 @@
-package in.sunilpaulmathew.ashell.activities;
+package in.hridayan.ashell.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import in.sunilpaulmathew.ashell.R;
-import in.sunilpaulmathew.ashell.adapters.ExamplesAdapter;
-import in.sunilpaulmathew.ashell.utils.Commands;
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.adapters.ExamplesAdapter;
+import in.hridayan.ashell.utils.Commands;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 05, 2022

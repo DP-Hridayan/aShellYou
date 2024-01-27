@@ -1,11 +1,11 @@
-package in.sunilpaulmathew.ashell.activities;
+package in.hridayan.ashell.activities;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import in.sunilpaulmathew.ashell.R;
-import in.sunilpaulmathew.ashell.fragments.aShellFragment;
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.fragments.aShellFragment;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 28, 2022

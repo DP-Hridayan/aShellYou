@@ -1,4 +1,4 @@
-package in.sunilpaulmathew.ashell.adapters;
+package in.hridayan.ashell.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import in.sunilpaulmathew.ashell.R;
-import in.sunilpaulmathew.ashell.models.ChangelogItem;
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.models.ChangelogItem;
 
 public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.ChangelogViewHolder> {
 
