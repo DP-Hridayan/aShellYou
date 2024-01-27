@@ -6,7 +6,7 @@
  *
  */
 
-package in.sunilpaulmathew.ashell.activities;
+package in.hridayan.ashell.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -28,9 +28,9 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import in.sunilpaulmathew.ashell.R;
-import in.sunilpaulmathew.ashell.utils.Commands;
-import in.sunilpaulmathew.ashell.utils.Utils;
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.utils.Commands;
+import in.hridayan.ashell.utils.Utils;
 import rikka.shizuku.Shizuku;
 
 /*
@@ -44,7 +44,7 @@ public class StartActivity extends AppCompatActivity {
         // Initialize App Theme
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         super.onCreate(savedInstanceState);
-        setContentView(in.sunilpaulmathew.ashell.R.layout.activity_start);
+        setContentView(in.hridayan.ashell.R.layout.activity_start);
 
         LinearLayoutCompat mMainLayout = findViewById(R.id.layout_main);
         MaterialCardView mStartCard = findViewById(R.id.start_card);

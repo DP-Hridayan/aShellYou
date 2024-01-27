@@ -1,4 +1,4 @@
-package in.sunilpaulmathew.ashell.adapters;
+package in.hridayan.ashell.adapters;
 
 import android.graphics.Typeface;
 import android.util.TypedValue;
@@ -13,9 +13,9 @@ import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
-import in.sunilpaulmathew.ashell.R;
-import in.sunilpaulmathew.ashell.utils.CommandItems;
-import in.sunilpaulmathew.ashell.utils.Utils;
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.utils.CommandItems;
+import in.hridayan.ashell.utils.Utils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 05, 2022

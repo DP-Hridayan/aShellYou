@@ -16,15 +16,15 @@ android {
         }
     }
 
-    namespace 'in.sunilpaulmathew.ashell'
+    namespace 'in.hridayan.ashell'
     compileSdk 34
 
     defaultConfig {
-        applicationId "in.sunilpaulmathew.ashell"
+        applicationId "in.hridayan.ashell"
         minSdk 24
         targetSdk 34
-        versionCode 10
-        versionName "v0.9.1"
+        versionCode 11
+        versionName "v1.0.0"
     }
 
     buildTypes {

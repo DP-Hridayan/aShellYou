@@ -1,4 +1,4 @@
-package in.sunilpaulmathew.ashell.fragments;
+package in.hridayan.ashell.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -48,15 +48,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import in.sunilpaulmathew.ashell.BuildConfig;
-import in.sunilpaulmathew.ashell.R;
-import in.sunilpaulmathew.ashell.activities.ChangelogActivity;
-import in.sunilpaulmathew.ashell.activities.ExamplesActivity;
-import in.sunilpaulmathew.ashell.adapters.CommandsAdapter;
-import in.sunilpaulmathew.ashell.adapters.ShellOutputAdapter;
-import in.sunilpaulmathew.ashell.utils.Commands;
-import in.sunilpaulmathew.ashell.utils.ShizukuShell;
-import in.sunilpaulmathew.ashell.utils.Utils;
+import in.hridayan.ashell.BuildConfig;
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.activities.ChangelogActivity;
+import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.adapters.CommandsAdapter;
+import in.hridayan.ashell.adapters.ShellOutputAdapter;
+import in.hridayan.ashell.utils.Commands;
+import in.hridayan.ashell.utils.ShizukuShell;
+import in.hridayan.ashell.utils.Utils;
 import rikka.shizuku.Shizuku;
 
 /*
@@ -223,6 +223,7 @@ public class aShellFragment extends Fragment {
                 mRecyclerViewCommands.setVisibility(View.GONE);
                 mSendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+                mSendButton.clearColorFilter();
               }
             }
           }
@@ -233,7 +234,8 @@ public class aShellFragment extends Fragment {
           if (mShizukuShell != null && mShizukuShell.isBusy()) {
             mShizukuShell.destroy();
             mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-            mSendButton.setColorFilter(Utils.getColor(R.color.colorWhite, requireActivity()));
+            mSendButton.clearColorFilter();
+
           } else if (mCommand.getText() == null || mCommand.getText().toString().trim().isEmpty()) {
             Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
             startActivity(examples);
@@ -259,19 +261,18 @@ public class aShellFragment extends Fragment {
                 if (item.getItemId() == 0) {
                   Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
                   startActivity(examples);
-                }  else if (item.getItemId() == 1) {
+                } else if (item.getItemId() == 1) {
 
                   Intent changelogIntent = new Intent(requireActivity(), ChangelogActivity.class);
                   startActivity(changelogIntent);
                 } else if (item.getItemId() == 2) {
                   Utils.loadShizukuWeb(requireActivity());
-                } 
-                        else if (item.getItemId() == 3) {
+                } else if (item.getItemId() == 3) {
                   new MaterialAlertDialogBuilder(requireActivity())
-                      .setIcon(R.mipmap.ic_launcher)
+                      .setIcon(R.mipmap.adb_launcher)
                       .setTitle(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME)
                       .setMessage(
-                          "Copyright: © 2023–2024, sunilpaulmathew\n\nCredits:\nRikkaApps: Shizuku\n\nUI Redesign by Hridayan")
+                          "Copyright: © 2023–2024\nsunilpaulmathew\n\nCredits:\nRikkaApps: Shizuku\n\nUI Redesign by Hridayan")
                       .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
                       .show();
                 }
@@ -286,7 +287,7 @@ public class aShellFragment extends Fragment {
           if (PreferenceManager.getDefaultSharedPreferences(requireActivity())
               .getBoolean("clearAllMessage", true)) {
             new MaterialAlertDialogBuilder(requireActivity())
-                .setIcon(R.mipmap.ic_launcher)
+                .setIcon(R.mipmap.adb_launcher)
                 .setTitle(getString(R.string.app_name))
                 .setMessage(getString(R.string.clear_all_message))
                 .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
@@ -430,7 +431,7 @@ public class aShellFragment extends Fragment {
                     mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt"));
           }
           new MaterialAlertDialogBuilder(requireActivity())
-              .setIcon(R.mipmap.ic_launcher)
+              .setIcon(R.mipmap.adb_launcher)
               .setTitle(getString(R.string.app_name))
               .setMessage(
                   getString(R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS))
@@ -469,7 +470,7 @@ public class aShellFragment extends Fragment {
                 } else if (mShizukuShell != null && mShizukuShell.isBusy()) {
                   new MaterialAlertDialogBuilder(requireActivity())
                       .setCancelable(false)
-                      .setIcon(R.mipmap.ic_launcher)
+                      .setIcon(R.mipmap.adb_launcher)
                       .setTitle(getString(R.string.app_name))
                       .setMessage(getString(R.string.process_destroy_message))
                       .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
@@ -540,7 +541,7 @@ public class aShellFragment extends Fragment {
     if (mShizukuShell != null && mShizukuShell.isBusy()) {
       new MaterialAlertDialogBuilder(activity)
           .setCancelable(false)
-          .setIcon(R.mipmap.ic_launcher)
+          .setIcon(R.mipmap.adb_launcher)
           .setTitle(getString(R.string.app_name))
           .setMessage(getString(R.string.app_working_message))
           .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
@@ -591,7 +592,7 @@ public class aShellFragment extends Fragment {
     if (finalCommand.equals("exit")) {
       new MaterialAlertDialogBuilder(activity)
           .setCancelable(false)
-          .setIcon(R.mipmap.ic_launcher)
+          .setIcon(R.mipmap.adb_launcher)
           .setTitle(getString(R.string.app_name))
           .setMessage(getString(R.string.quit_app_message))
           .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
@@ -614,6 +615,7 @@ public class aShellFragment extends Fragment {
 
     mSaveCard.setVisibility(View.GONE);
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
+    mSendButton.setColorFilter(Utils.getColor(R.color.colorRed, requireActivity()));
 
     String mTitleText =
         "<font color=\""
@@ -651,6 +653,7 @@ public class aShellFragment extends Fragment {
                         mHistoryButton.setVisibility(View.VISIBLE);
                       }
                       if (mResult != null && mResult.size() > 0) {
+
                         mClearButton.setVisibility(View.VISIBLE);
                         mSaveCard.setVisibility(View.VISIBLE);
                         mSearchButton.setVisibility(View.VISIBLE);
@@ -664,7 +667,7 @@ public class aShellFragment extends Fragment {
                     } else {
                       new MaterialAlertDialogBuilder(activity)
                           .setCancelable(false)
-                          .setIcon(R.mipmap.ic_launcher)
+                          .setIcon(R.mipmap.adb_launcher)
                           .setTitle(getString(R.string.app_name))
                           .setMessage(getString(R.string.shizuku_access_denied_message))
                           .setNegativeButton(
@@ -678,9 +681,11 @@ public class aShellFragment extends Fragment {
                         || mCommand.getText().toString().trim().isEmpty()) {
                       mSendButton.setImageDrawable(
                           Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+                      mSendButton.clearColorFilter();
                     } else {
                       mSendButton.setImageDrawable(
                           Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+                      mSendButton.clearColorFilter();
                     }
 
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);

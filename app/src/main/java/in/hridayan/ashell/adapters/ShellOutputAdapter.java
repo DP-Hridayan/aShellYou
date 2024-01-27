@@ -1,4 +1,4 @@
-package in.sunilpaulmathew.ashell.adapters;
+package in.hridayan.ashell.adapters;
 
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
-import in.sunilpaulmathew.ashell.R;
+import in.hridayan.ashell.R;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 09, 2022

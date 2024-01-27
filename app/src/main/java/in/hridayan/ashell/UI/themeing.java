@@ -1,4 +1,4 @@
-package in.sunilpaulmathew.ashell;
+package in.hridayan.ashell;
 
 import android.app.Application;
 import com.google.android.material.color.DynamicColors;

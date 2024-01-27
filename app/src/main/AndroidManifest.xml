@@ -13,6 +13,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:name=".themeing"
         android:icon="@mipmap/ic_launcher"
+        
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -28,7 +29,7 @@
             </intent-filter>
         </activity>
        <activity android:name=".activities.ChangelogActivity">
-    <!-- Add any necessary intent filters or configuration here -->
+    
 </activity>
 
         <activity
