@@ -1,20 +1,20 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_start.xml",
       "selection": {
         "end": {
           "column": 0,
-          "index": 0,
-          "line": 0
+          "index": 4501,
+          "line": 105
         },
         "start": {
           "column": 0,
-          "index": 0,
-          "line": 0
+          "index": 4501,
+          "line": 105
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_start.xml"
 }

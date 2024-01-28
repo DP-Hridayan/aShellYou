@@ -1,100 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     android:layout_height="fill_parent"
-     android:layout_width="fill_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-         android:layout_height="fill_parent"
-         android:layout_width="fill_parent"
-         android:visibility="gone"
-         android:gravity="center"
-         android:padding="10.0dip"
-         android:orientation="vertical"
-         android:layout_gravity="center"
-         android:id="@+id/layout_main">
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="10.0dip"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:id="@+id/layout_main">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-             xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_height="wrap_content"
-             android:layout_width="fill_parent">
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                 android:layout_height="150.0dip"
-                 android:layout_width="150.0dip"
-                 android:src="@mipmap/adb_launcher"
-                 app:layout_constraintTop_toTopOf="parent"
-                 android:layout_margin="15.0dip"
-                 app:layout_constraintStart_toStartOf="parent"
-                 android:id="@+id/adb_launcher" />
+                android:layout_height="150.0dip"
+                android:layout_width="150.0dip"
+                android:src="@mipmap/adb_launcher"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="15.0dip"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/adb_launcher" />
 
             <com.google.android.material.textview.MaterialTextView
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:gravity="center"
-                 android:textSize="70.0sp"
-                 android:fontFamily="@font/custom_font"
-                 app:layout_constraintStart_toEndOf="@+id/adb_launcher"
-                 app:layout_constraintBottom_toBottomOf="@+id/adb_launcher"
-                 android:layout_marginStart="5.0dip"
-                 android:letterSpacing="0.1"
-                 android:textStyle="bold"
-                 android:text="Shell" />
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:textSize="70.0sp"
+                android:fontFamily="@font/custom_font"
+                app:layout_constraintStart_toEndOf="@+id/adb_launcher"
+                app:layout_constraintBottom_toBottomOf="@+id/adb_launcher"
+                android:layout_marginStart="5.0dip"
+                android:letterSpacing="0.1"
+                android:textStyle="bold"
+                android:text="Shell" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.textview.MaterialTextView
-             android:layout_height="wrap_content"
-             android:layout_width="wrap_content"
-             android:gravity="center"
-             android:padding="10.0dip"
-             android:textSize="17.0sp"
-             android:textStyle="bold|italic"
-             android:id="@+id/about_text" />
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:padding="10.0dip"
+            android:textSize="17.0sp"
+            android:textStyle="bold|italic"
+            android:id="@+id/about_text" />
 
         <com.google.android.material.card.MaterialCardView
-             android:layout_height="wrap_content"
-             android:layout_width="fill_parent"
-             android:layout_marginBottom="50.0dip"
-             android:gravity="bottom"
-             android:layout_margin="10.0dip"
-             app:cardElevation="6.0dip"
-             app:strokeWidth="0.0dip"
-             app:cardBackgroundColor="?attr/colorPrimaryContainer"
-             android:layout_alignParentBottom="true"
-             app:cardCornerRadius="20.0dip"
-             android:id="@+id/start_card">
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="50.0dip"
+            android:gravity="center|bottom"
+            android:layout_margin="40.0dip"
+            app:cardElevation="9.0dip"
+            app:strokeWidth="0.0dip"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            android:layout_alignParentBottom="true"
+            app:cardCornerRadius="40.0dip"
+            android:id="@+id/start_card">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                 android:layout_height="wrap_content"
-                 android:layout_width="fill_parent"
-                 android:gravity="center"
-                 android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
 
                 <com.google.android.material.textview.MaterialTextView
-                     android:layout_height="wrap_content"
-                     android:layout_width="wrap_content"
-                     android:clickable="false"
-                     android:padding="10.0dip"
-                     android:textSize="17.0sp"
-                     android:tint="?attr/colorOnPrimaryContainer"
-                     android:textStyle="bold"
-                     android:layout_gravity="center"
-                     android:text="@string/start" />
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:clickable="false"
+                    android:padding="10.0dip"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20.0sp"
+                    android:tint="?attr/colorOnPrimaryContainer"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:text="@string/start" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.appcompat.widget.AppCompatImageButton
-             android:layout_height="wrap_content"
-             android:layout_width="wrap_content"
-             android:visibility="invisible"
-             android:src="@drawable/ic_start"
-             android:layout_marginEnd="5.0dip"
-             android:background="@null"
-             android:clickable="false" />
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            android:src="@drawable/ic_start"
+            android:layout_marginEnd="5.0dip"
+            android:background="@null"
+            android:clickable="false" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
