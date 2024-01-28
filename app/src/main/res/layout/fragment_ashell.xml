@@ -150,7 +150,7 @@
                     android:gravity="center_vertical"
                     android:cursorVisible="true"
                     android:paddingBottom="15dp"
-                    android:maxLines="4"
+                    android:maxLines="5"
                     android:inputType="textMultiLine"
                     android:id="@+id/shell_command"
                     android:paddingTop="10dp" />
@@ -260,7 +260,6 @@
         android:layout_width="wrap_content"
         app:icon="@drawable/ic_save"
         android:visibility="gone"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         android:text="Save"
         android:textColor="?attr/colorOnPrimaryContainer"
         android:layout_gravity="bottom|end"

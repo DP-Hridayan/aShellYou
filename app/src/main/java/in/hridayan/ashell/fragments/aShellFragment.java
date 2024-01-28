@@ -1,6 +1,8 @@
 package in.hridayan.ashell.fragments;
 
 import android.annotation.SuppressLint;
+import androidx.annotation.NonNull;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -10,6 +12,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.KeyEvent;
+import android.widget.TextView;
+import android.view.inputmethod.EditorInfo;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
@@ -52,9 +57,10 @@ import java.util.concurrent.TimeUnit;
 import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.ChangelogActivity;
+import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
 import in.hridayan.ashell.activities.ExamplesActivity;
-import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
+import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.ShizukuShell;
 import in.hridayan.ashell.utils.Utils;
@@ -65,7 +71,7 @@ import rikka.shizuku.Shizuku;
  */
 public class aShellFragment extends Fragment {
 
-  private AppCompatAutoCompleteTextView mCommand;
+  private AppCompatAutoCompleteTextView mCommand, mEnterIsSend;
   private AppCompatEditText mSearchWord;
   private AppCompatImageButton mClearButton,
       mBottomArrow,
@@ -89,12 +95,13 @@ public class aShellFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View mRootView = inflater.inflate(R.layout.fragment_ashell, container, false);
-
+    mEnterIsSend = mRootView.findViewById(R.id.shell_command);
     mCommand = mRootView.findViewById(R.id.shell_command);
     mSearchWord = mRootView.findViewById(R.id.search_word);
     mSaveButton = mRootView.findViewById(R.id.extended_FabActivity);
     MaterialCardView mSendCard = mRootView.findViewById(R.id.send_card);
     mBottomArrow = mRootView.findViewById(R.id.bottom);
+
     mClearButton = mRootView.findViewById(R.id.clear);
     mHistoryButton = mRootView.findViewById(R.id.history);
     mSettingsButton = mRootView.findViewById(R.id.settings);
@@ -105,6 +112,7 @@ public class aShellFragment extends Fragment {
     mTopArrow = mRootView.findViewById(R.id.top);
     mRecyclerViewOutput = mRootView.findViewById(R.id.recycler_view_output);
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
+    mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
 
     mCommand.requestFocus();
     mBookMarks.setVisibility(
@@ -230,6 +238,28 @@ public class aShellFragment extends Fragment {
           }
         });
 
+    mEnterIsSend.setOnEditorActionListener(
+        new TextView.OnEditorActionListener() {
+          @Override
+          public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+              if (mShizukuShell != null && mShizukuShell.isBusy()) {
+                mShizukuShell.destroy();
+                mSendButton.setImageDrawable(
+                    Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+                mSendButton.clearColorFilter();
+              } else if (mCommand.getText() == null
+                  || mCommand.getText().toString().trim().isEmpty()) {
+                Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
+                startActivity(examples);
+              } else {
+                initializeShell(requireActivity());
+              }
+              return true;
+            }
+            return false;
+          }
+        });
     mSendCard.setOnClickListener(
         v -> {
           if (mShizukuShell != null && mShizukuShell.isBusy()) {
