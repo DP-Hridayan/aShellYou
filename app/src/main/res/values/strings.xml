@@ -9,7 +9,7 @@
     <string name="cancel">Cancel</string>
     <string name="clear_all_message">Clear everything on this screen?</string>
     <string name="command_hint">Input ADB command here</string>
-    <string name="command_title">aShell Command Box</string>
+    <string name="command_title">Input ADB Command</string>
     <string name="copy">"Copy"</string>
     <string name="dismiss">Dismiss</string>
     <string name="examples">Examples</string>

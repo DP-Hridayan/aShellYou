@@ -7,7 +7,6 @@
     <string name="bookmark_removed_message">\'%s\' foi removido dos favoritos</string>
     <string name="cancel">Cancelar</string>
     <string name="clear_all_message">Limpar tudo nesta tela?</string>
-    <string name="command_hint">Digite o comando ADB aqui</string>
     <string name="command_title">Caixa de Comando aShell</string>
     <string name="copy">Copiar</string>
     <string name="dismiss">Dispensar</string>

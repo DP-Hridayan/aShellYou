@@ -35,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -75,7 +76,7 @@ public class aShellFragment extends Fragment {
       mSendButton,
       mSettingsButton,
       mTopArrow;
-  private MaterialCardView mSaveCard;
+  private ExtendedFloatingActionButton mSaveButton;
   private RecyclerView mRecyclerViewOutput;
   private ShizukuShell mShizukuShell = null;
   private boolean mExit;
@@ -91,7 +92,7 @@ public class aShellFragment extends Fragment {
 
     mCommand = mRootView.findViewById(R.id.shell_command);
     mSearchWord = mRootView.findViewById(R.id.search_word);
-    mSaveCard = mRootView.findViewById(R.id.save_card);
+    mSaveButton = mRootView.findViewById(R.id.extended_FabActivity);
     MaterialCardView mSendCard = mRootView.findViewById(R.id.send_card);
     mBottomArrow = mRootView.findViewById(R.id.bottom);
     mClearButton = mRootView.findViewById(R.id.clear);
@@ -320,7 +321,6 @@ public class aShellFragment extends Fragment {
           mSearchWord.setVisibility(View.VISIBLE);
           mSearchWord.requestFocus();
           mCommand.setText(null);
-          mCommand.setHint(null);
         });
 
     mSearchWord.addTextChangedListener(
@@ -387,7 +387,7 @@ public class aShellFragment extends Fragment {
           popupMenu.show();
         });
 
-    mSaveCard.setOnClickListener(
+    mSaveButton.setOnClickListener(
         v -> {
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
@@ -511,9 +511,8 @@ public class aShellFragment extends Fragment {
     mResult = null;
     mRecyclerViewOutput.setAdapter(null);
     mSearchButton.setVisibility(View.GONE);
-    mSaveCard.setVisibility(View.GONE);
+    mSaveButton.setVisibility(View.GONE);
     mClearButton.setVisibility(View.GONE);
-    mCommand.setHint(getString(R.string.command_hint));
     mTopArrow.setVisibility(View.GONE);
     mBottomArrow.setVisibility(View.GONE);
     if (!mCommand.isFocused()) mCommand.requestFocus();
@@ -554,7 +553,6 @@ public class aShellFragment extends Fragment {
   private void runShellCommand(String command, Activity activity) {
     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
     mCommand.setText(null);
-    mCommand.setHint(null);
     mCommand.clearFocus();
     if (mSearchWord.getVisibility() == View.VISIBLE) {
       mSearchWord.setText(null);
@@ -613,7 +611,7 @@ public class aShellFragment extends Fragment {
     }
     mHistory.add(finalCommand);
 
-    mSaveCard.setVisibility(View.GONE);
+    mSaveButton.setVisibility(View.GONE);
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
     mSendButton.setColorFilter(Utils.getColor(R.color.colorRed, requireActivity()));
 
@@ -655,7 +653,7 @@ public class aShellFragment extends Fragment {
                       if (mResult != null && mResult.size() > 0) {
 
                         mClearButton.setVisibility(View.VISIBLE);
-                        mSaveCard.setVisibility(View.VISIBLE);
+                        mSaveButton.setVisibility(View.VISIBLE);
                         mSearchButton.setVisibility(View.VISIBLE);
                         if (mResult.size() > 25) {
                           mTopArrow.setVisibility(View.VISIBLE);

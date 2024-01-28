@@ -1,20 +1,155 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_start.xml",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/fragment_ashell.xml",
+      "selection": {
+        "end": {
+          "column": 50,
+          "index": 5797,
+          "line": 128
+        },
+        "start": {
+          "column": 50,
+          "index": 5797,
+          "line": 128
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/build.gradle",
+      "selection": {
+        "end": {
+          "column": 71,
+          "index": 1060,
+          "line": 45
+        },
+        "start": {
+          "column": 71,
+          "index": 1060,
+          "line": 45
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/rv_shell_output.xml",
+      "selection": {
+        "end": {
+          "column": 27,
+          "index": 361,
+          "line": 8
+        },
+        "start": {
+          "column": 27,
+          "index": 361,
+          "line": 8
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
+      "selection": {
+        "end": {
+          "column": 33,
+          "index": 14387,
+          "line": 322
+        },
+        "start": {
+          "column": 33,
+          "index": 14387,
+          "line": 322
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/values/strings.xml",
+      "selection": {
+        "end": {
+          "column": 50,
+          "index": 931,
+          "line": 11
+        },
+        "start": {
+          "column": 50,
+          "index": 931,
+          "line": 11
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/values-pt-rBR/strings.xml",
+      "selection": {
+        "end": {
+          "column": 12,
+          "index": 2066,
+          "line": 25
+        },
+        "start": {
+          "column": 12,
+          "index": 2066,
+          "line": 25
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/values-hu/strings.xml",
+      "selection": {
+        "end": {
+          "column": 62,
+          "index": 812,
+          "line": 9
+        },
+        "start": {
+          "column": 62,
+          "index": 812,
+          "line": 9
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/values/themes.xml",
+      "selection": {
+        "end": {
+          "column": 63,
+          "index": 3332,
+          "line": 44
+        },
+        "start": {
+          "column": 44,
+          "index": 3313,
+          "line": 44
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/values/colors.xml",
+      "selection": {
+        "end": {
+          "column": 57,
+          "index": 2524,
+          "line": 45
+        },
+        "start": {
+          "column": 57,
+          "index": 2524,
+          "line": 45
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/values-night/colors.xml",
       "selection": {
         "end": {
           "column": 0,
-          "index": 4501,
-          "line": 105
+          "index": 0,
+          "line": 0
         },
         "start": {
           "column": 0,
-          "index": 4501,
-          "line": 105
+          "index": 0,
+          "line": 0
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_start.xml"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/values-night/colors.xml"
 }

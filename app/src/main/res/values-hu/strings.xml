@@ -7,8 +7,7 @@
     <string name="bookmark_removed_message">"'%s' eltávolítva a könyvjelzőkből"</string>
     <string name="cancel">"Mégse"</string>
     <string name="clear_all_message">"Töröl mindent a képernyőn?"</string>
-    <string name="command_hint">"Ide írja be az ADB parancsot"</string>
-    <string name="command_title">"aShell Command Box"</string>
+    <string name="command_title">"Ide írja be az ADB parancsot"</string>
     <string name="copy">"Másolás"</string>
     <string name="dismiss">"Elvetés"</string>
     <string name="examples">"Példák"</string>
