@@ -1,65 +1,20 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/FabOnScrollUpListener.java",
-      "selection": {
-        "end": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        },
-        "start": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/FabOnScrollDownListener.java",
-      "selection": {
-        "end": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        },
-        "start": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/fragment_ashell.xml",
-      "selection": {
-        "end": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        },
-        "start": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        }
-      }
-    },
-    {
       "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
       "selection": {
         "end": {
-          "column": 0,
-          "index": 0,
-          "line": 0
+          "column": 86,
+          "index": 21178,
+          "line": 477
         },
         "start": {
           "column": 0,
-          "index": 0,
-          "line": 0
+          "index": 21092,
+          "line": 477
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/FabOnScrollUpListener.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
 }

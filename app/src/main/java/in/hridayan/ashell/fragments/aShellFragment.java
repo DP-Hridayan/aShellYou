@@ -475,11 +475,11 @@ public class aShellFragment extends Fragment {
               .show();
         });
 
-    mTopButton.setOnClickListener(v -> mRecyclerViewOutput.scrollToPosition(0));
+    mTopButton.setOnClickListener(v -> mRecyclerViewOutput.smoothScrollToPosition(0 , 2000);
 
     mBottomButton.setOnClickListener(
         v ->
-            mRecyclerViewOutput.scrollToPosition(
+            mRecyclerViewOutput.smoothScrollToPosition(
                 Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1));
 
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
