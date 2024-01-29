@@ -475,7 +475,7 @@ public class aShellFragment extends Fragment {
               .show();
         });
 
-    mTopButton.setOnClickListener(v -> mRecyclerViewOutput.smoothScrollToPosition(0 , 2000);
+    mTopButton.setOnClickListener(v -> mRecyclerViewOutput.smoothScrollToPosition(0));
 
     mBottomButton.setOnClickListener(
         v ->

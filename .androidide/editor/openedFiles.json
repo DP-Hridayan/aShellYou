@@ -4,14 +4,74 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
       "selection": {
         "end": {
-          "column": 86,
-          "index": 21178,
-          "line": 477
+          "column": 0,
+          "index": 0,
+          "line": 0
         },
         "start": {
           "column": 0,
-          "index": 21092,
-          "line": 477
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/build.gradle",
+      "selection": {
+        "end": {
+          "column": 22,
+          "index": 554,
+          "line": 25
+        },
+        "start": {
+          "column": 22,
+          "index": 554,
+          "line": 25
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/adapters/ChangelogAdapter.java",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/utils/ChangelogItem.java",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java",
+      "selection": {
+        "end": {
+          "column": 272,
+          "index": 1101,
+          "line": 28
+        },
+        "start": {
+          "column": 272,
+          "index": 1101,
+          "line": 28
         }
       }
     }
