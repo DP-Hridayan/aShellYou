@@ -221,39 +221,29 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <FrameLayout
-        android:layout_height="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_up"
         android:layout_width="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:background="@null"
-        android:alpha="0.5"
-        android:orientation="vertical"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="100dp">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="?@attr/colorTertiaryContainer"
+        app:srcCompat="@drawable/ic_arrow" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:visibility="gone"
-            android:src="@drawable/ic_arrow"
-            android:background="@null"
-            android:layout_marginTop="75dp"
-            android:id="@+id/top"
-            android:layout_gravity="center|top" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginBottom="75dp"
-            android:visibility="gone"
-            android:src="@drawable/ic_arrow"
-            android:background="@null"
-            android:rotation="180"
-            android:id="@+id/bottom"
-            android:layout_gravity="center|bottom" />
-
-    </FrameLayout>
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="?@attr/colorTertiaryContainer"
+        app:srcCompat="@drawable/ic_arrow"
+        android:rotation="180" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"

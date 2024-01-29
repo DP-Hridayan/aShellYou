@@ -1,14 +1,14 @@
 <vector
         android:height="36dp"
-        android:tint="#00000000"
+        android:tint="?attr/colorOnTertiaryContainer"
     android:viewportHeight="24"
         android:viewportWidth="24"
     android:width="36dp"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <path
-            android:fillColor="#00000000"
+            android:fillColor="?attr/colorOnTertiaryContainer"
             android:pathData="M6,17.59l1.41,1.41l4.59,-4.58l4.59,4.58l1.41,-1.41l-6,-6z" />
     <path
-            android:fillColor="@android:color/white"
+            android:fillColor="?attr/colorOnTertiaryContainer"
             android:pathData="M6,11l1.41,1.41l4.59,-4.58l4.59,4.58l1.41,-1.41l-6,-6z" />
 </vector>

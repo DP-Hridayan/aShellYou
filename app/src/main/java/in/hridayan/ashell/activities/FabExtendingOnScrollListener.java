@@ -32,4 +32,6 @@ public class FabExtendingOnScrollListener extends RecyclerView.OnScrollListener 
             fab.extend();
         }
     }
+   
+
 }

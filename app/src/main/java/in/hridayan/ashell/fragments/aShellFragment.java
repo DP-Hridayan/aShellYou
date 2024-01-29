@@ -41,6 +41,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -58,6 +59,8 @@ import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.ChangelogActivity;
 import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
+import in.hridayan.ashell.activities.FabOnScrollUpListener;
+import in.hridayan.ashell.activities.FabOnScrollDownListener;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
 import in.hridayan.ashell.adapters.CommandsAdapter;
@@ -74,15 +77,17 @@ public class aShellFragment extends Fragment {
   private AppCompatAutoCompleteTextView mCommand, mEnterIsSend;
   private AppCompatEditText mSearchWord;
   private AppCompatImageButton mClearButton,
-      mBottomArrow,
       mHistoryButton,
       mSearchButton,
       mBookMark,
       mBookMarks,
       mSendButton,
-      mSettingsButton,
-      mTopArrow;
+      mSettingsButton;
   private ExtendedFloatingActionButton mSaveButton;
+  private FloatingActionButton mTopButton;
+
+  private FloatingActionButton mBottomButton;
+
   private RecyclerView mRecyclerViewOutput;
   private ShizukuShell mShizukuShell = null;
   private boolean mExit;
@@ -100,8 +105,8 @@ public class aShellFragment extends Fragment {
     mSearchWord = mRootView.findViewById(R.id.search_word);
     mSaveButton = mRootView.findViewById(R.id.extended_FabActivity);
     MaterialCardView mSendCard = mRootView.findViewById(R.id.send_card);
-    mBottomArrow = mRootView.findViewById(R.id.bottom);
-
+    mTopButton = mRootView.findViewById(R.id.fab_up);
+    mBottomButton = mRootView.findViewById(R.id.fab_down);
     mClearButton = mRootView.findViewById(R.id.clear);
     mHistoryButton = mRootView.findViewById(R.id.history);
     mSettingsButton = mRootView.findViewById(R.id.settings);
@@ -109,10 +114,11 @@ public class aShellFragment extends Fragment {
     mBookMark = mRootView.findViewById(R.id.bookmark);
     mBookMarks = mRootView.findViewById(R.id.bookmarks);
     mSendButton = mRootView.findViewById(R.id.send);
-    mTopArrow = mRootView.findViewById(R.id.top);
     mRecyclerViewOutput = mRootView.findViewById(R.id.recycler_view_output);
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
+    mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
+    mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
 
     mCommand.requestFocus();
     mBookMarks.setVisibility(
@@ -469,9 +475,9 @@ public class aShellFragment extends Fragment {
               .show();
         });
 
-    mTopArrow.setOnClickListener(v -> mRecyclerViewOutput.scrollToPosition(0));
+    mTopButton.setOnClickListener(v -> mRecyclerViewOutput.scrollToPosition(0));
 
-    mBottomArrow.setOnClickListener(
+    mBottomButton.setOnClickListener(
         v ->
             mRecyclerViewOutput.scrollToPosition(
                 Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1));
@@ -543,8 +549,6 @@ public class aShellFragment extends Fragment {
     mSearchButton.setVisibility(View.GONE);
     mSaveButton.setVisibility(View.GONE);
     mClearButton.setVisibility(View.GONE);
-    mTopArrow.setVisibility(View.GONE);
-    mBottomArrow.setVisibility(View.GONE);
     if (!mCommand.isFocused()) mCommand.requestFocus();
   }
 
@@ -595,11 +599,6 @@ public class aShellFragment extends Fragment {
       mSearchButton.setVisibility(View.GONE);
     }
 
-    if (mTopArrow.getVisibility() == View.VISIBLE) {
-      mTopArrow.setVisibility(View.GONE);
-      mBottomArrow.setVisibility(View.GONE);
-    }
-
     String finalCommand;
     if (command.startsWith("adb shell ")) {
       finalCommand = command.replace("adb shell ", "");
@@ -617,6 +616,22 @@ public class aShellFragment extends Fragment {
       }
       return;
     }
+
+    // Fun Commands
+    if (finalCommand.equals("goto top")) {
+      if (mResult != null) {
+        mRecyclerViewOutput.scrollToPosition(0);
+      }
+      return;
+    }
+    if (finalCommand.equals("goto bottom")) {
+      if (mResult != null) {
+        mRecyclerViewOutput.scrollToPosition(
+            Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
+      }
+      return;
+    }
+    // Fun Commands
 
     if (finalCommand.equals("exit")) {
       new MaterialAlertDialogBuilder(activity)
@@ -686,10 +701,6 @@ public class aShellFragment extends Fragment {
                         mClearButton.setVisibility(View.VISIBLE);
                         mSaveButton.setVisibility(View.VISIBLE);
                         mSearchButton.setVisibility(View.VISIBLE);
-                        if (mResult.size() > 25) {
-                          mTopArrow.setVisibility(View.VISIBLE);
-                          mBottomArrow.setVisibility(View.VISIBLE);
-                        }
                         mResult.add("<i></i>");
                         mResult.add("aShell: Finish");
                       }
