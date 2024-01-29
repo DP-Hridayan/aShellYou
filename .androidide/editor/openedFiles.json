@@ -5,13 +5,13 @@
       "selection": {
         "end": {
           "column": 0,
-          "index": 464,
-          "line": 16
+          "index": 0,
+          "line": 0
         },
         "start": {
           "column": 0,
-          "index": 464,
-          "line": 16
+          "index": 0,
+          "line": 0
         }
       }
     },
@@ -19,14 +19,14 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/fragment_ashell.xml",
       "selection": {
         "end": {
-          "column": 26,
-          "index": 11427,
-          "line": 262
+          "column": 57,
+          "index": 9842,
+          "line": 217
         },
         "start": {
-          "column": 26,
-          "index": 11427,
-          "line": 262
+          "column": 0,
+          "index": 8786,
+          "line": 194
         }
       }
     },
@@ -49,14 +49,14 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/FabExtendingOnScrollListener.java",
       "selection": {
         "end": {
-          "column": 104,
-          "index": 1231,
-          "line": 30
+          "column": 0,
+          "index": 0,
+          "line": 0
         },
         "start": {
-          "column": 104,
-          "index": 1231,
-          "line": 30
+          "column": 0,
+          "index": 0,
+          "line": 0
         }
       }
     },

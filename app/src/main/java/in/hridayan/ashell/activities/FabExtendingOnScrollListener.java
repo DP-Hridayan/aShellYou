@@ -26,7 +26,7 @@ public class FabExtendingOnScrollListener extends RecyclerView.OnScrollListener 
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        if (dy > 0 && fab.isExtended()) { // Scroll down
+        if (dy > 0 && fab.isExtended() && Math.abs(dy) >= FAST_SCROLL_THRESHOLD) { // Scroll down
             fab.shrink();
         } else if (dy < 0 && !fab.isExtended() && Math.abs(dy) >= FAST_SCROLL_THRESHOLD) { // Fast scroll up
             fab.extend();
