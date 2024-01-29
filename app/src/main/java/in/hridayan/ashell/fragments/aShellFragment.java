@@ -613,6 +613,7 @@ public class aShellFragment extends Fragment {
       if (mResult != null) {
         mResult.clear();
         updateUI(mResult);
+        mSaveButton.setVisibility(View.GONE);
       }
       return;
     }

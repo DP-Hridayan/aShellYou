@@ -14,67 +14,7 @@
           "line": 0
         }
       }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/fragment_ashell.xml",
-      "selection": {
-        "end": {
-          "column": 57,
-          "index": 9842,
-          "line": 217
-        },
-        "start": {
-          "column": 0,
-          "index": 8786,
-          "line": 194
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/drawable/ic_numbers.xml",
-      "selection": {
-        "end": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        },
-        "start": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/FabExtendingOnScrollListener.java",
-      "selection": {
-        "end": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        },
-        "start": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/adapters/ShellOutputAdapter.java",
-      "selection": {
-        "end": {
-          "column": 0,
-          "index": 1176,
-          "line": 38
-        },
-        "start": {
-          "column": 0,
-          "index": 1176,
-          "line": 38
-        }
-      }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/FabExtendingOnScrollListener.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
 }
