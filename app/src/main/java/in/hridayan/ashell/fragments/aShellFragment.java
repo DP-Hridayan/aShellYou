@@ -81,12 +81,9 @@ public class aShellFragment extends Fragment {
       mSearchButton,
       mBookMark,
       mBookMarks,
-      mSendButton,
       mSettingsButton;
   private ExtendedFloatingActionButton mSaveButton;
-  private FloatingActionButton mTopButton;
-
-  private FloatingActionButton mBottomButton;
+  private FloatingActionButton mTopButton, mBottomButton, mSendButton;
 
   private RecyclerView mRecyclerViewOutput;
   private ShizukuShell mShizukuShell = null;
@@ -104,7 +101,6 @@ public class aShellFragment extends Fragment {
     mCommand = mRootView.findViewById(R.id.shell_command);
     mSearchWord = mRootView.findViewById(R.id.search_word);
     mSaveButton = mRootView.findViewById(R.id.extended_FabActivity);
-    MaterialCardView mSendCard = mRootView.findViewById(R.id.send_card);
     mTopButton = mRootView.findViewById(R.id.fab_up);
     mBottomButton = mRootView.findViewById(R.id.fab_down);
     mClearButton = mRootView.findViewById(R.id.clear);
@@ -266,7 +262,7 @@ public class aShellFragment extends Fragment {
             return false;
           }
         });
-    mSendCard.setOnClickListener(
+    mSendButton.setOnClickListener(
         v -> {
           if (mShizukuShell != null && mShizukuShell.isBusy()) {
             mShizukuShell.destroy();

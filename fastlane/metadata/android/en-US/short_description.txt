@@ -1,1 +1,0 @@
-aShell: A local ADB shell for Shizuku powered android devices

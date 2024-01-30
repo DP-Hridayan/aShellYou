@@ -167,29 +167,19 @@
                 android:id="@+id/bookmark"
                 android:layout_gravity="center|end" />
 
-            <com.google.android.material.card.MaterialCardView
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="10dp"
-                app:cardElevation="5dp"
-                app:strokeWidth="0dp"
-                app:cardBackgroundColor="?attr/colorPrimaryContainer"
-                app:cardCornerRadius="16dp"
-                android:id="@+id/send_card"
-                android:layout_gravity="center|end">
+                android:src="@drawable/ic_help"
+                android:layout_margin="10dp"
+                android:tint="?attr/colorOnPrimaryContainer"
+                app:fabCustomSize="50dp"
+                app:rippleColor="?attr/colorPrimaryContainer"
+                android:id="@+id/send"
+                android:layout_gravity="center|end" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_help"
-                    android:background="@null"
-                    android:clickable="false"
-                    android:layout_margin="12dp"
-                    android:tint="?attr/colorOnPrimaryContainer"
-                    android:id="@+id/send"
-                    android:layout_gravity="center" />
-
-            </com.google.android.material.card.MaterialCardView>
 
         </FrameLayout>
 
@@ -213,6 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:scrollbars="vertical"
+                android:nestedScrollingEnabled="true"
                 android:background="?@attr/colorSurfaceContainerLowest"
                 android:scrollbarThumbVertical="@drawable/scrollbar"
                 android:id="@+id/recycler_view_output" />
@@ -225,11 +216,13 @@
         android:id="@+id/fab_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="100dp"
         android:visibility="gone"
         android:layout_marginEnd="25dp"
         android:layout_gravity="bottom|end"
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
         app:backgroundTint="?@attr/colorTertiaryContainer"
+        app:rippleColor="?attr/colorTertiaryContainer"
         app:srcCompat="@drawable/ic_arrow" />
 
 
@@ -237,11 +230,13 @@
         android:id="@+id/fab_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="100dp"
         android:visibility="gone"
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
         android:layout_marginEnd="25dp"
         android:layout_gravity="bottom|end"
         app:backgroundTint="?@attr/colorTertiaryContainer"
+        app:rippleColor="?attr/colorTertiaryContainer"
         app:srcCompat="@drawable/ic_arrow"
         android:rotation="180" />
 
@@ -255,6 +250,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="25dp"
         android:layout_marginEnd="25dp"
+        app:rippleColor="?attr/colorPrimaryContainer"
         android:id="@+id/extended_FabActivity" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

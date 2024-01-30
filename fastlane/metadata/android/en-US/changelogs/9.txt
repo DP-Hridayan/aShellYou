@@ -1,5 +1,0 @@
-* App now provides package name suggestions when necessary.
-* Bookmark commands now supports more command types.
-* Import Indonesian, Hungarian, and Portuguese (Brazilian) translations.
-* Updated build tools & dependencies.
-* Miscellaneous changes.
