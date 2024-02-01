@@ -63,6 +63,7 @@
             android:layout_margin="40.0dip"
             app:cardElevation="9.0dip"
             app:strokeWidth="0.0dip"
+            app:rippleColor="?attr/colorPrimaryContainer"
             app:cardBackgroundColor="?attr/colorPrimaryContainer"
             android:layout_alignParentBottom="true"
             app:cardCornerRadius="40.0dip"
