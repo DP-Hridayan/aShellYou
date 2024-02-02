@@ -41,6 +41,9 @@
                 android:name=".activities.ExamplesActivity"
             android:exported="false" />
 
+        <activity
+                android:name=".activities.SettingsActivity"
+            android:exported="false"/>
         <provider
             android:name="rikka.shizuku.ShizukuProvider"
             android:authorities="${applicationId}.shizuku"

@@ -1,0 +1,80 @@
+{
+  "allFiles": [
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 33378,
+          "line": 806
+        },
+        "start": {
+          "column": 0,
+          "index": 33378,
+          "line": 806
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_settings.xml",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/SettingsActivity.java",
+      "selection": {
+        "end": {
+          "column": 4,
+          "index": 1090,
+          "line": 32
+        },
+        "start": {
+          "column": 4,
+          "index": 1090,
+          "line": 32
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java",
+      "selection": {
+        "end": {
+          "column": 8,
+          "index": 1268,
+          "line": 32
+        },
+        "start": {
+          "column": 8,
+          "index": 1268,
+          "line": 32
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/build.gradle",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    }
+  ],
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
+}

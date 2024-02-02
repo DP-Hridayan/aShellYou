@@ -2,6 +2,7 @@
     <string name="app_name" translatable="false">aShell</string>
     <string name="changelogs">Changelogs</string>
     <string name="about">About</string>
+   <string name="settings">Settings</string>
     <string name="app_summary">Welcome to aShell: A local ADB shell for Shizuku powered android devices.</string>
     <string name="app_working_message">aShell is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
     <string name="bookmark_added_message">\'%s\' is bookmarked</string>

@@ -1,5 +1,5 @@
 <androidx.appcompat.widget.LinearLayoutCompat
-    android:id="@+id/layout_changelog"
+    android:id="@+id/activity_settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,24 +13,24 @@
         android:orientation="horizontal">
 
         <com.google.android.material.textview.MaterialTextView
-            android:textSize="32.0sp"
+            android:textSize="33.0sp"
             android:textStyle="bold"
             android:gravity="start|center"
             android:layout_gravity="start|center"
             android:padding="1.0dip"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30.0dip"
-            android:text="@string/changelogs"
+            android:text="@string/settings"
             android:fontFamily="@font/custom_font"
             android:layout_marginStart="25.0dip"
             android:letterSpacing="0.1" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_changelogs"
+        android:id="@+id/settings_list"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:scrollbars="vertical"

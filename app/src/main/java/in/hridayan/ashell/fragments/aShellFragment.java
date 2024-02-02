@@ -1,8 +1,6 @@
 package in.hridayan.ashell.fragments;
 
 import android.annotation.SuppressLint;
-import androidx.annotation.NonNull;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -12,20 +10,19 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.KeyEvent;
-import android.widget.TextView;
-import android.view.inputmethod.EditorInfo;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
@@ -34,14 +31,27 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import in.hridayan.ashell.BuildConfig;
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.activities.ChangelogActivity;
+import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
+import in.hridayan.ashell.activities.FabOnScrollDownListener;
+import in.hridayan.ashell.activities.FabOnScrollUpListener;
+import in.hridayan.ashell.activities.SettingsActivity;
+import in.hridayan.ashell.adapters.CommandsAdapter;
+import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.adapters.ShellOutputAdapter;
+import in.hridayan.ashell.utils.Commands;
+import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.utils.ShizukuShell;
+import in.hridayan.ashell.utils.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -54,19 +64,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import in.hridayan.ashell.BuildConfig;
-import in.hridayan.ashell.R;
-import in.hridayan.ashell.activities.ChangelogActivity;
-import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
-import in.hridayan.ashell.activities.FabOnScrollUpListener;
-import in.hridayan.ashell.activities.FabOnScrollDownListener;
-import in.hridayan.ashell.activities.ExamplesActivity;
-import in.hridayan.ashell.adapters.ShellOutputAdapter;
-import in.hridayan.ashell.adapters.CommandsAdapter;
-import in.hridayan.ashell.utils.Commands;
-import in.hridayan.ashell.utils.ShizukuShell;
-import in.hridayan.ashell.utils.Utils;
 import rikka.shizuku.Shizuku;
 
 /*
@@ -83,12 +80,13 @@ public class aShellFragment extends Fragment {
       mBookMarks,
       mSettingsButton;
   private ExtendedFloatingActionButton mSaveButton;
+  private SettingsAdapter adapter;
   private FloatingActionButton mTopButton, mBottomButton, mSendButton;
-
+  private SettingsItem settingsList;
   private RecyclerView mRecyclerViewOutput;
   private ShizukuShell mShizukuShell = null;
   private boolean mExit;
-  private final Handler mHandler = new Handler();
+  private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1;
   private List<String> mHistory = null, mResult = null;
 
@@ -99,6 +97,10 @@ public class aShellFragment extends Fragment {
     View mRootView = inflater.inflate(R.layout.fragment_ashell, container, false);
     mEnterIsSend = mRootView.findViewById(R.id.shell_command);
     mCommand = mRootView.findViewById(R.id.shell_command);
+
+    List<SettingsItem> settingsList = new ArrayList<>();
+    SettingsAdapter adapter = new SettingsAdapter(settingsList, requireContext());
+
     mSearchWord = mRootView.findViewById(R.id.search_word);
     mSaveButton = mRootView.findViewById(R.id.extended_FabActivity);
     mTopButton = mRootView.findViewById(R.id.fab_up);
@@ -119,6 +121,30 @@ public class aShellFragment extends Fragment {
     mCommand.requestFocus();
     mBookMarks.setVisibility(
         Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+
+    mTopButton.setOnClickListener(
+        v -> {
+          boolean switchState = adapter.getSavedSwitchState("Smooth Scrolling");
+
+          if (switchState) {
+
+            mRecyclerViewOutput.smoothScrollToPosition(0);
+          } else {
+            mRecyclerViewOutput.scrollToPosition(0);
+          }
+        });
+
+    mBottomButton.setOnClickListener(
+        v -> {
+          boolean switchState = adapter.getSavedSwitchState("Smooth Scrolling");
+          if (switchState) {
+            mRecyclerViewOutput.smoothScrollToPosition(
+                Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
+          } else {
+            mRecyclerViewOutput.scrollToPosition(
+                Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
+          }
+        });
 
     mCommand.addTextChangedListener(
         new TextWatcher() {
@@ -288,7 +314,7 @@ public class aShellFragment extends Fragment {
           menu.add(Menu.NONE, 2, Menu.NONE, R.string.shizuku_about);
 
           menu.add(Menu.NONE, 3, Menu.NONE, R.string.about);
-
+          menu.add(Menu.NONE, 4, Menu.NONE, R.string.settings);
           popupMenu.setOnMenuItemClickListener(
               item -> {
                 if (item.getItemId() == 0) {
@@ -300,6 +326,10 @@ public class aShellFragment extends Fragment {
                   startActivity(changelogIntent);
                 } else if (item.getItemId() == 2) {
                   Utils.loadShizukuWeb(requireActivity());
+                } else if (item.getItemId() == 4) {
+
+                  Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
+                  startActivity(settingsIntent);
                 } else if (item.getItemId() == 3) {
                   new MaterialAlertDialogBuilder(requireActivity())
                       .setIcon(R.mipmap.adb_launcher)
@@ -423,32 +453,39 @@ public class aShellFragment extends Fragment {
         v -> {
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
-            if (!mResult.get(i).equals("aShell: Finish") && !mResult.get(i).equals("<i></i>")) {
-              sb.append(mResult.get(i)).append("\n");
+            String result = mResult.get(i);
+            if (!"aShell: Finish".equals(result) && !"<i></i>".equals(result)) {
+              sb.append(result).append("\n");
             }
           }
+
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             try {
               ContentValues values = new ContentValues();
-              values.put(
-                  MediaStore.MediaColumns.DISPLAY_NAME,
-                  mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt");
+              String fileName =
+                  mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
+              values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
               values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
               values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
               Uri uri =
                   requireActivity()
                       .getContentResolver()
                       .insert(MediaStore.Files.getContentUri("external"), values);
-              OutputStream outputStream =
-                  requireActivity().getContentResolver().openOutputStream(uri);
-              outputStream.write(sb.toString().getBytes());
-              outputStream.close();
-            } catch (IOException ignored) {
+
+              if (uri != null) {
+                try (OutputStream outputStream =
+                    requireActivity().getContentResolver().openOutputStream(uri)) {
+                  outputStream.write(sb.toString().getBytes());
+                } catch (IOException e) {
+                  e.printStackTrace();
+                }
+              }
+            } catch (Exception e) {
+              e.printStackTrace();
             }
           } else {
             if (requireActivity()
-                    .checkCallingOrSelfPermission(
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
               ActivityCompat.requestPermissions(
                   requireActivity(),
@@ -456,12 +493,17 @@ public class aShellFragment extends Fragment {
                   0);
               return;
             }
-            Utils.create(
-                sb.toString(),
-                new File(
-                    Environment.DIRECTORY_DOWNLOADS,
-                    mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt"));
+
+            try {
+              String fileName =
+                  mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
+              File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
+              Utils.create(sb.toString(), file);
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
           }
+
           new MaterialAlertDialogBuilder(requireActivity())
               .setIcon(R.mipmap.adb_launcher)
               .setTitle(getString(R.string.app_name))
@@ -470,13 +512,6 @@ public class aShellFragment extends Fragment {
               .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
               .show();
         });
-
-    mTopButton.setOnClickListener(v -> mRecyclerViewOutput.smoothScrollToPosition(0));
-
-    mBottomButton.setOnClickListener(
-        v ->
-            mRecyclerViewOutput.smoothScrollToPosition(
-                Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1));
 
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(
@@ -732,15 +767,21 @@ public class aShellFragment extends Fragment {
   }
 
   private void updateUI(List<String> data) {
+    if (data == null) {
+      return;
+    }
+
     List<String> mData = new ArrayList<>();
     try {
       for (String result : data) {
-        if (!result.trim().isEmpty() && !result.equals("aShell: Finish")) {
+        if (!TextUtils.isEmpty(result) && !result.equals("aShell: Finish")) {
           mData.add(result);
         }
       }
     } catch (ConcurrentModificationException ignored) {
+      // Handle concurrent modification gracefully
     }
+
     ExecutorService mExecutors = Executors.newSingleThreadExecutor();
     mExecutors.execute(
         () -> {
@@ -748,8 +789,10 @@ public class aShellFragment extends Fragment {
           new Handler(Looper.getMainLooper())
               .post(
                   () -> {
-                    mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
-                    mRecyclerViewOutput.scrollToPosition(mData.size() - 1);
+                    if (mRecyclerViewOutput != null) {
+                      mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
+                      mRecyclerViewOutput.scrollToPosition(mData.size() - 1);
+                    }
                   });
           if (!mExecutors.isShutdown()) mExecutors.shutdown();
         });
