@@ -26,7 +26,7 @@ public class ChangelogActivity extends AppCompatActivity {
     List<ChangelogItem> changelogItems = new ArrayList<>();
     changelogItems.add(
         new ChangelogItem(
-            "Version 1.2.0 : \n\n    • Added Settings panel.\n\n    • Added option to disable smooth scroll in shell output.\n\n    • Fixed major bugs :\n    ~ Crash while changing device theme.\n    ~ Crash while trying to save large shell output .eg:output of 'pm' command."));
+            "Version 1.2.0 : \n\n    • Added Settings panel.\n\n    • Added option to disable smooth scroll in shell output.\n\n    • Fixed major bugs :\n    ~ Crash while changing device theme.\n    ~ Crash while trying to save large shell output . eg : output of 'pm' command."));
        changelogItems.add(
         new ChangelogItem(
             "Version 1.1.1 : \n\n    • Replaced some deprecated api.\n\n    • Minor UI changes."));
