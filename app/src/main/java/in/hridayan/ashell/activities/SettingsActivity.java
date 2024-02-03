@@ -30,7 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
             "Smooth Scrolling",
             "Enables smooth scrolling in the shell output when top or bottom arrow is clicked",
             true));
-    
+        
     adapter = new SettingsAdapter(settingsData, this);
 
     settingsList.setAdapter(adapter);

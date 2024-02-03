@@ -1,34 +1,44 @@
-<androidx.appcompat.widget.LinearLayoutCompat
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_gravity="center"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ExamplesActivity">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_height="200dp"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:gravity="top|center_vertical"
-        android:orientation="horizontal">
+        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:textSize="34.0sp"
-            android:textStyle="bold"
-            android:gravity="start|center"
-            android:layout_gravity="start|center"
-            android:padding="1.0dip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30.0dip"
-            android:text="@string/examples"
-            android:fontFamily="@font/custom_font"
-            android:layout_marginStart="25.0dip"
-            android:letterSpacing="0.1" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="@string/examples"
+            app:expandedTitleMarginStart="25dp"
+            app:expandedTitleMarginEnd="25dp"
+            app:expandedTitleMarginBottom="45dp"
+            app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStart="25dp"
+                android:layout_width="match_parent"
+                app:layout_collapseMode="pin" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content" />
-</androidx.appcompat.widget.LinearLayoutCompat>
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

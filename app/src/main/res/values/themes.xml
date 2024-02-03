@@ -50,6 +50,17 @@
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
+    <style name="ExpandedToolbarTitle" parent="AppTheme">
+    <item name="android:textSize">33.0sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:gravity">start|center</item>
+    <item name="android:layout_gravity">start|center</item>
+    <item name="android:padding">1.0dip</item>
+    <item name="android:text">@string/settings</item>
+    <item name="android:fontFamily">@font/custom_font</item>
+    <item name="android:letterSpacing">0.1</item>
+   
+</style>
 </resources>
 
     
