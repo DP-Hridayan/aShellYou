@@ -28,10 +28,20 @@
             app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle">
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_height="?attr/actionBarSize"
-                app:contentInsetStart="25dp"
                 android:layout_width="match_parent"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin">
+
+                <ImageView
+                    android:id="@+id/arrow_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/arrow_back"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -39,6 +49,5 @@
         android:id="@+id/settings_list"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

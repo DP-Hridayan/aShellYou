@@ -21,6 +21,7 @@
     <string name="request_permission">Request Permission</string>
     <string name="start">Start</string>
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\' folder</string>
+       <string name="shell_output_not_saved_message">The output of last command is not saved</string>
     <string name="shizuku_about">About Shizuku</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell. aShell won\'t work without a proper Shizuku environment.</string>
     <string name="shizuku_unavailable_message">Shizuku is not installed or not properly configured on your device. aShell won\'t work without a proper Shizuku environment. Click here to learn more about Shizuku.</string>

@@ -1,12 +1,12 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_settings.xml",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
       "selection": {
         "end": {
           "column": 0,
-          "index": 1937,
-          "line": 44
+          "index": 0,
+          "line": 0
         },
         "start": {
           "column": 0,
@@ -16,80 +16,35 @@
       }
     },
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_changelog.xml",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java",
       "selection": {
         "end": {
-          "column": 44,
-          "index": 1405,
-          "line": 31
+          "column": 135,
+          "index": 1284,
+          "line": 38
         },
         "start": {
-          "column": 16,
-          "index": 1377,
-          "line": 31
+          "column": 135,
+          "index": 1284,
+          "line": 38
         }
       }
     },
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/SettingsActivity.java",
-      "selection": {
-        "end": {
-          "column": 8,
-          "index": 1094,
-          "line": 32
-        },
-        "start": {
-          "column": 8,
-          "index": 1094,
-          "line": 32
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/fragment_ashell.xml",
-      "selection": {
-        "end": {
-          "column": 50,
-          "index": 8320,
-          "line": 185
-        },
-        "start": {
-          "column": 0,
-          "index": 8269,
-          "line": 184
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_examples.xml",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/AboutActivity.java",
       "selection": {
         "end": {
           "column": 0,
-          "index": 1928,
-          "line": 44
+          "index": 2548,
+          "line": 78
         },
         "start": {
           "column": 0,
-          "index": 1928,
-          "line": 44
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/values/themes.xml",
-      "selection": {
-        "end": {
-          "column": 34,
-          "index": 301,
-          "line": 6
-        },
-        "start": {
-          "column": 20,
-          "index": 287,
-          "line": 6
+          "index": 2548,
+          "line": 78
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_examples.xml"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/AboutActivity.java"
 }

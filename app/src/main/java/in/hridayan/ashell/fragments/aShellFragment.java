@@ -123,26 +123,62 @@ public class aShellFragment extends Fragment {
         Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
 
     mTopButton.setOnClickListener(
-        v -> {
-          boolean switchState = adapter.getSavedSwitchState("Smooth Scrolling");
+        new View.OnClickListener() {
+          private long lastClickTime = 0;
 
-          if (switchState) {
+          @Override
+          public void onClick(View v) {
 
-            mRecyclerViewOutput.smoothScrollToPosition(0);
-          } else {
-            mRecyclerViewOutput.scrollToPosition(0);
+            long currentTime = System.currentTimeMillis();
+
+            long timeDifference = currentTime - lastClickTime;
+
+            if (timeDifference < 200) {
+              mRecyclerViewOutput.scrollToPosition(0);
+            } else {
+
+              boolean switchState = adapter.getSavedSwitchState("Smooth Scrolling");
+
+              if (switchState) {
+
+                mRecyclerViewOutput.smoothScrollToPosition(0);
+              } else {
+                mRecyclerViewOutput.scrollToPosition(0);
+              }
+            }
+
+            lastClickTime = currentTime;
           }
         });
-
     mBottomButton.setOnClickListener(
-        v -> {
-          boolean switchState = adapter.getSavedSwitchState("Smooth Scrolling");
-          if (switchState) {
-            mRecyclerViewOutput.smoothScrollToPosition(
-                Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
-          } else {
-            mRecyclerViewOutput.scrollToPosition(
-                Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
+        new View.OnClickListener() {
+          private long lastClickTime = 0;
+
+          @Override
+          public void onClick(View v) {
+
+            long currentTime = System.currentTimeMillis();
+
+            long timeDifference = currentTime - lastClickTime;
+
+            if (timeDifference < 200) {
+              mRecyclerViewOutput.scrollToPosition(
+                  Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
+            } else {
+
+              boolean switchState = adapter.getSavedSwitchState("Smooth Scrolling");
+
+              if (switchState) {
+                mRecyclerViewOutput.smoothScrollToPosition(
+                    Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
+
+              } else {
+                mRecyclerViewOutput.scrollToPosition(
+                    Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
+              }
+            }
+
+            lastClickTime = currentTime;
           }
         });
 
@@ -305,43 +341,8 @@ public class aShellFragment extends Fragment {
 
     mSettingsButton.setOnClickListener(
         v -> {
-          PopupMenu popupMenu = new PopupMenu(requireContext(), mSettingsButton);
-          Menu menu = popupMenu.getMenu();
-
-          menu.add(Menu.NONE, 0, Menu.NONE, R.string.examples);
-          menu.add(Menu.NONE, 1, Menu.NONE, R.string.changelogs);
-
-          menu.add(Menu.NONE, 2, Menu.NONE, R.string.shizuku_about);
-
-          menu.add(Menu.NONE, 3, Menu.NONE, R.string.about);
-          menu.add(Menu.NONE, 4, Menu.NONE, R.string.settings);
-          popupMenu.setOnMenuItemClickListener(
-              item -> {
-                if (item.getItemId() == 0) {
-                  Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
-                  startActivity(examples);
-                } else if (item.getItemId() == 1) {
-
-                  Intent changelogIntent = new Intent(requireActivity(), ChangelogActivity.class);
-                  startActivity(changelogIntent);
-                } else if (item.getItemId() == 2) {
-                  Utils.loadShizukuWeb(requireActivity());
-                } else if (item.getItemId() == 4) {
-
-                  Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
-                  startActivity(settingsIntent);
-                } else if (item.getItemId() == 3) {
-                  new MaterialAlertDialogBuilder(requireActivity())
-                      .setIcon(R.mipmap.adb_launcher)
-                      .setTitle(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME)
-                      .setMessage(
-                          "Copyright: © 2023–2024\nsunilpaulmathew\n\nCredits:\nRikkaApps: Shizuku\n\nUI Redesign by Hridayan")
-                      .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
-                      .show();
-                }
-                return false;
-              });
-          popupMenu.show();
+          Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
+          startActivity(settingsIntent);
         });
 
     mClearButton.setOnClickListener(
@@ -448,7 +449,6 @@ public class aShellFragment extends Fragment {
               });
           popupMenu.show();
         });
-
     mSaveButton.setOnClickListener(
         v -> {
           StringBuilder sb = new StringBuilder();
@@ -459,6 +459,7 @@ public class aShellFragment extends Fragment {
             }
           }
 
+          boolean saved = false;
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             try {
               ContentValues values = new ContentValues();
@@ -476,6 +477,7 @@ public class aShellFragment extends Fragment {
                 try (OutputStream outputStream =
                     requireActivity().getContentResolver().openOutputStream(uri)) {
                   outputStream.write(sb.toString().getBytes());
+                  saved = true;
                 } catch (IOException e) {
                   e.printStackTrace();
                 }
@@ -499,20 +501,23 @@ public class aShellFragment extends Fragment {
                   mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
               File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
               Utils.create(sb.toString(), file);
+              saved = true;
             } catch (Exception e) {
               e.printStackTrace();
             }
           }
 
+          String message =
+              saved
+                  ? getString(R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS)
+                  : getString(R.string.shell_output_not_saved_message);
           new MaterialAlertDialogBuilder(requireActivity())
               .setIcon(R.mipmap.adb_launcher)
               .setTitle(getString(R.string.app_name))
-              .setMessage(
-                  getString(R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS))
+              .setMessage(message)
               .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
               .show();
         });
-
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(
         () -> {

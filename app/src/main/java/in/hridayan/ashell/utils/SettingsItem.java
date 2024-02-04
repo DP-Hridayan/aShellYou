@@ -1,56 +1,76 @@
 package in.hridayan.ashell.utils;
 
-import androidx.annotation.NonNull;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import androidx.annotation.DrawableRes;
+import androidx.core.content.ContextCompat;
 import java.util.Objects;
 
 public class SettingsItem {
+    private int symbolResId;
+    private String title;
+    private String description;
+    private boolean isEnabled;
+    private boolean hasSwitch;
 
-  private String title;
-  private String description;
-  private boolean isEnabled;
+    public SettingsItem(
+            @DrawableRes int symbolResId, String title, String description, boolean isEnabled, boolean hasSwitch) {
+        this.symbolResId = symbolResId;
+        this.title = title;
+        this.description = description;
+        this.isEnabled = isEnabled;
+        this.hasSwitch = hasSwitch;
+    }
 
-  public SettingsItem(@NonNull String title, @NonNull String description, boolean isEnabled) {
-    this.title = title;
-    this.description = description;
-    this.isEnabled = isEnabled;
-  }
+    public Drawable getSymbol(Context context) {
+        return ContextCompat.getDrawable(context, symbolResId);
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public void setTitle(@NonNull String title) {
-    this.title = title;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public void setDescription(@NonNull String description) {
-    this.description = description;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public boolean isEnabled() {
-    return isEnabled;
-  }
+    public boolean isEnabled() {
+        return isEnabled;
+    }
 
-  public void setEnabled(boolean isEnabled) {
-    this.isEnabled = isEnabled;
-  }
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    SettingsItem that = (SettingsItem) o;
-    return isEnabled == that.isEnabled
-        && title.equals(that.title)
-        && description.equals(that.description);
-  }
+    public boolean hasSwitch() {
+        return hasSwitch;
+    }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, description, isEnabled);
-  }
+    public void setHasSwitch(boolean hasSwitch) {
+        this.hasSwitch = hasSwitch;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SettingsItem that = (SettingsItem) o;
+        return isEnabled == that.isEnabled
+                && hasSwitch == that.hasSwitch
+                && title.equals(that.title)
+                && description.equals(that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(symbolResId, title, description, isEnabled, hasSwitch);
+    }
 }
