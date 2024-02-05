@@ -35,7 +35,7 @@ public class ChangelogActivity extends AppCompatActivity {
     List<ChangelogItem> changelogItems = new ArrayList<>();
   changelogItems.add(
         new ChangelogItem(
-            "Version 1.2.0",
+            "Version 1.3.0",
             "\n\n• Revamped Settings panel.\n\n• Added Double Tap to instant scroll to top and bottom positions in shell output view.\n\n• Minor UI fixes."));
         changelogItems.add(
         new ChangelogItem(

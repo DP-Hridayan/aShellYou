@@ -1,7 +1,7 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/item_settings.xml",
       "selection": {
         "end": {
           "column": 0,
@@ -16,17 +16,17 @@
       }
     },
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/rv_examples.xml",
       "selection": {
         "end": {
-          "column": 135,
-          "index": 1284,
-          "line": 38
+          "column": 0,
+          "index": 0,
+          "line": 0
         },
         "start": {
-          "column": 135,
-          "index": 1284,
-          "line": 38
+          "column": 0,
+          "index": 0,
+          "line": 0
         }
       }
     },
@@ -34,17 +34,32 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/AboutActivity.java",
       "selection": {
         "end": {
-          "column": 0,
-          "index": 2548,
-          "line": 78
+          "column": 59,
+          "index": 1273,
+          "line": 36
         },
         "start": {
-          "column": 0,
-          "index": 2548,
-          "line": 78
+          "column": 59,
+          "index": 1273,
+          "line": 36
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java",
+      "selection": {
+        "end": {
+          "column": 11,
+          "index": 909,
+          "line": 29
+        },
+        "start": {
+          "column": 11,
+          "index": 909,
+          "line": 29
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/AboutActivity.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java"
 }

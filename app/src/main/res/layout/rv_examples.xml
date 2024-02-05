@@ -5,9 +5,9 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_margin="12.0dip"
-    app:cardCornerRadius="15.0dip"
-    app:cardElevation="4.0dip"
-    app:strokeWidth="0.0dip">
+    app:cardCornerRadius="20.0dip"
+    app:cardBackgroundColor="@color/transparent"
+    app:strokeWidth="1.0dip">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_gravity="center"
         android:orientation="vertical"
