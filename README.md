@@ -1,6 +1,6 @@
 ## Material You redesign of ashell
 
-<p style="text-align: center"><img src="https://github.com/DP-Hridayan/ashell/assets/157479796/10550671-1898-42d7-aaee-05a39504a636" alt="" width="100" height="175" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/0c2b9323-f09c-47b5-8d0b-993bbe3113be" alt="" width="100" height="175" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/e14ec709-09e7-44bf-8956-b13410e85e6e" alt="" width="100" height="175" /></p>
+<p style="text-align: center"><img src="https://github.com/DP-Hridayan/ashell/assets/157479796/10550671-1898-42d7-aaee-05a39504a636" alt="" width="100" height="175" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/17c8da56-f786-47af-b118-72923a7ec8d4" alt="" width="100" height="175" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/e14ec709-09e7-44bf-8956-b13410e85e6e" alt="" width="100" height="175" /></p>
 
 
 
