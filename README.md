@@ -1,6 +1,6 @@
 ## Material You redesign of ashell
 
-<p style="text-align: center"><img src="https://github.com/DP-Hridayan/ashell/assets/157479796/1c074b7a-5767-443d-987a-230c9a6a277e" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/17c8da56-f786-47af-b118-72923a7ec8d4" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/e14ec709-09e7-44bf-8956-b13410e85e6e" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/e324da91-e0ee-4d53-ae22-bd8a83c7b64d"alt="" width="100" height="195" /> </p>
+<p style="text-align: center"><img src="https://github.com/DP-Hridayan/ashell/assets/157479796/1c074b7a-5767-443d-987a-230c9a6a277e" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/17c8da56-f786-47af-b118-72923a7ec8d4" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/4464426f-3ed1-49d3-a81d-1fa93310658a" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/ashell/assets/157479796/e324da91-e0ee-4d53-ae22-bd8a83c7b64d"alt="" width="100" height="195" /> </p>
 
 
 
