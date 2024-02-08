@@ -37,9 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.activities.ChangelogActivity;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
 import in.hridayan.ashell.activities.FabOnScrollDownListener;
@@ -338,13 +336,13 @@ public class aShellFragment extends Fragment {
             initializeShell(requireActivity());
           }
         });
-
+    mSettingsButton.setTooltipText("Settings");
     mSettingsButton.setOnClickListener(
         v -> {
           Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
           startActivity(settingsIntent);
         });
-
+    mClearButton.setTooltipText("Clear screen");
     mClearButton.setOnClickListener(
         v -> {
           if (mResult == null) return;
@@ -369,7 +367,7 @@ public class aShellFragment extends Fragment {
             clearAll();
           }
         });
-
+    mSearchButton.setTooltipText("Search");
     mSearchButton.setOnClickListener(
         v -> {
           if (mHistoryButton.getVisibility() == View.VISIBLE) {
@@ -409,6 +407,7 @@ public class aShellFragment extends Fragment {
             }
           }
         });
+    mBookMarks.setTooltipText("Bookmarks");
 
     mBookMarks.setOnClickListener(
         v -> {
@@ -430,6 +429,8 @@ public class aShellFragment extends Fragment {
           popupMenu.show();
         });
 
+    mHistoryButton.setTooltipText("History");
+
     mHistoryButton.setOnClickListener(
         v -> {
           PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
@@ -449,6 +450,7 @@ public class aShellFragment extends Fragment {
               });
           popupMenu.show();
         });
+
     mSaveButton.setOnClickListener(
         v -> {
           StringBuilder sb = new StringBuilder();

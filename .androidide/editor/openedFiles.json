@@ -1,7 +1,7 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/item_settings.xml",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/.gitignore",
       "selection": {
         "end": {
           "column": 0,
@@ -16,7 +16,7 @@
       }
     },
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/rv_examples.xml",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
       "selection": {
         "end": {
           "column": 0,
@@ -27,39 +27,9 @@
           "column": 0,
           "index": 0,
           "line": 0
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/AboutActivity.java",
-      "selection": {
-        "end": {
-          "column": 59,
-          "index": 1273,
-          "line": 36
-        },
-        "start": {
-          "column": 59,
-          "index": 1273,
-          "line": 36
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java",
-      "selection": {
-        "end": {
-          "column": 11,
-          "index": 909,
-          "line": 29
-        },
-        "start": {
-          "column": 11,
-          "index": 909,
-          "line": 29
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
 }
