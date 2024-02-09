@@ -66,7 +66,7 @@ imageView.setOnClickListener(new View.OnClickListener() {
             "If you have any ideas in your mind, let me know !"));
        aboutItemList.add(
         new AboutItem(
-            R.mipmap.github,
+            R.drawable.ic_github,
             "Github",
             "Open github repository for aShell app")); 
         
