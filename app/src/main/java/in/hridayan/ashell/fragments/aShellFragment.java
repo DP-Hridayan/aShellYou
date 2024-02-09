@@ -93,12 +93,11 @@ public class aShellFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View mRootView = inflater.inflate(R.layout.fragment_ashell, container, false);
-    mEnterIsSend = mRootView.findViewById(R.id.shell_command);
-    mCommand = mRootView.findViewById(R.id.shell_command);
-
     List<SettingsItem> settingsList = new ArrayList<>();
     SettingsAdapter adapter = new SettingsAdapter(settingsList, requireContext());
 
+    mEnterIsSend = mRootView.findViewById(R.id.shell_command);
+    mCommand = mRootView.findViewById(R.id.shell_command);
     mSearchWord = mRootView.findViewById(R.id.search_word);
     mSaveButton = mRootView.findViewById(R.id.extended_FabActivity);
     mTopButton = mRootView.findViewById(R.id.fab_up);
@@ -148,6 +147,7 @@ public class aShellFragment extends Fragment {
             lastClickTime = currentTime;
           }
         });
+
     mBottomButton.setOnClickListener(
         new View.OnClickListener() {
           private long lastClickTime = 0;
@@ -336,18 +336,19 @@ public class aShellFragment extends Fragment {
             initializeShell(requireActivity());
           }
         });
+
     mSettingsButton.setTooltipText("Settings");
     mSettingsButton.setOnClickListener(
         v -> {
           Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
           startActivity(settingsIntent);
         });
+
     mClearButton.setTooltipText("Clear screen");
     mClearButton.setOnClickListener(
         v -> {
-          if (mResult == null) return;
-          if (PreferenceManager.getDefaultSharedPreferences(requireActivity())
-              .getBoolean("clearAllMessage", true)) {
+          boolean switchState = adapter.getSavedSwitchState("Ask before clearing shell output");
+          if (switchState) {
             new MaterialAlertDialogBuilder(requireActivity())
                 .setIcon(R.mipmap.adb_launcher)
                 .setTitle(getString(R.string.app_name))
@@ -356,10 +357,6 @@ public class aShellFragment extends Fragment {
                 .setPositiveButton(
                     getString(R.string.yes),
                     (dialogInterface, i) -> {
-                      PreferenceManager.getDefaultSharedPreferences(requireActivity())
-                          .edit()
-                          .putBoolean("clearAllMessage", false)
-                          .apply();
                       clearAll();
                     })
                 .show();
@@ -367,6 +364,7 @@ public class aShellFragment extends Fragment {
             clearAll();
           }
         });
+
     mSearchButton.setTooltipText("Search");
     mSearchButton.setOnClickListener(
         v -> {

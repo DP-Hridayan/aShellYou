@@ -70,7 +70,6 @@ public class StartActivity extends AppCompatActivity {
             loadUI(this);
         });
 
-        mAboutText.setOnClickListener(v -> Utils.loadShizukuWeb(this));
     }
 
     private static void loadUI(Activity activity) {
