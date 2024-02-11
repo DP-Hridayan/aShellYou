@@ -144,7 +144,7 @@
     <color name="md_theme_surfaceContainerHighest_highContrast">#E2E2E9</color>
 
     <color name="colorBlack">#000000</color>
-    
+   <color name="StatusBar">#FFFFFF</color>
     <color name="colorBlue">#4285f4</color>
     <color name="transparent">#00000000</color>
     <color name="colorRed">#FF0000</color>

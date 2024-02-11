@@ -45,6 +45,17 @@ public class StartActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         super.onCreate(savedInstanceState);
         setContentView(in.hridayan.ashell.R.layout.activity_start);
+		
+	    int statusBarColor = getResources().getColor(R.color.StatusBar);
+    double brightness = getBrightness(statusBarColor);
+    boolean isLightStatusBar = brightness > 0.5;
+
+    View decorView = getWindow().getDecorView();
+    if (isLightStatusBar) {
+      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    } else {
+      decorView.setSystemUiVisibility(0);
+    }
 
         LinearLayoutCompat mMainLayout = findViewById(R.id.layout_main);
         MaterialCardView mStartCard = findViewById(R.id.start_card);
@@ -84,5 +95,11 @@ public class StartActivity extends AppCompatActivity {
             if (!mExecutors.isShutdown()) mExecutors.shutdown();
         });
     }
-
+	
+	public double getBrightness(int color) {
+    int red = Color.red(color);
+    int green = Color.green(color);
+    int blue = Color.blue(color);
+    return 0.299 * red + 0.587 * green + 0.114 * blue;
+  }
 }

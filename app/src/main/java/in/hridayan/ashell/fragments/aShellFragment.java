@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -31,7 +31,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -95,6 +94,16 @@ public class aShellFragment extends Fragment {
     View mRootView = inflater.inflate(R.layout.fragment_ashell, container, false);
     List<SettingsItem> settingsList = new ArrayList<>();
     SettingsAdapter adapter = new SettingsAdapter(settingsList, requireContext());
+    int statusBarColor = getResources().getColor(R.color.StatusBar);
+    double brightness = getBrightness(statusBarColor);
+    boolean isLightStatusBar = brightness > 0.5;
+
+    View decorView = requireActivity().getWindow().getDecorView();
+    if (isLightStatusBar) {
+      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    } else {
+      decorView.setSystemUiVisibility(0);
+    }
 
     mEnterIsSend = mRootView.findViewById(R.id.shell_command);
     mCommand = mRootView.findViewById(R.id.shell_command);
@@ -777,5 +786,12 @@ public class aShellFragment extends Fragment {
   public void onDestroy() {
     super.onDestroy();
     if (mShizukuShell != null) mShizukuShell.destroy();
+  }
+
+  public double getBrightness(int color) {
+    int red = Color.red(color);
+    int green = Color.green(color);
+    int blue = Color.blue(color);
+    return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
 }

@@ -140,4 +140,6 @@
     <color name="md_theme_surfaceContainer_highContrast">#1E1F25</color>
     <color name="md_theme_surfaceContainerHigh_highContrast">#282A2F</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#33353A</color>
+	<color name="StatusBar">#000000</color>
+	
 </resources>

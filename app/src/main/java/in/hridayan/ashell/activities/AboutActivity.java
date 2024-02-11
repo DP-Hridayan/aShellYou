@@ -2,6 +2,7 @@ package in.hridayan.ashell.activities;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,6 +26,16 @@ public class AboutActivity extends AppCompatActivity {
 
     List<AboutItem> aboutItemList = new ArrayList<>();
 
+    int statusBarColor = getResources().getColor(R.color.StatusBar);
+    double brightness = getBrightness(statusBarColor);
+    boolean isLightStatusBar = brightness > 0.5;
+
+    View decorView = getWindow().getDecorView();
+    if (isLightStatusBar) {
+      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    } else {
+      decorView.setSystemUiVisibility(0);
+    }
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
       String version = pInfo.versionName;
@@ -34,16 +45,17 @@ public class AboutActivity extends AppCompatActivity {
       // Handle the absence of package name if needed
     }
 
-       ImageView imageView = findViewById(R.id.arrow_back);
+    ImageView imageView = findViewById(R.id.arrow_back);
 
-imageView.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        
-        onBackPressed();
-    }
-});
-        
+    imageView.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+
+            onBackPressed();
+          }
+        });
+
     aboutItemList.add(
         new AboutItem(R.drawable.ic_copyright, "Copyright", "© 2023-2024  sunilpaulmathew"));
 
@@ -64,15 +76,19 @@ imageView.setOnClickListener(new View.OnClickListener() {
             R.drawable.ic_feature,
             "Feature request",
             "If you have any ideas in your mind, let me know !"));
-       aboutItemList.add(
-        new AboutItem(
-            R.drawable.ic_github,
-            "Github",
-            "Open github repository for aShell app")); 
-        
+    aboutItemList.add(
+        new AboutItem(R.drawable.ic_github, "Github", "Open github repository for aShell app"));
+
     AboutAdapter adapter = new AboutAdapter(aboutItemList, this);
     recyclerViewAbout.setAdapter(adapter);
 
     recyclerViewAbout.setLayoutManager(new LinearLayoutManager(this));
+  }
+
+  public double getBrightness(int color) {
+    int red = Color.red(color);
+    int green = Color.green(color);
+    int blue = Color.blue(color);
+    return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
 }

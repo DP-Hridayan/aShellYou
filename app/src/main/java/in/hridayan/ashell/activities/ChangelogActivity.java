@@ -1,5 +1,6 @@
 package in.hridayan.ashell.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,17 @@ public class ChangelogActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_changelog);
 
+    int statusBarColor = getResources().getColor(R.color.StatusBar);
+    double brightness = getBrightness(statusBarColor);
+    boolean isLightStatusBar = brightness > 0.5;
+
+    View decorView = getWindow().getDecorView();
+    if (isLightStatusBar) {
+      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    } else {
+      decorView.setSystemUiVisibility(0);
+    }
+
     ImageView imageView = findViewById(R.id.arrow_back);
 
     imageView.setOnClickListener(
@@ -33,11 +45,16 @@ public class ChangelogActivity extends AppCompatActivity {
     RecyclerView recyclerViewChangelogs = findViewById(R.id.recycler_view_changelogs);
 
     List<ChangelogItem> changelogItems = new ArrayList<>();
-  changelogItems.add(
+
+    changelogItems.add(
+        new ChangelogItem(
+            "Version 1.3.1",
+            "\n\n• Added predictive back animations.\n\n• Added confirmation dialog popup before clearing screen.\n\n• Fixed StatusBar elements not properly visible in Light mode."));
+    changelogItems.add(
         new ChangelogItem(
             "Version 1.3.0",
             "\n\n• Revamped Settings panel.\n\n• Added Double Tap to instant scroll to top and bottom positions in shell output view.\n\n• Minor UI fixes."));
-        changelogItems.add(
+    changelogItems.add(
         new ChangelogItem(
             "Version 1.2.0",
             "\n\n• Added Settings panel.\n\n• Added option to disable smooth scroll in shell output.\n\n• Fixed major bugs :\n\n    ~ Crash while changing device theme.\n\n    ~ Crash while trying to save large shell output . eg : output of 'pm' command."));
@@ -64,5 +81,12 @@ public class ChangelogActivity extends AppCompatActivity {
     ChangelogAdapter adapter = new ChangelogAdapter(changelogItems, this);
     recyclerViewChangelogs.setAdapter(adapter);
     recyclerViewChangelogs.setLayoutManager(new LinearLayoutManager(this));
+  }
+
+  public double getBrightness(int color) {
+    int red = Color.red(color);
+    int green = Color.green(color);
+    int blue = Color.blue(color);
+    return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
 }

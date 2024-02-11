@@ -2,7 +2,7 @@
     <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
          <item name="windowNoTitle">true</item>
         
-        <item name="android:statusBarColor">#00000000</item>
+        <item name="android:statusBarColor">@color/transparent</item>
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
