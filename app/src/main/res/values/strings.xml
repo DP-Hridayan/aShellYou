@@ -8,7 +8,9 @@
     <string name="bookmark_added_message">\'%s\' is bookmarked</string>
     <string name="bookmark_removed_message">\'%s\' has been removed from bookmark</string>
     <string name="cancel">Cancel</string>
-    <string name="clear_all_message">Clear everything on this screen?</string>
+ <string name="success">Success</string>
+ <string name="failed">Failed</string>
+    <string name="clear_all_message">Are you sure you want to clear everything on this screen?</string>
     <string name="command_hint">Input ADB command here</string>
     <string name="command_title">Input ADB Command</string>
     <string name="copy">"Copy"</string>

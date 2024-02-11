@@ -299,10 +299,9 @@ public class aShellFragment extends Fragment {
             }
           }
         });
-
     mEnterIsSend.setOnEditorActionListener(
         new TextView.OnEditorActionListener() {
-          @Override
+
           public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_SEND) {
               if (mShizukuShell != null && mShizukuShell.isBusy()) {
@@ -350,8 +349,7 @@ public class aShellFragment extends Fragment {
           boolean switchState = adapter.getSavedSwitchState("Ask before clearing shell output");
           if (switchState) {
             new MaterialAlertDialogBuilder(requireActivity())
-                .setIcon(R.mipmap.adb_launcher)
-                .setTitle(getString(R.string.app_name))
+                .setTitle("Clear everything")
                 .setMessage(getString(R.string.clear_all_message))
                 .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
                 .setPositiveButton(
@@ -511,9 +509,10 @@ public class aShellFragment extends Fragment {
               saved
                   ? getString(R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS)
                   : getString(R.string.shell_output_not_saved_message);
+          String title = saved ? getString(R.string.success) : getString(R.string.failed);
+
           new MaterialAlertDialogBuilder(requireActivity())
-              .setIcon(R.mipmap.adb_launcher)
-              .setTitle(getString(R.string.app_name))
+              .setTitle(title)
               .setMessage(message)
               .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
               .show();
@@ -530,35 +529,6 @@ public class aShellFragment extends Fragment {
         0,
         250,
         TimeUnit.MILLISECONDS);
-
-    requireActivity()
-        .getOnBackPressedDispatcher()
-        .addCallback(
-            new OnBackPressedCallback(true) {
-              @Override
-              public void handleOnBackPressed() {
-                if (mSearchWord.getVisibility() == View.VISIBLE) {
-                  hideSearchBar();
-                } else if (mShizukuShell != null && mShizukuShell.isBusy()) {
-                  new MaterialAlertDialogBuilder(requireActivity())
-                      .setCancelable(false)
-                      .setIcon(R.mipmap.adb_launcher)
-                      .setTitle(getString(R.string.app_name))
-                      .setMessage(getString(R.string.process_destroy_message))
-                      .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
-                      .setPositiveButton(
-                          getString(R.string.yes), (dialogInterface, i) -> mShizukuShell.destroy())
-                      .show();
-                } else if (mExit) {
-                  mExit = false;
-                  requireActivity().finish();
-                } else {
-                  Utils.snackBar(mRootView, getString(R.string.press_back)).show();
-                  mExit = true;
-                  mHandler.postDelayed(() -> mExit = false, 2000);
-                }
-              }
-            });
 
     return mRootView;
   }

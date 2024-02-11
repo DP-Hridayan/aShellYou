@@ -45,14 +45,14 @@ public class SettingsActivity extends AppCompatActivity {
             "Enables smooth scrolling in the shell output when top or bottom arrow is clicked",
             true,
             true));
-          settingsData.add(
+    settingsData.add(
         new SettingsItem(
             R.drawable.ic_clear,
             "Ask before clearing shell output",
             "If enabled a confirmation popup will show after you click the Clear screen button",
             true,
             true));
-        
+
     settingsData.add(
         new SettingsItem(
             R.drawable.ic_numbers,
