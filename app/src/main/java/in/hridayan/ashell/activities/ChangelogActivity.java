@@ -48,8 +48,8 @@ public class ChangelogActivity extends AppCompatActivity {
 
     changelogItems.add(
         new ChangelogItem(
-            "Version 1.3.1",
-            "\n\n• Added predictive back animations.\n\n• Added confirmation dialog popup before clearing screen.\n\n• Fixed StatusBar elements not properly visible in Light mode."));
+            "Version 2.0.0",
+            "\n\n• Changed app name to aShell You.\n\n• Added predictive back animations for supporting devices.\n\n• Added confirmation dialog popup before clearing screen.\n\n• Fixed StatusBar elements not properly visible in Light mode.\n\n• App is much more smooth now.\n ~ Reduced app size and optimised code.\n\n• Added themed icon for launchers that support themed icons.\n\n• Minor UI changes."));
     changelogItems.add(
         new ChangelogItem(
             "Version 1.3.0",

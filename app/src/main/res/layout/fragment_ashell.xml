@@ -108,7 +108,7 @@
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:src="@drawable/outline_settings_24"
+                    android:src="@drawable/ic_settings"
                     android:background="@color/transparent"
                     android:layout_margin="25dp"
                     android:id="@+id/settings"

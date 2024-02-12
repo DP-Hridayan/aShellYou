@@ -127,27 +127,27 @@ public class Commands {
         new CommandItems(
             "pm install <apk_path>",
             "Install an apk file",
-            "pm install /data/local/tmp/aShell.apk"));
+            "pm install /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install -d <apk_path>",
             "Allow version code downgrade (debuggable packages only)",
-            "pm install -d /data/local/tmp/aShell.apk"));
+            "pm install -d /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install -f <apk_path>",
             "Install application on internal flash",
-            "pm install -f /data/local/tmp/aShell.apk"));
+            "pm install -f /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install -g <apk_path>",
             "Grant all runtime permissions",
-            "pm install -g /data/local/tmp/aShell.apk"));
+            "pm install -g /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install -i <installer> <apk_path>",
             "Specify package name of installer owning the app",
-            "pm install -i com.google.android.packageinstaller /data/local/tmp/aShell.apk"));
+            "pm install -i com.google.android.packageinstaller /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install -p <split_apk_path>",
@@ -157,57 +157,57 @@ public class Commands {
         new CommandItems(
             "pm install -R <apk_path>",
             "Update an existing apps, but disallow replacement of existing one",
-            "pm install -R /data/local/tmp/aShell.apk"));
+            "pm install -R /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install -t <apk_path>",
             "Allow installing test packages",
-            "pm install -t /data/local/tmp/aShell.apk"));
+            "pm install -t /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install --abi <apk_path>",
             "Override the default ABI of the platform",
-            "pm install --abi /data/local/tmp/aShell.apk"));
+            "pm install --abi /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install --dont-kill <apk_path>",
             "Install a new feature split without killing the running app",
-            "pm install --dont-kill /data/local/tmp/aShell.apk"));
+            "pm install --dont-kill /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install --full <apk_path>",
             "Cause the app to be installed as a non-ephemeral full app",
-            "pm install --full /data/local/tmp/aShell.apk"));
+            "pm install --full /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install --install-location <location> <apk_path>",
             "Force the install location (Options, 0=auto, 1=internal only, 2=prefer external)",
-            "pm install --install-location 1 /data/local/tmp/aShell.apk"));
+            "pm install --install-location 1 /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install --install-reason <reason> <apk_path>",
             "Indicates why the app is being installed (Options, 0=unknown, 1=admin policy, 2=device restore,3=device setup, 4=user request)",
-            "install --install-reason 2 /data/local/tmp/aShell.apk"));
+            "install --install-reason 2 /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install --instant <apk_path>",
             "Cause the app to be installed as an ephemeral install app",
-            "pm install --instant /data/local/tmp/aShell.apk"));
+            "pm install --instant /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install --restrict-permissions <apk_path>",
             "Don't whitelist restricted permissions at install",
-            "pm install --restrict-permissions /data/local/tmp/aShell.apk"));
+            "pm install --restrict-permissions /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install --pkg <package> <apk_path>",
             "Specify expected package name of app being installed",
-            "pm install --pkg in.hridayan.ashell /data/local/tmp/aShell.apk"));
+            "pm install --pkg in.hridayan.ashell /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install --user <user_id> <apk_path>",
             "Install for a given user",
-            "pm install --user0 /data/local/tmp/aShell.apk"));
+            "pm install --user0 /data/local/tmp/aShellYou.apk"));
     mCommands.add(
         new CommandItems(
             "pm install-abandon <session_id>",
