@@ -1,14 +1,12 @@
 package in.hridayan.ashell.activities;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.materialswitch.MaterialSwitch;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.SettingsItem;
@@ -25,30 +23,22 @@ public class SettingsActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
-
-    int statusBarColor = getResources().getColor(R.color.StatusBar);
-    double brightness = getBrightness(statusBarColor);
+		
+    int statusBarColor = getColor(R.color.StatusBar);
+    double brightness = Color.luminance(statusBarColor);
     boolean isLightStatusBar = brightness > 0.5;
 
     View decorView = getWindow().getDecorView();
     if (isLightStatusBar) {
       decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    } else {
-      decorView.setSystemUiVisibility(0);
     }
-
-    settingsList = findViewById(R.id.settings_list);
 
     ImageView imageView = findViewById(R.id.arrow_back);
 
-    imageView.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
+    imageView.setOnClickListener(v -> onBackPressed());
 
-            onBackPressed();
-          }
-        });
+    settingsList = findViewById(R.id.settings_list);
+
     settingsData = new ArrayList<>();
     settingsData.add(
         new SettingsItem(
@@ -94,12 +84,5 @@ public class SettingsActivity extends AppCompatActivity {
   protected void onResume() {
     super.onResume();
     adapter.notifyDataSetChanged();
-  }
-
-  public double getBrightness(int color) {
-    int red = Color.red(color);
-    int green = Color.green(color);
-    int blue = Color.blue(color);
-    return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
 }

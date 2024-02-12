@@ -26,16 +26,19 @@ public class AboutActivity extends AppCompatActivity {
 
     List<AboutItem> aboutItemList = new ArrayList<>();
 
-    int statusBarColor = getResources().getColor(R.color.StatusBar);
-    double brightness = getBrightness(statusBarColor);
+    int statusBarColor = getColor(R.color.StatusBar);
+    double brightness = Color.luminance(statusBarColor);
     boolean isLightStatusBar = brightness > 0.5;
 
     View decorView = getWindow().getDecorView();
     if (isLightStatusBar) {
       decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    } else {
-      decorView.setSystemUiVisibility(0);
     }
+
+    ImageView imageView = findViewById(R.id.arrow_back);
+
+    imageView.setOnClickListener(v -> onBackPressed());
+
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
       String version = pInfo.versionName;
@@ -44,17 +47,6 @@ public class AboutActivity extends AppCompatActivity {
     } catch (PackageManager.NameNotFoundException ignored) {
       // Handle the absence of package name if needed
     }
-
-    ImageView imageView = findViewById(R.id.arrow_back);
-
-    imageView.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-
-            onBackPressed();
-          }
-        });
 
     aboutItemList.add(
         new AboutItem(R.drawable.ic_copyright, "Copyright", "© 2023-2024  sunilpaulmathew"));
@@ -83,12 +75,5 @@ public class AboutActivity extends AppCompatActivity {
     recyclerViewAbout.setAdapter(adapter);
 
     recyclerViewAbout.setLayoutManager(new LinearLayoutManager(this));
-  }
-
-  public double getBrightness(int color) {
-    int red = Color.red(color);
-    int green = Color.green(color);
-    int blue = Color.blue(color);
-    return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
 }

@@ -15,22 +15,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import androidx.preference.PreferenceManager;
 import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.LinearLayoutCompat;
-
+import androidx.preference.PreferenceManager;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.utils.Commands;
-import in.hridayan.ashell.utils.Utils;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import rikka.shizuku.Shizuku;
 
 /*
@@ -38,68 +33,65 @@ import rikka.shizuku.Shizuku;
  */
 public class StartActivity extends AppCompatActivity {
 
-    @SuppressLint("SetTextI18n")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // Initialize App Theme
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        super.onCreate(savedInstanceState);
-        setContentView(in.hridayan.ashell.R.layout.activity_start);
-		
-	    int statusBarColor = getResources().getColor(R.color.StatusBar);
-    double brightness = getBrightness(statusBarColor);
+  @SuppressLint("SetTextI18n")
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    // Initialize App Theme
+    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    super.onCreate(savedInstanceState);
+    setContentView(in.hridayan.ashell.R.layout.activity_start);
+
+    int statusBarColor = getColor(R.color.StatusBar);
+    double brightness = Color.luminance(statusBarColor);
     boolean isLightStatusBar = brightness > 0.5;
 
     View decorView = getWindow().getDecorView();
     if (isLightStatusBar) {
       decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    }
+
+    LinearLayoutCompat mMainLayout = findViewById(R.id.layout_main);
+    MaterialCardView mStartCard = findViewById(R.id.start_card);
+    MaterialTextView mAboutText = findViewById(R.id.about_text);
+
+    if (Shizuku.pingBinder()) {
+      if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true)) {
+        Shizuku.requestPermission(0);
+        mMainLayout.setVisibility(View.VISIBLE);
+        mAboutText.setText(getString(R.string.app_summary));
+      } else {
+        loadUI(this);
+      }
     } else {
-      decorView.setSystemUiVisibility(0);
+      mMainLayout.setVisibility(View.VISIBLE);
+      mAboutText.setText(getString(R.string.shizuku_unavailable_message));
+      mAboutText.setTextColor(Color.RED);
+      mStartCard.setVisibility(View.GONE);
     }
 
-        LinearLayoutCompat mMainLayout = findViewById(R.id.layout_main);
-        MaterialCardView mStartCard = findViewById(R.id.start_card);
-        MaterialTextView mAboutText = findViewById(R.id.about_text);
-
-        if (Shizuku.pingBinder()) {
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true)) {
-                Shizuku.requestPermission(0);
-                mMainLayout.setVisibility(View.VISIBLE);
-                mAboutText.setText(getString(R.string.app_summary));
-            } else {
-                loadUI(this);
-            }
-        } else {
-            mMainLayout.setVisibility(View.VISIBLE);
-            mAboutText.setText(getString(R.string.shizuku_unavailable_message));
-            mAboutText.setTextColor(Color.RED);
-            mStartCard.setVisibility(View.GONE);
-        }
-
-        mStartCard.setOnClickListener(v -> {
-            PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("firstLaunch", false).apply();
-            loadUI(this);
+    mStartCard.setOnClickListener(
+        v -> {
+          PreferenceManager.getDefaultSharedPreferences(this)
+              .edit()
+              .putBoolean("firstLaunch", false)
+              .apply();
+          loadUI(this);
         });
+  }
 
-    }
-
-    private static void loadUI(Activity activity) {
-        ExecutorService mExecutors = Executors.newSingleThreadExecutor();
-        mExecutors.execute(() -> {
-            Commands.loadPackageInfo();
-            new Handler(Looper.getMainLooper()).post(() -> {
-                Intent aShellActivity = new Intent(activity, aShellActivity.class);
-                activity.startActivity(aShellActivity);
-                activity.finish();
-            });
-            if (!mExecutors.isShutdown()) mExecutors.shutdown();
+  private static void loadUI(Activity activity) {
+    ExecutorService mExecutors = Executors.newSingleThreadExecutor();
+    mExecutors.execute(
+        () -> {
+          Commands.loadPackageInfo();
+          new Handler(Looper.getMainLooper())
+              .post(
+                  () -> {
+                    Intent aShellActivity = new Intent(activity, aShellActivity.class);
+                    activity.startActivity(aShellActivity);
+                    activity.finish();
+                  });
+          if (!mExecutors.isShutdown()) mExecutors.shutdown();
         });
-    }
-	
-	public double getBrightness(int color) {
-    int red = Color.red(color);
-    int green = Color.green(color);
-    int blue = Color.blue(color);
-    return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
 }

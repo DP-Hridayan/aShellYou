@@ -20,27 +20,17 @@ public class ChangelogActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_changelog);
 
-    int statusBarColor = getResources().getColor(R.color.StatusBar);
-    double brightness = getBrightness(statusBarColor);
+   int statusBarColor = getColor(R.color.StatusBar);
+    double brightness = Color.luminance(statusBarColor);
     boolean isLightStatusBar = brightness > 0.5;
 
     View decorView = getWindow().getDecorView();
     if (isLightStatusBar) {
       decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    } else {
-      decorView.setSystemUiVisibility(0);
     }
-
     ImageView imageView = findViewById(R.id.arrow_back);
 
-    imageView.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-
-            onBackPressed();
-          }
-        });
+    imageView.setOnClickListener(v -> onBackPressed());
 
     RecyclerView recyclerViewChangelogs = findViewById(R.id.recycler_view_changelogs);
 
@@ -81,12 +71,5 @@ public class ChangelogActivity extends AppCompatActivity {
     ChangelogAdapter adapter = new ChangelogAdapter(changelogItems, this);
     recyclerViewChangelogs.setAdapter(adapter);
     recyclerViewChangelogs.setLayoutManager(new LinearLayoutManager(this));
-  }
-
-  public double getBrightness(int color) {
-    int red = Color.red(color);
-    int green = Color.green(color);
-    int blue = Color.blue(color);
-    return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
 }
