@@ -1,50 +1,35 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/StartActivity.java",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_start.xml",
       "selection": {
         "end": {
-          "column": 0,
-          "index": 1610,
-          "line": 46
+          "column": 35,
+          "index": 1916,
+          "line": 42
         },
         "start": {
-          "column": 0,
-          "index": 1610,
-          "line": 46
+          "column": 35,
+          "index": 1916,
+          "line": 42
         }
       }
     },
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/aShellActivity.java",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/drawable/ic_clear.xml",
       "selection": {
         "end": {
-          "column": 0,
-          "index": 0,
-          "line": 0
+          "column": 9,
+          "index": 579,
+          "line": 9
         },
         "start": {
-          "column": 0,
-          "index": 0,
-          "line": 0
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
-      "selection": {
-        "end": {
-          "column": 0,
-          "index": 3423,
-          "line": 88
-        },
-        "start": {
-          "column": 0,
-          "index": 3423,
-          "line": 88
+          "column": 9,
+          "index": 579,
+          "line": 9
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/StartActivity.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/drawable/ic_clear.xml"
 }

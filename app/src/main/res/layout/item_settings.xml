@@ -47,6 +47,7 @@
         app:layout_constraintStart_toEndOf="@id/setting_title"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/setting_switch"
+	    app:thumbIcon="@drawable/thumb_drawable"
         android:clickable="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
