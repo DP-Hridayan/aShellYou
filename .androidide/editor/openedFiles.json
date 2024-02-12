@@ -1,0 +1,50 @@
+{
+  "allFiles": [
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/StartActivity.java",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/aShellActivity.java",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 645,
+          "line": 23
+        },
+        "start": {
+          "column": 1,
+          "index": 645,
+          "line": 23
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
+      "selection": {
+        "end": {
+          "column": 17,
+          "index": 5949,
+          "line": 144
+        },
+        "start": {
+          "column": 17,
+          "index": 5949,
+          "line": 144
+        }
+      }
+    }
+  ],
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
+}

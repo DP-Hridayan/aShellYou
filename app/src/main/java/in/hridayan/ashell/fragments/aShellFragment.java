@@ -124,7 +124,7 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
 
-    mCommand.requestFocus();
+    
     mBookMarks.setVisibility(
         Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
 
