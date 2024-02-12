@@ -1,9 +1,11 @@
- <resources>
-    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+<resources>
+    <style
+        name="AppTheme"
+        parent="Theme.Material3.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
-        
+
         <item name="android:statusBarColor">@color/transparent</item>
-         <item name="colorPrimary">@color/md_theme_primary</item>
+        <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
@@ -50,17 +52,33 @@
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
-    <style name="ExpandedToolbarTitle" parent="AppTheme">
-    <item name="android:textSize">33.0sp</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:gravity">start|center</item>
-    <item name="android:layout_gravity">start|center</item>
-    <item name="android:padding">1.0dip</item>
-    <item name="android:text">@string/settings</item>
-    <item name="android:fontFamily">@font/custom_font</item>
-    <item name="android:letterSpacing">0.1</item>
-   
-</style>
-</resources>
+    <style
+        name="ExpandedToolbarTitle"
+        parent="AppTheme">
+        <item name="android:textSize">33.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:layout_gravity">start|center</item>
+        <item name="android:padding">1.0dip</item>
+        <item name="android:text">@string/settings</item>
+        <item name="android:fontFamily">@font/custom_font</item>
+        <item name="android:letterSpacing">0.1</item>
 
-    
+    </style>
+
+    <style
+        name="LatestVersionTitle"
+        parent="AppTheme">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textSize">25.0sp</item>
+    </style>
+
+
+    <style
+        name="OtherVersionTitle"
+        parent="AppTheme">
+        <item name="android:textColor">?attr/colorSurfaceInverse</item>
+        <item name="android:textSize">21.0sp</item>
+    </style>
+
+</resources>

@@ -20,7 +20,7 @@ public class ChangelogActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_changelog);
 
-   int statusBarColor = getColor(R.color.StatusBar);
+    int statusBarColor = getColor(R.color.StatusBar);
     double brightness = Color.luminance(statusBarColor);
     boolean isLightStatusBar = brightness > 0.5;
 

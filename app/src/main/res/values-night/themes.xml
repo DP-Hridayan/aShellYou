@@ -1,7 +1,9 @@
 <resources>
-    <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
-         <item name="windowNoTitle">true</item>
-        
+    <style
+        name="AppTheme"
+        parent="Theme.Material3.Dark.NoActionBar">
+        <item name="windowNoTitle">true</item>
+
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
@@ -10,11 +12,15 @@
         <item name="colorSecondary">@color/md_theme_secondary</item>
         <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
         <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
+
         <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
+
         <item name="colorTertiary">@color/md_theme_tertiary</item>
         <item name="colorOnTertiary">@color/md_theme_onTertiary</item>
         <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer</item>
+
         <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer</item>
+
         <item name="colorError">@color/md_theme_error</item>
         <item name="colorOnError">@color/md_theme_onError</item>
         <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
@@ -49,5 +55,20 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+    </style>
+
+
+    <style
+        name="LatestVersionTitle"
+        parent="AppTheme">
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
+        <item name="android:textSize">25.0sp</item>
+    </style>
+
+    <style
+        name="OtherVersionTitle"
+        parent="AppTheme">
+        <item name="android:textColor">?attr/colorSurfaceInverse</item>
+        <item name="android:textSize">21.0sp</item>
     </style>
 </resources>
