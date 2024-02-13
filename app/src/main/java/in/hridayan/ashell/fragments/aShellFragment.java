@@ -25,8 +25,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
@@ -35,7 +33,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
@@ -68,14 +68,12 @@ import rikka.shizuku.Shizuku;
  */
 public class aShellFragment extends Fragment {
 
-  private AppCompatAutoCompleteTextView mCommand, mEnterIsSend;
-  private AppCompatEditText mSearchWord;
-  private AppCompatImageButton mClearButton,
-      mHistoryButton,
+  private TextInputEditText mCommand, mSearchWord;
+	private MaterialButton mHistoryButton,mClearButton,
       mSearchButton,
-      mBookMark,
       mBookMarks,
       mSettingsButton;
+  private AppCompatImageButton mBookMark;
   private ExtendedFloatingActionButton mSaveButton;
   private SettingsAdapter adapter;
   private FloatingActionButton mTopButton, mBottomButton, mSendButton;
@@ -105,10 +103,9 @@ public class aShellFragment extends Fragment {
       decorView.setSystemUiVisibility(0);
     }
 
-    mEnterIsSend = mRootView.findViewById(R.id.shell_command);
     mCommand = mRootView.findViewById(R.id.shell_command);
     mSearchWord = mRootView.findViewById(R.id.search_word);
-    mSaveButton = mRootView.findViewById(R.id.extended_FabActivity);
+    mSaveButton = mRootView.findViewById(R.id.save_button);
     mTopButton = mRootView.findViewById(R.id.fab_up);
     mBottomButton = mRootView.findViewById(R.id.fab_down);
     mClearButton = mRootView.findViewById(R.id.clear);
@@ -124,7 +121,6 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
 
-    
     mBookMarks.setVisibility(
         Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
 
@@ -308,7 +304,7 @@ public class aShellFragment extends Fragment {
             }
           }
         });
-    mEnterIsSend.setOnEditorActionListener(
+    mCommand.setOnEditorActionListener(
         new TextView.OnEditorActionListener() {
 
           public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

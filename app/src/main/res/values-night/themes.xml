@@ -71,4 +71,5 @@
         <item name="android:textColor">?attr/colorSurfaceInverse</item>
         <item name="android:textSize">21.0sp</item>
     </style>
+	
 </resources>

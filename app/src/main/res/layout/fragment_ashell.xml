@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
@@ -20,18 +20,12 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:gravity="start|center"
-                android:padding="1.0dip"
-                android:textSize="34.0sp"
-                android:fontFamily="@font/custom_font"
-                android:layout_marginTop="30.0dip"
-                android:layout_marginStart="25.0dip"
-                android:letterSpacing="0.1"
-                android:textStyle="bold"
-                android:layout_gravity="start|center"
+                style="@style/ExpandedToolbarTitle"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="25dp"
                 android:text="@string/app_name" />
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 app:strokeWidth="0dp"
@@ -40,7 +34,7 @@
                 android:layout_marginRight="20dp"
                 app:cardCornerRadius="60dp">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:visibility="gone"
@@ -50,71 +44,14 @@
                     android:layout_marginTop="20.0dip"
                     android:layout_marginStart="20.0dip"
                     android:layout_gravity="start|center|top"
-                    android:layout_marginBottom="13dp"
+                    android:layout_marginBottom="15dp"
                     android:gravity="start"
                     android:background="@color/transparent"
                     android:drawableLeft="@drawable/ic_search"
                     android:id="@+id/search_word" />
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:elevation="6.0dip"
-                android:orientation="horizontal"
-                android:layout_gravity="end|top">
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_history"
-                    android:background="@null"
-                    android:layout_margin="25dp"
-                    android:id="@+id/history"
-                    android:layout_gravity="center" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_search"
-                    android:background="@null"
-                    android:layout_margin="25dp"
-                    android:id="@+id/search"
-                    android:layout_gravity="end|center_vertical" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_clear"
-                    android:background="@null"
-                    android:layout_margin="25dp"
-                    android:id="@+id/clear"
-                    android:layout_gravity="end|center_vertical" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_bookmarks"
-                    android:background="@null"
-                    android:layout_margin="25dp"
-                    android:id="@+id/bookmarks"
-                    android:layout_gravity="center|end" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_settings"
-                    android:background="@color/transparent"
-                    android:layout_margin="25dp"
-                    android:id="@+id/settings"
-                    android:layout_gravity="end|center_vertical" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </FrameLayout>
 
@@ -134,13 +71,16 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                app:endIconMode="custom"
                 android:layout_marginEnd="70dp"
                 android:hint="@string/command_title"
+                app:endIconTint="@color/transparent"
                 android:padding="5dp"
+                app:endIconDrawable="@drawable/ic_star"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_marginStart="20dp">
 
-                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:imeOptions="actionSend"
@@ -161,41 +101,40 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:visibility="gone"
-                android:layout_marginEnd="80dp"
+                android:layout_marginEnd="85dp"
                 android:background="@null"
                 android:tint="?attr/colorOnPrimaryContainer"
                 android:id="@+id/bookmark"
                 android:layout_gravity="center|end" />
-
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_help"
+                app:rippleColor="?attr/colorPrimaryContainer"
                 android:layout_margin="10dp"
                 android:tint="?attr/colorOnPrimaryContainer"
                 app:fabCustomSize="50dp"
-                app:rippleColor="?attr/colorPrimaryContainer"
                 android:id="@+id/send"
                 android:layout_gravity="center|end" />
-
 
         </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
             android:visibility="gone"
+            android:layout_marginTop="5dp"
             android:id="@+id/recycler_view_commands" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
+            app:strokeWidth="0dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             app:cardCornerRadius="20dp"
             android:id="@+id/output_background">
 
@@ -203,54 +142,111 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:scrollbars="vertical"
-                android:nestedScrollingEnabled="true"
                 android:background="?@attr/colorSurfaceContainerLowest"
+                android:nestedScrollingEnabled="true"
                 android:scrollbarThumbVertical="@drawable/scrollbar"
                 android:id="@+id/recycler_view_output" />
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_up"
-        android:layout_width="wrap_content"
+    <Button
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_width="wrap_content"
+        app:icon="@drawable/ic_settings"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:id="@+id/settings"
+        android:layout_margin="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:visibility="gone"
+        app:icon="@drawable/ic_bookmarks"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toEndOf="@id/settings"
+        app:layout_constraintTop_toTopOf="@id/settings"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:id="@+id/bookmarks" />
+
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        app:icon="@drawable/ic_history"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toEndOf="@id/bookmarks"
+        app:layout_constraintTop_toTopOf="@id/settings"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:id="@+id/history" />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        app:icon="@drawable/ic_clear"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toEndOf="@id/history"
+        app:layout_constraintTop_toTopOf="@id/settings"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:id="@+id/clear" />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        app:icon="@drawable/ic_search"
         android:layout_marginEnd="25dp"
-        android:layout_gravity="bottom|end"
-        app:shapeAppearance="@styleable/CircularProgressIndicator"
-        app:backgroundTint="?@attr/colorTertiaryContainer"
-        app:rippleColor="?attr/colorTertiaryContainer"
-        app:srcCompat="@drawable/ic_arrow" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/settings"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:id="@+id/search" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_down"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_width="wrap_content"
         android:visibility="gone"
-        app:shapeAppearance="@styleable/CircularProgressIndicator"
         android:layout_marginEnd="25dp"
-        android:layout_gravity="bottom|end"
-        app:backgroundTint="?@attr/colorTertiaryContainer"
         app:rippleColor="?attr/colorTertiaryContainer"
+        app:backgroundTint="?@attr/colorTertiaryContainer"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
         app:srcCompat="@drawable/ic_arrow"
-        android:rotation="180" />
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/fab_up" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        app:rippleColor="?attr/colorTertiaryContainer"
+        android:rotation="180"
+        app:backgroundTint="?@attr/colorTertiaryContainer"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:srcCompat="@drawable/ic_arrow"
+        android:layout_marginBottom="25dp"
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/fab_down" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         app:icon="@drawable/ic_save"
         android:visibility="gone"
-        android:text="Save"
-        android:textColor="?attr/colorOnPrimaryContainer"
-        android:layout_gravity="bottom|end"
         android:layout_marginBottom="25dp"
         android:layout_marginEnd="25dp"
         app:rippleColor="?attr/colorPrimaryContainer"
-        android:id="@+id/extended_FabActivity" />
+        android:textColor="?attr/colorOnPrimaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Save"
+        android:id="@+id/save_button" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
