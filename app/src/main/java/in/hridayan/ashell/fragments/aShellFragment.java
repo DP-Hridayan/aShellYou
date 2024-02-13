@@ -20,6 +20,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -31,9 +32,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
@@ -69,10 +70,7 @@ import rikka.shizuku.Shizuku;
 public class aShellFragment extends Fragment {
 
   private TextInputEditText mCommand, mSearchWord;
-	private MaterialButton mHistoryButton,mClearButton,
-      mSearchButton,
-      mBookMarks,
-      mSettingsButton;
+  private MaterialButton mHistoryButton, mClearButton, mSearchButton, mBookMarks, mSettingsButton;
   private AppCompatImageButton mBookMark;
   private ExtendedFloatingActionButton mSaveButton;
   private SettingsAdapter adapter;
@@ -354,7 +352,7 @@ public class aShellFragment extends Fragment {
           boolean switchState = adapter.getSavedSwitchState("Ask before clearing shell output");
           if (switchState) {
             new MaterialAlertDialogBuilder(requireActivity())
-                .setTitle("Clear everything")
+                .setTitle(getString(R.string.clear_everything))
                 .setMessage(getString(R.string.clear_all_message))
                 .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
                 .setPositiveButton(
@@ -369,22 +367,22 @@ public class aShellFragment extends Fragment {
         });
 
     mSearchButton.setTooltipText("Search");
-    mSearchButton.setOnClickListener(
-        v -> {
-          if (mHistoryButton.getVisibility() == View.VISIBLE) {
-            mHistoryButton.setVisibility(View.GONE);
-          }
-          if (mClearButton.getVisibility() == View.VISIBLE) {
-            mClearButton.setVisibility(View.GONE);
-          }
-          mBookMarks.setVisibility(View.GONE);
-          mSettingsButton.setVisibility(View.GONE);
-          mSearchButton.setVisibility(View.GONE);
-          mSearchWord.setVisibility(View.VISIBLE);
-          mSearchWord.requestFocus();
-          mCommand.setText(null);
-        });
-
+    
+mSearchButton.setOnClickListener(v -> {
+    if (mHistoryButton.getVisibility() == View.VISIBLE) {
+        mHistoryButton.setVisibility(View.GONE);
+    }
+    if (mClearButton.getVisibility() == View.VISIBLE) {
+        mClearButton.setVisibility(View.GONE);
+    }
+    mBookMarks.setVisibility(View.GONE);
+    mSettingsButton.setVisibility(View.GONE);
+    mSearchButton.setVisibility(View.GONE);
+    mSearchWord.setVisibility(View.VISIBLE);
+    mSearchWord.requestFocus();
+    mCommand.setText(null);
+});
+	
     mSearchWord.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -408,6 +406,7 @@ public class aShellFragment extends Fragment {
             }
           }
         });
+
     mBookMarks.setTooltipText("Bookmarks");
 
     mBookMarks.setOnClickListener(
@@ -578,6 +577,7 @@ public class aShellFragment extends Fragment {
     }
   }
 
+	
   private void initializeShell(Activity activity) {
     if (mCommand.getText() == null || mCommand.getText().toString().trim().isEmpty()) {
       return;
@@ -585,8 +585,7 @@ public class aShellFragment extends Fragment {
     if (mShizukuShell != null && mShizukuShell.isBusy()) {
       new MaterialAlertDialogBuilder(activity)
           .setCancelable(false)
-          .setIcon(R.mipmap.adb_launcher)
-          .setTitle(getString(R.string.app_name))
+          .setTitle(getString(R.string.shell_working))
           .setMessage(getString(R.string.app_working_message))
           .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
           .show();
@@ -647,8 +646,7 @@ public class aShellFragment extends Fragment {
     if (finalCommand.equals("exit")) {
       new MaterialAlertDialogBuilder(activity)
           .setCancelable(false)
-          .setIcon(R.mipmap.adb_launcher)
-          .setTitle(getString(R.string.app_name))
+          .setTitle("Confirm exit")
           .setMessage(getString(R.string.quit_app_message))
           .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
           .setPositiveButton(getString(R.string.quit), (dialogInterface, i) -> activity.finish())
@@ -718,8 +716,7 @@ public class aShellFragment extends Fragment {
                     } else {
                       new MaterialAlertDialogBuilder(activity)
                           .setCancelable(false)
-                          .setIcon(R.mipmap.adb_launcher)
-                          .setTitle(getString(R.string.app_name))
+                          .setTitle(getString(R.string.access_denied))
                           .setMessage(getString(R.string.shizuku_access_denied_message))
                           .setNegativeButton(
                               getString(R.string.quit), (dialogInterface, i) -> activity.finish())
@@ -790,4 +787,6 @@ public class aShellFragment extends Fragment {
     int blue = Color.blue(color);
     return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
+
+ 
 }

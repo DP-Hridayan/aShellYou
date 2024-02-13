@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="12.0dip"
     app:cardCornerRadius="20.0dip"
-    app:cardBackgroundColor="@color/transparent"
+    app:cardBackgroundColor="@android:color/transparent"
     app:strokeWidth="1.0dip">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_gravity="center"

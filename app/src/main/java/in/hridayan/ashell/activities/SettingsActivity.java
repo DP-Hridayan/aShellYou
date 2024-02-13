@@ -1,10 +1,12 @@
 package in.hridayan.ashell.activities;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import in.hridayan.ashell.R;
@@ -23,7 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
-		
+
     int statusBarColor = getColor(R.color.StatusBar);
     double brightness = Color.luminance(statusBarColor);
     boolean isLightStatusBar = brightness > 0.5;
@@ -40,6 +42,9 @@ public class SettingsActivity extends AppCompatActivity {
     settingsList = findViewById(R.id.settings_list);
 
     settingsData = new ArrayList<>();
+
+    // switches
+
     settingsData.add(
         new SettingsItem(
             R.drawable.ic_scroll,
@@ -54,6 +59,8 @@ public class SettingsActivity extends AppCompatActivity {
             "If enabled a confirmation popup will show after you click the Clear screen button",
             true,
             true));
+
+    // no switches
 
     settingsData.add(
         new SettingsItem(
@@ -84,5 +91,11 @@ public class SettingsActivity extends AppCompatActivity {
   protected void onResume() {
     super.onResume();
     adapter.notifyDataSetChanged();
+  }
+
+  // Helper method to get saved switch state
+  private boolean getSavedSwitchState(String title) {
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    return prefs.getBoolean(title, false);
   }
 }
