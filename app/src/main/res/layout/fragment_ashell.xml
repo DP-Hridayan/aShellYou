@@ -112,9 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_help"
-                app:rippleColor="?attr/colorPrimaryContainer"
                 android:layout_margin="10dp"
-                android:tint="?attr/colorOnPrimaryContainer"
                 app:fabCustomSize="50dp"
                 android:id="@+id/send"
                 android:layout_gravity="center|end" />
@@ -135,9 +133,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            app:cardCornerRadius="20dp"
-            android:id="@+id/output_background">
-
+            app:cardCornerRadius="20dp">
+            
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -210,12 +207,11 @@
         android:layout_width="wrap_content"
         android:visibility="gone"
         android:layout_marginEnd="25dp"
-        app:rippleColor="?attr/colorTertiaryContainer"
-        app:backgroundTint="?@attr/colorTertiaryContainer"
         app:layout_constraintBottom_toTopOf="@id/save_button"
         app:srcCompat="@drawable/ic_arrow"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="25dp"
+        style="?attr/floatingActionButtonTertiaryStyle"
         app:shapeAppearance="@styleable/CircularProgressIndicator"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/fab_up" />
@@ -225,12 +221,11 @@
         android:layout_width="wrap_content"
         android:visibility="gone"
         android:layout_marginEnd="25dp"
-        app:rippleColor="?attr/colorTertiaryContainer"
         android:rotation="180"
-        app:backgroundTint="?@attr/colorTertiaryContainer"
         app:layout_constraintBottom_toTopOf="@id/save_button"
         app:srcCompat="@drawable/ic_arrow"
         android:layout_marginBottom="25dp"
+        style="?attr/floatingActionButtonTertiaryStyle"
         app:shapeAppearance="@styleable/CircularProgressIndicator"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/fab_down" />
@@ -242,8 +237,7 @@
         android:visibility="gone"
         android:layout_marginBottom="25dp"
         android:layout_marginEnd="25dp"
-        app:rippleColor="?attr/colorPrimaryContainer"
-        android:textColor="?attr/colorOnPrimaryContainer"
+        style="?attr/extendedFloatingActionButtonStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="Save"

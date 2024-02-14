@@ -4,7 +4,7 @@
 
 
 
-# aShell - an ADB shell
+# aShell You - an ADB shell
 
 ### A local ADB shell for [Shizuku](https://shizuku.rikka.app/) powered android devices!
 

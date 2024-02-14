@@ -1,35 +1,20 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/README.md",
       "selection": {
         "end": {
-          "column": 80,
-          "index": 1452,
-          "line": 41
+          "column": 3,
+          "index": 3,
+          "line": 0
         },
         "start": {
-          "column": 80,
-          "index": 1452,
-          "line": 41
-        }
-      }
-    },
-    {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/build.gradle",
-      "selection": {
-        "end": {
-          "column": 1,
-          "index": 1424,
-          "line": 45
-        },
-        "start": {
-          "column": 1,
-          "index": 1424,
-          "line": 45
+          "column": 3,
+          "index": 3,
+          "line": 0
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/build.gradle"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/README.md"
 }
