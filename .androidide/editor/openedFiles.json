@@ -1,0 +1,35 @@
+{
+  "allFiles": [
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java",
+      "selection": {
+        "end": {
+          "column": 80,
+          "index": 1452,
+          "line": 41
+        },
+        "start": {
+          "column": 80,
+          "index": 1452,
+          "line": 41
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/build.gradle",
+      "selection": {
+        "end": {
+          "column": 1,
+          "index": 1424,
+          "line": 45
+        },
+        "start": {
+          "column": 1,
+          "index": 1424,
+          "line": 45
+        }
+      }
+    }
+  ],
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/build.gradle"
+}
