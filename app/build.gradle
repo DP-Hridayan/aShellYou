@@ -1,8 +1,6 @@
 plugins {
     id 'com.android.application'
 }
-
-
 android 
      {
         signingConfigs {
@@ -14,7 +12,6 @@ android
             }
         }
     
-
     namespace 'in.hridayan.ashell'
     compileSdk 34
 

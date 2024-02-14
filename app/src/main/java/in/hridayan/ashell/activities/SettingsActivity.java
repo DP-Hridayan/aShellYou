@@ -4,12 +4,14 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ImageView;import androidx.activity.OnBackPressedCallback;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import in.hridayan.ashell.R;
+import androidx.activity.OnBackPressedDispatcher;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.SettingsItem;
 import java.util.ArrayList;
@@ -37,7 +39,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     ImageView imageView = findViewById(R.id.arrow_back);
 
-    imageView.setOnClickListener(v -> onBackPressed());
+    imageView.setOnClickListener(v -> 
+			onBackPressed());
+			
 
     settingsList = findViewById(R.id.settings_list);
 

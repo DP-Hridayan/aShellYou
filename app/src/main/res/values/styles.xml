@@ -3,7 +3,6 @@
         name="AppTheme"
         parent="Theme.Material3.DayNight.NoActionBar">
         <item name="windowNoTitle">true</item>
-
         <item name="android:statusBarColor">@android:color/transparent</item>
 
     </style>
@@ -15,10 +14,8 @@
         <item name="android:gravity">start|center</item>
         <item name="android:layout_gravity">start|center</item>
         <item name="android:padding">1.0dip</item>
-        <item name="android:text">@string/settings</item>
         <item name="android:fontFamily">@font/custom_font</item>
         <item name="android:letterSpacing">0.1</item>
-
     </style>
 
     <style
@@ -27,7 +24,6 @@
         <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">25.0sp</item>
     </style>
-
 
     <style
         name="OtherVersionTitle"

@@ -21,23 +21,22 @@
             android:layout_width="fill_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_height="150.0dip"
-                android:layout_width="150.0dip"
-                android:src="@mipmap/adb_launcher"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="15.0dip"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/adb_launcher"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/adb_launcher" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:gravity="center"
                 android:textSize="70.0sp"
                 android:fontFamily="@font/custom_font"
-                app:layout_constraintStart_toEndOf="@+id/adb_launcher"
-                app:layout_constraintBottom_toBottomOf="@+id/adb_launcher"
-                android:layout_marginStart="5.0dip"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="10.0dip"
+                app:layout_constraintStart_toEndOf="@id/adb_launcher"
                 android:letterSpacing="0.1"
                 android:textStyle="bold"
                 android:text="Shell" />
