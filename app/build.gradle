@@ -20,7 +20,7 @@ android
         minSdk 24
         targetSdk 34
         versionCode 19
-        versionName "v2.0.1.alpha"
+        versionName "v2.0.2.alpha"
     }
 
     buildTypes {

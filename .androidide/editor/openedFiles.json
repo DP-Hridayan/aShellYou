@@ -1,20 +1,20 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/build.gradle",
       "selection": {
         "end": {
-          "column": 0,
-          "index": 0,
-          "line": 0
+          "column": 27,
+          "index": 817,
+          "line": 22
         },
         "start": {
-          "column": 0,
-          "index": 0,
-          "line": 0
+          "column": 27,
+          "index": 817,
+          "line": 22
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/build.gradle"
 }
