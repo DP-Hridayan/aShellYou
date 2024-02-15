@@ -4,14 +4,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;import androidx.activity.OnBackPressedCallback;
-
+import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import in.hridayan.ashell.R;
-import androidx.activity.OnBackPressedDispatcher;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.SettingsItem;
 import java.util.ArrayList;
@@ -41,7 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     imageView.setOnClickListener(v -> 
 			onBackPressed());
-			
 
     settingsList = findViewById(R.id.settings_list);
 
@@ -52,7 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
     settingsData.add(
         new SettingsItem(
             R.drawable.ic_scroll,
-            "Smooth Scrolling",
+            "Smooth scrolling",
             "Enables smooth scrolling in the shell output when top or bottom arrow is clicked",
             true,
             true));
@@ -97,7 +94,6 @@ public class SettingsActivity extends AppCompatActivity {
     adapter.notifyDataSetChanged();
   }
 
-  // Helper method to get saved switch state
   private boolean getSavedSwitchState(String title) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
     return prefs.getBoolean(title, false);

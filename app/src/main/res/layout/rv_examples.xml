@@ -1,34 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12.0dip"
-    app:cardCornerRadius="20.0dip"
+    android:layout_margin="12dp"
     app:cardBackgroundColor="@android:color/transparent"
-    app:strokeWidth="1.0dip">
+    app:cardCornerRadius="20dp"
+    app:strokeWidth="1dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_gravity="center"
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp">
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
+
         <com.google.android.material.textview.MaterialTextView
-            android:textSize="17.0sp"
-            android:textStyle="bold"
-            android:layout_gravity="start"
             android:id="@id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/custom_font" />
-        <com.google.android.material.textview.MaterialTextView
-            android:textSize="15.0sp"
-            android:textStyle="italic"
             android:layout_gravity="start"
+            android:fontFamily="@font/custom_font"
+            android:textSize="17.0sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@id/summary"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:alpha="0.7" />
+            android:layout_gravity="start"
+            android:alpha="0.7"
+            android:textSize="15.0sp"
+            android:textStyle="italic" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 </com.google.android.material.card.MaterialCardView>

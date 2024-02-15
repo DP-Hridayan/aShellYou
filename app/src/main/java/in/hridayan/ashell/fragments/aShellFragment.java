@@ -137,7 +137,7 @@ public class aShellFragment extends Fragment {
               mRecyclerViewOutput.scrollToPosition(0);
             } else {
 
-              boolean switchState = adapter.getSavedSwitchState("Smooth Scrolling");
+              boolean switchState = adapter.getSavedSwitchState("Smooth scrolling");
 
               if (switchState) {
 
@@ -167,7 +167,7 @@ public class aShellFragment extends Fragment {
                   Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
             } else {
 
-              boolean switchState = adapter.getSavedSwitchState("Smooth Scrolling");
+              boolean switchState = adapter.getSavedSwitchState("Smooth scrolling");
 
               if (switchState) {
                 mRecyclerViewOutput.smoothScrollToPosition(
@@ -381,8 +381,12 @@ mSearchButton.setOnClickListener(v -> {
     mSearchWord.setVisibility(View.VISIBLE);
     mSearchWord.requestFocus();
     mCommand.setText(null);
-});
-	
+}); 
+	if (mCommand.isFocused()) {
+		mSearchWord.setVisibility(View.GONE);
+	}
+		
+		
     mSearchWord.addTextChangedListener(
         new TextWatcher() {
           @Override

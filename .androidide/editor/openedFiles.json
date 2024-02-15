@@ -1,20 +1,20 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/README.md",
+      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_start.xml",
       "selection": {
         "end": {
-          "column": 3,
-          "index": 3,
+          "column": 0,
+          "index": 0,
           "line": 0
         },
         "start": {
-          "column": 3,
-          "index": 3,
+          "column": 0,
+          "index": 0,
           "line": 0
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/README.md"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_start.xml"
 }
