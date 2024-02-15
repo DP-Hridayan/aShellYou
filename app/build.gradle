@@ -1,19 +1,10 @@
 plugins {
     id 'com.android.application'
 }
-android 
-     {
-        signingConfigs {
-            release {
-                storeFile file('/storage/emulated/0/AndroidIDEProjects/Password/hridayan-ashell-release.jks')
-                storePassword 'ltG*uW#n3dcnNyrtYJov6KiADQb2ZLmBKRJttL#9J45c2vV0*!uyTLH5FA@2ozLqDd8s#*^n@0qL1ENroQS6DqSCDDJIz!3y64fy3!*CiR*BHba4KMAV3$^oiUP*zTRe'
-             keyAlias 'key-ashell-Hridayan'
-                keyPassword 'ltG*uW#n3dcnNyrtYJov6KiADQb2ZLmBKRJttL#9J45c2vV0*!uyTLH5FA@2ozLqDd8s#*^n@0qL1ENroQS6DqSCDDJIz!3y64fy3!*CiR*BHba4KMAV3$^oiUP*zTRe'
-            }
-        }
-    
-    namespace 'in.hridayan.ashell'
+
+android {
     compileSdk 34
+	namespace 'in.hridayan.ashell'
 
     defaultConfig {
         applicationId "in.hridayan.ashell"
@@ -23,15 +14,30 @@ android
         versionName "v2.0.2.alpha"
     }
 
+    signingConfigs {
+        release {
+            storeFile file('/storage/emulated/0/AndroidIDEProjects/Password/hridayan-ashell-release.jks')
+            storePassword 'ltG*uW#n3dcnNyrtYJov6KiADQb2ZLmBKRJttL#9J45c2vV0*!uyTLH5FA@2ozLqDd8s#*^n@0qL1ENroQS6DqSCDDJIz!3y64fy3!*CiR*BHba4KMAV3$^oiUP*zTRe'
+            keyAlias 'key-ashell-Hridayan'
+            keyPassword 'ltG*uW#n3dcnNyrtYJov6KiADQb2ZLmBKRJttL#9J45c2vV0*!uyTLH5FA@2ozLqDd8s#*^n@0qL1ENroQS6DqSCDDJIz!3y64fy3!*CiR*BHba4KMAV3$^oiUP*zTRe'
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "aShell You " + variant.versionName + ".apk";
+        }
+    }
+
     buildTypes {
         release {
-                signingConfig signingConfigs.release
-            
+            signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     buildFeatures {
         buildConfig = true
     }
@@ -42,5 +48,4 @@ dependencies {
     implementation "androidx.preference:preference:1.2.1"
     implementation "dev.rikka.shizuku:api:12.1.0"
     implementation "dev.rikka.shizuku:provider:12.1.0"
-    
 }
