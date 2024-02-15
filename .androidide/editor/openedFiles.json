@@ -1,7 +1,7 @@
 {
   "allFiles": [
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_start.xml",
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
       "selection": {
         "end": {
           "column": 0,
@@ -16,5 +16,5 @@
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/ashell/app/src/main/res/layout/activity_start.xml"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
 }
