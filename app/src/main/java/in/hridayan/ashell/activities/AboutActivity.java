@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +38,8 @@ public class AboutActivity extends AppCompatActivity {
 
     ImageView imageView = findViewById(R.id.arrow_back);
 
-    imageView.setOnClickListener(v -> onBackPressed());
+   OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+imageView.setOnClickListener(v -> dispatcher.onBackPressed());
 
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
