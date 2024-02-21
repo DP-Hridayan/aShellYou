@@ -20,7 +20,6 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -367,26 +366,26 @@ public class aShellFragment extends Fragment {
         });
 
     mSearchButton.setTooltipText("Search");
-    
-mSearchButton.setOnClickListener(v -> {
-    if (mHistoryButton.getVisibility() == View.VISIBLE) {
-        mHistoryButton.setVisibility(View.GONE);
+
+    mSearchButton.setOnClickListener(
+        v -> {
+          if (mHistoryButton.getVisibility() == View.VISIBLE) {
+            mHistoryButton.setVisibility(View.GONE);
+          }
+          if (mClearButton.getVisibility() == View.VISIBLE) {
+            mClearButton.setVisibility(View.GONE);
+          }
+          mBookMarks.setVisibility(View.GONE);
+          mSettingsButton.setVisibility(View.GONE);
+          mSearchButton.setVisibility(View.GONE);
+          mSearchWord.setVisibility(View.VISIBLE);
+          mSearchWord.requestFocus();
+          mCommand.setText(null);
+        });
+    if (mCommand.isFocused()) {
+      mSearchWord.setVisibility(View.GONE);
     }
-    if (mClearButton.getVisibility() == View.VISIBLE) {
-        mClearButton.setVisibility(View.GONE);
-    }
-    mBookMarks.setVisibility(View.GONE);
-    mSettingsButton.setVisibility(View.GONE);
-    mSearchButton.setVisibility(View.GONE);
-    mSearchWord.setVisibility(View.VISIBLE);
-    mSearchWord.requestFocus();
-    mCommand.setText(null);
-}); 
-	if (mCommand.isFocused()) {
-		mSearchWord.setVisibility(View.GONE);
-	}
-		
-		
+
     mSearchWord.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -581,7 +580,6 @@ mSearchButton.setOnClickListener(v -> {
     }
   }
 
-	
   private void initializeShell(Activity activity) {
     if (mCommand.getText() == null || mCommand.getText().toString().trim().isEmpty()) {
       return;
@@ -679,9 +677,11 @@ mSearchButton.setOnClickListener(v -> {
             + Utils.getColor(R.color.colorBlue, activity)
             + "\">shell@"
             + Utils.getDeviceName()
-            + "</font>  #  <i>"
+            + "</font><br><font color=\""
+            + Utils.getColor(R.color.colorGreen, activity)
+            + "\"> # "
             + finalCommand
-            + "</i>";
+            + "</font>";
 
     if (mResult == null) {
       mResult = new ArrayList<>();
@@ -791,6 +791,4 @@ mSearchButton.setOnClickListener(v -> {
     int blue = Color.blue(color);
     return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
-
- 
 }
