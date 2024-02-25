@@ -154,13 +154,13 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/build.gradle",
       "selection": {
         "end": {
-          "column": 27,
-          "index": 259,
+          "column": 28,
+          "index": 260,
           "line": 13
         },
         "start": {
-          "column": 27,
-          "index": 259,
+          "column": 28,
+          "index": 260,
           "line": 13
         }
       }
@@ -256,5 +256,5 @@
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/activities/SettingsActivity.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/build.gradle"
 }

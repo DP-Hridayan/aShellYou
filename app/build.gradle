@@ -10,7 +10,7 @@ android {
         applicationId "in.hridayan.ashell"
         minSdk 24
         targetSdk 34
-        versionCode 19
+        versionCode 20
         versionName "v2.0.2"
     }
 
