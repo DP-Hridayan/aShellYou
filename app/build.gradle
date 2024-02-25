@@ -11,7 +11,7 @@ android {
         minSdk 24
         targetSdk 34
         versionCode 19
-        versionName "v2.0.2.alpha"
+        versionName "v2.0.2"
     }
 
     signingConfigs {

@@ -1,7 +1,67 @@
 {
   "allFiles": [
     {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/res/layout/fragment_ashell.xml",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 1149,
+          "line": 28
+        },
+        "start": {
+          "column": 0,
+          "index": 1149,
+          "line": 28
+        }
+      }
+    },
+    {
       "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java",
+      "selection": {
+        "end": {
+          "column": 21,
+          "index": 27999,
+          "line": 696
+        },
+        "start": {
+          "column": 21,
+          "index": 27999,
+          "line": 696
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/res/values/colors.xml",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 229,
+          "line": 7
+        },
+        "start": {
+          "column": 0,
+          "index": 229,
+          "line": 7
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/res/layout/item_settings.xml",
+      "selection": {
+        "end": {
+          "column": 40,
+          "index": 1869,
+          "line": 43
+        },
+        "start": {
+          "column": 40,
+          "index": 1869,
+          "line": 43
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/res/layout/item_changelog.xml",
       "selection": {
         "end": {
           "column": 0,
@@ -16,20 +76,185 @@
       }
     },
     {
-      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/res/values/colors.xml",
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/res/values/strings.xml",
       "selection": {
         "end": {
-          "column": 36,
-          "index": 219,
-          "line": 6
+          "column": 0,
+          "index": 0,
+          "line": 0
         },
         "start": {
-          "column": 36,
-          "index": 219,
-          "line": 6
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/res/values/styles.xml",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 1151,
+          "line": 36
+        },
+        "start": {
+          "column": 0,
+          "index": 1151,
+          "line": 36
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/res/xml/backup_rules.xml",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/res/xml/data_extraction_rules.xml",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/AndroidManifest.xml",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/build.gradle",
+      "selection": {
+        "end": {
+          "column": 27,
+          "index": 259,
+          "line": 13
+        },
+        "start": {
+          "column": 27,
+          "index": 259,
+          "line": 13
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/proguard-rules.pro",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/settings.gradle",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/gradlew",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/activities/ChangelogActivity.java",
+      "selection": {
+        "end": {
+          "column": 48,
+          "index": 919,
+          "line": 25
+        },
+        "start": {
+          "column": 48,
+          "index": 919,
+          "line": 25
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/activities/SettingsActivity.java",
+      "selection": {
+        "end": {
+          "column": 21,
+          "index": 2344,
+          "line": 74
+        },
+        "start": {
+          "column": 21,
+          "index": 2344,
+          "line": 74
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/utils/SettingsItem.java",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 0,
+          "line": 0
+        },
+        "start": {
+          "column": 0,
+          "index": 0,
+          "line": 0
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/aShellYou/app/src/main/java/in/hridayan/ashell/activities/SettingsActivity.java"
 }

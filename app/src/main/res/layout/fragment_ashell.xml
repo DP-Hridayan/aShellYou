@@ -11,9 +11,11 @@
         android:orientation="vertical">
 
         <FrameLayout
+			android:id="@+id/app_name_layout"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:layout_marginTop="20dp"
+			android:clickable="true"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -69,6 +71,7 @@
                 android:src="@drawable/ic_numbers" />
 
             <com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/shell_command_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="70dp"
@@ -218,9 +221,9 @@
         app:layout_constraintBottom_toTopOf="@id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_arrow"
-        style="?attr/floatingActionButtonTertiaryStyle"
-        app:shapeAppearance="@styleable/CircularProgressIndicator" />
-
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
+        style="?attr/floatingActionButtonTertiaryStyle" />
+	
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_down"
         android:layout_width="wrap_content"
@@ -233,8 +236,8 @@
         app:layout_constraintBottom_toTopOf="@id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_arrow"
-        style="?attr/floatingActionButtonTertiaryStyle"
-        app:shapeAppearance="@styleable/CircularProgressIndicator" />
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
+        style="?attr/floatingActionButtonTertiaryStyle" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/save_button"

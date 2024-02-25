@@ -1,12 +1,12 @@
 <resources
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:ignore="MissingTranslation">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
     <string
-            name="app_name"
-            translatable="false">aShell You</string>
+        name="app_name"
+        translatable="false">aShell You</string>
     <string name="changelogs">Changelogs</string>
     <string name="about">About</string>
-<string name="shell_working">Shell is working</string>
+    <string name="shell_working">Shell is working</string>
     <string name="clear_everything">Clear everything</string>
     <string name="access_denied">Access_denied</string>
     <string name="settings">Settings</string>

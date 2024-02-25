@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -68,15 +69,16 @@ import rikka.shizuku.Shizuku;
  */
 public class aShellFragment extends Fragment {
 
-  private TextInputEditText mCommand, mSearchWord;
-  private MaterialButton mHistoryButton, mClearButton, mSearchButton, mBookMarks, mSettingsButton;
   private AppCompatImageButton mBookMark;
   private ExtendedFloatingActionButton mSaveButton;
-  private SettingsAdapter adapter;
-  private FloatingActionButton mTopButton, mBottomButton, mSendButton;
-  private SettingsItem settingsList;
+  private FloatingActionButton mBottomButton, mSendButton, mTopButton;
+  private MaterialButton mClearButton, mHistoryButton, mSearchButton, mBookMarks, mSettingsButton;
+  private FrameLayout mAppNameLayout;
   private RecyclerView mRecyclerViewOutput;
-  private ShizukuShell mShizukuShell = null;
+  private SettingsAdapter adapter;
+  private SettingsItem settingsList;
+  private ShizukuShell mShizukuShell;
+  private TextInputEditText mCommand, mSearchWord;
   private boolean mExit;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1;
@@ -100,19 +102,20 @@ public class aShellFragment extends Fragment {
       decorView.setSystemUiVisibility(0);
     }
 
-    mCommand = mRootView.findViewById(R.id.shell_command);
-    mSearchWord = mRootView.findViewById(R.id.search_word);
-    mSaveButton = mRootView.findViewById(R.id.save_button);
-    mTopButton = mRootView.findViewById(R.id.fab_up);
-    mBottomButton = mRootView.findViewById(R.id.fab_down);
-    mClearButton = mRootView.findViewById(R.id.clear);
-    mHistoryButton = mRootView.findViewById(R.id.history);
-    mSettingsButton = mRootView.findViewById(R.id.settings);
-    mSearchButton = mRootView.findViewById(R.id.search);
+    mAppNameLayout = mRootView.findViewById(R.id.app_name_layout);
     mBookMark = mRootView.findViewById(R.id.bookmark);
     mBookMarks = mRootView.findViewById(R.id.bookmarks);
-    mSendButton = mRootView.findViewById(R.id.send);
+    mBottomButton = mRootView.findViewById(R.id.fab_down);
+    mClearButton = mRootView.findViewById(R.id.clear);
+    mCommand = mRootView.findViewById(R.id.shell_command);
+    mHistoryButton = mRootView.findViewById(R.id.history);
     mRecyclerViewOutput = mRootView.findViewById(R.id.recycler_view_output);
+    mSaveButton = mRootView.findViewById(R.id.save_button);
+    mSearchButton = mRootView.findViewById(R.id.search);
+    mSearchWord = mRootView.findViewById(R.id.search_word);
+    mSendButton = mRootView.findViewById(R.id.send);
+    mSettingsButton = mRootView.findViewById(R.id.settings);
+    mTopButton = mRootView.findViewById(R.id.fab_up);
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
@@ -301,6 +304,7 @@ public class aShellFragment extends Fragment {
             }
           }
         });
+
     mCommand.setOnEditorActionListener(
         new TextView.OnEditorActionListener() {
 
@@ -323,6 +327,7 @@ public class aShellFragment extends Fragment {
             return false;
           }
         });
+
     mSendButton.setOnClickListener(
         v -> {
           if (mShizukuShell != null && mShizukuShell.isBusy()) {
@@ -358,10 +363,12 @@ public class aShellFragment extends Fragment {
                     getString(R.string.yes),
                     (dialogInterface, i) -> {
                       clearAll();
+                      mCommand.clearFocus();
                     })
                 .show();
           } else {
             clearAll();
+            mCommand.clearFocus();
           }
         });
 
@@ -382,9 +389,6 @@ public class aShellFragment extends Fragment {
           mSearchWord.requestFocus();
           mCommand.setText(null);
         });
-    if (mCommand.isFocused()) {
-      mSearchWord.setVisibility(View.GONE);
-    }
 
     mSearchWord.addTextChangedListener(
         new TextWatcher() {
@@ -407,6 +411,19 @@ public class aShellFragment extends Fragment {
               }
               updateUI(mResultSorted);
             }
+          }
+        });
+
+    mAppNameLayout.setOnClickListener(
+        v -> {
+          if (mSearchWord.getVisibility() == View.VISIBLE) {
+            mSearchWord.setVisibility(View.GONE);
+            mBookMarks.setVisibility(
+                Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+            mSettingsButton.setVisibility(View.VISIBLE);
+            mSearchButton.setVisibility(View.VISIBLE);
+            mHistoryButton.setVisibility(View.VISIBLE);
+            mClearButton.setVisibility(View.VISIBLE);
           }
         });
 
@@ -677,11 +694,10 @@ public class aShellFragment extends Fragment {
             + Utils.getColor(R.color.colorBlue, activity)
             + "\">shell@"
             + Utils.getDeviceName()
-            + "</font><br><font color=\""
+            + "</font><font color=\""
             + Utils.getColor(R.color.colorGreen, activity)
             + "\"> # "
-            + finalCommand
-            + "</font>";
+            + finalCommand;
 
     if (mResult == null) {
       mResult = new ArrayList<>();

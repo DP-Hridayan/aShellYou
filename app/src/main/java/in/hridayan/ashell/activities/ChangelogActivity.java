@@ -38,6 +38,11 @@ public class ChangelogActivity extends AppCompatActivity {
 
     List<ChangelogItem> changelogItems = new ArrayList<>();
 
+	    changelogItems.add(
+        new ChangelogItem(
+            "Version 2.0.2",
+            "\n\n• Removed unnecessary code and resources.\n\n• Minor UI changes."));
+		
     changelogItems.add(
         new ChangelogItem(
             "Version 2.0.1",

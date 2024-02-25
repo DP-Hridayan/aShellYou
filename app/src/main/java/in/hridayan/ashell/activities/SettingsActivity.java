@@ -67,7 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
     settingsData.add(
         new SettingsItem(
             R.drawable.ic_numbers,
-            "Examples",
+            examples,
             "Collection of some command templates.",
             false,
             false));
