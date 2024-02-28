@@ -16,10 +16,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('/storage/emulated/0/AndroidIDEProjects/Password/hridayan-ashell-release.jks')
-            storePassword 'ltG*uW#n3dcnNyrtYJov6KiADQb2ZLmBKRJttL#9J45c2vV0*!uyTLH5FA@2ozLqDd8s#*^n@0qL1ENroQS6DqSCDDJIz!3y64fy3!*CiR*BHba4KMAV3$^oiUP*zTRe'
-            keyAlias 'key-ashell-Hridayan'
-            keyPassword 'ltG*uW#n3dcnNyrtYJov6KiADQb2ZLmBKRJttL#9J45c2vV0*!uyTLH5FA@2ozLqDd8s#*^n@0qL1ENroQS6DqSCDDJIz!3y64fy3!*CiR*BHba4KMAV3$^oiUP*zTRe'
+            storeFile file('/storage/emulated/0/AndroidIDEProjects/keys/hridayan-ashell-release.jks')
+            storePassword 'hridayan@aShellYou'
+            keyAlias 'aShellYou-key'
+            keyPassword 'hridayan@aShellYou'
         }
     }
 
