@@ -50,14 +50,12 @@ imageView.setOnClickListener(v -> dispatcher.onBackPressed());
       // Handle the absence of package name if needed
     }
 
-    aboutItemList.add(
-        new AboutItem(R.drawable.ic_copyright, "Copyright", "© 2023-2024  sunilpaulmathew"));
 
     aboutItemList.add(
         new AboutItem(
             R.drawable.ic_credits,
             "Credits",
-            "Rikka apps : Shizuku\nsunilpaulmathew : aShell app's original creator!"));
+            "Rikka apps : Shizuku\nsunilpaulmathew : aShell app's original creator!\nKhun Htetz Naing : ADB OTG creator."));
 
     aboutItemList.add(new AboutItem(R.drawable.ic_developer, "Current Developer", "Hridayan"));
     aboutItemList.add(

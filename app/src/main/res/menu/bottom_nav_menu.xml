@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_localShell"
+        android:icon="@drawable/ic_numbers"
+        android:title="@string/app_name" />
+
+    <item
+        android:id="@+id/nav_otgShell"
+        android:icon="@drawable/ic_otg"
+        android:title="OTG" />
+
+</menu>

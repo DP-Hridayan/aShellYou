@@ -70,7 +70,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         holder.descriptionTextView.setClickable(true);
       }
     }
-		
 
     View.OnClickListener clickListener =
         v -> {
@@ -81,7 +80,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             case "Changelogs":
               intent = new Intent(context, ChangelogActivity.class);
               break;
-				
+
             case "Examples":
               intent = new Intent(context, ExamplesActivity.class);
               break;
@@ -96,7 +95,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
           context.startActivity(intent);
         };
-         holder.titleTextView.setOnClickListener(clickListener);
+    holder.titleTextView.setOnClickListener(clickListener);
     holder.descriptionTextView.setOnClickListener(clickListener);
   }
 

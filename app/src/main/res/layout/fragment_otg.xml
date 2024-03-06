@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    tools:context=".otgFragment"
+    android:layout_height="match_parent">
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/terminalView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/app_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="35dp"
+                android:text="@string/app_name"
+                style="@style/ExpandedToolbarTitle" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingBottom="15dp">
+
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/otg_cable"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_otg"
+                android:background="@null"
+                android:clickable="false"
+                android:layout_gravity="start|center" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_send"
+                android:layout_margin="10dp"
+                app:fabCustomSize="50dp"
+                android:id="@+id/btnRun"
+                android:layout_gravity="center|end" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/otg_command_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="70dp"
+                android:layout_marginStart="20dp"
+                android:hint="@string/command_title"
+                android:padding="5dp"
+                app:endIconDrawable="@drawable/ic_star"
+                app:endIconMode="custom"
+                app:endIconTint="@android:color/transparent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edCommand"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:cursorVisible="true"
+                    android:gravity="center_vertical"
+                    android:imeOptions="actionSend"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
+                    android:paddingBottom="15dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </FrameLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_above="@+id/runContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/logs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:padding="10dp"
+                android:textIsSelectable="true"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </ScrollView>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:icon="@drawable/ic_settings"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:icon="@drawable/ic_settings"
+        android:id="@+id/settings" />
+
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:icon="@drawable/ic_settings"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:icon="@drawable/ic_settings"
+        android:id="@+id/settings_otg" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

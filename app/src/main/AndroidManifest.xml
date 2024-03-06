@@ -1,7 +1,9 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
     <application
@@ -33,8 +35,39 @@
         <activity
             android:name=".activities.aShellActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:exported="false" />
+            android:exported="false">
 
+
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+        </activity>
+
+        <receiver
+            android:name=".UsbReceiver"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_STATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.hardware.usb.action.USB_STATE"
+                android:resource="@xml/device_filter" />
+        </receiver>
+        
         <provider
             android:name="rikka.shizuku.ShizukuProvider"
             android:authorities="${applicationId}.shizuku"

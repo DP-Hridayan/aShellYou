@@ -53,9 +53,8 @@ public class Commands {
             "dumpsys battery set status 0"));
     mCommands.add(new CommandItems("dumpsys battery reset", "Reset battery", null));
     mCommands.add(new CommandItems("dumpsys display", "Primt display stats", null));
-    mCommands.add(new CommandItems("dumpsys iphonesybinfo", "Get IMEI", null));
     mCommands.add(
-        new CommandItems("echo <message>", "Display message on screen", "echo Hallo World"));
+        new CommandItems("echo <message>", "Display message on screen", "echo Hello World"));
     mCommands.add(new CommandItems("exit", "Exit the shell", null));
     mCommands.add(
         new CommandItems("file <file_path>", "Determine file type", "file /system/build.prop"));

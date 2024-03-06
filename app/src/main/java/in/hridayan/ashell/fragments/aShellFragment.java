@@ -74,6 +74,7 @@ public class aShellFragment extends Fragment {
   private FloatingActionButton mBottomButton, mSendButton, mTopButton;
   private MaterialButton mClearButton, mHistoryButton, mSearchButton, mBookMarks, mSettingsButton;
   private FrameLayout mAppNameLayout;
+
   private RecyclerView mRecyclerViewOutput;
   private SettingsAdapter adapter;
   private SettingsItem settingsList;

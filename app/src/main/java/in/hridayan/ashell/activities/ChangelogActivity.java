@@ -38,11 +38,16 @@ public class ChangelogActivity extends AppCompatActivity {
 
     List<ChangelogItem> changelogItems = new ArrayList<>();
 
-	    changelogItems.add(
+    changelogItems.add(
+        new ChangelogItem(
+            "Version 3.0.0",
+            "\n\n• Added ADB THROUGH OTG support.\n\n *** You will be able to run ADB commands on other devices using aShellYou by connecting the other device using an OTG cable ***"));
+
+    changelogItems.add(
         new ChangelogItem(
             "Version 2.0.2",
             "\n\n• Removed unnecessary code and resources.\n\n• Minor UI changes."));
-		
+
     changelogItems.add(
         new ChangelogItem(
             "Version 2.0.1",
