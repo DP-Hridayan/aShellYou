@@ -63,10 +63,12 @@ public class StartActivity extends AppCompatActivity {
         loadUI(this);
       }
     } else {
-      mMainLayout.setVisibility(View.VISIBLE);
-      mAboutText.setText(getString(R.string.shizuku_unavailable_message));
-      mAboutText.setTextColor(Color.RED);
-      mStartCard.setVisibility(View.GONE);
+      if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true)) {
+        loadUI(this);
+      } else {
+        mMainLayout.setVisibility(View.VISIBLE);
+        mAboutText.setText(getString(R.string.app_summary));
+      }
     }
 
     mStartCard.setOnClickListener(

@@ -1,5 +1,6 @@
 package in.hridayan.ashell.fragments;
 
+import android.telecom.InCallService;
 import static in.hridayan.ashell.utils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_NOT_FOUND;
@@ -114,7 +115,7 @@ public class otgFragment extends Fragment
     edCommand = view.findViewById(R.id.edCommand);
     btnRun = view.findViewById(R.id.btnRun);
     scrollView = view.findViewById(R.id.scrollView);
-    mManager = (UsbManager) requireContext().getSystemService(Context.USB_SERVICE);
+    mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
 
     boolean switchState = adapter.getSavedSwitchState("Disable Warnings");
 
@@ -123,11 +124,31 @@ public class otgFragment extends Fragment
       new MaterialAlertDialogBuilder(requireActivity())
           .setTitle("Warning")
           .setMessage(
-              "OTG feature is currently in experimental phase.It is not guranteed to function as expected all the time. If you experience any issue please leave a feedback.")
-          .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {})
+              "OTG feature is currently in experimental phase. It is not guranteed to function as expected all the time. If you experience any issue please leave a feedback.")
+          .setPositiveButton("Accept", (dialogInterface, i) -> {})
           .show();
     }
 
+        
+       btnRun.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+                    if(adbConnection !=  null){
+
+            putCommand();}
+                    else
+                    {
+                       new MaterialAlertDialogBuilder(requireActivity())
+          .setTitle("Warning")
+          .setMessage(getString(R.string.otg_not_connected))
+          .setPositiveButton("OK", (dialogInterface, i) -> {})
+          .show();
+                    }
+          }
+                
+        });
+        
     mSettingsButton.setTooltipText("Settings");
     mSettingsButton.setOnClickListener(
         v -> {
@@ -433,16 +454,13 @@ public class otgFragment extends Fragment
             })
         .start();
 
-    btnRun.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            putCommand();
-          }
-        });
-  }
+        }
+    
+    
+  
 
   private void putCommand() {
+
     if (!edCommand.getText().toString().isEmpty()) {
       // We become the sending thread
       try {

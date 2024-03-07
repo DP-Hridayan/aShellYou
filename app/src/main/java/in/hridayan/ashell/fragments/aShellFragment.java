@@ -339,6 +339,19 @@ public class aShellFragment extends Fragment {
           } else if (mCommand.getText() == null || mCommand.getText().toString().trim().isEmpty()) {
             Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
             startActivity(examples);
+          } else if (!Shizuku.pingBinder()) {
+
+            new MaterialAlertDialogBuilder(requireActivity())
+                .setTitle("Warning")
+                .setMessage(getString(R.string.shizuku_unavailable_message))
+                .setNegativeButton(
+                    getString(R.string.shizuku_about),
+                    (dialogInterface, i) -> {
+                      Utils.loadShizukuWeb(requireContext());
+                    })
+                .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+                .show();
+
           } else {
             initializeShell(requireActivity());
           }
@@ -610,8 +623,19 @@ public class aShellFragment extends Fragment {
           .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
           .show();
       return;
+    }if(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED){
+    runShellCommand(mCommand.getText().toString().replace("\n", ""), activity);} else{
+           new MaterialAlertDialogBuilder(activity)
+                          .setCancelable(false)
+                          .setTitle(getString(R.string.access_denied))
+                          .setMessage(getString(R.string.shizuku_access_denied_message))
+                          .setNegativeButton(
+                              getString(R.string.cancel), (dialogInterface, i) -> {})
+                          .setPositiveButton(
+                              getString(R.string.request_permission),
+                              (dialogInterface, i) -> Shizuku.requestPermission(0))
+                          .show();
     }
-    runShellCommand(mCommand.getText().toString().replace("\n", ""), activity);
   }
 
   private void runShellCommand(String command, Activity activity) {
@@ -740,7 +764,7 @@ public class aShellFragment extends Fragment {
                           .setTitle(getString(R.string.access_denied))
                           .setMessage(getString(R.string.shizuku_access_denied_message))
                           .setNegativeButton(
-                              getString(R.string.quit), (dialogInterface, i) -> activity.finish())
+                              getString(R.string.cancel), (dialogInterface, i) -> {})
                           .setPositiveButton(
                               getString(R.string.request_permission),
                               (dialogInterface, i) -> Shizuku.requestPermission(0))

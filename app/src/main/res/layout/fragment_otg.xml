@@ -66,9 +66,6 @@
                 android:layout_marginStart="20dp"
                 android:hint="@string/command_title"
                 android:padding="5dp"
-                app:endIconDrawable="@drawable/ic_star"
-                app:endIconMode="custom"
-                app:endIconTint="@android:color/transparent"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
