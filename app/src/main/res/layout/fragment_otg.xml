@@ -54,7 +54,7 @@
                 android:src="@drawable/ic_send"
                 android:layout_margin="10dp"
                 app:fabCustomSize="50dp"
-                android:id="@+id/btnRun"
+                android:id="@+id/sendCommandOtg"
                 android:layout_gravity="center|end" />
 
 

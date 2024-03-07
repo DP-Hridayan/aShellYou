@@ -1,7 +1,5 @@
 package in.hridayan.ashell.fragments;
 
-import android.telecom.InCallService;
-import androidx.preference.PreferenceManager;
 import static in.hridayan.ashell.utils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_NOT_FOUND;
@@ -21,6 +19,9 @@ import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.telecom.InCallService;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import com.cgutman.adblib.AdbBase64;
 import com.cgutman.adblib.AdbConnection;
 import com.cgutman.adblib.AdbCrypto;
@@ -51,6 +53,7 @@ import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.SpinnerDialog;
+import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Const;
@@ -76,8 +79,8 @@ public class otgFragment extends Fragment
   private BottomNavigationView mNav;
   private LinearLayoutCompat terminalView;
   private MaterialButton mSettingsButton;
-  private TextInputEditText edCommand;
-  private FloatingActionButton btnRun;
+  private TextInputEditText mCommand;
+  private FloatingActionButton mSendButton;
   private ScrollView scrollView;
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
@@ -113,46 +116,93 @@ public class otgFragment extends Fragment
     logs = view.findViewById(R.id.logs);
     mSettingsButton = view.findViewById(R.id.settings_otg);
     terminalView = view.findViewById(R.id.terminalView);
-    edCommand = view.findViewById(R.id.edCommand);
-    btnRun = view.findViewById(R.id.btnRun);
+    mCommand = view.findViewById(R.id.edCommand);
+    mSendButton = view.findViewById(R.id.sendCommandOtg);
     scrollView = view.findViewById(R.id.scrollView);
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
 
-
-
-    if (PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean("Don't show beta otg warning", true)) 
-        {
+    // Don't show again logic
+    if (PreferenceManager.getDefaultSharedPreferences(requireContext())
+        .getBoolean("Don't show beta otg warning", true)) {
       new MaterialAlertDialogBuilder(requireActivity())
           .setTitle("Warning")
           .setMessage(getString(R.string.otg_not_connected))
           .setPositiveButton("Accept", (dialogInterface, i) -> {})
-          .setNegativeButton("Don't show again", (dialogInterface, i) -> {
-              
-                             PreferenceManager.getDefaultSharedPreferences(requireContext())
-              .edit()
-              .putBoolean("Don't show beta otg warning", false)
-              .apply();
-                    
-          })
+          .setNegativeButton(
+              "Don't show again",
+              (dialogInterface, i) -> {
+                PreferenceManager.getDefaultSharedPreferences(requireContext())
+                    .edit()
+                    .putBoolean("Don't show beta otg warning", false)
+                    .apply();
+              })
           .show();
     }
 
-    btnRun.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            if (adbConnection != null) {
+        
+     //Logic for changing the command send button depending on the text on the EditText    
+        
+    mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+    mSendButton.setOnClickListener(
+        v -> {
+          Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
+          startActivity(examples);
+        });
 
-              putCommand();
+    mCommand.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+          @Override
+          public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+          @Override
+          public void afterTextChanged(Editable s) {
+            String inputText = s.toString();
+            if (inputText.isEmpty()) {
+
+              mSendButton.setImageDrawable(
+                  Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+
+              mSendButton.setOnClickListener(
+                  new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                      Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
+                      startActivity(examples);
+                    }
+                  });
+
             } else {
-              new MaterialAlertDialogBuilder(requireActivity())
-                  .setTitle("Warning")
-                  .setMessage(getString(R.string.otg_not_connected))
-                  .setPositiveButton("OK", (dialogInterface, i) -> {})
-                  .show();
+              mSendButton.setImageDrawable(
+                  Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+              mSendButton.setOnClickListener(
+                  new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                      if (adbConnection != null) {
+                        putCommand();
+                      } else {
+                        new MaterialAlertDialogBuilder(requireActivity())
+                            .setTitle("Error")
+                            .setMessage(getString(R.string.otg_not_connected))
+                            .setPositiveButton("OK", (dialogInterface, i) -> {})
+                            .show();
+                      }
+                    }
+                  });
             }
           }
         });
+        
+
+    // Glow otg symbol when adb connection successfull
+    if (adbConnection != null) {
+      mCable.setColorFilter(Utils.getColor(R.color.colorGreen, requireActivity()));
+    } else {
+      mCable.clearColorFilter();
+    }
 
     mSettingsButton.setTooltipText("Settings");
     mSettingsButton.setOnClickListener(
@@ -251,9 +301,9 @@ public class otgFragment extends Fragment
       }
     }
 
-    edCommand.setImeActionLabel("Run", EditorInfo.IME_ACTION_DONE);
-    edCommand.setOnEditorActionListener(this);
-    edCommand.setOnKeyListener(this);
+    mCommand.setImeActionLabel("Run", EditorInfo.IME_ACTION_DONE);
+    mCommand.setOnEditorActionListener(this);
+    mCommand.setOnKeyListener(this);
 
     return view;
   }
@@ -439,7 +489,7 @@ public class otgFragment extends Fragment
                                   @Override
                                   public void run() {
                                     scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-                                    edCommand.requestFocus();
+                                    mCommand.requestFocus();
                                   }
                                 });
                           }
@@ -462,10 +512,10 @@ public class otgFragment extends Fragment
 
   private void putCommand() {
 
-    if (!edCommand.getText().toString().isEmpty()) {
+    if (!mCommand.getText().toString().isEmpty()) {
       // We become the sending thread
       try {
-        String cmd = edCommand.getText().toString();
+        String cmd = mCommand.getText().toString();
         if (cmd.equalsIgnoreCase("clear")) {
           String log = logs.getText().toString();
           String[] logSplit = log.split("\n");
@@ -475,7 +525,7 @@ public class otgFragment extends Fragment
         } else {
           stream.write((cmd + "\n").getBytes("UTF-8"));
         }
-        edCommand.setText("");
+        mCommand.setText("");
       } catch (IOException e) {
         e.printStackTrace();
       } catch (InterruptedException e) {
@@ -487,7 +537,7 @@ public class otgFragment extends Fragment
   public void open(View view) {}
 
   public void showKeyboard() {
-    edCommand.requestFocus();
+    mCommand.requestFocus();
     InputMethodManager imm =
         (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
