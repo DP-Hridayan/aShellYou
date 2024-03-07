@@ -1,6 +1,7 @@
 package in.hridayan.ashell.fragments;
 
 import android.telecom.InCallService;
+import androidx.preference.PreferenceManager;
 import static in.hridayan.ashell.utils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_NOT_FOUND;
@@ -117,38 +118,42 @@ public class otgFragment extends Fragment
     scrollView = view.findViewById(R.id.scrollView);
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
 
-    boolean switchState = adapter.getSavedSwitchState("Disable Warnings");
 
-    if (!switchState) {
 
+    if (PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean("Don't show beta otg warning", true)) 
+        {
       new MaterialAlertDialogBuilder(requireActivity())
           .setTitle("Warning")
-          .setMessage(
-              "OTG feature is currently in experimental phase. It is not guranteed to function as expected all the time. If you experience any issue please leave a feedback.")
+          .setMessage(getString(R.string.otg_not_connected))
           .setPositiveButton("Accept", (dialogInterface, i) -> {})
+          .setNegativeButton("Don't show again", (dialogInterface, i) -> {
+              
+                             PreferenceManager.getDefaultSharedPreferences(requireContext())
+              .edit()
+              .putBoolean("Don't show beta otg warning", false)
+              .apply();
+                    
+          })
           .show();
     }
 
-        
-       btnRun.setOnClickListener(
+    btnRun.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-                    if(adbConnection !=  null){
+            if (adbConnection != null) {
 
-            putCommand();}
-                    else
-                    {
-                       new MaterialAlertDialogBuilder(requireActivity())
-          .setTitle("Warning")
-          .setMessage(getString(R.string.otg_not_connected))
-          .setPositiveButton("OK", (dialogInterface, i) -> {})
-          .show();
-                    }
+              putCommand();
+            } else {
+              new MaterialAlertDialogBuilder(requireActivity())
+                  .setTitle("Warning")
+                  .setMessage(getString(R.string.otg_not_connected))
+                  .setPositiveButton("OK", (dialogInterface, i) -> {})
+                  .show();
+            }
           }
-                
         });
-        
+
     mSettingsButton.setTooltipText("Settings");
     mSettingsButton.setOnClickListener(
         v -> {
@@ -453,11 +458,7 @@ public class otgFragment extends Fragment
               }
             })
         .start();
-
-        }
-    
-    
-  
+  }
 
   private void putCommand() {
 
