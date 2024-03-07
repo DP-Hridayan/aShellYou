@@ -109,6 +109,7 @@ public class aShellFragment extends Fragment {
     mBottomButton = mRootView.findViewById(R.id.fab_down);
     mClearButton = mRootView.findViewById(R.id.clear);
     mCommand = mRootView.findViewById(R.id.shell_command);
+    ;
     mHistoryButton = mRootView.findViewById(R.id.history);
     mRecyclerViewOutput = mRootView.findViewById(R.id.recycler_view_output);
     mSaveButton = mRootView.findViewById(R.id.save_button);
@@ -623,18 +624,19 @@ public class aShellFragment extends Fragment {
           .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
           .show();
       return;
-    }if(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED){
-    runShellCommand(mCommand.getText().toString().replace("\n", ""), activity);} else{
-           new MaterialAlertDialogBuilder(activity)
-                          .setCancelable(false)
-                          .setTitle(getString(R.string.access_denied))
-                          .setMessage(getString(R.string.shizuku_access_denied_message))
-                          .setNegativeButton(
-                              getString(R.string.cancel), (dialogInterface, i) -> {})
-                          .setPositiveButton(
-                              getString(R.string.request_permission),
-                              (dialogInterface, i) -> Shizuku.requestPermission(0))
-                          .show();
+    }
+    if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
+      runShellCommand(mCommand.getText().toString().replace("\n", ""), activity);
+    } else {
+      new MaterialAlertDialogBuilder(activity)
+          .setCancelable(false)
+          .setTitle(getString(R.string.access_denied))
+          .setMessage(getString(R.string.shizuku_access_denied_message))
+          .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+          .setPositiveButton(
+              getString(R.string.request_permission),
+              (dialogInterface, i) -> Shizuku.requestPermission(0))
+          .show();
     }
   }
 
@@ -753,18 +755,18 @@ public class aShellFragment extends Fragment {
                       if (mResult != null && mResult.size() > 0) {
 
                         mClearButton.setVisibility(View.VISIBLE);
-                        mSaveButton.setVisibility(View.VISIBLE);
+
                         mSearchButton.setVisibility(View.VISIBLE);
                         mResult.add("<i></i>");
                         mResult.add("aShell: Finish");
+                        mSaveButton.setVisibility(View.VISIBLE);
                       }
                     } else {
                       new MaterialAlertDialogBuilder(activity)
                           .setCancelable(false)
                           .setTitle(getString(R.string.access_denied))
                           .setMessage(getString(R.string.shizuku_access_denied_message))
-                          .setNegativeButton(
-                              getString(R.string.cancel), (dialogInterface, i) -> {})
+                          .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
                           .setPositiveButton(
                               getString(R.string.request_permission),
                               (dialogInterface, i) -> Shizuku.requestPermission(0))

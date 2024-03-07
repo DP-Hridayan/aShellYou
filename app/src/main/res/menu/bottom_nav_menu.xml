@@ -2,7 +2,7 @@
     <item
         android:id="@+id/nav_localShell"
         android:icon="@drawable/ic_numbers"
-        android:title="@string/app_name" />
+        android:title="Local ADB" />
 
     <item
         android:id="@+id/nav_otgShell"

@@ -1,11 +1,13 @@
 package in.hridayan.ashell.activities;
 
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
+import android.os.Handler;
 import android.view.ViewTreeObserver;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgFragment;
@@ -34,7 +36,15 @@ public class aShellActivity extends AppCompatActivity {
                 if (heightDiff > 200) {
                   mNav.setVisibility(View.GONE);
                 } else {
-                  mNav.setVisibility(View.VISIBLE);
+                  new Handler(Looper.getMainLooper())
+                      .postDelayed(
+                          new Runnable() {
+                            @Override
+                            public void run() {
+                              mNav.setVisibility(View.VISIBLE);
+                            }
+                          },
+                          100);
                 }
               }
             });
