@@ -61,7 +61,13 @@ public class SettingsActivity extends AppCompatActivity {
             "If enabled a confirmation popup will show after you click the Clear screen button",
             true,
             true));
-
+       settingsData.add(
+        new SettingsItem(
+            R.drawable.ic_warning,
+            "Disable Warnings",
+            "Disable all warnings shown in the app",
+            true,
+            true));
     // no switches
 
     settingsData.add(

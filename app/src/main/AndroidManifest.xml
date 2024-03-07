@@ -36,12 +36,9 @@
             android:name=".activities.aShellActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false">
-
-
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
             </intent-filter>
-
             <meta-data
                 android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
                 android:resource="@xml/device_filter" />
@@ -50,24 +47,28 @@
         <receiver
             android:name=".UsbReceiver"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
             </intent-filter>
-
             <meta-data
                 android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
                 android:resource="@xml/device_filter" />
 
             <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"
+                android:resource="@xml/device_filter" />
+
+            <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_STATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.hardware.usb.action.USB_STATE"
                 android:resource="@xml/device_filter" />
         </receiver>
-        
+
         <provider
             android:name="rikka.shizuku.ShizukuProvider"
             android:authorities="${applicationId}.shizuku"

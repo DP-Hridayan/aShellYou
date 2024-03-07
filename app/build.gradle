@@ -48,8 +48,6 @@ dependencies {
     implementation "androidx.preference:preference:1.2.1"
     implementation "dev.rikka.shizuku:api:12.1.0"
     implementation "dev.rikka.shizuku:provider:12.1.0"
-    
-    
    implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.13.2'
     implementation project(':adblib')

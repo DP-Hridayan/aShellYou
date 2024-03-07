@@ -109,7 +109,6 @@
                 android:textStyle="bold" />
         </ScrollView>
 
-
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
@@ -121,19 +120,6 @@
         app:layout_constraintStart_toStartOf="parent"
         style="?attr/materialIconButtonFilledTonalStyle"
         android:icon="@drawable/ic_settings"
-        android:id="@+id/settings" />
-
-
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:icon="@drawable/ic_settings"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        style="?attr/materialIconButtonFilledTonalStyle"
-        android:icon="@drawable/ic_settings"
         android:id="@+id/settings_otg" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

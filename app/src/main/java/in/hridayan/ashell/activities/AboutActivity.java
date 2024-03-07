@@ -38,8 +38,8 @@ public class AboutActivity extends AppCompatActivity {
 
     ImageView imageView = findViewById(R.id.arrow_back);
 
-   OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
-imageView.setOnClickListener(v -> dispatcher.onBackPressed());
+    OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+    imageView.setOnClickListener(v -> dispatcher.onBackPressed());
 
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -50,12 +50,11 @@ imageView.setOnClickListener(v -> dispatcher.onBackPressed());
       // Handle the absence of package name if needed
     }
 
-
     aboutItemList.add(
         new AboutItem(
             R.drawable.ic_credits,
             "Credits",
-            "Rikka apps : Shizuku\nsunilpaulmathew : aShell app's original creator!\nKhun Htetz Naing : ADB OTG creator."));
+            "\nRikka apps : Shizuku\n\nsunilpaulmathew : aShell app's original creator!\n\nKhun Htetz Naing : ADB OTG creator\n\nwuxudong : creator of Flashbot"));
 
     aboutItemList.add(new AboutItem(R.drawable.ic_developer, "Current Developer", "Hridayan"));
     aboutItemList.add(

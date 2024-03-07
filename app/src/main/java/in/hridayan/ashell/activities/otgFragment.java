@@ -1,6 +1,5 @@
 package in.hridayan.ashell.fragments;
 
-import in.hridayan.ashell.activities.SettingsActivity;
 import static in.hridayan.ashell.utils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_NOT_FOUND;
@@ -23,7 +22,6 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import in.hridayan.ashell.utils.Utils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -33,29 +31,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.cgutman.adblib.AdbBase64;
 import com.cgutman.adblib.AdbConnection;
 import com.cgutman.adblib.AdbCrypto;
-import androidx.appcompat.widget.AppCompatImageButton;
 import com.cgutman.adblib.AdbStream;
 import com.cgutman.adblib.UsbChannel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
-
 import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.SpinnerDialog;
+import in.hridayan.ashell.activities.SettingsActivity;
+import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Const;
 import in.hridayan.ashell.utils.MessageOtg;
+import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.utils.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class otgFragment extends Fragment
     implements TextView.OnEditorActionListener, View.OnKeyListener {
@@ -73,7 +77,10 @@ public class otgFragment extends Fragment
   private TextInputEditText edCommand;
   private FloatingActionButton btnRun;
   private ScrollView scrollView;
+  private SettingsAdapter adapter;
+  private SettingsItem settingsList;
   private String user = null;
+  private List<String> mHistory = null, mResult = null;
 
   private boolean doubleBackToExitPressedOnce = false;
   private AdbStream stream;
@@ -84,6 +91,9 @@ public class otgFragment extends Fragment
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_otg, container, false);
+
+    List<SettingsItem> settingsList = new ArrayList<>();
+    SettingsAdapter adapter = new SettingsAdapter(settingsList, requireContext());
 
     int statusBarColor = getResources().getColor(R.color.StatusBar);
     double brightness = getBrightness(statusBarColor);
@@ -104,7 +114,19 @@ public class otgFragment extends Fragment
     edCommand = view.findViewById(R.id.edCommand);
     btnRun = view.findViewById(R.id.btnRun);
     scrollView = view.findViewById(R.id.scrollView);
-    mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
+    mManager = (UsbManager) requireContext().getSystemService(Context.USB_SERVICE);
+
+    boolean switchState = adapter.getSavedSwitchState("Disable Warnings");
+
+    if (!switchState) {
+
+      new MaterialAlertDialogBuilder(requireActivity())
+          .setTitle("Warning")
+          .setMessage(
+              "OTG feature is currently in experimental phase.It is not guranteed to function as expected all the time. If you experience any issue please leave a feedback.")
+          .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {})
+          .show();
+    }
 
     mSettingsButton.setTooltipText("Settings");
     mSettingsButton.setOnClickListener(
@@ -118,10 +140,8 @@ public class otgFragment extends Fragment
           @Override
           public void handleMessage(@NonNull android.os.Message msg) {
             switch (msg.what) {
-              case DEVICE_NOT_FOUND:
+              case DEVICE_FOUND:
                 closeWaiting();
-                mCable.setColorFilter(Utils.getColor(R.color.colorRed, requireActivity()));
-
                 terminalView.setVisibility(View.VISIBLE);
                 initCommand();
                 showKeyboard();
@@ -130,16 +150,14 @@ public class otgFragment extends Fragment
               case CONNECTING:
                 waitingDialog();
                 closeKeyboard();
-                mCable.setColorFilter(Color.BLUE);
                 terminalView.setVisibility(View.VISIBLE);
                 break;
 
-              case DEVICE_FOUND:
+              case DEVICE_NOT_FOUND:
                 closeWaiting();
-                mCable.setColorFilter(Color.parseColor("#4CAF50"));
+                closeKeyboard();
                 terminalView.setVisibility(View.VISIBLE);
-                initCommand();
-                showKeyboard();
+                adbConnection = null; // Fix this issue
                 break;
 
               case FLASHING:
@@ -177,6 +195,7 @@ public class otgFragment extends Fragment
 
     IntentFilter filter = new IntentFilter();
     filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+    filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
     filter.addAction(MessageOtg.USB_PERMISSION);
 
     ContextCompat.registerReceiver(
@@ -193,7 +212,6 @@ public class otgFragment extends Fragment
         UsbDevice usbDevice = mManager.getDeviceList().get(k);
         handler.sendEmptyMessage(CONNECTING);
         if (mManager.hasPermission(usbDevice)) {
-          ;
           asyncRefreshAdbConnection(usbDevice);
         } else {
           mManager.requestPermission(
@@ -223,7 +241,7 @@ public class otgFragment extends Fragment
     waitingDialog =
         SpinnerDialog.displayDialog(
             requireActivity(),
-            "IMPORTANT ⚡",
+            "Important",
             "You may need to accept a prompt on the target device if you are connecting "
                 + "to it for the first time from this device.",
             false);
@@ -251,6 +269,7 @@ public class otgFragment extends Fragment
           String action = intent.getAction();
           Log.d(Const.TAG, "mUsbReceiver onReceive => " + action);
           if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
+
             UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
             String deviceName = device.getDeviceName();
             if (mDevice != null && mDevice.getDeviceName().equals(deviceName)) {
@@ -261,6 +280,9 @@ public class otgFragment extends Fragment
                 Log.w(Const.TAG, "setAdbInterface(null,null) failed", e);
               }
             }
+          } else if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+            UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+            asyncRefreshAdbConnection(device);
           } else if (MessageOtg.USB_PERMISSION.equals(action)) {
             System.out.println("From receiver!");
             UsbDevice usbDevice = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
@@ -270,7 +292,7 @@ public class otgFragment extends Fragment
               mManager.requestPermission(
                   usbDevice,
                   PendingIntent.getBroadcast(
-                      requireActivity().getApplicationContext(),
+                      requireContext().getApplicationContext(),
                       0,
                       new Intent(MessageOtg.USB_PERMISSION),
                       PendingIntent.FLAG_IMMUTABLE));
@@ -448,7 +470,7 @@ public class otgFragment extends Fragment
   public void showKeyboard() {
     edCommand.requestFocus();
     InputMethodManager imm =
-        (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
   }
 
@@ -456,7 +478,7 @@ public class otgFragment extends Fragment
     View view = requireActivity().getCurrentFocus();
     if (view != null) {
       InputMethodManager imm =
-          (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+          (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
       imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
   }

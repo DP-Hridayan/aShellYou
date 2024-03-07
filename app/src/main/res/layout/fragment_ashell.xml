@@ -245,7 +245,7 @@
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
          android:layout_height="wrap_content"
          android:layout_width="wrap_content"
-         android:layout_marginBottom="25dp"
+         android:layout_marginBottom="100dp"
          android:visibility="gone"
          app:icon="@drawable/ic_save"
          android:layout_marginEnd="25dp"

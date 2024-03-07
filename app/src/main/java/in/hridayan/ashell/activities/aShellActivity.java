@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.badge.BadgeDrawable;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgFragment;
@@ -21,10 +22,8 @@ public class aShellActivity extends AppCompatActivity {
     mContentView = findViewById(android.R.id.content);
     mNav = findViewById(R.id.bottom_nav_bar);
 
-    // Initially, show the BottomNavigationView
     mNav.setVisibility(View.VISIBLE);
 
-    // Listen for keyboard visibility changes
     mContentView
         .getViewTreeObserver()
         .addOnGlobalLayoutListener(
@@ -32,36 +31,42 @@ public class aShellActivity extends AppCompatActivity {
               @Override
               public void onGlobalLayout() {
                 int heightDiff = mContentView.getRootView().getHeight() - mContentView.getHeight();
-                if (heightDiff > 200) { // arbitrary threshold to determine keyboard visibility
-                  // Keyboard is visible, hide the BottomNavigationView
+                if (heightDiff > 200) {
                   mNav.setVisibility(View.GONE);
                 } else {
-                  // Keyboard is hidden, show the BottomNavigationView
                   mNav.setVisibility(View.VISIBLE);
                 }
               }
             });
 
+    BadgeDrawable badge = mNav.getOrCreateBadge(R.id.nav_otgShell);
+    badge.setVisible(true);
+    badge.setText("Beta");
     mNav.setOnItemSelectedListener(
         item -> {
           switch (item.getItemId()) {
             case R.id.nav_localShell:
-              getSupportFragmentManager()
-                  .beginTransaction()
-                  .replace(R.id.fragment_container, new aShellFragment())
-                  .commit();
+              if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+                  instanceof aShellFragment)) {
+                getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new aShellFragment())
+                    .commit();
+              }
               return true;
             case R.id.nav_otgShell:
-              getSupportFragmentManager()
-                  .beginTransaction()
-                  .replace(R.id.fragment_container, new otgFragment())
-                  .commit();
+              if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+                  instanceof otgFragment)) {
+                getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new otgFragment())
+                    .commit();
+              }
               return true;
             default:
               return false;
           }
         });
-
     getSupportFragmentManager()
         .beginTransaction()
         .replace(R.id.fragment_container, new aShellFragment())
