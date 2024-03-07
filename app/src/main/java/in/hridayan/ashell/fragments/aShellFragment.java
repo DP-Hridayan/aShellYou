@@ -78,6 +78,7 @@ public class aShellFragment extends Fragment {
   private RecyclerView mRecyclerViewOutput;
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
+
   private ShizukuShell mShizukuShell;
   private TextInputEditText mCommand, mSearchWord;
   private boolean mExit;
@@ -109,6 +110,7 @@ public class aShellFragment extends Fragment {
     mBottomButton = mRootView.findViewById(R.id.fab_down);
     mClearButton = mRootView.findViewById(R.id.clear);
     mCommand = mRootView.findViewById(R.id.shell_command);
+    ;
     ;
     mHistoryButton = mRootView.findViewById(R.id.history);
     mRecyclerViewOutput = mRootView.findViewById(R.id.recycler_view_output);

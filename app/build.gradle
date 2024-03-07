@@ -10,8 +10,8 @@ android {
         applicationId "in.hridayan.ashell"
         minSdk 24
         targetSdk 34
-        versionCode 21
-        versionName "v3.0.0"
+        versionCode 22
+        versionName "v3.1.0"
     }
 
     signingConfigs {
