@@ -1,4 +1,4 @@
-# aShell You - an ADB shell
+# aShell You
 ## Material You redesign of ashell
 
 <p style="text-align: center"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/906fad48-ed2e-4089-b4c6-f66d8e6bdc89" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/38e699c0-1e02-4bbb-8a9f-a148ab6cf66d" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/275d2711-53b6-47d4-aadf-76ca1a775071" alt="" width="100" height="195" /> 
@@ -6,8 +6,6 @@
  <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/83a7dc41-1b9c-495c-8e98-bae9e90b1205" alt="" width="100" height="195" />
  <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/c5af6fe8-1a15-4dc3-a7d4-b42213900613" alt="" width="100" height="195" />
 </p>
-
-
 
 ### A local ADB shell for [Shizuku](https://shizuku.rikka.app/) powered android devices!
 
@@ -19,7 +17,8 @@
 Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/releases).
 
 ## Features
-* An elegantly designed user interface with material you themeing.
+* An elegantly designed user interface with modern material you .
+* Has both Shizuku(local ADB) and OTG ADB support.
 * Included a bundle of examples about common ADB commands.
 * Handles continuously running commands, such as logcat, top, etc.
 * Search for specific text from the last command output.
