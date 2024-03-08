@@ -217,8 +217,8 @@ public class aShellFragment extends Fragment {
                 mBookMark.setImageDrawable(
                     Utils.getDrawable(
                         Utils.isBookmarked(s.toString().trim(), requireActivity())
-                            ? R.drawable.ic_starred
-                            : R.drawable.ic_star,
+                            ? R.drawable.ic_bookmark_added
+                            : R.drawable.ic_add_bookmark,
                         requireActivity()));
                 mBookMark.setVisibility(View.VISIBLE);
                 mBookMark.setOnClickListener(
@@ -239,8 +239,8 @@ public class aShellFragment extends Fragment {
                       mBookMark.setImageDrawable(
                           Utils.getDrawable(
                               Utils.isBookmarked(s.toString().trim(), requireActivity())
-                                  ? R.drawable.ic_starred
-                                  : R.drawable.ic_star,
+                                  ? R.drawable.ic_bookmark_added
+                                  : R.drawable.ic_add_bookmark,
                               requireActivity()));
                       mBookMarks.setVisibility(
                           Utils.getBookmarks(requireActivity()).size() > 0

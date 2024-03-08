@@ -91,7 +91,7 @@
                 android:hint="@string/command_title"
                 app:endIconTint="@android:color/transparent"
                 android:padding="5dp"
-                app:endIconDrawable="@drawable/ic_star"
+                app:endIconDrawable="@drawable/ic_add_bookmark"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_marginStart="20dp"
                 android:id="@+id/shell_command_layout">

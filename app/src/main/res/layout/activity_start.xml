@@ -89,14 +89,6 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="false"
-            android:visibility="invisible"
-            android:src="@drawable/ic_start"
-            android:layout_marginEnd="5dp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
