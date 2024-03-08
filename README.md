@@ -1,3 +1,4 @@
+# aShell You - an ADB shell
 ## Material You redesign of ashell
 
 <p style="text-align: center"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/906fad48-ed2e-4089-b4c6-f66d8e6bdc89" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/38e699c0-1e02-4bbb-8a9f-a148ab6cf66d" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/275d2711-53b6-47d4-aadf-76ca1a775071" alt="" width="100" height="195" /> 
@@ -7,8 +8,6 @@
 </p>
 
 
-
-# aShell You - an ADB shell
 
 ### A local ADB shell for [Shizuku](https://shizuku.rikka.app/) powered android devices!
 
