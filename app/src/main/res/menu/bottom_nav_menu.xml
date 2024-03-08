@@ -8,5 +8,10 @@
         android:id="@+id/nav_otgShell"
         android:icon="@drawable/ic_otg"
         android:title="OTG" />
-
+    
+   <item
+        android:id="@+id/nav_wireless"
+        android:icon="@drawable/ic_wireless"
+        android:title="Wifi ADB" />
+    
 </menu>
