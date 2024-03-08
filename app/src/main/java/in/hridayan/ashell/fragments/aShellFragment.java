@@ -827,7 +827,7 @@ public class aShellFragment extends Fragment {
   @Override
   public void onDestroy() {
     super.onDestroy();
-    if (mShizukuShell != null) mShizukuShell.destroy();
+       if(mShizukuShell != null) mShizukuShell.destroy();
   }
 
   public double getBrightness(int color) {

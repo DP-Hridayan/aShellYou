@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.content.DialogInterface;
 import android.view.ViewTreeObserver;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
@@ -18,6 +19,7 @@ import in.hridayan.ashell.utils.ShizukuShell;
 public class aShellActivity extends AppCompatActivity {
   private BottomNavigationView mNav;
   private View mContentView;
+
   private ShizukuShell mShizukuShell;
 
   @Override
@@ -60,8 +62,8 @@ public class aShellActivity extends AppCompatActivity {
         item -> {
           switch (item.getItemId()) {
             case R.id.nav_localShell:
-              if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-                  instanceof aShellFragment)) {
+              if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+                  instanceof otgFragment)) {
                 getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, new aShellFragment())
@@ -70,13 +72,14 @@ public class aShellActivity extends AppCompatActivity {
 
               return true;
             case R.id.nav_otgShell:
-              if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-                  instanceof otgFragment)) {
-
+              if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+                  instanceof aShellFragment)) {
                 // Don't show again logic
                 if (PreferenceManager.getDefaultSharedPreferences(this)
                     .getBoolean("Don't show beta otg warning", true)) {
-                  new MaterialAlertDialogBuilder(this)
+                  MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+                  builder
+                            .setCancelable(false)
                       .setTitle("Warning")
                       .setMessage(getString(R.string.beta_warning))
                       .setPositiveButton(
@@ -106,8 +109,8 @@ public class aShellActivity extends AppCompatActivity {
                                 .commit();
                           })
                       .show();
-                } else {
 
+                } else {
                   getSupportFragmentManager()
                       .beginTransaction()
                       .replace(R.id.fragment_container, new otgFragment())
