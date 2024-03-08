@@ -1,3 +1,4 @@
 <resources>
     <color name="StatusBar">#000000</color>
+    <color name="colorErrorContainer">#ffdc362e</color>
 </resources>

@@ -50,45 +50,18 @@
             android:gravity="center"
             android:padding="10dp"
             android:textSize="17.0sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/start_card"
+        <Button
+            android:id="@+id/start_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="40dp"
-            android:layout_marginBottom="50dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center|bottom"
-            app:cardCornerRadius="40dp"
-            app:cardElevation="9dp"
-            app:strokeWidth="0dp"
-            app:cardBackgroundColor="?attr/colorPrimaryContainer"
-            app:rippleColor="?attr/colorPrimaryContainer">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:clickable="false"
-                    android:text="@string/start"
-                    android:textSize="20.0sp"
-                    android:textStyle="bold"
-                    android:padding="10dp" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </com.google.android.material.card.MaterialCardView>
-
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="20dp"
+            android:padding="20dp"
+            android:text="Start"
+            android:textSize="20sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

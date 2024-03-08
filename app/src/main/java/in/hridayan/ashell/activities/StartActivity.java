@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import com.google.android.material.button.MaterialButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -32,6 +33,7 @@ import rikka.shizuku.Shizuku;
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 28, 2022
  */
 public class StartActivity extends AppCompatActivity {
+
 
   @SuppressLint("SetTextI18n")
   @Override
@@ -51,7 +53,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     LinearLayoutCompat mMainLayout = findViewById(R.id.layout_main);
-    MaterialCardView mStartCard = findViewById(R.id.start_card);
+    MaterialButton mStartButton = findViewById(R.id.start_button);
     MaterialTextView mAboutText = findViewById(R.id.about_text);
 
     if (Shizuku.pingBinder()) {
@@ -71,7 +73,7 @@ public class StartActivity extends AppCompatActivity {
       }
     }
 
-    mStartCard.setOnClickListener(
+    mStartButton.setOnClickListener(
         v -> {
           PreferenceManager.getDefaultSharedPreferences(this)
               .edit()

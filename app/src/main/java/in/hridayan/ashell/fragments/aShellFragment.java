@@ -716,7 +716,7 @@ public class aShellFragment extends Fragment {
 
     mSaveButton.setVisibility(View.GONE);
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
-    mSendButton.setColorFilter(Utils.getColor(R.color.colorRed, requireActivity()));
+    mSendButton.setColorFilter(Utils.getColor(R.color.colorErrorContainer, requireActivity()));
 
     String mTitleText =
         "<font color=\""

@@ -10,7 +10,7 @@
     <string name="clear_everything">Clear everything</string>
     <string name="access_denied">Access denied</string>
     <string name="settings">Settings</string>
-    <string name="app_summary">Welcome to aShell You : A local ADB shell for Shizuku powered android devices</string>
+    <string name="app_summary">aShell You is here for all your ADB needs</string>
     <string name="app_working_message">aShell You is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
     <string name="bookmark_added_message">\'%s\' is bookmarked</string>
     <string name="bookmark_removed_message">\'%s\' has been removed from bookmark</string>
