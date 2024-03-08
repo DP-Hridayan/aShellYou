@@ -28,11 +28,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.ContextCompat;
@@ -50,7 +52,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.SpinnerDialog;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.utils.Const;
@@ -76,11 +77,10 @@ public class otgFragment extends Fragment
   private TextInputEditText mCommand;
   private FloatingActionButton mSendButton;
   private ScrollView scrollView;
-
+  private AlertDialog mWaitingDialog;
   private String user = null;
 
   private AdbStream stream;
-  private SpinnerDialog waitingDialog;
 
   @Nullable
   @Override
@@ -277,18 +277,26 @@ public class otgFragment extends Fragment
   }
 
   private void closeWaiting() {
-    if (waitingDialog != null) waitingDialog.dismiss();
+    mWaitingDialog.dismiss();
   }
 
   private void waitingDialog() {
-    closeWaiting();
-    waitingDialog =
-        SpinnerDialog.displayDialog(
-            requireActivity(),
-            "Important",
-            "You may need to accept a prompt on the target device if you are connecting "
-                + "to it for the first time from this device.",
-            false);
+    // Inflate custom layout with loading animation
+    View dialogView =
+        LayoutInflater.from(requireActivity()).inflate(R.layout.loading_dialog_layout, null);
+
+    // Find the ProgressBar in the custom layout
+    ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
+
+    // Build MaterialAlertDialog with custom layout
+    mWaitingDialog =
+        new MaterialAlertDialogBuilder(requireActivity())
+            .setCancelable(false)
+            .setView(dialogView)
+            .setTitle("Important")
+            .show();
+
+    progressBar.setVisibility(View.VISIBLE);
   }
 
   public void asyncRefreshAdbConnection(final UsbDevice device) {

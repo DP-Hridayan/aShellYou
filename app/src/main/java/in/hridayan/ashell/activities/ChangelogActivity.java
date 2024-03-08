@@ -38,6 +38,11 @@ public class ChangelogActivity extends AppCompatActivity {
 
     List<ChangelogItem> changelogItems = new ArrayList<>();
 
+       changelogItems.add(
+        new ChangelogItem(
+            "Version 3.2.0",
+            "\n\n• A lot of UI related improvements.\n\n• Added chips that indicate current ADB working mode.\n\n• A lot of code optimisation."));
+        
     changelogItems.add(
         new ChangelogItem(
             "Version 3.1.0",

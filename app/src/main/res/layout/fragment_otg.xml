@@ -87,8 +87,7 @@
                     android:inputType="textMultiLine"
                     android:maxLines="5"
                     android:paddingBottom="15dp"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
+                    android:paddingHorizontal="10dp"
                     android:paddingTop="10dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,8 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:padding="10dp"
                 android:textIsSelectable="true"
                 android:textSize="15sp"
