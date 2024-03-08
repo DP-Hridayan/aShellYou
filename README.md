@@ -1,5 +1,5 @@
 # aShell You
-## Material You redesign of ashell
+## Material You redesign of aShell
 
 <p style="text-align: center"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/906fad48-ed2e-4089-b4c6-f66d8e6bdc89" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/38e699c0-1e02-4bbb-8a9f-a148ab6cf66d" alt="" width="100" height="195" /> <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/275d2711-53b6-47d4-aadf-76ca1a775071" alt="" width="100" height="195" /> 
 <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/73b8f1d3-6539-4d84-94e0-9c33d106f1ff" alt="" width="100" height="195" />
