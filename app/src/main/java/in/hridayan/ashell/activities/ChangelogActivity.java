@@ -38,11 +38,11 @@ public class ChangelogActivity extends AppCompatActivity {
 
     List<ChangelogItem> changelogItems = new ArrayList<>();
 
-       changelogItems.add(
+    changelogItems.add(
         new ChangelogItem(
             "Version 3.1.0",
             "\n\n• Improvements to ADB OTG after initial release.\n\n• Some UI and logic adjustments to accomodate the new otg feature."));
-        
+
     changelogItems.add(
         new ChangelogItem(
             "Version 3.0.0",

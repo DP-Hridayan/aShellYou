@@ -19,7 +19,6 @@ import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.telecom.InCallService;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,7 +37,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 import com.cgutman.adblib.AdbBase64;
 import com.cgutman.adblib.AdbConnection;
 import com.cgutman.adblib.AdbCrypto;
@@ -55,16 +53,12 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.SpinnerDialog;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
-import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Const;
 import in.hridayan.ashell.utils.MessageOtg;
-import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class otgFragment extends Fragment
     implements TextView.OnEditorActionListener, View.OnKeyListener {
@@ -82,12 +76,9 @@ public class otgFragment extends Fragment
   private TextInputEditText mCommand;
   private FloatingActionButton mSendButton;
   private ScrollView scrollView;
-  private SettingsAdapter adapter;
-  private SettingsItem settingsList;
-  private String user = null;
-  private List<String> mHistory = null, mResult = null;
 
-  private boolean doubleBackToExitPressedOnce = false;
+  private String user = null;
+
   private AdbStream stream;
   private SpinnerDialog waitingDialog;
 
@@ -96,9 +87,6 @@ public class otgFragment extends Fragment
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_otg, container, false);
-
-    List<SettingsItem> settingsList = new ArrayList<>();
-    SettingsAdapter adapter = new SettingsAdapter(settingsList, requireContext());
 
     int statusBarColor = getResources().getColor(R.color.StatusBar);
     double brightness = getBrightness(statusBarColor);
@@ -121,27 +109,8 @@ public class otgFragment extends Fragment
     scrollView = view.findViewById(R.id.scrollView);
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
 
-    // Don't show again logic
-    if (PreferenceManager.getDefaultSharedPreferences(requireContext())
-        .getBoolean("Don't show beta otg warning", true)) {
-      new MaterialAlertDialogBuilder(requireActivity())
-          .setTitle("Warning")
-          .setMessage(getString(R.string.otg_not_connected))
-          .setPositiveButton("Accept", (dialogInterface, i) -> {})
-          .setNegativeButton(
-              "Don't show again",
-              (dialogInterface, i) -> {
-                PreferenceManager.getDefaultSharedPreferences(requireContext())
-                    .edit()
-                    .putBoolean("Don't show beta otg warning", false)
-                    .apply();
-              })
-          .show();
-    }
+    // Logic for changing the command send button depending on the text on the EditText
 
-        
-     //Logic for changing the command send button depending on the text on the EditText    
-        
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
     mSendButton.setOnClickListener(
         v -> {
@@ -195,7 +164,6 @@ public class otgFragment extends Fragment
             }
           }
         });
-        
 
     // Glow otg symbol when adb connection successfull
     if (adbConnection != null) {
