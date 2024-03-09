@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
@@ -13,10 +12,12 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgFragment;
 
 public class aShellActivity extends AppCompatActivity {
+  private boolean isKeyboardVisible;
   public BottomNavigationView mNav;
 
   @Override
@@ -28,6 +29,25 @@ public class aShellActivity extends AppCompatActivity {
 
     mNav.setSelectedItemId(R.id.nav_localShell);
 
+    KeyboardVisibilityChecker.attachVisibilityListener(
+        this,
+        new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
+          @Override
+          public void onKeyboardVisibilityChanged(boolean visible) {
+            isKeyboardVisible = visible;
+            if (isKeyboardVisible) {
+              mNav.setVisibility(View.GONE);
+            } else {
+              new Handler(Looper.getMainLooper())
+                  .postDelayed(
+                      () -> {
+                        mNav.setVisibility(View.VISIBLE);
+                      },
+                      100);
+            }
+          }
+        });
+
     int statusBarColor = getColor(R.color.StatusBar);
     double brightness = Color.luminance(statusBarColor);
     boolean isLightStatusBar = brightness > 0.5;
@@ -37,7 +57,6 @@ public class aShellActivity extends AppCompatActivity {
       decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
-    setupKeyboardVisibilityListener();
     setupNavigation();
     setBadge(R.id.nav_otgShell, "Beta");
     setBadge(R.id.nav_wireless, "Soon");
@@ -123,35 +142,5 @@ public class aShellActivity extends AppCompatActivity {
     badge.setVisible(true);
     badge.setText(text);
     badge.setHorizontalOffset(0);
-  }
-
-  private void setupKeyboardVisibilityListener() {
-    View contentView = findViewById(android.R.id.content);
-    contentView
-        .getViewTreeObserver()
-        .addOnGlobalLayoutListener(new KeyboardVisibilityListener(contentView));
-  }
-
-  private class KeyboardVisibilityListener implements ViewTreeObserver.OnGlobalLayoutListener {
-    private final View contentView;
-
-    KeyboardVisibilityListener(View contentView) {
-      this.contentView = contentView;
-    }
-
-    @Override
-    public void onGlobalLayout() {
-      int heightDiff = contentView.getRootView().getHeight() - contentView.getHeight();
-      if (heightDiff > 200) {
-        mNav.setVisibility(View.GONE);
-      } else {
-        new Handler(Looper.getMainLooper())
-            .postDelayed(
-                () -> {
-                  mNav.setVisibility(View.VISIBLE);
-                },
-                100);
-      }
-    }
   }
 }

@@ -40,6 +40,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BottomNavOnScrollListener;
+import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
 import in.hridayan.ashell.activities.FabOnScrollDownListener;
@@ -49,7 +50,6 @@ import in.hridayan.ashell.activities.aShellActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
-import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ShizukuShell;
@@ -85,6 +85,7 @@ public class aShellFragment extends Fragment {
   private FrameLayout mAppNameLayout;
   private BottomNavigationView mNav;
   private CommandsAdapter mCommandsAdapter;
+  private boolean isKeyboardVisible;
   private ShellOutputAdapter mShellOutputAdapter;
   private RecyclerView mRecyclerViewOutput, mRecyclerViewCommands;
   private SettingsAdapter adapter;
@@ -125,6 +126,26 @@ public class aShellFragment extends Fragment {
         decorView.setSystemUiVisibility(0);
       }
     }
+
+    KeyboardVisibilityChecker.attachVisibilityListener(
+        requireActivity(),
+        new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
+
+          public void onKeyboardVisibilityChanged(boolean visible) {
+            isKeyboardVisible = visible;
+            if (isKeyboardVisible) {
+              if (mSaveButton.getVisibility() == View.VISIBLE) mSaveButton.setVisibility(View.GONE);
+            } else {
+              if (mSaveButton.getVisibility() == View.GONE && mRecyclerViewOutput.getHeight() != 0)
+                new Handler(Looper.getMainLooper())
+                    .postDelayed(
+                        () -> {
+                          mSaveButton.setVisibility(View.VISIBLE);
+                        },
+                        100);
+            }
+          }
+        });
 
     /*------------------------------------------------------*/
 
@@ -186,7 +207,8 @@ public class aShellFragment extends Fragment {
           }
         });
 
-    /*------------------------------------------------------*/
+  
+        /*------------------------------------------------------*/
 
     mBottomButton.setOnClickListener(
         new View.OnClickListener() {
@@ -429,7 +451,7 @@ public class aShellFragment extends Fragment {
     /*------------------------------------------------------*/
 
     mSettingsButton.setTooltipText("Settings");
-        
+
     mSettingsButton.setOnClickListener(
         v -> {
           Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
@@ -439,10 +461,9 @@ public class aShellFragment extends Fragment {
     /*------------------------------------------------------*/
 
     mClearButton.setTooltipText("Clear screen");
-        
+
     mClearButton.setOnClickListener(
         v -> {
-          showBottomNav();
           boolean switchState = adapter.getSavedSwitchState("Ask before clearing shell output");
           if (switchState) {
             new MaterialAlertDialogBuilder(requireActivity())
@@ -453,12 +474,10 @@ public class aShellFragment extends Fragment {
                     getString(R.string.yes),
                     (dialogInterface, i) -> {
                       clearAll();
-                      mCommand.clearFocus();
                     })
                 .show();
           } else {
             clearAll();
-            mCommand.clearFocus();
           }
         });
 
@@ -735,10 +754,7 @@ public class aShellFragment extends Fragment {
 
     if (finalCommand.equals("clear")) {
       if (mResult != null) {
-        mResult.clear();
-        updateUI(mResult);
-        showBottomNav();
-        mSaveButton.setVisibility(View.GONE);
+        clearAll();
       }
       return;
     }
@@ -836,7 +852,9 @@ public class aShellFragment extends Fragment {
                         mSearchButton.setVisibility(View.VISIBLE);
                         mResult.add("<i></i>");
                         mResult.add("aShell: Finish");
-                        mSaveButton.setVisibility(View.VISIBLE);
+                        if (!isKeyboardVisible) {
+                          mSaveButton.setVisibility(View.VISIBLE);
+                        }
                       }
                     } else {
                       new MaterialAlertDialogBuilder(activity)
@@ -909,16 +927,14 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
-  
-
   /*------------------ Functions-----------------*/
 
-   @Override
+  @Override
   public void onDestroy() {
     super.onDestroy();
     if (mShizukuShell != null) mShizukuShell.destroy();
   }
-    
+
   private void clearAll() {
     if (mShizukuShell != null) mShizukuShell.destroy();
     mResult = null;
@@ -926,6 +942,8 @@ public class aShellFragment extends Fragment {
     mSearchButton.setVisibility(View.GONE);
     mSaveButton.setVisibility(View.GONE);
     mClearButton.setVisibility(View.GONE);
+    showBottomNav();
+    mCommand.clearFocus();
     if (!mCommand.isFocused()) mCommand.requestFocus();
   }
 
