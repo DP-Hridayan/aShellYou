@@ -429,6 +429,7 @@ public class aShellFragment extends Fragment {
     /*------------------------------------------------------*/
 
     mSettingsButton.setTooltipText("Settings");
+        
     mSettingsButton.setOnClickListener(
         v -> {
           Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
@@ -438,12 +439,10 @@ public class aShellFragment extends Fragment {
     /*------------------------------------------------------*/
 
     mClearButton.setTooltipText("Clear screen");
+        
     mClearButton.setOnClickListener(
         v -> {
-          if (getActivity() != null && getActivity() instanceof aShellActivity) {
-            ((aShellActivity) getActivity()).mNav.animate().translationY(0);
-          }
-
+          showBottomNav();
           boolean switchState = adapter.getSavedSwitchState("Ask before clearing shell output");
           if (switchState) {
             new MaterialAlertDialogBuilder(requireActivity())
@@ -509,7 +508,6 @@ public class aShellFragment extends Fragment {
           }
         });
 
-
     /*------------------------------------------------------*/
 
     mBookMarks.setTooltipText("Bookmarks");
@@ -558,7 +556,7 @@ public class aShellFragment extends Fragment {
           popupMenu.show();
         });
 
-        /*------------------------------------------------------*/
+    /*------------------------------------------------------*/
 
     mAppNameLayout.setOnClickListener(
         v -> {
@@ -572,7 +570,7 @@ public class aShellFragment extends Fragment {
             mClearButton.setVisibility(View.VISIBLE);
           }
         });
-        
+
     /*------------------------------------------------------*/
 
     mSaveButton.setOnClickListener(
@@ -676,31 +674,6 @@ public class aShellFragment extends Fragment {
     return splitPrefix[i].trim();
   }
 
-  private void clearAll() {
-    if (mShizukuShell != null) mShizukuShell.destroy();
-    mResult = null;
-    mRecyclerViewOutput.setAdapter(null);
-    mSearchButton.setVisibility(View.GONE);
-    mSaveButton.setVisibility(View.GONE);
-    mClearButton.setVisibility(View.GONE);
-    if (!mCommand.isFocused()) mCommand.requestFocus();
-  }
-
-  private void hideSearchBar() {
-    mSearchWord.setText(null);
-    mSearchWord.setVisibility(View.GONE);
-    if (!mCommand.isFocused()) mCommand.requestFocus();
-    mBookMarks.setVisibility(View.VISIBLE);
-    mSettingsButton.setVisibility(View.VISIBLE);
-    if (mHistory != null && mHistory.size() > 0) {
-      mHistoryButton.setVisibility(View.VISIBLE);
-    }
-    if (mResult != null && mResult.size() > 0 && !mShizukuShell.isBusy()) {
-      mClearButton.setVisibility(View.VISIBLE);
-      mSearchButton.setVisibility(View.VISIBLE);
-    }
-  }
-
   private void initializeShell(Activity activity) {
     if (mCommand.getText() == null || mCommand.getText().toString().trim().isEmpty()) {
       return;
@@ -749,6 +722,8 @@ public class aShellFragment extends Fragment {
       mSearchButton.setVisibility(View.GONE);
     }
 
+    /*------------------------------------------------------*/
+
     String finalCommand;
     if (command.startsWith("adb shell ")) {
       finalCommand = command.replace("adb shell ", "");
@@ -762,6 +737,7 @@ public class aShellFragment extends Fragment {
       if (mResult != null) {
         mResult.clear();
         updateUI(mResult);
+        showBottomNav();
         mSaveButton.setVisibility(View.GONE);
       }
       return;
@@ -800,6 +776,8 @@ public class aShellFragment extends Fragment {
           .show();
       return;
     }
+
+    /*------------------------------------------------------*/
 
     if (mHistory == null) {
       mHistory = new ArrayList<>();
@@ -931,18 +909,51 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
-  @Override
+  
+
+  /*------------------ Functions-----------------*/
+
+   @Override
   public void onDestroy() {
     super.onDestroy();
     if (mShizukuShell != null) mShizukuShell.destroy();
   }
+    
+  private void clearAll() {
+    if (mShizukuShell != null) mShizukuShell.destroy();
+    mResult = null;
+    mRecyclerViewOutput.setAdapter(null);
+    mSearchButton.setVisibility(View.GONE);
+    mSaveButton.setVisibility(View.GONE);
+    mClearButton.setVisibility(View.GONE);
+    if (!mCommand.isFocused()) mCommand.requestFocus();
+  }
 
-  /*------------------ For status bar color management -----------------*/
+  private void hideSearchBar() {
+    mSearchWord.setText(null);
+    mSearchWord.setVisibility(View.GONE);
+    if (!mCommand.isFocused()) mCommand.requestFocus();
+    mBookMarks.setVisibility(View.VISIBLE);
+    mSettingsButton.setVisibility(View.VISIBLE);
+    if (mHistory != null && mHistory.size() > 0) {
+      mHistoryButton.setVisibility(View.VISIBLE);
+    }
+    if (mResult != null && mResult.size() > 0 && !mShizukuShell.isBusy()) {
+      mClearButton.setVisibility(View.VISIBLE);
+      mSearchButton.setVisibility(View.VISIBLE);
+    }
+  }
 
   public double getBrightness(int color) {
     int red = Color.red(color);
     int green = Color.green(color);
     int blue = Color.blue(color);
     return 0.299 * red + 0.587 * green + 0.114 * blue;
+  }
+
+  private void showBottomNav() {
+    if (getActivity() != null && getActivity() instanceof aShellActivity) {
+      ((aShellActivity) getActivity()).mNav.animate().translationY(0);
+    }
   }
 }
