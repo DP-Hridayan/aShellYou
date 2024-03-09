@@ -11,19 +11,23 @@ public class BottomNavOnScrollListener extends RecyclerView.OnScrollListener {
   public BottomNavOnScrollListener(BottomNavigationView mNav) {
     this.mNav = mNav;
   }
-
+    
+   
   @Override
   public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
     super.onScrollStateChanged(recyclerView, newState);
 
     int totalScrollRange = recyclerView.computeVerticalScrollRange();
-    int currentScrollOffset = recyclerView.computeVerticalScrollOffset();
     int visibleScrollRange = recyclerView.computeVerticalScrollExtent();
 
     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-      if (currentScrollOffset + visibleScrollRange >= totalScrollRange) {
-        // Bottom of the list
-        mNav.animate().translationY(mNav.getHeight());
+      if (totalScrollRange > visibleScrollRange) {
+
+        int currentScrollOffset = recyclerView.computeVerticalScrollOffset();
+        if (currentScrollOffset + visibleScrollRange >= totalScrollRange) {
+          // Bottom of the list
+          mNav.animate().translationY(mNav.getHeight());
+        }
       }
     }
   }

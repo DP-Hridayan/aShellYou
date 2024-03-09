@@ -25,8 +25,8 @@ public class aShellActivity extends AppCompatActivity {
     setContentView(R.layout.activity_ashell);
 
     mNav = findViewById(R.id.bottom_nav_bar);
-        
-                 mNav.setSelectedItemId(R.id.nav_localShell);
+
+    mNav.setSelectedItemId(R.id.nav_localShell);
 
     int statusBarColor = getColor(R.color.StatusBar);
     double brightness = Color.luminance(statusBarColor);
@@ -60,7 +60,6 @@ public class aShellActivity extends AppCompatActivity {
         });
     // Set initial fragment
     replaceFragment(new aShellFragment(mNav));
-
   }
 
   private void replaceFragment(Fragment fragment) {

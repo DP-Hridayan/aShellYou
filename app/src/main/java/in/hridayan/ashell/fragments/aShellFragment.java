@@ -71,6 +71,11 @@ import rikka.shizuku.Shizuku;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 28, 2022
  */
+
+/*
+ * Modified by DP-Hridayan <hridayanofficial@gmail.com> since January 24 , 2024
+ */
+
 public class aShellFragment extends Fragment {
 
   private AppCompatImageButton mBookMark;
@@ -78,19 +83,12 @@ public class aShellFragment extends Fragment {
   private FloatingActionButton mBottomButton, mSendButton, mTopButton;
   private MaterialButton mClearButton, mHistoryButton, mSearchButton, mBookMarks, mSettingsButton;
   private FrameLayout mAppNameLayout;
-
   private BottomNavigationView mNav;
-
-  public aShellFragment() {}
-
-  public aShellFragment(BottomNavigationView nav) {
-    this.mNav = nav;
-  }
-
-  private RecyclerView mRecyclerViewOutput;
+  private CommandsAdapter mCommandsAdapter;
+  private ShellOutputAdapter mShellOutputAdapter;
+  private RecyclerView mRecyclerViewOutput, mRecyclerViewCommands;
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
-
   private ShizukuShell mShizukuShell;
   private TextInputEditText mCommand, mSearchWord;
   private boolean mExit;
@@ -98,27 +96,37 @@ public class aShellFragment extends Fragment {
   private int mPosition = 1;
   private List<String> mHistory = null, mResult = null;
 
+  public aShellFragment() {}
+
+  public aShellFragment(BottomNavigationView nav) {
+    this.mNav = nav;
+  }
+
   @Nullable
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View mRootView = inflater.inflate(R.layout.fragment_ashell, container, false);
+
+    /*------------------------------------------------------*/
+
     List<SettingsItem> settingsList = new ArrayList<>();
     SettingsAdapter adapter = new SettingsAdapter(settingsList, requireContext());
+
     int statusBarColor = getResources().getColor(R.color.StatusBar);
     double brightness = getBrightness(statusBarColor);
     boolean isLightStatusBar = brightness > 0.5;
 
-        if(isAdded())
-        {
-               View decorView = requireActivity().getWindow().getDecorView();
-    if (isLightStatusBar) {
-      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    } else {
-      decorView.setSystemUiVisibility(0);
+    if (isAdded()) {
+      View decorView = requireActivity().getWindow().getDecorView();
+      if (isLightStatusBar) {
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+      } else {
+        decorView.setSystemUiVisibility(0);
+      }
     }
-        }
 
+    /*------------------------------------------------------*/
 
     mAppNameLayout = mRootView.findViewById(R.id.app_name_layout);
     mBookMark = mRootView.findViewById(R.id.bookmark);
@@ -127,12 +135,9 @@ public class aShellFragment extends Fragment {
     mClearButton = mRootView.findViewById(R.id.clear);
     mCommand = mRootView.findViewById(R.id.shell_command);
     ;
-        if(isAdded()){
-           mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-        }
-    
-
+    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
     mHistoryButton = mRootView.findViewById(R.id.history);
+    mRecyclerViewCommands = mRootView.findViewById(R.id.recycler_view_commands);
     mRecyclerViewOutput = mRootView.findViewById(R.id.recycler_view_output);
     mSaveButton = mRootView.findViewById(R.id.save_button);
     mSearchButton = mRootView.findViewById(R.id.search);
@@ -140,15 +145,17 @@ public class aShellFragment extends Fragment {
     mSendButton = mRootView.findViewById(R.id.send);
     mSettingsButton = mRootView.findViewById(R.id.settings);
     mTopButton = mRootView.findViewById(R.id.fab_up);
+
+    /*------------------------------------------------------*/
+
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
+    mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
-
     mRecyclerViewOutput.addOnScrollListener(new BottomNavOnScrollListener(mNav));
 
-    mBookMarks.setVisibility(
-        Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+    /*------------------------------------------------------*/
 
     mTopButton.setOnClickListener(
         new View.OnClickListener() {
@@ -178,6 +185,8 @@ public class aShellFragment extends Fragment {
             lastClickTime = currentTime;
           }
         });
+
+    /*------------------------------------------------------*/
 
     mBottomButton.setOnClickListener(
         new View.OnClickListener() {
@@ -211,6 +220,8 @@ public class aShellFragment extends Fragment {
           }
         });
 
+    /*------------------------------------------------------*/
+
     mCommand.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -222,6 +233,9 @@ public class aShellFragment extends Fragment {
           @SuppressLint("SetTextI18n")
           @Override
           public void afterTextChanged(Editable s) {
+
+            /*------------------------------------------------------*/
+
             if (s.toString().contains("\n")) {
               if (!s.toString().endsWith("\n")) {
                 mCommand.setText(s.toString().replace("\n", ""));
@@ -234,8 +248,12 @@ public class aShellFragment extends Fragment {
               if (mShizukuShell != null && mShizukuShell.isBusy()) {
                 return;
               }
-              RecyclerView mRecyclerViewCommands =
-                  mRootView.findViewById(R.id.recycler_view_commands);
+
+              /*------------------------------------------------------*/
+
+              mBookMarks.setVisibility(
+                  Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+
               if (!s.toString().trim().isEmpty()) {
                 mSendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_send, requireActivity()));
@@ -245,7 +263,9 @@ public class aShellFragment extends Fragment {
                             ? R.drawable.ic_bookmark_added
                             : R.drawable.ic_add_bookmark,
                         requireActivity()));
+
                 mBookMark.setVisibility(View.VISIBLE);
+
                 mBookMark.setOnClickListener(
                     v -> {
                       if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
@@ -272,10 +292,12 @@ public class aShellFragment extends Fragment {
                               ? View.VISIBLE
                               : View.GONE);
                     });
+
+                /*------------------------------------------------------*/
+
                 new Handler(Looper.getMainLooper())
                     .post(
                         () -> {
-                          CommandsAdapter mCommandsAdapter;
                           if (s.toString().contains(" ") && s.toString().contains(".")) {
                             String[] splitCommands = {
                               s.toString().substring(0, lastIndexOf(s.toString(), ".")),
@@ -300,7 +322,6 @@ public class aShellFragment extends Fragment {
                             if (isAdded()) {
                               mRecyclerViewCommands.setAdapter(mCommandsAdapter);
                             }
-
                             mRecyclerViewCommands.setVisibility(View.VISIBLE);
                             mCommandsAdapter.setOnItemClickListener(
                                 (command, v) -> {
@@ -316,7 +337,8 @@ public class aShellFragment extends Fragment {
                                 new CommandsAdapter(Commands.getCommand(s.toString()));
                             if (isAdded()) {
                               mRecyclerViewCommands.setLayoutManager(
-                                  new LinearLayoutManager(requireActivity()));                            }
+                                  new LinearLayoutManager(requireActivity()));
+                            }
 
                             mRecyclerViewCommands.setAdapter(mCommandsAdapter);
                             mRecyclerViewCommands.setVisibility(View.VISIBLE);
@@ -342,6 +364,8 @@ public class aShellFragment extends Fragment {
           }
         });
 
+    /*------------------------------------------------------*/
+
     mCommand.setOnEditorActionListener(
         new TextView.OnEditorActionListener() {
 
@@ -357,17 +381,17 @@ public class aShellFragment extends Fragment {
                 Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
                 startActivity(examples);
               } else {
-                            if(isAdded())
-                            {
-                               initializeShell(requireActivity());
-                            }
-                
+                if (isAdded()) {
+                  initializeShell(requireActivity());
+                }
               }
               return true;
             }
             return false;
           }
         });
+
+    /*------------------------------------------------------*/
 
     mSendButton.setOnClickListener(
         v -> {
@@ -396,13 +420,13 @@ public class aShellFragment extends Fragment {
             }
 
           } else {
-                    if(isAdded())
-                    {
-                       initializeShell(requireActivity());
-                    }
-            
+            if (isAdded()) {
+              initializeShell(requireActivity());
+            }
           }
         });
+
+    /*------------------------------------------------------*/
 
     mSettingsButton.setTooltipText("Settings");
     mSettingsButton.setOnClickListener(
@@ -410,6 +434,8 @@ public class aShellFragment extends Fragment {
           Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
           startActivity(settingsIntent);
         });
+
+    /*------------------------------------------------------*/
 
     mClearButton.setTooltipText("Clear screen");
     mClearButton.setOnClickListener(
@@ -437,6 +463,8 @@ public class aShellFragment extends Fragment {
           }
         });
 
+    /*------------------------------------------------------*/
+
     mSearchButton.setTooltipText("Search");
 
     mSearchButton.setOnClickListener(
@@ -454,6 +482,8 @@ public class aShellFragment extends Fragment {
           mSearchWord.requestFocus();
           mCommand.setText(null);
         });
+
+    /*------------------------------------------------------*/
 
     mSearchWord.addTextChangedListener(
         new TextWatcher() {
@@ -479,18 +509,8 @@ public class aShellFragment extends Fragment {
           }
         });
 
-    mAppNameLayout.setOnClickListener(
-        v -> {
-          if (mSearchWord.getVisibility() == View.VISIBLE) {
-            mSearchWord.setVisibility(View.GONE);
-            mBookMarks.setVisibility(
-                Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
-            mSettingsButton.setVisibility(View.VISIBLE);
-            mSearchButton.setVisibility(View.VISIBLE);
-            mHistoryButton.setVisibility(View.VISIBLE);
-            mClearButton.setVisibility(View.VISIBLE);
-          }
-        });
+
+    /*------------------------------------------------------*/
 
     mBookMarks.setTooltipText("Bookmarks");
 
@@ -514,6 +534,8 @@ public class aShellFragment extends Fragment {
           popupMenu.show();
         });
 
+    /*------------------------------------------------------*/
+
     mHistoryButton.setTooltipText("History");
 
     mHistoryButton.setOnClickListener(
@@ -535,6 +557,23 @@ public class aShellFragment extends Fragment {
               });
           popupMenu.show();
         });
+
+        /*------------------------------------------------------*/
+
+    mAppNameLayout.setOnClickListener(
+        v -> {
+          if (mSearchWord.getVisibility() == View.VISIBLE) {
+            mSearchWord.setVisibility(View.GONE);
+            mBookMarks.setVisibility(
+                Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+            mSettingsButton.setVisibility(View.VISIBLE);
+            mSearchButton.setVisibility(View.VISIBLE);
+            mHistoryButton.setVisibility(View.VISIBLE);
+            mClearButton.setVisibility(View.VISIBLE);
+          }
+        });
+        
+    /*------------------------------------------------------*/
 
     mSaveButton.setOnClickListener(
         v -> {
@@ -691,13 +730,12 @@ public class aShellFragment extends Fragment {
   }
 
   private void runShellCommand(String command, Activity activity) {
-        
-       if(!isAdded())
-        {
-            return;
-        }
+
+    if (!isAdded()) {
+      return;
+    }
     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        
+
     mCommand.setText(null);
     mCommand.clearFocus();
     if (mSearchWord.getVisibility() == View.VISIBLE) {
@@ -787,6 +825,8 @@ public class aShellFragment extends Fragment {
     }
     mResult.add(mTitleText);
 
+    /*------------------------------------------------------*/
+
     ExecutorService mExecutors = Executors.newSingleThreadExecutor();
     mExecutors.execute(
         () -> {
@@ -802,6 +842,9 @@ public class aShellFragment extends Fragment {
           new Handler(Looper.getMainLooper())
               .post(
                   () -> {
+
+                    /*------------------------------------------------------*/
+
                     if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
                       if (mHistory != null
                           && mHistory.size() > 0
@@ -828,6 +871,9 @@ public class aShellFragment extends Fragment {
                               (dialogInterface, i) -> Shizuku.requestPermission(0))
                           .show();
                     }
+
+                    /*------------------------------------------------------*/
+
                     if (mCommand.getText() == null
                         || mCommand.getText().toString().trim().isEmpty()) {
                       mSendButton.setImageDrawable(
@@ -839,12 +885,16 @@ public class aShellFragment extends Fragment {
                       mSendButton.clearColorFilter();
                     }
 
+                    /*------------------------------------------------------*/
+
                     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     if (!mCommand.isFocused()) mCommand.requestFocus();
                   });
           if (!mExecutors.isShutdown()) mExecutors.shutdown();
         });
   }
+
+  /*------------------------------------------------------*/
 
   private void updateUI(List<String> data) {
     if (data == null) {
@@ -869,20 +919,25 @@ public class aShellFragment extends Fragment {
           new Handler(Looper.getMainLooper())
               .post(
                   () -> {
-                    if (mRecyclerViewOutput != null) {
+                    if (isAdded() && mRecyclerViewOutput != null) {
                       mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
                       mRecyclerViewOutput.scrollToPosition(mData.size() - 1);
                     }
                   });
+
           if (!mExecutors.isShutdown()) mExecutors.shutdown();
         });
   }
+
+  /*------------------------------------------------------*/
 
   @Override
   public void onDestroy() {
     super.onDestroy();
     if (mShizukuShell != null) mShizukuShell.destroy();
   }
+
+  /*------------------ For status bar color management -----------------*/
 
   public double getBrightness(int color) {
     int red = Color.red(color);
