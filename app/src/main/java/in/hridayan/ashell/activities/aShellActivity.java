@@ -1,15 +1,12 @@
 package in.hridayan.ashell.activities;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,24 +14,21 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgFragment;
-import in.hridayan.ashell.utils.ShizukuShell;
 
 public class aShellActivity extends AppCompatActivity {
-  private BottomNavigationView mNav;
-  
+  public BottomNavigationView mNav;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_ashell);
 
     mNav = findViewById(R.id.bottom_nav_bar);
-   
-   setupKeyboardVisibilityListener();     
+
+    setupKeyboardVisibilityListener();
     setupNavigation();
     setBadge(R.id.nav_otgShell, "Beta");
     setBadge(R.id.nav_wireless, "Soon");
-        
-
   }
 
   private void setupNavigation() {
@@ -53,7 +47,7 @@ public class aShellActivity extends AppCompatActivity {
           }
         });
     // Set initial fragment
-    replaceFragment(new aShellFragment());
+    replaceFragment(new aShellFragment(mNav));
   }
 
   private void replaceFragment(Fragment fragment) {
@@ -80,7 +74,7 @@ public class aShellActivity extends AppCompatActivity {
   private void showaShellFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
         instanceof aShellFragment)) {
-      replaceFragment(new aShellFragment());
+      replaceFragment(new aShellFragment(mNav));
     }
   }
 
@@ -118,29 +112,34 @@ public class aShellActivity extends AppCompatActivity {
     badge.setText(text);
     badge.setHorizontalOffset(0);
   }
-   private void setupKeyboardVisibilityListener() {
-    View contentView = findViewById(android.R.id.content);
-    contentView.getViewTreeObserver().addOnGlobalLayoutListener(new KeyboardVisibilityListener(contentView));
-}
 
-private class KeyboardVisibilityListener implements ViewTreeObserver.OnGlobalLayoutListener {
+  private void setupKeyboardVisibilityListener() {
+    View contentView = findViewById(android.R.id.content);
+    contentView
+        .getViewTreeObserver()
+        .addOnGlobalLayoutListener(new KeyboardVisibilityListener(contentView));
+  }
+
+  private class KeyboardVisibilityListener implements ViewTreeObserver.OnGlobalLayoutListener {
     private final View contentView;
-        
+
     KeyboardVisibilityListener(View contentView) {
-        this.contentView = contentView;
+      this.contentView = contentView;
     }
 
     @Override
     public void onGlobalLayout() {
-        int heightDiff = contentView.getRootView().getHeight() - contentView.getHeight();
-        if (heightDiff > 200) {
-            mNav.setVisibility(View.GONE);
-        } else {
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                mNav.setVisibility(View.VISIBLE);
-            }, 100);
-        }
+      int heightDiff = contentView.getRootView().getHeight() - contentView.getHeight();
+      if (heightDiff > 200) {
+        mNav.setVisibility(View.GONE);
+      } else {
+        new Handler(Looper.getMainLooper())
+            .postDelayed(
+                () -> {
+                  mNav.setVisibility(View.VISIBLE);
+                },
+                100);
+      }
     }
-}
-    
+  }
 }

@@ -32,17 +32,20 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.BottomNavOnScrollListener;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
 import in.hridayan.ashell.activities.FabOnScrollDownListener;
 import in.hridayan.ashell.activities.FabOnScrollUpListener;
 import in.hridayan.ashell.activities.SettingsActivity;
+import in.hridayan.ashell.activities.aShellActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
@@ -74,6 +77,12 @@ public class aShellFragment extends Fragment {
   private FloatingActionButton mBottomButton, mSendButton, mTopButton;
   private MaterialButton mClearButton, mHistoryButton, mSearchButton, mBookMarks, mSettingsButton;
   private FrameLayout mAppNameLayout;
+
+  private BottomNavigationView mNav;
+
+  public aShellFragment(BottomNavigationView nav) {
+    this.mNav = nav;
+  }
 
   private RecyclerView mRecyclerViewOutput;
   private SettingsAdapter adapter;
@@ -111,7 +120,8 @@ public class aShellFragment extends Fragment {
     mClearButton = mRootView.findViewById(R.id.clear);
     mCommand = mRootView.findViewById(R.id.shell_command);
     ;
-    ;
+    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
+
     mHistoryButton = mRootView.findViewById(R.id.history);
     mRecyclerViewOutput = mRootView.findViewById(R.id.recycler_view_output);
     mSaveButton = mRootView.findViewById(R.id.save_button);
@@ -124,6 +134,8 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
+
+    mRecyclerViewOutput.addOnScrollListener(new BottomNavOnScrollListener(mNav));
 
     mBookMarks.setVisibility(
         Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
@@ -370,6 +382,10 @@ public class aShellFragment extends Fragment {
     mClearButton.setTooltipText("Clear screen");
     mClearButton.setOnClickListener(
         v -> {
+          if (getActivity() != null && getActivity() instanceof aShellActivity) {
+            ((aShellActivity) getActivity()).mNav.animate().translationY(0);
+          }
+
           boolean switchState = adapter.getSavedSwitchState("Ask before clearing shell output");
           if (switchState) {
             new MaterialAlertDialogBuilder(requireActivity())
@@ -716,7 +732,7 @@ public class aShellFragment extends Fragment {
 
     mSaveButton.setVisibility(View.GONE);
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
-    mSendButton.setColorFilter(Utils.getColor(R.color.colorErrorContainer, requireActivity()));
+    mSendButton.setColorFilter(Utils.getColor(R.color.colorErrorContainer, requireContext()));
 
     String mTitleText =
         "<font color=\""
@@ -827,7 +843,7 @@ public class aShellFragment extends Fragment {
   @Override
   public void onDestroy() {
     super.onDestroy();
-       if(mShizukuShell != null) mShizukuShell.destroy();
+    if (mShizukuShell != null) mShizukuShell.destroy();
   }
 
   public double getBrightness(int color) {

@@ -155,7 +155,8 @@
                 android:background="?@attr/colorSurfaceContainerLowest"
                 android:nestedScrollingEnabled="true"
                 android:scrollbarThumbVertical="@drawable/scrollbar"
-                android:id="@+id/recycler_view_output" />
+                android:id="@+id/recycler_view_output"
+                android:layerType="hardware" />
 
         </com.google.android.material.card.MaterialCardView>
 
