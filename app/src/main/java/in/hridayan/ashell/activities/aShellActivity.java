@@ -1,5 +1,6 @@
 package in.hridayan.ashell.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,6 +25,17 @@ public class aShellActivity extends AppCompatActivity {
     setContentView(R.layout.activity_ashell);
 
     mNav = findViewById(R.id.bottom_nav_bar);
+        
+                 mNav.setSelectedItemId(R.id.nav_localShell);
+
+    int statusBarColor = getColor(R.color.StatusBar);
+    double brightness = Color.luminance(statusBarColor);
+    boolean isLightStatusBar = brightness > 0.5;
+
+    View decorView = getWindow().getDecorView();
+    if (isLightStatusBar) {
+      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    }
 
     setupKeyboardVisibilityListener();
     setupNavigation();
@@ -48,6 +60,7 @@ public class aShellActivity extends AppCompatActivity {
         });
     // Set initial fragment
     replaceFragment(new aShellFragment(mNav));
+
   }
 
   private void replaceFragment(Fragment fragment) {

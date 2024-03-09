@@ -269,7 +269,7 @@ public class otgFragment extends Fragment
       }
     }
 
-    mCommand.setImeActionLabel("Run", EditorInfo.IME_ACTION_DONE);
+    
     mCommand.setOnEditorActionListener(this);
     mCommand.setOnKeyListener(this);
 

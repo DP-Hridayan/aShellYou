@@ -26,6 +26,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.StartActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="unspecified"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +36,6 @@
         </activity>
         <activity
             android:name=".activities.aShellActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
