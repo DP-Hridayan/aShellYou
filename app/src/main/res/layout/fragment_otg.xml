@@ -123,7 +123,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
-        android:id="@+id/settings_otg"
+        android:id="@+id/settingsOtg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
@@ -137,10 +137,21 @@
         android:layout_width="wrap_content"
         android:visibility="gone"
         app:icon="@drawable/ic_bookmarks"
-        app:layout_constraintTop_toTopOf="@id/settings_otg"
-        app:layout_constraintStart_toEndOf="@id/settings_otg"
+        app:layout_constraintTop_toTopOf="@id/settingsOtg"
+        app:layout_constraintStart_toEndOf="@id/settingsOtg"
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
         android:id="@+id/bookmarksOtg" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        app:icon="@drawable/ic_history"
+        app:layout_constraintTop_toTopOf="@id/settingsOtg"
+        app:layout_constraintStart_toEndOf="@id/bookmarksOtg"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_marginStart="25dp"
+        android:id="@+id/historyOtg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

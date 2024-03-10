@@ -18,18 +18,16 @@ import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.appcompat.widget.PopupMenu;
-
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.Menu;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -40,6 +38,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.cgutman.adblib.AdbBase64;
@@ -63,6 +62,9 @@ import in.hridayan.ashell.utils.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class otgFragment extends Fragment
     implements TextView.OnEditorActionListener, View.OnKeyListener {
@@ -76,12 +78,13 @@ public class otgFragment extends Fragment
   private UsbManager mManager;
   private BottomNavigationView mNav;
   private LinearLayoutCompat terminalView;
-  private MaterialButton mSettingsButton, mBookMarks;
+  private MaterialButton mSettingsButton, mBookMarks, mHistoryButton;
   private TextInputEditText mCommand;
   private FloatingActionButton mSendButton;
   private ScrollView scrollView;
   private AlertDialog mWaitingDialog;
   private String user = null;
+  private List<String> mHistory = null, mResult = null;
 
   private AdbStream stream;
 
@@ -107,7 +110,8 @@ public class otgFragment extends Fragment
     mBookMarks = view.findViewById(R.id.bookmarksOtg);
     logs = view.findViewById(R.id.logs);
     mBookMark = view.findViewById(R.id.bookmarkOtg);
-    mSettingsButton = view.findViewById(R.id.settings_otg);
+    mSettingsButton = view.findViewById(R.id.settingsOtg);
+    mHistoryButton = view.findViewById(R.id.historyOtg);
     terminalView = view.findViewById(R.id.terminalView);
     mCommand = view.findViewById(R.id.edCommand);
     mSendButton = view.findViewById(R.id.sendCommandOtg);
@@ -130,7 +134,6 @@ public class otgFragment extends Fragment
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             mBookMarks.setVisibility(
                 Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
           }
@@ -151,6 +154,7 @@ public class otgFragment extends Fragment
                   new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                       Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
                       startActivity(examples);
                     }
@@ -203,6 +207,14 @@ public class otgFragment extends Fragment
                       if (adbConnection != null) {
                         putCommand();
                       } else {
+
+                        mHistoryButton.setVisibility(View.VISIBLE);
+
+                        if (mHistory == null) {
+                          mHistory = new ArrayList<>();
+                        }
+                        mHistory.add(mCommand.getText().toString());
+
                         new MaterialAlertDialogBuilder(requireActivity())
                             .setTitle("Error")
                             .setMessage(getString(R.string.otg_not_connected))
@@ -229,6 +241,28 @@ public class otgFragment extends Fragment
                 for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
                   if (item.getItemId() == i) {
                     mCommand.setText(Utils.getBookmarks(requireActivity()).get(i));
+                    mCommand.setSelection(mCommand.getText().length());
+                  }
+                }
+                return false;
+              });
+          popupMenu.show();
+        });
+
+    mHistoryButton.setTooltipText("History");
+
+    mHistoryButton.setOnClickListener(
+        v -> {
+          PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
+          Menu menu = popupMenu.getMenu();
+          for (int i = 0; i < getRecentCommands().size(); i++) {
+            menu.add(Menu.NONE, i, Menu.NONE, getRecentCommands().get(i));
+          }
+          popupMenu.setOnMenuItemClickListener(
+              item -> {
+                for (int i = 0; i < getRecentCommands().size(); i++) {
+                  if (item.getItemId() == i) {
+                    mCommand.setText(getRecentCommands().get(i));
                     mCommand.setSelection(mCommand.getText().length());
                   }
                 }
@@ -623,5 +657,11 @@ public class otgFragment extends Fragment
     int green = Color.green(color);
     int blue = Color.blue(color);
     return 0.299 * red + 0.587 * green + 0.114 * blue;
+  }
+
+  private List<String> getRecentCommands() {
+    List<String> mRecentCommands = new ArrayList<>(mHistory);
+    Collections.reverse(mRecentCommands);
+    return mRecentCommands;
   }
 }
