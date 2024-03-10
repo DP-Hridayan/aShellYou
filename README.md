@@ -17,7 +17,7 @@
 Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/releases).
 
 ## Features
-* An elegantly designed user interface with modern material you .
+* An elegantly designed user interface with modern material you and material design 3 .
 * Has both Shizuku(local ADB) and OTG ADB support.
 * Included a bundle of examples about common ADB commands.
 * Handles continuously running commands, such as logcat, top, etc.
