@@ -91,6 +91,16 @@
                     android:paddingTop="10dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="85dp"
+                android:visibility="gone"
+                android:background="@null"
+                android:tint="?attr/colorOnPrimaryContainer"
+                android:id="@+id/bookmarkOtg"
+                android:layout_gravity="center|end" />
+
         </FrameLayout>
 
         <ScrollView
@@ -121,5 +131,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         style="?attr/materialIconButtonFilledTonalStyle" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        app:icon="@drawable/ic_bookmarks"
+        app:layout_constraintTop_toTopOf="@id/settings_otg"
+        app:layout_constraintStart_toEndOf="@id/settings_otg"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_marginStart="25dp"
+        android:id="@+id/bookmarksOtg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,8 @@ import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
+import androidx.appcompat.widget.PopupMenu;
+
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.Menu;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -67,13 +70,13 @@ public class otgFragment extends Fragment
   private UsbDevice mDevice;
   private TextView tvStatus;
   private MaterialTextView logs;
-  private AppCompatImageButton mCable;
+  private AppCompatImageButton mCable, mBookMark;
   private AdbCrypto adbCrypto;
   private AdbConnection adbConnection;
   private UsbManager mManager;
   private BottomNavigationView mNav;
   private LinearLayoutCompat terminalView;
-  private MaterialButton mSettingsButton;
+  private MaterialButton mSettingsButton, mBookMarks;
   private TextInputEditText mCommand;
   private FloatingActionButton mSendButton;
   private ScrollView scrollView;
@@ -101,7 +104,9 @@ public class otgFragment extends Fragment
 
     mCable = view.findViewById(R.id.otg_cable);
     mNav = view.findViewById(R.id.bottom_nav_bar);
+    mBookMarks = view.findViewById(R.id.bookmarksOtg);
     logs = view.findViewById(R.id.logs);
+    mBookMark = view.findViewById(R.id.bookmarkOtg);
     mSettingsButton = view.findViewById(R.id.settings_otg);
     terminalView = view.findViewById(R.id.terminalView);
     mCommand = view.findViewById(R.id.edCommand);
@@ -124,13 +129,21 @@ public class otgFragment extends Fragment
           public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
           @Override
-          public void onTextChanged(CharSequence s, int start, int before, int count) {}
+          public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            mBookMarks.setVisibility(
+                Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+          }
 
           @Override
           public void afterTextChanged(Editable s) {
             String inputText = s.toString();
             if (inputText.isEmpty()) {
 
+              mBookMarks.setVisibility(
+                  Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+
+              mBookMark.setVisibility(View.GONE);
               mSendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_help, requireActivity()));
 
@@ -144,6 +157,43 @@ public class otgFragment extends Fragment
                   });
 
             } else {
+
+              mBookMark.setImageDrawable(
+                  Utils.getDrawable(
+                      Utils.isBookmarked(s.toString().trim(), requireActivity())
+                          ? R.drawable.ic_bookmark_added
+                          : R.drawable.ic_add_bookmark,
+                      requireActivity()));
+
+              mBookMark.setVisibility(View.VISIBLE);
+
+              mBookMark.setOnClickListener(
+                  v -> {
+                    if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
+                      Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
+                      Utils.snackBar(
+                              view,
+                              getString(R.string.bookmark_removed_message, s.toString().trim()))
+                          .show();
+                    } else {
+                      Utils.addToBookmark(s.toString().trim(), requireActivity());
+                      Utils.snackBar(
+                              view, getString(R.string.bookmark_added_message, s.toString().trim()))
+                          .show();
+                    }
+                    mBookMark.setImageDrawable(
+                        Utils.getDrawable(
+                            Utils.isBookmarked(s.toString().trim(), requireActivity())
+                                ? R.drawable.ic_bookmark_added
+                                : R.drawable.ic_add_bookmark,
+                            requireActivity()));
+
+                    mBookMarks.setVisibility(
+                        Utils.getBookmarks(requireActivity()).size() > 0
+                            ? View.VISIBLE
+                            : View.GONE);
+                  });
+
               mSendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_send, requireActivity()));
               mSendButton.setOnClickListener(
@@ -164,7 +214,28 @@ public class otgFragment extends Fragment
             }
           }
         });
-     
+
+    mBookMarks.setTooltipText("Bookmarks");
+
+    mBookMarks.setOnClickListener(
+        v -> {
+          PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
+          Menu menu = popupMenu.getMenu();
+          for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
+            menu.add(Menu.NONE, i, Menu.NONE, Utils.getBookmarks(requireActivity()).get(i));
+          }
+          popupMenu.setOnMenuItemClickListener(
+              item -> {
+                for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
+                  if (item.getItemId() == i) {
+                    mCommand.setText(Utils.getBookmarks(requireActivity()).get(i));
+                    mCommand.setSelection(mCommand.getText().length());
+                  }
+                }
+                return false;
+              });
+          popupMenu.show();
+        });
 
     // Glow otg symbol when adb connection successfull
     if (adbConnection != null) {
@@ -216,8 +287,8 @@ public class otgFragment extends Fragment
           }
         };
 
-         /*------------------------------------------------------*/
-        
+    /*------------------------------------------------------*/
+
     AdbBase64 base64 = new MyAdbBase64();
     try {
       adbCrypto =
@@ -272,7 +343,6 @@ public class otgFragment extends Fragment
       }
     }
 
-    
     mCommand.setOnEditorActionListener(this);
     mCommand.setOnKeyListener(this);
 
@@ -489,6 +559,7 @@ public class otgFragment extends Fragment
 
     if (!mCommand.getText().toString().isEmpty()) {
       // We become the sending thread
+
       try {
         String cmd = mCommand.getText().toString();
         if (cmd.equalsIgnoreCase("clear")) {

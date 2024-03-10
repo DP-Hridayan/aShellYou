@@ -18,10 +18,8 @@ import android.os.Looper;
 import android.view.View;
 import com.google.android.material.button.MaterialButton;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.preference.PreferenceManager;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.utils.Commands;
@@ -34,13 +32,12 @@ import rikka.shizuku.Shizuku;
  */
 public class StartActivity extends AppCompatActivity {
 
-
   @SuppressLint("SetTextI18n")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    // Initialize App Theme
-    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
     super.onCreate(savedInstanceState);
+
     setContentView(in.hridayan.ashell.R.layout.activity_start);
 
     int statusBarColor = getColor(R.color.StatusBar);

@@ -170,7 +170,6 @@
         android:layout_margin="25dp"
         app:layout_constraintStart_toStartOf="parent"
         style="?attr/materialIconButtonFilledTonalStyle"
-        android:icon="@drawable/ic_settings"
         android:id="@+id/settings" />
 
     <Button
@@ -182,7 +181,6 @@
         app:layout_constraintStart_toEndOf="@id/settings"
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
-        android:icon="@drawable/ic_bookmarks"
         android:id="@+id/bookmarks" />
 
     <Button
@@ -194,7 +192,6 @@
         app:layout_constraintStart_toEndOf="@id/bookmarks"
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
-        android:icon="@drawable/ic_history"
         android:id="@+id/history" />
 
     <Button
@@ -206,7 +203,6 @@
         app:layout_constraintStart_toEndOf="@id/history"
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
-        android:icon="@drawable/ic_clear"
         android:id="@+id/clear" />
 
     <Button
@@ -218,7 +214,6 @@
         app:layout_constraintStart_toEndOf="@id/clear"
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
-        android:icon="@drawable/ic_search"
         android:id="@+id/search" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

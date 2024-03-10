@@ -115,8 +115,7 @@ public class aShellFragment extends Fragment {
 
     List<SettingsItem> settingsList = new ArrayList<>();
     SettingsAdapter adapter = new SettingsAdapter(settingsList, requireContext());
-        
-        
+
     int statusBarColor = getResources().getColor(R.color.StatusBar);
     double brightness = getBrightness(statusBarColor);
     boolean isLightStatusBar = brightness > 0.5;
@@ -179,7 +178,7 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
     mRecyclerViewOutput.addOnScrollListener(new BottomNavOnScrollListener(mNav));
 
-        mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
+    mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
     /*------------------------------------------------------*/
 
     mTopButton.setOnClickListener(
@@ -211,8 +210,7 @@ public class aShellFragment extends Fragment {
           }
         });
 
-  
-        /*------------------------------------------------------*/
+    /*------------------------------------------------------*/
 
     mBottomButton.setOnClickListener(
         new View.OnClickListener() {
@@ -978,6 +976,4 @@ public class aShellFragment extends Fragment {
       ((aShellActivity) getActivity()).mNav.animate().translationY(0);
     }
   }
-    
-
 }
