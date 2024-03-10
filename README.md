@@ -27,6 +27,10 @@ Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/rel
 * An auto-dark/light theme.
 * A lot more.
 
+## Discussions Channel
+[Telegram](https://t.me/aShellNew)
+
+
 ## Original app
 https://gitlab.com/sunilpaulmathew/ashell
 
