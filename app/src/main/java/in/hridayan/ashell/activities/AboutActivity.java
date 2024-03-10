@@ -54,7 +54,7 @@ public class AboutActivity extends AppCompatActivity {
         new AboutItem(
             R.drawable.ic_credits,
             "Credits",
-            "\nRikka apps : Shizuku\n\nsunilpaulmathew : aShell app's original creator!\n\nKhun Htetz Naing : ADB OTG creator\n\nwuxudong : creator of Flashbot"));
+            "\nRikka apps : Shizuku\n\nsunilpaulmathew : aShell app's original creator!\n\nKhun Htetz Naing : ADB OTG creator\n\nwuxudong : creator of Flashbot\n\nKrishna : He is the one responsible for aShellYou's official website"));
 
     aboutItemList.add(new AboutItem(R.drawable.ic_developer, "Current Developer", "Hridayan"));
     aboutItemList.add(
@@ -69,8 +69,11 @@ public class AboutActivity extends AppCompatActivity {
             "If you have any ideas in your mind, let me know !"));
     aboutItemList.add(
         new AboutItem(R.drawable.ic_github, "Github", "Open github repository for aShell app"));
-       aboutItemList.add(
-        new AboutItem(R.drawable.ic_telegram, "Telegram channel", "Join the telegram channel for discussion"));
+    aboutItemList.add(
+        new AboutItem(
+            R.drawable.ic_telegram,
+            "Telegram channel",
+            "Join the telegram channel for discussion"));
 
     AboutAdapter adapter = new AboutAdapter(aboutItemList, this);
     recyclerViewAbout.setAdapter(adapter);

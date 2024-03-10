@@ -41,6 +41,8 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.cgutman.adblib.AdbBase64;
 import com.cgutman.adblib.AdbConnection;
 import com.cgutman.adblib.AdbCrypto;
@@ -56,6 +58,8 @@ import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
+import in.hridayan.ashell.adapters.CommandsAdapter;
+import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.Const;
 import in.hridayan.ashell.utils.MessageOtg;
 import in.hridayan.ashell.utils.Utils;
@@ -77,8 +81,11 @@ public class otgFragment extends Fragment
   private AdbConnection adbConnection;
   private UsbManager mManager;
   private BottomNavigationView mNav;
+    
+   private CommandsAdapter mCommandsAdapter;
   private LinearLayoutCompat terminalView;
   private MaterialButton mSettingsButton, mBookMarks, mHistoryButton;
+    private RecyclerView mRecyclerViewCommands;
   private TextInputEditText mCommand;
   private FloatingActionButton mSendButton;
   private ScrollView scrollView;
@@ -114,12 +121,20 @@ public class otgFragment extends Fragment
     mHistoryButton = view.findViewById(R.id.historyOtg);
     terminalView = view.findViewById(R.id.terminalView);
     mCommand = view.findViewById(R.id.edCommand);
+       mRecyclerViewCommands = view.findViewById(R.id.rv_commandsOtg);
+        
     mSendButton = view.findViewById(R.id.sendCommandOtg);
     scrollView = view.findViewById(R.id.scrollView);
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
 
+       mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
+        
     // Logic for changing the command send button depending on the text on the EditText
 
+        
+        
+        
+        
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
     mSendButton.setOnClickListener(
         v -> {
@@ -161,6 +176,69 @@ public class otgFragment extends Fragment
                   });
 
             } else {
+                        
+                       
+                new Handler(Looper.getMainLooper())
+                    .post(
+                        () -> {
+                          if (s.toString().contains(" ") && s.toString().contains(".")) {
+                            String[] splitCommands = {
+                              s.toString().substring(0, lastIndexOf(s.toString(), ".")),
+                              s.toString().substring(lastIndexOf(s.toString(), "."))
+                            };
+
+                            String packageNamePrefix;
+                            if (splitCommands[0].contains(" ")) {
+                              packageNamePrefix = splitPrefix(splitCommands[0], 1);
+                            } else {
+                              packageNamePrefix = splitCommands[0];
+                            }
+
+                            mCommandsAdapter =
+                                new CommandsAdapter(
+                                    Commands.getPackageInfo(packageNamePrefix + "."));
+                            if (isAdded()) {
+                              mRecyclerViewCommands.setLayoutManager(
+                                  new LinearLayoutManager(requireActivity()));
+                            }
+
+                            if (isAdded()) {
+                              mRecyclerViewCommands.setAdapter(mCommandsAdapter);
+                            }
+                            mRecyclerViewCommands.setVisibility(View.VISIBLE);
+                            mCommandsAdapter.setOnItemClickListener(
+                                (command, v) -> {
+                                  mCommand.setText(
+                                      splitCommands[0].contains(" ")
+                                          ? splitPrefix(splitCommands[0], 0) + " " + command
+                                          : command);
+                                  mCommand.setSelection(mCommand.getText().length());
+                                  mRecyclerViewCommands.setVisibility(View.GONE);
+                                });
+                          } else {
+                            mCommandsAdapter =
+                                new CommandsAdapter(Commands.getCommand(s.toString()));
+                            if (isAdded()) {
+                              mRecyclerViewCommands.setLayoutManager(
+                                  new LinearLayoutManager(requireActivity()));
+                            }
+
+                            mRecyclerViewCommands.setAdapter(mCommandsAdapter);
+                            mRecyclerViewCommands.setVisibility(View.VISIBLE);
+                            mCommandsAdapter.setOnItemClickListener(
+                                (command, v) -> {
+                                  if (command.contains(" <")) {
+                                    mCommand.setText(command.split("<")[0]);
+                                  } else {
+                                    mCommand.setText(command);
+                                  }
+                                  mCommand.setSelection(mCommand.getText().length());
+                                });
+                          }
+                        });
+                        
+                        
+                        
 
               mBookMark.setImageDrawable(
                   Utils.getDrawable(
@@ -664,4 +742,15 @@ public class otgFragment extends Fragment
     Collections.reverse(mRecentCommands);
     return mRecentCommands;
   }
+    
+     private int lastIndexOf(String s, String splitTxt) {
+    return s.lastIndexOf(splitTxt);
+  }
+
+   private String splitPrefix(String s, int i) {
+    String[] splitPrefix = {s.substring(0, lastIndexOf(s, " ")), s.substring(lastIndexOf(s, " "))};
+    return splitPrefix[i].trim();
+  }
+    
+    
 }
