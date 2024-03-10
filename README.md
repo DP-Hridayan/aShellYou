@@ -10,7 +10,7 @@
 ### A local ADB shell for [Shizuku](https://shizuku.rikka.app/) powered android devices!
 
 ## Requirements
-* A fully working [Shizuku](https://shizuku.rikka.app/) environment.
+* A working [Shizuku](https://shizuku.rikka.app/) environment.
 * Knowledge about basic ADB/Linux commands.
 
 ## Download
@@ -26,6 +26,10 @@ Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/rel
 * Bookmark frequently using commands.
 * An auto-dark/light theme.
 * A lot more.
+
+## Discussions Channel
+[Telegram](https://t.me/aShellNew)
+
 
 ## Original app
 https://gitlab.com/sunilpaulmathew/ashell
