@@ -435,7 +435,7 @@ public class aShellFragment extends Fragment {
                   .setNegativeButton(
                       getString(R.string.shizuku_about),
                       (dialogInterface, i) -> {
-                        Utils.loadShizukuWeb(requireContext());
+                        Utils.openUrl(requireContext(), "https://shizuku.rikka.app/");
                       })
                   .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
                   .show();
@@ -535,7 +535,9 @@ public class aShellFragment extends Fragment {
         v -> {
           PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
           Menu menu = popupMenu.getMenu();
+
           for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
+
             menu.add(Menu.NONE, i, Menu.NONE, Utils.getBookmarks(requireActivity()).get(i));
           }
           popupMenu.setOnMenuItemClickListener(

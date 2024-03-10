@@ -3,12 +3,12 @@ package in.hridayan.ashell.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import in.hridayan.ashell.utils.Utils;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import in.hridayan.ashell.R;
@@ -50,27 +50,24 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> 
           switch (title) {
             case "Report an issue":
             case "Feature request":
-              intent = new Intent(Intent.ACTION_SENDTO);
-              intent.setData(Uri.parse("mailto:hridayanofficial@gmail.com"));
+              Utils.openUrl(context, "mailto:hridayanofficial@gmail.com");
               break;
 
             case "About":
               intent = new Intent(context, AboutActivity.class);
+              context.startActivity(intent);
               break;
 
             case "Github":
-              intent = new Intent(Intent.ACTION_VIEW);
-              intent.setData(Uri.parse("https://github.com/DP-Hridayan/ashell"));
+              Utils.openUrl(context, "https:github.com/DP-Hridayan/aShellYou");
               break;
             case "Telegram channel":
-              intent = new Intent(Intent.ACTION_VIEW);
-              intent.setData(Uri.parse("https://t.me/aShellYou"));
+              Utils.openUrl(context, "https://t.me/aShellYou");
               break;
+                
             default:
               return;
           }
-
-          context.startActivity(intent);
         };
     holder.titleTextView.setOnClickListener(clickListener);
     holder.descriptionTextView.setOnClickListener(clickListener);
