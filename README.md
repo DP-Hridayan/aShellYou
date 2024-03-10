@@ -10,7 +10,7 @@
 ### A local ADB shell for [Shizuku](https://shizuku.rikka.app/) powered android devices!
 
 ## Requirements
-* A fully working [Shizuku](https://shizuku.rikka.app/) environment.
+* A working [Shizuku](https://shizuku.rikka.app/) environment.
 * Knowledge about basic ADB/Linux commands.
 
 ## Download
