@@ -164,6 +164,7 @@ public class otgFragment extends Fragment
             }
           }
         });
+     
 
     // Glow otg symbol when adb connection successfull
     if (adbConnection != null) {
@@ -215,6 +216,8 @@ public class otgFragment extends Fragment
           }
         };
 
+         /*------------------------------------------------------*/
+        
     AdbBase64 base64 = new MyAdbBase64();
     try {
       adbCrypto =
@@ -281,14 +284,10 @@ public class otgFragment extends Fragment
   }
 
   private void waitingDialog() {
-    // Inflate custom layout with loading animation
     View dialogView =
         LayoutInflater.from(requireActivity()).inflate(R.layout.loading_dialog_layout, null);
-
-    // Find the ProgressBar in the custom layout
     ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
 
-    // Build MaterialAlertDialog with custom layout
     mWaitingDialog =
         new MaterialAlertDialogBuilder(requireActivity())
             .setCancelable(false)

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -25,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
@@ -113,7 +115,8 @@ public class aShellFragment extends Fragment {
 
     List<SettingsItem> settingsList = new ArrayList<>();
     SettingsAdapter adapter = new SettingsAdapter(settingsList, requireContext());
-
+        
+        
     int statusBarColor = getResources().getColor(R.color.StatusBar);
     double brightness = getBrightness(statusBarColor);
     boolean isLightStatusBar = brightness > 0.5;
@@ -176,6 +179,7 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
     mRecyclerViewOutput.addOnScrollListener(new BottomNavOnScrollListener(mNav));
 
+        mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
     /*------------------------------------------------------*/
 
     mTopButton.setOnClickListener(
@@ -974,4 +978,6 @@ public class aShellFragment extends Fragment {
       ((aShellActivity) getActivity()).mNav.animate().translationY(0);
     }
   }
+    
+
 }
