@@ -34,7 +34,7 @@ Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/rel
 
 ## Original app
 <a href="https://gitlab.com/sunilpaulmathew/ashell">
-  <img src="https://img.shields.io/badge/github-black?logo=github&logoColor=%23FFFFFF&cacheSeconds=10" alt="Static Badge" height="50" width="160">
+  <img src="https://img.shields.io/badge/gitlab-black?logo=gitlab&logoColor=%23FFFFFF&cacheSeconds=10" alt="Static Badge" height="50" width="160">
 </a>
 
 ## License
