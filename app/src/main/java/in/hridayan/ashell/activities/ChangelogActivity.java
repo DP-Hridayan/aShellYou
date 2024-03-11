@@ -38,11 +38,11 @@ public class ChangelogActivity extends AppCompatActivity {
 
     List<ChangelogItem> changelogItems = new ArrayList<>();
 
-       changelogItems.add(
+    changelogItems.add(
         new ChangelogItem(
             "Version 3.3.0",
-            "\n\n• A lot of bug fixes.\n\n• Improved some UI handling.\n\n• A lot of code optimisation."));
-        
+            "\n\n• Added bookmarks , history and command suggestions to OTG\n\n• Added maximum bookmarks limit.\n\n• Added option to override maximum bookmarks limit.\n\n• A lot of bug fixes.\n\n• Improved some UI handling.\n\n• A lot of code optimisation."));
+
     changelogItems.add(
         new ChangelogItem(
             "Version 3.2.0",
