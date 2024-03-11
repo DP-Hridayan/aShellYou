@@ -28,8 +28,7 @@ Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/rel
 * A lot more.
 
 ## Discussions Channel
-![Static Badge](https://img.shields.io/badge/telegram-blue?logo=telegram&link=https%3A%2F%2Ft.me%2FaShellNew)
-
+[![Static Badge](https://img.shields.io/badge/telegram-blue?logo=telegram)](https://t.me/aShellNew)
 
 ## Original app
 https://gitlab.com/sunilpaulmathew/ashell
