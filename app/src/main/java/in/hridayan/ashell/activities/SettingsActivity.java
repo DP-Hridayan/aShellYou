@@ -62,6 +62,14 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             true));
 
+           settingsData.add(
+        new SettingsItem(
+            R.drawable.ic_warning,
+            "Override maximum bookmarks limit",
+            "Enabling this option might cause performance issue if a large number of bookmarks are added! Low end devices should keep this option turned off",
+            true,
+            true));
+        
     // no switches
 
     settingsData.add(

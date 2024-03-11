@@ -112,7 +112,7 @@ public class aShellFragment extends Fragment {
     /*------------------------------------------------------*/
 
     List<SettingsItem> settingsList = new ArrayList<>();
-    SettingsAdapter adapter = new SettingsAdapter(settingsList, requireContext());
+    adapter = new SettingsAdapter(settingsList, requireContext());
 
     int statusBarColor = getResources().getColor(R.color.StatusBar);
     double brightness = getBrightness(statusBarColor);
@@ -297,19 +297,7 @@ public class aShellFragment extends Fragment {
                                 getString(R.string.bookmark_removed_message, s.toString().trim()))
                             .show();
                       } else {
-                                        if (Utils.getBookmarks(requireActivity()).size() <= 4)
-                                        {
-                        Utils.addToBookmark(s.toString().trim(), requireActivity());
-                        Utils.snackBar(
-                                mRootView,
-                                getString(R.string.bookmark_added_message, s.toString().trim()))
-                            .show();}
-                                        else{
-                                           Utils.snackBar(
-                                mRootView,
-                                getString(R.string.bookmark_limit_reached))
-                            .show();
-                                        }
+                        addBookmark(s.toString().trim(), mRootView);
                       }
                       mBookMark.setImageDrawable(
                           Utils.getDrawable(
@@ -984,5 +972,21 @@ public class aShellFragment extends Fragment {
       ((aShellActivity) getActivity()).mNav.animate().translationY(0);
     }
   }
-    
+
+  private void addBookmark(String bookmark, View mRootView) {
+
+    boolean switchState = adapter.getSavedSwitchState("Override maximum bookmarks limit");
+
+    if (Utils.getBookmarks(requireActivity()).size() <= 4) {
+      Utils.addToBookmark(bookmark, requireActivity());
+      Utils.snackBar(mRootView, getString(R.string.bookmark_added_message, bookmark)).show();
+    } else {
+      if (switchState) {
+        Utils.addToBookmark(bookmark, requireActivity());
+        Utils.snackBar(mRootView, getString(R.string.bookmark_added_message, bookmark)).show();
+      } else {
+        Utils.snackBar(mRootView, getString(R.string.bookmark_limit_reached)).show();
+      }
+    }
+  }
 }

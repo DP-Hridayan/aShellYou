@@ -59,9 +59,11 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
+import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.Const;
 import in.hridayan.ashell.utils.MessageOtg;
+import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import java.io.File;
 import java.io.IOException;
@@ -86,6 +88,8 @@ public class otgFragment extends Fragment
   private LinearLayoutCompat terminalView;
   private MaterialButton mSettingsButton, mBookMarks, mHistoryButton;
   private RecyclerView mRecyclerViewCommands;
+  private SettingsAdapter adapter;
+
   private TextInputEditText mCommand;
   private FloatingActionButton mSendButton;
   private ScrollView scrollView;
@@ -111,6 +115,10 @@ public class otgFragment extends Fragment
     } else {
       decorView.setSystemUiVisibility(0);
     }
+
+    List<SettingsItem> settingsList = new ArrayList<>();
+    adapter = new SettingsAdapter(settingsList, requireContext());
+
     mCable = view.findViewById(R.id.otg_cable);
     mNav = view.findViewById(R.id.bottom_nav_bar);
     mBookMarks = view.findViewById(R.id.bookmarksOtg);
@@ -247,19 +255,7 @@ public class otgFragment extends Fragment
                               getString(R.string.bookmark_removed_message, s.toString().trim()))
                           .show();
                     } else {
-                                                              if (Utils.getBookmarks(requireActivity()).size() <= 4)
-                                        {
-                        Utils.addToBookmark(s.toString().trim(), requireActivity());
-                        Utils.snackBar(
-                                view,
-                                getString(R.string.bookmark_added_message, s.toString().trim()))
-                            .show();}
-                                        else{
-                                           Utils.snackBar(
-                                view,
-                                getString(R.string.bookmark_limit_reached))
-                            .show();
-                                        }
+                      addBookmark(s.toString().trim(), view);
                     }
                     mBookMark.setImageDrawable(
                         Utils.getDrawable(
@@ -748,5 +744,22 @@ public class otgFragment extends Fragment
   private String splitPrefix(String s, int i) {
     String[] splitPrefix = {s.substring(0, lastIndexOf(s, " ")), s.substring(lastIndexOf(s, " "))};
     return splitPrefix[i].trim();
+  }
+
+  private void addBookmark(String bookmark, View view) {
+
+    boolean switchState = adapter.getSavedSwitchState("Override maximum bookmarks limit");
+
+    if (Utils.getBookmarks(requireActivity()).size() <= 4) {
+      Utils.addToBookmark(bookmark, requireActivity());
+      Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
+    } else {
+      if (switchState) {
+        Utils.addToBookmark(bookmark, requireActivity());
+        Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
+      } else {
+        Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
+      }
+    }
   }
 }
