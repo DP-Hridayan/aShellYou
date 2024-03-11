@@ -111,7 +111,6 @@ public class otgFragment extends Fragment
     } else {
       decorView.setSystemUiVisibility(0);
     }
-
     mCable = view.findViewById(R.id.otg_cable);
     mNav = view.findViewById(R.id.bottom_nav_bar);
     mBookMarks = view.findViewById(R.id.bookmarksOtg);
@@ -248,10 +247,19 @@ public class otgFragment extends Fragment
                               getString(R.string.bookmark_removed_message, s.toString().trim()))
                           .show();
                     } else {
-                      Utils.addToBookmark(s.toString().trim(), requireActivity());
-                      Utils.snackBar(
-                              view, getString(R.string.bookmark_added_message, s.toString().trim()))
-                          .show();
+                                                              if (Utils.getBookmarks(requireActivity()).size() <= 4)
+                                        {
+                        Utils.addToBookmark(s.toString().trim(), requireActivity());
+                        Utils.snackBar(
+                                view,
+                                getString(R.string.bookmark_added_message, s.toString().trim()))
+                            .show();}
+                                        else{
+                                           Utils.snackBar(
+                                view,
+                                getString(R.string.bookmark_limit_reached))
+                            .show();
+                                        }
                     }
                     mBookMark.setImageDrawable(
                         Utils.getDrawable(
@@ -464,7 +472,7 @@ public class otgFragment extends Fragment
         new MaterialAlertDialogBuilder(requireActivity())
             .setCancelable(false)
             .setView(dialogView)
-            .setTitle("Important")
+            .setTitle("Waiting for device")
             .show();
 
     progressBar.setVisibility(View.VISIBLE);
