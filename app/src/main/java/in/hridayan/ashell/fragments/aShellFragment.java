@@ -721,9 +721,14 @@ public class aShellFragment extends Fragment {
 
   private void runShellCommand(String command, Activity activity) {
 
-    if (!isAdded()) {
+    if (!isAdded() || getActivity() == null || getActivity().isFinishing()) {
       return;
     }
+    if (mRecyclerViewOutput.getAdapter() == null) {
+
+      mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
+    }
+
     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
     mCommand.setText(null);

@@ -53,21 +53,14 @@ public class StartActivity extends AppCompatActivity {
     MaterialButton mStartButton = findViewById(R.id.start_button);
     MaterialTextView mAboutText = findViewById(R.id.about_text);
 
-    if (Shizuku.pingBinder()) {
-      if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true)) {
+    if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true)) {
+      if (Shizuku.pingBinder()) {
         Shizuku.requestPermission(0);
-        mMainLayout.setVisibility(View.VISIBLE);
-        mAboutText.setText(getString(R.string.app_summary));
-      } else {
-        loadUI(this);
       }
+      mMainLayout.setVisibility(View.VISIBLE);
+      mAboutText.setText(getString(R.string.app_summary));
     } else {
-      if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true)) {
-        loadUI(this);
-      } else {
-        mMainLayout.setVisibility(View.VISIBLE);
-        mAboutText.setText(getString(R.string.app_summary));
-      }
+      loadUI(this);
     }
 
     mStartButton.setOnClickListener(
