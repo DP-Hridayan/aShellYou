@@ -75,22 +75,33 @@
             android:paddingBottom="15dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/local_shell_symbol"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="2dp"
                 android:src="@drawable/ic_numbers"
                 android:background="@null"
                 android:clickable="false"
                 android:layout_gravity="start|center" />
-
+            
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_help"
+                app:fabCustomSize="50dp"
+                android:id="@+id/send"
+                android:layout_gravity="center|end" />
+            
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 app:endIconMode="custom"
+                app:endIconTint="?attr/colorOnPrimaryContainer"
                 android:layout_marginEnd="70dp"
                 android:hint="@string/command_title"
-                app:endIconTint="@android:color/transparent"
                 android:padding="5dp"
-                app:endIconDrawable="@drawable/ic_add_bookmark"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_marginStart="20dp"
                 android:id="@+id/shell_command_layout">
@@ -105,31 +116,10 @@
                     android:cursorVisible="true"
                     android:paddingBottom="15dp"
                     android:maxLines="5"
-                    android:inputType="textMultiLine"
                     android:id="@+id/shell_command"
                     android:paddingTop="10dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:visibility="gone"
-                android:layout_marginEnd="85dp"
-                android:background="@null"
-                android:tint="?attr/colorOnPrimaryContainer"
-                android:id="@+id/bookmark"
-                android:layout_gravity="center|end" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_help"
-                android:layout_margin="10dp"
-                app:fabCustomSize="50dp"
-                android:id="@+id/send"
-                android:layout_gravity="center|end" />
 
         </FrameLayout>
 

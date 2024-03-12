@@ -51,59 +51,52 @@
                 android:id="@+id/otg_cable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:layout_gravity="start|center"
                 android:background="@null"
                 android:clickable="false"
                 android:src="@drawable/ic_otg" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/sendCommandOtg"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|end"
-                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_send"
-                app:fabCustomSize="50dp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/otg_command_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="70dp"
-                android:layout_marginStart="20dp"
-                android:hint="@string/command_title"
-                android:padding="5dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edCommand"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center"
-                    android:cursorVisible="true"
-                    android:gravity="center_vertical"
-                    android:imeOptions="actionSend"
-                    android:inputType="textMultiLine"
-                    android:maxLines="5"
-                    android:paddingBottom="15dp"
-                    android:paddingHorizontal="10dp"
-                    android:paddingTop="10dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginEnd="85dp"
-                android:visibility="gone"
-                android:background="@null"
-                android:tint="?attr/colorOnPrimaryContainer"
-                android:id="@+id/bookmarkOtg"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_help"
+                app:fabCustomSize="50dp"
+                android:id="@+id/sendCommandOtg"
                 android:layout_gravity="center|end" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:endIconMode="custom"
+                app:endIconTint="?attr/colorOnPrimaryContainer"
+                android:layout_marginEnd="70dp"
+                android:hint="@string/command_title"
+                android:padding="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginStart="20dp"
+                android:id="@+id/otg_command_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:imeOptions="actionSend"
+                    android:layout_gravity="start|center"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center_vertical"
+                    android:cursorVisible="true"
+                    android:paddingBottom="15dp"
+                    android:maxLines="5"
+                    android:id="@+id/edCommand"
+                    android:paddingTop="10dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </FrameLayout>
-        
-               <androidx.recyclerview.widget.RecyclerView
+
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:visibility="gone"

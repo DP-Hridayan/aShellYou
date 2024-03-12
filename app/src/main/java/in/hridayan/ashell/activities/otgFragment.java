@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import com.google.android.material.textfield.TextInputLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -78,7 +79,7 @@ public class otgFragment extends Fragment
   private UsbDevice mDevice;
   private TextView tvStatus;
   private MaterialTextView logs;
-  private AppCompatImageButton mCable, mBookMark;
+  private AppCompatImageButton mCable;
   private AdbCrypto adbCrypto;
   private AdbConnection adbConnection;
   private UsbManager mManager;
@@ -89,7 +90,7 @@ public class otgFragment extends Fragment
   private MaterialButton mSettingsButton, mBookMarks, mHistoryButton;
   private RecyclerView mRecyclerViewCommands;
   private SettingsAdapter adapter;
-
+  private TextInputLayout mCommandInput;
   private TextInputEditText mCommand;
   private FloatingActionButton mSendButton;
   private ScrollView scrollView;
@@ -122,8 +123,8 @@ public class otgFragment extends Fragment
     mCable = view.findViewById(R.id.otg_cable);
     mNav = view.findViewById(R.id.bottom_nav_bar);
     mBookMarks = view.findViewById(R.id.bookmarksOtg);
+    mCommandInput = view.findViewById(R.id.otg_command_layout);
     logs = view.findViewById(R.id.logs);
-    mBookMark = view.findViewById(R.id.bookmarkOtg);
     mSettingsButton = view.findViewById(R.id.settingsOtg);
     mHistoryButton = view.findViewById(R.id.historyOtg);
     terminalView = view.findViewById(R.id.terminalView);
@@ -152,6 +153,9 @@ public class otgFragment extends Fragment
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            mCommandInput.setError(null);
+
             mBookMarks.setVisibility(
                 Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
           }
@@ -164,7 +168,7 @@ public class otgFragment extends Fragment
               mBookMarks.setVisibility(
                   Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
 
-              mBookMark.setVisibility(View.GONE);
+              mCommandInput.setEndIconVisible(false);
               mSendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_help, requireActivity()));
 
@@ -237,16 +241,16 @@ public class otgFragment extends Fragment
                         }
                       });
 
-              mBookMark.setImageDrawable(
+              mCommandInput.setEndIconDrawable(
                   Utils.getDrawable(
                       Utils.isBookmarked(s.toString().trim(), requireActivity())
                           ? R.drawable.ic_bookmark_added
                           : R.drawable.ic_add_bookmark,
                       requireActivity()));
 
-              mBookMark.setVisibility(View.VISIBLE);
+              mCommandInput.setEndIconVisible(true);
 
-              mBookMark.setOnClickListener(
+              mCommandInput.setEndIconOnClickListener(
                   v -> {
                     if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
                       Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
@@ -257,7 +261,7 @@ public class otgFragment extends Fragment
                     } else {
                       addBookmark(s.toString().trim(), view);
                     }
-                    mBookMark.setImageDrawable(
+                    mCommandInput.setEndIconDrawable(
                         Utils.getDrawable(
                             Utils.isBookmarked(s.toString().trim(), requireActivity())
                                 ? R.drawable.ic_bookmark_added
@@ -280,11 +284,17 @@ public class otgFragment extends Fragment
                         putCommand();
                       } else {
 
+                        mCommandInput.setError("Device not connected");
+
+                        alignMargin(mSendButton);
+                        alignMargin(mCable);
+
                         mHistoryButton.setVisibility(View.VISIBLE);
 
                         if (mHistory == null) {
                           mHistory = new ArrayList<>();
                         }
+
                         mHistory.add(mCommand.getText().toString());
 
                         new MaterialAlertDialogBuilder(requireActivity())
@@ -761,5 +771,14 @@ public class otgFragment extends Fragment
         Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
       }
     }
+  }
+
+  private void alignMargin(View component) {
+
+    ViewGroup.MarginLayoutParams params =
+        (ViewGroup.MarginLayoutParams) component.getLayoutParams();
+    params.bottomMargin = 29;
+    component.setLayoutParams(params);
+    component.requestLayout();
   }
 }

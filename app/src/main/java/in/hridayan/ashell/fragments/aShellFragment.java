@@ -37,6 +37,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BottomNavOnScrollListener;
@@ -78,7 +79,7 @@ import rikka.shizuku.Shizuku;
 
 public class aShellFragment extends Fragment {
 
-  private AppCompatImageButton mBookMark;
+  private AppCompatImageButton localShellSymbol;
   private ExtendedFloatingActionButton mSaveButton;
   private FloatingActionButton mBottomButton, mSendButton, mTopButton;
   private MaterialButton mClearButton, mHistoryButton, mSearchButton, mBookMarks, mSettingsButton;
@@ -91,6 +92,7 @@ public class aShellFragment extends Fragment {
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
   private ShizukuShell mShizukuShell;
+  private TextInputLayout mCommandInput;
   private TextInputEditText mCommand, mSearchWord;
   private boolean mExit;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
@@ -148,14 +150,13 @@ public class aShellFragment extends Fragment {
         });
 
     /*------------------------------------------------------*/
-
+    localShellSymbol = mRootView.findViewById(R.id.local_shell_symbol);
     mAppNameLayout = mRootView.findViewById(R.id.app_name_layout);
-    mBookMark = mRootView.findViewById(R.id.bookmark);
     mBookMarks = mRootView.findViewById(R.id.bookmarks);
     mBottomButton = mRootView.findViewById(R.id.fab_down);
     mClearButton = mRootView.findViewById(R.id.clear);
     mCommand = mRootView.findViewById(R.id.shell_command);
-    ;
+    mCommandInput = mRootView.findViewById(R.id.shell_command_layout);
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
     mHistoryButton = mRootView.findViewById(R.id.history);
     mRecyclerViewCommands = mRootView.findViewById(R.id.recycler_view_commands);
@@ -250,7 +251,9 @@ public class aShellFragment extends Fragment {
           public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
           @Override
-          public void onTextChanged(CharSequence s, int start, int before, int count) {}
+          public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mCommandInput.setError(null);
+          }
 
           @SuppressLint("SetTextI18n")
           @Override
@@ -279,16 +282,17 @@ public class aShellFragment extends Fragment {
               if (!s.toString().trim().isEmpty()) {
                 mSendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-                mBookMark.setImageDrawable(
+
+                mCommandInput.setEndIconDrawable(
                     Utils.getDrawable(
                         Utils.isBookmarked(s.toString().trim(), requireActivity())
                             ? R.drawable.ic_bookmark_added
                             : R.drawable.ic_add_bookmark,
                         requireActivity()));
 
-                mBookMark.setVisibility(View.VISIBLE);
+                mCommandInput.setEndIconVisible(true);
 
-                mBookMark.setOnClickListener(
+                mCommandInput.setEndIconOnClickListener(
                     v -> {
                       if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
                         Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
@@ -299,16 +303,13 @@ public class aShellFragment extends Fragment {
                       } else {
                         addBookmark(s.toString().trim(), mRootView);
                       }
-                      mBookMark.setImageDrawable(
+
+                      mCommandInput.setEndIconDrawable(
                           Utils.getDrawable(
                               Utils.isBookmarked(s.toString().trim(), requireActivity())
                                   ? R.drawable.ic_bookmark_added
                                   : R.drawable.ic_add_bookmark,
                               requireActivity()));
-                      mBookMarks.setVisibility(
-                          Utils.getBookmarks(requireActivity()).size() > 0
-                              ? View.VISIBLE
-                              : View.GONE);
                     });
 
                 /*------------------------------------------------------*/
@@ -372,7 +373,7 @@ public class aShellFragment extends Fragment {
                           }
                         });
               } else {
-                mBookMark.setVisibility(View.GONE);
+                mCommandInput.setEndIconVisible(false);
                 mRecyclerViewCommands.setVisibility(View.GONE);
                 mSendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -424,6 +425,10 @@ public class aShellFragment extends Fragment {
           } else if (!Shizuku.pingBinder()) {
 
             if (isAdded()) {
+              mCommandInput.setError("Shizuku unavailable");
+
+              alignMargin(mSendButton);
+              alignMargin(localShellSymbol);
 
               new MaterialAlertDialogBuilder(requireActivity())
                   .setTitle("Warning")
@@ -439,6 +444,7 @@ public class aShellFragment extends Fragment {
 
           } else {
             if (isAdded()) {
+              mCommandInput.setError(null);
               initializeShell(requireActivity());
             }
           }
@@ -790,6 +796,7 @@ public class aShellFragment extends Fragment {
     }
 
     if (finalCommand.startsWith("su")) {
+      mCommandInput.setError("Root commands not available");
       Utils.snackBar(
               activity.findViewById(android.R.id.content), getString(R.string.su_warning_message))
           .show();
@@ -993,5 +1000,14 @@ public class aShellFragment extends Fragment {
         Utils.snackBar(mRootView, getString(R.string.bookmark_limit_reached)).show();
       }
     }
+  }
+
+  private void alignMargin(View component) {
+
+    ViewGroup.MarginLayoutParams params =
+        (ViewGroup.MarginLayoutParams) component.getLayoutParams();
+    params.bottomMargin = 29;
+    component.setLayoutParams(params);
+    component.requestLayout();
   }
 }
