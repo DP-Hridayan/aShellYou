@@ -797,6 +797,9 @@ public class aShellFragment extends Fragment {
 
     if (finalCommand.startsWith("su")) {
       mCommandInput.setError("Root commands not available");
+      alignMargin(mSendButton);
+      alignMargin(localShellSymbol);
+
       Utils.snackBar(
               activity.findViewById(android.R.id.content), getString(R.string.su_warning_message))
           .show();
