@@ -93,7 +93,6 @@ public class aShellFragment extends Fragment {
   private BottomNavigationView mNav;
   private MaterialCardView mShellCard;
   private CommandsAdapter mCommandsAdapter;
-  private boolean isKeyboardVisible;
   private ShellOutputAdapter mShellOutputAdapter;
   private RecyclerView mRecyclerViewOutput, mRecyclerViewCommands;
   private SettingsAdapter adapter;
@@ -101,7 +100,7 @@ public class aShellFragment extends Fragment {
   private ShizukuShell mShizukuShell;
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand, mSearchWord;
-  private boolean mExit;
+  private boolean mExit, isKeyboardVisible, sendButtonClicked = false;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1;
   private List<String> mHistory = null, mResult = null;
@@ -143,15 +142,18 @@ public class aShellFragment extends Fragment {
           public void onKeyboardVisibilityChanged(boolean visible) {
             isKeyboardVisible = visible;
             if (isKeyboardVisible) {
+              mPasteButton.setVisibility(View.GONE);
               if (mSaveButton.getVisibility() == View.VISIBLE) mSaveButton.setVisibility(View.GONE);
             } else {
-              if (mSaveButton.getVisibility() == View.GONE && mRecyclerViewOutput.getHeight() != 0)
-                new Handler(Looper.getMainLooper())
-                    .postDelayed(
-                        () -> {
-                          mSaveButton.setVisibility(View.VISIBLE);
-                        },
-                        100);
+
+              if (mSaveButton.getVisibility() == View.GONE
+                  && mRecyclerViewOutput.getHeight() != 0) {
+                setVisibilityWithDelay(mSaveButton, 100);
+              }
+
+              if (mPasteButton.getVisibility() == View.GONE && !sendButtonClicked) {
+                setVisibilityWithDelay(mPasteButton, 100);
+              }
             }
           }
         });
@@ -437,6 +439,7 @@ public class aShellFragment extends Fragment {
 
     mSendButton.setOnClickListener(
         v -> {
+          sendButtonClicked = true;
           mPasteButton.setVisibility(View.GONE);
           if (mShizukuShell != null && mShizukuShell.isBusy()) {
             mShizukuShell.destroy();
@@ -935,6 +938,8 @@ public class aShellFragment extends Fragment {
         });
   }
 
+  /*------------------ Functions-----------------*/
+
   /*------------------------------------------------------*/
 
   private void updateUI(List<String> data) {
@@ -972,13 +977,13 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
-  /*------------------ Functions-----------------*/
-
   @Override
   public void onDestroy() {
     super.onDestroy();
     if (mShizukuShell != null) mShizukuShell.destroy();
   }
+
+  /*------------------------------------------------------*/
 
   private void clearAll() {
     if (mShizukuShell != null) mShizukuShell.destroy();
@@ -991,6 +996,8 @@ public class aShellFragment extends Fragment {
     mCommand.clearFocus();
     if (!mCommand.isFocused()) mCommand.requestFocus();
   }
+
+  /*------------------------------------------------------*/
 
   private void hideSearchBar() {
     mSearchWord.setText(null);
@@ -1007,6 +1014,8 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  /*------------------------------------------------------*/
+
   public double getBrightness(int color) {
     int red = Color.red(color);
     int green = Color.green(color);
@@ -1014,11 +1023,15 @@ public class aShellFragment extends Fragment {
     return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
 
+  /*------------------------------------------------------*/
+
   private void showBottomNav() {
     if (getActivity() != null && getActivity() instanceof aShellActivity) {
       ((aShellActivity) getActivity()).mNav.animate().translationY(0);
     }
   }
+
+  /*------------------------------------------------------*/
 
   private void addBookmark(String bookmark, View mRootView) {
 
@@ -1037,6 +1050,8 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  /*------------------------------------------------------*/
+
   private void alignMargin(View component) {
     ViewGroup.MarginLayoutParams params =
         (ViewGroup.MarginLayoutParams) component.getLayoutParams();
@@ -1044,6 +1059,17 @@ public class aShellFragment extends Fragment {
     component.setLayoutParams(params);
     component.requestLayout();
   }
+
+  private void setVisibilityWithDelay(View view, int delayMillis) {
+    new Handler(Looper.getMainLooper())
+        .postDelayed(
+            () -> {
+              view.setVisibility(View.VISIBLE);
+            },
+            delayMillis);
+  }
+
+  /*------------------------------------------------------*/
 
   private void pasteFromClipboard() {
     ClipboardManager clipboard =
@@ -1053,6 +1079,8 @@ public class aShellFragment extends Fragment {
       ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
       String clipboardText = item.getText().toString();
       mCommand.setText(clipboardText);
+      mCommand.setSelection(mCommand.getText().length());
+
     } else {
       Toast.makeText(
               requireContext().getApplicationContext(),

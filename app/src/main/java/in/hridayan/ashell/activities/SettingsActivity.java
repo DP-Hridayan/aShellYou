@@ -46,32 +46,31 @@ public class SettingsActivity extends AppCompatActivity {
     settingsData = new ArrayList<>();
 
     // switches
-
     settingsData.add(
         new SettingsItem(
             R.drawable.ic_scroll,
             "Smooth scrolling",
             "Enables smooth scrolling in the shell output when top or bottom arrow is clicked",
             true,
-            true));
+            getSavedSwitchState("Smooth scrolling")));
+
     settingsData.add(
         new SettingsItem(
             R.drawable.ic_clear,
             "Ask before clearing shell output",
             "If enabled a confirmation popup will show after you click the Clear screen button",
             true,
-            true));
+            getSavedSwitchState("Ask before clearing shell output")));
 
-           settingsData.add(
+    settingsData.add(
         new SettingsItem(
             R.drawable.ic_warning,
             "Override maximum bookmarks limit",
             "Enabling this option might cause performance issue if a large number of bookmarks are added! Low end devices should keep this option turned off",
             true,
-            true));
-        
-    // no switches
+            getSavedSwitchState("Override maximum bookmarks limit")));
 
+    // no switches
     settingsData.add(
         new SettingsItem(
             R.drawable.ic_numbers,
@@ -95,12 +94,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsList.setAdapter(adapter);
     settingsList.setLayoutManager(new LinearLayoutManager(this));
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    adapter.notifyDataSetChanged();
   }
 
   private boolean getSavedSwitchState(String title) {

@@ -22,6 +22,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.preference.PreferenceManager;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
+
 import in.hridayan.ashell.utils.Commands;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

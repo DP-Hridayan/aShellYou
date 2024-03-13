@@ -1,10 +1,11 @@
 package in.hridayan.ashell.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
-import java.util.Objects;
+import androidx.preference.PreferenceManager;
 
 public class SettingsItem {
   private int symbolResId;
@@ -34,24 +35,12 @@ public class SettingsItem {
     return title;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
   public String getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
   public boolean hasSwitch() {
     return hasSwitch;
-  }
-
-  public void setHasSwitch(boolean hasSwitch) {
-    this.hasSwitch = hasSwitch;
   }
 
   public boolean isEnabled() {
@@ -61,21 +50,16 @@ public class SettingsItem {
   public void setEnabled(boolean isEnabled) {
     this.isEnabled = isEnabled;
   }
-    
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    SettingsItem that = (SettingsItem) o;
-    return isEnabled == that.isEnabled
-        && hasSwitch == that.hasSwitch
-        && title.equals(that.title)
-        && description.equals(that.description);
+  public void saveSwitchState(Context context) {
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    SharedPreferences.Editor editor = prefs.edit();
+    editor.putBoolean(title, isEnabled);
+    editor.apply();
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(symbolResId, title, description, hasSwitch, isEnabled);
+  public void loadSwitchState(Context context) {
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    isEnabled = prefs.getBoolean(title, false);
   }
 }

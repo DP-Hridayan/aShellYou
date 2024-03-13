@@ -1,5 +1,6 @@
 package in.hridayan.ashell.fragments;
 
+import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import static in.hridayan.ashell.utils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_NOT_FOUND;
@@ -101,6 +102,7 @@ public class otgFragment extends Fragment
   private ScrollView scrollView;
   private AlertDialog mWaitingDialog;
   private String user = null;
+  private boolean isKeyboardVisible, sendButtonClicked = false;
   private List<String> mHistory = null, mResult = null;
 
   private AdbStream stream;
@@ -142,11 +144,26 @@ public class otgFragment extends Fragment
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
+    KeyboardVisibilityChecker.attachVisibilityListener(
+        requireActivity(),
+        new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
+
+          public void onKeyboardVisibilityChanged(boolean visible) {
+            isKeyboardVisible = visible;
+            if (isKeyboardVisible) {
+              mPasteButton.setVisibility(View.GONE);
+            } else {
+              if (mPasteButton.getVisibility() == View.GONE && !sendButtonClicked) {
+                setVisibilityWithDelay(mPasteButton, 100);
+              }
+            }
+          }
+        });
+
     mPasteButton.setOnClickListener(
         v -> {
           pasteFromClipboard();
         });
-
     // Logic for changing the command send button depending on the text on the EditText
 
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -293,6 +310,7 @@ public class otgFragment extends Fragment
 
                     @Override
                     public void onClick(View v) {
+                      sendButtonClicked = true;
                       mPasteButton.setVisibility(View.GONE);
                       if (adbConnection != null) {
                         putCommand();
@@ -796,6 +814,15 @@ public class otgFragment extends Fragment
     component.requestLayout();
   }
 
+  private void setVisibilityWithDelay(View view, int delayMillis) {
+    new Handler(Looper.getMainLooper())
+        .postDelayed(
+            () -> {
+              view.setVisibility(View.VISIBLE);
+            },
+            delayMillis);
+  }
+
   private void pasteFromClipboard() {
     ClipboardManager clipboard =
         (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -804,6 +831,7 @@ public class otgFragment extends Fragment
       ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
       String clipboardText = item.getText().toString();
       mCommand.setText(clipboardText);
+      mCommand.setSelection(mCommand.getText().length());
     } else {
       Toast.makeText(
               requireContext().getApplicationContext(),

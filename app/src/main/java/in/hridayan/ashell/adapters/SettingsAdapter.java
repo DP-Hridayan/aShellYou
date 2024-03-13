@@ -51,13 +51,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       holder.switchView.setVisibility(View.VISIBLE);
       holder.titleTextView.setClickable(false);
       holder.descriptionTextView.setClickable(false);
-      boolean isChecked = getSavedSwitchState(settingsItem.getTitle());
-      holder.switchView.setChecked(isChecked);
-      settingsItem.setEnabled(isChecked);
+      holder.switchView.setChecked(settingsItem.isEnabled());
       holder.switchView.setOnCheckedChangeListener(
-          (buttonView, isCheckedNew) -> {
-            settingsItem.setEnabled(isCheckedNew);
-            saveSwitchState(settingsItem.getTitle(), isCheckedNew);
+          (buttonView, isChecked) -> {
+            settingsItem.setEnabled(isChecked);
+            settingsItem.saveSwitchState(context);
           });
     } else {
       holder.switchView.setVisibility(View.GONE);
@@ -102,13 +100,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   @Override
   public int getItemCount() {
     return settingsList.size();
-  }
-
-  public void saveSwitchState(String title, boolean isChecked) {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    SharedPreferences.Editor editor = prefs.edit();
-    editor.putBoolean(title, isChecked);
-    editor.apply();
   }
 
   public boolean getSavedSwitchState(String title) {
