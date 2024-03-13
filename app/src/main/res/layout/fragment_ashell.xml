@@ -83,17 +83,16 @@
                 android:background="@null"
                 android:clickable="false"
                 android:layout_gravity="start|center" />
-            
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="2dp"
                 android:src="@drawable/ic_help"
-                app:fabCustomSize="50dp"
                 android:id="@+id/send"
                 android:layout_gravity="center|end" />
-            
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -114,10 +113,9 @@
                     android:paddingHorizontal="10dp"
                     android:gravity="center_vertical"
                     android:cursorVisible="true"
-                    android:paddingBottom="15dp"
+                    android:inputType="textAutoComplete"
                     android:maxLines="5"
-                    android:id="@+id/shell_command"
-                    android:paddingTop="10dp" />
+                    android:id="@+id/shell_command" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,10 +125,10 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:visibility="gone"
-            android:layout_marginTop="5dp"
             android:id="@+id/recycler_view_commands" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/rv_shell_card"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             app:strokeWidth="0dp"
@@ -142,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:scrollbars="vertical"
-                android:background="?@attr/colorSurfaceDim"
+                android:background="?@attr/colorSurfaceContainerLowest"
                 android:nestedScrollingEnabled="true"
                 android:scrollbarThumbVertical="@drawable/scrollbar"
                 android:id="@+id/recycler_view_output"
@@ -247,5 +245,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/save_button"
         android:text="Save" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="100dp"
+        app:icon="@drawable/ic_paste"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/extendedFloatingActionButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/paste_button"
+        android:text="Paste" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

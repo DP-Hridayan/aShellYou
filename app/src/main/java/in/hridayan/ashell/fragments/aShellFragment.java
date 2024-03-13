@@ -2,7 +2,11 @@ package in.hridayan.ashell.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipDescription;
+import android.content.ClipboardManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -25,6 +29,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
@@ -34,11 +39,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BottomNavOnScrollListener;
 import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
@@ -80,11 +86,12 @@ import rikka.shizuku.Shizuku;
 public class aShellFragment extends Fragment {
 
   private AppCompatImageButton localShellSymbol;
-  private ExtendedFloatingActionButton mSaveButton;
+  private ExtendedFloatingActionButton mSaveButton, mPasteButton;
   private FloatingActionButton mBottomButton, mSendButton, mTopButton;
   private MaterialButton mClearButton, mHistoryButton, mSearchButton, mBookMarks, mSettingsButton;
   private FrameLayout mAppNameLayout;
   private BottomNavigationView mNav;
+  private MaterialCardView mShellCard;
   private CommandsAdapter mCommandsAdapter;
   private boolean isKeyboardVisible;
   private ShellOutputAdapter mShellOutputAdapter;
@@ -150,11 +157,14 @@ public class aShellFragment extends Fragment {
         });
 
     /*------------------------------------------------------*/
+
+    mShellCard = mRootView.findViewById(R.id.rv_shell_card);
     localShellSymbol = mRootView.findViewById(R.id.local_shell_symbol);
     mAppNameLayout = mRootView.findViewById(R.id.app_name_layout);
     mBookMarks = mRootView.findViewById(R.id.bookmarks);
     mBottomButton = mRootView.findViewById(R.id.fab_down);
     mClearButton = mRootView.findViewById(R.id.clear);
+    mPasteButton = mRootView.findViewById(R.id.paste_button);
     mCommand = mRootView.findViewById(R.id.shell_command);
     mCommandInput = mRootView.findViewById(R.id.shell_command_layout);
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
@@ -178,7 +188,13 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new BottomNavOnScrollListener(mNav));
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
+
     /*------------------------------------------------------*/
+
+    mPasteButton.setOnClickListener(
+        v -> {
+          pasteFromClipboard();
+        });
 
     mTopButton.setOnClickListener(
         new View.OnClickListener() {
@@ -245,6 +261,10 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
+    if (!mCommand.getText().toString().isEmpty()) {
+      mCommand.requestFocus();
+    }
+
     mCommand.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -252,6 +272,11 @@ public class aShellFragment extends Fragment {
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (mSearchWord.hasFocus() == false) {
+              mBookMarks.setVisibility(
+                  Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+            }
+
             mCommandInput.setError(null);
           }
 
@@ -260,7 +285,7 @@ public class aShellFragment extends Fragment {
           public void afterTextChanged(Editable s) {
 
             /*------------------------------------------------------*/
-
+            mCommand.requestFocus();
             if (s.toString().contains("\n")) {
               if (!s.toString().endsWith("\n")) {
                 mCommand.setText(s.toString().replace("\n", ""));
@@ -275,9 +300,6 @@ public class aShellFragment extends Fragment {
               }
 
               /*------------------------------------------------------*/
-
-              mBookMarks.setVisibility(
-                  Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
 
               if (!s.toString().trim().isEmpty()) {
                 mSendButton.setImageDrawable(
@@ -377,6 +399,7 @@ public class aShellFragment extends Fragment {
                 mRecyclerViewCommands.setVisibility(View.GONE);
                 mSendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+
                 mSendButton.clearColorFilter();
               }
             }
@@ -414,6 +437,7 @@ public class aShellFragment extends Fragment {
 
     mSendButton.setOnClickListener(
         v -> {
+          mPasteButton.setVisibility(View.GONE);
           if (mShizukuShell != null && mShizukuShell.isBusy()) {
             mShizukuShell.destroy();
             mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -426,7 +450,6 @@ public class aShellFragment extends Fragment {
 
             if (isAdded()) {
               mCommandInput.setError("Shizuku unavailable");
-
               alignMargin(mSendButton);
               alignMargin(localShellSymbol);
 
@@ -446,6 +469,7 @@ public class aShellFragment extends Fragment {
             if (isAdded()) {
               mCommandInput.setError(null);
               initializeShell(requireActivity());
+              return;
             }
           }
         });
@@ -480,6 +504,12 @@ public class aShellFragment extends Fragment {
                 .show();
           } else {
             clearAll();
+          }
+          if (mTopButton.getVisibility() == View.VISIBLE) {
+            mTopButton.setVisibility(View.GONE);
+          }
+          if (mBottomButton.getVisibility() == View.VISIBLE) {
+            mBottomButton.setVisibility(View.GONE);
           }
         });
 
@@ -727,7 +757,7 @@ public class aShellFragment extends Fragment {
 
   private void runShellCommand(String command, Activity activity) {
 
-    if (!isAdded() || getActivity() == null || getActivity().isFinishing()) {
+    if (!isAdded()) {
       return;
     }
     if (mRecyclerViewOutput.getAdapter() == null) {
@@ -799,10 +829,12 @@ public class aShellFragment extends Fragment {
       mCommandInput.setError("Root commands not available");
       alignMargin(mSendButton);
       alignMargin(localShellSymbol);
-
+      mCommand.requestFocus();
       Utils.snackBar(
               activity.findViewById(android.R.id.content), getString(R.string.su_warning_message))
           .show();
+      mClearButton.setVisibility(View.VISIBLE);
+      mSearchButton.setVisibility(View.VISIBLE);
       return;
     }
 
@@ -1006,11 +1038,27 @@ public class aShellFragment extends Fragment {
   }
 
   private void alignMargin(View component) {
-
     ViewGroup.MarginLayoutParams params =
         (ViewGroup.MarginLayoutParams) component.getLayoutParams();
     params.bottomMargin = 29;
     component.setLayoutParams(params);
     component.requestLayout();
+  }
+
+  private void pasteFromClipboard() {
+    ClipboardManager clipboard =
+        (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
+    if (clipboard.hasPrimaryClip()
+        && clipboard.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+      ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
+      String clipboardText = item.getText().toString();
+      mCommand.setText(clipboardText);
+    } else {
+      Toast.makeText(
+              requireContext().getApplicationContext(),
+              "Clipboard does not contain text",
+              Toast.LENGTH_SHORT)
+          .show();
+    }
   }
 }

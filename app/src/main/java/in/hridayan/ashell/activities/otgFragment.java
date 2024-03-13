@@ -8,6 +8,9 @@ import static in.hridayan.ashell.utils.MessageOtg.INSTALLING_PROGRESS;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipDescription;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -21,7 +24,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
-import com.google.android.material.textfield.TextInputLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -52,8 +54,10 @@ import com.cgutman.adblib.UsbChannel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
@@ -93,6 +97,7 @@ public class otgFragment extends Fragment
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand;
   private FloatingActionButton mSendButton;
+  private ExtendedFloatingActionButton mPasteButton;
   private ScrollView scrollView;
   private AlertDialog mWaitingDialog;
   private String user = null;
@@ -119,7 +124,7 @@ public class otgFragment extends Fragment
 
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter = new SettingsAdapter(settingsList, requireContext());
-
+    mPasteButton = view.findViewById(R.id.paste_buttonOtg);
     mCable = view.findViewById(R.id.otg_cable);
     mNav = view.findViewById(R.id.bottom_nav_bar);
     mBookMarks = view.findViewById(R.id.bookmarksOtg);
@@ -136,6 +141,11 @@ public class otgFragment extends Fragment
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
+
+    mPasteButton.setOnClickListener(
+        v -> {
+          pasteFromClipboard();
+        });
 
     // Logic for changing the command send button depending on the text on the EditText
 
@@ -162,6 +172,8 @@ public class otgFragment extends Fragment
 
           @Override
           public void afterTextChanged(Editable s) {
+            mCommand.requestFocus();
+
             String inputText = s.toString();
             if (inputText.isEmpty()) {
 
@@ -278,8 +290,10 @@ public class otgFragment extends Fragment
                   Utils.getDrawable(R.drawable.ic_send, requireActivity()));
               mSendButton.setOnClickListener(
                   new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
+                      mPasteButton.setVisibility(View.GONE);
                       if (adbConnection != null) {
                         putCommand();
                       } else {
@@ -780,5 +794,22 @@ public class otgFragment extends Fragment
     params.bottomMargin = 29;
     component.setLayoutParams(params);
     component.requestLayout();
+  }
+
+  private void pasteFromClipboard() {
+    ClipboardManager clipboard =
+        (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
+    if (clipboard.hasPrimaryClip()
+        && clipboard.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+      ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
+      String clipboardText = item.getText().toString();
+      mCommand.setText(clipboardText);
+    } else {
+      Toast.makeText(
+              requireContext().getApplicationContext(),
+              "Clipboard does not contain text",
+              Toast.LENGTH_SHORT)
+          .show();
+    }
   }
 }

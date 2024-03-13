@@ -63,7 +63,6 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="2dp"
                 android:src="@drawable/ic_help"
-                app:fabCustomSize="50dp"
                 android:id="@+id/sendCommandOtg"
                 android:layout_gravity="center|end" />
 
@@ -87,10 +86,9 @@
                     android:paddingHorizontal="10dp"
                     android:gravity="center_vertical"
                     android:cursorVisible="true"
-                    android:paddingBottom="15dp"
                     android:maxLines="5"
-                    android:id="@+id/edCommand"
-                    android:paddingTop="10dp" />
+                    android:inputType="textAutoComplete"
+                    android:id="@+id/edCommand" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -153,5 +151,18 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
         android:id="@+id/historyOtg" />
+   
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="100dp"
+        app:icon="@drawable/ic_paste"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/extendedFloatingActionButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/paste_buttonOtg"
+        android:text="Paste" />
+    
 
 </androidx.constraintlayout.widget.ConstraintLayout>
