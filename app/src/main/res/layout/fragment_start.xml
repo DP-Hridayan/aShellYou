@@ -6,7 +6,7 @@
     android:layout_height="fill_parent">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/layout_main"
+        android:id="@+id/fragment_start"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center"

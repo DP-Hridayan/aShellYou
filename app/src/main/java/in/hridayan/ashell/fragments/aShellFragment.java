@@ -53,7 +53,7 @@ import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
 import in.hridayan.ashell.activities.FabOnScrollDownListener;
 import in.hridayan.ashell.activities.FabOnScrollUpListener;
 import in.hridayan.ashell.activities.SettingsActivity;
-import in.hridayan.ashell.activities.aShellActivity;
+import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
@@ -190,6 +190,8 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new BottomNavOnScrollListener(mNav));
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
+
+    mNav.setVisibility(View.VISIBLE);
 
     /*------------------------------------------------------*/
 
@@ -1026,8 +1028,8 @@ public class aShellFragment extends Fragment {
   /*------------------------------------------------------*/
 
   private void showBottomNav() {
-    if (getActivity() != null && getActivity() instanceof aShellActivity) {
-      ((aShellActivity) getActivity()).mNav.animate().translationY(0);
+    if (getActivity() != null && getActivity() instanceof MainActivity) {
+      ((MainActivity) getActivity()).mNav.animate().translationY(0);
     }
   }
 

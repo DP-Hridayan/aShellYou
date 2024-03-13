@@ -13,10 +13,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
+import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgFragment;
 
-public class aShellActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
   private boolean isKeyboardVisible;
   public BottomNavigationView mNav;
 
@@ -77,8 +78,8 @@ public class aShellActivity extends AppCompatActivity {
               return false;
           }
         });
-    // Set initial fragment
-    replaceFragment(new aShellFragment(mNav));
+
+    initialFragment();
   }
 
   private void replaceFragment(Fragment fragment) {
@@ -142,5 +143,14 @@ public class aShellActivity extends AppCompatActivity {
     badge.setVisible(true);
     badge.setText(text);
     badge.setHorizontalOffset(0);
+  }
+
+  private void initialFragment() {
+    if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true)) {
+      mNav.setVisibility(View.GONE);
+      replaceFragment(new StartFragment());
+    } else {
+      replaceFragment(new aShellFragment(mNav));
+    }
   }
 }
