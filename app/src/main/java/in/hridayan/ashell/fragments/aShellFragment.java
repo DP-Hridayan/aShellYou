@@ -115,7 +115,7 @@ public class aShellFragment extends Fragment {
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View mRootView = inflater.inflate(R.layout.fragment_ashell, container, false);
+    View view = inflater.inflate(R.layout.fragment_ashell, container, false);
 
     /*------------------------------------------------------*/
 
@@ -160,25 +160,25 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    mShellCard = mRootView.findViewById(R.id.rv_shell_card);
-    localShellSymbol = mRootView.findViewById(R.id.local_shell_symbol);
-    mAppNameLayout = mRootView.findViewById(R.id.app_name_layout);
-    mBookMarks = mRootView.findViewById(R.id.bookmarks);
-    mBottomButton = mRootView.findViewById(R.id.fab_down);
-    mClearButton = mRootView.findViewById(R.id.clear);
-    mPasteButton = mRootView.findViewById(R.id.paste_button);
-    mCommand = mRootView.findViewById(R.id.shell_command);
-    mCommandInput = mRootView.findViewById(R.id.shell_command_layout);
+    mShellCard = view.findViewById(R.id.rv_shell_card);
+    localShellSymbol = view.findViewById(R.id.local_shell_symbol);
+    mAppNameLayout = view.findViewById(R.id.app_name_layout);
+    mBookMarks = view.findViewById(R.id.bookmarks);
+    mBottomButton = view.findViewById(R.id.fab_down);
+    mClearButton = view.findViewById(R.id.clear);
+    mPasteButton = view.findViewById(R.id.paste_button);
+    mCommand = view.findViewById(R.id.shell_command);
+    mCommandInput = view.findViewById(R.id.shell_command_layout);
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-    mHistoryButton = mRootView.findViewById(R.id.history);
-    mRecyclerViewCommands = mRootView.findViewById(R.id.recycler_view_commands);
-    mRecyclerViewOutput = mRootView.findViewById(R.id.recycler_view_output);
-    mSaveButton = mRootView.findViewById(R.id.save_button);
-    mSearchButton = mRootView.findViewById(R.id.search);
-    mSearchWord = mRootView.findViewById(R.id.search_word);
-    mSendButton = mRootView.findViewById(R.id.send);
-    mSettingsButton = mRootView.findViewById(R.id.settings);
-    mTopButton = mRootView.findViewById(R.id.fab_up);
+    mHistoryButton = view.findViewById(R.id.history);
+    mRecyclerViewCommands = view.findViewById(R.id.recycler_view_commands);
+    mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
+    mSaveButton = view.findViewById(R.id.save_button);
+    mSearchButton = view.findViewById(R.id.search);
+    mSearchWord = view.findViewById(R.id.search_word);
+    mSendButton = view.findViewById(R.id.send);
+    mSettingsButton = view.findViewById(R.id.settings);
+    mTopButton = view.findViewById(R.id.fab_up);
 
     /*------------------------------------------------------*/
 
@@ -323,11 +323,11 @@ public class aShellFragment extends Fragment {
                       if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
                         Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
                         Utils.snackBar(
-                                mRootView,
+                                view,
                                 getString(R.string.bookmark_removed_message, s.toString().trim()))
                             .show();
                       } else {
-                        addBookmark(s.toString().trim(), mRootView);
+                        addBookmark(s.toString().trim(), view);
                       }
 
                       mCommandInput.setEndIconDrawable(
@@ -469,7 +469,7 @@ public class aShellFragment extends Fragment {
             }
 
           } else {
-                    mPasteButton.setVisibility(View.GONE);
+            mPasteButton.setVisibility(View.GONE);
             if (isAdded()) {
               mCommandInput.setError(null);
               initializeShell(requireActivity());
@@ -713,7 +713,7 @@ public class aShellFragment extends Fragment {
         250,
         TimeUnit.MILLISECONDS);
 
-    return mRootView;
+    return view;
   }
 
   private int lastIndexOf(String s, String splitTxt) {
@@ -1034,19 +1034,19 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
-  private void addBookmark(String bookmark, View mRootView) {
+  private void addBookmark(String bookmark, View view) {
 
     boolean switchState = adapter.getSavedSwitchState("Override maximum bookmarks limit");
 
     if (Utils.getBookmarks(requireActivity()).size() <= 4) {
       Utils.addToBookmark(bookmark, requireActivity());
-      Utils.snackBar(mRootView, getString(R.string.bookmark_added_message, bookmark)).show();
+      Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
     } else {
       if (switchState) {
         Utils.addToBookmark(bookmark, requireActivity());
-        Utils.snackBar(mRootView, getString(R.string.bookmark_added_message, bookmark)).show();
+        Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
       } else {
-        Utils.snackBar(mRootView, getString(R.string.bookmark_limit_reached)).show();
+        Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
       }
     }
   }

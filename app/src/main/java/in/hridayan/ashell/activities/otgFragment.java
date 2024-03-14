@@ -126,19 +126,18 @@ public class otgFragment extends Fragment
 
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter = new SettingsAdapter(settingsList, requireContext());
-    mPasteButton = view.findViewById(R.id.paste_buttonOtg);
+    mPasteButton = view.findViewById(R.id.paste_button);
     mCable = view.findViewById(R.id.otg_cable);
     mNav = view.findViewById(R.id.bottom_nav_bar);
-    mBookMarks = view.findViewById(R.id.bookmarksOtg);
-    mCommandInput = view.findViewById(R.id.otg_command_layout);
+    mBookMarks = view.findViewById(R.id.bookmarks);
+    mCommandInput = view.findViewById(R.id.shell_command_layout);
     logs = view.findViewById(R.id.logs);
-    mSettingsButton = view.findViewById(R.id.settingsOtg);
-    mHistoryButton = view.findViewById(R.id.historyOtg);
+    mSettingsButton = view.findViewById(R.id.settings);
+    mHistoryButton = view.findViewById(R.id.history);
     terminalView = view.findViewById(R.id.terminalView);
-    mCommand = view.findViewById(R.id.edCommand);
-    mRecyclerViewCommands = view.findViewById(R.id.rv_commandsOtg);
-
-    mSendButton = view.findViewById(R.id.sendCommandOtg);
+    mCommand = view.findViewById(R.id.shell_command);
+    mRecyclerViewCommands = view.findViewById(R.id.rv_commands);
+    mSendButton = view.findViewById(R.id.send);
     scrollView = view.findViewById(R.id.scrollView);
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
 
