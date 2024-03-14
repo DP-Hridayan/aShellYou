@@ -40,6 +40,11 @@ public class ChangelogActivity extends AppCompatActivity {
 
     changelogItems.add(
         new ChangelogItem(
+            "Version 3.4.0",
+            "\n\n• Added a Paste button so that you can copy and paste commands quickly.\n\n• Added Error indicators in the text input field.\n\n• Improved Navigation Bar visibility logic.\n\n• Fixed an issue where switches misbehaves under certain situations.\n\n• Fixed add bookmark icon visibility in various contrast levels .\n\n• A lot of code optimisation. App now opens a lot faster than before.\n\n• App will stay in background and won't restart every time you close the app by just pressing the back button/gesture."));
+
+    changelogItems.add(
+        new ChangelogItem(
             "Version 3.3.0",
             "\n\n• Added bookmarks , history and command suggestions to OTG\n\n• Added maximum bookmarks limit.\n\n• Added option to override maximum bookmarks limit.\n\n• A lot of bug fixes.\n\n• Improved some UI handling.\n\n• A lot of code optimisation."));
 

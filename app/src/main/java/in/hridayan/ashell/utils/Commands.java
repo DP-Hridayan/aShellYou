@@ -58,11 +58,12 @@ public class Commands {
     mCommands.add(new CommandItems("exit", "Exit the shell", null));
     mCommands.add(
         new CommandItems("file <file_path>", "Determine file type", "file /system/build.prop"));
-           mCommands.add(
+    mCommands.add(
         new CommandItems("goto top", "Go to the top of the shell output (fun command)", null));
-        
-        mCommands.add(
-        new CommandItems("goto bottom", "Go to the bottom of the shell output (fun command)", null));
+
+    mCommands.add(
+        new CommandItems(
+            "goto bottom", "Go to the bottom of the shell output (fun command)", null));
     mCommands.add(
         new CommandItems("grep", "Search file(s) for lines that match a given pattern", null));
     mCommands.add(new CommandItems("kill <pid>", "Kill a process by specifying its PID", null));
@@ -392,6 +393,7 @@ public class Commands {
   }
 
   public static List<CommandItems> getPackageInfo(String command) {
+    loadPackageInfo();
     List<CommandItems> mCommands = new ArrayList<>();
     for (CommandItems packages : mPackages) {
       if (packages.getTitle().startsWith(command)) {

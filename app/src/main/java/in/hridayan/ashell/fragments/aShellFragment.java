@@ -442,7 +442,6 @@ public class aShellFragment extends Fragment {
     mSendButton.setOnClickListener(
         v -> {
           sendButtonClicked = true;
-          mPasteButton.setVisibility(View.GONE);
           if (mShizukuShell != null && mShizukuShell.isBusy()) {
             mShizukuShell.destroy();
             mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -452,7 +451,6 @@ public class aShellFragment extends Fragment {
             Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
             startActivity(examples);
           } else if (!Shizuku.pingBinder()) {
-
             if (isAdded()) {
               mCommandInput.setError("Shizuku unavailable");
               alignMargin(mSendButton);
@@ -471,6 +469,7 @@ public class aShellFragment extends Fragment {
             }
 
           } else {
+                    mPasteButton.setVisibility(View.GONE);
             if (isAdded()) {
               mCommandInput.setError(null);
               initializeShell(requireActivity());
