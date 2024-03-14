@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 app:endIconMode="custom"
-                app:endIconTint="?attr/colorOnPrimaryContainer"
+                app:endIconTint="?attr/colorPrimary"
                 android:layout_marginEnd="70dp"
                 android:hint="@string/command_title"
                 android:padding="5dp"
@@ -151,7 +151,7 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
         android:id="@+id/historyOtg" />
-   
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -163,6 +163,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/paste_buttonOtg"
         android:text="Paste" />
-    
 
 </androidx.constraintlayout.widget.ConstraintLayout>

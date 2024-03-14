@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 app:endIconMode="custom"
-                app:endIconTint="?attr/colorOnPrimaryContainer"
+                app:endIconTint="?attr/colorPrimary"
                 android:layout_marginEnd="70dp"
                 android:hint="@string/command_title"
                 android:padding="5dp"
