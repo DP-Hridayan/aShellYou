@@ -3,6 +3,8 @@ package in.hridayan.ashell.activities;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.ImageView;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +28,11 @@ public class AboutActivity extends AppCompatActivity {
     recyclerView = findViewById(R.id.about_list);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     items = new ArrayList<>();
+
+    ImageView imageView = findViewById(R.id.arrow_back);
+
+    OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+    imageView.setOnClickListener(v -> dispatcher.onBackPressed());
 
     items.add(new Category("Lead developer"));
     items.add(
@@ -63,9 +70,7 @@ public class AboutActivity extends AppCompatActivity {
       String version = pInfo.versionName;
 
       items.add(new Category.CategoryCItem("Version", version, R.drawable.ic_version_tag));
-    } catch (PackageManager.NameNotFoundException ignored) {
-      // Handle the absence of package name if needed
-    }
+    } catch (PackageManager.NameNotFoundException ignored) {}
     items.add(
         new Category.CategoryCItem(
             "Report an issue",

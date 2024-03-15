@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
@@ -90,6 +91,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         };
     holder.titleTextView.setOnClickListener(clickListener);
     holder.descriptionTextView.setOnClickListener(clickListener);
+    holder.settingsItemLayout.setOnClickListener(clickListener);
   }
 
   @Override
@@ -107,6 +109,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     TextView titleTextView;
     TextView descriptionTextView;
     MaterialSwitch switchView;
+    ConstraintLayout settingsItemLayout;
 
     public ViewHolder(View itemView) {
       super(itemView);
@@ -114,6 +117,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       titleTextView = itemView.findViewById(R.id.setting_title);
       descriptionTextView = itemView.findViewById(R.id.setting_description);
       switchView = itemView.findViewById(R.id.setting_switch);
+      settingsItemLayout = itemView.findViewById(R.id.settings_item_layout);
     }
   }
 }

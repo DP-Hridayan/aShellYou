@@ -216,7 +216,6 @@ public class aShellFragment extends Fragment {
             } else {
 
               boolean switchState = adapter.getSavedSwitchState("Smooth scrolling");
-
               if (switchState) {
 
                 mRecyclerViewOutput.smoothScrollToPosition(0);
@@ -336,6 +335,11 @@ public class aShellFragment extends Fragment {
                                   ? R.drawable.ic_bookmark_added
                                   : R.drawable.ic_add_bookmark,
                               requireActivity()));
+
+                      mBookMarks.setVisibility(
+                          Utils.getBookmarks(requireActivity()).size() > 0
+                              ? View.VISIBLE
+                              : View.GONE);
                     });
 
                 /*------------------------------------------------------*/

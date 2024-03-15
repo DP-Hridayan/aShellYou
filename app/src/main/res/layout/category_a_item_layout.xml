@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal"
+        android:textStyle="italic"
         android:gravity="center"
         android:textSize="14sp"
         android:layout_marginBottom="20dp"
