@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.google.android.material.divider.MaterialDivider;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
@@ -118,6 +119,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       descriptionTextView = itemView.findViewById(R.id.setting_description);
       switchView = itemView.findViewById(R.id.setting_switch);
       settingsItemLayout = itemView.findViewById(R.id.settings_item_layout);
-    }
+          
+            }
   }
 }

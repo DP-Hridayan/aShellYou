@@ -45,6 +45,7 @@
         app:layout_constraintStart_toStartOf="@id/setting_title"
         app:layout_constraintTop_toBottomOf="@id/setting_title" />
 
+    
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/setting_switch"
         android:layout_width="wrap_content"
@@ -55,5 +56,6 @@
         app:layout_constraintStart_toEndOf="@id/setting_title"
         app:layout_constraintTop_toTopOf="parent"
         app:thumbIcon="@drawable/thumb_drawable" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
