@@ -2,82 +2,93 @@ package in.hridayan.ashell.activities;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.adapters.AboutAdapter;
-import in.hridayan.ashell.utils.AboutItem;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AboutActivity extends AppCompatActivity {
+
+  private RecyclerView recyclerView;
+  private AboutAdapter adapter;
+  private List<Object> items;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_about);
 
-    RecyclerView recyclerViewAbout = findViewById(R.id.about_list);
+    recyclerView = findViewById(R.id.about_list);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    items = new ArrayList<>();
 
-    List<AboutItem> aboutItemList = new ArrayList<>();
+    items.add(new Category("Lead developer"));
+    items.add(
+        new Category.CategoryAItem(
+            "Hridayan", "Just a guy who loves apps and design", R.mipmap.dp_hridayan));
 
-    int statusBarColor = getColor(R.color.StatusBar);
-    double brightness = Color.luminance(statusBarColor);
-    boolean isLightStatusBar = brightness > 0.5;
+    items.add(new Category("Contributors"));
+    items.add(
+        new Category.CategoryBItem(
+            "RikkaApps",
+            "Developer of Shizuku\nMain functionality provider of aShell You",
+            R.mipmap.dp_shizuku));
 
-    View decorView = getWindow().getDecorView();
-    if (isLightStatusBar) {
-      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    }
+    items.add(
+        new Category.CategoryBItem(
+            "Sunilpaulmathew",
+            "Creator of aShell\nWithout him aShell You wouldn't exist!!'",
+            R.drawable.ic_github));
 
-    ImageView imageView = findViewById(R.id.arrow_back);
+    items.add(
+        new Category.CategoryBItem(
+            "Khun Htetz Naing",
+            "Developer of ADB OTG\nThanks to him OTG feature could be added in aShell You",
+            R.mipmap.dp_adb_otg));
 
-    OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
-    imageView.setOnClickListener(v -> dispatcher.onBackPressed());
+    items.add(
+        new Category.CategoryBItem(
+            "Krishna",
+            "He is the website developer , tester , channel manager and a lot more\n\nThanks for your support buddy 🤗",
+            R.mipmap.dp_krishna));
 
+    items.add(new Category("App"));
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
       String version = pInfo.versionName;
 
-      aboutItemList.add(new AboutItem(R.drawable.ic_version_tag, "Version", version));
+      items.add(new Category.CategoryCItem("Version", version, R.drawable.ic_version_tag));
     } catch (PackageManager.NameNotFoundException ignored) {
       // Handle the absence of package name if needed
     }
-
-    aboutItemList.add(
-        new AboutItem(
-            R.drawable.ic_credits,
-            "Credits",
-            "\nRikka apps : Shizuku\n\nsunilpaulmathew : aShell app's original creator!\n\nKhun Htetz Naing : ADB OTG creator\n\nwuxudong : creator of Flashbot\n\nKrishna : He is the one responsible for aShellYou's official website"));
-
-    aboutItemList.add(new AboutItem(R.drawable.ic_developer, "Current Developer", "Hridayan"));
-    aboutItemList.add(
-        new AboutItem(
-            R.drawable.ic_report,
+    items.add(
+        new Category.CategoryCItem(
             "Report an issue",
-            "Report any problem you have faced using the app"));
-    aboutItemList.add(
-        new AboutItem(
-            R.drawable.ic_feature,
+            "Report any issues you have faced during using the app",
+            R.drawable.ic_report));
+
+    items.add(
+        new Category.CategoryCItem(
             "Feature request",
-            "If you have any ideas in your mind, let me know !"));
-    aboutItemList.add(
-        new AboutItem(R.drawable.ic_github, "Github", "Open github repository for aShell app"));
-    aboutItemList.add(
-        new AboutItem(
-            R.drawable.ic_telegram,
+            "If you have any ideas on your mind , let me know",
+            R.drawable.ic_feature));
+
+    items.add(
+        new Category.CategoryCItem(
+            "Github", "Visit the github repository for aShell You", R.drawable.ic_github));
+
+    items.add(
+        new Category.CategoryCItem(
             "Telegram channel",
-            "Join the telegram channel for discussion"));
+            "Join the telegram channel for discussion",
+            R.drawable.ic_telegram));
 
-    AboutAdapter adapter = new AboutAdapter(aboutItemList, this);
-    recyclerViewAbout.setAdapter(adapter);
-
-    recyclerViewAbout.setLayoutManager(new LinearLayoutManager(this));
+    adapter = new AboutAdapter(items, this);
+    recyclerView.setAdapter(adapter);
   }
 }

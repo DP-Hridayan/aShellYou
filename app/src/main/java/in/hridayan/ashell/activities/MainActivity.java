@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    DynamicColors.applyIfAvailable(this);
     setContentView(R.layout.activity_ashell);
 
     mNav = findViewById(R.id.bottom_nav_bar);

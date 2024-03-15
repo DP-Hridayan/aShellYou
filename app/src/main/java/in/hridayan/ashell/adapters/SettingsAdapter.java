@@ -49,8 +49,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     if (settingsItem.hasSwitch()) {
       holder.switchView.setVisibility(View.VISIBLE);
-      holder.titleTextView.setClickable(false);
-      holder.descriptionTextView.setClickable(false);
       holder.switchView.setChecked(settingsItem.isEnabled());
       holder.switchView.setOnCheckedChangeListener(
           (buttonView, isChecked) -> {
@@ -59,13 +57,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           });
     } else {
       holder.switchView.setVisibility(View.GONE);
-      holder.titleTextView.setClickable(true);
 
       if (TextUtils.isEmpty(settingsItem.getDescription())) {
         holder.descriptionTextView.setVisibility(View.GONE);
       } else {
         holder.descriptionTextView.setVisibility(View.VISIBLE);
-        holder.descriptionTextView.setClickable(true);
       }
     }
 
@@ -90,7 +86,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             default:
               return;
           }
-
           context.startActivity(intent);
         };
     holder.titleTextView.setOnClickListener(clickListener);
