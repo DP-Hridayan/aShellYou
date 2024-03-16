@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:tint="?attr/colorControlNormal"
+        android:tint="?attr/colorPrimary"
         android:layout_margin="24dp" />
 
     <LinearLayout

@@ -841,12 +841,11 @@ public class aShellFragment extends Fragment {
       Utils.snackBar(
               activity.findViewById(android.R.id.content), getString(R.string.su_warning_message))
           .show();
-           if (mResult != null && mResult.size() > 0){
-              mClearButton.setVisibility(View.VISIBLE);
-      mSearchButton.setVisibility(View.VISIBLE);
-           }
-            
-      
+      if (mResult != null && mResult.size() > 0) {
+        mClearButton.setVisibility(View.VISIBLE);
+        mSearchButton.setVisibility(View.VISIBLE);
+      }
+
       return;
     }
 

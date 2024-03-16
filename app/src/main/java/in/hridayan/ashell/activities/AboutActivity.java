@@ -2,6 +2,8 @@ package in.hridayan.ashell.activities;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.view.View;
 import android.os.Bundle;
 import android.widget.ImageView;
 import androidx.activity.OnBackPressedDispatcher;
@@ -28,6 +30,15 @@ public class AboutActivity extends AppCompatActivity {
     recyclerView = findViewById(R.id.about_list);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     items = new ArrayList<>();
+
+    int statusBarColor = getColor(R.color.StatusBar);
+    double brightness = Color.luminance(statusBarColor);
+    boolean isLightStatusBar = brightness > 0.5;
+
+    View decorView = getWindow().getDecorView();
+    if (isLightStatusBar) {
+      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    }
 
     ImageView imageView = findViewById(R.id.arrow_back);
 
@@ -70,7 +81,8 @@ public class AboutActivity extends AppCompatActivity {
       String version = pInfo.versionName;
 
       items.add(new Category.CategoryCItem("Version", version, R.drawable.ic_version_tag));
-    } catch (PackageManager.NameNotFoundException ignored) {}
+    } catch (PackageManager.NameNotFoundException ignored) {
+    }
     items.add(
         new Category.CategoryCItem(
             "Report an issue",
