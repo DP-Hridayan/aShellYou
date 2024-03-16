@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="34">
-        
+
         <activity android:name=".activities.AboutActivity" />
         <activity android:name=".activities.ChangelogActivity" />
         <activity android:name=".activities.ExamplesActivity" />
@@ -39,6 +39,10 @@
             <meta-data
                 android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
                 android:resource="@xml/device_filter" />
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts"
+            />
         </activity>
 
         <receiver

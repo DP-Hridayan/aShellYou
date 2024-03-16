@@ -4,6 +4,9 @@
     <string
         name="app_name"
         translatable="false">aShell You</string>
+    <string name="adb_shell">ADB shell</string>
+    <string name="open_adb">Open ADB shell</string>
+    <string name="disabled">Disabled</string>
     <string name="changelogs">Changelogs</string>
     <string name="about">About</string>
     <string name="shell_working">Shell is working</string>

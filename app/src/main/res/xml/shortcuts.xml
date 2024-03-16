@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="shortcut_adb_shell"
+        android:enabled="true"
+        android:icon="@mipmap/shortcut_adb"
+        android:shortcutShortLabel="@string/adb_shell"
+        android:shortcutLongLabel="@string/open_adb"
+        android:shortcutDisabledMessage="@string/disabled">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="in.hridayan.ashell"
+            android:targetClass="in.hridayan.ashell.activities.MainActivity" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="shortcut_settings"
+        android:enabled="true"
+        android:icon="@mipmap/shortcut_settings"
+        android:shortcutShortLabel="@string/settings"
+        android:shortcutLongLabel="@string/settings"
+        android:shortcutDisabledMessage="@string/disabled">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="in.hridayan.ashell"
+            android:targetClass="in.hridayan.ashell.activities.SettingsActivity" />
+    </shortcut>
+
+</shortcuts>
