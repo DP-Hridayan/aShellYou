@@ -9,5 +9,6 @@ public class themeing extends Application {
   public void onCreate() {
     super.onCreate();
     DynamicColors.applyToActivitiesIfAvailable(this);
+    setTheme(R.style.AppTheme);
   }
 }

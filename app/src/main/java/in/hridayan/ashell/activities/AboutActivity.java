@@ -60,7 +60,7 @@ public class AboutActivity extends AppCompatActivity {
             "id_sunilpaulmathew",
             "Sunilpaulmathew",
             getString(R.string.sunilpaulmathew_about),
-            R.drawable.ic_github));
+            R.mipmap.dp_sunilpaulmathew));
 
     items.add(
         new Category.CategoryBItem(

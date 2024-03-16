@@ -41,7 +41,6 @@
     <string name="flashing_apks">Flasheando Apks</string>
     <string name="connecting">conectando...</string>
     <string name="connecting_hint">confirme a autorização no dispositivo alvo</string>
-    <string name="setup_hint">Setup Apks</string>
     <string name="flash_emoji">⚡</string>
     <string name="title_activity_setting">Setup Apks</string>
     <string name="adb_device_not_connected">Dispositivo ADB não conectado.</string>

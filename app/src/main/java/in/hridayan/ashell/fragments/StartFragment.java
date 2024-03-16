@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import rikka.shizuku.Shizuku;
