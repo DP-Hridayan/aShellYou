@@ -244,7 +244,7 @@
         style="?attr/extendedFloatingActionButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/save_button"
-        android:text="Save" />
+        android:text="@string/save" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"
@@ -256,6 +256,6 @@
         style="?attr/extendedFloatingActionButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/paste_button"
-        android:text="Paste" />
+        android:text="@string/paste" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

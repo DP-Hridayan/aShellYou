@@ -49,6 +49,7 @@
     <string name="ok">Ok</string>
     <string name="open_adb">Open ADB shell</string>
     <string name="otg_not_connected">Device is not properly connected. Connect the device properly through OTG and try again</string>
+    <string name="paste">Paste</string>
     <string name="press_back">Press back again to exit</string>
     <string name="process_destroy_message">aShell You is still working. Do you want to stop the current process?</string>
     <string name="progress">Progress</string>
@@ -56,6 +57,7 @@
     <string name="quit_app_message">Do you want to quit aShell You?</string>
     <string name="ready_flash_apks">Ready Flash Apks</string>
     <string name="request_permission">Request Permission</string>
+    <string name="save">Save</string>
     <string name="su_warning">Root commands are not available</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
@@ -121,7 +123,7 @@
 
     <string name="changelog_v1_3_0">\n\n• Revamped Settings panel.\n\n• Added Double Tap to instant scroll to top and bottom positions in shell output view.\n\n• Minor UI fixes.</string>
 
-    <string name="changelog_v1_2_0">\n\n• Added Settings panel.\n\n• Added option to disable smooth scroll in shell output.\n\n• Fixed major bugs.</string>
+    <string name="changelog_v1_2_0">\n\n• Added Settings panel.\n\n• Added option to disable smooth scroll in shell output.\n\n• Fixed major bugs:\n\n  ~  Crash while changing device theme.\n\n  ~  Crash while trying to save large shell output . eg : output of \'pm\' command.</string>
 
     <string name="changelog_v1_1_1">\n\n• Replaced some deprecated api.\n\n• Minor UI changes.</string>
 

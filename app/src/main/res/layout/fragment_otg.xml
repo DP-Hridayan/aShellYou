@@ -163,6 +163,6 @@
         style="?attr/extendedFloatingActionButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/paste_button"
-        android:text="Paste" />
+        android:text="@string/paste" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
