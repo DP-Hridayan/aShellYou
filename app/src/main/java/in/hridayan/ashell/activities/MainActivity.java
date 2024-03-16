@@ -116,20 +116,20 @@ public class MainActivity extends AppCompatActivity {
     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
     builder
         .setCancelable(false)
-        .setTitle("Warning")
+        .setTitle(getString(R.string.warning))
         .setMessage(getString(R.string.beta_warning))
         .setPositiveButton(
-            "Accept",
+            getString(R.string.accept),
             (dialogInterface, i) -> {
               replaceFragment(new otgFragment());
             })
         .setNegativeButton(
-            "Go back",
+            getString(R.string.go_back),
             (dialogInterface, i) -> {
               mNav.setSelectedItemId(R.id.nav_localShell);
             })
         .setNeutralButton(
-            "Don't show again",
+            getString(R.string.donot_show_again),
             (dialogInterface, i) -> {
               PreferenceManager.getDefaultSharedPreferences(this)
                   .edit()

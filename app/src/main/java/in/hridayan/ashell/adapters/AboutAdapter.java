@@ -100,37 +100,31 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       viewHolder.imageView.setImageResource(categoryBItem.getImageResource());
       viewHolder.titleTextView.setText(categoryBItem.getTitle());
       viewHolder.descriptionTextView.setText(categoryBItem.getDescription());
+      View.OnClickListener clickListener =
+          v -> {
+            String id = categoryBItem.getId();
+            switch (id) {
+              case "id_rikka":
+                Utils.openUrl(context, "https://github.com/RikkaApps/Shizuku");
+                break;
 
-      viewHolder.setButtonIdentifier(position);
+              case "id_sunilpaulmathew":
+                Utils.openUrl(context, "https://gitlab.com/sunilpaulmathew/ashell");
+                break;
 
-      viewHolder.buttonView.setOnClickListener(
-          new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+              case "id_khun_htetz":
+                Utils.openUrl(context, "https://github.com/KhunHtetzNaing/ADB-OTG");
+                break;
 
-              int position = viewHolder.buttonIdentifier - 2;
-
-              switch (position) {
-                case 1:
-                  Utils.openUrl(context, "https://github.com/RikkaApps/Shizuku");
-                  break;
-
-                case 2:
-                  Utils.openUrl(context, "https://gitlab.com/sunilpaulmathew/ashell");
-                  break;
-
-                case 3:
-                  Utils.openUrl(context, "https://github.com/KhunHtetzNaing/ADB-OTG");
-                  break;
-
-                case 4:
-                  Utils.openUrl(context, "https://github.com/Krishna-G-OP");
-                  break;
-                default:
-                  break;
-              }
+              case "id_krishna":
+                Utils.openUrl(context, "https://github.com/Krishna-G-OP");
+                break;
+              default:
+                break;
             }
-          });
+          };
+      viewHolder.buttonView.setOnClickListener(clickListener);
+
     } else if (holder instanceof CategoryCItemViewHolder) {
       Category.CategoryCItem categoryCItem = (Category.CategoryCItem) item;
       CategoryCItemViewHolder viewHolder = (CategoryCItemViewHolder) holder;
@@ -140,19 +134,19 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
       View.OnClickListener clickListener =
           v -> {
-            String title = categoryCItem.getTitle();
+            String id = categoryCItem.getId();
             Intent intent;
 
-            switch (title) {
-              case "Report an issue":
-              case "Feature request":
+            switch (id) {
+              case "id_report":
+              case "id_feature":
                 Utils.openUrl(context, "mailto:hridayanofficial@gmail.com");
                 break;
 
-              case "Github":
+              case "id_github":
                 Utils.openUrl(context, "https:github.com/DP-Hridayan/aShellYou");
                 break;
-              case "Telegram channel":
+              case "id_telegram":
                 Utils.openUrl(context, "https://t.me/aShellYou");
                 break;
 
@@ -181,8 +175,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
   private static class CategoryAItemViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
-    TextView titleTextView;
-    TextView descriptionTextView;
+    TextView titleTextView, descriptionTextView;
     Button mMailButton, mXButton, mGithubButton;
 
     public CategoryAItemViewHolder(@NonNull View itemView) {
@@ -198,10 +191,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
   private static class CategoryBItemViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
-    TextView titleTextView;
-    TextView descriptionTextView;
+    TextView titleTextView, descriptionTextView;
     Button buttonView;
-    int buttonIdentifier;
 
     public CategoryBItemViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -210,16 +201,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       descriptionTextView = itemView.findViewById(R.id.description_text_view);
       buttonView = itemView.findViewById(R.id.github_handle);
     }
-
-    public void setButtonIdentifier(int identifier) {
-      buttonIdentifier = identifier;
-    }
   }
 
   private static class CategoryCItemViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
-    TextView titleTextView;
-    TextView descriptionTextView;
+    TextView titleTextView, descriptionTextView;
 
     public CategoryCItemViewHolder(@NonNull View itemView) {
       super(itemView);

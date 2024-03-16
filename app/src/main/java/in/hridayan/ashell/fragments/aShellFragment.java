@@ -215,7 +215,7 @@ public class aShellFragment extends Fragment {
               mRecyclerViewOutput.scrollToPosition(0);
             } else {
 
-              boolean switchState = adapter.getSavedSwitchState("Smooth scrolling");
+              boolean switchState = adapter.getSavedSwitchState("id_smooth_scroll");
               if (switchState) {
 
                 mRecyclerViewOutput.smoothScrollToPosition(0);
@@ -246,7 +246,7 @@ public class aShellFragment extends Fragment {
                   Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
             } else {
 
-              boolean switchState = adapter.getSavedSwitchState("Smooth scrolling");
+              boolean switchState = adapter.getSavedSwitchState("id_smooth_scroll");
 
               if (switchState) {
                 mRecyclerViewOutput.smoothScrollToPosition(
@@ -456,12 +456,12 @@ public class aShellFragment extends Fragment {
             startActivity(examples);
           } else if (!Shizuku.pingBinder()) {
             if (isAdded()) {
-              mCommandInput.setError("Shizuku unavailable");
+              mCommandInput.setError(getString(R.string.shizuku_unavailable));
               alignMargin(mSendButton);
               alignMargin(localShellSymbol);
 
               new MaterialAlertDialogBuilder(requireActivity())
-                  .setTitle("Warning")
+                  .setTitle(getString(R.string.warning))
                   .setMessage(getString(R.string.shizuku_unavailable_message))
                   .setNegativeButton(
                       getString(R.string.shizuku_about),
@@ -484,7 +484,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    mSettingsButton.setTooltipText("Settings");
+    mSettingsButton.setTooltipText(getString(R.string.settings));
 
     mSettingsButton.setOnClickListener(
         v -> {
@@ -494,11 +494,11 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    mClearButton.setTooltipText("Clear screen");
+    mClearButton.setTooltipText(getString(R.string.clear_screen));
 
     mClearButton.setOnClickListener(
         v -> {
-          boolean switchState = adapter.getSavedSwitchState("Ask before clearing shell output");
+          boolean switchState = adapter.getSavedSwitchState("id_clear");
           if (switchState) {
             new MaterialAlertDialogBuilder(requireActivity())
                 .setTitle(getString(R.string.clear_everything))
@@ -523,7 +523,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    mSearchButton.setTooltipText("Search");
+    mSearchButton.setTooltipText(getString(R.string.search));
 
     mSearchButton.setOnClickListener(
         v -> {
@@ -569,7 +569,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    mBookMarks.setTooltipText("Bookmarks");
+    mBookMarks.setTooltipText(getString(R.string.bookmarks));
 
     mBookMarks.setOnClickListener(
         v -> {
@@ -595,7 +595,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    mHistoryButton.setTooltipText("History");
+    mHistoryButton.setTooltipText(getString(R.string.history));
 
     mHistoryButton.setOnClickListener(
         v -> {
@@ -834,7 +834,7 @@ public class aShellFragment extends Fragment {
     }
 
     if (finalCommand.startsWith("su")) {
-      mCommandInput.setError("Root commands not available");
+      mCommandInput.setError(getString(R.string.su_warning));
       alignMargin(mSendButton);
       alignMargin(localShellSymbol);
       mCommand.requestFocus();
@@ -1043,7 +1043,7 @@ public class aShellFragment extends Fragment {
 
   private void addBookmark(String bookmark, View view) {
 
-    boolean switchState = adapter.getSavedSwitchState("Override maximum bookmarks limit");
+    boolean switchState = adapter.getSavedSwitchState("id_override_bookmarks");
 
     if (Utils.getBookmarks(requireActivity()).size() <= 4) {
       Utils.addToBookmark(bookmark, requireActivity());
@@ -1092,7 +1092,7 @@ public class aShellFragment extends Fragment {
     } else {
       Toast.makeText(
               requireContext().getApplicationContext(),
-              "Clipboard does not contain text",
+              getString(R.string.clipboard_empty),
               Toast.LENGTH_SHORT)
           .show();
     }

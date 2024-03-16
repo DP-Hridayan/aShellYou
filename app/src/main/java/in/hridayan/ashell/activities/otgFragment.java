@@ -315,7 +315,7 @@ public class otgFragment extends Fragment
                         putCommand();
                       } else {
 
-                        mCommandInput.setError("Device not connected");
+                        mCommandInput.setError(getString(R.string.device_not_connected));
 
                         alignMargin(mSendButton);
                         alignMargin(mCable);
@@ -329,9 +329,9 @@ public class otgFragment extends Fragment
                         mHistory.add(mCommand.getText().toString());
 
                         new MaterialAlertDialogBuilder(requireActivity())
-                            .setTitle("Error")
+                            .setTitle(getString(R.string.error))
                             .setMessage(getString(R.string.otg_not_connected))
-                            .setPositiveButton("OK", (dialogInterface, i) -> {})
+                            .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
                             .show();
                       }
                     }
@@ -340,7 +340,7 @@ public class otgFragment extends Fragment
           }
         });
 
-    mBookMarks.setTooltipText("Bookmarks");
+    mBookMarks.setTooltipText(getString(R.string.bookmarks));
 
     mBookMarks.setOnClickListener(
         v -> {
@@ -362,7 +362,7 @@ public class otgFragment extends Fragment
           popupMenu.show();
         });
 
-    mHistoryButton.setTooltipText("History");
+    mHistoryButton.setTooltipText(getString(R.string.history));
 
     mHistoryButton.setOnClickListener(
         v -> {
@@ -391,7 +391,7 @@ public class otgFragment extends Fragment
       mCable.clearColorFilter();
     }
 
-    mSettingsButton.setTooltipText("Settings");
+    mSettingsButton.setTooltipText(getString(R.string.settings));
     mSettingsButton.setOnClickListener(
         v -> {
           Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
@@ -424,11 +424,13 @@ public class otgFragment extends Fragment
                 break;
 
               case FLASHING:
-                Toast.makeText(requireContext(), "Flashing", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getString(R.string.flashing), Toast.LENGTH_SHORT)
+                    .show();
                 break;
 
               case INSTALLING_PROGRESS:
-                Toast.makeText(requireContext(), "Progress", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getString(R.string.progress), Toast.LENGTH_SHORT)
+                    .show();
                 break;
             }
           }
@@ -454,7 +456,7 @@ public class otgFragment extends Fragment
             new File(requireActivity().getFilesDir(), "private_key"),
             new File(requireActivity().getFilesDir(), "public_key"));
       } catch (Exception e) {
-        Log.w(Const.TAG, "fail to generate and save key-pair", e);
+        Log.w(Const.TAG, getString(R.string.generate_key_failed), e);
       }
     }
 
@@ -509,7 +511,7 @@ public class otgFragment extends Fragment
         new MaterialAlertDialogBuilder(requireActivity())
             .setCancelable(false)
             .setView(dialogView)
-            .setTitle("Waiting for device")
+            .setTitle(getString(R.string.waiting_device))
             .show();
 
     progressBar.setVisibility(View.VISIBLE);
@@ -524,7 +526,7 @@ public class otgFragment extends Fragment
           try {
             setAdbInterface(device, intf);
           } catch (Exception e) {
-            Log.w(Const.TAG, "setAdbInterface(device, intf) fail", e);
+            Log.w(Const.TAG, getString(R.string.set_adb_interface_fail), e);
           }
         }
       }.start();
@@ -724,7 +726,8 @@ public class otgFragment extends Fragment
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-    } else Toast.makeText(requireContext(), "No command", Toast.LENGTH_SHORT).show();
+    } else
+      Toast.makeText(requireContext(), getString(R.string.no_command), Toast.LENGTH_SHORT).show();
   }
 
   public void open(View view) {}
@@ -789,7 +792,7 @@ public class otgFragment extends Fragment
 
   private void addBookmark(String bookmark, View view) {
 
-    boolean switchState = adapter.getSavedSwitchState("Override maximum bookmarks limit");
+    boolean switchState = adapter.getSavedSwitchState("id_override_bookmarks");
 
     if (Utils.getBookmarks(requireActivity()).size() <= 4) {
       Utils.addToBookmark(bookmark, requireActivity());
@@ -834,7 +837,7 @@ public class otgFragment extends Fragment
     } else {
       Toast.makeText(
               requireContext().getApplicationContext(),
-              "Clipboard does not contain text",
+              getString(R.string.clipboard_empty),
               Toast.LENGTH_SHORT)
           .show();
     }

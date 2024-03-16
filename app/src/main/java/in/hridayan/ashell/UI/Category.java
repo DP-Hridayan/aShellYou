@@ -14,7 +14,7 @@ public class Category {
   public static class CategoryAItem {
     private String title;
     private String description;
-    private int imageResource ;
+    private int imageResource;
 
     public CategoryAItem(String title, String description, int imageResource) {
       this.title = title;
@@ -36,14 +36,18 @@ public class Category {
   }
 
   public static class CategoryBItem {
-    private String title;
-    private String description;
+    private String id, title, description;
     private int imageResource;
 
-    public CategoryBItem(String title, String description, int imageResource) {
+    public CategoryBItem(String id, String title, String description, int imageResource) {
+      this.id = id;
       this.title = title;
       this.description = description;
       this.imageResource = imageResource;
+    }
+
+    public String getId() {
+      return id;
     }
 
     public String getTitle() {
@@ -60,14 +64,18 @@ public class Category {
   }
 
   public static class CategoryCItem {
-    private String title;
-    private String description;
+    private String id, title, description;
     private int imageResource;
 
-    public CategoryCItem(String title, String description, int imageResource) {
+    public CategoryCItem(String id, String title, String description, int imageResource) {
+      this.id = id;
       this.title = title;
       this.description = description;
       this.imageResource = imageResource;
+    }
+
+    public String getId() {
+      return id;
     }
 
     public String getTitle() {

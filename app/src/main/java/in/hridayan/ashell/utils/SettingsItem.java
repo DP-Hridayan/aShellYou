@@ -9,22 +9,26 @@ import androidx.preference.PreferenceManager;
 
 public class SettingsItem {
   private int symbolResId;
-  private String title;
-  private String description;
-  private boolean isEnabled;
-  private boolean hasSwitch;
+  private String description, title, id;
+  private boolean hasSwitch, isEnabled;
 
   public SettingsItem(
+      String id,
       @DrawableRes int symbolResId,
       String title,
       String description,
       boolean hasSwitch,
       boolean isEnabled) {
+    this.id = id;
     this.symbolResId = symbolResId;
     this.title = title;
     this.description = description;
     this.hasSwitch = hasSwitch;
     this.isEnabled = isEnabled;
+  }
+
+  public String getId() {
+    return id;
   }
 
   public Drawable getSymbol(Context context) {
@@ -54,12 +58,12 @@ public class SettingsItem {
   public void saveSwitchState(Context context) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
     SharedPreferences.Editor editor = prefs.edit();
-    editor.putBoolean(title, isEnabled);
+    editor.putBoolean(id, isEnabled);
     editor.apply();
   }
 
   public void loadSwitchState(Context context) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    isEnabled = prefs.getBoolean(title, false);
+    isEnabled = prefs.getBoolean(id, false);
   }
 }

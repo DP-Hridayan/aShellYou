@@ -69,19 +69,19 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     View.OnClickListener clickListener =
         v -> {
-          String title = settingsItem.getTitle();
+          String id = settingsItem.getId();
           Intent intent;
 
-          switch (title) {
-            case "Changelogs":
+          switch (id) {
+            case "id_changelogs":
               intent = new Intent(context, ChangelogActivity.class);
               break;
 
-            case "Examples":
+            case "id_examples":
               intent = new Intent(context, ExamplesActivity.class);
               break;
 
-            case "About":
+            case "id_about":
               intent = new Intent(context, AboutActivity.class);
               break;
 
@@ -100,9 +100,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     return settingsList.size();
   }
 
-  public boolean getSavedSwitchState(String title) {
+  public boolean getSavedSwitchState(String id) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    return prefs.getBoolean(title, false);
+    return prefs.getBoolean(id, false);
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -119,7 +119,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       descriptionTextView = itemView.findViewById(R.id.setting_description);
       switchView = itemView.findViewById(R.id.setting_switch);
       settingsItemLayout = itemView.findViewById(R.id.settings_item_layout);
-          
-            }
+    }
   }
 }
