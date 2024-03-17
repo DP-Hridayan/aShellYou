@@ -32,7 +32,7 @@ public class KeyboardVisibilityChecker {
 
                 // If the height difference is greater than 200 pixels, assume the keyboard is
                 // visible
-                boolean isVisible = heightDiff > 200;
+                boolean isVisible = heightDiff > 500;
 
                 if (isVisible != wasOpened) {
                   wasOpened = isVisible;

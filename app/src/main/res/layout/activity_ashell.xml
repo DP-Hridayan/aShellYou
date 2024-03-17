@@ -9,13 +9,12 @@
     android:layout_width="match_parent"
     tools:context=".MainActivity">
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         app:menu="@menu/bottom_nav_menu"
         android:layout_gravity="bottom"
-        android:id="@+id/bottom_nav_bar" 
-        android:layerType="hardware"/>
+        android:id="@+id/bottom_nav_bar"
+        android:layerType="hardware" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
