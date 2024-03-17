@@ -19,7 +19,6 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            app:expandedTitleMarginBottom="45dp"
             app:expandedTitleMarginEnd="25dp"
             app:expandedTitleMarginStart="25dp"
             app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle"
