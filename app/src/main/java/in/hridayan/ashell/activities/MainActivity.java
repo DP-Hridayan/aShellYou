@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-        
-    setContentView(R.layout.activity_ashell);
+
+    setContentView(R.layout.activity_main);
 
     mNav = findViewById(R.id.bottom_nav_bar);
 
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
   private void showaShellFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
         instanceof aShellFragment)) {
-      replaceFragment(new aShellFragment(mNav));
+      replaceFragment(new aShellFragment());
     }
   }
 
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
       mNav.setVisibility(View.GONE);
       replaceFragment(new StartFragment());
     } else {
-      replaceFragment(new aShellFragment(mNav));
+      replaceFragment(new aShellFragment());
     }
   }
 }

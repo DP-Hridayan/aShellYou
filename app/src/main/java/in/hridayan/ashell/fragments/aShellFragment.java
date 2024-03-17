@@ -46,7 +46,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.BottomNavOnScrollListener;
 import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
@@ -107,9 +106,7 @@ public class aShellFragment extends Fragment {
 
   public aShellFragment() {}
 
-  public aShellFragment(BottomNavigationView nav) {
-    this.mNav = nav;
-  }
+  
 
   @Nullable
   @Override
@@ -187,7 +184,7 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
-    mRecyclerViewOutput.addOnScrollListener(new BottomNavOnScrollListener(mNav));
+   
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
 
