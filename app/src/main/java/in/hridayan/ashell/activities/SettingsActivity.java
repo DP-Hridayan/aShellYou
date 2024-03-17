@@ -48,58 +48,55 @@ public class SettingsActivity extends AppCompatActivity {
     // switches
     settingsData.add(
         new SettingsItem(
-            "id_smooth_scroll",
             R.drawable.ic_scroll,
-            getString(R.string.smooth_scrolling),
-            getString(R.string.des_smooth_scroll),
+                getString(R.string.smooth_scrolling)
+            "Smooth scrolling",
+            "Enables smooth scrolling in the shell output when top or bottom arrow is clicked",
             true,
-            getSavedSwitchState("id_smooth_scroll")));
+            getSavedSwitchState("Smooth scrolling")));
 
     settingsData.add(
         new SettingsItem(
-            "id_clear",
             R.drawable.ic_clear,
-            getString(R.string.ask_to_clean),
-            getString(R.string.des_ask_to_clean),
+                getString(R.strings.clear_shell)
+            "Ask before clearing shell output",
+            "If enabled a confirmation popup will show after you click the Clear screen button",
             true,
-            getSavedSwitchState("id_clear")));
+            getSavedSwitchState("Ask before clearing shell output")));
 
     settingsData.add(
         new SettingsItem(
-            "id_override_bookmarks",
             R.drawable.ic_warning,
-            getString(R.string.override_bookmarks_limit),
-            getString(R.string.des_override_bookmarks),
+                getString(R.strings.override_bookmarks)
+            "Override maximum bookmarks limit",
+            "Enabling this option might cause performance issue if a large number of bookmarks are added! Low end devices should keep this option turned off",
             true,
-            getSavedSwitchState("id_override_bookmarks")));
+            getSavedSwitchState("Override maximum bookmarks limit")));
 
     // no switches
     settingsData.add(
         new SettingsItem(
-            "id_examples",
             R.drawable.ic_numbers,
-            getString(R.string.examples),
-            getString(R.string.des_examples),
+                getString(R.strings.show_examples)
+            "Examples",
+            "Collection of some command templates.",
             false,
             false));
 
     settingsData.add(
         new SettingsItem(
-            "id_changelogs",
             R.drawable.ic_changelog,
-            getString(R.string.changelogs),
-            getString(R.string.des_changelogs),
+                getString(R.strings.show_history)
+            "Changelogs",
+            "History of all the changes made to the app",
             false,
             false));
 
     settingsData.add(
-        new SettingsItem(
-            "id_about",
-            R.drawable.ic_info,
-            getString(R.string.about),
-            getString(R.string.des_about),
-            false,
-            false));
+        new SettingsItem(R.drawable.ic_info,
+                getString(R.strings.Credits)
+                 "About", "Version , Credits",
+                 false, false));
 
     adapter = new SettingsAdapter(settingsData, this);
 
@@ -107,8 +104,8 @@ public class SettingsActivity extends AppCompatActivity {
     settingsList.setLayoutManager(new LinearLayoutManager(this));
   }
 
-  private boolean getSavedSwitchState(String id) {
+  private boolean getSavedSwitchState(String title) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-    return prefs.getBoolean(id, false);
+    return prefs.getBoolean(title, false);
   }
 }
