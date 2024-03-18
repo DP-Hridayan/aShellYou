@@ -112,5 +112,4 @@
     <string name="changelog_v1_0_0">\n• Adicionados mais alguns exemplos de comando.\n\n• Pequenas alterações na interface do usuário.\n\n• Alterado o nome do pacote para evitar confusão de versão com o aplicativo original.</string>
     <string name="changelog_v0_9_1">\n• Adicionado changelog no aplicativo.\n\n• Adicionada saída de shell destacada.\n\n• Pequenas alterações na interface do usuário.</string>
     <string name="changelog_v0_9_0">\n• Adicionado tema material dinâmico.\n\n• Reformulada toda a interface do usuário para dar uma nova aparência.</string>
-    <string name="setup_hint">Setup Apks</string>
 </resources>
