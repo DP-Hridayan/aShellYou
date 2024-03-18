@@ -3,9 +3,10 @@ package in.hridayan.ashell.activities;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.view.View;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ public class AboutActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    EdgeToEdge.enable(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_about);
 
@@ -73,6 +75,10 @@ public class AboutActivity extends AppCompatActivity {
         new Category.CategoryBItem(
             "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
 
+           items.add(
+        new Category.CategoryBItem(
+            "id_drDisagree", "DrDisagree", getString(R.string.drDisagree_about), R.mipmap.dp_drdisagree));
+        
     items.add(new Category(getString(R.string.app)));
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);

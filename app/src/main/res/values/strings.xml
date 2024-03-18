@@ -94,6 +94,7 @@
     <string name="sunilpaulmathew_about">Developer of aShell\nWithout him aShell You wouldn\'t exist</string>
     <string name="khun_htetz_about">Developer of ADB⚡OTG\nThanks to him OTG feature could be implemented in aShell You</string>
     <string name="krishna_about">He is the website developer , tester , channel manager and a lot more\n\nThanks for your support buddy 🤗</string>
+    <string name="drDisagree_about">Developer of Iconify\nHelped me fix issues in aShell You 🤝</string>
     <string name="app">App</string>
     <string name="version">Version</string>
     <string name="report">Report an issue</string>
@@ -105,8 +106,8 @@
     <string name="telegram_channel">Telegram channel</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     //Changelogs
-   <string name="changelog_v3_5_0">\n\n• Revamped About section of the app.\n\n• Added launcher shortcuts.\n\n• Fixed navigation menu not showing in button navigation.\n\n• Improved bottom navigation menu visibility on scrolling.\n\n• Added per app language support for aShell You (translations aren\'t completed yet).\n\n• A lot of code optimisations.</string>
-    
+    <string name="changelog_v3_5_0">\n\n• Revamped About section of the app.\n\n• Added launcher shortcuts.\n\n• Fixed navigation menu not showing in button navigation.\n\n• Improved bottom navigation menu visibility on scrolling.\n\n• Added per app language support for aShell You (translations aren\'t completed yet).\n\n• A lot of code optimisations.</string>
+
     <string name="changelog_v3_4_0">\n\n• Added a Paste button so that you can copy and paste commands quickly.\n\n• Added Error indicators in the text input field.\n\n• Improved Navigation Bar visibility logic.\n\n• Fixed an issue where switches misbehaves under certain situations.\n\n• Fixed add bookmark icon visibility in various contrast levels.\n\n• A lot of code optimisation. App now opens a lot faster than before.\n\n• App will stay in background and won\'t restart every time you close the app by just pressing the back button or gesture.</string>
 
     <string name="changelog_v3_3_0">\n\n• Added bookmarks , history and command suggestions to OTG\n\n• Added maximum bookmarks limit.\n\n• Added option to override maximum bookmarks limit.\n\n• A lot of bug fixes.\n\n• Improved some UI handling.\n\n• A lot of code optimisation.</string>

@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ public class ChangelogActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    EdgeToEdge.enable(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_changelog);
 
@@ -38,7 +40,7 @@ public class ChangelogActivity extends AppCompatActivity {
 
     List<ChangelogItem> changelogItems = new ArrayList<>();
 
-          changelogItems.add(new ChangelogItem("Version 3.5.0", getString(R.string.changelog_v3_5_0)));
+    changelogItems.add(new ChangelogItem("Version 3.5.0", getString(R.string.changelog_v3_5_0)));
 
     changelogItems.add(new ChangelogItem("Version 3.4.0", getString(R.string.changelog_v3_4_0)));
 
