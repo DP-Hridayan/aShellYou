@@ -283,11 +283,10 @@ public class aShellFragment extends Fragment {
 
             /*------------------------------------------------------*/
             mCommand.requestFocus();
-            if (s.toString().contains("\n")) {
 
-              if (mShizukuShell != null && mShizukuShell.isBusy()) {
-                return;
-              }
+            if (mShizukuShell != null && mShizukuShell.isBusy()) {
+              return;
+            } else {
 
               /*------------------------------------------------------*/
 
@@ -444,6 +443,14 @@ public class aShellFragment extends Fragment {
           } else if (!Shizuku.pingBinder()) {
             if (isAdded()) {
               mCommandInput.setError(getString(R.string.shizuku_unavailable));
+              if (mCommand.getText() != null) {
+                mCommandInput.setErrorIconDrawable(
+                    Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+                mCommandInput.setErrorIconOnClickListener(
+                    t -> {
+                      mCommand.setText(null);
+                    });
+              }
               alignMargin(mSendButton);
               alignMargin(localShellSymbol);
 
@@ -822,6 +829,7 @@ public class aShellFragment extends Fragment {
 
     if (finalCommand.startsWith("su")) {
       mCommandInput.setError(getString(R.string.su_warning));
+      mCommandInput.setErrorIconDrawable(Utils.getDrawable(R.drawable.ic_error, requireActivity()));
       alignMargin(mSendButton);
       alignMargin(localShellSymbol);
       mCommand.requestFocus();
