@@ -107,6 +107,9 @@
     <string name="telegram_channel">Telegram channel</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     //Changelogs
+    
+   <string name="changelog_v3_5_1">\n\n• Fixed some issues with bottom navigation.</string>
+    
     <string name="changelog_v3_5_0">\n\n• Revamped About section of the app.\n\n• Added launcher shortcuts.\n\n• Fixed navigation menu not showing in button navigation.\n\n• Improved bottom navigation menu visibility on scrolling.\n\n• Added per app language support for aShell You (translations aren\'t completed yet).\n\n• A lot of code optimisations.</string>
 
     <string name="changelog_v3_4_0">\n\n• Added a Paste button so that you can copy and paste commands quickly.\n\n• Added Error indicators in the text input field.\n\n• Improved Navigation Bar visibility logic.\n\n• Fixed an issue where switches misbehaves under certain situations.\n\n• Fixed add bookmark icon visibility in various contrast levels.\n\n• A lot of code optimisation. App now opens a lot faster than before.\n\n• App will stay in background and won\'t restart every time you close the app by just pressing the back button or gesture.</string>

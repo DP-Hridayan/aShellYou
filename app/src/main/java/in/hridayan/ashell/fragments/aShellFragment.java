@@ -106,8 +106,6 @@ public class aShellFragment extends Fragment {
 
   public aShellFragment() {}
 
-  
-
   @Nullable
   @Override
   public View onCreateView(
@@ -184,7 +182,6 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
-   
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
 
@@ -287,14 +284,7 @@ public class aShellFragment extends Fragment {
             /*------------------------------------------------------*/
             mCommand.requestFocus();
             if (s.toString().contains("\n")) {
-              if (!s.toString().endsWith("\n")) {
-                mCommand.setText(s.toString().replace("\n", ""));
-              }
-              if (isAdded()) {
-                initializeShell(requireActivity());
-              }
 
-            } else {
               if (mShizukuShell != null && mShizukuShell.isBusy()) {
                 return;
               }
