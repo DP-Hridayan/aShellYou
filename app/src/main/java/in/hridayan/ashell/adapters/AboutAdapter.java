@@ -122,6 +122,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
               case "id_drDisagree":
                 Utils.openUrl(context, "https://github.com/Mahmud0808");
+                break;
+
+              case "id_marciozomb13":
+                Utils.openUrl(context, "https://github.com/marciozomb13");
+                break;
               default:
                 break;
             }

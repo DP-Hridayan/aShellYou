@@ -79,6 +79,11 @@ public class AboutActivity extends AppCompatActivity {
         new Category.CategoryBItem(
             "id_drDisagree", "DrDisagree", getString(R.string.drDisagree_about), R.mipmap.dp_drdisagree));
         
+       
+           items.add(
+        new Category.CategoryBItem(
+            "id_marciozomb13", "marciozomb13", getString(R.string.marciozomb13_about), R.mipmap.dp_marciozomb13));
+        
     items.add(new Category(getString(R.string.app)));
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
