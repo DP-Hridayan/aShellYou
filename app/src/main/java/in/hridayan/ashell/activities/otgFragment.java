@@ -316,6 +316,10 @@ public class otgFragment extends Fragment
                       } else {
 
                         mCommandInput.setError(getString(R.string.device_not_connected));
+                                        mCommandInput.setErrorIconDrawable(Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+                                        mCommandInput.setErrorIconOnClickListener(t->{
+                                            mCommand.setText(null);
+                                        });
 
                         alignMargin(mSendButton);
                         alignMargin(mCable);

@@ -39,6 +39,8 @@ public class Commands {
             "cp -r <from> <to>",
             "Copy a file or directory",
             "cp -r /system/app /sdcard\n\ncp -r /system/app /sdcard/abc"));
+
+    mCommands.add(new CommandItems("du -h", "Shows disk usage in human readable form", null));
     mCommands.add(new CommandItems("dumpsys activity", "Print activity info", null));
     mCommands.add(new CommandItems("dumpsys battery", "Primt battery stats", null));
     mCommands.add(
