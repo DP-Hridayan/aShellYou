@@ -91,7 +91,7 @@
             app:layout_constraintTop_toBottomOf="@id/mail"
             app:layout_constraintStart_toStartOf="@id/mail"
             app:layout_constraintEnd_toEndOf="@id/x"
-            android:text="Support"
+            android:text="@string/support"
             style="?attr/materialIconButtonFilledTonalStyle"
             android:id="@+id/support" />
 

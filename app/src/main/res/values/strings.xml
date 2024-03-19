@@ -71,6 +71,7 @@
     <string name="shizuku_unavailable_message">Shizuku is not installed or not properly configured on your device. aShell You won\'t work without a proper Shizuku environment.</string>
     <string name="start">Start</string>
     <string name="success">Success</string>
+    <string name="support">Support</string>
     <string name="su_warning_message">aShell You is not designed for root-related uses. Aborting.</string>
     <string name="title_activity_setting">Setup Apks</string>
     <string name="waiting_device">Waiting for device</string>
