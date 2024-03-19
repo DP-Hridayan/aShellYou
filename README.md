@@ -16,6 +16,9 @@
 ## Download
 Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/releases).
 
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total)
+
+
 ## Features
 * An elegantly designed user interface with modern material you and material design 3 .
 * Has both Shizuku(local ADB) and OTG ADB support.
