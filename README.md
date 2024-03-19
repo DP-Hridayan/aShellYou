@@ -32,7 +32,7 @@ Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/rel
 * A lot more.
 
 ## Discussions Channel
-<a href="https://t.me/aShellNew">
+<a href="https://t.me/aShellYou">
   <img src="https://img.shields.io/badge/telegram-blue?logo=telegram" alt="Static Badge" width="240" height="65">
 </a>
 
