@@ -17,31 +17,34 @@ android {
         versionCode 30
         versionName "v3.6.0"
     }
-         Properties properties = new Properties()
-        properties.load(new FileInputStream(file('../signing-foss.properties')))
+
+    Properties properties = new Properties()
+    File propertiesFile = file('../signing-foss.properties')
+    if (propertiesFile.exists()) {
+        properties.load(new FileInputStream(propertiesFile))
 
         signingConfigs {
-            release {
+            create("release") {
                 storeFile file(properties['storeFile'])
-                storePassword properties ['storePassword']
-                keyAlias properties ['keyAlias']
-                keyPassword properties ['keyPassword']
+                storePassword properties['storePassword']
+                keyAlias properties['keyAlias']
+                keyPassword properties['keyPassword']
             }
         }
-    
+
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+                minifyEnabled true
+                shrinkResources true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
+        }
+    }
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             outputFileName = "aShell You " + variant.versionName + ".apk"
-        }
-    }
-
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
