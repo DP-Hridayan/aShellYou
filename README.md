@@ -18,6 +18,7 @@ Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/rel
 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?link=https%3A%2F%2Fgithub.com%2FDP-Hridayan%2FaShellYou%2Freleases)
 
+<a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="https://f-droid.org/badge/get-it-on.png" width="34.4%" alt="Get it on F-Droid" /></a>
 
 
 ## Features
