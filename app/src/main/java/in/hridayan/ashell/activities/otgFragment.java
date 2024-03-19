@@ -1,6 +1,5 @@
 package in.hridayan.ashell.fragments;
 
-import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import static in.hridayan.ashell.utils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_NOT_FOUND;
@@ -15,7 +14,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbInterface;
@@ -62,6 +60,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
@@ -112,17 +111,6 @@ public class otgFragment extends Fragment
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_otg, container, false);
-
-    int statusBarColor = getResources().getColor(R.color.StatusBar);
-    double brightness = getBrightness(statusBarColor);
-    boolean isLightStatusBar = brightness > 0.5;
-
-    View decorView = requireActivity().getWindow().getDecorView();
-    if (isLightStatusBar) {
-      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    } else {
-      decorView.setSystemUiVisibility(0);
-    }
 
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter = new SettingsAdapter(settingsList, requireContext());
@@ -770,13 +758,6 @@ public class otgFragment extends Fragment
     } else {
       return false;
     }
-  }
-
-  public double getBrightness(int color) {
-    int red = Color.red(color);
-    int green = Color.green(color);
-    int blue = Color.blue(color);
-    return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
 
   private List<String> getRecentCommands() {

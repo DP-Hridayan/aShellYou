@@ -2,9 +2,7 @@ package in.hridayan.ashell.activities;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
@@ -32,15 +30,6 @@ public class AboutActivity extends AppCompatActivity {
     recyclerView = findViewById(R.id.about_list);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     items = new ArrayList<>();
-
-    int statusBarColor = getColor(R.color.StatusBar);
-    double brightness = Color.luminance(statusBarColor);
-    boolean isLightStatusBar = brightness > 0.5;
-
-    View decorView = getWindow().getDecorView();
-    if (isLightStatusBar) {
-      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    }
 
     ImageView imageView = findViewById(R.id.arrow_back);
 
@@ -75,15 +64,20 @@ public class AboutActivity extends AppCompatActivity {
         new Category.CategoryBItem(
             "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
 
-           items.add(
+    items.add(
         new Category.CategoryBItem(
-            "id_drDisagree", "DrDisagree", getString(R.string.drDisagree_about), R.mipmap.dp_drdisagree));
-        
-       
-           items.add(
+            "id_drDisagree",
+            "DrDisagree",
+            getString(R.string.drDisagree_about),
+            R.mipmap.dp_drdisagree));
+
+    items.add(
         new Category.CategoryBItem(
-            "id_marciozomb13", "marciozomb13", getString(R.string.marciozomb13_about), R.mipmap.dp_marciozomb13));
-        
+            "id_marciozomb13",
+            "marciozomb13",
+            getString(R.string.marciozomb13_about),
+            R.mipmap.dp_marciozomb13));
+
     items.add(new Category(getString(R.string.app)));
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);

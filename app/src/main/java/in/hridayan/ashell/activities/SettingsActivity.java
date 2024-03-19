@@ -1,9 +1,7 @@
 package in.hridayan.ashell.activities;
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
@@ -28,15 +26,6 @@ public class SettingsActivity extends AppCompatActivity {
     EdgeToEdge.enable(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
-
-    int statusBarColor = getColor(R.color.StatusBar);
-    double brightness = Color.luminance(statusBarColor);
-    boolean isLightStatusBar = brightness > 0.5;
-
-    View decorView = getWindow().getDecorView();
-    if (isLightStatusBar) {
-      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    }
 
     ImageView imageView = findViewById(R.id.arrow_back);
 

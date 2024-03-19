@@ -1,6 +1,5 @@
 package in.hridayan.ashell.activities;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -51,16 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
           }
         });
-
-    int statusBarColor = getColor(R.color.StatusBar);
-    double brightness = Color.luminance(statusBarColor);
-    boolean isLightStatusBar = brightness > 0.5;
-
-    View decorView = getWindow().getDecorView();
-    if (isLightStatusBar) {
-      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    }
-
+    
     setupNavigation();
     setBadge(R.id.nav_otgShell, "Beta");
     setBadge(R.id.nav_wireless, "Soon");

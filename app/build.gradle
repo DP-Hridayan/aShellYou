@@ -4,17 +4,11 @@ plugins {
 
 android {
     compileSdk 34
-	namespace 'in.hridayan.ashell'
+    namespace 'in.hridayan.ashell'
 
-
-    android {
-      androidResources {
+    androidResources {
         generateLocaleConfig true
-      }
     }
-    
-
-
 
     defaultConfig {
         applicationId "in.hridayan.ashell"
@@ -23,19 +17,22 @@ android {
         versionCode 29
         versionName "v3.5.1"
     }
+         Properties properties = new Properties()
+        properties.load(new FileInputStream(file('../signing-foss.properties')))
 
-    signingConfigs {
-        release {
-            storeFile file('/storage/emulated/0/AndroidIDEProjects/keys/hridayan-ashell-release.jks')
-            storePassword 'hridayan@aShellYou'
-            keyAlias 'aShellYou-key'
-            keyPassword 'hridayan@aShellYou'
+        signingConfigs {
+            release {
+                storeFile file(properties['storeFile'])
+                storePassword properties ['storePassword']
+                keyAlias properties ['keyAlias']
+                keyPassword properties ['keyPassword']
+            }
         }
-    }
+    
 
-    android.applicationVariants.all { variant ->
+    applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            outputFileName = "aShell You " + variant.versionName + ".apk";
+            outputFileName = "aShell You " + variant.versionName + ".apk"
         }
     }
 
@@ -58,7 +55,7 @@ dependencies {
     implementation "androidx.preference:preference:1.2.1"
     implementation "dev.rikka.shizuku:api:12.1.0"
     implementation "dev.rikka.shizuku:provider:12.1.0"
-   implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.13.2'
     implementation project(':adblib')
     implementation 'com.github.bumptech.glide:glide:4.16.0'

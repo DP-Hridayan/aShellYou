@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,8 +50,8 @@ import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
 import in.hridayan.ashell.activities.FabOnScrollDownListener;
 import in.hridayan.ashell.activities.FabOnScrollUpListener;
-import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.activities.MainActivity;
+import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
@@ -116,19 +115,6 @@ public class aShellFragment extends Fragment {
 
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter = new SettingsAdapter(settingsList, requireContext());
-
-    int statusBarColor = getResources().getColor(R.color.StatusBar);
-    double brightness = getBrightness(statusBarColor);
-    boolean isLightStatusBar = brightness > 0.5;
-
-    if (isAdded()) {
-      View decorView = requireActivity().getWindow().getDecorView();
-      if (isLightStatusBar) {
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-      } else {
-        decorView.setSystemUiVisibility(0);
-      }
-    }
 
     KeyboardVisibilityChecker.attachVisibilityListener(
         requireActivity(),
@@ -1015,15 +1001,6 @@ public class aShellFragment extends Fragment {
       mClearButton.setVisibility(View.VISIBLE);
       mSearchButton.setVisibility(View.VISIBLE);
     }
-  }
-
-  /*------------------------------------------------------*/
-
-  public double getBrightness(int color) {
-    int red = Color.red(color);
-    int green = Color.green(color);
-    int blue = Color.blue(color);
-    return 0.299 * red + 0.587 * green + 0.114 * blue;
   }
 
   /*------------------------------------------------------*/

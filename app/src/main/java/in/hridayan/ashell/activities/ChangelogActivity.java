@@ -1,8 +1,6 @@
 package in.hridayan.ashell.activities;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
@@ -23,14 +21,6 @@ public class ChangelogActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_changelog);
 
-    int statusBarColor = getColor(R.color.StatusBar);
-    double brightness = Color.luminance(statusBarColor);
-    boolean isLightStatusBar = brightness > 0.5;
-
-    View decorView = getWindow().getDecorView();
-    if (isLightStatusBar) {
-      decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    }
     ImageView imageView = findViewById(R.id.arrow_back);
 
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
