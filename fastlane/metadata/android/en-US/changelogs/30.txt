@@ -4,6 +4,6 @@ Changelog :
 
 • Fixed a bug which caused the app to crash upon pasting from clipboard under certain conditions
 
-• Code optmisations
+• Code optimisations
 
 
