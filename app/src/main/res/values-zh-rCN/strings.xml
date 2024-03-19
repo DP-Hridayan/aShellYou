@@ -22,7 +22,7 @@
     <string name="clipboard_empty">剪贴板不包含文本</string>
     <string name="command_hint">在这里输入ADB命令</string>
     <string name="command_title">输入ADB命令</string>
-    <string name="connecting">连接中...</string>
+    <string name="connecting">连接中…</string>
     <string name="connecting_hint">请在目标设备确认授权</string>
     <string name="copy">复制</string>
     <string name="device_not_connected">设备未连接</string>
