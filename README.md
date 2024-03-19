@@ -16,7 +16,8 @@
 ## Download
 Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/releases).
 
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?link=https%3A%2F%2Fgithub.com%2FDP-Hridayan%2FaShellYou%2Freleases)
+
 
 
 ## Features
