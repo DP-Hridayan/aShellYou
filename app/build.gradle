@@ -14,8 +14,8 @@ android {
         applicationId "in.hridayan.ashell"
         minSdk 24
         targetSdk 34
-        versionCode 29
-        versionName "v3.5.1"
+        versionCode 30
+        versionName "v3.6.0"
     }
          Properties properties = new Properties()
         properties.load(new FileInputStream(file('../signing-foss.properties')))

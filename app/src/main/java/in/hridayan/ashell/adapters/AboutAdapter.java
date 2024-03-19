@@ -93,6 +93,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           v -> {
             Utils.openUrl(context, "mailto:hridayanofficial@gmail.com");
           });
+                 viewHolder.mSupportButton.setOnClickListener(
+          v -> {
+            Utils.openUrl(context, "https://www.buymeacoffee.com/hridayan");
+          });
+            
 
     } else if (holder instanceof CategoryBItemViewHolder) {
       Category.CategoryBItem categoryBItem = (Category.CategoryBItem) item;
@@ -184,7 +189,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   private static class CategoryAItemViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
     TextView titleTextView, descriptionTextView;
-    Button mMailButton, mXButton, mGithubButton;
+    Button mMailButton, mXButton, mGithubButton,mSupportButton;
 
     public CategoryAItemViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -194,6 +199,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       mMailButton = itemView.findViewById(R.id.mail);
       mGithubButton = itemView.findViewById(R.id.github);
       mXButton = itemView.findViewById(R.id.x);
+            mSupportButton = itemView.findViewById(R.id.support);
     }
   }
 
