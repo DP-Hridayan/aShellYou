@@ -26,7 +26,7 @@
 Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/releases).
 
 <div align="center">
-  <a href="https://f-droid.org/en/packages/com.drdisagree.colorblendr/"><img src="https://f-droid.org/badge/get-it-on.png" width="34.4%" alt="Get it on F-Droid" /></a>
+  <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="https://f-droid.org/badge/get-it-on.png" width="34.4%" alt="Get it on F-Droid" /></a>
   <br>
   <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://raw.githubusercontent.com/Mahmud0808/ColorBlendr/master/.github/resources/bmc-button.png" width="30%" alt="Buy me a coffee" /></a>
   <br><br>
