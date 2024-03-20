@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.android.material.divider.MaterialDivider;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
@@ -107,8 +106,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
     ImageView symbolImageView;
-    TextView titleTextView;
-    TextView descriptionTextView;
+    TextView titleTextView,descriptionTextView;
     MaterialSwitch switchView;
     ConstraintLayout settingsItemLayout;
 

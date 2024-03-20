@@ -38,41 +38,41 @@ public class AboutActivity extends AppCompatActivity {
 
     items.add(new Category(getString(R.string.lead_developer)));
     items.add(
-        new Category.CategoryAItem(
+        new Category.LeadDeveloperItem(
             "Hridayan", getString(R.string.hridayan_about), R.mipmap.dp_hridayan));
 
     items.add(new Category(getString(R.string.contributors)));
     items.add(
-        new Category.CategoryBItem(
+        new Category.ContributorsItem(
             "id_rikka", "RikkaApps", getString(R.string.rikka_about), R.mipmap.dp_shizuku));
 
     items.add(
-        new Category.CategoryBItem(
+        new Category.ContributorsItem(
             "id_sunilpaulmathew",
             "Sunilpaulmathew",
             getString(R.string.sunilpaulmathew_about),
             R.mipmap.dp_sunilpaulmathew));
 
     items.add(
-        new Category.CategoryBItem(
+        new Category.ContributorsItem(
             "id_khun_htetz",
             "Khun Htetz Naing",
             getString(R.string.khun_htetz_about),
             R.mipmap.dp_adb_otg));
 
     items.add(
-        new Category.CategoryBItem(
+        new Category.ContributorsItem(
             "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
 
     items.add(
-        new Category.CategoryBItem(
+        new Category.ContributorsItem(
             "id_drDisagree",
             "DrDisagree",
             getString(R.string.drDisagree_about),
             R.mipmap.dp_drdisagree));
 
     items.add(
-        new Category.CategoryBItem(
+        new Category.ContributorsItem(
             "id_marciozomb13",
             "marciozomb13",
             getString(R.string.marciozomb13_about),
@@ -84,33 +84,33 @@ public class AboutActivity extends AppCompatActivity {
       String version = pInfo.versionName;
 
       items.add(
-          new Category.CategoryCItem(
+          new Category.AppItem(
               "id_version", getString(R.string.version), version, R.drawable.ic_version_tag));
     } catch (PackageManager.NameNotFoundException ignored) {
     }
     items.add(
-        new Category.CategoryCItem(
+        new Category.AppItem(
             "id_report",
             getString(R.string.report),
             getString(R.string.des_report),
             R.drawable.ic_report));
 
     items.add(
-        new Category.CategoryCItem(
+        new Category.AppItem(
             "id_feature",
             getString(R.string.feature_request),
             getString(R.string.des_feature_request),
             R.drawable.ic_feature));
 
     items.add(
-        new Category.CategoryCItem(
+        new Category.AppItem(
             "id_github",
             getString(R.string.github),
             getString(R.string.des_github),
             R.drawable.ic_github));
 
     items.add(
-        new Category.CategoryCItem(
+        new Category.AppItem(
             "id_telegram",
             getString(R.string.telegram_channel),
             getString(R.string.des_telegram_channel),

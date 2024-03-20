@@ -14,8 +14,8 @@ android {
         applicationId "in.hridayan.ashell"
         minSdk 24
         targetSdk 34
-        versionCode 30
-        versionName "v3.6.0"
+        versionCode 31
+        versionName "v3.7.0-test"
     }
 
     Properties properties = new Properties()
@@ -37,6 +37,7 @@ android {
                 signingConfig signingConfigs.release
                 minifyEnabled true
                 shrinkResources true
+                crunchPngs true
                 proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             }
         }

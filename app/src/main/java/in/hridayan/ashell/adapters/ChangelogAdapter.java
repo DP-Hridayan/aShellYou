@@ -46,9 +46,9 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
     }
 
     if (position == 0) {
-      holder.titleTextView.setTextAppearance(context, R.style.LatestVersionTitle);
+      holder.titleTextView.setTextAppearance(R.style.LatestVersionTitle);
     } else {
-      holder.titleTextView.setTextAppearance(context, R.style.OtherVersionTitle);
+      holder.titleTextView.setTextAppearance(R.style.OtherVersionTitle);
     }
   }
 

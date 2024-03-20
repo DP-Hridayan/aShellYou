@@ -11,12 +11,12 @@ public class Category {
     return name;
   }
 
-  public static class CategoryAItem {
+  public static class LeadDeveloperItem {
     private String title;
     private String description;
     private int imageResource;
 
-    public CategoryAItem(String title, String description, int imageResource) {
+    public LeadDeveloperItem(String title, String description, int imageResource) {
       this.title = title;
       this.description = description;
       this.imageResource = imageResource;
@@ -35,11 +35,11 @@ public class Category {
     }
   }
 
-  public static class CategoryBItem {
+  public static class ContributorsItem {
     private String id, title, description;
     private int imageResource;
 
-    public CategoryBItem(String id, String title, String description, int imageResource) {
+    public ContributorsItem(String id, String title, String description, int imageResource) {
       this.id = id;
       this.title = title;
       this.description = description;
@@ -63,11 +63,11 @@ public class Category {
     }
   }
 
-  public static class CategoryCItem {
+  public static class AppItem {
     private String id, title, description;
     private int imageResource;
 
-    public CategoryCItem(String id, String title, String description, int imageResource) {
+    public AppItem(String id, String title, String description, int imageResource) {
       this.id = id;
       this.title = title;
       this.description = description;

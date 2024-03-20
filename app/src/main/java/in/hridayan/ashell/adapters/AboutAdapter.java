@@ -1,7 +1,6 @@
 package in.hridayan.ashell.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.utils.Utils;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-  private static final int VIEW_TYPE_CATEGORY = 0;
-  private static final int VIEW_TYPE_CATEGORY_A_ITEM = 1;
-  private static final int VIEW_TYPE_CATEGORY_B_ITEM = 2;
-  private static final int VIEW_TYPE_CATEGORY_C_ITEM = 3;
+  private static final int CATEGORY = 0;
+  private static final int CATEGORY_LEAD_DEV_ITEM = 1;
+  private static final int CATEGORY_CONTRIBUTORS_ITEM = 2;
+  private static final int CATEGORY_APP_ITEM = 3;
 
   private List<Object> items;
   private Context context;
@@ -33,13 +34,13 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   public int getItemViewType(int position) {
     Object item = items.get(position);
     if (item instanceof Category) {
-      return VIEW_TYPE_CATEGORY;
-    } else if (item instanceof Category.CategoryAItem) {
-      return VIEW_TYPE_CATEGORY_A_ITEM;
-    } else if (item instanceof Category.CategoryBItem) {
-      return VIEW_TYPE_CATEGORY_B_ITEM;
-    } else if (item instanceof Category.CategoryCItem) {
-      return VIEW_TYPE_CATEGORY_C_ITEM;
+      return CATEGORY;
+    } else if (item instanceof Category.LeadDeveloperItem) {
+      return CATEGORY_LEAD_DEV_ITEM;
+    } else if (item instanceof Category.ContributorsItem) {
+      return CATEGORY_CONTRIBUTORS_ITEM;
+    } else if (item instanceof Category.AppItem) {
+      return CATEGORY_APP_ITEM;
     }
     return -1;
   }
@@ -49,18 +50,18 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     switch (viewType) {
-      case VIEW_TYPE_CATEGORY:
-        View categoryView = inflater.inflate(R.layout.category_item_layout, parent, false);
+      case CATEGORY:
+        View categoryView = inflater.inflate(R.layout.category_about, parent, false);
         return new CategoryViewHolder(categoryView);
-      case VIEW_TYPE_CATEGORY_A_ITEM:
-        View categoryAItemView = inflater.inflate(R.layout.category_a_item_layout, parent, false);
-        return new CategoryAItemViewHolder(categoryAItemView);
-      case VIEW_TYPE_CATEGORY_B_ITEM:
-        View categoryBItemView = inflater.inflate(R.layout.category_b_item_layout, parent, false);
-        return new CategoryBItemViewHolder(categoryBItemView);
-      case VIEW_TYPE_CATEGORY_C_ITEM:
-        View categoryCItemView = inflater.inflate(R.layout.category_c_item_layout, parent, false);
-        return new CategoryCItemViewHolder(categoryCItemView);
+      case CATEGORY_LEAD_DEV_ITEM:
+        View leadDevItemView = inflater.inflate(R.layout.category_lead_dev, parent, false);
+        return new LeadDeveloperItemViewHolder(leadDevItemView);
+      case CATEGORY_CONTRIBUTORS_ITEM:
+        View contributorsItemView = inflater.inflate(R.layout.category_contributors, parent, false);
+        return new contributorsItemViewHolder(contributorsItemView);
+      case CATEGORY_APP_ITEM:
+        View appItemView = inflater.inflate(R.layout.category_app, parent, false);
+        return new AppItemViewHolder(appItemView);
       default:
         throw new IllegalArgumentException("Invalid view type");
     }
@@ -73,98 +74,67 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       Category category = (Category) item;
       CategoryViewHolder categoryViewHolder = (CategoryViewHolder) holder;
       categoryViewHolder.categoryTextView.setText(category.getName());
-    } else if (holder instanceof CategoryAItemViewHolder) {
-      Category.CategoryAItem categoryAItem = (Category.CategoryAItem) item;
-      CategoryAItemViewHolder viewHolder = (CategoryAItemViewHolder) holder;
+    } else if (holder instanceof LeadDeveloperItemViewHolder) {
+      Category.LeadDeveloperItem categoryAItem = (Category.LeadDeveloperItem) item;
+      LeadDeveloperItemViewHolder viewHolder = (LeadDeveloperItemViewHolder) holder;
       viewHolder.imageView.setImageResource(categoryAItem.getImageResource());
       viewHolder.titleTextView.setText(categoryAItem.getTitle());
       viewHolder.descriptionTextView.setText(categoryAItem.getDescription());
-      viewHolder.mXButton.setOnClickListener(
-          v -> {
-            Utils.openUrl(context, "https://x.com/Spirriy1?t=VCLYRLEN-Pgq_RS2gQU-bg&s=09");
-          });
 
-      viewHolder.mGithubButton.setOnClickListener(
-          v -> {
-            Utils.openUrl(context, "https://github.com/DP-Hridayan/aShellYou");
-          });
+      Map<View, String> buttonUrlMap = new HashMap<>();
 
-      viewHolder.mMailButton.setOnClickListener(
-          v -> {
-            Utils.openUrl(context, "mailto:hridayanofficial@gmail.com");
-          });
-                 viewHolder.mSupportButton.setOnClickListener(
-          v -> {
-            Utils.openUrl(context, "https://www.buymeacoffee.com/hridayan");
-          });
-            
+      buttonUrlMap.put(viewHolder.mXButton, "https://x.com/Spirriy1?t=VCLYRLEN-Pgq_RS2gQU-bg&s=09");
+      buttonUrlMap.put(viewHolder.mGithubButton, "https://github.com/DP-Hridayan/aShellYou");
+      buttonUrlMap.put(viewHolder.mMailButton, "mailto:hridayanofficial@gmail.com");
+      buttonUrlMap.put(viewHolder.mSupportButton, "https://www.buymeacoffee.com/hridayan");
 
-    } else if (holder instanceof CategoryBItemViewHolder) {
-      Category.CategoryBItem categoryBItem = (Category.CategoryBItem) item;
-      CategoryBItemViewHolder viewHolder = (CategoryBItemViewHolder) holder;
-      viewHolder.imageView.setImageResource(categoryBItem.getImageResource());
-      viewHolder.titleTextView.setText(categoryBItem.getTitle());
-      viewHolder.descriptionTextView.setText(categoryBItem.getDescription());
+      for (Map.Entry<View, String> entry : buttonUrlMap.entrySet()) {
+        entry.getKey().setOnClickListener(v -> Utils.openUrl(context, entry.getValue()));
+      }
+    } else if (holder instanceof contributorsItemViewHolder) {
+      Category.ContributorsItem ContributorsItem = (Category.ContributorsItem) item;
+      contributorsItemViewHolder viewHolder = (contributorsItemViewHolder) holder;
+      viewHolder.imageView.setImageResource(ContributorsItem.getImageResource());
+      viewHolder.titleTextView.setText(ContributorsItem.getTitle());
+      viewHolder.descriptionTextView.setText(ContributorsItem.getDescription());
       View.OnClickListener clickListener =
           v -> {
-            String id = categoryBItem.getId();
-            switch (id) {
-              case "id_rikka":
-                Utils.openUrl(context, "https://github.com/RikkaApps/Shizuku");
-                break;
+            Map<String, String> idUrlMap = new HashMap<>();
 
-              case "id_sunilpaulmathew":
-                Utils.openUrl(context, "https://gitlab.com/sunilpaulmathew/ashell");
-                break;
+            idUrlMap.put("id_rikka", "https://github.com/RikkaApps/Shizuku");
+            idUrlMap.put("id_sunilpaulmathew", "https://gitlab.com/sunilpaulmathew/ashell");
+            idUrlMap.put("id_khun_htetz", "https://github.com/KhunHtetzNaing/ADB-OTG");
+            idUrlMap.put("id_krishna", "https://github.com/Krishna-G-OP");
+            idUrlMap.put("id_drDisagree", "https://github.com/Mahmud0808");
+            idUrlMap.put("id_marciozomb13", "https://github.com/marciozomb13");
 
-              case "id_khun_htetz":
-                Utils.openUrl(context, "https://github.com/KhunHtetzNaing/ADB-OTG");
-                break;
-
-              case "id_krishna":
-                Utils.openUrl(context, "https://github.com/Krishna-G-OP");
-                break;
-
-              case "id_drDisagree":
-                Utils.openUrl(context, "https://github.com/Mahmud0808");
-                break;
-
-              case "id_marciozomb13":
-                Utils.openUrl(context, "https://github.com/marciozomb13");
-                break;
-              default:
-                break;
+            String id = ContributorsItem.getId();
+            String url = idUrlMap.get(id);
+            if (url != null) {
+              Utils.openUrl(context, url);
             }
           };
       viewHolder.buttonView.setOnClickListener(clickListener);
 
-    } else if (holder instanceof CategoryCItemViewHolder) {
-      Category.CategoryCItem categoryCItem = (Category.CategoryCItem) item;
-      CategoryCItemViewHolder viewHolder = (CategoryCItemViewHolder) holder;
+    } else if (holder instanceof AppItemViewHolder) {
+      Category.AppItem categoryCItem = (Category.AppItem) item;
+      AppItemViewHolder viewHolder = (AppItemViewHolder) holder;
       viewHolder.imageView.setImageResource(categoryCItem.getImageResource());
       viewHolder.titleTextView.setText(categoryCItem.getTitle());
       viewHolder.descriptionTextView.setText(categoryCItem.getDescription());
 
       View.OnClickListener clickListener =
           v -> {
+            Map<String, String> idUrlMap = new HashMap<>();
+            idUrlMap.put("id_report", "mailto:hridayanofficial@gmail.com");
+            idUrlMap.put("id_feature", "mailto:hridayanofficial@gmail.com");
+            idUrlMap.put("id_github", "https:github.com/DP-Hridayan/aShellYou");
+            idUrlMap.put("id_telegram", "https://t.me/aShellYou");
+
             String id = categoryCItem.getId();
-            Intent intent;
-
-            switch (id) {
-              case "id_report":
-              case "id_feature":
-                Utils.openUrl(context, "mailto:hridayanofficial@gmail.com");
-                break;
-
-              case "id_github":
-                Utils.openUrl(context, "https:github.com/DP-Hridayan/aShellYou");
-                break;
-              case "id_telegram":
-                Utils.openUrl(context, "https://t.me/aShellYou");
-                break;
-
-              default:
-                return;
+            String url = idUrlMap.get(id);
+            if (url != null) {
+              Utils.openUrl(context, url);
             }
           };
       viewHolder.titleTextView.setOnClickListener(clickListener);
@@ -186,12 +156,12 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
   }
 
-  private static class CategoryAItemViewHolder extends RecyclerView.ViewHolder {
+  private static class LeadDeveloperItemViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
     TextView titleTextView, descriptionTextView;
-    Button mMailButton, mXButton, mGithubButton,mSupportButton;
+    Button mMailButton, mXButton, mGithubButton, mSupportButton;
 
-    public CategoryAItemViewHolder(@NonNull View itemView) {
+    public LeadDeveloperItemViewHolder(@NonNull View itemView) {
       super(itemView);
       imageView = itemView.findViewById(R.id.image_view);
       titleTextView = itemView.findViewById(R.id.title_text_view);
@@ -199,16 +169,16 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       mMailButton = itemView.findViewById(R.id.mail);
       mGithubButton = itemView.findViewById(R.id.github);
       mXButton = itemView.findViewById(R.id.x);
-            mSupportButton = itemView.findViewById(R.id.support);
+      mSupportButton = itemView.findViewById(R.id.support);
     }
   }
 
-  private static class CategoryBItemViewHolder extends RecyclerView.ViewHolder {
+  private static class contributorsItemViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
     TextView titleTextView, descriptionTextView;
     Button buttonView;
 
-    public CategoryBItemViewHolder(@NonNull View itemView) {
+    public contributorsItemViewHolder(@NonNull View itemView) {
       super(itemView);
       imageView = itemView.findViewById(R.id.image_view);
       titleTextView = itemView.findViewById(R.id.title_text_view);
@@ -217,11 +187,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
   }
 
-  private static class CategoryCItemViewHolder extends RecyclerView.ViewHolder {
+  private static class AppItemViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
     TextView titleTextView, descriptionTextView;
 
-    public CategoryCItemViewHolder(@NonNull View itemView) {
+    public AppItemViewHolder(@NonNull View itemView) {
       super(itemView);
       imageView = itemView.findViewById(R.id.image_view);
       titleTextView = itemView.findViewById(R.id.title_text_view);
