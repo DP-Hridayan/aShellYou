@@ -28,7 +28,7 @@ Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/rel
 <div align="center">
   <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="https://f-droid.org/badge/get-it-on.png" width="34.4%" alt="Get it on F-Droid" /></a>
   <br>
-  <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://raw.githubusercontent.com/Mahmud0808/ColorBlendr/master/.github/resources/bmc-button.png" width="30%" alt="Buy me a coffee" /></a>
+  <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="30%" alt="Buy me a coffee" /></a>
   <br><br>
 
 </div>
