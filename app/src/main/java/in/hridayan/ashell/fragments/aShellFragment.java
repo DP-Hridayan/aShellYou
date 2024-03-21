@@ -165,6 +165,8 @@ public class aShellFragment extends Fragment {
 
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
+        mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
+       mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
