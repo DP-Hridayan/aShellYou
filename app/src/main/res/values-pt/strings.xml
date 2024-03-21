@@ -64,6 +64,7 @@
     <string name="shizuku_unavailable_message">O Shizuku não está instalado ou não está configurado corretamente no seu dispositivo. O aShell You não funcionará sem um ambiente Shizuku adequado.</string>
     <string name="start">Iniciar</string>
     <string name="success">Sucesso</string>
+    <string name="support">Suporte</string>
     <string name="su_warning_message">O aShell You não foi projetado para usos relacionados a root. Abortando.</string>
     <string name="title_activity_setting">Setup Apks</string>
     <string name="waiting_device">Aguardando por dispositivo</string>
@@ -85,6 +86,8 @@
     <string name="sunilpaulmathew_about">Desenvolvedor do aShell\nSem ele o aShell You não existiria</string>
     <string name="khun_htetz_about">Desenvolvedor do ADB⚡OTG\nGraças a ele recurso OTG pôde ser implementado no aShell You</string>
     <string name="krishna_about">Ele é o desenvolvedor do site, testador, gerente de canal e muito mais\n\nObrigado pelo seu apoio amigo 🤗</string>
+    <string name="drDisagree_about">Desenvolvedor do Iconify\nMe ajudou a corrigir problemas no aShell You 🤝</string>
+    <string name="marciozomb13_about">Um tradutor freelancer que fez as traduções para o português do Brasil</string>
     <string name="app">App</string>
     <string name="version">Versão</string>
     <string name="report">Relatar um problema</string>
@@ -95,8 +98,14 @@
     <string name="des_github">Visite o repositório github do aShell You</string>
     <string name="telegram_channel">Canal do Telegram</string>
     <string name="des_telegram_channel">Participe do canal do telegram para discussão</string>
-    //Changelogs
     
+    //Changelogs
+    //Absolutely necessary to follow this string name format
+    
+    
+    <string name="changelog_v3_6_0">\n• Adicionada opção para limpar o campo de entrada de comando após um erro\n\n• Corrigido um bug que fazia com que o aplicativo falhasse ao colar da área de transferência sob certas condições\n\n• Otimizações de código</string>
+    <string name="changelog_v3_5_1">\n• Corrigido alguns problemas com a navegação inferior.</string>
+    <string name="changelog_v3_5_0">\n• Seção Sobre do app renovada.\n\n• Adicionados atalhos do launcher.\n\n• Menu de navegação fixo não aparece no botão de navegação.\n\n• Melhor visibilidade do menu de navegação inferior na rolagem.\n\n• Adicionado suporte ao idioma por app (as traduções ainda não estão completas, você pode ajudar).\n\n• Muitas otimizações de código.</string>
     <string name="changelog_v3_4_0">\n• Adicionado um botão Colar para que você possa copiar e colar comandos rapidamente.\n\n• Adicionados indicadores de erro no campo de entrada de texto.\n\n• Melhoria na lógica de visibilidade da Barra de Navegação.\n\n• Corrigido um problema em que os switches se comportavam mal em determinadas situações.\n\n• Corrigido adicionar visibilidade do ícone de marcador em vários níveis de contraste.\n\n• Muita otimização de código. App agora abre muito mais rápido do que antes.\n\n• O aplicativo permanecerá em segundo plano e não será reiniciado toda vez que você fechar o aplicativo apenas pressionando o botão ou gesto de voltar.</string>
     <string name="changelog_v3_3_0">\n• Adicionado favoritos, histórico e sugestões de comando para OTG.\n\n• Adicionado limite máximo de favoritos.\n\n• Adicionada opção para substituir o limite máximo de favoritos.\n\n• Muitas correções de bugs.\n\n• Melhorado o manuseio da interface do usuário.\n\n• Muita otimização de código.</string>
     <string name="changelog_v3_2_0">\n• Muitas melhorias relacionadas à interface do usuário.\n\n• Adicionadas dicas que indicam o modo de trabalho ADB atual.\n\n• Muita otimização de código.</string>
