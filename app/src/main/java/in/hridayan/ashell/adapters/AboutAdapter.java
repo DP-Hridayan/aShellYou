@@ -84,7 +84,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       Map<View, String> buttonUrlMap = new HashMap<>();
 
       buttonUrlMap.put(viewHolder.mXButton, "https://x.com/Spirriy1?t=VCLYRLEN-Pgq_RS2gQU-bg&s=09");
-      buttonUrlMap.put(viewHolder.mGithubButton, "https://github.com/DP-Hridayan/aShellYou");
+      buttonUrlMap.put(viewHolder.mGithubButton, "https://github.com/DP-Hridayan");
       buttonUrlMap.put(viewHolder.mMailButton, "mailto:hridayanofficial@gmail.com");
       buttonUrlMap.put(viewHolder.mSupportButton, "https://www.buymeacoffee.com/hridayan");
 
