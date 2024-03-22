@@ -84,7 +84,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       Map<View, String> buttonUrlMap = new HashMap<>();
 
       buttonUrlMap.put(viewHolder.mXButton, "https://x.com/Spirriy1?t=VCLYRLEN-Pgq_RS2gQU-bg&s=09");
-      buttonUrlMap.put(viewHolder.mGithubButton, "https://github.com/DP-Hridayan/aShellYou");
+      buttonUrlMap.put(viewHolder.mGithubButton, "https://github.com/DP-Hridayan");
       buttonUrlMap.put(viewHolder.mMailButton, "mailto:hridayanofficial@gmail.com");
       buttonUrlMap.put(viewHolder.mSupportButton, "https://www.buymeacoffee.com/hridayan");
 
@@ -107,6 +107,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             idUrlMap.put("id_krishna", "https://github.com/Krishna-G-OP");
             idUrlMap.put("id_drDisagree", "https://github.com/Mahmud0808");
             idUrlMap.put("id_marciozomb13", "https://github.com/marciozomb13");
+            idUrlMap.put("id_weiguangtwk", "https://github.com/WeiguangTWK");
 
             String id = ContributorsItem.getId();
             String url = idUrlMap.get(id);

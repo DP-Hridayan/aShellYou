@@ -62,6 +62,7 @@ import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
@@ -128,6 +129,8 @@ public class otgFragment extends Fragment
     mSettingsButton = view.findViewById(R.id.settings);
     scrollView = view.findViewById(R.id.scrollView);
     terminalView = view.findViewById(R.id.terminalView);
+
+    mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
@@ -304,10 +307,12 @@ public class otgFragment extends Fragment
                       } else {
 
                         mCommandInput.setError(getString(R.string.device_not_connected));
-                                        mCommandInput.setErrorIconDrawable(Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
-                                        mCommandInput.setErrorIconOnClickListener(t->{
-                                            mCommand.setText(null);
-                                        });
+                        mCommandInput.setErrorIconDrawable(
+                            Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+                        mCommandInput.setErrorIconOnClickListener(
+                            t -> {
+                              mCommand.setText(null);
+                            });
 
                         alignMargin(mSendButton);
                         alignMargin(mCable);
