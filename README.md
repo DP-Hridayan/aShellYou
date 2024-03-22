@@ -52,12 +52,13 @@ Get the latest version from [releases](https://github.com/DP-Hridayan/ashell/rel
 
 ## Discussions Channel
 <a href="https://t.me/aShellYou">
+  <div align="center">
   <img src="https://img.shields.io/badge/telegram-blue?logo=telegram" alt="Static Badge" width="240" height="65">
 </a>
 
 ## Original app
 <a href="https://gitlab.com/sunilpaulmathew/ashell">
-  <img src="https://img.shields.io/badge/gitlab-%23171321?logo=gitlab&logoColor=%23EF4F32&cacheSeconds=10" alt="Static Badge" height="40" width="130">
+  <img src="https://img.shields.io/badge/gitlab-%23171321?logo=gitlab&logoColor=%23EF4F32&cacheSeconds=10" alt="Static Badge" height="65" width="240">
 </a>
 
 ## License
