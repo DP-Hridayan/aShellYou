@@ -55,10 +55,17 @@ href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="image
 * A lot more.
 
 ## Discussions Channel
+
 <a href="https://t.me/aShellYou">
   <div align="center">
   <img src="https://img.shields.io/badge/telegram-blue?logo=telegram" alt="Static Badge" width="240" height="65">
 </a>
+</br>
+<div align="center">
+  <a href="https://discord.com/invite/UTE26F9EWJ">
+    <img src="images/discord.svg" alt="Static Badge" width="240" height="65">
+  </a>
+</div>
 
 ## Original app
 <a href="https://gitlab.com/sunilpaulmathew/ashell">
