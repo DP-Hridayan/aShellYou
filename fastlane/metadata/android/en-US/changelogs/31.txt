@@ -1,3 +1,12 @@
 Changelogs ~
 
 • Now you can share texts from anywhere on your device to aShell You and run commands directly.
+
+• Now you can share shell output directly without needing to save it !
+
+• A lot of optimisations and UI handling.
+
+• Added Chinese translations.
+
+• Updated translations.
+

@@ -15,7 +15,7 @@ android {
         minSdk 24
         targetSdk 34
         versionCode 31
-        versionName "v3.7.0-test"
+        versionName "v3.7.0"
     }
 
     Properties properties = new Properties()

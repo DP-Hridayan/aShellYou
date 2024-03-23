@@ -114,6 +114,9 @@
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     //Changelogs
     //Absolutely necessary to follow this string name format
+    <string name="changelog_v3_7_0">\n\n• Now you can share texts from anywhere on your device to aShell You and run commands directly.\n\n• Now you can share shell output directly without needing to save it !\n\n• A lot of optimisations and UI handling.\n\n• Added Chinese translations.\n\n• Updated translations.
+</string>
+
     <string name="changelog_v3_6_0">\n\n• Added option to clear the command input field after an error\n\n• Fixed a bug which caused the app to crash upon pasting from clipboard under certain conditions\n\n• Code optimisations</string>
     <string name="changelog_v3_5_1">\n\n• Fixed some issues with bottom navigation.</string>
 
