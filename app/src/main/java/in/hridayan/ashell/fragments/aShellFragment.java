@@ -431,31 +431,7 @@ public class aShellFragment extends Fragment {
             Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
             startActivity(examples);
           } else if (!Shizuku.pingBinder()) {
-            if (isAdded()) {
-              mCommandInput.setError(getString(R.string.shizuku_unavailable));
-              if (mCommand.getText() != null) {
-                mCommandInput.setErrorIconDrawable(
-                    Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
-                mCommandInput.setErrorIconOnClickListener(
-                    t -> {
-                      mCommand.setText(null);
-                    });
-              }
-              alignMargin(mSendButton);
-              alignMargin(localShellSymbol);
-
-              new MaterialAlertDialogBuilder(requireActivity())
-                  .setTitle(getString(R.string.warning))
-                  .setMessage(getString(R.string.shizuku_unavailable_message))
-                  .setNegativeButton(
-                      getString(R.string.shizuku_about),
-                      (dialogInterface, i) -> {
-                        Utils.openUrl(requireContext(), "https://shizuku.rikka.app/");
-                      })
-                  .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
-                  .show();
-            }
-
+            handleShizukuAvailability(requireContext());
           } else {
             mPasteButton.setVisibility(View.GONE);
             if (isAdded()) {
@@ -1074,15 +1050,54 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  /*------------------------------------------------------*/
+
   private void handleSharedTextIntent(Intent intent) {
     String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
     if (sharedText != null) {
+      boolean switchState = adapter.getSavedSwitchState("id_share_and_run");
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
       mCommand.setText(sharedText);
+      if (switchState) {
+        if (!Shizuku.pingBinder()) {
+          handleShizukuAvailability(requireContext());
+        } else {
+          mCommand.setText(sharedText);
+          initializeShell(requireActivity());
+        }
+      }
     }
   }
 
   public void updateInputField(String sharedText) {
     mCommand.setText(sharedText);
+  }
+
+  /*------------------------------------------------------*/
+
+  private void handleShizukuAvailability(Context context) {
+
+    mCommandInput.setError(getString(R.string.shizuku_unavailable));
+    if (mCommand.getText() != null) {
+      mCommandInput.setErrorIconDrawable(
+          Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+      mCommandInput.setErrorIconOnClickListener(
+          t -> {
+            mCommand.setText(null);
+          });
+    }
+    alignMargin(mSendButton);
+    alignMargin(localShellSymbol);
+
+    new MaterialAlertDialogBuilder(requireActivity())
+        .setTitle(getString(R.string.warning))
+        .setMessage(getString(R.string.shizuku_unavailable_message))
+        .setNegativeButton(
+            getString(R.string.shizuku_about),
+            (dialogInterface, i) -> {
+              Utils.openUrl(requireContext(), "https://shizuku.rikka.app/");
+            })
+        .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+        .show();
   }
 }
