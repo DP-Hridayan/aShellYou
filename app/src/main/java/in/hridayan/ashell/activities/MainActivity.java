@@ -59,19 +59,17 @@ public class MainActivity extends AppCompatActivity {
     handleSharedTextIntent(getIntent());
   }
 
-    
-   private void handleSharedTextIntent(Intent intent) {
-        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (sharedText != null) {
-            aShellFragment fragment = (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-            if (fragment != null) {
-                fragment.updateInputField(sharedText);
-            }
-        }
+  private void handleSharedTextIntent(Intent intent) {
+    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+    if (sharedText != null) {
+      aShellFragment fragment =
+          (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+      if (fragment != null) {
+        fragment.updateInputField(sharedText);
+      }
     }
-    
-    
-    
+  }
+
   private void setupNavigation() {
     mNav.setVisibility(View.VISIBLE);
     mNav.setOnItemSelectedListener(

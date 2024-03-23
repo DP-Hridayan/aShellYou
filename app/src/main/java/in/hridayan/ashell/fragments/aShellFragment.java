@@ -630,7 +630,7 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(
         new RecyclerView.OnScrollListener() {
           private final Handler handler = new Handler(Looper.getMainLooper());
-          private final int delayMillis = 2000;
+          private final int delayMillis = 1600;
 
           @Override
           public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -655,9 +655,8 @@ public class aShellFragment extends Fragment {
           public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
 
-            if (dy > 0 || dy < 0 && mShareButton.isShown() && Math.abs(dy) >= 90) {
-
-              mShareButton.hide();
+            if (dy > 0 || dy < 0 && mShareButton.isShown()) {
+              if (Math.abs(dy) >= 90) mShareButton.hide();
             }
           }
         });
@@ -1131,26 +1130,27 @@ public class aShellFragment extends Fragment {
   }
 
   /*------------------------------------------------------*/
+
   private void handleSharedTextIntent(Intent intent) {
     String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
     if (sharedText != null) {
-        sharedText = sharedText.trim(); // Remove leading and trailing whitespace
-        if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
-            sharedText = sharedText.substring(1, sharedText.length() - 1).trim(); // Remove first and last quote, then trim again
+      sharedText = sharedText.trim();
+      if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
+        sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
+      }
+      boolean switchState = adapter.getSavedSwitchState("id_share_and_run");
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+      mCommand.setText(sharedText);
+      if (switchState) {
+        if (!Shizuku.pingBinder()) {
+          handleShizukuAvailability(requireContext());
+        } else {
+          mCommand.setText(sharedText);
+          initializeShell(requireActivity());
         }
-        boolean switchState = adapter.getSavedSwitchState("id_share_and_run");
-        mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-        mCommand.setText(sharedText);
-        if (switchState) {
-            if (!Shizuku.pingBinder()) {
-                handleShizukuAvailability(requireContext());
-            } else {
-                mCommand.setText(sharedText);
-                initializeShell(requireActivity());
-            }
-        }
+      }
     }
-}
+  }
 
   public void updateInputField(String sharedText) {
     mCommand.setText(sharedText);
