@@ -64,6 +64,15 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             getSavedSwitchState("id_override_bookmarks")));
 
+    settingsData.add(
+        new SettingsItem(
+            "id_share_and_run",
+            R.drawable.ic_share,
+            getString(R.string.share_and_run),
+            getString(R.string.des_share_and_run),
+            true,
+            getSavedSwitchState("id_share_and_run")));
+
     // no switches
     settingsData.add(
         new SettingsItem(

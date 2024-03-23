@@ -1,5 +1,6 @@
 package in.hridayan.ashell.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -50,10 +51,23 @@ public class MainActivity extends AppCompatActivity {
             }
           }
         });
-    
+
     setupNavigation();
     setBadge(R.id.nav_otgShell, "Beta");
     setBadge(R.id.nav_wireless, "Soon");
+
+    handleSharedTextIntent(getIntent());
+  }
+
+  private void handleSharedTextIntent(Intent intent) {
+    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+    if (sharedText != null) {
+      aShellFragment fragment =
+          (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+      if (fragment != null) {
+        fragment.updateInputField(sharedText);
+      }
+    }
   }
 
   private void setupNavigation() {

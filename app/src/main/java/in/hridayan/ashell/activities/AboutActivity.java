@@ -123,6 +123,13 @@ public class AboutActivity extends AppCompatActivity {
             getString(R.string.des_telegram_channel),
             R.drawable.ic_telegram));
 
+    items.add(
+        new Category.AppItem(
+            "id_discord",
+            getString(R.string.discord),
+            getString(R.string.des_discord),
+            R.drawable.ic_discord));
+
     adapter = new AboutAdapter(items, this);
     recyclerView.setAdapter(adapter);
   }
