@@ -442,7 +442,7 @@ public class aShellFragment extends Fragment {
           } else if (!Shizuku.pingBinder()) {
             handleShizukuAvailability(requireContext());
           } else {
-            mPasteButton.setVisibility(View.GONE);
+            mPasteButton.hide();
             if (isAdded()) {
               mCommandInput.setError(null);
               initializeShell(requireActivity());
@@ -632,7 +632,7 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(
         new RecyclerView.OnScrollListener() {
           private final Handler handler = new Handler(Looper.getMainLooper());
-          private final int delayMillis = 1400;
+          private final int delayMillis = 2000;
 
           @Override
           public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -657,7 +657,7 @@ public class aShellFragment extends Fragment {
           public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
 
-            if (dy > 0 || dy < 0 && mShareButton.isShown() && Math.abs(dy) >= 30) {
+            if (dy > 0 || dy < 0 && mShareButton.isShown() && Math.abs(dy) >= 90) {
 
               mShareButton.hide();
             }
@@ -889,8 +889,8 @@ public class aShellFragment extends Fragment {
     }
     mHistory.add(finalCommand);
 
-    mSaveButton.setVisibility(View.GONE);
-    mShareButton.setVisibility(View.GONE);
+    mSaveButton.hide();
+    mShareButton.hide();
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
     mSendButton.setColorFilter(Utils.getColor(R.color.colorErrorContainer, requireContext()));
 
@@ -943,8 +943,8 @@ public class aShellFragment extends Fragment {
                         mResult.add("<i></i>");
                         mResult.add("aShell: Finish");
                         if (!isKeyboardVisible) {
-                          mSaveButton.setVisibility(View.VISIBLE);
-                          mShareButton.setVisibility(View.VISIBLE);
+                          mSaveButton.show();
+                          mShareButton.show();
                         }
                       }
                     } else {
@@ -1040,8 +1040,8 @@ public class aShellFragment extends Fragment {
 
     mRecyclerViewOutput.setAdapter(null);
     mSearchButton.setVisibility(View.GONE);
-    mSaveButton.setVisibility(View.GONE);
-    mShareButton.setVisibility(View.GONE);
+    mSaveButton.hide();
+    mShareButton.hide();
     mClearButton.setVisibility(View.GONE);
     showBottomNav();
     mCommand.clearFocus();
