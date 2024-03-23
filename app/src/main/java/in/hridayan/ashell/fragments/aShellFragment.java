@@ -126,14 +126,12 @@ public class aShellFragment extends Fragment {
             isKeyboardVisible = visible;
             if (isKeyboardVisible) {
               mPasteButton.setVisibility(View.GONE);
-              if (mSaveButton.getVisibility() == View.VISIBLE) mSaveButton.setVisibility(View.GONE);
-              if (mShareButton.getVisibility() == View.VISIBLE)
-                mShareButton.setVisibility(View.GONE);
+              mSaveButton.setVisibility(View.GONE);
+              mShareButton.setVisibility(View.GONE);
 
             } else {
 
-              if (mSaveButton.getVisibility() == View.GONE
-                  && mRecyclerViewOutput.getHeight() != 0) {
+              if (mRecyclerViewOutput.getHeight() != 0) {
                 setVisibilityWithDelay(mSaveButton, 100);
               }
               if (mShareButton.getVisibility() == View.GONE
@@ -644,7 +642,7 @@ public class aShellFragment extends Fragment {
                   new Runnable() {
                     @Override
                     public void run() {
-                      mShareButton.show();
+                      if (!isKeyboardVisible) mShareButton.show();
                     }
                   },
                   delayMillis);
@@ -1040,8 +1038,8 @@ public class aShellFragment extends Fragment {
 
     mRecyclerViewOutput.setAdapter(null);
     mSearchButton.setVisibility(View.GONE);
-    mSaveButton.hide();
-    mShareButton.hide();
+    mSaveButton.setVisibility(View.GONE);
+    mShareButton.setVisibility(View.GONE);
     mClearButton.setVisibility(View.GONE);
     showBottomNav();
     mCommand.clearFocus();
@@ -1133,23 +1131,26 @@ public class aShellFragment extends Fragment {
   }
 
   /*------------------------------------------------------*/
-
   private void handleSharedTextIntent(Intent intent) {
     String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
     if (sharedText != null) {
-      boolean switchState = adapter.getSavedSwitchState("id_share_and_run");
-      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-      mCommand.setText(sharedText);
-      if (switchState) {
-        if (!Shizuku.pingBinder()) {
-          handleShizukuAvailability(requireContext());
-        } else {
-          mCommand.setText(sharedText);
-          initializeShell(requireActivity());
+        sharedText = sharedText.trim(); // Remove leading and trailing whitespace
+        if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
+            sharedText = sharedText.substring(1, sharedText.length() - 1).trim(); // Remove first and last quote, then trim again
         }
-      }
+        boolean switchState = adapter.getSavedSwitchState("id_share_and_run");
+        mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+        mCommand.setText(sharedText);
+        if (switchState) {
+            if (!Shizuku.pingBinder()) {
+                handleShizukuAvailability(requireContext());
+            } else {
+                mCommand.setText(sharedText);
+                initializeShell(requireActivity());
+            }
+        }
     }
-  }
+}
 
   public void updateInputField(String sharedText) {
     mCommand.setText(sharedText);
