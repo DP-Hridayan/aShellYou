@@ -33,6 +33,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,6 +61,7 @@ import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ShizukuShell;
 import in.hridayan.ashell.utils.Utils;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -85,7 +87,7 @@ public class aShellFragment extends Fragment {
 
   private AppCompatImageButton localShellSymbol;
   private ExtendedFloatingActionButton mSaveButton, mPasteButton;
-  private FloatingActionButton mBottomButton, mSendButton, mTopButton;
+  private FloatingActionButton mBottomButton, mSendButton, mTopButton, mShareButton;
   private MaterialButton mClearButton, mHistoryButton, mSearchButton, mBookMarks, mSettingsButton;
   private FrameLayout mAppNameLayout;
   private BottomNavigationView mNav;
@@ -125,13 +127,19 @@ public class aShellFragment extends Fragment {
             if (isKeyboardVisible) {
               mPasteButton.setVisibility(View.GONE);
               if (mSaveButton.getVisibility() == View.VISIBLE) mSaveButton.setVisibility(View.GONE);
+              if (mShareButton.getVisibility() == View.VISIBLE)
+                mShareButton.setVisibility(View.GONE);
+
             } else {
 
               if (mSaveButton.getVisibility() == View.GONE
                   && mRecyclerViewOutput.getHeight() != 0) {
                 setVisibilityWithDelay(mSaveButton, 100);
               }
-
+              if (mShareButton.getVisibility() == View.GONE
+                  && mRecyclerViewOutput.getHeight() != 0) {
+                setVisibilityWithDelay(mShareButton, 100);
+              }
               if (mPasteButton.getVisibility() == View.GONE && !sendButtonClicked) {
                 setVisibilityWithDelay(mPasteButton, 100);
               }
@@ -159,6 +167,7 @@ public class aShellFragment extends Fragment {
     mSearchWord = view.findViewById(R.id.search_word);
     mSendButton = view.findViewById(R.id.send);
     mSettingsButton = view.findViewById(R.id.settings);
+    mShareButton = view.findViewById(R.id.fab_share);
     mTopButton = view.findViewById(R.id.fab_up);
 
     /*------------------------------------------------------*/
@@ -175,9 +184,9 @@ public class aShellFragment extends Fragment {
 
     mNav.setVisibility(View.VISIBLE);
 
-    /*------------------------------------------------------*/
-
     handleSharedTextIntent(requireActivity().getIntent());
+
+    /*------------------------------------------------------*/
 
     mPasteButton.setOnClickListener(
         v -> {
@@ -473,12 +482,6 @@ public class aShellFragment extends Fragment {
           } else {
             clearAll();
           }
-          if (mTopButton.getVisibility() == View.VISIBLE) {
-            mTopButton.setVisibility(View.GONE);
-          }
-          if (mBottomButton.getVisibility() == View.VISIBLE) {
-            mBottomButton.setVisibility(View.GONE);
-          }
         });
 
     /*------------------------------------------------------*/
@@ -589,6 +592,75 @@ public class aShellFragment extends Fragment {
             mSearchButton.setVisibility(View.VISIBLE);
             mHistoryButton.setVisibility(View.VISIBLE);
             mClearButton.setVisibility(View.VISIBLE);
+          }
+        });
+
+    /*------------------------------------------------------*/
+
+    mShareButton.setOnClickListener(
+        v -> {
+          StringBuilder sb = new StringBuilder();
+          for (int i = mPosition; i < mResult.size(); i++) {
+            String result = mResult.get(i);
+            if (!"aShell: Finish".equals(result) && !"<i></i>".equals(result)) {
+              sb.append(result).append("\n");
+            }
+          }
+          try {
+            String fileName =
+                mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
+
+            File file = new File(requireActivity().getCacheDir(), fileName);
+            FileOutputStream outputStream = new FileOutputStream(file);
+            outputStream.write(sb.toString().getBytes());
+            outputStream.close();
+
+            Uri fileUri =
+                FileProvider.getUriForFile(
+                    requireContext(), requireContext().getPackageName() + ".fileprovider", file);
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(Intent.createChooser(shareIntent, "Share File"));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        });
+
+    // Logic to hide and show share button
+    mRecyclerViewOutput.addOnScrollListener(
+        new RecyclerView.OnScrollListener() {
+          private final Handler handler = new Handler(Looper.getMainLooper());
+          private final int delayMillis = 1400;
+
+          @Override
+          public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+
+              handler.postDelayed(
+                  new Runnable() {
+                    @Override
+                    public void run() {
+                      mShareButton.show();
+                    }
+                  },
+                  delayMillis);
+            } else {
+              handler.removeCallbacksAndMessages(null);
+            }
+          }
+
+          @Override
+          public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            if (dy > 0 || dy < 0 && mShareButton.isShown() && Math.abs(dy) >= 30) {
+
+              mShareButton.hide();
+            }
           }
         });
 
@@ -818,6 +890,7 @@ public class aShellFragment extends Fragment {
     mHistory.add(finalCommand);
 
     mSaveButton.setVisibility(View.GONE);
+    mShareButton.setVisibility(View.GONE);
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
     mSendButton.setColorFilter(Utils.getColor(R.color.colorErrorContainer, requireContext()));
 
@@ -871,6 +944,7 @@ public class aShellFragment extends Fragment {
                         mResult.add("aShell: Finish");
                         if (!isKeyboardVisible) {
                           mSaveButton.setVisibility(View.VISIBLE);
+                          mShareButton.setVisibility(View.VISIBLE);
                         }
                       }
                     } else {
@@ -957,9 +1031,17 @@ public class aShellFragment extends Fragment {
   private void clearAll() {
     if (mShizukuShell != null) mShizukuShell.destroy();
     mResult = null;
+    if (mTopButton.getVisibility() == View.VISIBLE) {
+      mTopButton.setVisibility(View.GONE);
+    }
+    if (mBottomButton.getVisibility() == View.VISIBLE) {
+      mBottomButton.setVisibility(View.GONE);
+    }
+
     mRecyclerViewOutput.setAdapter(null);
     mSearchButton.setVisibility(View.GONE);
     mSaveButton.setVisibility(View.GONE);
+    mShareButton.setVisibility(View.GONE);
     mClearButton.setVisibility(View.GONE);
     showBottomNav();
     mCommand.clearFocus();
