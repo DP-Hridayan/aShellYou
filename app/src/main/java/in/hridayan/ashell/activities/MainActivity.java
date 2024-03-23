@@ -1,10 +1,16 @@
 package in.hridayan.ashell.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
@@ -50,12 +56,27 @@ public class MainActivity extends AppCompatActivity {
             }
           }
         });
-    
+
     setupNavigation();
     setBadge(R.id.nav_otgShell, "Beta");
     setBadge(R.id.nav_wireless, "Soon");
+
+    handleSharedTextIntent(getIntent());
   }
 
+    
+   private void handleSharedTextIntent(Intent intent) {
+        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        if (sharedText != null) {
+            aShellFragment fragment = (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (fragment != null) {
+                fragment.updateInputField(sharedText);
+            }
+        }
+    }
+    
+    
+    
   private void setupNavigation() {
     mNav.setVisibility(View.VISIBLE);
     mNav.setOnItemSelectedListener(

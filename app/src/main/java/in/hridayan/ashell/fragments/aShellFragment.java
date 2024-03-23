@@ -165,8 +165,8 @@ public class aShellFragment extends Fragment {
 
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
-        mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
-       mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
+    mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
+    mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
@@ -176,6 +176,8 @@ public class aShellFragment extends Fragment {
     mNav.setVisibility(View.VISIBLE);
 
     /*------------------------------------------------------*/
+
+    handleSharedTextIntent(requireActivity().getIntent());
 
     mPasteButton.setOnClickListener(
         v -> {
@@ -1070,5 +1072,17 @@ public class aShellFragment extends Fragment {
               Toast.LENGTH_SHORT)
           .show();
     }
+  }
+
+  private void handleSharedTextIntent(Intent intent) {
+    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+    if (sharedText != null) {
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+      mCommand.setText(sharedText);
+    }
+  }
+
+  public void updateInputField(String sharedText) {
+    mCommand.setText(sharedText);
   }
 }
