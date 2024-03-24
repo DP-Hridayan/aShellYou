@@ -26,6 +26,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -465,6 +466,12 @@ public class aShellFragment extends Fragment {
             if (isAdded()) {
               mCommandInput.setError(null);
               initializeShell(requireActivity());
+
+              InputMethodManager inputMethodManager =
+                  (InputMethodManager)
+                      requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+              inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
               return;
             }
           }
