@@ -97,11 +97,12 @@ public class otgFragment extends Fragment
   private SettingsAdapter adapter;
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand;
-  private FloatingActionButton mSendButton;
+  private FloatingActionButton mSendButton, mUndoButton;
   private ExtendedFloatingActionButton mPasteButton;
   private ScrollView scrollView;
   private AlertDialog mWaitingDialog;
   private String user = null;
+  private final Handler mHandler = new Handler(Looper.getMainLooper());
   private boolean isKeyboardVisible, sendButtonClicked = false;
   private List<String> mHistory = null, mResult = null;
 
@@ -129,7 +130,7 @@ public class otgFragment extends Fragment
     mSettingsButton = view.findViewById(R.id.settings);
     scrollView = view.findViewById(R.id.scrollView);
     terminalView = view.findViewById(R.id.terminalView);
-
+    mUndoButton = view.findViewById(R.id.fab_undo);
     mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -142,6 +143,7 @@ public class otgFragment extends Fragment
             isKeyboardVisible = visible;
             if (isKeyboardVisible) {
               mPasteButton.setVisibility(View.GONE);
+              mUndoButton.setVisibility(View.GONE);
             } else {
               if (mPasteButton.getVisibility() == View.GONE && !sendButtonClicked) {
                 setVisibilityWithDelay(mPasteButton, 100);
@@ -152,8 +154,23 @@ public class otgFragment extends Fragment
 
     mPasteButton.setOnClickListener(
         v -> {
+          mUndoButton.show();
+          mHandler.postDelayed(
+              () -> {
+                mUndoButton.hide();
+                mHandler.removeCallbacksAndMessages(null);
+              },
+              3000);
           pasteFromClipboard();
         });
+
+    mUndoButton.setOnClickListener(
+        v -> {
+          mCommand.setText(null);
+          mUndoButton.hide();
+          mHandler.removeCallbacksAndMessages(null);
+        });
+
     // Logic for changing the command send button depending on the text on the EditText
 
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -301,7 +318,8 @@ public class otgFragment extends Fragment
                     @Override
                     public void onClick(View v) {
                       sendButtonClicked = true;
-                      mPasteButton.setVisibility(View.GONE);
+                      mPasteButton.hide();
+                      mUndoButton.hide();
                       if (adbConnection != null) {
                         putCommand();
                       } else {

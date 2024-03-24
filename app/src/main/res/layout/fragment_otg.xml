@@ -154,6 +154,21 @@
         android:layout_marginStart="25dp"
         android:id="@+id/history" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toTopOf="@id/paste_button"
+        app:srcCompat="@drawable/ic_undo"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:tint="?attr/colorOnTertiaryContainer"
+        app:backgroundTint="?attr/colorTertiaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonSmallStyle"
+        android:id="@+id/fab_undo" />
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"

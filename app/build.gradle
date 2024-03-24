@@ -14,8 +14,8 @@ android {
         applicationId "in.hridayan.ashell"
         minSdk 24
         targetSdk 34
-        versionCode 31
-        versionName "v3.7.0"
+        versionCode 32
+        versionName "v3.8.0-test"
     }
 
     Properties properties = new Properties()

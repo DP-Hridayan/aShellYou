@@ -87,7 +87,7 @@ public class aShellFragment extends Fragment {
 
   private AppCompatImageButton localShellSymbol;
   private ExtendedFloatingActionButton mSaveButton, mPasteButton;
-  private FloatingActionButton mBottomButton, mSendButton, mTopButton, mShareButton;
+  private FloatingActionButton mBottomButton, mSendButton, mTopButton, mShareButton, mUndoButton;
   private MaterialButton mClearButton, mHistoryButton, mSearchButton, mBookMarks, mSettingsButton;
   private FrameLayout mAppNameLayout;
   private BottomNavigationView mNav;
@@ -126,6 +126,7 @@ public class aShellFragment extends Fragment {
             isKeyboardVisible = visible;
             if (isKeyboardVisible) {
               mPasteButton.setVisibility(View.GONE);
+              mUndoButton.setVisibility(View.GONE);
               mSaveButton.setVisibility(View.GONE);
               mShareButton.setVisibility(View.GONE);
 
@@ -167,16 +168,15 @@ public class aShellFragment extends Fragment {
     mSettingsButton = view.findViewById(R.id.settings);
     mShareButton = view.findViewById(R.id.fab_share);
     mTopButton = view.findViewById(R.id.fab_up);
+    mUndoButton = view.findViewById(R.id.fab_undo);
 
     /*------------------------------------------------------*/
 
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-    
-
-        mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
-       mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
+    mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
+    mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
@@ -192,8 +192,24 @@ public class aShellFragment extends Fragment {
 
     mPasteButton.setOnClickListener(
         v -> {
+          mUndoButton.show();
+          mHandler.postDelayed(
+              () -> {
+                mUndoButton.hide();
+                mHandler.removeCallbacksAndMessages(null);
+              },
+              3000);
           pasteFromClipboard();
         });
+
+    mUndoButton.setOnClickListener(
+        v -> {
+          mCommand.setText(null);
+          mUndoButton.hide();
+          mHandler.removeCallbacksAndMessages(null);
+        });
+
+    /*------------------------------------------------------*/
 
     mTopButton.setOnClickListener(
         new View.OnClickListener() {
@@ -445,6 +461,7 @@ public class aShellFragment extends Fragment {
             handleShizukuAvailability(requireContext());
           } else {
             mPasteButton.hide();
+            mUndoButton.hide();
             if (isAdded()) {
               mCommandInput.setError(null);
               initializeShell(requireActivity());
