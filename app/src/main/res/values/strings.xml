@@ -91,17 +91,16 @@
     <string name="des_examples">Collection of some command templates</string>
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="des_about">Version , Credits</string>
-
-    <string name="lead_developer">Lead developer</string>
-    <string name="hridayan_about">Just a guy who loves apps and design</string>
-    <string name="contributors">Contributors</string>
-    <string name="rikka_about">Developer of Shizuku\nThe main functionality provider of aShell You</string>
-    <string name="sunilpaulmathew_about">Developer of aShell\nWithout him aShell You wouldn\'t exist</string>
-    <string name="khun_htetz_about">Developer of ADB⚡OTG\nThanks to him OTG feature could be implemented in aShell You</string>
-    <string name="krishna_about">He is the website developer , tester , channel manager and a lot more\n\nThanks for your support buddy 🤗</string>
-    <string name="drDisagree_about">Developer of Iconify\nHelped me fix issues in aShell You 🤝</string>
-    <string name="marciozomb13_about">A freelancer translator who did the Portuguese translations</string>
-    <string name="weiguangtwk_about">The guy who did the Chinese translations</string>
+    <string name="lead_developer">Lead developer</string>   
+    <string name="hridayan_about">Just a guy who loves apps and design</string>  
+    <string name="contributors">Contributors</string>     
+    <string name="rikka_about">Developer of Shizuku\nThe main functionality provider of aShell You</string>   
+    <string name="sunilpaulmathew_about">"The existence of aShell You is indebted to the visionary developer behind its creation; without their innovation, aShell would simply be a concept."</string>    
+     <string name="khun_htetz_about">"Thanks to the developer of ADB⚡OTG, the OTG feature has been seamlessly integrated into aShell, enhancing its functionality."</string>   
+      <string name="krishna_about">He's the guy who does it all - website development, testing, channel management, and more.\n\n Thanks for having our backs, buddy! 🤗</string>    
+     <string name="drDisagree_about">"Thanks to the developer of Iconify, we teamed up to resolve issues in aShell. You rock! 🤝"</string>   
+      <string name="marciozomb13_about">A freelancer translator who did the Portuguese translations</string>   
+      <string name="weiguangtwk_about">The guy who did the Chinese translations</string>
     <string name="app">App</string>
     <string name="version">Version</string>
     <string name="report">Report an issue</string>
