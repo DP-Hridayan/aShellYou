@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
@@ -160,6 +159,8 @@ public class aShellFragment extends Fragment {
 
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
 
+    Utils.disableKeyboard(adapter, requireActivity(), view);
+
     KeyboardVisibilityChecker.attachVisibilityListener(
         requireActivity(),
         new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
@@ -189,8 +190,6 @@ public class aShellFragment extends Fragment {
         });
 
     /*------------------------------------------------------*/
-
-    Utils.disableKeyboard(adapter, requireActivity(), view);
 
     BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, adapter);
 

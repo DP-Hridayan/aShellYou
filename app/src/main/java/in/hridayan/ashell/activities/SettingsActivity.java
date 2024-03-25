@@ -58,9 +58,9 @@ public class SettingsActivity extends AppCompatActivity {
     settingsData.add(
         new SettingsItem(
             "id_disable_softkey",
-            R.drawable.ic_info,
-            "Test",
-            "disable keyboard",
+            R.drawable.ic_disable_keyboard,
+            getString(R.string.disable_softkey),
+            getString(R.string.des_disable_softkey),
             true,
             getSavedSwitchState("id_disable_softkey")));
 

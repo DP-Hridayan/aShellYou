@@ -72,6 +72,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           Intent intent;
 
           switch (id) {
+                
             case "id_changelogs":
               intent = new Intent(context, ChangelogActivity.class);
               break;

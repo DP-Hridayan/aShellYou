@@ -135,6 +135,8 @@ public class otgShellFragment extends Fragment
 
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
 
+    Utils.disableKeyboard(adapter, requireActivity(), view);
+
     KeyboardVisibilityChecker.attachVisibilityListener(
         requireActivity(),
         new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
