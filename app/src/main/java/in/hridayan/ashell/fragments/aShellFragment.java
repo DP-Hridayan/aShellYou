@@ -102,6 +102,7 @@ public class aShellFragment extends Fragment {
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1;
   private List<String> mHistory = null, mResult = null;
+  private View view;
 
   public aShellFragment() {}
 
@@ -109,7 +110,7 @@ public class aShellFragment extends Fragment {
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_ashell, container, false);
+    view = inflater.inflate(R.layout.fragment_ashell, container, false);
 
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter = new SettingsAdapter(settingsList, requireContext());
@@ -158,8 +159,6 @@ public class aShellFragment extends Fragment {
     handleSharedTextIntent(requireActivity().getIntent());
 
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
-
-    Utils.disableKeyboard(adapter, requireActivity(), view);
 
     KeyboardVisibilityChecker.attachVisibilityListener(
         requireActivity(),
@@ -1100,5 +1099,11 @@ public class aShellFragment extends Fragment {
         Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
       }
     }
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    Utils.disableKeyboard(adapter, requireActivity(), view);
   }
 }

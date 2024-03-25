@@ -89,7 +89,7 @@
     <string name="override_bookmarks_limit">Override maximum bookmarks limit</string>
     <string name="des_override_bookmarks"> Might cause lag if a large number of bookmarks are added! Low end devices should keep this option turned off</string>
     <string name="disable_softkey">Disable soft keyboard</string>
-    <string name="des_disable_softkey">Usefull when you want to use an external keyboard (requires an app restart)</string>
+    <string name="des_disable_softkey">Usefull when you want to use an external keyboard</string>
     <string name="des_examples">Collection of some command templates</string>
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="des_about">Version , Credits</string>

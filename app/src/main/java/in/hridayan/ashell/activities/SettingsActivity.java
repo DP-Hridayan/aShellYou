@@ -37,14 +37,6 @@ public class SettingsActivity extends AppCompatActivity {
     settingsData = new ArrayList<>();
 
     // switches
-    settingsData.add(
-        new SettingsItem(
-            "id_smooth_scroll",
-            R.drawable.ic_scroll,
-            getString(R.string.smooth_scrolling),
-            getString(R.string.des_smooth_scroll),
-            true,
-            getSavedSwitchState("id_smooth_scroll")));
 
     settingsData.add(
         new SettingsItem(
@@ -54,6 +46,15 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.des_ask_to_clean),
             true,
             getSavedSwitchState("id_clear")));
+
+    settingsData.add(
+        new SettingsItem(
+            "id_share_and_run",
+            R.drawable.ic_share,
+            getString(R.string.share_and_run),
+            getString(R.string.des_share_and_run),
+            true,
+            getSavedSwitchState("id_share_and_run")));
 
     settingsData.add(
         new SettingsItem(
@@ -75,12 +76,12 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsData.add(
         new SettingsItem(
-            "id_share_and_run",
-            R.drawable.ic_share,
-            getString(R.string.share_and_run),
-            getString(R.string.des_share_and_run),
+            "id_smooth_scroll",
+            R.drawable.ic_scroll,
+            getString(R.string.smooth_scrolling),
+            getString(R.string.des_smooth_scroll),
             true,
-            getSavedSwitchState("id_share_and_run")));
+            getSavedSwitchState("id_smooth_scroll")));
 
     // no switches
     settingsData.add(

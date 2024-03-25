@@ -245,5 +245,9 @@ public class Utils {
               WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
               WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
     }
+        else
+        {
+           activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        }
   }
 }

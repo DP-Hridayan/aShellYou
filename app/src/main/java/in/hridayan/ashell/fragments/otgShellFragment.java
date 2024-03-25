@@ -103,14 +103,14 @@ public class otgShellFragment extends Fragment
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private boolean isKeyboardVisible, sendButtonClicked = false;
   private List<String> mHistory = null, mResult = null;
-
+  private View view;
   private AdbStream stream;
 
   @Nullable
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_otg, container, false);
+    view = inflater.inflate(R.layout.fragment_otg, container, false);
 
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter = new SettingsAdapter(settingsList, requireContext());
@@ -134,8 +134,6 @@ public class otgShellFragment extends Fragment
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
-
-    Utils.disableKeyboard(adapter, requireActivity(), view);
 
     KeyboardVisibilityChecker.attachVisibilityListener(
         requireActivity(),
@@ -619,6 +617,7 @@ public class otgShellFragment extends Fragment
   @Override
   public void onResume() {
     super.onResume();
+    Utils.disableKeyboard(adapter, requireActivity(), view);
   }
 
   @Override
