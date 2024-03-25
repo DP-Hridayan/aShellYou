@@ -20,7 +20,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:fontFamily="@font/custom_font"
             android:textSize="17.0sp"
             android:textStyle="bold" />
 

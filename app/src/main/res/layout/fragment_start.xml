@@ -32,7 +32,6 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/custom_font"
                 android:layout_marginBottom="6dp"
                 android:letterSpacing="0.1"
                 android:text="Shell"
