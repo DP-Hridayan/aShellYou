@@ -57,6 +57,15 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsData.add(
         new SettingsItem(
+            "id_disable_softkey",
+            R.drawable.ic_info,
+            "Test",
+            "disable keyboard",
+            true,
+            getSavedSwitchState("id_disable_softkey")));
+
+    settingsData.add(
+        new SettingsItem(
             "id_override_bookmarks",
             R.drawable.ic_warning,
             getString(R.string.override_bookmarks_limit),

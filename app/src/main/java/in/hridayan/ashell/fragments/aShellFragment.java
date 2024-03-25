@@ -2,9 +2,6 @@ package in.hridayan.ashell.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipDescription;
-import android.content.ClipboardManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -25,11 +22,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
@@ -49,9 +46,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import in.hridayan.ashell.activities.ExamplesActivity;
-import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
-import in.hridayan.ashell.activities.FabOnScrollDownListener;
-import in.hridayan.ashell.activities.FabOnScrollUpListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabOnScrollDownListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabOnScrollUpListener;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
@@ -67,6 +64,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import in.hridayan.ashell.UI.BehaviorFAB;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Objects;
@@ -181,6 +179,7 @@ public class aShellFragment extends Fragment {
 
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
+
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
@@ -189,90 +188,25 @@ public class aShellFragment extends Fragment {
 
     handleSharedTextIntent(requireActivity().getIntent());
 
-    /*------------------------------------------------------*/
-
-    mPasteButton.setOnClickListener(
-        v -> {
-          mUndoButton.show();
-          mHandler.postDelayed(
-              () -> {
-                mUndoButton.hide();
-                mHandler.removeCallbacksAndMessages(null);
-              },
-              3000);
-          pasteFromClipboard();
-        });
-
-    mUndoButton.setOnClickListener(
-        v -> {
-          mCommand.setText(null);
-          mUndoButton.hide();
-          mHandler.removeCallbacksAndMessages(null);
-        });
+    BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
 
     /*------------------------------------------------------*/
 
-    mTopButton.setOnClickListener(
-        new View.OnClickListener() {
-          private long lastClickTime = 0;
+    InputMethodManager imm =
+        (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-          @Override
-          public void onClick(View v) {
+    boolean disableSoftKey = adapter.getSavedSwitchState("id_disable_softkey");
+    if (disableSoftKey) {
+      if (imm != null) imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
-            long currentTime = System.currentTimeMillis();
+      requireActivity()
+          .getWindow()
+          .setFlags(
+              WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+              WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+    }
 
-            long timeDifference = currentTime - lastClickTime;
-
-            if (timeDifference < 200) {
-              mRecyclerViewOutput.scrollToPosition(0);
-            } else {
-
-              boolean switchState = adapter.getSavedSwitchState("id_smooth_scroll");
-              if (switchState) {
-
-                mRecyclerViewOutput.smoothScrollToPosition(0);
-              } else {
-                mRecyclerViewOutput.scrollToPosition(0);
-              }
-            }
-
-            lastClickTime = currentTime;
-          }
-        });
-
-    /*------------------------------------------------------*/
-
-    mBottomButton.setOnClickListener(
-        new View.OnClickListener() {
-          private long lastClickTime = 0;
-
-          @Override
-          public void onClick(View v) {
-
-            long currentTime = System.currentTimeMillis();
-
-            long timeDifference = currentTime - lastClickTime;
-
-            if (timeDifference < 200) {
-              mRecyclerViewOutput.scrollToPosition(
-                  Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
-            } else {
-
-              boolean switchState = adapter.getSavedSwitchState("id_smooth_scroll");
-
-              if (switchState) {
-                mRecyclerViewOutput.smoothScrollToPosition(
-                    Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
-
-              } else {
-                mRecyclerViewOutput.scrollToPosition(
-                    Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
-              }
-            }
-
-            lastClickTime = currentTime;
-          }
-        });
+    BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, adapter);
 
     /*------------------------------------------------------*/
 
@@ -893,8 +827,8 @@ public class aShellFragment extends Fragment {
     if (finalCommand.startsWith("su")) {
       mCommandInput.setError(getString(R.string.su_warning));
       mCommandInput.setErrorIconDrawable(Utils.getDrawable(R.drawable.ic_error, requireActivity()));
-      alignMargin(mSendButton);
-      alignMargin(localShellSymbol);
+      Utils.alignMargin(mSendButton);
+      Utils.alignMargin(localShellSymbol);
       mCommand.requestFocus();
       Utils.snackBar(
               activity.findViewById(android.R.id.content), getString(R.string.su_warning_message))
@@ -1100,32 +1034,7 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
-  private void addBookmark(String bookmark, View view) {
-
-    boolean switchState = adapter.getSavedSwitchState("id_override_bookmarks");
-
-    if (Utils.getBookmarks(requireActivity()).size() <= 4) {
-      Utils.addToBookmark(bookmark, requireActivity());
-      Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
-    } else {
-      if (switchState) {
-        Utils.addToBookmark(bookmark, requireActivity());
-        Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
-      } else {
-        Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
-      }
-    }
-  }
-
   /*------------------------------------------------------*/
-
-  private void alignMargin(View component) {
-    ViewGroup.MarginLayoutParams params =
-        (ViewGroup.MarginLayoutParams) component.getLayoutParams();
-    params.bottomMargin = 29;
-    component.setLayoutParams(params);
-    component.requestLayout();
-  }
 
   private void setVisibilityWithDelay(View view, int delayMillis) {
     new Handler(Looper.getMainLooper())
@@ -1134,27 +1043,6 @@ public class aShellFragment extends Fragment {
               view.setVisibility(View.VISIBLE);
             },
             delayMillis);
-  }
-
-  /*------------------------------------------------------*/
-
-  private void pasteFromClipboard() {
-    ClipboardManager clipboard =
-        (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
-    if (clipboard.hasPrimaryClip()
-        && clipboard.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-      ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
-      String clipboardText = item.getText().toString();
-      mCommand.setText(clipboardText);
-      mCommand.setSelection(mCommand.getText().length());
-
-    } else {
-      Toast.makeText(
-              requireContext().getApplicationContext(),
-              getString(R.string.clipboard_empty),
-              Toast.LENGTH_SHORT)
-          .show();
-    }
   }
 
   /*------------------------------------------------------*/
@@ -1197,8 +1085,8 @@ public class aShellFragment extends Fragment {
             mCommand.setText(null);
           });
     }
-    alignMargin(mSendButton);
-    alignMargin(localShellSymbol);
+    Utils.alignMargin(mSendButton);
+    Utils.alignMargin(localShellSymbol);
 
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
@@ -1210,5 +1098,22 @@ public class aShellFragment extends Fragment {
             })
         .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
         .show();
+  }
+
+  private void addBookmark(String bookmark, View view) {
+
+    boolean switchState = adapter.getSavedSwitchState("id_override_bookmarks");
+
+    if (Utils.getBookmarks(requireActivity()).size() <= 4) {
+      Utils.addToBookmark(bookmark, requireActivity());
+      Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
+    } else {
+      if (switchState) {
+        Utils.addToBookmark(bookmark, requireActivity());
+        Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
+      } else {
+        Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
+      }
+    }
   }
 }

@@ -1,5 +1,6 @@
 package in.hridayan.ashell.fragments;
 
+import in.hridayan.ashell.UI.BehaviorFAB;
 import static in.hridayan.ashell.utils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_NOT_FOUND;
@@ -8,9 +9,6 @@ import static in.hridayan.ashell.utils.MessageOtg.INSTALLING_PROGRESS;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ClipData;
-import android.content.ClipDescription;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -62,7 +60,7 @@ import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import in.hridayan.ashell.activities.ExamplesActivity;
-import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
@@ -135,6 +133,8 @@ public class otgFragment extends Fragment
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
+    BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
+
     KeyboardVisibilityChecker.attachVisibilityListener(
         requireActivity(),
         new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
@@ -150,25 +150,6 @@ public class otgFragment extends Fragment
               }
             }
           }
-        });
-
-    mPasteButton.setOnClickListener(
-        v -> {
-          mUndoButton.show();
-          mHandler.postDelayed(
-              () -> {
-                mUndoButton.hide();
-                mHandler.removeCallbacksAndMessages(null);
-              },
-              3000);
-          pasteFromClipboard();
-        });
-
-    mUndoButton.setOnClickListener(
-        v -> {
-          mCommand.setText(null);
-          mUndoButton.hide();
-          mHandler.removeCallbacksAndMessages(null);
         });
 
     // Logic for changing the command send button depending on the text on the EditText
@@ -332,8 +313,8 @@ public class otgFragment extends Fragment
                               mCommand.setText(null);
                             });
 
-                        alignMargin(mSendButton);
-                        alignMargin(mCable);
+                        Utils.alignMargin(mSendButton);
+                        Utils.alignMargin(mCable);
 
                         mHistoryButton.setVisibility(View.VISIBLE);
 
@@ -815,15 +796,6 @@ public class otgFragment extends Fragment
     }
   }
 
-  private void alignMargin(View component) {
-
-    ViewGroup.MarginLayoutParams params =
-        (ViewGroup.MarginLayoutParams) component.getLayoutParams();
-    params.bottomMargin = 29;
-    component.setLayoutParams(params);
-    component.requestLayout();
-  }
-
   private void setVisibilityWithDelay(View view, int delayMillis) {
     new Handler(Looper.getMainLooper())
         .postDelayed(
@@ -831,23 +803,5 @@ public class otgFragment extends Fragment
               view.setVisibility(View.VISIBLE);
             },
             delayMillis);
-  }
-
-  private void pasteFromClipboard() {
-    ClipboardManager clipboard =
-        (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
-    if (clipboard.hasPrimaryClip()
-        && clipboard.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-      ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
-      String clipboardText = item.getText().toString();
-      mCommand.setText(clipboardText);
-      mCommand.setSelection(mCommand.getText().length());
-    } else {
-      Toast.makeText(
-              requireContext().getApplicationContext(),
-              getString(R.string.clipboard_empty),
-              Toast.LENGTH_SHORT)
-          .show();
-    }
   }
 }

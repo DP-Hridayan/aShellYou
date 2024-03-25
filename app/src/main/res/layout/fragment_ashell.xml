@@ -111,10 +111,10 @@
                     android:imeOptions="actionSend"
                     android:layout_gravity="start|center"
                     android:paddingHorizontal="10dp"
+                    android:inputType="textAutoComplete"
                     android:gravity="center_vertical"
                     android:cursorVisible="true"
-                    android:inputType="textAutoComplete"
-                    android:maxLines="5"
+                    android:maxLines="1"
                     android:id="@+id/shell_command" />
 
             </com.google.android.material.textfield.TextInputLayout>
