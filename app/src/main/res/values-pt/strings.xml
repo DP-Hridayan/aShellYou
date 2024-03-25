@@ -26,6 +26,8 @@
     <string name="connecting_hint">confirme a autorização no dispositivo alvo</string>
     <string name="copy">"Copiar"</string>
     <string name="device_not_connected">Dispositivo não conectado</string>
+    <string name="discord">Discord</string>
+    <string name="des_discord">Junte-se à comunidade do discord</string>
     <string name="dismiss">Dispensar</string>
     <string name="disabled">Desativado</string>
     <string name="donot_show_again">Não mostrar novamente</string>
@@ -55,6 +57,8 @@
     <string name="search">Pesquisar</string>
     <string name="settings">Configurações</string>
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) falha</string>
+    <string name="share_and_run">Auto executar comandos compartilhados</string>
+    <string name="des_share_and_run">Se habilitado, ao compartilhar qualquer texto para o aShell You, automaticamente o app tentará executar o texto compartilhado como um comando</string>
     <string name="shell_output_not_saved_message">A saída do último comando não foi salva</string>
     <string name="shell_output_saved_message">A saída do último comando foi exportada para a pasta \'%s\'</string>
     <string name="shell_working">Shell em execução</string>
@@ -88,6 +92,7 @@
     <string name="krishna_about">Ele é o desenvolvedor do site, testador, gerente de canal e muito mais\n\nObrigado pelo seu apoio amigo 🤗</string>
     <string name="drDisagree_about">Desenvolvedor do Iconify\nMe ajudou a corrigir problemas no aShell You 🤝</string>
     <string name="marciozomb13_about">Um tradutor freelancer que fez as traduções para o português do Brasil</string>
+    <string name="weiguangtwk_about">O cara que fez as traduções para o Chinês</string>
     <string name="app">App</string>
     <string name="version">Versão</string>
     <string name="report">Relatar um problema</string>
@@ -98,11 +103,10 @@
     <string name="des_github">Visite o repositório github do aShell You</string>
     <string name="telegram_channel">Canal do Telegram</string>
     <string name="des_telegram_channel">Participe do canal do telegram para discussão</string>
-    
     //Changelogs
     //Absolutely necessary to follow this string name format
     
-    
+    <string name="changelog_v3_7_0">\n• Agora você pode compartilhar textos de qualquer lugar no seu dispositivo para o aShell You e executar comandos diretamente.\n\n• Agora você pode compartilhar a saída do shell diretamente sem precisar salvá-lo!\n\n• Muitas otimizações e manuseio da interface do usuário.\n\n• Adicionada a tradução para o Chinês.\n\n• Traduções atualizadas.</string>
     <string name="changelog_v3_6_0">\n• Adicionada opção para limpar o campo de entrada de comando após um erro\n\n• Corrigido um bug que fazia com que o aplicativo falhasse ao colar da área de transferência sob certas condições\n\n• Otimizações de código</string>
     <string name="changelog_v3_5_1">\n• Corrigido alguns problemas com a navegação inferior.</string>
     <string name="changelog_v3_5_0">\n• Seção Sobre do app renovada.\n\n• Adicionados atalhos do launcher.\n\n• Menu de navegação fixo não aparece no botão de navegação.\n\n• Melhor visibilidade do menu de navegação inferior na rolagem.\n\n• Adicionado suporte ao idioma por app (as traduções ainda não estão completas, você pode ajudar).\n\n• Muitas otimizações de código.</string>
