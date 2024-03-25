@@ -1,6 +1,5 @@
 package in.hridayan.ashell.fragments;
 
-import in.hridayan.ashell.UI.BehaviorFAB;
 import static in.hridayan.ashell.utils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.MessageOtg.DEVICE_NOT_FOUND;
@@ -58,9 +57,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.BehaviorFAB;
+import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import in.hridayan.ashell.activities.ExamplesActivity;
-import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
@@ -76,7 +76,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class otgFragment extends Fragment
+public class otgShellFragment extends Fragment
     implements TextView.OnEditorActionListener, View.OnKeyListener {
   private Handler handler;
   private UsbDevice mDevice;

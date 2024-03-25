@@ -112,38 +112,8 @@ public class aShellFragment extends Fragment {
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_ashell, container, false);
 
-    /*------------------------------------------------------*/
-
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter = new SettingsAdapter(settingsList, requireContext());
-
-    KeyboardVisibilityChecker.attachVisibilityListener(
-        requireActivity(),
-        new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
-
-          public void onKeyboardVisibilityChanged(boolean visible) {
-            isKeyboardVisible = visible;
-            if (isKeyboardVisible) {
-              mPasteButton.setVisibility(View.GONE);
-              mUndoButton.setVisibility(View.GONE);
-              mSaveButton.setVisibility(View.GONE);
-              mShareButton.setVisibility(View.GONE);
-
-            } else {
-
-              if (mRecyclerViewOutput.getHeight() != 0) {
-                setVisibilityWithDelay(mSaveButton, 100);
-              }
-              if (mShareButton.getVisibility() == View.GONE
-                  && mRecyclerViewOutput.getHeight() != 0) {
-                setVisibilityWithDelay(mShareButton, 100);
-              }
-              if (mPasteButton.getVisibility() == View.GONE && !sendButtonClicked) {
-                setVisibilityWithDelay(mPasteButton, 100);
-              }
-            }
-          }
-        });
 
     /*------------------------------------------------------*/
 
@@ -189,6 +159,34 @@ public class aShellFragment extends Fragment {
     handleSharedTextIntent(requireActivity().getIntent());
 
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
+
+    KeyboardVisibilityChecker.attachVisibilityListener(
+        requireActivity(),
+        new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
+
+          public void onKeyboardVisibilityChanged(boolean visible) {
+            isKeyboardVisible = visible;
+            if (isKeyboardVisible) {
+              mPasteButton.setVisibility(View.GONE);
+              mUndoButton.setVisibility(View.GONE);
+              mSaveButton.setVisibility(View.GONE);
+              mShareButton.setVisibility(View.GONE);
+
+            } else {
+
+              if (mRecyclerViewOutput.getHeight() != 0) {
+                setVisibilityWithDelay(mSaveButton, 100);
+              }
+              if (mShareButton.getVisibility() == View.GONE
+                  && mRecyclerViewOutput.getHeight() != 0) {
+                setVisibilityWithDelay(mShareButton, 100);
+              }
+              if (mPasteButton.getVisibility() == View.GONE && !sendButtonClicked) {
+                setVisibilityWithDelay(mPasteButton, 100);
+              }
+            }
+          }
+        });
 
     /*------------------------------------------------------*/
 

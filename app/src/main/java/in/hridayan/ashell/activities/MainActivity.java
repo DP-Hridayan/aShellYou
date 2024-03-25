@@ -16,7 +16,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
 import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
-import in.hridayan.ashell.fragments.otgFragment;
+import in.hridayan.ashell.fragments.otgShellFragment;
 
 public class MainActivity extends AppCompatActivity {
   private boolean isKeyboardVisible;
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
               showaShellFragment();
               return true;
             case R.id.nav_otgShell:
-              showOtgFragment();
+              showotgShellFragment();
               return true;
             default:
               return false;
@@ -97,15 +97,15 @@ public class MainActivity extends AppCompatActivity {
         .commit();
   }
 
-  private void showOtgFragment() {
+  private void showotgShellFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof otgFragment)) {
+        instanceof otgShellFragment)) {
       // Don't show again logic
       if (PreferenceManager.getDefaultSharedPreferences(this)
           .getBoolean("Don't show beta otg warning", true)) {
         showBetaWarning();
       } else {
-        replaceFragment(new otgFragment());
+        replaceFragment(new otgShellFragment());
       }
     }
   }
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         .setPositiveButton(
             getString(R.string.accept),
             (dialogInterface, i) -> {
-              replaceFragment(new otgFragment());
+              replaceFragment(new otgShellFragment());
             })
         .setNegativeButton(
             getString(R.string.go_back),
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                   .edit()
                   .putBoolean("Don't show beta otg warning", false)
                   .apply();
-              replaceFragment(new otgFragment());
+              replaceFragment(new otgShellFragment());
             })
         .show();
   }
