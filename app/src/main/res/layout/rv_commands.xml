@@ -25,7 +25,7 @@
              android:textSize="17.0sp"
              android:id="@+id/title"
              android:layout_gravity="start"
-             android:textStyle="bold" />
+            />
 
         <com.google.android.material.textview.MaterialTextView
              android:layout_height="wrap_content"

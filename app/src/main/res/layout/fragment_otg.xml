@@ -116,7 +116,7 @@
                 android:textIsSelectable="true"
                 android:id="@+id/logs"
                 android:layout_gravity="start"
-                android:textStyle="bold" />
+              />
 
         </ScrollView>
 
