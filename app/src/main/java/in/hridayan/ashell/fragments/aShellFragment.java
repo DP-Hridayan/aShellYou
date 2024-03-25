@@ -190,19 +190,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    InputMethodManager imm =
-        (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-
-    boolean disableSoftKey = adapter.getSavedSwitchState("id_disable_softkey");
-    if (disableSoftKey) {
-      if (imm != null) imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-
-      requireActivity()
-          .getWindow()
-          .setFlags(
-              WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
-              WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-    }
+    Utils.disableKeyboard(adapter, requireActivity(), view);
 
     BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, adapter);
 
