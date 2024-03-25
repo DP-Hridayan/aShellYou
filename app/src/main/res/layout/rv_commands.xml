@@ -1,39 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     android:layout_height="wrap_content"
-     android:layout_width="fill_parent"
-     android:layout_margin="10dp"
-     app:cardElevation="4dp"
-     app:strokeWidth="0dp"
-     app:cardCornerRadius="15dp"
-     android:layout_gravity="center">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="?attr/colorSurfaceContainer"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp"
+    app:cardCornerRadius="15dp"
+    android:layout_gravity="center">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-         android:layout_height="wrap_content"
-         android:layout_width="fill_parent"
-         android:layout_margin="10dp"
-         android:orientation="vertical"
-         app:cardCornerRadius="15dp"
-         android:layout_gravity="center">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|start"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
-             android:layout_height="wrap_content"
-             android:layout_width="fill_parent"
-             android:clickable="false"
-             android:textSize="17.0sp"
-             android:id="@+id/title"
-             android:layout_gravity="start"
-            />
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/ItemTitle" />
 
         <com.google.android.material.textview.MaterialTextView
-             android:layout_height="wrap_content"
-             android:layout_width="fill_parent"
-             android:textSize="15.0sp"
-             android:id="@+id/summary"
-             android:layout_gravity="start"
-             android:textStyle="italic" />
+            android:id="@+id/summary"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/ItemDescription" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -1,36 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="12dp"
-    app:cardBackgroundColor="@android:color/transparent"
-    app:cardCornerRadius="20dp"
-    app:strokeWidth="1dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="?attr/colorSurfaceContainer"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp"
+    app:cardCornerRadius="15dp"
+    android:layout_gravity="center">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center|start"
         android:layout_margin="15dp"
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@id/title"
+            android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:textSize="17.0sp"
-           />
+            style="@style/ItemTitle" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@id/summary"
+            android:id="@+id/summary"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:alpha="0.7"
-            android:textSize="15.0sp"
-            android:textStyle="italic" />
+            style="@style/ItemDescription" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -21,6 +21,20 @@
     </style>
 
     <style
+        name="ItemTitle"
+        parent="AppTheme">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style
+        name="ItemDescription"
+        parent="AppTheme">
+        <item name="android:textSize">13.0sp</item>
+        <item name="android:alpha">0.9</item>
+    </style>
+
+    <style
         name="LatestVersionTitle"
         parent="AppTheme">
         <item name="android:textColor">?attr/colorPrimary</item>

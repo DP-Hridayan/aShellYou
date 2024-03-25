@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:scrollbars="vertical"
-                android:background="?attr/colorSurfaceContainerLowest"
+                android:background="?attr/colorSurfaceDim"
                 android:nestedScrollingEnabled="true"
                 android:scrollbarThumbVertical="@drawable/scrollbar"
                 android:id="@+id/recycler_view_output"
