@@ -476,6 +476,11 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
+    if (mSearchWord.hasFocus() == false) {
+      mBookMarks.setVisibility(
+          Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+    }
+
     mBookMarks.setTooltipText(getString(R.string.bookmarks));
 
     mBookMarks.setOnClickListener(
