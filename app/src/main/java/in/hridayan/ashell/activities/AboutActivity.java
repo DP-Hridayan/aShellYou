@@ -95,6 +95,14 @@ public class AboutActivity extends AppCompatActivity {
               "id_version", getString(R.string.version), version, R.drawable.ic_version_tag));
     } catch (PackageManager.NameNotFoundException ignored) {
     }
+
+    items.add(
+        new Category.AppItem(
+            "id_changelogs",
+            getString(R.string.changelogs),
+            getString(R.string.des_changelogs),
+            R.drawable.ic_changelog));
+
     items.add(
         new Category.AppItem(
             "id_report",

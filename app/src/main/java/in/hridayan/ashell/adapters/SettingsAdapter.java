@@ -72,9 +72,6 @@ View.OnClickListener clickListener = new View.OnClickListener() {
         Intent intent;
 
         switch (id) {
-            case "id_changelogs":
-                intent = new Intent(context, ChangelogActivity.class);
-                break;
 
             case "id_examples":
                 intent = new Intent(context, ExamplesActivity.class);

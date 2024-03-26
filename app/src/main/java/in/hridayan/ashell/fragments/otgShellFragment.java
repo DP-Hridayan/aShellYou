@@ -161,6 +161,9 @@ public class otgShellFragment extends Fragment
           startActivity(examples);
         });
 
+    mBookMarks.setVisibility(
+        Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+
     mCommand.addTextChangedListener(
         new TextWatcher() {
           @Override

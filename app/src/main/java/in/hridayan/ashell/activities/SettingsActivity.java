@@ -95,15 +95,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsData.add(
         new SettingsItem(
-            "id_changelogs",
-            R.drawable.ic_changelog,
-            getString(R.string.changelogs),
-            getString(R.string.des_changelogs),
-            false,
-            false));
-
-    settingsData.add(
-        new SettingsItem(
             "id_about",
             R.drawable.ic_info,
             getString(R.string.about),
