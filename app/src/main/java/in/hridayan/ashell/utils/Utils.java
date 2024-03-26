@@ -1,6 +1,5 @@
 package in.hridayan.ashell.utils;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -10,17 +9,13 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.view.WindowManager;
-
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.adapters.SettingsAdapter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -197,7 +192,6 @@ public class Utils {
     if (editText == null) {
       return;
     }
-
     ClipboardManager clipboard =
         (ClipboardManager) editText.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
     if (clipboard == null) {
@@ -228,26 +222,5 @@ public class Utils {
     params.bottomMargin = 29;
     component.setLayoutParams(params);
     component.requestLayout();
-  }
-
-  public static void disableKeyboard(SettingsAdapter adapter, Activity activity, View view) {
-
-    InputMethodManager imm =
-        (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-
-    boolean disableSoftKey = adapter.getSavedSwitchState("id_disable_softkey");
-    if (disableSoftKey) {
-      if (imm != null) imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-
-      activity
-          .getWindow()
-          .setFlags(
-              WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
-              WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-    }
-        else
-        {
-           activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        }
   }
 }

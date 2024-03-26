@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
@@ -14,7 +13,7 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
+import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgShellFragment;
@@ -34,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     mNav.setSelectedItemId(R.id.nav_localShell);
 
-    KeyboardVisibilityChecker.attachVisibilityListener(
+    KeyboardUtils.attachVisibilityListener(
         this,
-        new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
+        new KeyboardUtils.KeyboardVisibilityListener() {
           @Override
           public void onKeyboardVisibilityChanged(boolean visible) {
             isKeyboardVisible = visible;

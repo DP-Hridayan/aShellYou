@@ -59,7 +59,7 @@ import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
-import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
+import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
@@ -135,9 +135,9 @@ public class otgShellFragment extends Fragment
 
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
 
-    KeyboardVisibilityChecker.attachVisibilityListener(
+    KeyboardUtils.attachVisibilityListener(
         requireActivity(),
-        new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
+        new KeyboardUtils.KeyboardVisibilityListener() {
 
           public void onKeyboardVisibilityChanged(boolean visible) {
             isKeyboardVisible = visible;
@@ -617,7 +617,7 @@ public class otgShellFragment extends Fragment
   @Override
   public void onResume() {
     super.onResume();
-    Utils.disableKeyboard(adapter, requireActivity(), view);
+    KeyboardUtils.disableKeyboard(adapter, requireActivity(), view);
   }
 
   @Override

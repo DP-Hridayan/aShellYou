@@ -62,11 +62,17 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
             .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {})
             .setPositiveButton(
                 R.string.copy,
-                (dialogInterface, i) ->
-                    Utils.copyToClipboard(
-                        data.get(getAdapterPosition()).getExample(), view.getContext()))
+                (dialogInterface, i) -> {
+                  String sanitizedText = sanitizeText(data.get(getAdapterPosition()).getTitle());
+                  Utils.copyToClipboard(sanitizedText, view.getContext());
+                })
             .show();
       }
+    }
+
+    private String sanitizeText(String text) {
+      String sanitizedText = text.replaceAll("<[^>]*>", "");
+      return sanitizedText.trim();
     }
   }
 }

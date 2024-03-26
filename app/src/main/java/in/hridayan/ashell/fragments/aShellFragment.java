@@ -43,11 +43,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
-import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOnScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOnScrollUpListener;
+import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
@@ -63,7 +64,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import in.hridayan.ashell.UI.BehaviorFAB;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Objects;
@@ -160,9 +160,9 @@ public class aShellFragment extends Fragment {
 
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
 
-    KeyboardVisibilityChecker.attachVisibilityListener(
+    KeyboardUtils.attachVisibilityListener(
         requireActivity(),
-        new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
+        new KeyboardUtils.KeyboardVisibilityListener() {
 
           public void onKeyboardVisibilityChanged(boolean visible) {
             isKeyboardVisible = visible;
@@ -1109,6 +1109,6 @@ public class aShellFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-    Utils.disableKeyboard(adapter, requireActivity(), view);
+    KeyboardUtils.disableKeyboard(adapter, requireActivity(), view);
   }
 }

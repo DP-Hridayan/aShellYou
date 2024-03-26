@@ -79,6 +79,7 @@
     <string name="support">Support</string>
     <string name="su_warning_message">aShell You is not designed for root-related uses. Aborting.</string>
     <string name="title_activity_setting">Setup Apks</string>
+    <string name="use">Use</string>
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
     <string name="yes">Yes</string>

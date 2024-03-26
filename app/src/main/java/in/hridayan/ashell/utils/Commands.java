@@ -23,12 +23,13 @@ public class Commands {
             "am kill com.android.package"));
     mCommands.add(
         new CommandItems(
-            "am kill-all", "Kill all processes that are safe to kill (cached, etc)", null));
+            "am kill-all",
+            "Kill all processes that are safe to kill (cached, etc)",
+            "am kill-all"));
     mCommands.add(
         new CommandItems(
             "cat <file_path>", "Display the contents of a text file", "cat /system/build.prop"));
-    mCommands.add(new CommandItems("clear", "Clear terminal screen", null));
-
+    mCommands.add(new CommandItems("clear", "Clear terminal screen", "clear"));
     mCommands.add(
         new CommandItems(
             "cp <from> <to>",
@@ -40,9 +41,9 @@ public class Commands {
             "Copy a file or directory",
             "cp -r /system/app /sdcard\n\ncp -r /system/app /sdcard/abc"));
 
-    mCommands.add(new CommandItems("du -h", "Shows disk usage in human readable form", null));
-    mCommands.add(new CommandItems("dumpsys activity", "Print activity info", null));
-    mCommands.add(new CommandItems("dumpsys battery", "Primt battery stats", null));
+    mCommands.add(new CommandItems("du -h", "Shows disk usage in human readable form", "du -h"));
+    mCommands.add(new CommandItems("dumpsys activity", "Print activity info", "dumpsys activity"));
+    mCommands.add(new CommandItems("dumpsys battery", "Primt battery stats", "dumpsys battery"));
     mCommands.add(
         new CommandItems(
             "dumpsys battery set level <n>",
@@ -53,29 +54,34 @@ public class Commands {
             "dumpsys battery set status <n>",
             "Change the level to unknown, charging, discharging, not charging or full",
             "dumpsys battery set status 0"));
-    mCommands.add(new CommandItems("dumpsys battery reset", "Reset battery", null));
-    mCommands.add(new CommandItems("dumpsys display", "Primt display stats", null));
+    mCommands.add(
+        new CommandItems("dumpsys battery reset", "Reset battery", "dumpsys battery reset"));
+    mCommands.add(new CommandItems("dumpsys display", "Primt display stats", "dumpsys display"));
     mCommands.add(
         new CommandItems("echo <message>", "Display message on screen", "echo Hello World"));
-    mCommands.add(new CommandItems("exit", "Exit the shell", null));
+    mCommands.add(new CommandItems("exit", "Exit the shell", "exit"));
     mCommands.add(
         new CommandItems("file <file_path>", "Determine file type", "file /system/build.prop"));
     mCommands.add(
-        new CommandItems("goto top", "Go to the top of the shell output (fun command)", null));
+        new CommandItems(
+            "goto top", "Go to the top of the shell output (fun command)", "goto top"));
 
     mCommands.add(
         new CommandItems(
-            "goto bottom", "Go to the bottom of the shell output (fun command)", null));
+            "goto bottom", "Go to the bottom of the shell output (fun command)", "goto bottom"));
     mCommands.add(
-        new CommandItems("grep", "Search file(s) for lines that match a given pattern", null));
-    mCommands.add(new CommandItems("kill <pid>", "Kill a process by specifying its PID", null));
+        new CommandItems("grep", "Search file(s) for lines that match a given pattern", "grep"));
+    mCommands.add(
+        new CommandItems("kill <pid>", "Kill a process by specifying its PID", "kill <pid>"));
     mCommands.add(
         new CommandItems(
-            "logcat", "Display real-time log of system messages, including stack traces", null));
-    mCommands.add(new CommandItems("logcat -g", "Displays current log buffer sizes", null));
+            "logcat",
+            "Display real-time log of system messages, including stack traces",
+            "logcat"));
+    mCommands.add(new CommandItems("logcat -g", "Displays current log buffer sizes", "logcat -g"));
     mCommands.add(
         new CommandItems("logcat -G <size>", "Sets the buffer size (K or M)", "logcat -G 1M"));
-    mCommands.add(new CommandItems("logcat -c", "Clears the log buffers", null));
+    mCommands.add(new CommandItems("logcat -c", "Clears the log buffers", "logcat -c"));
     mCommands.add(new CommandItems("ls", "List contents of a directory", "ls /system"));
     mCommands.add(new CommandItems("ls -R", "List subdirectories recursively", "ls -R /system"));
     mCommands.add(new CommandItems("ls -s", "Print size of each file", "ls -s /system"));
@@ -85,8 +91,8 @@ public class Commands {
             "mv <from> <to>",
             "Move a file or directory",
             "mv /system/app /sdcard\n\nmv /system/app /sdcard/abc"));
-    mCommands.add(new CommandItems("netstat", "List TCP connectivity", null));
-    mCommands.add(new CommandItems("ping", "Test a network connection", null));
+    mCommands.add(new CommandItems("netstat", "List TCP connectivity", "netstat"));
+    mCommands.add(new CommandItems("ping", "Test a network connection", "ping"));
     mCommands.add(
         new CommandItems(
             "pm clear <package>",
@@ -110,7 +116,9 @@ public class Commands {
     mCommands.add(
         new CommandItems(
             "pm dump <package>", "List info of one app", "pm dump com.android.package"));
-    mCommands.add(new CommandItems("pm dump package packages", "List info of all apps", null));
+    mCommands.add(
+        new CommandItems(
+            "pm dump package packages", "List info of all apps", "pm dump package packages"));
     mCommands.add(
         new CommandItems(
             "pm enable <package/component>",
@@ -220,7 +228,8 @@ public class Commands {
             "pm install-commit <session_id>",
             "Commit the given active install session, installing the app",
             "pm install-commit 01234567"));
-    mCommands.add(new CommandItems("pm install-create", "Create an install session", null));
+    mCommands.add(
+        new CommandItems("pm install-create", "Create an install session", "pm install-create"));
     mCommands.add(
         new CommandItems(
             "pm install-existing",
@@ -261,51 +270,81 @@ public class Commands {
             "pm install-write <size> <session_id> <split_name> <split_path>",
             "Write an apk into the given install session",
             "pm install-write 123 01234567 base.apk /data/local/tmp/base.apk"));
-    mCommands.add(new CommandItems("pm list features", "List phone features", null));
-    mCommands.add(new CommandItems("pm list libraries", "List all system libraries", null));
-    mCommands.add(new CommandItems("pm list packages", "List package names", null));
-    mCommands.add(new CommandItems("pm list packages -3", "List only third party packages", null));
+    mCommands.add(new CommandItems("pm list features", "List phone features", "pm list features"));
+    mCommands.add(
+        new CommandItems("pm list libraries", "List all system libraries", "pm list libraries"));
+    mCommands.add(new CommandItems("pm list packages", "List package names", "pm list packages"));
     mCommands.add(
         new CommandItems(
-            "pm list packages -a", "List all known packages, but excluding APEXes", null));
-    mCommands.add(new CommandItems("pm list packages -d", "List all disabled packages", null));
-    mCommands.add(new CommandItems("pm list packages -e", "List all enabled packages", null));
+            "pm list packages -3", "List only third party packages", "pm list packages -3"));
     mCommands.add(
         new CommandItems(
-            "pm list packages -f", "List package names along with their associated file", null));
+            "pm list packages -a",
+            "List all known packages, but excluding APEXes",
+            "pm list packages -a"));
     mCommands.add(
         new CommandItems(
-            "pm list packages -i", "List package names along with their installer", null));
-    mCommands.add(new CommandItems("pm list packages -s", "List only system packages", null));
+            "pm list packages -d", "List all disabled packages", "pm list packages -d"));
+    mCommands.add(
+        new CommandItems(
+            "pm list packages -e", "List all enabled packages", "pm list packages -e"));
+    mCommands.add(
+        new CommandItems(
+            "pm list packages -f",
+            "List package names along with their associated file",
+            "pm list packages -f"));
+    mCommands.add(
+        new CommandItems(
+            "pm list packages -i",
+            "List package names along with their installer",
+            "pm list packages -i"));
+    mCommands.add(
+        new CommandItems(
+            "pm list packages -s", "List only system packages", "pm list packages -s"));
     mCommands.add(
         new CommandItems(
             "pm list packages --show-versioncode",
             "List package names along with their version code",
-            null));
+            "pm list packages --show-versioncode"));
     mCommands.add(
         new CommandItems(
             "pm list packages -u",
             "List package names of all apps including the uninstalled ones",
-            null));
+            "pm list packages -u"));
     mCommands.add(
         new CommandItems(
-            "pm list packages -U", "List package names along with their package UID", null));
-    mCommands.add(
-        new CommandItems("pm list permissions", "Print all known permission groups", null));
-    mCommands.add(
-        new CommandItems("pm list permissions -d", "Print only dangerous permissions", null));
+            "pm list packages -U",
+            "List package names along with their package UID",
+            "pm list packages -U"));
     mCommands.add(
         new CommandItems(
-            "pm list permissions -f", "Print all information about the known permissions", null));
-    mCommands.add(
-        new CommandItems("pm list permissions -g", "Organize all known permission by group", null));
+            "pm list permissions", "Print all known permission groups", "pm list permissions"));
     mCommands.add(
         new CommandItems(
-            "pm list permissions -s", "Print a short summary about the known permissions", null));
+            "pm list permissions -d",
+            "Print only dangerous permissions",
+            "pm list permissions -d"));
     mCommands.add(
         new CommandItems(
-            "pm list permissions -u", "Print only permissions that users will see", null));
-    mCommands.add(new CommandItems("pm list users", "List all user names", null));
+            "pm list permissions -f",
+            "Print all information about the known permissions",
+            "pm list permissions -f"));
+    mCommands.add(
+        new CommandItems(
+            "pm list permissions -g",
+            "Organize all known permission by group",
+            "pm list permissions -g"));
+    mCommands.add(
+        new CommandItems(
+            "pm list permissions -s",
+            "Print a short summary about the known permissions",
+            "pm list permissions -s"));
+    mCommands.add(
+        new CommandItems(
+            "pm list permissions -u",
+            "Print only permissions that users will see",
+            "pm list permissions -u"));
+    mCommands.add(new CommandItems("pm list users", "List all user names", "pm list users"));
     mCommands.add(
         new CommandItems(
             "pm path <package>", "Show apk file path of an app", "pm path com.android.package"));
@@ -350,7 +389,7 @@ public class Commands {
         new CommandItems(
             "pm uninstall-system-updates",
             "Removes updates to all system applications and falls back to its system version",
-            null));
+            "pm uninstall-system-updates"));
     mCommands.add(
         new CommandItems(
             "pm uninstall-system-updates <package>",
@@ -359,27 +398,34 @@ public class Commands {
     mCommands.add(
         new CommandItems(
             "pm unsuspend <package>", "Unsuspend an app.", "pm unsuspend com.android.package"));
-    mCommands.add(new CommandItems("ps", "Print process status", null));
-    mCommands.add(new CommandItems("pwd", "Print current working directory", null));
-    mCommands.add(new CommandItems("reboot", "Reboot device", null));
-    mCommands.add(new CommandItems("reboot -p", "Shutdown device", null));
-    mCommands.add(new CommandItems("reboot recovery", "Reboot device into recovery mode", null));
-    mCommands.add(new CommandItems("reboot fastboot", "Reboot device into fastboot", null));
-    mCommands.add(new CommandItems("reboot bootloader", "Reboot device into bootloader", null));
+    mCommands.add(new CommandItems("ps", "Print process status", "ps"));
+    mCommands.add(new CommandItems("pwd", "Print current working directory", "pwd"));
+    mCommands.add(new CommandItems("reboot", "Reboot device", "reboot"));
+    mCommands.add(new CommandItems("reboot -p", "Shutdown device", "reboot -p"));
+    mCommands.add(
+        new CommandItems("reboot recovery", "Reboot device into recovery mode", "reboot recovery"));
+    mCommands.add(
+        new CommandItems("reboot fastboot", "Reboot device into fastboot", "reboot fastboot"));
+    mCommands.add(
+        new CommandItems(
+            "reboot bootloader", "Reboot device into bootloader", "reboot bootloader"));
     mCommands.add(new CommandItems("rm <file_path>", "Delete a file", "rm /sdcard/example.txt"));
     mCommands.add(
         new CommandItems("rm -r <file_path>", "Delete a file or directory", "rm -r /sdcard/abc"));
-    mCommands.add(new CommandItems("service list", "List all services", null));
+    mCommands.add(new CommandItems("service list", "List all services", "service list"));
     mCommands.add(new CommandItems("sleep <second>", "Delay for a specified time", "sleep 5"));
-    mCommands.add(new CommandItems("sync", "Synchronize data on disk with memory", null));
-    mCommands.add(new CommandItems("top", "List processes running on the system", null));
+    mCommands.add(new CommandItems("sync", "Synchronize data on disk with memory", "sync"));
+    mCommands.add(new CommandItems("top", "List processes running on the system", "top"));
     mCommands.add(
         new CommandItems("top -n <number>", "Update display <number> times, then exit", "top -n1"));
-    mCommands.add(new CommandItems("whoami", "Print the current user id and name", null));
-    mCommands.add(new CommandItems("wm density", "Displays current screen density", null));
-    mCommands.add(new CommandItems("wm density reset", "Reset screen density to default", null));
-    mCommands.add(new CommandItems("wm size", "Displays the current screen resolution", null));
-    mCommands.add(new CommandItems("wm size reset", "Reset screen resolution to default", null));
+    mCommands.add(new CommandItems("whoami", "Print the current user id and name", "whoami"));
+    mCommands.add(new CommandItems("wm density", "Displays current screen density", "wm density"));
+    mCommands.add(
+        new CommandItems(
+            "wm density reset", "Reset screen density to default", "wm density reset"));
+    mCommands.add(new CommandItems("wm size", "Displays the current screen resolution", "wm size"));
+    mCommands.add(
+        new CommandItems("wm size reset", "Reset screen resolution to default", "wm size reset"));
 
     return mCommands;
   }

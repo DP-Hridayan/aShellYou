@@ -1,11 +1,15 @@
 package in.hridayan.ashell.UI;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import in.hridayan.ashell.adapters.SettingsAdapter;
 
-public class KeyboardVisibilityChecker {
+public class KeyboardUtils {
 
   public interface KeyboardVisibilityListener {
     void onKeyboardVisibilityChanged(boolean isVisible);
@@ -26,12 +30,8 @@ public class KeyboardVisibilityChecker {
                 contentView.getWindowVisibleDisplayFrame(r);
                 int screenHeight = contentView.getRootView().getHeight();
 
-                // Calculate the height difference between the screen height and visible window
-                // height
                 int heightDiff = screenHeight - (r.bottom - r.top);
 
-                // If the height difference is greater than 200 pixels, assume the keyboard is
-                // visible
                 boolean isVisible = heightDiff > 500;
 
                 if (isVisible != wasOpened) {
@@ -40,5 +40,24 @@ public class KeyboardVisibilityChecker {
                 }
               }
             });
+  }
+
+  public static void disableKeyboard(SettingsAdapter adapter, Activity activity, View view) {
+
+    InputMethodManager imm =
+        (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+    boolean disableSoftKey = adapter.getSavedSwitchState("id_disable_softkey");
+    if (disableSoftKey) {
+      if (imm != null) imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+      activity
+          .getWindow()
+          .setFlags(
+              WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+              WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+    } else {
+      activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+    }
   }
 }

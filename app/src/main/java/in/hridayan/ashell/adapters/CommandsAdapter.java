@@ -43,8 +43,6 @@ public class CommandsAdapter extends RecyclerView.Adapter<CommandsAdapter.ViewHo
         if (this.data.get(position).getSummary() != null) {
             holder.mSummary.setText(this.data.get(position).getSummary());
         } else {
-            holder.mTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
-            holder.mTitle.setTypeface(null, Typeface.BOLD_ITALIC);
             holder.mSummary.setVisibility(View.GONE);
         }
     }
