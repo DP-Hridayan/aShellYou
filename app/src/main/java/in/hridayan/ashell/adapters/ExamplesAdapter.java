@@ -58,6 +58,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     public void onClick(View view) {
       if (data.get(getAdapterPosition()).getExample() != null) {
         new MaterialAlertDialogBuilder(view.getContext())
+            .setTitle(R.string.example)
             .setMessage(data.get(getAdapterPosition()).getExample())
             .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {})
             .setPositiveButton(

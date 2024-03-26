@@ -88,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
         new SettingsItem(
             "id_examples",
             R.drawable.ic_numbers,
-            getString(R.string.examples),
+            getString(R.string.commands),
             getString(R.string.des_examples),
             false,
             false));
