@@ -1,10 +1,13 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/category_contributors_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
     app:cardCornerRadius="20dp"
+    android:focusable="true"
+    android:foreground="?@attr/selectableItemBackground"
     app:cardBackgroundColor="?attr/colorSurfaceContainer"
     app:strokeWidth="0dp"
     android:elevation="0dp"
@@ -34,8 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                style="@style/ItemTitle"
-            />
+                style="@style/ItemTitle" />
 
             <TextView
                 android:id="@+id/description_text_view"

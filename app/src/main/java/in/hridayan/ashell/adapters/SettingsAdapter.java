@@ -65,35 +65,33 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         holder.descriptionTextView.setVisibility(View.VISIBLE);
       }
     }
+View.OnClickListener clickListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        String id = settingsItem.getId();
+        Intent intent;
 
-    View.OnClickListener clickListener =
-        v -> {
-          String id = settingsItem.getId();
-          Intent intent;
-
-          switch (id) {
-                
+        switch (id) {
             case "id_changelogs":
-              intent = new Intent(context, ChangelogActivity.class);
-              break;
+                intent = new Intent(context, ChangelogActivity.class);
+                break;
 
             case "id_examples":
-              intent = new Intent(context, ExamplesActivity.class);
-              break;
+                intent = new Intent(context, ExamplesActivity.class);
+                break;
 
             case "id_about":
-              intent = new Intent(context, AboutActivity.class);
-              break;
+                intent = new Intent(context, AboutActivity.class);
+                break;
 
             default:
-              return;
-          }
-          context.startActivity(intent);
-        };
-    holder.titleTextView.setOnClickListener(clickListener);
-    holder.descriptionTextView.setOnClickListener(clickListener);
-    holder.settingsItemLayout.setOnClickListener(clickListener);
-  }
+                return;
+        }
+        context.startActivity(intent);
+    }
+};
+
+holder.settingsItemLayout.setOnClickListener(clickListener);}
 
   @Override
   public int getItemCount() {
