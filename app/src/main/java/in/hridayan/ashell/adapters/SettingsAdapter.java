@@ -1,5 +1,6 @@
 package in.hridayan.ashell.adapters;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.AboutActivity;
 import in.hridayan.ashell.activities.ChangelogActivity;
 import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.utils.SettingsItem;
 import java.util.List;
 
@@ -26,6 +29,13 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
   private List<SettingsItem> settingsList;
   private Context context;
+  private int currentTheme;
+
+  public SettingsAdapter(List<SettingsItem> settingsList, Context context, int currentTheme) {
+    this.settingsList = settingsList;
+    this.context = context;
+    this.currentTheme = currentTheme;
+  }
 
   public SettingsAdapter(List<SettingsItem> settingsList, Context context) {
     this.settingsList = settingsList;
@@ -35,6 +45,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
     View view =
         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_settings, parent, false);
     return new ViewHolder(view);
@@ -51,11 +62,16 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     if (settingsItem.hasSwitch()) {
       holder.switchView.setVisibility(View.VISIBLE);
       holder.switchView.setChecked(settingsItem.isEnabled());
+
       holder.switchView.setOnCheckedChangeListener(
           (buttonView, isChecked) -> {
             settingsItem.setEnabled(isChecked);
             settingsItem.saveSwitchState(context);
+            if (settingsItem.getId().equals("id_amoled_theme")) {
+              applyTheme(isChecked);
+            }
           });
+
     } else {
       holder.switchView.setVisibility(View.GONE);
 
@@ -65,33 +81,42 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         holder.descriptionTextView.setVisibility(View.VISIBLE);
       }
     }
-
     View.OnClickListener clickListener =
-        v -> {
-          String id = settingsItem.getId();
-          Intent intent;
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            String id = settingsItem.getId();
+            Intent intent;
 
-          switch (id) {
-            case "id_changelogs":
-              intent = new Intent(context, ChangelogActivity.class);
-              break;
+            switch (id) {
+              case "id_examples":
+                intent = new Intent(context, ExamplesActivity.class);
+                break;
 
-            case "id_examples":
-              intent = new Intent(context, ExamplesActivity.class);
-              break;
+              case "id_about":
+                intent = new Intent(context, AboutActivity.class);
+                break;
 
-            case "id_about":
-              intent = new Intent(context, AboutActivity.class);
-              break;
-
-            default:
-              return;
+              default:
+                return;
+            }
+            context.startActivity(intent);
           }
-          context.startActivity(intent);
         };
-    holder.titleTextView.setOnClickListener(clickListener);
-    holder.descriptionTextView.setOnClickListener(clickListener);
+
     holder.settingsItemLayout.setOnClickListener(clickListener);
+  }
+
+  private void applyTheme(boolean isAmoledTheme) {
+    if (isAmoledTheme) {
+      context.setTheme(R.style.ThemeOverlay_aShellYou_AmoledTheme);
+    } else {
+      context.setTheme(R.style.aShellYou_AppTheme);
+    }
+    currentTheme =
+        isAmoledTheme ? R.style.ThemeOverlay_aShellYou_AmoledTheme : R.style.aShellYou_AppTheme;
+
+    ((AppCompatActivity) context).recreate();
   }
 
   @Override
@@ -106,7 +131,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
     ImageView symbolImageView;
-    TextView titleTextView,descriptionTextView;
+    TextView titleTextView, descriptionTextView;
     MaterialSwitch switchView;
     ConstraintLayout settingsItemLayout;
 

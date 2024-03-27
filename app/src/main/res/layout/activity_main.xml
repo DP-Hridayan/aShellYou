@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:fitsSystemWindows="false"
+    android:background="?attr/colorSurface"
     tools:context=".activities.MainActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -17,6 +18,6 @@
         android:layout_gravity="bottom"
         android:id="@+id/bottom_nav_bar"
         android:layerType="hardware"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

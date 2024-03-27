@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:fitsSystemWindows="true"
+    android:background="?attr/colorSurface"
     android:orientation="vertical"
     tools:context=".AboutActivity">
 

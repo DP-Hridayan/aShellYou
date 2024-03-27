@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.adapters.AboutAdapter;
+import in.hridayan.ashell.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,15 @@ public class AboutActivity extends AppCompatActivity {
   private List<Object> items;
 
   @Override
+  protected void onResume() {
+    super.onResume();
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
+    ThemeUtils.updateTheme(this);
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_about);
 
@@ -95,6 +103,14 @@ public class AboutActivity extends AppCompatActivity {
               "id_version", getString(R.string.version), version, R.drawable.ic_version_tag));
     } catch (PackageManager.NameNotFoundException ignored) {
     }
+
+    items.add(
+        new Category.AppItem(
+            "id_changelogs",
+            getString(R.string.changelogs),
+            getString(R.string.des_changelogs),
+            R.drawable.ic_changelog));
+
     items.add(
         new Category.AppItem(
             "id_report",

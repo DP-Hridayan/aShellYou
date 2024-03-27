@@ -7,12 +7,15 @@
         translatable="false">aShell You</string>
 
     <string name="access_denied">Access denied</string>
+    <string name="accept_device_prompt">You might need to accept a prompt on the other device if you are trying to connect to it for the first time from this device</string>
     <string name="adb_device_connected">ADB device connected.</string>
     <string name="adb_device_not_connected">ADB device not connected.</string>
     <string name="adb_device_waiting">Waiting for ADB device</string>
     <string name="adb_shell">ADB shell</string>
     <string name="about">About</string>
     <string name="accept">Accept</string>
+    <string name="amoled_theme">Amoled black theme</string>
+    <string name="des_amoled_theme">Pure black theme for devices with OLED panel</string>
     <string name="app_summary">aShell You is here for all your ADB needs</string>
     <string name="app_working_message">aShell You is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
 
@@ -27,6 +30,7 @@
     <string name="clear_everything">Clear everything</string>
     <string name="clear_screen">Clear screen</string>
     <string name="clipboard_empty">Clipboard doesn\'t contain text</string>
+    <string name="commands">Commands</string>
     <string name="command_hint">Input ADB command here</string>
     <string name="command_title">Input ADB Command</string>
     <string name="connecting">connecting...</string>
@@ -39,6 +43,7 @@
     <string name="disabled">Disabled</string>
     <string name="donot_show_again">Don\'t show again</string>
     <string name="error">Error</string>
+    <string name="example">Example</string>
     <string name="examples">Examples</string>
     <string name="failed">Failed</string>
     <string name="generate_key_failed">Failed to generate and save key pair</string>
@@ -78,6 +83,7 @@
     <string name="support">Support</string>
     <string name="su_warning_message">aShell You is not designed for root-related uses. Aborting.</string>
     <string name="title_activity_setting">Setup Apks</string>
+    <string name="use">Use</string>
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
     <string name="yes">Yes</string>
@@ -87,7 +93,9 @@
     <string name="ask_to_clean">Ask before clearing shell output</string>
     <string name="des_ask_to_clean">If enabled a confirmation popup will show after you click the Clear screen button</string>
     <string name="override_bookmarks_limit">Override maximum bookmarks limit</string>
-    <string name="des_override_bookmarks">Enabling this option might cause performance issue if a large number of bookmarks are added! Low end devices should keep this option turned off</string>
+    <string name="des_override_bookmarks"> Might cause lag if a large number of bookmarks are added! Low end devices should keep this option turned off</string>
+    <string name="disable_softkey">Disable soft keyboard</string>
+    <string name="des_disable_softkey">Usefull when you want to use an external keyboard</string>
     <string name="des_examples">Collection of some command templates</string>
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="des_about">Version , Credits</string>
@@ -113,6 +121,9 @@
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     //Changelogs
     //Absolutely necessary to follow this string name format
+    
+    <string name="changelog_v3_8_0">\n\n• Added black (amoled) theme\n\n• Added undo button to undo paste\n\n• Added option to disable soft keyboard\n\n• Fixed buttons stretched in some screen sizes\n\n• Fixed bookmarks button not appearing after opening the app\n\n• Renamed Examples section to Commands\n\n• Fixed copy command option not appearing for every command template\n\n• App now uses system font everywhere\n\n• Improved UI handling\n\n• Updated translations</string>
+
     <string name="changelog_v3_7_0">\n\n• Now you can share texts from anywhere on your device to aShell You and run commands directly.\n\n• Now you can share shell output directly without needing to save it !\n\n• A lot of optimisations and UI handling.\n\n• Added Chinese translations.\n\n• Updated translations.
 </string>
 

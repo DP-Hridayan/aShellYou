@@ -5,9 +5,11 @@
     android:layout_gravity="center"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:background="?attr/colorSurface"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="PrivateResource"
     tools:context=".ExamplesActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,7 +26,7 @@
             app:expandedTitleMarginStart="25dp"
             app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="@string/examples">
+            app:title="@string/commands">
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"

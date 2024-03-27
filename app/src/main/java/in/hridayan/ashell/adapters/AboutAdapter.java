@@ -1,16 +1,20 @@
 package in.hridayan.ashell.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.card.MaterialCardView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
+import in.hridayan.ashell.activities.ChangelogActivity;
 import in.hridayan.ashell.utils.Utils;
 import java.util.HashMap;
 import java.util.List;
@@ -116,6 +120,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
           };
       viewHolder.buttonView.setOnClickListener(clickListener);
+      viewHolder.categoryContributorsLayout.setOnClickListener(v -> {});
 
     } else if (holder instanceof AppItemViewHolder) {
       Category.AppItem categoryCItem = (Category.AppItem) item;
@@ -127,6 +132,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       View.OnClickListener clickListener =
           v -> {
             Map<String, String> idUrlMap = new HashMap<>();
+
             idUrlMap.put("id_report", "mailto:hridayanofficial@gmail.com");
             idUrlMap.put("id_feature", "mailto:hridayanofficial@gmail.com");
             idUrlMap.put("id_github", "https:github.com/DP-Hridayan/aShellYou");
@@ -137,9 +143,19 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (url != null) {
               Utils.openUrl(context, url);
             }
+
+            Intent intent;
+            switch (id) {
+              case "id_changelogs":
+                intent = new Intent(context, ChangelogActivity.class);
+                break;
+
+              default:
+                return;
+            }
+            context.startActivity(intent);
           };
-      viewHolder.titleTextView.setOnClickListener(clickListener);
-      viewHolder.descriptionTextView.setOnClickListener(clickListener);
+      viewHolder.categoryAppLayout.setOnClickListener(clickListener);
     }
   }
 
@@ -178,6 +194,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     ImageView imageView;
     TextView titleTextView, descriptionTextView;
     Button buttonView;
+    MaterialCardView categoryContributorsLayout;
 
     public contributorsItemViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -185,18 +202,21 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       titleTextView = itemView.findViewById(R.id.title_text_view);
       descriptionTextView = itemView.findViewById(R.id.description_text_view);
       buttonView = itemView.findViewById(R.id.github_handle);
+      categoryContributorsLayout = itemView.findViewById(R.id.category_contributors_layout);
     }
   }
 
   private static class AppItemViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
     TextView titleTextView, descriptionTextView;
+    LinearLayout categoryAppLayout;
 
     public AppItemViewHolder(@NonNull View itemView) {
       super(itemView);
       imageView = itemView.findViewById(R.id.image_view);
       titleTextView = itemView.findViewById(R.id.title_text_view);
       descriptionTextView = itemView.findViewById(R.id.description_text_view);
+      categoryAppLayout = itemView.findViewById(R.id.category_app_layout);
     }
   }
 }

@@ -1,9 +1,11 @@
 package in.hridayan.ashell.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.Preference;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,29 +15,56 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
+import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
-import in.hridayan.ashell.fragments.otgFragment;
+import in.hridayan.ashell.fragments.otgShellFragment;
+import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.utils.ThemeUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
   private boolean isKeyboardVisible;
   public BottomNavigationView mNav;
+  private SettingsAdapter adapter;
+  private SettingsItem settingsList;
+  private boolean isBlackThemeEnabled;
+  private boolean isAmoledTheme;
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    isAmoledTheme = Preferences.getAmoledTheme(this);
+    boolean currentTheme = isAmoledTheme;
+    if (currentTheme != isBlackThemeEnabled) {
+      recreate();
+    }
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
+    ThemeUtils.updateTheme(this);
+
+    List<SettingsItem> settingsList = new ArrayList<>();
+    adapter = new SettingsAdapter(settingsList, this);
+
     super.onCreate(savedInstanceState);
-    setTheme(R.style.AppTheme);
     setContentView(R.layout.activity_main);
 
-    mNav = findViewById(R.id.bottom_nav_bar);
+    isAmoledTheme = Preferences.getAmoledTheme(this);
 
+    isBlackThemeEnabled = isAmoledTheme;
+
+    mNav = findViewById(R.id.bottom_nav_bar);
     mNav.setSelectedItemId(R.id.nav_localShell);
 
-    KeyboardVisibilityChecker.attachVisibilityListener(
+    KeyboardUtils.attachVisibilityListener(
         this,
-        new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
+        new KeyboardUtils.KeyboardVisibilityListener() {
           @Override
           public void onKeyboardVisibilityChanged(boolean visible) {
             isKeyboardVisible = visible;
@@ -79,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
               showaShellFragment();
               return true;
             case R.id.nav_otgShell:
-              showOtgFragment();
+              showotgShellFragment();
               return true;
             default:
               return false;
@@ -97,15 +126,15 @@ public class MainActivity extends AppCompatActivity {
         .commit();
   }
 
-  private void showOtgFragment() {
+  private void showotgShellFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof otgFragment)) {
+        instanceof otgShellFragment)) {
       // Don't show again logic
       if (PreferenceManager.getDefaultSharedPreferences(this)
           .getBoolean("Don't show beta otg warning", true)) {
         showBetaWarning();
       } else {
-        replaceFragment(new otgFragment());
+        replaceFragment(new otgShellFragment());
       }
     }
   }
@@ -126,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         .setPositiveButton(
             getString(R.string.accept),
             (dialogInterface, i) -> {
-              replaceFragment(new otgFragment());
+              replaceFragment(new otgShellFragment());
             })
         .setNegativeButton(
             getString(R.string.go_back),
@@ -140,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                   .edit()
                   .putBoolean("Don't show beta otg warning", false)
                   .apply();
-              replaceFragment(new otgFragment());
+              replaceFragment(new otgShellFragment());
             })
         .show();
   }

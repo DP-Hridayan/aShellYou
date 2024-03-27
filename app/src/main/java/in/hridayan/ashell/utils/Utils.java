@@ -2,6 +2,7 @@ package in.hridayan.ashell.utils;
 
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +10,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
 import java.io.BufferedReader;
 import java.io.File;
@@ -183,5 +186,41 @@ public class Utils {
       context.startActivity(intent);
     } catch (ActivityNotFoundException ignored) {
     }
+  }
+
+  public static void pasteFromClipboard(TextInputEditText editText) {
+    if (editText == null) {
+      return;
+    }
+    ClipboardManager clipboard =
+        (ClipboardManager) editText.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+    if (clipboard == null) {
+      return;
+    }
+
+    if (clipboard.hasPrimaryClip()
+        && clipboard.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+      ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
+      if (item != null && item.getText() != null) {
+        String clipboardText = item.getText().toString();
+        editText.setText(clipboardText);
+        editText.setSelection(editText.getText().length());
+      }
+    } else {
+      Toast.makeText(
+              editText.getContext().getApplicationContext(),
+              editText.getContext().getString(R.string.clipboard_empty),
+              Toast.LENGTH_SHORT)
+          .show();
+    }
+  }
+
+  public static void alignMargin(View component) {
+
+    ViewGroup.MarginLayoutParams params =
+        (ViewGroup.MarginLayoutParams) component.getLayoutParams();
+    params.bottomMargin = 29;
+    component.setLayoutParams(params);
+    component.requestLayout();
   }
 }

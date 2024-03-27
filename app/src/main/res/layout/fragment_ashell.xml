@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:background="?attr/colorSurface"
     android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -43,10 +44,11 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                app:strokeColor="?attr/colorOnPrimaryContainer"
-                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorPrimary"
+                app:strokeWidth="0dp"
                 android:layout_marginHorizontal="20dp"
-                app:cardBackgroundColor="@android:color/transparent"
+                android:elevation="0dp"
+                app:cardBackgroundColor="?attr/colorSurfaceContainer"
                 app:cardCornerRadius="60dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -56,10 +58,9 @@
                     android:layout_marginEnd="30dp"
                     android:drawablePadding="5dp"
                     android:textColor="?attr/colorOnPrimaryContainer"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginVertical="20dp"
                     android:layout_marginStart="20dp"
                     android:layout_gravity="start|center|top"
-                    android:layout_marginBottom="15dp"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/ic_search"
                     android:gravity="start"
@@ -111,10 +112,10 @@
                     android:imeOptions="actionSend"
                     android:layout_gravity="start|center"
                     android:paddingHorizontal="10dp"
+                    android:inputType="textAutoComplete"
                     android:gravity="center_vertical"
                     android:cursorVisible="true"
-                    android:inputType="textAutoComplete"
-                    android:maxLines="5"
+                    android:maxLines="1"
                     android:id="@+id/shell_command" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -151,8 +152,8 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         app:icon="@drawable/ic_settings"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="25dp"
@@ -161,8 +162,8 @@
         android:id="@+id/settings" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         android:visibility="gone"
         app:icon="@drawable/ic_bookmarks"
         app:layout_constraintTop_toTopOf="@id/settings"
@@ -172,8 +173,8 @@
         android:id="@+id/bookmarks" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         android:visibility="gone"
         app:icon="@drawable/ic_history"
         app:layout_constraintTop_toTopOf="@id/settings"
@@ -183,8 +184,8 @@
         android:id="@+id/history" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         android:visibility="gone"
         app:icon="@drawable/ic_clear"
         app:layout_constraintTop_toTopOf="@id/settings"
@@ -194,8 +195,8 @@
         android:id="@+id/clear" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         android:visibility="gone"
         app:icon="@drawable/ic_search"
         app:layout_constraintTop_toTopOf="@id/settings"
@@ -247,6 +248,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/floatingActionButtonSmallStyle"
         android:id="@+id/fab_share" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toTopOf="@id/paste_button"
+        app:srcCompat="@drawable/ic_undo"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:tint="?attr/colorOnTertiaryContainer"
+        app:backgroundTint="?attr/colorTertiaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonSmallStyle"
+        android:id="@+id/fab_undo" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"

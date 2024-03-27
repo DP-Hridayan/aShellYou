@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.utils.Commands;
+import in.hridayan.ashell.utils.ThemeUtils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 05, 2022
@@ -20,8 +21,16 @@ import in.hridayan.ashell.utils.Commands;
 public class ExamplesActivity extends AppCompatActivity {
 
   @Override
+  protected void onResume() {
+    super.onResume();
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
+
+    ThemeUtils.updateTheme(this);
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_examples);
 

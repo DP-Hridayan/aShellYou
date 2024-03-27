@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:background="?attr/colorSurface"
     android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -116,15 +117,15 @@
                 android:textIsSelectable="true"
                 android:id="@+id/logs"
                 android:layout_gravity="start"
-                android:textStyle="bold" />
+            />
 
         </ScrollView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         app:icon="@drawable/ic_settings"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="25dp"
@@ -133,8 +134,8 @@
         android:id="@+id/settings" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         android:visibility="gone"
         app:icon="@drawable/ic_bookmarks"
         app:layout_constraintTop_toTopOf="@id/settings"
@@ -144,8 +145,8 @@
         android:id="@+id/bookmarks" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         android:visibility="gone"
         app:icon="@drawable/ic_history"
         app:layout_constraintTop_toTopOf="@id/settings"
@@ -153,6 +154,21 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
         android:id="@+id/history" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toTopOf="@id/paste_button"
+        app:srcCompat="@drawable/ic_undo"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:tint="?attr/colorOnTertiaryContainer"
+        app:backgroundTint="?attr/colorTertiaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonSmallStyle"
+        android:id="@+id/fab_undo" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"

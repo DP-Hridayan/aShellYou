@@ -20,7 +20,7 @@
         android:id="@+id/accept_debug"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="You might need to accept a prompt on the other device if you are trying to connect to it for the first time from this device"
+        android:text="@string/accept_device_prompt"
         app:layout_constraintStart_toEndOf="@id/progressBar"
         app:layout_constraintTop_toTopOf="@id/progressBar"
         app:layout_constraintBottom_toBottomOf="@id/progressBar"

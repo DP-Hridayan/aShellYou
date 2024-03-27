@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/colorSurface"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
@@ -32,12 +33,10 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/custom_font"
                 android:layout_marginBottom="6dp"
                 android:letterSpacing="0.1"
                 android:text="Shell"
                 android:textSize="70.0sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ic_adb" />
 
@@ -50,7 +49,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:textSize="17.0sp"
-            android:textStyle="bold" />
+        />
 
         <Button
             android:id="@+id/start_button"
@@ -59,7 +58,7 @@
             android:layout_marginHorizontal="35dp"
             android:layout_marginTop="20dp"
             android:padding="20dp"
-            android:text="Start"
+            android:text="@string/start"
             android:textSize="20sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

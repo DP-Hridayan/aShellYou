@@ -11,15 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.utils.ChangelogItem;
+import in.hridayan.ashell.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChangelogActivity extends AppCompatActivity {
 
-  private final String[] versionNumbers = {"3.7.0",
-    "3.6.0", "3.5.1", "3.5.0", "3.4.0", "3.3.0", "3.2.0", "3.1.0", "3.0.0",
-    "2.0.2", "2.0.1", "2.0.0", "1.3.0", "1.2.0", "1.1.1", "1.1.0", "1.0.0",
-    "0.9.1", "0.9.0"
+  @Override
+  protected void onResume() {
+    super.onResume();
+  }
+
+  private final String[] versionNumbers = {
+    "3.8.0", "3.7.0", "3.6.0", "3.5.1", "3.5.0", "3.4.0", "3.3.0", "3.2.0", "3.1.0", "3.0.0",
+    "2.0.2", "2.0.1", "2.0.0", "1.3.0", "1.2.0", "1.1.1", "1.1.0", "1.0.0", "0.9.1", "0.9.0"
   };
 
   private Resources resources;
@@ -27,6 +32,7 @@ public class ChangelogActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
+    ThemeUtils.updateTheme(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_changelog);
 

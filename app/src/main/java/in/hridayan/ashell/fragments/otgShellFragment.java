@@ -8,9 +8,6 @@ import static in.hridayan.ashell.utils.MessageOtg.INSTALLING_PROGRESS;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ClipData;
-import android.content.ClipDescription;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -60,15 +57,17 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.KeyboardVisibilityChecker;
+import in.hridayan.ashell.UI.BehaviorFAB;
+import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
+import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.activities.ExamplesActivity;
-import in.hridayan.ashell.activities.FabExtendingOnScrollListener;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.Const;
 import in.hridayan.ashell.utils.MessageOtg;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import java.io.File;
@@ -78,7 +77,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class otgFragment extends Fragment
+public class otgShellFragment extends Fragment
     implements TextView.OnEditorActionListener, View.OnKeyListener {
   private Handler handler;
   private UsbDevice mDevice;
@@ -97,21 +96,24 @@ public class otgFragment extends Fragment
   private SettingsAdapter adapter;
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand;
-  private FloatingActionButton mSendButton;
+  private FloatingActionButton mSendButton, mUndoButton;
   private ExtendedFloatingActionButton mPasteButton;
   private ScrollView scrollView;
   private AlertDialog mWaitingDialog;
   private String user = null;
+  private final Handler mHandler = new Handler(Looper.getMainLooper());
   private boolean isKeyboardVisible, sendButtonClicked = false;
   private List<String> mHistory = null, mResult = null;
-
+  private View view;
   private AdbStream stream;
+  private Context context;
 
   @Nullable
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_otg, container, false);
+    context = requireContext();
+    view = inflater.inflate(R.layout.fragment_otg, container, false);
 
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter = new SettingsAdapter(settingsList, requireContext());
@@ -129,19 +131,22 @@ public class otgFragment extends Fragment
     mSettingsButton = view.findViewById(R.id.settings);
     scrollView = view.findViewById(R.id.scrollView);
     terminalView = view.findViewById(R.id.terminalView);
-
+    mUndoButton = view.findViewById(R.id.fab_undo);
     mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-    KeyboardVisibilityChecker.attachVisibilityListener(
+    BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
+
+    KeyboardUtils.attachVisibilityListener(
         requireActivity(),
-        new KeyboardVisibilityChecker.KeyboardVisibilityListener() {
+        new KeyboardUtils.KeyboardVisibilityListener() {
 
           public void onKeyboardVisibilityChanged(boolean visible) {
             isKeyboardVisible = visible;
             if (isKeyboardVisible) {
               mPasteButton.setVisibility(View.GONE);
+              mUndoButton.setVisibility(View.GONE);
             } else {
               if (mPasteButton.getVisibility() == View.GONE && !sendButtonClicked) {
                 setVisibilityWithDelay(mPasteButton, 100);
@@ -150,10 +155,6 @@ public class otgFragment extends Fragment
           }
         });
 
-    mPasteButton.setOnClickListener(
-        v -> {
-          pasteFromClipboard();
-        });
     // Logic for changing the command send button depending on the text on the EditText
 
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -162,6 +163,9 @@ public class otgFragment extends Fragment
           Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
           startActivity(examples);
         });
+
+    mBookMarks.setVisibility(
+        Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
 
     mCommand.addTextChangedListener(
         new TextWatcher() {
@@ -301,7 +305,8 @@ public class otgFragment extends Fragment
                     @Override
                     public void onClick(View v) {
                       sendButtonClicked = true;
-                      mPasteButton.setVisibility(View.GONE);
+                      mPasteButton.hide();
+                      mUndoButton.hide();
                       if (adbConnection != null) {
                         putCommand();
                       } else {
@@ -314,8 +319,8 @@ public class otgFragment extends Fragment
                               mCommand.setText(null);
                             });
 
-                        alignMargin(mSendButton);
-                        alignMargin(mCable);
+                        Utils.alignMargin(mSendButton);
+                        Utils.alignMargin(mCable);
 
                         mHistoryButton.setVisibility(View.VISIBLE);
 
@@ -404,18 +409,18 @@ public class otgFragment extends Fragment
                 closeWaiting();
                 terminalView.setVisibility(View.VISIBLE);
                 initCommand();
-                showKeyboard();
+                KeyboardUtils.showKeyboard(mCommand , context);
                 break;
 
               case CONNECTING:
                 waitingDialog();
-                closeKeyboard();
+                KeyboardUtils.closeKeyboard(requireActivity(), context);
                 terminalView.setVisibility(View.VISIBLE);
                 break;
 
               case DEVICE_NOT_FOUND:
                 closeWaiting();
-                closeKeyboard();
+                KeyboardUtils.closeKeyboard(requireActivity() , context);
                 terminalView.setVisibility(View.VISIBLE);
                 adbConnection = null; // Fix this issue
                 break;
@@ -615,27 +620,6 @@ public class otgFragment extends Fragment
     return false;
   }
 
-  @Override
-  public void onResume() {
-    super.onResume();
-  }
-
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    if (mUsbReceiver != null) {
-      requireContext().unregisterReceiver(mUsbReceiver);
-    }
-    try {
-      if (adbConnection != null) {
-        adbConnection.close();
-        adbConnection = null;
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
   // Define a Handler instance
 
   private void initCommand() {
@@ -729,22 +713,6 @@ public class otgFragment extends Fragment
 
   public void open(View view) {}
 
-  public void showKeyboard() {
-    mCommand.requestFocus();
-    InputMethodManager imm =
-        (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-  }
-
-  public void closeKeyboard() {
-    View view = requireActivity().getCurrentFocus();
-    if (view != null) {
-      InputMethodManager imm =
-          (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-      imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-  }
-
   @Override
   public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
     /* We always return false because we want to dismiss the keyboard */
@@ -782,7 +750,7 @@ public class otgFragment extends Fragment
 
   private void addBookmark(String bookmark, View view) {
 
-    boolean switchState = adapter.getSavedSwitchState("id_override_bookmarks");
+    boolean switchState = Preferences.getOverrideBookmarks(requireContext());
 
     if (Utils.getBookmarks(requireActivity()).size() <= 4) {
       Utils.addToBookmark(bookmark, requireActivity());
@@ -797,15 +765,6 @@ public class otgFragment extends Fragment
     }
   }
 
-  private void alignMargin(View component) {
-
-    ViewGroup.MarginLayoutParams params =
-        (ViewGroup.MarginLayoutParams) component.getLayoutParams();
-    params.bottomMargin = 29;
-    component.setLayoutParams(params);
-    component.requestLayout();
-  }
-
   private void setVisibilityWithDelay(View view, int delayMillis) {
     new Handler(Looper.getMainLooper())
         .postDelayed(
@@ -815,21 +774,25 @@ public class otgFragment extends Fragment
             delayMillis);
   }
 
-  private void pasteFromClipboard() {
-    ClipboardManager clipboard =
-        (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
-    if (clipboard.hasPrimaryClip()
-        && clipboard.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-      ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
-      String clipboardText = item.getText().toString();
-      mCommand.setText(clipboardText);
-      mCommand.setSelection(mCommand.getText().length());
-    } else {
-      Toast.makeText(
-              requireContext().getApplicationContext(),
-              getString(R.string.clipboard_empty),
-              Toast.LENGTH_SHORT)
-          .show();
+  @Override
+  public void onResume() {
+    super.onResume();
+    KeyboardUtils.disableKeyboard(context, requireActivity(), view);
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    if (mUsbReceiver != null) {
+      requireContext().unregisterReceiver(mUsbReceiver);
+    }
+    try {
+      if (adbConnection != null) {
+        adbConnection.close();
+        adbConnection = null;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 }
