@@ -108,7 +108,7 @@ public class aShellFragment extends Fragment {
       sendButtonClicked = false;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1;
-  private List<String> mHistory = null, mResult = null;
+  private List<String> mHistory = null, mResult = null, mRecentCommands;
   private View view;
   private Context context;
   private aShellFragmentViewModel viewModel;
@@ -729,7 +729,16 @@ public class aShellFragment extends Fragment {
   }
 
   private List<String> getRecentCommands() {
-    List<String> mRecentCommands = new ArrayList<>(mHistory);
+       
+        if(mHistory == null && viewModel.getHistory() != null )
+        {
+ mRecentCommands = viewModel.getHistory();
+            mHistory = mRecentCommands;
+        }else
+        {
+           mRecentCommands = new ArrayList<>(mHistory);
+        }
+    
     Collections.reverse(mRecentCommands);
     return mRecentCommands;
   }
@@ -1145,6 +1154,12 @@ public class aShellFragment extends Fragment {
             .findFirstVisibleItemPosition());
     List<String> shellOutput = viewModel.getShellOutput();
 
+    List<String> history = viewModel.getHistory();
+    if (mHistory == null && history!= null) {
+      viewModel.setHistory(history);
+    } else {
+      viewModel.setHistory(mHistory);
+    }
     if (mResult == null) {
       viewModel.setShellOutput(shellOutput);
     } else {
@@ -1240,5 +1255,7 @@ public class aShellFragment extends Fragment {
     if (mCommandText != null) {
       mCommand.setText(mCommandText);
     }
+        
+        
   }
 }
