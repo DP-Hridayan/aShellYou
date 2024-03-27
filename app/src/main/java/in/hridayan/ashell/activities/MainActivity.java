@@ -28,11 +28,18 @@ public class MainActivity extends AppCompatActivity {
   public BottomNavigationView mNav;
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
+  private boolean isBlackThemeEnabled;
 
   @Override
   protected void onResume() {
     super.onResume();
-    updateTheme();
+
+    boolean isAmoledTheme = adapter.getSavedSwitchState("id_amoled_theme");
+
+    boolean currentTheme = isAmoledTheme;
+    if (currentTheme != isBlackThemeEnabled) {
+      recreate();
+    }
   }
 
   @Override
@@ -47,8 +54,11 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    mNav = findViewById(R.id.bottom_nav_bar);
+    boolean isAmoledTheme = adapter.getSavedSwitchState("id_amoled_theme");
 
+    isBlackThemeEnabled = isAmoledTheme;
+
+    mNav = findViewById(R.id.bottom_nav_bar);
     mNav.setSelectedItemId(R.id.nav_localShell);
 
     KeyboardUtils.attachVisibilityListener(
