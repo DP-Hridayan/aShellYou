@@ -1,0 +1,21 @@
+Changelogs ~
+
+• Added black (amoled) theme
+
+• Added undo button to undo paste
+
+• Added option to disable soft keyboard
+
+• Fixed buttons stretched in some screen sizes
+
+• Fixed bookmarks button not appearing after opening the app
+
+• Renamed Examples section to Commands
+
+• Fixed copy command option not appearing for every command template
+
+• Improved UI handling
+
+• App now uses system font everywhere
+
+• Updated translations

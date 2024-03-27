@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.media.midi.MidiSender;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -100,7 +101,11 @@ public class aShellFragment extends Fragment {
   private ShizukuShell mShizukuShell;
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand, mSearchWord;
-  private boolean mExit, isKeyboardVisible, isSaveButtonVisible, sendButtonClicked = false;
+  private boolean mExit,
+      isKeyboardVisible,
+      isSaveButtonVisible,
+      isSendDrawable,
+      sendButtonClicked = false;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1;
   private List<String> mHistory = null, mResult = null;
@@ -235,6 +240,7 @@ public class aShellFragment extends Fragment {
               /*------------------------------------------------------*/
 
               if (!s.toString().trim().isEmpty()) {
+                isSendDrawable = true;
                 mSendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_send, requireActivity()));
 
@@ -336,6 +342,7 @@ public class aShellFragment extends Fragment {
               } else {
                 mCommandInput.setEndIconVisible(false);
                 mRecyclerViewCommands.setVisibility(View.GONE);
+                isSendDrawable = false;
                 mSendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_help, requireActivity()));
 
@@ -354,6 +361,7 @@ public class aShellFragment extends Fragment {
             if (actionId == EditorInfo.IME_ACTION_SEND) {
               if (mShizukuShell != null && mShizukuShell.isBusy()) {
                 mShizukuShell.destroy();
+                isSendDrawable = false;
                 mSendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_help, requireActivity()));
                 mSendButton.clearColorFilter();
@@ -379,6 +387,7 @@ public class aShellFragment extends Fragment {
           sendButtonClicked = true;
           if (mShizukuShell != null && mShizukuShell.isBusy()) {
             mShizukuShell.destroy();
+            isSendDrawable = false;
             mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
             mSendButton.clearColorFilter();
 
@@ -921,10 +930,12 @@ public class aShellFragment extends Fragment {
 
                     if (mCommand.getText() == null
                         || mCommand.getText().toString().trim().isEmpty()) {
+                      isSendDrawable = false;
                       mSendButton.setImageDrawable(
                           Utils.getDrawable(R.drawable.ic_help, requireActivity()));
                       mSendButton.clearColorFilter();
                     } else {
+                      isSendDrawable = true;
                       mSendButton.setImageDrawable(
                           Utils.getDrawable(R.drawable.ic_send, requireActivity()));
                       mSendButton.clearColorFilter();
@@ -1055,6 +1066,7 @@ public class aShellFragment extends Fragment {
       }
       boolean switchState = Preferences.getShareAndRun(context);
 
+      isSendDrawable = true;
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
       mCommand.setText(sharedText);
       if (switchState) {
@@ -1120,6 +1132,7 @@ public class aShellFragment extends Fragment {
   public void onPause() {
     super.onPause();
 
+    viewModel.setSendDrawable(isSendDrawable);
     viewModel.setEditTextFocused(isEditTextFocused());
     viewModel.setSaveButtonVisible(isSaveButtonVisible());
     viewModel.setScrollPosition(
@@ -1146,6 +1159,13 @@ public class aShellFragment extends Fragment {
       mCommand.requestFocus();
     } else {
       mCommand.clearFocus();
+    }
+    if (viewModel.isSendDrawable()) {
+            isSendDrawable = true;
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+    } else {
+            isSendDrawable = false ;
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
     }
     if (viewModel.isSaveButtonVisible()) {
       mSaveButton.setVisibility(View.VISIBLE);
@@ -1185,6 +1205,18 @@ public class aShellFragment extends Fragment {
     }
     return visible;
   }
+    
+   
+
+  private boolean isSendDrawable() {
+    boolean visible;
+    if (mSaveButton.getVisibility() == View.VISIBLE) {
+      visible = true;
+    } else {
+      visible = false;
+    }
+    return visible;
+  }
 
   private void setupRecyclerView() {
     mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
@@ -1204,7 +1236,8 @@ public class aShellFragment extends Fragment {
     String mCommandText = viewModel.getCommandText();
     if (mCommandText != null) {
       mCommand.setText(mCommandText);
-      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
     }
+       
+        
   }
 }
