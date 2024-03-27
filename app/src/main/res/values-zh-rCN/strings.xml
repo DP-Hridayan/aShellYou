@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="access_denied">拒绝访问</string>
+    <string name="accept_device_prompt">初次连接要调试的设备时可能需要在受调试设备上操作授权弹窗</string>
     <string name="adb_device_connected">ADB设备已连接</string>
     <string name="adb_device_not_connected">ADB设备未连接</string>
     <string name="adb_device_waiting">等待ADB设备连接</string>
     <string name="adb_shell">ADB终端</string>
     <string name="about">关于</string>
     <string name="accept">接受</string>
+    <string name="amoled_theme">AMOLED暗黑主题</string>
+    <string name="des_amoled_theme">为AMOLED屏幕准备的纯黑主题</string>
     <string name="app_summary">aShell You为满足你的需求而生</string>
     <string name="app_working_message">aShell You现正忙。请等待执行结束或者点击按钮手动停止以运行新命令</string>
     <string name="beta_warning">这个功能目前仍处于试验阶段。如果你遇到任何问题请及时报告</string>
@@ -20,16 +23,20 @@
     <string name="clear_everything">全清了</string>
     <string name="clear_screen">清屏</string>
     <string name="clipboard_empty">剪贴板不包含文本</string>
+    <string name="commands">命令</string>
     <string name="command_hint">在这里输入ADB命令</string>
     <string name="command_title">输入ADB命令</string>
     <string name="connecting">连接中…</string>
     <string name="connecting_hint">请在目标设备确认授权</string>
     <string name="copy">复制</string>
     <string name="device_not_connected">设备未连接</string>
+    <string name="discord">Discord</string>
+    <string name="des_discord">加入Discord服务器</string>
     <string name="dismiss">取消</string>
     <string name="disabled">关闭</string>
     <string name="donot_show_again">别唠叨了</string>
     <string name="error">出错</string>
+    <string name="example">示例</string>
     <string name="examples">示例</string>
     <string name="failed">失败</string>
     <string name="generate_key_failed">未能生成与保存密钥对</string>
@@ -55,6 +62,8 @@
     <string name="search">搜索</string>
     <string name="settings">设置</string>
     <string name="set_adb_interface_fail">函数 setAdbInterface(device, intf) 失败</string>
+    <string name="share_and_run">自动运行分享的命令</string>
+    <string name="des_share_and_run">启用后任何“分享”给aShell You的文本都会作为输入的命令被执行</string>
     <string name="shell_output_not_saved_message">最近一次执行命令的输出未保存</string>
     <string name="shell_output_saved_message">"最近一次执行命令的输出保存至文件夹 '%s' "</string>
     <string name="shell_working">终端正忙</string>
@@ -64,8 +73,10 @@
     <string name="shizuku_unavailable_message">Shizuku未安装或者处于“未运行”状态。aShell You在没有Shizuku以及其提供的权限时无法工作</string>
     <string name="start">开始</string>
     <string name="success">成功</string>
+    <string name="support">支持</string>
     <string name="su_warning_message">aShell You并不面向Root权限相关的应用。已停止</string>
     <string name="title_activity_setting">设置软件包</string>
+    <string name="use">使用</string>
     <string name="waiting_device">正在等待设备</string>
     <string name="warning">警告</string>
     <string name="yes">好</string>
@@ -75,6 +86,8 @@
     <string name="des_ask_to_clean">启用这个功能后点击清屏按钮时会弹出确认窗口</string>
     <string name="override_bookmarks_limit">取消最大书签数量限制</string>
     <string name="des_override_bookmarks">启用这个选项后若添加大量书签会导致性能问题！不建议在低性能设备上启用</string>
+    <string name="disable_softkey">禁用软键盘</string>
+    <string name="des_disable_softkey">在你使用实体键盘时会非常有用</string>
     <string name="des_examples">常用命令集</string>
     <string name="des_changelogs">让我看看又整了什么新活</string>
     <string name="des_about">版本与鸣谢</string>
@@ -87,6 +100,7 @@
     <string name="krishna_about">他是一名网页开发者，测试员，频道运营等等\nhxd谢谢你的付出🤗</string>
     <string name="drDisagree_about">Iconify的开发者\n他帮助我修复了很多aShell You的问题🤝</string>
     <string name="marciozomb13_about">一个来自于freelancer的译者，葡萄牙语的翻译由TA完成</string>
+    <string name="weiguangtwk_about">中文是这个B翻的</string>
     <string name="app">应用</string>
     <string name="version">版本</string>
     <string name="report">报告问题</string>
@@ -97,6 +111,7 @@
     <string name="des_github">访问aShell You的Github仓库</string>
     <string name="telegram_channel">Telegram群</string>
     <string name="des_telegram_channel">加入Telegram群参与讨论</string>
+    <string name="changelog_v3_7_0">\n\n• 现在你可以通过向aShell You分享文本的方式从任何地方直接运行命令\n\n• 现在你可以不另外保存的情况下直接分享终端输出！\n\n• 一堆的优化和UI调整\n\n• 某人把它给汉化了\n\n• 更新翻译\n</string>
     <string name="changelog_v3_6_0">\n\n• 加入了在终端报错之后清空命令输入框的选项\n\n• 修复了特定情况下从剪贴板粘贴内容导致软件崩溃的BUG\n\n• 代码优化</string>
     <string name="changelog_v3_5_1">\n\n• 修复了部分导航按钮的问题</string>
     <string name="changelog_v3_5_0">\n\n• 改进了应用程序的“关于”部分\n\n• 添加桌面快捷方式\n\n• 修复了导航栏在按键导航下不显示的问题\n\n• 改进了在滚动屏幕时的按键导航栏可见性\n\n• 为aShell You添加多语言支持（翻译还未完成）\n\n• 很多的代码优化</string>
