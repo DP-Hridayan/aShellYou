@@ -15,6 +15,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.Editable;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -32,6 +34,8 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.lifecycle.ViewModelStore;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -48,6 +52,7 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOnScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOnScrollUpListener;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.aShellFragmentViewModel;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
@@ -101,6 +106,7 @@ public class aShellFragment extends Fragment {
   private List<String> mHistory = null, mResult = null;
   private View view;
   private Context context;
+  private aShellFragmentViewModel viewModel;
 
   public aShellFragment() {}
 
@@ -139,6 +145,8 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
+    viewModel = new ViewModelProvider(requireActivity()).get(aShellFragmentViewModel.class);
+
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
@@ -152,6 +160,8 @@ public class aShellFragment extends Fragment {
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
 
+       setupRecyclerView();
+        
     mNav.setVisibility(View.VISIBLE);
 
     handleSharedTextIntent(requireActivity().getIntent());
@@ -1106,8 +1116,65 @@ public class aShellFragment extends Fragment {
   }
 
   @Override
+  public void onPause() {
+    super.onPause();
+
+    viewModel.setEditTextFocused(isEditTextFocused());
+
+    viewModel.setScrollPosition(
+        ((LinearLayoutManager) mRecyclerViewOutput.getLayoutManager())
+            .findFirstVisibleItemPosition());
+    List<String> shellOutput = viewModel.getShellOutput();
+
+    if (mResult == null) {
+      viewModel.setShellOutput(shellOutput);
+    } else {
+      viewModel.setShellOutput(mResult);
+    }
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
+
+    if (viewModel.isEditTextFocused()) {
+      mCommand.requestFocus();
+    } else {
+      mCommand.clearFocus();
+    }
+
+    mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
+    mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
+
+    int scrollPosition = viewModel.getScrollPosition();
+    mRecyclerViewOutput.scrollToPosition(scrollPosition);
+  }
+
+  private boolean isEditTextFocused() {
+    boolean focus;
+    if (mCommand.hasFocus() == true) {
+      focus = true;
+    } else {
+      focus = false;
+    }
+    return focus;
+  }
+
+  private void setupRecyclerView() {
+    mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
+    mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
+
+    List<String> shellOutput = viewModel.getShellOutput();
+    int scrollPosition = viewModel.getScrollPosition();
+    if (shellOutput != null) {
+      mShellOutputAdapter = new ShellOutputAdapter(shellOutput);
+    }
+
+    mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
+    mRecyclerViewOutput.scrollToPosition(scrollPosition);
+    if (shellOutput != null) {
+      mResult = shellOutput;
+    }
   }
 }

@@ -2,7 +2,6 @@ package in.hridayan.ashell.UI;
 
 import in.hridayan.ashell.utils.SettingsItem;
 import java.util.List;
-
 import androidx.lifecycle.ViewModel;
 
 public class SettingsViewModel extends ViewModel {

@@ -16,6 +16,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.SettingsViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,34 +27,21 @@ public class SettingsActivity extends AppCompatActivity {
   private SettingsAdapter adapter;
   private int currentTheme;
   private SettingsViewModel viewModel;
-private AppBarLayout appBarLayout;
+  private AppBarLayout appBarLayout;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
+    ThemeUtils.updateTheme(this);
 
-    int currentMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-    if (currentMode == Configuration.UI_MODE_NIGHT_YES) {
-
-      currentTheme =
-          getSavedSwitchState("id_amoled_theme")
-              ? R.style.ThemeOverlay_aShellYou_AmoledTheme
-              : R.style.aShellYou_AppTheme;
-
-    } else {
-      currentTheme = R.style.aShellYou_AppTheme;
-    }
-
-    setTheme(currentTheme);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
 
-       appBarLayout = findViewById(R.id.appBarLayout);
-        
+    appBarLayout = findViewById(R.id.appBarLayout);
+
     viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
     setupRecyclerView();
-
-
 
     ImageView imageView = findViewById(R.id.arrow_back);
 
