@@ -7,10 +7,13 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.SettingsViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.SettingsItem;
 import java.util.ArrayList;
@@ -22,7 +25,8 @@ public class SettingsActivity extends AppCompatActivity {
   private List<SettingsItem> settingsData;
   private SettingsAdapter adapter;
   private int currentTheme;
-
+  private SettingsViewModel viewModel;
+private AppBarLayout appBarLayout;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
@@ -42,6 +46,14 @@ public class SettingsActivity extends AppCompatActivity {
     setTheme(currentTheme);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
+
+       appBarLayout = findViewById(R.id.appBarLayout);
+        
+    viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+
+    setupRecyclerView();
+
+
 
     ImageView imageView = findViewById(R.id.arrow_back);
 
@@ -135,5 +147,51 @@ public class SettingsActivity extends AppCompatActivity {
   public boolean getSavedSwitchState(String id) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
     return prefs.getBoolean(id, false);
+  }
+
+  // Override onPause to save RecyclerView scroll position
+  @Override
+  protected void onPause() {
+    super.onPause();
+    if (settingsList != null) {
+      viewModel.setScrollPosition(
+          ((LinearLayoutManager) settingsList.getLayoutManager()).findFirstVisibleItemPosition());
+      // Save toolbar state
+      viewModel.setToolbarExpanded(isToolbarExpanded());
+    }
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if (viewModel.isToolbarExpanded()) {
+      expandToolbar();
+    } else {
+      collapseToolbar();
+    }
+  }
+
+  private void setupRecyclerView() {
+    settingsList = findViewById(R.id.settings_list);
+    settingsList.setLayoutManager(new LinearLayoutManager(this));
+
+    List<SettingsItem> settingsData = viewModel.getSettingsData();
+    int scrollPosition = viewModel.getScrollPosition();
+
+    adapter = new SettingsAdapter(settingsData, this, currentTheme);
+    settingsList.setAdapter(adapter);
+    settingsList.scrollToPosition(scrollPosition);
+  }
+
+  private boolean isToolbarExpanded() {
+    return appBarLayout.getTop() == 0;
+  }
+
+  private void expandToolbar() {
+    appBarLayout.setExpanded(true);
+  }
+
+  private void collapseToolbar() {
+    appBarLayout.setExpanded(false);
   }
 }
