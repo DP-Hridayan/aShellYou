@@ -2,6 +2,7 @@ package in.hridayan.ashell.activities;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.adapters.AboutAdapter;
+import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.utils.SettingsItem;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +23,24 @@ public class AboutActivity extends AppCompatActivity {
   private RecyclerView recyclerView;
   private AboutAdapter adapter;
   private List<Object> items;
+  private SettingsAdapter adapterSettings;
+  private SettingsItem settingsList;
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    updateTheme();
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
+
+    List<SettingsItem> settingsList = new ArrayList<>();
+    adapterSettings = new SettingsAdapter(settingsList, this);
+
+    updateTheme();
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_about);
 
@@ -140,5 +157,18 @@ public class AboutActivity extends AppCompatActivity {
 
     adapter = new AboutAdapter(items, this);
     recyclerView.setAdapter(adapter);
+  }
+
+  private void updateTheme() {
+
+    boolean switchState = adapterSettings.getSavedSwitchState("id_amoled_theme");
+
+    int currentMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+    if (switchState && currentMode == Configuration.UI_MODE_NIGHT_YES) {
+      setTheme(R.style.ThemeOverlay_aShellYou_AmoledTheme);
+    } else {
+      setTheme(R.style.aShellYou_AppTheme);
+    }
   }
 }

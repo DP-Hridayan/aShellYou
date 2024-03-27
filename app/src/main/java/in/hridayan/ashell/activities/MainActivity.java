@@ -1,6 +1,7 @@
 package in.hridayan.ashell.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,19 +15,36 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgShellFragment;
+import in.hridayan.ashell.utils.SettingsItem;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
   private boolean isKeyboardVisible;
   public BottomNavigationView mNav;
+  private SettingsAdapter adapter;
+  private SettingsItem settingsList;
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    updateTheme();
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
+
+    List<SettingsItem> settingsList = new ArrayList<>();
+    adapter = new SettingsAdapter(settingsList, this);
+
+    updateTheme();
+
     super.onCreate(savedInstanceState);
-    setTheme(R.style.AppTheme);
     setContentView(R.layout.activity_main);
 
     mNav = findViewById(R.id.bottom_nav_bar);
@@ -158,6 +176,19 @@ public class MainActivity extends AppCompatActivity {
       replaceFragment(new StartFragment());
     } else {
       replaceFragment(new aShellFragment());
+    }
+  }
+
+  private void updateTheme() {
+
+    boolean switchState = adapter.getSavedSwitchState("id_amoled_theme");
+
+    int currentMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+    if (switchState && currentMode == Configuration.UI_MODE_NIGHT_YES) {
+      setTheme(R.style.ThemeOverlay_aShellYou_AmoledTheme);
+    } else {
+      setTheme(R.style.aShellYou_AppTheme);
     }
   }
 }

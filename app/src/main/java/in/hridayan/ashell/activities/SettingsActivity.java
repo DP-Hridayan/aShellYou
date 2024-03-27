@@ -1,6 +1,7 @@
 package in.hridayan.ashell.activities;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
@@ -20,10 +21,25 @@ public class SettingsActivity extends AppCompatActivity {
   private RecyclerView settingsList;
   private List<SettingsItem> settingsData;
   private SettingsAdapter adapter;
+  private int currentTheme;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
+
+    int currentMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    if (currentMode == Configuration.UI_MODE_NIGHT_YES) {
+
+      currentTheme =
+          getSavedSwitchState("id_amoled_theme")
+              ? R.style.ThemeOverlay_aShellYou_AmoledTheme
+              : R.style.aShellYou_AppTheme;
+
+    } else {
+      currentTheme = R.style.aShellYou_AppTheme;
+    }
+
+    setTheme(currentTheme);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
 
@@ -33,10 +49,18 @@ public class SettingsActivity extends AppCompatActivity {
     imageView.setOnClickListener(v -> dispatcher.onBackPressed());
 
     settingsList = findViewById(R.id.settings_list);
-
     settingsData = new ArrayList<>();
 
     // switches
+
+    settingsData.add(
+        new SettingsItem(
+            "id_amoled_theme",
+            R.drawable.ic_clear,
+            getString(R.string.amoled_theme),
+            getString(R.string.des_amoled_theme),
+            true,
+            getSavedSwitchState("id_amoled_theme")));
 
     settingsData.add(
         new SettingsItem(
@@ -102,13 +126,13 @@ public class SettingsActivity extends AppCompatActivity {
             false,
             false));
 
-    adapter = new SettingsAdapter(settingsData, this);
+    adapter = new SettingsAdapter(settingsData, this, currentTheme);
 
     settingsList.setAdapter(adapter);
     settingsList.setLayoutManager(new LinearLayoutManager(this));
   }
 
-  private boolean getSavedSwitchState(String id) {
+  public boolean getSavedSwitchState(String id) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
     return prefs.getBoolean(id, false);
   }

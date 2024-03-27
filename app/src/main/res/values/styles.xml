@@ -1,18 +1,18 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style
-        name="AppTheme"
+        name="aShellYou.AppTheme"
         parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-
         <item name="android:enforceStatusBarContrast">false</item>
         <item name="android:enforceNavigationBarContrast">false</item>
     </style>
 
     <style
         name="ExpandedToolbarTitle"
-        parent="AppTheme">
+        parent="aShellYou.AppTheme">
         <item name="android:textSize">33.0sp</item>
         <item name="android:gravity">start|center</item>
         <item name="android:layout_gravity">start|center</item>
@@ -22,28 +22,28 @@
 
     <style
         name="ItemTitle"
-        parent="AppTheme">
+        parent="aShellYou.AppTheme">
         <item name="android:textSize">18.0sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style
         name="ItemDescription"
-        parent="AppTheme">
+        parent="aShellYou.AppTheme">
         <item name="android:textSize">13.0sp</item>
         <item name="android:alpha">0.9</item>
     </style>
 
     <style
         name="LatestVersionTitle"
-        parent="AppTheme">
+        parent="aShellYou.AppTheme">
         <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">25.0sp</item>
     </style>
 
     <style
         name="OtherVersionTitle"
-        parent="AppTheme">
+        parent="aShellYou.AppTheme">
         <item name="android:textColor">?attr/colorSurfaceInverse</item>
         <item name="android:textSize">21.0sp</item>
     </style>

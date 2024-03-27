@@ -110,6 +110,7 @@ public class aShellFragment extends Fragment {
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
     view = inflater.inflate(R.layout.fragment_ashell, container, false);
 
     List<SettingsItem> settingsList = new ArrayList<>();
@@ -205,7 +206,7 @@ public class aShellFragment extends Fragment {
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (mSearchWord.hasFocus() == false) {
+            if (mSearchWord.getVisibility() == View.GONE) {
               mBookMarks.setVisibility(
                   Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
             }
@@ -257,11 +258,12 @@ public class aShellFragment extends Fragment {
                                   ? R.drawable.ic_bookmark_added
                                   : R.drawable.ic_add_bookmark,
                               requireActivity()));
-
-                      mBookMarks.setVisibility(
-                          Utils.getBookmarks(requireActivity()).size() > 0
-                              ? View.VISIBLE
-                              : View.GONE);
+                      if (mSearchWord.getVisibility() == View.GONE) {
+                        mBookMarks.setVisibility(
+                            Utils.getBookmarks(requireActivity()).size() > 0
+                                ? View.VISIBLE
+                                : View.GONE);
+                      }
                     });
 
                 /*------------------------------------------------------*/
@@ -476,7 +478,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    if (mSearchWord.hasFocus() == false) {
+    if (mSearchWord.getVisibility() == View.GONE) {
       mBookMarks.setVisibility(
           Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
     }
