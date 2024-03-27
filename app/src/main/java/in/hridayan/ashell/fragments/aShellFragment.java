@@ -729,17 +729,15 @@ public class aShellFragment extends Fragment {
   }
 
   private List<String> getRecentCommands() {
-       
-        if(mHistory == null && viewModel.getHistory() != null )
-        {
- mRecentCommands = viewModel.getHistory();
-            mHistory = mRecentCommands;
-        }else
-        {
-           mRecentCommands = new ArrayList<>(mHistory);
-        }
-    
-    Collections.reverse(mRecentCommands);
+
+    if (mHistory == null && viewModel.getHistory() != null) {
+      mRecentCommands = viewModel.getHistory();
+      mHistory = mRecentCommands;
+    } else {
+      mRecentCommands = new ArrayList<>(mHistory);
+      Collections.reverse(mRecentCommands);
+    }
+
     return mRecentCommands;
   }
 
@@ -1155,7 +1153,7 @@ public class aShellFragment extends Fragment {
     List<String> shellOutput = viewModel.getShellOutput();
 
     List<String> history = viewModel.getHistory();
-    if (mHistory == null && history!= null) {
+    if (mHistory == null && history != null) {
       viewModel.setHistory(history);
     } else {
       viewModel.setHistory(mHistory);
@@ -1255,7 +1253,5 @@ public class aShellFragment extends Fragment {
     if (mCommandText != null) {
       mCommand.setText(mCommandText);
     }
-        
-        
   }
 }
