@@ -152,8 +152,8 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         app:icon="@drawable/ic_settings"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="25dp"
@@ -162,8 +162,8 @@
         android:id="@+id/settings" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         android:visibility="gone"
         app:icon="@drawable/ic_bookmarks"
         app:layout_constraintTop_toTopOf="@id/settings"
@@ -173,8 +173,8 @@
         android:id="@+id/bookmarks" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         android:visibility="gone"
         app:icon="@drawable/ic_history"
         app:layout_constraintTop_toTopOf="@id/settings"
@@ -184,8 +184,8 @@
         android:id="@+id/history" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         android:visibility="gone"
         app:icon="@drawable/ic_clear"
         app:layout_constraintTop_toTopOf="@id/settings"
@@ -195,8 +195,8 @@
         android:id="@+id/clear" />
 
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_width="48dp"
         android:visibility="gone"
         app:icon="@drawable/ic_search"
         app:layout_constraintTop_toTopOf="@id/settings"

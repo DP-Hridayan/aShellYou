@@ -1152,6 +1152,8 @@ public class aShellFragment extends Fragment {
       mClearButton.setVisibility(View.VISIBLE);
       mSearchButton.setVisibility(View.VISIBLE);
       mHistoryButton.setVisibility(View.VISIBLE);
+      mShareButton.setVisibility(View.VISIBLE);
+
       mPasteButton.setVisibility(View.GONE);
     } else {
       mSaveButton.setVisibility(View.GONE);
