@@ -171,6 +171,8 @@ public class aShellFragment extends Fragment {
 
     handleSharedTextIntent(requireActivity().getIntent());
 
+    /*------------------------------------------------------*/
+
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
 
     KeyboardUtils.attachVisibilityListener(
@@ -395,10 +397,12 @@ public class aShellFragment extends Fragment {
             Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
             startActivity(examples);
           } else if (!Shizuku.pingBinder()) {
+
             handleShizukuAvailability(context);
           } else {
             mPasteButton.hide();
             mUndoButton.hide();
+
             if (isAdded()) {
               mCommandInput.setError(null);
               initializeShell(requireActivity());
@@ -586,6 +590,7 @@ public class aShellFragment extends Fragment {
             Uri fileUri =
                 FileProvider.getUriForFile(
                     context, context.getPackageName() + ".fileprovider", file);
+
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
@@ -1161,10 +1166,10 @@ public class aShellFragment extends Fragment {
       mCommand.clearFocus();
     }
     if (viewModel.isSendDrawable()) {
-            isSendDrawable = true;
+      isSendDrawable = true;
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
     } else {
-            isSendDrawable = false ;
+      isSendDrawable = false;
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
     }
     if (viewModel.isSaveButtonVisible()) {
@@ -1205,8 +1210,6 @@ public class aShellFragment extends Fragment {
     }
     return visible;
   }
-    
-   
 
   private boolean isSendDrawable() {
     boolean visible;
@@ -1237,7 +1240,5 @@ public class aShellFragment extends Fragment {
     if (mCommandText != null) {
       mCommand.setText(mCommandText);
     }
-       
-        
   }
 }

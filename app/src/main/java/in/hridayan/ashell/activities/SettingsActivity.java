@@ -100,6 +100,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsData.add(
         new SettingsItem(
+                
             "id_smooth_scroll",
             R.drawable.ic_scroll,
             getString(R.string.smooth_scrolling),
