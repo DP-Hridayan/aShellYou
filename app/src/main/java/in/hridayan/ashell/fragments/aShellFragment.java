@@ -52,10 +52,9 @@ import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
-import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
 import in.hridayan.ashell.utils.Commands;
-import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ShizukuShell;
 import in.hridayan.ashell.utils.Utils;
 import java.io.File;
@@ -93,8 +92,6 @@ public class aShellFragment extends Fragment {
   private CommandsAdapter mCommandsAdapter;
   private ShellOutputAdapter mShellOutputAdapter;
   private RecyclerView mRecyclerViewOutput, mRecyclerViewCommands;
-  private SettingsAdapter adapter;
-  private SettingsItem settingsList;
   private ShizukuShell mShizukuShell;
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand, mSearchWord;
@@ -103,6 +100,7 @@ public class aShellFragment extends Fragment {
   private int mPosition = 1;
   private List<String> mHistory = null, mResult = null;
   private View view;
+  private Context context;
 
   public aShellFragment() {}
 
@@ -111,10 +109,9 @@ public class aShellFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-    view = inflater.inflate(R.layout.fragment_ashell, container, false);
+    context = requireContext();
 
-    List<SettingsItem> settingsList = new ArrayList<>();
-    adapter = new SettingsAdapter(settingsList, requireContext());
+    view = inflater.inflate(R.layout.fragment_ashell, container, false);
 
     /*------------------------------------------------------*/
 
@@ -191,7 +188,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, adapter);
+    BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, context);
 
     /*------------------------------------------------------*/
 
@@ -379,7 +376,7 @@ public class aShellFragment extends Fragment {
             Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
             startActivity(examples);
           } else if (!Shizuku.pingBinder()) {
-            handleShizukuAvailability(requireContext());
+            handleShizukuAvailability(context);
           } else {
             mPasteButton.hide();
             mUndoButton.hide();
@@ -413,7 +410,7 @@ public class aShellFragment extends Fragment {
 
     mClearButton.setOnClickListener(
         v -> {
-          boolean switchState = adapter.getSavedSwitchState("id_clear");
+          boolean switchState = Preferences.getClear(context);
           if (switchState) {
             new MaterialAlertDialogBuilder(requireActivity())
                 .setTitle(getString(R.string.clear_everything))
@@ -487,7 +484,7 @@ public class aShellFragment extends Fragment {
 
     mBookMarks.setOnClickListener(
         v -> {
-          PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
+          PopupMenu popupMenu = new PopupMenu(context, mCommand);
           Menu menu = popupMenu.getMenu();
 
           for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
@@ -513,7 +510,7 @@ public class aShellFragment extends Fragment {
 
     mHistoryButton.setOnClickListener(
         v -> {
-          PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
+          PopupMenu popupMenu = new PopupMenu(context, mCommand);
           Menu menu = popupMenu.getMenu();
           for (int i = 0; i < getRecentCommands().size(); i++) {
             menu.add(Menu.NONE, i, Menu.NONE, getRecentCommands().get(i));
@@ -568,7 +565,7 @@ public class aShellFragment extends Fragment {
 
             Uri fileUri =
                 FileProvider.getUriForFile(
-                    requireContext(), requireContext().getPackageName() + ".fileprovider", file);
+                    context, context.getPackageName() + ".fileprovider", file);
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
@@ -842,7 +839,7 @@ public class aShellFragment extends Fragment {
     mSaveButton.hide();
     mShareButton.hide();
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
-    mSendButton.setColorFilter(Utils.getColor(R.color.colorErrorContainer, requireContext()));
+    mSendButton.setColorFilter(Utils.getColor(R.color.colorErrorContainer, context));
 
     String mTitleText =
         "<font color=\""
@@ -1045,12 +1042,13 @@ public class aShellFragment extends Fragment {
       if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
         sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
       }
-      boolean switchState = adapter.getSavedSwitchState("id_share_and_run");
+      boolean switchState = Preferences.getShareAndRun(context);
+
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
       mCommand.setText(sharedText);
       if (switchState) {
         if (!Shizuku.pingBinder()) {
-          handleShizukuAvailability(requireContext());
+          handleShizukuAvailability(context);
         } else {
           mCommand.setText(sharedText);
           initializeShell(requireActivity());
@@ -1085,7 +1083,7 @@ public class aShellFragment extends Fragment {
         .setNegativeButton(
             getString(R.string.shizuku_about),
             (dialogInterface, i) -> {
-              Utils.openUrl(requireContext(), "https://shizuku.rikka.app/");
+              Utils.openUrl(context, "https://shizuku.rikka.app/");
             })
         .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
         .show();
@@ -1093,8 +1091,7 @@ public class aShellFragment extends Fragment {
 
   private void addBookmark(String bookmark, View view) {
 
-    boolean switchState = adapter.getSavedSwitchState("id_override_bookmarks");
-
+    boolean switchState = Preferences.getOverrideBookmarks(context);
     if (Utils.getBookmarks(requireActivity()).size() <= 4) {
       Utils.addToBookmark(bookmark, requireActivity());
       Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
@@ -1111,6 +1108,6 @@ public class aShellFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-    KeyboardUtils.disableKeyboard(adapter, requireActivity(), view);
+    KeyboardUtils.disableKeyboard(context, requireActivity(), view);
   }
 }

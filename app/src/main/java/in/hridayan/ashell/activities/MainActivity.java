@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.Preference;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,9 @@ import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgShellFragment;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +32,12 @@ public class MainActivity extends AppCompatActivity {
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
   private boolean isBlackThemeEnabled;
+  private boolean isAmoledTheme;
 
   @Override
   protected void onResume() {
     super.onResume();
-
-    boolean isAmoledTheme = adapter.getSavedSwitchState("id_amoled_theme");
-
+    isAmoledTheme = Preferences.getAmoledTheme(this);
     boolean currentTheme = isAmoledTheme;
     if (currentTheme != isBlackThemeEnabled) {
       recreate();
@@ -45,16 +47,15 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
+    ThemeUtils.updateTheme(this);
 
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter = new SettingsAdapter(settingsList, this);
 
-    updateTheme();
-
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    boolean isAmoledTheme = adapter.getSavedSwitchState("id_amoled_theme");
+    isAmoledTheme = Preferences.getAmoledTheme(this);
 
     isBlackThemeEnabled = isAmoledTheme;
 
@@ -186,19 +187,6 @@ public class MainActivity extends AppCompatActivity {
       replaceFragment(new StartFragment());
     } else {
       replaceFragment(new aShellFragment());
-    }
-  }
-
-  private void updateTheme() {
-
-    boolean switchState = adapter.getSavedSwitchState("id_amoled_theme");
-
-    int currentMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-    if (switchState && currentMode == Configuration.UI_MODE_NIGHT_YES) {
-      setTheme(R.style.ThemeOverlay_aShellYou_AmoledTheme);
-    } else {
-      setTheme(R.style.aShellYou_AppTheme);
     }
   }
 }

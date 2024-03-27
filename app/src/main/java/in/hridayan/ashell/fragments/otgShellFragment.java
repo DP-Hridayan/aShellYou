@@ -67,6 +67,7 @@ import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.Const;
 import in.hridayan.ashell.utils.MessageOtg;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import java.io.File;
@@ -105,11 +106,13 @@ public class otgShellFragment extends Fragment
   private List<String> mHistory = null, mResult = null;
   private View view;
   private AdbStream stream;
+  private Context context;
 
   @Nullable
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    context = requireContext();
     view = inflater.inflate(R.layout.fragment_otg, container, false);
 
     List<SettingsItem> settingsList = new ArrayList<>();
@@ -406,18 +409,18 @@ public class otgShellFragment extends Fragment
                 closeWaiting();
                 terminalView.setVisibility(View.VISIBLE);
                 initCommand();
-                showKeyboard();
+                KeyboardUtils.showKeyboard(mCommand , context);
                 break;
 
               case CONNECTING:
                 waitingDialog();
-                closeKeyboard();
+                KeyboardUtils.closeKeyboard(requireActivity(), context);
                 terminalView.setVisibility(View.VISIBLE);
                 break;
 
               case DEVICE_NOT_FOUND:
                 closeWaiting();
-                closeKeyboard();
+                KeyboardUtils.closeKeyboard(requireActivity() , context);
                 terminalView.setVisibility(View.VISIBLE);
                 adbConnection = null; // Fix this issue
                 break;
@@ -617,28 +620,6 @@ public class otgShellFragment extends Fragment
     return false;
   }
 
-  @Override
-  public void onResume() {
-    super.onResume();
-    KeyboardUtils.disableKeyboard(adapter, requireActivity(), view);
-  }
-
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    if (mUsbReceiver != null) {
-      requireContext().unregisterReceiver(mUsbReceiver);
-    }
-    try {
-      if (adbConnection != null) {
-        adbConnection.close();
-        adbConnection = null;
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
   // Define a Handler instance
 
   private void initCommand() {
@@ -732,22 +713,6 @@ public class otgShellFragment extends Fragment
 
   public void open(View view) {}
 
-  public void showKeyboard() {
-    mCommand.requestFocus();
-    InputMethodManager imm =
-        (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-  }
-
-  public void closeKeyboard() {
-    View view = requireActivity().getCurrentFocus();
-    if (view != null) {
-      InputMethodManager imm =
-          (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-      imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-  }
-
   @Override
   public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
     /* We always return false because we want to dismiss the keyboard */
@@ -785,7 +750,7 @@ public class otgShellFragment extends Fragment
 
   private void addBookmark(String bookmark, View view) {
 
-    boolean switchState = adapter.getSavedSwitchState("id_override_bookmarks");
+    boolean switchState = Preferences.getOverrideBookmarks(requireContext());
 
     if (Utils.getBookmarks(requireActivity()).size() <= 4) {
       Utils.addToBookmark(bookmark, requireActivity());
@@ -807,5 +772,27 @@ public class otgShellFragment extends Fragment
               view.setVisibility(View.VISIBLE);
             },
             delayMillis);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    KeyboardUtils.disableKeyboard(context, requireActivity(), view);
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    if (mUsbReceiver != null) {
+      requireContext().unregisterReceiver(mUsbReceiver);
+    }
+    try {
+      if (adbConnection != null) {
+        adbConnection.close();
+        adbConnection = null;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

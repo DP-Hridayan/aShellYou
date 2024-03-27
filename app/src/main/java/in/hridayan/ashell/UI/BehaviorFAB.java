@@ -2,14 +2,18 @@ package in.hridayan.ashell.UI;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.content.Context;
+import android.preference.Preference;
 import android.view.View;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import java.util.Objects;
 
@@ -131,7 +135,7 @@ public class BehaviorFAB {
       FloatingActionButton topButton,
       FloatingActionButton bottomButton,
       RecyclerView recyclerView,
-      SettingsAdapter adapter) {
+      Context context) {
     topButton.setOnClickListener(
         new View.OnClickListener() {
           private long lastClickTime = 0;
@@ -147,7 +151,7 @@ public class BehaviorFAB {
               recyclerView.scrollToPosition(0);
             } else {
 
-              boolean switchState = adapter.getSavedSwitchState("id_smooth_scroll");
+              boolean switchState = Preferences.getSmoothScroll(context);
               if (switchState) {
 
                 recyclerView.smoothScrollToPosition(0);
@@ -159,7 +163,6 @@ public class BehaviorFAB {
             lastClickTime = currentTime;
           }
         });
-
 
     bottomButton.setOnClickListener(
         new View.OnClickListener() {
@@ -177,8 +180,7 @@ public class BehaviorFAB {
                   Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() - 1);
             } else {
 
-              boolean switchState = adapter.getSavedSwitchState("id_smooth_scroll");
-
+              boolean switchState = Preferences.getSmoothScroll(context);
               if (switchState) {
                 recyclerView.smoothScrollToPosition(
                     Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() - 1);
@@ -193,8 +195,7 @@ public class BehaviorFAB {
           }
         });
   }
-    
-   
+
   public static void pasteAndUndo(
       ExtendedFloatingActionButton paste, FloatingActionButton undo, TextInputEditText editText) {
     Handler mHandler = new Handler(Looper.getMainLooper());
@@ -218,6 +219,4 @@ public class BehaviorFAB {
           mHandler.removeCallbacksAndMessages(null);
         });
   }
-
-    
 }

@@ -7,7 +7,11 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.utils.Preferences;
+import org.w3c.dom.Text;
 
 public class KeyboardUtils {
 
@@ -42,12 +46,12 @@ public class KeyboardUtils {
             });
   }
 
-  public static void disableKeyboard(SettingsAdapter adapter, Activity activity, View view) {
+  public static void disableKeyboard(Context context, Activity activity, View view) {
 
     InputMethodManager imm =
         (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-    boolean disableSoftKey = adapter.getSavedSwitchState("id_disable_softkey");
+    boolean disableSoftKey = Preferences.getDisableSoftkey(context);
     if (disableSoftKey) {
       if (imm != null) imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
@@ -60,4 +64,21 @@ public class KeyboardUtils {
       activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
     }
   }
+    
+   public static void showKeyboard(TextInputEditText editText , Context context) {
+    editText.requestFocus();
+    InputMethodManager imm =
+        (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+  }
+
+  public static void closeKeyboard(Activity activity, Context context) {
+    View view = activity.getCurrentFocus();
+    if (view != null) {
+      InputMethodManager imm =
+          (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+      imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+  }
+    
 }
