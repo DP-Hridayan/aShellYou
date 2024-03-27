@@ -100,7 +100,7 @@ public class aShellFragment extends Fragment {
   private ShizukuShell mShizukuShell;
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand, mSearchWord;
-  private boolean mExit, isKeyboardVisible, sendButtonClicked = false;
+  private boolean mExit, isKeyboardVisible, isSaveButtonVisible, sendButtonClicked = false;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1;
   private List<String> mHistory = null, mResult = null;
@@ -160,8 +160,8 @@ public class aShellFragment extends Fragment {
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
 
-       setupRecyclerView();
-        
+    setupRecyclerView();
+
     mNav.setVisibility(View.VISIBLE);
 
     handleSharedTextIntent(requireActivity().getIntent());
@@ -420,6 +420,7 @@ public class aShellFragment extends Fragment {
 
     mClearButton.setOnClickListener(
         v -> {
+          viewModel.setShellOutput(null);
           boolean switchState = Preferences.getClear(context);
           if (switchState) {
             new MaterialAlertDialogBuilder(requireActivity())
@@ -1120,7 +1121,7 @@ public class aShellFragment extends Fragment {
     super.onPause();
 
     viewModel.setEditTextFocused(isEditTextFocused());
-
+    viewModel.setSaveButtonVisible(isSaveButtonVisible());
     viewModel.setScrollPosition(
         ((LinearLayoutManager) mRecyclerViewOutput.getLayoutManager())
             .findFirstVisibleItemPosition());
@@ -1130,6 +1131,9 @@ public class aShellFragment extends Fragment {
       viewModel.setShellOutput(shellOutput);
     } else {
       viewModel.setShellOutput(mResult);
+    }
+    if (mCommand.getText().toString() != null) {
+      viewModel.setCommandText(mCommand.getText().toString());
     }
   }
 
@@ -1142,6 +1146,15 @@ public class aShellFragment extends Fragment {
       mCommand.requestFocus();
     } else {
       mCommand.clearFocus();
+    }
+    if (viewModel.isSaveButtonVisible()) {
+      mSaveButton.setVisibility(View.VISIBLE);
+      mClearButton.setVisibility(View.VISIBLE);
+      mSearchButton.setVisibility(View.VISIBLE);
+      mHistoryButton.setVisibility(View.VISIBLE);
+      mPasteButton.setVisibility(View.GONE);
+    } else {
+      mSaveButton.setVisibility(View.GONE);
     }
 
     mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
@@ -1161,6 +1174,16 @@ public class aShellFragment extends Fragment {
     return focus;
   }
 
+  private boolean isSaveButtonVisible() {
+    boolean visible;
+    if (mSaveButton.getVisibility() == View.VISIBLE) {
+      visible = true;
+    } else {
+      visible = false;
+    }
+    return visible;
+  }
+
   private void setupRecyclerView() {
     mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -1175,6 +1198,11 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.scrollToPosition(scrollPosition);
     if (shellOutput != null) {
       mResult = shellOutput;
+    }
+    String mCommandText = viewModel.getCommandText();
+    if (mCommandText != null) {
+      mCommand.setText(mCommandText);
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
     }
   }
 }

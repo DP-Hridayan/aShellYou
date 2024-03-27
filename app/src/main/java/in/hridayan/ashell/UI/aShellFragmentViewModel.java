@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModel;
 
 public class aShellFragmentViewModel extends ViewModel {
 
-  private boolean isEditTextFocused;
+  private boolean isEditTextFocused, isSaveButtonVisible;
+  private String commandText;
 
   private List<String> shellOutput;
   private int scrollPosition;
@@ -32,5 +33,21 @@ public class aShellFragmentViewModel extends ViewModel {
 
   public void setEditTextFocused(boolean editTextFocused) {
     isEditTextFocused = editTextFocused;
+  }
+
+  public String getCommandText() {
+    return commandText;
+  }
+
+  public void setCommandText(String commandText) {
+    this.commandText = commandText;
+  }
+
+  public boolean isSaveButtonVisible() {
+    return isSaveButtonVisible;
+  }
+
+  public void setSaveButtonVisible(boolean saveButtonVisible) {
+    isSaveButtonVisible = saveButtonVisible;
   }
 }
