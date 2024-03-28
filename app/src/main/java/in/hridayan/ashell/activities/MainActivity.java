@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     setBadge(R.id.nav_wireless, "Soon");
     if (isSharedText) {
       handleSharedTextIntent(getIntent());
+      return;
     }
   }
 
@@ -91,13 +92,14 @@ public class MainActivity extends AppCompatActivity {
 
     String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
     if (sharedText != null) {
-      isSharedText = false;
       aShellFragment fragment =
           (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
       if (fragment != null) {
         fragment.updateInputField(sharedText);
       }
     }
+    isSharedText = false;
+    return;
   }
 
   private void setupNavigation() {

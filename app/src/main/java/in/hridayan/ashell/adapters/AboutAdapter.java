@@ -133,8 +133,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           v -> {
             Map<String, String> idUrlMap = new HashMap<>();
 
-            idUrlMap.put("id_report", "mailto:hridayanofficial@gmail.com");
-            idUrlMap.put("id_feature", "mailto:hridayanofficial@gmail.com");
+            idUrlMap.put("id_report", "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
+            idUrlMap.put("id_feature", "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
             idUrlMap.put("id_github", "https:github.com/DP-Hridayan/aShellYou");
             idUrlMap.put("id_telegram", "https://t.me/aShellYou");
             idUrlMap.put("id_discord", "https://discord.com/invite/6fxqUxza");

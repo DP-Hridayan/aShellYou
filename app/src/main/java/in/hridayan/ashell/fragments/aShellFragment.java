@@ -1116,6 +1116,7 @@ public class aShellFragment extends Fragment {
         }
       }
     }
+    return;
   }
 
   public void updateInputField(String sharedText) {
