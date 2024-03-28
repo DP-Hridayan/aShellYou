@@ -43,6 +43,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -106,7 +107,6 @@ public class aShellFragment extends Fragment {
   private int mPosition = 1;
 
   private List<String> mHistory = null, mResult = null, mRecentCommands, shellOutput, history;
-
   private View view;
   private Context context;
   private aShellFragmentViewModel viewModel;
@@ -145,7 +145,6 @@ public class aShellFragment extends Fragment {
     mShareButton = view.findViewById(R.id.fab_share);
     mTopButton = view.findViewById(R.id.fab_up);
     mUndoButton = view.findViewById(R.id.fab_undo);
-
     /*------------------------------------------------------*/
 
     viewModel = new ViewModelProvider(requireActivity()).get(aShellFragmentViewModel.class);
@@ -207,6 +206,10 @@ public class aShellFragment extends Fragment {
     /*------------------------------------------------------*/
 
     BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, context);
+
+        // Show snackbar when app is updated 
+    Utils.isAppUpdated(context, requireActivity());
+    Preferences.setSavedVersionCode(context, Utils.currentVersion());
 
     /*------------------------------------------------------*/
 

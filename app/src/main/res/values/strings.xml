@@ -17,6 +17,7 @@
     <string name="amoled_theme">Amoled black theme</string>
     <string name="des_amoled_theme">Pure black theme for devices with OLED panel</string>
     <string name="app_summary">aShell You is here for all your ADB needs</string>
+    <string name="app_updated_message">App is updated, want to see changelogs?</string>
     <string name="app_working_message">aShell You is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
 
     <string name="beta_warning">This feature is currently in its experimental phase. If you encounter any issues please let me know.</string>
