@@ -8,7 +8,7 @@
 <div style="display: flex; justify-content: center;">
   <p style="text-align: center;">
     <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/c7997b9b-3837-425f-9a3f-1faff5244b41" alt="" width="100" height="195" />
-    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/38e699c0-1e02-4bbb-8a9f-a148ab6cf66d" alt="" width="100" height="195" />
+    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/f27aeca7-72e0-4fc8-82ac-c172279c4adf" alt="" width="100" height="195" />
     <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/275d2711-53b6-47d4-aadf-76ca1a775071" alt="" width="100" height="195" /> 
     <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/092252af-12d7-4a6a-9419-f9e68f82bd6d" alt="" width="100" height="195" />
     <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/83a7dc41-1b9c-495c-8e98-bae9e90b1205" alt="" width="100" height="195" />
