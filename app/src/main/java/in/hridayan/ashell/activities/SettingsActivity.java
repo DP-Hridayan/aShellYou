@@ -56,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
     settingsData.add(
         new SettingsItem(
             "id_amoled_theme",
-            R.drawable.ic_clear,
+            R.drawable.ic_amoled_theme,
             getString(R.string.amoled_theme),
             getString(R.string.des_amoled_theme),
             true,

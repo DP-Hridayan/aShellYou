@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="ThemeOverlay.aShellYou.AmoledTheme" parent="" tools:ignore="PrivateResource">
+    <style
+        name="aShellYou.AppTheme"
+        parent="Theme.Material3.DynamicColors.DayNight.NoActionBar"
+        tools:ignore="PrivateResource">
+        <item name="colorSurface">@color/m3_ref_palette_dynamic_neutral_variant98</item>
+        <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_dynamic_neutral_variant95</item>
+        <item name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral92</item>
+
+    </style>
+
+    <style
+        name="ThemeOverlay.aShellYou.AmoledTheme"
+        parent=""
+        tools:ignore="PrivateResource">
         <item name="android:colorBackground">@color/m3_ref_palette_dynamic_neutral_variant0</item>
-<item name="android:windowBackground">@color/m3_ref_palette_dynamic_neutral_variant0</item>
+        <item name="android:windowBackground">@color/m3_ref_palette_dynamic_neutral_variant0</item>
         <item name="colorSurface">@color/m3_ref_palette_dynamic_neutral_variant0</item>
         <item name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral6</item>
         <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_dynamic_neutral0</item>
