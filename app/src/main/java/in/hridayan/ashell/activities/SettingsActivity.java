@@ -152,8 +152,12 @@ public class SettingsActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
+    int position = Utils.recyclerViewPosition(settingsList);
+
     if (viewModel.isToolbarExpanded()) {
-      Utils.expandToolbar(appBarLayout);
+      if (position == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
     } else {
       Utils.collapseToolbar(appBarLayout);
     }

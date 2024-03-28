@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -235,5 +237,12 @@ public class Utils {
 
   public static void collapseToolbar(AppBarLayout appBarLayout) {
     appBarLayout.setExpanded(false);
+  }
+
+  public static int recyclerViewPosition(RecyclerView recyclerView) {
+    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+    return firstVisibleItemPosition;
   }
 }

@@ -22,6 +22,7 @@ import java.util.List;
 public class ChangelogActivity extends AppCompatActivity {
   private ChangelogViewModel viewModel;
   private AppBarLayout appBarLayout;
+  private RecyclerView recyclerViewChangelogs;
 
   private final String[] versionNumbers = {
     "3.8.1", "3.8.0", "3.7.0", "3.6.0", "3.5.1", "3.5.0", "3.4.0", "3.3.0", "3.2.0", "3.1.0",
@@ -48,7 +49,7 @@ public class ChangelogActivity extends AppCompatActivity {
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
     imageView.setOnClickListener(v -> dispatcher.onBackPressed());
 
-    RecyclerView recyclerViewChangelogs = findViewById(R.id.recycler_view_changelogs);
+    recyclerViewChangelogs = findViewById(R.id.recycler_view_changelogs);
 
     List<ChangelogItem> changelogItems = new ArrayList<>();
 
@@ -78,8 +79,12 @@ public class ChangelogActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
+    int position = Utils.recyclerViewPosition(recyclerViewChangelogs);
+
     if (viewModel.isToolbarExpanded()) {
-      Utils.expandToolbar(appBarLayout);
+      if (position == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
     } else {
       Utils.collapseToolbar(appBarLayout);
     }

@@ -25,6 +25,7 @@ import in.hridayan.ashell.utils.Utils;
 public class ExamplesActivity extends AppCompatActivity {
   private ExamplesViewModel viewModel;
   private AppBarLayout appBarLayout;
+  private RecyclerView mRecyclerView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class ExamplesActivity extends AppCompatActivity {
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
     imageView.setOnClickListener(v -> dispatcher.onBackPressed());
 
-    RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
+    mRecyclerView = findViewById(R.id.recycler_view);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     GridLayoutManager mLayoutManager =
         new GridLayoutManager(
@@ -67,8 +68,12 @@ public class ExamplesActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
+    int position = Utils.recyclerViewPosition(mRecyclerView);
+
     if (viewModel.isToolbarExpanded()) {
-      Utils.expandToolbar(appBarLayout);
+      if (position == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
     } else {
       Utils.collapseToolbar(appBarLayout);
     }
