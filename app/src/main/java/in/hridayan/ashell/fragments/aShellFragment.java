@@ -1221,9 +1221,12 @@ public class aShellFragment extends Fragment {
     }
     if (viewModel.isSaveButtonVisible()) {
       mSaveButton.setVisibility(View.VISIBLE);
-      mClearButton.setVisibility(View.VISIBLE);
-      mSearchButton.setVisibility(View.VISIBLE);
-      mHistoryButton.setVisibility(View.VISIBLE);
+      if (mSearchWord.getVisibility() == View.GONE) {
+        mClearButton.setVisibility(View.VISIBLE);
+        mSearchButton.setVisibility(View.VISIBLE);
+        mHistoryButton.setVisibility(View.VISIBLE);
+      }
+
       mShareButton.setVisibility(View.VISIBLE);
 
       mPasteButton.setVisibility(View.GONE);
