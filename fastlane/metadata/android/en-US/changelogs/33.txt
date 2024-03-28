@@ -1,0 +1,3 @@
+Changelogs ~
+
+• Fixed some crashes that were introduced in v3.8.0

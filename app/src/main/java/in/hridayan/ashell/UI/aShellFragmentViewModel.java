@@ -66,4 +66,5 @@ public class aShellFragmentViewModel extends ViewModel {
   public void setSendDrawable(boolean sendDrawable) {
     isSendDrawable = sendDrawable;
   }
+
 }

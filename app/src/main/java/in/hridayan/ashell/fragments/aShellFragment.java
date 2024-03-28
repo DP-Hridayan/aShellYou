@@ -108,7 +108,7 @@ public class aShellFragment extends Fragment {
       sendButtonClicked = false;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1;
-  private List<String> mHistory = null, mResult = null, mRecentCommands;
+  private List<String> mHistory = null, mResult = null, mRecentCommands, shellOutput, history;
   private View view;
   private Context context;
   private aShellFragmentViewModel viewModel;
@@ -165,11 +165,11 @@ public class aShellFragment extends Fragment {
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
 
+    handleSharedTextIntent(requireActivity().getIntent());
+
     setupRecyclerView();
 
     mNav.setVisibility(View.VISIBLE);
-
-    handleSharedTextIntent(requireActivity().getIntent());
 
     /*------------------------------------------------------*/
 
@@ -196,7 +196,9 @@ public class aShellFragment extends Fragment {
                   && mRecyclerViewOutput.getHeight() != 0) {
                 setVisibilityWithDelay(mShareButton, 100);
               }
-              if (mPasteButton.getVisibility() == View.GONE && !sendButtonClicked) {
+              if (mPasteButton.getVisibility() == View.GONE
+                  && !sendButtonClicked
+                  && mResult == null) {
                 setVisibilityWithDelay(mPasteButton, 100);
               }
             }
@@ -571,6 +573,15 @@ public class aShellFragment extends Fragment {
 
     mShareButton.setOnClickListener(
         v -> {
+          shellOutput = viewModel.getShellOutput();
+          history = viewModel.getHistory();
+          if (mResult == null) {
+            mResult = shellOutput;
+          }
+          if (mHistory == null) {
+            mHistory = history;
+          }
+
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
             String result = mResult.get(i);
@@ -640,6 +651,15 @@ public class aShellFragment extends Fragment {
 
     mSaveButton.setOnClickListener(
         v -> {
+          shellOutput = viewModel.getShellOutput();
+          history = viewModel.getHistory();
+          if (mResult == null) {
+            mResult = shellOutput;
+          }
+          if (mHistory == null) {
+            mHistory = history;
+          }
+
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
             String result = mResult.get(i);
@@ -1080,7 +1100,14 @@ public class aShellFragment extends Fragment {
 
       isSendDrawable = true;
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-      mCommand.setText(sharedText);
+      if (sharedText != null) {
+        mCommand.setText(sharedText);
+      }
+      updateInputField(sharedText);
+
+      viewModel.setEditTextFocused(true);
+      viewModel.setSendDrawable(true);
+
       if (switchState) {
         if (!Shizuku.pingBinder()) {
           handleShizukuAvailability(context);
@@ -1093,7 +1120,11 @@ public class aShellFragment extends Fragment {
   }
 
   public void updateInputField(String sharedText) {
-    mCommand.setText(sharedText);
+    if (sharedText != null) {
+      mCommand.setText(sharedText);
+      mCommand.requestFocus();
+      mCommand.setSelection(mCommand.getText().length());
+    }
   }
 
   /*------------------------------------------------------*/
