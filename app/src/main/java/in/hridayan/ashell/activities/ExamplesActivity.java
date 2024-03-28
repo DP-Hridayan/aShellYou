@@ -7,23 +7,24 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.ExamplesViewModel;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.ThemeUtils;
+import in.hridayan.ashell.utils.Utils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 05, 2022
  */
 public class ExamplesActivity extends AppCompatActivity {
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-  }
+  private ExamplesViewModel viewModel;
+  private AppBarLayout appBarLayout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,10 @@ public class ExamplesActivity extends AppCompatActivity {
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_examples);
+
+    appBarLayout = findViewById(R.id.appBarLayout);
+
+    viewModel = new ViewModelProvider(this).get(ExamplesViewModel.class);
 
     ImageView imageView = findViewById(R.id.arrow_back);
 
@@ -51,5 +56,21 @@ public class ExamplesActivity extends AppCompatActivity {
     ExamplesAdapter mRecycleViewAdapter = new ExamplesAdapter(Commands.commandList());
     mRecyclerView.setAdapter(mRecycleViewAdapter);
     mRecyclerView.setVisibility(View.VISIBLE);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if (viewModel.isToolbarExpanded()) {
+      Utils.expandToolbar(appBarLayout);
+    } else {
+      Utils.collapseToolbar(appBarLayout);
+    }
   }
 }

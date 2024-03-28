@@ -6,21 +6,22 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.ChangelogViewModel;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.utils.ChangelogItem;
 import in.hridayan.ashell.utils.ThemeUtils;
+import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChangelogActivity extends AppCompatActivity {
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-  }
+  private ChangelogViewModel viewModel;
+  private AppBarLayout appBarLayout;
 
   private final String[] versionNumbers = {
     "3.8.1", "3.8.0", "3.7.0", "3.6.0", "3.5.1", "3.5.0", "3.4.0", "3.3.0", "3.2.0", "3.1.0",
@@ -36,6 +37,10 @@ public class ChangelogActivity extends AppCompatActivity {
     ThemeUtils.updateTheme(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_changelog);
+
+    appBarLayout = findViewById(R.id.appBarLayout);
+
+    viewModel = new ViewModelProvider(this).get(ChangelogViewModel.class);
 
     resources = getResources();
 
@@ -62,5 +67,21 @@ public class ChangelogActivity extends AppCompatActivity {
         resources.getIdentifier(
             "changelog_v" + versionNumber.replace(".", "_"), "string", getPackageName());
     return resources.getString(resourceId);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if (viewModel.isToolbarExpanded()) {
+      Utils.expandToolbar(appBarLayout);
+    } else {
+      Utils.collapseToolbar(appBarLayout);
+    }
   }
 }

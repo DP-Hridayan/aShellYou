@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.core.content.ContextCompat;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
@@ -222,5 +223,17 @@ public class Utils {
     params.bottomMargin = 29;
     component.setLayoutParams(params);
     component.requestLayout();
+  }
+
+  public static boolean isToolbarExpanded(AppBarLayout appBarLayout) {
+    return appBarLayout.getTop() == 0;
+  }
+
+  public static void expandToolbar(AppBarLayout appBarLayout) {
+    appBarLayout.setExpanded(true);
+  }
+
+  public static void collapseToolbar(AppBarLayout appBarLayout) {
+    appBarLayout.setExpanded(false);
   }
 }
