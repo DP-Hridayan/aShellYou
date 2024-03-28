@@ -10,9 +10,9 @@
     <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/c7997b9b-3837-425f-9a3f-1faff5244b41" alt="" width="100" height="195" />
     <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/f27aeca7-72e0-4fc8-82ac-c172279c4adf" alt="" width="100" height="195" />
     <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/4c3ddc4e-3a5f-412e-993d-bc0308667f54" alt="" width="100" height="195" /> 
-    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/092252af-12d7-4a6a-9419-f9e68f82bd6d" alt="" width="100" height="195" />
-    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/83a7dc41-1b9c-495c-8e98-bae9e90b1205" alt="" width="100" height="195" />
-    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/353dfd1d-95fb-43f9-a649-7f41ca67cd04" alt="" width="100" height="195" />
+    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/a3f0fbb3-3bf7-4b96-ace5-718c1e6986d9" />
+    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/6e390948-423a-4356-872a-cae73154eefe" />
+
   </p>
 </div>
 
