@@ -122,6 +122,8 @@
     //Changelogs
     //Absolutely necessary to follow this string name format
     
+
+    <string name="changelog_v3_8_1">\n\n• Fixed some crashes that were introduced in v3.8.0</string>
     <string name="changelog_v3_8_0">\n\n• Added black (amoled) theme\n\n• Added undo button to undo paste\n\n• Added option to disable soft keyboard\n\n• Fixed buttons stretched in some screen sizes\n\n• Fixed bookmarks button not appearing after opening the app\n\n• Renamed Examples section to Commands\n\n• Fixed copy command option not appearing for every command template\n\n• App now uses system font everywhere\n\n• Improved UI handling\n\n• Updated translations</string>
 
     <string name="changelog_v3_7_0">\n\n• Now you can share texts from anywhere on your device to aShell You and run commands directly.\n\n• Now you can share shell output directly without needing to save it !\n\n• A lot of optimisations and UI handling.\n\n• Added Chinese translations.\n\n• Updated translations.

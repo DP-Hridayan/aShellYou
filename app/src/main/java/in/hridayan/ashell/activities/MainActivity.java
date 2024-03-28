@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
   public BottomNavigationView mNav;
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
-  private boolean isBlackThemeEnabled;
-  private boolean isAmoledTheme;
+
+  private boolean isBlackThemeEnabled, isAmoledTheme, isSharedText;
 
   @Override
   protected void onResume() {
@@ -84,13 +84,16 @@ public class MainActivity extends AppCompatActivity {
     setupNavigation();
     setBadge(R.id.nav_otgShell, "Beta");
     setBadge(R.id.nav_wireless, "Soon");
-
-    handleSharedTextIntent(getIntent());
+    if (isSharedText) {
+      handleSharedTextIntent(getIntent());
+    }
   }
 
   private void handleSharedTextIntent(Intent intent) {
+
     String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
     if (sharedText != null) {
+      isSharedText = false;
       aShellFragment fragment =
           (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
       if (fragment != null) {
