@@ -6,25 +6,28 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.ChangelogViewModel;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.utils.ChangelogItem;
 import in.hridayan.ashell.utils.ThemeUtils;
+import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChangelogActivity extends AppCompatActivity {
+  private ChangelogViewModel viewModel;
+  private AppBarLayout appBarLayout;
+  private RecyclerView recyclerViewChangelogs;
 
-  @Override
-  protected void onResume() {
-    super.onResume();
-  }
-
-  private final String[] versionNumbers = {"3.8.1",
-    "3.8.0", "3.7.0", "3.6.0", "3.5.1", "3.5.0", "3.4.0", "3.3.0", "3.2.0", "3.1.0", "3.0.0",
-    "2.0.2", "2.0.1", "2.0.0", "1.3.0", "1.2.0", "1.1.1", "1.1.0", "1.0.0", "0.9.1", "0.9.0"
+  private final String[] versionNumbers = {"3.8.2",
+    "3.8.1", "3.8.0", "3.7.0", "3.6.0", "3.5.1", "3.5.0", "3.4.0", "3.3.0", "3.2.0", "3.1.0",
+    "3.0.0", "2.0.2", "2.0.1", "2.0.0", "1.3.0", "1.2.0", "1.1.1", "1.1.0", "1.0.0", "0.9.1",
+    "0.9.0"
   };
 
   private Resources resources;
@@ -36,19 +39,25 @@ public class ChangelogActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_changelog);
 
+    appBarLayout = findViewById(R.id.appBarLayout);
+
+    viewModel = new ViewModelProvider(this).get(ChangelogViewModel.class);
+
     resources = getResources();
 
     ImageView imageView = findViewById(R.id.arrow_back);
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
     imageView.setOnClickListener(v -> dispatcher.onBackPressed());
 
-    RecyclerView recyclerViewChangelogs = findViewById(R.id.recycler_view_changelogs);
+    recyclerViewChangelogs = findViewById(R.id.recycler_view_changelogs);
 
     List<ChangelogItem> changelogItems = new ArrayList<>();
 
     for (String versionNumber : versionNumbers) {
       changelogItems.add(
-          new ChangelogItem("Version " + versionNumber, loadChangelogText(versionNumber)));
+          new ChangelogItem(
+              getString(R.string.version) + "\t\t" + versionNumber,
+              loadChangelogText(versionNumber)));
     }
 
     ChangelogAdapter adapter = new ChangelogAdapter(changelogItems, this);
@@ -61,5 +70,25 @@ public class ChangelogActivity extends AppCompatActivity {
         resources.getIdentifier(
             "changelog_v" + versionNumber.replace(".", "_"), "string", getPackageName());
     return resources.getString(resourceId);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    int position = Utils.recyclerViewPosition(recyclerViewChangelogs);
+
+    if (viewModel.isToolbarExpanded()) {
+      if (position == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
+    } else {
+      Utils.collapseToolbar(appBarLayout);
+    }
   }
 }

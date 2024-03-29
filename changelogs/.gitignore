@@ -1,0 +1,4 @@
+/build
+/release
+signingConfigs/**
+*.jks

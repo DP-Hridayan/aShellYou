@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <style
+        name="aShellYou.AppTheme"
+        parent="Theme.Material3.DynamicColors.DayNight.NoActionBar"
+        tools:ignore="PrivateResource">
+        <item name="colorSurface">@color/m3_ref_palette_dynamic_neutral_variant6</item>
+        <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_dynamic_neutral_variant4</item>
+        <item name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral10</item>
+
+    </style>
+    <style
+        name="BottomNavigation"
+        parent="aShellYou.AppTheme">
+        <item name="android:background">@color/m3_ref_palette_dynamic_neutral_variant6</item>
+    </style>
+
+    <style
+        name="ToolbarContentScrim"
+        parent="aShellYou.AppTheme">
+        <item name="contentScrim">@color/m3_ref_palette_dynamic_neutral_variant10</item>
+    </style>
+
+    <style
+        name="CategoryContributorsCard"
+        parent="aShellYou.AppTheme">
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainer</item>
+    </style>
+
+</resources>

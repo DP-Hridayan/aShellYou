@@ -1,0 +1,5 @@
+Changelogs ~
+
+• App uses a more refreshed color palette for material you themeing
+
+• Fixed minor bugs

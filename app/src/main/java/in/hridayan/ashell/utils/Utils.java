@@ -1,5 +1,6 @@
 package in.hridayan.ashell.utils;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -12,10 +13,16 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.activities.ChangelogActivity;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -29,6 +36,8 @@ import java.util.Objects;
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 28, 2022
  */
 public class Utils {
+  public static Intent intent;
+  public static int savedVersionCode;
 
   public static boolean isBookmarked(String command, Context context) {
     if (isValidFilename(command)) {
@@ -222,5 +231,46 @@ public class Utils {
     params.bottomMargin = 29;
     component.setLayoutParams(params);
     component.requestLayout();
+  }
+
+  public static boolean isToolbarExpanded(AppBarLayout appBarLayout) {
+    return appBarLayout.getTop() == 0;
+  }
+
+  public static void expandToolbar(AppBarLayout appBarLayout) {
+    appBarLayout.setExpanded(true);
+  }
+
+  public static void collapseToolbar(AppBarLayout appBarLayout) {
+    appBarLayout.setExpanded(false);
+  }
+
+  public static int recyclerViewPosition(RecyclerView recyclerView) {
+    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+    return firstVisibleItemPosition;
+  }
+
+  public static int currentVersion() {
+    int versionCode = BuildConfig.VERSION_CODE;
+    return versionCode;
+  }
+
+  public static void isAppUpdated(Context context, Activity activity) {
+    CoordinatorLayout view = activity.findViewById(R.id.fragment_container);
+    savedVersionCode = Preferences.getSavedVersionCode(context);
+    if (savedVersionCode != currentVersion() && savedVersionCode != 1) {
+      Utils.snackBar(view, context.getString(R.string.app_updated_message))
+          .setAction(
+              context.getString(R.string.yes),
+              (v -> {
+                intent = new Intent(context, ChangelogActivity.class);
+                context.startActivity(intent);
+              }))
+          .show();
+
+    }
+    return;
   }
 }

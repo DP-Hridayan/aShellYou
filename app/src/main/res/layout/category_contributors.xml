@@ -8,7 +8,7 @@
     app:cardCornerRadius="20dp"
     android:focusable="true"
     android:foreground="?@attr/selectableItemBackground"
-    app:cardBackgroundColor="?attr/colorSurfaceContainer"
+    style="@style/CategoryContributorsCard"
     app:strokeWidth="0dp"
     android:elevation="0dp"
     android:layerType="hardware">
@@ -45,12 +45,12 @@
                 android:layout_height="wrap_content"
                 style="@style/ItemDescription" />
             <Button
-                style="@style/Widget.Material3.Button.TonalButton"
+                style="@style/Widget.Material3.Button.Icon"
                 android:id="@+id/github_handle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Github"
+                android:text="@string/github"
                 android:textSize="12sp"
                 android:layout_marginBottom="3dp"
                 android:paddingHorizontal="14dp"

@@ -12,6 +12,7 @@
     tools:context=".AboutActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
@@ -24,7 +25,8 @@
             app:expandedTitleMarginStart="25dp"
             app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="@string/about">
+            app:title="@string/about"
+            style="@style/ToolbarContentScrim">
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"

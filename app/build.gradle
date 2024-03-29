@@ -14,8 +14,8 @@ android {
         applicationId "in.hridayan.ashell"
         minSdk 24
         targetSdk 34
-        versionCode 33
-        versionName "v3.8.1"
+        versionCode 34
+        versionName "v3.8.2"
     }
 
     Properties properties = new Properties()
@@ -65,6 +65,7 @@ def lifecycle_version = "2.7.0"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.13.2'
     implementation project(':adblib')
+    implementation project(':changelogs')
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 }

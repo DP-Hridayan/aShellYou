@@ -1,7 +1,6 @@
 package in.hridayan.ashell.activities;
 
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
@@ -17,6 +16,7 @@ import in.hridayan.ashell.UI.SettingsViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ThemeUtils;
+import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
     settingsData.add(
         new SettingsItem(
             "id_amoled_theme",
-            R.drawable.ic_clear,
+            R.drawable.ic_amoled_theme,
             getString(R.string.amoled_theme),
             getString(R.string.des_amoled_theme),
             true,
@@ -100,7 +100,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsData.add(
         new SettingsItem(
-                
             "id_smooth_scroll",
             R.drawable.ic_scroll,
             getString(R.string.smooth_scrolling),
@@ -146,17 +145,21 @@ public class SettingsActivity extends AppCompatActivity {
       viewModel.setScrollPosition(
           ((LinearLayoutManager) settingsList.getLayoutManager()).findFirstVisibleItemPosition());
       // Save toolbar state
-      viewModel.setToolbarExpanded(isToolbarExpanded());
+      viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
     }
   }
 
   @Override
   protected void onResume() {
     super.onResume();
+    int position = Utils.recyclerViewPosition(settingsList);
+
     if (viewModel.isToolbarExpanded()) {
-      expandToolbar();
+      if (position == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
     } else {
-      collapseToolbar();
+      Utils.collapseToolbar(appBarLayout);
     }
   }
 
@@ -170,17 +173,5 @@ public class SettingsActivity extends AppCompatActivity {
     adapter = new SettingsAdapter(settingsData, this, currentTheme);
     settingsList.setAdapter(adapter);
     settingsList.scrollToPosition(scrollPosition);
-  }
-
-  private boolean isToolbarExpanded() {
-    return appBarLayout.getTop() == 0;
-  }
-
-  private void expandToolbar() {
-    appBarLayout.setExpanded(true);
-  }
-
-  private void collapseToolbar() {
-    appBarLayout.setExpanded(false);
   }
 }

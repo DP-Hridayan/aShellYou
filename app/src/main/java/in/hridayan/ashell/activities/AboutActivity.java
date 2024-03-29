@@ -7,12 +7,16 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.AboutViewModel;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.adapters.AboutAdapter;
 import in.hridayan.ashell.utils.ThemeUtils;
+import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +25,8 @@ public class AboutActivity extends AppCompatActivity {
   private RecyclerView recyclerView;
   private AboutAdapter adapter;
   private List<Object> items;
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-  }
+  private AppBarLayout appBarLayout;
+  private AboutViewModel viewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,10 @@ public class AboutActivity extends AppCompatActivity {
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_about);
+
+    appBarLayout = findViewById(R.id.appBarLayout);
+
+    viewModel = new ViewModelProvider(this).get(AboutViewModel.class);
 
     recyclerView = findViewById(R.id.about_list);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -148,5 +153,25 @@ public class AboutActivity extends AppCompatActivity {
 
     adapter = new AboutAdapter(items, this);
     recyclerView.setAdapter(adapter);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    int position = Utils.recyclerViewPosition(recyclerView);
+
+    if (viewModel.isToolbarExpanded()) {
+      if (position == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
+    } else {
+      Utils.collapseToolbar(appBarLayout);
+    }
   }
 }

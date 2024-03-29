@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.media.midi.MidiSender;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,8 +15,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.Editable;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -35,8 +32,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelStoreOwner;
-import androidx.lifecycle.ViewModelStore;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -47,6 +43,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -108,6 +105,7 @@ public class aShellFragment extends Fragment {
       sendButtonClicked = false;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1;
+
   private List<String> mHistory = null, mResult = null, mRecentCommands, shellOutput, history;
   private View view;
   private Context context;
@@ -147,7 +145,6 @@ public class aShellFragment extends Fragment {
     mShareButton = view.findViewById(R.id.fab_share);
     mTopButton = view.findViewById(R.id.fab_up);
     mUndoButton = view.findViewById(R.id.fab_undo);
-
     /*------------------------------------------------------*/
 
     viewModel = new ViewModelProvider(requireActivity()).get(aShellFragmentViewModel.class);
@@ -196,6 +193,7 @@ public class aShellFragment extends Fragment {
                   && mRecyclerViewOutput.getHeight() != 0) {
                 setVisibilityWithDelay(mShareButton, 100);
               }
+
               if (mPasteButton.getVisibility() == View.GONE
                   && !sendButtonClicked
                   && mResult == null) {
@@ -208,6 +206,10 @@ public class aShellFragment extends Fragment {
     /*------------------------------------------------------*/
 
     BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, context);
+
+        // Show snackbar when app is updated 
+    Utils.isAppUpdated(context, requireActivity());
+    Preferences.setSavedVersionCode(context, Utils.currentVersion());
 
     /*------------------------------------------------------*/
 
@@ -1117,6 +1119,7 @@ public class aShellFragment extends Fragment {
         }
       }
     }
+    return;
   }
 
   public void updateInputField(String sharedText) {
@@ -1218,9 +1221,12 @@ public class aShellFragment extends Fragment {
     }
     if (viewModel.isSaveButtonVisible()) {
       mSaveButton.setVisibility(View.VISIBLE);
-      mClearButton.setVisibility(View.VISIBLE);
-      mSearchButton.setVisibility(View.VISIBLE);
-      mHistoryButton.setVisibility(View.VISIBLE);
+      if (mSearchWord.getVisibility() == View.GONE) {
+        mClearButton.setVisibility(View.VISIBLE);
+        mSearchButton.setVisibility(View.VISIBLE);
+        mHistoryButton.setVisibility(View.VISIBLE);
+      }
+
       mShareButton.setVisibility(View.VISIBLE);
 
       mPasteButton.setVisibility(View.GONE);

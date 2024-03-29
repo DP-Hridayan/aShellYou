@@ -55,7 +55,7 @@
             android:layout_width="48dp"
             app:icon="@drawable/ic_mail"
             app:layout_constraintStart_toStartOf="parent"
-            style="?attr/materialIconButtonFilledTonalStyle"
+            style="@style/Widget.Material3.Button.Icon"
             android:layout_marginTop="20dp"
             android:layout_marginStart="80dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -68,7 +68,7 @@
             app:layout_constraintTop_toTopOf="@id/mail"
             app:layout_constraintStart_toEndOf="@id/mail"
             app:layout_constraintEnd_toStartOf="@id/x"
-            style="?attr/materialIconButtonFilledTonalStyle"
+            style="@style/Widget.Material3.Button.Icon"
             android:id="@+id/github" />
 
         <Button
@@ -79,7 +79,7 @@
             app:layout_constraintTop_toTopOf="@id/mail"
             android:rotationX="180"
             app:layout_constraintEnd_toEndOf="parent"
-            style="?attr/materialIconButtonFilledTonalStyle"
+            style="@style/Widget.Material3.Button.Icon"
             android:id="@+id/x" />
 
         <Button
@@ -93,7 +93,7 @@
             app:layout_constraintStart_toStartOf="@id/mail"
             app:layout_constraintEnd_toEndOf="@id/x"
             android:text="@string/support"
-            style="?attr/materialIconButtonFilledTonalStyle"
+            style="@style/Widget.Material3.Button.Icon"
             android:id="@+id/support" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

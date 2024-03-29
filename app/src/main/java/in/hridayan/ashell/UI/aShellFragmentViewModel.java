@@ -9,6 +9,7 @@ public class aShellFragmentViewModel extends ViewModel {
   private String commandText;
 
   private List<String> shellOutput, history;
+
   private int scrollPosition;
 
   public List<String> getShellOutput() {
@@ -18,6 +19,7 @@ public class aShellFragmentViewModel extends ViewModel {
   public void setShellOutput(List<String> shellOutput) {
     this.shellOutput = shellOutput;
   }
+
 
   public List<String> getHistory() {
     return history;
@@ -66,5 +68,4 @@ public class aShellFragmentViewModel extends ViewModel {
   public void setSendDrawable(boolean sendDrawable) {
     isSendDrawable = sendDrawable;
   }
-
 }

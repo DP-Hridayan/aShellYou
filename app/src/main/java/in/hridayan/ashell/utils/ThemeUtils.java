@@ -1,11 +1,8 @@
 package in.hridayan.ashell.utils;
 
-import androidx.appcompat.app.AppCompatActivity;
-import in.hridayan.ashell.R;
 import android.content.res.Configuration;
 import androidx.appcompat.app.AppCompatActivity;
 import in.hridayan.ashell.R;
-
 
 public class ThemeUtils {
   private static boolean isAmoledTheme;

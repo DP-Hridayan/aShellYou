@@ -1,12 +1,15 @@
 <?xml version="1.0"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="access_denied">Acesso negado</string>
+    <string name="accept_device_prompt">Talvez seja necessário aceitar um prompt no outro dispositivo se você estiver tentando se conectar a ele pela primeira vez a partir deste dispositivo</string>
     <string name="adb_device_connected">Dispositivo ADB conectado.</string>
     <string name="adb_device_not_connected">Dispositivo ADB não conectado.</string>
     <string name="adb_device_waiting">Aguardando dispositivo ADB</string>
     <string name="adb_shell">ADB shell</string>
     <string name="about">Sobre</string>
     <string name="accept">Aceitar</string>
+    <string name="amoled_theme">Tema preto AMOLED</string>
+    <string name="des_amoled_theme">Tema preto puro para dispositivos com tela OLED</string>
     <string name="app_summary">aShell You está aqui para todas as suas necessidades ADB</string>
     <string name="app_working_message">O aShell You ainda está trabalhando. Aguarde até que ele termine ou pare manualmente (clicando no botão parar) para executar um novo comando</string>
     <string name="beta_warning">Este recurso encontra-se atualmente em fase experimental. Se você encontrar quaisquer problemas, por favor, comunique ao desenvolvedor.</string>
@@ -20,6 +23,7 @@
     <string name="clear_everything">Limpar tudo</string>
     <string name="clear_screen">Limpar tela</string>
     <string name="clipboard_empty">A área de transferência não contém texto</string>
+    <string name="commands">Comandos</string>
     <string name="command_hint">Digite o comando ADB aqui</string>
     <string name="command_title">Digite o comando ADB</string>
     <string name="connecting">conectando...</string>
@@ -32,12 +36,11 @@
     <string name="disabled">Desativado</string>
     <string name="donot_show_again">Não mostrar novamente</string>
     <string name="error">Erro</string>
+    <string name="example">Exemplo</string>
     <string name="examples">Exemplos</string>
     <string name="failed">Falha</string>
     <string name="generate_key_failed">Falha ao gerar e salvar par de chaves</string>
     <string name="flashing">Flasheando</string>
-    <string name="flash_emoji">⚡</string>
-    <string name="flashing_apks">Flasheando Apks</string>
     <string name="go_back">Voltar</string>
     <string name="history">Histórico</string>
     <string name="no_command">Nenhum comando</string>
@@ -50,7 +53,6 @@
     <string name="progress">Progresso</string>
     <string name="quit">Sair</string>
     <string name="quit_app_message">Deseja encerrar o app?</string>
-    <string name="ready_flash_apks">Ready Flash Apks</string>
     <string name="request_permission">Solicitar Permissão</string>
     <string name="save">Salvar</string>
     <string name="su_warning">Comandos root não estão disponíveis</string>
@@ -71,6 +73,7 @@
     <string name="support">Suporte</string>
     <string name="su_warning_message">O aShell You não foi projetado para usos relacionados a root. Abortando.</string>
     <string name="title_activity_setting">Setup Apks</string>
+    <string name="use">Usar</string>
     <string name="waiting_device">Aguardando por dispositivo</string>
     <string name="warning">Aviso</string>
     <string name="yes">Sim</string>
@@ -79,7 +82,9 @@
     <string name="ask_to_clean">Perguntar antes de limpar saída do shell</string>
     <string name="des_ask_to_clean">Se habilitado, um pop-up de confirmação será exibido depois que você clicar no botão Limpar tela</string>
     <string name="override_bookmarks_limit">Substituir limite máximo de favoritos</string>
-    <string name="des_override_bookmarks">Ativar essa opção pode causar problemas de desempenho se um grande número de favoritos for adicionado! Dispositivos low-end devem manter esta opção desativada</string>
+    <string name="des_override_bookmarks">Pode causar lentidão se um grande número de marcadores for adicionado! Os dispositivos low-end devem manter esta opção desativada</string>
+    <string name="disable_softkey">Desativar teclado virtual</string>
+    <string name="des_disable_softkey">Útil quando você desejar usar um teclado externo</string>
     <string name="des_examples">Coleção de alguns exemplos de comando</string>
     <string name="des_changelogs">Histórico de todas as alterações feitas no aplicativo</string>
     <string name="des_about">Versão, Créditos</string>
@@ -103,26 +108,5 @@
     <string name="des_github">Visite o repositório github do aShell You</string>
     <string name="telegram_channel">Canal do Telegram</string>
     <string name="des_telegram_channel">Participe do canal do telegram para discussão</string>
-    //Changelogs
-    //Absolutely necessary to follow this string name format
     
-    <string name="changelog_v3_7_0">\n• Agora você pode compartilhar textos de qualquer lugar no seu dispositivo para o aShell You e executar comandos diretamente.\n\n• Agora você pode compartilhar a saída do shell diretamente sem precisar salvá-lo!\n\n• Muitas otimizações e manuseio da interface do usuário.\n\n• Adicionada a tradução para o Chinês.\n\n• Traduções atualizadas.</string>
-    <string name="changelog_v3_6_0">\n• Adicionada opção para limpar o campo de entrada de comando após um erro\n\n• Corrigido um bug que fazia com que o aplicativo falhasse ao colar da área de transferência sob certas condições\n\n• Otimizações de código</string>
-    <string name="changelog_v3_5_1">\n• Corrigido alguns problemas com a navegação inferior.</string>
-    <string name="changelog_v3_5_0">\n• Seção Sobre do app renovada.\n\n• Adicionados atalhos do launcher.\n\n• Menu de navegação fixo não aparece no botão de navegação.\n\n• Melhor visibilidade do menu de navegação inferior na rolagem.\n\n• Adicionado suporte ao idioma por app (as traduções ainda não estão completas, você pode ajudar).\n\n• Muitas otimizações de código.</string>
-    <string name="changelog_v3_4_0">\n• Adicionado um botão Colar para que você possa copiar e colar comandos rapidamente.\n\n• Adicionados indicadores de erro no campo de entrada de texto.\n\n• Melhoria na lógica de visibilidade da Barra de Navegação.\n\n• Corrigido um problema em que os switches se comportavam mal em determinadas situações.\n\n• Corrigido adicionar visibilidade do ícone de marcador em vários níveis de contraste.\n\n• Muita otimização de código. App agora abre muito mais rápido do que antes.\n\n• O aplicativo permanecerá em segundo plano e não será reiniciado toda vez que você fechar o aplicativo apenas pressionando o botão ou gesto de voltar.</string>
-    <string name="changelog_v3_3_0">\n• Adicionado favoritos, histórico e sugestões de comando para OTG.\n\n• Adicionado limite máximo de favoritos.\n\n• Adicionada opção para substituir o limite máximo de favoritos.\n\n• Muitas correções de bugs.\n\n• Melhorado o manuseio da interface do usuário.\n\n• Muita otimização de código.</string>
-    <string name="changelog_v3_2_0">\n• Muitas melhorias relacionadas à interface do usuário.\n\n• Adicionadas dicas que indicam o modo de trabalho ADB atual.\n\n• Muita otimização de código.</string>
-    <string name="changelog_v3_1_0">\n• Melhorias no ADB OTG após o lançamento inicial.\n\n• Alguns ajustes de interface do usuário e lógica para acomodar o novo recurso otg.</string>
-    <string name="changelog_v3_0_0">\n• Adicionado suporte a ADB VIA OTG.\n\n*** Você poderá executar comandos ADB em outros dispositivos usando aShell You conectando o outro dispositivo usando um cabo OTG ***</string>
-    <string name="changelog_v2_0_2">\n• Removido código e recursos desnecessários.\n\n• Pequenas alterações na interface do usuário.</string>
-    <string name="changelog_v2_0_1">\n• Removido código e recursos desnecessários.\n\n• Pequenas alterações na interface do usuário.</string>
-    <string name="changelog_v2_0_0">\n\n• Alterado o nome do aplicativo para aShell You.\n\n• Adicionadas animações preditivas para dispositivos suportados.\n\n• Adicionado pop-up de diálogo de confirmação antes de limpar a tela.\n\n• Corrigido Elementos da barra de status não visíveis corretamente no modo claro.\n\n• App é muito mais suave agora.\n ~ Tamanho reduzido do aplicativo e código otimizado.\n\n• Adicionado ícone temático para lançadores que suportam ícones temáticos.\n\n• Pequenas alterações na interface do usuário.</string>
-    <string name="changelog_v1_3_0">\n• Painel de configurações renovado.\n\n• Adicionado toque duplo para rolagem instantânea para as posições superior e inferior na visualização de saída do shell.\n\n• Pequenas correções de interface do usuário.</string>
-    <string name="changelog_v1_2_0">\n\n• Adicionado painel de configurações.\n\n• Adicionada opção para desativar a rolagem suave na saída do shell.\n\n• Corrigido os principais bugs:\n\n~ Erro ao alterar o tema do dispositivo.\n\n~ Erro ao tentar salvar a saída de shell grande. por exemplo: saída do comando \'pm\'.</string>
-    <string name="changelog_v1_1_1">\n• Substituídas algumas api obsoletas.\n\n• Pequenas alterações na interface do usuário.</string>
-    <string name="changelog_v1_1_0">\n• Adicionados botões Rolar Para o Topo e Rolar Para Baixo.\n\n• Adicionada tecla Enter para enviar comando.\n\n• Adicionados alguns comandos.\n\n• Dependências atualizadas para incluir a biblioteca material you mais recente.\n\n• Pequenas alterações na interface do usuário.</string>
-    <string name="changelog_v1_0_0">\n• Adicionados mais alguns exemplos de comando.\n\n• Pequenas alterações na interface do usuário.\n\n• Alterado o nome do pacote para evitar confusão de versão com o aplicativo original.</string>
-    <string name="changelog_v0_9_1">\n• Adicionado changelog no aplicativo.\n\n• Adicionada saída de shell destacada.\n\n• Pequenas alterações na interface do usuário.</string>
-    <string name="changelog_v0_9_0">\n• Adicionado tema material dinâmico.\n\n• Reformulada toda a interface do usuário para dar uma nova aparência.</string>
 </resources>

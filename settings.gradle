@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "aShell You"
-include ':app' , ':adblib'
+include ':app' , ':adblib' ,':changelogs'

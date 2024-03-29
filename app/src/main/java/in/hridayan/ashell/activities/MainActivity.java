@@ -1,11 +1,9 @@
 package in.hridayan.ashell.activities;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.Preference;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
   public BottomNavigationView mNav;
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
+
   private boolean isBlackThemeEnabled, isAmoledTheme, isSharedText;
 
   @Override
@@ -85,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     setBadge(R.id.nav_wireless, "Soon");
     if (isSharedText) {
       handleSharedTextIntent(getIntent());
+      return;
     }
   }
 
@@ -92,13 +92,14 @@ public class MainActivity extends AppCompatActivity {
 
     String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
     if (sharedText != null) {
-      isSharedText = false;
       aShellFragment fragment =
           (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
       if (fragment != null) {
         fragment.updateInputField(sharedText);
       }
     }
+    isSharedText = false;
+    return;
   }
 
   private void setupNavigation() {
