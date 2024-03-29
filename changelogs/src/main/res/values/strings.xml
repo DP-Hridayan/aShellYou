@@ -1,0 +1,46 @@
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+    //Absolutely necessary to follow this string name format
+    <string name="changelog_v3_8_1">\n\n• Fixed some crashes that were introduced in v3.8.0</string>
+    <string name="changelog_v3_8_0">\n\n• Added black (amoled) theme\n\n• Added undo button to undo paste\n\n• Added option to disable soft keyboard\n\n• Fixed buttons stretched in some screen sizes\n\n• Fixed bookmarks button not appearing after opening the app\n\n• Renamed Examples section to Commands\n\n• Fixed copy command option not appearing for every command template\n\n• App now uses system font everywhere\n\n• Improved UI handling\n\n• Updated translations</string>
+
+    <string name="changelog_v3_7_0">\n\n• Now you can share texts from anywhere on your device to aShell You and run commands directly.\n\n• Now you can share shell output directly without needing to save it !\n\n• A lot of optimisations and UI handling.\n\n• Added Chinese translations.\n\n• Updated translations.
+</string>
+
+    <string name="changelog_v3_6_0">\n\n• Added option to clear the command input field after an error\n\n• Fixed a bug which caused the app to crash upon pasting from clipboard under certain conditions\n\n• Code optimisations</string>
+    <string name="changelog_v3_5_1">\n\n• Fixed some issues with bottom navigation.</string>
+
+    <string name="changelog_v3_5_0">\n\n• Revamped About section of the app.\n\n• Added launcher shortcuts.\n\n• Fixed navigation menu not showing in button navigation.\n\n• Improved bottom navigation menu visibility on scrolling.\n\n• Added per app language support for aShell You (translations aren\'t completed yet).\n\n• A lot of code optimisations.</string>
+
+    <string name="changelog_v3_4_0">\n\n• Added a Paste button so that you can copy and paste commands quickly.\n\n• Added Error indicators in the text input field.\n\n• Improved Navigation Bar visibility logic.\n\n• Fixed an issue where switches misbehaves under certain situations.\n\n• Fixed add bookmark icon visibility in various contrast levels.\n\n• A lot of code optimisation. App now opens a lot faster than before.\n\n• App will stay in background and won\'t restart every time you close the app by just pressing the back button or gesture.</string>
+
+    <string name="changelog_v3_3_0">\n\n• Added bookmarks , history and command suggestions to OTG\n\n• Added maximum bookmarks limit.\n\n• Added option to override maximum bookmarks limit.\n\n• A lot of bug fixes.\n\n• Improved some UI handling.\n\n• A lot of code optimisation.</string>
+
+    <string name="changelog_v3_2_0">\n\n• A lot of UI related improvements.\n\n• Added chips that indicate current ADB working mode.\n\n• A lot of code optimisation.</string>
+
+    <string name="changelog_v3_1_0">\n\n• Improvements to ADB OTG after initial release.\n\n• Some UI and logic adjustments to accomodate the new otg feature.</string>
+
+    <string name="changelog_v3_0_0">\n\n• Added ADB THROUGH OTG support.\n\n *** You will be able to run ADB commands on other devices using aShellYou by connecting the other device using an OTG cable ***</string>
+
+    <string name="changelog_v2_0_2">\n\n• Removed unnecessary code and resources.\n\n• Minor UI changes.</string>
+
+    <string name="changelog_v2_0_1">\n\n• Removed unnecessary code and resources.\n\n• Minor UI changes.</string>
+
+    <string name="changelog_v2_0_0">\n\n• Changed app name to aShell You.\n\n• Added predictive back animations for supporting devices.\n\n• Added confirmation dialog popup before clearing screen.\n\n• Fixed StatusBar elements not properly visible in Light mode.\n\n• App is much more smooth now.\n ~ Reduced app size and optimised code.\n\n• Added themed icon for launchers that support themed icons.\n\n• Minor UI changes.</string>
+
+    <string name="changelog_v1_3_0">\n\n• Revamped Settings panel.\n\n• Added Double Tap to instant scroll to top and bottom positions in shell output view.\n\n• Minor UI fixes.</string>
+
+    <string name="changelog_v1_2_0">\n\n• Added Settings panel.\n\n• Added option to disable smooth scroll in shell output.\n\n• Fixed major bugs:\n\n  ~  Crash while changing device theme.\n\n  ~  Crash while trying to save large shell output . eg : output of \'pm\' command.</string>
+
+    <string name="changelog_v1_1_1">\n\n• Replaced some deprecated api.\n\n• Minor UI changes.</string>
+
+    <string name="changelog_v1_1_0">\n\n• Added Scroll To Top and Scroll To Bottom buttons.\n\n• Added Click keyboard Enter key to Send command.\n\n• Added some commands.\n\n• Updated dependencies to include latest material you library.\n\n• Minor UI changes.</string>
+
+    <string name="changelog_v1_0_0">\n\n• Added some more command examples.\n\n• Minor UI changes.\n\n• Changed package name to avoid version confusion with original app.</string>
+
+    <string name="changelog_v0_9_1">\n\n• Added changelogs into the app.\n\n• Added highlighted shell output.\n\n• Minor UI changes.</string>
+
+    <string name="changelog_v0_9_0">\n\n• Added dynamic material theming.\n\n• Revamped whole UI to give a fresh look.</string>
+
+</resources>

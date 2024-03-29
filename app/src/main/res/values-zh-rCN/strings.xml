@@ -41,8 +41,6 @@
     <string name="failed">失败</string>
     <string name="generate_key_failed">未能生成与保存密钥对</string>
     <string name="flashing">正在刷写</string>
-    <string name="flash_emoji">📲 🔌⚡</string>
-    <string name="flashing_apks">安装软件包</string>
     <string name="go_back">返回</string>
     <string name="history">历史</string>
     <string name="no_command">这里是空的</string>
@@ -55,7 +53,6 @@
     <string name="progress">进度</string>
     <string name="quit">退出</string>
     <string name="quit_app_message">确认退出aShell You？</string>
-    <string name="ready_flash_apks">已准备好安装软件包</string>
     <string name="request_permission">请求权限</string>
     <string name="save">保存</string>
     <string name="su_warning">Root命令不可用</string>
@@ -111,23 +108,5 @@
     <string name="des_github">访问aShell You的Github仓库</string>
     <string name="telegram_channel">Telegram群</string>
     <string name="des_telegram_channel">加入Telegram群参与讨论</string>
-    <string name="changelog_v3_7_0">\n\n• 现在你可以通过向aShell You分享文本的方式从任何地方直接运行命令\n\n• 现在你可以不另外保存的情况下直接分享终端输出！\n\n• 一堆的优化和UI调整\n\n• 某人把它给汉化了\n\n• 更新翻译\n</string>
-    <string name="changelog_v3_6_0">\n\n• 加入了在终端报错之后清空命令输入框的选项\n\n• 修复了特定情况下从剪贴板粘贴内容导致软件崩溃的BUG\n\n• 代码优化</string>
-    <string name="changelog_v3_5_1">\n\n• 修复了部分导航按钮的问题</string>
-    <string name="changelog_v3_5_0">\n\n• 改进了应用程序的“关于”部分\n\n• 添加桌面快捷方式\n\n• 修复了导航栏在按键导航下不显示的问题\n\n• 改进了在滚动屏幕时的按键导航栏可见性\n\n• 为aShell You添加多语言支持（翻译还未完成）\n\n• 很多的代码优化</string>
-    <string name="changelog_v3_4_0">\n\n• 添加了一个用于快捷粘贴命令的按钮\n\n• 在命令输入框加入了错误指示器\n\n• 改进了导航栏可见性逻辑\n\n• 修复某些开关在特定情况下的异常行为\n\n• 修复了在各种对比度级别下添加书签图标可见性的问题\n\n• 一堆代码优化，现在软件启动速度会快不少\n\n• 软件现在可以在后台运行，并且不会在每次按下返回键退出或者通过手势最小化之后掉后台</string>
-    <string name="changelog_v3_3_0">\n\n• 添加书签和历史功能，并且为OTG设备提供命令建议\n\n• 添加书签数量上限\n\n• 允许接触书签数量限制\n\n• 修复了很多BUG\n\n• 改进了一些UI上的处理\n\n• 很多的代码优化</string>
-    <string name="changelog_v3_2_0">\n\n• 非常多针对UI的改善\n\n• 添加了指示当前 ADB 工作模式的芯片\n\n• 很多的代码优化</string>
-    <string name="changelog_v3_1_0">\n\n• 在首次启用后对ADB OTG功能精进行改善\n\n• 一些 UI 和逻辑调整以适应新的 otg 功能</string>
-    <string name="changelog_v3_0_0">\n\n• 添加对连接的OTG设备使用ADB的功能\n\n *** 你现在可以在aShell You中对使用OTG线连接的设备执行ADB命令 ***</string>
-    <string name="changelog_v2_0_2">\n\n• 移除无用代码和资源\n\n• 界面UI小幅调整</string>
-    <string name="changelog_v2_0_1">\n\n• 移除无用代码和资源\n\n• 界面UI小幅调整</string>
-    <string name="changelog_v2_0_0">\n\n• 更改应用名为aShell You\n\n• 为支持设备添加了预测性返回动画\n\n• 添加清屏前确认弹窗\n\n• 修复了在亮色模式下状态栏元素不能正确显示的问题\n\n• 现在软件会更加丝滑\n ~ 减少软件体积并优化代码\n\n• 为支持该功能的桌面添加主题化图标功能\n\n• 界面UI小幅调整</string>
-    <string name="changelog_v1_3_0">\n\n• 改进设置面板\n\n• 添加通过在终端输出界面双击实现快速来到顶部/来到底部\n\n• 小幅UI调整</string>
-    <string name="changelog_v1_2_0">\n\n• 添加设置面板\n\n• 允许关闭终端界面的平滑滚动功能\n\n• 重大BUG修复\n\n  ~  更改设备主题时崩溃\n\n  ~  存储文本量较大的终端输出时崩溃。 比如说\'pm\'命令的输出</string>
-    <string name="changelog_v1_1_1">\n\n• 替换一些已经被弃用的API\n\n• 界面UI小幅调整</string>
-    <string name="changelog_v1_1_0">\n\n• 添加了“回到顶部”和“回到底部”按钮\n\n• 允许使用键盘的回车键执行命令\n\n• 添加一些命令\n\n• 更新部分依赖以使用最新的Material You库\n\n• 界面UI小幅更改</string>
-    <string name="changelog_v1_0_0">\n\n• 添加了更多的示例命令\n\n• 小幅调整UI\n\n• 更改包名避免与原aShell冲突</string>
-    <string name="changelog_v0_9_1">\n\n• 在软件中添加更新日志\n\n• 终端输出内容高亮\n\n• 界面UI小幅调整</string>
-    <string name="changelog_v0_9_0">\n\n• 添加动态主题支持\n\n• 界面UI焕然一新</string>
+
 </resources>

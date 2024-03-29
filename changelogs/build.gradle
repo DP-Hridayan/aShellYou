@@ -1,0 +1,16 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 34
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 34
+    }
+    namespace 'changelogs'
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
