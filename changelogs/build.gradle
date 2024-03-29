@@ -10,7 +10,8 @@ android {
     namespace 'changelogs'
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+          proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
         }
     }
 }

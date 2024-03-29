@@ -18,6 +18,7 @@
         android:layout_gravity="bottom"
         android:id="@+id/bottom_nav_bar"
         android:layerType="hardware"
+        style="@style/BottomNavigation"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

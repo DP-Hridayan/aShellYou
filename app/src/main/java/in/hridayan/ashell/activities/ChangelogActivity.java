@@ -55,7 +55,9 @@ public class ChangelogActivity extends AppCompatActivity {
 
     for (String versionNumber : versionNumbers) {
       changelogItems.add(
-          new ChangelogItem("Version " + versionNumber, loadChangelogText(versionNumber)));
+          new ChangelogItem(
+              getString(R.string.version) + "\t\t" + versionNumber,
+              loadChangelogText(versionNumber)));
     }
 
     ChangelogAdapter adapter = new ChangelogAdapter(changelogItems, this);

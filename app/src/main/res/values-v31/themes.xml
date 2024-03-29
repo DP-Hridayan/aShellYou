@@ -5,9 +5,9 @@
         name="aShellYou.AppTheme"
         parent="Theme.Material3.DynamicColors.DayNight.NoActionBar"
         tools:ignore="PrivateResource">
-        <item name="colorSurface">@color/m3_ref_palette_dynamic_neutral_variant98</item>
-        <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_dynamic_neutral_variant95</item>
-        <item name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral92</item>
+        <item name="colorSurface">@color/m3_ref_palette_dynamic_neutral_variant96</item>
+        <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_dynamic_neutral_variant92</item>
+        <item name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral90</item>
 
     </style>
 
@@ -26,4 +26,21 @@
         <item name="colorSurfaceBright">@color/m3_ref_palette_dynamic_neutral10</item>
         <item name="colorSurfaceDim">@color/m3_ref_palette_dynamic_neutral0</item>
     </style>
+    <style
+        name="ToolbarContentScrim"
+        parent="aShellYou.AppTheme">
+        <item name="contentScrim">?attr/colorSurfaceContainerLowest</item>
+    </style>
+    <style
+        name="BottomNavigation"
+        parent="aShellYou.AppTheme">
+        <item name="android:background">?attr/colorSurfaceContainerLowest</item>
+    </style>
+
+     <style
+        name="CategoryContributorsCard"
+        parent="">
+        <item name="cardBackgroundColor">?attr/colorSecondaryContainer</item>
+    </style>
+    
 </resources>

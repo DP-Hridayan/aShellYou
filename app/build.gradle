@@ -14,7 +14,7 @@ android {
         applicationId "in.hridayan.ashell"
         minSdk 24
         targetSdk 34
-        versionCode 34
+        versionCode 36
         versionName "v3.9.0-test"
     }
 
