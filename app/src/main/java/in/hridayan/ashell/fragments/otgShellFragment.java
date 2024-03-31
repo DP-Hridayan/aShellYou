@@ -1,10 +1,10 @@
 package in.hridayan.ashell.fragments;
 
-import static in.hridayan.ashell.utils.MessageOtg.CONNECTING;
-import static in.hridayan.ashell.utils.MessageOtg.DEVICE_FOUND;
-import static in.hridayan.ashell.utils.MessageOtg.DEVICE_NOT_FOUND;
-import static in.hridayan.ashell.utils.MessageOtg.FLASHING;
-import static in.hridayan.ashell.utils.MessageOtg.INSTALLING_PROGRESS;
+import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
+import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
+import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_NOT_FOUND;
+import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.FLASHING;
+import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.INSTALLING_PROGRESS;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -54,7 +54,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
-import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -64,8 +63,9 @@ import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Commands;
-import in.hridayan.ashell.utils.Const;
-import in.hridayan.ashell.utils.MessageOtg;
+import in.hridayan.ashell.utils.OtgUtils;
+import in.hridayan.ashell.utils.OtgUtils.Const;
+import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
@@ -439,7 +439,7 @@ public class otgShellFragment extends Fragment
 
     /*------------------------------------------------------*/
 
-    AdbBase64 base64 = new MyAdbBase64();
+    AdbBase64 base64 = new OtgUtils.MyAdbBase64();
     try {
       adbCrypto =
           AdbCrypto.loadAdbKeyPair(

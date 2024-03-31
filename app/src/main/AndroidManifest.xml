@@ -51,7 +51,7 @@
         </activity>
 
         <receiver
-            android:name=".UsbReceiver"
+            android:name=".utile.OtgUtils$UsbReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
