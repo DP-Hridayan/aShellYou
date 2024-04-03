@@ -387,7 +387,7 @@ public class otgShellFragment extends Fragment
 
     // Glow otg symbol when adb connection successfull
     if (adbConnection != null) {
-      mCable.setColorFilter(Utils.getColor(R.color.colorGreen, requireActivity()));
+      mCable.setColorFilter(Utils.getColor(android.R.color.system_accent3_500, requireActivity()));
     } else {
       mCable.clearColorFilter();
     }

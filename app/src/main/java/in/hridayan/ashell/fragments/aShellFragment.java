@@ -43,7 +43,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -59,6 +58,7 @@ import in.hridayan.ashell.adapters.ShellOutputAdapter;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ShizukuShell;
+import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -207,7 +207,7 @@ public class aShellFragment extends Fragment {
 
     BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, context);
 
-        // Show snackbar when app is updated 
+    // Show snackbar when app is updated
     Utils.isAppUpdated(context, requireActivity());
     Preferences.setSavedVersionCode(context, Utils.currentVersion());
 
@@ -893,15 +893,17 @@ public class aShellFragment extends Fragment {
     mSaveButton.hide();
     mShareButton.hide();
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
-    mSendButton.setColorFilter(Utils.getColor(R.color.colorErrorContainer, context));
+
+    mSendButton.setColorFilter(ThemeUtils.colorError(context));
 
     String mTitleText =
         "<font color=\""
-            + Utils.getColor(R.color.colorBlue, activity)
+            + Utils.getColor(android.R.color.system_accent1_500, activity)
             + "\">shell@"
             + Utils.getDeviceName()
+            + " | "
             + "</font><font color=\""
-            + Utils.getColor(R.color.colorGreen, activity)
+            + Utils.getColor(android.R.color.system_accent3_500, activity)
             + "\"> # "
             + finalCommand;
 
