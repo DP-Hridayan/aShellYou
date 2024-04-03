@@ -105,6 +105,23 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         };
 
     holder.settingsItemLayout.setOnClickListener(clickListener);
+
+    if (position == getItemCount() - 1) {
+      int paddingInDp = 30;
+      float scale = context.getResources().getDisplayMetrics().density;
+      int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+
+      ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+      layoutParams.bottomMargin = paddingInPixels;
+      holder.itemView.setLayoutParams(layoutParams);
+    } else {
+      
+      ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+      layoutParams.bottomMargin = 0;
+      holder.itemView.setLayoutParams(layoutParams);
+    }
   }
 
   private void applyTheme(boolean isAmoledTheme) {
