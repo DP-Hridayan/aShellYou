@@ -25,7 +25,7 @@ public class Preferences {
   }
 
   public static boolean getClear(Context context) {
-    return getSharedPreferences(context).getBoolean(PREF_CLEAR, false);
+    return getSharedPreferences(context).getBoolean(PREF_CLEAR, true);
   }
 
   public static void setClear(Context context, boolean value) {
@@ -57,7 +57,7 @@ public class Preferences {
   }
 
   public static boolean getSmoothScroll(Context context) {
-    return getSharedPreferences(context).getBoolean(PREF_SMOOTH_SCROLL, false);
+    return getSharedPreferences(context).getBoolean(PREF_SMOOTH_SCROLL, true);
   }
 
   public static void setSmoothScroll(Context context, boolean value) {

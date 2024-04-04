@@ -14,6 +14,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.SettingsViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
@@ -60,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.amoled_theme),
             getString(R.string.des_amoled_theme),
             true,
-            getSavedSwitchState("id_amoled_theme")));
+            Preferences.getAmoledTheme(this)));
 
     settingsData.add(
         new SettingsItem(
@@ -69,7 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.ask_to_clean),
             getString(R.string.des_ask_to_clean),
             true,
-            getSavedSwitchState("id_clear")));
+            Preferences.getClear(this)));
 
     settingsData.add(
         new SettingsItem(
@@ -78,7 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.share_and_run),
             getString(R.string.des_share_and_run),
             true,
-            getSavedSwitchState("id_share_and_run")));
+            Preferences.getShareAndRun(this)));
 
     settingsData.add(
         new SettingsItem(
@@ -87,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.disable_softkey),
             getString(R.string.des_disable_softkey),
             true,
-            getSavedSwitchState("id_disable_softkey")));
+            Preferences.getDisableSoftkey(this)));
 
     settingsData.add(
         new SettingsItem(
@@ -96,7 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.override_bookmarks_limit),
             getString(R.string.des_override_bookmarks),
             true,
-            getSavedSwitchState("id_override_bookmarks")));
+            Preferences.getOverrideBookmarks(this)));
 
     settingsData.add(
         new SettingsItem(
@@ -105,7 +106,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.smooth_scrolling),
             getString(R.string.des_smooth_scroll),
             true,
-            getSavedSwitchState("id_smooth_scroll")));
+            Preferences.getSmoothScroll(this)));
 
     // no switches
     settingsData.add(
@@ -132,12 +133,7 @@ public class SettingsActivity extends AppCompatActivity {
     settingsList.setLayoutManager(new LinearLayoutManager(this));
   }
 
-  public boolean getSavedSwitchState(String id) {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-    return prefs.getBoolean(id, false);
-  }
-
-  // Override onPause to save RecyclerView scroll position
+  
   @Override
   protected void onPause() {
     super.onPause();

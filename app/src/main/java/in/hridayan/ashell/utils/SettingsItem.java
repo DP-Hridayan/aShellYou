@@ -10,7 +10,7 @@ import androidx.preference.PreferenceManager;
 public class SettingsItem {
   private int symbolResId;
   private String description, title, id;
-  private boolean hasSwitch, isEnabled;
+  private boolean hasSwitch, isChecked;
 
   public SettingsItem(
       String id,
@@ -18,13 +18,13 @@ public class SettingsItem {
       String title,
       String description,
       boolean hasSwitch,
-      boolean isEnabled) {
+      boolean isChecked) {
     this.id = id;
     this.symbolResId = symbolResId;
     this.title = title;
     this.description = description;
     this.hasSwitch = hasSwitch;
-    this.isEnabled = isEnabled;
+    this.isChecked = isChecked;
   }
 
   public String getId() {
@@ -47,23 +47,23 @@ public class SettingsItem {
     return hasSwitch;
   }
 
-  public boolean isEnabled() {
-    return isEnabled;
+  public boolean isChecked() {
+    return isChecked;
   }
 
-  public void setEnabled(boolean isEnabled) {
-    this.isEnabled = isEnabled;
+  public void setChecked(boolean isChecked) {
+    this.isChecked = isChecked;
   }
 
   public void saveSwitchState(Context context) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
     SharedPreferences.Editor editor = prefs.edit();
-    editor.putBoolean(id, isEnabled);
+    editor.putBoolean(id, isChecked);
     editor.apply();
   }
 
   public void loadSwitchState(Context context) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    isEnabled = prefs.getBoolean(id, false);
+    isChecked = prefs.getBoolean(id, false);
   }
 }
