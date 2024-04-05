@@ -56,10 +56,11 @@ href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="image
 
 ## Discussions Channel
 
-<a href="https://t.me/aShellYou">
-  <div align="center">
-  <img src="https://img.shields.io/badge/telegram-blue?logo=telegram" alt="Static Badge" width="240" height="65">
-</a>
+<div align="center">
+  <a href="https://t.me/aShellYou">
+    <img src="https://img.shields.io/badge/telegram-blue?logo=telegram" alt="Static Badge" width="240" height="65">
+  </a>
+</div>
 </br>
 <div align="center">
   <a href="https://discord.com/invite/UTE26F9EWJ">
