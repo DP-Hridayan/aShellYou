@@ -39,7 +39,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-
 public class Utils {
   public static Intent intent;
   public static int savedVersionCode;
@@ -48,7 +47,7 @@ public class Utils {
    * Adapted from android.os.FileUtils
    * Ref: https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=972?q=isValidFatFilenameChar
    */
-    
+
   private static boolean isValidFilename(String s) {
     return !s.contains("*")
         && !s.contains("/")
@@ -335,7 +334,6 @@ public class Utils {
     final int[] sortingOption = {currentSortingOption};
 
     new MaterialAlertDialogBuilder(activity)
-        .setCancelable(false)
         .setTitle(context.getString(R.string.sort))
         .setSingleChoiceItems(
             sortingOptions,
@@ -352,6 +350,10 @@ public class Utils {
         .setNegativeButton(
             context.getString(R.string.cancel),
             (dialog, i) -> {
+              Utils.bookmarksDialog(context, activity, mCommand);
+            })
+        .setOnCancelListener(
+            v -> {
               Utils.bookmarksDialog(context, activity, mCommand);
             })
         .show();
