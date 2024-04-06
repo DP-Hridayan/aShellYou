@@ -263,7 +263,7 @@ public class aShellFragment extends Fragment {
                                 getString(R.string.bookmark_removed_message, s.toString().trim()))
                             .show();
                       } else {
-                        addBookmark(s.toString().trim(), view);
+                        Utils.addBookmarkIconOnClickListener(s.toString().trim(), view, context);
                       }
 
                       mCommandInput.setEndIconDrawable(
@@ -1136,22 +1136,6 @@ public class aShellFragment extends Fragment {
             })
         .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
         .show();
-  }
-
-  private void addBookmark(String bookmark, View view) {
-
-    boolean switchState = Preferences.getOverrideBookmarks(context);
-    if (Utils.getBookmarks(requireActivity()).size() <= 4) {
-      Utils.addToBookmark(bookmark, requireActivity());
-      Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
-    } else {
-      if (switchState) {
-        Utils.addToBookmark(bookmark, requireActivity());
-        Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
-      } else {
-        Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
-      }
-    }
   }
 
   @Override

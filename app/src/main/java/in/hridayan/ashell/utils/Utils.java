@@ -39,53 +39,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-/*
- * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 28, 2022
- */
+
 public class Utils {
   public static Intent intent;
   public static int savedVersionCode;
-
-  public static boolean isBookmarked(String command, Context context) {
-    if (isValidFilename(command)) {
-      return new File(context.getExternalFilesDir("bookmarks"), command).exists();
-    } else {
-      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
-        for (String commands :
-            Objects.requireNonNull(
-                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-                .split("\\r?\\n")) {
-          if (commands.trim().equals(command)) {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
-
-  public static boolean deleteFromBookmark(String command, Context context) {
-    if (isValidFilename(command)) {
-      return new File(context.getExternalFilesDir("bookmarks"), command).delete();
-    } else {
-      StringBuilder sb = new StringBuilder();
-      for (String commands :
-          Objects.requireNonNull(
-                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-              .split("\\r?\\n")) {
-        if (!commands.equals(command)) {
-          sb.append(commands).append("\n");
-        }
-      }
-      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
-      return true;
-    }
-  }
 
   /*
    * Adapted from android.os.FileUtils
    * Ref: https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=972?q=isValidFatFilenameChar
    */
+    
   private static boolean isValidFilename(String s) {
     return !s.contains("*")
         && !s.contains("/")
@@ -103,41 +66,6 @@ public class Utils {
 
   public static int getColor(int color, Context context) {
     return ContextCompat.getColor(context, color);
-  }
-
-  public static List<String> getBookmarks(Context context) {
-    List<String> mBookmarks = new ArrayList<>();
-    for (File file : Objects.requireNonNull(context.getExternalFilesDir("bookmarks").listFiles())) {
-      if (!file.getName().equalsIgnoreCase("specialCommands")) {
-        mBookmarks.add(file.getName());
-      }
-    }
-    if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
-      for (String commands :
-          Objects.requireNonNull(
-                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-              .split("\\r?\\n")) {
-        if (!commands.trim().isEmpty()) {
-          mBookmarks.add(commands.trim());
-        }
-      }
-    }
-
-    switch (Preferences.getSortingOption(context)) {
-      case SORT_A_TO_Z:
-        Collections.sort(mBookmarks);
-        break;
-      case SORT_Z_TO_A:
-        Collections.sort(mBookmarks, Collections.reverseOrder());
-        break;
-      case SORT_NEWEST:
-        break;
-      case SORT_OLDEST:
-        Collections.reverse(mBookmarks);
-        break;
-    }
-
-    return mBookmarks;
   }
 
   public static Snackbar snackBar(View view, String message) {
@@ -171,26 +99,6 @@ public class Utils {
       }
     }
     return null;
-  }
-
-  public static void addToBookmark(String command, Context context) {
-    if (isValidFilename(command)) {
-      create(command, new File(context.getExternalFilesDir("bookmarks"), command));
-    } else {
-      StringBuilder sb = new StringBuilder();
-      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
-        for (String commands :
-            Objects.requireNonNull(
-                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-                .split("\\r?\\n")) {
-          sb.append(commands).append("\n");
-        }
-        sb.append(command).append("\n");
-      } else {
-        sb.append(command).append("\n");
-      }
-      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
-    }
   }
 
   public static void copyToClipboard(String text, Context context) {
@@ -295,6 +203,99 @@ public class Utils {
     return;
   }
 
+  /*---------------------Bookmarks section------------------------*/
+
+  public static List<String> getBookmarks(Context context) {
+    List<String> mBookmarks = new ArrayList<>();
+    for (File file : Objects.requireNonNull(context.getExternalFilesDir("bookmarks").listFiles())) {
+      if (!file.getName().equalsIgnoreCase("specialCommands")) {
+        mBookmarks.add(file.getName());
+      }
+    }
+    if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
+      for (String commands :
+          Objects.requireNonNull(
+                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+              .split("\\r?\\n")) {
+        if (!commands.trim().isEmpty()) {
+          mBookmarks.add(commands.trim());
+        }
+      }
+    }
+
+    switch (Preferences.getSortingOption(context)) {
+      case SORT_A_TO_Z:
+        Collections.sort(mBookmarks);
+        break;
+      case SORT_Z_TO_A:
+        Collections.sort(mBookmarks, Collections.reverseOrder());
+        break;
+      case SORT_NEWEST:
+        break;
+      case SORT_OLDEST:
+        Collections.reverse(mBookmarks);
+        break;
+    }
+
+    return mBookmarks;
+  }
+
+  public static boolean isBookmarked(String command, Context context) {
+    if (isValidFilename(command)) {
+      return new File(context.getExternalFilesDir("bookmarks"), command).exists();
+    } else {
+      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
+        for (String commands :
+            Objects.requireNonNull(
+                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+                .split("\\r?\\n")) {
+          if (commands.trim().equals(command)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  public static void addToBookmark(String command, Context context) {
+    if (isValidFilename(command)) {
+      create(command, new File(context.getExternalFilesDir("bookmarks"), command));
+    } else {
+      StringBuilder sb = new StringBuilder();
+      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
+        for (String commands :
+            Objects.requireNonNull(
+                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+                .split("\\r?\\n")) {
+          sb.append(commands).append("\n");
+        }
+        sb.append(command).append("\n");
+      } else {
+        sb.append(command).append("\n");
+      }
+      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
+    }
+  }
+
+  public static boolean deleteFromBookmark(String command, Context context) {
+    if (isValidFilename(command)) {
+      return new File(context.getExternalFilesDir("bookmarks"), command).delete();
+    } else {
+      StringBuilder sb = new StringBuilder();
+      for (String commands :
+          Objects.requireNonNull(
+                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+              .split("\\r?\\n")) {
+        if (!commands.equals(command)) {
+          sb.append(commands).append("\n");
+        }
+      }
+      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
+      return true;
+    }
+  }
+
   public static void bookmarksDialog(
       Context context, Activity activity, TextInputEditText mCommand) {
 
@@ -355,4 +356,23 @@ public class Utils {
             })
         .show();
   }
+
+  public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
+
+    boolean switchState = Preferences.getOverrideBookmarks(context);
+    if (Utils.getBookmarks(context).size() <= 24) {
+      Utils.addToBookmark(bookmark, context);
+      Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
+    } else {
+      if (switchState) {
+        Utils.addToBookmark(bookmark, context);
+        Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
+      } else {
+        Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();
+      }
+    }
+  }
+
+  /*------------------------------------------------------*/
+
 }

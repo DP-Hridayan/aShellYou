@@ -19,9 +19,7 @@ import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 
-/*
- * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 05, 2022
- */
+
 public class ExamplesActivity extends AppCompatActivity {
   private ExamplesViewModel viewModel;
   private AppBarLayout appBarLayout;

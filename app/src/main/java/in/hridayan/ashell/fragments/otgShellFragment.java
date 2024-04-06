@@ -281,7 +281,7 @@ public class otgShellFragment extends Fragment
                               getString(R.string.bookmark_removed_message, s.toString().trim()))
                           .show();
                     } else {
-                      addBookmark(s.toString().trim(), view);
+                      Utils.addBookmarkIconOnClickListener(s.toString().trim(), view, context);
                     }
                     mCommandInput.setEndIconDrawable(
                         Utils.getDrawable(
@@ -730,23 +730,6 @@ public class otgShellFragment extends Fragment
   private String splitPrefix(String s, int i) {
     String[] splitPrefix = {s.substring(0, lastIndexOf(s, " ")), s.substring(lastIndexOf(s, " "))};
     return splitPrefix[i].trim();
-  }
-
-  private void addBookmark(String bookmark, View view) {
-
-    boolean switchState = Preferences.getOverrideBookmarks(requireContext());
-
-    if (Utils.getBookmarks(requireActivity()).size() <= 4) {
-      Utils.addToBookmark(bookmark, requireActivity());
-      Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
-    } else {
-      if (switchState) {
-        Utils.addToBookmark(bookmark, requireActivity());
-        Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
-      } else {
-        Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
-      }
-    }
   }
 
   private void setVisibilityWithDelay(View view, int delayMillis) {
