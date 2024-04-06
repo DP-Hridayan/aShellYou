@@ -224,11 +224,6 @@ public class aShellFragment extends Fragment {
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (mSearchWord.getVisibility() == View.GONE) {
-              mBookMarks.setVisibility(
-                  Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
-            }
-
             mCommandInput.setError(null);
           }
 
@@ -512,24 +507,7 @@ public class aShellFragment extends Fragment {
 
     mBookMarks.setOnClickListener(
         v -> {
-          PopupMenu popupMenu = new PopupMenu(context, mCommand);
-          Menu menu = popupMenu.getMenu();
-
-          for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
-
-            menu.add(Menu.NONE, i, Menu.NONE, Utils.getBookmarks(requireActivity()).get(i));
-          }
-          popupMenu.setOnMenuItemClickListener(
-              item -> {
-                for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
-                  if (item.getItemId() == i) {
-                    mCommand.setText(Utils.getBookmarks(requireActivity()).get(i));
-                    mCommand.setSelection(mCommand.getText().length());
-                  }
-                }
-                return false;
-              });
-          popupMenu.show();
+          Utils.bookmarksDialog(context, requireActivity(), mCommand);
         });
 
     /*------------------------------------------------------*/

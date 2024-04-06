@@ -1,5 +1,10 @@
 package in.hridayan.ashell.utils;
 
+import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
+import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
+import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
+import static in.hridayan.ashell.utils.Preferences.SORT_Z_TO_A;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -18,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.BuildConfig;
@@ -29,6 +35,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -115,6 +122,21 @@ public class Utils {
         }
       }
     }
+
+    switch (Preferences.getSortingOption(context)) {
+      case SORT_A_TO_Z:
+        Collections.sort(mBookmarks);
+        break;
+      case SORT_Z_TO_A:
+        Collections.sort(mBookmarks, Collections.reverseOrder());
+        break;
+      case SORT_NEWEST:
+        break;
+      case SORT_OLDEST:
+        Collections.reverse(mBookmarks);
+        break;
+    }
+
     return mBookmarks;
   }
 
@@ -269,8 +291,68 @@ public class Utils {
                 context.startActivity(intent);
               }))
           .show();
-
     }
     return;
+  }
+
+  public static void bookmarksDialog(
+      Context context, Activity activity, TextInputEditText mCommand) {
+
+    List<String> bookmarks = Utils.getBookmarks(activity);
+
+    CharSequence[] bookmarkItems = new CharSequence[bookmarks.size()];
+    for (int i = 0; i < bookmarks.size(); i++) {
+      bookmarkItems[i] = bookmarks.get(i);
+    }
+
+    new MaterialAlertDialogBuilder(activity)
+        .setTitle(context.getString(R.string.bookmarks))
+        .setItems(
+            bookmarkItems,
+            (dialog, which) -> {
+              mCommand.setText(bookmarks.get(which));
+              mCommand.setSelection(mCommand.getText().length());
+            })
+        .setPositiveButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setNegativeButton(
+            context.getString(R.string.sort),
+            (dialogInterface, i) -> {
+              Utils.sortingDialog(context, activity, mCommand);
+            })
+        .show();
+  }
+
+  public static void sortingDialog(Context context, Activity activity, TextInputEditText mCommand) {
+    CharSequence[] sortingOptions = {
+      context.getString(R.string.sort_A_Z),
+      context.getString(R.string.sort_Z_A),
+      context.getString(R.string.sort_newest),
+      context.getString(R.string.sort_oldest)
+    };
+    int currentSortingOption = Preferences.getSortingOption(context);
+
+    final int[] sortingOption = {currentSortingOption};
+
+    new MaterialAlertDialogBuilder(activity)
+        .setCancelable(false)
+        .setTitle(context.getString(R.string.sort))
+        .setSingleChoiceItems(
+            sortingOptions,
+            currentSortingOption,
+            (dialog, which) -> {
+              sortingOption[0] = which;
+            })
+        .setPositiveButton(
+            context.getString(R.string.ok),
+            (dialog, which) -> {
+              Preferences.setSortingOption(context, sortingOption[0]);
+              Utils.bookmarksDialog(context, activity, mCommand);
+            })
+        .setNegativeButton(
+            context.getString(R.string.cancel),
+            (dialog, i) -> {
+              Utils.bookmarksDialog(context, activity, mCommand);
+            })
+        .show();
   }
 }

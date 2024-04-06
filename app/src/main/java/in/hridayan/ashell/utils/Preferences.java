@@ -11,7 +11,14 @@ public class Preferences {
   private static final String PREF_DISABLE_SOFTKEY = "id_disable_softkey";
   private static final String PREF_OVERRIDE_BOOKMARKS = "id_override_bookmarks";
   private static final String PREF_SMOOTH_SCROLL = "id_smooth_scroll";
-    public static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
+  public static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
+  private static final String PREF_SORTING_OPTION = "sorting_option";
+
+  public static final int SORT_A_TO_Z = 0;
+  public static final int SORT_Z_TO_A = 1;
+  public static final int SORT_OLDEST = 2;
+  public static final int SORT_NEWEST = 3;
+
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
   }
@@ -63,13 +70,21 @@ public class Preferences {
   public static void setSmoothScroll(Context context, boolean value) {
     getSharedPreferences(context).edit().putBoolean(PREF_SMOOTH_SCROLL, value).apply();
   }
-    
-   public static int getSavedVersionCode(Context context) {
+
+  public static int getSavedVersionCode(Context context) {
     return getSharedPreferences(context).getInt(PREF_SAVED_VERSION_CODE, 1);
   }
 
   public static void setSavedVersionCode(Context context, int value) {
     getSharedPreferences(context).edit().putInt(PREF_SAVED_VERSION_CODE, value).apply();
   }
-    
+
+  public static int getSortingOption(Context context) {
+
+    return getSharedPreferences(context).getInt(PREF_SORTING_OPTION, SORT_A_TO_Z);
+  }
+
+  public static void setSortingOption(Context context, int value) {
+    getSharedPreferences(context).edit().putInt(PREF_SORTING_OPTION, value).apply();
+  }
 }

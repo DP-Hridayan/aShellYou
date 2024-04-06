@@ -345,22 +345,7 @@ public class otgShellFragment extends Fragment
 
     mBookMarks.setOnClickListener(
         v -> {
-          PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
-          Menu menu = popupMenu.getMenu();
-          for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
-            menu.add(Menu.NONE, i, Menu.NONE, Utils.getBookmarks(requireActivity()).get(i));
-          }
-          popupMenu.setOnMenuItemClickListener(
-              item -> {
-                for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
-                  if (item.getItemId() == i) {
-                    mCommand.setText(Utils.getBookmarks(requireActivity()).get(i));
-                    mCommand.setSelection(mCommand.getText().length());
-                  }
-                }
-                return false;
-              });
-          popupMenu.show();
+          Utils.bookmarksDialog(context, requireActivity(), mCommand);
         });
 
     mHistoryButton.setTooltipText(getString(R.string.history));
@@ -408,7 +393,7 @@ public class otgShellFragment extends Fragment
                 closeWaiting();
                 terminalView.setVisibility(View.VISIBLE);
                 initCommand();
-                KeyboardUtils.showKeyboard(mCommand , context);
+                KeyboardUtils.showKeyboard(mCommand, context);
                 break;
 
               case CONNECTING:
@@ -419,7 +404,7 @@ public class otgShellFragment extends Fragment
 
               case DEVICE_NOT_FOUND:
                 closeWaiting();
-                KeyboardUtils.closeKeyboard(requireActivity() , context);
+                KeyboardUtils.closeKeyboard(requireActivity(), context);
                 terminalView.setVisibility(View.VISIBLE);
                 adbConnection = null; // Fix this issue
                 break;

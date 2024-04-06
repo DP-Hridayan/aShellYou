@@ -76,6 +76,11 @@
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You. aShell You won\'t work without a proper Shizuku environment.</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
     <string name="shizuku_unavailable_message">Shizuku is not installed or not properly configured on your device. aShell You won\'t work without a proper Shizuku environment.</string>
+    <string name="sort">Sort</string>
+    <string name="sort_A_Z">A → Z</string>
+    <string name="sort_Z_A">Z → A</string>
+    <string name="sort_newest">Newest</string>
+    <string name="sort_oldest">Oldest</string>
     <string name="start">Start</string>
     <string name="success">Success</string>
     <string name="support">Support</string>
