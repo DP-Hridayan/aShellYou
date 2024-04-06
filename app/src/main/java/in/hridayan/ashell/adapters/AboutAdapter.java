@@ -157,19 +157,22 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             context.startActivity(intent);
           };
       viewHolder.categoryAppLayout.setOnClickListener(clickListener);
+
       if (position == items.size() - 1) {
+        int paddingInDp = 30;
+        float scale = context.getResources().getDisplayMetrics().density;
+        int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
 
-        if (holder instanceof AppItemViewHolder) {
+        ViewGroup.MarginLayoutParams layoutParams =
+            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+        layoutParams.bottomMargin = paddingInPixels;
+        holder.itemView.setLayoutParams(layoutParams);
+      } else {
 
-          if (position == items.size() - 1) {
-            AppItemViewHolder appViewHolder = (AppItemViewHolder) holder;
-            appViewHolder.categoryAppLayout.setPadding(
-                appViewHolder.categoryAppLayout.getPaddingLeft(),
-                appViewHolder.categoryAppLayout.getPaddingTop(),
-                appViewHolder.categoryAppLayout.getPaddingRight(),
-                70);
-          }
-        }
+        ViewGroup.MarginLayoutParams layoutParams =
+            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+        layoutParams.bottomMargin = 0;
+        viewHolder.itemView.setLayoutParams(layoutParams);
       }
     }
   }
