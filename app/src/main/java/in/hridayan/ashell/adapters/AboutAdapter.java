@@ -166,7 +166,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ViewGroup.MarginLayoutParams layoutParams =
             (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
         layoutParams.bottomMargin = paddingInPixels;
-        holder.itemView.setLayoutParams(layoutParams);
+        viewHolder.itemView.setLayoutParams(layoutParams);
       } else {
 
         ViewGroup.MarginLayoutParams layoutParams =

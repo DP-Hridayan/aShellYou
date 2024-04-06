@@ -1058,8 +1058,6 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
-  /*------------------------------------------------------*/
-
   private void setVisibilityWithDelay(View view, int delayMillis) {
     new Handler(Looper.getMainLooper())
         .postDelayed(

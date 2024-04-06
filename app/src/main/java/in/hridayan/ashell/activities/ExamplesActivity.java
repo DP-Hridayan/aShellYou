@@ -52,7 +52,7 @@ public class ExamplesActivity extends AppCompatActivity {
                 ? 2
                 : 1);
     mRecyclerView.setLayoutManager(mLayoutManager);
-    ExamplesAdapter mRecycleViewAdapter = new ExamplesAdapter(Commands.commandList());
+    ExamplesAdapter mRecycleViewAdapter = new ExamplesAdapter(Commands.commandList() , this);
     mRecyclerView.setAdapter(mRecycleViewAdapter);
     mRecyclerView.setVisibility(View.VISIBLE);
   }
