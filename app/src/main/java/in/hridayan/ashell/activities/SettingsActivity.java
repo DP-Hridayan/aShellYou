@@ -99,6 +99,15 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsData.add(
         new SettingsItem(
+            "id_remember_working_mode",
+            R.drawable.ic_mode,
+            getString(R.string.remember_working_mode),
+            getString(R.string.des_remember_working_mode),
+            true,
+            Preferences.getRememberWorkingMode(this)));
+
+    settingsData.add(
+        new SettingsItem(
             "id_smooth_scroll",
             R.drawable.ic_scroll,
             getString(R.string.smooth_scrolling),
@@ -131,7 +140,6 @@ public class SettingsActivity extends AppCompatActivity {
     settingsList.setLayoutManager(new LinearLayoutManager(this));
   }
 
-  
   @Override
   protected void onPause() {
     super.onPause();

@@ -12,18 +12,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.search.SearchView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ExamplesViewModel;
+import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 
-
 public class ExamplesActivity extends AppCompatActivity {
   private ExamplesViewModel viewModel;
   private AppBarLayout appBarLayout;
-  private RecyclerView mRecyclerView;
+  private SearchView mSearchView;
+
+  private RecyclerView mRecyclerView, mSearchRecyclerView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class ExamplesActivity extends AppCompatActivity {
     setContentView(R.layout.activity_examples);
 
     appBarLayout = findViewById(R.id.appBarLayout);
+    mSearchView = findViewById(R.id.search_view);
+    mSearchRecyclerView = findViewById(R.id.search_recycler_view);
 
     viewModel = new ViewModelProvider(this).get(ExamplesViewModel.class);
 
@@ -44,6 +49,7 @@ public class ExamplesActivity extends AppCompatActivity {
     imageView.setOnClickListener(v -> dispatcher.onBackPressed());
 
     mRecyclerView = findViewById(R.id.recycler_view);
+    mSearchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     GridLayoutManager mLayoutManager =
         new GridLayoutManager(
@@ -52,7 +58,11 @@ public class ExamplesActivity extends AppCompatActivity {
                 ? 2
                 : 1);
     mRecyclerView.setLayoutManager(mLayoutManager);
-    ExamplesAdapter mRecycleViewAdapter = new ExamplesAdapter(Commands.commandList() , this);
+    ExamplesAdapter mRecycleViewAdapter = new ExamplesAdapter(Commands.commandList(), this);
+    CommandsSearchAdapter mCommandsSearchAdapter =
+        new CommandsSearchAdapter(Commands.commandList(), this);
+    mSearchRecyclerView.setAdapter(mCommandsSearchAdapter);
+    mSearchRecyclerView.setVisibility(View.VISIBLE);
     mRecyclerView.setAdapter(mRecycleViewAdapter);
     mRecyclerView.setVisibility(View.VISIBLE);
   }

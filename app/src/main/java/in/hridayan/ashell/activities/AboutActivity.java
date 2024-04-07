@@ -27,6 +27,7 @@ public class AboutActivity extends AppCompatActivity {
   private List<Object> items;
   private AppBarLayout appBarLayout;
   private AboutViewModel viewModel;
+  
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
