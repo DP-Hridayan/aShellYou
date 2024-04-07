@@ -24,13 +24,33 @@ public class ChangelogActivity extends AppCompatActivity {
   private AppBarLayout appBarLayout;
   private RecyclerView recyclerViewChangelogs;
 
-  private final String[] versionNumbers = {"3.8.2",
-    "3.8.1", "3.8.0", "3.7.0", "3.6.0", "3.5.1", "3.5.0", "3.4.0", "3.3.0", "3.2.0", "3.1.0",
-    "3.0.0", "2.0.2", "2.0.1", "2.0.0", "1.3.0", "1.2.0", "1.1.1", "1.1.0", "1.0.0", "0.9.1",
-    "0.9.0"
+  private final String[] versionNumbers = {
+    "3.8.2", "3.8.1", "3.8.0", "3.7.0", "3.6.0", "3.5.1", "3.5.0", "3.4.0", "3.3.0", "3.2.0",
+    "3.1.0", "3.0.0", "2.0.2", "2.0.1", "2.0.0", "1.3.0", "1.2.0", "1.1.1", "1.1.0", "1.0.0",
+    "0.9.1", "0.9.0"
   };
 
   private Resources resources;
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    int position = Utils.recyclerViewPosition(recyclerViewChangelogs);
+
+    if (viewModel.isToolbarExpanded()) {
+      if (position == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
+    } else {
+      Utils.collapseToolbar(appBarLayout);
+    }
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -70,25 +90,5 @@ public class ChangelogActivity extends AppCompatActivity {
         resources.getIdentifier(
             "changelog_v" + versionNumber.replace(".", "_"), "string", getPackageName());
     return resources.getString(resourceId);
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    int position = Utils.recyclerViewPosition(recyclerViewChangelogs);
-
-    if (viewModel.isToolbarExpanded()) {
-      if (position == 0) {
-        Utils.expandToolbar(appBarLayout);
-      }
-    } else {
-      Utils.collapseToolbar(appBarLayout);
-    }
   }
 }

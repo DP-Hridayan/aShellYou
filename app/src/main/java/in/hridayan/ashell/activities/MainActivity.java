@@ -1,5 +1,8 @@
 package in.hridayan.ashell.activities;
 
+import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
+import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,9 +34,30 @@ public class MainActivity extends AppCompatActivity {
   public BottomNavigationView mNav;
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
-  private static int LOCAL_FRAGMENT = 1, OTG_FRAGMENT = 2, currentFragment;
+  private static int currentFragment;
   private boolean isBlackThemeEnabled, isAmoledTheme, isSharedText;
   private MainViewModel viewModel;
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+
+    setCurrentFragment();
+    viewModel.setCurrentFragment(currentFragment);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    isAmoledTheme = Preferences.getAmoledTheme(this);
+    boolean currentTheme = isAmoledTheme;
+    if (currentTheme != isBlackThemeEnabled) {
+      recreate();
+    }
+    int currentFragment = viewModel.currentFragment();
+    switchFragments(currentFragment);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -192,52 +216,11 @@ public class MainActivity extends AppCompatActivity {
     } else {
       int currentFragment = Preferences.getCurrentFragment(this);
       if (Preferences.getRememberWorkingMode(this)) {
-        switch (currentFragment) {
-          case 1:
-            mNav.setSelectedItemId(R.id.nav_localShell);
-            replaceFragment(new aShellFragment());
-            break;
-          case 2:
-            mNav.setSelectedItemId(R.id.nav_otgShell);
-            replaceFragment(new otgShellFragment());
-            break;
-          default:
-            break;
-        }
+        switchFragments(currentFragment);
       } else {
         mNav.setSelectedItemId(R.id.nav_localShell);
         replaceFragment(new aShellFragment());
       }
-    }
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-
-    setCurrentFragment();
-    viewModel.setCurrentFragment(currentFragment);
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-
-    isAmoledTheme = Preferences.getAmoledTheme(this);
-    boolean currentTheme = isAmoledTheme;
-    if (currentTheme != isBlackThemeEnabled) {
-      recreate();
-    }
-    int currentFragment = viewModel.currentFragment();
-    switch (currentFragment) {
-      case 1:
-        replaceFragment(new aShellFragment());
-        break;
-      case 2:
-        replaceFragment(new otgShellFragment());
-        break;
-      default:
-        break;
     }
   }
 
@@ -249,6 +232,21 @@ public class MainActivity extends AppCompatActivity {
     } else if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
         instanceof otgShellFragment)) {
       currentFragment = OTG_FRAGMENT;
+    }
+  }
+
+  private void switchFragments(int currentFragment) {
+    switch (currentFragment) {
+      case LOCAL_FRAGMENT:
+        mNav.setSelectedItemId(R.id.nav_localShell);
+        replaceFragment(new aShellFragment());
+        break;
+      case OTG_FRAGMENT:
+        mNav.setSelectedItemId(R.id.nav_otgShell);
+        replaceFragment(new otgShellFragment());
+        break;
+      default:
+        break;
     }
   }
 }

@@ -29,6 +29,26 @@ public class ExamplesActivity extends AppCompatActivity {
   private RecyclerView mRecyclerView, mSearchRecyclerView;
 
   @Override
+  protected void onPause() {
+    super.onPause();
+    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    int position = Utils.recyclerViewPosition(mRecyclerView);
+
+    if (viewModel.isToolbarExpanded()) {
+      if (position == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
+    } else {
+      Utils.collapseToolbar(appBarLayout);
+    }
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
 
@@ -65,25 +85,5 @@ public class ExamplesActivity extends AppCompatActivity {
     mSearchRecyclerView.setVisibility(View.VISIBLE);
     mRecyclerView.setAdapter(mRecycleViewAdapter);
     mRecyclerView.setVisibility(View.VISIBLE);
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    int position = Utils.recyclerViewPosition(mRecyclerView);
-
-    if (viewModel.isToolbarExpanded()) {
-      if (position == 0) {
-        Utils.expandToolbar(appBarLayout);
-      }
-    } else {
-      Utils.collapseToolbar(appBarLayout);
-    }
   }
 }

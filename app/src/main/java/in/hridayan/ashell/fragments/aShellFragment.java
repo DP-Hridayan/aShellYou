@@ -113,6 +113,73 @@ public class aShellFragment extends Fragment {
 
   public aShellFragment() {}
 
+  @Override
+  public void onPause() {
+    super.onPause();
+
+    viewModel.setSendDrawable(isSendDrawable);
+    viewModel.setEditTextFocused(isEditTextFocused());
+    viewModel.setSaveButtonVisible(isSaveButtonVisible());
+    viewModel.setScrollPosition(
+        ((LinearLayoutManager) mRecyclerViewOutput.getLayoutManager())
+            .findFirstVisibleItemPosition());
+    List<String> shellOutput = viewModel.getShellOutput();
+
+    List<String> history = viewModel.getHistory();
+    if (mHistory == null && history != null) {
+      viewModel.setHistory(history);
+    } else {
+      viewModel.setHistory(mHistory);
+    }
+    if (mResult == null) {
+      viewModel.setShellOutput(shellOutput);
+    } else {
+      viewModel.setShellOutput(mResult);
+    }
+    if (mCommand.getText().toString() != null) {
+      viewModel.setCommandText(mCommand.getText().toString());
+    }
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    KeyboardUtils.disableKeyboard(context, requireActivity(), view);
+
+    if (viewModel.isEditTextFocused()) {
+      mCommand.requestFocus();
+    } else {
+      mCommand.clearFocus();
+    }
+    if (viewModel.isSendDrawable()) {
+      isSendDrawable = true;
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+    } else {
+      isSendDrawable = false;
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+    }
+    if (viewModel.isSaveButtonVisible()) {
+      mSaveButton.setVisibility(View.VISIBLE);
+      if (mSearchWord.getVisibility() == View.GONE) {
+        mClearButton.setVisibility(View.VISIBLE);
+        mSearchButton.setVisibility(View.VISIBLE);
+        mHistoryButton.setVisibility(View.VISIBLE);
+      }
+
+      mShareButton.setVisibility(View.VISIBLE);
+
+      mPasteButton.setVisibility(View.GONE);
+    } else {
+      mSaveButton.setVisibility(View.GONE);
+    }
+
+    mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
+    mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
+
+    int scrollPosition = viewModel.getScrollPosition();
+    mRecyclerViewOutput.scrollToPosition(scrollPosition);
+  }
+
   @Nullable
   @Override
   public View onCreateView(
@@ -1134,73 +1201,6 @@ public class aShellFragment extends Fragment {
             })
         .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
         .show();
-  }
-
-  @Override
-  public void onPause() {
-    super.onPause();
-
-    viewModel.setSendDrawable(isSendDrawable);
-    viewModel.setEditTextFocused(isEditTextFocused());
-    viewModel.setSaveButtonVisible(isSaveButtonVisible());
-    viewModel.setScrollPosition(
-        ((LinearLayoutManager) mRecyclerViewOutput.getLayoutManager())
-            .findFirstVisibleItemPosition());
-    List<String> shellOutput = viewModel.getShellOutput();
-
-    List<String> history = viewModel.getHistory();
-    if (mHistory == null && history != null) {
-      viewModel.setHistory(history);
-    } else {
-      viewModel.setHistory(mHistory);
-    }
-    if (mResult == null) {
-      viewModel.setShellOutput(shellOutput);
-    } else {
-      viewModel.setShellOutput(mResult);
-    }
-    if (mCommand.getText().toString() != null) {
-      viewModel.setCommandText(mCommand.getText().toString());
-    }
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-    KeyboardUtils.disableKeyboard(context, requireActivity(), view);
-
-    if (viewModel.isEditTextFocused()) {
-      mCommand.requestFocus();
-    } else {
-      mCommand.clearFocus();
-    }
-    if (viewModel.isSendDrawable()) {
-      isSendDrawable = true;
-      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-    } else {
-      isSendDrawable = false;
-      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-    }
-    if (viewModel.isSaveButtonVisible()) {
-      mSaveButton.setVisibility(View.VISIBLE);
-      if (mSearchWord.getVisibility() == View.GONE) {
-        mClearButton.setVisibility(View.VISIBLE);
-        mSearchButton.setVisibility(View.VISIBLE);
-        mHistoryButton.setVisibility(View.VISIBLE);
-      }
-
-      mShareButton.setVisibility(View.VISIBLE);
-
-      mPasteButton.setVisibility(View.GONE);
-    } else {
-      mSaveButton.setVisibility(View.GONE);
-    }
-
-    mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
-    mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
-
-    int scrollPosition = viewModel.getScrollPosition();
-    mRecyclerViewOutput.scrollToPosition(scrollPosition);
   }
 
   private boolean isEditTextFocused() {

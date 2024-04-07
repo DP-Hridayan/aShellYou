@@ -29,6 +29,31 @@ public class SettingsActivity extends AppCompatActivity {
   private AppBarLayout appBarLayout;
 
   @Override
+  protected void onPause() {
+    super.onPause();
+    if (settingsList != null) {
+      viewModel.setScrollPosition(
+          ((LinearLayoutManager) settingsList.getLayoutManager()).findFirstVisibleItemPosition());
+      // Save toolbar state
+      viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
+    }
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    int position = Utils.recyclerViewPosition(settingsList);
+
+    if (viewModel.isToolbarExpanded()) {
+      if (position == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
+    } else {
+      Utils.collapseToolbar(appBarLayout);
+    }
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
     ThemeUtils.updateTheme(this);
@@ -138,31 +163,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsList.setAdapter(adapter);
     settingsList.setLayoutManager(new LinearLayoutManager(this));
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    if (settingsList != null) {
-      viewModel.setScrollPosition(
-          ((LinearLayoutManager) settingsList.getLayoutManager()).findFirstVisibleItemPosition());
-      // Save toolbar state
-      viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
-    }
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    int position = Utils.recyclerViewPosition(settingsList);
-
-    if (viewModel.isToolbarExpanded()) {
-      if (position == 0) {
-        Utils.expandToolbar(appBarLayout);
-      }
-    } else {
-      Utils.collapseToolbar(appBarLayout);
-    }
   }
 
   private void setupRecyclerView() {
