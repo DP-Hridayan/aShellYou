@@ -20,6 +20,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.CustomSearchView;
 import in.hridayan.ashell.UI.ExamplesViewModel;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
+
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.utils.CommandItems;
 import in.hridayan.ashell.utils.Commands;
@@ -82,6 +83,7 @@ public class ExamplesActivity extends AppCompatActivity {
 
     mRecyclerView = findViewById(R.id.recycler_view);
     mSearchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     GridLayoutManager mLayoutManager =
         new GridLayoutManager(

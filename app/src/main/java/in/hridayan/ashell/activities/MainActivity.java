@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
   private static int currentFragment;
+
   private boolean isBlackThemeEnabled, isAmoledTheme, isSharedText;
   private MainViewModel viewModel;
 
@@ -120,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
             if (fragmentLocalAdb != null) {
               fragmentLocalAdb.updateInputField(sharedText);
             }
-
             break;
 
           case OTG_FRAGMENT:
@@ -139,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
       isSharedText = false;
       return;
     }
+    isSharedText = false;
+    return;
   }
 
   private void setupNavigation() {

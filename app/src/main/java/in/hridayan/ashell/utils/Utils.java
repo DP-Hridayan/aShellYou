@@ -1,13 +1,14 @@
 package in.hridayan.ashell.utils;
 
+
+import static in.hridayan.ashell.utils.Preferences.MODE_LOCAL_ADB;
+import static in.hridayan.ashell.utils.Preferences.MODE_OTG;
+import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
 import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_Z_TO_A;
 
-import static in.hridayan.ashell.utils.Preferences.MODE_LOCAL_ADB;
-import static in.hridayan.ashell.utils.Preferences.MODE_OTG;
-import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -45,7 +46,7 @@ import java.util.Objects;
 public class Utils {
   public static Intent intent;
   public static int savedVersionCode;
-
+  
   /*
    * Adapted from android.os.FileUtils
    * Ref: https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=972?q=isValidFatFilenameChar

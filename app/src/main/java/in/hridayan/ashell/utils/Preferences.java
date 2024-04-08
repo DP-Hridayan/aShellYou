@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 public class Preferences {
+
   private static final String PREF_AMOLED_THEME = "id_amoled_theme",
       PREF_CLEAR = "id_clear",
       PREF_SHARE_AND_RUN = "id_share_and_run",
@@ -23,7 +24,7 @@ public class Preferences {
       OTG_FRAGMENT = 2,
       MODE_LOCAL_ADB = 0,
       MODE_OTG = 1,
-    MODE_REMEMBER_LAST_MODE=2;
+      MODE_REMEMBER_LAST_MODE = 2;
 
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
@@ -78,6 +79,7 @@ public class Preferences {
   }
 
   public static int getSavedVersionCode(Context context) {
+
     return getSharedPreferences(context).getInt(PREF_SAVED_VERSION_CODE, 1);
   }
 

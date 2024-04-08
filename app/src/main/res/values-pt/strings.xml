@@ -11,6 +11,7 @@
     <string name="amoled_theme">Tema preto AMOLED</string>
     <string name="des_amoled_theme">Tema preto puro para dispositivos com tela OLED</string>
     <string name="app_summary">aShell You está aqui para todas as suas necessidades ADB</string>
+    <string name="app_updated_message">O app foi atualizado, quer saber o que mudou?</string>
     <string name="app_working_message">O aShell You ainda está trabalhando. Aguarde até que ele termine ou pare manualmente (clicando no botão parar) para executar um novo comando</string>
     <string name="beta_warning">Este recurso encontra-se atualmente em fase experimental. Se você encontrar quaisquer problemas, por favor, comunique ao desenvolvedor.</string>
     <string name="bookmarks">Favoritos</string>
@@ -108,5 +109,4 @@
     <string name="des_github">Visite o repositório github do aShell You</string>
     <string name="telegram_channel">Canal do Telegram</string>
     <string name="des_telegram_channel">Participe do canal do telegram para discussão</string>
-    
 </resources>
