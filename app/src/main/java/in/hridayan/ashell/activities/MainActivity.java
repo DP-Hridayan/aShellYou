@@ -1,9 +1,8 @@
 package in.hridayan.ashell.activities;
 
-import android.preference.Preference;
 import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
-import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
+import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -112,10 +111,30 @@ public class MainActivity extends AppCompatActivity {
 
     String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
     if (sharedText != null) {
-      aShellFragment fragment =
-          (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-      if (fragment != null) {
-        fragment.updateInputField(sharedText);
+
+      int currentFragment = Preferences.getCurrentFragment(this);
+      switch (currentFragment) {
+        case LOCAL_FRAGMENT:
+          aShellFragment fragmentLocalAdb =
+              (aShellFragment)
+                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+          if (fragmentLocalAdb != null) {
+            fragmentLocalAdb.updateInputField(sharedText);
+          }
+
+          break;
+
+        case OTG_FRAGMENT:
+          otgShellFragment fragmentOtg =
+              (otgShellFragment)
+                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+          if (fragmentOtg != null) {
+            fragmentOtg.updateInputField(sharedText);
+          }
+
+          break;
+        default:
+          break;
       }
     }
     isSharedText = false;

@@ -101,7 +101,7 @@ public class otgShellFragment extends Fragment
   private AlertDialog mWaitingDialog;
   private String user = null;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
-  private boolean isKeyboardVisible, sendButtonClicked = false;
+  private boolean isKeyboardVisible, sendButtonClicked = false, isSendDrawable = false;
   private List<String> mHistory = null, mResult = null;
   private View view;
   private AdbStream stream;
@@ -154,14 +154,61 @@ public class otgShellFragment extends Fragment
           }
         });
 
-    // Logic for changing the command send button depending on the text on the EditText
+    handleSharedTextIntent(requireActivity().getIntent());
 
-    mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-    mSendButton.setOnClickListener(
-        v -> {
-          Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
-          startActivity(examples);
-        });
+    if (isSendDrawable) {
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+
+      mSendButton.setOnClickListener(
+          new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+              sendButtonClicked = true;
+              mPasteButton.hide();
+              mUndoButton.hide();
+              if (adbConnection != null) {
+                putCommand();
+              } else {
+
+                mCommandInput.setError(getString(R.string.device_not_connected));
+                mCommandInput.setErrorIconDrawable(
+                    Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+                mCommandInput.setErrorIconOnClickListener(
+                    t -> {
+                      mCommand.setText(null);
+                    });
+
+                Utils.alignMargin(mSendButton);
+                Utils.alignMargin(mCable);
+
+                mHistoryButton.setVisibility(View.VISIBLE);
+
+                if (mHistory == null) {
+                  mHistory = new ArrayList<>();
+                }
+
+                mHistory.add(mCommand.getText().toString());
+
+                new MaterialAlertDialogBuilder(requireActivity())
+                    .setTitle(getString(R.string.error))
+                    .setMessage(getString(R.string.otg_not_connected))
+                    .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+                    .show();
+              }
+            }
+          });
+
+    } else {
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+      mSendButton.setOnClickListener(
+          v -> {
+            Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
+            startActivity(examples);
+          });
+    }
+
+    // Logic for changing the command send button depending on the text on the EditText
 
     mBookMarks.setVisibility(
         Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
@@ -173,6 +220,11 @@ public class otgShellFragment extends Fragment
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (mCommand.getText() == null) {
+              isSendDrawable = false;
+            } else {
+              isSendDrawable = true;
+            }
 
             mCommandInput.setError(null);
 
@@ -760,6 +812,30 @@ public class otgShellFragment extends Fragment
       }
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  private void handleSharedTextIntent(Intent intent) {
+    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+    if (sharedText != null) {
+      sharedText = sharedText.trim();
+      if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
+        sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
+      }
+
+      isSendDrawable = true;
+      mCommand.setText(sharedText);
+
+      updateInputField(sharedText);
+    }
+    return;
+  }
+
+  public void updateInputField(String sharedText) {
+    if (sharedText != null) {
+      mCommand.setText(sharedText);
+      mCommand.requestFocus();
+      mCommand.setSelection(mCommand.getText().length());
     }
   }
 }

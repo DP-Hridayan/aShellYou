@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
     //Absolutely necessary to follow this string name format
+    <string name="changelog_v3_9_0">\n\n• Added Search in commands section\n\n• Added option to set default working mode\n\n• Improved animations\n\n• Reworked bookmarks section and added sorting options\n\n• Increased bookmarks limit to 25\n\n• Removed ADB shell launcher shortcut and added Commands launcher shortcut\n\n• Fixed padding issues in button navigation\n\n• Fixed some buttons shape</string>
     <string name="changelog_v3_8_2">\n\n• App uses a more refreshed color palette for material you themeing\n\n• Fixed minor bugs</string>
     <string name="changelog_v3_8_1">\n\n• Fixed some crashes that were introduced in v3.8.0</string>
     <string name="changelog_v3_8_0">\n\n• Added black (amoled) theme\n\n• Added undo button to undo paste\n\n• Added option to disable soft keyboard\n\n• Fixed buttons stretched in some screen sizes\n\n• Fixed bookmarks button not appearing after opening the app\n\n• Renamed Examples section to Commands\n\n• Fixed copy command option not appearing for every command template\n\n• App now uses system font everywhere\n\n• Improved UI handling\n\n• Updated translations</string>
