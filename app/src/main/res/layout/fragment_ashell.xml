@@ -48,7 +48,7 @@
                 app:strokeWidth="0dp"
                 android:layout_marginHorizontal="20dp"
                 android:elevation="0dp"
-                app:cardBackgroundColor="?attr/colorSurfaceContainer"
+                app:cardBackgroundColor="?attr/colorSecondaryContainer"
                 app:cardCornerRadius="60dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -58,8 +58,9 @@
                     android:layout_marginEnd="30dp"
                     android:drawablePadding="5dp"
                     android:textColor="?attr/colorOnPrimaryContainer"
-                    android:layout_marginVertical="20dp"
+                    android:layout_marginVertical="15dp"
                     android:layout_marginStart="20dp"
+                    android:hint="@string/search_output"
                     android:layout_gravity="start|center|top"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/ic_search"

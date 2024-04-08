@@ -25,7 +25,6 @@ public class ExamplesActivity extends AppCompatActivity {
   private ExamplesViewModel viewModel;
   private AppBarLayout appBarLayout;
   private SearchView mSearchView;
-
   private RecyclerView mRecyclerView, mSearchRecyclerView;
 
   @Override

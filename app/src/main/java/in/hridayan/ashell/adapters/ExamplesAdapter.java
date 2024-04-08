@@ -1,6 +1,7 @@
 package in.hridayan.ashell.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.activities.MainActivity;
+import in.hridayan.ashell.fragments.otgShellFragment;
 import in.hridayan.ashell.utils.CommandItems;
 import in.hridayan.ashell.utils.Utils;
 import java.util.List;
