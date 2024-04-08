@@ -822,10 +822,8 @@ public class otgShellFragment extends Fragment
       if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
         sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
       }
-
       isSendDrawable = true;
       mCommand.setText(sharedText);
-
       updateInputField(sharedText);
     }
     return;

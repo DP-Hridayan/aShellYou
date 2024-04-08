@@ -108,37 +108,37 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void handleSharedTextIntent(Intent intent) {
+    if (isSharedText) {
+      String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+      if (sharedText != null) {
+        int currentFragment = Preferences.getCurrentFragment(this);
+        switch (currentFragment) {
+          case LOCAL_FRAGMENT:
+            aShellFragment fragmentLocalAdb =
+                (aShellFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (fragmentLocalAdb != null) {
+              fragmentLocalAdb.updateInputField(sharedText);
+            }
 
-    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-    if (sharedText != null) {
+            break;
 
-      int currentFragment = Preferences.getCurrentFragment(this);
-      switch (currentFragment) {
-        case LOCAL_FRAGMENT:
-          aShellFragment fragmentLocalAdb =
-              (aShellFragment)
-                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-          if (fragmentLocalAdb != null) {
-            fragmentLocalAdb.updateInputField(sharedText);
-          }
+          case OTG_FRAGMENT:
+            otgShellFragment fragmentOtg =
+                (otgShellFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (fragmentOtg != null) {
+              fragmentOtg.updateInputField(sharedText);
+            }
 
-          break;
-
-        case OTG_FRAGMENT:
-          otgShellFragment fragmentOtg =
-              (otgShellFragment)
-                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-          if (fragmentOtg != null) {
-            fragmentOtg.updateInputField(sharedText);
-          }
-
-          break;
-        default:
-          break;
+            break;
+          default:
+            break;
+        }
       }
+      isSharedText = false;
+      return;
     }
-    isSharedText = false;
-    return;
   }
 
   private void setupNavigation() {
