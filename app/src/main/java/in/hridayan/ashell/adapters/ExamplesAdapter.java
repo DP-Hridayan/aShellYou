@@ -1,17 +1,15 @@
 package in.hridayan.ashell.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.activities.MainActivity;
-import in.hridayan.ashell.fragments.otgShellFragment;
 import in.hridayan.ashell.utils.CommandItems;
 import in.hridayan.ashell.utils.Utils;
 import java.util.List;
@@ -39,6 +37,8 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
 
   @Override
   public void onBindViewHolder(@NonNull ExamplesAdapter.ViewHolder holder, int position) {
+    holder.itemView.startAnimation(
+        AnimationUtils.loadAnimation(context, R.anim.on_scroll_animator));
     holder.mTitle.setText(this.data.get(position).getTitle());
     if (this.data.get(position).getSummary() != null) {
       holder.mSummary.setText(this.data.get(position).getSummary());
