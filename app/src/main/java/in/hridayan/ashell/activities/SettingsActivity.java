@@ -75,8 +75,6 @@ public class SettingsActivity extends AppCompatActivity {
     settingsList = findViewById(R.id.settings_list);
     settingsData = new ArrayList<>();
 
-    // switches
-
     settingsData.add(
         new SettingsItem(
             "id_amoled_theme",
@@ -106,6 +104,15 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsData.add(
         new SettingsItem(
+            "id_default_working_mode",
+            R.drawable.ic_mode,
+            getString(R.string.default_working_mode),
+            getString(R.string.des_default_working_mode),
+            false,
+            false));
+
+    settingsData.add(
+        new SettingsItem(
             "id_disable_softkey",
             R.drawable.ic_disable_keyboard,
             getString(R.string.disable_softkey),
@@ -124,15 +131,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsData.add(
         new SettingsItem(
-            "id_remember_working_mode",
-            R.drawable.ic_mode,
-            getString(R.string.remember_working_mode),
-            getString(R.string.des_remember_working_mode),
-            true,
-            Preferences.getRememberWorkingMode(this)));
-
-    settingsData.add(
-        new SettingsItem(
             "id_smooth_scroll",
             R.drawable.ic_scroll,
             getString(R.string.smooth_scrolling),
@@ -140,7 +138,6 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             Preferences.getSmoothScroll(this)));
 
-    // no switches
     settingsData.add(
         new SettingsItem(
             "id_examples",

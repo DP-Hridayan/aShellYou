@@ -1,7 +1,9 @@
 package in.hridayan.ashell.activities;
 
+import android.preference.Preference;
 import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
+import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -127,14 +129,14 @@ public class MainActivity extends AppCompatActivity {
           switch (item.getItemId()) {
             case R.id.nav_localShell:
               showaShellFragment();
-
               Preferences.setCurrentFragment(this, LOCAL_FRAGMENT);
               return true;
+
             case R.id.nav_otgShell:
               showotgShellFragment();
-
               Preferences.setCurrentFragment(this, OTG_FRAGMENT);
               return true;
+
             default:
               return false;
           }
@@ -215,11 +217,11 @@ public class MainActivity extends AppCompatActivity {
       replaceFragment(new StartFragment());
     } else {
       int currentFragment = Preferences.getCurrentFragment(this);
-      if (Preferences.getRememberWorkingMode(this)) {
+      int workingMode = Preferences.getWorkingMode(this);
+      if (workingMode == MODE_REMEMBER_LAST_MODE) {
         switchFragments(currentFragment);
       } else {
-        mNav.setSelectedItemId(R.id.nav_localShell);
-        replaceFragment(new aShellFragment());
+        switchFragments(workingMode + 1);
       }
     }
   }

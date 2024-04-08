@@ -1,5 +1,6 @@
 package in.hridayan.ashell.utils;
 
+import androidx.annotation.Nullable;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,7 @@ public class SettingsItem {
 
   public SettingsItem(
       String id,
+        @Nullable
       @DrawableRes int symbolResId,
       String title,
       String description,

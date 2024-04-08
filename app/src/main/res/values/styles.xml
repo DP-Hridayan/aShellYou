@@ -33,6 +33,22 @@
         <item name="android:alpha">0.9</item>
     </style>
 
+       <style
+        name="ItemTitleDisabled"
+        parent="aShellYou.AppTheme">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name = "android:alpha">0.8</item>
+    </style>
+
+    <style
+        name="ItemDescriptionDisabled"
+        parent="aShellYou.AppTheme">
+        <item name="android:textSize">13.0sp</item>
+        <item name="android:alpha">0.7</item>
+    </style>
+
+    
     <style
         name="LatestVersionTitle"
         parent="aShellYou.AppTheme">

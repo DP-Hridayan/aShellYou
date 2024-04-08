@@ -5,6 +5,9 @@ import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_Z_TO_A;
 
+import static in.hridayan.ashell.utils.Preferences.MODE_LOCAL_ADB;
+import static in.hridayan.ashell.utils.Preferences.MODE_OTG;
+import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -377,4 +380,29 @@ public class Utils {
 
   /*------------------------------------------------------*/
 
+  public static void defaultWorkingModeDialog(Context context) {
+
+    final CharSequence[] workingModes = {
+      context.getString(R.string.local_adb), context.getString(R.string.otg)
+    , context.getString(R.string.remember_working_mode)};
+
+    int defaultWorkingMode = Preferences.getWorkingMode(context);
+    final int[] workingMode = {defaultWorkingMode};
+
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(context.getString(R.string.working_mode))
+        .setSingleChoiceItems(
+            workingModes,
+            defaultWorkingMode,
+            (dialog, which) -> {
+              workingMode[0] = which;
+            })
+        .setPositiveButton(
+            context.getString(R.string.choose),
+            (dialog, which) -> {
+              Preferences.setWorkingMode(context, workingMode[0]);
+            })
+        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .show();
+  }
 }

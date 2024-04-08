@@ -13,14 +13,17 @@ public class Preferences {
       PREF_SMOOTH_SCROLL = "id_smooth_scroll",
       PREF_SAVED_VERSION_CODE = "saved_version_code",
       PREF_SORTING_OPTION = "sorting_option",
-      PREF_REMEMBER_WORKING_MODE = "id_remember_working_mode",
-      PREF_CURRENT_FRAGMENT = "current_fragment";
+      PREF_CURRENT_FRAGMENT = "current_fragment",
+      PREF_DEFAULT_WORKING_MODE = "id_default_working_mode";
   public static final int SORT_A_TO_Z = 0,
       SORT_Z_TO_A = 1,
       SORT_OLDEST = 2,
       SORT_NEWEST = 3,
       LOCAL_FRAGMENT = 1,
-      OTG_FRAGMENT = 2;
+      OTG_FRAGMENT = 2,
+      MODE_LOCAL_ADB = 0,
+      MODE_OTG = 1,
+    MODE_REMEMBER_LAST_MODE=2;
 
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
@@ -74,14 +77,6 @@ public class Preferences {
     getSharedPreferences(context).edit().putBoolean(PREF_SMOOTH_SCROLL, value).apply();
   }
 
-  public static boolean getRememberWorkingMode(Context context) {
-    return getSharedPreferences(context).getBoolean(PREF_REMEMBER_WORKING_MODE, false);
-  }
-
-  public static void setRememberWorkingMode(Context context, boolean value) {
-    getSharedPreferences(context).edit().putBoolean(PREF_REMEMBER_WORKING_MODE, value).apply();
-  }
-
   public static int getSavedVersionCode(Context context) {
     return getSharedPreferences(context).getInt(PREF_SAVED_VERSION_CODE, 1);
   }
@@ -97,6 +92,14 @@ public class Preferences {
 
   public static void setSortingOption(Context context, int value) {
     getSharedPreferences(context).edit().putInt(PREF_SORTING_OPTION, value).apply();
+  }
+
+  public static void setWorkingMode(Context context, int value) {
+    getSharedPreferences(context).edit().putInt(PREF_DEFAULT_WORKING_MODE, value).apply();
+  }
+
+  public static int getWorkingMode(Context context) {
+    return getSharedPreferences(context).getInt(PREF_DEFAULT_WORKING_MODE, MODE_LOCAL_ADB);
   }
 
   public static int getCurrentFragment(Context context) {
