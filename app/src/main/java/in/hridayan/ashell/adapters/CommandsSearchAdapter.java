@@ -48,22 +48,28 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
     if (this.data.get(position).getSummary() != null) {
       holder.mSummary.setText(this.data.get(position).getSummary());
 
-      if (position == data.size() - 1) {
-        int paddingInDp = 50;
-        float scale = context.getResources().getDisplayMetrics().density;
-        int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
-
-        ViewGroup.MarginLayoutParams layoutParams =
-            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-        layoutParams.bottomMargin = paddingInPixels;
-        holder.itemView.setLayoutParams(layoutParams);
+      int paddingInDp;
+      if (position == data.size() - 1 && data.size() != 1) {
+        paddingInDp = 50;
+      } else if (position == 0) {
+        paddingInDp = 20;
       } else {
-
-        ViewGroup.MarginLayoutParams layoutParams =
-            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-        layoutParams.bottomMargin = 30;
-        holder.itemView.setLayoutParams(layoutParams);
+        paddingInDp = 30;
       }
+
+      float scale = context.getResources().getDisplayMetrics().density;
+      int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+
+      ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+      if (position == data.size() - 1 && data.size() != 1) {
+        layoutParams.bottomMargin = paddingInPixels;
+      } else if (position == 0 || data.size() == 1) {
+        layoutParams.topMargin = paddingInPixels;
+      } else {
+        layoutParams.bottomMargin = 30;
+      }
+      holder.itemView.setLayoutParams(layoutParams);
     }
   }
 

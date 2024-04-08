@@ -99,10 +99,8 @@ public class ExamplesActivity extends AppCompatActivity {
         new TextWatcher() {
           @Override
           public void beforeTextChanged(CharSequence text, int i, int i1, int i2) {}
-
           @Override
           public void onTextChanged(CharSequence text, int i, int i1, int i2) {}
-
           @Override
           public void afterTextChanged(Editable text) {
             filterList(text);
