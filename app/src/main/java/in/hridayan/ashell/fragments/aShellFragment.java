@@ -59,6 +59,7 @@ import in.hridayan.ashell.adapters.ShellOutputAdapter;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ShizukuShell;
+import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -112,6 +113,73 @@ public class aShellFragment extends Fragment {
   private aShellFragmentViewModel viewModel;
 
   public aShellFragment() {}
+
+  @Override
+  public void onPause() {
+    super.onPause();
+
+    viewModel.setSendDrawable(isSendDrawable);
+    viewModel.setEditTextFocused(isEditTextFocused());
+    viewModel.setSaveButtonVisible(isSaveButtonVisible());
+    viewModel.setScrollPosition(
+        ((LinearLayoutManager) mRecyclerViewOutput.getLayoutManager())
+            .findFirstVisibleItemPosition());
+    List<String> shellOutput = viewModel.getShellOutput();
+
+    List<String> history = viewModel.getHistory();
+    if (mHistory == null && history != null) {
+      viewModel.setHistory(history);
+    } else {
+      viewModel.setHistory(mHistory);
+    }
+    if (mResult == null) {
+      viewModel.setShellOutput(shellOutput);
+    } else {
+      viewModel.setShellOutput(mResult);
+    }
+    if (mCommand.getText().toString() != null) {
+      viewModel.setCommandText(mCommand.getText().toString());
+    }
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    KeyboardUtils.disableKeyboard(context, requireActivity(), view);
+
+    if (viewModel.isEditTextFocused()) {
+      mCommand.requestFocus();
+    } else {
+      mCommand.clearFocus();
+    }
+    if (viewModel.isSendDrawable()) {
+      isSendDrawable = true;
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+    } else {
+      isSendDrawable = false;
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+    }
+    if (viewModel.isSaveButtonVisible()) {
+      mSaveButton.setVisibility(View.VISIBLE);
+      if (mSearchWord.getVisibility() == View.GONE) {
+        mClearButton.setVisibility(View.VISIBLE);
+        mSearchButton.setVisibility(View.VISIBLE);
+        mHistoryButton.setVisibility(View.VISIBLE);
+      }
+
+      mShareButton.setVisibility(View.VISIBLE);
+
+      mPasteButton.setVisibility(View.GONE);
+    } else {
+      mSaveButton.setVisibility(View.GONE);
+    }
+
+    mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
+    mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
+
+    int scrollPosition = viewModel.getScrollPosition();
+    mRecyclerViewOutput.scrollToPosition(scrollPosition);
+  }
 
   @Nullable
   @Override
@@ -207,7 +275,8 @@ public class aShellFragment extends Fragment {
 
     BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, context);
 
-        // Show snackbar when app is updated 
+    // Show snackbar when app is updated
+
     Utils.isAppUpdated(context, requireActivity());
     Preferences.setSavedVersionCode(context, Utils.currentVersion());
 
@@ -224,11 +293,6 @@ public class aShellFragment extends Fragment {
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (mSearchWord.getVisibility() == View.GONE) {
-              mBookMarks.setVisibility(
-                  Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
-            }
-
             mCommandInput.setError(null);
           }
 
@@ -268,7 +332,7 @@ public class aShellFragment extends Fragment {
                                 getString(R.string.bookmark_removed_message, s.toString().trim()))
                             .show();
                       } else {
-                        addBookmark(s.toString().trim(), view);
+                        Utils.addBookmarkIconOnClickListener(s.toString().trim(), view, context);
                       }
 
                       mCommandInput.setEndIconDrawable(
@@ -512,24 +576,7 @@ public class aShellFragment extends Fragment {
 
     mBookMarks.setOnClickListener(
         v -> {
-          PopupMenu popupMenu = new PopupMenu(context, mCommand);
-          Menu menu = popupMenu.getMenu();
-
-          for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
-
-            menu.add(Menu.NONE, i, Menu.NONE, Utils.getBookmarks(requireActivity()).get(i));
-          }
-          popupMenu.setOnMenuItemClickListener(
-              item -> {
-                for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
-                  if (item.getItemId() == i) {
-                    mCommand.setText(Utils.getBookmarks(requireActivity()).get(i));
-                    mCommand.setSelection(mCommand.getText().length());
-                  }
-                }
-                return false;
-              });
-          popupMenu.show();
+          Utils.bookmarksDialog(context, requireActivity(), mCommand);
         });
 
     /*------------------------------------------------------*/
@@ -893,15 +940,17 @@ public class aShellFragment extends Fragment {
     mSaveButton.hide();
     mShareButton.hide();
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
-    mSendButton.setColorFilter(Utils.getColor(R.color.colorErrorContainer, context));
+
+    mSendButton.setColorFilter(ThemeUtils.colorError(context));
 
     String mTitleText =
         "<font color=\""
-            + Utils.getColor(R.color.colorBlue, activity)
+            + Utils.getColor(android.R.color.system_accent1_500, activity)
             + "\">shell@"
             + Utils.getDeviceName()
+            + " | "
             + "</font><font color=\""
-            + Utils.getColor(R.color.colorGreen, activity)
+            + Utils.getColor(android.R.color.system_accent3_500, activity)
             + "\"> # "
             + finalCommand;
 
@@ -1078,8 +1127,6 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
-  /*------------------------------------------------------*/
-
   private void setVisibilityWithDelay(View view, int delayMillis) {
     new Handler(Looper.getMainLooper())
         .postDelayed(
@@ -1156,89 +1203,6 @@ public class aShellFragment extends Fragment {
             })
         .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
         .show();
-  }
-
-  private void addBookmark(String bookmark, View view) {
-
-    boolean switchState = Preferences.getOverrideBookmarks(context);
-    if (Utils.getBookmarks(requireActivity()).size() <= 4) {
-      Utils.addToBookmark(bookmark, requireActivity());
-      Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
-    } else {
-      if (switchState) {
-        Utils.addToBookmark(bookmark, requireActivity());
-        Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
-      } else {
-        Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
-      }
-    }
-  }
-
-  @Override
-  public void onPause() {
-    super.onPause();
-
-    viewModel.setSendDrawable(isSendDrawable);
-    viewModel.setEditTextFocused(isEditTextFocused());
-    viewModel.setSaveButtonVisible(isSaveButtonVisible());
-    viewModel.setScrollPosition(
-        ((LinearLayoutManager) mRecyclerViewOutput.getLayoutManager())
-            .findFirstVisibleItemPosition());
-    List<String> shellOutput = viewModel.getShellOutput();
-
-    List<String> history = viewModel.getHistory();
-    if (mHistory == null && history != null) {
-      viewModel.setHistory(history);
-    } else {
-      viewModel.setHistory(mHistory);
-    }
-    if (mResult == null) {
-      viewModel.setShellOutput(shellOutput);
-    } else {
-      viewModel.setShellOutput(mResult);
-    }
-    if (mCommand.getText().toString() != null) {
-      viewModel.setCommandText(mCommand.getText().toString());
-    }
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-    KeyboardUtils.disableKeyboard(context, requireActivity(), view);
-
-    if (viewModel.isEditTextFocused()) {
-      mCommand.requestFocus();
-    } else {
-      mCommand.clearFocus();
-    }
-    if (viewModel.isSendDrawable()) {
-      isSendDrawable = true;
-      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-    } else {
-      isSendDrawable = false;
-      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-    }
-    if (viewModel.isSaveButtonVisible()) {
-      mSaveButton.setVisibility(View.VISIBLE);
-      if (mSearchWord.getVisibility() == View.GONE) {
-        mClearButton.setVisibility(View.VISIBLE);
-        mSearchButton.setVisibility(View.VISIBLE);
-        mHistoryButton.setVisibility(View.VISIBLE);
-      }
-
-      mShareButton.setVisibility(View.VISIBLE);
-
-      mPasteButton.setVisibility(View.GONE);
-    } else {
-      mSaveButton.setVisibility(View.GONE);
-    }
-
-    mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
-    mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
-
-    int scrollPosition = viewModel.getScrollPosition();
-    mRecyclerViewOutput.scrollToPosition(scrollPosition);
   }
 
   private boolean isEditTextFocused() {

@@ -7,7 +7,7 @@
         tools:ignore="PrivateResource">
         <item name="colorSurface">@color/m3_ref_palette_dynamic_neutral_variant96</item>
         <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_dynamic_neutral_variant92</item>
-        <item name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral90</item>
+        <item name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral92</item>
 
     </style>
 
@@ -22,7 +22,7 @@
         <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_dynamic_neutral0</item>
         <item name="colorSurfaceContainerLow">@color/m3_ref_palette_dynamic_neutral4</item>
         <item name="colorSurfaceContainerHigh">@color/m3_ref_palette_dynamic_neutral10</item>
-        <item name="colorSurfaceContainerHighest">@color/m3_ref_palette_dynamic_neutral12</item>
+        <item name="colorSurfaceContainerHighest">@color/m3_ref_palette_dynamic_neutral0</item>
         <item name="colorSurfaceBright">@color/m3_ref_palette_dynamic_neutral10</item>
         <item name="colorSurfaceDim">@color/m3_ref_palette_dynamic_neutral0</item>
     </style>
@@ -31,16 +31,18 @@
         parent="aShellYou.AppTheme">
         <item name="contentScrim">?attr/colorSurfaceContainerLowest</item>
     </style>
+
     <style
         name="BottomNavigation"
         parent="aShellYou.AppTheme">
         <item name="android:background">?attr/colorSurfaceContainerLowest</item>
+
     </style>
 
-     <style
+    <style
         name="CategoryContributorsCard"
         parent="">
         <item name="cardBackgroundColor">?attr/colorSecondaryContainer</item>
     </style>
-    
+
 </resources>

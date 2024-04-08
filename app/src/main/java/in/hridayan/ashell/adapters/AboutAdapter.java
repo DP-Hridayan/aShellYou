@@ -134,7 +134,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Map<String, String> idUrlMap = new HashMap<>();
 
             idUrlMap.put("id_report", "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
-            idUrlMap.put("id_feature", "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
+            idUrlMap.put(
+                "id_feature", "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
             idUrlMap.put("id_github", "https:github.com/DP-Hridayan/aShellYou");
             idUrlMap.put("id_telegram", "https://t.me/aShellYou");
             idUrlMap.put("id_discord", "https://discord.com/invite/6fxqUxza");
@@ -156,6 +157,23 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             context.startActivity(intent);
           };
       viewHolder.categoryAppLayout.setOnClickListener(clickListener);
+
+      if (position == items.size() - 1) {
+        int paddingInDp = 30;
+        float scale = context.getResources().getDisplayMetrics().density;
+        int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+
+        ViewGroup.MarginLayoutParams layoutParams =
+            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+        layoutParams.bottomMargin = paddingInPixels;
+        viewHolder.itemView.setLayoutParams(layoutParams);
+      } else {
+
+        ViewGroup.MarginLayoutParams layoutParams =
+            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+        layoutParams.bottomMargin = 0;
+        viewHolder.itemView.setLayoutParams(layoutParams);
+      }
     }
   }
 

@@ -1,5 +1,9 @@
 package in.hridayan.ashell.activities;
 
+import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
+import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
+import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,12 +12,14 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.MainViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
@@ -29,17 +35,30 @@ public class MainActivity extends AppCompatActivity {
   public BottomNavigationView mNav;
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
+  private static int currentFragment;
 
   private boolean isBlackThemeEnabled, isAmoledTheme, isSharedText;
+  private MainViewModel viewModel;
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+
+    setCurrentFragment();
+    viewModel.setCurrentFragment(currentFragment);
+  }
 
   @Override
   protected void onResume() {
     super.onResume();
+
     isAmoledTheme = Preferences.getAmoledTheme(this);
     boolean currentTheme = isAmoledTheme;
     if (currentTheme != isBlackThemeEnabled) {
       recreate();
     }
+    int currentFragment = viewModel.currentFragment();
+    switchFragments(currentFragment);
   }
 
   @Override
@@ -53,12 +72,13 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+    viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
     isAmoledTheme = Preferences.getAmoledTheme(this);
 
     isBlackThemeEnabled = isAmoledTheme;
 
     mNav = findViewById(R.id.bottom_nav_bar);
-    mNav.setSelectedItemId(R.id.nav_localShell);
 
     KeyboardUtils.attachVisibilityListener(
         this,
@@ -89,14 +109,35 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void handleSharedTextIntent(Intent intent) {
+    if (isSharedText) {
+      String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+      if (sharedText != null) {
+        int currentFragment = Preferences.getCurrentFragment(this);
+        switch (currentFragment) {
+          case LOCAL_FRAGMENT:
+            aShellFragment fragmentLocalAdb =
+                (aShellFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (fragmentLocalAdb != null) {
+              fragmentLocalAdb.updateInputField(sharedText);
+            }
+            break;
 
-    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-    if (sharedText != null) {
-      aShellFragment fragment =
-          (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-      if (fragment != null) {
-        fragment.updateInputField(sharedText);
+          case OTG_FRAGMENT:
+            otgShellFragment fragmentOtg =
+                (otgShellFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (fragmentOtg != null) {
+              fragmentOtg.updateInputField(sharedText);
+            }
+
+            break;
+          default:
+            break;
+        }
       }
+      isSharedText = false;
+      return;
     }
     isSharedText = false;
     return;
@@ -109,10 +150,14 @@ public class MainActivity extends AppCompatActivity {
           switch (item.getItemId()) {
             case R.id.nav_localShell:
               showaShellFragment();
+              Preferences.setCurrentFragment(this, LOCAL_FRAGMENT);
               return true;
+
             case R.id.nav_otgShell:
               showotgShellFragment();
+              Preferences.setCurrentFragment(this, OTG_FRAGMENT);
               return true;
+
             default:
               return false;
           }
@@ -123,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void replaceFragment(Fragment fragment) {
 
+    setCurrentFragment();
     getSupportFragmentManager()
         .beginTransaction()
         .replace(R.id.fragment_container, fragment)
@@ -137,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
           .getBoolean("Don't show beta otg warning", true)) {
         showBetaWarning();
       } else {
+        currentFragment = OTG_FRAGMENT;
         replaceFragment(new otgShellFragment());
       }
     }
@@ -145,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
   private void showaShellFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
         instanceof aShellFragment)) {
+      currentFragment = LOCAL_FRAGMENT;
       replaceFragment(new aShellFragment());
     }
   }
@@ -189,7 +237,39 @@ public class MainActivity extends AppCompatActivity {
       mNav.setVisibility(View.GONE);
       replaceFragment(new StartFragment());
     } else {
-      replaceFragment(new aShellFragment());
+      int currentFragment = Preferences.getCurrentFragment(this);
+      int workingMode = Preferences.getWorkingMode(this);
+      if (workingMode == MODE_REMEMBER_LAST_MODE) {
+        switchFragments(currentFragment);
+      } else {
+        switchFragments(workingMode + 1);
+      }
+    }
+  }
+
+  private void setCurrentFragment() {
+
+    if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+        instanceof aShellFragment)) {
+      currentFragment = LOCAL_FRAGMENT;
+    } else if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+        instanceof otgShellFragment)) {
+      currentFragment = OTG_FRAGMENT;
+    }
+  }
+
+  private void switchFragments(int currentFragment) {
+    switch (currentFragment) {
+      case LOCAL_FRAGMENT:
+        mNav.setSelectedItemId(R.id.nav_localShell);
+        replaceFragment(new aShellFragment());
+        break;
+      case OTG_FRAGMENT:
+        mNav.setSelectedItemId(R.id.nav_otgShell);
+        replaceFragment(new otgShellFragment());
+        break;
+      default:
+        break;
     }
   }
 }

@@ -5,13 +5,27 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 public class Preferences {
-  private static final String PREF_AMOLED_THEME = "id_amoled_theme";
-  private static final String PREF_CLEAR = "id_clear";
-  private static final String PREF_SHARE_AND_RUN = "id_share_and_run";
-  private static final String PREF_DISABLE_SOFTKEY = "id_disable_softkey";
-  private static final String PREF_OVERRIDE_BOOKMARKS = "id_override_bookmarks";
-  private static final String PREF_SMOOTH_SCROLL = "id_smooth_scroll";
-    public static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
+
+  private static final String PREF_AMOLED_THEME = "id_amoled_theme",
+      PREF_CLEAR = "id_clear",
+      PREF_SHARE_AND_RUN = "id_share_and_run",
+      PREF_DISABLE_SOFTKEY = "id_disable_softkey",
+      PREF_OVERRIDE_BOOKMARKS = "id_override_bookmarks",
+      PREF_SMOOTH_SCROLL = "id_smooth_scroll",
+      PREF_SAVED_VERSION_CODE = "saved_version_code",
+      PREF_SORTING_OPTION = "sorting_option",
+      PREF_CURRENT_FRAGMENT = "current_fragment",
+      PREF_DEFAULT_WORKING_MODE = "id_default_working_mode";
+  public static final int SORT_A_TO_Z = 0,
+      SORT_Z_TO_A = 1,
+      SORT_OLDEST = 2,
+      SORT_NEWEST = 3,
+      LOCAL_FRAGMENT = 1,
+      OTG_FRAGMENT = 2,
+      MODE_LOCAL_ADB = 0,
+      MODE_OTG = 1,
+      MODE_REMEMBER_LAST_MODE = 2;
+
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
   }
@@ -25,7 +39,7 @@ public class Preferences {
   }
 
   public static boolean getClear(Context context) {
-    return getSharedPreferences(context).getBoolean(PREF_CLEAR, false);
+    return getSharedPreferences(context).getBoolean(PREF_CLEAR, true);
   }
 
   public static void setClear(Context context, boolean value) {
@@ -57,19 +71,44 @@ public class Preferences {
   }
 
   public static boolean getSmoothScroll(Context context) {
-    return getSharedPreferences(context).getBoolean(PREF_SMOOTH_SCROLL, false);
+    return getSharedPreferences(context).getBoolean(PREF_SMOOTH_SCROLL, true);
   }
 
   public static void setSmoothScroll(Context context, boolean value) {
     getSharedPreferences(context).edit().putBoolean(PREF_SMOOTH_SCROLL, value).apply();
   }
-    
-   public static int getSavedVersionCode(Context context) {
+
+  public static int getSavedVersionCode(Context context) {
+
     return getSharedPreferences(context).getInt(PREF_SAVED_VERSION_CODE, 1);
   }
 
   public static void setSavedVersionCode(Context context, int value) {
     getSharedPreferences(context).edit().putInt(PREF_SAVED_VERSION_CODE, value).apply();
   }
-    
+
+  public static int getSortingOption(Context context) {
+
+    return getSharedPreferences(context).getInt(PREF_SORTING_OPTION, SORT_A_TO_Z);
+  }
+
+  public static void setSortingOption(Context context, int value) {
+    getSharedPreferences(context).edit().putInt(PREF_SORTING_OPTION, value).apply();
+  }
+
+  public static void setWorkingMode(Context context, int value) {
+    getSharedPreferences(context).edit().putInt(PREF_DEFAULT_WORKING_MODE, value).apply();
+  }
+
+  public static int getWorkingMode(Context context) {
+    return getSharedPreferences(context).getInt(PREF_DEFAULT_WORKING_MODE, MODE_LOCAL_ADB);
+  }
+
+  public static int getCurrentFragment(Context context) {
+    return getSharedPreferences(context).getInt(PREF_CURRENT_FRAGMENT, LOCAL_FRAGMENT);
+  }
+
+  public static void setCurrentFragment(Context context, int value) {
+    getSharedPreferences(context).edit().putInt(PREF_CURRENT_FRAGMENT, value).apply();
+  }
 }

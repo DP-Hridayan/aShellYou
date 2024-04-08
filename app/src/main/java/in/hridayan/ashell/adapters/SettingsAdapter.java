@@ -1,6 +1,5 @@
 package in.hridayan.ashell.adapters;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,10 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.AboutActivity;
-import in.hridayan.ashell.activities.ChangelogActivity;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.utils.Utils;
 import java.util.List;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
@@ -55,20 +55,28 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   public void onBindViewHolder(ViewHolder holder, int position) {
     SettingsItem settingsItem = settingsList.get(position);
     Drawable symbolDrawable = settingsItem.getSymbol(context);
+
     holder.symbolImageView.setImageDrawable(symbolDrawable);
     holder.titleTextView.setText(settingsItem.getTitle());
     holder.descriptionTextView.setText(settingsItem.getDescription());
 
+    String id = settingsItem.getId();
+
     if (settingsItem.hasSwitch()) {
       holder.switchView.setVisibility(View.VISIBLE);
-      holder.switchView.setChecked(settingsItem.isEnabled());
+      holder.switchView.setChecked(settingsItem.isChecked());
 
       holder.switchView.setOnCheckedChangeListener(
           (buttonView, isChecked) -> {
-            settingsItem.setEnabled(isChecked);
+            settingsItem.setChecked(isChecked);
             settingsItem.saveSwitchState(context);
-            if (settingsItem.getId().equals("id_amoled_theme")) {
-              applyTheme(isChecked);
+            switch (id) {
+              case "id_amoled_theme":
+                applyTheme(isChecked);
+                break;
+
+              default:
+                break;
             }
           });
 
@@ -85,26 +93,48 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            String id = settingsItem.getId();
+
             Intent intent;
 
             switch (id) {
               case "id_examples":
                 intent = new Intent(context, ExamplesActivity.class);
+                context.startActivity(intent);
                 break;
 
               case "id_about":
                 intent = new Intent(context, AboutActivity.class);
+                context.startActivity(intent);
                 break;
 
+              case "id_default_working_mode":
+                  Utils.defaultWorkingModeDialog(context);
+
+                break;
               default:
                 return;
             }
-            context.startActivity(intent);
           }
         };
 
     holder.settingsItemLayout.setOnClickListener(clickListener);
+
+    if (position == getItemCount() - 1) {
+      int paddingInDp = 30;
+      float scale = context.getResources().getDisplayMetrics().density;
+      int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+
+      ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+      layoutParams.bottomMargin = paddingInPixels;
+      holder.itemView.setLayoutParams(layoutParams);
+    } else {
+
+      ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+      layoutParams.bottomMargin = 0;
+      holder.itemView.setLayoutParams(layoutParams);
+    }
   }
 
   private void applyTheme(boolean isAmoledTheme) {

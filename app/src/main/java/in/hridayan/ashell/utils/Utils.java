@@ -1,5 +1,14 @@
 package in.hridayan.ashell.utils;
 
+
+import static in.hridayan.ashell.utils.Preferences.MODE_LOCAL_ADB;
+import static in.hridayan.ashell.utils.Preferences.MODE_OTG;
+import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
+import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
+import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
+import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
+import static in.hridayan.ashell.utils.Preferences.SORT_Z_TO_A;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -18,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.BuildConfig;
@@ -29,56 +39,19 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-/*
- * Created by sunilpaulmathew <sunil.kde@gmail.com> on October 28, 2022
- */
 public class Utils {
   public static Intent intent;
   public static int savedVersionCode;
-
-  public static boolean isBookmarked(String command, Context context) {
-    if (isValidFilename(command)) {
-      return new File(context.getExternalFilesDir("bookmarks"), command).exists();
-    } else {
-      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
-        for (String commands :
-            Objects.requireNonNull(
-                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-                .split("\\r?\\n")) {
-          if (commands.trim().equals(command)) {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
-
-  public static boolean deleteFromBookmark(String command, Context context) {
-    if (isValidFilename(command)) {
-      return new File(context.getExternalFilesDir("bookmarks"), command).delete();
-    } else {
-      StringBuilder sb = new StringBuilder();
-      for (String commands :
-          Objects.requireNonNull(
-                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-              .split("\\r?\\n")) {
-        if (!commands.equals(command)) {
-          sb.append(commands).append("\n");
-        }
-      }
-      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
-      return true;
-    }
-  }
-
+  
   /*
    * Adapted from android.os.FileUtils
    * Ref: https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=972?q=isValidFatFilenameChar
    */
+
   private static boolean isValidFilename(String s) {
     return !s.contains("*")
         && !s.contains("/")
@@ -96,26 +69,6 @@ public class Utils {
 
   public static int getColor(int color, Context context) {
     return ContextCompat.getColor(context, color);
-  }
-
-  public static List<String> getBookmarks(Context context) {
-    List<String> mBookmarks = new ArrayList<>();
-    for (File file : Objects.requireNonNull(context.getExternalFilesDir("bookmarks").listFiles())) {
-      if (!file.getName().equalsIgnoreCase("specialCommands")) {
-        mBookmarks.add(file.getName());
-      }
-    }
-    if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
-      for (String commands :
-          Objects.requireNonNull(
-                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-              .split("\\r?\\n")) {
-        if (!commands.trim().isEmpty()) {
-          mBookmarks.add(commands.trim());
-        }
-      }
-    }
-    return mBookmarks;
   }
 
   public static Snackbar snackBar(View view, String message) {
@@ -149,26 +102,6 @@ public class Utils {
       }
     }
     return null;
-  }
-
-  public static void addToBookmark(String command, Context context) {
-    if (isValidFilename(command)) {
-      create(command, new File(context.getExternalFilesDir("bookmarks"), command));
-    } else {
-      StringBuilder sb = new StringBuilder();
-      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
-        for (String commands :
-            Objects.requireNonNull(
-                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-                .split("\\r?\\n")) {
-          sb.append(commands).append("\n");
-        }
-        sb.append(command).append("\n");
-      } else {
-        sb.append(command).append("\n");
-      }
-      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
-    }
   }
 
   public static void copyToClipboard(String text, Context context) {
@@ -269,8 +202,208 @@ public class Utils {
                 context.startActivity(intent);
               }))
           .show();
-
     }
     return;
+  }
+
+  /*---------------------Bookmarks section------------------------*/
+
+  public static List<String> getBookmarks(Context context) {
+    List<String> mBookmarks = new ArrayList<>();
+    for (File file : Objects.requireNonNull(context.getExternalFilesDir("bookmarks").listFiles())) {
+      if (!file.getName().equalsIgnoreCase("specialCommands")) {
+        mBookmarks.add(file.getName());
+      }
+    }
+    if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
+      for (String commands :
+          Objects.requireNonNull(
+                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+              .split("\\r?\\n")) {
+        if (!commands.trim().isEmpty()) {
+          mBookmarks.add(commands.trim());
+        }
+      }
+    }
+
+    switch (Preferences.getSortingOption(context)) {
+      case SORT_A_TO_Z:
+        Collections.sort(mBookmarks);
+        break;
+      case SORT_Z_TO_A:
+        Collections.sort(mBookmarks, Collections.reverseOrder());
+        break;
+      case SORT_NEWEST:
+        break;
+      case SORT_OLDEST:
+        Collections.reverse(mBookmarks);
+        break;
+    }
+
+    return mBookmarks;
+  }
+
+  public static boolean isBookmarked(String command, Context context) {
+    if (isValidFilename(command)) {
+      return new File(context.getExternalFilesDir("bookmarks"), command).exists();
+    } else {
+      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
+        for (String commands :
+            Objects.requireNonNull(
+                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+                .split("\\r?\\n")) {
+          if (commands.trim().equals(command)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  public static void addToBookmark(String command, Context context) {
+    if (isValidFilename(command)) {
+      create(command, new File(context.getExternalFilesDir("bookmarks"), command));
+    } else {
+      StringBuilder sb = new StringBuilder();
+      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
+        for (String commands :
+            Objects.requireNonNull(
+                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+                .split("\\r?\\n")) {
+          sb.append(commands).append("\n");
+        }
+        sb.append(command).append("\n");
+      } else {
+        sb.append(command).append("\n");
+      }
+      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
+    }
+  }
+
+  public static boolean deleteFromBookmark(String command, Context context) {
+    if (isValidFilename(command)) {
+      return new File(context.getExternalFilesDir("bookmarks"), command).delete();
+    } else {
+      StringBuilder sb = new StringBuilder();
+      for (String commands :
+          Objects.requireNonNull(
+                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+              .split("\\r?\\n")) {
+        if (!commands.equals(command)) {
+          sb.append(commands).append("\n");
+        }
+      }
+      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
+      return true;
+    }
+  }
+
+  public static void bookmarksDialog(
+      Context context, Activity activity, TextInputEditText mCommand) {
+
+    List<String> bookmarks = Utils.getBookmarks(activity);
+
+    CharSequence[] bookmarkItems = new CharSequence[bookmarks.size()];
+    for (int i = 0; i < bookmarks.size(); i++) {
+      bookmarkItems[i] = bookmarks.get(i);
+    }
+
+    new MaterialAlertDialogBuilder(activity)
+        .setTitle(context.getString(R.string.bookmarks))
+        .setItems(
+            bookmarkItems,
+            (dialog, which) -> {
+              mCommand.setText(bookmarks.get(which));
+              mCommand.setSelection(mCommand.getText().length());
+            })
+        .setPositiveButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setNegativeButton(
+            context.getString(R.string.sort),
+            (dialogInterface, i) -> {
+              Utils.sortingDialog(context, activity, mCommand);
+            })
+        .show();
+  }
+
+  public static void sortingDialog(Context context, Activity activity, TextInputEditText mCommand) {
+    CharSequence[] sortingOptions = {
+      context.getString(R.string.sort_A_Z),
+      context.getString(R.string.sort_Z_A),
+      context.getString(R.string.sort_newest),
+      context.getString(R.string.sort_oldest)
+    };
+    int currentSortingOption = Preferences.getSortingOption(context);
+
+    final int[] sortingOption = {currentSortingOption};
+
+    new MaterialAlertDialogBuilder(activity)
+        .setTitle(context.getString(R.string.sort))
+        .setSingleChoiceItems(
+            sortingOptions,
+            currentSortingOption,
+            (dialog, which) -> {
+              sortingOption[0] = which;
+            })
+        .setPositiveButton(
+            context.getString(R.string.ok),
+            (dialog, which) -> {
+              Preferences.setSortingOption(context, sortingOption[0]);
+              Utils.bookmarksDialog(context, activity, mCommand);
+            })
+        .setNegativeButton(
+            context.getString(R.string.cancel),
+            (dialog, i) -> {
+              Utils.bookmarksDialog(context, activity, mCommand);
+            })
+        .setOnCancelListener(
+            v -> {
+              Utils.bookmarksDialog(context, activity, mCommand);
+            })
+        .show();
+  }
+
+  public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
+
+    boolean switchState = Preferences.getOverrideBookmarks(context);
+    if (Utils.getBookmarks(context).size() <= 24) {
+      Utils.addToBookmark(bookmark, context);
+      Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
+    } else {
+      if (switchState) {
+        Utils.addToBookmark(bookmark, context);
+        Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
+      } else {
+        Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();
+      }
+    }
+  }
+
+  /*------------------------------------------------------*/
+
+  public static void defaultWorkingModeDialog(Context context) {
+
+    final CharSequence[] workingModes = {
+      context.getString(R.string.local_adb), context.getString(R.string.otg)
+    , context.getString(R.string.remember_working_mode)};
+
+    int defaultWorkingMode = Preferences.getWorkingMode(context);
+    final int[] workingMode = {defaultWorkingMode};
+
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(context.getString(R.string.working_mode))
+        .setSingleChoiceItems(
+            workingModes,
+            defaultWorkingMode,
+            (dialog, which) -> {
+              workingMode[0] = which;
+            })
+        .setPositiveButton(
+            context.getString(R.string.choose),
+            (dialog, which) -> {
+              Preferences.setWorkingMode(context, workingMode[0]);
+            })
+        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .show();
   }
 }

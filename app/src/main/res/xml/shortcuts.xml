@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
-        android:shortcutId="shortcut_adb_shell"
+        android:shortcutId="shortcut_commands"
         android:enabled="true"
-        android:icon="@mipmap/shortcut_adb"
-        android:shortcutShortLabel="@string/adb_shell"
-        android:shortcutLongLabel="@string/open_adb"
+        android:icon="@mipmap/shortcut_commands"
+        android:shortcutShortLabel="@string/commands"
+        android:shortcutLongLabel="@string/commands"
         android:shortcutDisabledMessage="@string/disabled">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="in.hridayan.ashell"
-            android:targetClass="in.hridayan.ashell.activities.MainActivity" />
+            android:targetClass="in.hridayan.ashell.activities.ExamplesActivity" />
     </shortcut>
 
     <shortcut

@@ -1,10 +1,10 @@
 package in.hridayan.ashell.fragments;
 
-import static in.hridayan.ashell.utils.MessageOtg.CONNECTING;
-import static in.hridayan.ashell.utils.MessageOtg.DEVICE_FOUND;
-import static in.hridayan.ashell.utils.MessageOtg.DEVICE_NOT_FOUND;
-import static in.hridayan.ashell.utils.MessageOtg.FLASHING;
-import static in.hridayan.ashell.utils.MessageOtg.INSTALLING_PROGRESS;
+import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
+import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
+import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_NOT_FOUND;
+import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.FLASHING;
+import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.INSTALLING_PROGRESS;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -54,7 +54,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
-import in.hridayan.ashell.MyAdbBase64;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -64,8 +63,9 @@ import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Commands;
-import in.hridayan.ashell.utils.Const;
-import in.hridayan.ashell.utils.MessageOtg;
+import in.hridayan.ashell.utils.OtgUtils;
+import in.hridayan.ashell.utils.OtgUtils.Const;
+import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
@@ -101,7 +101,7 @@ public class otgShellFragment extends Fragment
   private AlertDialog mWaitingDialog;
   private String user = null;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
-  private boolean isKeyboardVisible, sendButtonClicked = false;
+  private boolean isKeyboardVisible, sendButtonClicked = false, isSendDrawable = false;
   private List<String> mHistory = null, mResult = null;
   private View view;
   private AdbStream stream;
@@ -154,14 +154,61 @@ public class otgShellFragment extends Fragment
           }
         });
 
-    // Logic for changing the command send button depending on the text on the EditText
+    handleSharedTextIntent(requireActivity().getIntent());
 
-    mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-    mSendButton.setOnClickListener(
-        v -> {
-          Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
-          startActivity(examples);
-        });
+    if (isSendDrawable) {
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+
+      mSendButton.setOnClickListener(
+          new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+              sendButtonClicked = true;
+              mPasteButton.hide();
+              mUndoButton.hide();
+              if (adbConnection != null) {
+                putCommand();
+              } else {
+
+                mCommandInput.setError(getString(R.string.device_not_connected));
+                mCommandInput.setErrorIconDrawable(
+                    Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+                mCommandInput.setErrorIconOnClickListener(
+                    t -> {
+                      mCommand.setText(null);
+                    });
+
+                Utils.alignMargin(mSendButton);
+                Utils.alignMargin(mCable);
+
+                mHistoryButton.setVisibility(View.VISIBLE);
+
+                if (mHistory == null) {
+                  mHistory = new ArrayList<>();
+                }
+
+                mHistory.add(mCommand.getText().toString());
+
+                new MaterialAlertDialogBuilder(requireActivity())
+                    .setTitle(getString(R.string.error))
+                    .setMessage(getString(R.string.otg_not_connected))
+                    .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+                    .show();
+              }
+            }
+          });
+
+    } else {
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+      mSendButton.setOnClickListener(
+          v -> {
+            Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
+            startActivity(examples);
+          });
+    }
+
+    // Logic for changing the command send button depending on the text on the EditText
 
     mBookMarks.setVisibility(
         Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
@@ -173,6 +220,11 @@ public class otgShellFragment extends Fragment
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (mCommand.getText() == null) {
+              isSendDrawable = false;
+            } else {
+              isSendDrawable = true;
+            }
 
             mCommandInput.setError(null);
 
@@ -281,7 +333,7 @@ public class otgShellFragment extends Fragment
                               getString(R.string.bookmark_removed_message, s.toString().trim()))
                           .show();
                     } else {
-                      addBookmark(s.toString().trim(), view);
+                      Utils.addBookmarkIconOnClickListener(s.toString().trim(), view, context);
                     }
                     mCommandInput.setEndIconDrawable(
                         Utils.getDrawable(
@@ -345,22 +397,7 @@ public class otgShellFragment extends Fragment
 
     mBookMarks.setOnClickListener(
         v -> {
-          PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
-          Menu menu = popupMenu.getMenu();
-          for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
-            menu.add(Menu.NONE, i, Menu.NONE, Utils.getBookmarks(requireActivity()).get(i));
-          }
-          popupMenu.setOnMenuItemClickListener(
-              item -> {
-                for (int i = 0; i < Utils.getBookmarks(requireActivity()).size(); i++) {
-                  if (item.getItemId() == i) {
-                    mCommand.setText(Utils.getBookmarks(requireActivity()).get(i));
-                    mCommand.setSelection(mCommand.getText().length());
-                  }
-                }
-                return false;
-              });
-          popupMenu.show();
+          Utils.bookmarksDialog(context, requireActivity(), mCommand);
         });
 
     mHistoryButton.setTooltipText(getString(R.string.history));
@@ -387,7 +424,7 @@ public class otgShellFragment extends Fragment
 
     // Glow otg symbol when adb connection successfull
     if (adbConnection != null) {
-      mCable.setColorFilter(Utils.getColor(R.color.colorGreen, requireActivity()));
+      mCable.setColorFilter(Utils.getColor(android.R.color.system_accent3_500, requireActivity()));
     } else {
       mCable.clearColorFilter();
     }
@@ -408,7 +445,7 @@ public class otgShellFragment extends Fragment
                 closeWaiting();
                 terminalView.setVisibility(View.VISIBLE);
                 initCommand();
-                KeyboardUtils.showKeyboard(mCommand , context);
+                KeyboardUtils.showKeyboard(mCommand, context);
                 break;
 
               case CONNECTING:
@@ -419,7 +456,7 @@ public class otgShellFragment extends Fragment
 
               case DEVICE_NOT_FOUND:
                 closeWaiting();
-                KeyboardUtils.closeKeyboard(requireActivity() , context);
+                KeyboardUtils.closeKeyboard(requireActivity(), context);
                 terminalView.setVisibility(View.VISIBLE);
                 adbConnection = null; // Fix this issue
                 break;
@@ -439,7 +476,7 @@ public class otgShellFragment extends Fragment
 
     /*------------------------------------------------------*/
 
-    AdbBase64 base64 = new MyAdbBase64();
+    AdbBase64 base64 = new OtgUtils.MyAdbBase64();
     try {
       adbCrypto =
           AdbCrypto.loadAdbKeyPair(
@@ -747,23 +784,6 @@ public class otgShellFragment extends Fragment
     return splitPrefix[i].trim();
   }
 
-  private void addBookmark(String bookmark, View view) {
-
-    boolean switchState = Preferences.getOverrideBookmarks(requireContext());
-
-    if (Utils.getBookmarks(requireActivity()).size() <= 4) {
-      Utils.addToBookmark(bookmark, requireActivity());
-      Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
-    } else {
-      if (switchState) {
-        Utils.addToBookmark(bookmark, requireActivity());
-        Utils.snackBar(view, getString(R.string.bookmark_added_message, bookmark)).show();
-      } else {
-        Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
-      }
-    }
-  }
-
   private void setVisibilityWithDelay(View view, int delayMillis) {
     new Handler(Looper.getMainLooper())
         .postDelayed(
@@ -792,6 +812,28 @@ public class otgShellFragment extends Fragment
       }
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  private void handleSharedTextIntent(Intent intent) {
+    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+    if (sharedText != null) {
+      sharedText = sharedText.trim();
+      if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
+        sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
+      }
+      isSendDrawable = true;
+      mCommand.setText(sharedText);
+      updateInputField(sharedText);
+    }
+    return;
+  }
+
+  public void updateInputField(String sharedText) {
+    if (sharedText != null) {
+      mCommand.setText(sharedText);
+      mCommand.requestFocus();
+      mCommand.setSelection(mCommand.getText().length());
     }
   }
 }

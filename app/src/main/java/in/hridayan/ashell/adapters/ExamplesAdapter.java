@@ -1,8 +1,10 @@
 package in.hridayan.ashell.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -18,9 +20,11 @@ import java.util.List;
 public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHolder> {
 
   private final List<CommandItems> data;
+  private Context context;
 
-  public ExamplesAdapter(List<CommandItems> data) {
+  public ExamplesAdapter(List<CommandItems> data, Context context) {
     this.data = data;
+    this.context = context;
   }
 
   @NonNull
@@ -33,9 +37,28 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
 
   @Override
   public void onBindViewHolder(@NonNull ExamplesAdapter.ViewHolder holder, int position) {
+    holder.itemView.startAnimation(
+        AnimationUtils.loadAnimation(context, R.anim.on_scroll_animator));
     holder.mTitle.setText(this.data.get(position).getTitle());
     if (this.data.get(position).getSummary() != null) {
       holder.mSummary.setText(this.data.get(position).getSummary());
+
+      if (position == data.size() - 1) {
+        int paddingInDp = 50;
+        float scale = context.getResources().getDisplayMetrics().density;
+        int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+
+        ViewGroup.MarginLayoutParams layoutParams =
+            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+        layoutParams.bottomMargin = paddingInPixels;
+        holder.itemView.setLayoutParams(layoutParams);
+      } else {
+
+        ViewGroup.MarginLayoutParams layoutParams =
+            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+        layoutParams.bottomMargin = 30;
+        holder.itemView.setLayoutParams(layoutParams);
+      }
     }
   }
 

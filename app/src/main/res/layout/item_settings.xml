@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
-    android:gravity="center"
-    android:clickable="true">
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/symbol_image_view"

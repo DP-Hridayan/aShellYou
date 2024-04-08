@@ -1,14 +1,14 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_changelogs"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:fitsSystemWindows="false"
     android:background="?attr/colorSurface"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="PrivateResource"
     tools:context=".ExamplesActivity">
 
@@ -21,8 +21,8 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            app:expandedTitleMarginBottom="45dp"
+            android:layout_height="140dp"
+            app:expandedTitleMarginBottom="15dp"
             app:expandedTitleMarginEnd="25dp"
             app:expandedTitleMarginStart="25dp"
             app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle"
@@ -47,12 +47,47 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_command"
+            app:backgroundTint="?attr/colorSecondaryContainer"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutAnimation="@anim/layout_animator"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <in.hridayan.ashell.UI.CustomSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/search_command"
+        app:layout_anchor="@id/search_bar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorSurface"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/no_command_found"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginHorizontal="25dp"
+            android:text="@string/no_command_found" />
+
+    </in.hridayan.ashell.UI.CustomSearchView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

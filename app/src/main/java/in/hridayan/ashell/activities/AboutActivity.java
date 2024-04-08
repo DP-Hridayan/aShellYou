@@ -29,6 +29,26 @@ public class AboutActivity extends AppCompatActivity {
   private AboutViewModel viewModel;
 
   @Override
+  protected void onPause() {
+    super.onPause();
+    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    int position = Utils.recyclerViewPosition(recyclerView);
+
+    if (viewModel.isToolbarExpanded()) {
+      if (position == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
+    } else {
+      Utils.collapseToolbar(appBarLayout);
+    }
+  }
+
+  @Override
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
     ThemeUtils.updateTheme(this);
@@ -153,25 +173,5 @@ public class AboutActivity extends AppCompatActivity {
 
     adapter = new AboutAdapter(items, this);
     recyclerView.setAdapter(adapter);
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    int position = Utils.recyclerViewPosition(recyclerView);
-
-    if (viewModel.isToolbarExpanded()) {
-      if (position == 0) {
-        Utils.expandToolbar(appBarLayout);
-      }
-    } else {
-      Utils.collapseToolbar(appBarLayout);
-    }
   }
 }
