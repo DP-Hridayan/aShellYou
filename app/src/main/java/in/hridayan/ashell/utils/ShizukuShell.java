@@ -27,6 +27,7 @@ public class ShizukuShell {
         && !mOutput.get(mOutput.size() - 1).equals("aShell: Finish");
   }
 
+    
   public void exec() {
     try {
       mProcess = Shizuku.newProcess(new String[] {"sh", "-c", mCommand}, null, mDir);

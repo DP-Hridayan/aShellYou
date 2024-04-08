@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.utils.CommandItems;
 import in.hridayan.ashell.utils.Utils;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -21,9 +23,15 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
   private final List<CommandItems> data;
   private Context context;
 
-  public CommandsSearchAdapter(List<CommandItems> data, Context context) {
-    this.data = data;
+  public CommandsSearchAdapter(@Nullable List<CommandItems> data, Context context) {
+    this.data = data != null ? data : new ArrayList<>(); // Null check for data
     this.context = context;
+  }
+
+  public void setFilteredList(List<CommandItems> filteredList) {
+    this.data.clear(); // Clear existing data
+    this.data.addAll(filteredList); // Add filtered data
+    notifyDataSetChanged();
   }
 
   @NonNull
