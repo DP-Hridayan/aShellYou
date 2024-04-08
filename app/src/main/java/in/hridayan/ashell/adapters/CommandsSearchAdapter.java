@@ -45,6 +45,7 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
 
   @Override
   public void onBindViewHolder(@NonNull CommandsSearchAdapter.ViewHolder holder, int position) {
+
     holder.mTitle.setText(this.data.get(position).getTitle());
     if (this.data.get(position).getSummary() != null) {
       holder.mSummary.setText(this.data.get(position).getSummary());
