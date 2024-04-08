@@ -18,19 +18,20 @@ import java.util.List;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 08, 2022
  */
+
 public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAdapter.ViewHolder> {
 
   private final List<CommandItems> data;
   private Context context;
 
   public CommandsSearchAdapter(@Nullable List<CommandItems> data, Context context) {
-    this.data = data != null ? data : new ArrayList<>(); // Null check for data
+    this.data = data != null ? data : new ArrayList<>();
     this.context = context;
   }
 
   public void setFilteredList(List<CommandItems> filteredList) {
-    this.data.clear(); // Clear existing data
-    this.data.addAll(filteredList); // Add filtered data
+    this.data.clear();
+    this.data.addAll(filteredList);
     notifyDataSetChanged();
   }
 
