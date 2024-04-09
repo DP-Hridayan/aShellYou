@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
   private static int currentFragment;
-
   private boolean isBlackThemeEnabled, isAmoledTheme, isSharedText;
   private MainViewModel viewModel;
 

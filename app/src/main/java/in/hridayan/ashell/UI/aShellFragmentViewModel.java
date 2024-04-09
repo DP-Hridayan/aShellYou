@@ -5,12 +5,11 @@ import androidx.lifecycle.ViewModel;
 
 public class aShellFragmentViewModel extends ViewModel {
 
-  private boolean isEditTextFocused, isSaveButtonVisible, isSendDrawable;
+  private boolean isEditTextFocused, isSaveButtonVisible;
   private String commandText;
-
+  private static final int nullValue = 2004;
   private List<String> shellOutput, history;
-
-  private int scrollPosition;
+  private int scrollPosition, sendDrawable = nullValue;
 
   public List<String> getShellOutput() {
     return shellOutput;
@@ -19,7 +18,6 @@ public class aShellFragmentViewModel extends ViewModel {
   public void setShellOutput(List<String> shellOutput) {
     this.shellOutput = shellOutput;
   }
-
 
   public List<String> getHistory() {
     return history;
@@ -61,11 +59,15 @@ public class aShellFragmentViewModel extends ViewModel {
     isSaveButtonVisible = saveButtonVisible;
   }
 
-  public boolean isSendDrawable() {
-    return isSendDrawable;
+  public int getSendDrawable() {
+    return sendDrawable;
   }
 
-  public void setSendDrawable(boolean sendDrawable) {
-    isSendDrawable = sendDrawable;
+  public void setSendDrawable(int drawable) {
+    sendDrawable = drawable;
+  }
+
+  public boolean isSendDrawableSaved() {
+    return sendDrawable != nullValue;
   }
 }
