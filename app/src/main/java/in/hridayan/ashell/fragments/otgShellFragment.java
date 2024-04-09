@@ -397,7 +397,7 @@ public class otgShellFragment extends Fragment
 
     mBookMarks.setOnClickListener(
         v -> {
-          Utils.bookmarksDialog(context, requireActivity(), mCommand);
+          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput,mBookMarks);
         });
 
     mHistoryButton.setTooltipText(getString(R.string.history));

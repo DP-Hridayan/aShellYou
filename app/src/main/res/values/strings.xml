@@ -35,6 +35,8 @@
     <string name="commands">Commands</string>
     <string name="command_hint">Input ADB command here</string>
     <string name="command_title">Input ADB Command</string>
+    <string name="confirm_delete">Confirm delete</string>
+    <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="connecting">connecting...</string>
     <string name="connecting_hint">confirm authorization on target device</string>
     <string name="copy">"Copy"</string>

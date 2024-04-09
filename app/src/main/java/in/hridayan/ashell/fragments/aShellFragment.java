@@ -583,7 +583,7 @@ public class aShellFragment extends Fragment {
 
     mBookMarks.setOnClickListener(
         v -> {
-          Utils.bookmarksDialog(context, requireActivity(), mCommand);
+          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks);
         });
 
     /*------------------------------------------------------*/

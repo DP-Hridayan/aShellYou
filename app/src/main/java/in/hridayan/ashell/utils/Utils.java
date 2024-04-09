@@ -11,6 +11,7 @@ import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -23,9 +24,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.ChangelogActivity;
@@ -87,7 +90,6 @@ public class Utils {
       while ((line = buf.readLine()) != null) {
         stringBuilder.append(line).append("\n");
       }
-
       return stringBuilder.toString().trim();
     } catch (IOException ignored) {
     } finally {
@@ -105,7 +107,8 @@ public class Utils {
         (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
     ClipData clip = ClipData.newPlainText(context.getString(R.string.copied_to_clipboard), text);
     clipboard.setPrimaryClip(clip);
-    Toast.makeText(context, context.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
+    Toast.makeText(context, context.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
+        .show();
   }
 
   public static void create(String text, File path) {
@@ -296,7 +299,11 @@ public class Utils {
   }
 
   public static void bookmarksDialog(
-      Context context, Activity activity, TextInputEditText mCommand) {
+      Context context,
+      Activity activity,
+      TextInputEditText mCommand,
+      TextInputLayout mCommandInput,
+      MaterialButton button) {
 
     List<String> bookmarks = Utils.getBookmarks(activity);
 
@@ -323,6 +330,39 @@ public class Utils {
             (dialogInterface, i) -> {
               Utils.sortingDialog(context, activity, mCommand);
             })
+        .setNeutralButton(
+            "Delete all",
+            (DialogInterface, i) -> {
+              Utils.deleteDialog(context, activity, mCommand, mCommandInput, button);
+            })
+        .show();
+  }
+
+  public static void deleteDialog(
+      Context context,
+      Activity activity,
+      TextInputEditText mCommand,
+      TextInputLayout mCommandInput,
+      MaterialButton button) {
+
+    new MaterialAlertDialogBuilder(activity)
+        .setTitle(context.getString(R.string.confirm_delete))
+        .setMessage(context.getString(R.string.confirm_delete_message))
+        .setPositiveButton(
+            context.getString(R.string.ok),
+            (dialogInterface, i) -> {
+              List<String> bookmarks = Utils.getBookmarks(activity);
+
+              for (String item : bookmarks) {
+                Utils.deleteFromBookmark(item, context);
+              }
+              button.setVisibility(View.GONE);
+              if (mCommand.getText() != null) {
+                mCommandInput.setEndIconDrawable(
+                    Utils.getDrawable(R.drawable.ic_add_bookmark, context));
+              }
+            })
+        .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
         .show();
   }
 
@@ -349,16 +389,16 @@ public class Utils {
             context.getString(R.string.ok),
             (dialog, which) -> {
               Preferences.setSortingOption(context, sortingOption[0]);
-              Utils.bookmarksDialog(context, activity, mCommand);
+              Utils.bookmarksDialog(context, activity, mCommand, null, null);
             })
         .setNegativeButton(
             context.getString(R.string.cancel),
             (dialog, i) -> {
-              Utils.bookmarksDialog(context, activity, mCommand);
+              Utils.bookmarksDialog(context, activity, mCommand, null, null);
             })
         .setOnCancelListener(
             v -> {
-              Utils.bookmarksDialog(context, activity, mCommand);
+              Utils.bookmarksDialog(context, activity, mCommand, null, null);
             })
         .show();
   }

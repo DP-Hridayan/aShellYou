@@ -27,8 +27,7 @@
             app:expandedTitleMarginStart="25dp"
             app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="@string/commands"
-            style="@style/ToolbarContentScrim">
+            app:title="@string/commands">
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
