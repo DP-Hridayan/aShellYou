@@ -1,0 +1,17 @@
+files:
+  - source: /app/src/main/res/values/strings.xml
+    translation:
+      - /translations/%two_letters_code%/%original_path%/%original_file_name%
+      
+  - source: /changelogs/src/main/res/values/strings.xml
+    translation:
+      - /translations/%two_letters_code%/%original_path%/%original_file_name%
+      
+langs:
+  - en
+  - pt
+  - zh-rCN
+
+translation:
+  source_lang: en
+  type: source
