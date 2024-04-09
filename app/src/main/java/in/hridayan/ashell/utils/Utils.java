@@ -1,9 +1,5 @@
 package in.hridayan.ashell.utils;
 
-
-import static in.hridayan.ashell.utils.Preferences.MODE_LOCAL_ADB;
-import static in.hridayan.ashell.utils.Preferences.MODE_OTG;
-import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
 import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
@@ -46,7 +42,7 @@ import java.util.Objects;
 public class Utils {
   public static Intent intent;
   public static int savedVersionCode;
-  
+
   /*
    * Adapted from android.os.FileUtils
    * Ref: https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=972?q=isValidFatFilenameChar
@@ -107,9 +103,9 @@ public class Utils {
   public static void copyToClipboard(String text, Context context) {
     ClipboardManager clipboard =
         (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-    ClipData clip = ClipData.newPlainText("Copied to clipboard", text);
+    ClipData clip = ClipData.newPlainText(context.getString(R.string.copied_to_clipboard), text);
     clipboard.setPrimaryClip(clip);
-    Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+    Toast.makeText(context, context.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
   }
 
   public static void create(String text, File path) {
@@ -304,13 +300,17 @@ public class Utils {
 
     List<String> bookmarks = Utils.getBookmarks(activity);
 
+    int totalBookmarks = bookmarks.size();
+
+    String title = context.getString(R.string.bookmarks) + " (" + totalBookmarks + ")";
+
     CharSequence[] bookmarkItems = new CharSequence[bookmarks.size()];
     for (int i = 0; i < bookmarks.size(); i++) {
       bookmarkItems[i] = bookmarks.get(i);
     }
 
     new MaterialAlertDialogBuilder(activity)
-        .setTitle(context.getString(R.string.bookmarks))
+        .setTitle(title)
         .setItems(
             bookmarkItems,
             (dialog, which) -> {
@@ -384,8 +384,10 @@ public class Utils {
   public static void defaultWorkingModeDialog(Context context) {
 
     final CharSequence[] workingModes = {
-      context.getString(R.string.local_adb), context.getString(R.string.otg)
-    , context.getString(R.string.remember_working_mode)};
+      context.getString(R.string.local_adb),
+      context.getString(R.string.otg),
+      context.getString(R.string.remember_working_mode)
+    };
 
     int defaultWorkingMode = Preferences.getWorkingMode(context);
     final int[] workingMode = {defaultWorkingMode};

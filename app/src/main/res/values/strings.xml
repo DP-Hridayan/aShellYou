@@ -38,6 +38,7 @@
     <string name="connecting">connecting...</string>
     <string name="connecting_hint">confirm authorization on target device</string>
     <string name="copy">"Copy"</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="default_working_mode">Default working mode</string>
     <string name="des_default_working_mode">Choose the default working mode for running ADB commands</string>
     <string name="device_not_connected">Device not connected</string>

@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
     if (currentTheme != isBlackThemeEnabled) {
       recreate();
     }
-    int currentFragment = viewModel.currentFragment();
-    switchFragments(currentFragment);
   }
 
   @Override
@@ -104,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     setBadge(R.id.nav_wireless, "Soon");
     if (isSharedText) {
       handleSharedTextIntent(getIntent());
+
       return;
     }
   }
@@ -237,12 +236,19 @@ public class MainActivity extends AppCompatActivity {
       mNav.setVisibility(View.GONE);
       replaceFragment(new StartFragment());
     } else {
-      int currentFragment = Preferences.getCurrentFragment(this);
-      int workingMode = Preferences.getWorkingMode(this);
-      if (workingMode == MODE_REMEMBER_LAST_MODE) {
+      boolean isFragmentSaved = viewModel.isFragmentSaved();
+      if (isFragmentSaved) {
+        int currentFragment = viewModel.currentFragment();
         switchFragments(currentFragment);
       } else {
-        switchFragments(workingMode + 1);
+        int currentFragment = Preferences.getCurrentFragment(this);
+        int workingMode = Preferences.getWorkingMode(this);
+
+        if (workingMode == MODE_REMEMBER_LAST_MODE) {
+          switchFragments(currentFragment);
+        } else {
+          switchFragments(workingMode + 1);
+        }
       }
     }
   }

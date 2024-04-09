@@ -43,7 +43,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -106,7 +105,6 @@ public class aShellFragment extends Fragment {
       sendButtonClicked = false;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1;
-
   private List<String> mHistory = null, mResult = null, mRecentCommands, shellOutput, history;
   private View view;
   private Context context;
@@ -146,7 +144,7 @@ public class aShellFragment extends Fragment {
   public void onResume() {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
-
+        
     if (viewModel.isEditTextFocused()) {
       mCommand.requestFocus();
     } else {
@@ -166,9 +164,7 @@ public class aShellFragment extends Fragment {
         mSearchButton.setVisibility(View.VISIBLE);
         mHistoryButton.setVisibility(View.VISIBLE);
       }
-
       mShareButton.setVisibility(View.VISIBLE);
-
       mPasteButton.setVisibility(View.GONE);
     } else {
       mSaveButton.setVisibility(View.GONE);
