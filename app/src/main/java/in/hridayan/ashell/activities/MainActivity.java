@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onPause() {
     super.onPause();
-
     setCurrentFragment();
     viewModel.setCurrentFragment(currentFragment);
   }
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
-
     isAmoledTheme = Preferences.getAmoledTheme(this);
     boolean currentTheme = isAmoledTheme;
     if (currentTheme != isBlackThemeEnabled) {
@@ -74,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
     isAmoledTheme = Preferences.getAmoledTheme(this);
 
-    isBlackThemeEnabled = isAmoledTheme;
-
     mNav = findViewById(R.id.bottom_nav_bar);
 
     KeyboardUtils.attachVisibilityListener(
@@ -97,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
           }
         });
 
+    isBlackThemeEnabled = isAmoledTheme;
     setupNavigation();
     setBadge(R.id.nav_otgShell, "Beta");
     setBadge(R.id.nav_wireless, "Soon");
