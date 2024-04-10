@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 public class aShellFragmentViewModel extends ViewModel {
 
-  private boolean isEditTextFocused, isSaveButtonVisible;
+  private boolean isEditTextFocused, isSaveButtonVisible, isEndIconVisible;
   private String commandText;
   private static final int nullValue = 2004;
   private List<String> shellOutput, history;
@@ -70,4 +70,12 @@ public class aShellFragmentViewModel extends ViewModel {
   public boolean isSendDrawableSaved() {
     return sendDrawable != nullValue;
   }
+   public boolean isEndIconVisible() {
+    return isEndIconVisible;
+  }
+
+  public void setEndIconVisible(boolean endIconVisible) {
+    isEndIconVisible = endIconVisible;
+  }
+    
 }

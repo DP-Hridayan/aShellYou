@@ -99,7 +99,11 @@ public class aShellFragment extends Fragment {
   private ShizukuShell mShizukuShell;
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand, mSearchWord;
-  private boolean mExit, isKeyboardVisible, isSaveButtonVisible, sendButtonClicked = false;
+  private boolean mExit,
+      isKeyboardVisible,
+      isSaveButtonVisible,
+      sendButtonClicked = false,
+      isEndIconVisible = false;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private int mPosition = 1, sendDrawable;
   private final int ic_help = 10, ic_send = 11, ic_stop = 12;
@@ -140,6 +144,11 @@ public class aShellFragment extends Fragment {
     }
     if (mCommand.getText().toString() != null) {
       viewModel.setCommandText(mCommand.getText().toString());
+    }
+    if (mCommandInput.isEndIconVisible()) {
+      viewModel.setEndIconVisible(true);
+    } else {
+      isEndIconVisible = false;
     }
   }
 
@@ -189,6 +198,18 @@ public class aShellFragment extends Fragment {
 
     int scrollPosition = viewModel.getScrollPosition();
     mRecyclerViewOutput.scrollToPosition(scrollPosition);
+
+    isEndIconVisible = viewModel.isEndIconVisible();
+    String s = mCommand.getText().toString().trim();
+
+    if (!s.equals("") && isEndIconVisible) {
+      mCommandInput.setEndIconDrawable(
+          Utils.getDrawable(
+              Utils.isBookmarked(s, requireActivity())
+                  ? R.drawable.ic_bookmark_added
+                  : R.drawable.ic_add_bookmark,
+              requireActivity()));
+    }
   }
 
   @Nullable
@@ -291,7 +312,7 @@ public class aShellFragment extends Fragment {
     Utils.isAppUpdated(context, requireActivity());
     Preferences.setSavedVersionCode(context, Utils.currentVersion());
 
-    Utils.chipOnClickListener(context , mChip , Utils.getDeviceName());
+    Utils.chipOnClickListener(context, mChip, Utils.getDeviceName());
     /*------------------------------------------------------*/
 
     if (!mCommand.getText().toString().isEmpty()) {
