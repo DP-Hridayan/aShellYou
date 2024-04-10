@@ -14,6 +14,7 @@ public class Preferences {
       PREF_SMOOTH_SCROLL = "id_smooth_scroll",
       PREF_SAVED_VERSION_CODE = "saved_version_code",
       PREF_SORTING_OPTION = "sorting_option",
+      PREF_SORTING_EXAMPLES = "sorting_examples",
       PREF_CURRENT_FRAGMENT = "current_fragment",
       PREF_DEFAULT_WORKING_MODE = "id_default_working_mode";
   public static final int SORT_A_TO_Z = 0,
@@ -94,6 +95,15 @@ public class Preferences {
 
   public static void setSortingOption(Context context, int value) {
     getSharedPreferences(context).edit().putInt(PREF_SORTING_OPTION, value).apply();
+  }
+
+  public static int getSortingExamples(Context context) {
+
+    return getSharedPreferences(context).getInt(PREF_SORTING_EXAMPLES, SORT_A_TO_Z);
+  }
+
+  public static void setSortingExamples(Context context, int value) {
+    getSharedPreferences(context).edit().putInt(PREF_SORTING_EXAMPLES, value).apply();
   }
 
   public static void setWorkingMode(Context context, int value) {

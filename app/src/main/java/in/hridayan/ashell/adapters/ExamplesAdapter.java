@@ -1,5 +1,8 @@
 package in.hridayan.ashell.adapters;
 
+import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
+import static in.hridayan.ashell.utils.Preferences.SORT_Z_TO_A;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,7 +16,10 @@ import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.utils.CommandItems;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.Utils;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /*
@@ -108,5 +114,25 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
       String sanitizedText = text.replaceAll("<[^>]*>", "");
       return sanitizedText.trim();
     }
+  }
+
+  public void sortDataAlphabetically() {
+    Collections.sort(
+        data,
+        new Comparator<CommandItems>() {
+          @Override
+          public int compare(CommandItems item1, CommandItems item2) {
+            int sortOption = Preferences.getSortingExamples(context);
+            switch (sortOption) {
+              case SORT_A_TO_Z:
+                return item1.getTitle().compareToIgnoreCase(item2.getTitle());
+              case SORT_Z_TO_A:
+                return item2.getTitle().compareToIgnoreCase(item1.getTitle());
+              default:
+                return 0;
+            }
+          }
+        });
+    notifyDataSetChanged();
   }
 }

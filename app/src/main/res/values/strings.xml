@@ -43,6 +43,7 @@
     <string name="copy">"Copy"</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="default_working_mode">Default working mode</string>
+    <string name="delete_all">Delete all</string>
     <string name="des_default_working_mode">Choose the default working mode for running ADB commands</string>
     <string name="device_not_connected">Device not connected</string>
     <string name="discord">Discord</string>
@@ -59,6 +60,7 @@
     <string name="go_back">Go back</string>
     <string name="history">History</string>
     <string name="local_adb">Local ADB</string>
+    <string name="menu">Menu</string>
     <string name="none">None</string>
     <string name="no_command">No command</string>
     <string name="no_command_found">No command found that matches your query</string>

@@ -52,7 +52,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/search_command"
             app:backgroundTint="?attr/colorSecondaryContainer"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed" />
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:menu="@menu/search_bar_menu" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -1,7 +1,5 @@
 package in.hridayan.ashell.utils;
 
-import android.content.pm.PackageManager;
-import com.google.android.material.chip.Chip;
 import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
 import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
@@ -15,6 +13,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -334,7 +334,7 @@ public class Utils {
               Utils.sortingDialog(context, activity, mCommand);
             })
         .setNeutralButton(
-            "Delete all",
+            context.getString(R.string.delete_all),
             (DialogInterface, i) -> {
               Utils.deleteDialog(context, activity, mCommand, mCommandInput, button);
             })
@@ -365,7 +365,18 @@ public class Utils {
                     Utils.getDrawable(R.drawable.ic_add_bookmark, context));
               }
             })
-        .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setNegativeButton(
+            context.getString(R.string.cancel),
+            (dialogInterface, i) -> {
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
+            })
+        .setOnCancelListener(
+            v -> {
+              List<String> bookmarks = Utils.getBookmarks(activity);
+              if (bookmarks.size() != 0) {
+                Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
+              }
+            })
         .show();
   }
 
@@ -451,17 +462,19 @@ public class Utils {
         .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
         .show();
   }
-    public static void connectedDeviceDialog(Context context , String connectedDevice){
-        String device = connectedDevice;
-        
-       new MaterialAlertDialogBuilder(context)
+
+  public static void connectedDeviceDialog(Context context, String connectedDevice) {
+    String device = connectedDevice;
+
+    new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.connected_device))
         .setMessage(device)
         .show();
-    }
-    public static void chipOnClickListener(Context context,Chip mChip , String device){
-        
-       mChip.setOnClickListener(
+  }
+
+  public static void chipOnClickListener(Context context, Chip mChip, String device) {
+
+    mChip.setOnClickListener(
         v -> {
           if (Shizuku.pingBinder()
               && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
@@ -471,7 +484,5 @@ public class Utils {
           }
           mChip.setChecked(!mChip.isChecked());
         });
-        
-        
-    }
+  }
 }

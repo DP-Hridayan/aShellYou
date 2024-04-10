@@ -1,9 +1,14 @@
 package in.hridayan.ashell.activities;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,15 +20,17 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.search.SearchBar;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.CustomSearchView;
 import in.hridayan.ashell.UI.ExamplesViewModel;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
-
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.utils.CommandItems;
 import in.hridayan.ashell.utils.Commands;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
@@ -37,6 +44,9 @@ public class ExamplesActivity extends AppCompatActivity {
   private EditText editText;
   private MaterialTextView noCommandFoundText;
   private List<CommandItems> itemList;
+  private SearchBar mSearchBar;
+  private ExamplesAdapter mExamplesAdapter;
+  private int isSortingOptionSame;
 
   @Override
   protected void onPause() {
@@ -69,17 +79,27 @@ public class ExamplesActivity extends AppCompatActivity {
 
     appBarLayout = findViewById(R.id.appBarLayout);
     searchView = findViewById(R.id.search_view);
+    mSearchBar = findViewById(R.id.search_bar);
     mSearchRecyclerView = findViewById(R.id.search_recycler_view);
     editText = searchView.getSearchEditText();
     noCommandFoundText = findViewById(R.id.no_command_found);
     itemList = Commands.commandList();
-
     viewModel = new ViewModelProvider(this).get(ExamplesViewModel.class);
-
     ImageView imageView = findViewById(R.id.arrow_back);
 
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
     imageView.setOnClickListener(v -> dispatcher.onBackPressed());
+
+    mSearchBar.setOnMenuItemClickListener(
+        item -> {
+          switch (item.getItemId()) {
+            case R.id.menu:
+              sortingDialog(this, this);
+              return true;
+            default:
+              return false;
+          }
+        });
 
     mRecyclerView = findViewById(R.id.recycler_view);
     mSearchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -92,9 +112,10 @@ public class ExamplesActivity extends AppCompatActivity {
                 ? 2
                 : 1);
     mRecyclerView.setLayoutManager(mLayoutManager);
-    ExamplesAdapter mRecycleViewAdapter = new ExamplesAdapter(Commands.commandList(), this);
+    mExamplesAdapter = new ExamplesAdapter(Commands.commandList(), this);
+    mExamplesAdapter.sortDataAlphabetically();
 
-    mRecyclerView.setAdapter(mRecycleViewAdapter);
+    mRecyclerView.setAdapter(mExamplesAdapter);
     mRecyclerView.setVisibility(View.VISIBLE);
 
     editText.addTextChangedListener(
@@ -129,5 +150,33 @@ public class ExamplesActivity extends AppCompatActivity {
     mSearchRecyclerView.setVisibility(View.VISIBLE);
     CommandsSearchAdapter adapter = new CommandsSearchAdapter(filteredList, this);
     mSearchRecyclerView.setAdapter(adapter);
+  }
+
+  private void sortingDialog(Context context, Activity activity) {
+    CharSequence[] sortingOptions = {
+      context.getString(R.string.sort_A_Z), context.getString(R.string.sort_Z_A)
+    };
+    int currentSortingOption = Preferences.getSortingExamples(context);
+    isSortingOptionSame = currentSortingOption;
+    final int[] sortingOption = {currentSortingOption};
+
+    new MaterialAlertDialogBuilder(activity)
+        .setTitle(context.getString(R.string.sort))
+        .setSingleChoiceItems(
+            sortingOptions,
+            currentSortingOption,
+            (dialog, which) -> {
+              sortingOption[0] = which;
+            })
+        .setPositiveButton(
+            context.getString(R.string.ok),
+            (dialog, which) -> {
+              Preferences.setSortingExamples(context, sortingOption[0]);
+              if (isSortingOptionSame != sortingOption[0]) {
+                mExamplesAdapter.sortDataAlphabetically();
+              }
+            })
+        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .show();
   }
 }
