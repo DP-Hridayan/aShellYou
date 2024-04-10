@@ -1,5 +1,7 @@
 package in.hridayan.ashell.utils;
 
+import android.content.pm.PackageManager;
+import com.google.android.material.chip.Chip;
 import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
 import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
@@ -41,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import rikka.shizuku.Shizuku;
 
 public class Utils {
   public static Intent intent;
@@ -448,4 +451,27 @@ public class Utils {
         .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
         .show();
   }
+    public static void connectedDeviceDialog(Context context , String connectedDevice){
+        String device = connectedDevice;
+        
+       new MaterialAlertDialogBuilder(context)
+        .setTitle(context.getString(R.string.connected_device))
+        .setMessage(device)
+        .show();
+    }
+    public static void chipOnClickListener(Context context,Chip mChip , String device){
+        
+       mChip.setOnClickListener(
+        v -> {
+          if (Shizuku.pingBinder()
+              && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
+            Utils.connectedDeviceDialog(context, device);
+          } else {
+            Utils.connectedDeviceDialog(context, context.getString(R.string.none));
+          }
+          mChip.setChecked(!mChip.isChecked());
+        });
+        
+        
+    }
 }

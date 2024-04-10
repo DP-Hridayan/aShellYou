@@ -31,15 +31,14 @@
                 android:text="@string/app_name" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/local_adb_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Widget.Material3.Chip.Suggestion"
                 android:text="Local ADB"
                 android:checked="true"
                 android:layout_marginStart="25dp"
-                android:layout_gravity="bottom"
-                app:rippleColor="@android:color/transparent"
-                android:clickable="false" />
+                android:layout_gravity="bottom" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"

@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -106,6 +107,7 @@ public class aShellFragment extends Fragment {
   private View view;
   private Context context;
   private aShellFragmentViewModel viewModel;
+  private Chip mChip;
 
   public aShellFragment() {}
 
@@ -206,6 +208,7 @@ public class aShellFragment extends Fragment {
     mBookMarks = view.findViewById(R.id.bookmarks);
     mBottomButton = view.findViewById(R.id.fab_down);
     mClearButton = view.findViewById(R.id.clear);
+    mChip = view.findViewById(R.id.local_adb_chip);
     mPasteButton = view.findViewById(R.id.paste_button);
     mCommand = view.findViewById(R.id.shell_command);
     mCommandInput = view.findViewById(R.id.shell_command_layout);
@@ -288,6 +291,7 @@ public class aShellFragment extends Fragment {
     Utils.isAppUpdated(context, requireActivity());
     Preferences.setSavedVersionCode(context, Utils.currentVersion());
 
+    Utils.chipOnClickListener(context , mChip , Utils.getDeviceName());
     /*------------------------------------------------------*/
 
     if (!mCommand.getText().toString().isEmpty()) {

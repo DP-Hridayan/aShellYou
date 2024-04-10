@@ -37,6 +37,7 @@
     <string name="command_title">Input ADB Command</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
+    <string name="connected_device">Connected device</string>
     <string name="connecting">connecting...</string>
     <string name="connecting_hint">confirm authorization on target device</string>
     <string name="copy">"Copy"</string>
@@ -58,6 +59,7 @@
     <string name="go_back">Go back</string>
     <string name="history">History</string>
     <string name="local_adb">Local ADB</string>
+    <string name="none">None</string>
     <string name="no_command">No command</string>
     <string name="no_command_found">No command found that matches your query</string>
     <string name="ok">Ok</string>
