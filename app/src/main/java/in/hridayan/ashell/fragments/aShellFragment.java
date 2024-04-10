@@ -157,6 +157,9 @@ public class aShellFragment extends Fragment {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
+    handleUseCommandIntent(requireActivity().getIntent());
+    handleSharedTextIntent(requireActivity().getIntent());
+
     if (viewModel.isEditTextFocused()) {
       mCommand.requestFocus();
     } else {
@@ -261,8 +264,6 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
-
-    handleSharedTextIntent(requireActivity().getIntent());
 
     setupRecyclerView();
 
@@ -1179,17 +1180,7 @@ public class aShellFragment extends Fragment {
         sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
       }
       boolean switchState = Preferences.getShareAndRun(context);
-
-      viewModel.setSendDrawable(ic_send);
-      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-      if (sharedText != null) {
-        mCommand.setText(sharedText);
-      }
       updateInputField(sharedText);
-
-      viewModel.setEditTextFocused(true);
-      viewModel.setSendDrawable(sendDrawable);
-
       if (switchState) {
         if (!Shizuku.pingBinder()) {
           handleShizukuAvailability(context);
@@ -1202,11 +1193,23 @@ public class aShellFragment extends Fragment {
     return;
   }
 
-  public void updateInputField(String sharedText) {
-    if (sharedText != null) {
-      mCommand.setText(sharedText);
+  private void handleUseCommandIntent(Intent intent) {
+    String useCommand = intent.getStringExtra("use_command");
+    if (useCommand != null) {
+      updateInputField(useCommand);
+    }
+    return;
+  }
+
+  public void updateInputField(String text) {
+    if (text != null) {
+      mCommand.setText(text);
       mCommand.requestFocus();
       mCommand.setSelection(mCommand.getText().length());
+      viewModel.setSendDrawable(ic_send);
+      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+      viewModel.setEditTextFocused(true);
+      viewModel.setSendDrawable(sendDrawable);
     }
   }
 
