@@ -331,7 +331,7 @@ public class Utils {
         .setNegativeButton(
             context.getString(R.string.sort),
             (dialogInterface, i) -> {
-              Utils.sortingDialog(context, activity, mCommand,mCommandInput,button);
+              Utils.sortingDialog(context, activity, mCommand, mCommandInput, button);
             })
         .setNeutralButton(
             context.getString(R.string.delete_all),
