@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.search.SearchBar;
 import com.google.android.material.textview.MaterialTextView;
@@ -46,7 +47,9 @@ public class ExamplesActivity extends AppCompatActivity {
   private List<CommandItems> itemList;
   private SearchBar mSearchBar;
   private ExamplesAdapter mExamplesAdapter;
+  private Chip mSummaryChip;
   private int isSortingOptionSame;
+  private boolean isSummaryChipClicked = false;
 
   @Override
   protected void onPause() {
@@ -81,6 +84,7 @@ public class ExamplesActivity extends AppCompatActivity {
     searchView = findViewById(R.id.search_view);
     mSearchBar = findViewById(R.id.search_bar);
     mSearchRecyclerView = findViewById(R.id.search_recycler_view);
+    mSummaryChip = findViewById(R.id.search_summary);
     editText = searchView.getSearchEditText();
     noCommandFoundText = findViewById(R.id.no_command_found);
     itemList = Commands.commandList();
@@ -117,7 +121,6 @@ public class ExamplesActivity extends AppCompatActivity {
 
     mRecyclerView.setAdapter(mExamplesAdapter);
     mRecyclerView.setVisibility(View.VISIBLE);
-
     editText.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -129,19 +132,30 @@ public class ExamplesActivity extends AppCompatActivity {
           @Override
           public void afterTextChanged(Editable text) {
             filterList(text);
+            mSummaryChip.setOnClickListener(
+                v -> {
+                  isSummaryChipClicked = true;
+                  filterList(text);
+                });
           }
         });
   }
 
   private void filterList(CharSequence text) {
     List<CommandItems> filteredList = new ArrayList<>();
+        mSummaryChip.setVisibility(View.GONE);
     noCommandFoundText.setVisibility(View.GONE);
     if (text != null && !text.toString().isEmpty()) {
-      for (CommandItems item : itemList) {
-        if (item.getTitle().toLowerCase().contains(text.toString().toLowerCase())) {
-          filteredList.add(item);
+      searchTitle(text, filteredList);
+
+      if (filteredList.isEmpty()) {
+        noCommandFoundText.setVisibility(View.VISIBLE);
+        mSummaryChip.setVisibility(View.VISIBLE);
+        if (isSummaryChipClicked) {
+          chipSummaryOnClick(text, filteredList);
         }
       }
+
       if (filteredList.isEmpty()) {
         noCommandFoundText.setVisibility(View.VISIBLE);
       }
@@ -150,6 +164,29 @@ public class ExamplesActivity extends AppCompatActivity {
     mSearchRecyclerView.setVisibility(View.VISIBLE);
     CommandsSearchAdapter adapter = new CommandsSearchAdapter(filteredList, this);
     mSearchRecyclerView.setAdapter(adapter);
+  }
+
+  private void searchTitle(CharSequence text, List<CommandItems> filteredList) {
+    for (CommandItems item : itemList) {
+      if (item.getTitle().toLowerCase().contains(text.toString().toLowerCase())) {
+        filteredList.add(item);
+      }
+    }
+  }
+
+  private void searchTitleAndSummary(CharSequence text, List<CommandItems> filteredList) {
+    for (CommandItems item : itemList) {
+      if (item.getTitle().toLowerCase().contains(text.toString().toLowerCase())
+          || item.getSummary().toLowerCase().contains(text.toString().toLowerCase())) {
+        filteredList.add(item);
+      }
+    }
+  }
+
+  private void chipSummaryOnClick(CharSequence text, List<CommandItems> filteredList) {
+    noCommandFoundText.setVisibility(View.GONE);
+    searchTitleAndSummary(text, filteredList);
+    mSummaryChip.setVisibility(View.GONE);
   }
 
   private void sortingDialog(Context context, Activity activity) {

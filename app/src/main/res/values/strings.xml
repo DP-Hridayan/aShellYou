@@ -81,6 +81,7 @@
     <string name="search">Search</string>
     <string name="search_command">Search commands here</string>
     <string name="search_output">Search output here</string>
+    <string name="search_summary">Search in commands summary?</string>
     <string name="settings">Settings</string>
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) fail</string>
     <string name="share_and_run">Auto run shared commands</string>

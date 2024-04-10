@@ -78,6 +78,17 @@
             android:background="?attr/colorSurface"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/search_summary"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.Chip.Suggestion"
+            android:text="@string/search_summary"
+            android:checked="true"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="25dp" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/no_command_found"
             android:visibility="gone"
