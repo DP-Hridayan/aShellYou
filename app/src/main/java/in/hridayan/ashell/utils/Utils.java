@@ -331,7 +331,7 @@ public class Utils {
         .setNegativeButton(
             context.getString(R.string.sort),
             (dialogInterface, i) -> {
-              Utils.sortingDialog(context, activity, mCommand);
+              Utils.sortingDialog(context, activity, mCommand,mCommandInput,button);
             })
         .setNeutralButton(
             context.getString(R.string.delete_all),
@@ -380,7 +380,12 @@ public class Utils {
         .show();
   }
 
-  public static void sortingDialog(Context context, Activity activity, TextInputEditText mCommand) {
+  public static void sortingDialog(
+      Context context,
+      Activity activity,
+      TextInputEditText mCommand,
+      TextInputLayout mCommandInput,
+      MaterialButton button) {
     CharSequence[] sortingOptions = {
       context.getString(R.string.sort_A_Z),
       context.getString(R.string.sort_Z_A),
@@ -403,16 +408,16 @@ public class Utils {
             context.getString(R.string.ok),
             (dialog, which) -> {
               Preferences.setSortingOption(context, sortingOption[0]);
-              Utils.bookmarksDialog(context, activity, mCommand, null, null);
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
             })
         .setNegativeButton(
             context.getString(R.string.cancel),
             (dialog, i) -> {
-              Utils.bookmarksDialog(context, activity, mCommand, null, null);
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
             })
         .setOnCancelListener(
             v -> {
-              Utils.bookmarksDialog(context, activity, mCommand, null, null);
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
             })
         .show();
   }
