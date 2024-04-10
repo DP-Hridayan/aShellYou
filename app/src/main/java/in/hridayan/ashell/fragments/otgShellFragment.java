@@ -154,8 +154,6 @@ public class otgShellFragment extends Fragment
           }
         });
 
-    handleSharedTextIntent(requireActivity().getIntent());
-
     if (isSendDrawable) {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
 
@@ -397,7 +395,7 @@ public class otgShellFragment extends Fragment
 
     mBookMarks.setOnClickListener(
         v -> {
-          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput,mBookMarks);
+          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks);
         });
 
     mHistoryButton.setTooltipText(getString(R.string.history));
@@ -813,20 +811,6 @@ public class otgShellFragment extends Fragment
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  private void handleSharedTextIntent(Intent intent) {
-    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-    if (sharedText != null) {
-      sharedText = sharedText.trim();
-      if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
-        sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
-      }
-      isSendDrawable = true;
-      mCommand.setText(sharedText);
-      updateInputField(sharedText);
-    }
-    return;
   }
 
   public void updateInputField(String sharedText) {

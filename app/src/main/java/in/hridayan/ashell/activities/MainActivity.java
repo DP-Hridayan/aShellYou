@@ -45,12 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
     if (intent.hasExtra("use_command")) {
       String useCommand = intent.getStringExtra("use_command");
-      handleUseCommandIntent(useCommand);
+      handleUseCommandIntent(useCommand, intent);
     }
     if (intent.hasExtra(Intent.EXTRA_TEXT)) {
       String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
       if (sharedText != null) {
-        handleSharedTextIntent(sharedText);
+        sharedText = sharedText.trim();
+        if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
+          sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
+        }
+        handleSharedTextIntent(sharedText, intent);
       }
     }
   }
@@ -115,15 +119,15 @@ public class MainActivity extends AppCompatActivity {
     setBadge(R.id.nav_wireless, "Soon");
   }
 
-  private void handleSharedTextIntent(String sharedText) {
-    setTextOnEditText(sharedText);
+  private void handleSharedTextIntent(String sharedText, Intent intent) {
+    setTextOnEditText(sharedText, intent);
   }
 
-  private void handleUseCommandIntent(String useCommand) {
-    setTextOnEditText(useCommand);
+  private void handleUseCommandIntent(String useCommand, Intent intent) {
+    setTextOnEditText(useCommand, intent);
   }
 
-  private void setTextOnEditText(String text) {
+  private void setTextOnEditText(String text, Intent intent) {
 
     int currentFragment = Preferences.getCurrentFragment(this);
     switch (currentFragment) {
@@ -131,7 +135,11 @@ public class MainActivity extends AppCompatActivity {
         aShellFragment fragmentLocalAdb =
             (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (fragmentLocalAdb != null) {
-          fragmentLocalAdb.updateInputField(text);
+          if (intent.hasExtra(Intent.EXTRA_TEXT)) {
+            fragmentLocalAdb.handleSharedTextIntent(getIntent(), text);
+          } else {
+            fragmentLocalAdb.updateInputField(text);
+          }
         }
         break;
 

@@ -157,9 +157,6 @@ public class aShellFragment extends Fragment {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
-    handleUseCommandIntent(requireActivity().getIntent());
-    handleSharedTextIntent(requireActivity().getIntent());
-
     if (viewModel.isEditTextFocused()) {
       mCommand.requestFocus();
     } else {
@@ -1172,13 +1169,8 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
-  private void handleSharedTextIntent(Intent intent) {
-    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+  public void handleSharedTextIntent(Intent intent, String sharedText) {
     if (sharedText != null) {
-      sharedText = sharedText.trim();
-      if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
-        sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
-      }
       boolean switchState = Preferences.getShareAndRun(context);
       updateInputField(sharedText);
       if (switchState) {
@@ -1193,14 +1185,6 @@ public class aShellFragment extends Fragment {
     return;
   }
 
-  private void handleUseCommandIntent(Intent intent) {
-    String useCommand = intent.getStringExtra("use_command");
-    if (useCommand != null) {
-      updateInputField(useCommand);
-    }
-    return;
-  }
-
   public void updateInputField(String text) {
     if (text != null) {
       mCommand.setText(text);
@@ -1209,7 +1193,7 @@ public class aShellFragment extends Fragment {
       viewModel.setSendDrawable(ic_send);
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
       viewModel.setEditTextFocused(true);
-      viewModel.setSendDrawable(sendDrawable);
+      viewModel.setSendDrawable(ic_send);
     }
   }
 
