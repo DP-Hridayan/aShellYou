@@ -20,6 +20,7 @@
     <string name="bookmark_removed_message">\'%s\' não é mais um favorito</string>
     <string name="cancel">Cancelar</string>
     <string name="changelogs">Novidades</string>
+    <string name="choose">Escolher</string>
     <string name="clear_all_message">Tem certeza de que deseja limpar tudo nesta tela?</string>
     <string name="clear_everything">Limpar tudo</string>
     <string name="clear_screen">Limpar tela</string>
@@ -30,6 +31,9 @@
     <string name="connecting">conectando...</string>
     <string name="connecting_hint">confirme a autorização no dispositivo alvo</string>
     <string name="copy">"Copiar"</string>
+    <string name="copied_to_clipboard">Copiado para a área de transferência</string>
+    <string name="default_working_mode">Modo de operação padrão</string>
+    <string name="des_default_working_mode">Escolha o modo de operação padrão para executar comandos ADB</string>
     <string name="device_not_connected">Dispositivo não conectado</string>
     <string name="discord">Discord</string>
     <string name="des_discord">Junte-se à comunidade do discord</string>
@@ -44,9 +48,12 @@
     <string name="flashing">Flasheando</string>
     <string name="go_back">Voltar</string>
     <string name="history">Histórico</string>
+    <string name="local_adb">ADB Local</string>
     <string name="no_command">Nenhum comando</string>
+    <string name="no_command_found">Nenhum comando encontrado que corresponda à sua consulta</string>
     <string name="ok">OK</string>
     <string name="open_adb">Abrir ADB shell</string>
+    <string name="otg">OTG</string>
     <string name="otg_not_connected">O dispositivo não está conectado corretamente. Conecte o dispositivo corretamente através do OTG e tente novamente</string>
     <string name="paste">Colar</string>
     <string name="press_back">Pressione voltar de novo para sair</string>
@@ -54,10 +61,13 @@
     <string name="progress">Progresso</string>
     <string name="quit">Sair</string>
     <string name="quit_app_message">Deseja encerrar o app?</string>
+    <string name="remember_working_mode">Lembrar o último modo de operação</string>
     <string name="request_permission">Solicitar Permissão</string>
     <string name="save">Salvar</string>
     <string name="su_warning">Comandos root não estão disponíveis</string>
     <string name="search">Pesquisar</string>
+    <string name="search_command">Pesquise por comandos aqui</string>
+    <string name="search_output">Encontrar resultados de comandos</string>
     <string name="settings">Configurações</string>
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) falha</string>
     <string name="share_and_run">Auto executar comandos compartilhados</string>
@@ -69,6 +79,11 @@
     <string name="shizuku_access_denied_message">O acesso ao serviço Shizuku foi negado ao aShell You. Este app não funcionará sem um ambiente Shizuku adequado.</string>
     <string name="shizuku_unavailable">Shizuku indisponível</string>
     <string name="shizuku_unavailable_message">O Shizuku não está instalado ou não está configurado corretamente no seu dispositivo. O aShell You não funcionará sem um ambiente Shizuku adequado.</string>
+    <string name="sort">Ordenar</string>
+    <string name="sort_A_Z">A → Z</string>
+    <string name="sort_Z_A">Z → A</string>
+    <string name="sort_newest">Mais novos</string>
+    <string name="sort_oldest">Mais antigos</string>
     <string name="start">Iniciar</string>
     <string name="success">Sucesso</string>
     <string name="support">Suporte</string>
@@ -77,6 +92,7 @@
     <string name="use">Usar</string>
     <string name="waiting_device">Aguardando por dispositivo</string>
     <string name="warning">Aviso</string>
+    <string name="working_mode">Modo de operação</string>
     <string name="yes">Sim</string>
     <string name="smooth_scrolling">Rolagem suave</string>
     <string name="des_smooth_scroll">Permite rolagem suave na saída do shell quando a seta superior ou inferior for clicada</string>
