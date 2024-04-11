@@ -664,7 +664,7 @@ public class aShellFragment extends Fragment {
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
             String result = mResult.get(i);
-            if (!"aShell: Finish".equals(result) && !"<i></i>".equals(result)) {
+            if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
               sb.append(result).append("\n");
             }
           }
@@ -742,7 +742,7 @@ public class aShellFragment extends Fragment {
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
             String result = mResult.get(i);
-            if (!"aShell: Finish".equals(result) && !"<i></i>".equals(result)) {
+            if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
               sb.append(result).append("\n");
             }
           }
@@ -812,7 +812,7 @@ public class aShellFragment extends Fragment {
         () -> {
           if (mResult != null
               && mResult.size() > 0
-              && !mResult.get(mResult.size() - 1).equals("aShell: Finish")) {
+              && !mResult.get(mResult.size() - 1).equals("Shell is dead")) {
             updateUI(mResult);
           }
         },
@@ -1022,7 +1022,7 @@ public class aShellFragment extends Fragment {
 
                         mSearchButton.setVisibility(View.VISIBLE);
                         mResult.add("<i></i>");
-                        mResult.add("aShell: Finish");
+                        mResult.add("Shell is dead");
                         if (!isKeyboardVisible) {
                           mSaveButton.show();
                           mShareButton.show();
@@ -1076,7 +1076,7 @@ public class aShellFragment extends Fragment {
     List<String> mData = new ArrayList<>();
     try {
       for (String result : data) {
-        if (!TextUtils.isEmpty(result) && !result.equals("aShell: Finish")) {
+        if (!TextUtils.isEmpty(result) && !result.equals("Shell is dead")) {
           mData.add(result);
         }
       }

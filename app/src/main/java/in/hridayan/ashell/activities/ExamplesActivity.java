@@ -94,6 +94,7 @@ public class ExamplesActivity extends AppCompatActivity {
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
     imageView.setOnClickListener(v -> dispatcher.onBackPressed());
 
+    mSearchBar.clearFocus();
     mSearchBar.setOnMenuItemClickListener(
         item -> {
           switch (item.getItemId()) {
@@ -143,7 +144,7 @@ public class ExamplesActivity extends AppCompatActivity {
 
   private void filterList(CharSequence text) {
     List<CommandItems> filteredList = new ArrayList<>();
-        mSummaryChip.setVisibility(View.GONE);
+    mSummaryChip.setVisibility(View.GONE);
     noCommandFoundText.setVisibility(View.GONE);
     if (text != null && !text.toString().isEmpty()) {
       searchTitle(text, filteredList);

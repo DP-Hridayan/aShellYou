@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,6 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.AboutActivity;
 import in.hridayan.ashell.activities.ExamplesActivity;
-import in.hridayan.ashell.activities.SettingsActivity;
-import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import java.util.List;
@@ -72,7 +71,14 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             settingsItem.saveSwitchState(context);
             switch (id) {
               case "id_amoled_theme":
-                applyTheme(isChecked);
+                int currentMode =
+                    context.getResources().getConfiguration().uiMode
+                        & Configuration.UI_MODE_NIGHT_MASK;
+
+                if (currentMode == Configuration.UI_MODE_NIGHT_YES) {
+                  applyTheme(isChecked);
+                }
+
                 break;
 
               default:
@@ -108,7 +114,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                 break;
 
               case "id_default_working_mode":
-                  Utils.defaultWorkingModeDialog(context);
+                Utils.defaultWorkingModeDialog(context);
 
                 break;
               default:
