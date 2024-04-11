@@ -1,5 +1,6 @@
 package in.hridayan.ashell.utils;
 
+import android.text.Editable;
 import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
 import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
@@ -355,14 +356,15 @@ public class Utils {
             context.getString(R.string.ok),
             (dialogInterface, i) -> {
               List<String> bookmarks = Utils.getBookmarks(activity);
-
               for (String item : bookmarks) {
                 Utils.deleteFromBookmark(item, context);
               }
               button.setVisibility(View.GONE);
-              if (mCommand.getText() != null) {
-                mCommandInput.setEndIconDrawable(
-                    Utils.getDrawable(R.drawable.ic_add_bookmark, context));
+              String s = mCommand.getText().toString();
+              if (!s.equals("")) {
+                mCommandInput.setEndIconDrawable(R.drawable.ic_add_bookmark);
+              } else {
+                mCommandInput.setEndIconVisible(false);
               }
             })
         .setNegativeButton(

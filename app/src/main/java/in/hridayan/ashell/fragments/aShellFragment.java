@@ -1194,7 +1194,6 @@ public class aShellFragment extends Fragment {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
       viewModel.setEditTextFocused(true);
       viewModel.setSendDrawable(ic_send);
-      
     }
   }
 

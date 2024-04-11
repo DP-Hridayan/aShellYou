@@ -75,7 +75,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                     context.getResources().getConfiguration().uiMode
                         & Configuration.UI_MODE_NIGHT_MASK;
 
-                if (currentMode == Configuration.UI_MODE_NIGHT_YES) {
+                if (currentMode == Configuration.UI_MODE_NIGHT_YES ) {
                   applyTheme(isChecked);
                 }
 
