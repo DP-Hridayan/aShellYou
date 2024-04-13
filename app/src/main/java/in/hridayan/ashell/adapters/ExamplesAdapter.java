@@ -1,6 +1,5 @@
 package in.hridayan.ashell.adapters;
 
-import android.widget.Toast;
 import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
 import static in.hridayan.ashell.utils.Preferences.SORT_LEAST_USED;
 import static in.hridayan.ashell.utils.Preferences.SORT_MOST_USED;
