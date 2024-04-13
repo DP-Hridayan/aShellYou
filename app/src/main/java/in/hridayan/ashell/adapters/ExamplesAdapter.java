@@ -94,7 +94,6 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
       if (data.get(getAdapterPosition()).getExample() != null) {
         String sanitizedText = sanitizeText(data.get(getAdapterPosition()).getTitle());
         String string = String.valueOf(data.get(getAdapterPosition()).getUseCounter());
-        Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
         Context context = view.getContext();
         new MaterialAlertDialogBuilder(context)
             .setTitle(R.string.example)
