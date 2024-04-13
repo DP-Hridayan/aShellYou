@@ -87,7 +87,7 @@ public class ExamplesActivity extends AppCompatActivity {
     mSummaryChip = findViewById(R.id.search_summary);
     editText = searchView.getSearchEditText();
     noCommandFoundText = findViewById(R.id.no_command_found);
-    itemList = Commands.commandList();
+    itemList = Commands.commandList(this);
     viewModel = new ViewModelProvider(this).get(ExamplesViewModel.class);
     ImageView imageView = findViewById(R.id.arrow_back);
 
@@ -117,8 +117,8 @@ public class ExamplesActivity extends AppCompatActivity {
                 ? 2
                 : 1);
     mRecyclerView.setLayoutManager(mLayoutManager);
-    mExamplesAdapter = new ExamplesAdapter(Commands.commandList(), this);
-    mExamplesAdapter.sortDataAlphabetically();
+    mExamplesAdapter = new ExamplesAdapter(Commands.commandList(this), this);
+    mExamplesAdapter.sortData();
 
     mRecyclerView.setAdapter(mExamplesAdapter);
     mRecyclerView.setVisibility(View.VISIBLE);
@@ -192,7 +192,10 @@ public class ExamplesActivity extends AppCompatActivity {
 
   private void sortingDialog(Context context, Activity activity) {
     CharSequence[] sortingOptions = {
-      context.getString(R.string.sort_A_Z), context.getString(R.string.sort_Z_A)
+      context.getString(R.string.sort_A_Z),
+      context.getString(R.string.sort_Z_A),
+      context.getString(R.string.most_used),
+      context.getString(R.string.least_used)
     };
     int currentSortingOption = Preferences.getSortingExamples(context);
     isSortingOptionSame = currentSortingOption;
@@ -211,7 +214,7 @@ public class ExamplesActivity extends AppCompatActivity {
             (dialog, which) -> {
               Preferences.setSortingExamples(context, sortingOption[0]);
               if (isSortingOptionSame != sortingOption[0]) {
-                mExamplesAdapter.sortDataAlphabetically();
+                mExamplesAdapter.sortData();
               }
             })
         .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})

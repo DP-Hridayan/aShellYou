@@ -273,7 +273,7 @@ public class otgShellFragment extends Fragment
                           }
 
                           mCommandsAdapter =
-                              new CommandsAdapter(Commands.getPackageInfo(packageNamePrefix + "."));
+                              new CommandsAdapter(Commands.getPackageInfo(packageNamePrefix + ".",context));
                           if (isAdded()) {
                             mRecyclerViewCommands.setLayoutManager(
                                 new LinearLayoutManager(requireActivity()));
@@ -293,7 +293,7 @@ public class otgShellFragment extends Fragment
                                 mRecyclerViewCommands.setVisibility(View.GONE);
                               });
                         } else {
-                          mCommandsAdapter = new CommandsAdapter(Commands.getCommand(s.toString()));
+                          mCommandsAdapter = new CommandsAdapter(Commands.getCommand(s.toString(),context));
                           if (isAdded()) {
                             mRecyclerViewCommands.setLayoutManager(
                                 new LinearLayoutManager(requireActivity()));

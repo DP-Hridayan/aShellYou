@@ -103,6 +103,8 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
             .setPositiveButton(
                 R.string.use,
                 (dialogInterface, i) -> {
+                  int counter = data.get(getAdapterPosition()).getUseCounter();
+                  data.get(getAdapterPosition()).setUseCounter(counter + 1);
                   Intent intent = new Intent(context, MainActivity.class);
                   intent.putExtra("use_command", sanitizedText);
                   intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);

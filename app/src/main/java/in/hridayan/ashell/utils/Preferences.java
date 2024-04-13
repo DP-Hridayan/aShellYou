@@ -7,6 +7,7 @@ import androidx.preference.PreferenceManager;
 public class Preferences {
 
   private static final String PREF_AMOLED_THEME = "id_amoled_theme",
+      PREF_COUNTER_PREFIX = "counter_",
       PREF_CLEAR = "id_clear",
       PREF_SHARE_AND_RUN = "id_share_and_run",
       PREF_DISABLE_SOFTKEY = "id_disable_softkey",
@@ -19,8 +20,10 @@ public class Preferences {
       PREF_DEFAULT_WORKING_MODE = "id_default_working_mode";
   public static final int SORT_A_TO_Z = 0,
       SORT_Z_TO_A = 1,
+      SORT_MOST_USED = 2,
       SORT_OLDEST = 2,
       SORT_NEWEST = 3,
+      SORT_LEAST_USED = 3,
       LOCAL_FRAGMENT = 1,
       OTG_FRAGMENT = 2,
       MODE_LOCAL_ADB = 0,
@@ -120,5 +123,17 @@ public class Preferences {
 
   public static void setCurrentFragment(Context context, int value) {
     getSharedPreferences(context).edit().putInt(PREF_CURRENT_FRAGMENT, value).apply();
+  }
+
+  public static int getUseCounter(Context context, String title) {
+    return getSharedPreferences(context).getInt(getCounterKey(title), 0);
+  }
+
+  public static void setUseCounter(Context context, String title, int counter) {
+    getSharedPreferences(context).edit().putInt(getCounterKey(title), counter).apply();
+  }
+
+  private static String getCounterKey(String title) {
+    return PREF_COUNTER_PREFIX + title;
   }
 }

@@ -400,7 +400,7 @@ public class aShellFragment extends Fragment {
 
                             mCommandsAdapter =
                                 new CommandsAdapter(
-                                    Commands.getPackageInfo(packageNamePrefix + "."));
+                                    Commands.getPackageInfo(packageNamePrefix + ".", context));
                             if (isAdded()) {
                               mRecyclerViewCommands.setLayoutManager(
                                   new LinearLayoutManager(requireActivity()));
@@ -421,7 +421,7 @@ public class aShellFragment extends Fragment {
                                 });
                           } else {
                             mCommandsAdapter =
-                                new CommandsAdapter(Commands.getCommand(s.toString()));
+                                new CommandsAdapter(Commands.getCommand(s.toString(),context));
                             if (isAdded()) {
                               mRecyclerViewCommands.setLayoutManager(
                                   new LinearLayoutManager(requireActivity()));
@@ -455,7 +455,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    mCommand.setOnEditorActionListener(
+   mCommand.setOnEditorActionListener(
         new TextView.OnEditorActionListener() {
 
           public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
