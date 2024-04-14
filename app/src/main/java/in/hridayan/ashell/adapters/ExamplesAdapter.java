@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
@@ -20,6 +21,7 @@ import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.utils.CommandItems;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.Utils;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -28,14 +30,26 @@ import java.util.List;
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 08, 2022
  */
 public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHolder> {
-
-  private final List<CommandItems> data;
+  public final List<CommandItems> data;
+  public List<CommandItems> selectedItems = new ArrayList<>();
   private Context context;
   private CommandItems commands;
+  private OnItemClickListener listener;
+  public int bookmarkedCount;
 
   public ExamplesAdapter(List<CommandItems> data, Context context) {
     this.data = data;
     this.context = context;
+  }
+
+  public void setOnItemClickListener(OnItemClickListener listener) {
+    this.listener = listener;
+  }
+
+  public interface OnItemClickListener {
+    void onItemClick(int position);
+
+    void onItemLongClick(int position);
   }
 
   @NonNull
@@ -48,28 +62,22 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
 
   @Override
   public void onBindViewHolder(@NonNull ExamplesAdapter.ViewHolder holder, int position) {
+    holder.card.setChecked(this.data.get(position).isChecked());
+
     holder.itemView.startAnimation(
         AnimationUtils.loadAnimation(context, R.anim.on_scroll_animator));
     holder.mTitle.setText(this.data.get(position).getTitle());
     if (this.data.get(position).getSummary() != null) {
       holder.mSummary.setText(this.data.get(position).getSummary());
 
-      if (position == data.size() - 1) {
-        int paddingInDp = 50;
-        float scale = context.getResources().getDisplayMetrics().density;
-        int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+      int paddingInDp = 50;
+      float scale = context.getResources().getDisplayMetrics().density;
+      int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
 
-        ViewGroup.MarginLayoutParams layoutParams =
-            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-        layoutParams.bottomMargin = paddingInPixels;
-        holder.itemView.setLayoutParams(layoutParams);
-      } else {
-
-        ViewGroup.MarginLayoutParams layoutParams =
-            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-        layoutParams.bottomMargin = 30;
-        holder.itemView.setLayoutParams(layoutParams);
-      }
+      ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+      layoutParams.bottomMargin = position == data.size() - 1 ? paddingInPixels : 30;
+      holder.itemView.setLayoutParams(layoutParams);
     }
   }
 
@@ -78,19 +86,23 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     return this.data.size();
   }
 
-  public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+  public class ViewHolder extends RecyclerView.ViewHolder
+      implements View.OnClickListener, View.OnLongClickListener {
     private final MaterialTextView mTitle, mSummary;
+    private MaterialCardView card;
 
     public ViewHolder(View view) {
       super(view);
       view.setOnClickListener(this);
+      view.setOnLongClickListener(this);
+      this.card = view.findViewById(R.id.commands_card);
       this.mTitle = view.findViewById(R.id.title);
       this.mSummary = view.findViewById(R.id.summary);
     }
 
     @Override
     public void onClick(View view) {
-      if (data.get(getAdapterPosition()).getExample() != null) {
+      if (data.get(getAdapterPosition()).getExample() != null && !isAtLeastOneItemChecked()) {
         String sanitizedText = sanitizeText(data.get(getAdapterPosition()).getTitle());
         String string = String.valueOf(data.get(getAdapterPosition()).getUseCounter());
         Context context = view.getContext();
@@ -113,13 +125,111 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
                   Utils.copyToClipboard(sanitizedText, context);
                 })
             .show();
+      } else {
+        startItemSelecting();
       }
     }
 
-    private String sanitizeText(String text) {
-      String sanitizedText = text.replaceAll("<[^>]*>", "");
-      return sanitizedText.trim();
+    @Override
+    public boolean onLongClick(View view) {
+      startItemSelecting();
+      return true;
     }
+
+    public void startItemSelecting() {
+      card.setChecked(!card.isChecked());
+      data.get(getAdapterPosition()).setChecked(card.isChecked());
+      updateSelectedItems(data.get(getAdapterPosition()), card.isChecked());
+      listener.onItemLongClick(getAdapterPosition());
+    }
+
+    public boolean isAtLeastOneItemChecked() {
+      for (CommandItems item : data) {
+        if (item.isChecked()) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+
+  public void updateSelectedItems(CommandItems item, boolean isChecked) {
+    if (isChecked) {
+      selectedItems.add(item);
+    } else {
+      selectedItems.remove(item);
+    }
+  }
+
+  public List<CommandItems> getSelectedItems() {
+    return selectedItems;
+  }
+
+  public int getSelectedItemsSize() {
+    return selectedItems.size();
+  }
+
+  public void selectAll() {
+    for (CommandItems item : data) {
+      if (!item.isChecked()) {
+        item.setChecked(true);
+        updateSelectedItems(item, true);
+      }
+      notifyDataSetChanged();
+    }
+  }
+
+  public void deselectAll() {
+    for (CommandItems item : data) {
+      if (item.isChecked()) {
+        item.setChecked(false);
+        updateSelectedItems(item, false);
+      }
+
+      notifyDataSetChanged();
+    }
+  }
+
+  public void addSelectedToBookmarks(int count) {
+    bookmarkedCount = count;
+    for (CommandItems item : selectedItems) {
+      String command = sanitizeText(item.getTitle());
+      if (Utils.isBookmarked(command, context)) {
+        bookmarkedCount = bookmarkedCount - 1;
+
+      } else {
+        Utils.addToBookmark(command, context);
+      }
+    }
+  }
+
+  public void deleteSelectedFromBookmarks() {
+    for (CommandItems item : selectedItems) {
+      String command = sanitizeText(item.getTitle().toString());
+      Utils.deleteFromBookmark(command, context);
+    }
+  }
+
+  public boolean isAllItemsBookmarked() {
+    int i = 0;
+    for (CommandItems item : selectedItems) {
+      String command = sanitizeText(item.getTitle().toString());
+      boolean isBookmarked = Utils.isBookmarked(command, context);
+
+      if (!isBookmarked) {
+        i++;
+      }
+    }
+    if (i > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  public String sanitizeText(String text) {
+    String sanitizedText = text.replaceAll("<[^>]*>", "");
+    return sanitizedText.trim();
   }
 
   public void sortData() {

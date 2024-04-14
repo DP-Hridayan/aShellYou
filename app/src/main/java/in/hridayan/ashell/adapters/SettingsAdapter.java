@@ -58,43 +58,30 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     holder.symbolImageView.setImageDrawable(symbolDrawable);
     holder.titleTextView.setText(settingsItem.getTitle());
     holder.descriptionTextView.setText(settingsItem.getDescription());
+    holder.descriptionTextView.setVisibility(
+        TextUtils.isEmpty(settingsItem.getDescription()) ? View.GONE : View.VISIBLE);
+    holder.switchView.setVisibility(settingsItem.hasSwitch() ? View.VISIBLE : View.GONE);
+    holder.switchView.setChecked(settingsItem.isChecked());
+    holder.switchView.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> {
+          settingsItem.setChecked(isChecked);
+          settingsItem.saveSwitchState(context);
 
-    String id = settingsItem.getId();
+          switch (settingsItem.getId()) {
+            case "id_amoled_theme":
+              if ((context.getResources().getConfiguration().uiMode
+                      & Configuration.UI_MODE_NIGHT_MASK)
+                  == Configuration.UI_MODE_NIGHT_YES) {
+                applyTheme(isChecked);
+              }
 
-    if (settingsItem.hasSwitch()) {
-      holder.switchView.setVisibility(View.VISIBLE);
-      holder.switchView.setChecked(settingsItem.isChecked());
+              break;
 
-      holder.switchView.setOnCheckedChangeListener(
-          (buttonView, isChecked) -> {
-            settingsItem.setChecked(isChecked);
-            settingsItem.saveSwitchState(context);
-            switch (id) {
-              case "id_amoled_theme":
-                int currentMode =
-                    context.getResources().getConfiguration().uiMode
-                        & Configuration.UI_MODE_NIGHT_MASK;
+            default:
+              break;
+          }
+        });
 
-                if (currentMode == Configuration.UI_MODE_NIGHT_YES ) {
-                  applyTheme(isChecked);
-                }
-
-                break;
-
-              default:
-                break;
-            }
-          });
-
-    } else {
-      holder.switchView.setVisibility(View.GONE);
-
-      if (TextUtils.isEmpty(settingsItem.getDescription())) {
-        holder.descriptionTextView.setVisibility(View.GONE);
-      } else {
-        holder.descriptionTextView.setVisibility(View.VISIBLE);
-      }
-    }
     View.OnClickListener clickListener =
         new View.OnClickListener() {
           @Override
@@ -102,7 +89,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
             Intent intent;
 
-            switch (id) {
+            switch (settingsItem.getId()) {
               case "id_examples":
                 intent = new Intent(context, ExamplesActivity.class);
                 context.startActivity(intent);
@@ -125,33 +112,21 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     holder.settingsItemLayout.setOnClickListener(clickListener);
 
-    if (position == getItemCount() - 1) {
-      int paddingInDp = 30;
-      float scale = context.getResources().getDisplayMetrics().density;
-      int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+    int paddingInDp = 30;
+    float scale = context.getResources().getDisplayMetrics().density;
+    int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
 
-      ViewGroup.MarginLayoutParams layoutParams =
-          (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-      layoutParams.bottomMargin = paddingInPixels;
-      holder.itemView.setLayoutParams(layoutParams);
-    } else {
-
-      ViewGroup.MarginLayoutParams layoutParams =
-          (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-      layoutParams.bottomMargin = 0;
-      holder.itemView.setLayoutParams(layoutParams);
-    }
+    ViewGroup.MarginLayoutParams layoutParams =
+        (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+    layoutParams.bottomMargin = position == getItemCount() - 1 ? paddingInPixels : 0;
+    holder.itemView.setLayoutParams(layoutParams);
   }
 
   private void applyTheme(boolean isAmoledTheme) {
-    if (isAmoledTheme) {
-      context.setTheme(R.style.ThemeOverlay_aShellYou_AmoledTheme);
-    } else {
-      context.setTheme(R.style.aShellYou_AppTheme);
-    }
-    currentTheme =
+    int themeId =
         isAmoledTheme ? R.style.ThemeOverlay_aShellYou_AmoledTheme : R.style.aShellYou_AppTheme;
-
+    context.setTheme(themeId);
+    currentTheme = themeId;
     ((AppCompatActivity) context).recreate();
   }
 

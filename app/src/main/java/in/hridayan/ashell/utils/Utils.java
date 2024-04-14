@@ -423,18 +423,13 @@ public class Utils {
   }
 
   public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
-
     boolean switchState = Preferences.getOverrideBookmarks(context);
-    if (Utils.getBookmarks(context).size() <= 24) {
+
+    if (Utils.getBookmarks(context).size() <= 24 || switchState) {
       Utils.addToBookmark(bookmark, context);
       Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
     } else {
-      if (switchState) {
-        Utils.addToBookmark(bookmark, context);
-        Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
-      } else {
-        Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();
-      }
+      Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();
     }
   }
 
@@ -477,17 +472,11 @@ public class Utils {
         .show();
   }
 
-  public static void chipOnClickListener(Context context, Chip mChip, String device) {
-
-    mChip.setOnClickListener(
-        v -> {
-          if (Shizuku.pingBinder()
-              && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
-            Utils.connectedDeviceDialog(context, device);
-          } else {
-            Utils.connectedDeviceDialog(context, context.getString(R.string.none));
-          }
-          mChip.setChecked(!mChip.isChecked());
-        });
-  }
+public static void chipOnClickListener(Context context, Chip mChip, String device) {
+    mChip.setOnClickListener(v -> {
+        boolean hasShizuku = Shizuku.pingBinder() && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
+        Utils.connectedDeviceDialog(context, hasShizuku ? device : context.getString(R.string.none));
+        mChip.setChecked(!mChip.isChecked());
+    });
+}
 }

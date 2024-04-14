@@ -12,6 +12,7 @@ public class CommandItems implements Serializable {
   private final String mTitle, mSummary, mExample;
   private int mUseCounter;
   private Context context;
+    private boolean isChecked;
 
   public CommandItems(String title, String summary, String example, Context context) {
     this.mTitle = title;
@@ -41,4 +42,12 @@ public class CommandItems implements Serializable {
     this.mUseCounter = counter;
     Preferences.setUseCounter(context, mTitle, counter);
   }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 }

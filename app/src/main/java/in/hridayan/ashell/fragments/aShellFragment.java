@@ -119,11 +119,8 @@ public class aShellFragment extends Fragment {
   public void onPause() {
     super.onPause();
 
-    if (viewModel.isSendDrawableSaved()) {
-      viewModel.setSendDrawable(viewModel.getSendDrawable());
-    } else {
-      viewModel.setSendDrawable(sendDrawable);
-    }
+    viewModel.setSendDrawable(
+        viewModel.isSendDrawableSaved() ? viewModel.getSendDrawable() : sendDrawable);
 
     viewModel.setEditTextFocused(isEditTextFocused());
     viewModel.setSaveButtonVisible(isSaveButtonVisible());
@@ -132,19 +129,13 @@ public class aShellFragment extends Fragment {
             .findFirstVisibleItemPosition());
     List<String> shellOutput = viewModel.getShellOutput();
     List<String> history = viewModel.getHistory();
-    if (mHistory == null && history != null) {
-      viewModel.setHistory(history);
-    } else {
-      viewModel.setHistory(mHistory);
-    }
-    if (mResult == null) {
-      viewModel.setShellOutput(shellOutput);
-    } else {
-      viewModel.setShellOutput(mResult);
-    }
+    viewModel.setHistory(mHistory == null && history != null ? history : mHistory);
+    viewModel.setShellOutput(mResult == null ? shellOutput : mResult);
+
     if (mCommand.getText().toString() != null) {
       viewModel.setCommandText(mCommand.getText().toString());
     }
+
     if (mCommandInput.isEndIconVisible()) {
       viewModel.setEndIconVisible(true);
     } else {
@@ -157,6 +148,7 @@ public class aShellFragment extends Fragment {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
+    mBookMarks.setVisibility(Utils.getBookmarks(context).size() != 0 ? View.VISIBLE : View.GONE);
     if (viewModel.isEditTextFocused()) {
       mCommand.requestFocus();
     } else {
@@ -421,7 +413,7 @@ public class aShellFragment extends Fragment {
                                 });
                           } else {
                             mCommandsAdapter =
-                                new CommandsAdapter(Commands.getCommand(s.toString(),context));
+                                new CommandsAdapter(Commands.getCommand(s.toString(), context));
                             if (isAdded()) {
                               mRecyclerViewCommands.setLayoutManager(
                                   new LinearLayoutManager(requireActivity()));
@@ -455,7 +447,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-   mCommand.setOnEditorActionListener(
+    mCommand.setOnEditorActionListener(
         new TextView.OnEditorActionListener() {
 
           public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -900,34 +892,21 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    String finalCommand;
-    if (command.startsWith("adb shell ")) {
-      finalCommand = command.replace("adb shell ", "");
-    } else if (command.startsWith("adb -d shell ")) {
-      finalCommand = command.replace("adb -d shell ", "");
-    } else {
-      finalCommand = command;
-    }
+    String finalCommand = command.replaceAll("^adb(?:\\s+-d)?\\s+shell\\s+", "");
 
-    if (finalCommand.equals("clear")) {
-      if (mResult != null) {
-        clearAll();
-      }
+    if (finalCommand.equals("clear") && mResult != null) {
+      clearAll();
       return;
     }
 
     // Fun Commands
-    if (finalCommand.equals("goto top")) {
-      if (mResult != null) {
-        mRecyclerViewOutput.scrollToPosition(0);
-      }
+    if (finalCommand.equals("goto top") && mResult != null) {
+      mRecyclerViewOutput.scrollToPosition(0);
       return;
     }
-    if (finalCommand.equals("goto bottom")) {
-      if (mResult != null) {
-        mRecyclerViewOutput.scrollToPosition(
-            Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
-      }
+    if (finalCommand.equals("goto bottom") && mResult != null) {
+      mRecyclerViewOutput.scrollToPosition(
+          Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
       return;
     }
     // Fun Commands
@@ -1226,23 +1205,11 @@ public class aShellFragment extends Fragment {
   }
 
   private boolean isEditTextFocused() {
-    boolean focus;
-    if (mCommand.hasFocus() == true) {
-      focus = true;
-    } else {
-      focus = false;
-    }
-    return focus;
+    return mCommand.hasFocus();
   }
 
   private boolean isSaveButtonVisible() {
-    boolean visible;
-    if (mSaveButton.getVisibility() == View.VISIBLE) {
-      visible = true;
-    } else {
-      visible = false;
-    }
-    return visible;
+    return mSaveButton.getVisibility() == View.VISIBLE;
   }
 
   private void setupRecyclerView() {
@@ -1253,13 +1220,10 @@ public class aShellFragment extends Fragment {
     int scrollPosition = viewModel.getScrollPosition();
     if (shellOutput != null) {
       mShellOutputAdapter = new ShellOutputAdapter(shellOutput);
-    }
-
-    mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
-    mRecyclerViewOutput.scrollToPosition(scrollPosition);
-    if (shellOutput != null) {
       mResult = shellOutput;
     }
+    mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
+    mRecyclerViewOutput.scrollToPosition(scrollPosition);
     String mCommandText = viewModel.getCommandText();
     if (mCommandText != null) {
       mCommand.setText(mCommandText);

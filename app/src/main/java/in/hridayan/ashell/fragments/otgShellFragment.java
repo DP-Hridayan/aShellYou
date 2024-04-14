@@ -218,11 +218,8 @@ public class otgShellFragment extends Fragment
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (mCommand.getText() == null) {
-              isSendDrawable = false;
-            } else {
-              isSendDrawable = true;
-            }
+                    
+isSendDrawable = mCommand.getText() != null;
 
             mCommandInput.setError(null);
 
@@ -303,11 +300,8 @@ public class otgShellFragment extends Fragment
                           mRecyclerViewCommands.setVisibility(View.VISIBLE);
                           mCommandsAdapter.setOnItemClickListener(
                               (command, v) -> {
-                                if (command.contains(" <")) {
-                                  mCommand.setText(command.split("<")[0]);
-                                } else {
-                                  mCommand.setText(command);
-                                }
+mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
+                                            
                                 mCommand.setSelection(mCommand.getText().length());
                               });
                         }

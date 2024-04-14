@@ -50,10 +50,7 @@ public class MainActivity extends AppCompatActivity {
     if (intent.hasExtra(Intent.EXTRA_TEXT)) {
       String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
       if (sharedText != null) {
-        sharedText = sharedText.trim();
-        if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
-          sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
-        }
+        sharedText = sharedText.trim().replaceAll("^\"|\"$", "");
         handleSharedTextIntent(sharedText, intent);
       }
     }
@@ -130,7 +127,9 @@ public class MainActivity extends AppCompatActivity {
   private void setTextOnEditText(String text, Intent intent) {
 
     int currentFragment = Preferences.getCurrentFragment(this);
+        
     switch (currentFragment) {
+            
       case LOCAL_FRAGMENT:
         aShellFragment fragmentLocalAdb =
             (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
@@ -150,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
         if (fragmentOtg != null) {
           fragmentOtg.updateInputField(text);
         }
-
         break;
+
       default:
         break;
     }
@@ -258,23 +257,16 @@ public class MainActivity extends AppCompatActivity {
       } else {
         int currentFragment = Preferences.getCurrentFragment(this);
         int workingMode = Preferences.getWorkingMode(this);
-
-        if (workingMode == MODE_REMEMBER_LAST_MODE) {
-          switchFragments(currentFragment);
-        } else {
-          switchFragments(workingMode + 1);
-        }
+        switchFragments(workingMode == MODE_REMEMBER_LAST_MODE ? currentFragment : workingMode + 1);
       }
     }
   }
 
   private void setCurrentFragment() {
-
-    if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof aShellFragment)) {
+    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    if (fragment instanceof aShellFragment) {
       currentFragment = LOCAL_FRAGMENT;
-    } else if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof otgShellFragment)) {
+    } else if (fragment instanceof otgShellFragment) {
       currentFragment = OTG_FRAGMENT;
     }
   }

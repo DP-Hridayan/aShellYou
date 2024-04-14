@@ -54,20 +54,30 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     switch (viewType) {
+            
       case CATEGORY:
         View categoryView = inflater.inflate(R.layout.category_about, parent, false);
         return new CategoryViewHolder(categoryView);
+            
+            
       case CATEGORY_LEAD_DEV_ITEM:
         View leadDevItemView = inflater.inflate(R.layout.category_lead_dev, parent, false);
         return new LeadDeveloperItemViewHolder(leadDevItemView);
+            
+            
       case CATEGORY_CONTRIBUTORS_ITEM:
         View contributorsItemView = inflater.inflate(R.layout.category_contributors, parent, false);
         return new contributorsItemViewHolder(contributorsItemView);
+            
+            
       case CATEGORY_APP_ITEM:
         View appItemView = inflater.inflate(R.layout.category_app, parent, false);
         return new AppItemViewHolder(appItemView);
+            
+            
       default:
         throw new IllegalArgumentException("Invalid view type");
+            
     }
   }
 
@@ -158,22 +168,14 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           };
       viewHolder.categoryAppLayout.setOnClickListener(clickListener);
 
-      if (position == items.size() - 1) {
-        int paddingInDp = 30;
-        float scale = context.getResources().getDisplayMetrics().density;
-        int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+      int paddingInDp = 30;
+      float scale = context.getResources().getDisplayMetrics().density;
+      int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
 
-        ViewGroup.MarginLayoutParams layoutParams =
-            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-        layoutParams.bottomMargin = paddingInPixels;
-        viewHolder.itemView.setLayoutParams(layoutParams);
-      } else {
-
-        ViewGroup.MarginLayoutParams layoutParams =
-            (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-        layoutParams.bottomMargin = 0;
-        viewHolder.itemView.setLayoutParams(layoutParams);
-      }
+      ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+      layoutParams.bottomMargin = position == items.size() - 1 ? paddingInPixels : 0;
+      viewHolder.itemView.setLayoutParams(layoutParams);
     }
   }
 
