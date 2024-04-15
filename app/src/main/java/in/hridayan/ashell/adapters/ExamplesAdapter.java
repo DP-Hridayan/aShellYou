@@ -24,7 +24,11 @@ import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 08, 2022
@@ -185,22 +189,43 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
         item.setChecked(false);
         updateSelectedItems(item, false);
       }
-
       notifyDataSetChanged();
     }
   }
 
   public void addSelectedToBookmarks(int count) {
     bookmarkedCount = count;
-    for (CommandItems item : selectedItems) {
-      String command = sanitizeText(item.getTitle());
-      if (Utils.isBookmarked(command, context)) {
-        bookmarkedCount = bookmarkedCount - 1;
 
-      } else {
-        Utils.addToBookmark(command, context);
-      }
-    }
+    // Determine the number of batches
+    int totalItems = selectedItems.size();
+    int numBatches = (totalItems < 5) ? totalItems : 5;
+
+    // Determine the batch size
+    int batchSize = totalItems / numBatches;
+    int remainingItems = totalItems % numBatches;
+
+    AtomicInteger counter = new AtomicInteger(0);
+
+    IntStream.range(0, numBatches)
+        .parallel()
+        .forEach(
+            i -> {
+              int startIndex = i * batchSize;
+              int endIndex = (i == numBatches - 1) ? totalItems : (startIndex + batchSize);
+              List<CommandItems> batch = selectedItems.subList(startIndex, endIndex);
+
+              Set<String> bookmarksSet = new HashSet<>(Utils.getBookmarks(context));
+              batch.forEach(
+                  item -> {
+                    String command = sanitizeText(item.getTitle());
+                    if (!bookmarksSet.contains(command)) {
+                      Utils.addToBookmark(command, context);
+                    } else {
+                      counter.incrementAndGet();
+                    }
+                  });
+            });
+    bookmarkedCount -= counter.get();
   }
 
   public void deleteSelectedFromBookmarks() {
@@ -214,17 +239,11 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     int i = 0;
     for (CommandItems item : selectedItems) {
       String command = sanitizeText(item.getTitle().toString());
-      boolean isBookmarked = Utils.isBookmarked(command, context);
-
-      if (!isBookmarked) {
-        i++;
+      if (!Utils.isBookmarked(command, context)) {
+        return false;
       }
     }
-    if (i > 0) {
-      return false;
-    } else {
-      return true;
-    }
+    return true;
   }
 
   public String sanitizeText(String text) {

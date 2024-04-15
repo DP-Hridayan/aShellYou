@@ -425,7 +425,7 @@ public class Utils {
   public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
     boolean switchState = Preferences.getOverrideBookmarks(context);
 
-    if (Utils.getBookmarks(context).size() <= 24 || switchState) {
+    if (Utils.getBookmarks(context).size() <= Preferences.MAX_BOOKMARKS_LIMIT -1 || switchState) {
       Utils.addToBookmark(bookmark, context);
       Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
     } else {

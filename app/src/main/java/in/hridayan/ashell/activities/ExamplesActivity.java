@@ -310,7 +310,7 @@ public class ExamplesActivity extends AppCompatActivity
     int selectedItems = mExamplesAdapter.getSelectedItemsSize();
     boolean isAllItemBookmarked = mExamplesAdapter.isAllItemsBookmarked(),
         isLimitReached =
-            selectedItems + Utils.getBookmarks(this).size() > 25
+            selectedItems + Utils.getBookmarks(this).size() > Preferences.MAX_BOOKMARKS_LIMIT
                 && !Preferences.getOverrideBookmarks(this);
     if (isAllItemBookmarked) {
       mExamplesAdapter.deleteSelectedFromBookmarks();

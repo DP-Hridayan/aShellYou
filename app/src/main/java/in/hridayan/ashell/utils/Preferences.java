@@ -28,7 +28,8 @@ public class Preferences {
       OTG_FRAGMENT = 2,
       MODE_LOCAL_ADB = 0,
       MODE_OTG = 1,
-      MODE_REMEMBER_LAST_MODE = 2;
+      MODE_REMEMBER_LAST_MODE = 2,
+    MAX_BOOKMARKS_LIMIT = 25;
 
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
