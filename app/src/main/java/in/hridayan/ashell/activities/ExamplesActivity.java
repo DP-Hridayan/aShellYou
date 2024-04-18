@@ -324,7 +324,7 @@ public class ExamplesActivity extends AppCompatActivity
               } else if (!isLimitReached) {
                 mExamplesAdapter.addSelectedToBookmarks();
               }
-               updateSearchBar();
+              updateSearchBar();
               bookmarksAddedOrRemovedMessage(
                   !isAllItemBookmarked, isBatch, isLimitReached, selectedCount);
             })
@@ -349,7 +349,7 @@ public class ExamplesActivity extends AppCompatActivity
       } else if (!isLimitReached) {
         mExamplesAdapter.addSelectedToBookmarks();
       }
-           updateSearchBar();
+      updateSearchBar();
       bookmarksAddedOrRemovedMessage(!isAllItemBookmarked, isBatch, isLimitReached, selectedItems);
     }
   }

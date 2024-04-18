@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true"
     android:checkable="true"
-    app:cardBackgroundColor="?attr/colorTertiaryContainer"
+    app:cardBackgroundColor="?attr/colorSurfaceContainer"
     app:cardElevation="0dp"
     app:strokeWidth="0dp"
     app:cardCornerRadius="15dp"

@@ -1,5 +1,6 @@
 package in.hridayan.ashell.adapters;
 
+import androidx.appcompat.widget.AppCompatImageButton;
 import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
 import static in.hridayan.ashell.utils.Preferences.SORT_LEAST_USED;
 import static in.hridayan.ashell.utils.Preferences.SORT_MOST_USED;
@@ -65,8 +66,8 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
 
   @Override
   public void onBindViewHolder(@NonNull ExamplesAdapter.ViewHolder holder, int position) {
+        holder.pin.setVisibility(View.GONE);
     holder.card.setChecked(this.data.get(position).isChecked());
-
     holder.itemView.startAnimation(
         AnimationUtils.loadAnimation(context, R.anim.on_scroll_animator));
     holder.mTitle.setText(this.data.get(position).getTitle());
@@ -93,6 +94,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
       implements View.OnClickListener, View.OnLongClickListener {
     private final MaterialTextView mTitle, mSummary;
     private MaterialCardView card;
+        private AppCompatImageButton pin;
 
     public ViewHolder(View view) {
       super(view);
@@ -101,6 +103,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
       this.card = view.findViewById(R.id.commands_card);
       this.mTitle = view.findViewById(R.id.title);
       this.mSummary = view.findViewById(R.id.summary);
+        this.pin = view.findViewById(R.id.pin);
     }
 
     @Override
