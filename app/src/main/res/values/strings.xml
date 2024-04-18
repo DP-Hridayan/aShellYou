@@ -24,10 +24,10 @@
     <string name="beta_warning">This feature is currently in its experimental phase. If you encounter any issues please let me know.</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="bookmark_added_message">\'%s\' is bookmarked</string>
-    <string name="batch_bookmark_added_message">\'%s\' commands are bookmarked</string>
+    <string name="batch_bookmark_added_message">\%s\ commands are bookmarked</string>
     <string name="bookmark_limit_reached">Maximum bookmark limit reached! Delete some bookmarks to add new ones</string>
     <string name="bookmark_removed_message">\'%s\' has been removed from bookmarks</string>
-    <string name="batch_bookmark_removed_message">\'%s\' commands are removed from bookmarks</string>
+    <string name="batch_bookmark_removed_message">\%s\ commands are removed from bookmarks</string>
     <string name="cancel">Cancel</string>
     <string name="changelogs">Changelogs</string>
     <string name="choose">Choose</string>
@@ -38,6 +38,9 @@
     <string name="commands">Commands</string>
     <string name="command_hint">Input ADB command here</string>
     <string name="command_title">Input ADB Command</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirm_batch_add_bookmark">Selected \%s\ items will be added to bookmarks</string>
+   <string name="confirm_batch_remove_bookmark">Selected \%s\ items will be  removed from bookmarks</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="connected_device">Connected device</string>

@@ -126,7 +126,6 @@ public class ExamplesActivity extends AppCompatActivity
 
             case R.id.add_bookmark:
               manageBookmarkAddOrRemove();
-              updateSearchBar();
 
               return true;
 
@@ -306,31 +305,64 @@ public class ExamplesActivity extends AppCompatActivity
     }
   }
 
+  private void batchBookmarkDialog(
+      int selectedCount, boolean isAllItemBookmarked, boolean isLimitReached, boolean isBatch) {
+
+    String message =
+        isAllItemBookmarked
+            ? getString(R.string.confirm_batch_remove_bookmark, selectedCount)
+            : getString(R.string.confirm_batch_add_bookmark, selectedCount);
+
+    new MaterialAlertDialogBuilder(this)
+        .setTitle(getString(R.string.confirm))
+        .setMessage(message)
+        .setPositiveButton(
+            getString(R.string.ok),
+            (dialog, i) -> {
+              if (isAllItemBookmarked) {
+                mExamplesAdapter.deleteSelectedFromBookmarks();
+              } else if (!isLimitReached) {
+                mExamplesAdapter.addSelectedToBookmarks();
+              }
+               updateSearchBar();
+              bookmarksAddedOrRemovedMessage(
+                  !isAllItemBookmarked, isBatch, isLimitReached, selectedCount);
+            })
+        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .show();
+  }
+
   private void manageBookmarkAddOrRemove() {
+
     int selectedItems = mExamplesAdapter.getSelectedItemsSize();
     boolean isAllItemBookmarked = mExamplesAdapter.isAllItemsBookmarked(),
         isLimitReached =
             selectedItems + Utils.getBookmarks(this).size() > Preferences.MAX_BOOKMARKS_LIMIT
                 && !Preferences.getOverrideBookmarks(this);
-    if (isAllItemBookmarked) {
-      mExamplesAdapter.deleteSelectedFromBookmarks();
-    } else if (!isLimitReached) {
-      mExamplesAdapter.addSelectedToBookmarks(selectedItems);
+
+    boolean isBatch = selectedItems > 1;
+    if (isBatch) {
+      batchBookmarkDialog(selectedItems, isAllItemBookmarked, isLimitReached, isBatch);
+    } else {
+      if (isAllItemBookmarked) {
+        mExamplesAdapter.deleteSelectedFromBookmarks();
+      } else if (!isLimitReached) {
+        mExamplesAdapter.addSelectedToBookmarks();
+      }
+           updateSearchBar();
+      bookmarksAddedOrRemovedMessage(!isAllItemBookmarked, isBatch, isLimitReached, selectedItems);
     }
-    bookmarksAddedOrRemovedMessage(!isAllItemBookmarked, isLimitReached, selectedItems);
   }
 
   private void bookmarksAddedOrRemovedMessage(
-      boolean isAdded, boolean isLimitReached, int selectedCount) {
-    int count = mExamplesAdapter.bookmarkedCount;
-    boolean isBatch = selectedCount > 1;
+      boolean isAdded, boolean isBatch, boolean isLimitReached, int selectedCount) {
+
     if (isLimitReached && isAdded) {
       Utils.snackBar(parent, getString(R.string.bookmark_limit_reached)).show();
     } else if (isBatch) {
       int message =
           isAdded ? R.string.batch_bookmark_added_message : R.string.batch_bookmark_removed_message;
-      int selectedItem = isAdded ? count : selectedCount;
-      Utils.snackBar(parent, getString(message, selectedItem)).show();
+      Utils.snackBar(parent, getString(message, selectedCount)).show();
     } else {
       String command =
           mExamplesAdapter.sanitizeText(mExamplesAdapter.selectedItems.get(0).getTitle());

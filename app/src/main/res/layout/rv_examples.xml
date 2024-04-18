@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true"
     android:checkable="true"
-    app:cardBackgroundColor="?attr/colorSurfaceContainer"
+    app:cardBackgroundColor="?attr/colorTertiaryContainer"
     app:cardElevation="0dp"
     app:strokeWidth="0dp"
     app:cardCornerRadius="15dp"
@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|start"
         android:layout_margin="15dp"
+        android:layout_marginStart="25dp"
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
@@ -35,5 +36,16 @@
             style="@style/ItemDescription" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/pin"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_pinned"
+        android:layout_margin="5dp"
+        android:background="@null"
+        android:clickable="false"
+        android:rotation="45"
+        android:layout_gravity="end|top" />
 
 </com.google.android.material.card.MaterialCardView>

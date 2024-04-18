@@ -39,7 +39,6 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
   private Context context;
   private CommandItems commands;
   private OnItemClickListener listener;
-  public int bookmarkedCount;
 
   public ExamplesAdapter(List<CommandItems> data, Context context) {
     this.data = data;
@@ -193,10 +192,8 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     }
   }
 
-  public void addSelectedToBookmarks(int count) {
-    bookmarkedCount = count;
+  public void addSelectedToBookmarks() {
 
-    // Determine the number of batches
     int totalItems = selectedItems.size();
     int numBatches = (totalItems < 5) ? totalItems : 5;
 
@@ -225,7 +222,6 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
                     }
                   });
             });
-    bookmarkedCount -= counter.get();
   }
 
   public void deleteSelectedFromBookmarks() {
