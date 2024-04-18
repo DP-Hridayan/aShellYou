@@ -8,6 +8,7 @@ public class Preferences {
 
   private static final String PREF_AMOLED_THEME = "id_amoled_theme",
       PREF_COUNTER_PREFIX = "counter_",
+      PREF_PINNED_PREFIX = "pinned",
       PREF_CLEAR = "id_clear",
       PREF_SHARE_AND_RUN = "id_share_and_run",
       PREF_DISABLE_SOFTKEY = "id_disable_softkey",
@@ -29,7 +30,7 @@ public class Preferences {
       MODE_LOCAL_ADB = 0,
       MODE_OTG = 1,
       MODE_REMEMBER_LAST_MODE = 2,
-    MAX_BOOKMARKS_LIMIT = 25;
+      MAX_BOOKMARKS_LIMIT = 25;
 
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
@@ -134,7 +135,19 @@ public class Preferences {
     getSharedPreferences(context).edit().putInt(getCounterKey(title), counter).apply();
   }
 
+  public static boolean getPinned(Context context, String title) {
+    return getSharedPreferences(context).getBoolean(getPinnedKey(title), false);
+  }
+
+  public static void setPinned(Context context, String title, boolean value) {
+    getSharedPreferences(context).edit().putBoolean(getPinnedKey(title), value).apply();
+  }
+
   private static String getCounterKey(String title) {
     return PREF_COUNTER_PREFIX + title;
+  }
+
+  private static String getPinnedKey(String title) {
+    return PREF_PINNED_PREFIX + title;
   }
 }

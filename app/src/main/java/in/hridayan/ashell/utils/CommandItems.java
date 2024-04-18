@@ -12,7 +12,7 @@ public class CommandItems implements Serializable {
   private final String mTitle, mSummary, mExample;
   private int mUseCounter;
   private Context context;
-    private boolean isChecked;
+  private boolean isChecked, isPinned;
 
   public CommandItems(String title, String summary, String example, Context context) {
     this.mTitle = title;
@@ -20,6 +20,7 @@ public class CommandItems implements Serializable {
     this.mExample = example;
     this.context = context;
     this.mUseCounter = Preferences.getUseCounter(context, mTitle);
+    this.isPinned = Preferences.getPinned(context, mTitle);
   }
 
   public String getTitle() {
@@ -43,11 +44,20 @@ public class CommandItems implements Serializable {
     Preferences.setUseCounter(context, mTitle, counter);
   }
 
-    public boolean isChecked() {
-        return isChecked;
-    }
+  public boolean isPinned() {
+    return isPinned;
+  }
 
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
+  public void setPinned(boolean pinned) {
+    this.isPinned = pinned;
+    Preferences.setPinned(context, mTitle, pinned);
+  }
+
+  public boolean isChecked() {
+    return isChecked;
+  }
+
+  public void setChecked(boolean checked) {
+    isChecked = checked;
+  }
 }
