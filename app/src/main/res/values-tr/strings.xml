@@ -108,7 +108,7 @@
     <string name="ask_to_clean">Kabuk çıktısını temizlemeden önce sor</string>
     <string name="des_ask_to_clean">Etkinleştirilirse, Ekranı temizle düğmesine tıkladıktan sonra bir onay açılır penceresi gösterilir</string>
     <string name="override_bookmarks_limit">Maksimum yer işareti sınırını geçersiz kıl</string>
-    <string name="des_override_bookmarks"> Çok sayıda yer işareti eklenirse gecikmeye neden olabilir! Alt uç cihazlar bu seçeneği kapalı tutmalıdır</string>
+    <string name="des_override_bookmarks"> Çok sayıda yer işareti eklenirse gecikmeye neden olabilir! Alt segment cihazlar bu seçeneği kapalı tutmalıdır</string>
     <string name="disable_softkey">Yumuşak klavyeyi devre dışı bırak</string>
     <string name="des_disable_softkey">Harici bir klavye kullanmak istediğinizde kullanışlıdır</string>
     <string name="des_examples">Bazı komut şablonlarının derlenmesi</string>
