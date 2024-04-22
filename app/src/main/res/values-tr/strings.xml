@@ -14,7 +14,7 @@
     <string name="adb_device_waiting">ADB cihazı bekleniyor</string>
     <string name="adb_shell">ADB kabuğu</string>
     <string name="about">Hakkında</string>
-    <string name="accept">Kabul Et</string>
+    <string name="accept">Kabul et</string>
     <string name="amoled_theme">Amoled siyah tema</string>
     <string name="des_amoled_theme">OLED panelli cihazlar için saf siyah tema</string>
     <string name="app_summary">aShell You tüm ADB ihtiyaçlarınız için burada</string>
@@ -104,7 +104,7 @@
 
     <string name="yes">Evet</string>
     <string name="smooth_scrolling">Yumuşak kaydırma</string>
-    <string name="des_smooth_scroll">Üst veya alt oka tıklandığında shell çıktısında yumuşak kaydırmayı etkinleştirir</string>
+    <string name="des_smooth_scroll">Üst veya alt oka tıklandığında kabuk çıktısında yumuşak kaydırmayı etkinleştirir</string>
     <string name="ask_to_clean">Kabuk çıktısını temizlemeden önce sor</string>
     <string name="des_ask_to_clean">Etkinleştirilirse, Ekranı temizle düğmesine tıkladıktan sonra bir onay açılır penceresi gösterilir</string>
     <string name="override_bookmarks_limit">Maksimum yer işareti sınırını geçersiz kıl</string>
@@ -118,7 +118,7 @@
     <string name="hridayan_about">Sadece uygulamaları ve tasarımı seven bir adam</string>
     <string name="contributors">Katkıda bulunanlar</string>
     <string name="rikka_about">Shizuku Geliştiricisi\naShell You\'nun ana işlevsellik sağlayıcısı</string>
-    <string name="sunilpaulmathew_about">AShell Geliştiricisi\nOnsuz aShell You olmayacaktı</string>
+    <string name="sunilpaulmathew_about">AShell geliştiricisi\nOnsuz aShell You olmayacaktı</string>
     <string name="khun_htetz_about">ADB⚡OTG geliştiricisi\nOnun sayesinde OTG özelliği Shell You\'da uygulanabilir</string>
     <string name="krishna_about">Web sitesi geliştiricisi, test uzmanı, kanal yöneticisi ve çok daha fazlası\n\nDestek arkadaşınız için teşekkürler 🤗</string>
     <string name="drDisagree_about">Iconify geliştiricisi\nShell You\'daki sorunları düzeltmeme yardımcı oldu 🤝</string>
