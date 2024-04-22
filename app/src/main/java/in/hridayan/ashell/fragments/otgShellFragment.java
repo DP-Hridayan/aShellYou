@@ -1,5 +1,6 @@
 package in.hridayan.ashell.fragments;
 
+import android.app.Activity;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_NOT_FOUND;
@@ -106,7 +107,13 @@ public class otgShellFragment extends Fragment
   private View view;
   private AdbStream stream;
   private Context context;
-
+    
+    @Override
+    public void onAttach(@NonNull Context mContext) {
+        super.onAttach(mContext);
+        context = mContext; // Assign the activity context when the fragment is attached
+    }
+    
   @Nullable
   @Override
   public View onCreateView(
@@ -153,6 +160,8 @@ public class otgShellFragment extends Fragment
             }
           }
         });
+        
+        
 
     if (isSendDrawable) {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
@@ -374,9 +383,9 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
                         mHistory.add(mCommand.getText().toString());
 
                         new MaterialAlertDialogBuilder(requireActivity())
-                            .setTitle(getString(R.string.error))
-                            .setMessage(getString(R.string.otg_not_connected))
-                            .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+                            .setTitle(requireActivity().getString(R.string.error))
+                            .setMessage(requireActivity().getString(R.string.otg_not_connected))
+                            .setPositiveButton(requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
                             .show();
                       }
                     }
@@ -434,20 +443,20 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
           public void handleMessage(@NonNull android.os.Message msg) {
             switch (msg.what) {
               case DEVICE_FOUND:
-                closeWaiting();
+                    closeWaiting();
                 terminalView.setVisibility(View.VISIBLE);
                 initCommand();
                 KeyboardUtils.showKeyboard(mCommand, context);
                 break;
 
               case CONNECTING:
-                waitingDialog();
+                waitingDialog(context);
                 KeyboardUtils.closeKeyboard(requireActivity(), context);
                 terminalView.setVisibility(View.VISIBLE);
                 break;
 
               case DEVICE_NOT_FOUND:
-                closeWaiting();
+                    closeWaiting();
                 KeyboardUtils.closeKeyboard(requireActivity(), context);
                 terminalView.setVisibility(View.VISIBLE);
                 adbConnection = null; // Fix this issue
@@ -529,19 +538,23 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
   }
 
   private void closeWaiting() {
-    mWaitingDialog.dismiss();
+        if(mWaitingDialog != null && mWaitingDialog.isShowing())
+        {
+           mWaitingDialog.dismiss();
+        }
+    
   }
 
-  private void waitingDialog() {
+  private void waitingDialog(Context context) {
     View dialogView =
-        LayoutInflater.from(requireActivity()).inflate(R.layout.loading_dialog_layout, null);
+        LayoutInflater.from(context).inflate(R.layout.loading_dialog_layout, null);
     ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
 
     mWaitingDialog =
-        new MaterialAlertDialogBuilder(requireActivity())
+        new MaterialAlertDialogBuilder(context)
             .setCancelable(false)
             .setView(dialogView)
-            .setTitle(getString(R.string.waiting_device))
+            .setTitle(context.getString(R.string.waiting_device))
             .show();
 
     progressBar.setVisibility(View.VISIBLE);
@@ -814,4 +827,9 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
       mCommand.setSelection(mCommand.getText().length());
     }
   }
+    
+    
+    
 }
+
+

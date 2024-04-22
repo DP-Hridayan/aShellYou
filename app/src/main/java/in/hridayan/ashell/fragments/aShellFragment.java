@@ -951,16 +951,19 @@ public class aShellFragment extends Fragment {
     viewModel.setSendDrawable(ic_stop);
     mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
 
-    mSendButton.setColorFilter(ThemeUtils.colorError(context));
+    mSendButton.setColorFilter(
+        Utils.androidVersion() >= Build.VERSION_CODES.S
+            ? ThemeUtils.colorError(context)
+            : Utils.getColor(R.color.red, context));
 
     String mTitleText =
         "<font color=\""
-            + Utils.getColor(android.R.color.system_accent1_500, activity)
+            + Utils.getColor(Utils.androidVersion() >= Build.VERSION_CODES.S ? android.R.color.system_accent1_500 : R.color.blue , activity)
             + "\">shell@"
             + Utils.getDeviceName()
             + " | "
             + "</font><font color=\""
-            + Utils.getColor(android.R.color.system_accent3_500, activity)
+            + Utils.getColor(Utils.androidVersion() >= Build.VERSION_CODES.S ? android.R.color.system_accent3_500 : R.color.green, activity)
             + "\"> # "
             + finalCommand;
 
