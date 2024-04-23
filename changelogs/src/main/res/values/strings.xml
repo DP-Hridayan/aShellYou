@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
     //Absolutely necessary to follow this string name format
+    <string name="changelog_v4_0_0">\n\n• Added sorting options in Commands templates\n\n• Added option to directly bookmark selected items in Commands section\n\n• Chip Indicator shows connected device(currently only in local ADB mode)\n\n• Fixed bugs causing crashes in devices running Android 11 or below\n\n• Added Turkish translation\n\n• Minor UI improvements</string>
     <string name="changelog_v3_9_1">\n\n• Added total bookmarks count\n\n• Fixed some bugs</string>
     <string name="changelog_v3_9_0">\n\n• Added Search in commands section\n\n• Added option to set default working mode\n\n• Improved animations\n\n• Reworked bookmarks section and added sorting options\n\n• Increased bookmarks limit to 25\n\n• Removed ADB shell launcher shortcut and added Commands launcher shortcut\n\n• Fixed padding issues in button navigation\n\n• Fixed some buttons shape</string>
     <string name="changelog_v3_8_2">\n\n• App uses a more refreshed color palette for material you themeing\n\n• Fixed minor bugs</string>

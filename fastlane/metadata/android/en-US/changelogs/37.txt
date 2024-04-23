@@ -1,0 +1,13 @@
+Change logs ~
+
+• Added sorting options in Commands templates
+
+• Added option to directly bookmark selected items in Commands section
+
+• Chip Indicator shows connected device(currently only in local ADB mode)
+
+• Fixed bugs causing crashes in devices running Android 11 or below
+
+• Added Turkish translation
+
+• Minor UI improvements

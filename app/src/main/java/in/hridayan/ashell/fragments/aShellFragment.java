@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
@@ -29,6 +30,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -149,6 +152,7 @@ public class aShellFragment extends Fragment {
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     mBookMarks.setVisibility(Utils.getBookmarks(context).size() != 0 ? View.VISIBLE : View.GONE);
+    updateBookmarksConstraints();
     if (viewModel.isEditTextFocused()) {
       mCommand.requestFocus();
     } else {
@@ -594,6 +598,17 @@ public class aShellFragment extends Fragment {
       mBookMarks.setVisibility(
           Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
     }
+
+    ViewTreeObserver.OnGlobalLayoutListener layoutListener =
+        new ViewTreeObserver.OnGlobalLayoutListener() {
+          @Override
+          public void onGlobalLayout() {
+            updateBookmarksConstraints();
+          }
+        };
+
+    mHistoryButton.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+
     mBookMarks.setTooltipText(getString(R.string.bookmarks));
 
     mBookMarks.setOnClickListener(
@@ -958,12 +973,20 @@ public class aShellFragment extends Fragment {
 
     String mTitleText =
         "<font color=\""
-            + Utils.getColor(Utils.androidVersion() >= Build.VERSION_CODES.S ? android.R.color.system_accent1_500 : R.color.blue , activity)
+            + Utils.getColor(
+                Utils.androidVersion() >= Build.VERSION_CODES.S
+                    ? android.R.color.system_accent1_500
+                    : R.color.blue,
+                activity)
             + "\">shell@"
             + Utils.getDeviceName()
             + " | "
             + "</font><font color=\""
-            + Utils.getColor(Utils.androidVersion() >= Build.VERSION_CODES.S ? android.R.color.system_accent3_500 : R.color.green, activity)
+            + Utils.getColor(
+                Utils.androidVersion() >= Build.VERSION_CODES.S
+                    ? android.R.color.system_accent3_500
+                    : R.color.green,
+                activity)
             + "\"> # "
             + finalCommand;
 
@@ -1231,5 +1254,17 @@ public class aShellFragment extends Fragment {
     if (mCommandText != null) {
       mCommand.setText(mCommandText);
     }
+  }
+
+  private void updateBookmarksConstraints() {
+    ConstraintLayout.LayoutParams layoutParams =
+        (ConstraintLayout.LayoutParams) mBookMarks.getLayoutParams();
+    boolean isHistoryButtonVisible = mHistoryButton.getVisibility() == View.VISIBLE;
+    layoutParams.endToStart =
+        isHistoryButtonVisible ? R.id.history : ConstraintLayout.LayoutParams.UNSET;
+    layoutParams.setMarginStart(isHistoryButtonVisible ? 0 : 70);
+    mBookMarks.setLayoutParams(layoutParams);
+    mBookMarks.requestLayout();
+    mBookMarks.invalidate();
   }
 }

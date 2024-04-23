@@ -126,7 +126,6 @@ public class ExamplesActivity extends AppCompatActivity
 
             case R.id.add_bookmark:
               manageBookmarkAddOrRemove();
-
               return true;
 
             default:
@@ -290,7 +289,7 @@ public class ExamplesActivity extends AppCompatActivity
 
   private void updateMenuItemVisibility(boolean isItemSelecting, boolean isAllSelected) {
     sort.setVisible(!isItemSelecting);
-    pin.setVisible(isItemSelecting);
+    pin.setVisible(false);
     selectAll.setVisible(isItemSelecting && !isAllSelected);
     deselectAll.setVisible(isItemSelecting && isAllSelected);
 

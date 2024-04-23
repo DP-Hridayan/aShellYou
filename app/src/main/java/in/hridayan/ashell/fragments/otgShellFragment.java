@@ -111,7 +111,7 @@ public class otgShellFragment extends Fragment
     @Override
     public void onAttach(@NonNull Context mContext) {
         super.onAttach(mContext);
-        context = mContext; // Assign the activity context when the fragment is attached
+        context = mContext;
     }
     
   @Nullable
@@ -138,6 +138,7 @@ public class otgShellFragment extends Fragment
     scrollView = view.findViewById(R.id.scrollView);
     terminalView = view.findViewById(R.id.terminalView);
     mUndoButton = view.findViewById(R.id.fab_undo);
+        
     mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));

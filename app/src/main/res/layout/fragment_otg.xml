@@ -116,8 +116,7 @@
                 android:textSize="15sp"
                 android:textIsSelectable="true"
                 android:id="@+id/logs"
-                android:layout_gravity="start"
-            />
+                android:layout_gravity="start" />
 
         </ScrollView>
 

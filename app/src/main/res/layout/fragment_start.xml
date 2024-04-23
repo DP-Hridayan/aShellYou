@@ -19,18 +19,19 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            xmlns:android="http://schemas.android.com/apk/res/android">
+            android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ic_adb"
+                android:id="@+id/adb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:src="@drawable/ic_adb"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toStartOf="@id/app_name" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/app_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
@@ -38,7 +39,7 @@
                 android:text="Shell"
                 android:textSize="70.0sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/ic_adb" />
+                app:layout_constraintStart_toEndOf="@id/adb" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -48,8 +49,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
-            android:textSize="17.0sp"
-        />
+            android:textSize="17.0sp" />
 
         <Button
             android:id="@+id/start_button"
