@@ -6,7 +6,6 @@
         name="app_name"
         translatable="false">aShell You</string>
 
-    <string name="app_name" translatable="false">aShell You</string>
     <string name="access_denied">Erişim reddedildi</string>
     <string name="accept_device_prompt">Bu cihazdan ilk kez bağlanmaya çalışıyorsanız, diğer cihazda bir istemi kabul etmeniz gerekebilir</string>
     <string name="adb_device_connected">ADB cihazı bağlandı.</string>
