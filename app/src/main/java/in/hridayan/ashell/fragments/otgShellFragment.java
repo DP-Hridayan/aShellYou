@@ -1,5 +1,6 @@
 package in.hridayan.ashell.fragments;
 
+import android.app.Activity;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_NOT_FOUND;
@@ -106,7 +107,13 @@ public class otgShellFragment extends Fragment
   private View view;
   private AdbStream stream;
   private Context context;
-
+    
+    @Override
+    public void onAttach(@NonNull Context mContext) {
+        super.onAttach(mContext);
+        context = mContext;
+    }
+    
   @Nullable
   @Override
   public View onCreateView(
@@ -131,6 +138,7 @@ public class otgShellFragment extends Fragment
     scrollView = view.findViewById(R.id.scrollView);
     terminalView = view.findViewById(R.id.terminalView);
     mUndoButton = view.findViewById(R.id.fab_undo);
+        
     mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -153,8 +161,8 @@ public class otgShellFragment extends Fragment
             }
           }
         });
-
-    handleSharedTextIntent(requireActivity().getIntent());
+        
+        
 
     if (isSendDrawable) {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
@@ -220,11 +228,8 @@ public class otgShellFragment extends Fragment
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (mCommand.getText() == null) {
-              isSendDrawable = false;
-            } else {
-              isSendDrawable = true;
-            }
+                    
+isSendDrawable = mCommand.getText() != null;
 
             mCommandInput.setError(null);
 
@@ -275,7 +280,7 @@ public class otgShellFragment extends Fragment
                           }
 
                           mCommandsAdapter =
-                              new CommandsAdapter(Commands.getPackageInfo(packageNamePrefix + "."));
+                              new CommandsAdapter(Commands.getPackageInfo(packageNamePrefix + ".",context));
                           if (isAdded()) {
                             mRecyclerViewCommands.setLayoutManager(
                                 new LinearLayoutManager(requireActivity()));
@@ -295,7 +300,7 @@ public class otgShellFragment extends Fragment
                                 mRecyclerViewCommands.setVisibility(View.GONE);
                               });
                         } else {
-                          mCommandsAdapter = new CommandsAdapter(Commands.getCommand(s.toString()));
+                          mCommandsAdapter = new CommandsAdapter(Commands.getCommand(s.toString(),context));
                           if (isAdded()) {
                             mRecyclerViewCommands.setLayoutManager(
                                 new LinearLayoutManager(requireActivity()));
@@ -305,11 +310,8 @@ public class otgShellFragment extends Fragment
                           mRecyclerViewCommands.setVisibility(View.VISIBLE);
                           mCommandsAdapter.setOnItemClickListener(
                               (command, v) -> {
-                                if (command.contains(" <")) {
-                                  mCommand.setText(command.split("<")[0]);
-                                } else {
-                                  mCommand.setText(command);
-                                }
+mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
+                                            
                                 mCommand.setSelection(mCommand.getText().length());
                               });
                         }
@@ -382,9 +384,9 @@ public class otgShellFragment extends Fragment
                         mHistory.add(mCommand.getText().toString());
 
                         new MaterialAlertDialogBuilder(requireActivity())
-                            .setTitle(getString(R.string.error))
-                            .setMessage(getString(R.string.otg_not_connected))
-                            .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+                            .setTitle(requireActivity().getString(R.string.error))
+                            .setMessage(requireActivity().getString(R.string.otg_not_connected))
+                            .setPositiveButton(requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
                             .show();
                       }
                     }
@@ -397,7 +399,7 @@ public class otgShellFragment extends Fragment
 
     mBookMarks.setOnClickListener(
         v -> {
-          Utils.bookmarksDialog(context, requireActivity(), mCommand);
+          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks);
         });
 
     mHistoryButton.setTooltipText(getString(R.string.history));
@@ -442,20 +444,20 @@ public class otgShellFragment extends Fragment
           public void handleMessage(@NonNull android.os.Message msg) {
             switch (msg.what) {
               case DEVICE_FOUND:
-                closeWaiting();
+                    closeWaiting();
                 terminalView.setVisibility(View.VISIBLE);
                 initCommand();
                 KeyboardUtils.showKeyboard(mCommand, context);
                 break;
 
               case CONNECTING:
-                waitingDialog();
+                waitingDialog(context);
                 KeyboardUtils.closeKeyboard(requireActivity(), context);
                 terminalView.setVisibility(View.VISIBLE);
                 break;
 
               case DEVICE_NOT_FOUND:
-                closeWaiting();
+                    closeWaiting();
                 KeyboardUtils.closeKeyboard(requireActivity(), context);
                 terminalView.setVisibility(View.VISIBLE);
                 adbConnection = null; // Fix this issue
@@ -537,19 +539,23 @@ public class otgShellFragment extends Fragment
   }
 
   private void closeWaiting() {
-    mWaitingDialog.dismiss();
+        if(mWaitingDialog != null && mWaitingDialog.isShowing())
+        {
+           mWaitingDialog.dismiss();
+        }
+    
   }
 
-  private void waitingDialog() {
+  private void waitingDialog(Context context) {
     View dialogView =
-        LayoutInflater.from(requireActivity()).inflate(R.layout.loading_dialog_layout, null);
+        LayoutInflater.from(context).inflate(R.layout.loading_dialog_layout, null);
     ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
 
     mWaitingDialog =
-        new MaterialAlertDialogBuilder(requireActivity())
+        new MaterialAlertDialogBuilder(context)
             .setCancelable(false)
             .setView(dialogView)
-            .setTitle(getString(R.string.waiting_device))
+            .setTitle(context.getString(R.string.waiting_device))
             .show();
 
     progressBar.setVisibility(View.VISIBLE);
@@ -815,20 +821,6 @@ public class otgShellFragment extends Fragment
     }
   }
 
-  private void handleSharedTextIntent(Intent intent) {
-    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-    if (sharedText != null) {
-      sharedText = sharedText.trim();
-      if (sharedText.startsWith("\"") && sharedText.endsWith("\"")) {
-        sharedText = sharedText.substring(1, sharedText.length() - 1).trim();
-      }
-      isSendDrawable = true;
-      mCommand.setText(sharedText);
-      updateInputField(sharedText);
-    }
-    return;
-  }
-
   public void updateInputField(String sharedText) {
     if (sharedText != null) {
       mCommand.setText(sharedText);
@@ -836,4 +828,9 @@ public class otgShellFragment extends Fragment
       mCommand.setSelection(mCommand.getText().length());
     }
   }
+    
+    
+    
 }
+
+

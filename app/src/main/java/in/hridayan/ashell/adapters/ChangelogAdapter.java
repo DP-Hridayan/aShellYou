@@ -39,17 +39,10 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
     holder.titleTextView.setText(changelogItem.getTitle());
     holder.descriptionTextView.setText(changelogItem.getDescription());
 
-    if (position == changelogList.size() - 1) {
-      holder.divider.setVisibility(View.GONE);
-    } else {
-      holder.divider.setVisibility(View.VISIBLE);
-    }
+    holder.divider.setVisibility(position == changelogList.size() - 1 ? View.GONE : View.VISIBLE);
 
-    if (position == 0) {
-      holder.titleTextView.setTextAppearance(R.style.LatestVersionTitle);
-    } else {
-      holder.titleTextView.setTextAppearance(R.style.OtherVersionTitle);
-    }
+    holder.titleTextView.setTextAppearance(
+        position == 0 ? R.style.LatestVersionTitle : R.style.OtherVersionTitle);
   }
 
   @Override

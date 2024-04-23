@@ -1,6 +1,7 @@
 package in.hridayan.ashell.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.utils.CommandItems;
 import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
@@ -93,15 +95,25 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
     @Override
     public void onClick(View view) {
       if (data.get(getAdapterPosition()).getExample() != null) {
-        new MaterialAlertDialogBuilder(view.getContext())
+        String sanitizedText = sanitizeText(data.get(getAdapterPosition()).getTitle());
+        Context context = view.getContext();
+        new MaterialAlertDialogBuilder(context)
             .setTitle(R.string.example)
             .setMessage(data.get(getAdapterPosition()).getExample())
-            .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {})
             .setPositiveButton(
+                R.string.use,
+                (dialogInterface, i) -> {
+                  int counter = data.get(getAdapterPosition()).getUseCounter();
+                  data.get(getAdapterPosition()).setUseCounter(counter + 1);
+                  Intent intent = new Intent(context, MainActivity.class);
+                  intent.putExtra("use_command", sanitizedText);
+                  intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                  context.startActivity(intent);
+                })
+            .setNegativeButton(
                 R.string.copy,
                 (dialogInterface, i) -> {
-                  String sanitizedText = sanitizeText(data.get(getAdapterPosition()).getTitle());
-                  Utils.copyToClipboard(sanitizedText, view.getContext());
+                  Utils.copyToClipboard(sanitizedText, context);
                 })
             .show();
       }

@@ -12,6 +12,7 @@ import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -23,9 +24,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.ChangelogActivity;
@@ -38,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import rikka.shizuku.Shizuku;
 
 public class Utils {
   public static Intent intent;
@@ -73,6 +78,10 @@ public class Utils {
     return snackbar;
   }
 
+  public static int androidVersion() {
+    return Build.VERSION.SDK_INT;
+  }
+
   public static String getDeviceName() {
     return Build.MODEL;
   }
@@ -87,7 +96,6 @@ public class Utils {
       while ((line = buf.readLine()) != null) {
         stringBuilder.append(line).append("\n");
       }
-
       return stringBuilder.toString().trim();
     } catch (IOException ignored) {
     } finally {
@@ -105,7 +113,8 @@ public class Utils {
         (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
     ClipData clip = ClipData.newPlainText(context.getString(R.string.copied_to_clipboard), text);
     clipboard.setPrimaryClip(clip);
-    Toast.makeText(context, context.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
+    Toast.makeText(context, context.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
+        .show();
   }
 
   public static void create(String text, File path) {
@@ -296,7 +305,11 @@ public class Utils {
   }
 
   public static void bookmarksDialog(
-      Context context, Activity activity, TextInputEditText mCommand) {
+      Context context,
+      Activity activity,
+      TextInputEditText mCommand,
+      TextInputLayout mCommandInput,
+      MaterialButton button) {
 
     List<String> bookmarks = Utils.getBookmarks(activity);
 
@@ -321,12 +334,62 @@ public class Utils {
         .setNegativeButton(
             context.getString(R.string.sort),
             (dialogInterface, i) -> {
-              Utils.sortingDialog(context, activity, mCommand);
+              Utils.sortingDialog(context, activity, mCommand, mCommandInput, button);
+            })
+        .setNeutralButton(
+            context.getString(R.string.delete_all),
+            (DialogInterface, i) -> {
+              Utils.deleteDialog(context, activity, mCommand, mCommandInput, button);
             })
         .show();
   }
 
-  public static void sortingDialog(Context context, Activity activity, TextInputEditText mCommand) {
+  public static void deleteDialog(
+      Context context,
+      Activity activity,
+      TextInputEditText mCommand,
+      TextInputLayout mCommandInput,
+      MaterialButton button) {
+
+    new MaterialAlertDialogBuilder(activity)
+        .setTitle(context.getString(R.string.confirm_delete))
+        .setMessage(context.getString(R.string.confirm_delete_message))
+        .setPositiveButton(
+            context.getString(R.string.ok),
+            (dialogInterface, i) -> {
+              List<String> bookmarks = Utils.getBookmarks(activity);
+              for (String item : bookmarks) {
+                Utils.deleteFromBookmark(item, context);
+              }
+              button.setVisibility(View.GONE);
+              String s = mCommand.getText().toString();
+              if (!s.equals("")) {
+                mCommandInput.setEndIconDrawable(R.drawable.ic_add_bookmark);
+              } else {
+                mCommandInput.setEndIconVisible(false);
+              }
+            })
+        .setNegativeButton(
+            context.getString(R.string.cancel),
+            (dialogInterface, i) -> {
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
+            })
+        .setOnCancelListener(
+            v -> {
+              List<String> bookmarks = Utils.getBookmarks(activity);
+              if (bookmarks.size() != 0) {
+                Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
+              }
+            })
+        .show();
+  }
+
+  public static void sortingDialog(
+      Context context,
+      Activity activity,
+      TextInputEditText mCommand,
+      TextInputLayout mCommandInput,
+      MaterialButton button) {
     CharSequence[] sortingOptions = {
       context.getString(R.string.sort_A_Z),
       context.getString(R.string.sort_Z_A),
@@ -349,33 +412,28 @@ public class Utils {
             context.getString(R.string.ok),
             (dialog, which) -> {
               Preferences.setSortingOption(context, sortingOption[0]);
-              Utils.bookmarksDialog(context, activity, mCommand);
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
             })
         .setNegativeButton(
             context.getString(R.string.cancel),
             (dialog, i) -> {
-              Utils.bookmarksDialog(context, activity, mCommand);
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
             })
         .setOnCancelListener(
             v -> {
-              Utils.bookmarksDialog(context, activity, mCommand);
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
             })
         .show();
   }
 
   public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
-
     boolean switchState = Preferences.getOverrideBookmarks(context);
-    if (Utils.getBookmarks(context).size() <= 24) {
+
+    if (Utils.getBookmarks(context).size() <= Preferences.MAX_BOOKMARKS_LIMIT - 1 || switchState) {
       Utils.addToBookmark(bookmark, context);
       Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
     } else {
-      if (switchState) {
-        Utils.addToBookmark(bookmark, context);
-        Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
-      } else {
-        Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();
-      }
+      Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();
     }
   }
 
@@ -407,5 +465,26 @@ public class Utils {
             })
         .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
         .show();
+  }
+
+  public static void connectedDeviceDialog(Context context, String connectedDevice) {
+    String device = connectedDevice;
+
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(context.getString(R.string.connected_device))
+        .setMessage(device)
+        .show();
+  }
+
+  public static void chipOnClickListener(Context context, Chip mChip, String device) {
+    mChip.setOnClickListener(
+        v -> {
+          boolean hasShizuku =
+              Shizuku.pingBinder()
+                  && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
+          Utils.connectedDeviceDialog(
+              context, hasShizuku ? device : context.getString(R.string.none));
+          mChip.setChecked(!mChip.isChecked());
+        });
   }
 }

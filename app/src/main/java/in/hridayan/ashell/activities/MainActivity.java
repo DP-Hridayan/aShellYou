@@ -36,8 +36,25 @@ public class MainActivity extends AppCompatActivity {
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
   private static int currentFragment;
-  private boolean isBlackThemeEnabled, isAmoledTheme, isSharedText;
+  private boolean isBlackThemeEnabled, isAmoledTheme;
   private MainViewModel viewModel;
+
+  @Override
+  protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+
+    if (intent.hasExtra("use_command")) {
+      String useCommand = intent.getStringExtra("use_command");
+      handleUseCommandIntent(useCommand, intent);
+    }
+    if (intent.hasExtra(Intent.EXTRA_TEXT)) {
+      String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+      if (sharedText != null) {
+        sharedText = sharedText.trim().replaceAll("^\"|\"$", "");
+        handleSharedTextIntent(sharedText, intent);
+      }
+    }
+  }
 
   @Override
   protected void onPause() {
@@ -49,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
+
     isAmoledTheme = Preferences.getAmoledTheme(this);
     boolean currentTheme = isAmoledTheme;
     if (currentTheme != isBlackThemeEnabled) {
@@ -96,46 +114,46 @@ public class MainActivity extends AppCompatActivity {
     setupNavigation();
     setBadge(R.id.nav_otgShell, "Beta");
     setBadge(R.id.nav_wireless, "Soon");
-    if (isSharedText) {
-      handleSharedTextIntent(getIntent());
-
-      return;
-    }
   }
 
-  private void handleSharedTextIntent(Intent intent) {
-    if (isSharedText) {
-      String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-      if (sharedText != null) {
-        int currentFragment = Preferences.getCurrentFragment(this);
-        switch (currentFragment) {
-          case LOCAL_FRAGMENT:
-            aShellFragment fragmentLocalAdb =
-                (aShellFragment)
-                    getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-            if (fragmentLocalAdb != null) {
-              fragmentLocalAdb.updateInputField(sharedText);
-            }
-            break;
+  private void handleSharedTextIntent(String sharedText, Intent intent) {
+    setTextOnEditText(sharedText, intent);
+  }
 
-          case OTG_FRAGMENT:
-            otgShellFragment fragmentOtg =
-                (otgShellFragment)
-                    getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-            if (fragmentOtg != null) {
-              fragmentOtg.updateInputField(sharedText);
-            }
+  private void handleUseCommandIntent(String useCommand, Intent intent) {
+    setTextOnEditText(useCommand, intent);
+  }
 
-            break;
-          default:
-            break;
+  private void setTextOnEditText(String text, Intent intent) {
+
+    int currentFragment = Preferences.getCurrentFragment(this);
+        
+    switch (currentFragment) {
+            
+      case LOCAL_FRAGMENT:
+        aShellFragment fragmentLocalAdb =
+            (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragmentLocalAdb != null) {
+          if (intent.hasExtra(Intent.EXTRA_TEXT)) {
+            fragmentLocalAdb.handleSharedTextIntent(getIntent(), text);
+          } else {
+            fragmentLocalAdb.updateInputField(text);
+          }
         }
-      }
-      isSharedText = false;
-      return;
+        break;
+
+      case OTG_FRAGMENT:
+        otgShellFragment fragmentOtg =
+            (otgShellFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragmentOtg != null) {
+          fragmentOtg.updateInputField(text);
+        }
+        break;
+
+      default:
+        break;
     }
-    isSharedText = false;
-    return;
   }
 
   private void setupNavigation() {
@@ -239,23 +257,16 @@ public class MainActivity extends AppCompatActivity {
       } else {
         int currentFragment = Preferences.getCurrentFragment(this);
         int workingMode = Preferences.getWorkingMode(this);
-
-        if (workingMode == MODE_REMEMBER_LAST_MODE) {
-          switchFragments(currentFragment);
-        } else {
-          switchFragments(workingMode + 1);
-        }
+        switchFragments(workingMode == MODE_REMEMBER_LAST_MODE ? currentFragment : workingMode + 1);
       }
     }
   }
 
   private void setCurrentFragment() {
-
-    if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof aShellFragment)) {
+    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    if (fragment instanceof aShellFragment) {
       currentFragment = LOCAL_FRAGMENT;
-    } else if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof otgShellFragment)) {
+    } else if (fragment instanceof otgShellFragment) {
       currentFragment = OTG_FRAGMENT;
     }
   }

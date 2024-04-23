@@ -31,15 +31,14 @@
                 android:text="@string/app_name" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/local_adb_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Widget.Material3.Chip.Suggestion"
                 android:text="Local ADB"
                 android:checked="true"
                 android:layout_marginStart="25dp"
-                android:layout_gravity="bottom"
-                app:rippleColor="@android:color/transparent"
-                android:clickable="false" />
+                android:layout_gravity="bottom" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"
@@ -152,59 +151,67 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <Button
-        android:layout_height="48dp"
-        android:layout_width="48dp"
-        app:icon="@drawable/ic_settings"
-        app:layout_constraintTop_toTopOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
         android:layout_margin="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        style="?attr/materialIconButtonFilledTonalStyle"
-        android:id="@+id/settings" />
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_chainStyle="spread_inside">
 
-    <Button
-        android:layout_height="48dp"
-        android:layout_width="48dp"
-        android:visibility="gone"
-        app:icon="@drawable/ic_bookmarks"
-        app:layout_constraintTop_toTopOf="@id/settings"
-        app:layout_constraintStart_toEndOf="@id/settings"
-        style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_marginStart="25dp"
-        android:id="@+id/bookmarks" />
+        <Button
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            app:icon="@drawable/ic_settings"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:id="@+id/settings" />
 
-    <Button
-        android:layout_height="48dp"
-        android:layout_width="48dp"
-        android:visibility="gone"
-        app:icon="@drawable/ic_history"
-        app:layout_constraintTop_toTopOf="@id/settings"
-        app:layout_constraintStart_toEndOf="@id/bookmarks"
-        style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_marginStart="25dp"
-        android:id="@+id/history" />
+        <Button
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_bookmarks"
+            app:layout_constraintTop_toTopOf="@id/settings"
+            app:layout_constraintStart_toEndOf="@id/settings"
+            app:layout_constraintEnd_toStartOf="@id/history"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:id="@+id/bookmarks" />
 
-    <Button
-        android:layout_height="48dp"
-        android:layout_width="48dp"
-        android:visibility="gone"
-        app:icon="@drawable/ic_clear"
-        app:layout_constraintTop_toTopOf="@id/settings"
-        app:layout_constraintStart_toEndOf="@id/history"
-        style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_marginStart="25dp"
-        android:id="@+id/clear" />
+        <Button
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_history"
+            app:layout_constraintTop_toTopOf="@id/settings"
+            app:layout_constraintStart_toEndOf="@id/bookmarks"
+            app:layout_constraintEnd_toStartOf="@id/clear"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:id="@+id/history" />
 
-    <Button
-        android:layout_height="48dp"
-        android:layout_width="48dp"
-        android:visibility="gone"
-        app:icon="@drawable/ic_search"
-        app:layout_constraintTop_toTopOf="@id/settings"
-        app:layout_constraintStart_toEndOf="@id/clear"
-        style="?attr/materialIconButtonFilledTonalStyle"
-        android:layout_marginStart="25dp"
-        android:id="@+id/search" />
+        <Button
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_clear"
+            app:layout_constraintTop_toTopOf="@id/settings"
+            app:layout_constraintStart_toEndOf="@id/history"
+            app:layout_constraintEnd_toStartOf="@id/search"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:id="@+id/clear" />
+
+        <Button
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_search"
+            app:layout_constraintTop_toTopOf="@id/settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:id="@+id/search" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_height="wrap_content"

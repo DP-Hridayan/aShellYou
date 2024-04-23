@@ -11,7 +11,6 @@ public class ThemeUtils {
 
   public static void updateTheme(AppCompatActivity activity) {
     isAmoledTheme = Preferences.getAmoledTheme(activity);
-
     int currentMode =
         activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 

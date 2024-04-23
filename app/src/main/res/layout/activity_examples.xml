@@ -27,8 +27,7 @@
             app:expandedTitleMarginStart="25dp"
             app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="@string/commands"
-            style="@style/ToolbarContentScrim">
+            app:title="@string/commands">
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
@@ -53,7 +52,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/search_command"
             app:backgroundTint="?attr/colorSecondaryContainer"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed" />
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:menu="@menu/search_bar_menu" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -77,6 +77,17 @@
             android:layout_height="match_parent"
             android:background="?attr/colorSurface"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/search_summary"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.Chip.Suggestion"
+            android:text="@string/search_summary"
+            android:checked="true"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="25dp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/no_command_found"
