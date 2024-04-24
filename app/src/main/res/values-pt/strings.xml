@@ -6,6 +6,7 @@
     <string name="adb_device_not_connected">Dispositivo ADB não conectado.</string>
     <string name="adb_device_waiting">Aguardando dispositivo ADB</string>
     <string name="adb_shell">ADB shell</string>
+    <string name="add_bookmark">Adicionar um favorito</string>
     <string name="about">Sobre</string>
     <string name="accept">Aceitar</string>
     <string name="amoled_theme">Tema preto AMOLED</string>
@@ -16,8 +17,10 @@
     <string name="beta_warning">Este recurso encontra-se atualmente em fase experimental. Se você encontrar quaisquer problemas, por favor, comunique ao desenvolvedor.</string>
     <string name="bookmarks">Favoritos</string>
     <string name="bookmark_added_message">\'%s\' agora é um favorito</string>
+    <string name="batch_bookmark_added_message">\%s\ comandos adicionados aos favoritos</string>
     <string name="bookmark_limit_reached">Limite máximo de favoritos atingido! Exclua alguns favoritos para adicionar novos</string>
     <string name="bookmark_removed_message">\'%s\' não é mais um favorito</string>
+    <string name="batch_bookmark_removed_message">\%s\ comandos removidos dos favoritos</string>
     <string name="cancel">Cancelar</string>
     <string name="changelogs">Novidades</string>
     <string name="choose">Escolher</string>
@@ -28,11 +31,18 @@
     <string name="commands">Comandos</string>
     <string name="command_hint">Digite o comando ADB aqui</string>
     <string name="command_title">Digite o comando ADB</string>
+    <string name="confirm">Confirmar</string>
+    <string name="confirm_batch_add_bookmark">\%s\ itens selecionados serão adicionados aos favoritos</string>
+    <string name="confirm_batch_remove_bookmark">\%s\ itens selecionados serão removidos dos favoritos</string>
+    <string name="confirm_delete">Confirmar exclusão</string>
+    <string name="confirm_delete_message">Aviso! Essa ação é irreversível\nTem certeza de que deseja excluir todos os favoritos?</string>
+    <string name="connected_device">Dispositivo conectado</string>
     <string name="connecting">conectando...</string>
     <string name="connecting_hint">confirme a autorização no dispositivo alvo</string>
     <string name="copy">"Copiar"</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="default_working_mode">Modo de operação padrão</string>
+    <string name="delete_all">Excluir todos</string>
     <string name="des_default_working_mode">Escolha o modo de operação padrão para executar comandos ADB</string>
     <string name="device_not_connected">Dispositivo não conectado</string>
     <string name="discord">Discord</string>
@@ -48,7 +58,11 @@
     <string name="flashing">Flasheando</string>
     <string name="go_back">Voltar</string>
     <string name="history">Histórico</string>
+    <string name="least_used">Menos usados</string>
     <string name="local_adb">ADB Local</string>
+    <string name="menu">Menu</string>
+    <string name="most_used">Mais usados</string>
+    <string name="none">Nenhum</string>
     <string name="no_command">Nenhum comando</string>
     <string name="no_command_found">Nenhum comando encontrado que corresponda à sua consulta</string>
     <string name="ok">OK</string>
@@ -56,6 +70,7 @@
     <string name="otg">OTG</string>
     <string name="otg_not_connected">O dispositivo não está conectado corretamente. Conecte o dispositivo corretamente através do OTG e tente novamente</string>
     <string name="paste">Colar</string>
+    <string name="pin">Fixar</string>
     <string name="press_back">Pressione voltar de novo para sair</string>
     <string name="process_destroy_message">O aShell You ainda está trabalhando. Deseja interromper o processo atual?</string>
     <string name="progress">Progresso</string>
@@ -68,6 +83,9 @@
     <string name="search">Pesquisar</string>
     <string name="search_command">Pesquise por comandos aqui</string>
     <string name="search_output">Encontrar resultados de comandos</string>
+    <string name="selected">Selecionado</string>
+    <string name="select_all">Selecionar todos</string>
+    <string name="search_summary">Pesquisar na relação de comandos?</string>
     <string name="settings">Configurações</string>
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) falha</string>
     <string name="share_and_run">Auto executar comandos compartilhados</string>
