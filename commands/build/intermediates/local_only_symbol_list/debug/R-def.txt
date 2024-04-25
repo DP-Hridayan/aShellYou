@@ -1,0 +1,10 @@
+R_DEF: Internal format may change without notice
+local
+string am_force_stop
+string am_kill
+string am_kill_all
+string cat
+string cp
+string cp_r
+string du_h
+string dumpsys_activity
