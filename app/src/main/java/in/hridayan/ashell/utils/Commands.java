@@ -1,11 +1,12 @@
 package in.hridayan.ashell.utils;
 
 import android.content.Context;
+import commands.R;
+import in.hridayan.ashell.utils.Preferences;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import in.hridayan.ashell.utils.Preferences;
 
 public class Commands {
   private static List<CommandItems> mPackages = null;
@@ -15,7 +16,7 @@ public class Commands {
     mCommands.add(
         new CommandItems(
             "am force-stop <package>",
-            "Completely stop a given package",
+            context.getString(R.string.am_force_stop),
             "am force-stop com.android.package",
             context));
     mCommands.add(
@@ -55,7 +56,7 @@ public class Commands {
     mCommands.add(
         new CommandItems("dumpsys activity", "Print activity info", "dumpsys activity", context));
     mCommands.add(
-        new CommandItems("dumpsys battery", "Primt battery stats", "dumpsys battery", context));
+        new CommandItems("dumpsys battery", "Print battery stats", "dumpsys battery", context));
     mCommands.add(
         new CommandItems(
             "dumpsys battery set level <n>",

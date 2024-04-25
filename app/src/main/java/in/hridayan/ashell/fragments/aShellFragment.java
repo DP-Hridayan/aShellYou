@@ -153,6 +153,7 @@ public class aShellFragment extends Fragment {
 
     mBookMarks.setVisibility(Utils.getBookmarks(context).size() != 0 ? View.VISIBLE : View.GONE);
     updateBookmarksConstraints();
+    updateHistoryButtonConstraints();
     if (viewModel.isEditTextFocused()) {
       mCommand.requestFocus();
     } else {
@@ -599,7 +600,7 @@ public class aShellFragment extends Fragment {
           Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
     }
 
-    ViewTreeObserver.OnGlobalLayoutListener layoutListener =
+    ViewTreeObserver.OnGlobalLayoutListener historyListener =
         new ViewTreeObserver.OnGlobalLayoutListener() {
           @Override
           public void onGlobalLayout() {
@@ -607,8 +608,16 @@ public class aShellFragment extends Fragment {
           }
         };
 
-    mHistoryButton.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+    ViewTreeObserver.OnGlobalLayoutListener clearButtonListener =
+        new ViewTreeObserver.OnGlobalLayoutListener() {
+          @Override
+          public void onGlobalLayout() {
+            updateHistoryButtonConstraints();
+          }
+        };
 
+    mHistoryButton.getViewTreeObserver().addOnGlobalLayoutListener(historyListener);
+    mClearButton.getViewTreeObserver().addOnGlobalLayoutListener(clearButtonListener);
     mBookMarks.setTooltipText(getString(R.string.bookmarks));
 
     mBookMarks.setOnClickListener(
@@ -1266,5 +1275,16 @@ public class aShellFragment extends Fragment {
     mBookMarks.setLayoutParams(layoutParams);
     mBookMarks.requestLayout();
     mBookMarks.invalidate();
+  }
+
+  private void updateHistoryButtonConstraints() {
+    ConstraintLayout.LayoutParams layoutParams =
+        (ConstraintLayout.LayoutParams) mHistoryButton.getLayoutParams();
+    boolean isBookMarksVisible = mClearButton.getVisibility() == View.VISIBLE;
+    layoutParams.endToStart = isBookMarksVisible ? R.id.clear : ConstraintLayout.LayoutParams.UNSET;
+    layoutParams.setMarginStart(isBookMarksVisible ? 0 : 70);
+    mHistoryButton.setLayoutParams(layoutParams);
+    mHistoryButton.requestLayout();
+    mHistoryButton.invalidate();
   }
 }

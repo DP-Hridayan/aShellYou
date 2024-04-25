@@ -1,0 +1,15 @@
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+    <string name="am_force_stop">Completely stop a given package</string>
+    <string name="am_kill">Kill all background processes associated with a given package</string>
+    <string name="am_kill_all">Kill all processes that are safe to kill (cached, etc)</string>
+    <string name="cat">Display the contents of a text file</string>
+    <string name="cp">Copy a file</string>
+    <string name="cp_r">Copy a file or directory</string>
+    <string name="du_h">Shows disk usage in human readable form</string>
+    <string name="dumpsys_activity">Print activity info</string>
+    <string name="dumpsys_battery">Print battery stats</string>
+    <string name="dumpsys_battery_set_level">Change the level from 0 to 100</string>
+</resources>
