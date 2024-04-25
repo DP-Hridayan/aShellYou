@@ -4,9 +4,6 @@ import android.content.Context;
 import java.io.Serializable;
 import in.hridayan.ashell.utils.Preferences;
 
-/*
- * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 05, 2022
- */
 public class CommandItems implements Serializable {
 
   private final String mTitle, mSummary, mExample;
@@ -14,9 +11,9 @@ public class CommandItems implements Serializable {
   private Context context;
   private boolean isChecked, isPinned;
 
-  public CommandItems(String title, String summary, String example, Context context) {
+  public CommandItems(String title, String example, Context context) {
     this.mTitle = title;
-    this.mSummary = summary;
+    this.mSummary = summary(title, context);
     this.mExample = example;
     this.context = context;
     this.mUseCounter = Preferences.getUseCounter(context, mTitle);
@@ -60,4 +57,11 @@ public class CommandItems implements Serializable {
   public void setChecked(boolean checked) {
     isChecked = checked;
   }
+
+  private String summary(String title, Context context) {
+    String trimmedTitle = title.replaceAll("<[^>]*>", "").trim().replaceAll("[ -]+", "_").replaceAll("_+", "_");
+    int resourceId = context.getResources().getIdentifier(trimmedTitle, "string", context.getPackageName());
+    return context.getResources().getString(resourceId);
+}
+    
 }
