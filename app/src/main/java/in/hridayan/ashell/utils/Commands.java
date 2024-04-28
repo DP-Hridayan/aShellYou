@@ -18,6 +18,12 @@ public class Commands {
     mCommands.add(new CommandItems("am kill <package>", "am kill com.android.package", context));
     mCommands.add(new CommandItems("am kill-all", "am kill-all", context));
     mCommands.add(new CommandItems("cat <file_path>", "cat /system/build.prop", context));
+    mCommands.add(new CommandItems("cd <directory_path>", "cd /sdcard", context));
+    mCommands.add(new CommandItems("cd /", "cd /", context));
+    mCommands.add(new CommandItems("cd ~", "cd ~", context));
+    mCommands.add(new CommandItems("cd ..", "cd ..", context));
+    mCommands.add(new CommandItems("cd -", "cd -", context));
+
     mCommands.add(new CommandItems("clear", "clear", context));
     mCommands.add(
         new CommandItems(

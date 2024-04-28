@@ -59,9 +59,17 @@ public class CommandItems implements Serializable {
   }
 
   private String summary(String title, Context context) {
-    String trimmedTitle = title.replaceAll("<[^>]*>", "").trim().replaceAll("[ -]+", "_").replaceAll("_+", "_");
-    int resourceId = context.getResources().getIdentifier(trimmedTitle, "string", context.getPackageName());
+    String trimmedTitle =
+        title
+            .replaceAll("cd -", "cd_hyphen")
+            .replaceAll("<[^>]*>", "")
+            .replaceAll("/", "slash")
+            .replaceAll("~", "tilde")
+            .trim()
+            .replaceAll("[ -]+", "_")
+            .replaceAll("_+", "_");
+    int resourceId =
+        context.getResources().getIdentifier(trimmedTitle, "string", context.getPackageName());
     return context.getResources().getString(resourceId);
-}
-    
+  }
 }
