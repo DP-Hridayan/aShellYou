@@ -1,5 +1,0 @@
-commands.test.commands-androidTest-0 /storage/emulated/0/AndroidIDEProjects/aShellYou/commands/build/generated/res/resValues/androidTest/debug
-commands.test.commands-mergeDebugAndroidTestResources-1 /storage/emulated/0/AndroidIDEProjects/aShellYou/commands/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
-commands.test.commands-mergeDebugAndroidTestResources-2 /storage/emulated/0/AndroidIDEProjects/aShellYou/commands/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
-commands.test.commands-merged_res-3 /storage/emulated/0/AndroidIDEProjects/aShellYou/commands/build/intermediates/merged_res/debugAndroidTest
-commands.test.commands-packaged_res-4 /storage/emulated/0/AndroidIDEProjects/aShellYou/commands/build/intermediates/packaged_res/debug
