@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:ignore="MissingTranslation">
     <string name="access_denied">Acesso negado</string>
     <string name="accept_device_prompt">Talvez seja necessário aceitar um prompt no outro dispositivo se você estiver tentando se conectar a ele pela primeira vez a partir deste dispositivo</string>
     <string name="adb_device_connected">Dispositivo ADB conectado.</string>
@@ -22,6 +24,11 @@
     <string name="bookmark_removed_message">\'%s\' não é mais um favorito</string>
     <string name="batch_bookmark_removed_message">\%s\ comandos removidos dos favoritos</string>
     <string name="cancel">Cancelar</string>
+    <string name="cd">Alterar diretório</string>
+    <string name="cd_slash">Ir para o diretório raiz</string>
+    <string name="cd_tilde">Ir para o diretório inicial</string>
+    <string name="cd_hyphen">Ir para o diretório anterior</string>
+    <string name="cd_..">Ir para o diretório pai</string>
     <string name="changelogs">Novidades</string>
     <string name="choose">Escolher</string>
     <string name="clear_all_message">Tem certeza de que deseja limpar tudo nesta tela?</string>

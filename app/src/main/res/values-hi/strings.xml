@@ -1,3 +1,5 @@
+<?xml version="1.0"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 <string name="access_denied">पहुंच अस्वीकृत</string>
 <string name="accept_device_prompt">डिवाइस स्वीकृति प्रॉम्प्ट</string>
 <string name="adb_device_connected">ADB डिवाइस कनेक्ट किया गया।</string>
