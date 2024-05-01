@@ -12,10 +12,14 @@ android {
 
     defaultConfig {
         applicationId "in.hridayan.ashell"
-        minSdk 24
+        minSdk 26
         targetSdk 34
         versionCode 38
-        versionName "v4.0.1-test"
+        versionName "v4.0.1"
+    }
+    
+   lint {
+        baseline = file("lint-baseline.xml")
     }
 
     Properties properties = new Properties()

@@ -5,8 +5,6 @@
         parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:enforceStatusBarContrast">false</item>
-        <item name="android:enforceNavigationBarContrast">false</item>
     </style>
 
     <style
@@ -32,22 +30,6 @@
         <item name="android:textSize">13.0sp</item>
         <item name="android:alpha">0.9</item>
     </style>
-
-       <style
-        name="ItemTitleDisabled"
-        parent="aShellYou.AppTheme">
-        <item name="android:textSize">18.0sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name = "android:alpha">0.8</item>
-    </style>
-
-    <style
-        name="ItemDescriptionDisabled"
-        parent="aShellYou.AppTheme">
-        <item name="android:textSize">13.0sp</item>
-        <item name="android:alpha">0.7</item>
-    </style>
-
     
     <style
         name="LatestVersionTitle"

@@ -38,6 +38,7 @@ import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ExamplesActivity extends AppCompatActivity
     implements ExamplesAdapter.OnItemClickListener {
@@ -200,7 +201,9 @@ public class ExamplesActivity extends AppCompatActivity
 
   private void searchTitle(CharSequence text, List<CommandItems> filteredList) {
     for (CommandItems item : itemList) {
-      if (item.getTitle().toLowerCase().contains(text.toString().toLowerCase())) {
+      if (item.getTitle()
+          .toLowerCase(Locale.getDefault())
+          .contains(text.toString().toLowerCase(Locale.getDefault()))) {
         filteredList.add(item);
       }
     }
@@ -208,8 +211,12 @@ public class ExamplesActivity extends AppCompatActivity
 
   private void searchTitleAndSummary(CharSequence text, List<CommandItems> filteredList) {
     for (CommandItems item : itemList) {
-      if (item.getTitle().toLowerCase().contains(text.toString().toLowerCase())
-          || item.getSummary().toLowerCase().contains(text.toString().toLowerCase())) {
+      if (item.getTitle()
+              .toLowerCase(Locale.getDefault())
+              .contains(text.toString().toLowerCase(Locale.getDefault()))
+          || item.getSummary()
+              .toLowerCase(Locale.getDefault())
+              .contains(text.toString().toLowerCase(Locale.getDefault()))) {
         filteredList.add(item);
       }
     }

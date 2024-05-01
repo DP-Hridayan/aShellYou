@@ -72,6 +72,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -584,7 +585,7 @@ public class aShellFragment extends Fragment {
             } else {
               List<String> mResultSorted = new ArrayList<>();
               for (int i = mPosition; i < mResult.size(); i++) {
-                if (mResult.get(i).toLowerCase().contains(s.toString().toLowerCase())) {
+                if (mResult.get(i).toLowerCase(Locale.getDefault()).contains(s.toString().toLowerCase(Locale.getDefault()))) {
                   mResultSorted.add(mResult.get(i));
                 }
               }

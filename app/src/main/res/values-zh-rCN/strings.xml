@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources 
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
     <string name="access_denied">拒绝执行</string>
     <string name="accept_device_prompt">初次连接要调试的设备时可能需要在受调试设备上操作授权弹窗</string>
     <string name="adb_device_connected">ADB设备已连接</string>
@@ -27,9 +29,9 @@
     <string name="commands">命令</string>
     <string name="command_hint">此处输入 ADB 命令</string>
     <string name="command_title">输入 ADB 命令</string>
-    <string name="connecting">连接中…</string>
+    <string name="connecting">连接中\u2026</string>
     <string name="connecting_hint">需在目标设备上确认</string>
-    <string name="copy">复制</string>
+    <string name="copy" tools:override="true">复制</string>
     <string name="device_not_connected">设备未连接</string>
     <string name="discord">Discord</string>
     <string name="des_discord">加入 Discord</string>

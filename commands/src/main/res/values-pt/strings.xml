@@ -1,9 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="am_force_stop">Parar um determinado pacote</string>
     <string name="am_kill">Matar todos os processos em segundo plano associados a um determinado pacote</string>
     <string name="am_kill_all">Matar todos os processos que são seguros para matar (cache, etc)</string>
     <string name="cat">Exibir o conteúdo de um arquivo de texto</string>
+    <string name="cd">Alterar diretório</string>
+    <string name="cd_slash">Ir para o diretório raiz</string>
+    <string name="cd_tilde">Ir para o diretório inicial</string>
+    <string name="cd_hyphen">Ir para o diretório anterior</string>
+    <string name="cd_..">Ir para o diretório pai</string>
     <string name="clear">Limpar tela de terminal</string>
     <string name="cp">Copiar um arquivo</string>
     <string name="cp_r">Copiar um arquivo ou diretório</string>

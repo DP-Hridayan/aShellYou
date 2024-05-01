@@ -13,7 +13,7 @@
         android:id="@+id/symbol_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="?attr/colorPrimary"
+        app:tint="?attr/colorPrimary"
         android:layout_marginStart="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

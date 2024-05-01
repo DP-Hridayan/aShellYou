@@ -7,6 +7,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 34
     }
+    
     namespace 'commands'
     buildTypes {
         release {

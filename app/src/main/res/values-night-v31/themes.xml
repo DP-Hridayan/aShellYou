@@ -16,13 +16,15 @@
 
     <style
         name="BottomNavigation"
-        parent="aShellYou.AppTheme">
+        parent="aShellYou.AppTheme"
+        tools:ignore="PrivateResource">
         <item name="android:background">@color/m3_ref_palette_dynamic_neutral_variant6</item>
     </style>
 
     <style
         name="ToolbarContentScrim"
-        parent="aShellYou.AppTheme">
+        parent="aShellYou.AppTheme"
+        tools:ignore="PrivateResource">
         <item name="contentScrim">@color/m3_ref_palette_dynamic_neutral_variant10</item>
     </style>
 

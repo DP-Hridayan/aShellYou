@@ -2,10 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
 
-    <string
-        name="app_name"
-        translatable="false">aShell You</string>
-
     <string name="access_denied">Erişim reddedildi</string>
     <string name="accept_device_prompt">Bu cihazdan ilk kez bağlanmaya çalışıyorsanız, diğer cihazda bir istemi kabul etmeniz gerekebilir</string>
     <string name="adb_device_connected">ADB cihazı bağlandı.</string>
@@ -35,9 +31,9 @@
     <string name="commands">Komutlar</string>
     <string name="command_hint">ADB komutunu buraya girin</string>
     <string name="command_title">ADB komutunu girin</string>
-    <string name="connecting">bağlanılıyor...</string>
+    <string name="connecting">bağlanılıyor\u2026</string>
     <string name="connecting_hint">hedef cihazda yetkilendirmeyi onayla</string>
-    <string name="copy">"Kopyala"</string>
+    <string name="copy" tools:override="true">Kopyala</string>
     <string name="copied_to_clipboard">Panoya kopyalandı</string>
     <string name="default_working_mode">Varsayılan çalışma modu</string>
     <string name="des_default_working_mode">ADB komutlarını çalıştırmak için varsayılan çalışma modunu seçin</string>
@@ -95,7 +91,6 @@
     <string name="success">Başarılı</string>
     <string name="support">Destek</string>
     <string name="su_warning_message">aShell You, kökle ilgili kullanımlar için tasarlanmamıştır. Durduruluyor.</string>
-    <string name="title_activity_setting">Apk kurulumu</string>
     <string name="use">Kullan</string>
     <string name="waiting_device">Cihaz bekleniyor</string>
     <string name="warning">Uyarı</string>

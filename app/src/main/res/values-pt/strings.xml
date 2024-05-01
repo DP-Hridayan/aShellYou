@@ -19,10 +19,10 @@
     <string name="beta_warning">Este recurso encontra-se atualmente em fase experimental. Se você encontrar quaisquer problemas, por favor, comunique ao desenvolvedor.</string>
     <string name="bookmarks">Favoritos</string>
     <string name="bookmark_added_message">\'%s\' agora é um favorito</string>
-    <string name="batch_bookmark_added_message">\%s\ comandos adicionados aos favoritos</string>
+    <string name="batch_bookmark_added_message">%d comandos adicionados aos favoritos</string>
     <string name="bookmark_limit_reached">Limite máximo de favoritos atingido! Exclua alguns favoritos para adicionar novos</string>
     <string name="bookmark_removed_message">\'%s\' não é mais um favorito</string>
-    <string name="batch_bookmark_removed_message">\%s\ comandos removidos dos favoritos</string>
+    <string name="batch_bookmark_removed_message">%d comandos removidos dos favoritos</string>
     <string name="cancel">Cancelar</string>
     <string name="cd">Alterar diretório</string>
     <string name="cd_slash">Ir para o diretório raiz</string>
@@ -39,14 +39,14 @@
     <string name="command_hint">Digite o comando ADB aqui</string>
     <string name="command_title">Digite o comando ADB</string>
     <string name="confirm">Confirmar</string>
-    <string name="confirm_batch_add_bookmark">\%s\ itens selecionados serão adicionados aos favoritos</string>
-    <string name="confirm_batch_remove_bookmark">\%s\ itens selecionados serão removidos dos favoritos</string>
+    <string name="confirm_batch_add_bookmark">%d itens selecionados serão adicionados aos favoritos</string>
+    <string name="confirm_batch_remove_bookmark">%d itens selecionados serão removidos dos favoritos</string>
     <string name="confirm_delete">Confirmar exclusão</string>
     <string name="confirm_delete_message">Aviso! Essa ação é irreversível\nTem certeza de que deseja excluir todos os favoritos?</string>
     <string name="connected_device">Dispositivo conectado</string>
-    <string name="connecting">conectando...</string>
+    <string name="connecting">conectando\u2026</string>
     <string name="connecting_hint">confirme a autorização no dispositivo alvo</string>
-    <string name="copy">"Copiar"</string>
+    <string name="copy" tools:override="true">Copiar</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="default_working_mode">Modo de operação padrão</string>
     <string name="delete_all">Excluir todos</string>
@@ -113,7 +113,6 @@
     <string name="success">Sucesso</string>
     <string name="support">Suporte</string>
     <string name="su_warning_message">O aShell You não foi projetado para usos relacionados a root. Abortando.</string>
-    <string name="title_activity_setting">Setup Apks</string>
     <string name="use">Usar</string>
     <string name="waiting_device">Aguardando por dispositivo</string>
     <string name="warning">Aviso</string>

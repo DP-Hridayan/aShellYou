@@ -24,12 +24,12 @@
     <string name="beta_warning">This feature is currently in its experimental phase. If you encounter any issues please let me know.</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="bookmark_added_message">\'%s\' is bookmarked</string>
-    <string name="batch_bookmark_added_message">\%s\ commands are bookmarked</string>
+    <string name="batch_bookmark_added_message">%d commands are bookmarked</string>
     <string name="bookmark_limit_reached">Maximum bookmark limit reached! Delete some bookmarks to add new ones</string>
     <string name="bookmark_removed_message">\'%s\' has been removed from bookmarks</string>
-    <string name="batch_bookmark_removed_message">\%s\ commands are removed from bookmarks</string>
-    <string name="batch_pinned_message">\%s\ commands are pinned</string>
-    <string name="batch_unpinned_message">\%s\ commands are unpinned</string>
+    <string name="batch_bookmark_removed_message">%d commands are removed from bookmarks</string>
+    <string name="batch_pinned_message">%d commands are pinned</string>
+    <string name="batch_unpinned_message">%d commands are unpinned</string>
     <string name="cancel">Cancel</string>
     <string name="changelogs">Changelogs</string>
     <string name="choose">Choose</string>
@@ -41,8 +41,8 @@
     <string name="command_hint">Input ADB command here</string>
     <string name="command_title">Input ADB Command</string>
     <string name="confirm">Confirm</string>
-    <string name="confirm_batch_add_bookmark">Selected \%s\ items will be added to bookmarks</string>
-    <string name="confirm_batch_remove_bookmark">Selected \%s\ items will be  removed from bookmarks</string>
+    <string name="confirm_batch_add_bookmark">Selected %d items will be added to bookmarks</string>
+    <string name="confirm_batch_remove_bookmark">Selected %d items will be  removed from bookmarks</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_pin">All unpinned commands will be pinned\nDo you wish to continue?</string>
@@ -50,9 +50,11 @@
     <string name="confirm_unpin">Do you want to unpin the selected commands?</string>
     <string name="confirm_unpin_single">\[%s\] will be unpinned\nDo you wish to continue?</string>
     <string name="connected_device">Connected device</string>
-    <string name="connecting">connecting...</string>
+    <string name="connecting">connecting\u2026</string>
     <string name="connecting_hint">confirm authorization on target device</string>
-    <string name="copy">"Copy"</string>
+    <string
+            name="copy"
+            tools:override="true">Copy</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="default_working_mode">Default working mode</string>
     <string name="delete_all">Delete all</string>
@@ -78,7 +80,7 @@
     <string name="none">None</string>
     <string name="no_command">No command</string>
     <string name="no_command_found">No command found that matches your query</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="open_adb">Open ADB shell</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Device is not properly connected. Connect the device properly through OTG and try again</string>
@@ -120,7 +122,6 @@
     <string name="success">Success</string>
     <string name="support">Support</string>
     <string name="su_warning_message">aShell You is not designed for root-related uses. Aborting.</string>
-    <string name="title_activity_setting">Setup Apks</string>
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
     <string name="use">Use</string>
@@ -136,7 +137,7 @@
     <string name="override_bookmarks_limit">Override maximum bookmarks limit</string>
     <string name="des_override_bookmarks"> Might cause lag if a large number of bookmarks are added! Low end devices should keep this option turned off</string>
     <string name="disable_softkey">Disable soft keyboard</string>
-    <string name="des_disable_softkey">Usefull when you want to use an external keyboard</string>
+    <string name="des_disable_softkey">Useful when you want to use an external keyboard</string>
     <string name="des_examples">Collection of some command templates</string>
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="des_about">Version , Credits</string>

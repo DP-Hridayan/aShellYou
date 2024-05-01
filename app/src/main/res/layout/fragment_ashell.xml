@@ -62,7 +62,7 @@
                     android:hint="@string/search_output"
                     android:layout_gravity="start|center|top"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/ic_search"
+                    android:drawableStart="@drawable/ic_search"
                     android:gravity="start"
                     android:id="@+id/search_word" />
 
@@ -159,7 +159,7 @@
         android:orientation="horizontal"
         app:layout_constraintHorizontal_chainStyle="spread_inside">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"
             android:layout_width="48dp"
             app:icon="@drawable/ic_settings"
@@ -168,7 +168,7 @@
             style="?attr/materialIconButtonFilledTonalStyle"
             android:id="@+id/settings" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"
             android:layout_width="48dp"
             android:visibility="gone"
@@ -179,7 +179,7 @@
             style="?attr/materialIconButtonFilledTonalStyle"
             android:id="@+id/bookmarks" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"
             android:layout_width="48dp"
             android:visibility="gone"
@@ -190,7 +190,7 @@
             style="?attr/materialIconButtonFilledTonalStyle"
             android:id="@+id/history" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"
             android:layout_width="48dp"
             android:visibility="gone"
@@ -201,7 +201,7 @@
             style="?attr/materialIconButtonFilledTonalStyle"
             android:id="@+id/clear" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"
             android:layout_width="48dp"
             android:visibility="gone"
