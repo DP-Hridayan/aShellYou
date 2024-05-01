@@ -283,8 +283,8 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
           data.add(0, selectedItem);
         } else {
           selectedItem.setPinned(false);
-          sortData();
         }
+        sortData();
         selectedItem.setChecked(false);
         updateSelectedItems(selectedItem, false);
       }
