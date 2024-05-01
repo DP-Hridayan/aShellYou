@@ -377,12 +377,18 @@ public class ExamplesActivity extends AppCompatActivity
 
   private void managePinUnpin() {
     int size = mExamplesAdapter.getSelectedItemsSize();
+    String title = mExamplesAdapter.selectedItems.get(0).getTitle();
 
     boolean isBatch = size > 1;
     boolean isAllItemsPinned = mExamplesAdapter.isAllItemsPinned();
 
-    String message =
-        isAllItemsPinned ? getString(R.string.confirm_unpin) : getString(R.string.confirm_pin);
+    String confirmPin =
+        isBatch ? getString(R.string.confirm_pin) : getString(R.string.confirm_pin_single, title);
+    String confirmUnpin =
+        isBatch
+            ? getString(R.string.confirm_unpin)
+            : getString(R.string.confirm_unpin_single, title);
+    String message = isAllItemsPinned ? confirmUnpin : confirmPin;
 
     String positiveButtonText =
         isAllItemsPinned ? getString(R.string.unpin) : getString(R.string.pin);
@@ -394,7 +400,6 @@ public class ExamplesActivity extends AppCompatActivity
               ? getString(R.string.batch_unpinned_message, size)
               : getString(R.string.batch_pinned_message, size);
     } else {
-      String title = mExamplesAdapter.selectedItems.get(0).getTitle();
       snackBarMessage =
           isAllItemsPinned
               ? getString(R.string.unpinned_message, title)

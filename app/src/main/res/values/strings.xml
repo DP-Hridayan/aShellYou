@@ -46,7 +46,9 @@
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_pin">All unpinned commands will be pinned\nDo you wish to continue?</string>
+    <string name="confirm_pin_single">\[%s\] will be pinned\nDo you wish to continue?</string>
     <string name="confirm_unpin">Do you want to unpin the selected commands?</string>
+    <string name="confirm_unpin_single">\[%s\] will be unpinned\nDo you wish to continue?</string>
     <string name="connected_device">Connected device</string>
     <string name="connecting">connecting...</string>
     <string name="connecting_hint">confirm authorization on target device</string>
