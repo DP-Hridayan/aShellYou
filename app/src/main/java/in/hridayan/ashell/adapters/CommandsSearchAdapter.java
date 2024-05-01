@@ -61,8 +61,7 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
         paddingInDp = 30;
       }
 
-      float scale = context.getResources().getDisplayMetrics().density;
-      int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+      int paddingInPixels = (int) (Utils.convertDpToPixel(30, context));
 
       ViewGroup.MarginLayoutParams layoutParams =
           (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();

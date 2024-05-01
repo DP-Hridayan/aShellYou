@@ -5,8 +5,11 @@ import static in.hridayan.ashell.utils.Preferences.SORT_LEAST_USED;
 import static in.hridayan.ashell.utils.Preferences.SORT_MOST_USED;
 import static in.hridayan.ashell.utils.Preferences.SORT_Z_TO_A;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,22 +69,26 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
 
   @Override
   public void onBindViewHolder(@NonNull ExamplesAdapter.ViewHolder holder, int position) {
-    holder.pin.setVisibility(this.data.get(position).isPinned() ? View.VISIBLE : View.GONE);
-    holder.card.setChecked(this.data.get(position).isChecked());
+    CommandItems currentItem = this.data.get(position);
+    holder.pin.setVisibility(currentItem.isPinned() ? View.VISIBLE : View.GONE);
+    if (Utils.androidVersion() >= Build.VERSION_CODES.S) {
+      holder.pin.setColorFilter(Utils.getColor(pinColor(), context));
+    }
+    holder.card.setStrokeWidth(currentItem.isPinned() ? 3 : 0);
+    holder.card.setChecked(currentItem.isChecked());
     holder.itemView.startAnimation(
         AnimationUtils.loadAnimation(context, R.anim.on_scroll_animator));
-    holder.mTitle.setText(this.data.get(position).getTitle());
-    if (this.data.get(position).getSummary() != null) {
-      holder.mSummary.setText(this.data.get(position).getSummary());
+    holder.mTitle.setText(currentItem.getTitle());
+    if (currentItem.getSummary() != null) {
+      holder.mSummary.setText(currentItem.getSummary());
 
-      int paddingInDp = 50;
-      float scale = context.getResources().getDisplayMetrics().density;
-      int paddingInPixels = (int) (paddingInDp * scale + 0.5f);
+      int paddingInPixels = (int) (Utils.convertDpToPixel(50, context));
 
       ViewGroup.MarginLayoutParams layoutParams =
           (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
       layoutParams.bottomMargin = position == data.size() - 1 ? paddingInPixels : 30;
       holder.itemView.setLayoutParams(layoutParams);
+      translatePinIcon(holder.card.isChecked(), holder.pin);
     }
   }
 
@@ -95,6 +102,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     private final MaterialTextView mTitle, mSummary;
     private MaterialCardView card;
     private AppCompatImageButton pin;
+    private float pinTranslation = 0;
 
     public ViewHolder(View view) {
       super(view);
@@ -131,6 +139,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
                   Utils.copyToClipboard(sanitizedText, context);
                 })
             .show();
+
       } else {
         startItemSelecting();
       }
@@ -147,6 +156,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
       data.get(getAdapterPosition()).setChecked(card.isChecked());
       updateSelectedItems(data.get(getAdapterPosition()), card.isChecked());
       listener.onItemLongClick(getAdapterPosition());
+      translatePinIcon(card.isChecked(), pin);
     }
 
     public boolean isAtLeastOneItemChecked() {
@@ -191,7 +201,6 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
         item.setChecked(false);
         updateSelectedItems(item, false);
       }
-
       notifyDataSetChanged();
     }
   }
@@ -324,5 +333,24 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
           }
         });
     notifyDataSetChanged();
+  }
+
+  private int pinColor() {
+    int currentMode =
+        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    return currentMode == Configuration.UI_MODE_NIGHT_YES
+        ? android.R.color.system_accent3_100
+        : android.R.color.system_accent3_500;
+  }
+
+  private void translatePinIcon(boolean isChecked, AppCompatImageButton pin) {
+    float translationX = isChecked ? -Utils.convertDpToPixel(30, context) : 0;
+
+    if (pin.getTranslationX() != translationX) {
+      ObjectAnimator animator = ObjectAnimator.ofFloat(pin, "translationX", translationX);
+      animator.setDuration(350);
+      animator.start();
+      pin.setTranslationX(translationX);
+    }
   }
 }

@@ -377,13 +377,16 @@ public class ExamplesActivity extends AppCompatActivity
 
   private void managePinUnpin() {
     int size = mExamplesAdapter.getSelectedItemsSize();
-    boolean isBatch = size > 1;
 
+    boolean isBatch = size > 1;
     boolean isAllItemsPinned = mExamplesAdapter.isAllItemsPinned();
+
     String message =
         isAllItemsPinned ? getString(R.string.confirm_unpin) : getString(R.string.confirm_pin);
+
     String positiveButtonText =
         isAllItemsPinned ? getString(R.string.unpin) : getString(R.string.pin);
+
     String snackBarMessage;
     if (isBatch) {
       snackBarMessage =
@@ -397,6 +400,7 @@ public class ExamplesActivity extends AppCompatActivity
               ? getString(R.string.unpinned_message, title)
               : getString(R.string.pinned_message, title);
     }
+
     new MaterialAlertDialogBuilder(this)
         .setTitle(getString(R.string.confirm))
         .setMessage(message)
@@ -406,7 +410,6 @@ public class ExamplesActivity extends AppCompatActivity
               mExamplesAdapter.pinUnpinSelectedItems(isAllItemsPinned);
               endSelection();
               updateSearchBar();
-
               Utils.snackBar(parent, snackBarMessage).show();
             })
         .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})

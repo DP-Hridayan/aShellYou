@@ -487,4 +487,9 @@ public class Utils {
           mChip.setChecked(!mChip.isChecked());
         });
   }
+   public static float convertDpToPixel(float dp , Context context) {
+    float scale = context.getResources().getDisplayMetrics().density;
+    return dp * scale + 0.5f;
+  }
+
 }

@@ -12,6 +12,7 @@
     app:cardBackgroundColor="?attr/colorSurfaceContainer"
     app:cardElevation="0dp"
     app:strokeWidth="0dp"
+    app:strokeColor="?attr/colorTertiary" 
     app:cardCornerRadius="15dp"
     android:layout_gravity="center">
 
@@ -43,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:src="@drawable/ic_pinned"
-        android:layout_margin="5dp"
+        android:layout_margin="8dp"
         android:background="@null"
         android:clickable="false"
         android:rotation="45"
