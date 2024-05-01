@@ -6,7 +6,11 @@ updates:
       interval: "daily"
     ignore:
       - dependency-name: "dev.rikka.shizuku"
-      - dependency-type: "plugin"
-        group: "com.android.tools.build"
-        name: "gradle"
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "com.android.tools.build:gradle"
+        dependency-type: "plugin"
         versions: []
