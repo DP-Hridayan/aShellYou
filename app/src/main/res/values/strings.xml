@@ -28,6 +28,8 @@
     <string name="bookmark_limit_reached">Maximum bookmark limit reached! Delete some bookmarks to add new ones</string>
     <string name="bookmark_removed_message">\'%s\' has been removed from bookmarks</string>
     <string name="batch_bookmark_removed_message">\%s\ commands are removed from bookmarks</string>
+    <string name="batch_pinned_message">\%s\ commands are pinned</string>
+    <string name="batch_unpinned_message">\%s\ commands are unpinned</string>
     <string name="cancel">Cancel</string>
     <string name="changelogs">Changelogs</string>
     <string name="choose">Choose</string>
@@ -40,7 +42,7 @@
     <string name="command_title">Input ADB Command</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_batch_add_bookmark">Selected \%s\ items will be added to bookmarks</string>
-   <string name="confirm_batch_remove_bookmark">Selected \%s\ items will be  removed from bookmarks</string>
+    <string name="confirm_batch_remove_bookmark">Selected \%s\ items will be  removed from bookmarks</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_pin">All unpinned commands will be pinned\nDo you wish to continue?</string>
@@ -80,6 +82,7 @@
     <string name="otg_not_connected">Device is not properly connected. Connect the device properly through OTG and try again</string>
     <string name="paste">Paste</string>
     <string name="pin">Pin</string>
+    <string name="pinned_message">\'%s\' has been pinned</string>
     <string name="press_back">Press back again to exit</string>
     <string name="process_destroy_message">aShell You is still working. Do you want to stop the current process?</string>
     <string name="progress">Progress</string>
@@ -117,6 +120,7 @@
     <string name="su_warning_message">aShell You is not designed for root-related uses. Aborting.</string>
     <string name="title_activity_setting">Setup Apks</string>
     <string name="unpin">Unpin</string>
+    <string name="unpinned_message">\'%s\' has been unpinned</string>
     <string name="use">Use</string>
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>

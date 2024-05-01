@@ -303,7 +303,7 @@ public class ExamplesActivity extends AppCompatActivity
           mExamplesAdapter.isAllItemsBookmarked()
               ? R.drawable.ic_bookmark_added
               : R.drawable.ic_add_bookmark);
-            pin.setIcon(mExamplesAdapter.isAllItemsPinned() ? R.drawable.ic_pinned : R.drawable.ic_pin);
+      pin.setIcon(mExamplesAdapter.isAllItemsPinned() ? R.drawable.ic_pinned : R.drawable.ic_pin);
     } else {
       addBookmark.setVisible(false);
     }
@@ -376,11 +376,27 @@ public class ExamplesActivity extends AppCompatActivity
   }
 
   private void managePinUnpin() {
+    int size = mExamplesAdapter.getSelectedItemsSize();
+    boolean isBatch = size > 1;
+
     boolean isAllItemsPinned = mExamplesAdapter.isAllItemsPinned();
     String message =
         isAllItemsPinned ? getString(R.string.confirm_unpin) : getString(R.string.confirm_pin);
     String positiveButtonText =
         isAllItemsPinned ? getString(R.string.unpin) : getString(R.string.pin);
+    String snackBarMessage;
+    if (isBatch) {
+      snackBarMessage =
+          isAllItemsPinned
+              ? getString(R.string.batch_unpinned_message, size)
+              : getString(R.string.batch_pinned_message, size);
+    } else {
+      String title = mExamplesAdapter.selectedItems.get(0).getTitle();
+      snackBarMessage =
+          isAllItemsPinned
+              ? getString(R.string.unpinned_message, title)
+              : getString(R.string.pinned_message, title);
+    }
     new MaterialAlertDialogBuilder(this)
         .setTitle(getString(R.string.confirm))
         .setMessage(message)
@@ -390,6 +406,8 @@ public class ExamplesActivity extends AppCompatActivity
               mExamplesAdapter.pinUnpinSelectedItems(isAllItemsPinned);
               endSelection();
               updateSearchBar();
+
+              Utils.snackBar(parent, snackBarMessage).show();
             })
         .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
         .show();
