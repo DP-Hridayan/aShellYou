@@ -2,7 +2,7 @@ version: 2
 updates:
   - package-ecosystem: "gradle"
     directory: "/"
-    target-branch: "main"
+    target-branch: "master"
     schedule:
       interval: "daily"
     ignore:
@@ -10,7 +10,7 @@ updates:
 
   - package-ecosystem: "gradle"
     directory: "/app"
-    target-branch: "development"
+    target-branch: "master"
     schedule:
       interval: "weekly"
     ignore:
