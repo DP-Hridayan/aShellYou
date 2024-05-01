@@ -128,6 +128,10 @@ public class ExamplesActivity extends AppCompatActivity
               manageBookmarkAddOrRemove();
               return true;
 
+            case R.id.pin:
+              managePinUnpin();
+              return true;
+
             default:
               return false;
           }
@@ -289,7 +293,7 @@ public class ExamplesActivity extends AppCompatActivity
 
   private void updateMenuItemVisibility(boolean isItemSelecting, boolean isAllSelected) {
     sort.setVisible(!isItemSelecting);
-    pin.setVisible(false);
+    pin.setVisible(isItemSelecting);
     selectAll.setVisible(isItemSelecting && !isAllSelected);
     deselectAll.setVisible(isItemSelecting && isAllSelected);
 
@@ -299,6 +303,7 @@ public class ExamplesActivity extends AppCompatActivity
           mExamplesAdapter.isAllItemsBookmarked()
               ? R.drawable.ic_bookmark_added
               : R.drawable.ic_add_bookmark);
+            pin.setIcon(mExamplesAdapter.isAllItemsPinned() ? R.drawable.ic_pinned : R.drawable.ic_pin);
     } else {
       addBookmark.setVisible(false);
     }
@@ -368,6 +373,26 @@ public class ExamplesActivity extends AppCompatActivity
       int message = isAdded ? R.string.bookmark_added_message : R.string.bookmark_removed_message;
       Utils.snackBar(parent, getString(message, command)).show();
     }
+  }
+
+  private void managePinUnpin() {
+    boolean isAllItemsPinned = mExamplesAdapter.isAllItemsPinned();
+    String message =
+        isAllItemsPinned ? getString(R.string.confirm_unpin) : getString(R.string.confirm_pin);
+    String positiveButtonText =
+        isAllItemsPinned ? getString(R.string.unpin) : getString(R.string.pin);
+    new MaterialAlertDialogBuilder(this)
+        .setTitle(getString(R.string.confirm))
+        .setMessage(message)
+        .setPositiveButton(
+            positiveButtonText,
+            (dialog, i) -> {
+              mExamplesAdapter.pinUnpinSelectedItems(isAllItemsPinned);
+              endSelection();
+              updateSearchBar();
+            })
+        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .show();
   }
 
   @Override

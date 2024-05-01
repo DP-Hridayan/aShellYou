@@ -43,6 +43,8 @@
    <string name="confirm_batch_remove_bookmark">Selected \%s\ items will be  removed from bookmarks</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
+    <string name="confirm_pin">All unpinned commands will be pinned\nDo you wish to continue?</string>
+    <string name="confirm_unpin">Do you want to unpin the selected commands?</string>
     <string name="connected_device">Connected device</string>
     <string name="connecting">connecting...</string>
     <string name="connecting_hint">confirm authorization on target device</string>
@@ -114,6 +116,7 @@
     <string name="support">Support</string>
     <string name="su_warning_message">aShell You is not designed for root-related uses. Aborting.</string>
     <string name="title_activity_setting">Setup Apks</string>
+    <string name="unpin">Unpin</string>
     <string name="use">Use</string>
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>

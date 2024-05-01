@@ -191,6 +191,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
         item.setChecked(false);
         updateSelectedItems(item, false);
       }
+
       notifyDataSetChanged();
     }
   }
@@ -245,9 +246,41 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     return true;
   }
 
+  public boolean isAllItemsPinned() {
+    int i = 0;
+    for (CommandItems item : selectedItems) {
+      String command = sanitizeText(item.getTitle().toString());
+      if (!item.isPinned()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public String sanitizeText(String text) {
     String sanitizedText = text.replaceAll("<[^>]*>", "");
     return sanitizedText.trim();
+  }
+
+  public void pinUnpinSelectedItems(boolean isAllPinned) {
+
+    if (!selectedItems.isEmpty()) {
+      List<CommandItems> pinnedItems = new ArrayList<>(selectedItems);
+
+      for (CommandItems selectedItem : pinnedItems) {
+        if (!isAllPinned) {
+          selectedItem.setPinned(true);
+          data.remove(selectedItem);
+          data.add(0, selectedItem);
+        } else {
+          selectedItem.setPinned(false);
+          sortData();
+        }
+        selectedItem.setChecked(false);
+        updateSelectedItems(selectedItem, false);
+      }
+      notifyDataSetChanged();
+    }
   }
 
   public void sortData() {
@@ -256,6 +289,13 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
         new Comparator<CommandItems>() {
           @Override
           public int compare(CommandItems item1, CommandItems item2) {
+
+            if (item1.isPinned() && !item2.isPinned()) {
+              return -1;
+            } else if (!item1.isPinned() && item2.isPinned()) {
+              return 1;
+            }
+
             int sortOption = Preferences.getSortingExamples(context);
             int counter1 = item1.getUseCounter();
             int counter2 = item2.getUseCounter();
