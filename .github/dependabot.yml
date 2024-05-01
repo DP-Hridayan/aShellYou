@@ -15,5 +15,4 @@ updates:
       interval: "weekly"
     ignore:
       - dependency-name: "com.android.tools.build:gradle"
-        dependency-type: "plugin"
-        versions: []
+        
