@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "gradle"
-    directory: "/"
+    directory: "/app"
     target-branch: "master"
     schedule:
       interval: "daily"
@@ -9,7 +9,7 @@ updates:
       - dependency-name: "dev.rikka.shizuku"
 
   - package-ecosystem: "gradle"
-    directory: "/app"
+    directory: "/"
     target-branch: "master"
     schedule:
       interval: "weekly"
