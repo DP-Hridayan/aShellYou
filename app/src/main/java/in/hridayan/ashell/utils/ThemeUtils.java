@@ -2,6 +2,7 @@ package in.hridayan.ashell.utils;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.util.TypedValue;
 import androidx.appcompat.app.AppCompatActivity;
 import in.hridayan.ashell.R;
@@ -15,7 +16,12 @@ public class ThemeUtils {
         activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
     if (isAmoledTheme && currentMode == Configuration.UI_MODE_NIGHT_YES) {
-      activity.setTheme(R.style.ThemeOverlay_aShellYou_AmoledTheme);
+
+      activity.setTheme(
+          Utils.androidVersion() >= Build.VERSION_CODES.S
+              ? R.style.ThemeOverlay_aShellYou_AmoledTheme
+              : R.style.ThemeOverlay_aShellYou_AmoledThemeBelowV31);
+
     } else {
       activity.setTheme(R.style.aShellYou_AppTheme);
     }

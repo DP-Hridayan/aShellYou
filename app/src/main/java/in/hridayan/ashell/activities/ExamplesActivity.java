@@ -56,6 +56,7 @@ public class ExamplesActivity extends AppCompatActivity
   private Menu searchBarMenu;
   private View parent;
   private int isSortingOptionSame;
+    private final int ID_SORT = R.id.sort ;
   private boolean isSummaryChipClicked = false, isAllItemsSelected;
 
   @Override
@@ -111,7 +112,7 @@ public class ExamplesActivity extends AppCompatActivity
     mSearchBar.setOnMenuItemClickListener(
         item -> {
           switch (item.getItemId()) {
-            case R.id.sort:
+            case ID_SORT:
               sortingDialog(this, this);
               return true;
 
