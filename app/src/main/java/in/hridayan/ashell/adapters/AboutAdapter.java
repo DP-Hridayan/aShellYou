@@ -2,6 +2,7 @@ package in.hridayan.ashell.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,6 +126,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           };
       viewHolder.buttonView.setOnClickListener(clickListener);
       viewHolder.categoryContributorsLayout.setOnClickListener(v -> {});
+      viewHolder.categoryContributorsLayout.setStrokeWidth(
+          Utils.androidVersion() >= Build.VERSION_CODES.S ? 0 : 3);
 
     } else if (holder instanceof AppItemViewHolder) {
       Category.AppItem categoryCItem = (Category.AppItem) item;

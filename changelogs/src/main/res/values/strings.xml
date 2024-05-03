@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
     //Absolutely necessary to follow this string name format
+    <string name="changelog_v4_0_2">\n\n• Fixed AMOLED theme not working on devices running Android 11 or below</string>
     <string name="changelog_v4_0_1">\n\n• Now you can Pin commands for quick access\n\n • Bug fixes and lot of code optimisations</string>
     <string name="changelog_v4_0_0">\n\n• Now you can directly use commands from the Commands section instead of the need to copy them every time\n\n • Added option to delete all bookmarks\n\n• In search : You can now search in commands summary by clicking a prompt chip\n\n• Added sorting options in Commands templates\n\n• Added option to directly bookmark selected items in Commands section\n\n• Chip Indicator shows connected device(currently only in local ADB mode)\n\n• Fixed bugs causing crashes in devices running Android 11 or below\n\n• Added Turkish translation\n\n• Minor UI improvements\n\n• Lot of other bug fixes</string>
     <string name="changelog_v3_9_1">\n\n• Added total bookmarks count\n\n• Fixed some bugs</string>
