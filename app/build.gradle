@@ -15,7 +15,7 @@ android {
         minSdk 26
         targetSdk 34
         versionCode 39
-        versionName "v4.0.2-test"
+        versionName "v4.0.2"
     }
     
    lint {

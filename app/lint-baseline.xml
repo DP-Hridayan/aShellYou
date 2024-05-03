@@ -59,11 +59,11 @@
     <issue
         id="NonConstantResourceId"
         message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
-        errorLine1="            case ID_SORT:"
-        errorLine2="                 ~~~~~~~">
+        errorLine1="            case R.id.sort:"
+        errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="115"
+            line="114"
             column="18"/>
     </issue>
 
@@ -74,7 +74,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="119"
+            line="118"
             column="18"/>
     </issue>
 
@@ -85,7 +85,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="124"
+            line="123"
             column="18"/>
     </issue>
 
@@ -96,7 +96,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="129"
+            line="128"
             column="18"/>
     </issue>
 
@@ -107,7 +107,7 @@
         errorLine2="                 ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="133"
+            line="132"
             column="18"/>
     </issue>
 

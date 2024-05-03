@@ -1,0 +1,3 @@
+Change logs ~
+
+• Fixed AMOLED theme not working on devices running Android 11 or below.
