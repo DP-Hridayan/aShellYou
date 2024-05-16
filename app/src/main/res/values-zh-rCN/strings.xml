@@ -40,11 +40,6 @@
     <string name="confirm_batch_remove_bookmark">选中的%d个命令将被移出书签</string>
     <string name="confirm_delete">确认删除</string>
     <string name="confirm_delete_message">三思而后行！这个操作不可逆，确认清除所有书签？</string>
-    <string name="confirm_delete_message">jin</string>
-    <string name="confirm_delete_message">sa</string>
-    <string name="confirm_delete_message">sa</string>
-    <string name="confirm_delete_message">san</string>
-    <string name="confirm_delete_message">san\'s</string>
     <string name="confirm_pin">所有命令都将被置顶，确认继续？</string>
     <string name="confirm_pin_single">\\[%s\\] 将被置顶\n继续吗？</string>
     <string name="confirm_unpin">你希望将选中的命令取消置顶吗？</string>
