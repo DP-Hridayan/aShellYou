@@ -43,6 +43,8 @@
     <string name="pm_clear_cache_only">Only clear cache data associated with an app</string>
     <string name="pm_clear_user">Only delete the data associated with a given user</string>
     <string name="pm_disable">Disable a given package or component (written as package or class</string>
+    <string name="pm_disable_user">Disable an app</string>
+    <string name="pm_disable_user_user">Disable an app for a given user</string>
     <string name="pm_dump">List info of one app</string>
     <string name="pm_dump_package_packages">List info of all apps</string>
     <string name="pm_enable">Enable a given package or component (written as package or class</string>

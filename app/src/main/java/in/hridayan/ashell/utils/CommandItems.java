@@ -67,6 +67,7 @@ public class CommandItems implements Serializable {
             .replaceAll("~", "tilde")
             .trim()
             .replaceAll("[ -]+", "_")
+            .replaceAll("-", "_")
             .replaceAll("_+", "_");
     int resourceId =
         context.getResources().getIdentifier(trimmedTitle, "string", context.getPackageName());
