@@ -67,10 +67,24 @@
   </a>
 </div>
 
+
+## Star History
+
+<a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=DP-Hridayan/aShellYou&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=DP-Hridayan/aShellYou&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=DP-Hridayan/aShellYou&type=Date" />
+ </picture>
+</a>
+
+
 ## Original App
 <a href="https://gitlab.com/sunilpaulmathew/ashell">
   <img src="https://img.shields.io/badge/gitlab-%23171321?logo=gitlab&logoColor=%23EF4F32&cacheSeconds=10" alt="GitLab Repository" height="65" width="240">
 </a>
+
+
 
 ## License
 
