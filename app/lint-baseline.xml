@@ -30,7 +30,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
-            line="988"
+            line="991"
             column="23"/>
     </issue>
 
@@ -41,7 +41,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
-            line="997"
+            line="1000"
             column="23"/>
     </issue>
 
@@ -151,7 +151,7 @@
         errorLine2="                               ~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/utils/CommandItems.java"
-            line="72"
+            line="73"
             column="32"/>
     </issue>
 

@@ -86,6 +86,8 @@ public class Commands {
             "pm disable <package/component>",
             "pm disable com.android.package/com.android.package.exampleActivity",
             context));
+       mCommands.add(new CommandItems("pm disable-user <package>", "pm disable-user com.android.package", context));
+       mCommands.add(new CommandItems("pm disable-user --user <user_id> <package>", "pm disable-user --user 0 com.android.package", context));
     mCommands.add(new CommandItems("pm dump <package>", "pm dump com.android.package", context));
     mCommands.add(
         new CommandItems("pm dump package packages", "pm dump package packages", context));

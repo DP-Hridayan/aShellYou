@@ -50,12 +50,12 @@
         name="ThemeOverlay.aShellYou.AmoledThemeBelowV31"
         parent=""
         tools:ignore="PrivateResource">
-        <item name="android:colorBackground">#000000</item>
-        <item name="android:windowBackground">#000000</item>
-        <item name="colorSurface">#000000</item>
-        <item name="colorSurfaceContainerLowest">#000000</item>
-        <item name="colorSurfaceContainerHighest">#000000</item>
-        <item name="colorSurfaceDim">#000000</item>
+        <item name="android:colorBackground">@color/black</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="colorSurface">@color/black</item>
+        <item name="colorSurfaceContainerLowest">@color/black</item>
+        <item name="colorSurfaceContainerHighest">@color/black</item>
+        <item name="colorSurfaceDim">@color/black</item>
     </style>
     
 </resources>

@@ -153,8 +153,8 @@ public class aShellFragment extends Fragment {
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     mBookMarks.setVisibility(Utils.getBookmarks(context).size() != 0 ? View.VISIBLE : View.GONE);
-    updateBookmarksConstraints();
-    updateHistoryButtonConstraints();
+
+    updateHistoryAndBookMarksConstraints();
     if (viewModel.isEditTextFocused()) {
       mCommand.requestFocus();
     } else {
@@ -585,7 +585,10 @@ public class aShellFragment extends Fragment {
             } else {
               List<String> mResultSorted = new ArrayList<>();
               for (int i = mPosition; i < mResult.size(); i++) {
-                if (mResult.get(i).toLowerCase(Locale.getDefault()).contains(s.toString().toLowerCase(Locale.getDefault()))) {
+                if (mResult
+                    .get(i)
+                    .toLowerCase(Locale.getDefault())
+                    .contains(s.toString().toLowerCase(Locale.getDefault()))) {
                   mResultSorted.add(mResult.get(i));
                 }
               }
@@ -605,7 +608,7 @@ public class aShellFragment extends Fragment {
         new ViewTreeObserver.OnGlobalLayoutListener() {
           @Override
           public void onGlobalLayout() {
-            updateBookmarksConstraints();
+            updateHistoryAndBookMarksConstraints();
           }
         };
 
@@ -613,7 +616,7 @@ public class aShellFragment extends Fragment {
         new ViewTreeObserver.OnGlobalLayoutListener() {
           @Override
           public void onGlobalLayout() {
-            updateHistoryButtonConstraints();
+            updateHistoryAndBookMarksConstraints();
           }
         };
 
@@ -1266,25 +1269,39 @@ public class aShellFragment extends Fragment {
     }
   }
 
-  private void updateBookmarksConstraints() {
-    ConstraintLayout.LayoutParams layoutParams =
-        (ConstraintLayout.LayoutParams) mBookMarks.getLayoutParams();
+  private void updateHistoryAndBookMarksConstraints() {
     boolean isHistoryButtonVisible = mHistoryButton.getVisibility() == View.VISIBLE;
-    layoutParams.endToStart =
-        isHistoryButtonVisible ? R.id.history : ConstraintLayout.LayoutParams.UNSET;
-    layoutParams.setMarginStart(isHistoryButtonVisible ? 0 : 70);
-    mBookMarks.setLayoutParams(layoutParams);
+    boolean isBookMarksVisible = mBookMarks.getVisibility() == View.VISIBLE;
+    boolean isClearVisible = mClearButton.getVisibility() == View.VISIBLE;
+    boolean isOthersGone =
+        mClearButton.getVisibility() == View.GONE && mSearchButton.getVisibility() == View.GONE;
+
+    ConstraintLayout.LayoutParams layoutParamsBookMarks =
+        (ConstraintLayout.LayoutParams) mBookMarks.getLayoutParams();
+    ConstraintLayout.LayoutParams layoutParamsHistory =
+        (ConstraintLayout.LayoutParams) mHistoryButton.getLayoutParams();
+
+    if (isOthersGone && isBookMarksVisible && isHistoryButtonVisible) {
+      layoutParamsBookMarks.startToEnd = R.id.settings;
+      layoutParamsBookMarks.endToStart = R.id.history;
+      layoutParamsHistory.startToEnd = R.id.bookmarks;
+      layoutParamsHistory.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+      layoutParamsHistory.setMarginEnd(25);
+
+    } else {
+      layoutParamsHistory.endToStart =
+          isClearVisible ? R.id.clear : ConstraintLayout.LayoutParams.UNSET;
+      layoutParamsHistory.startToEnd = isBookMarksVisible ? R.id.bookmarks : R.id.settings;
+      layoutParamsHistory.setMarginStart(isBookMarksVisible ? 0 : 70);
+
+      layoutParamsBookMarks.endToStart =
+          isHistoryButtonVisible ? R.id.history : ConstraintLayout.LayoutParams.UNSET;
+      layoutParamsBookMarks.setMarginStart(isHistoryButtonVisible ? 0 : 70);
+    }
+    mBookMarks.setLayoutParams(layoutParamsBookMarks);
     mBookMarks.requestLayout();
     mBookMarks.invalidate();
-  }
-
-  private void updateHistoryButtonConstraints() {
-    ConstraintLayout.LayoutParams layoutParams =
-        (ConstraintLayout.LayoutParams) mHistoryButton.getLayoutParams();
-    boolean isBookMarksVisible = mClearButton.getVisibility() == View.VISIBLE;
-    layoutParams.endToStart = isBookMarksVisible ? R.id.clear : ConstraintLayout.LayoutParams.UNSET;
-    layoutParams.setMarginStart(isBookMarksVisible ? 0 : 70);
-    mHistoryButton.setLayoutParams(layoutParams);
+    mHistoryButton.setLayoutParams(layoutParamsHistory);
     mHistoryButton.requestLayout();
     mHistoryButton.invalidate();
   }
