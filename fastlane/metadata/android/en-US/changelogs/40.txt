@@ -1,0 +1,5 @@
+Change logs ~
+
+• Updated dependencies
+
+• Added more command examples
