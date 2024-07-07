@@ -1,53 +1,62 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
-    //Absolutely necessary to follow this string name format
-    <string name="changelog_v3_9_1">\n\n- Toplam yer imi sayısı eklendi\n\n- Bazı hatalar düzeltildi</string>
+    <!-- Bu string ad formatını takip etmek kesinlikle gereklidir -->
 
-    <string name="changelog_v3_9_0">\n\n- Komutlar bölümüne Arama eklendi\n\n- Varsayılan çalışma modunu ayarlama seçeneği eklendi\n\n- Animasyonlar iyileştirildi\n\n- Yer imleri bölümü yeniden düzenlendi ve sıralama seçenekleri eklendi\n\n- Yer imleri sınırı 25\'e yükseltildi\n\n- ADB kabuk başlatıcı kısayolu kaldırıldı ve Komutlar başlatıcı kısayolu eklendi\n\n- Düğme gezintisindeki dolgu sorunları düzeltildi\n\n- Bazı düğmelerin şekli düzeltildi</string>
+    <string name="changelog_v4_0_3">\n\n• Bağımlılıklar güncellendi\n\n• Daha fazla komut örneği eklendi</string>
+    
+    <string name="changelog_v4_0_2">\n\n• AMOLED teması Android 11 veya altındaki cihazlarda çalışmama sorunu düzeltildi</string>
 
-    <string name="changelog_v3_8_2">\n\n- Uygulama, temaladığınız materyaller için daha yenilenmiş bir renk paleti kullanıyor\n\n- Küçük hatalar düzeltildi</string>
+    <string name="changelog_v4_0_1">\n\n• Artık komutları hızlı erişim için sabitleyebilirsiniz\n\n • Hata düzeltmeleri ve birçok kod optimizasyonu</string>
 
-    <string name="changelog_v3_8_1">\n\n- v3.8.0\'da ortaya çıkan bazı çökmeler düzeltildi</string>
+    <string name="changelog_v4_0_0">\n\n• Artık komutları her seferinde kopyalamaya gerek kalmadan Komutlar bölümünden doğrudan kullanabilirsiniz\n\n • Tüm yer imlerini silme seçeneği eklendi\n\n• Aramada: Bir istem çipine tıklayarak komut özetlerinde arama yapabilirsiniz\n\n• Komut şablonlarında sıralama seçenekleri eklendi\n\n• Komutlar bölümünde seçilen öğeleri doğrudan yer imlerine ekleme seçeneği eklendi\n\n• Çip Göstergesi bağlı cihazı gösterir (şu anda sadece yerel ADB modunda)\n\n• Android 11 veya altındaki cihazlarda çökme hatalarına neden olan hatalar düzeltildi\n\n• Türkçe çeviri eklendi\n\n• Küçük UI iyileştirmeleri\n\n• Diğer birçok hata düzeltmesi</string>
 
-    <string name="changelog_v3_8_0">\n\n- Siyah (amoled) tema eklendi\n\n- Yapıştırmayı geri almak için geri al düğmesi eklendi\n\n- Yumuşak klavyeyi devre dışı bırakma seçeneği eklendi\n\n- Bazı ekran boyutlarında gerilen düğmeler düzeltildi\n\n- Uygulama açıldıktan sonra yer imleri düğmesinin görünmemesi düzeltildi\n\n- Örnekler bölümü Komutlar olarak yeniden adlandırıldı\n\n- Kopyala komutu seçeneğinin her komut şablonunda görünmemesi düzeltildi\n\n- Uygulama artık her yerde sistem yazı tipini kullanıyor\n\n- Geliştirilmiş kullanıcı arayüzü kullanımı\n\n- Çeviriler güncellendi</string>
+    <string name="changelog_v3_9_1">\n\n• Toplam yer imi sayısı eklendi\n\n• Bazı hatalar düzeltildi</string>
 
-    <string name="changelog_v3_7_0">\n\n- Artık cihazınızın herhangi bir yerindeki metinleri aShell You ile paylaşabilir ve komutları doğrudan çalıştırabilirsiniz.\n\n- Artık kabuk çıktısını kaydetmeye gerek kalmadan doğrudan paylaşabilirsiniz!\n\n- Birçok optimizasyon ve kullanıcı arayüzü kullanımı.\n\n- Çince çeviriler eklendi.\n\n- Çeviriler güncellendi.</string>
+    <string name="changelog_v3_9_0">\n\n• Komutlar bölümünde Arama eklendi\n\n• Varsayılan çalışma modunu ayarlama seçeneği eklendi\n\n• Animasyonlar iyileştirildi\n\n• Yer imleri bölümü yeniden düzenlendi ve sıralama seçenekleri eklendi\n\n• Yer imi sınırı 25\'e çıkarıldı\n\n• ADB kabuk başlatıcı kısayolu kaldırıldı ve Komutlar başlatıcı kısayolu eklendi\n\n• Düğme navigasyonundaki dolgu sorunları düzeltildi\n\n• Bazı düğme şekilleri düzeltildi</string>
 
-    <string name="changelog_v3_6_0">\n\n- Bir hatadan sonra komut giriş alanını temizleme seçeneği eklendi\n\n- Belirli koşullar altında panodan yapıştırma yapıldığında uygulamanın çökmesine neden olan bir hata düzeltildi\n\n- Kod optimizasyonları</string>
+    <string name="changelog_v3_8_2">\n\n• Uygulama, material you teması için daha yenilenmiş bir renk paleti kullanır\n\n• Küçük hatalar düzeltildi</string>
 
-    <string name="changelog_v3_5_1">\n\n- Alt navigasyonla ilgili bazı sorunlar düzeltildi.</string>
+    <string name="changelog_v3_8_1">\n\n• v3.8.0 sürümünde ortaya çıkan bazı çökmeler düzeltildi</string>
 
-    <string name="changelog_v3_5_0">\n\n- Uygulamanın Hakkında bölümü yenilendi.\n\n- Başlatıcı kısayolları eklendi.\n\n- Navigasyon menüsünün düğme navigasyonunda gösterilmemesi düzeltildi.\n\n- Kaydırma sırasında alt navigasyon menüsü görünürlüğü iyileştirildi.\n\n- aShell You için uygulama başına dil desteği eklendi (çeviriler henüz tamamlanmadı).\n\n- Çok sayıda kod optimizasyonu.</string>
+    <string name="changelog_v3_8_0">\n\n• Siyah (amoled) tema eklendi\n\n• Yapıştırmayı geri al düğmesi eklendi\n\n• Yumuşak klavyeyi devre dışı bırakma seçeneği eklendi\n\n• Bazı ekran boyutlarında gerilmiş düğmeler düzeltildi\n\n• Uygulama açıldıktan sonra görünmeyen yer imi düğmesi düzeltildi\n\n• Örnekler bölümü Komutlar olarak yeniden adlandırıldı\n\n• Her komut şablonu için kopyalama komutu seçeneği görünmeme sorunu düzeltildi\n\n• Uygulama artık her yerde sistem fontunu kullanıyor\n\n• UI yönetimi iyileştirildi\n\n• Çeviriler güncellendi</string>
 
-    <string name="changelog_v3_4_0">\n\n- Komutları hızlı bir şekilde kopyalayıp yapıştırabilmeniz için bir Yapıştır düğmesi eklendi.\n\n- Metin giriş alanına Hata göstergeleri eklendi.\n\n- Gezinti Çubuğu görünürlük mantığı iyileştirildi.\n\n- Anahtarların belirli durumlarda hatalı davranmasına neden olan bir sorun düzeltildi.\n\n- Çeşitli kontrast seviyelerinde yer imi ekle simgesinin görünürlüğü düzeltildi.\n\n- Çok sayıda kod optimizasyonu yapıldı. Uygulama artık eskisinden çok daha hızlı açılıyor.\n\n- Uygulama arka planda kalacak ve sadece geri düğmesine basarak veya hareketle uygulamayı her kapattığınızda yeniden başlamayacak.</string>
+    <string name="changelog_v3_7_0">\n\n• Artık cihazınızdaki herhangi bir yerden metinleri aShell You ile paylaşabilir ve komutları doğrudan çalıştırabilirsiniz.\n\n• Artık kabuk çıktısını kaydetmeye gerek kalmadan doğrudan paylaşabilirsiniz!\n\n• Birçok optimizasyon ve UI yönetimi.\n\n• Çince çeviriler eklendi.\n\n• Çeviriler güncellendi.</string>
 
-    <string name="changelog_v3_3_0">\n\n- OTG\'ye yer imleri, geçmiş ve komut önerileri eklendi.n\n- Maksimum yer imi sınırı eklendi.n\n- Maksimum yer imi sınırını geçersiz kılma seçeneği eklendi.n\n- Çok sayıda hata düzeltmesi.n\n- Bazı kullanıcı arayüzü işlemleri iyileştirildi.n\n- Çok sayıda kod optimizasyonu.</string>
+    <string name="changelog_v3_6_0">\n\n• Hata sonrasında komut giriş alanını temizleme seçeneği eklendi\n\n• Belirli koşullar altında panodan yapıştırma sırasında uygulamanın çökmesine neden olan bir hata düzeltildi\n\n• Kod optimizasyonları</string>
 
-    <string name="changelog_v3_2_0">\n\n- Kullanıcı arayüzü ile ilgili birçok iyileştirme.\n\n- Mevcut ADB çalışma modunu gösteren çipler eklendi.\n\n- Birçok kod optimizasyonu.</string>
+    <string name="changelog_v3_5_1">\n\n• Alt gezinme ile ilgili bazı sorunlar düzeltildi.</string>
 
-    <string name="changelog_v3_1_0">\n\n- İlk sürümden sonra ADB OTG\'de yapılan iyileştirmeler.\n\n- Yeni otg özelliğine uyum sağlamak için bazı kullanıcı arayüzü ve mantık ayarlamaları.</string>
+    <string name="changelog_v3_5_0">\n\n• Uygulamanın Hakkında bölümü yeniden düzenlendi.\n\n• Başlatıcı kısayolları eklendi.\n\n• Düğme navigasyonunda gezinme menüsünün görünmemesi sorunu düzeltildi.\n\n• Kaydırma sırasında alt gezinme menüsü görünürlüğü iyileştirildi.\n\n• aShell You için uygulama başına dil desteği eklendi (çeviriler henüz tamamlanmadı).\n\n• Birçok kod optimizasyonu.</string>
 
-    <string name="changelog_v3_0_0">\n\n- OTG üzerinden ADB desteği eklendi.\n\n *** Diğer cihazı bir OTG kablosu kullanarak bağlayarak aShellYou kullanarak diğer cihazlarda ADB komutlarını çalıştırabileceksiniz ***</string>
+    <string name="changelog_v3_4_0">\n\n• Komutları hızlı bir şekilde kopyalayıp yapıştırabilmeniz için Yapıştır düğmesi eklendi.\n\n• Metin giriş alanında Hata göstergeleri eklendi.\n\n• Gezinme Çubuğu görünürlüğü mantığı iyileştirildi.\n\n• Belirli durumlarda anahtarların yanlış davranmasına neden olan bir sorun düzeltildi.\n\n• Çeşitli kontrast seviyelerinde görünürlük sağlamak için yer imi simgesi düzeltildi.\n\n• Birçok kod optimizasyonu. Uygulama artık öncekinden çok daha hızlı açılıyor.\n\n• Uygulama arka planda kalacak ve sadece geri düğmesine veya hareketine basarak uygulamayı kapattığınızda her seferinde yeniden başlamayacak.</string>
 
-    <string name="changelog_v2_0_2">\n\n- Gereksiz kod ve kaynaklar kaldırıldı.\n\n- Küçük kullanıcı arayüzü değişiklikleri.</string>
+    <string name="changelog_v3_3_0">\n\n• Yer imleri, geçmiş ve komut önerileri OTG\'ye eklendi\n\n• Maksimum yer imi sınırı eklendi.\n\n• Maksimum yer imi sınırını aşma seçeneği eklendi.\n\n• Birçok hata düzeltmesi.\n\n• Bazı UI yönetimi iyileştirildi.\n\n• Birçok kod optimizasyonu.</string>
 
-    <string name="changelog_v2_0_1">\n\n- Gereksiz kod ve kaynaklar kaldırıldı.\n\n- Küçük kullanıcı arayüzü değişiklikleri.</string>
+    <string name="changelog_v3_2_0">\n\n• Birçok UI ile ilgili iyileştirme.\n\n• Geçerli ADB çalışma modunu gösteren çipler eklendi.\n\n• Birçok kod optimizasyonu.</string>
 
-    <string name="changelog_v2_0_0">\n\n- Uygulama adı aShell You olarak değiştirildi.\n\n- Destekleyen cihazlar için tahmini geri dönüş animasyonları eklendi.\n\n- Ekranı temizlemeden önce onay iletişim kutusu açılır penceresi eklendi.\n\n- Durum Çubuğu öğelerinin Işık modunda düzgün görünmemesi düzeltildi.\n\n- Uygulama artık çok daha akıcı.\n ~ Uygulama boyutu azaltıldı ve kod optimize edildi.\n\n- Temalı simgeleri destekleyen başlatıcılar için temalı simge eklendi.\n\n- Küçük kullanıcı arayüzü değişiklikleri.</string>
+    <string name="changelog_v3_1_0">\n\n• İlk sürümden sonra ADB OTG\'de iyileştirmeler.\n\n• Yeni OTG özelliğine uyum sağlamak için bazı UI ve mantık ayarlamaları.</string>
 
-    <string name="changelog_v1_3_0">\n\n- Yenilenen Ayarlar paneli.\n\n- Kabuk çıktı görünümünde üst ve alt konumlara anında kaydırmak için Çift Dokunma özelliği eklendi.\n\n- Küçük kullanıcı arayüzü düzeltmeleri.</string>
+    <string name="changelog_v3_0_0">\n\n• OTG ÜZERİNDEN ADB desteği eklendi.\n\n *** aShellYou kullanarak diğer cihazları OTG kablosu ile bağlayarak ADB komutlarını çalıştırabileceksiniz ***</string>
 
-    <string name="changelog_v1_2_0">\n\n- Ayarlar paneli eklendi.\n\n- Kabuk çıktısında yumuşak kaydırmayı devre dışı bırakma seçeneği eklendi.\n\n- Önemli hatalar düzeltildi:\n\n ~ Cihaz temasını değiştirirken çökme.\n\n ~ Büyük kabuk çıktısını kaydetmeye çalışırken çökme. örn: \'pm\' komutunun çıktısı.</string>
+    <string name="changelog_v2_0_2">\n\n• Gereksiz kodlar ve kaynaklar kaldırıldı.\n\n• Küçük UI değişiklikleri.</string>
 
-    <string name="changelog_v1_1_1">\n\n- Kullanımdan kaldırılan bazı api\'ler değiştirildi.\n\n- Küçük kullanıcı arayüzü değişiklikleri.</string>
+    <string name="changelog_v2_0_1">\n\n• Gereksiz kodlar ve kaynaklar kaldırıldı.\n\n• Küçük UI değişiklikleri.</string>
 
-    <string name="changelog_v1_1_0">\n\n- Üste Kaydır ve Alta Kaydır düğmeleri eklendi.\n\n- Gönder komutuna Tıkla klavye Enter tuşu eklendi.\n\n- Bazı komutlar eklendi.\n\n- En son materyal kütüphanesini içerecek şekilde bağımlılıklar güncellendi.\n\n- Küçük kullanıcı arayüzü değişiklikleri.</string>
+    <string name="changelog_v2_0_0">\n\n• Uygulama adı aShell You olarak değiştirildi.\n\n• Destekleyen cihazlar için tahmin edici geri animasyonları eklendi.\n\n• Ekranı temizlemeden önce onaylama iletişim kutusu eklendi.\n\n• Işık modunda Durum Çubuğu öğelerinin düzgün görünmemesi sorunu düzeltildi.\n\n• Uygulama şimdi çok daha akıcı.\n ~ Uygulama boyutu azaltıldı ve kod optimize edildi.\n\n• Temalı simge, temalı simgeleri destekleyen başlatıcılar için eklendi.\n\n• Küçük UI değişiklikleri.</string>
 
-    <string name="changelog_v1_0_0">\n\n- Birkaç komut örneği daha eklendi.n\n- Küçük kullanıcı arayüzü değişiklikleri.n\n- Orijinal uygulama ile sürüm karışıklığını önlemek için paket adı değiştirildi.</string>
+    <string name="changelog_v1_3_0">\n\n• Ayarlar paneli yenilendi.\n\n• Kabuk çıktı görünümünde çift dokunarak üst ve alt konumlara anında kaydırma eklendi.\n\n• Küçük UI düzeltmeleri.</string>
 
-    <string name="changelog_v0_9_1">\n\n- Uygulamaya değişiklik günlükleri eklendi.\n\n- Vurgulanmış kabuk çıktısı eklendi.\n\n- Küçük kullanıcı arayüzü değişiklikleri.</string>
+    <string name="changelog_v1_2_0">\n\n• Ayarlar paneli eklendi.\n\n• Kabuk çıktısında yumuşak kaydırmayı devre dışı bırakma seçeneği eklendi.\n\n• Büyük hatalar düzeltildi:\n\n  ~  Cihaz teması değiştirirken çökme.\n\n  ~  Büyük kabuk çıktısını kaydetmeye çalışırken çökme. Örn: \'pm\' komutunun çıktısı.</string>
 
-    <string name="changelog_v0_9_0">\n\n- Dinamik materyal teması eklendi.\n\n- Yeni bir görünüm vermek için tüm kullanıcı arayüzü yenilendi.</string>
+    <string name="changelog_v1_1_1">\n\n• Bazı kullanımdan kalkmış API\'ler değiştirildi.\n\n• Küçük UI değişiklikleri.</string>
+
+    <string name="changelog_v1_1_0">\n\n• Üste Kaydır ve Alta Kaydır düğmeleri eklendi.\n\n• Komut göndermek için Enter tuşuna basma eklendi.\n\n• Bazı komutlar eklendi.\n\n• En son material you kütüphanesini içerecek şekilde bağımlılıklar güncellendi.\n\n• Küçük UI değişiklikleri.</string>
+
+    <string name="changelog_v1_0_0">\n\n• Daha fazla komut örneği eklendi.\n\n• Küçük UI değişiklikleri.\n\n• Paket adı orijinal uygulama ile karışıklığı önlemek için değiştirildi.</string>
+
+    <string name="changelog_v0_9_1">\n\n• Uygulama içi değişiklik günlükleri eklendi.\n\n• Vurgulanmış kabuk çıktısı eklendi.\n\n• Küçük UI değişiklikleri.</string>
+
+    <string name="changelog_v0_9_0">\n\n• Dinamik materyal teması eklendi.\n\n• Tüm UI, yeni bir görünüm kazandırmak için yenilendi.</string>
 
 </resources>

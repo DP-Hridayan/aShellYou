@@ -30,7 +30,7 @@ import in.hridayan.ashell.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements otgShellFragment.OnFragmentInteractionListener {
   private boolean isKeyboardVisible;
   public BottomNavigationView mNav;
   private SettingsAdapter adapter;
@@ -285,4 +285,10 @@ public class MainActivity extends AppCompatActivity {
         break;
     }
   }
+    
+   @Override
+    public void onRequestReset() {
+        currentFragment = OTG_FRAGMENT;
+        replaceFragment(new otgShellFragment());
+    }
 }

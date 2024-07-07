@@ -5,7 +5,7 @@
     <string
         name="app_name"
         translatable="false">aShell You</string>
-
+  // There are translatable strings in 'commands' and 'changelogs' modules
     <string name="access_denied">Access denied</string>
     <string name="accept_device_prompt">You might need to accept a prompt on the other device if you are trying to connect to it for the first time from this device</string>
     <string name="adb_device_connected">ADB device connected.</string>
@@ -151,6 +151,7 @@
     <string name="drDisagree_about">Developer of Iconify\nHelped me fix issues in aShell You 🤝</string>
     <string name="marciozomb13_about">A freelancer translator who did the Portuguese translations</string>
     <string name="weiguangtwk_about">The guy who did the Chinese translations</string>
+    <string name="winzort_about">Turkese translations are done by him</string>
     <string name="app">App</string>
     <string name="version">Version</string>
     <string name="report">Report an issue</string>

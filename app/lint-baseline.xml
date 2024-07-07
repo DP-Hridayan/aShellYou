@@ -46,24 +46,13 @@
     </issue>
 
     <issue
-        id="InlinedApi"
-        message="Field requires API level 31 (current min is 26): `android.R.color#system_accent3_500`"
-        errorLine1="      mCable.setColorFilter(Utils.getColor(android.R.color.system_accent3_500, requireActivity()));"
-        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/fragments/otgShellFragment.java"
-            line="429"
-            column="44"/>
-    </issue>
-
-    <issue
         id="NonConstantResourceId"
         message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
         errorLine1="            case R.id.sort:"
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="114"
+            line="115"
             column="18"/>
     </issue>
 
@@ -74,7 +63,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="118"
+            line="119"
             column="18"/>
     </issue>
 
@@ -85,7 +74,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="123"
+            line="124"
             column="18"/>
     </issue>
 
@@ -96,7 +85,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="128"
+            line="129"
             column="18"/>
     </issue>
 
@@ -107,7 +96,7 @@
         errorLine2="                 ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="132"
+            line="133"
             column="18"/>
     </issue>
 

@@ -14,8 +14,8 @@ android {
         applicationId "in.hridayan.ashell"
         minSdk 26
         targetSdk 34
-        versionCode 40
-        versionName "v4.0.3"
+        versionCode 41
+        versionName "v4.1.0"
     }
     
    lint {
