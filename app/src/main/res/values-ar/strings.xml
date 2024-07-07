@@ -1,0 +1,163 @@
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+    <string
+        name="app_name"
+        translatable="false">aShell You</string>
+  <!-- There are translatable strings in 'commands' and 'changelogs' modules -->
+    <string name="access_denied">تم رفض الوصول</string>
+    <string name="accept_device_prompt">قد تحتاج إلى قبول موجه على الجهاز الآخر إذا كنت تحاول الاتصال به لأول مرة من هذا الجهاز</string>
+    <string name="adb_device_connected">تم توصيل جهاز ADB.</string>
+    <string name="adb_device_not_connected">لم يتم توصيل جهاز ADB.</string>
+    <string name="adb_device_waiting">في انتظار جهاز ADB</string>
+    <string name="adb_shell">ADB Shell</string>
+    <string name="add_bookmark">إضافة إشارة مرجعية</string>
+    <string name="about">حول</string>
+    <string name="accept">قبول</string>
+    <string name="amoled_theme">مظهر أسود AMOLED</string>
+    <string name="des_amoled_theme">مظهر أسود نقي للأجهزة المزودة بشاشة OLED</string>
+    <string name="app_summary">aShell You هنا لتلبية جميع احتياجات ADB الخاصة بك</string>
+    <string name="app_updated_message">تم تحديث التطبيق، هل تريد رؤية التغييرات؟</string>
+    <string name="app_working_message">aShell You لا يزال يعمل. يرجى الانتظار حتى ينتهي أو إيقافه يدويًا (بالنقر على زر الإيقاف) لتشغيل أمر جديد</string>
+    <string name="beta_warning">هذه الميزة في مرحلتها التجريبية حاليًا. إذا واجهت أي مشاكل، يرجى إعلامي.</string>
+    <string name="bookmarks">الإشارات المرجعية</string>
+    <string name="bookmark_added_message">\'%s\' تم وضعه في الإشارات المرجعية</string>
+    <string name="batch_bookmark_added_message">%d أوامر تم وضعها في الإشارات المرجعية</string>
+    <string name="bookmark_limit_reached">تم الوصول إلى الحد الأقصى للإشارات المرجعية! قم بحذف بعض الإشارات لإضافة أخرى جديدة</string>
+    <string name="bookmark_removed_message">\'%s\' تم إزالته من الإشارات المرجعية</string>
+    <string name="batch_bookmark_removed_message">%d أوامر تم إزالتها من الإشارات المرجعية</string>
+    <string name="batch_pinned_message">%d أوامر تم تثبيتها</string>
+    <string name="batch_unpinned_message">%d أوامر تم إلغاء تثبيتها</string>
+    <string name="cancel">إلغاء</string>
+    <string name="changelogs">سجل التغييرات</string>
+    <string name="choose">اختر</string>
+    <string name="clear_all_message">هل أنت متأكد أنك تريد مسح كل شيء على هذه الشاشة؟</string>
+    <string name="clear_everything">مسح كل شيء</string>
+    <string name="clear_screen">مسح الشاشة</string>
+    <string name="clipboard_empty">الحافظة لا تحتوي على نص</string>
+    <string name="commands">الأوامر</string>
+    <string name="command_hint">أدخل أمر ADB هنا</string>
+    <string name="command_title">أدخل أمر ADB</string>
+    <string name="confirm">تأكيد</string>
+    <string name="confirm_batch_add_bookmark">سيتم إضافة العناصر المحددة %d إلى الإشارات المرجعية</string>
+    <string name="confirm_batch_remove_bookmark">سيتم إزالة العناصر المحددة %d من الإشارات المرجعية</string>
+    <string name="confirm_delete">تأكيد الحذف</string>
+    <string name="confirm_delete_message">تحذير! هذا الإجراء لا يمكن التراجع عنه\nهل أنت متأكد أنك تريد حذف جميع الإشارات المرجعية؟</string>
+    <string name="confirm_pin">سيتم تثبيت جميع الأوامر غير المثبتة\nهل ترغب في المتابعة؟</string>
+    <string name="confirm_pin_single">\[%s\] سيتم تثبيته\nهل ترغب في المتابعة؟</string>
+    <string name="confirm_unpin">هل تريد إلغاء تثبيت الأوامر المحددة؟</string>
+    <string name="confirm_unpin_single">\[%s\] سيتم إلغاء تثبيته\nهل ترغب في المتابعة؟</string>
+    <string name="connected_device">الجهاز المتصل</string>
+    <string name="connecting">جارٍ الاتصال\u2026</string>
+    <string name="connecting_hint">تأكيد التفويض على الجهاز الهدف</string>
+    <string name="copy" tools:override="true">نسخ</string>
+    <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
+    <string name="default_working_mode">وضع العمل الافتراضي</string>
+    <string name="delete_all">حذف الكل</string>
+    <string name="des_default_working_mode">اختر وضع العمل الافتراضي لتشغيل أوامر ADB</string>
+    <string name="device_not_connected">الجهاز غير متصل</string>
+    <string name="discord">Discord</string>
+    <string name="des_discord">انضم إلى مجتمع Discord</string>
+    <string name="dismiss">تجاهل</string>
+    <string name="disabled">معطل</string>
+    <string name="donot_show_again">لا تظهر مرة أخرى</string>
+    <string name="error">خطأ</string>
+    <string name="example">مثال</string>
+    <string name="examples">أمثلة</string>
+    <string name="failed">فشل</string>
+    <string name="generate_key_failed">فشل في إنشاء وحفظ زوج المفاتيح</string>
+    <string name="flashing">تثبيت</string>
+    <string name="go_back">العودة</string>
+    <string name="history">التاريخ</string>
+    <string name="least_used">الأقل استخدامًا</string>
+    <string name="local_adb">ADB محلي</string>
+    <string name="menu">القائمة</string>
+    <string name="most_used">الأكثر استخدامًا</string>
+    <string name="none">لا شيء</string>
+    <string name="no_command">لا أمر</string>
+    <string name="no_command_found">لم يتم العثور على أمر يطابق استفسارك</string>
+    <string name="ok">موافق</string>
+    <string name="open_adb">فتح ADB Shell</string>
+    <string name="otg">OTG</string>
+    <string name="otg_not_connected">الجهاز غير متصل بشكل صحيح. قم بتوصيل الجهاز بشكل صحيح عبر OTG وحاول مرة أخرى</string>
+    <string name="paste">لصق</string>
+    <string name="pin">تثبيت</string>
+    <string name="pinned_message">\'%s\' تم تثبيته</string>
+    <string name="press_back">اضغط على العودة مرة أخرى للخروج</string>
+    <string name="process_destroy_message">aShell You لا يزال يعمل. هل تريد إيقاف العملية الحالية؟</string>
+    <string name="progress">تقدم</string>
+    <string name="quit">إنهاء</string>
+    <string name="quit_app_message">هل تريد إنهاء aShell You؟</string>
+    <string name="remember_working_mode">تذكر وضع العمل الأخير</string>
+    <string name="request_permission">طلب الإذن</string>
+    <string name="save">حفظ</string>
+    <string name="su_warning">الأوامر التي تتطلب روت غير متاحة</string>
+    <string name="search">بحث</string>
+    <string name="search_command">ابحث عن الأوامر هنا</string>
+    <string name="search_output">ابحث عن النتائج هنا</string>
+    <string name="selected">محدد</string>
+    <string name="select_all">تحديد الكل</string>
+    <string name="search_summary">البحث في ملخص الأوامر؟</string>
+    <string name="settings">الإعدادات</string>
+    <string name="set_adb_interface_fail">فشل setAdbInterface(device, intf)</string>
+    <string name="share_and_run">تشغيل الأوامر المشتركة تلقائيًا</string>
+    <string name="des_share_and_run">إذا تم التمكين، فإن مشاركة أي نص إلى aShell You ستقوم بتشغيل Shell تلقائيًا باستخدام النص المشترك كمدخل</string>
+    <string name="shell_output_not_saved_message">نتائج الأمر الأخير لم يتم حفظها</string>
+    <string name="shell_output_saved_message">تم تصدير نتائج الأمر الأخير إلى مجلد \'%s\'</string>
+    <string name="shell_working">Shell يعمل</string>
+    <string name="shizuku_about">حول Shizuku</string>
+    <string name="shizuku_access_denied_message">تم رفض الوصول إلى خدمة Shizukuلـ aShell You. لن يعمل aShell You بدون بيئة
+ئة Shizuku صحيحة.</string>
+    <string name="shizuku_unavailable">Shizuku غير متاح</string>
+    <string name="shizuku_unavailable_message">Shizuku غير مثبت أو غير مكون بشكل صحيح على جهازك. لن يعمل aShell You بدون بيئة Shizuku صحيحة.</string>
+    <string name="sort">ترتيب</string>
+    <string name="sort_A_Z">أ → ي</string>
+    <string name="sort_Z_A">ي → أ</string>
+    <string name="sort_newest">الأحدث</string>
+    <string name="sort_oldest">الأقدم</string>
+    <string name="start">ابدأ</string>
+    <string name="success">نجاح</string>
+    <string name="support">دعم</string>
+    <string name="su_warning_message">aShell You غير مصمم للاستخدامات المتعلقة بالروت. الإلغاء.</string>
+    <string name="unpin">إلغاء التثبيت</string>
+    <string name="unpinned_message">\'%s\' تم إلغاء تثبيته</string>
+    <string name="use">استخدام</string>
+    <string name="waiting_device">في انتظار الجهاز</string>
+    <string name="warning">تحذير</string>
+    <string name="working_mode">وضع العمل</string>
+    <string name="yes">نعم</string>
+    <string name="smooth_scrolling">التمرير السلس</string>
+    <string name="des_smooth_scroll">يُمكّن التمرير السلس في نتائج Shell عند النقر على السهم العلوي أو السفلي</string>
+    <string name="ask_to_clean">طلب التأكيد قبل مسح نتائج Shell</string>
+    <string name="des_ask_to_clean">إذا تم التمكين، سيتم عرض نافذة تأكيد بعد النقر على زر مسح الشاشة</string>
+    <string name="override_bookmarks_limit">تجاوز الحد الأقصى للإشارات المرجعية</string>
+    <string name="des_override_bookmarks">قد يسبب تباطؤ إذا تمت إضافة عدد كبير من الإشارات المرجعية! ينبغي أن تحافظ الأجهزة ذات الأداء المنخفض على إيقاف هذا الخيار</string>
+    <string name="disable_softkey">تعطيل لوحة المفاتيح الناعمة</string>
+    <string name="des_disable_softkey">مفيد عندما تريد استخدام لوحة مفاتيح خارجية</string>
+    <string name="des_examples">مجموعة من قوالب الأوامر</string>
+    <string name="des_changelogs">تاريخ جميع التغييرات التي تم إجراؤها على التطبيق</string>
+    <string name="des_about">الإصدار، الشكر</string>
+    <string name="lead_developer">المطور الرئيسي</string>
+    <string name="hridayan_about">مجرد شخص يحب التطبيقات والتصميم</string>
+    <string name="contributors">المساهمون</string>
+    <string name="rikka_about">مطور Shizuku\nمزود الوظائف الرئيسية لـ aShell You</string>
+    <string name="sunilpaulmathew_about">مطور aShell\nبدونه لم يكن لـ aShell You أن يوجد</string>
+    <string name="khun_htetz_about">مطور ADB⚡OTG\nشكرًا له، تم تنفيذ ميزة OTG في aShell You</string>
+    <string name="krishna_about">أفضل شخص في العالم ساعدني كثيرًا. بدون دعمه، لم يكن لـ aShell You أن يوجد. شكراً جزيلاً لدعمك يا صديقي</string>
+    <string name="drDisagree_about">مطور Iconify\nساعدني في إصلاح مشاكل في aShell You 🤝</string>
+    <string name="marciozomb13_about">مترجم قام بترجمة النصوص إلى البرتغالية</string>
+    <string name="weiguangtwk_about">الشخص الذي قام بترجمة النصوص إلى الصينية</string>
+    <string name="winzort_about">قام بترجمة النصوص إلى التركية</string>
+    <string name="app">التطبيق</string>
+    <string name="version">الإصدار</string>
+    <string name="report">الإبلاغ عن مشكلة</string>
+    <string name="des_report">الإبلاغ عن أي مشكلة واجهتها أثناء استخدام التطبيق</string>
+    <string name="feature_request">طلب ميزة</string>
+    <string name="des_feature_request">إذا كان لديك أي أفكار أو اقتراحات، دعني أعرف</string>
+    <string name="github">Github</string>
+    <string name="des_github">زر مستودع Githubالخاص بـ aShell You</string>
+    <string name="telegram_channel">قناة Telegram</string>
+    <string name="des_telegram_channel">انضم إلى قناة Telegram للنقاش</string>
+
+</resources>
