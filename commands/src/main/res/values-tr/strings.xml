@@ -58,7 +58,7 @@
     <string name="pm_install_p">Kısmi uygulama yüklemesi (mevcut paketin üzerine yeni bölme)</string>
     <string name="pm_install_R">Mevcut uygulamayı güncelle, ancak mevcut olanın yerine geçmesine izin verme</string>
     <string name="pm_install_t">Test paketlerinin yüklenmesine izin ver</string>
-    <string name="pm_install_abi">Platformun varsayılan ABI'sini geçersiz kıl</string>
+    <string name="pm_install_abi">Platformun varsayılan ABI\'sini geçersiz kıl</string>
     <string name="pm_install_dont_kill">Çalışan uygulamayı sonlandırmadan yeni özellik bölmesini yükle</string>
     <string name="pm_install_full">Uygulamanın tam uygulama olarak yüklenmesine neden ol</string>
     <string name="pm_install_install_location">Yükleme konumunu zorla (Seçenekler, 0=otomatik, 1=sadece dahili, 2=dış tercihi)</string>
@@ -76,13 +76,13 @@
     <string name="pm_install_existing_restrict_permissions">Kısıtlı izinleri beyaz listeye alma</string>
     <string name="pm_install_existing_user">Belirli bir kullanıcı için yükle</string>
     <string name="pm_install_existing_wait">Paket yüklenene kadar bekle</string>
-    <string name="pm_install_remove">Belirtilen yükleme oturumunda BÖLÜM'leri silinmiş olarak işaretle</string>
+    <string name="pm_install_remove">Belirtilen yükleme oturumunda BÖLÜM\'leri silinmiş olarak işaretle</string>
     <string name="pm_install_write">Belirtilen yükleme oturumuna bir apk yaz</string>
     <string name="pm_list_features">Telefon özelliklerini listele</string>
     <string name="pm_list_libraries">Tüm sistem kütüphanelerini listele</string>
     <string name="pm_list_packages">Paket adlarını listele</string>
     <string name="pm_list_packages_3">Yalnızca üçüncü taraf paketlerini listele</string>
-    <string name="pm_list_packages_a">Bilinen tüm paketleri listele, ancak APEX'leri hariç tut</string>
+    <string name="pm_list_packages_a">Bilinen tüm paketleri listele, ancak APEX\'leri hariç tut</string>
     <string name="pm_list_packages_d">Tüm devre dışı bırakılmış paketleri listele</string>
     <string name="pm_list_packages_e">Tüm etkin paketleri listele</string>
     <string name="pm_list_packages_f">Paket adlarını ilişkili dosyaları ile birlikte listele</string>

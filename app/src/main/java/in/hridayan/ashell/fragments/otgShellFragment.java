@@ -1,6 +1,5 @@
 package in.hridayan.ashell.fragments;
 
-import android.app.Activity;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_NOT_FOUND;
@@ -67,7 +66,6 @@ import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.OtgUtils;
 import in.hridayan.ashell.utils.OtgUtils.Const;
 import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
-import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import java.io.File;
@@ -88,7 +86,6 @@ public class otgShellFragment extends Fragment
   private AdbConnection adbConnection;
   private UsbManager mManager;
   private BottomNavigationView mNav;
-
   private CommandsAdapter mCommandsAdapter;
   private LinearLayoutCompat terminalView;
   private MaterialButton mSettingsButton, mBookMarks, mHistoryButton;
@@ -107,13 +104,31 @@ public class otgShellFragment extends Fragment
   private View view;
   private AdbStream stream;
   private Context context;
-    
-    @Override
-    public void onAttach(@NonNull Context mContext) {
-        super.onAttach(mContext);
-        context = mContext;
+
+  private OnFragmentInteractionListener mListener;
+
+  public interface OnFragmentInteractionListener {
+    void onRequestReset();
+  }
+
+  @Override
+  public void onDetach() {
+    super.onDetach();
+    mListener = null;
+  }
+
+  @Override
+  public void onAttach(@NonNull Context mContext) {
+    super.onAttach(mContext);
+    context = mContext;
+    if (context instanceof OnFragmentInteractionListener) {
+      mListener = (OnFragmentInteractionListener) context;
+    } else {
+      throw new RuntimeException(
+          context.toString() + " must implement OnFragmentInteractionListener");
     }
-    
+  }
+
   @Nullable
   @Override
   public View onCreateView(
@@ -138,7 +153,7 @@ public class otgShellFragment extends Fragment
     scrollView = view.findViewById(R.id.scrollView);
     terminalView = view.findViewById(R.id.terminalView);
     mUndoButton = view.findViewById(R.id.fab_undo);
-        
+
     mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -161,8 +176,6 @@ public class otgShellFragment extends Fragment
             }
           }
         });
-        
-        
 
     if (isSendDrawable) {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
@@ -228,8 +241,8 @@ public class otgShellFragment extends Fragment
 
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    
-isSendDrawable = mCommand.getText() != null;
+
+            isSendDrawable = mCommand.getText() != null;
 
             mCommandInput.setError(null);
 
@@ -280,7 +293,8 @@ isSendDrawable = mCommand.getText() != null;
                           }
 
                           mCommandsAdapter =
-                              new CommandsAdapter(Commands.getPackageInfo(packageNamePrefix + ".",context));
+                              new CommandsAdapter(
+                                  Commands.getPackageInfo(packageNamePrefix + ".", context));
                           if (isAdded()) {
                             mRecyclerViewCommands.setLayoutManager(
                                 new LinearLayoutManager(requireActivity()));
@@ -300,7 +314,8 @@ isSendDrawable = mCommand.getText() != null;
                                 mRecyclerViewCommands.setVisibility(View.GONE);
                               });
                         } else {
-                          mCommandsAdapter = new CommandsAdapter(Commands.getCommand(s.toString(),context));
+                          mCommandsAdapter =
+                              new CommandsAdapter(Commands.getCommand(s.toString(), context));
                           if (isAdded()) {
                             mRecyclerViewCommands.setLayoutManager(
                                 new LinearLayoutManager(requireActivity()));
@@ -310,8 +325,9 @@ isSendDrawable = mCommand.getText() != null;
                           mRecyclerViewCommands.setVisibility(View.VISIBLE);
                           mCommandsAdapter.setOnItemClickListener(
                               (command, v) -> {
-mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
-                                            
+                                mCommand.setText(
+                                    command.contains(" <") ? command.split("<")[0] : command);
+
                                 mCommand.setSelection(mCommand.getText().length());
                               });
                         }
@@ -360,6 +376,9 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
                       sendButtonClicked = true;
                       mPasteButton.hide();
                       mUndoButton.hide();
+                      if (mRecyclerViewCommands.getVisibility() == View.VISIBLE) {
+                        mRecyclerViewCommands.setVisibility(View.GONE);
+                      }
                       if (adbConnection != null) {
                         putCommand();
                       } else {
@@ -386,7 +405,9 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
                         new MaterialAlertDialogBuilder(requireActivity())
                             .setTitle(requireActivity().getString(R.string.error))
                             .setMessage(requireActivity().getString(R.string.otg_not_connected))
-                            .setPositiveButton(requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
+                            .setPositiveButton(
+                                requireActivity().getString(R.string.ok),
+                                (dialogInterface, i) -> {})
                             .show();
                       }
                     }
@@ -425,11 +446,6 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
         });
 
     // Glow otg symbol when adb connection successfull
-    if (adbConnection != null) {
-      mCable.setColorFilter(Utils.getColor(android.R.color.system_accent3_500, requireActivity()));
-    } else {
-      mCable.clearColorFilter();
-    }
 
     mSettingsButton.setTooltipText(getString(R.string.settings));
     mSettingsButton.setOnClickListener(
@@ -444,22 +460,27 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
           public void handleMessage(@NonNull android.os.Message msg) {
             switch (msg.what) {
               case DEVICE_FOUND:
-                    closeWaiting();
-                terminalView.setVisibility(View.VISIBLE);
                 initCommand();
-                KeyboardUtils.showKeyboard(mCommand, context);
+                if (adbConnection != null) {
+                  mCable.setColorFilter(Utils.getColor(R.color.green, requireActivity()));
+                }
+                if (mWaitingDialog != null) {
+                  Toast.makeText(context, "device found", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
               case CONNECTING:
+             //   Toast.makeText(context, "connecting", Toast.LENGTH_SHORT).show();
+              if (adbConnection == null) {
                 waitingDialog(context);
-                KeyboardUtils.closeKeyboard(requireActivity(), context);
-                terminalView.setVisibility(View.VISIBLE);
+              }
+
                 break;
 
               case DEVICE_NOT_FOUND:
-                    closeWaiting();
-                KeyboardUtils.closeKeyboard(requireActivity(), context);
-                terminalView.setVisibility(View.VISIBLE);
+                
+                mCable.clearColorFilter();
+               // Toast.makeText(context, "device not found!", Toast.LENGTH_SHORT).show();
                 adbConnection = null; // Fix this issue
                 break;
 
@@ -538,17 +559,8 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
     return view;
   }
 
-  private void closeWaiting() {
-        if(mWaitingDialog != null && mWaitingDialog.isShowing())
-        {
-           mWaitingDialog.dismiss();
-        }
-    
-  }
-
   private void waitingDialog(Context context) {
-    View dialogView =
-        LayoutInflater.from(context).inflate(R.layout.loading_dialog_layout, null);
+    View dialogView = LayoutInflater.from(context).inflate(R.layout.loading_dialog_layout, null);
     ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
 
     mWaitingDialog =
@@ -556,9 +568,21 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
             .setCancelable(false)
             .setView(dialogView)
             .setTitle(context.getString(R.string.waiting_device))
+            .setPositiveButton(
+                getString(R.string.ok),
+                (dialogInterface, i) -> {
+                  if (mListener != null) {
+                    mListener.onRequestReset();
+                  }
+                })
             .show();
-
     progressBar.setVisibility(View.VISIBLE);
+  }
+
+  private void closeWaiting() {
+    if (mWaitingDialog != null && mWaitingDialog.isShowing()) {
+      mWaitingDialog.dismiss();
+    }
   }
 
   public void asyncRefreshAdbConnection(final UsbDevice device) {
@@ -597,6 +621,8 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
           } else if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
             UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
             asyncRefreshAdbConnection(device);
+            mListener.onRequestReset();
+
           } else if (MessageOtg.USB_PERMISSION.equals(action)) {
             System.out.println("From receiver!");
             UsbDevice usbDevice = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
@@ -828,9 +854,4 @@ mCommand.setText(command.contains(" <") ? command.split("<")[0] : command);
       mCommand.setSelection(mCommand.getText().length());
     }
   }
-    
-    
-    
 }
-
-

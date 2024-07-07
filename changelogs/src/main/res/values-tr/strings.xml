@@ -13,7 +13,7 @@
 
     <string name="changelog_v3_9_1">\n\n• Toplam yer imi sayısı eklendi\n\n• Bazı hatalar düzeltildi</string>
 
-    <string name="changelog_v3_9_0">\n\n• Komutlar bölümünde Arama eklendi\n\n• Varsayılan çalışma modunu ayarlama seçeneği eklendi\n\n• Animasyonlar iyileştirildi\n\n• Yer imleri bölümü yeniden düzenlendi ve sıralama seçenekleri eklendi\n\n• Yer imi sınırı 25'e çıkarıldı\n\n• ADB kabuk başlatıcı kısayolu kaldırıldı ve Komutlar başlatıcı kısayolu eklendi\n\n• Düğme navigasyonundaki dolgu sorunları düzeltildi\n\n• Bazı düğme şekilleri düzeltildi</string>
+    <string name="changelog_v3_9_0">\n\n• Komutlar bölümünde Arama eklendi\n\n• Varsayılan çalışma modunu ayarlama seçeneği eklendi\n\n• Animasyonlar iyileştirildi\n\n• Yer imleri bölümü yeniden düzenlendi ve sıralama seçenekleri eklendi\n\n• Yer imi sınırı 25\'e çıkarıldı\n\n• ADB kabuk başlatıcı kısayolu kaldırıldı ve Komutlar başlatıcı kısayolu eklendi\n\n• Düğme navigasyonundaki dolgu sorunları düzeltildi\n\n• Bazı düğme şekilleri düzeltildi</string>
 
     <string name="changelog_v3_8_2">\n\n• Uygulama, material you teması için daha yenilenmiş bir renk paleti kullanır\n\n• Küçük hatalar düzeltildi</string>
 
@@ -31,11 +31,11 @@
 
     <string name="changelog_v3_4_0">\n\n• Komutları hızlı bir şekilde kopyalayıp yapıştırabilmeniz için Yapıştır düğmesi eklendi.\n\n• Metin giriş alanında Hata göstergeleri eklendi.\n\n• Gezinme Çubuğu görünürlüğü mantığı iyileştirildi.\n\n• Belirli durumlarda anahtarların yanlış davranmasına neden olan bir sorun düzeltildi.\n\n• Çeşitli kontrast seviyelerinde görünürlük sağlamak için yer imi simgesi düzeltildi.\n\n• Birçok kod optimizasyonu. Uygulama artık öncekinden çok daha hızlı açılıyor.\n\n• Uygulama arka planda kalacak ve sadece geri düğmesine veya hareketine basarak uygulamayı kapattığınızda her seferinde yeniden başlamayacak.</string>
 
-    <string name="changelog_v3_3_0">\n\n• Yer imleri, geçmiş ve komut önerileri OTG'ye eklendi\n\n• Maksimum yer imi sınırı eklendi.\n\n• Maksimum yer imi sınırını aşma seçeneği eklendi.\n\n• Birçok hata düzeltmesi.\n\n• Bazı UI yönetimi iyileştirildi.\n\n• Birçok kod optimizasyonu.</string>
+    <string name="changelog_v3_3_0">\n\n• Yer imleri, geçmiş ve komut önerileri OTG\'ye eklendi\n\n• Maksimum yer imi sınırı eklendi.\n\n• Maksimum yer imi sınırını aşma seçeneği eklendi.\n\n• Birçok hata düzeltmesi.\n\n• Bazı UI yönetimi iyileştirildi.\n\n• Birçok kod optimizasyonu.</string>
 
     <string name="changelog_v3_2_0">\n\n• Birçok UI ile ilgili iyileştirme.\n\n• Geçerli ADB çalışma modunu gösteren çipler eklendi.\n\n• Birçok kod optimizasyonu.</string>
 
-    <string name="changelog_v3_1_0">\n\n• İlk sürümden sonra ADB OTG'de iyileştirmeler.\n\n• Yeni OTG özelliğine uyum sağlamak için bazı UI ve mantık ayarlamaları.</string>
+    <string name="changelog_v3_1_0">\n\n• İlk sürümden sonra ADB OTG\'de iyileştirmeler.\n\n• Yeni OTG özelliğine uyum sağlamak için bazı UI ve mantık ayarlamaları.</string>
 
     <string name="changelog_v3_0_0">\n\n• OTG ÜZERİNDEN ADB desteği eklendi.\n\n *** aShellYou kullanarak diğer cihazları OTG kablosu ile bağlayarak ADB komutlarını çalıştırabileceksiniz ***</string>
 
@@ -47,9 +47,9 @@
 
     <string name="changelog_v1_3_0">\n\n• Ayarlar paneli yenilendi.\n\n• Kabuk çıktı görünümünde çift dokunarak üst ve alt konumlara anında kaydırma eklendi.\n\n• Küçük UI düzeltmeleri.</string>
 
-    <string name="changelog_v1_2_0">\n\n• Ayarlar paneli eklendi.\n\n• Kabuk çıktısında yumuşak kaydırmayı devre dışı bırakma seçeneği eklendi.\n\n• Büyük hatalar düzeltildi:\n\n  ~  Cihaz teması değiştirirken çökme.\n\n  ~  Büyük kabuk çıktısını kaydetmeye çalışırken çökme. Örn: 'pm' komutunun çıktısı.</string>
+    <string name="changelog_v1_2_0">\n\n• Ayarlar paneli eklendi.\n\n• Kabuk çıktısında yumuşak kaydırmayı devre dışı bırakma seçeneği eklendi.\n\n• Büyük hatalar düzeltildi:\n\n  ~  Cihaz teması değiştirirken çökme.\n\n  ~  Büyük kabuk çıktısını kaydetmeye çalışırken çökme. Örn: \'pm\' komutunun çıktısı.</string>
 
-    <string name="changelog_v1_1_1">\n\n• Bazı kullanımdan kalkmış API'ler değiştirildi.\n\n• Küçük UI değişiklikleri.</string>
+    <string name="changelog_v1_1_1">\n\n• Bazı kullanımdan kalkmış API\'ler değiştirildi.\n\n• Küçük UI değişiklikleri.</string>
 
     <string name="changelog_v1_1_0">\n\n• Üste Kaydır ve Alta Kaydır düğmeleri eklendi.\n\n• Komut göndermek için Enter tuşuna basma eklendi.\n\n• Bazı komutlar eklendi.\n\n• En son material you kütüphanesini içerecek şekilde bağımlılıklar güncellendi.\n\n• Küçük UI değişiklikleri.</string>
 

@@ -116,8 +116,16 @@ public class AboutActivity extends AppCompatActivity {
             "id_weiguangtwk",
             "weiguangtwk",
             getString(R.string.weiguangtwk_about),
-            R.mipmap.dp_weiguangtwk));
+             R.mipmap.dp_weiguangtwk));
+        
+    items.add(
+        new Category.ContributorsItem(
+            "id_winzort",
+            "WINZORT",
+            getString(R.string.winzort_about),
+            R.mipmap.dp_winzort));
 
+        
     items.add(new Category(getString(R.string.app)));
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);

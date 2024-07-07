@@ -117,6 +117,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             idUrlMap.put("id_drDisagree", "https://github.com/Mahmud0808");
             idUrlMap.put("id_marciozomb13", "https://github.com/marciozomb13");
             idUrlMap.put("id_weiguangtwk", "https://github.com/WeiguangTWK");
+                           idUrlMap.put("id_winzort", "https://github.com/mikropsoft");
 
             String id = ContributorsItem.getId();
             String url = idUrlMap.get(id);
