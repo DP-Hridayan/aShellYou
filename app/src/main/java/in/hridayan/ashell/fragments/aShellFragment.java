@@ -304,10 +304,10 @@ public class aShellFragment extends Fragment {
     BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, context);
 
     // Show snackbar when app is updated
-
     Utils.isAppUpdated(context, requireActivity());
     Preferences.setSavedVersionCode(context, Utils.currentVersion());
 
+    // Display the connected device name when clicking the chip
     Utils.chipOnClickListener(context, mChip, Utils.getDeviceName());
     /*------------------------------------------------------*/
 
@@ -315,6 +315,7 @@ public class aShellFragment extends Fragment {
       mCommand.requestFocus();
     }
 
+    // Handles text changing events in the Input Field
     mCommand.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -342,7 +343,6 @@ public class aShellFragment extends Fragment {
                 viewModel.setSendDrawable(ic_send);
                 mSendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-
                 mCommandInput.setEndIconDrawable(
                     Utils.getDrawable(
                         Utils.isBookmarked(s.toString().trim(), requireActivity())
@@ -481,6 +481,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
+    // Action to perform when clicking send button in various scenerios
     mSendButton.setOnClickListener(
         v -> {
           sendButtonClicked = true;

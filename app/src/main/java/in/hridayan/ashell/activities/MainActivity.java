@@ -44,11 +44,13 @@ public class MainActivity extends AppCompatActivity
   @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
-
+    // handle intent for "Use" feature
     if (intent.hasExtra("use_command")) {
       String useCommand = intent.getStringExtra("use_command");
       handleUseCommandIntent(useCommand, intent);
     }
+
+    // handle intent for text shared to aShell You
     if (intent.hasExtra(Intent.EXTRA_TEXT)) {
       String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
       if (sharedText != null) {
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity
       }
     }
 
+    // handle intent when usb is disconnected
     if (intent != null && "com.example.ACTION_USB_DETACHED".equals(intent.getAction())) {
       onUsbDetached();
     }
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   protected void onResume() {
     super.onResume();
-
+    // Amoled theme
     isAmoledTheme = Preferences.getAmoledTheme(this);
     boolean currentTheme = isAmoledTheme;
     if (currentTheme != isBlackThemeEnabled) {
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity
 
     mNav = findViewById(R.id.bottom_nav_bar);
 
+    // Hide the navigation bar when the keyboard is visible
     KeyboardUtils.attachVisibilityListener(
         this,
         new KeyboardUtils.KeyboardVisibilityListener() {
@@ -117,21 +121,26 @@ public class MainActivity extends AppCompatActivity
         });
 
     isBlackThemeEnabled = isAmoledTheme;
+
     setupNavigation();
+
+    // Displaying badges on navigation bar
     setBadge(R.id.nav_otgShell, "Beta");
     setBadge(R.id.nav_wireless, "Soon");
   }
 
+  // Intent to get the text shared to aShell You app
   private void handleSharedTextIntent(String sharedText, Intent intent) {
     setTextOnEditText(sharedText, intent);
   }
 
+  // Intent to get the text when we use the "Use" feature in command examples
   private void handleUseCommandIntent(String useCommand, Intent intent) {
     setTextOnEditText(useCommand, intent);
   }
 
+  // Set the text in the Input Field
   private void setTextOnEditText(String text, Intent intent) {
-
     int currentFragment = Preferences.getCurrentFragment(this);
 
     switch (currentFragment) {
@@ -161,6 +170,7 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
+  // Main navigation setup
   private void setupNavigation() {
     mNav.setVisibility(View.VISIBLE);
     mNav.setOnItemSelectedListener(
@@ -184,8 +194,8 @@ public class MainActivity extends AppCompatActivity
     initialFragment();
   }
 
+  // Takes the fragment we want to navigate to as argument and then starts that fragment
   private void replaceFragment(Fragment fragment) {
-
     setCurrentFragment();
     getSupportFragmentManager()
         .beginTransaction()
@@ -193,6 +203,7 @@ public class MainActivity extends AppCompatActivity
         .commit();
   }
 
+  // If not on OtgShell then go to OtgShell
   private void showotgShellFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
         instanceof otgShellFragment)) {
@@ -207,6 +218,7 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
+  // If not on LocalShell then go to LocalShell (aShellFragment)
   private void showaShellFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
         instanceof aShellFragment)) {
@@ -215,6 +227,7 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
+  // Experimental feature warning for OtgShell
   private void showBetaWarning() {
     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
     builder
@@ -243,6 +256,7 @@ public class MainActivity extends AppCompatActivity
         .show();
   }
 
+  // Function to set a Badge on the Navigation Bar
   private void setBadge(int id, String text) {
     BadgeDrawable badge = mNav.getOrCreateBadge(id);
     badge.setVisible(true);
@@ -250,6 +264,8 @@ public class MainActivity extends AppCompatActivity
     badge.setHorizontalOffset(0);
   }
 
+  // Since there is option to set which working mode you want to display when app is launched , this
+  // piece of code handles the logic for initial fragment
   private void initialFragment() {
     if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true)) {
       mNav.setVisibility(View.GONE);
@@ -291,10 +307,13 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
+  // Execute functions when the Usb connection is removed
   public void onUsbDetached() {
+    // Reset the OtgShellFragment in this case
     onRequestReset();
   }
 
+  // Reset the OtgFragment
   @Override
   public void onRequestReset() {
     currentFragment = OTG_FRAGMENT;
