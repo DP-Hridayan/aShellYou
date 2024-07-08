@@ -1,5 +1,6 @@
 package in.hridayan.ashell.activities;
 
+import android.widget.Toast;
 import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
@@ -30,7 +31,8 @@ import in.hridayan.ashell.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements otgShellFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity
+    implements otgShellFragment.OnFragmentInteractionListener {
   private boolean isKeyboardVisible;
   public BottomNavigationView mNav;
   private SettingsAdapter adapter;
@@ -53,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements otgShellFragment.
         sharedText = sharedText.trim().replaceAll("^\"|\"$", "");
         handleSharedTextIntent(sharedText, intent);
       }
+    }
+
+    if (intent != null && "com.example.ACTION_USB_DETACHED".equals(intent.getAction())) {
+      onUsbDetached();
     }
   }
 
@@ -127,9 +133,8 @@ public class MainActivity extends AppCompatActivity implements otgShellFragment.
   private void setTextOnEditText(String text, Intent intent) {
 
     int currentFragment = Preferences.getCurrentFragment(this);
-        
+
     switch (currentFragment) {
-            
       case LOCAL_FRAGMENT:
         aShellFragment fragmentLocalAdb =
             (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
@@ -285,10 +290,14 @@ public class MainActivity extends AppCompatActivity implements otgShellFragment.
         break;
     }
   }
-    
-   @Override
-    public void onRequestReset() {
-        currentFragment = OTG_FRAGMENT;
-        replaceFragment(new otgShellFragment());
-    }
+
+  public void onUsbDetached() {
+    onRequestReset();
+  }
+
+  @Override
+  public void onRequestReset() {
+    currentFragment = OTG_FRAGMENT;
+    replaceFragment(new otgShellFragment());
+  }
 }
