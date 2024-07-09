@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity
   private boolean isBlackThemeEnabled, isAmoledTheme;
   private MainViewModel viewModel;
 
-  @Override
+    @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
+        
     // handle intent for "Use" feature
     if (intent.hasExtra("use_command")) {
       String useCommand = intent.getStringExtra("use_command");

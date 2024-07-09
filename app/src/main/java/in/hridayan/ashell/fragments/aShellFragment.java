@@ -85,7 +85,7 @@ import rikka.shizuku.Shizuku;
  */
 
 /*
- * Modified by DP-Hridayan <hridayanofficial@gmail.com> since January 24 , 2024
+ * Modified by DP-Hridayan <hridayanofficial@gmail.com> starting from January 24 , 2024
  */
 
 public class aShellFragment extends Fragment {
@@ -96,7 +96,6 @@ public class aShellFragment extends Fragment {
   private MaterialButton mClearButton, mHistoryButton, mSearchButton, mBookMarks, mSettingsButton;
   private FrameLayout mAppNameLayout;
   private BottomNavigationView mNav;
-  private MaterialCardView mShellCard;
   private CommandsAdapter mCommandsAdapter;
   private ShellOutputAdapter mShellOutputAdapter;
   private RecyclerView mRecyclerViewOutput, mRecyclerViewCommands;
@@ -161,6 +160,7 @@ public class aShellFragment extends Fragment {
       mCommand.clearFocus();
     }
 
+    // This function is for restoring the Run button's icon after a configuration change
     switch (viewModel.getSendDrawable()) {
       case ic_help:
         mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -221,7 +221,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    mShellCard = view.findViewById(R.id.rv_shell_card);
+    
     localShellSymbol = view.findViewById(R.id.local_shell_symbol);
     mAppNameLayout = view.findViewById(R.id.app_name_layout);
     mBookMarks = view.findViewById(R.id.bookmarks);
@@ -894,6 +894,7 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  // This function is called when we want to run the shell after entering an adb command
   private void runShellCommand(String command, Activity activity) {
 
     if (!isAdded()) {
@@ -1130,6 +1131,7 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
+  // This function is called when we want to clear the screen
   private void clearAll() {
     if (mShizukuShell != null) mShizukuShell.destroy();
     mResult = null;
@@ -1188,6 +1190,7 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
+  // handles text shared to ashell you
   public void handleSharedTextIntent(Intent intent, String sharedText) {
     if (sharedText != null) {
       boolean switchState = Preferences.getShareAndRun(context);
@@ -1218,6 +1221,7 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
+  // error handling when shizuku is unavailable or permission isn't granted
   private void handleShizukuAvailability(Context context) {
 
     mCommandInput.setError(getString(R.string.shizuku_unavailable));
@@ -1243,6 +1247,8 @@ public class aShellFragment extends Fragment {
         .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
         .show();
   }
+
+  /*------------------------------------------------------*/
 
   private boolean isEditTextFocused() {
     return mCommand.hasFocus();
@@ -1270,6 +1276,9 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  // This function is mainly for maintaining the constraints of history and bookmarks button when
+  // other buttons are visible or not visible , it is just for asthethic , to distribute buttons
+  // evenly
   private void updateHistoryAndBookMarksConstraints() {
     boolean isHistoryButtonVisible = mHistoryButton.getVisibility() == View.VISIBLE;
     boolean isBookMarksVisible = mBookMarks.getVisibility() == View.VISIBLE;
