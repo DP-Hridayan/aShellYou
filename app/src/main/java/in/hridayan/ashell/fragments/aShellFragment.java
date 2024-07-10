@@ -299,7 +299,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, context);
+    BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput,null, context, "local_shell");
 
     // Show snackbar when app is updated
     Utils.isAppUpdated(context, requireActivity());

@@ -59,6 +59,7 @@ import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
 import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.activities.ExamplesActivity;
@@ -102,8 +103,8 @@ public class otgShellFragment extends Fragment
   private MaterialCardView mShellCard;
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand;
-  private FloatingActionButton mSendButton, mUndoButton;
-  private ExtendedFloatingActionButton mPasteButton;
+  private FloatingActionButton mSendButton, mUndoButton, mTopButton, mBottomButton;
+  private ExtendedFloatingActionButton mPasteButton, mSaveButton;
   private CoordinatedNestedScrollView scrollView;
   private AlertDialog mWaitingDialog;
   private String user = null, deviceName;
@@ -197,6 +198,7 @@ public class otgShellFragment extends Fragment
     adapter = new SettingsAdapter(settingsList, requireContext());
     logs = view.findViewById(R.id.logs);
     mBookMarks = view.findViewById(R.id.bookmarks);
+    mBottomButton = view.findViewById(R.id.fab_down);
     mCable = view.findViewById(R.id.otg_cable);
     mClearButton = view.findViewById(R.id.clear);
     mChip = view.findViewById(R.id.chip);
@@ -207,19 +209,24 @@ public class otgShellFragment extends Fragment
     mNav = view.findViewById(R.id.bottom_nav_bar);
     mPasteButton = view.findViewById(R.id.paste_button);
     mRecyclerViewCommands = view.findViewById(R.id.rv_commands);
+    mSaveButton = view.findViewById(R.id.save_button);
     mSendButton = view.findViewById(R.id.send);
     mSettingsButton = view.findViewById(R.id.settings);
     mShellCard = view.findViewById(R.id.otg_shell_card);
     scrollView = view.findViewById(R.id.scrollView);
     terminalView = view.findViewById(R.id.terminalView);
+    mTopButton = view.findViewById(R.id.fab_up);
     mUndoButton = view.findViewById(R.id.fab_undo);
 
     mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-    BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
+   new FabExtendingOnScrollViewListener(scrollView, mSaveButton);
 
+    BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
+    BehaviorFAB.handleTopAndBottomArrow(
+        mTopButton, mBottomButton, null, scrollView, context, "otg_shell");
     KeyboardUtils.attachVisibilityListener(
         requireActivity(),
         new KeyboardUtils.KeyboardVisibilityListener() {
@@ -229,10 +236,15 @@ public class otgShellFragment extends Fragment
             if (isKeyboardVisible) {
               mPasteButton.setVisibility(View.GONE);
               mUndoButton.setVisibility(View.GONE);
+                        mSaveButton.setVisibility(View.GONE);
             } else {
-              if (mPasteButton.getVisibility() == View.GONE && !sendButtonClicked) {
+              if (mPasteButton.getVisibility() == View.GONE) {
+                            if(!sendButtonClicked){
                 setVisibilityWithDelay(mPasteButton, 100);
+              }else if(adbConnection != null) {
+                  setVisibilityWithDelay(mSaveButton,100);
               }
+                            }
             }
           }
         });

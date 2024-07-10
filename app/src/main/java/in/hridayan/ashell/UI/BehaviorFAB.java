@@ -3,16 +3,15 @@ package in.hridayan.ashell.UI;
 import android.os.Handler;
 import android.os.Looper;
 import android.content.Context;
-import android.preference.Preference;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
-import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import java.util.Objects;
@@ -23,6 +22,7 @@ public class BehaviorFAB {
   private static final int VISIBILITY_DELAY_MILLIS = 2000;
   private static final int FAST_SCROLL_THRESHOLD_EXTENDED = 25;
 
+  // Function class for visibility of Top Scroll Button in Local Shell Fragment
   public static class FabOnScrollUpListener extends RecyclerView.OnScrollListener {
 
     private final FloatingActionButton fab;
@@ -65,6 +65,7 @@ public class BehaviorFAB {
     fabOnScrollUpListener = new FabOnScrollUpListener(fab);
   }
 
+  // Function class for visibility of  Bottom Scroll Button in Local Shell Fragment
   public static class FabOnScrollDownListener extends RecyclerView.OnScrollListener {
 
     private final FloatingActionButton fab;
@@ -102,6 +103,8 @@ public class BehaviorFAB {
     }
   }
 
+  // This class controls the extend and shrink of the extending floating action button behavior in
+  // Local Shell Fragment
   public static class FabExtendingOnScrollListener extends RecyclerView.OnScrollListener {
 
     private final ExtendedFloatingActionButton fab;
@@ -131,11 +134,53 @@ public class BehaviorFAB {
     }
   }
 
+  // This class controls the extend and shrink of the extending floating action button in OTG
+  // Fragment
+  public static class FabExtendingOnScrollViewListener
+      implements ViewTreeObserver.OnScrollChangedListener {
+
+    private final CoordinatedNestedScrollView scrollView;
+    private final ExtendedFloatingActionButton fab;
+    private static final int FAST_SCROLL_THRESHOLD_EXTENDED = 10; // Adjust as needed
+    private int lastScrollY = 0;
+
+    public FabExtendingOnScrollViewListener(
+        CoordinatedNestedScrollView scrollView, ExtendedFloatingActionButton fab) {
+      this.scrollView = scrollView;
+      this.fab = fab;
+      this.scrollView.getViewTreeObserver().addOnScrollChangedListener(this);
+    }
+
+    @Override
+    public void onScrollChanged() {
+      int scrollY = scrollView.getScrollY();
+
+      // ScrollView is at the top
+      if (scrollY == 0) {
+        fab.extend();
+      } else {
+        int dy = scrollY - lastScrollY;
+        if (Math.abs(dy) >= FAST_SCROLL_THRESHOLD_EXTENDED) {
+          if (dy > 0 && fab.isExtended()) {
+            fab.shrink();
+          } else if (dy < 0 && !fab.isExtended()) {
+            fab.extend();
+          }
+        }
+      }
+
+      lastScrollY = scrollY;
+    }
+  }
+
+  // Handles OnClickListener for Top and Bottom scrolling buttons
   public static void handleTopAndBottomArrow(
       FloatingActionButton topButton,
       FloatingActionButton bottomButton,
       RecyclerView recyclerView,
-      Context context) {
+      CoordinatedNestedScrollView scrollView,
+      Context context,
+      String fragment) {
     topButton.setOnClickListener(
         new View.OnClickListener() {
           private long lastClickTime = 0;
@@ -148,15 +193,15 @@ public class BehaviorFAB {
             long timeDifference = currentTime - lastClickTime;
 
             if (timeDifference < 200) {
-              recyclerView.scrollToPosition(0);
+              topScroll(fragment, recyclerView, scrollView);
+
             } else {
 
               boolean switchState = Preferences.getSmoothScroll(context);
               if (switchState) {
-
-                recyclerView.smoothScrollToPosition(0);
+                smoothTopScroll(fragment, recyclerView, scrollView);
               } else {
-                recyclerView.scrollToPosition(0);
+                topScroll(fragment, recyclerView, scrollView);
               }
             }
 
@@ -176,18 +221,18 @@ public class BehaviorFAB {
             long timeDifference = currentTime - lastClickTime;
 
             if (timeDifference < 200) {
-              recyclerView.scrollToPosition(
-                  Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() - 1);
+              bottomScroll(fragment, recyclerView, scrollView);
+
             } else {
 
               boolean switchState = Preferences.getSmoothScroll(context);
               if (switchState) {
-                recyclerView.smoothScrollToPosition(
-                    Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() - 1);
+
+                smoothBottomScroll(fragment, recyclerView, scrollView);
 
               } else {
-                recyclerView.scrollToPosition(
-                    Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() - 1);
+
+                bottomScroll(fragment, recyclerView, scrollView);
               }
             }
 
@@ -195,6 +240,52 @@ public class BehaviorFAB {
           }
         });
   }
+
+  // Function of Top Scrolling
+  private static void topScroll(
+      String fragment, RecyclerView recyclerView, CoordinatedNestedScrollView scrollView) {
+
+    if (fragment == "local_shell") {
+      recyclerView.scrollToPosition(0);
+    } else {
+      scrollView.scrollTo(0, 0);
+    }
+  }
+
+  // Function of Smooth Top Scrolling
+  private static void smoothTopScroll(
+      String fragment, RecyclerView recyclerView, CoordinatedNestedScrollView scrollView) {
+
+    if (fragment == "local_shell") {
+      recyclerView.smoothScrollToPosition(0);
+    } else {
+      scrollView.smoothScrollTo(0, 0);
+    }
+  }
+
+  // Function of Bottom Scrolling
+  private static void bottomScroll(
+      String fragment, RecyclerView recyclerView, CoordinatedNestedScrollView scrollView) {
+    if (fragment == "local_shell") {
+      recyclerView.scrollToPosition(
+          Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() - 1);
+    } else {
+      scrollView.fullScroll(View.FOCUS_DOWN);
+    }
+  }
+
+  // Function of Smooth Bottom Scrolling
+  private static void smoothBottomScroll(
+      String fragment, RecyclerView recyclerView, CoordinatedNestedScrollView scrollView) {
+    if (fragment == "local_shell") {
+      recyclerView.smoothScrollToPosition(
+          Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() - 1);
+    } else {
+      scrollView.smoothScrollTo(0, scrollView.getChildAt(0).getBottom());
+    }
+  }
+
+  // The onclick listener for paste and undo button
 
   public static void pasteAndUndo(
       ExtendedFloatingActionButton paste, FloatingActionButton undo, TextInputEditText editText) {

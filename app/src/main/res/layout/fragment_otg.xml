@@ -178,6 +178,36 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
         android:id="@+id/clear" />
+    
+    
+       <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonTertiaryStyle"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:srcCompat="@drawable/ic_arrow"
+        android:id="@+id/fab_up"
+        android:layout_gravity="bottom|end" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        android:rotation="180"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:srcCompat="@drawable/ic_arrow"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonTertiaryStyle"
+        android:id="@+id/fab_down" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_height="wrap_content"
@@ -193,6 +223,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/floatingActionButtonSmallStyle"
         android:id="@+id/fab_undo" />
+    
+       <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:visibility="gone"
+        app:icon="@drawable/ic_save"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/extendedFloatingActionButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/save_button"
+        android:text="@string/save" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"
