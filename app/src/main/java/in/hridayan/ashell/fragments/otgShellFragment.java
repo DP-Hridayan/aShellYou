@@ -1,13 +1,11 @@
 package in.hridayan.ashell.fragments;
 
-import android.health.connect.datatypes.units.Length;
-import com.google.android.material.card.MaterialCardView;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_NOT_FOUND;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.FLASHING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.INSTALLING_PROGRESS;
-import in.hridayan.ashell.utils.Preferences;
+
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -50,6 +48,8 @@ import com.cgutman.adblib.AdbStream;
 import com.cgutman.adblib.UsbChannel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -59,6 +59,7 @@ import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
+import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
@@ -68,9 +69,9 @@ import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.OtgUtils;
 import in.hridayan.ashell.utils.OtgUtils.Const;
 import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
-import com.google.android.material.chip.Chip;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -103,7 +104,7 @@ public class otgShellFragment extends Fragment
   private TextInputEditText mCommand;
   private FloatingActionButton mSendButton, mUndoButton;
   private ExtendedFloatingActionButton mPasteButton;
-  private ScrollView scrollView;
+  private CoordinatedNestedScrollView scrollView;
   private AlertDialog mWaitingDialog;
   private String user = null, deviceName;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
@@ -186,7 +187,10 @@ public class otgShellFragment extends Fragment
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    context = requireContext();
+    context = getContext();
+    if (context == null) {
+      return view;
+    }
     view = inflater.inflate(R.layout.fragment_otg, container, false);
 
     List<SettingsItem> settingsList = new ArrayList<>();
@@ -247,6 +251,12 @@ public class otgShellFragment extends Fragment
               mUndoButton.hide();
               if (adbConnection != null) {
                 putCommand();
+
+                if (mHistory == null) {
+                  mHistory = new ArrayList<>();
+                }
+                mHistory.add(mCommand.getText().toString());
+
               } else {
 
                 mCommandInput.setError(getString(R.string.device_not_connected));
@@ -259,14 +269,6 @@ public class otgShellFragment extends Fragment
 
                 Utils.alignMargin(mSendButton);
                 Utils.alignMargin(mCable);
-
-                mHistoryButton.setVisibility(View.VISIBLE);
-
-                if (mHistory == null) {
-                  mHistory = new ArrayList<>();
-                }
-
-                mHistory.add(mCommand.getText().toString());
 
                 new MaterialAlertDialogBuilder(requireActivity())
                     .setTitle(getString(R.string.error))
@@ -438,6 +440,13 @@ public class otgShellFragment extends Fragment
                         mRecyclerViewCommands.setVisibility(View.GONE);
                       }
                       if (adbConnection != null) {
+                        mHistoryButton.setVisibility(View.VISIBLE);
+
+                        if (mHistory == null) {
+                          mHistory = new ArrayList<>();
+                        }
+
+                        mHistory.add(mCommand.getText().toString());
                         putCommand();
                       } else {
 
@@ -451,14 +460,6 @@ public class otgShellFragment extends Fragment
 
                         Utils.alignMargin(mSendButton);
                         Utils.alignMargin(mCable);
-
-                        mHistoryButton.setVisibility(View.VISIBLE);
-
-                        if (mHistory == null) {
-                          mHistory = new ArrayList<>();
-                        }
-
-                        mHistory.add(mCommand.getText().toString());
 
                         new MaterialAlertDialogBuilder(requireActivity())
                             .setTitle(requireActivity().getString(R.string.error))
@@ -540,13 +541,10 @@ public class otgShellFragment extends Fragment
             switch (msg.what) {
               case DEVICE_FOUND:
                 initCommand();
-
                 if (adbConnection != null) {
                   mCable.setColorFilter(Utils.getColor(R.color.green, requireActivity()));
                 }
-                if (mWaitingDialog != null) {
-                  Toast.makeText(context, "device found", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(context, getString(R.string.connected), Toast.LENGTH_SHORT).show();
                 break;
 
               case CONNECTING:
@@ -912,8 +910,9 @@ public class otgShellFragment extends Fragment
   private void mChipOnClickListener() {
     mChip.setOnClickListener(
         v -> {
+          String connectedDevice = mDevice.getProductName();
           Utils.connectedDeviceDialog(
-              context, mDevice == null ? getString(R.string.none) : mDevice.getProductName());
+              context, mDevice == null ? getString(R.string.none) : connectedDevice);
           mChip.setChecked(!mChip.isChecked());
         });
   }

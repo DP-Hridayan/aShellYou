@@ -114,11 +114,12 @@
             android:visibility="gone"
             app:cardCornerRadius="20dp">
 
-            <ScrollView
+            <in.hridayan.ashell.UI.CoordinatedNestedScrollView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:scrollbars="vertical"
                 android:scrollbarThumbVertical="@drawable/scrollbar"
+                android:background="?attr/colorSurfaceContainerLowest"
                 android:id="@+id/scrollView">
 
                 <com.google.android.material.textview.MaterialTextView
@@ -131,7 +132,7 @@
                     android:textIsSelectable="true"
                     android:textSize="14sp" />
 
-            </ScrollView>
+            </in.hridayan.ashell.UI.CoordinatedNestedScrollView>
         </com.google.android.material.card.MaterialCardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -166,16 +167,17 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
         android:id="@+id/history" />
-    
-           <com.google.android.material.button.MaterialButton
-            android:layout_height="48dp"
-            android:layout_width="48dp"
-            android:visibility="gone"
-            app:icon="@drawable/ic_clear"
-            app:layout_constraintTop_toTopOf="@id/settings"
-            app:layout_constraintStart_toEndOf="@id/history"
-            style="?attr/materialIconButtonFilledTonalStyle"
-            android:id="@+id/clear" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_height="48dp"
+        android:layout_width="48dp"
+        android:visibility="gone"
+        app:icon="@drawable/ic_clear"
+        app:layout_constraintTop_toTopOf="@id/settings"
+        app:layout_constraintStart_toEndOf="@id/history"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_marginStart="25dp"
+        android:id="@+id/clear" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_height="wrap_content"

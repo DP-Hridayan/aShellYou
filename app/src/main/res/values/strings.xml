@@ -49,6 +49,7 @@
     <string name="confirm_pin_single">\[%s\] will be pinned\nDo you wish to continue?</string>
     <string name="confirm_unpin">Do you want to unpin the selected commands?</string>
     <string name="confirm_unpin_single">\[%s\] will be unpinned\nDo you wish to continue?</string>
+    <string name="connected">Connected</string>
     <string name="connected_device">Connected device</string>
     <string name="connecting">connecting\u2026</string>
     <string name="connecting_hint">confirm authorization on target device</string>
