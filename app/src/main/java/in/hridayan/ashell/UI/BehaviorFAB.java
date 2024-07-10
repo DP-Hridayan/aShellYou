@@ -1,11 +1,10 @@
 package in.hridayan.ashell.UI;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.content.Context;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,12 +17,12 @@ import java.util.Objects;
 
 public class BehaviorFAB {
 
-  private static final int FAST_SCROLL_THRESHOLD = 90;
+  private static final int FAST_SCROLL_THRESHOLD = 70;
   private static final int VISIBILITY_DELAY_MILLIS = 2000;
   private static final int FAST_SCROLL_THRESHOLD_EXTENDED = 25;
 
   // Function class for visibility of Top Scroll Button in Local Shell Fragment
-  public static class FabOnScrollUpListener extends RecyclerView.OnScrollListener {
+  public static class FabLocalScrollUpListener extends RecyclerView.OnScrollListener {
 
     private final FloatingActionButton fab;
     private Handler visibilityHandler = new Handler(Looper.getMainLooper());
@@ -35,7 +34,7 @@ public class BehaviorFAB {
           }
         };
 
-    public FabOnScrollUpListener(FloatingActionButton fab) {
+    public FabLocalScrollUpListener(FloatingActionButton fab) {
       this.fab = fab;
     }
 
@@ -59,14 +58,59 @@ public class BehaviorFAB {
     }
   }
 
-  private FabOnScrollUpListener fabOnScrollUpListener;
+  // Function class for visibility of Top Scroll Button in Otg Shell Fragment
+  public static class FabOtgScrollUpListener implements ViewTreeObserver.OnScrollChangedListener {
+
+    private final CoordinatedNestedScrollView scrollView;
+    private final FloatingActionButton fab;
+    private int lastScrollY = 0;
+    private Handler visibilityHandler = new Handler(Looper.getMainLooper());
+    private Runnable hideFabRunnable =
+        new Runnable() {
+          @Override
+          public void run() {
+            fab.hide();
+          }
+        };
+
+    public FabOtgScrollUpListener(
+        CoordinatedNestedScrollView scrollView, FloatingActionButton fab) {
+      this.scrollView = scrollView;
+      this.fab = fab;
+      this.scrollView.getViewTreeObserver().addOnScrollChangedListener(this);
+    }
+
+    @Override
+    public void onScrollChanged() {
+      int scrollY = scrollView.getScrollY();
+
+      if (scrollY == 0) {
+        fab.hide();
+      } else {
+        int dy = scrollY - lastScrollY;
+
+        if (dy < 0 && Math.abs(dy) >= FAST_SCROLL_THRESHOLD) {
+          visibilityHandler.removeCallbacks(hideFabRunnable);
+          fab.show();
+        } else if (dy > 0 && Math.abs(dy) >= FAST_SCROLL_THRESHOLD) {
+          fab.hide();
+        } else {
+          visibilityHandler.postDelayed(hideFabRunnable, VISIBILITY_DELAY_MILLIS);
+        }
+
+        lastScrollY = scrollY;
+      }
+    }
+  }
+
+  private FabLocalScrollUpListener FabLocalScrollUpListener;
 
   public BehaviorFAB(FloatingActionButton fab) {
-    fabOnScrollUpListener = new FabOnScrollUpListener(fab);
+    FabLocalScrollUpListener = new FabLocalScrollUpListener(fab);
   }
 
   // Function class for visibility of  Bottom Scroll Button in Local Shell Fragment
-  public static class FabOnScrollDownListener extends RecyclerView.OnScrollListener {
+  public static class FabLocalScrollDownListener extends RecyclerView.OnScrollListener {
 
     private final FloatingActionButton fab;
     private Handler visibilityHandler = new Handler(Looper.getMainLooper());
@@ -78,7 +122,7 @@ public class BehaviorFAB {
           }
         };
 
-    public FabOnScrollDownListener(FloatingActionButton fab) {
+    public FabLocalScrollDownListener(FloatingActionButton fab) {
       this.fab = fab;
     }
 
@@ -99,6 +143,53 @@ public class BehaviorFAB {
         fab.hide();
       } else {
         visibilityHandler.postDelayed(hideFabRunnable, VISIBILITY_DELAY_MILLIS);
+      }
+    }
+  }
+
+  // Function class for visibility of Bottom Scroll Button in Otg Shell Fragment
+  public static class FabOtgScrollDownListener implements ViewTreeObserver.OnScrollChangedListener {
+
+    private final CoordinatedNestedScrollView scrollView;
+    private final FloatingActionButton fab;
+    private int lastScrollY = 0;
+    private Handler visibilityHandler = new Handler(Looper.getMainLooper());
+    private Runnable hideFabRunnable =
+        new Runnable() {
+          @Override
+          public void run() {
+            fab.hide();
+          }
+        };
+
+    public FabOtgScrollDownListener(
+        CoordinatedNestedScrollView scrollView, FloatingActionButton fab) {
+      this.scrollView = scrollView;
+      this.fab = fab;
+      this.scrollView.getViewTreeObserver().addOnScrollChangedListener(this);
+    }
+
+    @Override
+    public void onScrollChanged() {
+      int scrollY = scrollView.getScrollY();
+      int scrollRange = scrollView.getChildAt(0).getHeight() - scrollView.getHeight();
+      int scrollDiff = scrollRange - scrollY;
+
+      if (scrollDiff <= 0) {
+        fab.hide();
+      } else {
+        int dy = scrollY - lastScrollY;
+
+        if (dy > 0 && Math.abs(dy) >= FAST_SCROLL_THRESHOLD) {
+          visibilityHandler.removeCallbacks(hideFabRunnable);
+          fab.show();
+        } else if (dy < 0 && Math.abs(dy) >= FAST_SCROLL_THRESHOLD) {
+          fab.hide();
+        } else {
+          visibilityHandler.postDelayed(hideFabRunnable, VISIBILITY_DELAY_MILLIS);
+        }
+
+        lastScrollY = scrollY;
       }
     }
   }
@@ -141,7 +232,6 @@ public class BehaviorFAB {
 
     private final CoordinatedNestedScrollView scrollView;
     private final ExtendedFloatingActionButton fab;
-    private static final int FAST_SCROLL_THRESHOLD_EXTENDED = 10; // Adjust as needed
     private int lastScrollY = 0;
 
     public FabExtendingOnScrollViewListener(

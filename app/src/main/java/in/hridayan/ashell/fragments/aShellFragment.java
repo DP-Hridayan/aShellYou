@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -48,8 +47,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
-import in.hridayan.ashell.UI.BehaviorFAB.FabOnScrollDownListener;
-import in.hridayan.ashell.UI.BehaviorFAB.FabOnScrollUpListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.aShellFragmentViewModel;
 import in.hridayan.ashell.activities.ExamplesActivity;
@@ -219,7 +218,6 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    
     localShellSymbol = view.findViewById(R.id.local_shell_symbol);
     mAppNameLayout = view.findViewById(R.id.app_name_layout);
     mBookMarks = view.findViewById(R.id.bookmarks);
@@ -252,9 +250,9 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
-    mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
+    mRecyclerViewOutput.addOnScrollListener(new FabLocalScrollUpListener(mTopButton));
 
-    mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
+    mRecyclerViewOutput.addOnScrollListener(new FabLocalScrollDownListener(mBottomButton));
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
 
@@ -299,7 +297,8 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput,null, context, "local_shell");
+    BehaviorFAB.handleTopAndBottomArrow(
+        mTopButton, mBottomButton, mRecyclerViewOutput, null, context, "local_shell");
 
     // Show snackbar when app is updated
     Utils.isAppUpdated(context, requireActivity());
@@ -502,11 +501,7 @@ public class aShellFragment extends Fragment {
             if (isAdded()) {
               mCommandInput.setError(null);
               initializeShell(requireActivity());
-
-              InputMethodManager inputMethodManager =
-                  (InputMethodManager)
-                      requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-              inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+              KeyboardUtils.closeKeyboard(requireActivity(), v);
 
               return;
             }

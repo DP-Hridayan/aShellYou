@@ -60,9 +60,12 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollDownListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollUpListener;
 import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
@@ -222,45 +225,54 @@ public class otgShellFragment extends Fragment
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-   new FabExtendingOnScrollViewListener(scrollView, mSaveButton);
+    new FabExtendingOnScrollViewListener(scrollView, mSaveButton);
+    new FabOtgScrollUpListener(scrollView, mTopButton);
+    new FabOtgScrollDownListener(scrollView, mBottomButton);
 
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
+
     BehaviorFAB.handleTopAndBottomArrow(
         mTopButton, mBottomButton, null, scrollView, context, "otg_shell");
+
+    // Method to hide and show floating action buttons when keyboard is showing or not
     KeyboardUtils.attachVisibilityListener(
         requireActivity(),
         new KeyboardUtils.KeyboardVisibilityListener() {
-
           public void onKeyboardVisibilityChanged(boolean visible) {
             isKeyboardVisible = visible;
             if (isKeyboardVisible) {
               mPasteButton.setVisibility(View.GONE);
               mUndoButton.setVisibility(View.GONE);
-                        mSaveButton.setVisibility(View.GONE);
+              mSaveButton.setVisibility(View.GONE);
             } else {
               if (mPasteButton.getVisibility() == View.GONE) {
-                            if(!sendButtonClicked){
-                setVisibilityWithDelay(mPasteButton, 100);
-              }else if(adbConnection != null) {
-                  setVisibilityWithDelay(mSaveButton,100);
+                if (!sendButtonClicked) {
+                  setVisibilityWithDelay(mPasteButton, 100);
+                } else if (adbConnection != null) {
+                  setVisibilityWithDelay(mSaveButton, 100);
+                }
               }
-                            }
             }
           }
         });
 
     mChipOnClickListener();
+
     if (isSendDrawable) {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
 
+      // Onclick listener for the Run Button (Send / Help)
       mSendButton.setOnClickListener(
           new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
               sendButtonClicked = true;
               mPasteButton.hide();
               mUndoButton.hide();
+              KeyboardUtils.closeKeyboard(requireActivity(), v);
+
               if (adbConnection != null) {
                 putCommand();
 
@@ -440,47 +452,43 @@ public class otgShellFragment extends Fragment
               mSendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_send, requireActivity()));
               mSendButton.setOnClickListener(
-                  new View.OnClickListener() {
+                  v -> {
+                    mChipOnClickListener();
+                    sendButtonClicked = true;
+                    mPasteButton.hide();
+                    mUndoButton.hide();
+                    KeyboardUtils.closeKeyboard(requireActivity(), v);
+                    if (mRecyclerViewCommands.getVisibility() == View.VISIBLE) {
+                      mRecyclerViewCommands.setVisibility(View.GONE);
+                    }
+                    if (adbConnection != null) {
+                      mHistoryButton.setVisibility(View.VISIBLE);
 
-                    @Override
-                    public void onClick(View v) {
-                      mChipOnClickListener();
-                      sendButtonClicked = true;
-                      mPasteButton.hide();
-                      mUndoButton.hide();
-                      if (mRecyclerViewCommands.getVisibility() == View.VISIBLE) {
-                        mRecyclerViewCommands.setVisibility(View.GONE);
+                      if (mHistory == null) {
+                        mHistory = new ArrayList<>();
                       }
-                      if (adbConnection != null) {
-                        mHistoryButton.setVisibility(View.VISIBLE);
 
-                        if (mHistory == null) {
-                          mHistory = new ArrayList<>();
-                        }
+                      mHistory.add(mCommand.getText().toString());
+                      putCommand();
+                    } else {
 
-                        mHistory.add(mCommand.getText().toString());
-                        putCommand();
-                      } else {
+                      mCommandInput.setError(getString(R.string.device_not_connected));
+                      mCommandInput.setErrorIconDrawable(
+                          Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+                      mCommandInput.setErrorIconOnClickListener(
+                          t -> {
+                            mCommand.setText(null);
+                          });
 
-                        mCommandInput.setError(getString(R.string.device_not_connected));
-                        mCommandInput.setErrorIconDrawable(
-                            Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
-                        mCommandInput.setErrorIconOnClickListener(
-                            t -> {
-                              mCommand.setText(null);
-                            });
+                      Utils.alignMargin(mSendButton);
+                      Utils.alignMargin(mCable);
 
-                        Utils.alignMargin(mSendButton);
-                        Utils.alignMargin(mCable);
-
-                        new MaterialAlertDialogBuilder(requireActivity())
-                            .setTitle(requireActivity().getString(R.string.error))
-                            .setMessage(requireActivity().getString(R.string.otg_not_connected))
-                            .setPositiveButton(
-                                requireActivity().getString(R.string.ok),
-                                (dialogInterface, i) -> {})
-                            .show();
-                      }
+                      new MaterialAlertDialogBuilder(requireActivity())
+                          .setTitle(requireActivity().getString(R.string.error))
+                          .setMessage(requireActivity().getString(R.string.otg_not_connected))
+                          .setPositiveButton(
+                              requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
+                          .show();
                     }
                   });
             }
@@ -813,6 +821,7 @@ public class otgShellFragment extends Fragment
     if (!mCommand.getText().toString().isEmpty()) {
 
       mShellCard.setVisibility(View.VISIBLE);
+      mClearButton.setVisibility(View.VISIBLE);
 
       // We become the sending thread
       try {
@@ -917,6 +926,7 @@ public class otgShellFragment extends Fragment
     initCommand();
     mClearButton.setVisibility(View.GONE);
     mShellCard.setVisibility(View.GONE);
+    showBottomNav();
   }
 
   private void mChipOnClickListener() {
@@ -927,5 +937,11 @@ public class otgShellFragment extends Fragment
               context, mDevice == null ? getString(R.string.none) : connectedDevice);
           mChip.setChecked(!mChip.isChecked());
         });
+  }
+
+  private void showBottomNav() {
+    if (getActivity() != null && getActivity() instanceof MainActivity) {
+      ((MainActivity) getActivity()).mNav.animate().translationY(0);
+    }
   }
 }
