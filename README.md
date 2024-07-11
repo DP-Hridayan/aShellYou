@@ -3,7 +3,7 @@
 </div>
 
 # aShell You
-## Run ADB commands on your device or on other devices
+### Run ADB commands on your device or on other devices
 
 <div style="display: flex; justify-content: center;">
   <p style="text-align: center;">
@@ -19,19 +19,20 @@
 ## Requirements
 * A working [Shizuku](https://shizuku.rikka.app/) environment
 * Shizuku is not needed to run ADB commands on other devices via OTG
-* Knowledge about basic ADB/Linux commands.
-
+* Knowledge about basic ADB/Linux commands
 
 ## Features
-* An elegantly designed user interface with modern Material You and Material Design 3.
-* Supports both Shizuku (local ADB) and OTG ADB.
-* Includes a bundle of examples about common ADB commands.
-* Handles continuously running commands, such as logcat, top, etc.
-* Search for specific text from the last command output.
-* Option to save last command output as a text file.
-* Bookmark frequently used commands.
-* Auto-dark/light theme.
-* And much more.
+* An elegantly designed user interface with modern Material Design 3
+* Run commands on your device using Shizuku
+* Run commands on other devices via OTG connection (USB Debugging)
+* Includes a bundle of examples about common ADB commands
+* Handles continuously running commands, such as logcat, top, etc
+* Search for specific text from the last command output
+* Option to save last command output as a text file
+* Option to share output directly to other apps
+* Bookmark frequently used commands
+* Amoled theme
+* And much more
 
 
 ## Download
