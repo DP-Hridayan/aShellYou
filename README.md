@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="images/Motion.mp4" width="100%" alt="Banner">
+  <img src="images/Motion.gif" width="100%" alt="Banner">
 </div>
 
 # aShell You
