@@ -583,6 +583,9 @@ public class otgShellFragment extends Fragment
         new Handler(Looper.getMainLooper()) {
           @Override
           public void handleMessage(@NonNull android.os.Message msg) {
+            if (!isAdded()) {
+              return;
+            }
             switch (msg.what) {
               case DEVICE_FOUND:
                 initCommand();
@@ -683,23 +686,25 @@ public class otgShellFragment extends Fragment
 
   // Waiting dialog that asks user to accept the usb debugging prompt on the other device
   private void waitingDialog(Context context) {
-    View dialogView = LayoutInflater.from(context).inflate(R.layout.loading_dialog_layout, null);
-    ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
+    if (isAdded()) {
+      View dialogView = LayoutInflater.from(context).inflate(R.layout.loading_dialog_layout, null);
+      ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
 
-    mWaitingDialog =
-        new MaterialAlertDialogBuilder(context)
-            .setCancelable(false)
-            .setView(dialogView)
-            .setTitle(context.getString(R.string.waiting_device))
-            .setPositiveButton(
-                getString(R.string.ok),
-                (dialogInterface, i) -> {
-                  if (mListener != null) {
-                    mListener.onRequestReset();
-                  }
-                })
-            .show();
-    progressBar.setVisibility(View.VISIBLE);
+      mWaitingDialog =
+          new MaterialAlertDialogBuilder(context)
+              .setCancelable(false)
+              .setView(dialogView)
+              .setTitle(context.getString(R.string.waiting_device))
+              .setPositiveButton(
+                  getString(R.string.ok),
+                  (dialogInterface, i) -> {
+                    if (mListener != null) {
+                      mListener.onRequestReset();
+                    }
+                  })
+              .show();
+      progressBar.setVisibility(View.VISIBLE);
+    }
   }
 
   // Close the waiting dialog
@@ -855,6 +860,11 @@ public class otgShellFragment extends Fragment
         String cmd = mCommand.getText().toString();
         if (cmd.equalsIgnoreCase("clear")) {
           clearAll();
+        } else if (cmd.equalsIgnoreCase("logcat")) {
+          Toast.makeText(
+              context,
+              "currently continous running operations are not working properly",
+              Toast.LENGTH_LONG);
         } else if (cmd.equalsIgnoreCase("exit")) {
           requireActivity().finish();
         } else {

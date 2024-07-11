@@ -195,13 +195,16 @@ public class MainActivity extends AppCompatActivity
   }
 
   // Takes the fragment we want to navigate to as argument and then starts that fragment
-  private void replaceFragment(Fragment fragment) {
-    setCurrentFragment();
-    getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.fragment_container, fragment)
-        .commit();
-  }
+  public void replaceFragment(Fragment fragment) {
+    if (!getSupportFragmentManager().isStateSaved()) {
+            setCurrentFragment();
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit();
+    }
+}
+
 
   // If not on OtgShell then go to OtgShell
   private void showotgShellFragment() {
