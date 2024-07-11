@@ -16,11 +16,23 @@
   </p>
 </div>
 
-### A Local ADB Shell for [Shizuku](https://shizuku.rikka.app/) Powered Android Devices!
- ### An OTG shell for running adb commands on other devices via OTG connection
 ## Requirements
-* A working [Shizuku](https://shizuku.rikka.app/) environment.
+* A working [Shizuku](https://shizuku.rikka.app/) environment
+* Shizuku is not needed to run ADB commands on other devices via OTG
 * Knowledge about basic ADB/Linux commands.
+
+
+## Features
+* An elegantly designed user interface with modern Material You and Material Design 3.
+* Supports both Shizuku (local ADB) and OTG ADB.
+* Includes a bundle of examples about common ADB commands.
+* Handles continuously running commands, such as logcat, top, etc.
+* Search for specific text from the last command output.
+* Option to save last command output as a text file.
+* Bookmark frequently used commands.
+* Auto-dark/light theme.
+* And much more.
+
 
 ## Download
 
@@ -40,18 +52,6 @@
   <a href="https://github.com/DP-Hridayan/aShellYou"><img alt="Repo Size" src="https://img.shields.io/github/repo-size/DP-Hridayan/aShellYou?style=for-the-badge"></a>
   <a href="https://github.com/DP-Hridayan/aShellYou/releases"><img src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?color=%233DDC84&logo=android&logoColor=%23fff&style=for-the-badge" alt="Downloads"></a>
 </div>
-
-
-## Features
-* An elegantly designed user interface with modern Material You and Material Design 3.
-* Supports both Shizuku (local ADB) and OTG ADB.
-* Includes a bundle of examples about common ADB commands.
-* Handles continuously running commands, such as logcat, top, etc.
-* Search for specific text from the last command output.
-* Option to save last command output as a text file.
-* Bookmark frequently used commands.
-* Auto-dark/light theme.
-* And much more.
 
 ## Discussions Channel
 
