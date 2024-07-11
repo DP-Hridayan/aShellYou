@@ -142,6 +142,28 @@ public class otgShellFragment extends Fragment
     }
   }
 
+  @Override
+  public void onResume() {
+    super.onResume();
+    KeyboardUtils.disableKeyboard(context, requireActivity(), view);
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    if (mUsbReceiver != null) {
+      requireContext().unregisterReceiver(mUsbReceiver);
+    }
+    try {
+      if (adbConnection != null) {
+        adbConnection.close();
+        adbConnection = null;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   /*------------------------------------------------------*/
 
   // USB Receiver
@@ -209,7 +231,7 @@ public class otgShellFragment extends Fragment
     mCommandInput = view.findViewById(R.id.shell_command_layout);
     mHistoryButton = view.findViewById(R.id.history);
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
-    mNav = view.findViewById(R.id.bottom_nav_bar);
+    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
     mPasteButton = view.findViewById(R.id.paste_button);
     mRecyclerViewCommands = view.findViewById(R.id.rv_commands);
     mSaveButton = view.findViewById(R.id.save_button);
@@ -248,7 +270,7 @@ public class otgShellFragment extends Fragment
               if (mPasteButton.getVisibility() == View.GONE) {
                 if (!sendButtonClicked) {
                   setVisibilityWithDelay(mPasteButton, 100);
-                } else if (adbConnection != null) {
+                } else if (scrollView.getChildAt(0).getHeight() != 0) {
                   setVisibilityWithDelay(mSaveButton, 100);
                 }
               }
@@ -256,52 +278,54 @@ public class otgShellFragment extends Fragment
           }
         });
 
+    mNav.setVisibility(View.VISIBLE);
+
     mChipOnClickListener();
 
     if (isSendDrawable) {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
 
       // Onclick listener for the Run Button (Send / Help)
-      mSendButton.setOnClickListener(
-          new View.OnClickListener() {
+      /*   mSendButton.setOnClickListener(
+      new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
+        @Override
+        public void onClick(View v) {
 
-              sendButtonClicked = true;
-              mPasteButton.hide();
-              mUndoButton.hide();
-              KeyboardUtils.closeKeyboard(requireActivity(), v);
+          sendButtonClicked = true;
+          mPasteButton.hide();
+          mUndoButton.hide();
+          KeyboardUtils.closeKeyboard(requireActivity(), v);
 
-              if (adbConnection != null) {
-                putCommand();
+          if (adbConnection != null) {
+            putCommand();
 
-                if (mHistory == null) {
-                  mHistory = new ArrayList<>();
-                }
-                mHistory.add(mCommand.getText().toString());
-
-              } else {
-
-                mCommandInput.setError(getString(R.string.device_not_connected));
-                mCommandInput.setErrorIconDrawable(
-                    Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
-                mCommandInput.setErrorIconOnClickListener(
-                    t -> {
-                      mCommand.setText(null);
-                    });
-
-                Utils.alignMargin(mSendButton);
-                Utils.alignMargin(mCable);
-
-                new MaterialAlertDialogBuilder(requireActivity())
-                    .setTitle(getString(R.string.error))
-                    .setMessage(getString(R.string.otg_not_connected))
-                    .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
-                    .show();
-              }
+            if (mHistory == null) {
+              mHistory = new ArrayList<>();
             }
-          });
+            mHistory.add(mCommand.getText().toString());
+
+          } else {
+
+            mCommandInput.setError(getString(R.string.device_not_connected));
+            mCommandInput.setErrorIconDrawable(
+                Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+            mCommandInput.setErrorIconOnClickListener(
+                t -> {
+                  mCommand.setText(null);
+                });
+
+            Utils.alignMargin(mSendButton);
+            Utils.alignMargin(mCable);
+
+            new MaterialAlertDialogBuilder(requireActivity())
+                .setTitle(getString(R.string.error))
+                .setMessage(getString(R.string.otg_not_connected))
+                .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+                .show();
+          }
+        }
+      }); */
 
     } else {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -453,11 +477,12 @@ public class otgShellFragment extends Fragment
                   Utils.getDrawable(R.drawable.ic_send, requireActivity()));
               mSendButton.setOnClickListener(
                   v -> {
+                    KeyboardUtils.closeKeyboard(requireActivity(), v);
                     mChipOnClickListener();
                     sendButtonClicked = true;
                     mPasteButton.hide();
                     mUndoButton.hide();
-                    KeyboardUtils.closeKeyboard(requireActivity(), v);
+
                     if (mRecyclerViewCommands.getVisibility() == View.VISIBLE) {
                       mRecyclerViewCommands.setVisibility(View.GONE);
                     }
@@ -656,6 +681,7 @@ public class otgShellFragment extends Fragment
     return view;
   }
 
+  // Waiting dialog that asks user to accept the usb debugging prompt on the other device
   private void waitingDialog(Context context) {
     View dialogView = LayoutInflater.from(context).inflate(R.layout.loading_dialog_layout, null);
     ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
@@ -676,6 +702,7 @@ public class otgShellFragment extends Fragment
     progressBar.setVisibility(View.VISIBLE);
   }
 
+  // Close the waiting dialog
   private void closeWaiting() {
     if (mWaitingDialog != null && mWaitingDialog.isShowing()) {
       mWaitingDialog.dismiss();
@@ -827,9 +854,7 @@ public class otgShellFragment extends Fragment
       try {
         String cmd = mCommand.getText().toString();
         if (cmd.equalsIgnoreCase("clear")) {
-          String log = logs.getText().toString();
-          String[] logSplit = log.split("\n");
-          logs.setText(logSplit[logSplit.length - 1]);
+          clearAll();
         } else if (cmd.equalsIgnoreCase("exit")) {
           requireActivity().finish();
         } else {
@@ -891,28 +916,7 @@ public class otgShellFragment extends Fragment
             delayMillis);
   }
 
-  @Override
-  public void onResume() {
-    super.onResume();
-    KeyboardUtils.disableKeyboard(context, requireActivity(), view);
-  }
-
-  @Override
-  public void onDestroy() {
-    super.onDestroy();
-    if (mUsbReceiver != null) {
-      requireContext().unregisterReceiver(mUsbReceiver);
-    }
-    try {
-      if (adbConnection != null) {
-        adbConnection.close();
-        adbConnection = null;
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
+  // Put the text shared from outside the app into the input field (edit text)
   public void updateInputField(String sharedText) {
     if (sharedText != null) {
       mCommand.setText(sharedText);
@@ -921,14 +925,24 @@ public class otgShellFragment extends Fragment
     }
   }
 
+  // Clear the shell output
   private void clearAll() {
-    logs.setText(null);
-    initCommand();
+    String log = logs.getText().toString();
+    String[] logSplit = log.split("\n");
+    logs.setText(logSplit[logSplit.length - 1]);
+
+    if (mTopButton.getVisibility() == View.VISIBLE) {
+      mTopButton.setVisibility(View.GONE);
+    }
+    if (mBottomButton.getVisibility() == View.VISIBLE) {
+      mBottomButton.setVisibility(View.GONE);
+    }
     mClearButton.setVisibility(View.GONE);
-    mShellCard.setVisibility(View.GONE);
+    mSaveButton.setVisibility(View.GONE);
     showBottomNav();
   }
 
+  // Chip showing the mode and connected device
   private void mChipOnClickListener() {
     mChip.setOnClickListener(
         v -> {
@@ -939,6 +953,7 @@ public class otgShellFragment extends Fragment
         });
   }
 
+  // Animate the bottom navigation bar to appear
   private void showBottomNav() {
     if (getActivity() != null && getActivity() instanceof MainActivity) {
       ((MainActivity) getActivity()).mNav.animate().translationY(0);
