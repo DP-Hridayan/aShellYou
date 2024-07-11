@@ -3,7 +3,7 @@
 </div>
 
 # aShell You
-## Material You Redesign of aShell
+## Run ADB commands on your device or on other devices
 
 <div style="display: flex; justify-content: center;">
   <p style="text-align: center;">
@@ -17,7 +17,7 @@
 </div>
 
 ### A Local ADB Shell for [Shizuku](https://shizuku.rikka.app/) Powered Android Devices!
-
+ ### An OTG shell for running adb commands on other devices via OTG connection
 ## Requirements
 * A working [Shizuku](https://shizuku.rikka.app/) environment.
 * Knowledge about basic ADB/Linux commands.
