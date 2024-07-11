@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="images/Motion.gif" width="100%" alt="Banner">
+  <img src="assets/Motion.gif" width="100%" alt="Banner">
 </div>
 
 # aShell You
@@ -25,7 +25,7 @@
 ## Download
 
 <div align="center">
-<a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="images/github.svg" width="68.4%" alt="Get it on GitHub" /></a>
+<a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="assets/github.svg" width="68.4%" alt="Get it on GitHub" /></a>
 
 <div align="center">
   <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="https://f-droid.org/badge/get-it-on.png" width="68.4%" alt="Get it on F-Droid" /></a>
@@ -63,7 +63,7 @@
 </br>
 <div align="center">
   <a href="https://discord.com/invite/UTE26F9EWJ">
-    <img src="images/discord.svg" alt="Discord Channel" width="240" height="65">
+    <img src="assets/discord.svg" alt="Discord Channel" width="240" height="65">
   </a>
 </div>
 
