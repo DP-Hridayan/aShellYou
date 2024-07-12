@@ -35,17 +35,17 @@
 
 <div align="center">
   <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="assets/fdroid.png" width="49%" alt="Get it on F-Droid" /></a>
-  <br>
-  <br>
-  <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="60%" alt="Buy Me a Coffee" /></a>
-  <br><br>
-
+  
 </div>
 
 <div align="center">
   <a href="https://github.com/DP-Hridayan/aShellYou"><img alt="Repo Size" src="https://img.shields.io/github/repo-size/DP-Hridayan/aShellYou?style=for-the-badge"></a>
   <a href="https://github.com/DP-Hridayan/aShellYou/releases"><img src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?color=%233DDC84&logo=android&logoColor=%23fff&style=for-the-badge" alt="Downloads"></a>
 </div>
+<br>
+
+##### Enjoy my work? Fuel my code with a coffee
+  <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="60%" alt="Buy Me a Coffee" /></a>
 
 ## Discussions Channel
 
