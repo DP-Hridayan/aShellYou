@@ -38,10 +38,10 @@
 ## Download
 
 <div align="center">
-<a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="assets/github.png" width="78%" alt="Get it on GitHub" /></a>
+<a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="assets/github.png" width="38%" alt="Get it on GitHub" /></a>
 
 <div align="center">
-  <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="assets/fdroid.png" width="68.4%" alt="Get it on F-Droid" /></a>
+  <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="assets/fdroid.png" width="34%" alt="Get it on F-Droid" /></a>
   <br>
   <br>
   <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="60%" alt="Buy Me a Coffee" /></a>
@@ -58,7 +58,7 @@
 
 <div align="center">
   <a href="https://t.me/aShellYou">
-    <img src="assets/telegram.png" alt="Telegram Channel" width="260" height="120">
+    <img src="assets/telegram.png" alt="Telegram Channel" width="38%" height="auto">
   </a>
 </div>
 </br>
