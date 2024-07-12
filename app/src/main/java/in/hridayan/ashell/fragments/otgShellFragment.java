@@ -17,7 +17,7 @@ import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;import android.view.ViewTreeObserver;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -62,6 +62,7 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollUpListener;
+import in.hridayan.ashell.UI.BehaviorFAB.OtgShareButtonListener;
 import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.activities.ExamplesActivity;
@@ -239,7 +240,7 @@ public class otgShellFragment extends Fragment
     mSettingsButton = view.findViewById(R.id.settings);
     mShellCard = view.findViewById(R.id.otg_shell_card);
     scrollView = view.findViewById(R.id.scrollView);
-       mShareButton = view.findViewById(R.id.fab_share);
+    mShareButton = view.findViewById(R.id.fab_share);
     terminalView = view.findViewById(R.id.terminalView);
     mTopButton = view.findViewById(R.id.fab_up);
     mUndoButton = view.findViewById(R.id.fab_undo);
@@ -251,7 +252,7 @@ public class otgShellFragment extends Fragment
     new FabExtendingOnScrollViewListener(scrollView, mSaveButton);
     new FabOtgScrollUpListener(scrollView, mTopButton);
     new FabOtgScrollDownListener(scrollView, mBottomButton);
-
+    new OtgShareButtonListener(scrollView, mShareButton);
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand);
 
     BehaviorFAB.handleTopAndBottomArrow(
@@ -267,14 +268,14 @@ public class otgShellFragment extends Fragment
               mPasteButton.setVisibility(View.GONE);
               mUndoButton.setVisibility(View.GONE);
               mSaveButton.setVisibility(View.GONE);
-                       mShareButton.setVisibility(View.GONE);
+              mShareButton.setVisibility(View.GONE);
             } else {
               if (mPasteButton.getVisibility() == View.GONE) {
                 if (!sendButtonClicked) {
                   setVisibilityWithDelay(mPasteButton, 100);
                 } else if (scrollView.getChildAt(0).getHeight() != 0) {
                   setVisibilityWithDelay(mSaveButton, 100);
-                                setVisibilityWithDelay(mShareButton,100);
+                  setVisibilityWithDelay(mShareButton, 100);
                 }
               }
             }
@@ -339,59 +340,6 @@ public class otgShellFragment extends Fragment
           });
     }
 
-    
-    //Show and hide shareButton when scrolling    
-       
-
-scrollView.getViewTreeObserver().addOnScrollChangedListener(
-    new ViewTreeObserver.OnScrollChangedListener() {
-        private final Handler handler = new Handler(Looper.getMainLooper());
-        private final int delayMillis = 1600;
-        private int lastScrollY = 0;
-        private boolean isKeyboardVisible = false; // Ensure this is managed according to your keyboard visibility logic
-        
-        @Override
-        public void onScrollChanged() {
-            int scrollY = scrollView.getScrollY();
-            int dy = scrollY - lastScrollY;
-
-            if (scrollView.getScrollY() == 0) {
-                // ScrollView is at the top
-                handler.postDelayed(
-                    new Runnable() {
-                        @Override
-                        public void run() {
- 
-                            if (!isKeyboardVisible){ mShareButton.setVisibility(View.VISIBLE);
-                                   Toast.makeText(context, "device not found!", Toast.LENGTH_SHORT).show();}
-                        }
-                    },
-                    delayMillis);
-            } else if (scrollView.getChildAt(0).getBottom() <= (scrollView.getHeight() + scrollView.getScrollY())) {
-                // ScrollView is at the bottom
-                handler.postDelayed(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!isKeyboardVisible) mShareButton.show();
-                        }
-                    },
-                    delayMillis);
-            } else {
-                handler.removeCallbacksAndMessages(null);
-
-                if ((dy > 0 || dy < 0) && mShareButton.isShown()) {
-                    if (Math.abs(dy) >= 90) mShareButton.hide();
-                }
-            }
-
-            lastScrollY = scrollY;
-        }
-    }
-);
-        
-        
-        
     // Logic for changing the command send button depending on the text on the EditText
 
     mBookMarks.setVisibility(
@@ -1005,7 +953,7 @@ scrollView.getViewTreeObserver().addOnScrollChangedListener(
     }
     mClearButton.setVisibility(View.GONE);
     mSaveButton.setVisibility(View.GONE);
-        mShareButton.setVisibility(View.GONE);
+    mShareButton.setVisibility(View.GONE);
     showBottomNav();
   }
 

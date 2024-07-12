@@ -109,6 +109,51 @@ public class BehaviorFAB {
     FabLocalScrollUpListener = new FabLocalScrollUpListener(fab);
   }
 
+  // Control visibility of share button in OTG fragment
+  public static class OtgShareButtonListener implements ViewTreeObserver.OnScrollChangedListener {
+
+    private final CoordinatedNestedScrollView scrollView;
+    private final FloatingActionButton fab;
+    private int lastScrollY = 0;
+    private Handler visibilityHandler = new Handler(Looper.getMainLooper());
+    private Runnable showFabRunnable =
+        new Runnable() {
+          @Override
+          public void run() {
+            fab.show();
+          }
+        };
+
+    public OtgShareButtonListener(
+        CoordinatedNestedScrollView scrollView, FloatingActionButton fab) {
+      this.scrollView = scrollView;
+      this.fab = fab;
+      this.scrollView.getViewTreeObserver().addOnScrollChangedListener(this);
+    }
+
+    @Override
+    public void onScrollChanged() {
+      int scrollY = scrollView.getScrollY();
+
+      if (scrollY == 0) {
+        fab.hide();
+      } else {
+        int dy = scrollY - lastScrollY;
+
+        if (dy != 0 && Math.abs(dy) >= FAST_SCROLL_THRESHOLD) {
+          visibilityHandler.removeCallbacks(showFabRunnable);
+          fab.hide();
+        } else if (dy == 0) {
+          fab.show();
+        } else {
+          visibilityHandler.postDelayed(showFabRunnable, VISIBILITY_DELAY_MILLIS);
+        }
+
+        lastScrollY = scrollY;
+      }
+    }
+  }
+
   // Function class for visibility of  Bottom Scroll Button in Local Shell Fragment
   public static class FabLocalScrollDownListener extends RecyclerView.OnScrollListener {
 
