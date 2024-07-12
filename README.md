@@ -38,7 +38,7 @@
 ## Download
 
 <div align="center">
-<a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="assets/github.svg" width="68.4%" alt="Get it on GitHub" /></a>
+<a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="assets/github.png" width="68.4%" alt="Get it on GitHub" /></a>
 
 <div align="center">
   <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="assets/fdroid.png" width="68.4%" alt="Get it on F-Droid" /></a>
@@ -58,16 +58,10 @@
 
 <div align="center">
   <a href="https://t.me/aShellYou">
-    <img src="https://img.shields.io/badge/telegram-blue?logo=telegram" alt="Telegram Channel" width="240" height="65">
+    <img src="assets/telegram.png" alt="Telegram Channel" width="240" height="65">
   </a>
 </div>
 </br>
-<div align="center">
-  <a href="https://discord.com/invite/UTE26F9EWJ">
-    <img src="assets/discord.svg" alt="Discord Channel" width="240" height="65">
-  </a>
-</div>
-
 
 ## Star History
 
