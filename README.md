@@ -80,7 +80,7 @@
 </a>
 
 
-## Original App
+## Forked from
 <a href="https://gitlab.com/sunilpaulmathew/ashell">
   <img src="https://img.shields.io/badge/gitlab-%23171321?logo=gitlab&logoColor=%23EF4F32&cacheSeconds=10" alt="GitLab Repository" height="65" width="240">
 </a>
