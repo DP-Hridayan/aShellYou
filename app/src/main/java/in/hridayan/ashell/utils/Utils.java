@@ -16,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -487,9 +488,25 @@ public class Utils {
           mChip.setChecked(!mChip.isChecked());
         });
   }
-   public static float convertDpToPixel(float dp , Context context) {
+
+  public static float convertDpToPixel(float dp, Context context) {
     float scale = context.getResources().getDisplayMetrics().density;
     return dp * scale + 0.5f;
   }
 
+    //Dialog to show if the shell output is saved or not
+  public static void outputSavedDialog(Activity activity, Context context, boolean saved) {
+    String message =
+        saved
+            ? context.getString(
+                R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS)
+            : context.getString(R.string.shell_output_not_saved_message);
+    String title = saved ? context.getString(R.string.success) : context.getString(R.string.failed);
+
+    new MaterialAlertDialogBuilder(activity)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+        .show();
+  }
 }

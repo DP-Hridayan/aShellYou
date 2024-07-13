@@ -743,84 +743,22 @@ public class aShellFragment extends Fragment {
     /*------------------------------------------------------*/
 
     mSaveButton.setOnClickListener(
-        v -> {
-          shellOutput = viewModel.getShellOutput();
-          history = viewModel.getHistory();
-          if (mResult == null) {
-            mResult = shellOutput;
-          }
-          if (mHistory == null) {
-            mHistory = history;
-          }
+    v -> {
+        shellOutput = viewModel.getShellOutput();
+        history = viewModel.getHistory();
+        initializeResults();
 
-          StringBuilder sb = new StringBuilder();
-          for (int i = mPosition; i < mResult.size(); i++) {
-            String result = mResult.get(i);
-            if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
-              sb.append(result).append("\n");
-            }
-          }
+        StringBuilder sb = buildResultsString();
 
-          boolean saved = false;
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            try {
-              ContentValues values = new ContentValues();
-              String fileName =
-                  mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
-              values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-              values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
-              values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-              Uri uri =
-                  requireActivity()
-                      .getContentResolver()
-                      .insert(MediaStore.Files.getContentUri("external"), values);
+        boolean saved = saveToFile(sb);
+        
+        // Dialog showing if the output has been saved or not
+        Utils.outputSavedDialog(requireActivity(), context, saved);
+    });
 
-              if (uri != null) {
-                try (OutputStream outputStream =
-                    requireActivity().getContentResolver().openOutputStream(uri)) {
-                  outputStream.write(sb.toString().getBytes());
-                  saved = true;
-                } catch (IOException e) {
-                  e.printStackTrace();
-                }
-              }
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-          } else {
-            if (requireActivity()
-                    .checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-              ActivityCompat.requestPermissions(
-                  requireActivity(),
-                  new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                  0);
-              return;
-            }
 
-            try {
-              String fileName =
-                  mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
-              File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
-              Utils.create(sb.toString(), file);
-              saved = true;
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-          }
-
-          String message =
-              saved
-                  ? getString(R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS)
-                  : getString(R.string.shell_output_not_saved_message);
-          String title = saved ? getString(R.string.success) : getString(R.string.failed);
-
-          new MaterialAlertDialogBuilder(requireActivity())
-              .setTitle(title)
-              .setMessage(message)
-              .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
-              .show();
-        });
+        
+        
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(
         () -> {
@@ -837,6 +775,10 @@ public class aShellFragment extends Fragment {
     return view;
   }
 
+    
+    
+    
+    
   private int lastIndexOf(String s, String splitTxt) {
     return s.lastIndexOf(splitTxt);
   }
@@ -1308,4 +1250,76 @@ public class aShellFragment extends Fragment {
     mHistoryButton.requestLayout();
     mHistoryButton.invalidate();
   }
+    
+   private void initializeResults() {
+    if (mResult == null) {
+        mResult = shellOutput;
+    }
+    if (mHistory == null) {
+        mHistory = history;
+    }
+}
+
+private StringBuilder buildResultsString() {
+    StringBuilder sb = new StringBuilder();
+    for (int i = mPosition; i < mResult.size(); i++) {
+        String result = mResult.get(i);
+        if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
+            sb.append(result).append("\n");
+        }
+    }
+    return sb;
+}
+
+private boolean saveToFile(StringBuilder sb) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        return saveToFileApi29AndAbove(sb);
+    } else {
+        return saveToFileBelowApi29(sb);
+    }
+}
+
+private boolean saveToFileApi29AndAbove(StringBuilder sb) {
+    try {
+        ContentValues values = new ContentValues();
+        String fileName = generateFileName();
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
+        values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
+        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+        Uri uri = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
+
+        if (uri != null) {
+            try (OutputStream outputStream = requireActivity().getContentResolver().openOutputStream(uri)) {
+                outputStream.write(sb.toString().getBytes());
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
+private boolean saveToFileBelowApi29(StringBuilder sb) {
+    if (requireActivity().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        ActivityCompat.requestPermissions(requireActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        return false;
+    }
+
+    try {
+        String fileName = generateFileName();
+        File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
+        Utils.create(sb.toString(), file);
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
+private String generateFileName() {
+    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
+}
 }
