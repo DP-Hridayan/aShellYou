@@ -30,7 +30,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
-            line="991"
+            line="886"
             column="23"/>
     </issue>
 
@@ -41,8 +41,19 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
-            line="1000"
+            line="895"
             column="23"/>
+    </issue>
+
+    <issue
+        id="ShowToast"
+        message="Toast created but not shown: did you forget to call `show()`?"
+        errorLine1="          Toast.makeText("
+        errorLine2="          ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/otgShellFragment.java"
+            line="889"
+            column="11"/>
     </issue>
 
     <issue
@@ -107,7 +118,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="164"
+            line="178"
             column="18"/>
     </issue>
 
@@ -118,7 +129,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="169"
+            line="183"
             column="18"/>
     </issue>
 
@@ -263,17 +274,6 @@
             file="src/main/res/values/strings.xml"
             line="45"
             column="5"/>
-    </issue>
-
-    <issue
-        id="UnsafeImplicitIntentLaunch"
-        message="The intent action `hridayan.usb.permission (used to send a broadcast)` matches the intent filter of a non-exported receiver, registered via a call to `Context.registerReceiver`, or similar. If you are trying to invoke this specific receiver via the action then you should use `Intent.setPackage(&lt;APPLICATION_ID>)`."
-        errorLine1="        Intent intent1 = new Intent(USB_PERMISSION);"
-        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/utils/OtgUtils.java"
-            line="76"
-            column="26"/>
     </issue>
 
     <issue
@@ -736,6 +736,17 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.drawable.ic_discord` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; xmlns:aapt=&quot;http://schemas.android.com/aapt&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_discord.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.mipmap.shortcut_commands_background` appears to be unused">
         <location
             file="src/main/res/mipmap-hdpi/shortcut_commands_background.png"/>
@@ -893,7 +904,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="53"
+            line="54"
             column="13"/>
     </issue>
 
@@ -904,7 +915,29 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="54"
+            line="55"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.discord` appears to be unused"
+        errorLine1="    &lt;string name=&quot;discord&quot;>Discord&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="64"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.des_discord` appears to be unused"
+        errorLine1="    &lt;string name=&quot;des_discord&quot;>Join the discord community&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="65"
             column="13"/>
     </issue>
 
@@ -915,7 +948,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="70"
+            line="71"
             column="13"/>
     </issue>
 
@@ -926,7 +959,7 @@
         errorLine2="            ~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="78"
+            line="79"
             column="13"/>
     </issue>
 
@@ -937,7 +970,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="84"
+            line="85"
             column="13"/>
     </issue>
 
@@ -948,7 +981,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="90"
+            line="91"
             column="13"/>
     </issue>
 
@@ -959,7 +992,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="91"
+            line="92"
             column="13"/>
     </issue>
 
@@ -1237,8 +1270,19 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="62"
+            line="63"
             column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="       &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_otg.xml"
+            line="183"
+            column="9"/>
     </issue>
 
     <issue
@@ -1248,7 +1292,29 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="157"
+            line="197"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="       &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_otg.xml"
+            line="212"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_otg.xml"
+            line="227"
             column="6"/>
     </issue>
 
@@ -1314,7 +1380,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="43"
+            line="44"
             column="17"/>
     </issue>
 

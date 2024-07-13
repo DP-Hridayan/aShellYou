@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity
     setupNavigation();
 
     // Displaying badges on navigation bar
-    setBadge(R.id.nav_otgShell, "Beta");
     setBadge(R.id.nav_wireless, "Soon");
   }
 

@@ -525,7 +525,7 @@ public class otgShellFragment extends Fragment
         });
 
     mClearButton.setTooltipText(getString(R.string.clear_screen));
-
+    // Clear output button OnclickListener
     mClearButton.setOnClickListener(
         v -> {
           boolean switchState = Preferences.getClear(context);
