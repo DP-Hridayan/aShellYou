@@ -2,7 +2,6 @@ package in.hridayan.ashell.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,10 +9,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -30,7 +27,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -64,7 +60,6 @@ import in.hridayan.ashell.utils.Utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -743,22 +738,19 @@ public class aShellFragment extends Fragment {
     /*------------------------------------------------------*/
 
     mSaveButton.setOnClickListener(
-    v -> {
-        shellOutput = viewModel.getShellOutput();
-        history = viewModel.getHistory();
-        initializeResults();
+        v -> {
+          shellOutput = viewModel.getShellOutput();
+          history = viewModel.getHistory();
+          initializeResults();
 
-        StringBuilder sb = buildResultsString();
+          String sb = buildResultsString().toString();
 
-        boolean saved = saveToFile(sb);
-        
-        // Dialog showing if the output has been saved or not
-        Utils.outputSavedDialog(requireActivity(), context, saved);
-    });
+          boolean saved = Utils.saveToFile(sb, requireActivity(), mHistory);
 
+          // Dialog showing if the output has been saved or not
+          Utils.outputSavedDialog(requireActivity(), context, saved);
+        });
 
-        
-        
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(
         () -> {
@@ -775,10 +767,6 @@ public class aShellFragment extends Fragment {
     return view;
   }
 
-    
-    
-    
-    
   private int lastIndexOf(String s, String splitTxt) {
     return s.lastIndexOf(splitTxt);
   }
@@ -1250,76 +1238,24 @@ public class aShellFragment extends Fragment {
     mHistoryButton.requestLayout();
     mHistoryButton.invalidate();
   }
-    
-   private void initializeResults() {
+
+  private void initializeResults() {
     if (mResult == null) {
-        mResult = shellOutput;
+      mResult = shellOutput;
     }
     if (mHistory == null) {
-        mHistory = history;
+      mHistory = history;
     }
-}
+  }
 
-private StringBuilder buildResultsString() {
+  private StringBuilder buildResultsString() {
     StringBuilder sb = new StringBuilder();
     for (int i = mPosition; i < mResult.size(); i++) {
-        String result = mResult.get(i);
-        if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
-            sb.append(result).append("\n");
-        }
+      String result = mResult.get(i);
+      if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
+        sb.append(result).append("\n");
+      }
     }
     return sb;
-}
-
-private boolean saveToFile(StringBuilder sb) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        return saveToFileApi29AndAbove(sb);
-    } else {
-        return saveToFileBelowApi29(sb);
-    }
-}
-
-private boolean saveToFileApi29AndAbove(StringBuilder sb) {
-    try {
-        ContentValues values = new ContentValues();
-        String fileName = generateFileName();
-        values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-        values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
-        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-        Uri uri = requireActivity().getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
-
-        if (uri != null) {
-            try (OutputStream outputStream = requireActivity().getContentResolver().openOutputStream(uri)) {
-                outputStream.write(sb.toString().getBytes());
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return false;
-}
-
-private boolean saveToFileBelowApi29(StringBuilder sb) {
-    if (requireActivity().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-        ActivityCompat.requestPermissions(requireActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-        return false;
-    }
-
-    try {
-        String fileName = generateFileName();
-        File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
-        Utils.create(sb.toString(), file);
-        return true;
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return false;
-}
-
-private String generateFileName() {
-    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
-}
+  }
 }

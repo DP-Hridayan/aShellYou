@@ -1,10 +1,12 @@
 package in.hridayan.ashell.utils;
 
+import android.content.ContentValues;
+import androidx.core.app.ActivityCompat;
 import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
 import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_Z_TO_A;
-
+import android.provider.MediaStore;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -39,6 +41,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -494,7 +497,7 @@ public class Utils {
     return dp * scale + 0.5f;
   }
 
-    //Dialog to show if the shell output is saved or not
+  // Dialog to show if the shell output is saved or not
   public static void outputSavedDialog(Activity activity, Context context, boolean saved) {
     String message =
         saved
@@ -508,5 +511,84 @@ public class Utils {
         .setMessage(message)
         .setPositiveButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
         .show();
+  }
+
+  // Generate the file name of the exported txt file
+  public static String generateFileName(List<String> mHistory) {
+    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
+  }
+
+  public static String lastCommandOutput(String text) {
+    int lastDollarIndex = text.lastIndexOf('$');
+    if (lastDollarIndex == -1) {
+      throw new IllegalArgumentException("Text must contain at least one '$' symbol");
+    }
+
+    int secondLastDollarIndex = text.lastIndexOf('$', lastDollarIndex - 1);
+    if (secondLastDollarIndex == -1) {
+      throw new IllegalArgumentException("Text must contain at least two '$' symbols");
+    }
+
+    // Find the start of the line containing the first '$' of the last two
+    int startOfFirstLine = text.lastIndexOf('\n', secondLastDollarIndex) + 1;
+    // Find the start of the line containing the second '$' of the last two
+    int startOfSecondLine = text.lastIndexOf('\n', lastDollarIndex - 1) + 1;
+    if (startOfSecondLine == -1) {
+      startOfSecondLine = 0; // If there's no newline before, start from the beginning of the text
+    }
+    return text.substring(startOfFirstLine, startOfSecondLine);
+  }
+
+    //Logic behind saving output as txt files
+  public static boolean saveToFile(String sb, Activity activity, List<String> mHistory) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+      return Utils.saveToFileApi29AndAbove(sb, activity, mHistory);
+    } else {
+      return Utils.saveToFileBelowApi29(sb, activity, mHistory);
+    }
+  }
+
+  public static boolean saveToFileApi29AndAbove(
+      String sb, Activity activity, List<String> mHistory) {
+    try {
+      ContentValues values = new ContentValues();
+      String fileName = Utils.generateFileName(mHistory);
+      values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
+      values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
+      values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+      Uri uri =
+          activity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
+
+      if (uri != null) {
+        try (OutputStream outputStream = activity.getContentResolver().openOutputStream(uri)) {
+          outputStream.write(sb.toString().getBytes());
+          return true;
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
+  public static boolean saveToFileBelowApi29(String sb, Activity activity, List<String> mHistory) {
+    if (activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(
+          activity, new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+      return false;
+    }
+
+    try {
+      String fileName = Utils.generateFileName(mHistory);
+      File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
+      Utils.create(sb.toString(), file);
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
   }
 }

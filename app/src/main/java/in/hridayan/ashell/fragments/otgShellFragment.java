@@ -8,22 +8,16 @@ import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.INSTALLING_PROGRESS;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -43,7 +37,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -86,10 +79,8 @@ import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -691,13 +682,12 @@ public class otgShellFragment extends Fragment
       }
     }
 
-        //Save button onclick listener
+    // Save button onclick listener
     mSaveButton.setOnClickListener(
         v -> {
           history = mHistory;
-          String sb = logs.getText().toString();
-
-          boolean saved = saveToFile(sb);
+          String sb = Utils.lastCommandOutput(logs.getText().toString());
+          boolean saved = Utils.saveToFile(sb, requireActivity(), mHistory);
 
           // Dialog showing if the output has been saved or not
           Utils.outputSavedDialog(requireActivity(), context, saved);
@@ -994,68 +984,5 @@ public class otgShellFragment extends Fragment
     if (getActivity() != null && getActivity() instanceof MainActivity) {
       ((MainActivity) getActivity()).mNav.animate().translationY(0);
     }
-  }
-
-  private boolean saveToFile(String sb) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-      return saveToFileApi29AndAbove(sb);
-    } else {
-      return saveToFileBelowApi29(sb);
-    }
-  }
-
-  private boolean saveToFileApi29AndAbove(String sb) {
-    try {
-      ContentValues values = new ContentValues();
-      String fileName = generateFileName();
-      values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-      values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
-      values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-      Uri uri =
-          requireActivity()
-              .getContentResolver()
-              .insert(MediaStore.Files.getContentUri("external"), values);
-
-      if (uri != null) {
-        try (OutputStream outputStream =
-            requireActivity().getContentResolver().openOutputStream(uri)) {
-          outputStream.write(sb.toString().getBytes());
-          return true;
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return false;
-  }
-
-  private boolean saveToFileBelowApi29(String sb) {
-    if (requireActivity().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        != PackageManager.PERMISSION_GRANTED) {
-      ActivityCompat.requestPermissions(
-          requireActivity(), new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-      return false;
-    }
-
-    try {
-      String fileName = generateFileName();
-      File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
-      Utils.create(sb.toString(), file);
-      return true;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return false;
-  }
-
-  private String generateFileName() {
-    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
-  }
-
-  private List<String> convertLogsToList(String logsText) {
-    // Split logsText into a list based on '$' separator
-    return new ArrayList<>(Arrays.asList(logsText.split("\\$")));
   }
 }
