@@ -1,17 +1,16 @@
 package in.hridayan.ashell.utils;
 
-import android.content.ContentValues;
-import androidx.core.app.ActivityCompat;
 import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
 import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
 import static in.hridayan.ashell.utils.Preferences.SORT_Z_TO_A;
-import android.provider.MediaStore;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,11 +18,14 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
@@ -38,6 +40,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.ChangelogActivity;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -498,7 +501,7 @@ public class Utils {
   }
 
   // Dialog to show if the shell output is saved or not
-  public static void outputSavedDialog(Activity activity, Context context, boolean saved) {
+  public static void outputSavedDialog(Activity activity, Context context, boolean saved ) {
     String message =
         saved
             ? context.getString(
@@ -592,5 +595,29 @@ public class Utils {
       e.printStackTrace();
     }
     return false;
+  }
+
+    //Method for sharing output to other apps
+  public static void shareOutput(
+      Activity activity, Context context, List<String> mHistory, String sb) {
+    try {
+      String fileName = Utils.generateFileName(mHistory);
+
+      File file = new File(activity.getCacheDir(), fileName);
+      FileOutputStream outputStream = new FileOutputStream(file);
+      outputStream.write(sb.getBytes());
+      outputStream.close();
+
+      Uri fileUri =
+          FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
+
+      Intent shareIntent = new Intent(Intent.ACTION_SEND);
+      shareIntent.setType("text/plain");
+      shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+      shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+      activity.startActivity(Intent.createChooser(shareIntent, "Share File"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

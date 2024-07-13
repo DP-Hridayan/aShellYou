@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -57,9 +55,6 @@ import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ShizukuShell;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -663,8 +658,8 @@ public class aShellFragment extends Fragment {
         v -> {
           shellOutput = viewModel.getShellOutput();
           history = viewModel.getHistory();
-initializeResults();
-                
+          initializeResults();
+
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
             String result = mResult.get(i);
@@ -672,27 +667,7 @@ initializeResults();
               sb.append(result).append("\n");
             }
           }
-          try {
-                    
-            String fileName = Utils.generateFileName(mHistory);
-                    
-            File file = new File(requireActivity().getCacheDir(), fileName);
-            FileOutputStream outputStream = new FileOutputStream(file);
-            outputStream.write(sb.toString().getBytes());
-            outputStream.close();
-
-            Uri fileUri =
-                FileProvider.getUriForFile(
-                    context, context.getPackageName() + ".fileprovider", file);
-
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(Intent.createChooser(shareIntent, "Share File"));
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
+          Utils.shareOutput(requireActivity(), context, mHistory, sb.toString());
         });
 
     // Logic to hide and show share button

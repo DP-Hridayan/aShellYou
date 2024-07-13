@@ -686,11 +686,21 @@ public class otgShellFragment extends Fragment
     mSaveButton.setOnClickListener(
         v -> {
           history = mHistory;
-          String sb = Utils.lastCommandOutput(logs.getText().toString());
-          boolean saved = Utils.saveToFile(sb, requireActivity(), mHistory);
+          String shellOutput = Utils.lastCommandOutput(logs.getText().toString());
+          boolean saved = Utils.saveToFile(shellOutput, requireActivity(), mHistory);
 
           // Dialog showing if the output has been saved or not
           Utils.outputSavedDialog(requireActivity(), context, saved);
+        });
+
+    // Share button onclickListener
+    mShareButton.setOnClickListener(
+        v -> {
+          Utils.shareOutput(
+              requireActivity(),
+              context,
+              mHistory,
+              Utils.lastCommandOutput(logs.getText().toString()));
         });
 
     mCommand.setOnEditorActionListener(this);
