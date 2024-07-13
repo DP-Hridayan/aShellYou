@@ -1,13 +1,15 @@
 <div align="center">
-  <img src="assets/Motion.gif" width="100%" alt="Banner">
+  <img src="assets/mockups.svg" width="100%" alt="Banner">
 </div>
 
 # aShell You
 ### Run ADB commands on your device or on other devices
 
+
 <div align="center">
-  <img src="assets/mockups.svg" width="100%" alt="Banner">
+  <img src="assets/Motion.gif" width="100%" alt="Banner">
 </div>
+
 
 ## Requirements
 * A working [Shizuku](https://shizuku.rikka.app/) environment
