@@ -116,16 +116,12 @@ public class AboutActivity extends AppCompatActivity {
             "id_weiguangtwk",
             "weiguangtwk",
             getString(R.string.weiguangtwk_about),
-             R.mipmap.dp_weiguangtwk));
-        
+            R.mipmap.dp_weiguangtwk));
+
     items.add(
         new Category.ContributorsItem(
-            "id_winzort",
-            "WINZORT",
-            getString(R.string.winzort_about),
-            R.mipmap.dp_winzort));
+            "id_winzort", "WINZORT", getString(R.string.winzort_about), R.mipmap.dp_winzort));
 
-        
     items.add(new Category(getString(R.string.app)));
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -172,12 +168,13 @@ public class AboutActivity extends AppCompatActivity {
             getString(R.string.des_telegram_channel),
             R.drawable.ic_telegram));
 
-    items.add(
-        new Category.AppItem(
-            "id_discord",
-            getString(R.string.discord),
-            getString(R.string.des_discord),
-            R.drawable.ic_discord));
+    /* No currently running discord server
+         items.add(
+    new Category.AppItem(
+        "id_discord",
+        getString(R.string.discord),
+        getString(R.string.des_discord),
+        R.drawable.ic_discord));  */
 
     adapter = new AboutAdapter(items, this);
     recyclerView.setAdapter(adapter);

@@ -539,7 +539,7 @@ public class Utils {
     return text.substring(startOfFirstLine, startOfSecondLine);
   }
 
-    //Logic behind saving output as txt files
+  // Logic behind saving output as txt files
   public static boolean saveToFile(String sb, Activity activity, List<String> mHistory) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
       return Utils.saveToFileApi29AndAbove(sb, activity, mHistory);
@@ -548,6 +548,7 @@ public class Utils {
     }
   }
 
+  /* Save output txt file on devices running Android 11 and above and return a boolean if the file is saved */
   public static boolean saveToFileApi29AndAbove(
       String sb, Activity activity, List<String> mHistory) {
     try {
@@ -573,6 +574,7 @@ public class Utils {
     return false;
   }
 
+  /*Save output txt file on devices running Android 10 and below and return a boolean if the file is saved */
   public static boolean saveToFileBelowApi29(String sb, Activity activity, List<String> mHistory) {
     if (activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
         != PackageManager.PERMISSION_GRANTED) {

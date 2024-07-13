@@ -663,13 +663,8 @@ public class aShellFragment extends Fragment {
         v -> {
           shellOutput = viewModel.getShellOutput();
           history = viewModel.getHistory();
-          if (mResult == null) {
-            mResult = shellOutput;
-          }
-          if (mHistory == null) {
-            mHistory = history;
-          }
-
+initializeResults();
+                
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
             String result = mResult.get(i);
@@ -678,9 +673,9 @@ public class aShellFragment extends Fragment {
             }
           }
           try {
-            String fileName =
-                mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
-
+                    
+            String fileName = Utils.generateFileName(mHistory);
+                    
             File file = new File(requireActivity().getCacheDir(), fileName);
             FileOutputStream outputStream = new FileOutputStream(file);
             outputStream.write(sb.toString().getBytes());
