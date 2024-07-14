@@ -69,7 +69,7 @@
 
 ## Licence
 
-This project is licensed under the [GNU General Public License v3.0.](https://github.com/DP-Hridayan/aShellYou/tree/master?tab=GPL-3.0-1-ov-file)
+This project is licensed under the [GNU General Public License v3.0.](LICENCE.md)
 
 ### Summary
 
