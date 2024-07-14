@@ -125,6 +125,7 @@
     <string name="su_warning_message">aShell You is not designed for root-related uses. Aborting.</string>
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
+    <string name="unhide_cards_message">All info cards will be visible now</string>
     <string name="usb_warning_title">Important</string>
     <string name="usb_warning_summary">You need to turn on USB Debugging in the developer settings of the target device</string>
     <string name="use">Use</string>
@@ -143,6 +144,8 @@
     <string name="disable_softkey">Disable soft keyboard</string>
     <string name="des_disable_softkey">Useful when you want to use an external keyboard</string>
     <string name="des_examples">Collection of some command templates</string>
+    <string name= "unhide_cards">Unhide info cards</string>
+    <string name="des_unhide_cards">All information cards will be visible again</string>
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="des_about">Version , Credits</string>
     <string name="lead_developer">Lead developer</string>

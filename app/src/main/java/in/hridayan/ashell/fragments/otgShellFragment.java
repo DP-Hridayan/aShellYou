@@ -93,7 +93,7 @@ public class otgShellFragment extends Fragment
   private UsbDevice mDevice;
   private TextView tvStatus;
   private MaterialTextView logs;
-  private AppCompatImageButton mCable;
+  private AppCompatImageButton mCable, dismissCard;
   private AdbCrypto adbCrypto;
   private AdbConnection adbConnection;
   private UsbManager mManager;
@@ -101,10 +101,14 @@ public class otgShellFragment extends Fragment
   private CommandsAdapter mCommandsAdapter;
   private Chip mChip;
   private LinearLayoutCompat terminalView;
-  private MaterialButton mSettingsButton, mBookMarks, mHistoryButton, mClearButton;
+  private MaterialButton mSettingsButton,
+      mBookMarks,
+      mHistoryButton,
+      mClearButton,
+      instructionsButton;
   private RecyclerView mRecyclerViewCommands;
   private SettingsAdapter adapter;
-  private MaterialCardView mShellCard;
+  private MaterialCardView mShellCard, mWarningUsbDebugging;
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand;
   private FloatingActionButton mSendButton, mUndoButton, mTopButton, mBottomButton, mShareButton;
@@ -147,6 +151,10 @@ public class otgShellFragment extends Fragment
   public void onResume() {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
+
+    if ( Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")) {
+      mWarningUsbDebugging.setVisibility(View.VISIBLE);
+    }
   }
 
   @Override
@@ -230,6 +238,7 @@ public class otgShellFragment extends Fragment
     mChip = view.findViewById(R.id.chip);
     mCommand = view.findViewById(R.id.shell_command);
     mCommandInput = view.findViewById(R.id.shell_command_layout);
+    dismissCard = view.findViewById(R.id.dimiss_card);
     mHistoryButton = view.findViewById(R.id.history);
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
@@ -244,7 +253,8 @@ public class otgShellFragment extends Fragment
     terminalView = view.findViewById(R.id.terminalView);
     mTopButton = view.findViewById(R.id.fab_up);
     mUndoButton = view.findViewById(R.id.fab_undo);
-
+    mWarningUsbDebugging = view.findViewById(R.id.warning_usb_debugging);
+    instructionsButton = view.findViewById(R.id.instructions_button);
     mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -284,52 +294,27 @@ public class otgShellFragment extends Fragment
 
     mNav.setVisibility(View.VISIBLE);
 
+    // Show the info card by checking preferences
+    if ( Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")) {
+      mWarningUsbDebugging.setVisibility(View.VISIBLE);
+    }
+    // OnClickListener of the Instruction button on the info card
+    instructionsButton.setOnClickListener(
+        v -> {
+          Utils.openUrl(context, "https://github.com/DP-Hridayan/aShellYou/instructions/OTG.md");
+        });
+
+    // The cross to dismiss the info card
+    dismissCard.setOnClickListener(
+        v -> {
+          mWarningUsbDebugging.setVisibility(View.GONE);
+          Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", false);
+        });
+
     mChipOnClickListener();
 
     if (isSendDrawable) {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-
-      // Onclick listener for the Run Button (Send / Help)
-      /*   mSendButton.setOnClickListener(
-      new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-
-          sendButtonClicked = true;
-          mPasteButton.hide();
-          mUndoButton.hide();
-          KeyboardUtils.closeKeyboard(requireActivity(), v);
-
-          if (adbConnection != null) {
-            putCommand();
-
-            if (mHistory == null) {
-              mHistory = new ArrayList<>();
-            }
-            mHistory.add(mCommand.getText().toString());
-
-          } else {
-
-            mCommandInput.setError(getString(R.string.device_not_connected));
-            mCommandInput.setErrorIconDrawable(
-                Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
-            mCommandInput.setErrorIconOnClickListener(
-                t -> {
-                  mCommand.setText(null);
-                });
-
-            Utils.alignMargin(mSendButton);
-            Utils.alignMargin(mCable);
-
-            new MaterialAlertDialogBuilder(requireActivity())
-                .setTitle(getString(R.string.error))
-                .setMessage(getString(R.string.otg_not_connected))
-                .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
-                .show();
-          }
-        }
-      }); */
 
     } else {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));

@@ -134,14 +134,16 @@
 
             </in.hridayan.ashell.UI.CoordinatedNestedScrollView>
         </com.google.android.material.card.MaterialCardView>
-        
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/warning_usb_debugging"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             app:strokeWidth="0dp"
+            android:layout_marginTop="5dp"
+            android:elevation="0dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
+            android:visibility="gone"
             app:cardBackgroundColor="?attr/colorTertiaryContainer"
             app:cardCornerRadius="20dp">
 
@@ -155,11 +157,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:padding="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingHorizontal="10dp"
                     android:text="@string/usb_warning_title"
                     android:textColor="?attr/colorOnTertiaryContainer"
                     android:textSize="20sp" />
-                
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/summary_warning"
                     android:layout_width="match_parent"
@@ -171,17 +174,28 @@
                     android:textColor="?attr/colorOnTertiaryContainer"
                     android:text="@string/usb_warning_summary"
                     android:textSize="14sp" />
-                
-               
-        <Button
-            android:id="@+id/warning_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ok"
+
+                <Button
+                    android:id="@+id/instructions_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Instructions"
                     app:layout_constraintTop_toBottomOf="@id/summary_warning"
-                    android:gravity="end"
-            android:textSize="16sp" />
-                
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_cross"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:id="@+id/dimiss_card"
+                    android:tint="?attr/colorOnTertiaryContainer"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -312,6 +326,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/paste_button"
         android:text="@string/paste" />
- 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

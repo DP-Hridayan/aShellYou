@@ -138,6 +138,15 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             Preferences.getSmoothScroll(this)));
 
+       settingsData.add(
+        new SettingsItem(
+            "id_unhide_cards",
+            R.drawable.ic_numbers,
+            getString(R.string.unhide_cards),
+            getString(R.string.des_unhide_cards),
+            false,
+            false));
+        
     settingsData.add(
         new SettingsItem(
             "id_examples",
