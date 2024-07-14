@@ -290,10 +290,6 @@ public class aShellFragment extends Fragment {
     BehaviorFAB.handleTopAndBottomArrow(
         mTopButton, mBottomButton, mRecyclerViewOutput, null, context, "local_shell");
 
-    // Show snackbar when app is updated
-    Utils.isAppUpdated(context, requireActivity());
-    Preferences.setSavedVersionCode(context, Utils.currentVersion());
-
     // Display the connected device name when clicking the chip
     Utils.chipOnClickListener(context, mChip, Utils.getDeviceName());
     /*------------------------------------------------------*/

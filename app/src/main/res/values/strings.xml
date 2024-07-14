@@ -125,9 +125,12 @@
     <string name="su_warning_message">aShell You is not designed for root-related uses. Aborting.</string>
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
+    <string name="usb_warning_title">Important</string>
+    <string name="usb_warning_summary">You need to turn on USB Debugging in the developer settings of the target device</string>
     <string name="use">Use</string>
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
+    <string name="whats_new">What\'s new !</string>
     <string name="working_mode">Working mode</string>
     <string name="yes">Yes</string>
 

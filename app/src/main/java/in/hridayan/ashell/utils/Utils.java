@@ -13,6 +13,7 @@ import android.content.ClipboardManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -202,20 +203,13 @@ public class Utils {
     return versionCode;
   }
 
-  public static void isAppUpdated(Context context, Activity activity) {
-    CoordinatorLayout view = activity.findViewById(R.id.fragment_container);
+  public static boolean isAppUpdated(Context context) {
     savedVersionCode = Preferences.getSavedVersionCode(context);
     if (savedVersionCode != currentVersion() && savedVersionCode != 1) {
-      Utils.snackBar(view, context.getString(R.string.app_updated_message))
-          .setAction(
-              context.getString(R.string.yes),
-              (v -> {
-                intent = new Intent(context, ChangelogActivity.class);
-                context.startActivity(intent);
-              }))
-          .show();
+      return true;
+    } else {
+      return false;
     }
-    return;
   }
 
   /*---------------------Bookmarks section------------------------*/
@@ -501,7 +495,7 @@ public class Utils {
   }
 
   // Dialog to show if the shell output is saved or not
-  public static void outputSavedDialog(Activity activity, Context context, boolean saved ) {
+  public static void outputSavedDialog(Activity activity, Context context, boolean saved) {
     String message =
         saved
             ? context.getString(
@@ -597,7 +591,7 @@ public class Utils {
     return false;
   }
 
-    //Method for sharing output to other apps
+  // Method for sharing output to other apps
   public static void shareOutput(
       Activity activity, Context context, List<String> mHistory, String sb) {
     try {
@@ -619,5 +613,28 @@ public class Utils {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  // Method to retrieve the app version name
+  public static String getAppVersionName(Context context) {
+    String versionName = "";
+    try {
+      PackageManager packageManager = context.getPackageManager();
+      PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+      versionName = packageInfo.versionName;
+    } catch (PackageManager.NameNotFoundException e) {
+      e.printStackTrace();
+    }
+    return versionName;
+  }
+
+  // Method to load the changelogs text
+  public static String loadChangelogText(String versionNumber, Context context) {
+    int resourceId =
+        context
+            .getResources()
+            .getIdentifier(
+                "changelog_" + versionNumber.replace(".", "_"), "string", context.getPackageName());
+    return context.getResources().getString(resourceId);
   }
 }

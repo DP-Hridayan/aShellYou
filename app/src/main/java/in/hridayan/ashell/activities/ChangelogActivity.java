@@ -1,6 +1,5 @@
 package in.hridayan.ashell.activities;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
@@ -24,13 +23,12 @@ public class ChangelogActivity extends AppCompatActivity {
   private AppBarLayout appBarLayout;
   private RecyclerView recyclerViewChangelogs;
 
-  private final String[] versionNumbers = {"4.2.0","4.1.0","4.0.3",
-    "4.0.2", "4.0.1", "4.0.0", "3.9.1", "3.9.0", "3.8.2", "3.8.1", "3.8.0", "3.7.0", "3.6.0",
-    "3.5.1", "3.5.0", "3.4.0", "3.3.0", "3.2.0", "3.1.0", "3.0.0", "2.0.2", "2.0.1", "2.0.0",
-    "1.3.0", "1.2.0", "1.1.1", "1.1.0", "1.0.0", "0.9.1", "0.9.0"
+  private final String[] versionNumbers = {
+    "v4.2.0", "v4.1.0", "v4.0.3", "v4.0.2", "v4.0.1", "v4.0.0", "v3.9.1", "v3.9.0", "v3.8.2",
+    "v3.8.1", "v3.8.0", "v3.7.0", "v3.6.0", "v3.5.1", "v3.5.0", "v3.4.0", "v3.3.0", "v3.2.0",
+    "v3.1.0", "v3.0.0", "v2.0.2", "v2.0.1", "v2.0.0", "v1.3.0", "v1.2.0", "v1.1.1", "v1.1.0",
+    "v1.0.0", "v0.9.1", "v0.9.0"
   };
-
-  private Resources resources;
 
   @Override
   protected void onPause() {
@@ -63,8 +61,6 @@ public class ChangelogActivity extends AppCompatActivity {
 
     viewModel = new ViewModelProvider(this).get(ChangelogViewModel.class);
 
-    resources = getResources();
-
     ImageView imageView = findViewById(R.id.arrow_back);
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
     imageView.setOnClickListener(v -> dispatcher.onBackPressed());
@@ -77,18 +73,11 @@ public class ChangelogActivity extends AppCompatActivity {
       changelogItems.add(
           new ChangelogItem(
               getString(R.string.version) + "\t\t" + versionNumber,
-              loadChangelogText(versionNumber)));
+              Utils.loadChangelogText(versionNumber, this)));
     }
 
     ChangelogAdapter adapter = new ChangelogAdapter(changelogItems, this);
     recyclerViewChangelogs.setAdapter(adapter);
     recyclerViewChangelogs.setLayoutManager(new LinearLayoutManager(this));
-  }
-
-  private String loadChangelogText(String versionNumber) {
-    int resourceId =
-        resources.getIdentifier(
-            "changelog_v" + versionNumber.replace(".", "_"), "string", getPackageName());
-    return resources.getString(resourceId);
   }
 }

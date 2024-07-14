@@ -134,6 +134,56 @@
 
             </in.hridayan.ashell.UI.CoordinatedNestedScrollView>
         </com.google.android.material.card.MaterialCardView>
+        
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/warning_usb_debugging"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:strokeWidth="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="?attr/colorTertiaryContainer"
+            app:cardCornerRadius="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_margin="15dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title_warning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/usb_warning_title"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    android:textSize="20sp" />
+                
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/summary_warning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    app:layout_constraintTop_toBottomOf="@id/title_warning"
+                    android:paddingBottom="20dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    android:text="@string/usb_warning_summary"
+                    android:textSize="14sp" />
+                
+               
+        <Button
+            android:id="@+id/warning_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+                    app:layout_constraintTop_toBottomOf="@id/summary_warning"
+                    android:gravity="end"
+            android:textSize="16sp" />
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.button.MaterialButton
@@ -178,9 +228,8 @@
         style="?attr/materialIconButtonFilledTonalStyle"
         android:layout_marginStart="25dp"
         android:id="@+id/clear" />
-    
-    
-       <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginBottom="25dp"
@@ -208,8 +257,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/floatingActionButtonTertiaryStyle"
         android:id="@+id/fab_down" />
-    
-       <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:visibility="gone"
@@ -238,8 +287,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/floatingActionButtonSmallStyle"
         android:id="@+id/fab_undo" />
-    
-       <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginBottom="100dp"
@@ -263,5 +312,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/paste_button"
         android:text="@string/paste" />
+ 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

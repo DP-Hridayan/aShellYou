@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.MainViewModel;
@@ -27,6 +30,7 @@ import in.hridayan.ashell.fragments.otgShellFragment;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ThemeUtils;
+import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +43,12 @@ public class MainActivity extends AppCompatActivity
   private static int currentFragment;
   private boolean isBlackThemeEnabled, isAmoledTheme;
   private MainViewModel viewModel;
+  private MaterialTextView changelog, version;
 
-    @Override
+  @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
-        
+
     // handle intent for "Use" feature
     if (intent.hasExtra("use_command")) {
       String useCommand = intent.getStringExtra("use_command");
@@ -95,7 +100,6 @@ public class MainActivity extends AppCompatActivity
     setContentView(R.layout.activity_main);
 
     viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
     isAmoledTheme = Preferences.getAmoledTheme(this);
 
     mNav = findViewById(R.id.bottom_nav_bar);
@@ -120,9 +124,15 @@ public class MainActivity extends AppCompatActivity
           }
         });
 
-    isBlackThemeEnabled = isAmoledTheme;
-
     setupNavigation();
+
+    // Show What's new bottom sheet on opening the app after an update
+    if (Utils.isAppUpdated(this)) {
+      showBottomSheet();
+    }
+    Preferences.setSavedVersionCode(this, Utils.currentVersion());
+
+    isBlackThemeEnabled = isAmoledTheme;
 
     // Displaying badges on navigation bar
     setBadge(R.id.nav_wireless, "Soon");
@@ -196,27 +206,26 @@ public class MainActivity extends AppCompatActivity
   // Takes the fragment we want to navigate to as argument and then starts that fragment
   public void replaceFragment(Fragment fragment) {
     if (!getSupportFragmentManager().isStateSaved()) {
-            setCurrentFragment();
-        getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit();
+      setCurrentFragment();
+      getSupportFragmentManager()
+          .beginTransaction()
+          .replace(R.id.fragment_container, fragment)
+          .commit();
     }
-}
-
+  }
 
   // If not on OtgShell then go to OtgShell
   private void showotgShellFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
         instanceof otgShellFragment)) {
-      // Don't show again logic
+      /* Don't show again logic
       if (PreferenceManager.getDefaultSharedPreferences(this)
           .getBoolean("Don't show beta otg warning", true)) {
         showBetaWarning();
-      } else {
-        currentFragment = OTG_FRAGMENT;
-        replaceFragment(new otgShellFragment());
-      }
+      } else { */
+      currentFragment = OTG_FRAGMENT;
+      replaceFragment(new otgShellFragment());
+      /*   } */
     }
   }
 
@@ -307,6 +316,20 @@ public class MainActivity extends AppCompatActivity
       default:
         break;
     }
+  }
+
+  private void showBottomSheet() {
+    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+    View bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_changelog, null);
+    bottomSheetDialog.setContentView(bottomSheetView);
+    bottomSheetDialog.show();
+
+    version = bottomSheetView.findViewById(R.id.version);
+    changelog = bottomSheetView.findViewById(R.id.changelog);
+    version.setText(Utils.getAppVersionName(this));
+
+    String versionName = Utils.getAppVersionName(this);
+    changelog.setText(Utils.loadChangelogText(versionName, this));
   }
 
   // Execute functions when the Usb connection is removed
