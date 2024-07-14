@@ -1,21 +1,75 @@
+# 🔥🔥 Shizuku Setup Guide
 
-# **🔥Instructions To Setup Shizuku.**
+Welcome to the Shizuku setup guide! Shizuku is a powerful tool that allows you to manage app permissions with ease. Follow the steps below to set up Shizuku using your preferred method.
 
-Download & Install Shizuku [here](https://github.com/RikkaApps/Shizuku/releases/tag/v13.5.4)
+## 🚀 Installation
 
-## Start via Root
+1. Download and install the Shizuku app from the [Google Play Store](https://play.google.com/store/apps/details?id=moe.shizuku.privileged.api).
 
-For rooted devices, just start directly.
 
-## Start via Wireless Debugging
+## 🔧 Setup Methods
 
-Starting with wireless debugging works on Android 11 or above. This startup method does not require a connection to a computer. Due to system limitations, the startup steps need to be performed again after each reboot.
+### 1. 🔓 Using Root Access
 
-### 1. Enable Wireless debugging
-* Search the web for how to enable "Developer options" for your device model.
-* Enable "Developer options" and "USB Debugging"
-* Enter "Wireless debugging"
-* Enable "Wireless debugging"
-* Start pairing in Shizuku
-* Tap "Pair device with pairing code" in "Wireless debugging"
-* Enter pairing code in Shizuku's notificaiton (Notifications are turned 
+1. **Root Your Device:**
+   - Ensure your device is rooted. (Use tools like Magisk for rooting.)
+
+2. **Grant Root Permissions:**
+   - Open the Shizuku app.
+   - Click Start By Root Option.
+   - Grant Root Access.
+   - 
+3. **Start Shizuku:**
+   - Tap on **Start**.
+
+### 2. 📶 Using Wireless Debugging (Android 11+)
+
+1. **Enable Developer Options:**
+   - Go to **Settings** > **About phone**.
+   - Tap on **Build number** 7 times to enable Developer Options.
+
+2. **Enable Wireless Debugging:**
+   - Go to **Settings** > **Developer options**.
+   - Toggle on **Wireless debugging**.
+
+3. **Pair Device for Wireless Debugging:**
+   - Open **Developer options** > **Wireless debugging** > **Pair device with pairing code**. (It will popup in Notification Shade)
+   - Follow the on-screen instructions to pair your device.
+
+4. **Start Shizuku:**
+   - Open the Shizuku app on your device.
+   - Tap on **Start**.
+
+### 3. 💻 Using ADB (Android Debug Bridge)
+
+1. **Enable Developer Options:**
+   - Go to **Settings** > **About phone**.
+   - Tap on **Build number** 7 times to enable Developer Options.
+
+2. **Enable USB Debugging:**
+   - Go to **Settings** > **Developer options**.
+   - Toggle on **USB debugging**.
+
+3. **Install ADB:**
+   - Download the [SDK Platform Tools](https://developer.android.com/studio/releases/platform-tools) from Google and extract it.
+
+4. **Connect to ADB:**
+   - Connect your device to your computer via USB.
+   - Open a terminal/command prompt in the SDK Platform Tools directory.
+   - Run the following command:
+     ```sh
+     adb shell sh /sdcard/Android/data/moe.shizuku.privileged.api/start.sh
+     ```
+
+5. **Start Shizuku:**
+   - Open the Shizuku app on your device.
+   - Tap on **Start**.
+
+## 💡 Tips
+
+- Make sure to restart Shizuku after a reboot.
+- Check the [Shizuku documentation](https://shizuku.rikka.app/guide/setup/) for more detailed instructions and troubleshooting.
+
+## 🛠️ Support
+
+If you encounter any issues, feel free to open an issue on our [GitHub repository](https://github.com/dp-hridayan/ashellyou).🎉
