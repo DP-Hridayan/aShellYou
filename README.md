@@ -27,6 +27,10 @@
 * Amoled theme 🌑
 * And much more 🎉
 
+
+## Instructions 
+* How to Setup Shizuku [here](Instructions/Shizuku.md)
+
 ## Download 📥
 
 <div align="center">
