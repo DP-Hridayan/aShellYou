@@ -15,18 +15,17 @@
 * Knowledge about basic ADB/Linux commands
 
 ## Features ✨
-* An elegantly designed user interface with modern Material Design 3 🎨
-* Run commands on your device using Shizuku 📲
-* Run commands on other devices via OTG connection (USB Debugging) 🔌
-* Includes a bundle of examples about common ADB commands 📚
-* Handles continuously running commands, such as logcat, top, etc. 🛠️
-* Search for specific text from the last command output 🔍
-* Option to save last command output as a text file 📝
-* Option to share output directly to other apps 📤
-* Bookmark frequently used commands 📑
-* Amoled theme 🌑
-* And much more 🎉
-
+* 🎨 Features a modern Material Design 3 user interface
+* 📲 Execute commands on your device using Shizuku
+* 🔌 Run commands on other devices via OTG connection
+* 📚 Provides examples of common ADB commands
+* 🛠️ Supports continuously running commands like logcat and top
+* 🔍 Search within the last command output
+* 📝 Save the last command output as a text file
+* 📤 Share output directly to other apps
+* 📑 Bookmark frequently used commands
+* 🌑 Includes an AMOLED theme
+* 🎉 Offers many additional features
 
 ## Instructions 
 * How to Setup Shizuku [here](Instructions/Shizuku.md)
