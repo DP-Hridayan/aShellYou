@@ -18,7 +18,7 @@ Welcome to the Shizuku setup guide! Shizuku is a powerful tool that allows you t
    - Open the Shizuku app.
    - Click Start By Root Option.
    - Grant Root Access.
-   - 
+   
 3. **Start Shizuku:**
    - Tap on **Start**.
 
