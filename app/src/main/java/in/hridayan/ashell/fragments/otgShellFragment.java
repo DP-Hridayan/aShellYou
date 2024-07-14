@@ -151,10 +151,12 @@ public class otgShellFragment extends Fragment
   public void onResume() {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
-
-    if ( Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")) {
+    if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging") && adbConnection == null) {
       mWarningUsbDebugging.setVisibility(View.VISIBLE);
-    }
+    }else if(mWarningUsbDebugging.getVisibility() == View.VISIBLE)
+        {
+           mWarningUsbDebugging.setVisibility(View.GONE);
+        }
   }
 
   @Override
@@ -295,9 +297,12 @@ public class otgShellFragment extends Fragment
     mNav.setVisibility(View.VISIBLE);
 
     // Show the info card by checking preferences
-    if ( Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")) {
+    if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging") && adbConnection == null) {
       mWarningUsbDebugging.setVisibility(View.VISIBLE);
-    }
+    }else if(mWarningUsbDebugging.getVisibility() == View.VISIBLE)
+        {
+           mWarningUsbDebugging.setVisibility(View.GONE);
+        }
     // OnClickListener of the Instruction button on the info card
     instructionsButton.setOnClickListener(
         v -> {
@@ -587,6 +592,7 @@ public class otgShellFragment extends Fragment
               case CONNECTING:
                 //   Toast.makeText(context, "connecting", Toast.LENGTH_SHORT).show();
                 if (adbConnection == null) {
+                  mWarningUsbDebugging.setVisibility(View.GONE);
                   waitingDialog(context);
                 }
 

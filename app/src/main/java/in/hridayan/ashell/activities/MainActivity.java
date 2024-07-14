@@ -341,7 +341,11 @@ public class MainActivity extends AppCompatActivity
   // Reset the OtgFragment
   @Override
   public void onRequestReset() {
-    currentFragment = OTG_FRAGMENT;
-    replaceFragment(new otgShellFragment());
+    if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+        instanceof otgShellFragment)) {
+      currentFragment = OTG_FRAGMENT;
+      mNav.setSelectedItemId(R.id.nav_otgShell);
+      replaceFragment(new otgShellFragment());
+    }
   }
 }
