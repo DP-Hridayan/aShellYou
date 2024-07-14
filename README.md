@@ -66,8 +66,17 @@
  </picture>
 </a>
 
-## Forked from 🍴
-<a href="https://gitlab.com/sunilpaulmathew/ashell">
-  <img src="https://img.shields.io/badge/gitlab-%23171321?logo=gitlab&logoColor=%23EF4F32&cacheSeconds=10" alt="GitLab Repository" height="65" width="240">
-</a>
 
+## Licence
+
+This project is licensed under the [GNU General Public License v3.0.](https://github.com/DP-Hridayan/aShellYou/tree/master?tab=GPL-3.0-1-ov-file)
+
+### Summary
+
+| Permitted 🚀                         | Not Permitted 🚫                     |
+|--------------------------------------|--------------------------------------|
+| ✔️ Use for commercial purposes       | ❌ Sub-licensing                     |
+| ✔️ Modify and distribute             | ❌ Proprietary use without source    |
+| ✔️ Private use                       | ❌ Distribution without same license |
+| ✔️ Access to the source code         | ❌ Restricting other users' freedoms |
+| ✔️ Distribution with original terms  |                                      |
