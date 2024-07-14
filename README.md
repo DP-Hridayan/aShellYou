@@ -24,6 +24,7 @@
 * Option to save last command output as a text file 📝
 * Option to share output directly to other apps 📤
 * Bookmark frequently used commands 📑
+* Pin your favorite commands 📌
 * Amoled theme 🌑
 * And much more 🎉
 
