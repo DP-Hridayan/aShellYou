@@ -2,6 +2,7 @@
   <img src="assets/mockups.svg" width="100%" alt="Banner">
 </div>
 
+
 </br>
 
 # aShell You 
@@ -9,16 +10,20 @@
 
 </br>
 
+
 <div align="center">
   <img src="assets/Motion.gif" width="100%" alt="Motion GIF">
 </div>
 
+
 </br>
+
 
 ## Requirements ⚙️
 * A working [Shizuku](https://shizuku.rikka.app/) environment
 * Shizuku is not needed to run ADB commands on other devices via OTG
 * Knowledge about basic ADB/Linux commands
+
 
 </br>
 
@@ -36,6 +41,7 @@
 * 🎉 Offers many additional features
 
 </br>
+
 
 ## Instructions 
 * How to Setup Shizuku [here](instructions/Shizuku.md)
@@ -68,6 +74,7 @@
 </div>
 </br>
 
+
 ## Fuel my code with a coffee ☕️
   <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="60%" alt="Buy Me a Coffee" /></a>
 
@@ -86,6 +93,7 @@
 ## Star History ⭐
 </br>
 
+
 <a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
  <picture>
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=DP-Hridayan/aShellYou&type=Date&theme=dark" />
@@ -96,6 +104,7 @@
 
 
 </br>
+
 
 ## Licence
 
