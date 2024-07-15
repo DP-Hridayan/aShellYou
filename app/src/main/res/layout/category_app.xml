@@ -29,8 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            style="@style/ItemTitle"
-        />
+            style="@style/ItemTitle" />
 
         <TextView
             android:id="@+id/description_text_view"
@@ -39,5 +38,15 @@
             style="@style/ItemDescription" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check for update"
+        android:layout_margin="24dp"
+        app:icon="@drawable/ic_check_update"
+        android:textAppearance="?attr/textAppearanceBodySmall" />
 
 </LinearLayout>

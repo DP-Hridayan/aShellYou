@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -19,7 +18,6 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
@@ -40,7 +38,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
     implements otgShellFragment.OnFragmentInteractionListener, FetchLatestVersionCodeCallback {
-  private boolean isKeyboardVisible;
+  private boolean isKeyboardVisible , hasAppRestarted = true;
   public BottomNavigationView mNav;
   private SettingsAdapter adapter;
   private SettingsItem settingsList;
@@ -143,9 +141,11 @@ public class MainActivity extends AppCompatActivity
     // Displaying badges on navigation bar
     setBadge(R.id.nav_wireless, "Soon");
 
-    if (Preferences.getAutoUpdateCheck(this)) {
+    if (Preferences.getAutoUpdateCheck(this) && hasAppRestarted
+        && !(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true))) {
       new FetchLatestVersionCode(this, this).execute(buildGradleUrl);
     }
+       hasAppRestarted = false;
   }
 
   // Intent to get the text shared to aShell You app
@@ -342,26 +342,6 @@ public class MainActivity extends AppCompatActivity
     changelog.setText(Utils.loadChangelogText(versionName, this));
   }
 
-  private void showBottomSheetUpdate() {
-    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-    View bottomSheetView =
-        LayoutInflater.from(this).inflate(R.layout.bottom_sheet_update_checker, null);
-    bottomSheetDialog.setContentView(bottomSheetView);
-    bottomSheetDialog.show();
-
-    MaterialButton downloadButton = bottomSheetView.findViewById(R.id.download_button);
-    MaterialButton cancelButton = bottomSheetView.findViewById(R.id.cancel_button);
-
-    downloadButton.setOnClickListener(
-        v -> {
-          Utils.openUrl(this, "https://github.com/DP-Hridayan/aShellYou/releases/latest");
-        });
-    cancelButton.setOnClickListener(
-        v -> {
-          bottomSheetDialog.dismiss();
-        });
-  }
-
   // Execute functions when the Usb connection is removed
   public void onUsbDetached() {
     // Reset the OtgShellFragment in this case
@@ -383,7 +363,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onResult(int result) {
     if (result == Preferences.UPDATE_AVAILABLE) {
-      showBottomSheetUpdate();
+      Utils.showBottomSheetUpdate(this);
     }
   }
 }

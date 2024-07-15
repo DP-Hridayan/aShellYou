@@ -151,12 +151,12 @@ public class otgShellFragment extends Fragment
   public void onResume() {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
-    if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging") && adbConnection == null) {
+    if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")
+        && adbConnection == null) {
       mWarningUsbDebugging.setVisibility(View.VISIBLE);
-    }else if(mWarningUsbDebugging.getVisibility() == View.VISIBLE)
-        {
-           mWarningUsbDebugging.setVisibility(View.GONE);
-        }
+    } else if (mWarningUsbDebugging.getVisibility() == View.VISIBLE) {
+      mWarningUsbDebugging.setVisibility(View.GONE);
+    }
   }
 
   @Override
@@ -297,16 +297,17 @@ public class otgShellFragment extends Fragment
     mNav.setVisibility(View.VISIBLE);
 
     // Show the info card by checking preferences
-    if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging") && adbConnection == null) {
+    if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")
+        && adbConnection == null) {
       mWarningUsbDebugging.setVisibility(View.VISIBLE);
-    }else if(mWarningUsbDebugging.getVisibility() == View.VISIBLE)
-        {
-           mWarningUsbDebugging.setVisibility(View.GONE);
-        }
+    } else if (mWarningUsbDebugging.getVisibility() == View.VISIBLE) {
+      mWarningUsbDebugging.setVisibility(View.GONE);
+    }
     // OnClickListener of the Instruction button on the info card
     instructionsButton.setOnClickListener(
         v -> {
-          Utils.openUrl(context, "https://github.com/DP-Hridayan/aShellYou/instructions/OTG.md");
+          Utils.openUrl(
+              context, "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md");
         });
 
     // The cross to dismiss the info card

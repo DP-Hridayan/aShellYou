@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -660,5 +662,26 @@ public class Utils {
 
   public static interface FetchLatestVersionCodeCallback {
     void onResult(int result);
+  }
+
+  // Bottom sheet showing the popup if an update is available
+  public static void showBottomSheetUpdate(Activity activity) {
+    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
+    View bottomSheetView =
+        LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_update_checker, null);
+    bottomSheetDialog.setContentView(bottomSheetView);
+    bottomSheetDialog.show();
+
+    MaterialButton downloadButton = bottomSheetView.findViewById(R.id.download_button);
+    MaterialButton cancelButton = bottomSheetView.findViewById(R.id.cancel_button);
+
+    downloadButton.setOnClickListener(
+        v -> {
+          Utils.openUrl(activity, "https://github.com/DP-Hridayan/aShellYou/releases/latest");
+        });
+    cancelButton.setOnClickListener(
+        v -> {
+          bottomSheetDialog.dismiss();
+        });
   }
 }
