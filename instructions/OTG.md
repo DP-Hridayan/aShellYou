@@ -4,7 +4,6 @@ In this small guide, you will learn how to use the OTG feature to run ADB comman
 
 ## Prerequisites
 * 📱 A host device from which you will execute ADB commands
-* ✅ The host device should be fully functional with [Shizuku](instructions/Shizuku.md)
 * 📲 A target device on which the commands will be executed
 * 🔌 An OTG cable to connect both devices
 * 🧠 Knowledge of some ADB commands (optional)
