@@ -1,0 +1,11 @@
+Change log ~
+
+• Stable release of OTG mode
+
+• Added features like save, share, quick scroll buttons to the OTG mode
+
+• Added info cards for quick information
+
+• Added in app update checker along with the option to auto check for updates
+
+• Minor UI improvements
