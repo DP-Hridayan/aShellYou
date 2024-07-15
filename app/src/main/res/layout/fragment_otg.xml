@@ -161,7 +161,7 @@
                     android:paddingHorizontal="10dp"
                     android:text="@string/usb_warning_title"
                     android:textColor="?attr/colorOnTertiaryContainer"
-                    android:textSize="20sp" />
+                    android:textAppearance="?attr/textAppearanceTitleLarge" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/summary_warning"
@@ -173,7 +173,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:textColor="?attr/colorOnTertiaryContainer"
                     android:text="@string/usb_warning_summary"
-                    android:textSize="14sp" />
+                    android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                 <Button
                     android:id="@+id/instructions_button"
@@ -183,7 +183,7 @@
                     app:layout_constraintTop_toBottomOf="@id/summary_warning"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:textSize="14sp" />
+                    android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:layout_height="wrap_content"

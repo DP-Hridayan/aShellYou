@@ -141,7 +141,7 @@ public class SettingsActivity extends AppCompatActivity {
        settingsData.add(
         new SettingsItem(
             "id_unhide_cards",
-            R.drawable.ic_numbers,
+            R.drawable.ic_cards,
             getString(R.string.unhide_cards),
             getString(R.string.des_unhide_cards),
             false,

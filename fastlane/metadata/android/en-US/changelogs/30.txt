@@ -1,9 +1,0 @@
-Changelog :
-
-• Added option to clear the command input field after an error
-
-• Fixed a bug which caused the app to crash upon pasting from clipboard under certain conditions
-
-• Code optimisations
-
-

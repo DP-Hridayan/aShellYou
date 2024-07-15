@@ -1,5 +1,0 @@
-Change logs ~
-
-• Added total bookmarks count
-
-• Fixed some bugs

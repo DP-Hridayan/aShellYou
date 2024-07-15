@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
     android:orientation="vertical"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -19,8 +19,8 @@
         android:paddingTop="15dp"
         android:paddingHorizontal="20dp"
         android:text="@string/whats_new"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textAppearance="?attr/textAppearanceTitleLarge" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/version"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:paddingHorizontal="20dp"
-        android:textSize="16sp" />
+        android:textAppearance="?attr/textAppearanceTitleMedium" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/changelog"
@@ -36,5 +36,5 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
         android:paddingBottom="30dp"
-        android:textSize="14sp" />
+        android:textAppearance="?attr/textAppearanceBodyMedium" />
 </LinearLayout>
