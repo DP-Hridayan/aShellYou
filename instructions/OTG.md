@@ -11,7 +11,7 @@ In this small guide, you will learn how to use the OTG feature to run ADB comman
 ## Guide
 
 1. Connect both devices with the OTG cable.
-2. Turn on USB Debugging on the target device. [Guide here](instructions/usbdeb.md)
+2. Turn on USB Debugging on the target device. [Guide here](usbdeb.md)
 3. Open aShell You on the host device.
 4. Navigate to the OTG section in the app.
 5. Allow the connection on the target device if prompted.
