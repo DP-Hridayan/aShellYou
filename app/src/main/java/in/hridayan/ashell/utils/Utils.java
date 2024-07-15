@@ -23,7 +23,6 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -38,7 +37,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.activities.ChangelogActivity;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -636,5 +634,31 @@ public class Utils {
             .getIdentifier(
                 "changelog_" + versionNumber.replace(".", "_"), "string", context.getPackageName());
     return context.getResources().getString(resourceId);
+  }
+
+  // Extracts the version code from the build.gradle file retrieved and converts it to integer
+  public static int extractVersionCode(String text) {
+    String[] lines = text.split("\\r?\\n");
+    int versionCode = -1; // Default value if versionCode is not found
+
+    for (String line : lines) {
+      if (line.contains("versionCode")) {
+        String trimmedLine = line.trim();
+        String integerSeparated = trimmedLine.replace("versionCode", "").trim();
+        int latestVersionCode = Integer.parseInt(integerSeparated);
+        return latestVersionCode;
+      }
+    }
+    return versionCode;
+  }
+
+  /* Compare current app version code with the one retrieved from github to see if update available */
+  public static boolean isUpdateAvailable(int latestVersionCode) {
+    int currentVersionCode = BuildConfig.VERSION_CODE;
+    return currentVersionCode > latestVersionCode;
+  }
+
+  public static interface FetchLatestVersionCodeCallback {
+    void onResult(int result);
   }
 }

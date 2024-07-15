@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
@@ -27,15 +29,17 @@ import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgShellFragment;
+import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-    implements otgShellFragment.OnFragmentInteractionListener {
+    implements otgShellFragment.OnFragmentInteractionListener, FetchLatestVersionCodeCallback {
   private boolean isKeyboardVisible;
   public BottomNavigationView mNav;
   private SettingsAdapter adapter;
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity
   private boolean isBlackThemeEnabled, isAmoledTheme;
   private MainViewModel viewModel;
   private MaterialTextView changelog, version;
+  private String buildGradleUrl =
+      "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
 
   @Override
   protected void onNewIntent(Intent intent) {
@@ -128,7 +134,7 @@ public class MainActivity extends AppCompatActivity
 
     // Show What's new bottom sheet on opening the app after an update
     if (Utils.isAppUpdated(this)) {
-      showBottomSheet();
+      showBottomSheetChangelog();
     }
     Preferences.setSavedVersionCode(this, Utils.currentVersion());
 
@@ -136,6 +142,10 @@ public class MainActivity extends AppCompatActivity
 
     // Displaying badges on navigation bar
     setBadge(R.id.nav_wireless, "Soon");
+
+    if (Preferences.getAutoUpdateCheck(this)) {
+      new FetchLatestVersionCode(this, this).execute(buildGradleUrl);
+    }
   }
 
   // Intent to get the text shared to aShell You app
@@ -318,7 +328,7 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
-  private void showBottomSheet() {
+  private void showBottomSheetChangelog() {
     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
     View bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_changelog, null);
     bottomSheetDialog.setContentView(bottomSheetView);
@@ -330,6 +340,26 @@ public class MainActivity extends AppCompatActivity
 
     String versionName = Utils.getAppVersionName(this);
     changelog.setText(Utils.loadChangelogText(versionName, this));
+  }
+
+  private void showBottomSheetUpdate() {
+    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+    View bottomSheetView =
+        LayoutInflater.from(this).inflate(R.layout.bottom_sheet_update_checker, null);
+    bottomSheetDialog.setContentView(bottomSheetView);
+    bottomSheetDialog.show();
+
+    MaterialButton downloadButton = bottomSheetView.findViewById(R.id.download_button);
+    MaterialButton cancelButton = bottomSheetView.findViewById(R.id.cancel_button);
+
+    downloadButton.setOnClickListener(
+        v -> {
+          Utils.openUrl(this, "https://github.com/DP-Hridayan/aShellYou/releases/latest");
+        });
+    cancelButton.setOnClickListener(
+        v -> {
+          bottomSheetDialog.dismiss();
+        });
   }
 
   // Execute functions when the Usb connection is removed
@@ -346,6 +376,14 @@ public class MainActivity extends AppCompatActivity
       currentFragment = OTG_FRAGMENT;
       mNav.setSelectedItemId(R.id.nav_otgShell);
       replaceFragment(new otgShellFragment());
+    }
+  }
+
+  // This funtion is run to perform actions if there is an update available or not
+  @Override
+  public void onResult(int result) {
+    if (result == Preferences.UPDATE_AVAILABLE) {
+      showBottomSheetUpdate();
     }
   }
 }
