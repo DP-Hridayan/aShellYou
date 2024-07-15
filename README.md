@@ -57,6 +57,15 @@
 </div>
 </br>
 
+## 📋 Todo List
+
+| Task                   | Status   |
+|------------------------|----------|
+| Wifi ADB Feature       | ⬜ To Do  |
+| Redesigning Homepage   | ⬜ To Do  |
+| Fix OTG Issue          | ✅ Done  |
+
+
 ## Star History ⭐
 
 <a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
