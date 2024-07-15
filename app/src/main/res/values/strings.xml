@@ -21,7 +21,7 @@
     <string name="app_updated_message">App is updated, want to see changelogs?</string>
     <string name="app_working_message">aShell You is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
 
-    <string name="beta_warning">This feature is currently in its experimental phase. If you encounter any issues please let me know.</string>
+    <string name="beta_warning">This feature is currently in its experimental phase. If you encounter any issues please let us know.</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="bookmark_added_message">\'%s\' is bookmarked</string>
     <string name="batch_bookmark_added_message">%d commands are bookmarked</string>
@@ -154,7 +154,7 @@
     <string name="rikka_about">Developer of Shizuku\nThe main functionality provider of aShell You</string>
     <string name="sunilpaulmathew_about">Developer of aShell\nWithout him aShell You wouldn\'t exist</string>
     <string name="khun_htetz_about">Developer of ADB⚡OTG\nThanks to him OTG feature could be implemented in aShell You</string>
-    <string name="krishna_about">The Best Guy in the world Helped me a lot. Without him aShell You would not exist, TQSM for your Support Buddy</string>
+    <string name="krishna_about">The best guy in the world has been an incredible help. Without him, aShell wouldn\'t be here. Thanks a ton for your support, buddy!</string>
     <string name="drDisagree_about">Developer of Iconify\nHelped me fix issues in aShell You 🤝</string>
     <string name="marciozomb13_about">A freelancer translator who did the Portuguese translations</string>
     <string name="weiguangtwk_about">The guy who did the Chinese translations</string>
@@ -164,10 +164,12 @@
     <string name="report">Report an issue</string>
     <string name="des_report">Report any issue you have faced while using the app</string>
     <string name="feature_request">Feature request</string>
-    <string name="des_feature_request">If you have any ideas or suggestions in your mind , let me know</string>
+    <string name="des_feature_request">If you have any ideas or suggestions in your mind , let us know</string>
     <string name="github">Github</string>
     <string name="des_github">Visit the github repository of aShell You</string>
     <string name="telegram_channel">Telegram channel</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
+    <string name="license">License</string>
+    <string name="des_license">Learn about the license this app is using</string>
 
 </resources>

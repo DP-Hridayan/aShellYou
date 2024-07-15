@@ -75,6 +75,11 @@ public class AboutActivity extends AppCompatActivity {
             "Hridayan", getString(R.string.hridayan_about), R.mipmap.dp_hridayan));
 
     items.add(new Category(getString(R.string.contributors)));
+
+    items.add(
+        new Category.ContributorsItem(
+            "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
+
     items.add(
         new Category.ContributorsItem(
             "id_rikka", "RikkaApps", getString(R.string.rikka_about), R.mipmap.dp_shizuku));
@@ -167,6 +172,13 @@ public class AboutActivity extends AppCompatActivity {
             getString(R.string.telegram_channel),
             getString(R.string.des_telegram_channel),
             R.drawable.ic_telegram));
+        
+       items.add(
+        new Category.AppItem(
+            "id_license",
+            getString(R.string.license),
+            getString(R.string.des_license),
+            R.drawable.ic_license));
 
     /* No currently running discord server
          items.add(

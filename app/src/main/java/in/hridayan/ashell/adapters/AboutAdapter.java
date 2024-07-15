@@ -147,6 +147,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             idUrlMap.put("id_github", "https:github.com/DP-Hridayan/aShellYou");
             idUrlMap.put("id_telegram", "https://t.me/aShellYou");
             idUrlMap.put("id_discord", "https://discord.gg/cq5R2fF8sZ");
+                idUrlMap.put("id_license" , "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md");
             String id = categoryCItem.getId();
             String url = idUrlMap.get(id);
             if (url != null) {
