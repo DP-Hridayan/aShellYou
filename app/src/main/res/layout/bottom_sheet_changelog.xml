@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="25dp"
         android:text="@string/whats_new"
         android:textStyle="bold"
         android:textAppearance="?attr/textAppearanceTitleLarge" />
@@ -27,14 +27,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="25dp"
         android:textAppearance="?attr/textAppearanceTitleMedium" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/changelog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="25dp"
         android:paddingBottom="30dp"
         android:textAppearance="?attr/textAppearanceBodyMedium" />
 </LinearLayout>

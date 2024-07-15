@@ -35,4 +35,3 @@ Unlock the potential of your Android device by enabling USB Debugging! This guid
 
 You've successfully enabled USB Debugging on your device! Now you can connect your device to your computer and start exploring more advanced features. Happy debugging! 🖥️🔧
 
-

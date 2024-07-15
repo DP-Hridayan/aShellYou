@@ -4,6 +4,17 @@
     <issue
         id="WrongViewCast"
         message="Unexpected implicit cast to `MaterialButton`: layout tag was `Button`"
+        errorLine1="      button = itemView.findViewById(R.id.button);"
+        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/adapters/AboutAdapter.java"
+            line="265"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="WrongViewCast"
+        message="Unexpected implicit cast to `MaterialButton`: layout tag was `Button`"
         errorLine1="    instructionsButton = view.findViewById(R.id.instructions_button);"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -57,8 +68,6 @@
     </issue>
 
     <issue
-<<<<<<< HEAD
-=======
         id="MissingConstraints"
         message="This view is not constrained vertically: at runtime it will jump to the top unless you add a vertical constraint"
         errorLine1="                &lt;com.google.android.material.textview.MaterialTextView"
@@ -76,7 +85,7 @@
         errorLine2="          ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/otgShellFragment.java"
-            line="880"
+            line="881"
             column="11"/>
     </issue>
 
@@ -87,12 +96,22 @@
         errorLine2="                                                                                              ~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="323"
+            line="334"
             column="95"/>
     </issue>
 
     <issue
->>>>>>> test
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="        LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_update_checker, null);"
+        errorLine2="                                                                                    ~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/utils/Utils.java"
+            line="671"
+            column="85"/>
+    </issue>
+
+    <issue
         id="NonConstantResourceId"
         message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
         errorLine1="            case R.id.sort:"
@@ -154,7 +173,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="188"
+            line="199"
             column="18"/>
     </issue>
 
@@ -165,7 +184,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="193"
+            line="204"
             column="18"/>
     </issue>
 
@@ -253,7 +272,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="27"
+            line="29"
             column="5"/>
     </issue>
 
@@ -264,7 +283,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="30"
+            line="32"
             column="5"/>
     </issue>
 
@@ -275,7 +294,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="31"
+            line="33"
             column="5"/>
     </issue>
 
@@ -286,7 +305,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="32"
+            line="34"
             column="5"/>
     </issue>
 
@@ -297,7 +316,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="44"
+            line="47"
             column="5"/>
     </issue>
 
@@ -308,7 +327,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="45"
+            line="48"
             column="5"/>
     </issue>
 
@@ -375,12 +394,34 @@
     </issue>
 
     <issue
+        id="StaticFieldLeak"
+        message="This field leaks a context object"
+        errorLine1="  private Context context;"
+        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/utils/FetchLatestVersionCode.java"
+            line="12"
+            column="3"/>
+    </issue>
+
+    <issue
         id="VectorPath"
         message="Very long vector path (1584 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
         errorLine1="        android:pathData=&quot;M480,728.85L318.93,797.74Q273.43,816.89 232.65,790.15Q191.87,763.4 191.87,714.46L191.87,202.87Q191.87,165.09 218.48,138.48Q245.09,111.87 282.87,111.87L473.3,111.87Q492.46,111.87 505.63,125.04Q518.8,138.22 518.8,157.37Q518.8,176.52 505.63,189.7Q492.46,202.87 473.3,202.87L282.87,202.87Q282.87,202.87 282.87,202.87Q282.87,202.87 282.87,202.87L282.87,713.7Q282.87,713.7 282.87,713.7Q282.87,713.7 282.87,713.7L480,629.13L677.13,713.7Q677.13,713.7 677.13,713.7Q677.13,713.7 677.13,713.7L677.13,485.02Q677.13,465.87 690.3,452.7Q703.48,439.52 722.63,439.52Q741.78,439.52 754.96,452.7Q768.13,465.87 768.13,485.02L768.13,714.46Q768.13,763.4 727.35,790.15Q686.57,816.89 641.07,797.74L480,728.85ZM480,202.87L282.87,202.87Q282.87,202.87 282.87,202.87Q282.87,202.87 282.87,202.87L282.87,202.87Q282.87,202.87 282.87,202.87Q282.87,202.87 282.87,202.87L518.8,202.87Q518.8,202.87 518.8,202.87Q518.8,202.87 518.8,202.87Q518.8,202.87 518.8,202.87Q518.8,202.87 518.8,202.87L518.8,202.87Q518.8,202.87 518.8,202.87Q518.8,202.87 518.8,202.87L480,202.87ZM678.8,279.52L642.39,279.52Q623.87,279.52 611.34,266.83Q598.8,254.13 598.8,235.7Q598.8,217.26 611.5,204.68Q624.2,192.11 642.63,192.11L678.8,192.11L678.8,155.7Q678.8,137.17 691.5,124.64Q704.2,112.11 722.63,112.11Q741.07,112.11 753.64,124.64Q766.22,137.17 766.22,155.7L766.22,192.11L802.63,192.11Q821.16,192.11 833.69,204.64Q846.22,217.17 846.22,235.7Q846.22,254.13 833.69,266.83Q821.16,279.52 802.63,279.52L766.22,279.52L766.22,315.93Q766.22,334.46 753.69,346.99Q741.16,359.52 722.63,359.52Q704.2,359.52 691.5,346.83Q678.8,334.13 678.8,315.7L678.8,279.52Z&quot; />"
         errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/drawable/ic_add_bookmark.xml"
+            line="10"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (854 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;M480,840Q405,840 339.5,811.5Q274,783 225.5,734.5Q177,686 148.5,620.5Q120,555 120,480Q120,405 148.5,339.5Q177,274 225.5,225.5Q274,177 339.5,148.5Q405,120 480,120Q562,120 635.5,155Q709,190 760,254L760,200Q760,183 771.5,171.5Q783,160 800,160Q817,160 828.5,171.5Q840,183 840,200L840,360Q840,377 828.5,388.5Q817,400 800,400L640,400Q623,400 611.5,388.5Q600,377 600,360Q600,343 611.5,331.5Q623,320 640,320L710,320Q669,264 609,232Q549,200 480,200Q363,200 281.5,281.5Q200,363 200,480Q200,597 281.5,678.5Q363,760 480,760Q575,760 650,703Q725,646 749,556Q754,540 767,532Q780,524 796,526Q813,528 823,540.5Q833,553 829,568Q800,687 703,763.5Q606,840 480,840ZM520,464L620,564Q631,575 631,592Q631,609 620,620Q609,631 592,631Q575,631 564,620L452,508Q446,502 443,494.5Q440,487 440,479L440,320Q440,303 451.5,291.5Q463,280 480,280Q497,280 508.5,291.5Q520,303 520,320L520,464Z&quot; />"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_auto_update.xml"
             line="10"
             column="27"/>
     </issue>
@@ -425,6 +466,17 @@
         errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/drawable/ic_cards.xml"
+            line="10"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1036 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;M440,486L440,244Q364,258 322,317.5Q280,377 280,440L260,440Q202,440 161,481Q120,522 120,580Q120,638 161,679Q202,720 260,720L740,720Q782,720 811,691Q840,662 840,620Q840,578 811,549Q782,520 740,520L680,520L680,440Q680,392 658,350.5Q636,309 600,280L600,187Q674,222 717,290.5Q760,359 760,440L760,440L760,440Q829,448 874.5,499.5Q920,551 920,620Q920,695 867.5,747.5Q815,800 740,800L260,800Q169,800 104.5,737Q40,674 40,583Q40,505 87,444Q134,383 210,366Q227,294 295,229Q363,164 440,164Q473,164 496.5,187.5Q520,211 520,244L520,486L556,451Q567,440 583.5,440Q600,440 612,452Q623,463 623,480Q623,497 612,508L508,612Q496,624 480,624Q464,624 452,612L348,508Q337,497 336.5,480.5Q336,464 348,452Q359,441 375.5,440.5Q392,440 404,451L440,486ZM480,442Q480,442 480,442Q480,442 480,442L480,442Q480,442 480,442Q480,442 480,442L480,442Q480,442 480,442Q480,442 480,442L480,442Q480,442 480,442Q480,442 480,442Q480,442 480,442Q480,442 480,442L480,442Q480,442 480,442Q480,442 480,442Q480,442 480,442Q480,442 480,442L480,442L480,442Q480,442 480,442Q480,442 480,442Z&quot; />"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_check_update.xml"
             line="10"
             column="27"/>
     </issue>
@@ -841,7 +893,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="11"
+            line="12"
             column="13"/>
     </issue>
 
@@ -852,7 +904,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="12"
+            line="13"
             column="13"/>
     </issue>
 
@@ -863,7 +915,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="13"
+            line="14"
             column="13"/>
     </issue>
 
@@ -874,7 +926,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="14"
+            line="15"
             column="13"/>
     </issue>
 
@@ -885,7 +937,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="21"
+            line="23"
             column="13"/>
     </issue>
 
@@ -951,7 +1003,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="41"
+            line="44"
             column="13"/>
     </issue>
 
@@ -962,7 +1014,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="54"
+            line="57"
             column="13"/>
     </issue>
 
@@ -973,7 +1025,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="55"
+            line="58"
             column="13"/>
     </issue>
 
@@ -984,7 +1036,7 @@
         errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="64"
+            line="67"
             column="13"/>
     </issue>
 
@@ -995,7 +1047,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="65"
+            line="68"
             column="13"/>
     </issue>
 
@@ -1006,7 +1058,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="71"
+            line="75"
             column="13"/>
     </issue>
 
@@ -1017,7 +1069,7 @@
         errorLine2="            ~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="79"
+            line="84"
             column="13"/>
     </issue>
 
@@ -1028,7 +1080,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="85"
+            line="90"
             column="13"/>
     </issue>
 
@@ -1039,7 +1091,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="91"
+            line="96"
             column="13"/>
     </issue>
 
@@ -1050,7 +1102,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="92"
+            line="97"
             column="13"/>
     </issue>
 
@@ -1187,6 +1239,17 @@
             file="src/main/res/mipmap-xxxhdpi/shortcut_settings_monochrome.png"/>
         <location
             file="src/main/res/mipmap-xxxhdpi/shortcut_settings_foreground.png"/>
+    </issue>
+
+    <issue
+        id="ButtonStyle"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)"
+        errorLine1="        &lt;Button"
+        errorLine2="         ~~~~~~">
+        <location
+            file="src/main/res/layout/bottom_sheet_update_checker.xml"
+            line="47"
+            column="10"/>
     </issue>
 
     <issue
@@ -1422,6 +1485,17 @@
 
     <issue
         id="HardcodedText"
+        message="Hardcoded string &quot;Check for update&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Check for update&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/category_app.xml"
+            line="47"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
         message="Hardcoded string &quot;Local ADB&quot;, should use `@string` resource"
         errorLine1="                android:text=&quot;Local ADB&quot;"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -1440,17 +1514,6 @@
             file="src/main/res/layout/fragment_otg.xml"
             line="44"
             column="17"/>
-    </issue>
-
-    <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;Instructions&quot;, should use `@string` resource"
-        errorLine1="                    android:text=&quot;Instructions&quot;"
-        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/fragment_otg.xml"
-            line="182"
-            column="21"/>
     </issue>
 
     <issue
