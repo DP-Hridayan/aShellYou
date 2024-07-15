@@ -57,10 +57,20 @@
 </div>
 </br>
 
+</br>
 
+## 📋 Todo List
 
+| Task                   | Status   |
+|------------------------|----------|
+| Wifi ADB Feature       | ⬜ To Do  |
+| Redesigning Homepage   | ⬜ To Do  |
+| Fix OTG Issue          | ✅ Done  |
+
+</br>
 
 ## Star History ⭐
+</br>
 
 <a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
  <picture>
@@ -71,13 +81,7 @@
 </a>
 
 
-## 📋 Todo List
 
-| Task                   | Status   |
-|------------------------|----------|
-| Wifi ADB Feature       | ⬜ To Do  |
-| Redesigning Homepage   | ⬜ To Do  |
-| Fix OTG Issue          | ✅ Done  |
 
 ## Licence
 
