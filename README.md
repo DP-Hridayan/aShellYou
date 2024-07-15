@@ -57,13 +57,7 @@
 </div>
 </br>
 
-## 📋 Todo List
 
-| Task                   | Status   |
-|------------------------|----------|
-| Wifi ADB Feature       | ⬜ To Do  |
-| Redesigning Homepage   | ⬜ To Do  |
-| Fix OTG Issue          | ✅ Done  |
 
 
 ## Star History ⭐
@@ -76,6 +70,14 @@
  </picture>
 </a>
 
+
+## 📋 Todo List
+
+| Task                   | Status   |
+|------------------------|----------|
+| Wifi ADB Feature       | ⬜ To Do  |
+| Redesigning Homepage   | ⬜ To Do  |
+| Fix OTG Issue          | ✅ Done  |
 
 ## Licence
 
