@@ -2,17 +2,25 @@
   <img src="assets/mockups.svg" width="100%" alt="Banner">
 </div>
 
+</br>
+
 # aShell You 
 ### Run ADB commands on your device or on other devices 🌱
+
+</br>
 
 <div align="center">
   <img src="assets/Motion.gif" width="100%" alt="Motion GIF">
 </div>
 
+</br>
+
 ## Requirements ⚙️
 * A working [Shizuku](https://shizuku.rikka.app/) environment
 * Shizuku is not needed to run ADB commands on other devices via OTG
 * Knowledge about basic ADB/Linux commands
+
+</br>
 
 ## Features ✨
 * 🎨 Features a modern Material Design 3 user interface
@@ -27,9 +35,13 @@
 * 🌑 Includes an AMOLED theme
 * 🎉 Offers many additional features
 
+</br>
+
 ## Instructions 
 * How to Setup Shizuku [here](instructions/Shizuku.md)
 * How to Use OTG [here](instructions/OTG.md)
+
+</br>
 
 ## Download 📥
 
@@ -45,7 +57,7 @@
   <a href="https://github.com/DP-Hridayan/aShellYou/releases"><img src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?color=%233DDC84&logo=android&logoColor=%23fff&style=for-the-badge" alt="Downloads"></a>
 </div>
 
-##### Enjoy my work? Fuel my code with a coffee ☕️
+## Fuel my code with a coffee ☕️
   <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="60%" alt="Buy Me a Coffee" /></a>
 
 ## Discussions Channel 💬
@@ -81,7 +93,7 @@
 </a>
 
 
-
+</br>
 
 ## Licence
 
