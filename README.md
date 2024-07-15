@@ -2,7 +2,7 @@
   <img src="assets/mockups.svg" width="100%" alt="Banner">
 </div>
 
-# aShell You 🔥
+# aShell You 
 ### Run ADB commands on your device or on other devices 🌱
 
 <div align="center">
@@ -28,7 +28,8 @@
 * 🎉 Offers many additional features
 
 ## Instructions 
-* How to Setup Shizuku [here](Instructions/Shizuku.md)
+* How to Setup Shizuku [here](instructions/Shizuku.md)
+* How to Use OTG [here](instructions/OTG.md)
 
 ## Download 📥
 
