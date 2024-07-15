@@ -60,7 +60,7 @@ android {
 
 dependencies {
     def lifecycle_version = "2.7.0"
-    def material_version = "1.13.0-alpha03"
+    def material_version = "1.13.0-alpha04"
     def preference_version = "1.2.1"
     def shizuku_version = "13.1.0"
     def glide_version = "4.16.0"
