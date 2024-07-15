@@ -5,7 +5,8 @@
     <string
         name="app_name"
         translatable="false">aShell You</string>
-  // There are translatable strings in 'commands' and 'changelogs' modules
+
+    // There are translatable strings in 'commands' and 'changelogs' modules
     <string name="access_denied">Access denied</string>
     <string name="accept_device_prompt">You might need to accept a prompt on the other device if you are trying to connect to it for the first time from this device</string>
     <string name="adb_device_connected">ADB device connected.</string>
@@ -15,13 +16,14 @@
     <string name="add_bookmark">Add bookmark</string>
     <string name="about">About</string>
     <string name="accept">Accept</string>
+    <string name="already_latest_version">You are using the latest version</string>
     <string name="amoled_theme">Amoled black theme</string>
     <string name="des_amoled_theme">Pure black theme for devices with OLED panel</string>
     <string name="app_summary">aShell You is here for all your ADB needs</string>
     <string name="app_updated_message">App is updated, want to see changelogs?</string>
     <string name="app_working_message">aShell You is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
 
-    <string name="beta_warning">This feature is currently in its experimental phase. If you encounter any issues please let me know.</string>
+    <string name="beta_warning">This feature is currently in its experimental phase. If you encounter any issues please let us know.</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="bookmark_added_message">\'%s\' is bookmarked</string>
     <string name="batch_bookmark_added_message">%d commands are bookmarked</string>
@@ -32,6 +34,7 @@
     <string name="batch_unpinned_message">%d commands are unpinned</string>
     <string name="cancel">Cancel</string>
     <string name="changelogs">Changelogs</string>
+    <string name="check_internet">Check your internet connection</string>
     <string name="choose">Choose</string>
     <string name="clear_all_message">Are you sure you want to clear everything on this screen?</string>
     <string name="clear_everything">Clear everything</string>
@@ -49,12 +52,13 @@
     <string name="confirm_pin_single">\[%s\] will be pinned\nDo you wish to continue?</string>
     <string name="confirm_unpin">Do you want to unpin the selected commands?</string>
     <string name="confirm_unpin_single">\[%s\] will be unpinned\nDo you wish to continue?</string>
+    <string name="connected">Connected</string>
     <string name="connected_device">Connected device</string>
     <string name="connecting">connecting\u2026</string>
     <string name="connecting_hint">confirm authorization on target device</string>
     <string
-            name="copy"
-            tools:override="true">Copy</string>
+        name="copy"
+        tools:override="true">Copy</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="default_working_mode">Default working mode</string>
     <string name="delete_all">Delete all</string>
@@ -65,6 +69,7 @@
     <string name="dismiss">Dismiss</string>
     <string name="disabled">Disabled</string>
     <string name="donot_show_again">Don\'t show again</string>
+    <string name="download">Download</string>
     <string name="error">Error</string>
     <string name="example">Example</string>
     <string name="examples">Examples</string>
@@ -73,6 +78,7 @@
     <string name="flashing">Flashing</string>
     <string name="go_back">Go back</string>
     <string name="history">History</string>
+    <string name="instructions">Instructions</string>
     <string name="least_used">Least used</string>
     <string name="local_adb">Local ADB</string>
     <string name="menu">Menu</string>
@@ -124,9 +130,15 @@
     <string name="su_warning_message">aShell You is not designed for root-related uses. Aborting.</string>
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
+    <string name="unhide_cards_message">All info cards will be visible now</string>
+    <string name="update_available">Update available !</string>
+    <string name="update_available_summary">A newer version of aShell You is available !\nClick on Download button to get the new version from the repository</string>
+    <string name="usb_warning_title">Important</string>
+    <string name="usb_warning_summary">You need to turn on USB Debugging in the developer settings of the target device</string>
     <string name="use">Use</string>
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
+    <string name="whats_new">What\'s new !</string>
     <string name="working_mode">Working mode</string>
     <string name="yes">Yes</string>
 
@@ -134,11 +146,15 @@
     <string name="des_smooth_scroll">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
     <string name="ask_to_clean">Ask before clearing shell output</string>
     <string name="des_ask_to_clean">If enabled a confirmation popup will show after you click the Clear screen button</string>
+    <string name="auto_update_check">Auto update check</string>
+    <string name="des_auto_update_check">Automatically checks for available newer versions when the app launches</string>
     <string name="override_bookmarks_limit">Override maximum bookmarks limit</string>
     <string name="des_override_bookmarks"> Might cause lag if a large number of bookmarks are added! Low end devices should keep this option turned off</string>
     <string name="disable_softkey">Disable soft keyboard</string>
     <string name="des_disable_softkey">Useful when you want to use an external keyboard</string>
     <string name="des_examples">Collection of some command templates</string>
+    <string name="unhide_cards">Unhide info cards</string>
+    <string name="des_unhide_cards">All information cards will be visible again</string>
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="des_about">Version , Credits</string>
     <string name="lead_developer">Lead developer</string>
@@ -147,7 +163,7 @@
     <string name="rikka_about">Developer of Shizuku\nThe main functionality provider of aShell You</string>
     <string name="sunilpaulmathew_about">Developer of aShell\nWithout him aShell You wouldn\'t exist</string>
     <string name="khun_htetz_about">Developer of ADB⚡OTG\nThanks to him OTG feature could be implemented in aShell You</string>
-    <string name="krishna_about">The Best Guy in the world Helped me a lot. Without him aShell You would not exist, TQSM for your Support Buddy</string>
+    <string name="krishna_about">The best guy in the world has been an incredible help. Without him, aShell wouldn\'t be here. Thanks a ton for your support, buddy!</string>
     <string name="drDisagree_about">Developer of Iconify\nHelped me fix issues in aShell You 🤝</string>
     <string name="marciozomb13_about">A freelancer translator who did the Portuguese translations</string>
     <string name="weiguangtwk_about">The guy who did the Chinese translations</string>
@@ -157,10 +173,12 @@
     <string name="report">Report an issue</string>
     <string name="des_report">Report any issue you have faced while using the app</string>
     <string name="feature_request">Feature request</string>
-    <string name="des_feature_request">If you have any ideas or suggestions in your mind , let me know</string>
+    <string name="des_feature_request">If you have any ideas or suggestions in your mind , let us know</string>
     <string name="github">Github</string>
     <string name="des_github">Visit the github repository of aShell You</string>
     <string name="telegram_channel">Telegram channel</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
+    <string name="license">License</string>
+    <string name="des_license">Learn about the license this app is using</string>
 
 </resources>

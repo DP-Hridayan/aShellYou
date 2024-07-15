@@ -72,4 +72,4 @@ Welcome to the Shizuku setup guide! Shizuku is a powerful tool that allows you t
 
 ## 🛠️ Support
 
-If you encounter any issues, feel free to open an issue on our [GitHub repository](https://github.com/dp-hridayan/ashellyou).🎉
+If you encounter any issues, feel free to open an issue on our [GitHub repository](https://github.com/dp-hridayan/ashellyou/issues).🎉

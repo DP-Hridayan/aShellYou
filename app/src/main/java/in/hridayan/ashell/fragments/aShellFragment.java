@@ -2,18 +2,14 @@ package in.hridayan.ashell.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -24,23 +20,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -50,8 +41,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
-import in.hridayan.ashell.UI.BehaviorFAB.FabOnScrollDownListener;
-import in.hridayan.ashell.UI.BehaviorFAB.FabOnScrollUpListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
+import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.aShellFragmentViewModel;
 import in.hridayan.ashell.activities.ExamplesActivity;
@@ -64,10 +55,6 @@ import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ShizukuShell;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -85,7 +72,7 @@ import rikka.shizuku.Shizuku;
  */
 
 /*
- * Modified by DP-Hridayan <hridayanofficial@gmail.com> since January 24 , 2024
+ * Modified by DP-Hridayan <hridayanofficial@gmail.com> starting from January 24 , 2024
  */
 
 public class aShellFragment extends Fragment {
@@ -96,7 +83,6 @@ public class aShellFragment extends Fragment {
   private MaterialButton mClearButton, mHistoryButton, mSearchButton, mBookMarks, mSettingsButton;
   private FrameLayout mAppNameLayout;
   private BottomNavigationView mNav;
-  private MaterialCardView mShellCard;
   private CommandsAdapter mCommandsAdapter;
   private ShellOutputAdapter mShellOutputAdapter;
   private RecyclerView mRecyclerViewOutput, mRecyclerViewCommands;
@@ -161,6 +147,7 @@ public class aShellFragment extends Fragment {
       mCommand.clearFocus();
     }
 
+    // This function is for restoring the Run button's icon after a configuration change
     switch (viewModel.getSendDrawable()) {
       case ic_help:
         mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -221,7 +208,6 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    mShellCard = view.findViewById(R.id.rv_shell_card);
     localShellSymbol = view.findViewById(R.id.local_shell_symbol);
     mAppNameLayout = view.findViewById(R.id.app_name_layout);
     mBookMarks = view.findViewById(R.id.bookmarks);
@@ -254,9 +240,9 @@ public class aShellFragment extends Fragment {
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewOutput.addOnScrollListener(new FabExtendingOnScrollListener(mSaveButton));
-    mRecyclerViewOutput.addOnScrollListener(new FabOnScrollUpListener(mTopButton));
+    mRecyclerViewOutput.addOnScrollListener(new FabLocalScrollUpListener(mTopButton));
 
-    mRecyclerViewOutput.addOnScrollListener(new FabOnScrollDownListener(mBottomButton));
+    mRecyclerViewOutput.addOnScrollListener(new FabLocalScrollDownListener(mBottomButton));
 
     mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
 
@@ -301,13 +287,10 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
-    BehaviorFAB.handleTopAndBottomArrow(mTopButton, mBottomButton, mRecyclerViewOutput, context);
+    BehaviorFAB.handleTopAndBottomArrow(
+        mTopButton, mBottomButton, mRecyclerViewOutput, null, context, "local_shell");
 
-    // Show snackbar when app is updated
-
-    Utils.isAppUpdated(context, requireActivity());
-    Preferences.setSavedVersionCode(context, Utils.currentVersion());
-
+    // Display the connected device name when clicking the chip
     Utils.chipOnClickListener(context, mChip, Utils.getDeviceName());
     /*------------------------------------------------------*/
 
@@ -315,6 +298,7 @@ public class aShellFragment extends Fragment {
       mCommand.requestFocus();
     }
 
+    // Handles text changing events in the Input Field
     mCommand.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -342,7 +326,6 @@ public class aShellFragment extends Fragment {
                 viewModel.setSendDrawable(ic_send);
                 mSendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-
                 mCommandInput.setEndIconDrawable(
                     Utils.getDrawable(
                         Utils.isBookmarked(s.toString().trim(), requireActivity())
@@ -481,6 +464,7 @@ public class aShellFragment extends Fragment {
 
     /*------------------------------------------------------*/
 
+    // Action to perform when clicking send button in various scenerios
     mSendButton.setOnClickListener(
         v -> {
           sendButtonClicked = true;
@@ -503,11 +487,7 @@ public class aShellFragment extends Fragment {
             if (isAdded()) {
               mCommandInput.setError(null);
               initializeShell(requireActivity());
-
-              InputMethodManager inputMethodManager =
-                  (InputMethodManager)
-                      requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-              inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+              KeyboardUtils.closeKeyboard(requireActivity(), v);
 
               return;
             }
@@ -674,12 +654,7 @@ public class aShellFragment extends Fragment {
         v -> {
           shellOutput = viewModel.getShellOutput();
           history = viewModel.getHistory();
-          if (mResult == null) {
-            mResult = shellOutput;
-          }
-          if (mHistory == null) {
-            mHistory = history;
-          }
+          initializeResults();
 
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
@@ -688,27 +663,7 @@ public class aShellFragment extends Fragment {
               sb.append(result).append("\n");
             }
           }
-          try {
-            String fileName =
-                mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
-
-            File file = new File(requireActivity().getCacheDir(), fileName);
-            FileOutputStream outputStream = new FileOutputStream(file);
-            outputStream.write(sb.toString().getBytes());
-            outputStream.close();
-
-            Uri fileUri =
-                FileProvider.getUriForFile(
-                    context, context.getPackageName() + ".fileprovider", file);
-
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(Intent.createChooser(shareIntent, "Share File"));
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
+          Utils.shareOutput(requireActivity(), context, mHistory, sb.toString());
         });
 
     // Logic to hide and show share button
@@ -752,81 +707,16 @@ public class aShellFragment extends Fragment {
         v -> {
           shellOutput = viewModel.getShellOutput();
           history = viewModel.getHistory();
-          if (mResult == null) {
-            mResult = shellOutput;
-          }
-          if (mHistory == null) {
-            mHistory = history;
-          }
+          initializeResults();
 
-          StringBuilder sb = new StringBuilder();
-          for (int i = mPosition; i < mResult.size(); i++) {
-            String result = mResult.get(i);
-            if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
-              sb.append(result).append("\n");
-            }
-          }
+          String sb = buildResultsString().toString();
 
-          boolean saved = false;
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            try {
-              ContentValues values = new ContentValues();
-              String fileName =
-                  mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
-              values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-              values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
-              values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-              Uri uri =
-                  requireActivity()
-                      .getContentResolver()
-                      .insert(MediaStore.Files.getContentUri("external"), values);
+          boolean saved = Utils.saveToFile(sb, requireActivity(), mHistory);
 
-              if (uri != null) {
-                try (OutputStream outputStream =
-                    requireActivity().getContentResolver().openOutputStream(uri)) {
-                  outputStream.write(sb.toString().getBytes());
-                  saved = true;
-                } catch (IOException e) {
-                  e.printStackTrace();
-                }
-              }
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-          } else {
-            if (requireActivity()
-                    .checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-              ActivityCompat.requestPermissions(
-                  requireActivity(),
-                  new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                  0);
-              return;
-            }
-
-            try {
-              String fileName =
-                  mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
-              File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
-              Utils.create(sb.toString(), file);
-              saved = true;
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-          }
-
-          String message =
-              saved
-                  ? getString(R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS)
-                  : getString(R.string.shell_output_not_saved_message);
-          String title = saved ? getString(R.string.success) : getString(R.string.failed);
-
-          new MaterialAlertDialogBuilder(requireActivity())
-              .setTitle(title)
-              .setMessage(message)
-              .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
-              .show();
+          // Dialog showing if the output has been saved or not
+          Utils.outputSavedDialog(requireActivity(), context, saved);
         });
+
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleAtFixedRate(
         () -> {
@@ -893,6 +783,7 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  // This function is called when we want to run the shell after entering an adb command
   private void runShellCommand(String command, Activity activity) {
 
     if (!isAdded()) {
@@ -1129,6 +1020,7 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
+  // This function is called when we want to clear the screen
   private void clearAll() {
     if (mShizukuShell != null) mShizukuShell.destroy();
     mResult = null;
@@ -1187,6 +1079,7 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
+  // handles text shared to ashell you
   public void handleSharedTextIntent(Intent intent, String sharedText) {
     if (sharedText != null) {
       boolean switchState = Preferences.getShareAndRun(context);
@@ -1217,6 +1110,7 @@ public class aShellFragment extends Fragment {
 
   /*------------------------------------------------------*/
 
+  // error handling when shizuku is unavailable or permission isn't granted
   private void handleShizukuAvailability(Context context) {
 
     mCommandInput.setError(getString(R.string.shizuku_unavailable));
@@ -1242,6 +1136,8 @@ public class aShellFragment extends Fragment {
         .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
         .show();
   }
+
+  /*------------------------------------------------------*/
 
   private boolean isEditTextFocused() {
     return mCommand.hasFocus();
@@ -1269,6 +1165,9 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  // This function is mainly for maintaining the constraints of history and bookmarks button when
+  // other buttons are visible or not visible , it is just for asthethic , to distribute buttons
+  // evenly
   private void updateHistoryAndBookMarksConstraints() {
     boolean isHistoryButtonVisible = mHistoryButton.getVisibility() == View.VISIBLE;
     boolean isBookMarksVisible = mBookMarks.getVisibility() == View.VISIBLE;
@@ -1304,5 +1203,25 @@ public class aShellFragment extends Fragment {
     mHistoryButton.setLayoutParams(layoutParamsHistory);
     mHistoryButton.requestLayout();
     mHistoryButton.invalidate();
+  }
+
+  private void initializeResults() {
+    if (mResult == null) {
+      mResult = shellOutput;
+    }
+    if (mHistory == null) {
+      mHistory = history;
+    }
+  }
+
+  private StringBuilder buildResultsString() {
+    StringBuilder sb = new StringBuilder();
+    for (int i = mPosition; i < mResult.size(); i++) {
+      String result = mResult.get(i);
+      if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
+        sb.append(result).append("\n");
+      }
+    }
+    return sb;
   }
 }

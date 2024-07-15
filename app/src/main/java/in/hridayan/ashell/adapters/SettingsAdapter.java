@@ -3,14 +3,15 @@ package in.hridayan.ashell.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,6 +21,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.AboutActivity;
 import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import java.util.List;
@@ -90,6 +92,15 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             Intent intent;
 
             switch (settingsItem.getId()) {
+              case "id_unhide_cards":
+                Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
+                Toast.makeText(
+                        context,
+                        context.getString(R.string.unhide_cards_message),
+                        Toast.LENGTH_SHORT)
+                    .show();
+                break;
+
               case "id_examples":
                 intent = new Intent(context, ExamplesActivity.class);
                 context.startActivity(intent);

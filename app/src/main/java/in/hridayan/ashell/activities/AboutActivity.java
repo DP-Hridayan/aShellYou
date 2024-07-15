@@ -4,6 +4,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,18 +16,24 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.AboutViewModel;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.adapters.AboutAdapter;
+import in.hridayan.ashell.utils.FetchLatestVersionCode;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends AppCompatActivity
+    implements AboutAdapter.AdapterListener, FetchLatestVersionCodeCallback {
 
   private RecyclerView recyclerView;
   private AboutAdapter adapter;
   private List<Object> items;
   private AppBarLayout appBarLayout;
   private AboutViewModel viewModel;
+  private String buildGradleUrl =
+      "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
 
   @Override
   protected void onPause() {
@@ -75,6 +82,11 @@ public class AboutActivity extends AppCompatActivity {
             "Hridayan", getString(R.string.hridayan_about), R.mipmap.dp_hridayan));
 
     items.add(new Category(getString(R.string.contributors)));
+
+    items.add(
+        new Category.ContributorsItem(
+            "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
+
     items.add(
         new Category.ContributorsItem(
             "id_rikka", "RikkaApps", getString(R.string.rikka_about), R.mipmap.dp_shizuku));
@@ -116,16 +128,16 @@ public class AboutActivity extends AppCompatActivity {
             "id_weiguangtwk",
             "weiguangtwk",
             getString(R.string.weiguangtwk_about),
-             R.mipmap.dp_weiguangtwk));
-        
+            R.mipmap.dp_weiguangtwk));
+
     items.add(
         new Category.ContributorsItem(
-            "id_winzort",
-            "WINZORT",
-            getString(R.string.winzort_about),
-            R.mipmap.dp_winzort));
+            "id_winzort", "WINZORT", getString(R.string.winzort_about), R.mipmap.dp_winzort));
 
-        
+    items.add(
+        new Category.ContributorsItem(
+            "id_winzort", "WINZORT", getString(R.string.winzort_about), R.mipmap.dp_winzort));
+
     items.add(new Category(getString(R.string.app)));
     try {
       PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -174,12 +186,43 @@ public class AboutActivity extends AppCompatActivity {
 
     items.add(
         new Category.AppItem(
-            "id_discord",
-            getString(R.string.discord),
-            getString(R.string.des_discord),
-            R.drawable.ic_discord));
+            "id_license",
+            getString(R.string.license),
+            getString(R.string.des_license),
+            R.drawable.ic_license));
+
+    /* No currently running discord server
+         items.add(
+    new Category.AppItem(
+        "id_discord",
+        getString(R.string.discord),
+        getString(R.string.des_discord),
+        R.drawable.ic_discord));  */
 
     adapter = new AboutAdapter(items, this);
+    adapter.setAdapterListener(this);
     recyclerView.setAdapter(adapter);
+  }
+
+  @Override
+  public void onCheckUpdate() {
+    new FetchLatestVersionCode(this, this).execute(buildGradleUrl);
+  }
+
+  @Override
+  public void onResult(int result) {
+    switch (result) {
+      case Preferences.UPDATE_AVAILABLE:
+        Utils.showBottomSheetUpdate(this);
+        break;
+      case Preferences.UPDATE_NOT_AVAILABLE:
+        Toast.makeText(this, getString(R.string.already_latest_version), Toast.LENGTH_SHORT).show();
+        break;
+      case Preferences.CONNECTION_ERROR:
+        Toast.makeText(this, getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+        break;
+      default:
+        break;
+    }
   }
 }

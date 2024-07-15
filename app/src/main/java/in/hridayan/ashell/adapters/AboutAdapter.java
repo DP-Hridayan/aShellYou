@@ -10,22 +10,28 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.activities.ChangelogActivity;
+import in.hridayan.ashell.utils.FetchLatestVersionCode;
+import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
 
 public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private static final int CATEGORY = 0;
   private static final int CATEGORY_LEAD_DEV_ITEM = 1;
   private static final int CATEGORY_CONTRIBUTORS_ITEM = 2;
   private static final int CATEGORY_APP_ITEM = 3;
+  private AdapterListener mListener;
 
   private List<Object> items;
   private Context context;
@@ -33,6 +39,14 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   public AboutAdapter(List<Object> items, Context context) {
     this.items = items;
     this.context = context;
+  }
+
+  public interface AdapterListener {
+    void onCheckUpdate();
+  }
+
+  public void setAdapterListener(AdapterListener listener) {
+    mListener = listener;
   }
 
   @Override
@@ -117,7 +131,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             idUrlMap.put("id_drDisagree", "https://github.com/Mahmud0808");
             idUrlMap.put("id_marciozomb13", "https://github.com/marciozomb13");
             idUrlMap.put("id_weiguangtwk", "https://github.com/WeiguangTWK");
-                           idUrlMap.put("id_winzort", "https://github.com/mikropsoft");
+
+            idUrlMap.put("id_winzort", "https://github.com/mikropsoft");
 
             String id = ContributorsItem.getId();
             String url = idUrlMap.get(id);
@@ -147,6 +162,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             idUrlMap.put("id_github", "https:github.com/DP-Hridayan/aShellYou");
             idUrlMap.put("id_telegram", "https://t.me/aShellYou");
             idUrlMap.put("id_discord", "https://discord.gg/cq5R2fF8sZ");
+            idUrlMap.put(
+                "id_license", "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md");
             String id = categoryCItem.getId();
             String url = idUrlMap.get(id);
             if (url != null) {
@@ -164,6 +181,19 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
             context.startActivity(intent);
           };
+
+      if (categoryCItem.getId().equals("id_version")) {
+        viewHolder.button.setVisibility(View.VISIBLE);
+        viewHolder.button.setOnClickListener(
+            v -> {
+              if (mListener != null) {
+                mListener.onCheckUpdate();
+              }
+            });
+      } else {
+        viewHolder.button.setVisibility(View.GONE);
+      }
+
       viewHolder.categoryAppLayout.setOnClickListener(clickListener);
 
       int paddingInPixels = (int) (Utils.convertDpToPixel(30, context));
@@ -225,12 +255,14 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     ImageView imageView;
     TextView titleTextView, descriptionTextView;
     LinearLayout categoryAppLayout;
+    MaterialButton button;
 
     public AppItemViewHolder(@NonNull View itemView) {
       super(itemView);
       imageView = itemView.findViewById(R.id.image_view);
       titleTextView = itemView.findViewById(R.id.title_text_view);
       descriptionTextView = itemView.findViewById(R.id.description_text_view);
+      button = itemView.findViewById(R.id.button);
       categoryAppLayout = itemView.findViewById(R.id.category_app_layout);
     }
   }

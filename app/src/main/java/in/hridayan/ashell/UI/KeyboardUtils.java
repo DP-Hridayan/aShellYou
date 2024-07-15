@@ -7,11 +7,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
-import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Preferences;
-import org.w3c.dom.Text;
 
 public class KeyboardUtils {
 
@@ -64,21 +61,17 @@ public class KeyboardUtils {
       activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
     }
   }
-    
-   public static void showKeyboard(TextInputEditText editText , Context context) {
+
+  public static void showKeyboard(TextInputEditText editText, Context context) {
     editText.requestFocus();
     InputMethodManager imm =
         (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
   }
 
-  public static void closeKeyboard(Activity activity, Context context) {
-    View view = activity.getCurrentFocus();
-    if (view != null) {
-      InputMethodManager imm =
-          (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-      imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
+  public static void closeKeyboard(Activity activity, View v) {
+    InputMethodManager inputMethodManager =
+        (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
   }
-    
 }

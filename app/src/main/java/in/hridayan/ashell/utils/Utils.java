@@ -10,20 +10,27 @@ import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -32,12 +39,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.activities.ChangelogActivity;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -195,20 +203,13 @@ public class Utils {
     return versionCode;
   }
 
-  public static void isAppUpdated(Context context, Activity activity) {
-    CoordinatorLayout view = activity.findViewById(R.id.fragment_container);
+  public static boolean isAppUpdated(Context context) {
     savedVersionCode = Preferences.getSavedVersionCode(context);
     if (savedVersionCode != currentVersion() && savedVersionCode != 1) {
-      Utils.snackBar(view, context.getString(R.string.app_updated_message))
-          .setAction(
-              context.getString(R.string.yes),
-              (v -> {
-                intent = new Intent(context, ChangelogActivity.class);
-                context.startActivity(intent);
-              }))
-          .show();
+      return true;
+    } else {
+      return false;
     }
-    return;
   }
 
   /*---------------------Bookmarks section------------------------*/
@@ -487,9 +488,200 @@ public class Utils {
           mChip.setChecked(!mChip.isChecked());
         });
   }
-   public static float convertDpToPixel(float dp , Context context) {
+
+  public static float convertDpToPixel(float dp, Context context) {
     float scale = context.getResources().getDisplayMetrics().density;
     return dp * scale + 0.5f;
   }
 
+  // Dialog to show if the shell output is saved or not
+  public static void outputSavedDialog(Activity activity, Context context, boolean saved) {
+    String message =
+        saved
+            ? context.getString(
+                R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS)
+            : context.getString(R.string.shell_output_not_saved_message);
+    String title = saved ? context.getString(R.string.success) : context.getString(R.string.failed);
+
+    new MaterialAlertDialogBuilder(activity)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+        .show();
+  }
+
+  // Generate the file name of the exported txt file
+  public static String generateFileName(List<String> mHistory) {
+    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
+  }
+
+  public static String lastCommandOutput(String text) {
+    int lastDollarIndex = text.lastIndexOf('$');
+    if (lastDollarIndex == -1) {
+      throw new IllegalArgumentException("Text must contain at least one '$' symbol");
+    }
+
+    int secondLastDollarIndex = text.lastIndexOf('$', lastDollarIndex - 1);
+    if (secondLastDollarIndex == -1) {
+      throw new IllegalArgumentException("Text must contain at least two '$' symbols");
+    }
+
+    // Find the start of the line containing the first '$' of the last two
+    int startOfFirstLine = text.lastIndexOf('\n', secondLastDollarIndex) + 1;
+    // Find the start of the line containing the second '$' of the last two
+    int startOfSecondLine = text.lastIndexOf('\n', lastDollarIndex - 1) + 1;
+    if (startOfSecondLine == -1) {
+      startOfSecondLine = 0; // If there's no newline before, start from the beginning of the text
+    }
+    return text.substring(startOfFirstLine, startOfSecondLine);
+  }
+
+  // Logic behind saving output as txt files
+  public static boolean saveToFile(String sb, Activity activity, List<String> mHistory) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+      return Utils.saveToFileApi29AndAbove(sb, activity, mHistory);
+    } else {
+      return Utils.saveToFileBelowApi29(sb, activity, mHistory);
+    }
+  }
+
+  /* Save output txt file on devices running Android 11 and above and return a boolean if the file is saved */
+  public static boolean saveToFileApi29AndAbove(
+      String sb, Activity activity, List<String> mHistory) {
+    try {
+      ContentValues values = new ContentValues();
+      String fileName = Utils.generateFileName(mHistory);
+      values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
+      values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
+      values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+      Uri uri =
+          activity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
+
+      if (uri != null) {
+        try (OutputStream outputStream = activity.getContentResolver().openOutputStream(uri)) {
+          outputStream.write(sb.toString().getBytes());
+          return true;
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
+  /*Save output txt file on devices running Android 10 and below and return a boolean if the file is saved */
+  public static boolean saveToFileBelowApi29(String sb, Activity activity, List<String> mHistory) {
+    if (activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        != PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(
+          activity, new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+      return false;
+    }
+
+    try {
+      String fileName = Utils.generateFileName(mHistory);
+      File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
+      Utils.create(sb.toString(), file);
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
+  // Method for sharing output to other apps
+  public static void shareOutput(
+      Activity activity, Context context, List<String> mHistory, String sb) {
+    try {
+      String fileName = Utils.generateFileName(mHistory);
+
+      File file = new File(activity.getCacheDir(), fileName);
+      FileOutputStream outputStream = new FileOutputStream(file);
+      outputStream.write(sb.getBytes());
+      outputStream.close();
+
+      Uri fileUri =
+          FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
+
+      Intent shareIntent = new Intent(Intent.ACTION_SEND);
+      shareIntent.setType("text/plain");
+      shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+      shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+      activity.startActivity(Intent.createChooser(shareIntent, "Share File"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  // Method to retrieve the app version name
+  public static String getAppVersionName(Context context) {
+    String versionName = "";
+    try {
+      PackageManager packageManager = context.getPackageManager();
+      PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+      versionName = packageInfo.versionName;
+    } catch (PackageManager.NameNotFoundException e) {
+      e.printStackTrace();
+    }
+    return versionName;
+  }
+
+  // Method to load the changelogs text
+  public static String loadChangelogText(String versionNumber, Context context) {
+    int resourceId =
+        context
+            .getResources()
+            .getIdentifier(
+                "changelog_" + versionNumber.replace(".", "_"), "string", context.getPackageName());
+    return context.getResources().getString(resourceId);
+  }
+
+  // Extracts the version code from the build.gradle file retrieved and converts it to integer
+  public static int extractVersionCode(String text) {
+    String[] lines = text.split("\\r?\\n");
+    int versionCode = -1; // Default value if versionCode is not found
+
+    for (String line : lines) {
+      if (line.contains("versionCode")) {
+        String trimmedLine = line.trim();
+        String integerSeparated = trimmedLine.replace("versionCode", "").trim();
+        int latestVersionCode = Integer.parseInt(integerSeparated);
+        return latestVersionCode;
+      }
+    }
+    return versionCode;
+  }
+
+  /* Compare current app version code with the one retrieved from github to see if update available */
+  public static boolean isUpdateAvailable(int latestVersionCode) {
+    int currentVersionCode = BuildConfig.VERSION_CODE;
+    return currentVersionCode < latestVersionCode;
+  }
+
+  public static interface FetchLatestVersionCodeCallback {
+    void onResult(int result);
+  }
+
+  // Bottom sheet showing the popup if an update is available
+  public static void showBottomSheetUpdate(Activity activity) {
+    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
+    View bottomSheetView =
+        LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_update_checker, null);
+    bottomSheetDialog.setContentView(bottomSheetView);
+    bottomSheetDialog.show();
+
+    MaterialButton downloadButton = bottomSheetView.findViewById(R.id.download_button);
+    MaterialButton cancelButton = bottomSheetView.findViewById(R.id.cancel_button);
+
+    downloadButton.setOnClickListener(
+        v -> {
+          Utils.openUrl(activity, "https://github.com/DP-Hridayan/aShellYou/releases/latest");
+        });
+    cancelButton.setOnClickListener(
+        v -> {
+          bottomSheetDialog.dismiss();
+        });
+  }
 }

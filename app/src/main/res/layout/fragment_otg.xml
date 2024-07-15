@@ -32,6 +32,7 @@
                 android:text="@string/app_name" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 app:rippleColor="@android:color/transparent"
@@ -103,23 +104,100 @@
             android:layout_marginTop="5dp"
             android:id="@+id/rv_commands" />
 
-        <ScrollView
-            android:layout_height="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/otg_shell_card"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:id="@+id/scrollView">
+            app:strokeWidth="0dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            app:cardCornerRadius="20dp">
 
-            <com.google.android.material.textview.MaterialTextView
+            <in.hridayan.ashell.UI.CoordinatedNestedScrollView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@drawable/scrollbar"
+                android:background="?attr/colorSurfaceContainerLowest"
+                android:id="@+id/scrollView">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/logs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginHorizontal="5sp"
+                    android:padding="8dp"
+                    android:textIsSelectable="true"
+                    android:textSize="14sp" />
+
+            </in.hridayan.ashell.UI.CoordinatedNestedScrollView>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/warning_usb_debugging"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:strokeWidth="0dp"
+            android:layout_marginTop="5dp"
+            android:elevation="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="?attr/colorTertiaryContainer"
+            app:cardCornerRadius="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_marginHorizontal="10dp"
-                android:padding="10dp"
-                android:textSize="15sp"
-                android:textIsSelectable="true"
-                android:id="@+id/logs"
-                android:layout_gravity="start" />
+                android:layout_margin="15dp">
 
-        </ScrollView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title_warning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:paddingBottom="10dp"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/usb_warning_title"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    android:textAppearance="?attr/textAppearanceTitleLarge" />
 
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/summary_warning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    app:layout_constraintTop_toBottomOf="@id/title_warning"
+                    android:paddingBottom="20dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    android:text="@string/usb_warning_summary"
+                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                <Button
+                    android:id="@+id/instructions_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/instructions"
+                    app:layout_constraintTop_toBottomOf="@id/summary_warning"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_cross"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:id="@+id/dimiss_card"
+                    android:tint="?attr/colorOnTertiaryContainer"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.button.MaterialButton
@@ -154,6 +232,61 @@
         android:layout_marginStart="25dp"
         android:id="@+id/history" />
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_height="48dp"
+        android:layout_width="48dp"
+        android:visibility="gone"
+        app:icon="@drawable/ic_clear"
+        app:layout_constraintTop_toTopOf="@id/settings"
+        app:layout_constraintStart_toEndOf="@id/history"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_marginStart="25dp"
+        android:id="@+id/clear" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonTertiaryStyle"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:srcCompat="@drawable/ic_arrow"
+        android:id="@+id/fab_up"
+        android:layout_gravity="bottom|end" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        android:rotation="180"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:srcCompat="@drawable/ic_arrow"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonTertiaryStyle"
+        android:id="@+id/fab_down" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:srcCompat="@drawable/ic_share"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:tint="?attr/colorOnTertiaryContainer"
+        app:backgroundTint="?attr/colorTertiaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonSmallStyle"
+        android:id="@+id/fab_share" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -168,6 +301,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/floatingActionButtonSmallStyle"
         android:id="@+id/fab_undo" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:visibility="gone"
+        app:icon="@drawable/ic_save"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/extendedFloatingActionButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/save_button"
+        android:text="@string/save" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"

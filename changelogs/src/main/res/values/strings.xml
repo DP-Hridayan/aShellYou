@@ -1,9 +1,12 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
-    //Absolutely necessary to follow this string name format
 
-   <string name="changelog_v4_1_0">\n\n• Fixed some issues in OTG adb support\n\n• Updated translations</string>
+    //Created by DP-Hridayan
+    Absolutely necessary to follow this string name format
+    
+    <string name="changelog_v4_2_0">\n\n• Stable release of OTG mode\n\n• Added features like save, share, quick scroll buttons to the OTG mode\n\n• Added info cards for quick information\n\n• Added in app update checker along with the option to auto check for updates\n\n• Minor UI improvements</string>
+    <string name="changelog_v4_1_0">\n\n• Fixed some issues in OTG adb support\n\n• Updated translations</string>
     <string name="changelog_v4_0_3">\n\n• Updated dependencies\n\n• Added more command examples</string>
     <string name="changelog_v4_0_2">\n\n• Fixed AMOLED theme not working on devices running Android 11 or below</string>
     <string name="changelog_v4_0_1">\n\n• Now you can Pin commands for quick access\n\n • Bug fixes and lot of code optimisations</string>

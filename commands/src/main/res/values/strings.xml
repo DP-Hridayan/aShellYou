@@ -1,6 +1,8 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
+    
+    //Created by DP-Hridayan
 
     <string name="am_force_stop">Completely stop a given package</string>
     <string name="am_kill">Kill all background processes associated with a given package</string>

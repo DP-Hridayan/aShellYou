@@ -18,7 +18,9 @@ public class Preferences {
       PREF_SORTING_OPTION = "sorting_option",
       PREF_SORTING_EXAMPLES = "sorting_examples",
       PREF_CURRENT_FRAGMENT = "current_fragment",
-      PREF_DEFAULT_WORKING_MODE = "id_default_working_mode";
+      PREF_DEFAULT_WORKING_MODE = "id_default_working_mode",
+      PREF_SPECIFIC_CARD_VISIBILITY = "specific_card_visibility",
+      PREF_AUTO_UPDATE_CHECK = "id_auto_update_check";
   public static final int SORT_A_TO_Z = 0,
       SORT_Z_TO_A = 1,
       SORT_MOST_USED = 2,
@@ -30,7 +32,10 @@ public class Preferences {
       MODE_LOCAL_ADB = 0,
       MODE_OTG = 1,
       MODE_REMEMBER_LAST_MODE = 2,
-      MAX_BOOKMARKS_LIMIT = 25;
+      MAX_BOOKMARKS_LIMIT = 25,
+      UPDATE_AVAILABLE = 1,
+      UPDATE_NOT_AVAILABLE = 0,
+      CONNECTION_ERROR = 2;
 
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
@@ -82,6 +87,14 @@ public class Preferences {
 
   public static void setSmoothScroll(Context context, boolean value) {
     getSharedPreferences(context).edit().putBoolean(PREF_SMOOTH_SCROLL, value).apply();
+  }
+
+  public static boolean getAutoUpdateCheck(Context context) {
+    return getSharedPreferences(context).getBoolean(PREF_AUTO_UPDATE_CHECK, true);
+  }
+
+  public static void setAutoUpdateCheck(Context context, boolean value) {
+    getSharedPreferences(context).edit().putBoolean(PREF_AUTO_UPDATE_CHECK, value).apply();
   }
 
   public static int getSavedVersionCode(Context context) {
@@ -143,11 +156,23 @@ public class Preferences {
     getSharedPreferences(context).edit().putBoolean(getPinnedKey(title), value).apply();
   }
 
+  public static boolean getSpecificCardVisibility(Context context, String title) {
+    return getSharedPreferences(context).getBoolean(getCardKey(title), true);
+  }
+
+  public static void setSpecificCardVisibility(Context context, String title, boolean value) {
+    getSharedPreferences(context).edit().putBoolean(getCardKey(title), value).apply();
+  }
+
   private static String getCounterKey(String title) {
     return PREF_COUNTER_PREFIX + title;
   }
 
   private static String getPinnedKey(String title) {
     return PREF_PINNED_PREFIX + title;
+  }
+
+  private static String getCardKey(String title) {
+    return PREF_SPECIFIC_CARD_VISIBILITY + title;
   }
 }

@@ -1,19 +1,19 @@
 package in.hridayan.ashell.utils;
 
-import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.USB_PERMISSION;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 import com.cgutman.adblib.AdbBase64;
 import com.cgutman.adblib.AdbConnection;
 import com.cgutman.adblib.AdbStream;
+import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.utils.OtgUtils.ByteUtils;
 import in.hridayan.ashell.utils.OtgUtils.Const;
 import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
@@ -26,7 +26,7 @@ import java.nio.ByteOrder;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class OtgUtils {
-    
+
   public static class MessageOtg {
     public static final int DEVICE_NOT_FOUND = 0;
     public static final int CONNECTING = 1;
@@ -68,17 +68,31 @@ public class OtgUtils {
   public static class UsbReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-      String action;
-      Log.d("UsbReceiver", "Broadcasting USB_CONNECTED");
-      if (intent != null
-          && (action = intent.getAction()) != null
-          && action.equals(UsbManager.ACTION_USB_DEVICE_ATTACHED)) {
-        Intent intent1 = new Intent(USB_PERMISSION);
-        intent1.putExtra(
-            UsbManager.EXTRA_DEVICE,
-            (Parcelable) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE));
-        context.sendBroadcast(intent1);
+      String action = intent.getAction();
+      UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+
+      if (device == null) return;
+
+      String manufacturer = device.getManufacturerName();
+      String product = device.getProductName();
+
+      if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+        showToast(context, "USB Device Attached: " + manufacturer + " " + product);
+      } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
+        showToast(context, "USB Device Detached: " + manufacturer + " " + product);
+        sendIntentUponDetached(context);
       }
+    }
+
+    private void showToast(Context context, String message) {
+      Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void sendIntentUponDetached(Context context) {
+      Intent intent = new Intent(context, MainActivity.class);
+      intent.setAction("com.example.ACTION_USB_DETACHED");
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      context.startActivity(intent);
     }
   }
 
