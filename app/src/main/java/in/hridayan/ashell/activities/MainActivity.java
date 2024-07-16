@@ -1,5 +1,6 @@
 package in.hridayan.ashell.activities;
 
+import android.widget.Toast;
 import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
@@ -229,6 +230,10 @@ public class MainActivity extends AppCompatActivity
               showotgShellFragment();
               Preferences.setCurrentFragment(this, OTG_FRAGMENT);
               return true;
+
+            case R.id.nav_wireless:
+              Toast.makeText(this, "Soon", Toast.LENGTH_SHORT).show();
+              return false;
 
             default:
               return false;
