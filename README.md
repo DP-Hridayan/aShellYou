@@ -103,8 +103,8 @@
 </a>
 
 
-</br>
 
+</br>
 
 ## Licence
 
@@ -119,3 +119,13 @@ This project is licensed under the [GNU General Public License v3.0.](LICENSE.md
 | ✔️ Private use                       | ❌ Distribution without same license |
 | ✔️ Access to the source code         | ❌ Restricting other users' freedoms |
 | ✔️ Distribution with original terms  |                                      |
+
+
+
+## Contributers 
+
+</br>
+
+<a href="https://github.com/dp-hridayan/ashellyou/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=dp-hridayan/ashellyou" />
+</a>
