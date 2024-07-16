@@ -702,6 +702,10 @@ public class otgShellFragment extends Fragment
               break;
           }
           boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
+                if(saved)
+                {
+                    Preferences.setLastSavedFileName(context , fileName + ".txt");
+                }
 
           // Dialog showing if the output has been saved or not
           Utils.outputSavedDialog(requireActivity(), context, saved);

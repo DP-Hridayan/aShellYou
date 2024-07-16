@@ -103,6 +103,8 @@ public class aShellFragment extends Fragment {
   private aShellFragmentViewModel viewModel;
   private Chip mChip;
 
+  private static final int PERMISSION_REQUEST_CODE = 1;
+
   public aShellFragment() {}
 
   @Override
@@ -715,26 +717,28 @@ public class aShellFragment extends Fragment {
     mSaveButton.setOnClickListener(
         v -> {
           shellOutput = viewModel.getShellOutput();
-                
+
           history = viewModel.getHistory();
           initializeResults();
-                String sb = null , fileName = null;
+          String sb = null, fileName = null;
 
-                switch(Preferences.getSavePreference(context)){
-                    case Preferences.ALL_OUTPUT :
-                    sb = Utils.convertListToString(mResult);
-                     fileName= "shizukuOutput" + Utils.getCurrentDateTime();
-                    break;
-                    case Preferences.LAST_COMMAND_OUTPUT :
-                    sb = buildResultsString().toString();
-                    fileName= Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
-                    break;
-                    default :
-                    break;
-                }
+          switch (Preferences.getSavePreference(context)) {
+            case Preferences.ALL_OUTPUT:
+              sb = Utils.convertListToString(mResult);
+              fileName = "shizukuOutput" + Utils.getCurrentDateTime();
+              break;
+            case Preferences.LAST_COMMAND_OUTPUT:
+              sb = buildResultsString().toString();
+              fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
+              break;
+            default:
+              break;
+          }
 
-                
           boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
+          if (saved) {
+            Preferences.setLastSavedFileName(context, fileName + ".txt");
+          }
 
           // Dialog showing if the output has been saved or not
           Utils.outputSavedDialog(requireActivity(), context, saved);

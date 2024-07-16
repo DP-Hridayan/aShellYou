@@ -25,7 +25,8 @@ public class Preferences {
       PREF_SPECIFIC_CARD_VISIBILITY = "specific_card_visibility",
       PREF_AUTO_UPDATE_CHECK = "id_auto_update_check",
       PREF_SAVE_PREFERENCE = "id_save_preference",
-      PREF_LATEST_VERSION_NAME = "latest_version_name";
+      PREF_LATEST_VERSION_NAME = "latest_version_name",
+      PREF_LAST_SAVED_FILENAME = "last_saved_filename";
   public static final int SORT_A_TO_Z = 0,
       SORT_Z_TO_A = 1,
       SORT_MOST_USED = 2,
@@ -55,6 +56,14 @@ public class Preferences {
 
   public static void setLatestVersionName(Context context, String value) {
     getSharedPreferences(context).edit().putString(PREF_LATEST_VERSION_NAME, value).apply();
+  }
+
+  public static String getLastSavedFileName(Context context) {
+    return getSharedPreferences(context).getString(PREF_LAST_SAVED_FILENAME, "");
+  }
+
+  public static void setLastSavedFileName(Context context, String value) {
+    getSharedPreferences(context).edit().putString(PREF_LAST_SAVED_FILENAME, value).apply();
   }
 
   public static boolean getAmoledTheme(Context context) {

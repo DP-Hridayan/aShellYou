@@ -532,16 +532,24 @@ public class Utils {
             : context.getString(R.string.shell_output_not_saved_message);
     String title = saved ? context.getString(R.string.success) : context.getString(R.string.failed);
 
-    new MaterialAlertDialogBuilder(activity)
-        .setTitle(title)
-        .setMessage(message)
-        .setPositiveButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+    MaterialAlertDialogBuilder builder =
+        new MaterialAlertDialogBuilder(activity).setTitle(title).setMessage(message);
+    if (saved) {
+      builder.setPositiveButton(
+          context.getString(R.string.open),
+          (dialogInterface, i) -> {
+            Utils.openTextFileWithIntent(Preferences.getLastSavedFileName(context), context);
+          });
+    }
+
+    builder
+        .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
         .show();
   }
 
   // Generate the file name of the exported txt file
   public static String generateFileName(List<String> mHistory) {
-    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
+    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "");
   }
 
   public static String lastCommandOutput(String text) {
@@ -789,5 +797,25 @@ public class Utils {
 
     // Format the date and time
     return sdf.format(now);
+  }
+
+  // Method to open the text file
+  public static void openTextFileWithIntent(String fileName, Context context) {
+    File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+    File file = new File(directory, fileName);
+
+    if (file.exists()) {
+      Uri fileUri = FileProvider.getUriForFile(context, "in.hridayan.ashell.fileprovider", file);
+      Intent intent = new Intent(Intent.ACTION_VIEW);
+      intent.setDataAndType(fileUri, "text/plain");
+      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+      try {
+        context.startActivity(intent);
+      } catch (ActivityNotFoundException e) {
+        Toast.makeText(context, context.getString(R.string.no_application_found), Toast.LENGTH_SHORT).show();
+      }
+    } else {
+      Toast.makeText(context, context.getString(R.string.file_not_found), Toast.LENGTH_SHORT).show();
+    }
   }
 }
