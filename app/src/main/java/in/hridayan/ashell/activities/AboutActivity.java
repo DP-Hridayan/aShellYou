@@ -32,8 +32,6 @@ public class AboutActivity extends AppCompatActivity
   private List<Object> items;
   private AppBarLayout appBarLayout;
   private AboutViewModel viewModel;
-  private String buildGradleUrl =
-      "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
 
   @Override
   protected void onPause() {
@@ -107,10 +105,6 @@ public class AboutActivity extends AppCompatActivity
 
     items.add(
         new Category.ContributorsItem(
-            "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
-
-    items.add(
-        new Category.ContributorsItem(
             "id_drDisagree",
             "DrDisagree",
             getString(R.string.drDisagree_about),
@@ -129,10 +123,6 @@ public class AboutActivity extends AppCompatActivity
             "weiguangtwk",
             getString(R.string.weiguangtwk_about),
             R.mipmap.dp_weiguangtwk));
-
-    items.add(
-        new Category.ContributorsItem(
-            "id_winzort", "WINZORT", getString(R.string.winzort_about), R.mipmap.dp_winzort));
 
     items.add(
         new Category.ContributorsItem(
@@ -206,7 +196,7 @@ public class AboutActivity extends AppCompatActivity
 
   @Override
   public void onCheckUpdate() {
-    new FetchLatestVersionCode(this, this).execute(buildGradleUrl);
+    new FetchLatestVersionCode(this, this).execute(Preferences.buildGradleUrl);
   }
 
   @Override

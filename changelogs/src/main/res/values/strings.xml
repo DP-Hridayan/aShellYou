@@ -5,6 +5,7 @@
     //Created by DP-Hridayan
     Absolutely necessary to follow this string name format
     
+   <string name="changelog_v4_2_1">\n\n• Fixed an issue with Sharing text to aShell You where the text did not appear when app was starting fresh\n\n• Fixed minor UI issues</string>
     <string name="changelog_v4_2_0">\n\n• Stable release of OTG mode\n\n• Added features like save, share, quick scroll buttons to the OTG mode\n\n• Added info cards for quick information\n\n• Added in app update checker along with the option to auto check for updates\n\n• Minor UI improvements</string>
     <string name="changelog_v4_1_0">\n\n• Fixed some issues in OTG adb support\n\n• Updated translations</string>
     <string name="changelog_v4_0_3">\n\n• Updated dependencies\n\n• Added more command examples</string>

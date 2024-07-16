@@ -195,6 +195,15 @@ public class aShellFragment extends Fragment {
                   : R.drawable.ic_add_bookmark,
               requireActivity()));
     }
+
+    MainActivity activity = (MainActivity) getActivity();
+    if (activity != null) {
+      String pendingSharedText = activity.getPendingSharedText();
+      if (pendingSharedText != null) {
+        updateInputField(pendingSharedText);
+        activity.clearPendingSharedText();
+      }
+    }
   }
 
   @Nullable

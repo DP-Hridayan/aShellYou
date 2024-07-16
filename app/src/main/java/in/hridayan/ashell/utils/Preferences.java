@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 public class Preferences {
+  public static final String buildGradleUrl =
+      "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
 
   private static final String PREF_AMOLED_THEME = "id_amoled_theme",
       PREF_COUNTER_PREFIX = "counter_",

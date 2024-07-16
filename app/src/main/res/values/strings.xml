@@ -5,7 +5,6 @@
     <string
         name="app_name"
         translatable="false">aShell You</string>
-
     // There are translatable strings in 'commands' and 'changelogs' modules
     <string name="access_denied">Access denied</string>
     <string name="accept_device_prompt">You might need to accept a prompt on the other device if you are trying to connect to it for the first time from this device</string>
@@ -84,6 +83,7 @@
     <string name="menu">Menu</string>
     <string name="most_used">Most used</string>
     <string name="none">None</string>
+    <string name="no_changelog">No changelog</string>
     <string name="no_command">No command</string>
     <string name="no_command_found">No command found that matches your query</string>
     <string name="ok">OK</string>
@@ -131,6 +131,7 @@
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
     <string name="unhide_cards_message">All info cards will be visible now</string>
+    <string name="update">Update</string>
     <string name="update_available">Update available !</string>
     <string name="update_available_summary">A newer version of aShell You is available !\nClick on Download button to get the new version from the repository</string>
     <string name="usb_warning_title">Important</string>

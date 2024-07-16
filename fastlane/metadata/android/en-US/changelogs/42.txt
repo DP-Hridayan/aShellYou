@@ -1,4 +1,3 @@
-Change log ~
 
 • Stable release of OTG mode
 
