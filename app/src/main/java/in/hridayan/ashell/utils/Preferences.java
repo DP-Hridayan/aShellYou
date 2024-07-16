@@ -3,6 +3,7 @@ package in.hridayan.ashell.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
+import in.hridayan.ashell.BuildConfig;
 
 public class Preferences {
   public static final String buildGradleUrl =
@@ -23,7 +24,8 @@ public class Preferences {
       PREF_DEFAULT_WORKING_MODE = "id_default_working_mode",
       PREF_SPECIFIC_CARD_VISIBILITY = "specific_card_visibility",
       PREF_AUTO_UPDATE_CHECK = "id_auto_update_check",
-      PREF_SAVE_PREFERENCE = "id_save_preference";
+      PREF_SAVE_PREFERENCE = "id_save_preference",
+      PREF_LATEST_VERSION_NAME = "latest_version_name";
   public static final int SORT_A_TO_Z = 0,
       SORT_Z_TO_A = 1,
       SORT_MOST_USED = 2,
@@ -44,6 +46,15 @@ public class Preferences {
 
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
+  }
+
+  public static String getLatestVersionName(Context context) {
+    return getSharedPreferences(context)
+        .getString(PREF_LATEST_VERSION_NAME, BuildConfig.VERSION_NAME);
+  }
+
+  public static void setLatestVersionName(Context context, String value) {
+    getSharedPreferences(context).edit().putString(PREF_LATEST_VERSION_NAME, value).apply();
   }
 
   public static boolean getAmoledTheme(Context context) {

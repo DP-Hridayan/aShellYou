@@ -691,6 +691,21 @@ public class Utils {
     return versionCode;
   }
 
+  // Extracts the version name from the build.gradle file retrieved and converts it to string
+  public static String extractVersionName(String text) {
+    String[] lines = text.split("\\r?\\n");
+    String versionName = "";
+    for (String line : lines) {
+      if (line.contains("versionName")) {
+        String trimmedLine = line.trim();
+        String latestVersionName =
+            trimmedLine.replace("versionName", "").replaceAll("\"", "").trim();
+        return latestVersionName;
+      }
+    }
+    return versionName;
+  }
+
   /* Compare current app version code with the one retrieved from github to see if update available */
   public static boolean isUpdateAvailable(int latestVersionCode) {
     int currentVersionCode = BuildConfig.VERSION_CODE;
@@ -719,16 +734,30 @@ public class Utils {
   }
 
   // Bottom sheet showing the popup if an update is available
-  public static void showBottomSheetUpdate(Activity activity) {
+  public static void showBottomSheetUpdate(Activity activity, Context context) {
     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
     View bottomSheetView =
         LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_update_checker, null);
     bottomSheetDialog.setContentView(bottomSheetView);
     bottomSheetDialog.show();
 
+    MaterialTextView currentVersion = bottomSheetView.findViewById(R.id.current_version);
+    MaterialTextView latestVersion = bottomSheetView.findViewById(R.id.latest_version);
     MaterialButton downloadButton = bottomSheetView.findViewById(R.id.download_button);
     MaterialButton cancelButton = bottomSheetView.findViewById(R.id.cancel_button);
 
+    currentVersion.setText(
+        context.getString(R.string.current)
+            + " "
+            + context.getString(R.string.version)
+            + " : "
+            + BuildConfig.VERSION_NAME);
+    latestVersion.setText(
+        context.getString(R.string.latest)
+            + " "
+            + context.getString(R.string.version)
+            + " : "
+            + Preferences.getLatestVersionName(context));
     downloadButton.setOnClickListener(
         v -> {
           Utils.openUrl(activity, "https://github.com/DP-Hridayan/aShellYou/releases/latest");

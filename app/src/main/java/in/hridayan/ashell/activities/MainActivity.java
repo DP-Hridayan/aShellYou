@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity
   private static int currentFragment;
   private boolean isBlackThemeEnabled, isAmoledTheme;
   private MainViewModel viewModel;
-  
-     private String pendingSharedText = null;
+
+  private String pendingSharedText = null;
 
   // Reset the OtgFragment
   @Override
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onResult(int result) {
     if (result == Preferences.UPDATE_AVAILABLE) {
-      Utils.showBottomSheetUpdate(this);
+      Utils.showBottomSheetUpdate(this, this);
     }
   }
 

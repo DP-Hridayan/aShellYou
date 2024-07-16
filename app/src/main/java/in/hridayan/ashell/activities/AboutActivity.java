@@ -203,7 +203,7 @@ public class AboutActivity extends AppCompatActivity
   public void onResult(int result) {
     switch (result) {
       case Preferences.UPDATE_AVAILABLE:
-        Utils.showBottomSheetUpdate(this);
+        Utils.showBottomSheetUpdate(this, this);
         break;
       case Preferences.UPDATE_NOT_AVAILABLE:
         Toast.makeText(this, getString(R.string.already_latest_version), Toast.LENGTH_SHORT).show();

@@ -11,6 +11,7 @@ import java.net.URL;
 public class FetchLatestVersionCode extends AsyncTask<String, Void, Integer> {
   private Context context;
   private FetchLatestVersionCodeCallback callback;
+
   public FetchLatestVersionCode(Context context, FetchLatestVersionCodeCallback callback) {
     this.context = context;
     this.callback = callback;
@@ -39,6 +40,7 @@ public class FetchLatestVersionCode extends AsyncTask<String, Void, Integer> {
 
     int latestVersionCode = Utils.extractVersionCode(result.toString());
     if (Utils.isUpdateAvailable(latestVersionCode)) {
+      Preferences.setLatestVersionName(context, Utils.extractVersionName(result.toString()));
       return Preferences.UPDATE_AVAILABLE; // Update available
     } else {
       return Preferences.UPDATE_NOT_AVAILABLE; // No update available
