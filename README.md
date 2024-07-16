@@ -80,12 +80,12 @@
 
 </br>
 
-## 📋 Todo List
-
 | Task                   | Status   |
 |------------------------|----------|
 | Wifi ADB Feature       | ⬜ To Do  |
+| Implement root shell   | ⬜ To Do  |
 | Redesigning Homepage   | ⬜ To Do  |
+| Proper localization    | ⬜ To Do  |
 | Fix OTG Issue          | ✅ Done  |
 
 </br>
