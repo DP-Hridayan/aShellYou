@@ -37,6 +37,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import java.io.BufferedReader;
@@ -635,7 +636,18 @@ public class Utils {
             .getResources()
             .getIdentifier(
                 "changelog_" + versionNumber.replace(".", "_"), "string", context.getPackageName());
-    return context.getResources().getString(resourceId);
+
+    // Check if the resource ID is valid
+    if (resourceId != 0) {
+      String changeLog = context.getString(resourceId);
+      // Check if the resource is not empty
+      if (changeLog != null && !changeLog.isEmpty()) {
+        return changeLog;
+      }
+    }
+
+    // Return default message if resource ID is invalid or the resource is empty
+    return context.getString(R.string.no_changelog);
   }
 
   // Extracts the version code from the build.gradle file retrieved and converts it to integer
@@ -662,6 +674,23 @@ public class Utils {
 
   public static interface FetchLatestVersionCodeCallback {
     void onResult(int result);
+  }
+
+  // Bottom sheet showing the popup after the app is updated
+  public static void showBottomSheetChangelog(Activity activity) {
+    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
+    View bottomSheetView =
+        LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_changelog, null);
+    bottomSheetDialog.setContentView(bottomSheetView);
+    bottomSheetDialog.show();
+
+    MaterialTextView changelog, version;
+
+    version = bottomSheetView.findViewById(R.id.version);
+    changelog = bottomSheetView.findViewById(R.id.changelog);
+    version.setText(Utils.getAppVersionName(activity));
+    String versionName = Utils.getAppVersionName(activity);
+    changelog.setText(Utils.loadChangelogText(versionName, activity));
   }
 
   // Bottom sheet showing the popup if an update is available

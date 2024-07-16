@@ -157,6 +157,15 @@ public class otgShellFragment extends Fragment
     } else if (mWarningUsbDebugging.getVisibility() == View.VISIBLE) {
       mWarningUsbDebugging.setVisibility(View.GONE);
     }
+
+    MainActivity activity = (MainActivity) getActivity();
+    if (activity != null) {
+      String pendingSharedText = activity.getPendingSharedText();
+      if (pendingSharedText != null) {
+        updateInputField(pendingSharedText);
+        activity.clearPendingSharedText();
+      }
+    }
   }
 
   @Override

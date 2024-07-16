@@ -1,23 +1,26 @@
-aShell You is a Shizuku powered application that can run ADB commands locally on your device
+<b>Run ADB commands on your device or on other devices 🌱 </b>
 
-<b>Features:</b>
+<b>Features ✨</b>
 
-- An elegantly designed user interface with modern material you and material design 3 .
-- Has both local ADB (Shizuku) and OTG ADB support.
-- Included a bundle of examples about common ADB commands.
-- Handles continuously running commands, such as logcat, top, etc.
-- Search for specific text from the last command output.
-- Option to save last command output as a text file.
-- Bookmark frequently using commands.
-- An auto-dark/light theme.
-- A lot more.
+-  🎨 Features a modern Material Design 3 user interface
+-  📲 Execute commands on your device using Shizuku
+-  🔌 Run commands on other devices via OTG connection
+-  📚 Provides examples of common ADB commands
+-  🛠️ Supports continuously running commands like logcat and top
+-  🔍 Search within the last command output
+-  📝 Save the last command output as a text file
+-  📤 Share output directly to other apps
+-  📑 Bookmark frequently used commands
+-  🌑 Includes an AMOLED theme
+-  🎉 Offers many additional features
 
-<b>Requirements:</b>
+<b>Requirements ⚙️</b>
 
-- Working Shizuku environment
-- Knowledge about basic ADB/Linux commands.
+- A working Shizuku environment
+- Shizuku is not needed to run ADB commands on other devices via OTG
+- Knowledge about basic ADB/Linux commands
 
-<b>Instructions:</b>
+<b>Instructions</b>
 
 - Install and open the app
 - Allow shizuku permission for using local ADB

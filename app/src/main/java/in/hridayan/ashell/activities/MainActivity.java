@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.LayoutInflater;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.MainViewModel;
@@ -45,33 +42,32 @@ public class MainActivity extends AppCompatActivity
   private static int currentFragment;
   private boolean isBlackThemeEnabled, isAmoledTheme;
   private MainViewModel viewModel;
-  private MaterialTextView changelog, version;
-  private String buildGradleUrl =
-      "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
+  
+     private String pendingSharedText = null;
+
+  // Reset the OtgFragment
+  @Override
+  public void onRequestReset() {
+    if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+        instanceof otgShellFragment)) {
+      currentFragment = OTG_FRAGMENT;
+      mNav.setSelectedItemId(R.id.nav_otgShell);
+      replaceFragment(new otgShellFragment());
+    }
+  }
+
+  // This funtion is run to perform actions if there is an update available or not
+  @Override
+  public void onResult(int result) {
+    if (result == Preferences.UPDATE_AVAILABLE) {
+      Utils.showBottomSheetUpdate(this);
+    }
+  }
 
   @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
-
-    // handle intent for "Use" feature
-    if (intent.hasExtra("use_command")) {
-      String useCommand = intent.getStringExtra("use_command");
-      handleUseCommandIntent(useCommand, intent);
-    }
-
-    // handle intent for text shared to aShell You
-    if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-      String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-      if (sharedText != null) {
-        sharedText = sharedText.trim().replaceAll("^\"|\"$", "");
-        handleSharedTextIntent(sharedText, intent);
-      }
-    }
-
-    // handle intent when usb is disconnected
-    if (intent != null && "com.example.ACTION_USB_DETACHED".equals(intent.getAction())) {
-      onUsbDetached();
-    }
+    handleIncomingIntent(intent);
   }
 
   @Override
@@ -129,10 +125,9 @@ public class MainActivity extends AppCompatActivity
         });
 
     setupNavigation();
-
     // Show What's new bottom sheet on opening the app after an update
     if (Utils.isAppUpdated(this)) {
-      showBottomSheetChangelog();
+      Utils.showBottomSheetChangelog(this);
     }
     Preferences.setSavedVersionCode(this, Utils.currentVersion());
 
@@ -144,7 +139,7 @@ public class MainActivity extends AppCompatActivity
     if (Preferences.getAutoUpdateCheck(this)
         && hasAppRestarted
         && !(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true))) {
-      new FetchLatestVersionCode(this, this).execute(buildGradleUrl);
+      new FetchLatestVersionCode(this, this).execute(Preferences.buildGradleUrl);
     }
     hasAppRestarted = false;
   }
@@ -190,6 +185,35 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
+  private void handlePendingSharedText() {
+    if (pendingSharedText != null) {
+      switch (Preferences.getCurrentFragment(this)) {
+        case LOCAL_FRAGMENT:
+          aShellFragment fragmentLocalAdb =
+              (aShellFragment)
+                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+          if (fragmentLocalAdb != null) {
+            fragmentLocalAdb.updateInputField(pendingSharedText);
+            clearPendingSharedText();
+          }
+          break;
+
+        case OTG_FRAGMENT:
+          otgShellFragment fragmentOtg =
+              (otgShellFragment)
+                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+          if (fragmentOtg != null) {
+            fragmentOtg.updateInputField(pendingSharedText);
+            clearPendingSharedText();
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+
   // Main navigation setup
   private void setupNavigation() {
     mNav.setVisibility(View.VISIBLE);
@@ -212,6 +236,7 @@ public class MainActivity extends AppCompatActivity
         });
 
     initialFragment();
+    handleIncomingIntent(getIntent());
   }
 
   // Takes the fragment we want to navigate to as argument and then starts that fragment
@@ -302,6 +327,7 @@ public class MainActivity extends AppCompatActivity
         int workingMode = Preferences.getWorkingMode(this);
         switchFragments(workingMode == MODE_REMEMBER_LAST_MODE ? currentFragment : workingMode + 1);
       }
+      handlePendingSharedText();
     }
   }
 
@@ -329,42 +355,33 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
-  private void showBottomSheetChangelog() {
-    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-    View bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_sheet_changelog, null);
-    bottomSheetDialog.setContentView(bottomSheetView);
-    bottomSheetDialog.show();
-
-    version = bottomSheetView.findViewById(R.id.version);
-    changelog = bottomSheetView.findViewById(R.id.changelog);
-    version.setText(Utils.getAppVersionName(this));
-
-    String versionName = Utils.getAppVersionName(this);
-    changelog.setText(Utils.loadChangelogText(versionName, this));
-  }
-
   // Execute functions when the Usb connection is removed
   public void onUsbDetached() {
     // Reset the OtgShellFragment in this case
     onRequestReset();
   }
 
-  // Reset the OtgFragment
-  @Override
-  public void onRequestReset() {
-    if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof otgShellFragment)) {
-      currentFragment = OTG_FRAGMENT;
-      mNav.setSelectedItemId(R.id.nav_otgShell);
-      replaceFragment(new otgShellFragment());
+  private void handleIncomingIntent(Intent intent) {
+    if (Intent.ACTION_SEND.equals(intent.getAction()) && intent.hasExtra(Intent.EXTRA_TEXT)) {
+      String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+      if (sharedText != null) {
+        sharedText = sharedText.trim().replaceAll("^\"|\"$", "");
+        pendingSharedText = sharedText;
+        handleSharedTextIntent(sharedText, intent);
+      }
+    } else if (intent.hasExtra("use_command")) {
+      String useCommand = intent.getStringExtra("use_command");
+      handleUseCommandIntent(useCommand, intent);
+    } else if ("com.example.ACTION_USB_DETACHED".equals(intent.getAction())) {
+      onUsbDetached();
     }
   }
 
-  // This funtion is run to perform actions if there is an update available or not
-  @Override
-  public void onResult(int result) {
-    if (result == Preferences.UPDATE_AVAILABLE) {
-      Utils.showBottomSheetUpdate(this);
-    }
+  public String getPendingSharedText() {
+    return pendingSharedText;
+  }
+
+  public void clearPendingSharedText() {
+    pendingSharedText = null;
   }
 }

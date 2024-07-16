@@ -1,5 +1,0 @@
-Change logs ~
-
-• Now you can Pin commands for quick access
- 
-• Bug fixes and lot of code optimisations
