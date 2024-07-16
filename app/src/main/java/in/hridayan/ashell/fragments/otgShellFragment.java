@@ -687,8 +687,21 @@ public class otgShellFragment extends Fragment
     mSaveButton.setOnClickListener(
         v -> {
           history = mHistory;
-          String shellOutput = Utils.lastCommandOutput(logs.getText().toString());
-          boolean saved = Utils.saveToFile(shellOutput, requireActivity(), mHistory);
+          String sb = null, fileName = null;
+
+          switch (Preferences.getSavePreference(context)) {
+            case Preferences.ALL_OUTPUT:
+              sb = logs.getText().toString();
+              fileName = "otg_output" + Utils.getCurrentDateTime();
+              break;
+            case Preferences.LAST_COMMAND_OUTPUT:
+              sb = Utils.lastCommandOutput(logs.getText().toString());
+              fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
+              break;
+            default:
+              break;
+          }
+          boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
 
           // Dialog showing if the output has been saved or not
           Utils.outputSavedDialog(requireActivity(), context, saved);
@@ -983,9 +996,14 @@ public class otgShellFragment extends Fragment
   private void mChipOnClickListener() {
     mChip.setOnClickListener(
         v -> {
-          String connectedDevice = mDevice.getProductName();
-          Utils.connectedDeviceDialog(
-              context, mDevice == null ? getString(R.string.none) : connectedDevice);
+          if (mDevice != null) {
+            String connectedDevice = mDevice.getProductName();
+            Utils.connectedDeviceDialog(
+                context, adbConnection == null ? getString(R.string.none) : connectedDevice);
+
+          } else {
+            Utils.connectedDeviceDialog(context, getString(R.string.none));
+          }
           mChip.setChecked(!mChip.isChecked());
         });
   }

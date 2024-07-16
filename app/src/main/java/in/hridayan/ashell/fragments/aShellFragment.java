@@ -715,12 +715,26 @@ public class aShellFragment extends Fragment {
     mSaveButton.setOnClickListener(
         v -> {
           shellOutput = viewModel.getShellOutput();
+                
           history = viewModel.getHistory();
           initializeResults();
+                String sb = null , fileName = null;
 
-          String sb = buildResultsString().toString();
+                switch(Preferences.getSavePreference(context)){
+                    case Preferences.ALL_OUTPUT :
+                    sb = Utils.convertListToString(mResult);
+                     fileName= "shizukuOutput" + Utils.getCurrentDateTime();
+                    break;
+                    case Preferences.LAST_COMMAND_OUTPUT :
+                    sb = buildResultsString().toString();
+                    fileName= Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
+                    break;
+                    default :
+                    break;
+                }
 
-          boolean saved = Utils.saveToFile(sb, requireActivity(), mHistory);
+                
+          boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
 
           // Dialog showing if the output has been saved or not
           Utils.outputSavedDialog(requireActivity(), context, saved);

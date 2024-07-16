@@ -87,6 +87,7 @@
     <string name="no_command">No command</string>
     <string name="no_command_found">No command found that matches your query</string>
     <string name="ok">OK</string>
+    <string name="only_last_command_output">Only last command output</string>
     <string name="open_adb">Open ADB shell</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Device is not properly connected. Connect the device properly through OTG and try again</string>
@@ -140,9 +141,11 @@
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
     <string name="whats_new">What\'s new !</string>
+    <string name="whole_output">Whole output</string>
     <string name="working_mode">Working mode</string>
     <string name="yes">Yes</string>
-
+<string name="save_preference">Save output preference</string>
+    <string name="des_save_preference">Choose what portion of the shell output should be saved</string>
     <string name="smooth_scrolling">Smooth scrolling</string>
     <string name="des_smooth_scroll">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
     <string name="ask_to_clean">Ask before clearing shell output</string>

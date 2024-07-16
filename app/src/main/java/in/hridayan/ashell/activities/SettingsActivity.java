@@ -140,6 +140,15 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             Preferences.getOverrideBookmarks(this)));
 
+       settingsData.add(
+        new SettingsItem(
+            "id_save_preference",
+            R.drawable.ic_save_24px,
+            getString(R.string.save_preference),
+            getString(R.string.des_save_preference),
+            false,
+            false));
+        
     settingsData.add(
         new SettingsItem(
             "id_smooth_scroll",

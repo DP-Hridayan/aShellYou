@@ -47,8 +47,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import rikka.shizuku.Shizuku;
@@ -469,6 +471,32 @@ public class Utils {
         .show();
   }
 
+  public static void savePreferenceDialog(Context context) {
+
+    final CharSequence[] preferences = {
+      context.getString(R.string.only_last_command_output), context.getString(R.string.whole_output)
+    };
+
+    int savePreference = Preferences.getSavePreference(context);
+    final int[] preference = {savePreference};
+
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(context.getString(R.string.save))
+        .setSingleChoiceItems(
+            preferences,
+            savePreference,
+            (dialog, which) -> {
+              preference[0] = which;
+            })
+        .setPositiveButton(
+            context.getString(R.string.choose),
+            (dialog, which) -> {
+              Preferences.setSavePreference(context, preference[0]);
+            })
+        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .show();
+  }
+
   public static void connectedDeviceDialog(Context context, String connectedDevice) {
     String device = connectedDevice;
 
@@ -538,20 +566,18 @@ public class Utils {
   }
 
   // Logic behind saving output as txt files
-  public static boolean saveToFile(String sb, Activity activity, List<String> mHistory) {
+  public static boolean saveToFile(String sb, Activity activity, String fileName) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-      return Utils.saveToFileApi29AndAbove(sb, activity, mHistory);
+      return Utils.saveToFileApi29AndAbove(sb, activity, fileName);
     } else {
-      return Utils.saveToFileBelowApi29(sb, activity, mHistory);
+      return Utils.saveToFileBelowApi29(sb, activity, fileName);
     }
   }
 
   /* Save output txt file on devices running Android 11 and above and return a boolean if the file is saved */
-  public static boolean saveToFileApi29AndAbove(
-      String sb, Activity activity, List<String> mHistory) {
+  public static boolean saveToFileApi29AndAbove(String sb, Activity activity, String fileName) {
     try {
       ContentValues values = new ContentValues();
-      String fileName = Utils.generateFileName(mHistory);
       values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
       values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
       values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
@@ -573,7 +599,7 @@ public class Utils {
   }
 
   /*Save output txt file on devices running Android 10 and below and return a boolean if the file is saved */
-  public static boolean saveToFileBelowApi29(String sb, Activity activity, List<String> mHistory) {
+  public static boolean saveToFileBelowApi29(String sb, Activity activity, String fileName) {
     if (activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
         != PackageManager.PERMISSION_GRANTED) {
       ActivityCompat.requestPermissions(
@@ -582,7 +608,6 @@ public class Utils {
     }
 
     try {
-      String fileName = Utils.generateFileName(mHistory);
       File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
       Utils.create(sb.toString(), file);
       return true;
@@ -712,5 +737,28 @@ public class Utils {
         v -> {
           bottomSheetDialog.dismiss();
         });
+  }
+
+  // Method to convert List to String (for shizuku shell output)
+  public static String convertListToString(List<String> list) {
+    StringBuilder sb = new StringBuilder();
+    for (String s : list) {
+      if (!"Shell is dead".equals(s) && !"<i></i>".equals(s)) {
+        sb.append(s).append("\n");
+      }
+    }
+    return sb.toString();
+  }
+
+  /*Using this function to create unique file names for the saved txt files as there are methods which tries to open files based on its name */
+  public static String getCurrentDateTime() {
+    // Define the date format
+    SimpleDateFormat sdf = new SimpleDateFormat("_yyyyMMddHHmmss");
+
+    // Get the current date and time
+    Date now = new Date();
+
+    // Format the date and time
+    return sdf.format(now);
   }
 }
