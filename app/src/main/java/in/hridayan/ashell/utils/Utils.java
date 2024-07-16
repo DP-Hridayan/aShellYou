@@ -525,11 +525,14 @@ public class Utils {
 
   // Dialog to show if the shell output is saved or not
   public static void outputSavedDialog(Activity activity, Context context, boolean saved) {
-    String message =
-        saved
+    String successMessage =
+        Preferences.getSavePreference(context) == Preferences.ALL_OUTPUT
             ? context.getString(
-                R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS)
-            : context.getString(R.string.shell_output_not_saved_message);
+                R.string.shell_output_saved_whole_message, Environment.DIRECTORY_DOWNLOADS)
+            : context.getString(
+                R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS);
+    String message =
+        saved ? successMessage : context.getString(R.string.shell_output_not_saved_message);
     String title = saved ? context.getString(R.string.success) : context.getString(R.string.failed);
 
     MaterialAlertDialogBuilder builder =
@@ -812,10 +815,13 @@ public class Utils {
       try {
         context.startActivity(intent);
       } catch (ActivityNotFoundException e) {
-        Toast.makeText(context, context.getString(R.string.no_application_found), Toast.LENGTH_SHORT).show();
+        Toast.makeText(
+                context, context.getString(R.string.no_application_found), Toast.LENGTH_SHORT)
+            .show();
       }
     } else {
-      Toast.makeText(context, context.getString(R.string.file_not_found), Toast.LENGTH_SHORT).show();
+      Toast.makeText(context, context.getString(R.string.file_not_found), Toast.LENGTH_SHORT)
+          .show();
     }
   }
 }

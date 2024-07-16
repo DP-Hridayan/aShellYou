@@ -120,6 +120,7 @@
     <string name="des_share_and_run">If enabled then sharing any text to aShell You automatically runs the shell with the shared text as input</string>
     <string name="shell_output_not_saved_message">The output of last command is not saved</string>
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\' folder</string>
+    <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\' folder</string>
     <string name="shell_working">Shell is working</string>
     <string name="shizuku_about">About Shizuku</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You. aShell You won\'t work without a proper Shizuku environment.</string>
@@ -149,7 +150,7 @@
     <string name="whole_output">Whole output</string>
     <string name="working_mode">Working mode</string>
     <string name="yes">Yes</string>
-<string name="save_preference">Save output preference</string>
+    <string name="save_preference">Save output preference</string>
     <string name="des_save_preference">Choose what portion of the shell output should be saved</string>
     <string name="smooth_scrolling">Smooth scrolling</string>
     <string name="des_smooth_scroll">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
