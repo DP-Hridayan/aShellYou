@@ -13,7 +13,6 @@ import android.content.ClipboardManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -53,26 +52,24 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import rikka.shizuku.Shizuku;
 
 public class Utils {
   public static Intent intent;
   public static int savedVersionCode;
 
-  /*
-   * Adapted from android.os.FileUtils
-   * Ref: https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=972?q=isValidFatFilenameChar
-   */
-
   private static boolean isValidFilename(String s) {
-    return !s.contains("*")
-        && !s.contains("/")
-        && !s.contains(":")
-        && !s.contains("<")
-        && !s.contains(">")
-        && !s.contains("?")
-        && !s.contains("\\")
-        && !s.contains("|");
+
+    String[] invalidChars = {"*", "/", ":", "<", ">", "?", "\\", "|"};
+
+    for (String invalidChar : invalidChars) {
+      if (s.contains(invalidChar)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public static Drawable getDrawable(int drawable, Context context) {
@@ -367,7 +364,7 @@ public class Utils {
               }
               button.setVisibility(View.GONE);
               String s = mCommand.getText().toString();
-              if (!s.equals("")) {
+              if (s.length() != 0) {
                 mCommandInput.setEndIconDrawable(R.drawable.ic_add_bookmark);
               } else {
                 mCommandInput.setEndIconVisible(false);
@@ -652,19 +649,6 @@ public class Utils {
     }
   }
 
-  // Method to retrieve the app version name
-  public static String getAppVersionName(Context context) {
-    String versionName = "";
-    try {
-      PackageManager packageManager = context.getPackageManager();
-      PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
-      versionName = packageInfo.versionName;
-    } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
-    }
-    return versionName;
-  }
-
   // Method to load the changelogs text
   public static String loadChangelogText(String versionNumber, Context context) {
     int resourceId =
@@ -688,33 +672,28 @@ public class Utils {
 
   // Extracts the version code from the build.gradle file retrieved and converts it to integer
   public static int extractVersionCode(String text) {
-    String[] lines = text.split("\\r?\\n");
-    int versionCode = -1; // Default value if versionCode is not found
+    Pattern pattern = Pattern.compile("versionCode\\s+(\\d+)");
+    Matcher matcher = pattern.matcher(text);
 
-    for (String line : lines) {
-      if (line.contains("versionCode")) {
-        String trimmedLine = line.trim();
-        String integerSeparated = trimmedLine.replace("versionCode", "").trim();
-        int latestVersionCode = Integer.parseInt(integerSeparated);
-        return latestVersionCode;
+    if (matcher.find()) {
+      try {
+        return Integer.parseInt(matcher.group(1));
+      } catch (NumberFormatException e) {
+        e.printStackTrace();
+        return -1;
       }
     }
-    return versionCode;
+    return -1;
   }
 
   // Extracts the version name from the build.gradle file retrieved and converts it to string
   public static String extractVersionName(String text) {
-    String[] lines = text.split("\\r?\\n");
-    String versionName = "";
-    for (String line : lines) {
-      if (line.contains("versionName")) {
-        String trimmedLine = line.trim();
-        String latestVersionName =
-            trimmedLine.replace("versionName", "").replaceAll("\"", "").trim();
-        return latestVersionName;
-      }
+    Pattern pattern = Pattern.compile("versionName\\s*\"([^\"]*)\"");
+    Matcher matcher = pattern.matcher(text);
+    if (matcher.find()) {
+      return matcher.group(1);
     }
-    return versionName;
+    return "";
   }
 
   /* Compare current app version code with the one retrieved from github to see if update available */
@@ -736,11 +715,10 @@ public class Utils {
     bottomSheetDialog.show();
 
     MaterialTextView changelog, version;
-
+    String versionName = BuildConfig.VERSION_NAME;
     version = bottomSheetView.findViewById(R.id.version);
     changelog = bottomSheetView.findViewById(R.id.changelog);
-    version.setText(Utils.getAppVersionName(activity));
-    String versionName = Utils.getAppVersionName(activity);
+    version.setText(versionName);
     changelog.setText(Utils.loadChangelogText(versionName, activity));
   }
 
@@ -772,6 +750,7 @@ public class Utils {
     downloadButton.setOnClickListener(
         v -> {
           Utils.openUrl(activity, "https://github.com/DP-Hridayan/aShellYou/releases/latest");
+          bottomSheetDialog.dismiss();
         });
     cancelButton.setOnClickListener(
         v -> {
@@ -792,14 +771,20 @@ public class Utils {
 
   /*Using this function to create unique file names for the saved txt files as there are methods which tries to open files based on its name */
   public static String getCurrentDateTime() {
-    // Define the date format
-    SimpleDateFormat sdf = new SimpleDateFormat("_yyyyMMddHHmmss");
+    // Thread-safe date format
+    ThreadLocal<SimpleDateFormat> threadLocalDateFormat =
+        new ThreadLocal<SimpleDateFormat>() {
+          @Override
+          protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat("_yyyyMMddHHmmss");
+          }
+        };
 
     // Get the current date and time
     Date now = new Date();
 
-    // Format the date and time
-    return sdf.format(now);
+    // Format the date and time using the thread-local formatter
+    return threadLocalDateFormat.get().format(now);
   }
 
   // Method to open the text file
