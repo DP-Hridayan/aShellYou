@@ -1,5 +1,6 @@
 package in.hridayan.ashell.activities;
 
+import android.widget.Toast;
 import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
@@ -42,8 +43,9 @@ public class MainActivity extends AppCompatActivity
   private static int currentFragment;
   private boolean isBlackThemeEnabled, isAmoledTheme;
   private MainViewModel viewModel;
-  
-     private String pendingSharedText = null;
+
+
+  private String pendingSharedText = null;
 
   // Reset the OtgFragment
   @Override
@@ -60,7 +62,9 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onResult(int result) {
     if (result == Preferences.UPDATE_AVAILABLE) {
-      Utils.showBottomSheetUpdate(this);
+
+      Utils.showBottomSheetUpdate(this, this);
+
     }
   }
 
@@ -229,6 +233,10 @@ public class MainActivity extends AppCompatActivity
               showotgShellFragment();
               Preferences.setCurrentFragment(this, OTG_FRAGMENT);
               return true;
+
+            case R.id.nav_wireless:
+              Toast.makeText(this, "Soon", Toast.LENGTH_SHORT).show();
+              return false;
 
             default:
               return false;

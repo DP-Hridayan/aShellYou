@@ -13,7 +13,6 @@ import android.content.ClipboardManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -47,30 +46,30 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import rikka.shizuku.Shizuku;
 
 public class Utils {
   public static Intent intent;
   public static int savedVersionCode;
 
-  /*
-   * Adapted from android.os.FileUtils
-   * Ref: https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=972?q=isValidFatFilenameChar
-   */
-
   private static boolean isValidFilename(String s) {
-    return !s.contains("*")
-        && !s.contains("/")
-        && !s.contains(":")
-        && !s.contains("<")
-        && !s.contains(">")
-        && !s.contains("?")
-        && !s.contains("\\")
-        && !s.contains("|");
+
+    String[] invalidChars = {"*", "/", ":", "<", ">", "?", "\\", "|"};
+
+    for (String invalidChar : invalidChars) {
+      if (s.contains(invalidChar)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public static Drawable getDrawable(int drawable, Context context) {
@@ -365,7 +364,7 @@ public class Utils {
               }
               button.setVisibility(View.GONE);
               String s = mCommand.getText().toString();
-              if (!s.equals("")) {
+              if (s.length() != 0) {
                 mCommandInput.setEndIconDrawable(R.drawable.ic_add_bookmark);
               } else {
                 mCommandInput.setEndIconVisible(false);
@@ -469,6 +468,32 @@ public class Utils {
         .show();
   }
 
+  public static void savePreferenceDialog(Context context) {
+
+    final CharSequence[] preferences = {
+      context.getString(R.string.only_last_command_output), context.getString(R.string.whole_output)
+    };
+
+    int savePreference = Preferences.getSavePreference(context);
+    final int[] preference = {savePreference};
+
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(context.getString(R.string.save))
+        .setSingleChoiceItems(
+            preferences,
+            savePreference,
+            (dialog, which) -> {
+              preference[0] = which;
+            })
+        .setPositiveButton(
+            context.getString(R.string.choose),
+            (dialog, which) -> {
+              Preferences.setSavePreference(context, preference[0]);
+            })
+        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .show();
+  }
+
   public static void connectedDeviceDialog(Context context, String connectedDevice) {
     String device = connectedDevice;
 
@@ -497,23 +522,34 @@ public class Utils {
 
   // Dialog to show if the shell output is saved or not
   public static void outputSavedDialog(Activity activity, Context context, boolean saved) {
-    String message =
-        saved
+    String successMessage =
+        Preferences.getSavePreference(context) == Preferences.ALL_OUTPUT
             ? context.getString(
-                R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS)
-            : context.getString(R.string.shell_output_not_saved_message);
+                R.string.shell_output_saved_whole_message, Environment.DIRECTORY_DOWNLOADS)
+            : context.getString(
+                R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS);
+    String message =
+        saved ? successMessage : context.getString(R.string.shell_output_not_saved_message);
     String title = saved ? context.getString(R.string.success) : context.getString(R.string.failed);
 
-    new MaterialAlertDialogBuilder(activity)
-        .setTitle(title)
-        .setMessage(message)
-        .setPositiveButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+    MaterialAlertDialogBuilder builder =
+        new MaterialAlertDialogBuilder(activity).setTitle(title).setMessage(message);
+    if (saved) {
+      builder.setPositiveButton(
+          context.getString(R.string.open),
+          (dialogInterface, i) -> {
+            Utils.openTextFileWithIntent(Preferences.getLastSavedFileName(context), context);
+          });
+    }
+
+    builder
+        .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
         .show();
   }
 
   // Generate the file name of the exported txt file
   public static String generateFileName(List<String> mHistory) {
-    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
+    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "");
   }
 
   public static String lastCommandOutput(String text) {
@@ -538,20 +574,18 @@ public class Utils {
   }
 
   // Logic behind saving output as txt files
-  public static boolean saveToFile(String sb, Activity activity, List<String> mHistory) {
+  public static boolean saveToFile(String sb, Activity activity, String fileName) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-      return Utils.saveToFileApi29AndAbove(sb, activity, mHistory);
+      return Utils.saveToFileApi29AndAbove(sb, activity, fileName);
     } else {
-      return Utils.saveToFileBelowApi29(sb, activity, mHistory);
+      return Utils.saveToFileBelowApi29(sb, activity, fileName);
     }
   }
 
   /* Save output txt file on devices running Android 11 and above and return a boolean if the file is saved */
-  public static boolean saveToFileApi29AndAbove(
-      String sb, Activity activity, List<String> mHistory) {
+  public static boolean saveToFileApi29AndAbove(String sb, Activity activity, String fileName) {
     try {
       ContentValues values = new ContentValues();
-      String fileName = Utils.generateFileName(mHistory);
       values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
       values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
       values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
@@ -573,7 +607,7 @@ public class Utils {
   }
 
   /*Save output txt file on devices running Android 10 and below and return a boolean if the file is saved */
-  public static boolean saveToFileBelowApi29(String sb, Activity activity, List<String> mHistory) {
+  public static boolean saveToFileBelowApi29(String sb, Activity activity, String fileName) {
     if (activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
         != PackageManager.PERMISSION_GRANTED) {
       ActivityCompat.requestPermissions(
@@ -582,7 +616,6 @@ public class Utils {
     }
 
     try {
-      String fileName = Utils.generateFileName(mHistory);
       File file = new File(Environment.DIRECTORY_DOWNLOADS, fileName);
       Utils.create(sb.toString(), file);
       return true;
@@ -616,19 +649,6 @@ public class Utils {
     }
   }
 
-  // Method to retrieve the app version name
-  public static String getAppVersionName(Context context) {
-    String versionName = "";
-    try {
-      PackageManager packageManager = context.getPackageManager();
-      PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
-      versionName = packageInfo.versionName;
-    } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
-    }
-    return versionName;
-  }
-
   // Method to load the changelogs text
   public static String loadChangelogText(String versionNumber, Context context) {
     int resourceId =
@@ -652,18 +672,28 @@ public class Utils {
 
   // Extracts the version code from the build.gradle file retrieved and converts it to integer
   public static int extractVersionCode(String text) {
-    String[] lines = text.split("\\r?\\n");
-    int versionCode = -1; // Default value if versionCode is not found
+    Pattern pattern = Pattern.compile("versionCode\\s+(\\d+)");
+    Matcher matcher = pattern.matcher(text);
 
-    for (String line : lines) {
-      if (line.contains("versionCode")) {
-        String trimmedLine = line.trim();
-        String integerSeparated = trimmedLine.replace("versionCode", "").trim();
-        int latestVersionCode = Integer.parseInt(integerSeparated);
-        return latestVersionCode;
+    if (matcher.find()) {
+      try {
+        return Integer.parseInt(matcher.group(1));
+      } catch (NumberFormatException e) {
+        e.printStackTrace();
+        return -1;
       }
     }
-    return versionCode;
+    return -1;
+  }
+
+  // Extracts the version name from the build.gradle file retrieved and converts it to string
+  public static String extractVersionName(String text) {
+    Pattern pattern = Pattern.compile("versionName\\s*\"([^\"]*)\"");
+    Matcher matcher = pattern.matcher(text);
+    if (matcher.find()) {
+      return matcher.group(1);
+    }
+    return "";
   }
 
   /* Compare current app version code with the one retrieved from github to see if update available */
@@ -686,31 +716,98 @@ public class Utils {
 
     MaterialTextView changelog, version;
 
+    String versionName = BuildConfig.VERSION_NAME;
     version = bottomSheetView.findViewById(R.id.version);
     changelog = bottomSheetView.findViewById(R.id.changelog);
-    version.setText(Utils.getAppVersionName(activity));
-    String versionName = Utils.getAppVersionName(activity);
+    version.setText(versionName);
     changelog.setText(Utils.loadChangelogText(versionName, activity));
   }
 
   // Bottom sheet showing the popup if an update is available
-  public static void showBottomSheetUpdate(Activity activity) {
+  public static void showBottomSheetUpdate(Activity activity, Context context) {
     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
     View bottomSheetView =
         LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_update_checker, null);
     bottomSheetDialog.setContentView(bottomSheetView);
     bottomSheetDialog.show();
 
+    MaterialTextView currentVersion = bottomSheetView.findViewById(R.id.current_version);
+    MaterialTextView latestVersion = bottomSheetView.findViewById(R.id.latest_version);
     MaterialButton downloadButton = bottomSheetView.findViewById(R.id.download_button);
     MaterialButton cancelButton = bottomSheetView.findViewById(R.id.cancel_button);
 
+    currentVersion.setText(
+        context.getString(R.string.current)
+            + " "
+            + context.getString(R.string.version)
+            + " : "
+            + BuildConfig.VERSION_NAME);
+    latestVersion.setText(
+        context.getString(R.string.latest)
+            + " "
+            + context.getString(R.string.version)
+            + " : "
+            + Preferences.getLatestVersionName(context));
     downloadButton.setOnClickListener(
         v -> {
           Utils.openUrl(activity, "https://github.com/DP-Hridayan/aShellYou/releases/latest");
+          bottomSheetDialog.dismiss();
         });
     cancelButton.setOnClickListener(
         v -> {
           bottomSheetDialog.dismiss();
         });
+  }
+
+  // Method to convert List to String (for shizuku shell output)
+  public static String convertListToString(List<String> list) {
+    StringBuilder sb = new StringBuilder();
+    for (String s : list) {
+      if (!"Shell is dead".equals(s) && !"<i></i>".equals(s)) {
+        sb.append(s).append("\n");
+      }
+    }
+    return sb.toString();
+  }
+
+  /*Using this function to create unique file names for the saved txt files as there are methods which tries to open files based on its name */
+  public static String getCurrentDateTime() {
+    // Thread-safe date format
+    ThreadLocal<SimpleDateFormat> threadLocalDateFormat =
+        new ThreadLocal<SimpleDateFormat>() {
+          @Override
+          protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat("_yyyyMMddHHmmss");
+          }
+        };
+
+    // Get the current date and time
+    Date now = new Date();
+
+    // Format the date and time using the thread-local formatter
+    return threadLocalDateFormat.get().format(now);
+  }
+
+  // Method to open the text file
+  public static void openTextFileWithIntent(String fileName, Context context) {
+    File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+    File file = new File(directory, fileName);
+
+    if (file.exists()) {
+      Uri fileUri = FileProvider.getUriForFile(context, "in.hridayan.ashell.fileprovider", file);
+      Intent intent = new Intent(Intent.ACTION_VIEW);
+      intent.setDataAndType(fileUri, "text/plain");
+      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+      try {
+        context.startActivity(intent);
+      } catch (ActivityNotFoundException e) {
+        Toast.makeText(
+                context, context.getString(R.string.no_application_found), Toast.LENGTH_SHORT)
+            .show();
+      }
+    } else {
+      Toast.makeText(context, context.getString(R.string.file_not_found), Toast.LENGTH_SHORT)
+          .show();
+    }
   }
 }

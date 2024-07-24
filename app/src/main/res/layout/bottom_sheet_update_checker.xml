@@ -22,6 +22,24 @@
         android:textStyle="bold"
         android:textAppearance="?attr/textAppearanceTitleLarge" />
 
+       <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/current_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="5dp"
+        android:textAppearance="?attr/textAppearanceTitleSmall" />
+
+       <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/latest_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="5dp"
+        android:textColor="?attr/colorPrimary"
+        android:textAppearance="?attr/textAppearanceTitleSmall" />
+
+    
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/body"
         android:layout_width="match_parent"

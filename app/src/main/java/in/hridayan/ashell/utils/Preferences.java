@@ -3,6 +3,7 @@ package in.hridayan.ashell.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
+import in.hridayan.ashell.BuildConfig;
 
 public class Preferences {
   public static final String buildGradleUrl =
@@ -22,7 +23,10 @@ public class Preferences {
       PREF_CURRENT_FRAGMENT = "current_fragment",
       PREF_DEFAULT_WORKING_MODE = "id_default_working_mode",
       PREF_SPECIFIC_CARD_VISIBILITY = "specific_card_visibility",
-      PREF_AUTO_UPDATE_CHECK = "id_auto_update_check";
+      PREF_AUTO_UPDATE_CHECK = "id_auto_update_check",
+      PREF_SAVE_PREFERENCE = "id_save_preference",
+      PREF_LATEST_VERSION_NAME = "latest_version_name",
+      PREF_LAST_SAVED_FILENAME = "last_saved_filename";
   public static final int SORT_A_TO_Z = 0,
       SORT_Z_TO_A = 1,
       SORT_MOST_USED = 2,
@@ -37,10 +41,29 @@ public class Preferences {
       MAX_BOOKMARKS_LIMIT = 25,
       UPDATE_AVAILABLE = 1,
       UPDATE_NOT_AVAILABLE = 0,
-      CONNECTION_ERROR = 2;
+      CONNECTION_ERROR = 2,
+      LAST_COMMAND_OUTPUT = 0,
+      ALL_OUTPUT = 1;
 
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
+  }
+
+  public static String getLatestVersionName(Context context) {
+    return getSharedPreferences(context)
+        .getString(PREF_LATEST_VERSION_NAME, BuildConfig.VERSION_NAME);
+  }
+
+  public static void setLatestVersionName(Context context, String value) {
+    getSharedPreferences(context).edit().putString(PREF_LATEST_VERSION_NAME, value).apply();
+  }
+
+  public static String getLastSavedFileName(Context context) {
+    return getSharedPreferences(context).getString(PREF_LAST_SAVED_FILENAME, "");
+  }
+
+  public static void setLastSavedFileName(Context context, String value) {
+    getSharedPreferences(context).edit().putString(PREF_LAST_SAVED_FILENAME, value).apply();
   }
 
   public static boolean getAmoledTheme(Context context) {
@@ -97,6 +120,14 @@ public class Preferences {
 
   public static void setAutoUpdateCheck(Context context, boolean value) {
     getSharedPreferences(context).edit().putBoolean(PREF_AUTO_UPDATE_CHECK, value).apply();
+  }
+
+  public static int getSavePreference(Context context) {
+    return getSharedPreferences(context).getInt(PREF_SAVE_PREFERENCE, LAST_COMMAND_OUTPUT);
+  }
+
+  public static void setSavePreference(Context context, int value) {
+    getSharedPreferences(context).edit().putInt(PREF_SAVE_PREFERENCE, value).apply();
   }
 
   public static int getSavedVersionCode(Context context) {

@@ -59,6 +59,7 @@
         name="copy"
         tools:override="true">Copy</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="current">Current</string>
     <string name="default_working_mode">Default working mode</string>
     <string name="delete_all">Delete all</string>
     <string name="des_default_working_mode">Choose the default working mode for running ADB commands</string>
@@ -73,20 +74,26 @@
     <string name="example">Example</string>
     <string name="examples">Examples</string>
     <string name="failed">Failed</string>
+    <string name="file_not_found">File not found</string>
     <string name="generate_key_failed">Failed to generate and save key pair</string>
     <string name="flashing">Flashing</string>
     <string name="go_back">Go back</string>
     <string name="history">History</string>
     <string name="instructions">Instructions</string>
+    <string name="latest">Latest</string>
     <string name="least_used">Least used</string>
     <string name="local_adb">Local ADB</string>
     <string name="menu">Menu</string>
     <string name="most_used">Most used</string>
     <string name="none">None</string>
+
+    <string name="no_application_found">No application found to perform the task</string>
     <string name="no_changelog">No changelog</string>
     <string name="no_command">No command</string>
     <string name="no_command_found">No command found that matches your query</string>
     <string name="ok">OK</string>
+    <string name="only_last_command_output">Only last command output</string>
+    <string name="open">Open</string>
     <string name="open_adb">Open ADB shell</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Device is not properly connected. Connect the device properly through OTG and try again</string>
@@ -114,6 +121,7 @@
     <string name="des_share_and_run">If enabled then sharing any text to aShell You automatically runs the shell with the shared text as input</string>
     <string name="shell_output_not_saved_message">The output of last command is not saved</string>
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\' folder</string>
+    <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\' folder</string>
     <string name="shell_working">Shell is working</string>
     <string name="shizuku_about">About Shizuku</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You. aShell You won\'t work without a proper Shizuku environment.</string>
@@ -140,9 +148,11 @@
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
     <string name="whats_new">What\'s new !</string>
+    <string name="whole_output">Whole output</string>
     <string name="working_mode">Working mode</string>
     <string name="yes">Yes</string>
-
+    <string name="save_preference">Save output preference</string>
+    <string name="des_save_preference">Choose what portion of the shell output should be saved</string>
     <string name="smooth_scrolling">Smooth scrolling</string>
     <string name="des_smooth_scroll">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
     <string name="ask_to_clean">Ask before clearing shell output</string>

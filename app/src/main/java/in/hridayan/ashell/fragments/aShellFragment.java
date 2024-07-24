@@ -18,14 +18,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -103,6 +101,8 @@ public class aShellFragment extends Fragment {
   private aShellFragmentViewModel viewModel;
   private Chip mChip;
 
+  private static final int PERMISSION_REQUEST_CODE = 1;
+
   public aShellFragment() {}
 
   @Override
@@ -140,7 +140,6 @@ public class aShellFragment extends Fragment {
 
     mBookMarks.setVisibility(Utils.getBookmarks(context).size() != 0 ? View.VISIBLE : View.GONE);
 
-    updateHistoryAndBookMarksConstraints();
     if (viewModel.isEditTextFocused()) {
       mCommand.requestFocus();
     } else {
@@ -187,7 +186,7 @@ public class aShellFragment extends Fragment {
     isEndIconVisible = viewModel.isEndIconVisible();
     String s = mCommand.getText().toString().trim();
 
-    if (!s.equals("") && isEndIconVisible) {
+    if (s.length() != 0 && isEndIconVisible) {
       mCommandInput.setEndIconDrawable(
           Utils.getDrawable(
               Utils.isBookmarked(s, requireActivity())
@@ -593,24 +592,6 @@ public class aShellFragment extends Fragment {
           Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
     }
 
-    ViewTreeObserver.OnGlobalLayoutListener historyListener =
-        new ViewTreeObserver.OnGlobalLayoutListener() {
-          @Override
-          public void onGlobalLayout() {
-            updateHistoryAndBookMarksConstraints();
-          }
-        };
-
-    ViewTreeObserver.OnGlobalLayoutListener clearButtonListener =
-        new ViewTreeObserver.OnGlobalLayoutListener() {
-          @Override
-          public void onGlobalLayout() {
-            updateHistoryAndBookMarksConstraints();
-          }
-        };
-
-    mHistoryButton.getViewTreeObserver().addOnGlobalLayoutListener(historyListener);
-    mClearButton.getViewTreeObserver().addOnGlobalLayoutListener(clearButtonListener);
     mBookMarks.setTooltipText(getString(R.string.bookmarks));
 
     mBookMarks.setOnClickListener(
@@ -715,12 +696,28 @@ public class aShellFragment extends Fragment {
     mSaveButton.setOnClickListener(
         v -> {
           shellOutput = viewModel.getShellOutput();
+
           history = viewModel.getHistory();
           initializeResults();
+          String sb = null, fileName = null;
 
-          String sb = buildResultsString().toString();
+          switch (Preferences.getSavePreference(context)) {
+            case Preferences.ALL_OUTPUT:
+              sb = Utils.convertListToString(mResult);
+              fileName = "shizukuOutput" + Utils.getCurrentDateTime();
+              break;
+            case Preferences.LAST_COMMAND_OUTPUT:
+              sb = buildResultsString().toString();
+              fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
+              break;
+            default:
+              break;
+          }
 
-          boolean saved = Utils.saveToFile(sb, requireActivity(), mHistory);
+          boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
+          if (saved) {
+            Preferences.setLastSavedFileName(context, fileName + ".txt");
+          }
 
           // Dialog showing if the output has been saved or not
           Utils.outputSavedDialog(requireActivity(), context, saved);
@@ -1172,46 +1169,6 @@ public class aShellFragment extends Fragment {
     if (mCommandText != null) {
       mCommand.setText(mCommandText);
     }
-  }
-
-  // This function is mainly for maintaining the constraints of history and bookmarks button when
-  // other buttons are visible or not visible , it is just for asthethic , to distribute buttons
-  // evenly
-  private void updateHistoryAndBookMarksConstraints() {
-    boolean isHistoryButtonVisible = mHistoryButton.getVisibility() == View.VISIBLE;
-    boolean isBookMarksVisible = mBookMarks.getVisibility() == View.VISIBLE;
-    boolean isClearVisible = mClearButton.getVisibility() == View.VISIBLE;
-    boolean isOthersGone =
-        mClearButton.getVisibility() == View.GONE && mSearchButton.getVisibility() == View.GONE;
-
-    ConstraintLayout.LayoutParams layoutParamsBookMarks =
-        (ConstraintLayout.LayoutParams) mBookMarks.getLayoutParams();
-    ConstraintLayout.LayoutParams layoutParamsHistory =
-        (ConstraintLayout.LayoutParams) mHistoryButton.getLayoutParams();
-
-    if (isOthersGone && isBookMarksVisible && isHistoryButtonVisible) {
-      layoutParamsBookMarks.startToEnd = R.id.settings;
-      layoutParamsBookMarks.endToStart = R.id.history;
-      layoutParamsHistory.startToEnd = R.id.bookmarks;
-      layoutParamsHistory.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
-      layoutParamsHistory.setMarginEnd(25);
-
-    } else {
-      layoutParamsHistory.endToStart =
-          isClearVisible ? R.id.clear : ConstraintLayout.LayoutParams.UNSET;
-      layoutParamsHistory.startToEnd = isBookMarksVisible ? R.id.bookmarks : R.id.settings;
-      layoutParamsHistory.setMarginStart(isBookMarksVisible ? 0 : 70);
-
-      layoutParamsBookMarks.endToStart =
-          isHistoryButtonVisible ? R.id.history : ConstraintLayout.LayoutParams.UNSET;
-      layoutParamsBookMarks.setMarginStart(isHistoryButtonVisible ? 0 : 70);
-    }
-    mBookMarks.setLayoutParams(layoutParamsBookMarks);
-    mBookMarks.requestLayout();
-    mBookMarks.invalidate();
-    mHistoryButton.setLayoutParams(layoutParamsHistory);
-    mHistoryButton.requestLayout();
-    mHistoryButton.invalidate();
   }
 
   private void initializeResults() {
