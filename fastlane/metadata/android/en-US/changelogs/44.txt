@@ -1,0 +1,7 @@
+
+
+• Added option to open saved output directly
+
+• Added option to save whole output or the last command output only
+
+• Fixed crashes
