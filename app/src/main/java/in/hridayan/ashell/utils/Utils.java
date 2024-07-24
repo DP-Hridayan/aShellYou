@@ -715,6 +715,7 @@ public class Utils {
     bottomSheetDialog.show();
 
     MaterialTextView changelog, version;
+
     String versionName = BuildConfig.VERSION_NAME;
     version = bottomSheetView.findViewById(R.id.version);
     changelog = bottomSheetView.findViewById(R.id.changelog);
