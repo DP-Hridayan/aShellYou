@@ -86,6 +86,7 @@
     <string name="menu">Menu</string>
     <string name="most_used">Most used</string>
     <string name="none">None</string>
+
     <string name="no_application_found">No application found to perform the task</string>
     <string name="no_changelog">No changelog</string>
     <string name="no_command">No command</string>
