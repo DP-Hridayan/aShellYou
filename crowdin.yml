@@ -1,5 +1,0 @@
-files:
-  - source: app/src/main/res/values/strings.xml
-    translation: 'app/src/main/res/values-{{locale}}/strings.xml'
-bundles:
-  - 4
