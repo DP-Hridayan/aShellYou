@@ -72,58 +72,57 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           settingsItem.setChecked(isChecked);
           settingsItem.saveSwitchState(context);
 
-            if (settingsItem.getId().equals("id_amoled_theme")) {
-                if ((context.getResources().getConfiguration().uiMode
-                        & Configuration.UI_MODE_NIGHT_MASK)
-                        == Configuration.UI_MODE_NIGHT_YES) {
-                    applyTheme(isChecked);
-                }
+          if (settingsItem.getId().equals("id_amoled_theme")) {
+            if ((context.getResources().getConfiguration().uiMode
+                    & Configuration.UI_MODE_NIGHT_MASK)
+                == Configuration.UI_MODE_NIGHT_YES) {
+              applyTheme(isChecked);
             }
+          }
         });
 
-    View.OnClickListener clickListener = v -> {
+    View.OnClickListener clickListener =
+        v -> {
+          Intent intent;
 
-              Intent intent;
+          switch (settingsItem.getId()) {
+            case "id_unhide_cards":
+              Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
+              Toast.makeText(
+                      context, context.getString(R.string.unhide_cards_message), Toast.LENGTH_SHORT)
+                  .show();
+              break;
 
-              switch (settingsItem.getId()) {
-                case "id_unhide_cards":
-                  Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
-                  Toast.makeText(
-                          context,
-                          context.getString(R.string.unhide_cards_message),
-                          Toast.LENGTH_SHORT)
-                      .show();
-                  break;
+            case "id_default_language":
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
+                intent.setData(Uri.parse("package:" + context.getPackageName()));
+                context.startActivity(intent);
+              }
+              break;
 
-                case "default_locale":
-                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
-                    intent.setData(Uri.parse("package:" + context.getPackageName()));
-                    context.startActivity(intent);
-                  }
-                  break;
+            case "id_examples":
+              intent = new Intent(context, ExamplesActivity.class);
+              context.startActivity(intent);
+              break;
 
-                case "id_examples":
-                  intent = new Intent(context, ExamplesActivity.class);
-                  context.startActivity(intent);
-                  break;
+            case "id_about":
+              intent = new Intent(context, AboutActivity.class);
+              context.startActivity(intent);
+              break;
 
-                case "id_about":
-                  intent = new Intent(context, AboutActivity.class);
-                  context.startActivity(intent);
-                  break;
+            case "id_default_working_mode":
+              Utils.defaultWorkingModeDialog(context);
+              break;
 
-                case "id_default_working_mode":
-                  Utils.defaultWorkingModeDialog(context);
-                  break;
+            case "id_save_preference":
+              Utils.savePreferenceDialog(context);
+              break;
 
-                case "id_save_preference":
-                  Utils.savePreferenceDialog(context);
-                  break;
-
-                default:
-                  break;}
-            };
+            default:
+              break;
+          }
+        };
 
     holder.settingsItemLayout.setOnClickListener(clickListener);
     int paddingInPixels = (int) (Utils.convertDpToPixel(30, context));

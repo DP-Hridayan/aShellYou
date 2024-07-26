@@ -10,8 +10,8 @@
     <string name="accept">स्वीकार करें</string>
     <string name="amoled_theme">AMOLED काला थीम</string>
     <string name="des_amoled_theme">OLED स्क्रीन वाले डिवाइस के लिए काला पेयशील थीम।</string>
-    <string name="app_locale">डिफ़ॉल्ट भाषा</string>
-    <string name="des_app_locale">ऐप के लिए डिफ़ॉल्ट भाषा चुनें</string>
+    <string name="default_language">डिफ़ॉल्ट भाषा</string>
+    <string name="des_default_language">ऐप के लिए डिफ़ॉल्ट भाषा चुनें</string>
     <string name="app_summary">aShell You आपकी सभी ADB आवश्यकताओं के लिए यहाँ है।</string>
     <string name="app_updated_message">ऐप अपडेट किया गया है, क्या आप जानना चाहेंगे कि क्या बदला है?</string>
     <string name="app_working_message">aShell You अभी भी काम कर रहा है। नए कमांड को चलाने के लिए कृपया इंतजार करें या मैन्युअल रूप से रोकें (स्टॉप बटन पर क्लिक करके)।</string>

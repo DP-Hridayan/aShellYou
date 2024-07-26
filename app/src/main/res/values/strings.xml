@@ -18,8 +18,6 @@
     <string name="already_latest_version">You are using the latest version</string>
     <string name="amoled_theme">Amoled black theme</string>
     <string name="des_amoled_theme">Pure black theme for devices with OLED panel</string>
-    <string name="app_locale">Default Locale</string>
-    <string name="des_app_locale">Choose the default language for the app</string>
     <string name="app_summary">aShell You is here for all your ADB needs</string>
     <string name="app_updated_message">App is updated, want to see changelogs?</string>
     <string name="app_working_message">aShell You is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
@@ -65,6 +63,8 @@
     <string name="current">Current</string>
     <string name="default_working_mode">Default working mode</string>
     <string name="delete_all">Delete all</string>
+    <string name="default_language">Default language</string>
+    <string name="des_default_language">Choose the default language for the app</string>
     <string name="des_default_working_mode">Choose the default working mode for running ADB commands</string>
     <string name="device_not_connected">Device not connected</string>
     <string name="discord">Discord</string>

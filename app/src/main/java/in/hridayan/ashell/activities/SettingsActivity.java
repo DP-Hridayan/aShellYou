@@ -86,21 +86,6 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             Preferences.getAmoledTheme(this)));
 
-    // App locale setting is only available on Android 13+
-    // Also, it's not functional on MIUI devices even on Android 13,
-    // Thanks to Xiaomi's broken implementation of standard Android APIs.
-    // See: https://github.com/Pool-Of-Tears/GreenStash/issues/130 for more information.
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiuiCheck.isMiui()) {
-        settingsData.add(
-            new SettingsItem(
-                "default_locale",
-                R.drawable.ic_default_locale,
-                getString(R.string.app_locale),
-                getString(R.string.des_app_locale),
-                false,
-                false));
-    }
-
     settingsData.add(
         new SettingsItem(
             "id_clear",
@@ -127,6 +112,21 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.des_auto_update_check),
             true,
             Preferences.getAutoUpdateCheck(this)));
+
+    // App locale setting is only available on Android 13+
+    // Also, it's not functional on MIUI devices even on Android 13,
+    // Thanks to Xiaomi's broken implementation of standard Android APIs.
+    // See: https://github.com/Pool-Of-Tears/GreenStash/issues/130 for more information.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiuiCheck.isMiui()) {
+      settingsData.add(
+          new SettingsItem(
+              "id_default_language",
+              R.drawable.ic_language,
+              getString(R.string.default_language),
+              getString(R.string.des_default_language),
+              false,
+              false));
+    }
 
     settingsData.add(
         new SettingsItem(
