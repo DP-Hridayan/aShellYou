@@ -15,8 +15,8 @@ android {
         minSdk 26
         targetSdk 34
 
-        versionCode 44
-        versionName "v4.3.0"
+        versionCode 45
+        versionName "v4.3.1"
 
     }
     

@@ -83,8 +83,6 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.des_amoled_theme),
             true,
             Preferences.getAmoledTheme(this)));
-        
-        
 
     settingsData.add(
         new SettingsItem(
@@ -103,8 +101,8 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.des_share_and_run),
             true,
             Preferences.getShareAndRun(this)));
-        
-       settingsData.add(
+
+    settingsData.add(
         new SettingsItem(
             "id_auto_update_check",
             R.drawable.ic_auto_update,
@@ -140,7 +138,7 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             Preferences.getOverrideBookmarks(this)));
 
-       settingsData.add(
+    settingsData.add(
         new SettingsItem(
             "id_save_preference",
             R.drawable.ic_save_24px,
@@ -148,7 +146,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.des_save_preference),
             false,
             false));
-        
+
     settingsData.add(
         new SettingsItem(
             "id_smooth_scroll",
@@ -158,7 +156,7 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             Preferences.getSmoothScroll(this)));
 
-       settingsData.add(
+    settingsData.add(
         new SettingsItem(
             "id_unhide_cards",
             R.drawable.ic_cards,
@@ -166,7 +164,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.des_unhide_cards),
             false,
             false));
-        
+
     settingsData.add(
         new SettingsItem(
             "id_examples",

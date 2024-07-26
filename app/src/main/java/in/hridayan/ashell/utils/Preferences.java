@@ -6,9 +6,10 @@ import androidx.preference.PreferenceManager;
 import in.hridayan.ashell.BuildConfig;
 
 public class Preferences {
-  public static final String buildGradleUrl =
-      "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
-
+  public static final String
+      buildGradleUrl =
+          "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle",
+      devEmail = "hridayanofficial@gmail.com";
   private static final String PREF_AMOLED_THEME = "id_amoled_theme",
       PREF_COUNTER_PREFIX = "counter_",
       PREF_PINNED_PREFIX = "pinned",

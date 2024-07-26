@@ -149,8 +149,8 @@ public class AboutActivity extends AppCompatActivity
     items.add(
         new Category.AppItem(
             "id_report",
-            getString(R.string.report),
-            getString(R.string.des_report),
+            getString(R.string.report_issue),
+            getString(R.string.des_report_issue),
             R.drawable.ic_report));
 
     items.add(

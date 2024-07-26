@@ -141,8 +141,8 @@
     <string name="weiguangtwk_about">O cara que fez as traduções para o Chinês</string>
     <string name="app">App</string>
     <string name="version">Versão</string>
-    <string name="report">Relatar um problema</string>
-    <string name="des_report">Relate qualquer problema que você enfrentou ao usar o aplicativo</string>
+    <string name="report_issue">Relatar um problema</string>
+    <string name="des_report_issue">Relate qualquer problema que você enfrentou ao usar o aplicativo</string>
     <string name="feature_request">Solicitação de recurso</string>
     <string name="des_feature_request">Se você tiver alguma ideia ou sugestão em mente, me conte</string>
     <string name="github">Github</string>
