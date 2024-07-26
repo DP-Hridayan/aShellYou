@@ -1,5 +1,6 @@
 package in.hridayan.ashell.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
@@ -12,6 +13,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.SettingsViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.utils.MiuiCheck;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ThemeUtils;
@@ -83,6 +85,21 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.des_amoled_theme),
             true,
             Preferences.getAmoledTheme(this)));
+
+    // App locale setting is only available on Android 13+
+    // Also, it's not functional on MIUI devices even on Android 13,
+    // Thanks to Xiaomi's broken implementation of standard Android APIs.
+    // See: https://github.com/Pool-Of-Tears/GreenStash/issues/130 for more information.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiuiCheck.isMiui()) {
+        settingsData.add(
+            new SettingsItem(
+                "default_locale",
+                R.drawable.ic_default_locale,
+                getString(R.string.app_locale),
+                getString(R.string.des_app_locale),
+                false,
+                false));
+    }
 
     settingsData.add(
         new SettingsItem(

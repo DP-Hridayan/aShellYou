@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +31,8 @@ import java.util.List;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
-  private List<SettingsItem> settingsList;
-  private Context context;
+  private final List<SettingsItem> settingsList;
+  private final Context context;
   private int currentTheme;
 
   public SettingsAdapter(List<SettingsItem> settingsList, Context context, int currentTheme) {
@@ -69,61 +72,58 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           settingsItem.setChecked(isChecked);
           settingsItem.saveSwitchState(context);
 
-          switch (settingsItem.getId()) {
-            case "id_amoled_theme":
-              if ((context.getResources().getConfiguration().uiMode
-                      & Configuration.UI_MODE_NIGHT_MASK)
-                  == Configuration.UI_MODE_NIGHT_YES) {
-                applyTheme(isChecked);
-              }
-
-              break;
-
-            default:
-              break;
-          }
+            if (settingsItem.getId().equals("id_amoled_theme")) {
+                if ((context.getResources().getConfiguration().uiMode
+                        & Configuration.UI_MODE_NIGHT_MASK)
+                        == Configuration.UI_MODE_NIGHT_YES) {
+                    applyTheme(isChecked);
+                }
+            }
         });
 
-    View.OnClickListener clickListener =
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
+    View.OnClickListener clickListener = v -> {
 
-            Intent intent;
+              Intent intent;
 
-            switch (settingsItem.getId()) {
-              case "id_unhide_cards":
-                Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
-                Toast.makeText(
-                        context,
-                        context.getString(R.string.unhide_cards_message),
-                        Toast.LENGTH_SHORT)
-                    .show();
-                break;
+              switch (settingsItem.getId()) {
+                case "id_unhide_cards":
+                  Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
+                  Toast.makeText(
+                          context,
+                          context.getString(R.string.unhide_cards_message),
+                          Toast.LENGTH_SHORT)
+                      .show();
+                  break;
 
-              case "id_examples":
-                intent = new Intent(context, ExamplesActivity.class);
-                context.startActivity(intent);
-                break;
+                case "default_locale":
+                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
+                    intent.setData(Uri.parse("package:" + context.getPackageName()));
+                    context.startActivity(intent);
+                  }
+                  break;
 
-              case "id_about":
-                intent = new Intent(context, AboutActivity.class);
-                context.startActivity(intent);
-                break;
+                case "id_examples":
+                  intent = new Intent(context, ExamplesActivity.class);
+                  context.startActivity(intent);
+                  break;
 
-              case "id_default_working_mode":
-                Utils.defaultWorkingModeDialog(context);
-                break;
+                case "id_about":
+                  intent = new Intent(context, AboutActivity.class);
+                  context.startActivity(intent);
+                  break;
 
-              case "id_save_preference":
-                Utils.savePreferenceDialog(context);
-                break;
+                case "id_default_working_mode":
+                  Utils.defaultWorkingModeDialog(context);
+                  break;
 
-              default:
-                return;
-            }
-          }
-        };
+                case "id_save_preference":
+                  Utils.savePreferenceDialog(context);
+                  break;
+
+                default:
+                  break;}
+            };
 
     holder.settingsItemLayout.setOnClickListener(clickListener);
     int paddingInPixels = (int) (Utils.convertDpToPixel(30, context));
