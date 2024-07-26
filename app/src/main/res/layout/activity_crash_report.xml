@@ -98,7 +98,7 @@
         android:layout_marginBottom="25dp"
         android:layout_marginEnd="25dp"
         app:icon="@drawable/ic_report"
-        android:text="Report"
+        android:text="@string/report"
         style="?attr/extendedFloatingActionButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

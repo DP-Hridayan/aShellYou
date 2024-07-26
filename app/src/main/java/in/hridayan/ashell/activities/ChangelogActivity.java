@@ -23,13 +23,11 @@ public class ChangelogActivity extends AppCompatActivity {
   private AppBarLayout appBarLayout;
   private RecyclerView recyclerViewChangelogs;
 
-
-
-  private final String[] versionNames = {"v4.3.0","v4.2.1",
-    "v4.2.0", "v4.1.0", "v4.0.3", "v4.0.2", "v4.0.1", "v4.0.0", "v3.9.1", "v3.9.0", "v3.8.2",
-    "v3.8.1", "v3.8.0", "v3.7.0", "v3.6.0", "v3.5.1", "v3.5.0", "v3.4.0", "v3.3.0", "v3.2.0",
-    "v3.1.0", "v3.0.0", "v2.0.2", "v2.0.1", "v2.0.0", "v1.3.0", "v1.2.0", "v1.1.1", "v1.1.0",
-    "v1.0.0", "v0.9.1", "v0.9.0"
+  private final String[] versionNames = {
+    "v4.3.1", "v4.3.0", "v4.2.1", "v4.2.0", "v4.1.0", "v4.0.3", "v4.0.2", "v4.0.1", "v4.0.0",
+    "v3.9.1", "v3.9.0", "v3.8.2", "v3.8.1", "v3.8.0", "v3.7.0", "v3.6.0", "v3.5.1", "v3.5.0",
+    "v3.4.0", "v3.3.0", "v3.2.0", "v3.1.0", "v3.0.0", "v2.0.2", "v2.0.1", "v2.0.0", "v1.3.0",
+    "v1.2.0", "v1.1.1", "v1.1.0", "v1.0.0", "v0.9.1", "v0.9.0"
   };
 
   @Override

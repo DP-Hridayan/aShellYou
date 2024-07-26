@@ -1,0 +1,3 @@
+
+
+• Now app catches any crashes and provides the option to report them via email

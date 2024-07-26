@@ -108,6 +108,7 @@
     <string name="quit_app_message">Do you want to quit aShell You?</string>
     <string name="remember_working_mode">Remember last working mode</string>
     <string name="request_permission">Request Permission</string>
+    <string name="report">Report</string>
     <string name="save">Save</string>
     <string name="su_warning">Root commands are not available</string>
     <string name="search">Search</string>
@@ -182,8 +183,8 @@
     <string name="winzort_about">Turkese translations are done by him</string>
     <string name="app">App</string>
     <string name="version">Version</string>
-    <string name="report">Report an issue</string>
-    <string name="des_report">Report any issue you have faced while using the app</string>
+    <string name="report_issue">Report an issue</string>
+    <string name="des_report_issue">Report any issue you have faced while using the app</string>
     <string name="feature_request">Feature request</string>
     <string name="des_feature_request">If you have any ideas or suggestions in your mind , let us know</string>
     <string name="github">Github</string>

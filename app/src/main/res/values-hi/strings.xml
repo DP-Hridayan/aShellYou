@@ -121,8 +121,8 @@
     <string name="weiguangtwk_about">चीनी के लिए अनुवाद करने वाले व्यक्ति</string>
     <string name="app">एप्लिकेशन</string>
     <string name="version">संस्करण</string>
-    <string name="report">समस्या की सूचना</string>
-    <string name="des_report">एप्लिकेशन का उपयोग करते समय किसी भी समस्या की सूचना दें</string>
+    <string name="report_issue">समस्या की सूचना</string>
+    <string name="des_report_issue">एप्लिकेशन का उपयोग करते समय किसी भी समस्या की सूचना दें</string>
     <string name="feature_request">सुविधा की अनुरोध</string>
     <string name="des_feature_request">यदि आपके पास कोई विचार या सुझाव हैं, तो मुझे बताएं</string>
     <string name="github">गिटहब</string>
