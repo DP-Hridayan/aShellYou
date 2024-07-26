@@ -1,0 +1,106 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ExpandedToolbarTitle"
+        android:layout_marginTop="80dp"
+        android:layout_marginHorizontal="25dp"
+        android:text="@string/app_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        app:cardCornerRadius="20dp"
+        app:strokeWidth="0dp"
+        app:layout_constraintTop_toBottomOf="@id/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="?attr/colorSecondaryContainer"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="10dp"
+                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                    android:text="@string/crash_report" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/copy_button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_copy"
+                    android:layout_marginEnd="5dp"
+                    android:background="@null"
+                    android:clickable="true" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/copy"
+                    android:clickable="true"
+                    android:textAppearance="?attr/textAppearanceTitleSmall" />
+
+            </LinearLayout>
+
+            <in.hridayan.ashell.UI.CoordinatedNestedScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@drawable/scrollbar"
+                android:background="?attr/colorSurfaceContainerLowest">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/crash_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="8dp"
+                    android:textIsSelectable="true"
+                    android:textSize="14sp" />
+
+            </in.hridayan.ashell.UI.CoordinatedNestedScrollView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/report_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="25dp"
+        app:icon="@drawable/ic_report"
+        android:text="Report"
+        style="?attr/extendedFloatingActionButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

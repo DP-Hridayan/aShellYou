@@ -1,6 +1,5 @@
 package in.hridayan.ashell.activities;
 
-import android.widget.Toast;
 import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
@@ -10,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -26,6 +26,7 @@ import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgShellFragment;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
+import in.hridayan.ashell.utils.CrashHandler;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ThemeUtils;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity
   private static int currentFragment;
   private boolean isBlackThemeEnabled, isAmoledTheme;
   private MainViewModel viewModel;
-
 
   private String pendingSharedText = null;
 
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity
     if (result == Preferences.UPDATE_AVAILABLE) {
 
       Utils.showBottomSheetUpdate(this, this);
-
     }
   }
 
@@ -102,6 +101,8 @@ public class MainActivity extends AppCompatActivity
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    // Catch exceptions
+    Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(this));
 
     viewModel = new ViewModelProvider(this).get(MainViewModel.class);
     isAmoledTheme = Preferences.getAmoledTheme(this);
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity
     // Displaying badges on navigation bar
     setBadge(R.id.nav_wireless, "Soon");
 
+    // Auto check for updates when app launches
     if (Preferences.getAutoUpdateCheck(this)
         && hasAppRestarted
         && !(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true))) {
@@ -267,8 +269,10 @@ public class MainActivity extends AppCompatActivity
           .getBoolean("Don't show beta otg warning", true)) {
         showBetaWarning();
       } else { */
+
       currentFragment = OTG_FRAGMENT;
       replaceFragment(new otgShellFragment());
+
       /*   } */
     }
   }

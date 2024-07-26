@@ -810,4 +810,32 @@ public class Utils {
           .show();
     }
   }
+
+  // Method for getting required device details for crash report
+  public static String getDeviceDetails() {
+    return "\n"
+        + "Brand : "
+        + Build.BRAND
+        + "\n"
+        + "Device : "
+        + Build.DEVICE
+        + "\n"
+        + "Model : "
+        + Build.MODEL
+        + "\n"
+        + "Product : "
+        + Build.PRODUCT
+        + "\n"
+        + "SDK : "
+        + Build.VERSION.SDK_INT
+        + "\n"
+        + "Release : "
+        + Build.VERSION.RELEASE
+        + "\n"
+        + "App version name : "
+        + BuildConfig.VERSION_NAME
+        + "\n"
+        + "App version code : "
+        + BuildConfig.VERSION_CODE;
+  }
 }

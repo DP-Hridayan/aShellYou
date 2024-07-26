@@ -59,6 +59,7 @@
         name="copy"
         tools:override="true">Copy</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="crash_report">Crash report</string>
     <string name="current">Current</string>
     <string name="default_working_mode">Default working mode</string>
     <string name="delete_all">Delete all</string>
