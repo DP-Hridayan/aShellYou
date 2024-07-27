@@ -25,16 +25,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     System.exit(1);
   }
 
-  private void saveCrashReport(String stackTrace, String message) {
-    // Save the crash report to SharedPreferences or a file for later use
-    context
-        .getSharedPreferences("CrashReports", Context.MODE_PRIVATE)
-        .edit()
-        .putString("stackTrace", stackTrace)
-        .putString("message", message)
-        .apply();
-  }
-
   private void showCrashDialog(String stackTrace, String message) {
     new Thread(
             () -> {

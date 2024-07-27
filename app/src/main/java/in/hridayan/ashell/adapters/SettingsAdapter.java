@@ -31,7 +31,7 @@ import java.util.List;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
-  private final List<SettingsItem> settingsList;
+  private List<SettingsItem> settingsList;
   private final Context context;
   private int currentTheme;
 
@@ -65,6 +65,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     holder.descriptionTextView.setText(settingsItem.getDescription());
     holder.descriptionTextView.setVisibility(
         TextUtils.isEmpty(settingsItem.getDescription()) ? View.GONE : View.VISIBLE);
+
+    // Set the switch state without triggering the listener
+    holder.switchView.setOnCheckedChangeListener(null);
     holder.switchView.setVisibility(settingsItem.hasSwitch() ? View.VISIBLE : View.GONE);
     holder.switchView.setChecked(settingsItem.isChecked());
     holder.switchView.setOnCheckedChangeListener(
@@ -93,14 +96,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                   .show();
               break;
 
-            case "id_default_language":
-              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
-                intent.setData(Uri.parse("package:" + context.getPackageName()));
-                context.startActivity(intent);
-              }
-              break;
-
             case "id_examples":
               intent = new Intent(context, ExamplesActivity.class);
               context.startActivity(intent);
@@ -109,6 +104,14 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             case "id_about":
               intent = new Intent(context, AboutActivity.class);
               context.startActivity(intent);
+              break;
+
+            case "id_default_language":
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
+                intent.setData(Uri.parse("package:" + context.getPackageName()));
+                context.startActivity(intent);
+              }
               break;
 
             case "id_default_working_mode":
@@ -120,7 +123,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
               break;
 
             default:
-              break;
+              return;
           }
         };
 

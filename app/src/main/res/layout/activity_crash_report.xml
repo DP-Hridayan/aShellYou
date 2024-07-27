@@ -7,14 +7,25 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/app_crashed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="25dp"
+        android:text="@string/app_crashed"
+        android:textAppearance="?attr/textAppearanceTitleLarge"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/ExpandedToolbarTitle"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="25dp"
         android:text="@string/app_name"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_crashed"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
@@ -91,11 +102,25 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toTopOf="@id/report_button"
+        app:srcCompat="@drawable/ic_share"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:tint="?attr/colorOnTertiaryContainer"
+        app:backgroundTint="?attr/colorTertiaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonSmallStyle"
+        android:id="@+id/fab_share" />
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/report_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="35dp"
         android:layout_marginEnd="25dp"
         app:icon="@drawable/ic_report"
         android:text="@string/report"
