@@ -703,17 +703,16 @@ public class aShellFragment extends Fragment {
           String sb = null, fileName = null;
 
           switch (Preferences.getSavePreference(context)) {
-                    
             case Preferences.ALL_OUTPUT:
               sb = Utils.convertListToString(mResult);
               fileName = "shizukuOutput" + Utils.getCurrentDateTime();
               break;
-                    
+
             case Preferences.LAST_COMMAND_OUTPUT:
               sb = buildResultsString().toString();
               fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
               break;
-                    
+
             default:
               break;
           }
