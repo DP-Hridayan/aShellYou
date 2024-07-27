@@ -240,6 +240,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         idUrlMap.put("id_sunilpaulmathew", "https://gitlab.com/sunilpaulmathew/ashell");
         idUrlMap.put("id_khun_htetz", "https://github.com/KhunHtetzNaing/ADB-OTG");
         idUrlMap.put("id_krishna", "https://github.com/KrishnaSSH");
+        idUrlMap.put("id_shivam", "https://github.com/starry-shivam");
         idUrlMap.put("id_drDisagree", "https://github.com/Mahmud0808");
         idUrlMap.put("id_marciozomb13", "https://github.com/marciozomb13");
         idUrlMap.put("id_weiguangtwk", "https://github.com/WeiguangTWK");

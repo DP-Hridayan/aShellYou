@@ -87,6 +87,17 @@ public class AboutActivity extends AppCompatActivity
 
     items.add(
         new Category.ContributorsItem(
+            "id_shivam", "Stɑrry Shivɑm", getString(R.string.shivam_about), R.mipmap.dp_shivam));
+
+    items.add(
+        new Category.ContributorsItem(
+            "id_drDisagree",
+            "DrDisagree",
+            getString(R.string.drDisagree_about),
+            R.mipmap.dp_drdisagree));
+
+    items.add(
+        new Category.ContributorsItem(
             "id_rikka", "RikkaApps", getString(R.string.rikka_about), R.mipmap.dp_shizuku));
 
     items.add(
@@ -102,13 +113,6 @@ public class AboutActivity extends AppCompatActivity
             "Khun Htetz Naing",
             getString(R.string.khun_htetz_about),
             R.mipmap.dp_adb_otg));
-
-    items.add(
-        new Category.ContributorsItem(
-            "id_drDisagree",
-            "DrDisagree",
-            getString(R.string.drDisagree_about),
-            R.mipmap.dp_drdisagree));
 
     items.add(
         new Category.ContributorsItem(
