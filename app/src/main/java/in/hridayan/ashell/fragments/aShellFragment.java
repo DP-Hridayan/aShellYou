@@ -653,7 +653,8 @@ public class aShellFragment extends Fragment {
               sb.append(result).append("\n");
             }
           }
-          Utils.shareOutput(requireActivity(), context, mHistory, sb.toString());
+          String fileName = Utils.generateFileName(mHistory);
+          Utils.shareOutput(requireActivity(), context, fileName, sb.toString());
         });
 
     // Logic to hide and show share button
@@ -702,14 +703,17 @@ public class aShellFragment extends Fragment {
           String sb = null, fileName = null;
 
           switch (Preferences.getSavePreference(context)) {
+                    
             case Preferences.ALL_OUTPUT:
               sb = Utils.convertListToString(mResult);
               fileName = "shizukuOutput" + Utils.getCurrentDateTime();
               break;
+                    
             case Preferences.LAST_COMMAND_OUTPUT:
               sb = buildResultsString().toString();
               fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
               break;
+                    
             default:
               break;
           }

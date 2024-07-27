@@ -713,10 +713,11 @@ public class otgShellFragment extends Fragment
     // Share button onclickListener
     mShareButton.setOnClickListener(
         v -> {
+          String fileName = Utils.generateFileName(mHistory);
           Utils.shareOutput(
               requireActivity(),
               context,
-              mHistory,
+              fileName,
               Utils.lastCommandOutput(logs.getText().toString()));
         });
 

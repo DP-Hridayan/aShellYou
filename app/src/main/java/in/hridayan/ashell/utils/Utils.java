@@ -547,9 +547,9 @@ public class Utils {
         .show();
   }
 
-  // Generate the file name of the exported txt file
+  /* Generate the file name of the exported txt file . The name will be the last executed command. It gets the last executed command from the History List */
   public static String generateFileName(List<String> mHistory) {
-    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "");
+    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
   }
 
   public static String lastCommandOutput(String text) {
@@ -626,11 +626,8 @@ public class Utils {
   }
 
   // Method for sharing output to other apps
-  public static void shareOutput(
-      Activity activity, Context context, List<String> mHistory, String sb) {
+  public static void shareOutput(Activity activity, Context context, String fileName, String sb) {
     try {
-      String fileName = Utils.generateFileName(mHistory);
-
       File file = new File(activity.getCacheDir(), fileName);
       FileOutputStream outputStream = new FileOutputStream(file);
       outputStream.write(sb.getBytes());

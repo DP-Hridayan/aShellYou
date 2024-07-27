@@ -8,16 +8,21 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
 
 public class CrashReportActivity extends AppCompatActivity {
   private MaterialTextView copyText, crashInfo;
   private AppCompatImageButton copyButton;
   private ExtendedFloatingActionButton reportButton;
+  private FloatingActionButton shareButton;
+  private CoordinatedNestedScrollView scrollView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,10 @@ public class CrashReportActivity extends AppCompatActivity {
     copyText = findViewById(R.id.copy);
     copyButton = findViewById(R.id.copy_button);
     reportButton = findViewById(R.id.report_button);
+    shareButton = findViewById(R.id.fab_share);
+    scrollView = findViewById(R.id.scrollView);
+
+    new FabExtendingOnScrollViewListener(scrollView, reportButton);
 
     // Get the crash report from intent or SharedPreferences
     String stackTrace = getIntent().getStringExtra("stackTrace");
@@ -41,29 +50,27 @@ public class CrashReportActivity extends AppCompatActivity {
     reportButton.setOnClickListener(v -> sendCrashReport(stackTrace, message));
     copyText.setOnClickListener(
         v -> {
-          copyReportToClipboard(stackTrace, message);
+          Utils.copyToClipboard(reportContent(stackTrace, message), this);
         });
     copyButton.setOnClickListener(
         v -> {
-          copyReportToClipboard(stackTrace , message);
+          Utils.copyToClipboard(reportContent(stackTrace, message), this);
+        });
+
+    shareButton.setOnClickListener(
+        v -> {
+          Utils.shareOutput(this, this, "crash_report.txt", reportContent(stackTrace, message));
         });
   }
 
   private void sendCrashReport(String stackTrace, String message) {
-    String deviceDetails = Utils.getDeviceDetails();
-    String reportContent =
-        "Device Details:\n"
-            + deviceDetails
-            + "\n\nMessage:\n"
-            + message
-            + "\n\nStack Trace:\n"
-            + stackTrace;
 
     String subject = "Crash Report";
     String to = Preferences.devEmail;
 
     try {
-      String uriText = "mailto:" + to + "?subject=" + subject + "&body=" + reportContent;
+      String uriText =
+          "mailto:" + to + "?subject=" + subject + "&body=" + reportContent(stackTrace, message);
 
       Uri uri = Uri.parse(uriText);
       Intent emailIntent = new Intent(Intent.ACTION_SENDTO, uri);
@@ -75,7 +82,7 @@ public class CrashReportActivity extends AppCompatActivity {
     }
   }
 
-  private void copyReportToClipboard(String stackTrace , String message) {
+  private static String reportContent(String stackTrace, String message) {
     String deviceDetails = Utils.getDeviceDetails();
     String reportContent =
         "Device Details:\n"
@@ -84,6 +91,7 @@ public class CrashReportActivity extends AppCompatActivity {
             + message
             + "\n\nStack Trace:\n"
             + stackTrace;
-    Utils.copyToClipboard(reportContent, this);
+
+    return reportContent;
   }
 }
