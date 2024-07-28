@@ -1173,7 +1173,7 @@ public class aShellFragment extends Fragment {
                               ? splitPrefix(splitCommands[0], 0) + " " + command
                               : command);
                       mCommand.setSelection(mCommand.getText().length());
-                      mRecyclerViewCommands.setVisibility(View.GONE);
+                   mRecyclerViewCommands.setVisibility(View.GONE);
                     });
               } else {
                 mCommandsAdapter = new CommandsAdapter(Commands.getCommand(s.toString(), context));
