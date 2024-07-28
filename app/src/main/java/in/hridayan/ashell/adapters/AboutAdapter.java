@@ -26,6 +26,7 @@ import java.util.Map;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.activities.ChangelogActivity;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 
 public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -134,7 +135,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           };
       viewHolder.buttonView.setOnClickListener(clickListener);
       viewHolder.categoryContributorsLayout.setOnClickListener(
-          v -> toggleExpandableLayout(viewHolder));
+          v -> {
+            HapticUtils.weakVibrate(v);
+            toggleExpandableLayout(viewHolder);
+          }
+      );
 
       viewHolder.categoryContributorsLayout.setStrokeWidth(
           Utils.androidVersion() >= Build.VERSION_CODES.S ? 0 : 3);

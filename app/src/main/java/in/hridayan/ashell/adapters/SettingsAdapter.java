@@ -24,6 +24,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.AboutActivity;
 import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
@@ -31,7 +32,7 @@ import java.util.List;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
-  private List<SettingsItem> settingsList;
+  private final List<SettingsItem> settingsList;
   private final Context context;
   private int currentTheme;
 
@@ -87,7 +88,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     View.OnClickListener clickListener =
         v -> {
           Intent intent;
-
+          HapticUtils.weakVibrate(v);
           switch (settingsItem.getId()) {
             case "id_unhide_cards":
               Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
