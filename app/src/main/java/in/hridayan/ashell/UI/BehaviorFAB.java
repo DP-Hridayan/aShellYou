@@ -425,12 +425,15 @@ public class BehaviorFAB {
   // The onclick listener for paste and undo button
 
   public static void pasteAndUndo(
-      ExtendedFloatingActionButton paste, FloatingActionButton undo, TextInputEditText editText) {
+      ExtendedFloatingActionButton paste,
+      FloatingActionButton undo,
+      TextInputEditText editText,
+      Context context) {
     Handler mHandler = new Handler(Looper.getMainLooper());
 
     paste.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v);
+          HapticUtils.weakVibrate(v, context);
           undo.show();
           mHandler.postDelayed(
               () -> {
@@ -443,7 +446,7 @@ public class BehaviorFAB {
 
     undo.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v);
+          HapticUtils.weakVibrate(v, context);
           editText.setText(null);
           undo.hide();
           mHandler.removeCallbacksAndMessages(null);

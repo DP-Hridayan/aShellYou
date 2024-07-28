@@ -150,6 +150,8 @@
     <string name="usb_warning_title">Important</string>
     <string name="usb_warning_summary">You need to turn on USB Debugging in the developer settings of the target device</string>
     <string name="use">Use</string>
+    <string name="vibration">Haptics and vibration</string>
+    <string name="des_vibration">Interactive haptics for touch feedback</string>
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
     <string name="whats_new">What\'s new !</string>

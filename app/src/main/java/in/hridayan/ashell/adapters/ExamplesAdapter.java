@@ -114,7 +114,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     @Override
     public void onClick(View view) {
       if (data.get(getAdapterPosition()).getExample() != null && !isAtLeastOneItemChecked()) {
-        HapticUtils.weakVibrate(view);
+        HapticUtils.weakVibrate(view, context);
         String sanitizedText = sanitizeText(data.get(getAdapterPosition()).getTitle());
         Context context = view.getContext();
         new MaterialAlertDialogBuilder(context)
@@ -283,40 +283,40 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
   }
 
   public void sortData() {
-    data.sort((item1, item2) -> {
-
-        if (item1.isPinned() && !item2.isPinned()) {
+    data.sort(
+        (item1, item2) -> {
+          if (item1.isPinned() && !item2.isPinned()) {
             return -1;
-        } else if (!item1.isPinned() && item2.isPinned()) {
+          } else if (!item1.isPinned() && item2.isPinned()) {
             return 1;
-        }
+          }
 
-        int sortOption = Preferences.getSortingExamples(context);
-        int counter1 = item1.getUseCounter();
-        int counter2 = item2.getUseCounter();
+          int sortOption = Preferences.getSortingExamples(context);
+          int counter1 = item1.getUseCounter();
+          int counter2 = item2.getUseCounter();
 
-        switch (sortOption) {
+          switch (sortOption) {
             case SORT_A_TO_Z:
-                return item1.getTitle().compareToIgnoreCase(item2.getTitle());
+              return item1.getTitle().compareToIgnoreCase(item2.getTitle());
             case SORT_Z_TO_A:
-                return item2.getTitle().compareToIgnoreCase(item1.getTitle());
+              return item2.getTitle().compareToIgnoreCase(item1.getTitle());
             case SORT_MOST_USED:
-                if (counter1 != counter2) {
-                    return counter2 - counter1;
-                } else {
-                    return item1.getTitle().compareToIgnoreCase(item2.getTitle());
-                }
+              if (counter1 != counter2) {
+                return counter2 - counter1;
+              } else {
+                return item1.getTitle().compareToIgnoreCase(item2.getTitle());
+              }
             case SORT_LEAST_USED:
-                if (counter1 != counter2) {
-                    return counter1 - counter2;
-                } else {
-                    return item1.getTitle().compareToIgnoreCase(item2.getTitle());
-                }
+              if (counter1 != counter2) {
+                return counter1 - counter2;
+              } else {
+                return item1.getTitle().compareToIgnoreCase(item2.getTitle());
+              }
 
             default:
-                return 0;
-        }
-    });
+              return 0;
+          }
+        });
     notifyDataSetChanged();
   }
 

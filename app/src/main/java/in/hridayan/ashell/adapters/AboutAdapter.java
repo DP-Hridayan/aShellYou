@@ -136,10 +136,9 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       viewHolder.buttonView.setOnClickListener(clickListener);
       viewHolder.categoryContributorsLayout.setOnClickListener(
           v -> {
-            HapticUtils.weakVibrate(v);
+            HapticUtils.weakVibrate(v, context);
             toggleExpandableLayout(viewHolder);
-          }
-      );
+          });
 
       viewHolder.categoryContributorsLayout.setStrokeWidth(
           Utils.androidVersion() >= Build.VERSION_CODES.S ? 0 : 3);

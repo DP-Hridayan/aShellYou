@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity
     mNav.setVisibility(View.VISIBLE);
     mNav.setOnItemSelectedListener(
         item -> {
-          HapticUtils.weakVibrate(mNav);
+          HapticUtils.weakVibrate(mNav, this);
           switch (item.getItemId()) {
             case R.id.nav_localShell:
               showaShellFragment();

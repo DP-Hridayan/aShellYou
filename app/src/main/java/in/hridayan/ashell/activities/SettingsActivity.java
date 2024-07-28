@@ -146,6 +146,15 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             Preferences.getDisableSoftkey(this)));
 
+           settingsData.add(
+        new SettingsItem(
+            "id_vibration",
+            R.drawable.ic_vibration,
+            getString(R.string.vibration),
+            getString(R.string.des_vibration),
+            true,
+            Preferences.getHapticsAndVibration(this)));
+        
     settingsData.add(
         new SettingsItem(
             "id_override_bookmarks",

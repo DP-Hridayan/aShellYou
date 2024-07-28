@@ -27,7 +27,8 @@ public class Preferences {
       PREF_AUTO_UPDATE_CHECK = "id_auto_update_check",
       PREF_SAVE_PREFERENCE = "id_save_preference",
       PREF_LATEST_VERSION_NAME = "latest_version_name",
-      PREF_LAST_SAVED_FILENAME = "last_saved_filename";
+      PREF_LAST_SAVED_FILENAME = "last_saved_filename",
+      PREF_HAPTICS_AND_VIBRATION = "id_vibration";
   public static final int SORT_A_TO_Z = 0,
       SORT_Z_TO_A = 1,
       SORT_MOST_USED = 2,
@@ -97,6 +98,14 @@ public class Preferences {
 
   public static void setDisableSoftkey(Context context, boolean value) {
     getSharedPreferences(context).edit().putBoolean(PREF_DISABLE_SOFTKEY, value).apply();
+  }
+
+  public static boolean getHapticsAndVibration(Context context) {
+    return getSharedPreferences(context).getBoolean(PREF_HAPTICS_AND_VIBRATION, true);
+  }
+
+  public static void setHapticsAndVibration(Context context, boolean value) {
+    getSharedPreferences(context).edit().putBoolean(PREF_HAPTICS_AND_VIBRATION, value).apply();
   }
 
   public static boolean getOverrideBookmarks(Context context) {

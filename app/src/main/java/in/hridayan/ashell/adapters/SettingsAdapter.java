@@ -88,7 +88,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     View.OnClickListener clickListener =
         v -> {
           Intent intent;
-          HapticUtils.weakVibrate(v);
+          HapticUtils.weakVibrate(v, context);
           switch (settingsItem.getId()) {
             case "id_unhide_cards":
               Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
