@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import java.util.Objects;
@@ -25,8 +27,8 @@ public class BehaviorFAB {
   public static class FabLocalScrollUpListener extends RecyclerView.OnScrollListener {
 
     private final FloatingActionButton fab;
-    private Handler visibilityHandler = new Handler(Looper.getMainLooper());
-    private Runnable hideFabRunnable =
+    private final Handler visibilityHandler = new Handler(Looper.getMainLooper());
+    private final Runnable hideFabRunnable =
         new Runnable() {
           @Override
           public void run() {
@@ -64,8 +66,8 @@ public class BehaviorFAB {
     private final CoordinatedNestedScrollView scrollView;
     private final FloatingActionButton fab;
     private int lastScrollY = 0;
-    private Handler visibilityHandler = new Handler(Looper.getMainLooper());
-    private Runnable hideFabRunnable =
+    private final Handler visibilityHandler = new Handler(Looper.getMainLooper());
+    private final Runnable hideFabRunnable =
         new Runnable() {
           @Override
           public void run() {
@@ -103,7 +105,7 @@ public class BehaviorFAB {
     }
   }
 
-  private FabLocalScrollUpListener FabLocalScrollUpListener;
+  private final FabLocalScrollUpListener FabLocalScrollUpListener;
 
   public BehaviorFAB(FloatingActionButton fab) {
     FabLocalScrollUpListener = new FabLocalScrollUpListener(fab);
@@ -115,8 +117,8 @@ public class BehaviorFAB {
     private final CoordinatedNestedScrollView scrollView;
     private final FloatingActionButton fab;
     private int lastScrollY = 0;
-    private Handler visibilityHandler = new Handler(Looper.getMainLooper());
-    private Runnable showFabRunnable =
+    private final Handler visibilityHandler = new Handler(Looper.getMainLooper());
+    private final Runnable showFabRunnable =
         new Runnable() {
           @Override
           public void run() {
@@ -158,8 +160,8 @@ public class BehaviorFAB {
   public static class FabLocalScrollDownListener extends RecyclerView.OnScrollListener {
 
     private final FloatingActionButton fab;
-    private Handler visibilityHandler = new Handler(Looper.getMainLooper());
-    private Runnable hideFabRunnable =
+    private final Handler visibilityHandler = new Handler(Looper.getMainLooper());
+    private final Runnable hideFabRunnable =
         new Runnable() {
           @Override
           public void run() {
@@ -198,8 +200,8 @@ public class BehaviorFAB {
     private final CoordinatedNestedScrollView scrollView;
     private final FloatingActionButton fab;
     private int lastScrollY = 0;
-    private Handler visibilityHandler = new Handler(Looper.getMainLooper());
-    private Runnable hideFabRunnable =
+    private final Handler visibilityHandler = new Handler(Looper.getMainLooper());
+    private final Runnable hideFabRunnable =
         new Runnable() {
           @Override
           public void run() {
@@ -380,7 +382,7 @@ public class BehaviorFAB {
   private static void topScroll(
       String fragment, RecyclerView recyclerView, CoordinatedNestedScrollView scrollView) {
 
-    if (fragment == "local_shell") {
+    if (Objects.equals(fragment, "local_shell")) {
       recyclerView.scrollToPosition(0);
     } else {
       scrollView.scrollTo(0, 0);
@@ -391,7 +393,7 @@ public class BehaviorFAB {
   private static void smoothTopScroll(
       String fragment, RecyclerView recyclerView, CoordinatedNestedScrollView scrollView) {
 
-    if (fragment == "local_shell") {
+    if (Objects.equals(fragment, "local_shell")) {
       recyclerView.smoothScrollToPosition(0);
     } else {
       scrollView.smoothScrollTo(0, 0);
@@ -401,7 +403,7 @@ public class BehaviorFAB {
   // Function of Bottom Scrolling
   private static void bottomScroll(
       String fragment, RecyclerView recyclerView, CoordinatedNestedScrollView scrollView) {
-    if (fragment == "local_shell") {
+    if (Objects.equals(fragment, "local_shell")) {
       recyclerView.scrollToPosition(
           Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() - 1);
     } else {
@@ -412,7 +414,7 @@ public class BehaviorFAB {
   // Function of Smooth Bottom Scrolling
   private static void smoothBottomScroll(
       String fragment, RecyclerView recyclerView, CoordinatedNestedScrollView scrollView) {
-    if (fragment == "local_shell") {
+    if (Objects.equals(fragment, "local_shell")) {
       recyclerView.smoothScrollToPosition(
           Objects.requireNonNull(recyclerView.getAdapter()).getItemCount() - 1);
     } else {
@@ -428,6 +430,7 @@ public class BehaviorFAB {
 
     paste.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
           undo.show();
           mHandler.postDelayed(
               () -> {
@@ -440,6 +443,7 @@ public class BehaviorFAB {
 
     undo.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
           editText.setText(null);
           undo.hide();
           mHandler.removeCallbacksAndMessages(null);

@@ -71,6 +71,7 @@ import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Commands;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.OtgUtils;
 import in.hridayan.ashell.utils.OtgUtils.Const;
 import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
@@ -80,6 +81,7 @@ import in.hridayan.ashell.utils.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -91,7 +93,6 @@ public class otgShellFragment extends Fragment
     implements TextView.OnEditorActionListener, View.OnKeyListener {
   private Handler handler;
   private UsbDevice mDevice;
-  private TextView tvStatus;
   private MaterialTextView logs;
   private AppCompatImageButton mCable, dismissCard;
   private AdbCrypto adbCrypto;
@@ -143,7 +144,7 @@ public class otgShellFragment extends Fragment
       mListener = (OnFragmentInteractionListener) context;
     } else {
       throw new RuntimeException(
-          context.toString() + " must implement OnFragmentInteractionListener");
+          context + " must implement OnFragmentInteractionListener");
     }
   }
 
@@ -180,7 +181,7 @@ public class otgShellFragment extends Fragment
         adbConnection = null;
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      Log.e("OTGShellFragment", "Error closing ADB connection", e);
     }
   }
 
@@ -232,7 +233,7 @@ public class otgShellFragment extends Fragment
   @Nullable
   @Override
   public View onCreateView(
-      LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+          @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     context = getContext();
     if (context == null) {
       return view;
@@ -282,26 +283,24 @@ public class otgShellFragment extends Fragment
     // Method to hide and show floating action buttons when keyboard is showing or not
     KeyboardUtils.attachVisibilityListener(
         requireActivity(),
-        new KeyboardUtils.KeyboardVisibilityListener() {
-          public void onKeyboardVisibilityChanged(boolean visible) {
-            isKeyboardVisible = visible;
-            if (isKeyboardVisible) {
-              mPasteButton.setVisibility(View.GONE);
-              mUndoButton.setVisibility(View.GONE);
-              mSaveButton.setVisibility(View.GONE);
-              mShareButton.setVisibility(View.GONE);
-            } else {
-              if (mPasteButton.getVisibility() == View.GONE) {
-                if (!sendButtonClicked) {
-                  setVisibilityWithDelay(mPasteButton, 100);
-                } else if (scrollView.getChildAt(0).getHeight() != 0) {
-                  setVisibilityWithDelay(mSaveButton, 100);
-                  setVisibilityWithDelay(mShareButton, 100);
+            visible -> {
+              isKeyboardVisible = visible;
+              if (isKeyboardVisible) {
+                mPasteButton.setVisibility(View.GONE);
+                mUndoButton.setVisibility(View.GONE);
+                mSaveButton.setVisibility(View.GONE);
+                mShareButton.setVisibility(View.GONE);
+              } else {
+                if (mPasteButton.getVisibility() == View.GONE) {
+                  if (!sendButtonClicked) {
+                    setVisibilityWithDelay(mPasteButton, 100);
+                  } else if (scrollView.getChildAt(0).getHeight() != 0) {
+                    setVisibilityWithDelay(mSaveButton, 100);
+                    setVisibilityWithDelay(mShareButton, 100);
+                  }
                 }
               }
-            }
-          }
-        });
+            });
 
     mNav.setVisibility(View.VISIBLE);
 
@@ -314,10 +313,8 @@ public class otgShellFragment extends Fragment
     }
     // OnClickListener of the Instruction button on the info card
     instructionsButton.setOnClickListener(
-        v -> {
-          Utils.openUrl(
-              context, "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md");
-        });
+        v -> Utils.openUrl(
+            context, "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md"));
 
     // The cross to dismiss the info card
     dismissCard.setOnClickListener(
@@ -335,6 +332,7 @@ public class otgShellFragment extends Fragment
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
       mSendButton.setOnClickListener(
           v -> {
+            HapticUtils.weakVibrate(v);
             Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
             startActivity(examples);
           });
@@ -343,7 +341,7 @@ public class otgShellFragment extends Fragment
     // Logic for changing the command send button depending on the text on the EditText
 
     mBookMarks.setVisibility(
-        Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+            !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
 
     mCommand.addTextChangedListener(
         new TextWatcher() {
@@ -358,7 +356,7 @@ public class otgShellFragment extends Fragment
             mCommandInput.setError(null);
 
             mBookMarks.setVisibility(
-                Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+                    !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
           }
 
           @Override
@@ -369,21 +367,18 @@ public class otgShellFragment extends Fragment
             if (inputText.isEmpty()) {
 
               mBookMarks.setVisibility(
-                  Utils.getBookmarks(requireActivity()).size() > 0 ? View.VISIBLE : View.GONE);
+                      !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
 
               mCommandInput.setEndIconVisible(false);
               mSendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_help, requireActivity()));
 
               mSendButton.setOnClickListener(
-                  new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                      Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
-                      startActivity(examples);
-                    }
-                  });
+                      v -> {
+                        HapticUtils.weakVibrate(v);
+                        Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
+                        startActivity(examples);
+                      });
 
             } else {
 
@@ -472,7 +467,7 @@ public class otgShellFragment extends Fragment
                             requireActivity()));
 
                     mBookMarks.setVisibility(
-                        Utils.getBookmarks(requireActivity()).size() > 0
+                            !Utils.getBookmarks(requireActivity()).isEmpty()
                             ? View.VISIBLE
                             : View.GONE);
                   });
@@ -481,6 +476,7 @@ public class otgShellFragment extends Fragment
                   Utils.getDrawable(R.drawable.ic_send, requireActivity()));
               mSendButton.setOnClickListener(
                   v -> {
+                    HapticUtils.weakVibrate(v);
                     KeyboardUtils.closeKeyboard(requireActivity(), v);
                     mChipOnClickListener();
                     sendButtonClicked = true;
@@ -505,9 +501,7 @@ public class otgShellFragment extends Fragment
                       mCommandInput.setErrorIconDrawable(
                           Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
                       mCommandInput.setErrorIconOnClickListener(
-                          t -> {
-                            mCommand.setText(null);
-                          });
+                          t -> mCommand.setText(null));
 
                       Utils.alignMargin(mSendButton);
                       Utils.alignMargin(mCable);
@@ -536,9 +530,7 @@ public class otgShellFragment extends Fragment
                 .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
                 .setPositiveButton(
                     getString(R.string.yes),
-                    (dialogInterface, i) -> {
-                      clearAll();
-                    })
+                    (dialogInterface, i) -> clearAll())
                 .show();
           } else {
             clearAll();
@@ -548,9 +540,7 @@ public class otgShellFragment extends Fragment
     mBookMarks.setTooltipText(getString(R.string.bookmarks));
 
     mBookMarks.setOnClickListener(
-        v -> {
-          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks);
-        });
+        v -> Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks));
 
     mHistoryButton.setTooltipText(getString(R.string.history));
 
@@ -579,6 +569,7 @@ public class otgShellFragment extends Fragment
     mSettingsButton.setTooltipText(getString(R.string.settings));
     mSettingsButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
           Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
           startActivity(settingsIntent);
         });
@@ -637,7 +628,7 @@ public class otgShellFragment extends Fragment
               new File(requireActivity().getFilesDir(), "private_key"),
               new File(requireActivity().getFilesDir(), "public_key"));
     } catch (Exception e) {
-      e.printStackTrace();
+      Log.e("OTGShellFragment", "Error loading keypair", e);
     }
 
     if (adbCrypto == null) {
@@ -759,17 +750,14 @@ public class otgShellFragment extends Fragment
 
   public void asyncRefreshAdbConnection(final UsbDevice device) {
     if (device != null) {
-      new Thread() {
-        @Override
-        public void run() {
-          final UsbInterface intf = findAdbInterface(device);
-          try {
-            setAdbInterface(device, intf);
-          } catch (Exception e) {
-            Log.w(Const.TAG, getString(R.string.set_adb_interface_fail), e);
-          }
+      new Thread(() -> {
+        final UsbInterface intf = findAdbInterface(device);
+        try {
+          setAdbInterface(device, intf);
+        } catch (Exception e) {
+          Log.w(Const.TAG, getString(R.string.set_adb_interface_fail), e);
         }
-      }.start();
+      }).start();
     }
   }
 
@@ -829,13 +817,13 @@ public class otgShellFragment extends Fragment
     try {
       stream = adbConnection.open("shell:");
     } catch (UnsupportedEncodingException e) {
-      e.printStackTrace();
+      Log.e("OTGShellFragment", "Unsupported encoding", e);
       return;
     } catch (IOException e) {
-      e.printStackTrace();
+      Log.e("OTGShellFragment", "Error opening shell stream", e);
       return;
     } catch (InterruptedException e) {
-      e.printStackTrace();
+      Log.e("OTGShellFragment", "Interrupted opening shell stream", e);
       return;
     }
 
@@ -847,37 +835,31 @@ public class otgShellFragment extends Fragment
                 while (!stream.isClosed()) {
                   try {
                     // Print each thing we read from the shell stream
-                    final String[] output = {new String(stream.read(), "US-ASCII")};
+                    final String[] output = {new String(stream.read(), StandardCharsets.US_ASCII)};
                     handler.post(
-                        new Runnable() {
-                          @Override
-                          public void run() {
-                            if (user == null) {
-                              user = output[0].substring(0, output[0].lastIndexOf("/") + 1);
-                            } else if (output[0].contains(user)) {
-                              System.out.println("End => " + user);
-                            }
+                            () -> {
+                              if (user == null) {
+                                user = output[0].substring(0, output[0].lastIndexOf("/") + 1);
+                              } else if (output[0].contains(user)) {
+                                System.out.println("End => " + user);
+                              }
 
-                            logs.append(output[0]);
+                              logs.append(output[0]);
 
-                            scrollView.post(
-                                new Runnable() {
-                                  @Override
-                                  public void run() {
-                                    scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-                                    mCommand.requestFocus();
-                                  }
-                                });
-                          }
-                        });
+                              scrollView.post(
+                                      () -> {
+                                        scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                                        mCommand.requestFocus();
+                                      });
+                            });
                   } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                    Log.e("OTGShellFragment", "Unsupported encoding", e);
                     return;
                   } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Log.e("OTGShellFragment", "Interrupted reading shell stream", e);
                     return;
                   } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e("OTGShellFragment", "Error reading shell stream", e);
                     return;
                   }
                 }
@@ -907,23 +889,21 @@ public class otgShellFragment extends Fragment
           Toast.makeText(
               context,
               "currently continous running operations are not working properly",
-              Toast.LENGTH_LONG);
+              Toast.LENGTH_LONG).show();
         } else if (cmd.equalsIgnoreCase("exit")) {
           requireActivity().finish();
         } else {
-          stream.write((cmd + "\n").getBytes("UTF-8"));
+          stream.write((cmd + "\n").getBytes(StandardCharsets.UTF_8));
         }
         mCommand.setText("");
       } catch (IOException e) {
-        e.printStackTrace();
+        Log.e("OTGShellFragment", "Error writing command", e);
       } catch (InterruptedException e) {
-        e.printStackTrace();
+        Log.e("OTGShellFragment", "Interrupted writing command", e);
       }
     } else
       Toast.makeText(requireContext(), getString(R.string.no_command), Toast.LENGTH_SHORT).show();
   }
-
-  public void open(View view) {}
 
   @Override
   public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -963,9 +943,7 @@ public class otgShellFragment extends Fragment
   private void setVisibilityWithDelay(View view, int delayMillis) {
     new Handler(Looper.getMainLooper())
         .postDelayed(
-            () -> {
-              view.setVisibility(View.VISIBLE);
-            },
+            () -> view.setVisibility(View.VISIBLE),
             delayMillis);
   }
 
