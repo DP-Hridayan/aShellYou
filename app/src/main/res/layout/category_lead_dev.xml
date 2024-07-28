@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_height="150dp"
         android:layout_width="150dp"
         android:layout_marginBottom="20dp"
@@ -15,6 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toTopOf="@id/title_text_view"
+        app:civ_border_color="?attr/colorPrimary"
+        app:civ_border_width="2dp"
         android:id="@+id/image_view" />
 
     <TextView

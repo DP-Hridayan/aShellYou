@@ -19,7 +19,7 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_view"
             android:layout_width="40dp"
             android:layout_height="40dp"

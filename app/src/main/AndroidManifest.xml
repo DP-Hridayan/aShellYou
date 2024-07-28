@@ -35,7 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="keyboardHidden|uiMode|orientation|screenSize"
             android:screenOrientation="unspecified"
             android:launchMode="singleTask"
             android:exported="true">
