@@ -103,23 +103,29 @@ public class aShellFragment extends Fragment {
   public void onPause() {
     super.onPause();
 
+    /*Since send button also works as help button, we need to keep track of what was its last mode(send or help) to get correct mode across configuration changes */
     viewModel.setSendDrawable(
         viewModel.isSendDrawableSaved() ? viewModel.getSendDrawable() : sendDrawable);
-
-    viewModel.setEditTextFocused(isEditTextFocused());
     viewModel.setSaveButtonVisible(isSaveButtonVisible());
+
+    // Saves the viewing position of the recycler view
     viewModel.setScrollPosition(
         ((LinearLayoutManager) mRecyclerViewOutput.getLayoutManager())
             .findFirstVisibleItemPosition());
+
+    // Gets the already saved output and command history from viewmodel in case no new output has
+    // been made after config change
     List<String> shellOutput = viewModel.getShellOutput();
     List<String> history = viewModel.getHistory();
     viewModel.setHistory(mHistory == null && history != null ? history : mHistory);
     viewModel.setShellOutput(mResult == null ? shellOutput : mResult);
 
+    // If there are some text in edit text, then we save it
     if (mCommand.getText().toString() != null) {
       viewModel.setCommandText(mCommand.getText().toString());
     }
 
+    // Saves the visibility of the end icon of edit text
     if (mCommandInput.isEndIconVisible()) {
       viewModel.setEndIconVisible(true);
     } else {
@@ -132,13 +138,8 @@ public class aShellFragment extends Fragment {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
+    // If there is bookmarks present , make the bookmarks button visible
     mBookMarks.setVisibility(!Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
-
-    if (viewModel.isEditTextFocused()) {
-      mCommand.requestFocus();
-    } else {
-      mCommand.clearFocus();
-    }
 
     // This function is for restoring the Run button's icon after a configuration change
     switch (viewModel.getSendDrawable()) {
@@ -158,7 +159,10 @@ public class aShellFragment extends Fragment {
         break;
     }
 
-    if (viewModel.isSaveButtonVisible()) {
+    // Handles save button visibility across config changes
+    if (!viewModel.isSaveButtonVisible()) {
+      mSaveButton.setVisibility(View.GONE);
+    } else {
       mSaveButton.setVisibility(View.VISIBLE);
       if (mSearchWord.getVisibility() == View.GONE) {
         mClearButton.setVisibility(View.VISIBLE);
@@ -167,28 +171,28 @@ public class aShellFragment extends Fragment {
       }
       mShareButton.setVisibility(View.VISIBLE);
       mPasteButton.setVisibility(View.GONE);
-    } else {
-      mSaveButton.setVisibility(View.GONE);
     }
 
     mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
+    // Get the scroll position of recycler view from viewmodel and set it
     int scrollPosition = viewModel.getScrollPosition();
     mRecyclerViewOutput.scrollToPosition(scrollPosition);
 
     isEndIconVisible = viewModel.isEndIconVisible();
-    String s = mCommand.getText().toString().trim();
 
-    if (!s.isEmpty() && isEndIconVisible) {
+    // If the end icon of edit text is visible then set its icon accordingly
+    if (!mCommand.getText().toString().isEmpty() && isEndIconVisible) {
       mCommandInput.setEndIconDrawable(
           Utils.getDrawable(
-              Utils.isBookmarked(s, requireActivity())
+              Utils.isBookmarked(mCommand.getText().toString(), requireActivity())
                   ? R.drawable.ic_bookmark_added
                   : R.drawable.ic_add_bookmark,
               requireActivity()));
     }
 
+    // Update edit text when text is shared to the app
     MainActivity activity = (MainActivity) getActivity();
     if (activity != null) {
       String pendingSharedText = activity.getPendingSharedText();
@@ -233,6 +237,7 @@ public class aShellFragment extends Fragment {
     mUndoButton = view.findViewById(R.id.fab_undo);
     /*------------------------------------------------------*/
 
+    // Viewmodel initialization
     viewModel = new ViewModelProvider(requireActivity()).get(aShellFragmentViewModel.class);
 
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -250,41 +255,21 @@ public class aShellFragment extends Fragment {
 
     setupRecyclerView();
 
+    // Set the bottom navigation
     mNav.setVisibility(View.VISIBLE);
-
-    /*------------------------------------------------------*/
 
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand, context);
 
+    // Toggles certain buttons visibility according to keyboard's visibility
     KeyboardUtils.attachVisibilityListener(
         requireActivity(),
         visible -> {
           isKeyboardVisible = visible;
-          if (isKeyboardVisible) {
-            mPasteButton.setVisibility(View.GONE);
-            mUndoButton.setVisibility(View.GONE);
-            mSaveButton.setVisibility(View.GONE);
-            mShareButton.setVisibility(View.GONE);
-
-          } else {
-
-            if (mRecyclerViewOutput.getHeight() != 0) {
-              setVisibilityWithDelay(mSaveButton, 100);
-            }
-            if (mShareButton.getVisibility() == View.GONE && mRecyclerViewOutput.getHeight() != 0) {
-              setVisibilityWithDelay(mShareButton, 100);
-            }
-
-            if (mPasteButton.getVisibility() == View.GONE
-                && !sendButtonClicked
-                && mResult == null) {
-              setVisibilityWithDelay(mPasteButton, 100);
-            }
-          }
+          if (visible) buttonsVisibilityGone();
+          else buttonsVisibilityVisible();
         });
 
-    /*------------------------------------------------------*/
-
+    // Handles the onclick listener of the top and bottom scrolling arrows
     BehaviorFAB.handleTopAndBottomArrow(
         mTopButton, mBottomButton, mRecyclerViewOutput, null, context, "local_shell");
 
@@ -292,6 +277,7 @@ public class aShellFragment extends Fragment {
     Utils.chipOnClickListener(context, mChip, Utils.getDeviceName());
     /*------------------------------------------------------*/
 
+    // When there is any text in edit text , focus the edit text
     if (!mCommand.getText().toString().isEmpty()) {
       mCommand.requestFocus();
     }
@@ -311,399 +297,67 @@ public class aShellFragment extends Fragment {
           @Override
           public void afterTextChanged(Editable s) {
 
-            /*------------------------------------------------------*/
             mCommand.requestFocus();
 
+            // If shizuku is busy return
             if (mShizukuShell != null && mShizukuShell.isBusy()) {
               return;
-            } else {
+            } else if (s.toString().trim().isEmpty()) {
 
-              /*------------------------------------------------------*/
-
-              if (!s.toString().trim().isEmpty()) {
-                viewModel.setSendDrawable(ic_send);
-                mSendButton.setImageDrawable(
-                    Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-                mCommandInput.setEndIconDrawable(
-                    Utils.getDrawable(
-                        Utils.isBookmarked(s.toString().trim(), requireActivity())
-                            ? R.drawable.ic_bookmark_added
-                            : R.drawable.ic_add_bookmark,
-                        requireActivity()));
-
-                mCommandInput.setEndIconVisible(true);
-
-                mCommandInput.setEndIconOnClickListener(
-                    v -> {
-                      if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
-                        Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
-                        Utils.snackBar(
-                                view,
-                                getString(R.string.bookmark_removed_message, s.toString().trim()))
-                            .show();
-                      } else {
-                        Utils.addBookmarkIconOnClickListener(s.toString().trim(), view, context);
-                      }
-
-                      mCommandInput.setEndIconDrawable(
-                          Utils.getDrawable(
-                              Utils.isBookmarked(s.toString().trim(), requireActivity())
-                                  ? R.drawable.ic_bookmark_added
-                                  : R.drawable.ic_add_bookmark,
-                              requireActivity()));
-                      if (mSearchWord.getVisibility() == View.GONE) {
-                        mBookMarks.setVisibility(
-                            !Utils.getBookmarks(requireActivity()).isEmpty()
-                                ? View.VISIBLE
-                                : View.GONE);
-                      }
-                    });
-
-                /*------------------------------------------------------*/
-
-                new Handler(Looper.getMainLooper())
-                    .post(
-                        () -> {
-                          if (s.toString().contains(" ") && s.toString().contains(".")) {
-                            String[] splitCommands = {
-                              s.toString().substring(0, lastIndexOf(s.toString(), ".")),
-                              s.toString().substring(lastIndexOf(s.toString(), "."))
-                            };
-
-                            String packageNamePrefix;
-                            if (splitCommands[0].contains(" ")) {
-                              packageNamePrefix = splitPrefix(splitCommands[0], 1);
-                            } else {
-                              packageNamePrefix = splitCommands[0];
-                            }
-
-                            mCommandsAdapter =
-                                new CommandsAdapter(
-                                    Commands.getPackageInfo(packageNamePrefix + ".", context));
-                            if (isAdded()) {
-                              mRecyclerViewCommands.setLayoutManager(
-                                  new LinearLayoutManager(requireActivity()));
-                            }
-
-                            if (isAdded()) {
-                              mRecyclerViewCommands.setAdapter(mCommandsAdapter);
-                            }
-                            mRecyclerViewCommands.setVisibility(View.VISIBLE);
-                            mCommandsAdapter.setOnItemClickListener(
-                                (command, v) -> {
-                                  mCommand.setText(
-                                      splitCommands[0].contains(" ")
-                                          ? splitPrefix(splitCommands[0], 0) + " " + command
-                                          : command);
-                                  mCommand.setSelection(mCommand.getText().length());
-                                  mRecyclerViewCommands.setVisibility(View.GONE);
-                                });
-                          } else {
-                            mCommandsAdapter =
-                                new CommandsAdapter(Commands.getCommand(s.toString(), context));
-                            if (isAdded()) {
-                              mRecyclerViewCommands.setLayoutManager(
-                                  new LinearLayoutManager(requireActivity()));
-                            }
-
-                            mRecyclerViewCommands.setAdapter(mCommandsAdapter);
-                            mRecyclerViewCommands.setVisibility(View.VISIBLE);
-                            mCommandsAdapter.setOnItemClickListener(
-                                (command, v) -> {
-                                  if (command.contains(" <")) {
-                                    mCommand.setText(command.split("<")[0]);
-                                  } else {
-                                    mCommand.setText(command);
-                                  }
-                                  mCommand.setSelection(mCommand.getText().length());
-                                });
-                          }
-                        });
-              } else {
-                mCommandInput.setEndIconVisible(false);
-                mRecyclerViewCommands.setVisibility(View.GONE);
-                viewModel.setSendDrawable(ic_help);
-                mSendButton.setImageDrawable(
-                    Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-
-                mSendButton.clearColorFilter();
-              }
-            }
-          }
-        });
-
-    /*------------------------------------------------------*/
-
-    mCommand.setOnEditorActionListener(
-        (v, actionId, event) -> {
-          if (actionId == EditorInfo.IME_ACTION_SEND) {
-            if (mShizukuShell != null && mShizukuShell.isBusy()) {
-              mShizukuShell.destroy();
+              mCommandInput.setEndIconVisible(false);
+              mRecyclerViewCommands.setVisibility(View.GONE);
               viewModel.setSendDrawable(ic_help);
               mSendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_help, requireActivity()));
               mSendButton.clearColorFilter();
-            } else if (mCommand.getText() == null
-                || mCommand.getText().toString().trim().isEmpty()) {
-              Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
-              startActivity(examples);
             } else {
-              if (isAdded()) {
-                initializeShell(requireActivity());
-              }
-            }
-            return true;
-          }
-          return false;
-        });
+              viewModel.setSendDrawable(ic_send);
+              mSendButton.setImageDrawable(
+                  Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+              mCommandInput.setEndIconDrawable(
+                  Utils.getDrawable(
+                      Utils.isBookmarked(s.toString().trim(), requireActivity())
+                          ? R.drawable.ic_bookmark_added
+                          : R.drawable.ic_add_bookmark,
+                      requireActivity()));
 
-    /*------------------------------------------------------*/
+              mCommandInput.setEndIconVisible(true);
 
-    // Action to perform when clicking send button in various scenerios
-    mSendButton.setOnClickListener(
-        v -> {
-          sendButtonClicked = true;
-          HapticUtils.weakVibrate(v, context);
-          if (mShizukuShell != null && mShizukuShell.isBusy()) {
-            mShizukuShell.destroy();
-            viewModel.setSendDrawable(ic_help);
-            mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-            mSendButton.clearColorFilter();
+              mCommandInputEndIconOnClickListener(s);
 
-          } else if (mCommand.getText() == null || mCommand.getText().toString().trim().isEmpty()) {
-            Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
-            startActivity(examples);
-          } else if (!Shizuku.pingBinder()) {
-
-            handleShizukuAvailability(context);
-          } else {
-            mPasteButton.hide();
-            mUndoButton.hide();
-
-            if (isAdded()) {
-              mCommandInput.setError(null);
-              initializeShell(requireActivity());
-              KeyboardUtils.closeKeyboard(requireActivity(), v);
+              commandSuggestion(s);
             }
           }
         });
 
-    /*------------------------------------------------------*/
+    sendButtonOnClickListener();
 
-    mSettingsButton.setTooltipText(getString(R.string.settings));
+    settingsButtonOnClickListener();
 
-    mSettingsButton.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v, context);
-          Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
-          startActivity(settingsIntent);
-        });
+    clearButtonOnClickListener();
 
-    /*------------------------------------------------------*/
+    historyButtonOnClickListener();
 
-    mClearButton.setTooltipText(getString(R.string.clear_screen));
+    bookmarksButtonOnClickListener();
 
-    mClearButton.setOnClickListener(
-        v -> {
-          viewModel.setShellOutput(null);
-          boolean switchState = Preferences.getClear(context);
-          if (switchState) {
-            new MaterialAlertDialogBuilder(requireActivity())
-                .setTitle(getString(R.string.clear_everything))
-                .setMessage(getString(R.string.clear_all_message))
-                .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
-                .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
-                .show();
-          } else {
-            clearAll();
-          }
-        });
+    searchButtonOnClickListener();
 
-    /*------------------------------------------------------*/
+    searchWordChangeListener();
 
-    mSearchButton.setTooltipText(getString(R.string.search));
+    saveButtonOnClickListener();
 
-    mSearchButton.setOnClickListener(
-        v -> {
-          if (mHistoryButton.getVisibility() == View.VISIBLE) {
-            mHistoryButton.setVisibility(View.GONE);
-          }
-          if (mClearButton.getVisibility() == View.VISIBLE) {
-            mClearButton.setVisibility(View.GONE);
-          }
-          mBookMarks.setVisibility(View.GONE);
-          mSettingsButton.setVisibility(View.GONE);
-          mSearchButton.setVisibility(View.GONE);
-          mSearchWord.setVisibility(View.VISIBLE);
-          mSearchWord.requestFocus();
-          mCommand.setText(null);
-        });
+    shareButtonOnClickListener();
 
-    /*------------------------------------------------------*/
+    shareButtonVisibilityHandler();
 
-    mSearchWord.addTextChangedListener(
-        new TextWatcher() {
-          @Override
-          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    appNameLayoutOnClickListener();
 
-          @Override
-          public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-          @Override
-          public void afterTextChanged(Editable s) {
-            if (s == null || s.toString().trim().isEmpty()) {
-              updateUI(mResult);
-            } else {
-              List<String> mResultSorted = new ArrayList<>();
-              for (int i = mPosition; i < mResult.size(); i++) {
-                if (mResult
-                    .get(i)
-                    .toLowerCase(Locale.getDefault())
-                    .contains(s.toString().toLowerCase(Locale.getDefault()))) {
-                  mResultSorted.add(mResult.get(i));
-                }
-              }
-              updateUI(mResultSorted);
-            }
-          }
-        });
-
-    /*------------------------------------------------------*/
+    mCommandOnEditorActionListener();
 
     if (mSearchWord.getVisibility() == View.GONE) {
       mBookMarks.setVisibility(
           !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
     }
-
-    mBookMarks.setTooltipText(getString(R.string.bookmarks));
-
-    mBookMarks.setOnClickListener(
-        v ->
-            Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks));
-
-    /*------------------------------------------------------*/
-
-    mHistoryButton.setTooltipText(getString(R.string.history));
-
-    mHistoryButton.setOnClickListener(
-        v -> {
-          PopupMenu popupMenu = new PopupMenu(context, mCommand);
-          Menu menu = popupMenu.getMenu();
-          for (int i = 0; i < getRecentCommands().size(); i++) {
-            menu.add(Menu.NONE, i, Menu.NONE, getRecentCommands().get(i));
-          }
-          popupMenu.setOnMenuItemClickListener(
-              item -> {
-                for (int i = 0; i < getRecentCommands().size(); i++) {
-                  if (item.getItemId() == i) {
-                    mCommand.setText(getRecentCommands().get(i));
-                    mCommand.setSelection(mCommand.getText().length());
-                  }
-                }
-                return false;
-              });
-          popupMenu.show();
-        });
-
-    /*------------------------------------------------------*/
-
-    mAppNameLayout.setOnClickListener(
-        v -> {
-          if (mSearchWord.getVisibility() == View.VISIBLE) {
-            mSearchWord.setVisibility(View.GONE);
-            mBookMarks.setVisibility(
-                !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
-            mSettingsButton.setVisibility(View.VISIBLE);
-            mSearchButton.setVisibility(View.VISIBLE);
-            mHistoryButton.setVisibility(View.VISIBLE);
-            mClearButton.setVisibility(View.VISIBLE);
-          }
-        });
-
-    /*------------------------------------------------------*/
-
-    mShareButton.setOnClickListener(
-        v -> {
-          shellOutput = viewModel.getShellOutput();
-          history = viewModel.getHistory();
-          initializeResults();
-
-          StringBuilder sb = new StringBuilder();
-          for (int i = mPosition; i < mResult.size(); i++) {
-            String result = mResult.get(i);
-            if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
-              sb.append(result).append("\n");
-            }
-          }
-          String fileName = Utils.generateFileName(mHistory);
-          Utils.shareOutput(requireActivity(), context, fileName, sb.toString());
-        });
-
-    // Logic to hide and show share button
-    mRecyclerViewOutput.addOnScrollListener(
-        new RecyclerView.OnScrollListener() {
-          private final Handler handler = new Handler(Looper.getMainLooper());
-          private final int delayMillis = 1600;
-
-          @Override
-          public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-
-            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-
-              handler.postDelayed(
-                  () -> {
-                    if (!isKeyboardVisible) mShareButton.show();
-                  },
-                  delayMillis);
-            } else {
-              handler.removeCallbacksAndMessages(null);
-            }
-          }
-
-          @Override
-          public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-
-            if (dy > 0 || dy < 0 && mShareButton.isShown()) {
-              if (Math.abs(dy) >= 90) mShareButton.hide();
-            }
-          }
-        });
-
-    /*------------------------------------------------------*/
-
-    mSaveButton.setOnClickListener(
-        v -> {
-          shellOutput = viewModel.getShellOutput();
-
-          history = viewModel.getHistory();
-          initializeResults();
-          String sb = null, fileName = null;
-
-          switch (Preferences.getSavePreference(context)) {
-            case Preferences.ALL_OUTPUT:
-              sb = Utils.convertListToString(mResult);
-              fileName = "shizukuOutput" + Utils.getCurrentDateTime();
-              break;
-
-            case Preferences.LAST_COMMAND_OUTPUT:
-              sb = buildResultsString().toString();
-              fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
-              break;
-
-            default:
-              break;
-          }
-
-          boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
-          if (saved) {
-            Preferences.setLastSavedFileName(context, fileName + ".txt");
-          }
-
-          // Dialog showing if the output has been saved or not
-          Utils.outputSavedDialog(requireActivity(), context, saved);
-        });
 
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleWithFixedDelay(
@@ -961,10 +615,6 @@ public class aShellFragment extends Fragment {
         });
   }
 
-  /*------------------ Functions-----------------*/
-
-  /*------------------------------------------------------*/
-
   private void updateUI(List<String> data) {
     if (data == null) {
       return;
@@ -1086,7 +736,6 @@ public class aShellFragment extends Fragment {
       mCommand.setSelection(mCommand.getText().length());
       viewModel.setSendDrawable(ic_send);
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-      viewModel.setEditTextFocused(true);
       viewModel.setSendDrawable(ic_send);
     }
   }
@@ -1116,10 +765,6 @@ public class aShellFragment extends Fragment {
   }
 
   /*------------------------------------------------------*/
-
-  private boolean isEditTextFocused() {
-    return mCommand.hasFocus();
-  }
 
   private boolean isSaveButtonVisible() {
     return mSaveButton.getVisibility() == View.VISIBLE;
@@ -1161,5 +806,394 @@ public class aShellFragment extends Fragment {
       }
     }
     return sb;
+  }
+
+  // Hide buttons when keyboard is visible
+  private void buttonsVisibilityGone() {
+    mPasteButton.setVisibility(View.GONE);
+    mUndoButton.setVisibility(View.GONE);
+    mSaveButton.setVisibility(View.GONE);
+    mShareButton.setVisibility(View.GONE);
+  }
+
+  // Show buttons again when keyboard is gone
+  private void buttonsVisibilityVisible() {
+    if (mRecyclerViewOutput.getHeight() != 0) {
+      setVisibilityWithDelay(mSaveButton, 100);
+    }
+    if (mShareButton.getVisibility() == View.GONE && mRecyclerViewOutput.getHeight() != 0) {
+      setVisibilityWithDelay(mShareButton, 100);
+    }
+
+    if (mPasteButton.getVisibility() == View.GONE && !sendButtonClicked && mResult == null) {
+      setVisibilityWithDelay(mPasteButton, 100);
+    }
+  }
+
+  // Send button onclick listener
+  private void sendButtonOnClickListener() {
+    mSendButton.setOnClickListener(
+        v -> {
+          sendButtonClicked = true;
+          HapticUtils.weakVibrate(v, context);
+          if (mShizukuShell != null && mShizukuShell.isBusy()) {
+            mShizukuShell.destroy();
+            viewModel.setSendDrawable(ic_help);
+            mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+            mSendButton.clearColorFilter();
+
+          } else if (mCommand.getText() == null || mCommand.getText().toString().trim().isEmpty()) {
+            Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
+            startActivity(examples);
+          } else if (!Shizuku.pingBinder()) {
+
+            handleShizukuAvailability(context);
+          } else {
+            mPasteButton.hide();
+            mUndoButton.hide();
+
+            if (isAdded()) {
+              mCommandInput.setError(null);
+              initializeShell(requireActivity());
+              KeyboardUtils.closeKeyboard(requireActivity(), v);
+            }
+          }
+        });
+  }
+
+  // OnClick listener for the settings button
+  private void settingsButtonOnClickListener() {
+    mSettingsButton.setTooltipText(getString(R.string.settings));
+
+    mSettingsButton.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
+          startActivity(settingsIntent);
+        });
+  }
+
+  // Onclick listener for the clear button
+  private void clearButtonOnClickListener() {
+    mClearButton.setTooltipText(getString(R.string.clear_screen));
+
+    mClearButton.setOnClickListener(
+        v -> {
+          viewModel.setShellOutput(null);
+          boolean switchState = Preferences.getClear(context);
+          if (switchState) {
+            new MaterialAlertDialogBuilder(requireActivity())
+                .setTitle(getString(R.string.clear_everything))
+                .setMessage(getString(R.string.clear_all_message))
+                .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+                .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
+                .show();
+          } else {
+            clearAll();
+          }
+        });
+  }
+
+  // OnClick listener for bookmarks button
+  private void bookmarksButtonOnClickListener() {
+    mBookMarks.setTooltipText(getString(R.string.bookmarks));
+
+    mBookMarks.setOnClickListener(
+        v ->
+            Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks));
+  }
+
+  // OnClick listener for the history button
+  private void historyButtonOnClickListener() {
+    mHistoryButton.setTooltipText(getString(R.string.history));
+
+    mHistoryButton.setOnClickListener(
+        v -> {
+          PopupMenu popupMenu = new PopupMenu(context, mCommand);
+          Menu menu = popupMenu.getMenu();
+          for (int i = 0; i < getRecentCommands().size(); i++) {
+            menu.add(Menu.NONE, i, Menu.NONE, getRecentCommands().get(i));
+          }
+          popupMenu.setOnMenuItemClickListener(
+              item -> {
+                for (int i = 0; i < getRecentCommands().size(); i++) {
+                  if (item.getItemId() == i) {
+                    mCommand.setText(getRecentCommands().get(i));
+                    mCommand.setSelection(mCommand.getText().length());
+                  }
+                }
+                return false;
+              });
+          popupMenu.show();
+        });
+  }
+
+  // OnClick listener for the search button
+  private void searchButtonOnClickListener() {
+    mSearchButton.setTooltipText(getString(R.string.search));
+
+    mSearchButton.setOnClickListener(
+        v -> {
+          if (mHistoryButton.getVisibility() == View.VISIBLE) {
+            mHistoryButton.setVisibility(View.GONE);
+          }
+          if (mClearButton.getVisibility() == View.VISIBLE) {
+            mClearButton.setVisibility(View.GONE);
+          }
+          mBookMarks.setVisibility(View.GONE);
+          mSettingsButton.setVisibility(View.GONE);
+          mSearchButton.setVisibility(View.GONE);
+          mSearchWord.setVisibility(View.VISIBLE);
+          mSearchWord.requestFocus();
+          mCommand.setText(null);
+        });
+  }
+
+  // Logic for searching text in the output
+  private void searchWordChangeListener() {
+    mSearchWord.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+          @Override
+          public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+          @Override
+          public void afterTextChanged(Editable s) {
+            if (s == null || s.toString().trim().isEmpty()) {
+              updateUI(mResult);
+            } else {
+              List<String> mResultSorted = new ArrayList<>();
+              for (int i = mPosition; i < mResult.size(); i++) {
+                if (mResult
+                    .get(i)
+                    .toLowerCase(Locale.getDefault())
+                    .contains(s.toString().toLowerCase(Locale.getDefault()))) {
+                  mResultSorted.add(mResult.get(i));
+                }
+              }
+              updateUI(mResultSorted);
+            }
+          }
+        });
+  }
+
+  // OnClick listener for save Button
+  private void saveButtonOnClickListener() {
+
+    mSaveButton.setOnClickListener(
+        v -> {
+          shellOutput = viewModel.getShellOutput();
+
+          history = viewModel.getHistory();
+          initializeResults();
+          String sb = null, fileName = null;
+
+          switch (Preferences.getSavePreference(context)) {
+            case Preferences.ALL_OUTPUT:
+              sb = Utils.convertListToString(mResult);
+              fileName = "shizukuOutput" + Utils.getCurrentDateTime();
+              break;
+
+            case Preferences.LAST_COMMAND_OUTPUT:
+              sb = buildResultsString().toString();
+              fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
+              break;
+
+            default:
+              break;
+          }
+
+          boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
+          if (saved) {
+            Preferences.setLastSavedFileName(context, fileName + ".txt");
+          }
+
+          // Dialog showing if the output has been saved or not
+          Utils.outputSavedDialog(requireActivity(), context, saved);
+        });
+  }
+
+  // Onclick listener for share button
+  private void shareButtonOnClickListener() {
+    mShareButton.setOnClickListener(
+        v -> {
+          shellOutput = viewModel.getShellOutput();
+          history = viewModel.getHistory();
+          initializeResults();
+
+          StringBuilder sb = new StringBuilder();
+          for (int i = mPosition; i < mResult.size(); i++) {
+            String result = mResult.get(i);
+            if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
+              sb.append(result).append("\n");
+            }
+          }
+          String fileName = Utils.generateFileName(mHistory);
+          Utils.shareOutput(requireActivity(), context, fileName, sb.toString());
+        });
+  }
+
+  // Logic to hide and show share button
+  private void shareButtonVisibilityHandler() {
+    mRecyclerViewOutput.addOnScrollListener(
+        new RecyclerView.OnScrollListener() {
+          private final Handler handler = new Handler(Looper.getMainLooper());
+          private final int delayMillis = 1600;
+
+          @Override
+          public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+
+              handler.postDelayed(
+                  () -> {
+                    if (!isKeyboardVisible) mShareButton.show();
+                  },
+                  delayMillis);
+            } else {
+              handler.removeCallbacksAndMessages(null);
+            }
+          }
+
+          @Override
+          public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            if (dy > 0 || dy < 0 && mShareButton.isShown()) {
+              if (Math.abs(dy) >= 90) mShareButton.hide();
+            }
+          }
+        });
+  }
+
+  // To dismiss the search I have not found other way than add an onclick listener on the app name
+  // layout itself
+  private void appNameLayoutOnClickListener() {
+    mAppNameLayout.setOnClickListener(
+        v -> {
+          if (mSearchWord.getVisibility() == View.VISIBLE) {
+            mSearchWord.setVisibility(View.GONE);
+            mBookMarks.setVisibility(
+                !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
+            mSettingsButton.setVisibility(View.VISIBLE);
+            mSearchButton.setVisibility(View.VISIBLE);
+            mHistoryButton.setVisibility(View.VISIBLE);
+            mClearButton.setVisibility(View.VISIBLE);
+          }
+        });
+  }
+
+  // mCommand on editor action listener
+  private void mCommandOnEditorActionListener() {
+    mCommand.setOnEditorActionListener(
+        (v, actionId, event) -> {
+          if (actionId == EditorInfo.IME_ACTION_SEND) {
+            if (mShizukuShell != null && mShizukuShell.isBusy()) {
+              mShizukuShell.destroy();
+              viewModel.setSendDrawable(ic_help);
+              mSendButton.setImageDrawable(
+                  Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+              mSendButton.clearColorFilter();
+            } else if (mCommand.getText() == null
+                || mCommand.getText().toString().trim().isEmpty()) {
+              Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
+              startActivity(examples);
+            } else {
+              if (isAdded()) {
+                initializeShell(requireActivity());
+              }
+            }
+            return true;
+          }
+          return false;
+        });
+  }
+
+  // The edit text end icon which is responsible for adding /removing bookmarks
+  private void mCommandInputEndIconOnClickListener(Editable s) {
+    mCommandInput.setEndIconOnClickListener(
+        v -> {
+          if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
+            Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
+            Utils.snackBar(view, getString(R.string.bookmark_removed_message, s.toString().trim()))
+                .show();
+          } else {
+            Utils.addBookmarkIconOnClickListener(s.toString().trim(), view, context);
+          }
+
+          mCommandInput.setEndIconDrawable(
+              Utils.getDrawable(
+                  Utils.isBookmarked(s.toString().trim(), requireActivity())
+                      ? R.drawable.ic_bookmark_added
+                      : R.drawable.ic_add_bookmark,
+                  requireActivity()));
+          if (mSearchWord.getVisibility() == View.GONE) {
+            mBookMarks.setVisibility(
+                !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
+          }
+        });
+  }
+
+  private void commandSuggestion(Editable s) {
+
+    new Handler(Looper.getMainLooper())
+        .post(
+            () -> {
+              if (s.toString().contains(" ") && s.toString().contains(".")) {
+                String[] splitCommands = {
+                  s.toString().substring(0, lastIndexOf(s.toString(), ".")),
+                  s.toString().substring(lastIndexOf(s.toString(), "."))
+                };
+
+                String packageNamePrefix;
+                if (splitCommands[0].contains(" ")) {
+                  packageNamePrefix = splitPrefix(splitCommands[0], 1);
+                } else {
+                  packageNamePrefix = splitCommands[0];
+                }
+
+                mCommandsAdapter =
+                    new CommandsAdapter(Commands.getPackageInfo(packageNamePrefix + ".", context));
+                if (isAdded()) {
+                  mRecyclerViewCommands.setLayoutManager(
+                      new LinearLayoutManager(requireActivity()));
+                }
+
+                if (isAdded()) {
+                  mRecyclerViewCommands.setAdapter(mCommandsAdapter);
+                }
+                mRecyclerViewCommands.setVisibility(View.VISIBLE);
+                mCommandsAdapter.setOnItemClickListener(
+                    (command, v) -> {
+                      mCommand.setText(
+                          splitCommands[0].contains(" ")
+                              ? splitPrefix(splitCommands[0], 0) + " " + command
+                              : command);
+                      mCommand.setSelection(mCommand.getText().length());
+                      mRecyclerViewCommands.setVisibility(View.GONE);
+                    });
+              } else {
+                mCommandsAdapter = new CommandsAdapter(Commands.getCommand(s.toString(), context));
+                if (isAdded()) {
+                  mRecyclerViewCommands.setLayoutManager(
+                      new LinearLayoutManager(requireActivity()));
+                }
+
+                mRecyclerViewCommands.setAdapter(mCommandsAdapter);
+                mRecyclerViewCommands.setVisibility(View.VISIBLE);
+                mCommandsAdapter.setOnItemClickListener(
+                    (command, v) -> {
+                      if (command.contains(" <")) {
+                        mCommand.setText(command.split("<")[0]);
+                      } else {
+                        mCommand.setText(command);
+                      }
+                      mCommand.setSelection(mCommand.getText().length());
+                    });
+              }
+            });
   }
 }

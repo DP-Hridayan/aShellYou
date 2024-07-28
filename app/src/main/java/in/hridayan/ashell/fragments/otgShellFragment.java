@@ -286,21 +286,8 @@ public class otgShellFragment extends Fragment
         requireActivity(),
         visible -> {
           isKeyboardVisible = visible;
-          if (isKeyboardVisible) {
-            mPasteButton.setVisibility(View.GONE);
-            mUndoButton.setVisibility(View.GONE);
-            mSaveButton.setVisibility(View.GONE);
-            mShareButton.setVisibility(View.GONE);
-          } else {
-            if (mPasteButton.getVisibility() == View.GONE) {
-              if (!sendButtonClicked) {
-                setVisibilityWithDelay(mPasteButton, 100);
-              } else if (scrollView.getChildAt(0).getHeight() != 0) {
-                setVisibilityWithDelay(mSaveButton, 100);
-                setVisibilityWithDelay(mShareButton, 100);
-              }
-            }
-          }
+          if (visible) buttonsVisibilityGone();
+          else buttonsVisibilityVisible();
         });
 
     mNav.setVisibility(View.VISIBLE);
@@ -479,7 +466,7 @@ public class otgShellFragment extends Fragment
                   Utils.getDrawable(R.drawable.ic_send, requireActivity()));
               mSendButton.setOnClickListener(
                   v -> {
-                    HapticUtils.weakVibrate(v,context);
+                    HapticUtils.weakVibrate(v, context);
                     KeyboardUtils.closeKeyboard(requireActivity(), v);
                     mChipOnClickListener();
                     sendButtonClicked = true;
@@ -996,6 +983,26 @@ public class otgShellFragment extends Fragment
   private void showBottomNav() {
     if (getActivity() != null && getActivity() instanceof MainActivity) {
       ((MainActivity) getActivity()).mNav.animate().translationY(0);
+    }
+  }
+
+  // Hide buttons when keyboard is visible
+  private void buttonsVisibilityGone() {
+    mPasteButton.setVisibility(View.GONE);
+    mUndoButton.setVisibility(View.GONE);
+    mSaveButton.setVisibility(View.GONE);
+    mShareButton.setVisibility(View.GONE);
+  }
+
+  // Show buttons again when keyboard is gone
+  private void buttonsVisibilityVisible() {
+    if (mPasteButton.getVisibility() == View.GONE) {
+      if (!sendButtonClicked) {
+        setVisibilityWithDelay(mPasteButton, 100);
+      } else if (scrollView.getChildAt(0).getHeight() != 0) {
+        setVisibilityWithDelay(mSaveButton, 100);
+        setVisibilityWithDelay(mShareButton, 100);
+      }
     }
   }
 }
