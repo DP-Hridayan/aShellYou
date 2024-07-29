@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style
         name="aShellYou.AppTheme"
         parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
@@ -30,7 +31,7 @@
         <item name="android:textSize">13.0sp</item>
         <item name="android:alpha">0.9</item>
     </style>
-    
+
     <style
         name="LatestVersionTitle"
         parent="aShellYou.AppTheme">
@@ -44,9 +45,36 @@
         <item name="android:textColor">?attr/colorSurfaceInverse</item>
         <item name="android:textSize">21.0sp</item>
     </style>
-
-    // for devices running A11 and below
+    //The info cards that gives tips or hints
+    <style
+        name="InfoCardStyle"
+        parent="aShellYou.AppTheme">
+        <item name="strokeWidth">0dp</item>
+        <item name="cardCornerRadius">20dp</item>
+        <item name="android:elevation">0dp</item>
+        <item name="cardBackgroundColor">?attr/colorPrimaryContainer</item>
+    </style>
+    <style
+        name="InfoCardTitle"
+        parent="aShellYou.AppTheme">
+        <item name="android:layout_gravity">start</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
+        <item name="android:textAppearance">?attr/textAppearanceTitleMedium</item>
+    </style>
    <style
+        name="InfoCardDescription"
+        parent="aShellYou.AppTheme">
+        <item name="android:layout_gravity">start</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodySmall</item>
+    </style>
+    
+    // for devices running A11 and below
+    <style
         name="ThemeOverlay.aShellYou.AmoledThemeBelowV31"
         parent=""
         tools:ignore="PrivateResource">
@@ -57,5 +85,5 @@
         <item name="colorSurfaceContainerHighest">@color/black</item>
         <item name="colorSurfaceDim">@color/black</item>
     </style>
-    
+
 </resources>

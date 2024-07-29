@@ -139,13 +139,10 @@
             android:id="@+id/warning_usb_debugging"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            app:strokeWidth="0dp"
             android:layout_marginTop="5dp"
-            android:elevation="0dp"
             android:layout_marginHorizontal="20dp"
             android:visibility="gone"
-            app:cardBackgroundColor="?attr/colorTertiaryContainer"
-            app:cardCornerRadius="20dp">
+            style="@style/InfoCardStyle">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_height="wrap_content"
@@ -156,24 +153,16 @@
                     android:id="@+id/title_warning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:paddingBottom="10dp"
-                    android:paddingHorizontal="10dp"
                     android:text="@string/usb_warning_title"
-                    android:textColor="?attr/colorOnTertiaryContainer"
-                    android:textAppearance="?attr/textAppearanceTitleLarge" />
+                    style="@style/InfoCardTitle" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/summary_warning"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
                     app:layout_constraintTop_toBottomOf="@id/title_warning"
-                    android:paddingBottom="20dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:textColor="?attr/colorOnTertiaryContainer"
                     android:text="@string/usb_warning_summary"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    style="@style/InfoCardDescription"/>
 
                 <Button
                     android:id="@+id/instructions_button"
@@ -183,7 +172,7 @@
                     app:layout_constraintTop_toBottomOf="@id/summary_warning"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    android:textAppearance="?attr/textAppearanceBodySmall" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:layout_height="wrap_content"
@@ -192,7 +181,7 @@
                     android:background="@null"
                     android:clickable="true"
                     android:id="@+id/dimiss_card"
-                    android:tint="?attr/colorOnTertiaryContainer"
+                    android:tint="?attr/colorOnPrimaryContainer"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
