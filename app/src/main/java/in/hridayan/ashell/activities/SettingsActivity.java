@@ -13,6 +13,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.SettingsViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.MiuiCheck;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
@@ -72,7 +73,11 @@ public class SettingsActivity extends AppCompatActivity {
     ImageView imageView = findViewById(R.id.arrow_back);
 
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
-    imageView.setOnClickListener(v -> dispatcher.onBackPressed());
+    imageView.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, this);
+          dispatcher.onBackPressed();
+        });
 
     settingsList = findViewById(R.id.settings_list);
     settingsData = new ArrayList<>();
@@ -146,7 +151,7 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             Preferences.getDisableSoftkey(this)));
 
-           settingsData.add(
+    settingsData.add(
         new SettingsItem(
             "id_vibration",
             R.drawable.ic_vibration,
@@ -154,7 +159,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.des_vibration),
             true,
             Preferences.getHapticsAndVibration(this)));
-        
+
     settingsData.add(
         new SettingsItem(
             "id_override_bookmarks",

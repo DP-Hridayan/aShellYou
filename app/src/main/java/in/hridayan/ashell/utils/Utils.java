@@ -428,6 +428,7 @@ public class Utils {
   }
 
   public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
+    HapticUtils.weakVibrate(view, context);
     boolean switchState = Preferences.getOverrideBookmarks(context);
 
     if (Utils.getBookmarks(context).size() <= Preferences.MAX_BOOKMARKS_LIMIT - 1 || switchState) {
@@ -506,6 +507,7 @@ public class Utils {
   public static void chipOnClickListener(Context context, Chip mChip, String device) {
     mChip.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           boolean hasShizuku =
               Shizuku.pingBinder()
                   && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
@@ -747,11 +749,13 @@ public class Utils {
             + Preferences.getLatestVersionName(context));
     downloadButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           Utils.openUrl(activity, "https://github.com/DP-Hridayan/aShellYou/releases/latest");
           bottomSheetDialog.dismiss();
         });
     cancelButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           bottomSheetDialog.dismiss();
         });
   }

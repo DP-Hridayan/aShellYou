@@ -17,6 +17,7 @@ import in.hridayan.ashell.UI.AboutViewModel;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.adapters.AboutAdapter;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
@@ -72,7 +73,11 @@ public class AboutActivity extends AppCompatActivity
     ImageView imageView = findViewById(R.id.arrow_back);
 
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
-    imageView.setOnClickListener(v -> dispatcher.onBackPressed());
+    imageView.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, this);
+          dispatcher.onBackPressed();
+        });
 
     items.add(new Category(getString(R.string.lead_developer)));
     items.add(

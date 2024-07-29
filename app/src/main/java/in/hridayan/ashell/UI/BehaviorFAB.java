@@ -324,6 +324,7 @@ public class BehaviorFAB {
 
           @Override
           public void onClick(View v) {
+            HapticUtils.weakVibrate(v, context);
 
             long currentTime = System.currentTimeMillis();
 
@@ -352,6 +353,7 @@ public class BehaviorFAB {
 
           @Override
           public void onClick(View v) {
+            HapticUtils.weakVibrate(v, context);
 
             long currentTime = System.currentTimeMillis();
 

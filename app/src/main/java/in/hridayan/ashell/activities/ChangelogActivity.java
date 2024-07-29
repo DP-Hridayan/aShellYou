@@ -13,6 +13,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ChangelogViewModel;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.utils.ChangelogItem;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
@@ -63,7 +64,11 @@ public class ChangelogActivity extends AppCompatActivity {
 
     ImageView imageView = findViewById(R.id.arrow_back);
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
-    imageView.setOnClickListener(v -> dispatcher.onBackPressed());
+    imageView.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, this);
+          dispatcher.onBackPressed();
+        });
 
     recyclerViewChangelogs = findViewById(R.id.recycler_view_changelogs);
 

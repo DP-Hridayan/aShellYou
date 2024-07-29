@@ -299,21 +299,6 @@ public class otgShellFragment extends Fragment
     } else if (mWarningUsbDebugging.getVisibility() == View.VISIBLE) {
       mWarningUsbDebugging.setVisibility(View.GONE);
     }
-    // OnClickListener of the Instruction button on the info card
-    instructionsButton.setOnClickListener(
-        v ->
-            Utils.openUrl(
-                context,
-                "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md"));
-
-    // The cross to dismiss the info card
-    dismissCard.setOnClickListener(
-        v -> {
-          mWarningUsbDebugging.setVisibility(View.GONE);
-          Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", false);
-        });
-
-    mChipOnClickListener();
 
     if (isSendDrawable) {
       mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
@@ -440,6 +425,7 @@ public class otgShellFragment extends Fragment
 
               mCommandInput.setEndIconOnClickListener(
                   v -> {
+                    HapticUtils.weakVibrate(v, context);
                     if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
                       Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
                       Utils.snackBar(
@@ -464,102 +450,9 @@ public class otgShellFragment extends Fragment
 
               mSendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-              mSendButton.setOnClickListener(
-                  v -> {
-                    HapticUtils.weakVibrate(v, context);
-                    KeyboardUtils.closeKeyboard(requireActivity(), v);
-                    mChipOnClickListener();
-                    sendButtonClicked = true;
-                    mPasteButton.hide();
-                    mUndoButton.hide();
-
-                    if (mRecyclerViewCommands.getVisibility() == View.VISIBLE) {
-                      mRecyclerViewCommands.setVisibility(View.GONE);
-                    }
-                    if (adbConnection != null) {
-                      mHistoryButton.setVisibility(View.VISIBLE);
-
-                      if (mHistory == null) {
-                        mHistory = new ArrayList<>();
-                      }
-
-                      mHistory.add(mCommand.getText().toString());
-                      putCommand();
-                    } else {
-
-                      mCommandInput.setError(getString(R.string.device_not_connected));
-                      mCommandInput.setErrorIconDrawable(
-                          Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
-                      mCommandInput.setErrorIconOnClickListener(t -> mCommand.setText(null));
-
-                      Utils.alignMargin(mSendButton);
-                      Utils.alignMargin(mCable);
-
-                      new MaterialAlertDialogBuilder(requireActivity())
-                          .setTitle(requireActivity().getString(R.string.error))
-                          .setMessage(requireActivity().getString(R.string.otg_not_connected))
-                          .setPositiveButton(
-                              requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
-                          .show();
-                    }
-                  });
+              sendButtonOnClickListener();
             }
           }
-        });
-
-    mClearButton.setTooltipText(getString(R.string.clear_screen));
-    // Clear output button OnclickListener
-    mClearButton.setOnClickListener(
-        v -> {
-          boolean switchState = Preferences.getClear(context);
-          if (switchState) {
-            new MaterialAlertDialogBuilder(requireActivity())
-                .setTitle(getString(R.string.clear_everything))
-                .setMessage(getString(R.string.clear_all_message))
-                .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
-                .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
-                .show();
-          } else {
-            clearAll();
-          }
-        });
-
-    mBookMarks.setTooltipText(getString(R.string.bookmarks));
-
-    mBookMarks.setOnClickListener(
-        v ->
-            Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks));
-
-    mHistoryButton.setTooltipText(getString(R.string.history));
-
-    mHistoryButton.setOnClickListener(
-        v -> {
-          PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
-          Menu menu = popupMenu.getMenu();
-          for (int i = 0; i < getRecentCommands().size(); i++) {
-            menu.add(Menu.NONE, i, Menu.NONE, getRecentCommands().get(i));
-          }
-          popupMenu.setOnMenuItemClickListener(
-              item -> {
-                for (int i = 0; i < getRecentCommands().size(); i++) {
-                  if (item.getItemId() == i) {
-                    mCommand.setText(getRecentCommands().get(i));
-                    mCommand.setSelection(mCommand.getText().length());
-                  }
-                }
-                return false;
-              });
-          popupMenu.show();
-        });
-
-    // Glow otg symbol when adb connection successfull
-
-    mSettingsButton.setTooltipText(getString(R.string.settings));
-    mSettingsButton.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v, context);
-          Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
-          startActivity(settingsIntent);
         });
 
     handler =
@@ -573,6 +466,7 @@ public class otgShellFragment extends Fragment
               case DEVICE_FOUND:
                 initCommand();
                 if (adbConnection != null) {
+                  // Glow otg symbol when adb connection successfull
                   mCable.setColorFilter(Utils.getColor(R.color.green, requireActivity()));
                 }
                 Toast.makeText(context, getString(R.string.connected), Toast.LENGTH_SHORT).show();
@@ -662,43 +556,32 @@ public class otgShellFragment extends Fragment
       }
     }
 
+    // OnClickListener of the Instruction button on the info card
+    instructionsButtonOnClickListener();
+
+    // The cross to dismiss the info card
+    dismissCardOnClickListener();
+
+    // Chip to view the connected device
+    mChipOnClickListener();
+
+    // Settings button onClick listener
+    settingsButtonOnClickListener();
+
+    // Bookmarks button onClick listener
+    bookmarksButtonOnClickListener();
+
+    // History button onClick listener
+    historyButtonOnClickListener();
+
+    // Clear button onClick listener
+    clearButtonOnClickListener();
+
     // Save button onclick listener
-    mSaveButton.setOnClickListener(
-        v -> {
-          history = mHistory;
-          String sb = null, fileName = null;
-
-          switch (Preferences.getSavePreference(context)) {
-            case Preferences.ALL_OUTPUT:
-              sb = logs.getText().toString();
-              fileName = "otg_output" + Utils.getCurrentDateTime();
-              break;
-            case Preferences.LAST_COMMAND_OUTPUT:
-              sb = Utils.lastCommandOutput(logs.getText().toString());
-              fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
-              break;
-            default:
-              break;
-          }
-          boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
-          if (saved) {
-            Preferences.setLastSavedFileName(context, fileName + ".txt");
-          }
-
-          // Dialog showing if the output has been saved or not
-          Utils.outputSavedDialog(requireActivity(), context, saved);
-        });
+    saveButtonOnClickListener();
 
     // Share button onclickListener
-    mShareButton.setOnClickListener(
-        v -> {
-          String fileName = Utils.generateFileName(mHistory);
-          Utils.shareOutput(
-              requireActivity(),
-              context,
-              fileName,
-              Utils.lastCommandOutput(logs.getText().toString()));
-        });
+    shareButtonOnClickListener();
 
     mCommand.setOnEditorActionListener(this);
     mCommand.setOnKeyListener(this);
@@ -898,11 +781,11 @@ public class otgShellFragment extends Fragment
 
   @Override
   public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+    HapticUtils.weakVibrate(v, context);
     /* We always return false because we want to dismiss the keyboard */
     if (adbConnection != null && actionId == EditorInfo.IME_ACTION_DONE) {
       putCommand();
     }
-
     return true;
   }
 
@@ -967,6 +850,7 @@ public class otgShellFragment extends Fragment
   private void mChipOnClickListener() {
     mChip.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           if (mDevice != null) {
             String connectedDevice = mDevice.getProductName();
             Utils.connectedDeviceDialog(
@@ -1004,5 +888,178 @@ public class otgShellFragment extends Fragment
         setVisibilityWithDelay(mShareButton, 100);
       }
     }
+  }
+
+  // Onclick listener for save button
+  private void saveButtonOnClickListener() {
+    mSaveButton.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          history = mHistory;
+          String sb = null, fileName = null;
+
+          switch (Preferences.getSavePreference(context)) {
+            case Preferences.ALL_OUTPUT:
+              sb = logs.getText().toString();
+              fileName = "otg_output" + Utils.getCurrentDateTime();
+              break;
+            case Preferences.LAST_COMMAND_OUTPUT:
+              sb = Utils.lastCommandOutput(logs.getText().toString());
+              fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
+              break;
+            default:
+              break;
+          }
+          boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
+          if (saved) {
+            Preferences.setLastSavedFileName(context, fileName + ".txt");
+          }
+
+          // Dialog showing if the output has been saved or not
+          Utils.outputSavedDialog(requireActivity(), context, saved);
+        });
+  }
+
+  // OnClick listener for share button
+  private void shareButtonOnClickListener() {
+    mShareButton.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          String fileName = Utils.generateFileName(mHistory);
+          Utils.shareOutput(
+              requireActivity(),
+              context,
+              fileName,
+              Utils.lastCommandOutput(logs.getText().toString()));
+        });
+  }
+
+  // OnClick listener for settings button
+  private void settingsButtonOnClickListener() {
+    mSettingsButton.setTooltipText(getString(R.string.settings));
+    mSettingsButton.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
+          startActivity(settingsIntent);
+        });
+  }
+
+  // OnClick listener for history button
+  private void historyButtonOnClickListener() {
+    mHistoryButton.setTooltipText(getString(R.string.history));
+    mHistoryButton.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
+          Menu menu = popupMenu.getMenu();
+          for (int i = 0; i < getRecentCommands().size(); i++) {
+            menu.add(Menu.NONE, i, Menu.NONE, getRecentCommands().get(i));
+          }
+          popupMenu.setOnMenuItemClickListener(
+              item -> {
+                for (int i = 0; i < getRecentCommands().size(); i++) {
+                  if (item.getItemId() == i) {
+                    mCommand.setText(getRecentCommands().get(i));
+                    mCommand.setSelection(mCommand.getText().length());
+                  }
+                }
+                return false;
+              });
+          popupMenu.show();
+        });
+  }
+
+  // Clear button onClick listener
+  private void clearButtonOnClickListener() {
+    mClearButton.setTooltipText(getString(R.string.clear_screen));
+    mClearButton.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          boolean switchState = Preferences.getClear(context);
+          if (switchState) {
+            new MaterialAlertDialogBuilder(requireActivity())
+                .setTitle(getString(R.string.clear_everything))
+                .setMessage(getString(R.string.clear_all_message))
+                .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+                .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
+                .show();
+          } else {
+            clearAll();
+          }
+        });
+  }
+
+  // Bookmarks button onClick listener
+  private void bookmarksButtonOnClickListener() {
+    mBookMarks.setTooltipText(getString(R.string.bookmarks));
+    mBookMarks.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks);
+        });
+  }
+
+  // Send button onClick listener
+  private void sendButtonOnClickListener() {
+    mSendButton.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          KeyboardUtils.closeKeyboard(requireActivity(), v);
+          mChipOnClickListener();
+          sendButtonClicked = true;
+          mPasteButton.hide();
+          mUndoButton.hide();
+
+          if (mRecyclerViewCommands.getVisibility() == View.VISIBLE) {
+            mRecyclerViewCommands.setVisibility(View.GONE);
+          }
+          if (adbConnection != null) {
+            mHistoryButton.setVisibility(View.VISIBLE);
+
+            if (mHistory == null) {
+              mHistory = new ArrayList<>();
+            }
+
+            mHistory.add(mCommand.getText().toString());
+            putCommand();
+          } else {
+
+            mCommandInput.setError(getString(R.string.device_not_connected));
+            mCommandInput.setErrorIconDrawable(
+                Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+            mCommandInput.setErrorIconOnClickListener(t -> mCommand.setText(null));
+
+            Utils.alignMargin(mSendButton);
+            Utils.alignMargin(mCable);
+
+            new MaterialAlertDialogBuilder(requireActivity())
+                .setTitle(requireActivity().getString(R.string.error))
+                .setMessage(requireActivity().getString(R.string.otg_not_connected))
+                .setPositiveButton(
+                    requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
+                .show();
+          }
+        });
+  }
+
+  // The cross which dismisses the card asking to turn on usb debugging
+  private void dismissCardOnClickListener() {
+    dismissCard.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          mWarningUsbDebugging.setVisibility(View.GONE);
+          Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", false);
+        });
+  }
+
+  // Onclick listener of Instruction button on the card
+  private void instructionsButtonOnClickListener() {
+    instructionsButton.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          Utils.openUrl(
+              context, "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md");
+        });
   }
 }

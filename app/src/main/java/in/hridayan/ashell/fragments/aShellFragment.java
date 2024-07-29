@@ -868,6 +868,7 @@ public class aShellFragment extends Fragment {
 
     mClearButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           viewModel.setShellOutput(null);
           boolean switchState = Preferences.getClear(context);
           if (switchState) {
@@ -888,8 +889,10 @@ public class aShellFragment extends Fragment {
     mBookMarks.setTooltipText(getString(R.string.bookmarks));
 
     mBookMarks.setOnClickListener(
-        v ->
-            Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks));
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks);
+        });
   }
 
   // OnClick listener for the history button
@@ -898,6 +901,7 @@ public class aShellFragment extends Fragment {
 
     mHistoryButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           PopupMenu popupMenu = new PopupMenu(context, mCommand);
           Menu menu = popupMenu.getMenu();
           for (int i = 0; i < getRecentCommands().size(); i++) {
@@ -923,6 +927,7 @@ public class aShellFragment extends Fragment {
 
     mSearchButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           if (mHistoryButton.getVisibility() == View.VISIBLE) {
             mHistoryButton.setVisibility(View.GONE);
           }
@@ -973,6 +978,7 @@ public class aShellFragment extends Fragment {
 
     mSaveButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           shellOutput = viewModel.getShellOutput();
 
           history = viewModel.getHistory();
@@ -1008,6 +1014,7 @@ public class aShellFragment extends Fragment {
   private void shareButtonOnClickListener() {
     mShareButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           shellOutput = viewModel.getShellOutput();
           history = viewModel.getHistory();
           initializeResults();
@@ -1079,6 +1086,7 @@ public class aShellFragment extends Fragment {
   private void mCommandOnEditorActionListener() {
     mCommand.setOnEditorActionListener(
         (v, actionId, event) -> {
+          HapticUtils.weakVibrate(v, context);
           if (actionId == EditorInfo.IME_ACTION_SEND) {
             if (mShizukuShell != null && mShizukuShell.isBusy()) {
               mShizukuShell.destroy();
@@ -1105,6 +1113,7 @@ public class aShellFragment extends Fragment {
   private void mCommandInputEndIconOnClickListener(Editable s) {
     mCommandInput.setEndIconOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
             Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
             Utils.snackBar(view, getString(R.string.bookmark_removed_message, s.toString().trim()))
