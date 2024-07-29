@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-<resources
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="access_denied">पहुंच अस्वीकृत</string>
     <string name="accept_device_prompt">डिवाइस स्वीकृति प्रॉम्प्ट</string>
     <string name="adb_device_connected">ADB डिवाइस कनेक्ट किया गया।</string>
@@ -12,6 +10,8 @@
     <string name="accept">स्वीकार करें</string>
     <string name="amoled_theme">AMOLED काला थीम</string>
     <string name="des_amoled_theme">OLED स्क्रीन वाले डिवाइस के लिए काला पेयशील थीम।</string>
+    <string name="default_language">डिफ़ॉल्ट भाषा</string>
+    <string name="des_default_language">ऐप के लिए डिफ़ॉल्ट भाषा चुनें</string>
     <string name="app_summary">aShell You आपकी सभी ADB आवश्यकताओं के लिए यहाँ है।</string>
     <string name="app_updated_message">ऐप अपडेट किया गया है, क्या आप जानना चाहेंगे कि क्या बदला है?</string>
     <string name="app_working_message">aShell You अभी भी काम कर रहा है। नए कमांड को चलाने के लिए कृपया इंतजार करें या मैन्युअल रूप से रोकें (स्टॉप बटन पर क्लिक करके)।</string>
@@ -33,9 +33,7 @@
     <string name="command_title">ADB कमांड टाइप करें</string>
     <string name="connecting">कनेक्टिंग\u2026</string>
     <string name="connecting_hint">लक्षित डिवाइस में अनुमति की पुष्टि करें</string>
-    <string
-            name="copy"
-            tools:override="true">कॉपी</string>
+    <string name="copy" tools:override="true">कॉपी</string>
     <string name="copied_to_clipboard">क्लिपबोर्ड में कॉपी किया गया</string>
     <string name="default_working_mode">डिफ़ॉल्ट वर्किंग मोड</string>
     <string name="des_default_working_mode">ADB कमांड को चलाने के लिए डिफ़ॉल्ट वर्किंग मोड का चयन करें</string>

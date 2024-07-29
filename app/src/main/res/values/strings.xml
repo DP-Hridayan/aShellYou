@@ -18,6 +18,7 @@
     <string name="already_latest_version">You are using the latest version</string>
     <string name="amoled_theme">Amoled black theme</string>
     <string name="des_amoled_theme">Pure black theme for devices with OLED panel</string>
+    <string name="app_crashed">App has crashed :(</string>
     <string name="app_summary">aShell You is here for all your ADB needs</string>
     <string name="app_updated_message">App is updated, want to see changelogs?</string>
     <string name="app_working_message">aShell You is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
@@ -47,6 +48,7 @@
     <string name="confirm_batch_remove_bookmark">Selected %d items will be  removed from bookmarks</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
+    <string name="confirm_exit">Confirm exit</string>
     <string name="confirm_pin">All unpinned commands will be pinned\nDo you wish to continue?</string>
     <string name="confirm_pin_single">\[%s\] will be pinned\nDo you wish to continue?</string>
     <string name="confirm_unpin">Do you want to unpin the selected commands?</string>
@@ -63,6 +65,8 @@
     <string name="current">Current</string>
     <string name="default_working_mode">Default working mode</string>
     <string name="delete_all">Delete all</string>
+    <string name="default_language">Default language</string>
+    <string name="des_default_language">Choose the default language for the app</string>
     <string name="des_default_working_mode">Choose the default working mode for running ADB commands</string>
     <string name="device_not_connected">Device not connected</string>
     <string name="discord">Discord</string>
@@ -147,6 +151,8 @@
     <string name="usb_warning_title">Important</string>
     <string name="usb_warning_summary">You need to turn on USB Debugging in the developer settings of the target device</string>
     <string name="use">Use</string>
+    <string name="vibration">Haptics and vibration</string>
+    <string name="des_vibration">Interactive haptics for touch feedback</string>
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
     <string name="whats_new">What\'s new !</string>
@@ -177,6 +183,7 @@
     <string name="sunilpaulmathew_about">Developer of aShell\nWithout him aShell You wouldn\'t exist</string>
     <string name="khun_htetz_about">Developer of ADB⚡OTG\nThanks to him OTG feature could be implemented in aShell You</string>
     <string name="krishna_about">The best guy in the world has been an incredible help. Without him, aShell wouldn\'t be here. Thanks a ton for your support, buddy!</string>
+    <string name="shivam_about">Android &amp; Backend developer\nHe is a very skilled and amazing guy who has contributed to the app\'s UI and UX</string>
     <string name="drDisagree_about">Developer of Iconify\nHelped me fix issues in aShell You 🤝</string>
     <string name="marciozomb13_about">A freelancer translator who did the Portuguese translations</string>
     <string name="weiguangtwk_about">The guy who did the Chinese translations</string>

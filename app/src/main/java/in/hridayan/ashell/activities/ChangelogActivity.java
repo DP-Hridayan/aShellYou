@@ -13,6 +13,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ChangelogViewModel;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.utils.ChangelogItem;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
@@ -24,10 +25,10 @@ public class ChangelogActivity extends AppCompatActivity {
   private RecyclerView recyclerViewChangelogs;
 
   private final String[] versionNames = {
-    "v4.3.1", "v4.3.0", "v4.2.1", "v4.2.0", "v4.1.0", "v4.0.3", "v4.0.2", "v4.0.1", "v4.0.0",
-    "v3.9.1", "v3.9.0", "v3.8.2", "v3.8.1", "v3.8.0", "v3.7.0", "v3.6.0", "v3.5.1", "v3.5.0",
-    "v3.4.0", "v3.3.0", "v3.2.0", "v3.1.0", "v3.0.0", "v2.0.2", "v2.0.1", "v2.0.0", "v1.3.0",
-    "v1.2.0", "v1.1.1", "v1.1.0", "v1.0.0", "v0.9.1", "v0.9.0"
+    "v4.4.0", "v4.3.1", "v4.3.0", "v4.2.1", "v4.2.0", "v4.1.0", "v4.0.3", "v4.0.2", "v4.0.1",
+    "v4.0.0", "v3.9.1", "v3.9.0", "v3.8.2", "v3.8.1", "v3.8.0", "v3.7.0", "v3.6.0", "v3.5.1",
+    "v3.5.0", "v3.4.0", "v3.3.0", "v3.2.0", "v3.1.0", "v3.0.0", "v2.0.2", "v2.0.1", "v2.0.0",
+    "v1.3.0", "v1.2.0", "v1.1.1", "v1.1.0", "v1.0.0", "v0.9.1", "v0.9.0"
   };
 
   @Override
@@ -63,7 +64,11 @@ public class ChangelogActivity extends AppCompatActivity {
 
     ImageView imageView = findViewById(R.id.arrow_back);
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
-    imageView.setOnClickListener(v -> dispatcher.onBackPressed());
+    imageView.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, this);
+          dispatcher.onBackPressed();
+        });
 
     recyclerViewChangelogs = findViewById(R.id.recycler_view_changelogs);
 

@@ -3,6 +3,7 @@
     tools:ignore="MissingTranslation">
     //Created by DP-Hridayan
     Absolutely necessary to follow this string name format
+    <string name="changelog_v4_4_0">\n\n• Added vibration for haptic feedback\n\n• Added option to change app language from within the app (for devices running Android 13 and above only and excluding unsupported devices)\n\n• Fixed some crashes and improved crash reporting\n\n• Minor UI improvements</string>
     <string name="changelog_v4_3_1">\n\n• Now app catches any crashes and provides the option to report them via email</string>
     <string name="changelog_v4_3_0">\n\n• Added option to open saved output directly\n\n• Added option to save whole output or the last command output only\n\n• Fixed crashes</string>
     <string name="changelog_v4_2_1">\n\n• Fixed an issue with Sharing text to aShell You where the text did not appear when app was starting fresh\n\n• Fixed minor UI issues</string>

@@ -2,16 +2,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/category_contributors_layout"
+    style="@style/CategoryContributorsCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
-    app:cardCornerRadius="20dp"
+    android:elevation="0dp"
     android:focusable="true"
     android:foreground="?@attr/selectableItemBackground"
-    style="@style/CategoryContributorsCard"
-    app:strokeColor="?attr/colorPrimary"
-    android:elevation="0dp"
-    android:layerType="hardware">
+    android:layerType="hardware"
+    app:cardCornerRadius="20dp"
+    app:strokeColor="?attr/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_view"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -29,37 +29,55 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title_text_view"
+                style="@style/ItemTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                style="@style/ItemTitle" />
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="5dp" />
 
-            <TextView
-                android:id="@+id/description_text_view"
+            <LinearLayout
+                android:id="@+id/contrib_expanded_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/ItemDescription" />
-            <Button
-                style="@style/Widget.Material3.Button.Icon"
-                android:id="@+id/github_handle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="@string/github"
-                android:textSize="12sp"
-                android:layout_marginBottom="3dp"
-                android:paddingHorizontal="14dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                app:paddingEnd="12dp"
-                app:icon="@drawable/ic_github" />
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/description_text_view"
+                    style="@style/ItemDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/github_handle"
+                    style="@style/Widget.Material3.Button.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="3dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="14dp"
+                    android:text="@string/github"
+                    android:textSize="12sp"
+                    app:icon="@drawable/ic_github"
+                    app:paddingEnd="12dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/expand_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_expand" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

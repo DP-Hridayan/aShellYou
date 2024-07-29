@@ -58,6 +58,7 @@ public class CommandItems implements Serializable {
     isChecked = checked;
   }
 
+  /*We use identifier to find the summary strings as they have been named exactly as the commands with some characters replaced as shown below*/
   private String summary(String title, Context context) {
     String trimmedTitle =
         title
@@ -71,6 +72,12 @@ public class CommandItems implements Serializable {
             .replaceAll("_+", "_");
     int resourceId =
         context.getResources().getIdentifier(trimmedTitle, "string", context.getPackageName());
-    return context.getResources().getString(resourceId);
+
+    /*We haven't defined any summary strings for the package name suggestions , so we return null if resource id is not found */
+    if (resourceId == 0) {
+      return null;
+    } else {
+      return context.getResources().getString(resourceId);
+    }
   }
 }

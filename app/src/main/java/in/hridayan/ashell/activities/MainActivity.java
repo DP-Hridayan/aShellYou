@@ -27,6 +27,7 @@ import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgShellFragment;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.CrashHandler;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ThemeUtils;
@@ -225,6 +226,7 @@ public class MainActivity extends AppCompatActivity
     mNav.setVisibility(View.VISIBLE);
     mNav.setOnItemSelectedListener(
         item -> {
+          HapticUtils.weakVibrate(mNav, this);
           switch (item.getItemId()) {
             case R.id.nav_localShell:
               showaShellFragment();
@@ -295,14 +297,10 @@ public class MainActivity extends AppCompatActivity
         .setMessage(getString(R.string.beta_warning))
         .setPositiveButton(
             getString(R.string.accept),
-            (dialogInterface, i) -> {
-              replaceFragment(new otgShellFragment());
-            })
+            (dialogInterface, i) -> replaceFragment(new otgShellFragment()))
         .setNegativeButton(
             getString(R.string.go_back),
-            (dialogInterface, i) -> {
-              mNav.setSelectedItemId(R.id.nav_localShell);
-            })
+            (dialogInterface, i) -> mNav.setSelectedItemId(R.id.nav_localShell))
         .setNeutralButton(
             getString(R.string.donot_show_again),
             (dialogInterface, i) -> {

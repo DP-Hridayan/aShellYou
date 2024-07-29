@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +24,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.AboutActivity;
 import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
@@ -28,8 +32,8 @@ import java.util.List;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
-  private List<SettingsItem> settingsList;
-  private Context context;
+  private final List<SettingsItem> settingsList;
+  private final Context context;
   private int currentTheme;
 
   public SettingsAdapter(List<SettingsItem> settingsList, Context context, int currentTheme) {
@@ -62,6 +66,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     holder.descriptionTextView.setText(settingsItem.getDescription());
     holder.descriptionTextView.setVisibility(
         TextUtils.isEmpty(settingsItem.getDescription()) ? View.GONE : View.VISIBLE);
+
+    // Set the switch state without triggering the listener
+    holder.switchView.setOnCheckedChangeListener(null);
     holder.switchView.setVisibility(settingsItem.hasSwitch() ? View.VISIBLE : View.GONE);
     holder.switchView.setChecked(settingsItem.isChecked());
     holder.switchView.setOnCheckedChangeListener(
@@ -69,59 +76,55 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           settingsItem.setChecked(isChecked);
           settingsItem.saveSwitchState(context);
 
-          switch (settingsItem.getId()) {
-            case "id_amoled_theme":
-              if ((context.getResources().getConfiguration().uiMode
-                      & Configuration.UI_MODE_NIGHT_MASK)
-                  == Configuration.UI_MODE_NIGHT_YES) {
-                applyTheme(isChecked);
-              }
-
-              break;
-
-            default:
-              break;
+          if (settingsItem.getId().equals("id_amoled_theme")) {
+            if ((context.getResources().getConfiguration().uiMode
+                    & Configuration.UI_MODE_NIGHT_MASK)
+                == Configuration.UI_MODE_NIGHT_YES) {
+              applyTheme(isChecked);
+            }
           }
         });
 
     View.OnClickListener clickListener =
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
+        v -> {
+          Intent intent;
+          HapticUtils.weakVibrate(v, context);
+          switch (settingsItem.getId()) {
+            case "id_unhide_cards":
+              Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
+              Toast.makeText(
+                      context, context.getString(R.string.unhide_cards_message), Toast.LENGTH_SHORT)
+                  .show();
+              break;
 
-            Intent intent;
+            case "id_examples":
+              intent = new Intent(context, ExamplesActivity.class);
+              context.startActivity(intent);
+              break;
 
-            switch (settingsItem.getId()) {
-              case "id_unhide_cards":
-                Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
-                Toast.makeText(
-                        context,
-                        context.getString(R.string.unhide_cards_message),
-                        Toast.LENGTH_SHORT)
-                    .show();
-                break;
+            case "id_about":
+              intent = new Intent(context, AboutActivity.class);
+              context.startActivity(intent);
+              break;
 
-              case "id_examples":
-                intent = new Intent(context, ExamplesActivity.class);
+            case "id_default_language":
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
+                intent.setData(Uri.parse("package:" + context.getPackageName()));
                 context.startActivity(intent);
-                break;
+              }
+              break;
 
-              case "id_about":
-                intent = new Intent(context, AboutActivity.class);
-                context.startActivity(intent);
-                break;
+            case "id_default_working_mode":
+              Utils.defaultWorkingModeDialog(context);
+              break;
 
-              case "id_default_working_mode":
-                Utils.defaultWorkingModeDialog(context);
-                break;
+            case "id_save_preference":
+              Utils.savePreferenceDialog(context);
+              break;
 
-              case "id_save_preference":
-                Utils.savePreferenceDialog(context);
-                break;
-
-              default:
-                return;
-            }
+            default:
+              return;
           }
         };
 

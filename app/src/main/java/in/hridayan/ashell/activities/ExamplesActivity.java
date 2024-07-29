@@ -34,6 +34,7 @@ import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.utils.CommandItems;
 import in.hridayan.ashell.utils.Commands;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
@@ -105,12 +106,17 @@ public class ExamplesActivity extends AppCompatActivity
     ImageView imageView = findViewById(R.id.arrow_back);
 
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
-    imageView.setOnClickListener(v -> dispatcher.onBackPressed());
+    imageView.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, this);
+          dispatcher.onBackPressed();
+        });
 
     mSearchBar.clearFocus();
     mSearchBar.setNavigationIcon(R.drawable.ic_search);
     mSearchBar.setOnMenuItemClickListener(
         item -> {
+          HapticUtils.weakVibrate(parent, this);
           switch (item.getItemId()) {
             case R.id.sort:
               sortingDialog(this, this);

@@ -24,28 +24,4 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     android.os.Process.killProcess(android.os.Process.myPid());
     System.exit(1);
   }
-
-  private void saveCrashReport(String stackTrace, String message) {
-    // Save the crash report to SharedPreferences or a file for later use
-    context
-        .getSharedPreferences("CrashReports", Context.MODE_PRIVATE)
-        .edit()
-        .putString("stackTrace", stackTrace)
-        .putString("message", message)
-        .apply();
-  }
-
-  private void showCrashDialog(String stackTrace, String message) {
-    new Thread(
-            () -> {
-              Looper.prepare();
-              Intent intent = new Intent(context, CrashReportActivity.class);
-              intent.putExtra("stackTrace", stackTrace);
-              intent.putExtra("message", message);
-              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-              context.startActivity(intent);
-              Looper.loop();
-            })
-        .start();
-  }
 }

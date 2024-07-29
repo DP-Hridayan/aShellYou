@@ -1,5 +1,8 @@
 package in.hridayan.ashell.adapters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -10,21 +13,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.button.MaterialButton;
+
 import com.google.android.material.card.MaterialCardView;
-import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.Category;
-import in.hridayan.ashell.activities.ChangelogActivity;
-import in.hridayan.ashell.utils.FetchLatestVersionCode;
-import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.Utils;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
+
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.Category;
+import in.hridayan.ashell.activities.ChangelogActivity;
+import in.hridayan.ashell.utils.HapticUtils;
+import in.hridayan.ashell.utils.Utils;
 
 public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private static final int CATEGORY = 0;
@@ -33,8 +36,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   private static final int CATEGORY_APP_ITEM = 3;
   private AdapterListener mListener;
 
-  private List<Object> items;
-  private Context context;
+  private final List<Object> items;
+  private final Context context;
 
   public AboutAdapter(List<Object> items, Context context) {
     this.items = items;
@@ -122,17 +125,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       viewHolder.descriptionTextView.setText(ContributorsItem.getDescription());
       View.OnClickListener clickListener =
           v -> {
-            Map<String, String> idUrlMap = new HashMap<>();
-
-            idUrlMap.put("id_rikka", "https://github.com/RikkaApps/Shizuku");
-            idUrlMap.put("id_sunilpaulmathew", "https://gitlab.com/sunilpaulmathew/ashell");
-            idUrlMap.put("id_khun_htetz", "https://github.com/KhunHtetzNaing/ADB-OTG");
-            idUrlMap.put("id_krishna", "https://github.com/KrishnaSSH");
-            idUrlMap.put("id_drDisagree", "https://github.com/Mahmud0808");
-            idUrlMap.put("id_marciozomb13", "https://github.com/marciozomb13");
-            idUrlMap.put("id_weiguangtwk", "https://github.com/WeiguangTWK");
-
-            idUrlMap.put("id_winzort", "https://github.com/mikropsoft");
+            Map<String, String> idUrlMap = getContributorsIdUrlMap();
 
             String id = ContributorsItem.getId();
             String url = idUrlMap.get(id);
@@ -141,7 +134,12 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
           };
       viewHolder.buttonView.setOnClickListener(clickListener);
-      viewHolder.categoryContributorsLayout.setOnClickListener(v -> {});
+      viewHolder.categoryContributorsLayout.setOnClickListener(
+          v -> {
+            HapticUtils.weakVibrate(v, context);
+            toggleExpandableLayout(viewHolder);
+          });
+
       viewHolder.categoryContributorsLayout.setStrokeWidth(
           Utils.androidVersion() >= Build.VERSION_CODES.S ? 0 : 3);
 
@@ -154,16 +152,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
       View.OnClickListener clickListener =
           v -> {
-            Map<String, String> idUrlMap = new HashMap<>();
+            // for haptic feedback
+            HapticUtils.weakVibrate(v, context);
 
-            idUrlMap.put("id_report", "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
-            idUrlMap.put(
-                "id_feature", "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
-            idUrlMap.put("id_github", "https:github.com/DP-Hridayan/aShellYou");
-            idUrlMap.put("id_telegram", "https://t.me/aShellYou");
-            idUrlMap.put("id_discord", "https://discord.gg/cq5R2fF8sZ");
-            idUrlMap.put(
-                "id_license", "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md");
+            Map<String, String> idUrlMap = getLeadDevIdUrlMap();
             String id = categoryCItem.getId();
             String url = idUrlMap.get(id);
             if (url != null) {
@@ -171,13 +163,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
 
             Intent intent;
-            switch (id) {
-              case "id_changelogs":
-                intent = new Intent(context, ChangelogActivity.class);
-                break;
-
-              default:
-                return;
+            if (id.equals("id_changelogs")) {
+              intent = new Intent(context, ChangelogActivity.class);
+            } else {
+              return;
             }
             context.startActivity(intent);
           };
@@ -186,6 +175,9 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         viewHolder.button.setVisibility(View.VISIBLE);
         viewHolder.button.setOnClickListener(
             v -> {
+              // for haptic feedback
+              HapticUtils.weakVibrate(v, context);
+
               if (mListener != null) {
                 mListener.onCheckUpdate();
               }
@@ -202,6 +194,92 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       layoutParams.bottomMargin = position == items.size() - 1 ? paddingInPixels : 0;
       viewHolder.itemView.setLayoutParams(layoutParams);
     }
+  }
+
+  // Function to expand or collapse the cardviews showing contributors
+  private void toggleExpandableLayout(contributorsItemViewHolder viewHolder) {
+    final LinearLayout expandableLayout = viewHolder.expandableLayout;
+    final ImageView expandButton = viewHolder.expandButton;
+    final int ANIMATION_DURATION = 250;
+
+    if (expandableLayout.getVisibility() == View.GONE) {
+      // Expand
+      expandableLayout.setVisibility(View.VISIBLE);
+      expandableLayout.measure(
+          View.MeasureSpec.makeMeasureSpec(
+              viewHolder.categoryContributorsLayout.getWidth(), View.MeasureSpec.EXACTLY),
+          View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+      final int targetHeight = expandableLayout.getMeasuredHeight();
+
+      expandableLayout.getLayoutParams().height = 0;
+      ValueAnimator animator = ValueAnimator.ofInt(0, targetHeight);
+      animator.addUpdateListener(
+          animation -> {
+            expandableLayout.getLayoutParams().height = (int) animation.getAnimatedValue();
+            expandableLayout.requestLayout();
+          });
+      animator.addListener(
+          new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+              expandableLayout.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            }
+          });
+      animator.setDuration(ANIMATION_DURATION);
+      animator.start();
+
+      // Rotate expand button
+      expandButton.animate().rotation(180).setDuration(ANIMATION_DURATION).start();
+    } else {
+      // Collapse
+      final int initialHeight = expandableLayout.getHeight();
+      ValueAnimator animator = ValueAnimator.ofInt(initialHeight, 0);
+      animator.addUpdateListener(
+          animation -> {
+            expandableLayout.getLayoutParams().height = (int) animation.getAnimatedValue();
+            expandableLayout.requestLayout();
+          });
+      animator.addListener(
+          new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+              expandableLayout.setVisibility(View.GONE);
+            }
+          });
+      animator.setDuration(ANIMATION_DURATION);
+      animator.start();
+
+      // Rotate expand button back
+      expandButton.animate().rotation(0).setDuration(ANIMATION_DURATION).start();
+    }
+  }
+
+  private static @NonNull Map<String, String> getContributorsIdUrlMap() {
+    Map<String, String> idUrlMap = new HashMap<>();
+
+    idUrlMap.put("id_rikka", "https://github.com/RikkaApps/Shizuku");
+    idUrlMap.put("id_sunilpaulmathew", "https://gitlab.com/sunilpaulmathew/ashell");
+    idUrlMap.put("id_khun_htetz", "https://github.com/KhunHtetzNaing/ADB-OTG");
+    idUrlMap.put("id_krishna", "https://github.com/KrishnaSSH");
+    idUrlMap.put("id_shivam", "https://github.com/starry-shivam");
+    idUrlMap.put("id_drDisagree", "https://github.com/Mahmud0808");
+    idUrlMap.put("id_marciozomb13", "https://github.com/marciozomb13");
+    idUrlMap.put("id_weiguangtwk", "https://github.com/WeiguangTWK");
+
+    idUrlMap.put("id_winzort", "https://github.com/mikropsoft");
+    return idUrlMap;
+  }
+
+  private static @NonNull Map<String, String> getLeadDevIdUrlMap() {
+    Map<String, String> idUrlMap = new HashMap<>();
+
+    idUrlMap.put("id_report", "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
+    idUrlMap.put("id_feature", "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
+    idUrlMap.put("id_github", "https:github.com/DP-Hridayan/aShellYou");
+    idUrlMap.put("id_telegram", "https://t.me/aShellYou");
+    idUrlMap.put("id_discord", "https://discord.gg/cq5R2fF8sZ");
+    idUrlMap.put("id_license", "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md");
+    return idUrlMap;
   }
 
   @Override
@@ -239,6 +317,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     ImageView imageView;
     TextView titleTextView, descriptionTextView;
     Button buttonView;
+    LinearLayout expandableLayout;
+    ImageView expandButton;
     MaterialCardView categoryContributorsLayout;
 
     public contributorsItemViewHolder(@NonNull View itemView) {
@@ -247,6 +327,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       titleTextView = itemView.findViewById(R.id.title_text_view);
       descriptionTextView = itemView.findViewById(R.id.description_text_view);
       buttonView = itemView.findViewById(R.id.github_handle);
+      expandButton = itemView.findViewById(R.id.expand_button);
+      expandableLayout = itemView.findViewById(R.id.contrib_expanded_layout);
       categoryContributorsLayout = itemView.findViewById(R.id.category_contributors_layout);
     }
   }
@@ -255,7 +337,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     ImageView imageView;
     TextView titleTextView, descriptionTextView;
     LinearLayout categoryAppLayout;
-    MaterialButton button;
+    Button button;
 
     public AppItemViewHolder(@NonNull View itemView) {
       super(itemView);

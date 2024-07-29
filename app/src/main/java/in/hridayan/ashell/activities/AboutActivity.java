@@ -17,6 +17,7 @@ import in.hridayan.ashell.UI.AboutViewModel;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.adapters.AboutAdapter;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
@@ -72,7 +73,11 @@ public class AboutActivity extends AppCompatActivity
     ImageView imageView = findViewById(R.id.arrow_back);
 
     OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
-    imageView.setOnClickListener(v -> dispatcher.onBackPressed());
+    imageView.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, this);
+          dispatcher.onBackPressed();
+        });
 
     items.add(new Category(getString(R.string.lead_developer)));
     items.add(
@@ -84,6 +89,17 @@ public class AboutActivity extends AppCompatActivity
     items.add(
         new Category.ContributorsItem(
             "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
+
+    items.add(
+        new Category.ContributorsItem(
+            "id_shivam", "Stɑrry Shivɑm", getString(R.string.shivam_about), R.mipmap.dp_shivam));
+
+    items.add(
+        new Category.ContributorsItem(
+            "id_drDisagree",
+            "DrDisagree",
+            getString(R.string.drDisagree_about),
+            R.mipmap.dp_drdisagree));
 
     items.add(
         new Category.ContributorsItem(
@@ -102,13 +118,6 @@ public class AboutActivity extends AppCompatActivity
             "Khun Htetz Naing",
             getString(R.string.khun_htetz_about),
             R.mipmap.dp_adb_otg));
-
-    items.add(
-        new Category.ContributorsItem(
-            "id_drDisagree",
-            "DrDisagree",
-            getString(R.string.drDisagree_about),
-            R.mipmap.dp_drdisagree));
 
     items.add(
         new Category.ContributorsItem(

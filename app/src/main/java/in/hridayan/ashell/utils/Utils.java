@@ -428,6 +428,7 @@ public class Utils {
   }
 
   public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
+    HapticUtils.weakVibrate(view, context);
     boolean switchState = Preferences.getOverrideBookmarks(context);
 
     if (Utils.getBookmarks(context).size() <= Preferences.MAX_BOOKMARKS_LIMIT - 1 || switchState) {
@@ -506,6 +507,7 @@ public class Utils {
   public static void chipOnClickListener(Context context, Chip mChip, String device) {
     mChip.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           boolean hasShizuku =
               Shizuku.pingBinder()
                   && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
@@ -547,9 +549,9 @@ public class Utils {
         .show();
   }
 
-  // Generate the file name of the exported txt file
+  /* Generate the file name of the exported txt file . The name will be the last executed command. It gets the last executed command from the History List */
   public static String generateFileName(List<String> mHistory) {
-    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "");
+    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
   }
 
   public static String lastCommandOutput(String text) {
@@ -626,11 +628,8 @@ public class Utils {
   }
 
   // Method for sharing output to other apps
-  public static void shareOutput(
-      Activity activity, Context context, List<String> mHistory, String sb) {
+  public static void shareOutput(Activity activity, Context context, String fileName, String sb) {
     try {
-      String fileName = Utils.generateFileName(mHistory);
-
       File file = new File(activity.getCacheDir(), fileName);
       FileOutputStream outputStream = new FileOutputStream(file);
       outputStream.write(sb.getBytes());
@@ -750,11 +749,13 @@ public class Utils {
             + Preferences.getLatestVersionName(context));
     downloadButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           Utils.openUrl(activity, "https://github.com/DP-Hridayan/aShellYou/releases/latest");
           bottomSheetDialog.dismiss();
         });
     cancelButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v, context);
           bottomSheetDialog.dismiss();
         });
   }
