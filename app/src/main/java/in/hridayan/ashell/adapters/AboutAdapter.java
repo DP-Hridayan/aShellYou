@@ -152,6 +152,9 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
       View.OnClickListener clickListener =
           v -> {
+            // for haptic feedback
+            HapticUtils.weakVibrate(v, context);
+
             Map<String, String> idUrlMap = getLeadDevIdUrlMap();
             String id = categoryCItem.getId();
             String url = idUrlMap.get(id);
@@ -172,6 +175,9 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         viewHolder.button.setVisibility(View.VISIBLE);
         viewHolder.button.setOnClickListener(
             v -> {
+              // for haptic feedback
+              HapticUtils.weakVibrate(v, context);
+
               if (mListener != null) {
                 mListener.onCheckUpdate();
               }

@@ -16,6 +16,8 @@ import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CrashReportActivity extends AppCompatActivity {
   private MaterialTextView copyText, crashInfo;
@@ -63,6 +65,7 @@ public class CrashReportActivity extends AppCompatActivity {
         });
   }
 
+  /*This function takes the report text and initiate the intent to send the email with the subject and body*/
   private void sendCrashReport(String stackTrace, String message) {
 
     String subject = "Crash Report";
@@ -82,10 +85,12 @@ public class CrashReportActivity extends AppCompatActivity {
     }
   }
 
+  /*Text to be shown in the report. We fetch the user device details such as Android version , manufacturer , app version etc. for debugging.*/
   private static String reportContent(String stackTrace, String message) {
     String deviceDetails = Utils.getDeviceDetails();
     String reportContent =
-        "Device Details:\n"
+        getCurrentDateTime()
+            + "\n"
             + deviceDetails
             + "\n\nMessage:\n"
             + message
@@ -93,5 +98,22 @@ public class CrashReportActivity extends AppCompatActivity {
             + stackTrace;
 
     return reportContent;
+  }
+
+  private static String getCurrentDateTime() {
+    // Thread-safe date format
+    ThreadLocal<SimpleDateFormat> threadLocalDateFormat =
+        new ThreadLocal<SimpleDateFormat>() {
+          @Override
+          protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat("dd MMMM : HH:mm:ss [z]");
+          }
+        };
+
+    // Get the current date and time
+    Date now = new Date();
+
+    // Format the date and time using the thread-local formatter
+    return threadLocalDateFormat.get().format(now);
   }
 }
