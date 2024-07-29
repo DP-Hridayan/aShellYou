@@ -218,8 +218,6 @@ public class aShellFragment extends Fragment {
 
     view = inflater.inflate(R.layout.fragment_ashell, container, false);
 
-    /*------------------------------------------------------*/
-
     localShellSymbol = view.findViewById(R.id.local_shell_symbol);
     mAppNameLayout = view.findViewById(R.id.app_name_layout);
     mBookMarks = view.findViewById(R.id.bookmarks);
@@ -241,7 +239,6 @@ public class aShellFragment extends Fragment {
     mShareButton = view.findViewById(R.id.fab_share);
     mTopButton = view.findViewById(R.id.fab_up);
     mUndoButton = view.findViewById(R.id.fab_undo);
-    /*------------------------------------------------------*/
 
     // Viewmodel initialization
     viewModel = new ViewModelProvider(requireActivity()).get(aShellFragmentViewModel.class);
@@ -264,6 +261,7 @@ public class aShellFragment extends Fragment {
     // Set the bottom navigation
     mNav.setVisibility(View.VISIBLE);
 
+    // Paste and undo button onClickListener
     BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand, context);
 
     // Toggles certain buttons visibility according to keyboard's visibility
@@ -381,6 +379,8 @@ public class aShellFragment extends Fragment {
     return view;
   }
 
+  // Functions
+
   private int lastIndexOf(String s, String splitTxt) {
     return s.lastIndexOf(splitTxt);
   }
@@ -476,12 +476,11 @@ public class aShellFragment extends Fragment {
           Objects.requireNonNull(mRecyclerViewOutput.getAdapter()).getItemCount() - 1);
       return;
     }
-    // Fun Commands
 
     if (finalCommand.equals("exit")) {
       new MaterialAlertDialogBuilder(activity)
           .setCancelable(false)
-          .setTitle("Confirm exit")
+          .setTitle(R.string.confirm_exit)
           .setMessage(getString(R.string.quit_app_message))
           .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
           .setPositiveButton(getString(R.string.quit), (dialogInterface, i) -> activity.finish())
@@ -489,6 +488,7 @@ public class aShellFragment extends Fragment {
       return;
     }
 
+    // Shizuku mode doesn't allow su commands , so we show a warning
     if (finalCommand.startsWith("su")) {
       mCommandInput.setError(getString(R.string.su_warning));
       mCommandInput.setErrorIconDrawable(Utils.getDrawable(R.drawable.ic_error, requireActivity()));
@@ -506,8 +506,7 @@ public class aShellFragment extends Fragment {
       return;
     }
 
-    /*------------------------------------------------------*/
-
+    // If history is null then create a new list and add the final command
     if (mHistory == null) {
       mHistory = new ArrayList<>();
     }
@@ -654,10 +653,6 @@ public class aShellFragment extends Fragment {
         });
   }
 
-  /*------------------------------------------------------*/
-
-  /*------------------------------------------------------*/
-
   // This function is called when we want to clear the screen
   private void clearAll() {
     if (mShizukuShell != null) mShizukuShell.destroy();
@@ -679,8 +674,6 @@ public class aShellFragment extends Fragment {
     if (!mCommand.isFocused()) mCommand.requestFocus();
   }
 
-  /*------------------------------------------------------*/
-
   private void hideSearchBar() {
     mSearchWord.setText(null);
     mSearchWord.setVisibility(View.GONE);
@@ -696,22 +689,18 @@ public class aShellFragment extends Fragment {
     }
   }
 
-  /*------------------------------------------------------*/
-
+  // Call to show the bottom navigation view
   private void showBottomNav() {
     if (getActivity() != null && getActivity() instanceof MainActivity) {
       ((MainActivity) getActivity()).mNav.animate().translationY(0);
     }
   }
 
-  /*------------------------------------------------------*/
-
+  // Call to set the visibility of elements with a delay
   private void setVisibilityWithDelay(View view, int delayMillis) {
     new Handler(Looper.getMainLooper())
         .postDelayed(() -> view.setVisibility(View.VISIBLE), delayMillis);
   }
-
-  /*------------------------------------------------------*/
 
   // handles text shared to ashell you
   public void handleSharedTextIntent(Intent intent, String sharedText) {
@@ -729,6 +718,7 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  // Call to update the edit Text with a text
   public void updateInputField(String text) {
     if (text != null) {
       mCommand.setText(text);
@@ -739,8 +729,6 @@ public class aShellFragment extends Fragment {
       viewModel.setSendDrawable(ic_send);
     }
   }
-
-  /*------------------------------------------------------*/
 
   // error handling when shizuku is unavailable or permission isn't granted
   private void handleShizukuAvailability(Context context) {
@@ -764,12 +752,12 @@ public class aShellFragment extends Fragment {
         .show();
   }
 
-  /*------------------------------------------------------*/
-
+  // Boolean that returns the visibility of Save button
   private boolean isSaveButtonVisible() {
     return mSaveButton.getVisibility() == View.VISIBLE;
   }
 
+  // Setup the recycler view
   private void setupRecyclerView() {
     mRecyclerViewOutput = view.findViewById(R.id.recycler_view_output);
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -788,6 +776,7 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  // Call to initialize the shell output and command history
   private void initializeResults() {
     if (mResult == null) {
       mResult = shellOutput;
@@ -1137,6 +1126,7 @@ public class aShellFragment extends Fragment {
         });
   }
 
+  // Show command suggestions while typing in the edit text
   private void commandSuggestion(Editable s) {
 
     new Handler(Looper.getMainLooper())

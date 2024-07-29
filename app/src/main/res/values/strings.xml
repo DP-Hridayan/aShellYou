@@ -48,6 +48,7 @@
     <string name="confirm_batch_remove_bookmark">Selected %d items will be  removed from bookmarks</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
+    <string name="confirm_exit">Confirm exit</string>
     <string name="confirm_pin">All unpinned commands will be pinned\nDo you wish to continue?</string>
     <string name="confirm_pin_single">\[%s\] will be pinned\nDo you wish to continue?</string>
     <string name="confirm_unpin">Do you want to unpin the selected commands?</string>
