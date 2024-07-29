@@ -4,23 +4,23 @@
     <issue
         id="WrongViewCast"
         message="Unexpected implicit cast to `MaterialButton`: layout tag was `Button`"
-        errorLine1="      button = itemView.findViewById(R.id.button);"
-        errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/adapters/AboutAdapter.java"
-            line="265"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="WrongViewCast"
-        message="Unexpected implicit cast to `MaterialButton`: layout tag was `Button`"
         errorLine1="    instructionsButton = view.findViewById(R.id.instructions_button);"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/otgShellFragment.java"
-            line="268"
+            line="270"
             column="5"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="        String brand = android.os.Build.BRAND.toLowerCase();"
+        errorLine2="                                              ~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/utils/MiuiCheck.java"
+            line="23"
+            column="47"/>
     </issue>
 
     <issue
@@ -30,7 +30,7 @@
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/adapters/ExamplesAdapter.java"
-            line="342"
+            line="327"
             column="11"/>
     </issue>
 
@@ -41,7 +41,7 @@
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/adapters/ExamplesAdapter.java"
-            line="343"
+            line="328"
             column="11"/>
     </issue>
 
@@ -52,7 +52,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
-            line="888"
+            line="529"
             column="23"/>
     </issue>
 
@@ -63,7 +63,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/aShellFragment.java"
-            line="897"
+            line="538"
             column="23"/>
     </issue>
 
@@ -79,14 +79,14 @@
     </issue>
 
     <issue
-        id="ShowToast"
-        message="Toast created but not shown: did you forget to call `show()`?"
-        errorLine1="          Toast.makeText("
-        errorLine2="          ~~~~~~~~~~~~~~">
+        id="SimpleDateFormat"
+        message="To get local formatting use `getDateInstance()`, `getDateTimeInstance()`, or `getTimeInstance()`, or use `new SimpleDateFormat(String template, Locale locale)` with for example `Locale.US` for ASCII dates."
+        errorLine1="            return new SimpleDateFormat(&quot;dd MMMM : HH:mm:ss [z]&quot;);"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/fragments/otgShellFragment.java"
-            line="907"
-            column="11"/>
+            file="src/main/java/in/hridayan/ashell/activities/CrashReportActivity.java"
+            line="109"
+            column="20"/>
     </issue>
 
     <issue
@@ -96,7 +96,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/utils/Utils.java"
-            line="779"
+            line="781"
             column="20"/>
     </issue>
 
@@ -107,7 +107,7 @@
         errorLine2="                                                                               ~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/utils/Utils.java"
-            line="713"
+            line="712"
             column="80"/>
     </issue>
 
@@ -129,7 +129,7 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="115"
+            line="121"
             column="18"/>
     </issue>
 
@@ -140,7 +140,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="119"
+            line="125"
             column="18"/>
     </issue>
 
@@ -151,7 +151,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="124"
+            line="130"
             column="18"/>
     </issue>
 
@@ -162,7 +162,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="129"
+            line="135"
             column="18"/>
     </issue>
 
@@ -173,7 +173,7 @@
         errorLine2="                 ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/ExamplesActivity.java"
-            line="133"
+            line="139"
             column="18"/>
     </issue>
 
@@ -184,7 +184,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="224"
+            line="231"
             column="18"/>
     </issue>
 
@@ -195,7 +195,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="229"
+            line="236"
             column="18"/>
     </issue>
 
@@ -206,8 +206,19 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="234"
+            line="241"
             column="18"/>
+    </issue>
+
+    <issue
+        id="PrivateResource"
+        message="The resource `@string/copy` is marked as private in androidx.preference:preference:1.2.1"
+        errorLine1="                    android:text=&quot;@string/copy&quot;"
+        errorLine2="                                  ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_crash_report.xml"
+            line="77"
+            column="35"/>
     </issue>
 
     <issue
@@ -217,7 +228,7 @@
         errorLine2="                               ~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/utils/CommandItems.java"
-            line="73"
+            line="74"
             column="32"/>
     </issue>
 
@@ -228,7 +239,7 @@
         errorLine2="             ~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/utils/Utils.java"
-            line="657"
+            line="656"
             column="14"/>
     </issue>
 
@@ -294,7 +305,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="28"
+            line="29"
             column="5"/>
     </issue>
 
@@ -305,7 +316,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="31"
+            line="32"
             column="5"/>
     </issue>
 
@@ -316,7 +327,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="32"
+            line="33"
             column="5"/>
     </issue>
 
@@ -327,7 +338,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="33"
+            line="34"
             column="5"/>
     </issue>
 
@@ -338,7 +349,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="46"
+            line="47"
             column="5"/>
     </issue>
 
@@ -349,7 +360,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="47"
+            line="48"
             column="5"/>
     </issue>
 
@@ -371,7 +382,7 @@
         errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/adapters/ExamplesAdapter.java"
-            line="194"
+            line="189"
             column="7"/>
     </issue>
 
@@ -382,7 +393,7 @@
         errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/adapters/ExamplesAdapter.java"
-            line="204"
+            line="199"
             column="7"/>
     </issue>
 
@@ -393,7 +404,7 @@
         errorLine2="      ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/adapters/ExamplesAdapter.java"
-            line="291"
+            line="281"
             column="7"/>
     </issue>
 
@@ -404,7 +415,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/adapters/ExamplesAdapter.java"
-            line="335"
+            line="320"
             column="5"/>
     </issue>
 
@@ -747,6 +758,17 @@
 
     <issue
         id="VectorPath"
+        message="Very long vector path (1176 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;M40,360Q57,360 68.5,371.5Q80,383 80,400L80,560Q80,577 68.5,588.5Q57,600 40,600Q23,600 11.5,588.5Q0,577 0,560L0,400Q0,383 11.5,371.5Q23,360 40,360ZM160,280Q177,280 188.5,291.5Q200,303 200,320L200,640Q200,657 188.5,668.5Q177,680 160,680Q143,680 131.5,668.5Q120,657 120,640L120,320Q120,303 131.5,291.5Q143,280 160,280ZM920,360Q937,360 948.5,371.5Q960,383 960,400L960,560Q960,577 948.5,588.5Q937,600 920,600Q903,600 891.5,588.5Q880,577 880,560L880,400Q880,383 891.5,371.5Q903,360 920,360ZM800,280Q817,280 828.5,291.5Q840,303 840,320L840,640Q840,657 828.5,668.5Q817,680 800,680Q783,680 771.5,668.5Q760,657 760,640L760,320Q760,303 771.5,291.5Q783,280 800,280ZM320,840Q287,840 263.5,816.5Q240,793 240,760L240,200Q240,167 263.5,143.5Q287,120 320,120L640,120Q673,120 696.5,143.5Q720,167 720,200L720,760Q720,793 696.5,816.5Q673,840 640,840L320,840ZM320,760L640,760Q640,760 640,760Q640,760 640,760L640,200Q640,200 640,200Q640,200 640,200L320,200Q320,200 320,200Q320,200 320,200L320,760Q320,760 320,760Q320,760 320,760ZM320,760L320,760Q320,760 320,760Q320,760 320,760L320,200Q320,200 320,200Q320,200 320,200L320,200Q320,200 320,200Q320,200 320,200L320,760Q320,760 320,760Q320,760 320,760Z&quot; />"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_vibration.xml"
+            line="10"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
         message="Very long vector path (882 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
         errorLine1="      android:pathData=&quot;M5.3,14.275Q4.85,13.825 4.875,13.2Q4.9,12.575 5.375,12.225Q6.75,11.175 8.438,10.587Q10.125,10 12,10Q13.9,10 15.588,10.6Q17.275,11.2 18.65,12.275Q19.125,12.625 19.138,13.238Q19.15,13.85 18.7,14.3Q18.275,14.725 17.663,14.738Q17.05,14.75 16.525,14.4Q15.55,13.725 14.413,13.363Q13.275,13 12,13Q10.725,13 9.588,13.375Q8.45,13.75 7.5,14.4Q6.95,14.775 6.338,14.738Q5.725,14.7 5.3,14.275ZM1.05,10.05Q0.625,9.625 0.625,9.012Q0.625,8.4 1.075,8Q3.3,6.125 6.075,5.062Q8.85,4 12,4Q15.15,4 17.925,5.062Q20.7,6.125 22.925,8Q23.375,8.4 23.388,9Q23.4,9.6 22.95,10.05Q22.525,10.475 21.913,10.5Q21.3,10.525 20.8,10.125Q18.975,8.65 16.738,7.825Q14.5,7 12,7Q9.5,7 7.263,7.825Q5.025,8.65 3.2,10.125Q2.7,10.525 2.088,10.5Q1.475,10.475 1.05,10.05ZM12,20Q11.15,20 10.575,19.425Q10,18.85 10,18Q10,17.15 10.575,16.575Q11.15,16 12,16Q12.85,16 13.425,16.575Q14,17.15 14,18Q14,18.85 13.425,19.425Q12.85,20 12,20Z&quot;/>"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -754,6 +776,17 @@
             file="src/main/res/drawable/ic_wireless.xml"
             line="9"
             column="25"/>
+    </issue>
+
+    <issue
+        id="InefficientWeight"
+        message="Use a `layout_width` of `0dp` instead of `wrap_content` for better performance"
+        errorLine1="                    android:layout_width=&quot;wrap_content&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_crash_report.xml"
+            line="56"
+            column="21"/>
     </issue>
 
     <issue
@@ -970,7 +1003,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="22"
+            line="23"
             column="13"/>
     </issue>
 
@@ -1036,7 +1069,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="43"
+            line="44"
             column="13"/>
     </issue>
 
@@ -1047,7 +1080,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="56"
+            line="58"
             column="13"/>
     </issue>
 
@@ -1058,7 +1091,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="57"
+            line="59"
             column="13"/>
     </issue>
 
@@ -1069,7 +1102,7 @@
         errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="67"
+            line="72"
             column="13"/>
     </issue>
 
@@ -1080,7 +1113,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="68"
+            line="73"
             column="13"/>
     </issue>
 
@@ -1091,7 +1124,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="75"
+            line="80"
             column="13"/>
     </issue>
 
@@ -1102,7 +1135,7 @@
         errorLine2="            ~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="86"
+            line="91"
             column="13"/>
     </issue>
 
@@ -1113,7 +1146,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="96"
+            line="102"
             column="13"/>
     </issue>
 
@@ -1124,7 +1157,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="102"
+            line="108"
             column="13"/>
     </issue>
 
@@ -1135,7 +1168,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="103"
+            line="109"
             column="13"/>
     </issue>
 
@@ -1310,6 +1343,17 @@
     <issue
         id="ContentDescription"
         message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_crash_report.xml"
+            line="105"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
         errorLine1="                &lt;ImageView"
         errorLine2="                 ~~~~~~~~~">
         <location
@@ -1347,19 +1391,8 @@
         errorLine2="         ~~~~~~~~~">
         <location
             file="src/main/res/layout/category_contributors.xml"
-            line="22"
+            line="75"
             column="10"/>
-    </issue>
-
-    <issue
-        id="ContentDescription"
-        message="Missing `contentDescription` attribute on image"
-        errorLine1="    &lt;ImageView"
-        errorLine2="     ~~~~~~~~~">
-        <location
-            file="src/main/res/layout/category_lead_dev.xml"
-            line="8"
-            column="6"/>
     </issue>
 
     <issue
@@ -1481,6 +1514,17 @@
             file="src/main/res/layout/item_settings.xml"
             line="12"
             column="6"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="    crashInfo.setText(stackTrace + &quot;\n\n&quot; + message);"
+        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/activities/CrashReportActivity.java"
+            line="51"
+            column="23"/>
     </issue>
 
     <issue

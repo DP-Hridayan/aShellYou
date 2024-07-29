@@ -16,7 +16,7 @@ android {
         targetSdk 34
 
         versionCode 46
-        versionName "v4.3.2-test"
+        versionName "v4.4.0"
 
     }
     
