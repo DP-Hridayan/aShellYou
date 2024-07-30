@@ -128,7 +128,7 @@ public class Preferences {
   }
 
   public static boolean getAutoUpdateCheck(Context context) {
-    return getSharedPreferences(context).getBoolean(PREF_AUTO_UPDATE_CHECK, true);
+    return getSharedPreferences(context).getBoolean(PREF_AUTO_UPDATE_CHECK, false);
   }
 
   public static void setAutoUpdateCheck(Context context, boolean value) {
