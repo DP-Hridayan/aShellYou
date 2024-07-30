@@ -35,7 +35,6 @@
     <string name="clear_screen">Ekranı temizle</string>
     <string name="clipboard_empty">Pano metin içermiyor</string>
     <string name="commands">Komutlar</string>
-    <string name="command_hint">ADB komutunu buraya girin</string>
     <string name="command_title">ADB Komutu Girin</string>
     <string name="confirm">Onayla</string>
     <string name="confirm_batch_add_bookmark">Seçilen %d öğe yer imlerine eklenecek</string>
@@ -53,9 +52,9 @@
             name="copy"
             tools:override="true">Kopyala</string>
     <string name="copied_to_clipboard">Panoya kopyalandı</string>
-    <string name="default_working_mode">Varsayılan çalışma modu</string>
+    <string name="default_launch_mode">Varsayılan çalışma modu</string>
     <string name="delete_all">Tümünü sil</string>
-    <string name="des_default_working_mode">ADB komutlarını çalıştırmak için varsayılan çalışma modunu seçin</string>
+    <string name="des_default_launch_mode">ADB komutlarını çalıştırmak için varsayılan çalışma modunu seçin</string>
     <string name="device_not_connected">Cihaz bağlı değil</string>
     <string name="discord">Discord</string>
     <string name="des_discord">Discord topluluğuna katılın</string>

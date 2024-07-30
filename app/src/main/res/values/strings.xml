@@ -35,6 +35,7 @@
     <string name="batch_unpinned_message">%d commands are unpinned</string>
     <string name="cancel">Cancel</string>
     <string name="changelogs">Changelogs</string>
+    <string name="change_mode">Change mode</string>
     <string name="check_internet">Check your internet connection</string>
     <string name="choose">Choose</string>
     <string name="clear_all_message">Are you sure you want to clear everything on this screen?</string>
@@ -42,8 +43,8 @@
     <string name="clear_screen">Clear screen</string>
     <string name="clipboard_empty">Clipboard doesn\'t contain text</string>
     <string name="commands">Commands</string>
-    <string name="command_hint">Input ADB command here</string>
     <string name="command_title">Input ADB Command</string>
+    <string name="command_title_root">Input command</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_batch_add_bookmark">Selected %d items will be added to bookmarks</string>
     <string name="confirm_batch_remove_bookmark">Selected %d items will be  removed from bookmarks</string>
@@ -64,11 +65,11 @@
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="crash_report">Crash report</string>
     <string name="current">Current</string>
-    <string name="default_working_mode">Default working mode</string>
+    <string name="default_launch_mode">Default launch mode</string>
     <string name="delete_all">Delete all</string>
     <string name="default_language">Default language</string>
     <string name="des_default_language">Choose the default language for the app</string>
-    <string name="des_default_working_mode">Choose the default working mode for running ADB commands</string>
+    <string name="des_default_launch_mode">Choose what ADB mode should be opened directly when app launches</string>
     <string name="device_not_connected">Device not connected</string>
     <string name="discord">Discord</string>
     <string name="des_discord">Join the discord community</string>

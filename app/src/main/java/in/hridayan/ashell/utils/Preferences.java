@@ -22,7 +22,7 @@ public class Preferences {
       PREF_SORTING_OPTION = "sorting_option",
       PREF_SORTING_EXAMPLES = "sorting_examples",
       PREF_CURRENT_FRAGMENT = "current_fragment",
-      PREF_DEFAULT_WORKING_MODE = "id_default_working_mode",
+      PREF_DEFAULT_LAUNCH_MODE = "id_default_launch_mode",
       PREF_SPECIFIC_CARD_VISIBILITY = "specific_card_visibility",
       PREF_AUTO_UPDATE_CHECK = "id_auto_update_check",
       PREF_SAVE_PREFERENCE = "id_save_preference",
@@ -179,11 +179,11 @@ public class Preferences {
   }
 
   public static void setWorkingMode(Context context, int value) {
-    getSharedPreferences(context).edit().putInt(PREF_DEFAULT_WORKING_MODE, value).apply();
+    getSharedPreferences(context).edit().putInt(PREF_DEFAULT_LAUNCH_MODE, value).apply();
   }
 
   public static int getWorkingMode(Context context) {
-    return getSharedPreferences(context).getInt(PREF_DEFAULT_WORKING_MODE, MODE_LOCAL_ADB);
+    return getSharedPreferences(context).getInt(PREF_DEFAULT_LAUNCH_MODE, MODE_LOCAL_ADB);
   }
 
   public static int getCurrentFragment(Context context) {

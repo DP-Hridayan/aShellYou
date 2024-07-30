@@ -144,10 +144,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     settingsData.add(
         new SettingsItem(
-            "id_default_working_mode",
+            "id_default_launch_mode",
             R.drawable.ic_mode,
-            getString(R.string.default_working_mode),
-            getString(R.string.des_default_working_mode),
+            getString(R.string.default_launch_mode),
+            getString(R.string.des_default_launch_mode),
             false,
             false));
 

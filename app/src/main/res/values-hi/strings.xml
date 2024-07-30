@@ -29,14 +29,13 @@
     <string name="clear_screen">स्क्रीन साफ़ करें</string>
     <string name="clipboard_empty">क्लिपबोर्ड में कोई पाठ नहीं है</string>
     <string name="commands">कमांड</string>
-    <string name="command_hint">यहाँ ADB कमांड टाइप करें</string>
     <string name="command_title">ADB कमांड टाइप करें</string>
     <string name="connecting">कनेक्टिंग\u2026</string>
     <string name="connecting_hint">लक्षित डिवाइस में अनुमति की पुष्टि करें</string>
     <string name="copy" tools:override="true">कॉपी</string>
     <string name="copied_to_clipboard">क्लिपबोर्ड में कॉपी किया गया</string>
-    <string name="default_working_mode">डिफ़ॉल्ट वर्किंग मोड</string>
-    <string name="des_default_working_mode">ADB कमांड को चलाने के लिए डिफ़ॉल्ट वर्किंग मोड का चयन करें</string>
+    <string name="default_launch_mode">डिफ़ॉल्ट वर्किंग मोड</string>
+    <string name="des_default_launch_mode">ADB कमांड को चलाने के लिए डिफ़ॉल्ट वर्किंग मोड का चयन करें</string>
     <string name="device_not_connected">डिवाइस कनेक्ट नहीं है</string>
     <string name="discord">डिस्कॉर्ड</string>
     <string name="des_discord">डिस्कॉर्ड समुदाय में शामिल हों</string>

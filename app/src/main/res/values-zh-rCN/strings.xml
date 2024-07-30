@@ -33,7 +33,6 @@
     <string name="clear_screen">清除当前屏幕</string>
     <string name="clipboard_empty">剪贴板中未找到文本</string>
     <string name="commands">命令</string>
-    <string name="command_hint">此处输入 ADB 命令</string>
     <string name="command_title">输入 ADB 命令</string>
     <string name="confirm">确认</string>
     <string name="confirm_batch_add_bookmark">选中的%d个命令将被加入书签</string>
@@ -49,9 +48,9 @@
     <string name="connecting_hint">需在目标设备上确认</string>
     <string name="copy" tools:override="true">复制</string>
     <string name="copied_to_clipboard">已复制</string>
-    <string name="default_working_mode">默认工作模式</string>
+    <string name="default_launch_mode">默认工作模式</string>
     <string name="delete_all">全部删除</string>
-    <string name="des_default_working_mode">选择运行ADB命令的默认模式</string>
+    <string name="des_default_launch_mode">选择运行ADB命令的默认模式</string>
     <string name="device_not_connected">设备未连接</string>
     <string name="discord">Discord</string>
     <string name="des_discord">加入 Discord</string>

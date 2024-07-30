@@ -37,7 +37,6 @@
                  android:layout_marginStart="25dp"
                  android:checked="true"
                  android:id="@+id/local_adb_chip"
-                 android:text="Local ADB"
                  android:layout_gravity="bottom" />
 
             <com.google.android.material.card.MaterialCardView
@@ -99,7 +98,6 @@
                  android:layout_width="match_parent"
                  app:endIconMode="custom"
                  android:layout_marginEnd="70dp"
-                 android:hint="@string/command_title"
                  app:endIconTint="?attr/colorPrimary"
                  android:padding="5dp"
                  style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
