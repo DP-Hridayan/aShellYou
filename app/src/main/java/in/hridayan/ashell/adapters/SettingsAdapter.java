@@ -123,6 +123,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
               Utils.savePreferenceDialog(context);
               break;
 
+            case "id_local_adb_mode":
+              Utils.localAdbModeDialog(context);
+              break;
+
             default:
               return;
           }

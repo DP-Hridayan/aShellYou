@@ -90,6 +90,7 @@
     <string name="least_used">Least used</string>
     <string name="local_adb">Local ADB</string>
     <string name="menu">Menu</string>
+    <string name="mode">Mode</string>
     <string name="most_used">Most used</string>
     <string name="none">None</string>
 
@@ -118,6 +119,7 @@
     <string name="remember_working_mode">Remember last working mode</string>
     <string name="request_permission">Request Permission</string>
     <string name="report">Report</string>
+    <string name="root">Root</string>
     <string name="save">Save</string>
     <string name="su_warning">Root commands are not available</string>
     <string name="search">Search</string>
@@ -134,6 +136,7 @@
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\' folder</string>
     <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\' folder</string>
     <string name="shell_working">Shell is working</string>
+    <string name="shizuku">Shizuku</string>
     <string name="shizuku_about">About Shizuku</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You. aShell You won\'t work without a proper Shizuku environment.</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
@@ -164,6 +167,8 @@
     <string name="whole_output">Whole output</string>
     <string name="working_mode">Working mode</string>
     <string name="yes">Yes</string>
+    <string name="local_adb_mode">Choose local adb working mode</string>
+    <string name="des_local_adb_mode">Choose a preffered mode for executing shell commands on your device</string>
     <string name="save_preference">Save output preference</string>
     <string name="des_save_preference">Choose what portion of the shell output should be saved</string>
     <string name="smooth_scrolling">Smooth scrolling</string>

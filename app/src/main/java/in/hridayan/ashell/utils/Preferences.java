@@ -9,8 +9,8 @@ public class Preferences {
   public static final String
       buildGradleUrl =
           "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle",
-      devEmail = "hridayanofficial@gmail.com";
-  private static final String PREF_AMOLED_THEME = "id_amoled_theme",
+      devEmail = "hridayanofficial@gmail.com",
+     PREF_AMOLED_THEME = "id_amoled_theme",
       PREF_COUNTER_PREFIX = "counter_",
       PREF_PINNED_PREFIX = "pinned",
       PREF_CLEAR = "id_clear",
@@ -28,7 +28,8 @@ public class Preferences {
       PREF_SAVE_PREFERENCE = "id_save_preference",
       PREF_LATEST_VERSION_NAME = "latest_version_name",
       PREF_LAST_SAVED_FILENAME = "last_saved_filename",
-      PREF_HAPTICS_AND_VIBRATION = "id_vibration";
+      PREF_HAPTICS_AND_VIBRATION = "id_vibration",
+      PREF_LOCAL_ADB_MODE = "id_local_adb_mode";
   public static final int SORT_A_TO_Z = 0,
       SORT_Z_TO_A = 1,
       SORT_MOST_USED = 2,
@@ -45,7 +46,9 @@ public class Preferences {
       UPDATE_NOT_AVAILABLE = 0,
       CONNECTION_ERROR = 2,
       LAST_COMMAND_OUTPUT = 0,
-      ALL_OUTPUT = 1;
+      ALL_OUTPUT = 1,
+      SHIZUKU_MODE = 0,
+      ROOT_MODE = 1;
 
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
@@ -130,6 +133,14 @@ public class Preferences {
 
   public static void setAutoUpdateCheck(Context context, boolean value) {
     getSharedPreferences(context).edit().putBoolean(PREF_AUTO_UPDATE_CHECK, value).apply();
+  }
+
+  public static int getLocalAdbMode(Context context) {
+    return getSharedPreferences(context).getInt(PREF_LOCAL_ADB_MODE, SHIZUKU_MODE);
+  }
+
+  public static void setLocalAdbMode(Context context, int value) {
+    getSharedPreferences(context).edit().putInt(PREF_LOCAL_ADB_MODE, value).apply();
   }
 
   public static int getSavePreference(Context context) {

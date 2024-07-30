@@ -118,6 +118,15 @@ public class SettingsActivity extends AppCompatActivity {
             true,
             Preferences.getAutoUpdateCheck(this)));
 
+    settingsData.add(
+        new SettingsItem(
+            "id_local_adb_mode",
+            R.drawable.ic_terminal,
+            getString(R.string.local_adb_mode),
+            getString(R.string.des_local_adb_mode),
+            false,
+            false));
+
     // App locale setting is only available on Android 13+
     // Also, it's not functional on MIUI devices even on Android 13,
     // Thanks to Xiaomi's broken implementation of standard Android APIs.

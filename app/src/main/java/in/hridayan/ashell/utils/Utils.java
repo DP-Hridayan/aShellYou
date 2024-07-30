@@ -463,8 +463,8 @@ public class Utils {
         .show();
   }
 
+  // Dialog asking to choose preferred output saving option
   public static void savePreferenceDialog(Context context) {
-
     final CharSequence[] preferences = {
       context.getString(R.string.only_last_command_output), context.getString(R.string.whole_output)
     };
@@ -484,6 +484,37 @@ public class Utils {
             context.getString(R.string.choose),
             (dialog, which) -> {
               Preferences.setSavePreference(context, preference[0]);
+            })
+        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .show();
+  }
+
+  // Dialog asking to choose preferred local adb commands executing mode
+  public static void localAdbModeDialog(Context context) {
+    final CharSequence[] preferences = {
+      context.getString(R.string.shizuku), context.getString(R.string.root)
+    };
+
+    int savePreference = Preferences.getLocalAdbMode(context);
+    final int[] preference = {savePreference};
+
+    String title =
+        context.getString(R.string.local_adb)
+            + " "
+            + context.getString(R.string.mode).toLowerCase();
+
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(title)
+        .setSingleChoiceItems(
+            preferences,
+            savePreference,
+            (dialog, which) -> {
+              preference[0] = which;
+            })
+        .setPositiveButton(
+            context.getString(R.string.choose),
+            (dialog, which) -> {
+              Preferences.setLocalAdbMode(context, preference[0]);
             })
         .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
         .show();
