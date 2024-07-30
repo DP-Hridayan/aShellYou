@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
-import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -25,12 +24,13 @@ import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgShellFragment;
-import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.CrashHandler;
+import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ThemeUtils;
+import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
 import java.util.ArrayList;
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity
               return true;
 
             case R.id.nav_wireless:
-              Toast.makeText(this, "Soon", Toast.LENGTH_SHORT).show();
+              ToastUtils.showToast(this, "Soon", ToastUtils.LENGTH_SHORT);
               return false;
 
             default:

@@ -121,8 +121,7 @@ public class Utils {
         (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
     ClipData clip = ClipData.newPlainText(context.getString(R.string.copied_to_clipboard), text);
     clipboard.setPrimaryClip(clip);
-    Toast.makeText(context, context.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
-        .show();
+    ToastUtils.showToast(context, R.string.copied_to_clipboard, ToastUtils.LENGTH_SHORT);
   }
 
   public static void create(String text, File path) {
@@ -162,11 +161,10 @@ public class Utils {
         editText.setSelection(editText.getText().length());
       }
     } else {
-      Toast.makeText(
-              editText.getContext().getApplicationContext(),
-              editText.getContext().getString(R.string.clipboard_empty),
-              Toast.LENGTH_SHORT)
-          .show();
+      ToastUtils.showToast(
+          editText.getContext().getApplicationContext(),
+          R.string.clipboard_empty,
+          ToastUtils.LENGTH_SHORT);
     }
   }
 
@@ -309,8 +307,7 @@ public class Utils {
       Context context,
       Activity activity,
       TextInputEditText mCommand,
-      TextInputLayout mCommandInput,
-      MaterialButton button) {
+      TextInputLayout mCommandInput) {
 
     List<String> bookmarks = Utils.getBookmarks(activity);
 
@@ -335,12 +332,12 @@ public class Utils {
         .setNegativeButton(
             context.getString(R.string.sort),
             (dialogInterface, i) -> {
-              Utils.sortingDialog(context, activity, mCommand, mCommandInput, button);
+              Utils.sortingDialog(context, activity, mCommand, mCommandInput);
             })
         .setNeutralButton(
             context.getString(R.string.delete_all),
             (DialogInterface, i) -> {
-              Utils.deleteDialog(context, activity, mCommand, mCommandInput, button);
+              Utils.deleteDialog(context, activity, mCommand, mCommandInput);
             })
         .show();
   }
@@ -349,8 +346,7 @@ public class Utils {
       Context context,
       Activity activity,
       TextInputEditText mCommand,
-      TextInputLayout mCommandInput,
-      MaterialButton button) {
+      TextInputLayout mCommandInput) {
 
     new MaterialAlertDialogBuilder(activity)
         .setTitle(context.getString(R.string.confirm_delete))
@@ -362,7 +358,6 @@ public class Utils {
               for (String item : bookmarks) {
                 Utils.deleteFromBookmark(item, context);
               }
-              button.setVisibility(View.GONE);
               String s = mCommand.getText().toString();
               if (s.length() != 0) {
                 mCommandInput.setEndIconDrawable(R.drawable.ic_add_bookmark);
@@ -373,13 +368,13 @@ public class Utils {
         .setNegativeButton(
             context.getString(R.string.cancel),
             (dialogInterface, i) -> {
-              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
             })
         .setOnCancelListener(
             v -> {
               List<String> bookmarks = Utils.getBookmarks(activity);
               if (bookmarks.size() != 0) {
-                Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
+                Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
               }
             })
         .show();
@@ -389,8 +384,7 @@ public class Utils {
       Context context,
       Activity activity,
       TextInputEditText mCommand,
-      TextInputLayout mCommandInput,
-      MaterialButton button) {
+      TextInputLayout mCommandInput) {
     CharSequence[] sortingOptions = {
       context.getString(R.string.sort_A_Z),
       context.getString(R.string.sort_Z_A),
@@ -413,16 +407,16 @@ public class Utils {
             context.getString(R.string.ok),
             (dialog, which) -> {
               Preferences.setSortingOption(context, sortingOption[0]);
-              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
             })
         .setNegativeButton(
             context.getString(R.string.cancel),
             (dialog, i) -> {
-              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
             })
         .setOnCancelListener(
             v -> {
-              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput, button);
+              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
             })
         .show();
   }

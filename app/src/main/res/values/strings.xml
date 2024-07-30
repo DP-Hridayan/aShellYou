@@ -5,7 +5,8 @@
     <string
         name="app_name"
         translatable="false">aShell You</string>
-    // There are translatable strings in 'commands' and 'changelogs' modules
+    
+    <string name="abort_command">Abort command first</string>
     <string name="access_denied">Access denied</string>
     <string name="accept_device_prompt">You might need to accept a prompt on the other device if you are trying to connect to it for the first time from this device</string>
     <string name="adb_device_connected">ADB device connected.</string>
@@ -93,9 +94,13 @@
     <string name="none">None</string>
 
     <string name="no_application_found">No application found to perform the task</string>
+    <string name="no_bookmarks">No bookmarks found</string>
     <string name="no_changelog">No changelog</string>
     <string name="no_command">No command</string>
     <string name="no_command_found">No command found that matches your query</string>
+    <string name="no_history">No command history</string>
+    <string name="nothing_to_clear">Nothing to clear</string>
+    <string name="nothing_to_search">Nothing to search</string>
     <string name="ok">OK</string>
     <string name="only_last_command_output">Only last command output</string>
     <string name="open">Open</string>

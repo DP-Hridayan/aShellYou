@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -53,6 +52,7 @@ import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ShizukuShell;
 import in.hridayan.ashell.utils.ThemeUtils;
+import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -139,7 +139,6 @@ public class aShellFragment extends Fragment {
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     // If there is bookmarks present , make the bookmarks button visible
-    mBookMarks.setVisibility(!Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
 
     // This function is for restoring the Run button's icon after a configuration change
     switch (viewModel.getSendDrawable()) {
@@ -358,11 +357,6 @@ public class aShellFragment extends Fragment {
 
     mCommandOnEditorActionListener();
 
-    if (mSearchWord.getVisibility() == View.GONE) {
-      mBookMarks.setVisibility(
-          !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
-    }
-
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleWithFixedDelay(
         () -> {
@@ -438,7 +432,6 @@ public class aShellFragment extends Fragment {
       return;
     }
     if (mRecyclerViewOutput.getAdapter() == null) {
-
       mRecyclerViewOutput.setAdapter(mShellOutputAdapter);
     }
 
@@ -447,17 +440,8 @@ public class aShellFragment extends Fragment {
     mCommand.setText(null);
     mCommand.clearFocus();
     if (mSearchWord.getVisibility() == View.VISIBLE) {
-      mSearchWord.setText(null);
-      mSearchWord.setVisibility(View.GONE);
-      mBookMarks.setVisibility(View.VISIBLE);
-      mSettingsButton.setVisibility(View.VISIBLE);
-    } else {
-      mHistoryButton.setVisibility(View.GONE);
-      mClearButton.setVisibility(View.GONE);
-      mSearchButton.setVisibility(View.GONE);
+      hideSearchBar();
     }
-
-    /*------------------------------------------------------*/
 
     String finalCommand = command.replaceAll("^adb(?:\\s+-d)?\\s+shell\\s+", "");
 
@@ -498,10 +482,6 @@ public class aShellFragment extends Fragment {
       Utils.snackBar(
               activity.findViewById(android.R.id.content), getString(R.string.su_warning_message))
           .show();
-      if (mResult != null && !mResult.isEmpty()) {
-        mClearButton.setVisibility(View.VISIBLE);
-        mSearchButton.setVisibility(View.VISIBLE);
-      }
 
       return;
     }
@@ -567,16 +547,8 @@ public class aShellFragment extends Fragment {
                     /*------------------------------------------------------*/
 
                     if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
-                      if (mHistory != null
-                          && !mHistory.isEmpty()
-                          && mHistoryButton.getVisibility() != View.VISIBLE) {
-                        mHistoryButton.setVisibility(View.VISIBLE);
-                      }
+
                       if (mResult != null && !mResult.isEmpty()) {
-
-                        mClearButton.setVisibility(View.VISIBLE);
-
-                        mSearchButton.setVisibility(View.VISIBLE);
                         mResult.add("<i></i>");
                         mResult.add("Shell is dead");
                         if (!isKeyboardVisible) {
@@ -665,10 +637,8 @@ public class aShellFragment extends Fragment {
     }
 
     mRecyclerViewOutput.setAdapter(null);
-    mSearchButton.setVisibility(View.GONE);
     mSaveButton.setVisibility(View.GONE);
     mShareButton.setVisibility(View.GONE);
-    mClearButton.setVisibility(View.GONE);
     showBottomNav();
     mCommand.clearFocus();
     if (!mCommand.isFocused()) mCommand.requestFocus();
@@ -680,13 +650,9 @@ public class aShellFragment extends Fragment {
     if (!mCommand.isFocused()) mCommand.requestFocus();
     mBookMarks.setVisibility(View.VISIBLE);
     mSettingsButton.setVisibility(View.VISIBLE);
-    if (mHistory != null && !mHistory.isEmpty()) {
-      mHistoryButton.setVisibility(View.VISIBLE);
-    }
-    if (mResult != null && !mResult.isEmpty() && !mShizukuShell.isBusy()) {
-      mClearButton.setVisibility(View.VISIBLE);
-      mSearchButton.setVisibility(View.VISIBLE);
-    }
+    mHistoryButton.setVisibility(View.VISIBLE);
+    mClearButton.setVisibility(View.VISIBLE);
+    mSearchButton.setVisibility(View.VISIBLE);
   }
 
   // Call to show the bottom navigation view
@@ -869,17 +835,21 @@ public class aShellFragment extends Fragment {
     mClearButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          viewModel.setShellOutput(null);
-          boolean switchState = Preferences.getClear(context);
-          if (switchState) {
-            new MaterialAlertDialogBuilder(requireActivity())
-                .setTitle(getString(R.string.clear_everything))
-                .setMessage(getString(R.string.clear_all_message))
-                .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
-                .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
-                .show();
+          if (mResult == null || mResult.isEmpty()) {
+            ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
           } else {
-            clearAll();
+            viewModel.setShellOutput(null);
+            boolean switchState = Preferences.getClear(context);
+            if (switchState) {
+              new MaterialAlertDialogBuilder(requireActivity())
+                  .setTitle(getString(R.string.clear_everything))
+                  .setMessage(getString(R.string.clear_all_message))
+                  .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+                  .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
+                  .show();
+            } else {
+              clearAll();
+            }
           }
         });
   }
@@ -887,11 +857,15 @@ public class aShellFragment extends Fragment {
   // OnClick listener for bookmarks button
   private void bookmarksButtonOnClickListener() {
     mBookMarks.setTooltipText(getString(R.string.bookmarks));
-
     mBookMarks.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks);
+
+          if (Utils.getBookmarks(requireActivity()).isEmpty()) {
+            ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
+          } else {
+            Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput);
+          }
         });
   }
 
@@ -902,22 +876,27 @@ public class aShellFragment extends Fragment {
     mHistoryButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          PopupMenu popupMenu = new PopupMenu(context, mCommand);
-          Menu menu = popupMenu.getMenu();
-          for (int i = 0; i < getRecentCommands().size(); i++) {
-            menu.add(Menu.NONE, i, Menu.NONE, getRecentCommands().get(i));
-          }
-          popupMenu.setOnMenuItemClickListener(
-              item -> {
-                for (int i = 0; i < getRecentCommands().size(); i++) {
-                  if (item.getItemId() == i) {
-                    mCommand.setText(getRecentCommands().get(i));
-                    mCommand.setSelection(mCommand.getText().length());
+
+          if (mHistory == null || mHistory.isEmpty()) {
+            ToastUtils.showToast(context, R.string.no_history, ToastUtils.LENGTH_SHORT);
+          } else {
+            PopupMenu popupMenu = new PopupMenu(context, mCommand);
+            Menu menu = popupMenu.getMenu();
+            for (int i = 0; i < getRecentCommands().size(); i++) {
+              menu.add(Menu.NONE, i, Menu.NONE, getRecentCommands().get(i));
+            }
+            popupMenu.setOnMenuItemClickListener(
+                item -> {
+                  for (int i = 0; i < getRecentCommands().size(); i++) {
+                    if (item.getItemId() == i) {
+                      mCommand.setText(getRecentCommands().get(i));
+                      mCommand.setSelection(mCommand.getText().length());
+                    }
                   }
-                }
-                return false;
-              });
-          popupMenu.show();
+                  return false;
+                });
+            popupMenu.show();
+          }
         });
   }
 
@@ -928,18 +907,21 @@ public class aShellFragment extends Fragment {
     mSearchButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          if (mHistoryButton.getVisibility() == View.VISIBLE) {
+
+          if (mResult == null || mResult.isEmpty()) {
+            ToastUtils.showToast(context, R.string.nothing_to_search, ToastUtils.LENGTH_SHORT);
+          } else if (mShizukuShell.isBusy()) {
+            ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
+          } else {
             mHistoryButton.setVisibility(View.GONE);
-          }
-          if (mClearButton.getVisibility() == View.VISIBLE) {
             mClearButton.setVisibility(View.GONE);
+            mBookMarks.setVisibility(View.GONE);
+            mSettingsButton.setVisibility(View.GONE);
+            mSearchButton.setVisibility(View.GONE);
+            mSearchWord.setVisibility(View.VISIBLE);
+            mSearchWord.requestFocus();
+            mCommand.setText(null);
           }
-          mBookMarks.setVisibility(View.GONE);
-          mSettingsButton.setVisibility(View.GONE);
-          mSearchButton.setVisibility(View.GONE);
-          mSearchWord.setVisibility(View.VISIBLE);
-          mSearchWord.requestFocus();
-          mCommand.setText(null);
         });
   }
 
@@ -1071,13 +1053,7 @@ public class aShellFragment extends Fragment {
     mAppNameLayout.setOnClickListener(
         v -> {
           if (mSearchWord.getVisibility() == View.VISIBLE) {
-            mSearchWord.setVisibility(View.GONE);
-            mBookMarks.setVisibility(
-                !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
-            mSettingsButton.setVisibility(View.VISIBLE);
-            mSearchButton.setVisibility(View.VISIBLE);
-            mHistoryButton.setVisibility(View.VISIBLE);
-            mClearButton.setVisibility(View.VISIBLE);
+            hideSearchBar();
           }
         });
   }
@@ -1128,10 +1104,6 @@ public class aShellFragment extends Fragment {
                       ? R.drawable.ic_bookmark_added
                       : R.drawable.ic_add_bookmark,
                   requireActivity()));
-          if (mSearchWord.getVisibility() == View.GONE) {
-            mBookMarks.setVisibility(
-                !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
-          }
         });
   }
 

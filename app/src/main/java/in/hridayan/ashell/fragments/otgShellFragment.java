@@ -996,7 +996,7 @@ public class otgShellFragment extends Fragment
     mBookMarks.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput, mBookMarks);
+          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput);
         });
   }
 

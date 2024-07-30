@@ -4,7 +4,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +19,7 @@ import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ThemeUtils;
+import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
 import java.util.ArrayList;
@@ -215,10 +215,10 @@ public class AboutActivity extends AppCompatActivity
         Utils.showBottomSheetUpdate(this, this);
         break;
       case Preferences.UPDATE_NOT_AVAILABLE:
-        Toast.makeText(this, getString(R.string.already_latest_version), Toast.LENGTH_SHORT).show();
+        ToastUtils.showToast(this, R.string.already_latest_version, ToastUtils.LENGTH_SHORT);
         break;
       case Preferences.CONNECTION_ERROR:
-        Toast.makeText(this, getString(R.string.check_internet), Toast.LENGTH_SHORT).show();
+        ToastUtils.showToast(this, R.string.check_internet, ToastUtils.LENGTH_SHORT);
         break;
       default:
         break;
