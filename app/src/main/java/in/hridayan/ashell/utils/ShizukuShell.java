@@ -1,5 +1,6 @@
 package in.hridayan.ashell.utils;
 
+import android.content.pm.PackageManager;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -27,7 +28,6 @@ public class ShizukuShell {
         && !mOutput.get(mOutput.size() - 1).equals("Shell is dead");
   }
 
-    
   public void exec() {
     try {
       mProcess = Shizuku.newProcess(new String[] {"sh", "-c", mCommand}, null, mDir);
@@ -39,7 +39,6 @@ public class ShizukuShell {
       }
       while ((line = mError.readLine()) != null) {
         mOutput.add("<font color=#FF0000>" + line + "</font>");
-               
       }
 
       // Handle current directory
@@ -64,8 +63,13 @@ public class ShizukuShell {
     }
   }
 
+  // Call this method to destroy the shell
   public void destroy() {
     if (mProcess != null) mProcess.destroy();
   }
-  
+
+  // Checks if the app has been granted shizuku permission
+  public static boolean hasPermission() {
+    return Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
+  }
 }

@@ -120,6 +120,9 @@
     <string name="request_permission">Request Permission</string>
     <string name="report">Report</string>
     <string name="root">Root</string>
+    <string name="root_access_denied_message">Root access is currently denied for aShell You. Grant root access or switch to non-root method</string>
+    <string name="root_unavailable">Device is not rooted</string>
+    <string name="root_unavailable_message">Root is not detected. Device might not be rooted or root presence might be hidden from aShell You</string>
     <string name="save">Save</string>
     <string name="su_warning">Root commands are not available</string>
     <string name="search">Search</string>

@@ -26,8 +26,6 @@
     <string name="echo">Display message on screen</string>
     <string name="exit">Exit the shell</string>
     <string name="file">Determine file type</string>
-    <string name="goto_top">Go to the top of the shell output (fun command)</string>
-    <string name="goto_bottom">Go to the bottom of the shell output (fun command)</string>
     <string name="grep">Search file(s) for lines that match a given pattern</string>
     <string name="kill">Kill a process by specifying its PID</string>
     <string name="logcat">Display real-time log of system messages</string>

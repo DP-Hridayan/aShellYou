@@ -535,7 +535,7 @@ public class Utils {
           HapticUtils.weakVibrate(v, context);
           boolean hasShizuku =
               Shizuku.pingBinder()
-                  && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
+                  && ShizukuShell.hasPermission();
           Utils.connectedDeviceDialog(
               context, hasShizuku ? device : context.getString(R.string.none));
           mChip.setChecked(!mChip.isChecked());
@@ -864,4 +864,35 @@ public class Utils {
         + "App version code : "
         + BuildConfig.VERSION_CODE;
   }
+    
+    //Method for displaying the root permission requesting dialog
+    public static void rootPermRequestDialog(Activity activity , Context context){
+                        new MaterialAlertDialogBuilder(activity)
+                    .setCancelable(false)
+                    .setTitle(context.getString(R.string.access_denied))
+                    .setMessage(context.getString(R.string.root_access_denied_message))
+                    .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+                    .setPositiveButton(
+                        context.getString(R.string.request_permission),
+                        (dialogInterface, i) -> {
+                          RootShell.exec("su", true);
+                          RootShell.refresh();
+                        })
+                    .show();
+    }
+    
+   //Method for displaying the shizuku permission requesting dialog
+    public static void shizukuPermRequestDialog(Activity activity , Context context){
+        
+       new MaterialAlertDialogBuilder(activity)
+            .setCancelable(false)
+            .setTitle(context.getString(R.string.access_denied))
+            .setMessage(context.getString(R.string.shizuku_access_denied_message))
+            .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+            .setPositiveButton(
+                context.getString(R.string.request_permission),
+                (dialogInterface, i) -> Shizuku.requestPermission(0))
+            .show();
+        
+    }
 }

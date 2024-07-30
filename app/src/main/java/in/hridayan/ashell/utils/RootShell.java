@@ -119,35 +119,17 @@ public class RootShell {
     }
   }
 
-  /** Closes the current shell. */
-  public static void closeShell() {
-    try {
-      Shell shell = Shell.getCachedShell();
-      if (shell != null) {
-        shell.close();
-                destroy();
-      }
-    } catch (IOException e) {
-      Log.e("RootShell", "Failed to close shell", e);
-    }
-  }
-
   /**
-   * Checks if root access is available.
+   * Checks if app has root access
    *
    * @return Whether root access is available.
    */
-  public static boolean checkRoot() {
+  public static boolean hasPermission() {
     try {
       return exec("echo /checkRoot/", true).equals("/checkRoot/");
     } catch (Exception exc) {
       return false;
     }
-  }
-
-  // Destroys the running shell process
-  public static void destroy() {
-    if (mProcess != null) mProcess.destroy();
   }
 
   // Checks if device is rooted or not
@@ -170,9 +152,28 @@ public class RootShell {
     return false;
   }
 
+  // Checks if root shell is busy or not
   public static boolean isBusy() {
     return mOutput != null
         && mOutput.size() > 0
         && !mOutput.get(mOutput.size() - 1).equals("Shell is dead");
+  }
+
+  /** Closes the current shell. */
+  public static void closeShell() {
+    try {
+      Shell shell = Shell.getCachedShell();
+      if (shell != null) {
+        shell.close();
+        destroy();
+      }
+    } catch (IOException e) {
+      Log.e("RootShell", "Failed to close shell", e);
+    }
+  }
+
+  // Destroys the running shell process
+  public static void destroy() {
+    if (mProcess != null) mProcess.destroy();
   }
 }

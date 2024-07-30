@@ -50,10 +50,6 @@ public class Commands {
     mCommands.add(new CommandItems("echo <message>", "echo Hello World", context));
     mCommands.add(new CommandItems("exit", "exit", context));
     mCommands.add(new CommandItems("file <file_path>", "file /system/build.prop", context));
-    mCommands.add(new CommandItems("goto top", "goto top", context));
-
-    mCommands.add(new CommandItems("goto bottom", "goto bottom", context));
-
     mCommands.add(new CommandItems("grep", "grep", context));
     mCommands.add(new CommandItems("kill <pid>", "kill <pid>", context));
     mCommands.add(new CommandItems("logcat", "logcat", context));
