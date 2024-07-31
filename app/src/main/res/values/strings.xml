@@ -23,6 +23,7 @@
     <string name="app_summary">aShell You is here for all your ADB needs</string>
     <string name="app_updated_message">App is updated, want to see changelogs?</string>
     <string name="app_working_message">aShell You is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
+    <string name="basic_shell">Basic shell</string>
     <string name="beta_warning">This feature is currently in its experimental phase. If you encounter any issues please let us know.</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="bookmark_added_message">\'%s\' is bookmarked</string>
@@ -82,6 +83,7 @@
     <string name="failed">Failed</string>
     <string name="file_not_found">File not found</string>
     <string name="generate_key_failed">Failed to generate and save key pair</string>
+    <string name="grant_permission_manually">If the permission dialog doesn\'t appear, please grant root permission manually via the superuser application</string>
     <string name="flashing">Flashing</string>
     <string name="go_back">Go back</string>
     <string name="history">History</string>
@@ -152,7 +154,7 @@
     <string name="start">Start</string>
     <string name="success">Success</string>
     <string name="support">Support</string>
-    <string name="su_warning_message">aShell You is not designed for root-related uses. Aborting.</string>
+    <string name="su_warning_message">This mode doesn\'t support root related commands. Please switch to root mode</string>
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
     <string name="unhide_cards_message">All info cards will be visible now</string>

@@ -489,7 +489,7 @@ public class Utils {
 
   // Dialog asking to choose preferred local adb commands executing mode
   public static void localAdbModeDialog(Context context) {
-    final CharSequence[] preferences = {
+    final CharSequence[] preferences = {context.getString(R.string.basic_shell),
       context.getString(R.string.shizuku), context.getString(R.string.root)
     };
 
@@ -861,6 +861,9 @@ public class Utils {
             (dialogInterface, i) -> {
               RootShell.exec("su", true);
               RootShell.refresh();
+                if(!RootShell.hasPermission()){
+                    Utils.grantPermissionManually(activity, context);
+                }
             })
         .show();
   }
@@ -876,4 +879,14 @@ public class Utils {
             (dialogInterface, i) -> Shizuku.requestPermission(0))
         .show();
   }
+    /*Method to display a dialog which asks user to manually grant root permission*/
+    public static void grantPermissionManually(Activity activity, Context context){
+       new MaterialAlertDialogBuilder(activity)
+        .setTitle(context.getString(R.string.error))
+        .setMessage(context.getString(R.string.grant_permission_manually))
+        .setPositiveButton(
+            context.getString(R.string.ok),
+            (dialogInterface, i) -> {})
+        .show();
+    }
 }

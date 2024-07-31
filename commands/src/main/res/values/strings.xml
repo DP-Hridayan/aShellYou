@@ -129,6 +129,7 @@
     <string name="sync">Synchronize data on disk with memory</string>
     <string name="top">List processes running on the system</string>
     <string name="top_n">Update display n times, then exit</string>
+    <string name="uptime">Get system uptime</string>
     <string name="whoami">Print the current user id and name</string>
     <string name="wm_density">Displays current screen density</string>
     <string name="wm_density_reset">Reset screen density to default</string>

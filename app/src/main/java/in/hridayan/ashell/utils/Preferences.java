@@ -47,8 +47,9 @@ public class Preferences {
       CONNECTION_ERROR = 2,
       LAST_COMMAND_OUTPUT = 0,
       ALL_OUTPUT = 1,
-      SHIZUKU_MODE = 0,
-      ROOT_MODE = 1;
+      BASIC_MODE = 0,
+      SHIZUKU_MODE = 1,
+      ROOT_MODE = 2;
 
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
@@ -136,7 +137,7 @@ public class Preferences {
   }
 
   public static int getLocalAdbMode(Context context) {
-    return getSharedPreferences(context).getInt(PREF_LOCAL_ADB_MODE, SHIZUKU_MODE);
+    return getSharedPreferences(context).getInt(PREF_LOCAL_ADB_MODE, BASIC_MODE);
   }
 
   public static void setLocalAdbMode(Context context, int value) {

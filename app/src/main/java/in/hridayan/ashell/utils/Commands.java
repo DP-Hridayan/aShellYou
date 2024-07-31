@@ -320,6 +320,7 @@ public class Commands {
     mCommands.add(new CommandItems("sync", "sync", context));
     mCommands.add(new CommandItems("top", "top", context));
     mCommands.add(new CommandItems("top -n <number>", "top -n1", context));
+           mCommands.add(new CommandItems("uptime", "uptime", context));
     mCommands.add(new CommandItems("whoami", "whoami", context));
     mCommands.add(new CommandItems("wm density", "wm density", context));
     mCommands.add(new CommandItems("wm density reset", "wm density reset", context));

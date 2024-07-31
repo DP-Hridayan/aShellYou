@@ -47,6 +47,7 @@ import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.activities.SettingsActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
+import in.hridayan.ashell.utils.BasicShell;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
@@ -88,6 +89,7 @@ public class aShellFragment extends Fragment {
   private RecyclerView mRecyclerViewOutput, mRecyclerViewCommands;
   private ShizukuShell mShizukuShell;
   private RootShell mRootShell;
+  private BasicShell mBasicShell;
   private TextInputLayout mCommandInput;
   private TextInputEditText mCommand, mSearchWord;
   private boolean isKeyboardVisible, sendButtonClicked = false, isEndIconVisible = false;
@@ -160,13 +162,7 @@ public class aShellFragment extends Fragment {
         break;
     }
 
-    if (isShizukuMode()) {
-      mChip.setText("Shizuku");
-      mCommandInput.setHint(R.string.command_title);
-    } else if (isRootMode()) {
-      mChip.setText("Root");
-      mCommandInput.setHint(R.string.command_title_root);
-    }
+    handleChipTextAndCommandHint();
 
     // Handles save button visibility across config changes
     if (!viewModel.isSaveButtonVisible()) {
@@ -215,6 +211,10 @@ public class aShellFragment extends Fragment {
   @Override
   public void onDestroy() {
     super.onDestroy();
+
+    if (mBasicShell != null) {
+      BasicShell.destroy();
+    }
     if (mShizukuShell != null) {
       mShizukuShell.destroy();
     }
@@ -291,14 +291,7 @@ public class aShellFragment extends Fragment {
     BehaviorFAB.handleTopAndBottomArrow(
         mTopButton, mBottomButton, mRecyclerViewOutput, null, context, "local_shell");
 
-    // Display the connected device name when clicking the chip
-    if (isShizukuMode()) {
-      mChip.setText("Shizuku");
-      mCommandInput.setHint(R.string.command_title);
-    } else if (isRootMode()) {
-      mChip.setText("Root");
-      mCommandInput.setHint(R.string.command_title_root);
-    }
+    handleChipTextAndCommandHint();
 
     // When there is any text in edit text , focus the edit text
     if (!mCommand.getText().toString().isEmpty()) {
@@ -581,8 +574,9 @@ public class aShellFragment extends Fragment {
     mChip.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-
-          if (isShizukuMode()) {
+          if (isBasicMode()) {
+            connectedDeviceDialog(Utils.getDeviceName());
+          } else if (isShizukuMode()) {
             boolean hasShizuku = Shizuku.pingBinder() && ShizukuShell.hasPermission();
             connectedDeviceDialog(hasShizuku ? Utils.getDeviceName() : getString(R.string.none));
           } else if (isRootMode()) {
@@ -612,7 +606,9 @@ public class aShellFragment extends Fragment {
   // Dialog asking to choose preferred local adb commands executing mode
   private void localAdbModeDialog() {
     final CharSequence[] preferences = {
-      context.getString(R.string.shizuku), getString(R.string.root)
+      context.getString(R.string.basic_shell),
+      context.getString(R.string.shizuku),
+      getString(R.string.root)
     };
 
     int savePreference = Preferences.getLocalAdbMode(context);
@@ -633,13 +629,7 @@ public class aShellFragment extends Fragment {
             (dialog, which) -> {
               Preferences.setLocalAdbMode(context, preference[0]);
               mCommandInput.setError(null);
-              if (isShizukuMode()) {
-                mChip.setText("Shizuku");
-                mCommandInput.setHint(R.string.command_title);
-              } else if (isRootMode()) {
-                mChip.setText("Root");
-                mCommandInput.setHint(R.string.command_title_root);
-              }
+              handleChipTextAndCommandHint();
             })
         .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
         .show();
@@ -734,6 +724,7 @@ public class aShellFragment extends Fragment {
 
   // Method to check if shell is busy root or shizuku
   private boolean isShellBusy() {
+    if (isBasicMode() && mBasicShell != null) return BasicShell.isBusy();
     if (isShizukuMode() && mShizukuShell != null) return ShizukuShell.isBusy();
     if (isRootMode() && mRootShell != null) return RootShell.isBusy();
     return false;
@@ -741,6 +732,10 @@ public class aShellFragment extends Fragment {
 
   // This function is called when we want to clear the screen
   private void clearAll() {
+    if (mBasicShell != null && BasicShell.isBusy()) {
+      abortBasicShell();
+    }
+
     if (mShizukuShell != null && ShizukuShell.isBusy()) {
       abortShizukuShell();
     }
@@ -778,12 +773,8 @@ public class aShellFragment extends Fragment {
 
           if (mResult == null || mResult.isEmpty()) {
             ToastUtils.showToast(context, R.string.nothing_to_search, ToastUtils.LENGTH_SHORT);
-          } else if (isShizukuMode() && mShizukuShell != null) {
-            if (mShizukuShell.isBusy())
-              ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
-          } else if (isRootMode() && mRootShell != null) {
-            if (RootShell.isBusy())
-              ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
+          } else if (isShellBusy()) {
+            ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
           } else {
             mHistoryButton.setVisibility(View.GONE);
             mClearButton.setVisibility(View.GONE);
@@ -1021,8 +1012,17 @@ public class aShellFragment extends Fragment {
           if (actionId == EditorInfo.IME_ACTION_SEND) {
             sendButtonClicked = true;
 
+            /*This block will run if basic shell mode is selected*/
+            if (isBasicMode()) {
+              if (isShellBusy()) {
+                shellWorkingDialog();
+              } else {
+                execShell(v);
+              }
+            }
+
             /*This block will run if shizuku mode is selected*/
-            if (isShizukuMode()) {
+            else if (isShizukuMode()) {
               if (!Shizuku.pingBinder()) {
                 handleShizukuUnavailability();
               } else if (!ShizukuShell.hasPermission()) {
@@ -1059,9 +1059,21 @@ public class aShellFragment extends Fragment {
           sendButtonClicked = true;
           HapticUtils.weakVibrate(v, context);
 
+          /*This block will run if basic shell mode is selected*/
+
+          if (isBasicMode()) {
+            if (!hasTextInEditText() && !BasicShell.isBusy()) {
+              goToExamples();
+            } else if (isShellBusy()) {
+              abortBasicShell();
+            } else {
+              execShell(v);
+            }
+          }
+
           /*This block will run if shizuku mode is selected*/
 
-          if (isShizukuMode()) {
+          else if (isShizukuMode()) {
             if (!hasTextInEditText() && !ShizukuShell.isBusy()) {
               goToExamples();
             } else if (!Shizuku.pingBinder()) {
@@ -1143,7 +1155,8 @@ public class aShellFragment extends Fragment {
     }
 
     // Shizuku mode doesn't allow su commands , so we show a warning
-    if (finalCommand.startsWith("su") && isShizukuMode()) {
+    if (finalCommand.startsWith("su") && isShizukuMode()
+        || finalCommand.startsWith("su") && isBasicMode()) {
       suWarning();
       return;
     }
@@ -1164,7 +1177,15 @@ public class aShellFragment extends Fragment {
             ? ThemeUtils.colorError(context)
             : Utils.getColor(R.color.red, context));
 
-    String shell = isShizukuMode() ? "\">ShizukuShell@" : "\">RootShell@";
+    String shell = "shell@";
+    if (isBasicMode()) {
+      shell = "\">BasicShell@";
+    } else if (isShizukuMode()) {
+      shell = "\">ShizukuShell@";
+    } else if (isRootMode()) {
+      shell = "\">RootShell@";
+    }
+
     /* the mTitleText is the text that shows the connected device and the command that is executed */
     String mTitleText =
         "<font color=\""
@@ -1194,6 +1215,10 @@ public class aShellFragment extends Fragment {
     mExecutors.execute(
         () -> {
           switch (Preferences.getLocalAdbMode(context)) {
+            case Preferences.BASIC_MODE:
+              runBasicShell(finalCommand);
+              break;
+
             case Preferences.SHIZUKU_MODE:
               runWithShizuku(finalCommand);
               break;
@@ -1233,6 +1258,17 @@ public class aShellFragment extends Fragment {
         });
   }
 
+  // Method to run commands using root
+  private void runBasicShell(String finalCommand) {
+    mPosition = mResult.size();
+    mBasicShell = new BasicShell(mResult, finalCommand);
+    BasicShell.exec();
+    try {
+      TimeUnit.MILLISECONDS.sleep(250);
+    } catch (InterruptedException ignored) {
+    }
+  }
+
   // Method to run commands using Shizuku
   private void runWithShizuku(String finalCommand) {
     mPosition = mResult.size();
@@ -1267,6 +1303,11 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  // boolean that checks if the current set mode is basic mode
+  private boolean isBasicMode() {
+    return Preferences.getLocalAdbMode(context) == Preferences.BASIC_MODE;
+  }
+
   // boolean that checks if the current set mode is shizuku mode
   private boolean isShizukuMode() {
     return Preferences.getLocalAdbMode(context) == Preferences.SHIZUKU_MODE;
@@ -1280,6 +1321,14 @@ public class aShellFragment extends Fragment {
   // This methods checks if there is valid text in the edit text
   private boolean hasTextInEditText() {
     return mCommand.getText() != null && !mCommand.getText().toString().trim().isEmpty();
+  }
+
+  // Call this method to abort or stop running shell command
+  private void abortBasicShell() {
+    BasicShell.destroy();
+    viewModel.setSendDrawable(ic_help);
+    mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+    mSendButton.clearColorFilter();
   }
 
   // Call this method to abort or stop running shizuku command
@@ -1386,5 +1435,19 @@ public class aShellFragment extends Fragment {
       return viewModel.getHistory();
     }
     return mHistory;
+  }
+
+  /* This method handles the text on the chip and the text input layout hint in various cases */
+  private void handleChipTextAndCommandHint() {
+    if (isBasicMode()) {
+      mChip.setText("Basic shell");
+      mCommandInput.setHint(R.string.command_title);
+    } else if (isShizukuMode()) {
+      mChip.setText("Shizuku");
+      mCommandInput.setHint(R.string.command_title);
+    } else if (isRootMode()) {
+      mChip.setText("Root");
+      mCommandInput.setHint(R.string.command_title_root);
+    }
   }
 }
