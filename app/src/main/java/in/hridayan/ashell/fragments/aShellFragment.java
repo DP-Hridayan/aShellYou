@@ -117,8 +117,8 @@ public class aShellFragment extends Fragment {
 
     // Gets the already saved output and command history from viewmodel in case no new output has
     // been made after config change
-    List<String> shellOutput = viewModel.getShellOutput();
-    List<String> history = viewModel.getHistory();
+    shellOutput = viewModel.getShellOutput();
+    history = viewModel.getHistory();
     viewModel.setHistory(mHistory == null && history != null ? history : mHistory);
     viewModel.setShellOutput(mResult == null ? shellOutput : mResult);
 
@@ -680,7 +680,7 @@ public class aShellFragment extends Fragment {
         v -> {
           HapticUtils.weakVibrate(v, context);
 
-          if (mHistory == null || mHistory.isEmpty()) {
+          if (mHistory == null && viewModel.getHistory() == null) {
             ToastUtils.showToast(context, R.string.no_history, ToastUtils.LENGTH_SHORT);
           } else {
             PopupMenu popupMenu = new PopupMenu(context, mCommand);
@@ -1376,5 +1376,15 @@ public class aShellFragment extends Fragment {
   private void goToExamples() {
     Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
     startActivity(examples);
+  }
+
+  // Get the command history
+  private List<String> getHistory() {
+    if (mHistory != null) {
+      return mHistory;
+    } else if (mHistory == null && viewModel.getHistory() != null) {
+      return viewModel.getHistory();
+    }
+    return mHistory;
   }
 }
