@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /** A utility class for executing shell commands and scripts with root access. */
 public class RootShell {
@@ -16,6 +17,7 @@ public class RootShell {
   private static List<String> mOutput;
   private static String mCommand;
   private static Process mProcess = null;
+  private static final int TIMEOUT_SECONDS = 1;
 
   public RootShell(List<String> output, String command) {
     mOutput = output;
@@ -119,36 +121,75 @@ public class RootShell {
   }
 
   /**
-   * Checks if app has root access
+   * Checks if app has root access We quickly return a result to avoid delays
    *
    * @return Whether root access is available.
    */
   public static boolean hasPermission() {
+    final AtomicBoolean hasPermission = new AtomicBoolean(false);
+    final Thread thread =
+        new Thread(
+            () -> {
+              try {
+                String result = exec("echo /checkRoot/", true);
+                hasPermission.set("/checkRoot/".equals(result));
+              } catch (Exception e) {
+                // Handle the exception
+              }
+            });
+
+    thread.start();
     try {
-      return exec("echo /checkRoot/", true).equals("/checkRoot/");
-    } catch (Exception exc) {
-      return false;
+      thread.join(TIMEOUT_SECONDS * 1000); // Wait for the specified timeout
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
     }
+
+    // If the thread is still alive after the timeout, interrupt it
+    if (thread.isAlive()) {
+      thread.interrupt();
+    }
+
+    return hasPermission.get();
   }
 
-  // Checks if device is rooted or not
+  /*Checks if device is rooted or not. This method quickly returns a result after a timeout to avoid cases where output is delayed. Also this method cannot detect root if the superuser application hides the root status from aShell You */
   public static boolean isDeviceRooted() {
-    Process process = null;
+    final AtomicBoolean isRooted = new AtomicBoolean(false);
+    final Thread thread =
+        new Thread(
+            () -> {
+              Process process = null;
+              try {
+                process = Runtime.getRuntime().exec("which su");
+                BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+                String response = reader.readLine();
+                if (response != null && response.contains("su")) {
+                  isRooted.set(true);
+                }
+              } catch (Exception e) {
+                // Handle the exception
+              } finally {
+                if (process != null) {
+                  process.destroy();
+                }
+              }
+            });
+
+    thread.start();
     try {
-      process = Runtime.getRuntime().exec("which su");
-      BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-      String response = reader.readLine();
-      if (response != null && response.contains("su")) {
-        return true;
-      }
-    } catch (Exception e) {
-      // Handle the exception
-    } finally {
-      if (process != null) {
-        process.destroy();
-      }
+      thread.join(TIMEOUT_SECONDS * 1000); // Wait for the specified timeout
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
     }
-    return false;
+
+    // If the thread is still alive after the timeout, interrupt it
+    if (thread.isAlive()) {
+      thread.interrupt();
+    }
+
+    return isRooted.get();
   }
 
   // Checks if root shell is busy or not

@@ -59,7 +59,7 @@ public class ShizukuShell {
   }
 
   // Checks if the shizuku shell is busy , i.e. running commands
-  public boolean isBusy() {
+  public static boolean isBusy() {
     return mOutput != null
         && mOutput.size() > 0
         && !mOutput.get(mOutput.size() - 1).equals("Shell is dead");

@@ -453,31 +453,6 @@ public class aShellFragment extends Fragment {
         });
   }
 
-  // This function is called when we want to clear the screen
-  private void clearAll() {
-    if (mShizukuShell != null) {
-      mShizukuShell.destroy();
-    }
-    if (mRootShell != null) {
-      RootShell.destroy();
-    }
-
-    mResult = null;
-    if (mTopButton.getVisibility() == View.VISIBLE) {
-      mTopButton.setVisibility(View.GONE);
-    }
-    if (mBottomButton.getVisibility() == View.VISIBLE) {
-      mBottomButton.setVisibility(View.GONE);
-    }
-
-    mRecyclerViewOutput.setAdapter(null);
-    mSaveButton.setVisibility(View.GONE);
-    mShareButton.setVisibility(View.GONE);
-    showBottomNav();
-    mCommand.clearFocus();
-    if (!mCommand.isFocused()) mCommand.requestFocus();
-  }
-
   /*Calling this function hides the search bar and makes other buttons visible again*/
   private void hideSearchBar() {
     mSearchWord.setText(null);
@@ -606,11 +581,12 @@ public class aShellFragment extends Fragment {
     mChip.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          boolean hasShizuku = Shizuku.pingBinder() && ShizukuShell.hasPermission();
-          boolean hasRoot = RootShell.isDeviceRooted() && RootShell.hasPermission();
+
           if (isShizukuMode()) {
+            boolean hasShizuku = Shizuku.pingBinder() && ShizukuShell.hasPermission();
             connectedDeviceDialog(hasShizuku ? Utils.getDeviceName() : getString(R.string.none));
           } else if (isRootMode()) {
+            boolean hasRoot = RootShell.isDeviceRooted() && RootShell.hasPermission();
             connectedDeviceDialog(hasRoot ? Utils.getDeviceName() : getString(R.string.none));
           }
 
@@ -683,8 +659,11 @@ public class aShellFragment extends Fragment {
     mClearButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
+
           if (mResult == null || mResult.isEmpty()) {
             ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
+          } else if (isShellBusy()) {
+            ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
           } else {
             viewModel.setShellOutput(null);
             boolean switchState = Preferences.getClear(context);
@@ -700,6 +679,42 @@ public class aShellFragment extends Fragment {
             }
           }
         });
+  }
+
+  // Method to check if shell is busy root or shizuku
+  private boolean isShellBusy() {
+    if (isShizukuMode() && mShizukuShell != null) return ShizukuShell.isBusy();
+    if (isRootMode() && mRootShell != null) return RootShell.isBusy();
+    return false;
+  }
+
+  // This function is called when we want to clear the screen
+  private void clearAll() {
+    if (mShizukuShell != null && ShizukuShell.isBusy()) {
+      abortShizukuShell();
+    }
+    if (mRootShell != null && RootShell.isBusy()) {
+      abortRootShell();
+    }
+
+    mResult = null;
+    if (mTopButton.getVisibility() == View.VISIBLE) {
+      mTopButton.setVisibility(View.GONE);
+    }
+    if (mBottomButton.getVisibility() == View.VISIBLE) {
+      mBottomButton.setVisibility(View.GONE);
+    }
+    mSendButton.setImageDrawable(
+        hasTextInEditText()
+            ? Utils.getDrawable(R.drawable.ic_send, requireActivity())
+            : Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+    viewModel.setSendDrawable(hasTextInEditText() ? ic_send : ic_help);
+    mRecyclerViewOutput.setAdapter(null);
+    mSaveButton.setVisibility(View.GONE);
+    mShareButton.setVisibility(View.GONE);
+    showBottomNav();
+    mCommand.clearFocus();
+    if (!mCommand.isFocused()) mCommand.requestFocus();
   }
 
   // OnClick listener for the search button
@@ -1044,16 +1059,16 @@ public class aShellFragment extends Fragment {
           HapticUtils.weakVibrate(v, context);
 
           /*This block will run if shizuku mode is selected*/
+
           if (isShizukuMode()) {
-            if (!Shizuku.pingBinder()) {
+            if (!hasTextInEditText() && !ShizukuShell.isBusy()) {
+              goToExamples();
+            } else if (!Shizuku.pingBinder()) {
               handleShizukuUnavailability();
             } else if (!ShizukuShell.hasPermission()) {
               Utils.shizukuPermRequestDialog(requireActivity(), context);
-            } else if (mShizukuShell != null && mShizukuShell.isBusy()) {
+            } else if (mShizukuShell != null && ShizukuShell.isBusy()) {
               abortShizukuShell();
-            } else if (mCommand.getText() == null
-                || mCommand.getText().toString().trim().isEmpty()) {
-              goToExamples();
             } else {
               execShell(v);
             }
@@ -1061,15 +1076,14 @@ public class aShellFragment extends Fragment {
 
           /*This block w if root mode is selected*/
           else if (isRootMode()) {
-            if (!RootShell.isDeviceRooted()) {
+            if (!hasTextInEditText() && !RootShell.isBusy()) {
+              goToExamples();
+            } else if (!RootShell.isDeviceRooted()) {
               handleRootUnavailability();
             } else if (!RootShell.hasPermission()) {
               Utils.rootPermRequestDialog(requireActivity(), context);
             } else if (mRootShell != null && RootShell.isBusy()) {
               abortRootShell();
-            } else if (mCommand.getText() == null
-                || mCommand.getText().toString().trim().isEmpty()) {
-              goToExamples();
             } else {
               execShell(v);
             }
@@ -1090,7 +1104,7 @@ public class aShellFragment extends Fragment {
 
   // initialize the shell command execution
   private void initializeShell() {
-    if (mCommand.getText() == null || mCommand.getText().toString().trim().isEmpty()) {
+    if (!hasTextInEditText()) {
       return;
     }
     runShellCommand(mCommand.getText().toString().replace("\n", ""));
@@ -1197,8 +1211,7 @@ public class aShellFragment extends Fragment {
                     postExec();
 
                     // Handles sendButton icon changes
-                    if (mCommand.getText() == null
-                        || mCommand.getText().toString().trim().isEmpty()) {
+                    if (!hasTextInEditText()) {
                       viewModel.setSendDrawable(ic_help);
                       mSendButton.setImageDrawable(
                           Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -1228,27 +1241,17 @@ public class aShellFragment extends Fragment {
       TimeUnit.MILLISECONDS.sleep(250);
     } catch (InterruptedException ignored) {
     }
-    new Handler(Looper.getMainLooper())
-        .post(
-            () -> {
-              postExec();
-            });
   }
 
   // Method to run commands using root
   private void runWithRoot(String finalCommand) {
     mPosition = mResult.size();
     mRootShell = new RootShell(mResult, finalCommand);
-    mRootShell.exec();
+    RootShell.exec();
     try {
       TimeUnit.MILLISECONDS.sleep(500);
     } catch (InterruptedException ignored) {
     }
-    new Handler(Looper.getMainLooper())
-        .post(
-            () -> {
-              postExec();
-            });
   }
 
   // Call this post command execution
@@ -1271,6 +1274,11 @@ public class aShellFragment extends Fragment {
   // boolean that checks if the current set mode is root mode
   private boolean isRootMode() {
     return Preferences.getLocalAdbMode(context) == Preferences.ROOT_MODE;
+  }
+
+  // This methods checks if there is valid text in the edit text
+  private boolean hasTextInEditText() {
+    return mCommand.getText() != null && !mCommand.getText().toString().trim().isEmpty();
   }
 
   // Call this method to abort or stop running shizuku command

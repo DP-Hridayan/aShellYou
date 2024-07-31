@@ -210,8 +210,6 @@ public class Utils {
     }
   }
 
-  /*---------------------Bookmarks section------------------------*/
-
   public static List<String> getBookmarks(Context context) {
     List<String> mBookmarks = new ArrayList<>();
     for (File file : Objects.requireNonNull(context.getExternalFilesDir("bookmarks").listFiles())) {
@@ -526,12 +524,6 @@ public class Utils {
     new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.connected_device))
         .setMessage(device)
-        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
-        .setPositiveButton(
-            context.getString(R.string.change_mode),
-            (dialog, i) -> {
-              Utils.localAdbModeDialog(context);
-            })
         .show();
   }
 
@@ -861,7 +853,6 @@ public class Utils {
   // Method for displaying the root permission requesting dialog
   public static void rootPermRequestDialog(Activity activity, Context context) {
     new MaterialAlertDialogBuilder(activity)
-        .setCancelable(false)
         .setTitle(context.getString(R.string.access_denied))
         .setMessage(context.getString(R.string.root_access_denied_message))
         .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
@@ -877,7 +868,6 @@ public class Utils {
   // Method for displaying the shizuku permission requesting dialog
   public static void shizukuPermRequestDialog(Activity activity, Context context) {
     new MaterialAlertDialogBuilder(activity)
-        .setCancelable(false)
         .setTitle(context.getString(R.string.access_denied))
         .setMessage(context.getString(R.string.shizuku_access_denied_message))
         .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
