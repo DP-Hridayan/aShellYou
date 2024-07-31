@@ -1,294 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     xmlns:tools="http://schemas.android.com/tools"
-     android:layout_height="match_parent"
-     android:layout_width="match_parent"
-     android:background="?attr/colorSurface"
-     android:fitsSystemWindows="true">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="?attr/colorSurface"
+    android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-         android:layout_height="match_parent"
-         android:layout_width="match_parent"
-         android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
         <FrameLayout
-             android:layout_height="180dp"
-             android:layout_width="match_parent"
-             android:gravity="center"
-             android:clickable="true"
-             android:orientation="horizontal"
-             android:layout_marginTop="20dp"
-             android:id="@+id/app_name_layout">
+            android:layout_height="180dp"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:id="@+id/app_name_layout">
 
             <com.google.android.material.textview.MaterialTextView
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 style="@style/ExpandedToolbarTitle"
-                 android:layout_marginTop="20dp"
-                 android:layout_marginStart="25dp"
-                 android:text="@string/app_name" />
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/ExpandedToolbarTitle"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:text="@string/app_name" />
 
             <com.google.android.material.chip.Chip
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 style="@style/Widget.Material3.Chip.Suggestion"
-                 android:layout_marginStart="25dp"
-                 android:checked="true"
-                 android:id="@+id/local_adb_chip"
-                 android:layout_gravity="bottom" />
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/Widget.Material3.Chip.Suggestion"
+                android:layout_marginStart="25dp"
+                android:checked="true"
+                android:id="@+id/local_adb_chip"
+                android:layout_gravity="bottom" />
 
             <com.google.android.material.card.MaterialCardView
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 app:strokeColor="?attr/colorPrimary"
-                 android:elevation="0dp"
-                 android:layout_marginHorizontal="20dp"
-                 app:strokeWidth="0dp"
-                 app:cardBackgroundColor="?attr/colorSecondaryContainer"
-                 app:cardCornerRadius="60dp">
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:strokeColor="?attr/colorPrimary"
+                android:elevation="0dp"
+                android:layout_marginHorizontal="20dp"
+                app:strokeWidth="0dp"
+                app:cardBackgroundColor="?attr/colorSecondaryContainer"
+                app:cardCornerRadius="60dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                     android:layout_height="wrap_content"
-                     android:layout_width="fill_parent"
-                     android:visibility="gone"
-                     android:layout_marginEnd="30dp"
-                     android:drawablePadding="5dp"
-                     android:layout_marginVertical="15dp"
-                     android:textColor="?attr/colorOnPrimaryContainer"
-                     android:layout_marginStart="20dp"
-                     android:layout_gravity="start|center|top"
-                     android:background="@android:color/transparent"
-                     android:gravity="start"
-                     android:hint="@string/search_output"
-                     android:drawableStart="@drawable/ic_search"
-                     android:id="@+id/search_word" />
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:visibility="gone"
+                    android:layout_marginEnd="30dp"
+                    android:drawablePadding="5dp"
+                    android:layout_marginVertical="15dp"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:layout_marginStart="20dp"
+                    android:layout_gravity="start|center|top"
+                    android:background="@android:color/transparent"
+                    android:gravity="start"
+                    android:hint="@string/search_output"
+                    android:drawableStart="@drawable/ic_search"
+                    android:id="@+id/search_word" />
 
             </com.google.android.material.card.MaterialCardView>
 
         </FrameLayout>
 
         <FrameLayout
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:paddingBottom="15dp">
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingBottom="15dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:src="@drawable/ic_numbers"
-                 android:background="@null"
-                 android:clickable="false"
-                 android:layout_marginTop="2dp"
-                 android:id="@+id/local_shell_symbol"
-                 android:layout_gravity="start|center" />
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_numbers"
+                android:background="@null"
+                android:clickable="false"
+                android:layout_marginTop="2dp"
+                android:id="@+id/local_shell_symbol"
+                android:layout_gravity="start|center" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:layout_marginEnd="10dp"
-                 android:src="@drawable/ic_help"
-                 android:layout_marginTop="2dp"
-                 android:id="@+id/send"
-                 android:layout_gravity="center|end" />
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_help"
+                android:layout_marginTop="2dp"
+                android:id="@+id/send"
+                android:layout_gravity="center|end" />
 
             <com.google.android.material.textfield.TextInputLayout
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 app:endIconMode="custom"
-                 android:layout_marginEnd="70dp"
-                 app:endIconTint="?attr/colorPrimary"
-                 android:padding="5dp"
-                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                 android:layout_marginStart="20dp"
-                 android:id="@+id/shell_command_layout">
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:endIconMode="custom"
+                android:layout_marginEnd="70dp"
+                app:endIconTint="?attr/colorPrimary"
+                android:padding="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginStart="20dp"
+                android:id="@+id/shell_command_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                     android:layout_height="wrap_content"
-                     android:layout_width="fill_parent"
-                     android:imeOptions="actionSend"
-                     android:gravity="center_vertical"
-                     android:cursorVisible="true"
-                     android:paddingHorizontal="10dp"
-                     android:maxLines="1"
-                     android:inputType="textAutoComplete"
-                     android:layout_gravity="start|center"
-                     android:id="@+id/shell_command" />
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:imeOptions="actionSend"
+                    android:gravity="center_vertical"
+                    android:cursorVisible="true"
+                    android:paddingHorizontal="10dp"
+                    android:maxLines="1"
+                    android:inputType="textAutoComplete"
+                    android:layout_gravity="start|center"
+                    android:id="@+id/shell_command" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:visibility="gone"
-             android:id="@+id/recycler_view_commands" />
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:id="@+id/recycler_view_commands" />
 
         <com.google.android.material.card.MaterialCardView
-             android:layout_height="wrap_content"
-             android:layout_width="match_parent"
-             android:layout_marginHorizontal="10dp"
-             app:strokeWidth="0dp"
-             android:layout_marginTop="10dp"
-             app:cardCornerRadius="20dp"
-             android:id="@+id/rv_shell_card">
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="10dp"
+            app:strokeWidth="0dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="20dp"
+            android:id="@+id/rv_shell_card">
 
             <androidx.recyclerview.widget.RecyclerView
-                 android:layout_height="wrap_content"
-                 android:layout_width="match_parent"
-                 android:scrollbars="vertical"
-                 android:background="?attr/colorSurfaceContainerLowest"
-                 android:layerType="hardware"
-                 android:nestedScrollingEnabled="true"
-                 android:scrollbarThumbVertical="@drawable/scrollbar"
-                 android:id="@+id/recycler_view_output" />
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                android:background="?attr/colorSurfaceContainerLowest"
+                android:layerType="hardware"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarThumbVertical="@drawable/scrollbar"
+                android:id="@+id/recycler_view_output" />
 
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-         android:layout_height="match_parent"
-         android:layout_width="match_parent"
-         android:background="@android:color/transparent"
-         android:layout_margin="25dp"
-         android:orientation="horizontal"
-         app:layout_constraintHorizontal_chainStyle="spread_inside">
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_margin="25dp"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_chainStyle="spread_inside">
 
         <com.google.android.material.button.MaterialButton
-             android:layout_height="48dp"
-             android:layout_width="48dp"
-             app:icon="@drawable/ic_settings"
-             app:layout_constraintTop_toTopOf="parent"
-             app:layout_constraintStart_toStartOf="parent"
-             style="?attr/materialIconButtonFilledTonalStyle"
-             android:id="@+id/settings" />
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            app:icon="@drawable/ic_settings"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:id="@+id/settings" />
 
         <com.google.android.material.button.MaterialButton
-             android:layout_height="48dp"
-             android:layout_width="48dp"
-             app:icon="@drawable/ic_bookmarks"
-             app:layout_constraintTop_toTopOf="@id/settings"
-             app:layout_constraintStart_toEndOf="@id/settings"
-             app:layout_constraintEnd_toStartOf="@id/history"
-             style="?attr/materialIconButtonFilledTonalStyle"
-             android:id="@+id/bookmarks" />
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            app:icon="@drawable/ic_bookmarks"
+            app:layout_constraintTop_toTopOf="@id/settings"
+            app:layout_constraintStart_toEndOf="@id/settings"
+            app:layout_constraintEnd_toStartOf="@id/history"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:id="@+id/bookmarks" />
 
         <com.google.android.material.button.MaterialButton
-             android:layout_height="48dp"
-             android:layout_width="48dp"
-             app:icon="@drawable/ic_history"
-             app:layout_constraintTop_toTopOf="@id/settings"
-             app:layout_constraintStart_toEndOf="@id/bookmarks"
-             app:layout_constraintEnd_toStartOf="@id/clear"
-             style="?attr/materialIconButtonFilledTonalStyle"
-             android:id="@+id/history" />
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            app:icon="@drawable/ic_history"
+            app:layout_constraintTop_toTopOf="@id/settings"
+            app:layout_constraintStart_toEndOf="@id/bookmarks"
+            app:layout_constraintEnd_toStartOf="@id/clear"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:id="@+id/history" />
 
         <com.google.android.material.button.MaterialButton
-             android:layout_height="48dp"
-             android:layout_width="48dp"
-             app:icon="@drawable/ic_clear"
-             app:layout_constraintTop_toTopOf="@id/settings"
-             app:layout_constraintStart_toEndOf="@id/history"
-             app:layout_constraintEnd_toStartOf="@id/search"
-             style="?attr/materialIconButtonFilledTonalStyle"
-             android:id="@+id/clear" />
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            app:icon="@drawable/ic_clear"
+            app:layout_constraintTop_toTopOf="@id/settings"
+            app:layout_constraintStart_toEndOf="@id/history"
+            app:layout_constraintEnd_toStartOf="@id/search"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:id="@+id/clear" />
 
         <com.google.android.material.button.MaterialButton
-             android:layout_height="48dp"
-             android:layout_width="48dp"
-             app:icon="@drawable/ic_search"
-             app:layout_constraintTop_toTopOf="@id/settings"
-             app:layout_constraintEnd_toEndOf="parent"
-             style="?attr/materialIconButtonFilledTonalStyle"
-             android:id="@+id/search" />
+            android:layout_height="48dp"
+            android:layout_width="48dp"
+            app:icon="@drawable/ic_search"
+            app:layout_constraintTop_toTopOf="@id/settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:id="@+id/search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:layout_marginBottom="25dp"
-         android:visibility="gone"
-         android:layout_marginEnd="25dp"
-         app:shapeAppearance="@styleable/CircularProgressIndicator"
-         app:layout_constraintEnd_toEndOf="parent"
-         style="?attr/floatingActionButtonTertiaryStyle"
-         app:layout_constraintBottom_toTopOf="@id/save_button"
-         app:srcCompat="@drawable/ic_arrow"
-         android:id="@+id/fab_up"
-         android:layout_gravity="bottom|end" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonTertiaryStyle"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:srcCompat="@drawable/ic_arrow"
+        android:id="@+id/fab_up"
+        android:layout_gravity="bottom|end" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:visibility="gone"
-         android:layout_marginEnd="25dp"
-         android:rotation="180"
-         app:layout_constraintBottom_toTopOf="@id/save_button"
-         app:srcCompat="@drawable/ic_arrow"
-         android:layout_gravity="bottom|end"
-         android:layout_marginBottom="25dp"
-         app:shapeAppearance="@styleable/CircularProgressIndicator"
-         app:layout_constraintEnd_toEndOf="parent"
-         style="?attr/floatingActionButtonTertiaryStyle"
-         android:id="@+id/fab_down" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        android:rotation="180"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:srcCompat="@drawable/ic_arrow"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:shapeAppearance="@styleable/CircularProgressIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonTertiaryStyle"
+        android:id="@+id/fab_down" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:visibility="gone"
-         android:layout_marginEnd="25dp"
-         app:backgroundTint="?attr/colorTertiaryContainer"
-         app:layout_constraintBottom_toTopOf="@id/save_button"
-         app:srcCompat="@drawable/ic_share"
-         android:layout_gravity="bottom|end"
-         android:layout_marginBottom="25dp"
-         app:tint="?attr/colorOnTertiaryContainer"
-         app:layout_constraintEnd_toEndOf="parent"
-         style="?attr/floatingActionButtonSmallStyle"
-         android:id="@+id/fab_share" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        app:backgroundTint="?attr/colorTertiaryContainer"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:srcCompat="@drawable/ic_share"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:tint="?attr/colorOnTertiaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonSmallStyle"
+        android:id="@+id/fab_share" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:visibility="gone"
-         android:layout_marginEnd="25dp"
-         app:backgroundTint="?attr/colorTertiaryContainer"
-         app:layout_constraintBottom_toTopOf="@id/paste_button"
-         app:srcCompat="@drawable/ic_undo"
-         android:layout_gravity="bottom|end"
-         android:layout_marginBottom="25dp"
-         app:tint="?attr/colorOnTertiaryContainer"
-         app:layout_constraintEnd_toEndOf="parent"
-         style="?attr/floatingActionButtonSmallStyle"
-         android:id="@+id/fab_undo" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="25dp"
+        app:backgroundTint="?attr/colorTertiaryContainer"
+        app:layout_constraintBottom_toTopOf="@id/paste_button"
+        app:srcCompat="@drawable/ic_undo"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        app:tint="?attr/colorOnTertiaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/floatingActionButtonSmallStyle"
+        android:id="@+id/fab_undo" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:layout_marginBottom="100dp"
-         android:visibility="gone"
-         app:icon="@drawable/ic_save"
-         android:layout_marginEnd="25dp"
-         app:layout_constraintEnd_toEndOf="parent"
-         style="?attr/extendedFloatingActionButtonStyle"
-         app:layout_constraintBottom_toBottomOf="parent"
-         android:id="@+id/save_button"
-         android:text="@string/save" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:visibility="gone"
+        app:icon="@drawable/ic_save"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/extendedFloatingActionButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/save_button"
+        android:text="@string/save" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:layout_marginBottom="100dp"
-         app:icon="@drawable/ic_paste"
-         android:layout_marginEnd="25dp"
-         app:layout_constraintEnd_toEndOf="parent"
-         style="?attr/extendedFloatingActionButtonStyle"
-         app:layout_constraintBottom_toBottomOf="parent"
-         android:id="@+id/paste_button"
-         android:text="@string/paste" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="100dp"
+        app:icon="@drawable/ic_paste"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/extendedFloatingActionButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/paste_button"
+        android:text="@string/paste" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

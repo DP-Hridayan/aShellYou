@@ -49,8 +49,8 @@
     <string name="connecting">bağlanıyor\u2026</string>
     <string name="connecting_hint">hedef cihazda yetkilendirmeyi onaylayın</string>
     <string
-            name="copy"
-            tools:override="true">Kopyala</string>
+        name="copy"
+        tools:override="true">Kopyala</string>
     <string name="copied_to_clipboard">Panoya kopyalandı</string>
     <string name="default_launch_mode">Varsayılan çalışma modu</string>
     <string name="delete_all">Tümünü sil</string>

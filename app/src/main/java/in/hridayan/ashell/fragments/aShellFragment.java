@@ -419,6 +419,7 @@ public class aShellFragment extends Fragment {
     return splitPrefix[i].trim();
   }
 
+  // Keep the recycler view scrolling when running continuous commands
   private void updateUI(List<String> data) {
     if (data == null) {
       return;
@@ -566,6 +567,7 @@ public class aShellFragment extends Fragment {
     }
   }
 
+  // Converts the List<String> mResult to String
   private StringBuilder buildResultsString() {
     StringBuilder sb = new StringBuilder();
     for (int i = mPosition; i < mResult.size(); i++) {
@@ -628,32 +630,6 @@ public class aShellFragment extends Fragment {
         });
   }
 
-  // Onclick listener for the clear button
-  private void clearButtonOnClickListener() {
-    mClearButton.setTooltipText(getString(R.string.clear_screen));
-
-    mClearButton.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v, context);
-          if (mResult == null || mResult.isEmpty()) {
-            ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
-          } else {
-            viewModel.setShellOutput(null);
-            boolean switchState = Preferences.getClear(context);
-            if (switchState) {
-              new MaterialAlertDialogBuilder(requireActivity())
-                  .setTitle(getString(R.string.clear_everything))
-                  .setMessage(getString(R.string.clear_all_message))
-                  .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
-                  .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
-                  .show();
-            } else {
-              clearAll();
-            }
-          }
-        });
-  }
-
   // OnClick listener for bookmarks button
   private void bookmarksButtonOnClickListener() {
     mBookMarks.setTooltipText(getString(R.string.bookmarks));
@@ -696,6 +672,32 @@ public class aShellFragment extends Fragment {
                   return false;
                 });
             popupMenu.show();
+          }
+        });
+  }
+
+  // Onclick listener for the clear button
+  private void clearButtonOnClickListener() {
+    mClearButton.setTooltipText(getString(R.string.clear_screen));
+
+    mClearButton.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, context);
+          if (mResult == null || mResult.isEmpty()) {
+            ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
+          } else {
+            viewModel.setShellOutput(null);
+            boolean switchState = Preferences.getClear(context);
+            if (switchState) {
+              new MaterialAlertDialogBuilder(requireActivity())
+                  .setTitle(getString(R.string.clear_everything))
+                  .setMessage(getString(R.string.clear_all_message))
+                  .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+                  .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
+                  .show();
+            } else {
+              clearAll();
+            }
           }
         });
   }
@@ -1113,11 +1115,13 @@ public class aShellFragment extends Fragment {
 
     String finalCommand = command.replaceAll("^adb(?:\\s+-d)?\\s+shell\\s+", "");
 
+    // Command to clear the shell output
     if (finalCommand.equals("clear") && mResult != null) {
       clearAll();
       return;
     }
 
+    // Command to exit the app
     if (finalCommand.equals("exit")) {
       confirmExitDialog();
       return;
@@ -1125,16 +1129,7 @@ public class aShellFragment extends Fragment {
 
     // Shizuku mode doesn't allow su commands , so we show a warning
     if (finalCommand.startsWith("su") && isShizukuMode()) {
-      mCommandInput.setError(getString(R.string.su_warning));
-      mCommandInput.setErrorIconDrawable(Utils.getDrawable(R.drawable.ic_error, requireActivity()));
-      Utils.alignMargin(mSendButton);
-      Utils.alignMargin(localShellSymbol);
-      mCommand.requestFocus();
-      Utils.snackBar(
-              requireActivity().findViewById(android.R.id.content),
-              getString(R.string.su_warning_message))
-          .show();
-
+      suWarning();
       return;
     }
 
@@ -1154,6 +1149,8 @@ public class aShellFragment extends Fragment {
             ? ThemeUtils.colorError(context)
             : Utils.getColor(R.color.red, context));
 
+    String shell = isShizukuMode() ? "\">ShizukuShell@" : "\">RootShell@";
+    /* the mTitleText is the text that shows the connected device and the command that is executed */
     String mTitleText =
         "<font color=\""
             + Utils.getColor(
@@ -1161,7 +1158,7 @@ public class aShellFragment extends Fragment {
                     ? android.R.color.system_accent1_500
                     : R.color.blue,
                 requireActivity())
-            + "\">shell@"
+            + shell
             + Utils.getDeviceName()
             + " | "
             + "</font><font color=\""
@@ -1350,6 +1347,19 @@ public class aShellFragment extends Fragment {
         .setTitle(getString(R.string.warning))
         .setMessage(getString(R.string.root_unavailable_message))
         .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+        .show();
+  }
+
+  // Show warning when running su commands with shizuku
+  private void suWarning() {
+    mCommandInput.setError(getString(R.string.su_warning));
+    mCommandInput.setErrorIconDrawable(Utils.getDrawable(R.drawable.ic_error, requireActivity()));
+    Utils.alignMargin(mSendButton);
+    Utils.alignMargin(localShellSymbol);
+    mCommand.requestFocus();
+    Utils.snackBar(
+            requireActivity().findViewById(android.R.id.content),
+            getString(R.string.su_warning_message))
         .show();
   }
 

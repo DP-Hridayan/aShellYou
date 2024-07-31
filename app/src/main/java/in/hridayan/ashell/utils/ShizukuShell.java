@@ -22,12 +22,7 @@ public class ShizukuShell {
     mCommand = command;
   }
 
-  public boolean isBusy() {
-    return mOutput != null
-        && mOutput.size() > 0
-        && !mOutput.get(mOutput.size() - 1).equals("Shell is dead");
-  }
-
+  // Call this function after passing out output and command to ShizukuShell
   public void exec() {
     try {
       mProcess = Shizuku.newProcess(new String[] {"sh", "-c", mCommand}, null, mDir);
@@ -61,6 +56,13 @@ public class ShizukuShell {
       mProcess.waitFor();
     } catch (Exception ignored) {
     }
+  }
+
+  // Checks if the shizuku shell is busy , i.e. running commands
+  public boolean isBusy() {
+    return mOutput != null
+        && mOutput.size() > 0
+        && !mOutput.get(mOutput.size() - 1).equals("Shell is dead");
   }
 
   // Call this method to destroy the shell

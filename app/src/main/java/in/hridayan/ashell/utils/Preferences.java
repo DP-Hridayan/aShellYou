@@ -10,7 +10,7 @@ public class Preferences {
       buildGradleUrl =
           "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle",
       devEmail = "hridayanofficial@gmail.com",
-     PREF_AMOLED_THEME = "id_amoled_theme",
+      PREF_AMOLED_THEME = "id_amoled_theme",
       PREF_COUNTER_PREFIX = "counter_",
       PREF_PINNED_PREFIX = "pinned",
       PREF_CLEAR = "id_clear",

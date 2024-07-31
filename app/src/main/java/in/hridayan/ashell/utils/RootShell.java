@@ -1,17 +1,14 @@
 package in.hridayan.ashell.utils;
 
 import android.util.Log;
-
 import com.topjohnwu.superuser.Shell;
-
+import in.hridayan.ashell.BuildConfig;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import in.hridayan.ashell.BuildConfig;
 
 /** A utility class for executing shell commands and scripts with root access. */
 public class RootShell {
@@ -25,6 +22,7 @@ public class RootShell {
     mCommand = command;
   }
 
+  // Call this method after passing output and command to RootShell
   public static void exec() {
 
     try {
@@ -50,6 +48,7 @@ public class RootShell {
     initialise();
   }
 
+  // initialise the shell
   private static void initialise() {
     Shell.enableVerboseLogging = BuildConfig.DEBUG;
     Shell.setDefaultBuilder(

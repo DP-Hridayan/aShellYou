@@ -5,7 +5,7 @@
     <string
         name="app_name"
         translatable="false">aShell You</string>
-    
+
     <string name="abort_command">Abort command first</string>
     <string name="access_denied">Access denied</string>
     <string name="accept_device_prompt">You might need to accept a prompt on the other device if you are trying to connect to it for the first time from this device</string>

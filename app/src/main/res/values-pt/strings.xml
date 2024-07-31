@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <resources
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:ignore="MissingTranslation">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
     <string name="access_denied">Acesso negado</string>
     <string name="accept_device_prompt">Talvez seja necessário aceitar um prompt no outro dispositivo se você estiver tentando se conectar a ele pela primeira vez a partir deste dispositivo</string>
     <string name="adb_device_connected">Dispositivo ADB conectado.</string>
@@ -45,7 +45,9 @@
     <string name="connected_device">Dispositivo conectado</string>
     <string name="connecting">conectando\u2026</string>
     <string name="connecting_hint">confirme a autorização no dispositivo alvo</string>
-    <string name="copy" tools:override="true">Copiar</string>
+    <string
+            name="copy"
+            tools:override="true">Copiar</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="default_launch_mode">Modo de operação padrão</string>
     <string name="delete_all">Excluir todos</string>
