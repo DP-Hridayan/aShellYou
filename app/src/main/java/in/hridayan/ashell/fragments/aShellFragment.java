@@ -594,6 +594,57 @@ public class aShellFragment extends Fragment {
         });
   }
 
+  // Method to show a dialog showing the device name on which shell is being executed
+  private void connectedDeviceDialog(String connectedDevice) {
+    String device = connectedDevice;
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(context.getString(R.string.connected_device))
+        .setMessage(device)
+        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .setPositiveButton(
+            context.getString(R.string.change_mode),
+            (dialog, i) -> {
+              localAdbModeDialog();
+            })
+        .show();
+  }
+
+  // Dialog asking to choose preferred local adb commands executing mode
+  private void localAdbModeDialog() {
+    final CharSequence[] preferences = {
+      context.getString(R.string.shizuku), getString(R.string.root)
+    };
+
+    int savePreference = Preferences.getLocalAdbMode(context);
+    final int[] preference = {savePreference};
+
+    String title = getString(R.string.local_adb) + " " + getString(R.string.mode).toLowerCase();
+
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(title)
+        .setSingleChoiceItems(
+            preferences,
+            savePreference,
+            (dialog, which) -> {
+              preference[0] = which;
+            })
+        .setPositiveButton(
+            getString(R.string.choose),
+            (dialog, which) -> {
+              Preferences.setLocalAdbMode(context, preference[0]);
+              mCommandInput.setError(null);
+              if (isShizukuMode()) {
+                mChip.setText("Shizuku");
+                mCommandInput.setHint(R.string.command_title);
+              } else if (isRootMode()) {
+                mChip.setText("Root");
+                mCommandInput.setHint(R.string.command_title_root);
+              }
+            })
+        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .show();
+  }
+
   // OnClick listener for the settings button
   private void settingsButtonOnClickListener() {
     mSettingsButton.setTooltipText(getString(R.string.settings));
@@ -877,56 +928,6 @@ public class aShellFragment extends Fragment {
             hideSearchBar();
           }
         });
-  }
-
-  // Method to show a dialog showing the device name on which shell is being executed
-  private void connectedDeviceDialog(String connectedDevice) {
-    String device = connectedDevice;
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.connected_device))
-        .setMessage(device)
-        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
-        .setPositiveButton(
-            context.getString(R.string.change_mode),
-            (dialog, i) -> {
-              localAdbModeDialog();
-            })
-        .show();
-  }
-
-  // Dialog asking to choose preferred local adb commands executing mode
-  private void localAdbModeDialog() {
-    final CharSequence[] preferences = {
-      context.getString(R.string.shizuku), getString(R.string.root)
-    };
-
-    int savePreference = Preferences.getLocalAdbMode(context);
-    final int[] preference = {savePreference};
-
-    String title = getString(R.string.local_adb) + " " + getString(R.string.mode).toLowerCase();
-
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(title)
-        .setSingleChoiceItems(
-            preferences,
-            savePreference,
-            (dialog, which) -> {
-              preference[0] = which;
-            })
-        .setPositiveButton(
-            getString(R.string.choose),
-            (dialog, which) -> {
-              Preferences.setLocalAdbMode(context, preference[0]);
-              if (isShizukuMode()) {
-                mChip.setText("Shizuku");
-                mCommandInput.setHint(R.string.command_title);
-              } else if (isRootMode()) {
-                mChip.setText("Root");
-                mCommandInput.setHint(R.string.command_title_root);
-              }
-            })
-        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
-        .show();
   }
 
   // The edit text end icon which is responsible for adding /removing bookmarks

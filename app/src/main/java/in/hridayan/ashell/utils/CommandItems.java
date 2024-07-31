@@ -66,6 +66,7 @@ public class CommandItems implements Serializable {
             .replaceAll("<[^>]*>", "")
             .replaceAll("/", "slash")
             .replaceAll("~", "tilde")
+            .replaceAll("\\*", "asterisk")
             .trim()
             .replaceAll("[ -]+", "_")
             .replaceAll("-", "_")

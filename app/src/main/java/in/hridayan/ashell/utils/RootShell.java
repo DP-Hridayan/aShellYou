@@ -17,7 +17,7 @@ public class RootShell {
   private static List<String> mOutput;
   private static String mCommand;
   private static Process mProcess = null;
-  private static final int TIMEOUT_SECONDS = 1;
+  private static final int TIMEOUT = 750; // in milliseconds
 
   public RootShell(List<String> output, String command) {
     mOutput = output;
@@ -28,7 +28,8 @@ public class RootShell {
   public static void exec() {
 
     try {
-      mProcess = Runtime.getRuntime().exec(mCommand);
+      /*We prefix the command with "su -c " to run the command with root priviledge*/
+      mProcess = Runtime.getRuntime().exec("su -c " + mCommand);
 
       BufferedReader mInput = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
       BufferedReader mError = new BufferedReader(new InputStreamReader(mProcess.getErrorStream()));
@@ -140,7 +141,7 @@ public class RootShell {
 
     thread.start();
     try {
-      thread.join(TIMEOUT_SECONDS * 1000); // Wait for the specified timeout
+      thread.join(TIMEOUT); // Wait for the specified timeout
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
@@ -179,7 +180,7 @@ public class RootShell {
 
     thread.start();
     try {
-      thread.join(TIMEOUT_SECONDS * 1000); // Wait for the specified timeout
+      thread.join(TIMEOUT); // Wait for the specified timeout
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }

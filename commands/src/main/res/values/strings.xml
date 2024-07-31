@@ -1,9 +1,7 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
-    
     //Created by DP-Hridayan
-
     <string name="am_force_stop">Completely stop a given package</string>
     <string name="am_kill">Kill all background processes associated with a given package</string>
     <string name="am_kill_all">Kill all processes that are safe to kill (cached, etc)</string>
@@ -14,9 +12,15 @@
     <string name="cd_hyphen">Go to previous directory</string>
     <string name="cd_..">Go to parent directory</string>
     <string name="clear">Clear terminal screen</string>
+    <string name="cmd_uimode_night_no">Change the device theme to light mode</string>
+    <string name="cmd_uimode_night_yes">Change the device theme to dark mode</string>
     <string name="cp">Copy a file</string>
     <string name="cp_r">Copy a file or directory</string>
+    <string name="date">Displays current date and time</string>
+    <string name="df_h_slashsystem">Shows the available and used disk space on the &#47;system partition in a human-readable format</string>
+    <string name="dmesg">Displays kernel and system messages</string>
     <string name="du_h">Shows disk usage in human readable form</string>
+    <string name="du_sh_slashsystemslashasterisk">Shows the disk usage of each directory within &#47;system&#47;</string>
     <string name="dumpsys_activity">Print activity info</string>
     <string name="dumpsys_battery">Print battery stats</string>
     <string name="dumpsys_battery_set_level">Change the level from 0 to 100</string>
@@ -26,7 +30,9 @@
     <string name="echo">Display message on screen</string>
     <string name="exit">Exit the shell</string>
     <string name="file">Determine file type</string>
+    <string name="getenforce">Displays the current SELinux mode (Enforcing, Permissive, or Disabled)</string>
     <string name="grep">Search file(s) for lines that match a given pattern</string>
+    <string name="iptables_L">Lists the current IP tables rules</string>
     <string name="kill">Kill a process by specifying its PID</string>
     <string name="logcat">Display real-time log of system messages</string>
     <string name="logcat_g">Displays current log buffer sizes</string>

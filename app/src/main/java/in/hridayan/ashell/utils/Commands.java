@@ -25,6 +25,8 @@ public class Commands {
     mCommands.add(new CommandItems("cd -", "cd -", context));
 
     mCommands.add(new CommandItems("clear", "clear", context));
+    mCommands.add(new CommandItems("cmd uimode night no", "cmd uimode night no", context));
+    mCommands.add(new CommandItems("cmd uimode night yes", "cmd uimode night yes", context));
     mCommands.add(
         new CommandItems(
             "cp <from> <to>",
@@ -36,7 +38,11 @@ public class Commands {
             "cp -r /system/app /sdcard\n\ncp -r /system/app /sdcard/abc",
             context));
 
+    mCommands.add(new CommandItems("date", "date", context));
+    mCommands.add(new CommandItems("df -h /system", "df -h /system", context));
+    mCommands.add(new CommandItems("dmesg", "dmesg", context));
     mCommands.add(new CommandItems("du -h", "du -h", context));
+    mCommands.add(new CommandItems("du -sh /system/*", "du -sh/system/*", context));
     mCommands.add(new CommandItems("dumpsys activity", "dumpsys activity", context));
     mCommands.add(new CommandItems("dumpsys battery", "dumpsys battery", context));
     mCommands.add(
@@ -50,7 +56,9 @@ public class Commands {
     mCommands.add(new CommandItems("echo <message>", "echo Hello World", context));
     mCommands.add(new CommandItems("exit", "exit", context));
     mCommands.add(new CommandItems("file <file_path>", "file /system/build.prop", context));
+    mCommands.add(new CommandItems("getenforce", "getenforce", context));
     mCommands.add(new CommandItems("grep", "grep", context));
+    mCommands.add(new CommandItems("iptables -L", "iptables -L", context));
     mCommands.add(new CommandItems("kill <pid>", "kill <pid>", context));
     mCommands.add(new CommandItems("logcat", "logcat", context));
     mCommands.add(new CommandItems("logcat -g", "logcat -g", context));
@@ -82,8 +90,14 @@ public class Commands {
             "pm disable <package/component>",
             "pm disable com.android.package/com.android.package.exampleActivity",
             context));
-       mCommands.add(new CommandItems("pm disable-user <package>", "pm disable-user com.android.package", context));
-       mCommands.add(new CommandItems("pm disable-user --user <user_id> <package>", "pm disable-user --user 0 com.android.package", context));
+    mCommands.add(
+        new CommandItems(
+            "pm disable-user <package>", "pm disable-user com.android.package", context));
+    mCommands.add(
+        new CommandItems(
+            "pm disable-user --user <user_id> <package>",
+            "pm disable-user --user 0 com.android.package",
+            context));
     mCommands.add(new CommandItems("pm dump <package>", "pm dump com.android.package", context));
     mCommands.add(
         new CommandItems("pm dump package packages", "pm dump package packages", context));
