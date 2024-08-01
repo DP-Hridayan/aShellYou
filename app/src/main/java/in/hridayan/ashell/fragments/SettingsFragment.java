@@ -242,7 +242,7 @@ public class SettingsFragment extends Fragment {
             false,
             false));
 
-    adapter = new SettingsAdapter(settingsData, context, currentTheme);
+    adapter = new SettingsAdapter(settingsData, context, currentTheme, requireActivity());
     settingsList.setAdapter(adapter);
     settingsList.setLayoutManager(new LinearLayoutManager(context));
 

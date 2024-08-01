@@ -1,10 +1,15 @@
-package in.hridayan.ashell.activities;
+package in.hridayan.ashell.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,10 +24,11 @@ import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChangelogActivity extends AppCompatActivity {
+public class ChangelogFragment extends Fragment {
   private ChangelogViewModel viewModel;
   private AppBarLayout appBarLayout;
   private RecyclerView recyclerViewChangelogs;
+  private Context context;
 
   private final String[] versionNames = {
     "v4.4.0", "v4.3.1", "v4.3.0", "v4.2.1", "v4.2.0", "v4.1.0", "v4.0.3", "v4.0.2", "v4.0.1",
@@ -32,13 +38,13 @@ public class ChangelogActivity extends AppCompatActivity {
   };
 
   @Override
-  protected void onPause() {
+  public void onPause() {
     super.onPause();
     viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
   }
 
   @Override
-  protected void onResume() {
+  public void onResume() {
     super.onResume();
     int position = Utils.recyclerViewPosition(recyclerViewChangelogs);
 
@@ -51,26 +57,35 @@ public class ChangelogActivity extends AppCompatActivity {
     }
   }
 
+  @Nullable
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    EdgeToEdge.enable(this);
-    ThemeUtils.updateTheme(this);
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_changelog);
+  public View onCreateView(
+      @NonNull LayoutInflater inflater,
+      @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+       context = requireContext();
 
-    appBarLayout = findViewById(R.id.appBarLayout);
+    return inflater.inflate(R.layout.fragment_changelog, container, false);
+  }
 
-    viewModel = new ViewModelProvider(this).get(ChangelogViewModel.class);
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
 
-    ImageView imageView = findViewById(R.id.arrow_back);
-    OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+    appBarLayout = view.findViewById(R.id.appBarLayout);
+
+    
+    viewModel = new ViewModelProvider(requireActivity()).get(ChangelogViewModel.class);
+
+    ImageView imageView = view.findViewById(R.id.arrow_back);
+    OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
     imageView.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, this);
+          HapticUtils.weakVibrate(v, context);
           dispatcher.onBackPressed();
         });
 
-    recyclerViewChangelogs = findViewById(R.id.recycler_view_changelogs);
+    recyclerViewChangelogs = view.findViewById(R.id.recycler_view_changelogs);
 
     List<ChangelogItem> changelogItems = new ArrayList<>();
 
@@ -78,11 +93,11 @@ public class ChangelogActivity extends AppCompatActivity {
       changelogItems.add(
           new ChangelogItem(
               getString(R.string.version) + "\t\t" + versionName,
-              Utils.loadChangelogText(versionName, this)));
+              Utils.loadChangelogText(versionName, getContext())));
     }
 
-    ChangelogAdapter adapter = new ChangelogAdapter(changelogItems, this);
+    ChangelogAdapter adapter = new ChangelogAdapter(changelogItems, getContext());
     recyclerViewChangelogs.setAdapter(adapter);
-    recyclerViewChangelogs.setLayoutManager(new LinearLayoutManager(this));
+    recyclerViewChangelogs.setLayoutManager(new LinearLayoutManager(context));
   }
 }

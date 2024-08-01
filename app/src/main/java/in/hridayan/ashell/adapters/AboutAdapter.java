@@ -3,6 +3,7 @@ package in.hridayan.ashell.adapters;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -13,8 +14,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.fragment.app.FragmentActivity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -25,7 +29,7 @@ import java.util.Map;
 
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
-import in.hridayan.ashell.activities.ChangelogActivity;
+import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 
@@ -38,10 +42,12 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
   private final List<Object> items;
   private final Context context;
+  private Activity activity;
 
-  public AboutAdapter(List<Object> items, Context context) {
+  public AboutAdapter(List<Object> items, Context context, Activity activity) {
     this.items = items;
     this.context = context;
+    this.activity = activity;
   }
 
   public interface AdapterListener {
@@ -162,13 +168,16 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
               Utils.openUrl(context, url);
             }
 
-            Intent intent;
             if (id.equals("id_changelogs")) {
-              intent = new Intent(context, ChangelogActivity.class);
+              ((FragmentActivity) activity)
+                  .getSupportFragmentManager()
+                  .beginTransaction()
+                  .replace(R.id.fragment_container, new ChangelogFragment())
+                  .addToBackStack(null)
+                  .commit();
             } else {
               return;
             }
-            context.startActivity(intent);
           };
 
       if (categoryCItem.getId().equals("id_version")) {

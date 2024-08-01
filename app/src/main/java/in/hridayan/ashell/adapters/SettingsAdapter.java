@@ -1,5 +1,6 @@
 package in.hridayan.ashell.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,12 +19,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.activities.AboutActivity;
 import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
@@ -35,11 +37,14 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   private final List<SettingsItem> settingsList;
   private final Context context;
   private int currentTheme;
+  private Activity activity;
 
-  public SettingsAdapter(List<SettingsItem> settingsList, Context context, int currentTheme) {
+  public SettingsAdapter(
+      List<SettingsItem> settingsList, Context context, int currentTheme, Activity activity) {
     this.settingsList = settingsList;
     this.context = context;
     this.currentTheme = currentTheme;
+    this.activity = activity;
   }
 
   public SettingsAdapter(List<SettingsItem> settingsList, Context context) {
@@ -103,8 +108,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
               break;
 
             case "id_about":
-              intent = new Intent(context, AboutActivity.class);
-              context.startActivity(intent);
+              ((FragmentActivity) activity)
+                  .getSupportFragmentManager()
+                  .beginTransaction()
+                  .replace(R.id.fragment_container, new AboutFragment())
+                  .addToBackStack(null)
+                  .commit();
               break;
 
             case "id_default_language":

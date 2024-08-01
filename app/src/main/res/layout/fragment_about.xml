@@ -1,15 +1,15 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/layout_changelogs"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
     android:background="?attr/colorSurface"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ChangelogActivity">
+    android:orientation="vertical"
+    tools:context=".AboutActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -21,12 +21,11 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            app:expandedTitleMarginBottom="45dp"
             app:expandedTitleMarginEnd="25dp"
             app:expandedTitleMarginStart="25dp"
             app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="@string/changelogs"
+            app:title="@string/about"
             style="@style/ToolbarContentScrim">
 
             <androidx.appcompat.widget.Toolbar
@@ -48,9 +47,10 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_changelogs"
+        android:id="@+id/about_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layerType="hardware" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
