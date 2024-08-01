@@ -18,11 +18,14 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.graphics.drawable.Drawable;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -99,7 +102,7 @@ public class aShellFragment extends Fragment {
   private View view;
   private Context context;
   private aShellFragmentViewModel viewModel;
-  private Chip mChip;
+  private Button mModeButton;
 
   public aShellFragment() {}
 
@@ -162,7 +165,7 @@ public class aShellFragment extends Fragment {
         break;
     }
 
-    handleChipTextAndCommandHint();
+    handleModeButtonTextAndCommandHint();
 
     // Handles save button visibility across config changes
     if (!viewModel.isSaveButtonVisible()) {
@@ -237,7 +240,7 @@ public class aShellFragment extends Fragment {
     mBookMarks = view.findViewById(R.id.bookmarks);
     mBottomButton = view.findViewById(R.id.fab_down);
     mClearButton = view.findViewById(R.id.clear);
-    mChip = view.findViewById(R.id.local_adb_chip);
+    mModeButton = view.findViewById(R.id.mode_button);
     mPasteButton = view.findViewById(R.id.paste_button);
     mCommand = view.findViewById(R.id.shell_command);
     mCommandInput = view.findViewById(R.id.shell_command_layout);
@@ -291,7 +294,7 @@ public class aShellFragment extends Fragment {
     BehaviorFAB.handleTopAndBottomArrow(
         mTopButton, mBottomButton, mRecyclerViewOutput, null, context, "local_shell");
 
-    handleChipTextAndCommandHint();
+    handleModeButtonTextAndCommandHint();
 
     // When there is any text in edit text , focus the edit text
     if (!mCommand.getText().toString().isEmpty()) {
@@ -346,7 +349,7 @@ public class aShellFragment extends Fragment {
           }
         });
 
-    chipOnClickListener();
+    modeButtonOnClickListener();
 
     sendButtonOnClickListener();
 
@@ -569,9 +572,9 @@ public class aShellFragment extends Fragment {
     }
   }
 
-  // Onclick listener for the chip indicating working mode
-  private void chipOnClickListener() {
-    mChip.setOnClickListener(
+  // Onclick listener for the button indicating working mode
+  private void modeButtonOnClickListener() {
+    mModeButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
           if (isBasicMode()) {
@@ -583,8 +586,6 @@ public class aShellFragment extends Fragment {
             boolean hasRoot = RootShell.isDeviceRooted() && RootShell.hasPermission();
             connectedDeviceDialog(hasRoot ? Utils.getDeviceName() : getString(R.string.none));
           }
-
-          mChip.setChecked(!mChip.isChecked());
         });
   }
 
@@ -629,7 +630,7 @@ public class aShellFragment extends Fragment {
             (dialog, which) -> {
               Preferences.setLocalAdbMode(context, preference[0]);
               mCommandInput.setError(null);
-              handleChipTextAndCommandHint();
+              handleModeButtonTextAndCommandHint();
             })
         .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
         .show();
@@ -1436,16 +1437,16 @@ public class aShellFragment extends Fragment {
     return mHistory;
   }
 
-  /* This method handles the text on the chip and the text input layout hint in various cases */
-  private void handleChipTextAndCommandHint() {
+  /* This method handles the text on the button and the text input layout hint in various cases */
+  private void handleModeButtonTextAndCommandHint() {
     if (isBasicMode()) {
-      mChip.setText("Basic shell");
+      mModeButton.setText("Basic shell");
       mCommandInput.setHint(R.string.command_title);
     } else if (isShizukuMode()) {
-      mChip.setText("Shizuku");
+      mModeButton.setText("Shizuku");
       mCommandInput.setHint(R.string.command_title);
     } else if (isRootMode()) {
-      mChip.setText("Root");
+      mModeButton.setText("Root");
       mCommandInput.setHint(R.string.command_title_root);
     }
   }

@@ -14,30 +14,40 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:layout_height="180dp"
+            android:layout_height="140dp"
             android:layout_width="match_parent"
             android:gravity="center"
             android:clickable="true"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
             android:id="@+id/app_name_layout">
 
-            <com.google.android.material.textview.MaterialTextView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                style="@style/ExpandedToolbarTitle"
                 android:layout_marginTop="20dp"
-                android:layout_marginStart="25dp"
-                android:text="@string/app_name" />
+                android:layout_marginHorizontal="25dp"
+                android:layout_gravity="bottom">
 
-            <com.google.android.material.chip.Chip
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                style="@style/Widget.Material3.Chip.Suggestion"
-                android:layout_marginStart="25dp"
-                android:checked="true"
-                android:id="@+id/local_adb_chip"
-                android:layout_gravity="bottom" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/app_name_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ExpandedToolbarTitle"
+                    android:text="@string/app_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <Button
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    style="@style/Widget.Material3.Button.Icon"
+                    android:id="@+id/mode_button" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"
@@ -72,6 +82,7 @@
         <FrameLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:paddingBottom="15dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
@@ -87,7 +98,7 @@
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="25dp"
                 android:src="@drawable/ic_help"
                 android:layout_marginTop="2dp"
                 android:id="@+id/send"
@@ -97,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 app:endIconMode="custom"
-                android:layout_marginEnd="70dp"
+                android:layout_marginEnd="95dp"
                 app:endIconTint="?attr/colorPrimary"
                 android:padding="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

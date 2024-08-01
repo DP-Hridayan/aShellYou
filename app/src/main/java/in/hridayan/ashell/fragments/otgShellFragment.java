@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -49,7 +50,6 @@ import com.cgutman.adblib.UsbChannel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -100,7 +100,7 @@ public class otgShellFragment extends Fragment
   private UsbManager mManager;
   private BottomNavigationView mNav;
   private CommandsAdapter mCommandsAdapter;
-  private Chip mChip;
+  private Button mModeButton;
   private LinearLayoutCompat terminalView;
   private MaterialButton mSettingsButton,
       mBookMarks,
@@ -248,7 +248,7 @@ public class otgShellFragment extends Fragment
     mBottomButton = view.findViewById(R.id.fab_down);
     mCable = view.findViewById(R.id.otg_cable);
     mClearButton = view.findViewById(R.id.clear);
-    mChip = view.findViewById(R.id.chip);
+    mModeButton = view.findViewById(R.id.mode_button);
     mCommand = view.findViewById(R.id.shell_command);
     mCommandInput = view.findViewById(R.id.shell_command_layout);
     dismissCard = view.findViewById(R.id.dimiss_card);
@@ -562,8 +562,8 @@ public class otgShellFragment extends Fragment
     // The cross to dismiss the info card
     dismissCardOnClickListener();
 
-    // Chip to view the connected device
-    mChipOnClickListener();
+    // Button to view the connected device
+    modeButtonOnClickListener();
 
     // Settings button onClick listener
     settingsButtonOnClickListener();
@@ -743,7 +743,7 @@ public class otgShellFragment extends Fragment
     mClearButton.setVisibility(View.VISIBLE);
     logs.setText("");
     mShellCard.setVisibility(View.VISIBLE);
-    mChipOnClickListener();
+    modeButtonOnClickListener();
   }
 
   private void putCommand() {
@@ -846,9 +846,9 @@ public class otgShellFragment extends Fragment
     showBottomNav();
   }
 
-  // Chip showing the mode and connected device
-  private void mChipOnClickListener() {
-    mChip.setOnClickListener(
+  // Button showing the mode and connected device
+  private void modeButtonOnClickListener() {
+    mModeButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
           if (mDevice != null) {
@@ -859,7 +859,6 @@ public class otgShellFragment extends Fragment
           } else {
             Utils.connectedDeviceDialog(context, getString(R.string.none));
           }
-          mChip.setChecked(!mChip.isChecked());
         });
   }
 
@@ -1006,7 +1005,7 @@ public class otgShellFragment extends Fragment
         v -> {
           HapticUtils.weakVibrate(v, context);
           KeyboardUtils.closeKeyboard(requireActivity(), v);
-          mChipOnClickListener();
+          modeButtonOnClickListener();
           sendButtonClicked = true;
           mPasteButton.hide();
           mUndoButton.hide();
@@ -1058,8 +1057,7 @@ public class otgShellFragment extends Fragment
     instructionsButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          Utils.openUrl(
-              context, "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md");
+          Utils.openUrl(context, Preferences.otgInstructions);
         });
   }
 }

@@ -6,9 +6,11 @@ import androidx.preference.PreferenceManager;
 import in.hridayan.ashell.BuildConfig;
 
 public class Preferences {
+
   public static final String
       buildGradleUrl =
           "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle",
+      otgInstructions = "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md",
       devEmail = "hridayanofficial@gmail.com",
       PREF_AMOLED_THEME = "id_amoled_theme",
       PREF_COUNTER_PREFIX = "counter_",
