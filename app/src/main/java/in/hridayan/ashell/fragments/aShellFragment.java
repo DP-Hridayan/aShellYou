@@ -45,7 +45,7 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.aShellFragmentViewModel;
-import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.activities.MainActivity;
 
 import in.hridayan.ashell.adapters.CommandsAdapter;
@@ -1425,8 +1425,12 @@ public class aShellFragment extends Fragment {
 
   // Open command examples activity
   private void goToExamples() {
-    Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
-    startActivity(examples);
+               requireActivity()
+                  .getSupportFragmentManager()
+                  .beginTransaction()
+                  .replace(R.id.fragment_container, new ExamplesFragment())
+                  .addToBackStack(null)
+                  .commit();
   }
 
   // Get the command history

@@ -1,9 +1,15 @@
 package in.hridayan.ashell.activities;
 
+import in.hridayan.ashell.fragments.AboutFragment;
+import in.hridayan.ashell.fragments.ChangelogFragment;
+import in.hridayan.ashell.fragments.ExamplesFragment;
+import static in.hridayan.ashell.utils.Preferences.EXAMPLES_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.SETTINGS_FRAGMENT;
+import static in.hridayan.ashell.utils.Preferences.CHANGELOG_FRAGMENT;
+import static in.hridayan.ashell.utils.Preferences.ABOUT_FRAGMENT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -352,6 +358,12 @@ public class MainActivity extends AppCompatActivity
       currentFragment = LOCAL_FRAGMENT;
     } else if (fragment instanceof otgShellFragment) {
       currentFragment = OTG_FRAGMENT;
+    } else if (fragment instanceof ExamplesFragment) {
+      currentFragment = EXAMPLES_FRAGMENT;
+    } else if (fragment instanceof AboutFragment) {
+      currentFragment = ABOUT_FRAGMENT;
+    } else if (fragment instanceof ChangelogFragment) {
+      currentFragment = CHANGELOG_FRAGMENT;
     }
   }
 
@@ -368,6 +380,17 @@ public class MainActivity extends AppCompatActivity
       case SETTINGS_FRAGMENT:
         replaceFragment(new SettingsFragment());
         break;
+      case EXAMPLES_FRAGMENT:
+        replaceFragment(new ExamplesFragment());
+        break;
+
+      case CHANGELOG_FRAGMENT:
+        replaceFragment(new ChangelogFragment());
+        break;
+      case ABOUT_FRAGMENT:
+        replaceFragment(new AboutFragment());
+        break;
+
       default:
         break;
     }
@@ -406,7 +429,7 @@ public class MainActivity extends AppCompatActivity
   /*We set the currentFragment value before then if current fragment value is SETTINGS_FRAGMENT we donot show the bottom navigation*/
   private void showBottomNavUnderConditions() {
     setCurrentFragment();
-    if (currentFragment != SETTINGS_FRAGMENT) {
+    if (currentFragment == LOCAL_FRAGMENT || currentFragment == OTG_FRAGMENT) {
       mNav.setVisibility(View.VISIBLE);
     }
   }

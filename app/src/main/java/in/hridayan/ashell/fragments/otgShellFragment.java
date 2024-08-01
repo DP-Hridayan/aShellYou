@@ -65,7 +65,6 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollUpListener;
 import in.hridayan.ashell.UI.BehaviorFAB.OtgShareButtonListener;
 import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.UI.KeyboardUtils;
-import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.MainActivity;
 
 import in.hridayan.ashell.adapters.CommandsAdapter;
@@ -308,8 +307,12 @@ public class otgShellFragment extends Fragment
       mSendButton.setOnClickListener(
           v -> {
             HapticUtils.weakVibrate(v, context);
-            Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
-            startActivity(examples);
+              requireActivity()
+                  .getSupportFragmentManager()
+                  .beginTransaction()
+                  .replace(R.id.fragment_container, new ExamplesFragment())
+                  .addToBackStack(null)
+                  .commit();
           });
     }
 
@@ -351,8 +354,12 @@ public class otgShellFragment extends Fragment
               mSendButton.setOnClickListener(
                   v -> {
                     HapticUtils.weakVibrate(v, context);
-                    Intent examples = new Intent(requireActivity(), ExamplesActivity.class);
-                    startActivity(examples);
+              requireActivity()
+                  .getSupportFragmentManager()
+                  .beginTransaction()
+                  .replace(R.id.fragment_container, new ExamplesFragment())
+                  .addToBackStack(null)
+                  .commit();
                   });
 
             } else {

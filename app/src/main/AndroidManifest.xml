@@ -25,7 +25,6 @@
         android:theme="@style/aShellYou.AppTheme"
         tools:targetApi="34">
 
-        <activity android:name=".activities.ExamplesActivity" />
         <activity android:name=".activities.CrashReportActivity" />
 
         <activity

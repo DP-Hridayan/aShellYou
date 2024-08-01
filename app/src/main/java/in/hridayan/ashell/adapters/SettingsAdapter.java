@@ -24,7 +24,7 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.activities.ExamplesActivity;
+import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
@@ -103,8 +103,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
               break;
 
             case "id_examples":
-              intent = new Intent(context, ExamplesActivity.class);
-              context.startActivity(intent);
+              ((FragmentActivity) activity)
+                  .getSupportFragmentManager()
+                  .beginTransaction()
+                  .replace(R.id.fragment_container, new ExamplesFragment())
+                  .addToBackStack(null)
+                  .commit();
               break;
 
             case "id_about":

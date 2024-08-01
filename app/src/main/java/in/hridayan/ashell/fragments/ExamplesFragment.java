@@ -1,4 +1,4 @@
-package in.hridayan.ashell.activities;
+package in.hridayan.ashell.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,26 +7,36 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
+
 import androidx.activity.OnBackPressedDispatcher;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.search.SearchBar;
 import com.google.android.material.textview.MaterialTextView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.CustomSearchView;
 import in.hridayan.ashell.UI.ExamplesViewModel;
@@ -38,12 +48,9 @@ import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
-public class ExamplesActivity extends AppCompatActivity
-    implements ExamplesAdapter.OnItemClickListener {
+public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItemClickListener {
+
   private ExamplesViewModel viewModel;
   private AppBarLayout appBarLayout;
   private CustomSearchView searchView;
@@ -56,43 +63,27 @@ public class ExamplesActivity extends AppCompatActivity
   private Chip mSummaryChip;
   private MenuItem sort, pin, selectAll, addBookmark, deselectAll;
   private Menu searchBarMenu;
-  private View parent;
+  private View view;
   private int isSortingOptionSame;
   private boolean isSummaryChipClicked = false, isAllItemsSelected;
+  private Context context;
+  private BottomNavigationView mNav;
 
+  @Nullable
   @Override
-  protected void onPause() {
-    super.onPause();
-    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
-  }
+  public View onCreateView(
+      @NonNull LayoutInflater inflater,
+      @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    context = requireContext();
 
-  @Override
-  protected void onResume() {
-    super.onResume();
-
-    if (viewModel.isToolbarExpanded()) {
-      if (Utils.recyclerViewPosition(mRecyclerView) == 0) {
-        Utils.expandToolbar(appBarLayout);
-      }
-    } else {
-      Utils.collapseToolbar(appBarLayout);
-    }
-  }
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    EdgeToEdge.enable(this);
-
-    ThemeUtils.updateTheme(this);
-
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_examples);
-    parent = findViewById(android.R.id.content);
-    appBarLayout = findViewById(R.id.appBarLayout);
-    searchView = findViewById(R.id.search_view);
-    mSearchBar = findViewById(R.id.search_bar);
-    mSearchRecyclerView = findViewById(R.id.search_recycler_view);
-    mSummaryChip = findViewById(R.id.search_summary);
+    view = inflater.inflate(R.layout.fragment_examples, container, false);
+    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
+    appBarLayout = view.findViewById(R.id.appBarLayout);
+    searchView = view.findViewById(R.id.search_view);
+    mSearchBar = view.findViewById(R.id.search_bar);
+    mSearchRecyclerView = view.findViewById(R.id.search_recycler_view);
+    mSummaryChip = view.findViewById(R.id.search_summary);
     editText = searchView.getSearchEditText();
     searchBarMenu = mSearchBar.getMenu();
     sort = searchBarMenu.findItem(R.id.sort);
@@ -100,63 +91,61 @@ public class ExamplesActivity extends AppCompatActivity
     pin = searchBarMenu.findItem(R.id.pin);
     selectAll = searchBarMenu.findItem(R.id.select_all);
     deselectAll = searchBarMenu.findItem(R.id.deselect_all);
-    noCommandFoundText = findViewById(R.id.no_command_found);
-    itemList = Commands.commandList(this);
+    noCommandFoundText = view.findViewById(R.id.no_command_found);
+    itemList = Commands.commandList(context);
     viewModel = new ViewModelProvider(this).get(ExamplesViewModel.class);
-    ImageView imageView = findViewById(R.id.arrow_back);
 
-    OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+    ImageView imageView = view.findViewById(R.id.arrow_back);
+
+    OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
     imageView.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, this);
+          HapticUtils.weakVibrate(v, context);
           dispatcher.onBackPressed();
         });
+
+    mNav.setVisibility(View.GONE);
 
     mSearchBar.clearFocus();
     mSearchBar.setNavigationIcon(R.drawable.ic_search);
     mSearchBar.setOnMenuItemClickListener(
         item -> {
-          HapticUtils.weakVibrate(parent, this);
+          HapticUtils.weakVibrate(view, context);
           switch (item.getItemId()) {
             case R.id.sort:
-              sortingDialog(this, this);
+              sortingDialog(context, getActivity());
               return true;
-
             case R.id.select_all:
               mExamplesAdapter.selectAll();
               updateSearchBar();
               return true;
-
             case R.id.deselect_all:
               mExamplesAdapter.deselectAll();
               updateSearchBar();
               return true;
-
             case R.id.add_bookmark:
               manageBookmarkAddOrRemove();
               return true;
-
             case R.id.pin:
               managePinUnpin();
               return true;
-
             default:
               return false;
           }
         });
 
-    mRecyclerView = findViewById(R.id.recycler_view);
-    mSearchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    mRecyclerView = view.findViewById(R.id.recycler_view);
+    mSearchRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-    mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
     GridLayoutManager mLayoutManager =
         new GridLayoutManager(
-            this,
+            context,
             getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
                 ? 2
                 : 1);
     mRecyclerView.setLayoutManager(mLayoutManager);
-    mExamplesAdapter = new ExamplesAdapter(Commands.commandList(this), this);
+    mExamplesAdapter = new ExamplesAdapter(Commands.commandList(context), context);
     mExamplesAdapter.sortData();
     mExamplesAdapter.setOnItemClickListener(this);
     mRecyclerView.setAdapter(mExamplesAdapter);
@@ -179,6 +168,26 @@ public class ExamplesActivity extends AppCompatActivity
                 });
           }
         });
+
+    return view;
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    if (viewModel.isToolbarExpanded()) {
+      if (Utils.recyclerViewPosition(mRecyclerView) == 0) {
+        Utils.expandToolbar(appBarLayout);
+      }
+    } else {
+      Utils.collapseToolbar(appBarLayout);
+    }
   }
 
   private void filterList(CharSequence text) {
@@ -202,7 +211,7 @@ public class ExamplesActivity extends AppCompatActivity
     }
 
     mSearchRecyclerView.setVisibility(View.VISIBLE);
-    CommandsSearchAdapter adapter = new CommandsSearchAdapter(filteredList, this);
+    CommandsSearchAdapter adapter = new CommandsSearchAdapter(filteredList, context);
     mSearchRecyclerView.setAdapter(adapter);
   }
 
@@ -331,7 +340,7 @@ public class ExamplesActivity extends AppCompatActivity
             ? getString(R.string.confirm_batch_remove_bookmark, selectedCount)
             : getString(R.string.confirm_batch_add_bookmark, selectedCount);
 
-    new MaterialAlertDialogBuilder(this)
+    new MaterialAlertDialogBuilder(context)
         .setTitle(getString(R.string.confirm))
         .setMessage(message)
         .setPositiveButton(
@@ -355,8 +364,8 @@ public class ExamplesActivity extends AppCompatActivity
     int selectedItems = mExamplesAdapter.getSelectedItemsSize();
     boolean isAllItemBookmarked = mExamplesAdapter.isAllItemsBookmarked(),
         isLimitReached =
-            selectedItems + Utils.getBookmarks(this).size() > Preferences.MAX_BOOKMARKS_LIMIT
-                && !Preferences.getOverrideBookmarks(this);
+            selectedItems + Utils.getBookmarks(context).size() > Preferences.MAX_BOOKMARKS_LIMIT
+                && !Preferences.getOverrideBookmarks(context);
 
     boolean isBatch = selectedItems > 1;
     if (isBatch) {
@@ -376,16 +385,16 @@ public class ExamplesActivity extends AppCompatActivity
       boolean isAdded, boolean isBatch, boolean isLimitReached, int selectedCount) {
 
     if (isLimitReached && isAdded) {
-      Utils.snackBar(parent, getString(R.string.bookmark_limit_reached)).show();
+      Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
     } else if (isBatch) {
       int message =
           isAdded ? R.string.batch_bookmark_added_message : R.string.batch_bookmark_removed_message;
-      Utils.snackBar(parent, getString(message, selectedCount)).show();
+      Utils.snackBar(view, getString(message, selectedCount)).show();
     } else {
       String command =
           mExamplesAdapter.sanitizeText(mExamplesAdapter.selectedItems.get(0).getTitle());
       int message = isAdded ? R.string.bookmark_added_message : R.string.bookmark_removed_message;
-      Utils.snackBar(parent, getString(message, command)).show();
+      Utils.snackBar(view, getString(message, command)).show();
     }
   }
 
@@ -420,7 +429,7 @@ public class ExamplesActivity extends AppCompatActivity
               : getString(R.string.pinned_message, title);
     }
 
-    new MaterialAlertDialogBuilder(this)
+    new MaterialAlertDialogBuilder(context)
         .setTitle(getString(R.string.confirm))
         .setMessage(message)
         .setPositiveButton(
@@ -429,7 +438,7 @@ public class ExamplesActivity extends AppCompatActivity
               mExamplesAdapter.pinUnpinSelectedItems(isAllItemsPinned);
               endSelection();
               updateSearchBar();
-              Utils.snackBar(parent, snackBarMessage).show();
+              Utils.snackBar(view, snackBarMessage).show();
             })
         .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
         .show();

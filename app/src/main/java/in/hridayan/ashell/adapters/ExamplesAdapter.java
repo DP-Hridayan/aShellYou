@@ -53,7 +53,6 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
 
   public interface OnItemClickListener {
     void onItemClick(int position);
-
     void onItemLongClick(int position);
   }
 
