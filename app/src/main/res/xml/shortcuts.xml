@@ -12,18 +12,4 @@
             android:targetPackage="in.hridayan.ashell"
             android:targetClass="in.hridayan.ashell.activities.ExamplesActivity" />
     </shortcut>
-
-    <shortcut
-        android:shortcutId="shortcut_settings"
-        android:enabled="true"
-        android:icon="@mipmap/shortcut_settings"
-        android:shortcutShortLabel="@string/settings"
-        android:shortcutLongLabel="@string/settings"
-        android:shortcutDisabledMessage="@string/disabled">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetPackage="in.hridayan.ashell"
-            android:targetClass="in.hridayan.ashell.activities.SettingsActivity" />
-    </shortcut>
-
 </shortcuts>

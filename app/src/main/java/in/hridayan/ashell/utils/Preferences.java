@@ -40,6 +40,7 @@ public class Preferences {
       SORT_LEAST_USED = 3,
       LOCAL_FRAGMENT = 1,
       OTG_FRAGMENT = 2,
+      SETTINGS_FRAGMENT = 3,
       MODE_LOCAL_ADB = 0,
       MODE_OTG = 1,
       MODE_REMEMBER_LAST_MODE = 2,

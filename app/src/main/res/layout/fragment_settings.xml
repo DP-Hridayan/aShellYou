@@ -1,5 +1,5 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/activity_settings"
+    android:id="@+id/fragment_settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -8,8 +8,7 @@
     android:background="?attr/colorSurface"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".SettingsActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

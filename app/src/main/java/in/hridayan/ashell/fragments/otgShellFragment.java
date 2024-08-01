@@ -67,7 +67,7 @@ import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.MainActivity;
-import in.hridayan.ashell.activities.SettingsActivity;
+
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Commands;
@@ -937,11 +937,13 @@ public class otgShellFragment extends Fragment
   private void settingsButtonOnClickListener() {
     mSettingsButton.setTooltipText(getString(R.string.settings));
     mSettingsButton.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v, context);
-          Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
-          startActivity(settingsIntent);
-        });
+    v -> {
+        HapticUtils.weakVibrate(v, getContext());
+        requireActivity().getSupportFragmentManager().beginTransaction()
+            .replace(R.id.fragment_container, new SettingsFragment())
+            .addToBackStack(null)
+            .commit();
+    });
   }
 
   // OnClick listener for history button

@@ -31,9 +31,6 @@
         <activity android:name=".activities.CrashReportActivity" />
 
         <activity
-            android:name=".activities.SettingsActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.MainActivity"
             android:configChanges="keyboardHidden|uiMode|orientation|screenSize"
             android:screenOrientation="unspecified"

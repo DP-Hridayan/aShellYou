@@ -47,7 +47,7 @@ import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.aShellFragmentViewModel;
 import in.hridayan.ashell.activities.ExamplesActivity;
 import in.hridayan.ashell.activities.MainActivity;
-import in.hridayan.ashell.activities.SettingsActivity;
+
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
 import in.hridayan.ashell.utils.BasicShell;
@@ -144,8 +144,6 @@ public class aShellFragment extends Fragment {
   public void onResume() {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
-
-    // If there is bookmarks present , make the bookmarks button visible
 
     // This function is for restoring the Run button's icon after a configuration change
     switch (viewModel.getSendDrawable()) {
@@ -319,7 +317,7 @@ public class aShellFragment extends Fragment {
             mCommand.requestFocus();
 
             // If shizuku is busy return
-            if (mShizukuShell != null && mShizukuShell.isBusy()) {
+            if (mShizukuShell != null && ShizukuShell.isBusy()) {
               return;
             } else if (s.toString().trim().isEmpty()) {
 
@@ -642,9 +640,13 @@ public class aShellFragment extends Fragment {
 
     mSettingsButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
-          Intent settingsIntent = new Intent(requireActivity(), SettingsActivity.class);
-          startActivity(settingsIntent);
+          HapticUtils.weakVibrate(v, getContext());
+          requireActivity()
+              .getSupportFragmentManager()
+              .beginTransaction()
+              .replace(R.id.fragment_container, new SettingsFragment())
+              .addToBackStack(null)
+              .commit();
         });
   }
 

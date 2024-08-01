@@ -3,6 +3,7 @@ package in.hridayan.ashell.activities;
 import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
+import static in.hridayan.ashell.utils.Preferences.SETTINGS_FRAGMENT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.MainViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.fragments.SettingsFragment;
 import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.fragments.otgShellFragment;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity
   private static int currentFragment;
   private boolean isBlackThemeEnabled, isAmoledTheme;
   private MainViewModel viewModel;
+  private Fragment fragment;
 
   private String pendingSharedText = null;
 
@@ -63,7 +66,6 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onResult(int result) {
     if (result == Preferences.UPDATE_AVAILABLE) {
-
       Utils.showBottomSheetUpdate(this, this);
     }
   }
@@ -102,6 +104,7 @@ public class MainActivity extends AppCompatActivity
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
     // Catch exceptions
     Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(this));
 
@@ -111,6 +114,7 @@ public class MainActivity extends AppCompatActivity
     mNav = findViewById(R.id.bottom_nav_bar);
 
     // Hide the navigation bar when the keyboard is visible
+
     KeyboardUtils.attachVisibilityListener(
         this,
         new KeyboardUtils.KeyboardVisibilityListener() {
@@ -123,7 +127,7 @@ public class MainActivity extends AppCompatActivity
               new Handler(Looper.getMainLooper())
                   .postDelayed(
                       () -> {
-                        mNav.setVisibility(View.VISIBLE);
+                        showBottomNavUnderConditions();
                       },
                       100);
             }
@@ -271,7 +275,6 @@ public class MainActivity extends AppCompatActivity
           .getBoolean("Don't show beta otg warning", true)) {
         showBetaWarning();
       } else { */
-
       currentFragment = OTG_FRAGMENT;
       replaceFragment(new otgShellFragment());
 
@@ -342,8 +345,10 @@ public class MainActivity extends AppCompatActivity
   }
 
   private void setCurrentFragment() {
-    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-    if (fragment instanceof aShellFragment) {
+    fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    if (fragment instanceof SettingsFragment) {
+      currentFragment = SETTINGS_FRAGMENT;
+    } else if (fragment instanceof aShellFragment) {
       currentFragment = LOCAL_FRAGMENT;
     } else if (fragment instanceof otgShellFragment) {
       currentFragment = OTG_FRAGMENT;
@@ -359,6 +364,9 @@ public class MainActivity extends AppCompatActivity
       case OTG_FRAGMENT:
         mNav.setSelectedItemId(R.id.nav_otgShell);
         replaceFragment(new otgShellFragment());
+        break;
+      case SETTINGS_FRAGMENT:
+        replaceFragment(new SettingsFragment());
         break;
       default:
         break;
@@ -393,5 +401,13 @@ public class MainActivity extends AppCompatActivity
 
   public void clearPendingSharedText() {
     pendingSharedText = null;
+  }
+
+  /*We set the currentFragment value before then if current fragment value is SETTINGS_FRAGMENT we donot show the bottom navigation*/
+  private void showBottomNavUnderConditions() {
+    setCurrentFragment();
+    if (currentFragment != SETTINGS_FRAGMENT) {
+      mNav.setVisibility(View.VISIBLE);
+    }
   }
 }

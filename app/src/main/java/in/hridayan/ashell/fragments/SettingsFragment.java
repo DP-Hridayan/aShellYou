@@ -1,15 +1,21 @@
-package in.hridayan.ashell.activities;
+package in.hridayan.ashell.fragments;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.SettingsViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
@@ -17,12 +23,11 @@ import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.MiuiCheck;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
-import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsFragment extends Fragment {
 
   private RecyclerView settingsList;
   private List<SettingsItem> settingsData;
@@ -30,9 +35,11 @@ public class SettingsActivity extends AppCompatActivity {
   private int currentTheme;
   private SettingsViewModel viewModel;
   private AppBarLayout appBarLayout;
+  private Context context;
+  private BottomNavigationView mNav;
 
   @Override
-  protected void onPause() {
+  public void onPause() {
     super.onPause();
     if (settingsList != null) {
       viewModel.setScrollPosition(
@@ -43,9 +50,10 @@ public class SettingsActivity extends AppCompatActivity {
   }
 
   @Override
-  protected void onResume() {
+  public void onResume() {
     super.onResume();
-    int position = Utils.recyclerViewPosition(settingsList);
+
+    int position = viewModel.getScrollPosition();
 
     if (viewModel.isToolbarExpanded()) {
       if (position == 0) {
@@ -54,32 +62,43 @@ public class SettingsActivity extends AppCompatActivity {
     } else {
       Utils.collapseToolbar(appBarLayout);
     }
+
+    if (settingsList != null && settingsList.getLayoutManager() != null) {
+      // Restore scroll position
+      settingsList.getLayoutManager().scrollToPosition(position);
+    }
   }
 
+  @Nullable
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    EdgeToEdge.enable(this);
-    ThemeUtils.updateTheme(this);
+  public View onCreateView(
+      @NonNull LayoutInflater inflater,
+      @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
 
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_settings);
+    context = requireContext();
 
-    appBarLayout = findViewById(R.id.appBarLayout);
+    View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-    viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
-    setupRecyclerView();
+    appBarLayout = view.findViewById(R.id.appBarLayout);
+    settingsList = view.findViewById(R.id.settings_list);
 
-    ImageView imageView = findViewById(R.id.arrow_back);
+    viewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
-    OnBackPressedDispatcher dispatcher = getOnBackPressedDispatcher();
+    mNav.setVisibility(View.GONE);
+
+    ImageView imageView = view.findViewById(R.id.arrow_back);
+
+    OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
     imageView.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, this);
+          HapticUtils.weakVibrate(v, context);
           dispatcher.onBackPressed();
         });
 
-    settingsList = findViewById(R.id.settings_list);
+    settingsList = view.findViewById(R.id.settings_list);
     settingsData = new ArrayList<>();
 
     settingsData.add(
@@ -89,7 +108,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.amoled_theme),
             getString(R.string.des_amoled_theme),
             true,
-            Preferences.getAmoledTheme(this)));
+            Preferences.getAmoledTheme(context)));
 
     settingsData.add(
         new SettingsItem(
@@ -98,7 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.ask_to_clean),
             getString(R.string.des_ask_to_clean),
             true,
-            Preferences.getClear(this)));
+            Preferences.getClear(context)));
 
     settingsData.add(
         new SettingsItem(
@@ -107,7 +126,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.share_and_run),
             getString(R.string.des_share_and_run),
             true,
-            Preferences.getShareAndRun(this)));
+            Preferences.getShareAndRun(context)));
 
     settingsData.add(
         new SettingsItem(
@@ -116,7 +135,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.auto_update_check),
             getString(R.string.des_auto_update_check),
             true,
-            Preferences.getAutoUpdateCheck(this)));
+            Preferences.getAutoUpdateCheck(context)));
 
     settingsData.add(
         new SettingsItem(
@@ -158,7 +177,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.disable_softkey),
             getString(R.string.des_disable_softkey),
             true,
-            Preferences.getDisableSoftkey(this)));
+            Preferences.getDisableSoftkey(context)));
 
     settingsData.add(
         new SettingsItem(
@@ -167,7 +186,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.vibration),
             getString(R.string.des_vibration),
             true,
-            Preferences.getHapticsAndVibration(this)));
+            Preferences.getHapticsAndVibration(context)));
 
     settingsData.add(
         new SettingsItem(
@@ -176,7 +195,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.override_bookmarks_limit),
             getString(R.string.des_override_bookmarks),
             true,
-            Preferences.getOverrideBookmarks(this)));
+            Preferences.getOverrideBookmarks(context)));
 
     settingsData.add(
         new SettingsItem(
@@ -194,7 +213,7 @@ public class SettingsActivity extends AppCompatActivity {
             getString(R.string.smooth_scrolling),
             getString(R.string.des_smooth_scroll),
             true,
-            Preferences.getSmoothScroll(this)));
+            Preferences.getSmoothScroll(context)));
 
     settingsData.add(
         new SettingsItem(
@@ -223,21 +242,10 @@ public class SettingsActivity extends AppCompatActivity {
             false,
             false));
 
-    adapter = new SettingsAdapter(settingsData, this, currentTheme);
-
+    adapter = new SettingsAdapter(settingsData, context, currentTheme);
     settingsList.setAdapter(adapter);
-    settingsList.setLayoutManager(new LinearLayoutManager(this));
-  }
+    settingsList.setLayoutManager(new LinearLayoutManager(context));
 
-  private void setupRecyclerView() {
-    settingsList = findViewById(R.id.settings_list);
-    settingsList.setLayoutManager(new LinearLayoutManager(this));
-
-    List<SettingsItem> settingsData = viewModel.getSettingsData();
-    int scrollPosition = viewModel.getScrollPosition();
-
-    adapter = new SettingsAdapter(settingsData, this, currentTheme);
-    settingsList.setAdapter(adapter);
-    settingsList.scrollToPosition(scrollPosition);
+    return view;
   }
 }
