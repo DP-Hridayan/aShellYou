@@ -197,7 +197,7 @@ public class RootShell {
   public static boolean isBusy() {
     return mOutput != null
         && mOutput.size() > 0
-        && !mOutput.get(mOutput.size() - 1).equals("Shell is dead");
+        && !mOutput.get(mOutput.size() - 1).equals(Utils.shellDeadError());
   }
 
   /** Closes the current shell. */

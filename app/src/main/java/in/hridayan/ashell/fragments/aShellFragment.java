@@ -377,7 +377,7 @@ public class aShellFragment extends Fragment {
         () -> {
           if (mResult != null
               && !mResult.isEmpty()
-              && !mResult.get(mResult.size() - 1).equals("Shell is dead")) {
+              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())) {
             updateUI(mResult);
           }
         },
@@ -421,7 +421,7 @@ public class aShellFragment extends Fragment {
     List<String> mData = new ArrayList<>();
     try {
       for (String result : data) {
-        if (!TextUtils.isEmpty(result) && !result.equals("Shell is dead")) {
+        if (!TextUtils.isEmpty(result) && !result.equals(Utils.shellDeadError())) {
           mData.add(result);
         }
       }
@@ -540,7 +540,7 @@ public class aShellFragment extends Fragment {
     StringBuilder sb = new StringBuilder();
     for (int i = mPosition; i < mResult.size(); i++) {
       String result = mResult.get(i);
-      if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
+      if (!Utils.shellDeadError().equals(result) && !"<i></i>".equals(result)) {
         sb.append(result).append("\n");
       }
     }
@@ -867,7 +867,7 @@ public class aShellFragment extends Fragment {
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
             String result = mResult.get(i);
-            if (!"Shell is dead".equals(result) && !"<i></i>".equals(result)) {
+            if (!Utils.shellDeadError().equals(result)) {
               sb.append(result).append("\n");
             }
           }
@@ -1027,7 +1027,7 @@ public class aShellFragment extends Fragment {
                 handleShizukuUnavailability();
               } else if (!ShizukuShell.hasPermission()) {
                 Utils.shizukuPermRequestDialog(requireActivity(), context);
-              } else if (mShizukuShell != null && mShizukuShell.isBusy()) {
+              } else if (mShizukuShell != null && ShizukuShell.isBusy()) {
                 shellWorkingDialog();
               } else {
                 execShell(v);
@@ -1294,8 +1294,7 @@ public class aShellFragment extends Fragment {
   // Call this post command execution
   private void postExec() {
     if (mResult != null && !mResult.isEmpty()) {
-      mResult.add("<i></i>");
-      mResult.add("Shell is dead");
+      mResult.add(Utils.shellDeadError());
       if (!isKeyboardVisible) {
         mSaveButton.show();
         mShareButton.show();

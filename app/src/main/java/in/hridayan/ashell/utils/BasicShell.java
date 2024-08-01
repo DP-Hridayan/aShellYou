@@ -42,7 +42,7 @@ public class BasicShell {
   public static boolean isBusy() {
     return mOutput != null
         && mOutput.size() > 0
-        && !mOutput.get(mOutput.size() - 1).equals("Shell is dead");
+        && !mOutput.get(mOutput.size() - 1).equals(Utils.shellDeadError());
   }
 
   // Destroys the running shell process

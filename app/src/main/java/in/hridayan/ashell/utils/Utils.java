@@ -489,8 +489,10 @@ public class Utils {
 
   // Dialog asking to choose preferred local adb commands executing mode
   public static void localAdbModeDialog(Context context) {
-    final CharSequence[] preferences = {context.getString(R.string.basic_shell),
-      context.getString(R.string.shizuku), context.getString(R.string.root)
+    final CharSequence[] preferences = {
+      context.getString(R.string.basic_shell),
+      context.getString(R.string.shizuku),
+      context.getString(R.string.root)
     };
 
     int savePreference = Preferences.getLocalAdbMode(context);
@@ -774,7 +776,7 @@ public class Utils {
   public static String convertListToString(List<String> list) {
     StringBuilder sb = new StringBuilder();
     for (String s : list) {
-      if (!"Shell is dead".equals(s) && !"<i></i>".equals(s)) {
+      if (!Utils.shellDeadError().equals(s) && !"<i></i>".equals(s)) {
         sb.append(s).append("\n");
       }
     }
@@ -861,9 +863,9 @@ public class Utils {
             (dialogInterface, i) -> {
               RootShell.exec("su", true);
               RootShell.refresh();
-                if(!RootShell.hasPermission()){
-                    Utils.grantPermissionManually(activity, context);
-                }
+              if (!RootShell.hasPermission()) {
+                Utils.grantPermissionManually(activity, context);
+              }
             })
         .show();
   }
@@ -879,14 +881,18 @@ public class Utils {
             (dialogInterface, i) -> Shizuku.requestPermission(0))
         .show();
   }
-    /*Method to display a dialog which asks user to manually grant root permission*/
-    public static void grantPermissionManually(Activity activity, Context context){
-       new MaterialAlertDialogBuilder(activity)
+
+  /*Method to display a dialog which asks user to manually grant root permission*/
+  public static void grantPermissionManually(Activity activity, Context context) {
+    new MaterialAlertDialogBuilder(activity)
         .setTitle(context.getString(R.string.error))
         .setMessage(context.getString(R.string.grant_permission_manually))
-        .setPositiveButton(
-            context.getString(R.string.ok),
-            (dialogInterface, i) -> {})
+        .setPositiveButton(context.getString(R.string.ok), (dialogInterface, i) -> {})
         .show();
-    }
+  }
+
+  // String that shows Shell is dead in red color
+  public static String shellDeadError() {
+    return "<font color=#FF0000>" + "Shell is dead" + "</font>";
+  }
 }
