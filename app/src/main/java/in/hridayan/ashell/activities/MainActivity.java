@@ -1,15 +1,12 @@
 package in.hridayan.ashell.activities;
 
-import in.hridayan.ashell.fragments.AboutFragment;
-import in.hridayan.ashell.fragments.ChangelogFragment;
-import in.hridayan.ashell.fragments.ExamplesFragment;
+import static in.hridayan.ashell.utils.Preferences.ABOUT_FRAGMENT;
+import static in.hridayan.ashell.utils.Preferences.CHANGELOG_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.EXAMPLES_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.SETTINGS_FRAGMENT;
-import static in.hridayan.ashell.utils.Preferences.CHANGELOG_FRAGMENT;
-import static in.hridayan.ashell.utils.Preferences.ABOUT_FRAGMENT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +25,9 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.MainViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.fragments.AboutFragment;
+import in.hridayan.ashell.fragments.ChangelogFragment;
+import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.SettingsFragment;
 import in.hridayan.ashell.fragments.StartFragment;
 import in.hridayan.ashell.fragments.aShellFragment;
@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity
     mNav = findViewById(R.id.bottom_nav_bar);
 
     // Hide the navigation bar when the keyboard is visible
-
     KeyboardUtils.attachVisibilityListener(
         this,
         new KeyboardUtils.KeyboardVisibilityListener() {
@@ -141,6 +140,7 @@ public class MainActivity extends AppCompatActivity
         });
 
     setupNavigation();
+
     // Show What's new bottom sheet on opening the app after an update
     if (Utils.isAppUpdated(this)) {
       Utils.showBottomSheetChangelog(this);
@@ -164,11 +164,6 @@ public class MainActivity extends AppCompatActivity
   // Intent to get the text shared to aShell You app
   private void handleSharedTextIntent(String sharedText, Intent intent) {
     setTextOnEditText(sharedText, intent);
-  }
-
-  // Intent to get the text when we use the "Use" feature in command examples
-  private void handleUseCommandIntent(String useCommand, Intent intent) {
-    setTextOnEditText(useCommand, intent);
   }
 
   // Set the text in the Input Field
@@ -333,7 +328,7 @@ public class MainActivity extends AppCompatActivity
   // Since there is option to set which working mode you want to display when app is launched , this
   // piece of code handles the logic for initial fragment
   private void initialFragment() {
-    if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true)) {
+    if (Preferences.getFirstLaunch(this)) {
       mNav.setVisibility(View.GONE);
       replaceFragment(new StartFragment());
     } else {
@@ -410,9 +405,6 @@ public class MainActivity extends AppCompatActivity
         pendingSharedText = sharedText;
         handleSharedTextIntent(sharedText, intent);
       }
-    } else if (intent.hasExtra("use_command")) {
-      String useCommand = intent.getStringExtra("use_command");
-      handleUseCommandIntent(useCommand, intent);
     } else if ("com.example.ACTION_USB_DETACHED".equals(intent.getAction())) {
       onUsbDetached();
     }

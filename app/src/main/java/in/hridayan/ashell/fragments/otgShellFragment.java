@@ -40,6 +40,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cgutman.adblib.AdbBase64;
@@ -65,8 +66,8 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollUpListener;
 import in.hridayan.ashell.UI.BehaviorFAB.OtgShareButtonListener;
 import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.MainViewModel;
 import in.hridayan.ashell.activities.MainActivity;
-
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.Commands;
@@ -122,6 +123,7 @@ public class otgShellFragment extends Fragment
   private View view;
   private AdbStream stream;
   private Context context;
+  private MainViewModel mainViewModel;
 
   private OnFragmentInteractionListener mListener;
 
@@ -156,6 +158,8 @@ public class otgShellFragment extends Fragment
     } else if (mWarningUsbDebugging.getVisibility() == View.VISIBLE) {
       mWarningUsbDebugging.setVisibility(View.GONE);
     }
+
+    handleUseCommand();
 
     MainActivity activity = (MainActivity) getActivity();
     if (activity != null) {
@@ -267,6 +271,10 @@ public class otgShellFragment extends Fragment
     mUndoButton = view.findViewById(R.id.fab_undo);
     mWarningUsbDebugging = view.findViewById(R.id.warning_usb_debugging);
     instructionsButton = view.findViewById(R.id.instructions_button);
+
+    // initialize viewmodel
+    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
     mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
 
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -307,12 +315,12 @@ public class otgShellFragment extends Fragment
       mSendButton.setOnClickListener(
           v -> {
             HapticUtils.weakVibrate(v, context);
-              requireActivity()
-                  .getSupportFragmentManager()
-                  .beginTransaction()
-                  .replace(R.id.fragment_container, new ExamplesFragment())
-                  .addToBackStack(null)
-                  .commit();
+            requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ExamplesFragment())
+                .addToBackStack(null)
+                .commit();
           });
     }
 
@@ -354,12 +362,12 @@ public class otgShellFragment extends Fragment
               mSendButton.setOnClickListener(
                   v -> {
                     HapticUtils.weakVibrate(v, context);
-              requireActivity()
-                  .getSupportFragmentManager()
-                  .beginTransaction()
-                  .replace(R.id.fragment_container, new ExamplesFragment())
-                  .addToBackStack(null)
-                  .commit();
+                    requireActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new ExamplesFragment())
+                        .addToBackStack(null)
+                        .commit();
                   });
 
             } else {
@@ -944,13 +952,15 @@ public class otgShellFragment extends Fragment
   private void settingsButtonOnClickListener() {
     mSettingsButton.setTooltipText(getString(R.string.settings));
     mSettingsButton.setOnClickListener(
-    v -> {
-        HapticUtils.weakVibrate(v, getContext());
-        requireActivity().getSupportFragmentManager().beginTransaction()
-            .replace(R.id.fragment_container, new SettingsFragment())
-            .addToBackStack(null)
-            .commit();
-    });
+        v -> {
+          HapticUtils.weakVibrate(v, getContext());
+          requireActivity()
+              .getSupportFragmentManager()
+              .beginTransaction()
+              .replace(R.id.fragment_container, new SettingsFragment())
+              .addToBackStack(null)
+              .commit();
+        });
   }
 
   // OnClick listener for history button
@@ -1068,5 +1078,13 @@ public class otgShellFragment extends Fragment
           HapticUtils.weakVibrate(v, context);
           Utils.openUrl(context, Preferences.otgInstructions);
         });
+  }
+
+  // Get the command when using Use feature
+  private void handleUseCommand() {
+    if (mainViewModel.getUseCommand() != null) {
+      updateInputField(mainViewModel.getUseCommand());
+      mainViewModel.setUseCommand(null);
+    }
   }
 }

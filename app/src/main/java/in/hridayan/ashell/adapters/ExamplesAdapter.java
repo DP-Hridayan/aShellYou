@@ -6,6 +6,7 @@ import static in.hridayan.ashell.utils.Preferences.SORT_MOST_USED;
 import static in.hridayan.ashell.utils.Preferences.SORT_Z_TO_A;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -15,13 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.MainViewModel;
 import in.hridayan.ashell.activities.MainActivity;
+import in.hridayan.ashell.fragments.aShellFragment;
 import in.hridayan.ashell.utils.CommandItems;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
@@ -41,6 +46,20 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
   public List<CommandItems> selectedItems = new ArrayList<>();
   private final Context context;
   private OnItemClickListener listener;
+  private UseCommandListener useCommandListener;
+  private Activity activity;
+  private MainViewModel viewModel;
+
+  public ExamplesAdapter(
+      List<CommandItems> data,
+      Context context,
+      Activity activity,
+      UseCommandListener useCommandListener) {
+    this.data = data;
+    this.context = context;
+    this.activity = activity;
+    this.useCommandListener = useCommandListener;
+  }
 
   public ExamplesAdapter(List<CommandItems> data, Context context) {
     this.data = data;
@@ -51,8 +70,13 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     this.listener = listener;
   }
 
+  public interface UseCommandListener {
+    void useCommand(String text);
+  }
+
   public interface OnItemClickListener {
     void onItemClick(int position);
+
     void onItemLongClick(int position);
   }
 
@@ -124,10 +148,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
                 (dialogInterface, i) -> {
                   int counter = data.get(getAdapterPosition()).getUseCounter();
                   data.get(getAdapterPosition()).setUseCounter(counter + 1);
-                  Intent intent = new Intent(context, MainActivity.class);
-                  intent.putExtra("use_command", sanitizedText);
-                  intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                  context.startActivity(intent);
+                  useCommandListener.useCommand(sanitizedText);
                 })
             .setNegativeButton(
                 R.string.copy,
@@ -179,6 +200,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     return selectedItems.size();
   }
 
+  // Select all items
   public void selectAll() {
     for (CommandItems item : data) {
       if (!item.isChecked()) {
@@ -189,6 +211,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     }
   }
 
+  // Deselect all items
   public void deselectAll() {
     for (CommandItems item : data) {
       if (item.isChecked()) {
@@ -199,6 +222,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     }
   }
 
+  // Add selected items to bookmarks list
   public void addSelectedToBookmarks() {
 
     int totalItems = selectedItems.size();
@@ -229,6 +253,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
             });
   }
 
+  // Delete the selected items from list of bookmarks
   public void deleteSelectedFromBookmarks() {
     for (CommandItems item : selectedItems) {
       String command = sanitizeText(item.getTitle());
@@ -236,6 +261,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     }
   }
 
+  // Check if every commands are bookmarked
   public boolean isAllItemsBookmarked() {
     for (CommandItems item : selectedItems) {
       String command = sanitizeText(item.getTitle());
@@ -246,6 +272,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     return true;
   }
 
+  // Check if every commands are pinned
   public boolean isAllItemsPinned() {
     for (CommandItems item : selectedItems) {
       if (!item.isPinned()) {
@@ -255,11 +282,13 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     return true;
   }
 
+  // Filters the text for copy and use function
   public String sanitizeText(String text) {
     String sanitizedText = text.replaceAll("<[^>]*>", "");
     return sanitizedText.trim();
   }
 
+  // Pin or unpin the selected items
   public void pinUnpinSelectedItems(boolean isAllPinned) {
 
     if (!selectedItems.isEmpty()) {
@@ -281,6 +310,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     }
   }
 
+  // Sort the command examples
   public void sortData() {
     data.sort(
         (item1, item2) -> {
@@ -319,6 +349,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     notifyDataSetChanged();
   }
 
+  // Color of the pin icon
   private int pinColor() {
     int currentMode =
         context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -327,6 +358,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
         : android.R.color.system_accent3_500;
   }
 
+  /*Translate the pin icon, necessary to avoid overlap with the checked icon when selecting commands*/
   private void translatePinIcon(boolean isChecked, AppCompatImageButton pin) {
     float translationX = isChecked ? -Utils.convertDpToPixel(30, context) : 0;
 

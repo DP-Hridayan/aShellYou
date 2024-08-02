@@ -10,6 +10,7 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.utils.Preferences;
 import rikka.shizuku.Shizuku;
 
 public class StartFragment extends Fragment {
@@ -37,10 +38,7 @@ public class StartFragment extends Fragment {
 
     mStartButton.setOnClickListener(
         v -> {
-          PreferenceManager.getDefaultSharedPreferences(requireContext())
-              .edit()
-              .putBoolean("firstLaunch", false)
-              .apply();
+          Preferences.setFirstLaunch(requireContext(), false);
           getParentFragmentManager()
               .beginTransaction()
               .replace(R.id.fragment_container, new aShellFragment())

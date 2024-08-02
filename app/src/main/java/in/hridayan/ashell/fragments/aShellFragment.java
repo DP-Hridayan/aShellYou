@@ -44,6 +44,7 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.MainViewModel;
 import in.hridayan.ashell.UI.aShellFragmentViewModel;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.activities.MainActivity;
@@ -103,6 +104,7 @@ public class aShellFragment extends Fragment {
   private Context context;
   private aShellFragmentViewModel viewModel;
   private Button mModeButton;
+  private MainViewModel mainViewModel;
 
   public aShellFragment() {}
 
@@ -164,6 +166,8 @@ public class aShellFragment extends Fragment {
     }
 
     handleModeButtonTextAndCommandHint();
+
+    handleUseCommand();
 
     // Handles save button visibility across config changes
     if (!viewModel.isSaveButtonVisible()) {
@@ -257,6 +261,7 @@ public class aShellFragment extends Fragment {
 
     // Viewmodel initialization
     viewModel = new ViewModelProvider(requireActivity()).get(aShellFragmentViewModel.class);
+    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
     mRecyclerViewOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -1425,12 +1430,12 @@ public class aShellFragment extends Fragment {
 
   // Open command examples activity
   private void goToExamples() {
-               requireActivity()
-                  .getSupportFragmentManager()
-                  .beginTransaction()
-                  .replace(R.id.fragment_container, new ExamplesFragment())
-                  .addToBackStack(null)
-                  .commit();
+    requireActivity()
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.fragment_container, new ExamplesFragment())
+        .addToBackStack(null)
+        .commit();
   }
 
   // Get the command history
@@ -1454,6 +1459,14 @@ public class aShellFragment extends Fragment {
     } else if (isRootMode()) {
       mModeButton.setText("Root");
       mCommandInput.setHint(R.string.command_title_root);
+    }
+  }
+
+  // Get the command when using Use feature
+  private void handleUseCommand() {
+    if (mainViewModel.getUseCommand() != null) {
+      updateInputField(mainViewModel.getUseCommand());
+      mainViewModel.setUseCommand(null);
     }
   }
 }

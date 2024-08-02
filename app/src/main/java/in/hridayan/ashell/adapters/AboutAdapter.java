@@ -14,24 +14,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import androidx.fragment.app.FragmentActivity;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.card.MaterialCardView;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private static final int CATEGORY = 0;

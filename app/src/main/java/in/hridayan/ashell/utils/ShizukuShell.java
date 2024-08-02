@@ -72,6 +72,8 @@ public class ShizukuShell {
 
   // Checks if the app has been granted shizuku permission
   public static boolean hasPermission() {
-    return Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
+    if (Shizuku.pingBinder())
+      return Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
+    else return false;
   }
 }

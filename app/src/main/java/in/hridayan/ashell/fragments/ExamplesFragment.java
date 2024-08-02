@@ -16,30 +16,25 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.search.SearchBar;
 import com.google.android.material.textview.MaterialTextView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.CustomSearchView;
 import in.hridayan.ashell.UI.ExamplesViewModel;
+import in.hridayan.ashell.UI.MainViewModel;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.utils.CommandItems;
@@ -48,10 +43,15 @@ import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
-public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItemClickListener {
+public class ExamplesFragment extends Fragment
+    implements ExamplesAdapter.OnItemClickListener, ExamplesAdapter.UseCommandListener {
 
   private ExamplesViewModel viewModel;
+  private MainViewModel mainViewModel;
   private AppBarLayout appBarLayout;
   private CustomSearchView searchView;
   private RecyclerView mRecyclerView, mSearchRecyclerView;
@@ -93,7 +93,10 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
     deselectAll = searchBarMenu.findItem(R.id.deselect_all);
     noCommandFoundText = view.findViewById(R.id.no_command_found);
     itemList = Commands.commandList(context);
-    viewModel = new ViewModelProvider(this).get(ExamplesViewModel.class);
+
+    // initialize viewmodels
+    viewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
+    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
     ImageView imageView = view.findViewById(R.id.arrow_back);
 
@@ -115,20 +118,25 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
             case R.id.sort:
               sortingDialog(context, getActivity());
               return true;
+
             case R.id.select_all:
               mExamplesAdapter.selectAll();
               updateSearchBar();
               return true;
+
             case R.id.deselect_all:
               mExamplesAdapter.deselectAll();
               updateSearchBar();
               return true;
+
             case R.id.add_bookmark:
               manageBookmarkAddOrRemove();
               return true;
+
             case R.id.pin:
               managePinUnpin();
               return true;
+
             default:
               return false;
           }
@@ -145,7 +153,9 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
                 ? 2
                 : 1);
     mRecyclerView.setLayoutManager(mLayoutManager);
-    mExamplesAdapter = new ExamplesAdapter(Commands.commandList(context), context);
+
+    mExamplesAdapter =
+        new ExamplesAdapter(Commands.commandList(context), context, requireActivity(), this);
     mExamplesAdapter.sortData();
     mExamplesAdapter.setOnItemClickListener(this);
     mRecyclerView.setAdapter(mExamplesAdapter);
@@ -215,6 +225,7 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
     mSearchRecyclerView.setAdapter(adapter);
   }
 
+  // Conduct search in only command titles
   private void searchTitle(CharSequence text, List<CommandItems> filteredList) {
     for (CommandItems item : itemList) {
       if (item.getTitle()
@@ -225,6 +236,7 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
     }
   }
 
+  // Conduct search in both command titles and summary
   private void searchTitleAndSummary(CharSequence text, List<CommandItems> filteredList) {
     for (CommandItems item : itemList) {
       if (item.getTitle()
@@ -238,6 +250,7 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
     }
   }
 
+  /* Onclick function for the chip which appears when no search result is found when only searched through titles */
   private void chipSummaryOnClick(CharSequence text, List<CommandItems> filteredList) {
     noCommandFoundText.setVisibility(View.GONE);
     searchTitleAndSummary(text, filteredList);
@@ -276,6 +289,7 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
         .show();
   }
 
+  // Update search bar when selecting items
   private void updateSearchBar() {
     int numSelectedItems = mExamplesAdapter.getSelectedItemsSize();
     isAllItemsSelected = numSelectedItems == mExamplesAdapter.getItemCount();
@@ -296,6 +310,7 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
         });
   }
 
+  // End the selection phase
   private void endSelection() {
     mSearchBar.setHint(R.string.search_command);
     mSearchBar.setNavigationIcon(R.drawable.ic_search);
@@ -304,6 +319,7 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
     updateMenuItemVisibility(false, isAllItemsSelected);
   }
 
+  // Enter the selection phase
   private void startSelection(int numSelectedItems) {
     String hint =
         getString(R.string.selected) + "\t\t" + "( " + Integer.toString(numSelectedItems) + " )";
@@ -359,6 +375,7 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
         .show();
   }
 
+  // Function to handle bookmarks add or remove
   private void manageBookmarkAddOrRemove() {
 
     int selectedItems = mExamplesAdapter.getSelectedItemsSize();
@@ -381,6 +398,7 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
     }
   }
 
+  // Snackbar message to show when commands are added or removed from bookmarks
   private void bookmarksAddedOrRemovedMessage(
       boolean isAdded, boolean isBatch, boolean isLimitReached, int selectedCount) {
 
@@ -398,6 +416,7 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
     }
   }
 
+  // Function which manages the pin and unpin commands feature
   private void managePinUnpin() {
     int size = mExamplesAdapter.getSelectedItemsSize();
     String title = mExamplesAdapter.selectedItems.get(0).getTitle();
@@ -452,5 +471,12 @@ public class ExamplesFragment extends Fragment implements ExamplesAdapter.OnItem
   @Override
   public void onItemLongClick(int position) {
     updateSearchBar();
+  }
+
+  @Override
+  public void useCommand(String command) {
+    mainViewModel.setUseCommand(command);
+    OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
+    dispatcher.onBackPressed();
   }
 }

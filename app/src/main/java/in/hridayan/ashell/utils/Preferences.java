@@ -12,6 +12,7 @@ public class Preferences {
           "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle",
       otgInstructions = "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md",
       devEmail = "hridayanofficial@gmail.com",
+      PREF_FIRST_LAUNCH = "first_launch",
       PREF_AMOLED_THEME = "id_amoled_theme",
       PREF_COUNTER_PREFIX = "counter_",
       PREF_PINNED_PREFIX = "pinned",
@@ -76,6 +77,15 @@ public class Preferences {
 
   public static void setLastSavedFileName(Context context, String value) {
     getSharedPreferences(context).edit().putString(PREF_LAST_SAVED_FILENAME, value).apply();
+  }
+
+  /*Boolean to check if app has been launched first time after installation , so we return true by default*/
+  public static boolean getFirstLaunch(Context context) {
+    return getSharedPreferences(context).getBoolean(PREF_FIRST_LAUNCH, true);
+  }
+
+  public static void setFirstLaunch(Context context, boolean value) {
+    getSharedPreferences(context).edit().putBoolean(PREF_FIRST_LAUNCH, value).apply();
   }
 
   public static boolean getAmoledTheme(Context context) {
