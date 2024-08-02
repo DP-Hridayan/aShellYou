@@ -196,36 +196,44 @@ public class otgShellFragment extends Fragment
         public void onReceive(Context context, Intent intent) {
           String action = intent.getAction();
           Log.d(Const.TAG, "mUsbReceiver onReceive => " + action);
-          if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
 
+          if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
             UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-            deviceName = device.getDeviceName();
-            if (mDevice != null && mDevice.getDeviceName().equals(deviceName)) {
-              try {
-                Log.d(Const.TAG, "setAdbInterface(null, null)");
-                setAdbInterface(null, null);
-              } catch (Exception e) {
-                Log.w(Const.TAG, "setAdbInterface(null,null) failed", e);
+            if (device != null) {
+              String deviceName = device.getDeviceName();
+              if (mDevice != null && mDevice.getDeviceName().equals(deviceName)) {
+                try {
+                  Log.d(Const.TAG, "setAdbInterface(null, null)");
+                  setAdbInterface(null, null);
+                } catch (Exception e) {
+                  Log.w(Const.TAG, "setAdbInterface(null, null) failed", e);
+                }
               }
             }
           } else if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
             UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-            asyncRefreshAdbConnection(device);
-            mListener.onRequestReset();
-
+            if (device != null) {
+              asyncRefreshAdbConnection(device);
+              mListener.onRequestReset();
+            }
           } else if (MessageOtg.USB_PERMISSION.equals(action)) {
-            System.out.println("From receiver!");
             UsbDevice usbDevice = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-            handler.sendEmptyMessage(CONNECTING);
-            if (mManager.hasPermission(usbDevice)) asyncRefreshAdbConnection(usbDevice);
-            else
-              mManager.requestPermission(
-                  usbDevice,
-                  PendingIntent.getBroadcast(
-                      requireContext().getApplicationContext(),
-                      0,
-                      new Intent(MessageOtg.USB_PERMISSION),
-                      PendingIntent.FLAG_IMMUTABLE));
+            if (usbDevice != null) {
+              handler.sendEmptyMessage(CONNECTING);
+              if (mManager.hasPermission(usbDevice)) {
+                asyncRefreshAdbConnection(usbDevice);
+              } else {
+                PendingIntent pendingIntent =
+                    PendingIntent.getBroadcast(
+                        requireContext().getApplicationContext(),
+                        0,
+                        new Intent(MessageOtg.USB_PERMISSION),
+                        PendingIntent.FLAG_IMMUTABLE);
+                mManager.requestPermission(usbDevice, pendingIntent);
+              }
+            } else {
+              Log.w(Const.TAG, "USB_DEVICE permission action received but usbDevice is null");
+            }
           }
         }
       };
