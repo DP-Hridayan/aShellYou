@@ -769,38 +769,7 @@ public class otgShellFragment extends Fragment
     modeButtonOnClickListener();
   }
 
-  private void putCommand() {
-
-    if (!mCommand.getText().toString().isEmpty()) {
-
-      mShellCard.setVisibility(View.VISIBLE);
-      mClearButton.setVisibility(View.VISIBLE);
-
-      // We become the sending thread
-      try {
-        String cmd = mCommand.getText().toString();
-        if (cmd.equalsIgnoreCase("clear")) {
-          clearAll();
-        } else if (cmd.equalsIgnoreCase("logcat")) {
-          Toast.makeText(
-                  context,
-                  "currently continous running operations are not working properly",
-                  Toast.LENGTH_LONG)
-              .show();
-        } else if (cmd.equalsIgnoreCase("exit")) {
-          requireActivity().finish();
-        } else {
-          stream.write((cmd + "\n").getBytes(StandardCharsets.UTF_8));
-        }
-        mCommand.setText("");
-      } catch (IOException e) {
-        Log.e("OTGShellFragment", "Error writing command", e);
-      } catch (InterruptedException e) {
-        Log.e("OTGShellFragment", "Interrupted writing command", e);
-      }
-    } else
-      Toast.makeText(requireContext(), getString(R.string.no_command), Toast.LENGTH_SHORT).show();
-  }
+  
 
   @Override
   public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -1050,23 +1019,58 @@ public class otgShellFragment extends Fragment
             mHistory.add(mCommand.getText().toString());
             putCommand();
           } else {
-
-            mCommandInput.setError(getString(R.string.device_not_connected));
-            mCommandInput.setErrorIconDrawable(
-                Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
-            mCommandInput.setErrorIconOnClickListener(t -> mCommand.setText(null));
-
-            Utils.alignMargin(mSendButton);
-            Utils.alignMargin(mCable);
-
-            new MaterialAlertDialogBuilder(requireActivity())
-                .setTitle(requireActivity().getString(R.string.error))
-                .setMessage(requireActivity().getString(R.string.otg_not_connected))
-                .setPositiveButton(
-                    requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
-                .show();
+            deviceConnectionErrorMessage();
           }
         });
+  }
+    
+   private void putCommand() {
+
+    if (!mCommand.getText().toString().isEmpty()) {
+      mShellCard.setVisibility(View.VISIBLE);
+      mClearButton.setVisibility(View.VISIBLE);
+
+      // We become the sending thread
+      try {
+        String cmd = mCommand.getText().toString();
+        if (cmd.equalsIgnoreCase("clear")) {
+          clearAll();
+        } else if (cmd.equalsIgnoreCase("logcat")) {
+          Toast.makeText(
+                  context,
+                  "currently continous running operations are not working properly",
+                  Toast.LENGTH_LONG)
+              .show();
+        } else if (cmd.equalsIgnoreCase("exit")) {
+          requireActivity().finish();
+        } else {
+          stream.write((cmd + "\n").getBytes(StandardCharsets.UTF_8));
+        }
+                
+        mCommand.setText("");
+      } catch (IOException e) {
+        Log.e("OTGShellFragment", "Error writing command", e);
+      } catch (InterruptedException e) {
+        Log.e("OTGShellFragment", "Interrupted writing command", e);
+      }
+    } else
+      Toast.makeText(requireContext(), getString(R.string.no_command), Toast.LENGTH_SHORT).show();
+  }
+
+  // Handles ui and feedback when otg device is not connected
+  private void deviceConnectionErrorMessage() {
+    mCommandInput.setError(getString(R.string.device_not_connected));
+    mCommandInput.setErrorIconDrawable(Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+    mCommandInput.setErrorIconOnClickListener(t -> mCommand.setText(null));
+
+    Utils.alignMargin(mSendButton);
+    Utils.alignMargin(mCable);
+
+    new MaterialAlertDialogBuilder(requireActivity())
+        .setTitle(requireActivity().getString(R.string.error))
+        .setMessage(requireActivity().getString(R.string.otg_not_connected))
+        .setPositiveButton(requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
+        .show();
   }
 
   // The cross which dismisses the card asking to turn on usb debugging
