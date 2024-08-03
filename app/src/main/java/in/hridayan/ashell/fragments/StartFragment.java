@@ -41,6 +41,12 @@ public class StartFragment extends Fragment {
           Preferences.setFirstLaunch(requireContext(), false);
           getParentFragmentManager()
               .beginTransaction()
+              .setCustomAnimations(
+                      R.anim.fragment_enter,
+                      R.anim.fragment_exit,
+                      R.anim.fragment_pop_enter,
+                      R.anim.fragment_pop_exit
+               )
               .replace(R.id.fragment_container, new aShellFragment())
               .commit();
         });
