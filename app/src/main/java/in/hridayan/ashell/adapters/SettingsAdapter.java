@@ -106,6 +106,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
               ((FragmentActivity) activity)
                   .getSupportFragmentManager()
                   .beginTransaction()
+                  .setCustomAnimations(
+                          R.anim.fragment_enter,
+                          R.anim.fragment_exit,
+                          R.anim.fragment_pop_enter,
+                          R.anim.fragment_pop_exit
+                   )
                   .replace(R.id.fragment_container, new ExamplesFragment())
                   .addToBackStack(null)
                   .commit();
@@ -115,6 +121,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
               ((FragmentActivity) activity)
                   .getSupportFragmentManager()
                   .beginTransaction()
+                  .setCustomAnimations(
+                          R.anim.fragment_enter,
+                          R.anim.fragment_exit,
+                          R.anim.fragment_pop_enter,
+                          R.anim.fragment_pop_exit
+                   )
                   .replace(R.id.fragment_container, new AboutFragment())
                   .addToBackStack(null)
                   .commit();
