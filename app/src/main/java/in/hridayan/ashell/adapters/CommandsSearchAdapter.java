@@ -25,16 +25,22 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
 
   private final List<CommandItems> data;
   private Context context;
+    private UseCommandInSearchListener useCommandListener;
 
-  public CommandsSearchAdapter(@Nullable List<CommandItems> data, Context context) {
+  public CommandsSearchAdapter(@Nullable List<CommandItems> data, Context context, UseCommandInSearchListener listener) {
     this.data = data != null ? data : new ArrayList<>();
     this.context = context;
+        this.useCommandListener = listener;
   }
 
   public void setFilteredList(List<CommandItems> filteredList) {
     this.data.clear();
     this.data.addAll(filteredList);
     notifyDataSetChanged();
+  }
+    
+   public interface UseCommandInSearchListener {
+    void useCommandInSearch(String text);
   }
 
   @NonNull
@@ -104,10 +110,8 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
                 (dialogInterface, i) -> {
                   int counter = data.get(getAdapterPosition()).getUseCounter();
                   data.get(getAdapterPosition()).setUseCounter(counter + 1);
-                  Intent intent = new Intent(context, MainActivity.class);
-                  intent.putExtra("use_command", sanitizedText);
-                  intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                  context.startActivity(intent);
+                 useCommandListener.useCommandInSearch(sanitizedText);
+                        
                 })
             .setNegativeButton(
                 R.string.copy,

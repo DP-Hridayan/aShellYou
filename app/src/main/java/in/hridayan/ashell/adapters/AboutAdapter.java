@@ -34,7 +34,6 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   private static final int CATEGORY_CONTRIBUTORS_ITEM = 2;
   private static final int CATEGORY_APP_ITEM = 3;
   private AdapterListener mListener;
-
   private final List<Object> items;
   private final Context context;
   private Activity activity;

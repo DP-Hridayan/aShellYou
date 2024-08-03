@@ -34,7 +34,7 @@
                 app:layout_collapseMode="pin">
 
                 <ImageView
-                    android:id="@+id/arrow_back"
+                    android:id="@+id/arrowBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -46,7 +46,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <com.google.android.material.search.SearchBar
-            android:id="@+id/search_bar"
+            android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_command"
@@ -57,28 +57,28 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/rvSearchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutAnimation="@anim/layout_animator"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <in.hridayan.ashell.UI.CustomSearchView
-        android:id="@+id/search_view"
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hint="@string/search_command"
-        app:layout_anchor="@id/search_bar">
+        app:layout_anchor="@id/searchBar">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_recycler_view"
+            android:id="@+id/rvSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/colorSurface"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/search_summary"
+            android:id="@+id/chipSearchSummary"
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
             android:layout_marginStart="25dp" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/no_command_found"
+            android:id="@+id/noCommandFound"
             android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"

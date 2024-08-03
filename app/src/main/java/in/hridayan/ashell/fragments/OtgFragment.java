@@ -149,6 +149,12 @@ public class OtgFragment extends Fragment
   }
 
   @Override
+  public void onPause() {
+    super.onPause();
+    mainViewModel.setPreviousFragment(Preferences.OTG_FRAGMENT);
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
@@ -326,12 +332,11 @@ public class OtgFragment extends Fragment
             requireActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()
-                    .setCustomAnimations(
-                            R.anim.fragment_enter,
-                            R.anim.fragment_exit,
-                            R.anim.fragment_pop_enter,
-                            R.anim.fragment_pop_exit
-                    )
+                .setCustomAnimations(
+                    R.anim.fragment_enter,
+                    R.anim.fragment_exit,
+                    R.anim.fragment_pop_enter,
+                    R.anim.fragment_pop_exit)
                 .replace(R.id.fragment_container, new ExamplesFragment())
                 .addToBackStack(null)
                 .commit();
@@ -340,8 +345,7 @@ public class OtgFragment extends Fragment
 
     // Logic for changing the command send button depending on the text on the EditText
 
-    mBookMarks.setVisibility(
-        !Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
+    mBookMarks.setVisibility(!Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
 
     mCommand.addTextChangedListener(
         new TextWatcher() {
@@ -379,12 +383,11 @@ public class OtgFragment extends Fragment
                     requireActivity()
                         .getSupportFragmentManager()
                         .beginTransaction()
-                            .setCustomAnimations(
-                                    R.anim.fragment_enter,
-                                    R.anim.fragment_exit,
-                                    R.anim.fragment_pop_enter,
-                                    R.anim.fragment_pop_exit
-                            )
+                        .setCustomAnimations(
+                            R.anim.fragment_enter,
+                            R.anim.fragment_exit,
+                            R.anim.fragment_pop_enter,
+                            R.anim.fragment_pop_exit)
                         .replace(R.id.fragment_container, new ExamplesFragment())
                         .addToBackStack(null)
                         .commit();
@@ -478,9 +481,7 @@ public class OtgFragment extends Fragment
                             requireActivity()));
 
                     mBookMarks.setVisibility(
-                        !Utils.getBookmarks(context).isEmpty()
-                            ? View.VISIBLE
-                            : View.GONE);
+                        !Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
                   });
 
               mSendButton.setImageDrawable(
@@ -781,8 +782,6 @@ public class OtgFragment extends Fragment
     modeButtonOnClickListener();
   }
 
-  
-
   @Override
   public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
     HapticUtils.weakVibrate(v, context);
@@ -946,12 +945,11 @@ public class OtgFragment extends Fragment
           requireActivity()
               .getSupportFragmentManager()
               .beginTransaction()
-                  .setCustomAnimations(
-                          R.anim.fragment_enter,
-                          R.anim.fragment_exit,
-                          R.anim.fragment_pop_enter,
-                          R.anim.fragment_pop_exit
-                  )
+              .setCustomAnimations(
+                  R.anim.fragment_enter,
+                  R.anim.fragment_exit,
+                  R.anim.fragment_pop_enter,
+                  R.anim.fragment_pop_exit)
               .replace(R.id.fragment_container, new SettingsFragment())
               .addToBackStack(null)
               .commit();
@@ -1041,8 +1039,8 @@ public class OtgFragment extends Fragment
           }
         });
   }
-    
-   private void putCommand() {
+
+  private void putCommand() {
 
     if (!mCommand.getText().toString().isEmpty()) {
       mShellCard.setVisibility(View.VISIBLE);
@@ -1064,7 +1062,7 @@ public class OtgFragment extends Fragment
         } else {
           stream.write((cmd + "\n").getBytes(StandardCharsets.UTF_8));
         }
-                
+
         mCommand.setText("");
       } catch (IOException e) {
         Log.e("OTGShellFragment", "Error writing command", e);

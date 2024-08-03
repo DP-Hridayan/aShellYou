@@ -3,10 +3,11 @@ package in.hridayan.ashell.viewmodels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import in.hridayan.ashell.utils.Preferences;
 
 public class MainViewModel extends ViewModel {
   private static final int nullValue = 2004;
-  private int currentFragment = nullValue;
+  private int currentFragment = nullValue, previousFragment = Preferences.LOCAL_FRAGMENT;
 
   private String useCommand;
 
@@ -28,5 +29,13 @@ public class MainViewModel extends ViewModel {
 
   public boolean isFragmentSaved() {
     return currentFragment != nullValue;
+  }
+
+  public int previousFragment() {
+    return previousFragment;
+  }
+
+  public void setPreviousFragment(int fragment) {
+    previousFragment = fragment;
   }
 }

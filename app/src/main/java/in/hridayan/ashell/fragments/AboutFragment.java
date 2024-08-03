@@ -7,17 +7,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.adapters.AboutAdapter;
+import in.hridayan.ashell.databinding.FragmentAboutBinding;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
@@ -30,13 +28,12 @@ import java.util.List;
 
 public class AboutFragment extends Fragment
     implements AboutAdapter.AdapterListener, FetchLatestVersionCodeCallback {
-
-  private RecyclerView recyclerView;
   private AboutAdapter adapter;
   private List<Object> items;
-  private AppBarLayout appBarLayout;
   private AboutViewModel viewModel;
   private Context context;
+  private FragmentAboutBinding binding;
+  private View view;
 
   @Nullable
   @Override
@@ -44,18 +41,19 @@ public class AboutFragment extends Fragment
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    context = requireContext();
-    View view = inflater.inflate(R.layout.fragment_about, container, false);
 
-    appBarLayout = view.findViewById(R.id.appBarLayout);
-    recyclerView = view.findViewById(R.id.about_list);
-    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    binding = FragmentAboutBinding.inflate(inflater, container, false);
+
+    view = binding.getRoot();
+
+    context = requireContext();
+
+    binding.rvAbout.setLayoutManager(new LinearLayoutManager(getContext()));
     items = new ArrayList<>();
 
     viewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
 
-    ImageView imageView = view.findViewById(R.id.arrow_back);
-    imageView.setOnClickListener(
+    binding.arrowBack.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, getContext());
           requireActivity().getSupportFragmentManager().popBackStack();
@@ -64,7 +62,7 @@ public class AboutFragment extends Fragment
     initializeItems();
     adapter = new AboutAdapter(items, context, requireActivity());
     adapter.setAdapterListener(this);
-    recyclerView.setAdapter(adapter);
+    binding.rvAbout.setAdapter(adapter);
 
     return view;
   }
@@ -167,7 +165,7 @@ public class AboutFragment extends Fragment
             getString(R.string.des_license),
             R.drawable.ic_license));
 
-    /* No currently running discord server
+    /* No currently running discord server , uncomment this if want to add discord server link
     items.add(new Category.AppItem("id_discord", getString(R.string.discord), getString(R.string.des_discord), R.drawable.ic_discord)); */
   }
 
