@@ -15,12 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.ChangelogViewModel;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.utils.ChangelogItem;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.viewmodels.ChangelogViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +62,7 @@ public class ChangelogFragment extends Fragment {
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-       context = requireContext();
+    context = requireContext();
 
     return inflater.inflate(R.layout.fragment_changelog, container, false);
   }
@@ -74,7 +73,6 @@ public class ChangelogFragment extends Fragment {
 
     appBarLayout = view.findViewById(R.id.appBarLayout);
 
-    
     viewModel = new ViewModelProvider(requireActivity()).get(ChangelogViewModel.class);
 
     ImageView imageView = view.findViewById(R.id.arrow_back);

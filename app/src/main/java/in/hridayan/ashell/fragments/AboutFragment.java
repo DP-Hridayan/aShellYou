@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.AboutViewModel;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.adapters.AboutAdapter;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
@@ -25,6 +24,7 @@ import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
+import in.hridayan.ashell.viewmodels.AboutViewModel;
 import java.util.ArrayList;
 import java.util.List;
 

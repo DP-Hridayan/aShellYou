@@ -11,7 +11,7 @@
         android:startOffset="35"
         android:toAlpha="0.0" />
     <scale
-        android:duration="300"
+        android:duration="350"
         android:fillAfter="true"
         android:fillBefore="true"
         android:fillEnabled="true"

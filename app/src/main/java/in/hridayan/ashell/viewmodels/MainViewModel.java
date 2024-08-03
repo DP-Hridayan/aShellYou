@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI;
+package in.hridayan.ashell.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

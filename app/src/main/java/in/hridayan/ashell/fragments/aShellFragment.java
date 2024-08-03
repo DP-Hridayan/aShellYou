@@ -1,11 +1,9 @@
 package in.hridayan.ashell.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,20 +17,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.graphics.drawable.Drawable;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,11 +39,7 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
 import in.hridayan.ashell.UI.KeyboardUtils;
-import in.hridayan.ashell.UI.MainViewModel;
-import in.hridayan.ashell.UI.aShellFragmentViewModel;
-import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.activities.MainActivity;
-
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
 import in.hridayan.ashell.utils.BasicShell;
@@ -60,12 +51,13 @@ import in.hridayan.ashell.utils.ShizukuShell;
 import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.viewmodels.MainViewModel;
+import in.hridayan.ashell.viewmodels.aShellFragmentViewModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -649,12 +641,11 @@ public class aShellFragment extends Fragment {
           requireActivity()
               .getSupportFragmentManager()
               .beginTransaction()
-                  .setCustomAnimations(
-                          R.anim.fragment_enter,
-                          R.anim.fragment_exit,
-                          R.anim.fragment_pop_enter,
-                          R.anim.fragment_pop_exit
-                  )
+              .setCustomAnimations(
+                  R.anim.fragment_enter,
+                  R.anim.fragment_exit,
+                  R.anim.fragment_pop_enter,
+                  R.anim.fragment_pop_exit)
               .replace(R.id.fragment_container, new SettingsFragment())
               .addToBackStack(null)
               .commit();
@@ -1434,16 +1425,17 @@ public class aShellFragment extends Fragment {
         .show();
   }
 
-  // Open command examples activity
+  // Open command examples fragment
   private void goToExamples() {
     requireActivity()
         .getSupportFragmentManager()
-        .beginTransaction().setCustomAnimations(
-                    R.anim.fragment_enter,
-                    R.anim.fragment_exit,
-                    R.anim.fragment_pop_enter,
-                    R.anim.fragment_pop_exit
-            ).replace(R.id.fragment_container, new ExamplesFragment())
+        .beginTransaction()
+        .setCustomAnimations(
+            R.anim.fragment_enter,
+            R.anim.fragment_exit,
+            R.anim.fragment_pop_enter,
+            R.anim.fragment_pop_exit)
+        .replace(R.id.fragment_container, new ExamplesFragment())
         .addToBackStack(null)
         .commit();
   }

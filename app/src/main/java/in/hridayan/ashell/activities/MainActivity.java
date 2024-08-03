@@ -23,7 +23,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
-import in.hridayan.ashell.UI.MainViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ChangelogFragment;
@@ -41,6 +40,7 @@ import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
+import in.hridayan.ashell.viewmodels.MainViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -262,12 +262,6 @@ public class MainActivity extends AppCompatActivity
       setCurrentFragment();
       getSupportFragmentManager()
           .beginTransaction()
-          .setCustomAnimations(
-                  R.anim.fragment_enter,
-                  R.anim.fragment_exit,
-                  R.anim.fragment_pop_enter,
-                  R.anim.fragment_pop_exit
-           )
           .replace(R.id.fragment_container, fragment)
           .commit();
     }

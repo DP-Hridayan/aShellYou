@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI;
+package in.hridayan.ashell.viewmodels;
 
 import java.util.List;
 import androidx.lifecycle.ViewModel;

@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI;
+package in.hridayan.ashell.viewmodels;
 
 import in.hridayan.ashell.utils.SettingsItem;
 import java.util.List;

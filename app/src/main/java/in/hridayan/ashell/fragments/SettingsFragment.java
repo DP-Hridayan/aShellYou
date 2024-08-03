@@ -17,13 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.SettingsViewModel;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.MiuiCheck;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.viewmodels.SettingsViewModel;
 import java.util.ArrayList;
 import java.util.List;
 

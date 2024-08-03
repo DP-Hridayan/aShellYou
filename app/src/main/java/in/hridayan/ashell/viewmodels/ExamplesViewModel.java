@@ -1,8 +1,8 @@
-package in.hridayan.ashell.UI;
+package in.hridayan.ashell.viewmodels;
 
 import androidx.lifecycle.ViewModel;
 
-public class ChangelogViewModel extends ViewModel {
+public class ExamplesViewModel extends ViewModel {
   private boolean isToolbarExpanded = true;
 
   public boolean isToolbarExpanded() {
