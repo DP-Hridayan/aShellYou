@@ -89,7 +89,7 @@ import java.util.List;
 // This fragment is taken from ADB OTG by Khun Htetz Naing and then modified by DP Hridayan to match
 // aShell You theme
 
-public class otgShellFragment extends Fragment
+public class OtgFragment extends Fragment
     implements TextView.OnEditorActionListener, View.OnKeyListener {
   private Handler handler;
   private UsbDevice mDevice;

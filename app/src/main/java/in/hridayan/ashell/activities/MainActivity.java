@@ -8,6 +8,7 @@ import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.SETTINGS_FRAGMENT;
 
+import in.hridayan.ashell.databinding.ActivityMainBinding;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,8 +30,8 @@ import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.SettingsFragment;
 import in.hridayan.ashell.fragments.StartFragment;
-import in.hridayan.ashell.fragments.aShellFragment;
-import in.hridayan.ashell.fragments.otgShellFragment;
+import in.hridayan.ashell.fragments.AshellFragment;
+import in.hridayan.ashell.fragments.OtgFragment;
 import in.hridayan.ashell.utils.CrashHandler;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -45,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-    implements otgShellFragment.OnFragmentInteractionListener, FetchLatestVersionCodeCallback {
+    implements OtgFragment.OnFragmentInteractionListener, FetchLatestVersionCodeCallback {
   private boolean isKeyboardVisible, hasAppRestarted = true;
   public BottomNavigationView mNav;
   private SettingsAdapter adapter;
@@ -54,17 +55,17 @@ public class MainActivity extends AppCompatActivity
   private boolean isBlackThemeEnabled, isAmoledTheme;
   private MainViewModel viewModel;
   private Fragment fragment;
-
   private String pendingSharedText = null;
+  private ActivityMainBinding binding;
 
   // Reset the OtgFragment
   @Override
   public void onRequestReset() {
     if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof otgShellFragment)) {
+        instanceof OtgFragment)) {
       currentFragment = OTG_FRAGMENT;
       mNav.setSelectedItemId(R.id.nav_otgShell);
-      replaceFragment(new otgShellFragment());
+      replaceFragment(new OtgFragment());
     }
   }
 
@@ -172,8 +173,8 @@ public class MainActivity extends AppCompatActivity
 
     switch (currentFragment) {
       case LOCAL_FRAGMENT:
-        aShellFragment fragmentLocalAdb =
-            (aShellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        AshellFragment fragmentLocalAdb =
+            (AshellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (fragmentLocalAdb != null) {
           if (intent.hasExtra(Intent.EXTRA_TEXT)) {
             fragmentLocalAdb.handleSharedTextIntent(getIntent(), text);
@@ -184,9 +185,8 @@ public class MainActivity extends AppCompatActivity
         break;
 
       case OTG_FRAGMENT:
-        otgShellFragment fragmentOtg =
-            (otgShellFragment)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        OtgFragment fragmentOtg =
+            (OtgFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (fragmentOtg != null) {
           fragmentOtg.updateInputField(text);
         }
@@ -201,8 +201,8 @@ public class MainActivity extends AppCompatActivity
     if (pendingSharedText != null) {
       switch (Preferences.getCurrentFragment(this)) {
         case LOCAL_FRAGMENT:
-          aShellFragment fragmentLocalAdb =
-              (aShellFragment)
+          AshellFragment fragmentLocalAdb =
+              (AshellFragment)
                   getSupportFragmentManager().findFragmentById(R.id.fragment_container);
           if (fragmentLocalAdb != null) {
             fragmentLocalAdb.updateInputField(pendingSharedText);
@@ -211,9 +211,8 @@ public class MainActivity extends AppCompatActivity
           break;
 
         case OTG_FRAGMENT:
-          otgShellFragment fragmentOtg =
-              (otgShellFragment)
-                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+          OtgFragment fragmentOtg =
+              (OtgFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
           if (fragmentOtg != null) {
             fragmentOtg.updateInputField(pendingSharedText);
             clearPendingSharedText();
@@ -234,12 +233,12 @@ public class MainActivity extends AppCompatActivity
           HapticUtils.weakVibrate(mNav, this);
           switch (item.getItemId()) {
             case R.id.nav_localShell:
-              showaShellFragment();
+              showAshellFragment();
               Preferences.setCurrentFragment(this, LOCAL_FRAGMENT);
               return true;
 
             case R.id.nav_otgShell:
-              showotgShellFragment();
+              showOtgFragment();
               Preferences.setCurrentFragment(this, OTG_FRAGMENT);
               return true;
 
@@ -268,27 +267,27 @@ public class MainActivity extends AppCompatActivity
   }
 
   // If not on OtgShell then go to OtgShell
-  private void showotgShellFragment() {
+  private void showOtgFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof otgShellFragment)) {
+        instanceof OtgFragment)) {
       /* Don't show again logic
       if (PreferenceManager.getDefaultSharedPreferences(this)
           .getBoolean("Don't show beta otg warning", true)) {
         showBetaWarning();
       } else { */
       currentFragment = OTG_FRAGMENT;
-      replaceFragment(new otgShellFragment());
+      replaceFragment(new OtgFragment());
 
       /*   } */
     }
   }
 
-  // If not on LocalShell then go to LocalShell (aShellFragment)
-  private void showaShellFragment() {
+  // If not on LocalShell then go to LocalShell (AshellFragment)
+  private void showAshellFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof aShellFragment)) {
+        instanceof AshellFragment)) {
       currentFragment = LOCAL_FRAGMENT;
-      replaceFragment(new aShellFragment());
+      replaceFragment(new AshellFragment());
     }
   }
 
@@ -300,8 +299,7 @@ public class MainActivity extends AppCompatActivity
         .setTitle(getString(R.string.warning))
         .setMessage(getString(R.string.beta_warning))
         .setPositiveButton(
-            getString(R.string.accept),
-            (dialogInterface, i) -> replaceFragment(new otgShellFragment()))
+            getString(R.string.accept), (dialogInterface, i) -> replaceFragment(new OtgFragment()))
         .setNegativeButton(
             getString(R.string.go_back),
             (dialogInterface, i) -> mNav.setSelectedItemId(R.id.nav_localShell))
@@ -312,7 +310,7 @@ public class MainActivity extends AppCompatActivity
                   .edit()
                   .putBoolean("Don't show beta otg warning", false)
                   .apply();
-              replaceFragment(new otgShellFragment());
+              replaceFragment(new OtgFragment());
             })
         .show();
   }
@@ -349,9 +347,9 @@ public class MainActivity extends AppCompatActivity
     fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
     if (fragment instanceof SettingsFragment) {
       currentFragment = SETTINGS_FRAGMENT;
-    } else if (fragment instanceof aShellFragment) {
+    } else if (fragment instanceof AshellFragment) {
       currentFragment = LOCAL_FRAGMENT;
-    } else if (fragment instanceof otgShellFragment) {
+    } else if (fragment instanceof OtgFragment) {
       currentFragment = OTG_FRAGMENT;
     } else if (fragment instanceof ExamplesFragment) {
       currentFragment = EXAMPLES_FRAGMENT;
@@ -366,11 +364,11 @@ public class MainActivity extends AppCompatActivity
     switch (currentFragment) {
       case LOCAL_FRAGMENT:
         mNav.setSelectedItemId(R.id.nav_localShell);
-        replaceFragment(new aShellFragment());
+        replaceFragment(new AshellFragment());
         break;
       case OTG_FRAGMENT:
         mNav.setSelectedItemId(R.id.nav_otgShell);
-        replaceFragment(new otgShellFragment());
+        replaceFragment(new OtgFragment());
         break;
       case SETTINGS_FRAGMENT:
         replaceFragment(new SettingsFragment());
@@ -393,7 +391,7 @@ public class MainActivity extends AppCompatActivity
 
   // Execute functions when the Usb connection is removed
   public void onUsbDetached() {
-    // Reset the OtgShellFragment in this case
+    // Reset the OtgFragment in this case
     onRequestReset();
   }
 

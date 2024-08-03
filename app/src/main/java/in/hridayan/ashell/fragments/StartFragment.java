@@ -47,7 +47,7 @@ public class StartFragment extends Fragment {
                       R.anim.fragment_pop_enter,
                       R.anim.fragment_pop_exit
                )
-              .replace(R.id.fragment_container, new aShellFragment())
+              .replace(R.id.fragment_container, new AshellFragment())
               .commit();
         });
   }

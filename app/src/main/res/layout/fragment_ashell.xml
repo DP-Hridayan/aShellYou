@@ -19,7 +19,7 @@
             android:gravity="center"
             android:clickable="true"
             android:layout_marginTop="20dp"
-            android:id="@+id/app_name_layout">
+            android:id="@+id/appNameLayout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     style="@style/Widget.Material3.Button.Icon"
-                    android:id="@+id/mode_button" />
+                    android:id="@+id/modeButton" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -73,7 +73,7 @@
                     android:gravity="start"
                     android:hint="@string/search_output"
                     android:drawableStart="@drawable/ic_search"
-                    android:id="@+id/search_word" />
+                    android:id="@+id/search" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -92,7 +92,7 @@
                 android:background="@null"
                 android:clickable="false"
                 android:layout_marginTop="2dp"
-                android:id="@+id/local_shell_symbol"
+                android:id="@+id/shellSymbol"
                 android:layout_gravity="start|center" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -101,7 +101,7 @@
                 android:layout_marginEnd="25dp"
                 android:src="@drawable/ic_help"
                 android:layout_marginTop="2dp"
-                android:id="@+id/send"
+                android:id="@+id/sendButton"
                 android:layout_gravity="center|end" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -113,7 +113,7 @@
                 android:padding="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_marginStart="20dp"
-                android:id="@+id/shell_command_layout">
+                android:id="@+id/commandInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                     android:maxLines="1"
                     android:inputType="textAutoComplete"
                     android:layout_gravity="start|center"
-                    android:id="@+id/shell_command" />
+                    android:id="@+id/commandEditText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:visibility="gone"
-            android:id="@+id/recycler_view_commands" />
+            android:id="@+id/rvCommands" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
             app:strokeWidth="0dp"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="20dp"
-            android:id="@+id/rv_shell_card">
+            android:id="@+id/outputCardView">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
                 android:layerType="hardware"
                 android:nestedScrollingEnabled="true"
                 android:scrollbarThumbVertical="@drawable/scrollbar"
-                android:id="@+id/recycler_view_output" />
+                android:id="@+id/rvOutput" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -175,46 +175,46 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             style="?attr/materialIconButtonFilledTonalStyle"
-            android:id="@+id/settings" />
+            android:id="@+id/settingsButton" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"
             android:layout_width="48dp"
             app:icon="@drawable/ic_bookmarks"
-            app:layout_constraintTop_toTopOf="@id/settings"
-            app:layout_constraintStart_toEndOf="@id/settings"
-            app:layout_constraintEnd_toStartOf="@id/history"
+            app:layout_constraintTop_toTopOf="@id/settingsButton"
+            app:layout_constraintStart_toEndOf="@id/settingsButton"
+            app:layout_constraintEnd_toStartOf="@id/historyButton"
             style="?attr/materialIconButtonFilledTonalStyle"
-            android:id="@+id/bookmarks" />
+            android:id="@+id/bookmarksButton" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"
             android:layout_width="48dp"
             app:icon="@drawable/ic_history"
-            app:layout_constraintTop_toTopOf="@id/settings"
-            app:layout_constraintStart_toEndOf="@id/bookmarks"
-            app:layout_constraintEnd_toStartOf="@id/clear"
+            app:layout_constraintTop_toTopOf="@id/settingsButton"
+            app:layout_constraintStart_toEndOf="@id/bookmarksButton"
+            app:layout_constraintEnd_toStartOf="@id/clearButton"
             style="?attr/materialIconButtonFilledTonalStyle"
-            android:id="@+id/history" />
+            android:id="@+id/historyButton" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"
             android:layout_width="48dp"
             app:icon="@drawable/ic_clear"
-            app:layout_constraintTop_toTopOf="@id/settings"
-            app:layout_constraintStart_toEndOf="@id/history"
-            app:layout_constraintEnd_toStartOf="@id/search"
+            app:layout_constraintTop_toTopOf="@id/settingsButton"
+            app:layout_constraintStart_toEndOf="@id/historyButton"
+            app:layout_constraintEnd_toStartOf="@id/searchButton"
             style="?attr/materialIconButtonFilledTonalStyle"
-            android:id="@+id/clear" />
+            android:id="@+id/clearButton" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"
             android:layout_width="48dp"
             app:icon="@drawable/ic_search"
-            app:layout_constraintTop_toTopOf="@id/settings"
+            app:layout_constraintTop_toTopOf="@id/settingsButton"
             app:layout_constraintEnd_toEndOf="parent"
             style="?attr/materialIconButtonFilledTonalStyle"
-            android:id="@+id/search" />
+            android:id="@+id/searchButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -227,9 +227,9 @@
         app:shapeAppearance="@styleable/CircularProgressIndicator"
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/floatingActionButtonTertiaryStyle"
-        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:layout_constraintBottom_toTopOf="@id/saveButton"
         app:srcCompat="@drawable/ic_arrow"
-        android:id="@+id/fab_up"
+        android:id="@+id/scrollUpButton"
         android:layout_gravity="bottom|end" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -238,14 +238,14 @@
         android:visibility="gone"
         android:layout_marginEnd="25dp"
         android:rotation="180"
-        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:layout_constraintBottom_toTopOf="@id/saveButton"
         app:srcCompat="@drawable/ic_arrow"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="25dp"
         app:shapeAppearance="@styleable/CircularProgressIndicator"
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/floatingActionButtonTertiaryStyle"
-        android:id="@+id/fab_down" />
+        android:id="@+id/scrollDownButton" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_height="wrap_content"
@@ -253,14 +253,14 @@
         android:visibility="gone"
         android:layout_marginEnd="25dp"
         app:backgroundTint="?attr/colorTertiaryContainer"
-        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:layout_constraintBottom_toTopOf="@id/saveButton"
         app:srcCompat="@drawable/ic_share"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="25dp"
         app:tint="?attr/colorOnTertiaryContainer"
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/floatingActionButtonSmallStyle"
-        android:id="@+id/fab_share" />
+        android:id="@+id/shareButton" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_height="wrap_content"
@@ -268,14 +268,14 @@
         android:visibility="gone"
         android:layout_marginEnd="25dp"
         app:backgroundTint="?attr/colorTertiaryContainer"
-        app:layout_constraintBottom_toTopOf="@id/paste_button"
+        app:layout_constraintBottom_toTopOf="@id/pasteButton"
         app:srcCompat="@drawable/ic_undo"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="25dp"
         app:tint="?attr/colorOnTertiaryContainer"
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/floatingActionButtonSmallStyle"
-        android:id="@+id/fab_undo" />
+        android:id="@+id/undoButton" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_height="wrap_content"
@@ -287,7 +287,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/extendedFloatingActionButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/save_button"
+        android:id="@+id/saveButton"
         android:text="@string/save" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -299,7 +299,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="?attr/extendedFloatingActionButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/paste_button"
+        android:id="@+id/pasteButton"
         android:text="@string/paste" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
