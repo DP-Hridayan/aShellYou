@@ -335,7 +335,7 @@ public class otgShellFragment extends Fragment
     // Logic for changing the command send button depending on the text on the EditText
 
     mBookMarks.setVisibility(
-        !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
+        !Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
 
     mCommand.addTextChangedListener(
         new TextWatcher() {
@@ -350,7 +350,7 @@ public class otgShellFragment extends Fragment
             mCommandInput.setError(null);
 
             mBookMarks.setVisibility(
-                !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
+                !Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
           }
 
           @Override
@@ -361,7 +361,7 @@ public class otgShellFragment extends Fragment
             if (inputText.isEmpty()) {
 
               mBookMarks.setVisibility(
-                  !Utils.getBookmarks(requireActivity()).isEmpty() ? View.VISIBLE : View.GONE);
+                  !Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
 
               mCommandInput.setEndIconVisible(false);
               mSendButton.setImageDrawable(
@@ -466,7 +466,7 @@ public class otgShellFragment extends Fragment
                             requireActivity()));
 
                     mBookMarks.setVisibility(
-                        !Utils.getBookmarks(requireActivity()).isEmpty()
+                        !Utils.getBookmarks(context).isEmpty()
                             ? View.VISIBLE
                             : View.GONE);
                   });

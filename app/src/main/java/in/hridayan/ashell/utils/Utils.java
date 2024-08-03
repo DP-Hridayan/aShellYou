@@ -307,7 +307,7 @@ public class Utils {
       TextInputEditText mCommand,
       TextInputLayout mCommandInput) {
 
-    List<String> bookmarks = Utils.getBookmarks(activity);
+    List<String> bookmarks = Utils.getBookmarks(context);
 
     int totalBookmarks = bookmarks.size();
 
@@ -352,7 +352,7 @@ public class Utils {
         .setPositiveButton(
             context.getString(R.string.ok),
             (dialogInterface, i) -> {
-              List<String> bookmarks = Utils.getBookmarks(activity);
+              List<String> bookmarks = Utils.getBookmarks(context);
               for (String item : bookmarks) {
                 Utils.deleteFromBookmark(item, context);
               }
@@ -370,7 +370,7 @@ public class Utils {
             })
         .setOnCancelListener(
             v -> {
-              List<String> bookmarks = Utils.getBookmarks(activity);
+              List<String> bookmarks = Utils.getBookmarks(context);
               if (bookmarks.size() != 0) {
                 Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
               }

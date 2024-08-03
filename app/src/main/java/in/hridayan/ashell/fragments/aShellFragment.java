@@ -662,7 +662,7 @@ public class aShellFragment extends Fragment {
         v -> {
           HapticUtils.weakVibrate(v, context);
 
-          if (Utils.getBookmarks(requireActivity()).isEmpty()) {
+          if (Utils.getBookmarks(context).isEmpty()) {
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
           } else {
             Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput);
