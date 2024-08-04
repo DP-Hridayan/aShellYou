@@ -16,7 +16,7 @@ android {
         targetSdk 34
 
         versionCode 47
-        versionName "v4.5.0"
+        versionName "v4.5.0-test"
 
     }
     
@@ -51,7 +51,8 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            outputFileName = "aShell You " + variant.versionName + ".apk"
+            def buildTypeName = variant.buildType.name
+            outputFileName = "aShell You ${variant.versionName}-${buildTypeName}.apk"
         }
     }
 
