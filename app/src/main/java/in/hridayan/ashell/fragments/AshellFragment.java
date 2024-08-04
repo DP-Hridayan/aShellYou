@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -82,6 +83,8 @@ public class AshellFragment extends Fragment {
   private AshellFragmentViewModel viewModel;
   private MainViewModel mainViewModel;
   private FragmentAshellBinding binding;
+  private Pair<Integer, Integer> mRVPositionAndOffset;
+  private String shell;
 
   public AshellFragment() {}
 
@@ -97,8 +100,17 @@ public class AshellFragment extends Fragment {
     viewModel.setSaveButtonVisible(isSaveButtonVisible());
 
     // Saves the viewing position of the recycler view
-    viewModel.setScrollPosition(
-        ((LinearLayoutManager) binding.rvOutput.getLayoutManager()).findFirstVisibleItemPosition());
+    if (binding.rvOutput != null) {
+      LinearLayoutManager layoutManager = (LinearLayoutManager) binding.rvOutput.getLayoutManager();
+
+      int currentPosition = layoutManager.findLastVisibleItemPosition();
+      View currentView = layoutManager.findViewByPosition(currentPosition);
+
+      if (currentView != null) {
+        mRVPositionAndOffset = new Pair<>(currentPosition, currentView.getTop());
+        viewModel.setRVPositionAndOffset(mRVPositionAndOffset);
+      }
+    }
 
     // Gets the already saved output and command history from viewmodel in case no new output has
     // been made after config change
@@ -108,21 +120,15 @@ public class AshellFragment extends Fragment {
     viewModel.setShellOutput(mResult == null ? shellOutput : mResult);
 
     // If there are some text in edit text, then we save it
-    if (binding.commandEditText.getText().toString() != null) {
+    if (binding.commandEditText.getText().toString() != null)
       viewModel.setCommandText(binding.commandEditText.getText().toString());
-    }
 
     // Saves the visibility of the end icon of edit text
-    if (binding.commandInputLayout.isEndIconVisible()) {
-      viewModel.setEndIconVisible(true);
-    } else {
-      isEndIconVisible = false;
-    }
+    if (binding.commandInputLayout.isEndIconVisible()) viewModel.setEndIconVisible(true);
+    else isEndIconVisible = false;
 
     // If keyboard is visible then we close it before leaving fragment
-    if (isKeyboardVisible) {
-      KeyboardUtils.closeKeyboard(requireActivity(), view);
-    }
+    if (isKeyboardVisible) KeyboardUtils.closeKeyboard(requireActivity(), view);
   }
 
   @Override
@@ -157,9 +163,8 @@ public class AshellFragment extends Fragment {
     handleUseCommand();
 
     // Handles save button visibility across config changes
-    if (!viewModel.isSaveButtonVisible()) {
-      binding.saveButton.setVisibility(View.GONE);
-    } else {
+    if (!viewModel.isSaveButtonVisible()) binding.saveButton.setVisibility(View.GONE);
+    else {
       binding.saveButton.setVisibility(View.VISIBLE);
       if (binding.search.getVisibility() == View.GONE) {
         binding.clearButton.setVisibility(View.VISIBLE);
@@ -173,9 +178,18 @@ public class AshellFragment extends Fragment {
     binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
     // Get the scroll position of recycler view from viewmodel and set it
-    int scrollPosition = viewModel.getScrollPosition();
-    binding.rvOutput.scrollToPosition(scrollPosition);
+    if (binding.rvOutput != null && binding.rvOutput.getLayoutManager() != null) {
+      mRVPositionAndOffset = viewModel.getRVPositionAndOffset();
+      if (mRVPositionAndOffset != null) {
 
+        int position = viewModel.getRVPositionAndOffset().first;
+        int offset = viewModel.getRVPositionAndOffset().second;
+
+        // Restore recyclerView scroll position
+        ((LinearLayoutManager) binding.rvOutput.getLayoutManager())
+            .scrollToPositionWithOffset(position, offset);
+      }
+    }
     isEndIconVisible = viewModel.isEndIconVisible();
 
     // If the end icon of edit text is visible then set its icon accordingly
@@ -203,15 +217,11 @@ public class AshellFragment extends Fragment {
   public void onDestroy() {
     super.onDestroy();
 
-    if (mBasicShell != null) {
-      BasicShell.destroy();
-    }
-    if (mShizukuShell != null) {
-      mShizukuShell.destroy();
-    }
-    if (mRootShell != null) {
-      RootShell.destroy();
-    }
+    if (mBasicShell != null) BasicShell.destroy();
+
+    if (mShizukuShell != null) mShizukuShell.destroy();
+
+    if (mRootShell != null) RootShell.destroy();
   }
 
   @Nullable
@@ -259,9 +269,7 @@ public class AshellFragment extends Fragment {
         });
 
     // Set the bottom navigation
-    if (!isKeyboardVisible) {
-      mNav.setVisibility(View.VISIBLE);
-    }
+    if (!isKeyboardVisible) mNav.setVisibility(View.VISIBLE);
 
     // Handles the onclick listener of the top and bottom scrolling arrows
     BehaviorFAB.handleTopAndBottomArrow(
@@ -275,9 +283,8 @@ public class AshellFragment extends Fragment {
     handleModeButtonTextAndCommandHint();
 
     // When there is any text in edit text , focus the edit text
-    if (!binding.commandEditText.getText().toString().isEmpty()) {
+    if (!binding.commandEditText.getText().toString().isEmpty())
       binding.commandEditText.requestFocus();
-    }
 
     // Handles text changing events in the Input Field
     binding.commandEditText.addTextChangedListener(
@@ -297,9 +304,8 @@ public class AshellFragment extends Fragment {
             binding.commandEditText.requestFocus();
 
             // If shizuku is busy return
-            if (mShizukuShell != null && ShizukuShell.isBusy()) {
-              return;
-            } else if (s.toString().trim().isEmpty()) {
+            if (mShizukuShell != null && ShizukuShell.isBusy()) return;
+            else if (s.toString().trim().isEmpty()) {
 
               binding.commandInputLayout.setEndIconVisible(false);
               binding.rvCommands.setVisibility(View.GONE);
@@ -358,9 +364,7 @@ public class AshellFragment extends Fragment {
         () -> {
           if (mResult != null
               && !mResult.isEmpty()
-              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())) {
-            updateUI(mResult);
-          }
+              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())) updateUI(mResult);
         },
         0,
         250,
@@ -395,16 +399,12 @@ public class AshellFragment extends Fragment {
 
   // Keep the recycler view scrolling when running continuous commands
   private void updateUI(List<String> data) {
-    if (data == null) {
-      return;
-    }
+    if (data == null) return;
 
     List<String> mData = new ArrayList<>();
     try {
       for (String result : data) {
-        if (!TextUtils.isEmpty(result) && !result.equals(Utils.shellDeadError())) {
-          mData.add(result);
-        }
+        if (!TextUtils.isEmpty(result) && !result.equals(Utils.shellDeadError())) mData.add(result);
       }
     } catch (ConcurrentModificationException ignored) {
       // Handle concurrent modification gracefully
@@ -441,9 +441,8 @@ public class AshellFragment extends Fragment {
 
   // Call to show the bottom navigation view
   private void showBottomNav() {
-    if (getActivity() != null && getActivity() instanceof MainActivity) {
+    if (getActivity() != null && getActivity() instanceof MainActivity)
       ((MainActivity) getActivity()).mNav.animate().translationY(0);
-    }
   }
 
   // Call to set the visibility of elements with a delay
@@ -458,11 +457,9 @@ public class AshellFragment extends Fragment {
       boolean switchState = Preferences.getShareAndRun(context);
       updateInputField(sharedText);
       if (switchState) {
-        if (!Shizuku.pingBinder() && isShizukuMode()) {
-          handleShizukuUnavailability();
-        } else if (!RootShell.isDeviceRooted() && isRootMode()) {
-          handleRootUnavailability();
-        } else {
+        if (!Shizuku.pingBinder() && isShizukuMode()) handleShizukuUnavailability();
+        else if (!RootShell.isDeviceRooted() && isRootMode()) handleRootUnavailability();
+        else {
           binding.commandEditText.setText(sharedText);
           initializeShell();
         }
@@ -500,19 +497,14 @@ public class AshellFragment extends Fragment {
     binding.rvOutput.setAdapter(mShellOutputAdapter);
     binding.rvOutput.scrollToPosition(scrollPosition);
     String command = viewModel.getCommandText();
-    if (command != null) {
-      binding.commandEditText.setText(command);
-    }
+    if (command != null) binding.commandEditText.setText(command);
   }
 
   // Call to initialize the shell output and command history
   private void initializeResults() {
-    if (mResult == null) {
-      mResult = shellOutput;
-    }
-    if (mHistory == null) {
-      mHistory = history;
-    }
+    if (mResult == null) mResult = shellOutput;
+
+    if (mHistory == null) mHistory = history;
   }
 
   // Converts the List<String> mResult to String
@@ -520,9 +512,8 @@ public class AshellFragment extends Fragment {
     StringBuilder sb = new StringBuilder();
     for (int i = mPosition; i < mResult.size(); i++) {
       String result = mResult.get(i);
-      if (!Utils.shellDeadError().equals(result) && !"<i></i>".equals(result)) {
+      if (!Utils.shellDeadError().equals(result) && !"<i></i>".equals(result))
         sb.append(result).append("\n");
-      }
     }
     return sb;
   }
@@ -537,16 +528,13 @@ public class AshellFragment extends Fragment {
 
   // Show buttons again when keyboard is gone
   private void buttonsVisibilityVisible() {
-    if (binding.rvOutput.getHeight() != 0) {
-      setVisibilityWithDelay(binding.saveButton, 100);
-    }
-    if (binding.shareButton.getVisibility() == View.GONE && binding.rvOutput.getHeight() != 0) {
-      setVisibilityWithDelay(binding.shareButton, 100);
-    }
+    if (binding.rvOutput.getHeight() != 0) setVisibilityWithDelay(binding.saveButton, 100);
 
-    if (binding.pasteButton.getVisibility() == View.GONE && !sendButtonClicked && mResult == null) {
+    if (binding.shareButton.getVisibility() == View.GONE && binding.rvOutput.getHeight() != 0)
+      setVisibilityWithDelay(binding.shareButton, 100);
+
+    if (binding.pasteButton.getVisibility() == View.GONE && !sendButtonClicked && mResult == null)
       setVisibilityWithDelay(binding.pasteButton, 100);
-    }
   }
 
   // Onclick listener for the button indicating working mode
@@ -554,9 +542,8 @@ public class AshellFragment extends Fragment {
     binding.modeButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          if (isBasicMode()) {
-            connectedDeviceDialog(Utils.getDeviceName());
-          } else if (isShizukuMode()) {
+          if (isBasicMode()) connectedDeviceDialog(Utils.getDeviceName());
+          else if (isShizukuMode()) {
             boolean hasShizuku = Shizuku.pingBinder() && ShizukuShell.hasPermission();
             connectedDeviceDialog(hasShizuku ? Utils.getDeviceName() : getString(R.string.none));
           } else if (isRootMode()) {
@@ -641,12 +628,11 @@ public class AshellFragment extends Fragment {
         v -> {
           HapticUtils.weakVibrate(v, context);
 
-          if (Utils.getBookmarks(context).isEmpty()) {
+          if (Utils.getBookmarks(context).isEmpty())
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
-          } else {
+          else
             Utils.bookmarksDialog(
                 context, requireActivity(), binding.commandEditText, binding.commandInputLayout);
-          }
         });
   }
 
@@ -658,9 +644,9 @@ public class AshellFragment extends Fragment {
         v -> {
           HapticUtils.weakVibrate(v, context);
 
-          if (mHistory == null && viewModel.getHistory() == null) {
+          if (mHistory == null && viewModel.getHistory() == null)
             ToastUtils.showToast(context, R.string.no_history, ToastUtils.LENGTH_SHORT);
-          } else {
+          else {
             PopupMenu popupMenu = new PopupMenu(context, binding.commandEditText);
             Menu menu = popupMenu.getMenu();
             for (int i = 0; i < getRecentCommands().size(); i++) {
@@ -690,23 +676,21 @@ public class AshellFragment extends Fragment {
         v -> {
           HapticUtils.weakVibrate(v, context);
 
-          if (mResult == null || mResult.isEmpty()) {
+          if (mResult == null || mResult.isEmpty())
             ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
-          } else if (isShellBusy()) {
+          else if (isShellBusy())
             ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
-          } else {
+          else {
             viewModel.setShellOutput(null);
             boolean switchState = Preferences.getClear(context);
-            if (switchState) {
+            if (switchState)
               new MaterialAlertDialogBuilder(requireActivity())
                   .setTitle(getString(R.string.clear_everything))
                   .setMessage(getString(R.string.clear_all_message))
                   .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
                   .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
                   .show();
-            } else {
-              clearAll();
-            }
+            else clearAll();
           }
         });
   }
@@ -721,24 +705,19 @@ public class AshellFragment extends Fragment {
 
   // This function is called when we want to clear the screen
   private void clearAll() {
-    if (mBasicShell != null && BasicShell.isBusy()) {
-      abortBasicShell();
-    }
+    if (mBasicShell != null && BasicShell.isBusy()) abortBasicShell();
 
-    if (mShizukuShell != null && ShizukuShell.isBusy()) {
-      abortShizukuShell();
-    }
-    if (mRootShell != null && RootShell.isBusy()) {
-      abortRootShell();
-    }
+    if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
+
+    if (mRootShell != null && RootShell.isBusy()) abortRootShell();
 
     mResult = null;
-    if (binding.scrollUpButton.getVisibility() == View.VISIBLE) {
+    if (binding.scrollUpButton.getVisibility() == View.VISIBLE)
       binding.scrollUpButton.setVisibility(View.GONE);
-    }
-    if (binding.scrollDownButton.getVisibility() == View.VISIBLE) {
+
+    if (binding.scrollDownButton.getVisibility() == View.VISIBLE)
       binding.scrollDownButton.setVisibility(View.GONE);
-    }
+
     binding.sendButton.setImageDrawable(
         hasTextInEditText()
             ? Utils.getDrawable(R.drawable.ic_send, requireActivity())
@@ -760,11 +739,11 @@ public class AshellFragment extends Fragment {
         v -> {
           HapticUtils.weakVibrate(v, context);
 
-          if (mResult == null || mResult.isEmpty()) {
+          if (mResult == null || mResult.isEmpty())
             ToastUtils.showToast(context, R.string.nothing_to_search, ToastUtils.LENGTH_SHORT);
-          } else if (isShellBusy()) {
+          else if (isShellBusy())
             ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
-          } else {
+          else {
             binding.historyButton.setVisibility(View.GONE);
             binding.clearButton.setVisibility(View.GONE);
             binding.bookmarksButton.setVisibility(View.GONE);
@@ -789,17 +768,15 @@ public class AshellFragment extends Fragment {
 
           @Override
           public void afterTextChanged(Editable s) {
-            if (s == null || s.toString().trim().isEmpty()) {
-              updateUI(mResult);
-            } else {
+            if (s == null || s.toString().trim().isEmpty()) updateUI(mResult);
+            else {
               List<String> mResultSorted = new ArrayList<>();
               for (int i = mPosition; i < mResult.size(); i++) {
                 if (mResult
                     .get(i)
                     .toLowerCase(Locale.getDefault())
-                    .contains(s.toString().toLowerCase(Locale.getDefault()))) {
+                    .contains(s.toString().toLowerCase(Locale.getDefault())))
                   mResultSorted.add(mResult.get(i));
-                }
               }
               updateUI(mResultSorted);
             }
@@ -835,9 +812,7 @@ public class AshellFragment extends Fragment {
           }
 
           boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
-          if (saved) {
-            Preferences.setLastSavedFileName(context, fileName + ".txt");
-          }
+          if (saved) Preferences.setLastSavedFileName(context, fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
           Utils.outputSavedDialog(requireActivity(), context, saved);
@@ -856,9 +831,7 @@ public class AshellFragment extends Fragment {
           StringBuilder sb = new StringBuilder();
           for (int i = mPosition; i < mResult.size(); i++) {
             String result = mResult.get(i);
-            if (!Utils.shellDeadError().equals(result)) {
-              sb.append(result).append("\n");
-            }
+            if (!Utils.shellDeadError().equals(result)) sb.append(result).append("\n");
           }
           String fileName = Utils.generateFileName(mHistory);
           Utils.shareOutput(requireActivity(), context, fileName, sb.toString());
@@ -883,9 +856,7 @@ public class AshellFragment extends Fragment {
                     if (!isKeyboardVisible) binding.shareButton.show();
                   },
                   delayMillis);
-            } else {
-              handler.removeCallbacksAndMessages(null);
-            }
+            } else handler.removeCallbacksAndMessages(null);
           }
 
           @Override
@@ -904,9 +875,7 @@ public class AshellFragment extends Fragment {
   private void appNameLayoutOnClickListener() {
     binding.appNameLayout.setOnClickListener(
         v -> {
-          if (binding.search.getVisibility() == View.VISIBLE) {
-            hideSearchBar();
-          }
+          if (binding.search.getVisibility() == View.VISIBLE) hideSearchBar();
         });
   }
 
@@ -919,9 +888,7 @@ public class AshellFragment extends Fragment {
             Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
             Utils.snackBar(view, getString(R.string.bookmark_removed_message, s.toString().trim()))
                 .show();
-          } else {
-            Utils.addBookmarkIconOnClickListener(s.toString().trim(), view, context);
-          }
+          } else Utils.addBookmarkIconOnClickListener(s.toString().trim(), view, context);
 
           binding.commandInputLayout.setEndIconDrawable(
               Utils.getDrawable(
@@ -945,21 +912,16 @@ public class AshellFragment extends Fragment {
                 };
 
                 String packageNamePrefix;
-                if (splitCommands[0].contains(" ")) {
+                if (splitCommands[0].contains(" "))
                   packageNamePrefix = splitPrefix(splitCommands[0], 1);
-                } else {
-                  packageNamePrefix = splitCommands[0];
-                }
+                else packageNamePrefix = splitCommands[0];
 
                 mCommandAdapter =
                     new CommandsAdapter(Commands.getPackageInfo(packageNamePrefix + ".", context));
-                if (isAdded()) {
+                if (isAdded())
                   binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
-                }
+                if (isAdded()) binding.rvCommands.setAdapter(mCommandAdapter);
 
-                if (isAdded()) {
-                  binding.rvCommands.setAdapter(mCommandAdapter);
-                }
                 binding.rvCommands.setVisibility(View.VISIBLE);
                 mCommandAdapter.setOnItemClickListener(
                     (command, v) -> {
@@ -973,19 +935,17 @@ public class AshellFragment extends Fragment {
                     });
               } else {
                 mCommandAdapter = new CommandsAdapter(Commands.getCommand(s.toString(), context));
-                if (isAdded()) {
+                if (isAdded())
                   binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
-                }
 
                 binding.rvCommands.setAdapter(mCommandAdapter);
                 binding.rvCommands.setVisibility(View.VISIBLE);
                 mCommandAdapter.setOnItemClickListener(
                     (command, v) -> {
-                      if (command.contains(" <")) {
+                      if (command.contains(" <"))
                         binding.commandEditText.setText(command.split("<")[0]);
-                      } else {
-                        binding.commandEditText.setText(command);
-                      }
+                      else binding.commandEditText.setText(command);
+
                       binding.commandEditText.setSelection(
                           binding.commandEditText.getText().length());
                     });
@@ -1003,38 +963,28 @@ public class AshellFragment extends Fragment {
 
             /*This block will run if basic shell mode is selected*/
             if (isBasicMode()) {
-              if (isShellBusy()) {
-                shellWorkingDialog();
-              } else {
-                execShell(v);
-              }
+              if (isShellBusy()) shellWorkingDialog();
+              else execShell(v);
             }
 
             /*This block will run if shizuku mode is selected*/
             else if (isShizukuMode()) {
-              if (!Shizuku.pingBinder()) {
-                handleShizukuUnavailability();
-              } else if (!ShizukuShell.hasPermission()) {
+              if (!Shizuku.pingBinder()) handleShizukuUnavailability();
+              else if (!ShizukuShell.hasPermission())
                 Utils.shizukuPermRequestDialog(requireActivity(), context);
-              } else if (mShizukuShell != null && ShizukuShell.isBusy()) {
-                shellWorkingDialog();
-              } else {
-                execShell(v);
-              }
+              else if (mShizukuShell != null && ShizukuShell.isBusy()) shellWorkingDialog();
+              else execShell(v);
             }
 
             /*This block w if root mode is selected*/
             else if (isRootMode()) {
-              if (!RootShell.isDeviceRooted()) {
-                handleRootUnavailability();
-              } else if (!RootShell.hasPermission()) {
+              if (!RootShell.isDeviceRooted()) handleRootUnavailability();
+              else if (!RootShell.hasPermission())
                 Utils.rootPermRequestDialog(requireActivity(), context);
-              } else if (mRootShell != null && RootShell.isBusy()) {
-                shellWorkingDialog();
-              } else {
-                execShell(v);
-              }
+              else if (mRootShell != null && RootShell.isBusy()) shellWorkingDialog();
+              else execShell(v);
             }
+
             return true;
           }
           return false;
@@ -1051,44 +1001,32 @@ public class AshellFragment extends Fragment {
           /*This block will run if basic shell mode is selected*/
 
           if (isBasicMode()) {
-            if (!hasTextInEditText() && !BasicShell.isBusy()) {
-              goToExamples();
-            } else if (isShellBusy()) {
-              abortBasicShell();
-            } else {
-              execShell(v);
-            }
+            if (!hasTextInEditText() && !BasicShell.isBusy()) goToExamples();
+            else if (isShellBusy()) abortBasicShell();
+            else execShell(v);
+
           }
 
           /*This block will run if shizuku mode is selected*/
 
           else if (isShizukuMode()) {
-            if (!hasTextInEditText() && !ShizukuShell.isBusy()) {
-              goToExamples();
-            } else if (!Shizuku.pingBinder()) {
-              handleShizukuUnavailability();
-            } else if (!ShizukuShell.hasPermission()) {
+            if (!hasTextInEditText() && !ShizukuShell.isBusy()) goToExamples();
+            else if (!Shizuku.pingBinder()) handleShizukuUnavailability();
+            else if (!ShizukuShell.hasPermission())
               Utils.shizukuPermRequestDialog(requireActivity(), context);
-            } else if (mShizukuShell != null && ShizukuShell.isBusy()) {
-              abortShizukuShell();
-            } else {
-              execShell(v);
-            }
+            else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
+            else execShell(v);
+
           }
 
           /*This block w if root mode is selected*/
           else if (isRootMode()) {
-            if (!hasTextInEditText() && !RootShell.isBusy()) {
-              goToExamples();
-            } else if (!RootShell.isDeviceRooted()) {
-              handleRootUnavailability();
-            } else if (!RootShell.hasPermission()) {
+            if (!hasTextInEditText() && !RootShell.isBusy()) goToExamples();
+            else if (!RootShell.isDeviceRooted()) handleRootUnavailability();
+            else if (!RootShell.hasPermission())
               Utils.rootPermRequestDialog(requireActivity(), context);
-            } else if (mRootShell != null && RootShell.isBusy()) {
-              abortRootShell();
-            } else {
-              execShell(v);
-            }
+            else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
+            else execShell(v);
           }
         });
   }
@@ -1106,28 +1044,22 @@ public class AshellFragment extends Fragment {
 
   // initialize the shell command execution
   private void initializeShell() {
-    if (!hasTextInEditText()) {
-      return;
-    }
+    if (!hasTextInEditText()) return;
+
     runShellCommand(binding.commandEditText.getText().toString().replace("\n", ""));
   }
 
   // This function is called when we want to run the shell after entering an adb command
   private void runShellCommand(String command) {
-    if (!isAdded()) {
-      return;
-    }
-    if (binding.rvOutput.getAdapter() == null) {
-      binding.rvOutput.setAdapter(mShellOutputAdapter);
-    }
+    if (!isAdded()) return;
+
+    if (binding.rvOutput.getAdapter() == null) binding.rvOutput.setAdapter(mShellOutputAdapter);
 
     requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
     binding.commandEditText.setText(null);
     binding.commandEditText.clearFocus();
-    if (binding.search.getVisibility() == View.VISIBLE) {
-      hideSearchBar();
-    }
+    if (binding.search.getVisibility() == View.VISIBLE) hideSearchBar();
 
     String finalCommand = command.replaceAll("^adb(?:\\s+-d)?\\s+shell\\s+", "");
 
@@ -1151,9 +1083,8 @@ public class AshellFragment extends Fragment {
     }
 
     // If history is null then create a new list and add the final command
-    if (mHistory == null) {
-      mHistory = new ArrayList<>();
-    }
+    if (mHistory == null) mHistory = new ArrayList<>();
+
     mHistory.add(finalCommand);
 
     binding.saveButton.hide();
@@ -1166,14 +1097,9 @@ public class AshellFragment extends Fragment {
             ? ThemeUtils.colorError(context)
             : Utils.getColor(R.color.red, context));
 
-    String shell = "shell@";
-    if (isBasicMode()) {
-      shell = "\">BasicShell@";
-    } else if (isShizukuMode()) {
-      shell = "\">ShizukuShell@";
-    } else if (isRootMode()) {
-      shell = "\">RootShell@";
-    }
+    if (isBasicMode()) shell = "\">BasicShell@";
+    else if (isShizukuMode()) shell = "\">ShizukuShell@";
+    else if (isRootMode()) shell = "\">RootShell@";
 
     /* the mTitleText is the text that shows the connected device and the command that is executed */
     String mTitleText =
@@ -1416,7 +1342,6 @@ public class AshellFragment extends Fragment {
 
   // Open command examples fragment
   private void goToExamples() {
-
     requireActivity()
         .getSupportFragmentManager()
         .beginTransaction()
@@ -1432,11 +1357,9 @@ public class AshellFragment extends Fragment {
 
   // Get the command history
   private List<String> getHistory() {
-    if (mHistory != null) {
-      return mHistory;
-    } else if (mHistory == null && viewModel.getHistory() != null) {
-      return viewModel.getHistory();
-    }
+    if (mHistory != null) return mHistory;
+    else if (viewModel.getHistory() != null) return viewModel.getHistory();
+
     return mHistory;
   }
 

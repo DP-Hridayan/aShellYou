@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,7 +56,47 @@ public class ExamplesFragment extends Fragment
   private Context context;
   private BottomNavigationView mNav;
   private FragmentExamplesBinding binding;
+    private Pair mRVPositionAndOffset;
+    
+@Override
+  public void onPause() {
+    super.onPause();
+    if (binding.rvSearchView != null) {
 
+      LinearLayoutManager layoutManager =
+          (LinearLayoutManager) binding.rvSearchView.getLayoutManager();
+
+      int currentPosition = layoutManager.findLastVisibleItemPosition();
+      View currentView = layoutManager.findViewByPosition(currentPosition);
+
+      if (currentView != null) {
+        mRVPositionAndOffset = new Pair<>(currentPosition, currentView.getTop());
+        viewModel.setRVPositionAndOffset(mRVPositionAndOffset);
+      }
+      // Save toolbar state
+      viewModel.setToolbarExpanded(Utils.isToolbarExpanded(binding.appBarLayout));
+    }
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    if (binding.rvSearchView != null && binding.rvSearchView.getLayoutManager() != null) {
+
+      binding.appBarLayout.setExpanded(viewModel.isToolbarExpanded());
+
+      mRVPositionAndOffset = viewModel.getRVPositionAndOffset();
+      if (mRVPositionAndOffset != null) {
+
+        int position = viewModel.getRVPositionAndOffset().first;
+        int offset = viewModel.getRVPositionAndOffset().second;
+
+        // Restore recyclerView scroll position
+        ((LinearLayoutManager) binding.rvSearchView.getLayoutManager())
+            .scrollToPositionWithOffset(position, offset);
+      }
+    }
+  }
   @Nullable
   @Override
   public View onCreateView(
@@ -164,44 +205,25 @@ public class ExamplesFragment extends Fragment
     return view;
   }
 
-  @Override
-  public void onPause() {
-    super.onPause();
-    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(binding.appBarLayout));
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-    if (viewModel.isToolbarExpanded()) {
-      if (Utils.recyclerViewPosition(binding.rvSearchView) == 0) {
-        Utils.expandToolbar(binding.appBarLayout);
-      }
-    } else {
-      Utils.collapseToolbar(binding.appBarLayout);
-    }
-  }
-
   private void filterList(CharSequence text) {
+
     List<CommandItems> filteredList = new ArrayList<>();
+
     binding.chipSearchSummary.setVisibility(View.GONE);
     binding.noCommandFound.setVisibility(View.GONE);
+
     if (text != null && !text.toString().isEmpty()) {
+
       searchTitle(text, filteredList);
 
       if (filteredList.isEmpty()) {
         binding.noCommandFound.setVisibility(View.VISIBLE);
         binding.chipSearchSummary.setVisibility(View.VISIBLE);
-        if (isSummaryChipClicked) {
-          chipSummaryOnClick(text, filteredList);
-        }
-      }
-
-      if (filteredList.isEmpty()) {
-        binding.noCommandFound.setVisibility(View.VISIBLE);
+        if (isSummaryChipClicked) chipSummaryOnClick(text, filteredList);
+        /* if filtered list is empty again after running chipSummaryOnClick, then we show no command found text message */
+        if (filteredList.isEmpty()) binding.noCommandFound.setVisibility(View.VISIBLE);
       }
     }
-
     binding.rvSearch.setVisibility(View.VISIBLE);
     CommandsSearchAdapter adapter = new CommandsSearchAdapter(filteredList, context, this);
     binding.rvSearch.setAdapter(adapter);
@@ -263,9 +285,7 @@ public class ExamplesFragment extends Fragment
             getString(R.string.ok),
             (dialog, which) -> {
               Preferences.setSortingExamples(context, sortingOption[0]);
-              if (isSortingOptionSame != sortingOption[0]) {
-                mExamplesAdapter.sortData();
-              }
+              if (isSortingOptionSame != sortingOption[0]) mExamplesAdapter.sortData();
             })
         .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
         .show();
@@ -275,11 +295,8 @@ public class ExamplesFragment extends Fragment
   private void updateSearchBar() {
     int numSelectedItems = mExamplesAdapter.getSelectedItemsSize();
     isAllItemsSelected = numSelectedItems == mExamplesAdapter.getItemCount();
-    if (numSelectedItems > 0) {
-      startSelection(numSelectedItems);
-    } else {
-      endSelection();
-    }
+    if (numSelectedItems > 0) startSelection(numSelectedItems);
+    else endSelection();
   }
 
   private void searchBarNavigationIconOnClickListener(int numSelectedItems) {
@@ -325,9 +342,7 @@ public class ExamplesFragment extends Fragment
               ? R.drawable.ic_bookmark_added
               : R.drawable.ic_add_bookmark);
       pin.setIcon(mExamplesAdapter.isAllItemsPinned() ? R.drawable.ic_pinned : R.drawable.ic_pin);
-    } else {
-      addBookmark.setVisible(false);
-    }
+    } else addBookmark.setVisible(false);
   }
 
   private void batchBookmarkDialog(
@@ -344,11 +359,9 @@ public class ExamplesFragment extends Fragment
         .setPositiveButton(
             getString(R.string.ok),
             (dialog, i) -> {
-              if (isAllItemBookmarked) {
-                mExamplesAdapter.deleteSelectedFromBookmarks();
-              } else if (!isLimitReached) {
-                mExamplesAdapter.addSelectedToBookmarks();
-              }
+              if (isAllItemBookmarked) mExamplesAdapter.deleteSelectedFromBookmarks();
+              else if (!isLimitReached) mExamplesAdapter.addSelectedToBookmarks();
+
               updateSearchBar();
               bookmarksAddedOrRemovedMessage(
                   !isAllItemBookmarked, isBatch, isLimitReached, selectedCount);
@@ -367,14 +380,11 @@ public class ExamplesFragment extends Fragment
                 && !Preferences.getOverrideBookmarks(context);
 
     boolean isBatch = selectedItems > 1;
-    if (isBatch) {
-      batchBookmarkDialog(selectedItems, isAllItemBookmarked, isLimitReached, isBatch);
-    } else {
-      if (isAllItemBookmarked) {
-        mExamplesAdapter.deleteSelectedFromBookmarks();
-      } else if (!isLimitReached) {
-        mExamplesAdapter.addSelectedToBookmarks();
-      }
+    if (isBatch) batchBookmarkDialog(selectedItems, isAllItemBookmarked, isLimitReached, isBatch);
+    else {
+      if (isAllItemBookmarked) mExamplesAdapter.deleteSelectedFromBookmarks();
+      else if (!isLimitReached) mExamplesAdapter.addSelectedToBookmarks();
+
       updateSearchBar();
       bookmarksAddedOrRemovedMessage(!isAllItemBookmarked, isBatch, isLimitReached, selectedItems);
     }
@@ -384,9 +394,9 @@ public class ExamplesFragment extends Fragment
   private void bookmarksAddedOrRemovedMessage(
       boolean isAdded, boolean isBatch, boolean isLimitReached, int selectedCount) {
 
-    if (isLimitReached && isAdded) {
+    if (isLimitReached && isAdded)
       Utils.snackBar(view, getString(R.string.bookmark_limit_reached)).show();
-    } else if (isBatch) {
+    else if (isBatch) {
       int message =
           isAdded ? R.string.batch_bookmark_added_message : R.string.batch_bookmark_removed_message;
       Utils.snackBar(view, getString(message, selectedCount)).show();
@@ -400,12 +410,17 @@ public class ExamplesFragment extends Fragment
 
   // Function which manages the pin and unpin commands feature
   private void managePinUnpin() {
+    // Get the number of selected items
     int size = mExamplesAdapter.getSelectedItemsSize();
+    // This sets the title that shows number of selected items
     String title = mExamplesAdapter.selectedItems.get(0).getTitle();
 
+    // If selected items is more than 1 we declare the selection as batch
     boolean isBatch = size > 1;
+    // check if every item is already pinned
     boolean isAllItemsPinned = mExamplesAdapter.isAllItemsPinned();
 
+    // If batch we show confirm dialog message for batch else we show it for single item
     String confirmPin =
         isBatch ? getString(R.string.confirm_pin) : getString(R.string.confirm_pin_single, title);
     String confirmUnpin =
@@ -414,22 +429,24 @@ public class ExamplesFragment extends Fragment
             : getString(R.string.confirm_unpin_single, title);
     String message = isAllItemsPinned ? confirmUnpin : confirmPin;
 
+    // If all items are pinned we show unpin button else we show pin button
     String positiveButtonText =
         isAllItemsPinned ? getString(R.string.unpin) : getString(R.string.pin);
 
+    // Message to display after pinning or unpinning
     String snackBarMessage;
-    if (isBatch) {
+    if (isBatch)
       snackBarMessage =
           isAllItemsPinned
               ? getString(R.string.batch_unpinned_message, size)
               : getString(R.string.batch_pinned_message, size);
-    } else {
+    else
       snackBarMessage =
           isAllItemsPinned
               ? getString(R.string.unpinned_message, title)
               : getString(R.string.pinned_message, title);
-    }
 
+    // Dialog asking for confirmation of pin or unpin
     new MaterialAlertDialogBuilder(context)
         .setTitle(getString(R.string.confirm))
         .setMessage(message)
@@ -465,13 +482,13 @@ public class ExamplesFragment extends Fragment
     navigateToFragmentAndSetCommand(command);
   }
 
+  /* This function is called when we use the "Use" feature in commands examples to set the command in the fragment edit text */
   private void navigateToFragmentAndSetCommand(String command) {
     mainViewModel.setUseCommand(command);
     Fragment fragment = new AshellFragment();
-    if (mainViewModel.previousFragment() == Preferences.OTG_FRAGMENT) {
-      fragment = new OtgFragment();
-    }
-        KeyboardUtils.closeKeyboard(requireActivity(), view);
+    if (mainViewModel.previousFragment() == Preferences.OTG_FRAGMENT) fragment = new OtgFragment();
+
+    KeyboardUtils.closeKeyboard(requireActivity(), view);
     requireActivity()
         .getSupportFragmentManager()
         .beginTransaction()

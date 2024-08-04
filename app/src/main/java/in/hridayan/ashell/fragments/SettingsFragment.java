@@ -7,18 +7,16 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.databinding.FragmentSettingsBinding;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.MiuiCheck;
 import in.hridayan.ashell.utils.Preferences;
@@ -30,22 +28,23 @@ import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
-  private RecyclerView settingsList;
   private List<SettingsItem> settingsData;
   private SettingsAdapter adapter;
   private int currentTheme;
   private SettingsViewModel viewModel;
-  private AppBarLayout appBarLayout;
   private Context context;
   private BottomNavigationView mNav;
   private Pair<Integer, Integer> mRVPositionAndOffset;
+  private FragmentSettingsBinding binding;
+  private View view;
 
   @Override
   public void onPause() {
     super.onPause();
-    if (settingsList != null) {
+    if (binding.rvSettings != null) {
 
-      LinearLayoutManager layoutManager = (LinearLayoutManager) settingsList.getLayoutManager();
+      LinearLayoutManager layoutManager =
+          (LinearLayoutManager) binding.rvSettings.getLayoutManager();
 
       int currentPosition = layoutManager.findLastVisibleItemPosition();
       View currentView = layoutManager.findViewByPosition(currentPosition);
@@ -55,7 +54,7 @@ public class SettingsFragment extends Fragment {
         viewModel.setRVPositionAndOffset(mRVPositionAndOffset);
       }
       // Save toolbar state
-      viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
+      viewModel.setToolbarExpanded(Utils.isToolbarExpanded(binding.appBarLayout));
     }
   }
 
@@ -63,7 +62,9 @@ public class SettingsFragment extends Fragment {
   public void onResume() {
     super.onResume();
 
-    if (settingsList != null && settingsList.getLayoutManager() != null) {
+    if (binding.rvSettings != null && binding.rvSettings.getLayoutManager() != null) {
+
+      binding.appBarLayout.setExpanded(viewModel.isToolbarExpanded());
 
       mRVPositionAndOffset = viewModel.getRVPositionAndOffset();
       if (mRVPositionAndOffset != null) {
@@ -71,11 +72,8 @@ public class SettingsFragment extends Fragment {
         int position = viewModel.getRVPositionAndOffset().first;
         int offset = viewModel.getRVPositionAndOffset().second;
 
-        if (viewModel.isToolbarExpanded()) Utils.expandToolbar(appBarLayout);
-        else Utils.collapseToolbar(appBarLayout);
-
-        // Restore scroll position
-        ((LinearLayoutManager) settingsList.getLayoutManager())
+        // Restore recyclerView scroll position
+        ((LinearLayoutManager) binding.rvSettings.getLayoutManager())
             .scrollToPositionWithOffset(position, offset);
       }
     }
@@ -88,29 +86,24 @@ public class SettingsFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
+    binding = FragmentSettingsBinding.inflate(inflater, container, false);
+    view = binding.getRoot();
+
     context = requireContext();
 
-    View view = inflater.inflate(R.layout.fragment_settings, container, false);
-
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-
-    appBarLayout = view.findViewById(R.id.appBarLayout);
-    settingsList = view.findViewById(R.id.settings_list);
 
     viewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
     mNav.setVisibility(View.GONE);
 
-    ImageView imageView = view.findViewById(R.id.arrow_back);
-
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
-    imageView.setOnClickListener(
+    binding.arrowBack.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
           dispatcher.onBackPressed();
         });
 
-    settingsList = view.findViewById(R.id.settings_list);
     settingsData = new ArrayList<>();
 
     settingsData.add(
@@ -255,8 +248,8 @@ public class SettingsFragment extends Fragment {
             false));
 
     adapter = new SettingsAdapter(settingsData, context, currentTheme, requireActivity());
-    settingsList.setAdapter(adapter);
-    settingsList.setLayoutManager(new LinearLayoutManager(context));
+    binding.rvSettings.setAdapter(adapter);
+    binding.rvSettings.setLayoutManager(new LinearLayoutManager(context));
 
     return view;
   }

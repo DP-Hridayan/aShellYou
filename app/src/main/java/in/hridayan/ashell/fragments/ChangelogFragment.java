@@ -2,6 +2,7 @@ package in.hridayan.ashell.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public class ChangelogFragment extends Fragment {
   private ChangelogViewModel viewModel;
   private Context context;
   private FragmentChangelogBinding binding;
+  private Pair mRVPositionAndOffset;
 
   private final String[] versionNames = {
     "v4.4.0", "v4.3.1", "v4.3.0", "v4.2.1", "v4.2.0", "v4.1.0", "v4.0.3", "v4.0.2", "v4.0.1",
@@ -36,20 +38,40 @@ public class ChangelogFragment extends Fragment {
   @Override
   public void onPause() {
     super.onPause();
-    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(binding.appBarLayout));
+    if (binding.rvChangelogs != null) {
+
+      LinearLayoutManager layoutManager =
+          (LinearLayoutManager) binding.rvChangelogs.getLayoutManager();
+
+      int currentPosition = layoutManager.findLastVisibleItemPosition();
+      View currentView = layoutManager.findViewByPosition(currentPosition);
+
+      if (currentView != null) {
+        mRVPositionAndOffset = new Pair<>(currentPosition, currentView.getTop());
+        viewModel.setRVPositionAndOffset(mRVPositionAndOffset);
+      }
+      // Save toolbar state
+      viewModel.setToolbarExpanded(Utils.isToolbarExpanded(binding.appBarLayout));
+    }
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    int position = Utils.recyclerViewPosition(binding.rvChangelogs);
+    if (binding.rvChangelogs != null && binding.rvChangelogs.getLayoutManager() != null) {
 
-    if (viewModel.isToolbarExpanded()) {
-      if (position == 0) {
-        Utils.expandToolbar(binding.appBarLayout);
+      binding.appBarLayout.setExpanded(viewModel.isToolbarExpanded());
+
+      mRVPositionAndOffset = viewModel.getRVPositionAndOffset();
+      if (mRVPositionAndOffset != null) {
+
+        int position = viewModel.getRVPositionAndOffset().first;
+        int offset = viewModel.getRVPositionAndOffset().second;
+
+        // Restore recyclerView scroll position
+        ((LinearLayoutManager) binding.rvChangelogs.getLayoutManager())
+            .scrollToPositionWithOffset(position, offset);
       }
-    } else {
-      Utils.collapseToolbar(binding.appBarLayout);
     }
   }
 

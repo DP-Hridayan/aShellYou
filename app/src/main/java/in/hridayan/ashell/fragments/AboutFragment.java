@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,48 @@ public class AboutFragment extends Fragment
   private Context context;
   private FragmentAboutBinding binding;
   private View view;
+private Pair mRVPositionAndOffset;
+    
+   @Override
+  public void onPause() {
+    super.onPause();
+    if (binding.rvAbout != null) {
 
+      LinearLayoutManager layoutManager =
+          (LinearLayoutManager) binding.rvAbout.getLayoutManager();
+
+      int currentPosition = layoutManager.findLastVisibleItemPosition();
+      View currentView = layoutManager.findViewByPosition(currentPosition);
+
+      if (currentView != null) {
+        mRVPositionAndOffset = new Pair<>(currentPosition, currentView.getTop());
+        viewModel.setRVPositionAndOffset(mRVPositionAndOffset);
+      }
+      // Save toolbar state
+      viewModel.setToolbarExpanded(Utils.isToolbarExpanded(binding.appBarLayout));
+    }
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    if (binding.rvAbout != null && binding.rvAbout.getLayoutManager() != null) {
+
+      binding.appBarLayout.setExpanded(viewModel.isToolbarExpanded());
+
+      mRVPositionAndOffset = viewModel.getRVPositionAndOffset();
+      if (mRVPositionAndOffset != null) {
+
+        int position = viewModel.getRVPositionAndOffset().first;
+        int offset = viewModel.getRVPositionAndOffset().second;
+
+        // Restore recyclerView scroll position
+        ((LinearLayoutManager) binding.rvAbout.getLayoutManager())
+            .scrollToPositionWithOffset(position, offset);
+      }
+    }
+  }
+    
   @Nullable
   @Override
   public View onCreateView(

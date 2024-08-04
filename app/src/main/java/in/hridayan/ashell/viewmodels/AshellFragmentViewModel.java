@@ -1,5 +1,6 @@
 package in.hridayan.ashell.viewmodels;
 
+import android.util.Pair;
 import java.util.List;
 import androidx.lifecycle.ViewModel;
 
@@ -10,6 +11,7 @@ public class AshellFragmentViewModel extends ViewModel {
   private static final int nullValue = 2004;
   private List<String> shellOutput, history;
   private int scrollPosition, sendDrawable = nullValue;
+  private Pair<Integer, Integer> rvPositionAndOffset;
 
   public List<String> getShellOutput() {
     return shellOutput;
@@ -17,6 +19,14 @@ public class AshellFragmentViewModel extends ViewModel {
 
   public void setShellOutput(List<String> shellOutput) {
     this.shellOutput = shellOutput;
+  }
+
+  public void setRVPositionAndOffset(Pair<Integer, Integer> pair) {
+    this.rvPositionAndOffset = pair;
+  }
+
+  public Pair<Integer, Integer> getRVPositionAndOffset() {
+    return rvPositionAndOffset;
   }
 
   public List<String> getHistory() {
@@ -62,12 +72,12 @@ public class AshellFragmentViewModel extends ViewModel {
   public boolean isSendDrawableSaved() {
     return sendDrawable != nullValue;
   }
-   public boolean isEndIconVisible() {
+
+  public boolean isEndIconVisible() {
     return isEndIconVisible;
   }
 
   public void setEndIconVisible(boolean endIconVisible) {
     isEndIconVisible = endIconVisible;
   }
-    
 }

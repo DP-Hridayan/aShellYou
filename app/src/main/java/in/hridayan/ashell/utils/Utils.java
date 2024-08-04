@@ -65,9 +65,8 @@ public class Utils {
     String[] invalidChars = {"*", "/", ":", "<", ">", "?", "\\", "|"};
 
     for (String invalidChar : invalidChars) {
-      if (s.contains(invalidChar)) {
+      if (s.contains(invalidChar))
         return false;
-      }
     }
     return true;
   }
@@ -143,14 +142,12 @@ public class Utils {
   }
 
   public static void pasteFromClipboard(TextInputEditText editText) {
-    if (editText == null) {
-      return;
-    }
+    if (editText == null) return;
+
     ClipboardManager clipboard =
         (ClipboardManager) editText.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-    if (clipboard == null) {
-      return;
-    }
+        
+    if (clipboard == null) return;
 
     if (clipboard.hasPrimaryClip()
         && clipboard.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
@@ -169,7 +166,6 @@ public class Utils {
   }
 
   public static void alignMargin(View component) {
-
     ViewGroup.MarginLayoutParams params =
         (ViewGroup.MarginLayoutParams) component.getLayoutParams();
     params.bottomMargin = 29;
@@ -181,14 +177,6 @@ public class Utils {
     return appBarLayout.getTop() == 0;
   }
 
-  public static void expandToolbar(AppBarLayout appBarLayout) {
-    appBarLayout.setExpanded(true);
-  }
-
-  public static void collapseToolbar(AppBarLayout appBarLayout) {
-    appBarLayout.setExpanded(false);
-  }
-
   public static int recyclerViewPosition(RecyclerView recyclerView) {
     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
     int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
@@ -197,8 +185,7 @@ public class Utils {
   }
 
   public static int currentVersion() {
-    int versionCode = BuildConfig.VERSION_CODE;
-    return versionCode;
+    return BuildConfig.VERSION_CODE;
   }
 
   public static boolean isAppUpdated(Context context) {
@@ -209,18 +196,14 @@ public class Utils {
   public static List<String> getBookmarks(Context context) {
     List<String> mBookmarks = new ArrayList<>();
     for (File file : Objects.requireNonNull(context.getExternalFilesDir("bookmarks").listFiles())) {
-      if (!file.getName().equalsIgnoreCase("specialCommands")) {
-        mBookmarks.add(file.getName());
-      }
+      if (!file.getName().equalsIgnoreCase("specialCommands")) mBookmarks.add(file.getName());
     }
     if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
       for (String commands :
           Objects.requireNonNull(
                   read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
               .split("\\r?\\n")) {
-        if (!commands.trim().isEmpty()) {
-          mBookmarks.add(commands.trim());
-        }
+        if (!commands.trim().isEmpty()) mBookmarks.add(commands.trim());
       }
     }
 
