@@ -3,6 +3,7 @@ package in.hridayan.ashell.fragments;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,13 +38,22 @@ public class SettingsFragment extends Fragment {
   private AppBarLayout appBarLayout;
   private Context context;
   private BottomNavigationView mNav;
+  private Pair<Integer, Integer> mRVPositionAndOffset;
 
   @Override
   public void onPause() {
     super.onPause();
     if (settingsList != null) {
-      viewModel.setScrollPosition(
-          ((LinearLayoutManager) settingsList.getLayoutManager()).findFirstVisibleItemPosition());
+
+      LinearLayoutManager layoutManager = (LinearLayoutManager) settingsList.getLayoutManager();
+
+      int currentPosition = layoutManager.findLastVisibleItemPosition();
+      View currentView = layoutManager.findViewByPosition(currentPosition);
+
+      if (currentView != null) {
+        mRVPositionAndOffset = new Pair<>(currentPosition, currentView.getTop());
+        viewModel.setRVPositionAndOffset(mRVPositionAndOffset);
+      }
       // Save toolbar state
       viewModel.setToolbarExpanded(Utils.isToolbarExpanded(appBarLayout));
     }
@@ -53,19 +63,21 @@ public class SettingsFragment extends Fragment {
   public void onResume() {
     super.onResume();
 
-    int position = viewModel.getScrollPosition();
-
-    if (viewModel.isToolbarExpanded()) {
-      if (position == 0) {
-        Utils.expandToolbar(appBarLayout);
-      }
-    } else {
-      Utils.collapseToolbar(appBarLayout);
-    }
-
     if (settingsList != null && settingsList.getLayoutManager() != null) {
-      // Restore scroll position
-      settingsList.getLayoutManager().scrollToPosition(position);
+
+      mRVPositionAndOffset = viewModel.getRVPositionAndOffset();
+      if (mRVPositionAndOffset != null) {
+
+        int position = viewModel.getRVPositionAndOffset().first;
+        int offset = viewModel.getRVPositionAndOffset().second;
+
+        if (viewModel.isToolbarExpanded()) Utils.expandToolbar(appBarLayout);
+        else Utils.collapseToolbar(appBarLayout);
+
+        // Restore scroll position
+        ((LinearLayoutManager) settingsList.getLayoutManager())
+            .scrollToPositionWithOffset(position, offset);
+      }
     }
   }
 

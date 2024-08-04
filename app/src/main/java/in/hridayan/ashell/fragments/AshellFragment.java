@@ -128,9 +128,9 @@ public class AshellFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-        
+
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
-        
+
     // This function is for restoring the Run button's icon after a configuration change
     switch (viewModel.getSendDrawable()) {
       case ic_help:
@@ -248,7 +248,7 @@ public class AshellFragment extends Fragment {
     // Paste and undo button onClickListener
     BehaviorFAB.pasteAndUndo(
         binding.pasteButton, binding.undoButton, binding.commandEditText, context);
-    
+
     // Toggles certain buttons visibility according to keyboard's visibility
     KeyboardUtils.attachVisibilityListener(
         requireActivity(),

@@ -27,36 +27,24 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.cgutman.adblib.AdbBase64;
 import com.cgutman.adblib.AdbConnection;
 import com.cgutman.adblib.AdbCrypto;
 import com.cgutman.adblib.AdbStream;
 import com.cgutman.adblib.UsbChannel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -64,11 +52,11 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollUpListener;
 import in.hridayan.ashell.UI.BehaviorFAB.OtgShareButtonListener;
-import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.databinding.FragmentOtgBinding;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.OtgUtils;
@@ -76,6 +64,7 @@ import in.hridayan.ashell.utils.OtgUtils.Const;
 import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 import java.io.File;
@@ -93,28 +82,11 @@ public class OtgFragment extends Fragment
     implements TextView.OnEditorActionListener, View.OnKeyListener {
   private Handler handler;
   private UsbDevice mDevice;
-  private MaterialTextView logs;
-  private AppCompatImageButton mCable, dismissCard;
   private AdbCrypto adbCrypto;
   private AdbConnection adbConnection;
   private UsbManager mManager;
   private BottomNavigationView mNav;
-  private CommandsAdapter mCommandsAdapter;
-  private Button mModeButton;
-  private LinearLayoutCompat terminalView;
-  private MaterialButton mSettingsButton,
-      mBookMarks,
-      mHistoryButton,
-      mClearButton,
-      instructionsButton;
-  private RecyclerView mRecyclerViewCommands;
   private SettingsAdapter adapter;
-  private MaterialCardView mShellCard, mWarningUsbDebugging;
-  private TextInputLayout mCommandInput;
-  private TextInputEditText mCommand;
-  private FloatingActionButton mSendButton, mUndoButton, mTopButton, mBottomButton, mShareButton;
-  private ExtendedFloatingActionButton mPasteButton, mSaveButton;
-  private CoordinatedNestedScrollView scrollView;
   private AlertDialog mWaitingDialog;
   private String user = null, deviceName;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
@@ -124,7 +96,8 @@ public class OtgFragment extends Fragment
   private AdbStream stream;
   private Context context;
   private MainViewModel mainViewModel;
-
+  private FragmentOtgBinding binding;
+  private CommandsAdapter mCommandsAdapter;
   private OnFragmentInteractionListener mListener;
 
   public interface OnFragmentInteractionListener {
@@ -151,18 +124,24 @@ public class OtgFragment extends Fragment
   @Override
   public void onPause() {
     super.onPause();
+
     mainViewModel.setPreviousFragment(Preferences.OTG_FRAGMENT);
+
+    if (isKeyboardVisible) {
+      KeyboardUtils.closeKeyboard(requireActivity(), view);
+    }
   }
 
   @Override
   public void onResume() {
     super.onResume();
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
+
     if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")
         && adbConnection == null) {
-      mWarningUsbDebugging.setVisibility(View.VISIBLE);
-    } else if (mWarningUsbDebugging.getVisibility() == View.VISIBLE) {
-      mWarningUsbDebugging.setVisibility(View.GONE);
+      binding.usbWarningCard.setVisibility(View.VISIBLE);
+    } else if (binding.usbWarningCard.getVisibility() == View.VISIBLE) {
+      binding.usbWarningCard.setVisibility(View.GONE);
     }
 
     handleUseCommand();
@@ -252,55 +231,40 @@ public class OtgFragment extends Fragment
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    context = getContext();
-    if (context == null) {
-      return view;
-    }
-    view = inflater.inflate(R.layout.fragment_otg, container, false);
 
-    List<SettingsItem> settingsList = new ArrayList<>();
-    adapter = new SettingsAdapter(settingsList, requireContext());
-    logs = view.findViewById(R.id.logs);
-    mBookMarks = view.findViewById(R.id.bookmarks);
-    mBottomButton = view.findViewById(R.id.fab_down);
-    mCable = view.findViewById(R.id.otg_cable);
-    mClearButton = view.findViewById(R.id.clear);
-    mModeButton = view.findViewById(R.id.mode_button);
-    mCommand = view.findViewById(R.id.shell_command);
-    mCommandInput = view.findViewById(R.id.shell_command_layout);
-    dismissCard = view.findViewById(R.id.dimiss_card);
-    mHistoryButton = view.findViewById(R.id.history);
+    binding = FragmentOtgBinding.inflate(inflater, container, false);
+
+    view = binding.getRoot();
+
+    context = requireContext();
+
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-    mPasteButton = view.findViewById(R.id.paste_button);
-    mRecyclerViewCommands = view.findViewById(R.id.rv_commands);
-    mSaveButton = view.findViewById(R.id.save_button);
-    mSendButton = view.findViewById(R.id.send);
-    mSettingsButton = view.findViewById(R.id.settings);
-    mShellCard = view.findViewById(R.id.otg_shell_card);
-    scrollView = view.findViewById(R.id.scrollView);
-    mShareButton = view.findViewById(R.id.fab_share);
-    terminalView = view.findViewById(R.id.terminalView);
-    mTopButton = view.findViewById(R.id.fab_up);
-    mUndoButton = view.findViewById(R.id.fab_undo);
-    mWarningUsbDebugging = view.findViewById(R.id.warning_usb_debugging);
-    instructionsButton = view.findViewById(R.id.instructions_button);
 
     // initialize viewmodel
     mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
-    mRecyclerViewCommands.addOnScrollListener(new FabExtendingOnScrollListener(mPasteButton));
+    binding.rvCommands.addOnScrollListener(new FabExtendingOnScrollListener(binding.pasteButton));
 
-    mRecyclerViewCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
+    binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-    new FabExtendingOnScrollViewListener(scrollView, mSaveButton);
-    new FabOtgScrollUpListener(scrollView, mTopButton);
-    new FabOtgScrollDownListener(scrollView, mBottomButton);
-    new OtgShareButtonListener(scrollView, mShareButton);
-    BehaviorFAB.pasteAndUndo(mPasteButton, mUndoButton, mCommand, context);
+    List<SettingsItem> settingsList = new ArrayList<>();
+    adapter = new SettingsAdapter(settingsList, context);
+
+    new FabExtendingOnScrollViewListener(binding.scrollView, binding.saveButton);
+    new FabOtgScrollUpListener(binding.scrollView, binding.scrollUpButton);
+    new FabOtgScrollDownListener(binding.scrollView, binding.scrollDownButton);
+    new OtgShareButtonListener(binding.scrollView, binding.shareButton);
+    BehaviorFAB.pasteAndUndo(
+        binding.pasteButton, binding.undoButton, binding.commandEditText, context);
 
     BehaviorFAB.handleTopAndBottomArrow(
-        mTopButton, mBottomButton, null, scrollView, context, "otg_shell");
+        binding.scrollUpButton,
+        binding.scrollDownButton,
+        null,
+        binding.scrollView,
+        context,
+        "otg_shell");
 
     // Method to hide and show floating action buttons when keyboard is showing or not
     KeyboardUtils.attachVisibilityListener(
@@ -311,22 +275,24 @@ public class OtgFragment extends Fragment
           else buttonsVisibilityVisible();
         });
 
-    mNav.setVisibility(View.VISIBLE);
+    if (!isKeyboardVisible) {
+      mNav.setVisibility(View.VISIBLE);
+    }
 
     // Show the info card by checking preferences
     if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")
         && adbConnection == null) {
-      mWarningUsbDebugging.setVisibility(View.VISIBLE);
-    } else if (mWarningUsbDebugging.getVisibility() == View.VISIBLE) {
-      mWarningUsbDebugging.setVisibility(View.GONE);
+      binding.usbWarningCard.setVisibility(View.VISIBLE);
+    } else if (binding.usbWarningCard.getVisibility() == View.VISIBLE) {
+      binding.usbWarningCard.setVisibility(View.GONE);
     }
 
     if (isSendDrawable) {
-      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
+      binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
 
     } else {
-      mSendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-      mSendButton.setOnClickListener(
+      binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
+      binding.sendButton.setOnClickListener(
           v -> {
             HapticUtils.weakVibrate(v, context);
             requireActivity()
@@ -345,9 +311,7 @@ public class OtgFragment extends Fragment
 
     // Logic for changing the command send button depending on the text on the EditText
 
-    mBookMarks.setVisibility(!Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
-
-    mCommand.addTextChangedListener(
+    binding.commandEditText.addTextChangedListener(
         new TextWatcher() {
           @Override
           public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -355,29 +319,23 @@ public class OtgFragment extends Fragment
           @Override
           public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            isSendDrawable = mCommand.getText() != null;
+            isSendDrawable = binding.commandEditText.getText() != null;
 
-            mCommandInput.setError(null);
-
-            mBookMarks.setVisibility(
-                !Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
+            binding.commandInputLayout.setError(null);
           }
 
           @Override
           public void afterTextChanged(Editable s) {
-            mCommand.requestFocus();
+            binding.commandEditText.requestFocus();
 
             String inputText = s.toString();
             if (inputText.isEmpty()) {
 
-              mBookMarks.setVisibility(
-                  !Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
-
-              mCommandInput.setEndIconVisible(false);
-              mSendButton.setImageDrawable(
+              binding.commandInputLayout.setEndIconVisible(false);
+              binding.sendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_help, requireActivity()));
 
-              mSendButton.setOnClickListener(
+              binding.sendButton.setOnClickListener(
                   v -> {
                     HapticUtils.weakVibrate(v, context);
                     requireActivity()
@@ -415,53 +373,55 @@ public class OtgFragment extends Fragment
                               new CommandsAdapter(
                                   Commands.getPackageInfo(packageNamePrefix + ".", context));
                           if (isAdded()) {
-                            mRecyclerViewCommands.setLayoutManager(
+                            binding.rvCommands.setLayoutManager(
                                 new LinearLayoutManager(requireActivity()));
                           }
 
                           if (isAdded()) {
-                            mRecyclerViewCommands.setAdapter(mCommandsAdapter);
+                            binding.rvCommands.setAdapter(mCommandsAdapter);
                           }
-                          mRecyclerViewCommands.setVisibility(View.VISIBLE);
+                          binding.rvCommands.setVisibility(View.VISIBLE);
                           mCommandsAdapter.setOnItemClickListener(
                               (command, v) -> {
-                                mCommand.setText(
+                                binding.commandEditText.setText(
                                     splitCommands[0].contains(" ")
                                         ? splitPrefix(splitCommands[0], 0) + " " + command
                                         : command);
-                                mCommand.setSelection(mCommand.getText().length());
-                                mRecyclerViewCommands.setVisibility(View.GONE);
+                                binding.commandEditText.setSelection(
+                                    binding.commandEditText.getText().length());
+                                binding.rvCommands.setVisibility(View.GONE);
                               });
                         } else {
                           mCommandsAdapter =
                               new CommandsAdapter(Commands.getCommand(s.toString(), context));
                           if (isAdded()) {
-                            mRecyclerViewCommands.setLayoutManager(
+                            binding.rvCommands.setLayoutManager(
                                 new LinearLayoutManager(requireActivity()));
                           }
 
-                          mRecyclerViewCommands.setAdapter(mCommandsAdapter);
-                          mRecyclerViewCommands.setVisibility(View.VISIBLE);
+                          binding.rvCommands.setAdapter(mCommandsAdapter);
+                          binding.rvCommands.setVisibility(View.VISIBLE);
                           mCommandsAdapter.setOnItemClickListener(
                               (command, v) -> {
-                                mCommand.setText(
+                                binding.commandEditText.setText(
                                     command.contains(" <") ? command.split("<")[0] : command);
 
-                                mCommand.setSelection(mCommand.getText().length());
+                                binding.commandEditText.setSelection(
+                                    binding.commandEditText.getText().length());
                               });
                         }
                       });
 
-              mCommandInput.setEndIconDrawable(
+              binding.commandInputLayout.setEndIconDrawable(
                   Utils.getDrawable(
                       Utils.isBookmarked(s.toString().trim(), requireActivity())
                           ? R.drawable.ic_bookmark_added
                           : R.drawable.ic_add_bookmark,
                       requireActivity()));
 
-              mCommandInput.setEndIconVisible(true);
+              binding.commandInputLayout.setEndIconVisible(true);
 
-              mCommandInput.setEndIconOnClickListener(
+              binding.commandInputLayout.setEndIconOnClickListener(
                   v -> {
                     HapticUtils.weakVibrate(v, context);
                     if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
@@ -473,18 +433,15 @@ public class OtgFragment extends Fragment
                     } else {
                       Utils.addBookmarkIconOnClickListener(s.toString().trim(), view, context);
                     }
-                    mCommandInput.setEndIconDrawable(
+                    binding.commandInputLayout.setEndIconDrawable(
                         Utils.getDrawable(
                             Utils.isBookmarked(s.toString().trim(), requireActivity())
                                 ? R.drawable.ic_bookmark_added
                                 : R.drawable.ic_add_bookmark,
                             requireActivity()));
-
-                    mBookMarks.setVisibility(
-                        !Utils.getBookmarks(context).isEmpty() ? View.VISIBLE : View.GONE);
                   });
 
-              mSendButton.setImageDrawable(
+              binding.sendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_send, requireActivity()));
               sendButtonOnClickListener();
             }
@@ -503,7 +460,8 @@ public class OtgFragment extends Fragment
                 initCommand();
                 if (adbConnection != null) {
                   // Glow otg symbol when adb connection successfull
-                  mCable.setColorFilter(Utils.getColor(R.color.green, requireActivity()));
+                  binding.otgCableIcon.setColorFilter(
+                      Utils.getColor(R.color.green, requireActivity()));
                 }
                 Toast.makeText(context, getString(R.string.connected), Toast.LENGTH_SHORT).show();
                 break;
@@ -511,14 +469,14 @@ public class OtgFragment extends Fragment
               case CONNECTING:
                 //   Toast.makeText(context, "connecting", Toast.LENGTH_SHORT).show();
                 if (adbConnection == null) {
-                  mWarningUsbDebugging.setVisibility(View.GONE);
+                  binding.usbWarningCard.setVisibility(View.GONE);
                   waitingDialog(context);
                 }
 
                 break;
 
               case DEVICE_NOT_FOUND:
-                mCable.clearColorFilter();
+                binding.otgCableIcon.clearColorFilter();
                 // Toast.makeText(context, "device not found!", Toast.LENGTH_SHORT).show();
                 adbConnection = null; // Fix this issue
                 break;
@@ -596,7 +554,7 @@ public class OtgFragment extends Fragment
     instructionsButtonOnClickListener();
 
     // The cross to dismiss the info card
-    dismissCardOnClickListener();
+    crossOnClickListener();
 
     // Button to view the connected device
     modeButtonOnClickListener();
@@ -619,8 +577,8 @@ public class OtgFragment extends Fragment
     // Share button onclickListener
     shareButtonOnClickListener();
 
-    mCommand.setOnEditorActionListener(this);
-    mCommand.setOnKeyListener(this);
+    binding.commandEditText.setOnEditorActionListener(this);
+    binding.commandEditText.setOnKeyListener(this);
 
     return view;
   }
@@ -753,12 +711,12 @@ public class OtgFragment extends Fragment
                             System.out.println("End => " + user);
                           }
 
-                          logs.append(output[0]);
+                          binding.shellOutput.append(output[0]);
 
-                          scrollView.post(
+                          binding.scrollView.post(
                               () -> {
-                                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-                                mCommand.requestFocus();
+                                binding.scrollView.fullScroll(binding.scrollView.FOCUS_DOWN);
+                                binding.commandEditText.requestFocus();
                               });
                         });
                   } catch (UnsupportedEncodingException e) {
@@ -776,9 +734,9 @@ public class OtgFragment extends Fragment
             })
         .start();
 
-    mClearButton.setVisibility(View.VISIBLE);
-    logs.setText("");
-    mShellCard.setVisibility(View.VISIBLE);
+    
+    binding.shellOutput.setText("");
+    binding.outputBgCardView.setVisibility(View.VISIBLE);
     modeButtonOnClickListener();
   }
 
@@ -825,33 +783,32 @@ public class OtgFragment extends Fragment
   // Put the text shared from outside the app into the input field (edit text)
   public void updateInputField(String sharedText) {
     if (sharedText != null) {
-      mCommand.setText(sharedText);
-      mCommand.requestFocus();
-      mCommand.setSelection(mCommand.getText().length());
+      binding.commandEditText.setText(sharedText);
+      binding.commandEditText.requestFocus();
+      binding.commandEditText.setSelection(binding.commandEditText.getText().length());
     }
   }
 
   // Clear the shell output
   private void clearAll() {
-    String log = logs.getText().toString();
+    String log = binding.shellOutput.getText().toString();
     String[] logSplit = log.split("\n");
-    logs.setText(logSplit[logSplit.length - 1]);
+    binding.shellOutput.setText(logSplit[logSplit.length - 1]);
 
-    if (mTopButton.getVisibility() == View.VISIBLE) {
-      mTopButton.setVisibility(View.GONE);
+    if (binding.scrollUpButton.getVisibility() == View.VISIBLE) {
+      binding.scrollUpButton.setVisibility(View.GONE);
     }
-    if (mBottomButton.getVisibility() == View.VISIBLE) {
-      mBottomButton.setVisibility(View.GONE);
+    if (binding.scrollDownButton.getVisibility() == View.VISIBLE) {
+      binding.scrollDownButton.setVisibility(View.GONE);
     }
-    mClearButton.setVisibility(View.GONE);
-    mSaveButton.setVisibility(View.GONE);
-    mShareButton.setVisibility(View.GONE);
+    binding.saveButton.setVisibility(View.GONE);
+    binding.shareButton.setVisibility(View.GONE);
     showBottomNav();
   }
 
   // Button showing the mode and connected device
   private void modeButtonOnClickListener() {
-    mModeButton.setOnClickListener(
+    binding.modeButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
           if (mDevice != null) {
@@ -874,27 +831,27 @@ public class OtgFragment extends Fragment
 
   // Hide buttons when keyboard is visible
   private void buttonsVisibilityGone() {
-    mPasteButton.setVisibility(View.GONE);
-    mUndoButton.setVisibility(View.GONE);
-    mSaveButton.setVisibility(View.GONE);
-    mShareButton.setVisibility(View.GONE);
+    binding.pasteButton.setVisibility(View.GONE);
+    binding.undoButton.setVisibility(View.GONE);
+    binding.saveButton.setVisibility(View.GONE);
+    binding.shareButton.setVisibility(View.GONE);
   }
 
   // Show buttons again when keyboard is gone
   private void buttonsVisibilityVisible() {
-    if (mPasteButton.getVisibility() == View.GONE) {
+    if (binding.pasteButton.getVisibility() == View.GONE) {
       if (!sendButtonClicked) {
-        setVisibilityWithDelay(mPasteButton, 100);
-      } else if (scrollView.getChildAt(0).getHeight() != 0) {
-        setVisibilityWithDelay(mSaveButton, 100);
-        setVisibilityWithDelay(mShareButton, 100);
+        setVisibilityWithDelay(binding.pasteButton, 100);
+      } else if (binding.scrollView.getChildAt(0).getHeight() != 0) {
+        setVisibilityWithDelay(binding.saveButton, 100);
+        setVisibilityWithDelay(binding.shareButton, 100);
       }
     }
   }
 
   // Onclick listener for save button
   private void saveButtonOnClickListener() {
-    mSaveButton.setOnClickListener(
+    binding.saveButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
           history = mHistory;
@@ -902,11 +859,11 @@ public class OtgFragment extends Fragment
 
           switch (Preferences.getSavePreference(context)) {
             case Preferences.ALL_OUTPUT:
-              sb = logs.getText().toString();
+              sb = binding.shellOutput.getText().toString();
               fileName = "otg_output" + Utils.getCurrentDateTime();
               break;
             case Preferences.LAST_COMMAND_OUTPUT:
-              sb = Utils.lastCommandOutput(logs.getText().toString());
+              sb = Utils.lastCommandOutput(binding.shellOutput.getText().toString());
               fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
               break;
             default:
@@ -924,7 +881,7 @@ public class OtgFragment extends Fragment
 
   // OnClick listener for share button
   private void shareButtonOnClickListener() {
-    mShareButton.setOnClickListener(
+    binding.shareButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
           String fileName = Utils.generateFileName(mHistory);
@@ -932,14 +889,14 @@ public class OtgFragment extends Fragment
               requireActivity(),
               context,
               fileName,
-              Utils.lastCommandOutput(logs.getText().toString()));
+              Utils.lastCommandOutput(binding.shellOutput.getText().toString()));
         });
   }
 
   // OnClick listener for settings button
   private void settingsButtonOnClickListener() {
-    mSettingsButton.setTooltipText(getString(R.string.settings));
-    mSettingsButton.setOnClickListener(
+    binding.settingsButton.setTooltipText(getString(R.string.settings));
+    binding.settingsButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, getContext());
           requireActivity()
@@ -958,37 +915,46 @@ public class OtgFragment extends Fragment
 
   // OnClick listener for history button
   private void historyButtonOnClickListener() {
-    mHistoryButton.setTooltipText(getString(R.string.history));
-    mHistoryButton.setOnClickListener(
+    binding.historyButton.setTooltipText(getString(R.string.history));
+    binding.historyButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          PopupMenu popupMenu = new PopupMenu(requireContext(), mCommand);
-          Menu menu = popupMenu.getMenu();
-          for (int i = 0; i < getRecentCommands().size(); i++) {
-            menu.add(Menu.NONE, i, Menu.NONE, getRecentCommands().get(i));
-          }
-          popupMenu.setOnMenuItemClickListener(
-              item -> {
-                for (int i = 0; i < getRecentCommands().size(); i++) {
-                  if (item.getItemId() == i) {
-                    mCommand.setText(getRecentCommands().get(i));
-                    mCommand.setSelection(mCommand.getText().length());
+
+          if (history == null) {
+            ToastUtils.showToast(context, R.string.no_history, ToastUtils.LENGTH_SHORT);
+          } else {
+            PopupMenu popupMenu = new PopupMenu(requireContext(), binding.commandEditText);
+            Menu menu = popupMenu.getMenu();
+            for (int i = 0; i < getRecentCommands().size(); i++) {
+              menu.add(Menu.NONE, i, Menu.NONE, getRecentCommands().get(i));
+            }
+            popupMenu.setOnMenuItemClickListener(
+                item -> {
+                  for (int i = 0; i < getRecentCommands().size(); i++) {
+                    if (item.getItemId() == i) {
+                      binding.commandEditText.setText(getRecentCommands().get(i));
+                      binding.commandEditText.setSelection(
+                          binding.commandEditText.getText().length());
+                    }
                   }
-                }
-                return false;
-              });
-          popupMenu.show();
+                  return false;
+                });
+            popupMenu.show();
+          }
         });
   }
 
   // Clear button onClick listener
   private void clearButtonOnClickListener() {
-    mClearButton.setTooltipText(getString(R.string.clear_screen));
-    mClearButton.setOnClickListener(
+    binding.clearButton.setTooltipText(getString(R.string.clear_screen));
+    binding.clearButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
           boolean switchState = Preferences.getClear(context);
-          if (switchState) {
+
+          if (binding.shellOutput.getText().toString().isEmpty()) {
+            ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
+          } else if (switchState) {
             new MaterialAlertDialogBuilder(requireActivity())
                 .setTitle(getString(R.string.clear_everything))
                 .setMessage(getString(R.string.clear_all_message))
@@ -1001,38 +967,43 @@ public class OtgFragment extends Fragment
         });
   }
 
-  // Bookmarks button onClick listener
+  // OnClick listener for bookmarks button
   private void bookmarksButtonOnClickListener() {
-    mBookMarks.setTooltipText(getString(R.string.bookmarks));
-    mBookMarks.setOnClickListener(
+    binding.bookmarksButton.setTooltipText(getString(R.string.bookmarks));
+    binding.bookmarksButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          Utils.bookmarksDialog(context, requireActivity(), mCommand, mCommandInput);
+
+          if (Utils.getBookmarks(context).isEmpty()) {
+            ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
+          } else {
+            Utils.bookmarksDialog(
+                context, requireActivity(), binding.commandEditText, binding.commandInputLayout);
+          }
         });
   }
 
   // Send button onClick listener
   private void sendButtonOnClickListener() {
-    mSendButton.setOnClickListener(
+    binding.sendButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
           KeyboardUtils.closeKeyboard(requireActivity(), v);
           modeButtonOnClickListener();
           sendButtonClicked = true;
-          mPasteButton.hide();
-          mUndoButton.hide();
+          binding.pasteButton.hide();
+          binding.undoButton.hide();
 
-          if (mRecyclerViewCommands.getVisibility() == View.VISIBLE) {
-            mRecyclerViewCommands.setVisibility(View.GONE);
+          if (binding.rvCommands.getVisibility() == View.VISIBLE) {
+            binding.rvCommands.setVisibility(View.GONE);
           }
           if (adbConnection != null) {
-            mHistoryButton.setVisibility(View.VISIBLE);
 
             if (mHistory == null) {
               mHistory = new ArrayList<>();
             }
 
-            mHistory.add(mCommand.getText().toString());
+            mHistory.add(binding.commandEditText.getText().toString());
             putCommand();
           } else {
             deviceConnectionErrorMessage();
@@ -1042,13 +1013,12 @@ public class OtgFragment extends Fragment
 
   private void putCommand() {
 
-    if (!mCommand.getText().toString().isEmpty()) {
-      mShellCard.setVisibility(View.VISIBLE);
-      mClearButton.setVisibility(View.VISIBLE);
+    if (!binding.commandEditText.getText().toString().isEmpty()) {
+      binding.outputBgCardView.setVisibility(View.VISIBLE);
 
       // We become the sending thread
       try {
-        String cmd = mCommand.getText().toString();
+        String cmd = binding.commandEditText.getText().toString();
         if (cmd.equalsIgnoreCase("clear")) {
           clearAll();
         } else if (cmd.equalsIgnoreCase("logcat")) {
@@ -1063,7 +1033,7 @@ public class OtgFragment extends Fragment
           stream.write((cmd + "\n").getBytes(StandardCharsets.UTF_8));
         }
 
-        mCommand.setText("");
+        binding.commandEditText.setText("");
       } catch (IOException e) {
         Log.e("OTGShellFragment", "Error writing command", e);
       } catch (InterruptedException e) {
@@ -1075,12 +1045,14 @@ public class OtgFragment extends Fragment
 
   // Handles ui and feedback when otg device is not connected
   private void deviceConnectionErrorMessage() {
-    mCommandInput.setError(getString(R.string.device_not_connected));
-    mCommandInput.setErrorIconDrawable(Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
-    mCommandInput.setErrorIconOnClickListener(t -> mCommand.setText(null));
+    binding.commandInputLayout.setError(getString(R.string.device_not_connected));
+    binding.commandInputLayout.setErrorIconDrawable(
+        Utils.getDrawable(R.drawable.ic_cancel, requireActivity()));
+    binding.commandInputLayout.setErrorIconOnClickListener(
+        t -> binding.commandEditText.setText(null));
 
-    Utils.alignMargin(mSendButton);
-    Utils.alignMargin(mCable);
+    Utils.alignMargin(binding.sendButton);
+    Utils.alignMargin(binding.otgCableIcon);
 
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(requireActivity().getString(R.string.error))
@@ -1090,18 +1062,18 @@ public class OtgFragment extends Fragment
   }
 
   // The cross which dismisses the card asking to turn on usb debugging
-  private void dismissCardOnClickListener() {
-    dismissCard.setOnClickListener(
+  private void crossOnClickListener() {
+    binding.cross.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          mWarningUsbDebugging.setVisibility(View.GONE);
+          binding.usbWarningCard.setVisibility(View.GONE);
           Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", false);
         });
   }
 
   // Onclick listener of Instruction button on the card
   private void instructionsButtonOnClickListener() {
-    instructionsButton.setOnClickListener(
+    binding.instructionsButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
           Utils.openUrl(context, Preferences.otgInstructions);

@@ -21,6 +21,6 @@
         android:interpolator="@anim/fast_out_extra_slow_in"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toXScale="0.9"
-        android:toYScale="0.9" />
+        android:toXScale="0.85"
+        android:toYScale="0.85" />
 </set>

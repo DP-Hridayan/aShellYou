@@ -1,5 +1,6 @@
 package in.hridayan.ashell.viewmodels;
 
+import android.util.Pair;
 import in.hridayan.ashell.utils.SettingsItem;
 import java.util.List;
 import androidx.lifecycle.ViewModel;
@@ -9,6 +10,7 @@ public class SettingsViewModel extends ViewModel {
 
   private List<SettingsItem> settingsData;
   private int scrollPosition;
+  private Pair<Integer, Integer> rvPositionAndOffset;
 
   public List<SettingsItem> getSettingsData() {
     return settingsData;
@@ -18,12 +20,12 @@ public class SettingsViewModel extends ViewModel {
     this.settingsData = settingsData;
   }
 
-  public int getScrollPosition() {
-    return scrollPosition;
+  public void setRVPositionAndOffset(Pair<Integer, Integer> pair) {
+    this.rvPositionAndOffset = pair;
   }
 
-  public void setScrollPosition(int scrollPosition) {
-    this.scrollPosition = scrollPosition;
+  public Pair<Integer, Integer> getRVPositionAndOffset() {
+    return rvPositionAndOffset;
   }
 
   public boolean isToolbarExpanded() {

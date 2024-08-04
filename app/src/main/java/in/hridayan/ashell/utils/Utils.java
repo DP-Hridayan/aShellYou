@@ -203,11 +203,7 @@ public class Utils {
 
   public static boolean isAppUpdated(Context context) {
     savedVersionCode = Preferences.getSavedVersionCode(context);
-    if (savedVersionCode != currentVersion() && savedVersionCode != 1) {
-      return true;
-    } else {
-      return false;
-    }
+    return savedVersionCode != currentVersion() && savedVersionCode != 1;
   }
 
   public static List<String> getBookmarks(Context context) {
