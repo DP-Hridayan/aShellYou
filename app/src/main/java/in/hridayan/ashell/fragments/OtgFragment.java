@@ -90,7 +90,10 @@ public class OtgFragment extends Fragment
   private AlertDialog mWaitingDialog;
   private String user = null, deviceName;
   private final Handler mHandler = new Handler(Looper.getMainLooper());
-  private boolean isKeyboardVisible, sendButtonClicked = false, isSendDrawable = false;
+  private boolean isKeyboardVisible,
+      sendButtonClicked = false,
+      isSendDrawable = false,
+      isReceiverRegistered = false;
   private List<String> mHistory = null, shellOutput, history;
   private View view;
   private AdbStream stream;
@@ -127,9 +130,7 @@ public class OtgFragment extends Fragment
 
     mainViewModel.setPreviousFragment(Preferences.OTG_FRAGMENT);
 
-    if (isKeyboardVisible) {
-      KeyboardUtils.closeKeyboard(requireActivity(), view);
-    }
+    if (isKeyboardVisible) KeyboardUtils.closeKeyboard(requireActivity(), view);
   }
 
   @Override
@@ -138,11 +139,9 @@ public class OtgFragment extends Fragment
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")
-        && adbConnection == null) {
-      binding.usbWarningCard.setVisibility(View.VISIBLE);
-    } else if (binding.usbWarningCard.getVisibility() == View.VISIBLE) {
+        && adbConnection == null) binding.usbWarningCard.setVisibility(View.VISIBLE);
+    else if (binding.usbWarningCard.getVisibility() == View.VISIBLE)
       binding.usbWarningCard.setVisibility(View.GONE);
-    }
 
     handleUseCommand();
 
@@ -159,7 +158,7 @@ public class OtgFragment extends Fragment
   @Override
   public void onDestroy() {
     super.onDestroy();
-    if (mUsbReceiver != null) {
+    if (mUsbReceiver != null && isReceiverRegistered) {
       requireContext().unregisterReceiver(mUsbReceiver);
     }
     try {
@@ -525,6 +524,7 @@ public class OtgFragment extends Fragment
 
     ContextCompat.registerReceiver(
         requireContext(), mUsbReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED);
+    isReceiverRegistered = true;
 
     // Check USB
     UsbDevice device = requireActivity().getIntent().getParcelableExtra(UsbManager.EXTRA_DEVICE);
@@ -536,9 +536,8 @@ public class OtgFragment extends Fragment
       for (String k : mManager.getDeviceList().keySet()) {
         UsbDevice usbDevice = mManager.getDeviceList().get(k);
         handler.sendEmptyMessage(CONNECTING);
-        if (mManager.hasPermission(usbDevice)) {
-          asyncRefreshAdbConnection(usbDevice);
-        } else {
+        if (mManager.hasPermission(usbDevice)) asyncRefreshAdbConnection(usbDevice);
+        else {
           mManager.requestPermission(
               usbDevice,
               PendingIntent.getBroadcast(
@@ -597,9 +596,7 @@ public class OtgFragment extends Fragment
               .setPositiveButton(
                   getString(R.string.ok),
                   (dialogInterface, i) -> {
-                    if (mListener != null) {
-                      mListener.onRequestReset();
-                    }
+                    if (mListener != null) mListener.onRequestReset();
                   })
               .show();
       progressBar.setVisibility(View.VISIBLE);
@@ -608,9 +605,7 @@ public class OtgFragment extends Fragment
 
   // Close the waiting dialog
   private void closeWaiting() {
-    if (mWaitingDialog != null && mWaitingDialog.isShowing()) {
-      mWaitingDialog.dismiss();
-    }
+    if (mWaitingDialog != null && mWaitingDialog.isShowing()) mWaitingDialog.dismiss();
   }
 
   public void asyncRefreshAdbConnection(final UsbDevice device) {
@@ -635,9 +630,7 @@ public class OtgFragment extends Fragment
       UsbInterface intf = device.getInterface(i);
       if (intf.getInterfaceClass() == 255
           && intf.getInterfaceSubclass() == 66
-          && intf.getInterfaceProtocol() == 1) {
-        return intf;
-      }
+          && intf.getInterfaceProtocol() == 1) return intf;
     }
     return null;
   }
@@ -664,9 +657,7 @@ public class OtgFragment extends Fragment
           mDevice = device;
           handler.sendEmptyMessage(DEVICE_FOUND);
           return true;
-        } else {
-          connection.close();
-        }
+        } else connection.close();
       }
     }
 
@@ -705,11 +696,9 @@ public class OtgFragment extends Fragment
                     final String[] output = {new String(stream.read(), StandardCharsets.US_ASCII)};
                     handler.post(
                         () -> {
-                          if (user == null) {
+                          if (user == null)
                             user = output[0].substring(0, output[0].lastIndexOf("/") + 1);
-                          } else if (output[0].contains(user)) {
-                            System.out.println("End => " + user);
-                          }
+                          else if (output[0].contains(user)) System.out.println("End => " + user);
 
                           binding.shellOutput.append(output[0]);
 
@@ -734,7 +723,6 @@ public class OtgFragment extends Fragment
             })
         .start();
 
-    
     binding.shellOutput.setText("");
     binding.outputBgCardView.setVisibility(View.VISIBLE);
     modeButtonOnClickListener();
@@ -744,9 +732,8 @@ public class OtgFragment extends Fragment
   public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
     HapticUtils.weakVibrate(v, context);
     /* We always return false because we want to dismiss the keyboard */
-    if (adbConnection != null && actionId == EditorInfo.IME_ACTION_DONE) {
-      putCommand();
-    }
+    if (adbConnection != null && actionId == EditorInfo.IME_ACTION_DONE) putCommand();
+
     return true;
   }
 
@@ -795,12 +782,12 @@ public class OtgFragment extends Fragment
     String[] logSplit = log.split("\n");
     binding.shellOutput.setText(logSplit[logSplit.length - 1]);
 
-    if (binding.scrollUpButton.getVisibility() == View.VISIBLE) {
+    if (binding.scrollUpButton.getVisibility() == View.VISIBLE)
       binding.scrollUpButton.setVisibility(View.GONE);
-    }
-    if (binding.scrollDownButton.getVisibility() == View.VISIBLE) {
+
+    if (binding.scrollDownButton.getVisibility() == View.VISIBLE)
       binding.scrollDownButton.setVisibility(View.GONE);
-    }
+
     binding.saveButton.setVisibility(View.GONE);
     binding.shareButton.setVisibility(View.GONE);
     showBottomNav();
@@ -816,17 +803,14 @@ public class OtgFragment extends Fragment
             Utils.connectedDeviceDialog(
                 context, adbConnection == null ? getString(R.string.none) : connectedDevice);
 
-          } else {
-            Utils.connectedDeviceDialog(context, getString(R.string.none));
-          }
+          } else Utils.connectedDeviceDialog(context, getString(R.string.none));
         });
   }
 
   // Animate the bottom navigation bar to appear
   private void showBottomNav() {
-    if (getActivity() != null && getActivity() instanceof MainActivity) {
+    if (getActivity() != null && getActivity() instanceof MainActivity)
       ((MainActivity) getActivity()).mNav.animate().translationY(0);
-    }
   }
 
   // Hide buttons when keyboard is visible
@@ -840,9 +824,8 @@ public class OtgFragment extends Fragment
   // Show buttons again when keyboard is gone
   private void buttonsVisibilityVisible() {
     if (binding.pasteButton.getVisibility() == View.GONE) {
-      if (!sendButtonClicked) {
-        setVisibilityWithDelay(binding.pasteButton, 100);
-      } else if (binding.scrollView.getChildAt(0).getHeight() != 0) {
+      if (!sendButtonClicked) setVisibilityWithDelay(binding.pasteButton, 100);
+      else if (binding.scrollView.getChildAt(0).getHeight() != 0) {
         setVisibilityWithDelay(binding.saveButton, 100);
         setVisibilityWithDelay(binding.shareButton, 100);
       }
@@ -870,9 +853,7 @@ public class OtgFragment extends Fragment
               break;
           }
           boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
-          if (saved) {
-            Preferences.setLastSavedFileName(context, fileName + ".txt");
-          }
+          if (saved) Preferences.setLastSavedFileName(context, fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
           Utils.outputSavedDialog(requireActivity(), context, saved);
@@ -952,18 +933,16 @@ public class OtgFragment extends Fragment
           HapticUtils.weakVibrate(v, context);
           boolean switchState = Preferences.getClear(context);
 
-          if (binding.shellOutput.getText().toString().isEmpty()) {
+          if (binding.shellOutput.getText().toString().isEmpty())
             ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
-          } else if (switchState) {
+          else if (switchState)
             new MaterialAlertDialogBuilder(requireActivity())
                 .setTitle(getString(R.string.clear_everything))
                 .setMessage(getString(R.string.clear_all_message))
                 .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
                 .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
                 .show();
-          } else {
-            clearAll();
-          }
+          else clearAll();
         });
   }
 
@@ -974,12 +953,11 @@ public class OtgFragment extends Fragment
         v -> {
           HapticUtils.weakVibrate(v, context);
 
-          if (Utils.getBookmarks(context).isEmpty()) {
+          if (Utils.getBookmarks(context).isEmpty())
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
-          } else {
+          else
             Utils.bookmarksDialog(
                 context, requireActivity(), binding.commandEditText, binding.commandInputLayout);
-          }
         });
   }
 
@@ -999,15 +977,11 @@ public class OtgFragment extends Fragment
           }
           if (adbConnection != null) {
 
-            if (mHistory == null) {
-              mHistory = new ArrayList<>();
-            }
+            if (mHistory == null) mHistory = new ArrayList<>();
 
             mHistory.add(binding.commandEditText.getText().toString());
             putCommand();
-          } else {
-            deviceConnectionErrorMessage();
-          }
+          } else deviceConnectionErrorMessage();
         });
   }
 
@@ -1019,19 +993,15 @@ public class OtgFragment extends Fragment
       // We become the sending thread
       try {
         String cmd = binding.commandEditText.getText().toString();
-        if (cmd.equalsIgnoreCase("clear")) {
-          clearAll();
-        } else if (cmd.equalsIgnoreCase("logcat")) {
-          Toast.makeText(
-                  context,
-                  "currently continous running operations are not working properly",
-                  Toast.LENGTH_LONG)
-              .show();
-        } else if (cmd.equalsIgnoreCase("exit")) {
-          requireActivity().finish();
-        } else {
-          stream.write((cmd + "\n").getBytes(StandardCharsets.UTF_8));
-        }
+
+        if (cmd.equalsIgnoreCase("clear")) clearAll();
+        else if (cmd.equalsIgnoreCase("logcat"))
+          ToastUtils.showToast(
+              context,
+              "currently continous running operations are not working properly",
+              ToastUtils.LENGTH_LONG);
+        else if (cmd.equalsIgnoreCase("exit")) requireActivity().finish();
+        else stream.write((cmd + "\n").getBytes(StandardCharsets.UTF_8));
 
         binding.commandEditText.setText("");
       } catch (IOException e) {
