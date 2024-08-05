@@ -55,15 +55,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   @Override
   public int getItemViewType(int position) {
     Object item = items.get(position);
-    if (item instanceof Category) {
-      return CATEGORY;
-    } else if (item instanceof Category.LeadDeveloperItem) {
-      return CATEGORY_LEAD_DEV_ITEM;
-    } else if (item instanceof Category.ContributorsItem) {
-      return CATEGORY_CONTRIBUTORS_ITEM;
-    } else if (item instanceof Category.AppItem) {
-      return CATEGORY_APP_ITEM;
-    }
+    if (item instanceof Category) return CATEGORY;
+    else if (item instanceof Category.LeadDeveloperItem) return CATEGORY_LEAD_DEV_ITEM;
+    else if (item instanceof Category.ContributorsItem) return CATEGORY_CONTRIBUTORS_ITEM;
+    else if (item instanceof Category.AppItem) return CATEGORY_APP_ITEM;
+
     return -1;
   }
 
@@ -72,6 +68,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     switch (viewType) {
+            
       case CATEGORY:
         View categoryView = inflater.inflate(R.layout.category_about, parent, false);
         return new CategoryViewHolder(categoryView);
@@ -96,6 +93,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
     Object item = items.get(position);
+        
     if (holder instanceof CategoryViewHolder) {
       Category category = (Category) item;
       CategoryViewHolder categoryViewHolder = (CategoryViewHolder) holder;

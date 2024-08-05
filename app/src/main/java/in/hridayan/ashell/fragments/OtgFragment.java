@@ -901,9 +901,9 @@ public class OtgFragment extends Fragment
         v -> {
           HapticUtils.weakVibrate(v, context);
 
-          if (history == null) {
+          if (history == null)
             ToastUtils.showToast(context, R.string.no_history, ToastUtils.LENGTH_SHORT);
-          } else {
+          else {
             PopupMenu popupMenu = new PopupMenu(requireContext(), binding.commandEditText);
             Menu menu = popupMenu.getMenu();
             for (int i = 0; i < getRecentCommands().size(); i++) {
@@ -972,9 +972,9 @@ public class OtgFragment extends Fragment
           binding.pasteButton.hide();
           binding.undoButton.hide();
 
-          if (binding.rvCommands.getVisibility() == View.VISIBLE) {
+          if (binding.rvCommands.getVisibility() == View.VISIBLE)
             binding.rvCommands.setVisibility(View.GONE);
-          }
+
           if (adbConnection != null) {
 
             if (mHistory == null) mHistory = new ArrayList<>();

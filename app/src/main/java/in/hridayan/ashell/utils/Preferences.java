@@ -11,6 +11,7 @@ public class Preferences {
       buildGradleUrl =
           "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle",
       otgInstructions = "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md",
+      appGithubRelease = "https://github.com/DP-Hridayan/aShellYou/releases/latest",
       devEmail = "hridayanofficial@gmail.com",
       PREF_FIRST_LAUNCH = "first_launch",
       PREF_AMOLED_THEME = "id_amoled_theme",

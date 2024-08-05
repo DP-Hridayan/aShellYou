@@ -72,9 +72,7 @@ public class MainActivity extends AppCompatActivity
   // This funtion is run to perform actions if there is an update available or not
   @Override
   public void onResult(int result) {
-    if (result == Preferences.UPDATE_AVAILABLE) {
-      Utils.showBottomSheetUpdate(this, this);
-    }
+    if (result == Preferences.UPDATE_AVAILABLE) Utils.showBottomSheetUpdate(this, this);
   }
 
   @Override
@@ -96,9 +94,7 @@ public class MainActivity extends AppCompatActivity
     // Amoled theme
     isAmoledTheme = Preferences.getAmoledTheme(this);
     boolean currentTheme = isAmoledTheme;
-    if (currentTheme != isBlackThemeEnabled) {
-      recreate();
-    }
+    if (currentTheme != isBlackThemeEnabled) recreate();
   }
 
   @Override
@@ -127,9 +123,8 @@ public class MainActivity extends AppCompatActivity
           @Override
           public void onKeyboardVisibilityChanged(boolean visible) {
             isKeyboardVisible = visible;
-            if (isKeyboardVisible) {
-              mNav.setVisibility(View.GONE);
-            } else {
+            if (isKeyboardVisible) mNav.setVisibility(View.GONE);
+            else {
               new Handler(Looper.getMainLooper())
                   .postDelayed(
                       () -> {
@@ -143,9 +138,8 @@ public class MainActivity extends AppCompatActivity
     setupNavigation();
 
     // Show What's new bottom sheet on opening the app after an update
-    if (Utils.isAppUpdated(this)) {
-      Utils.showBottomSheetChangelog(this);
-    }
+    if (Utils.isAppUpdated(this)) Utils.showBottomSheetChangelog(this);
+
     Preferences.setSavedVersionCode(this, Utils.currentVersion());
 
     isBlackThemeEnabled = isAmoledTheme;
@@ -345,19 +339,12 @@ public class MainActivity extends AppCompatActivity
 
   private void setCurrentFragment() {
     fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-    if (fragment instanceof SettingsFragment) {
-      currentFragment = SETTINGS_FRAGMENT;
-    } else if (fragment instanceof AshellFragment) {
-      currentFragment = LOCAL_FRAGMENT;
-    } else if (fragment instanceof OtgFragment) {
-      currentFragment = OTG_FRAGMENT;
-    } else if (fragment instanceof ExamplesFragment) {
-      currentFragment = EXAMPLES_FRAGMENT;
-    } else if (fragment instanceof AboutFragment) {
-      currentFragment = ABOUT_FRAGMENT;
-    } else if (fragment instanceof ChangelogFragment) {
-      currentFragment = CHANGELOG_FRAGMENT;
-    }
+    if (fragment instanceof SettingsFragment) currentFragment = SETTINGS_FRAGMENT;
+    else if (fragment instanceof AshellFragment) currentFragment = LOCAL_FRAGMENT;
+    else if (fragment instanceof OtgFragment) currentFragment = OTG_FRAGMENT;
+    else if (fragment instanceof ExamplesFragment) currentFragment = EXAMPLES_FRAGMENT;
+    else if (fragment instanceof AboutFragment) currentFragment = ABOUT_FRAGMENT;
+    else if (fragment instanceof ChangelogFragment) currentFragment = CHANGELOG_FRAGMENT;
   }
 
   private void switchFragments(int currentFragment) {
@@ -403,9 +390,7 @@ public class MainActivity extends AppCompatActivity
         pendingSharedText = sharedText;
         handleSharedTextIntent(sharedText, intent);
       }
-    } else if ("com.example.ACTION_USB_DETACHED".equals(intent.getAction())) {
-      onUsbDetached();
-    }
+    } else if ("com.example.ACTION_USB_DETACHED".equals(intent.getAction())) onUsbDetached();
   }
 
   public String getPendingSharedText() {
@@ -419,8 +404,7 @@ public class MainActivity extends AppCompatActivity
   /*We set the currentFragment value before then if current fragment value is SETTINGS_FRAGMENT we donot show the bottom navigation*/
   private void showBottomNavUnderConditions() {
     setCurrentFragment();
-    if (currentFragment == LOCAL_FRAGMENT || currentFragment == OTG_FRAGMENT) {
+    if (currentFragment == LOCAL_FRAGMENT || currentFragment == OTG_FRAGMENT)
       mNav.setVisibility(View.VISIBLE);
-    }
   }
 }

@@ -31,7 +31,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -65,8 +64,7 @@ public class Utils {
     String[] invalidChars = {"*", "/", ":", "<", ">", "?", "\\", "|"};
 
     for (String invalidChar : invalidChars) {
-      if (s.contains(invalidChar))
-        return false;
+      if (s.contains(invalidChar)) return false;
     }
     return true;
   }
@@ -146,7 +144,7 @@ public class Utils {
 
     ClipboardManager clipboard =
         (ClipboardManager) editText.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-        
+
     if (clipboard == null) return;
 
     if (clipboard.hasPrimaryClip()
@@ -225,17 +223,15 @@ public class Utils {
   }
 
   public static boolean isBookmarked(String command, Context context) {
-    if (isValidFilename(command)) {
+    if (isValidFilename(command))
       return new File(context.getExternalFilesDir("bookmarks"), command).exists();
-    } else {
+    else {
       if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
         for (String commands :
             Objects.requireNonNull(
                     read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
                 .split("\\r?\\n")) {
-          if (commands.trim().equals(command)) {
-            return true;
-          }
+          if (commands.trim().equals(command)) return true;
         }
       }
     }
@@ -243,9 +239,9 @@ public class Utils {
   }
 
   public static void addToBookmark(String command, Context context) {
-    if (isValidFilename(command)) {
+    if (isValidFilename(command))
       create(command, new File(context.getExternalFilesDir("bookmarks"), command));
-    } else {
+    else {
       StringBuilder sb = new StringBuilder();
       if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
         for (String commands :
@@ -255,25 +251,22 @@ public class Utils {
           sb.append(commands).append("\n");
         }
         sb.append(command).append("\n");
-      } else {
-        sb.append(command).append("\n");
-      }
+      } else sb.append(command).append("\n");
+
       create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
     }
   }
 
   public static boolean deleteFromBookmark(String command, Context context) {
-    if (isValidFilename(command)) {
+    if (isValidFilename(command))
       return new File(context.getExternalFilesDir("bookmarks"), command).delete();
-    } else {
+    else {
       StringBuilder sb = new StringBuilder();
       for (String commands :
           Objects.requireNonNull(
                   read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
               .split("\\r?\\n")) {
-        if (!commands.equals(command)) {
-          sb.append(commands).append("\n");
-        }
+        if (!commands.equals(command)) sb.append(commands).append("\n");
       }
       create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
       return true;
@@ -336,11 +329,8 @@ public class Utils {
                 Utils.deleteFromBookmark(item, context);
               }
               String s = mCommand.getText().toString();
-              if (s.length() != 0) {
-                mCommandInput.setEndIconDrawable(R.drawable.ic_add_bookmark);
-              } else {
-                mCommandInput.setEndIconVisible(false);
-              }
+              if (s.length() != 0) mCommandInput.setEndIconDrawable(R.drawable.ic_add_bookmark);
+              else mCommandInput.setEndIconVisible(false);
             })
         .setNegativeButton(
             context.getString(R.string.cancel),
@@ -350,9 +340,8 @@ public class Utils {
         .setOnCancelListener(
             v -> {
               List<String> bookmarks = Utils.getBookmarks(context);
-              if (bookmarks.size() != 0) {
+              if (bookmarks.size() != 0)
                 Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
-              }
             })
         .show();
   }
@@ -405,9 +394,7 @@ public class Utils {
     if (Utils.getBookmarks(context).size() <= Preferences.MAX_BOOKMARKS_LIMIT - 1 || switchState) {
       Utils.addToBookmark(bookmark, context);
       Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
-    } else {
-      Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();
-    }
+    } else Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();
   }
 
   /*------------------------------------------------------*/
@@ -547,32 +534,28 @@ public class Utils {
 
   public static String lastCommandOutput(String text) {
     int lastDollarIndex = text.lastIndexOf('$');
-    if (lastDollarIndex == -1) {
+    if (lastDollarIndex == -1)
       throw new IllegalArgumentException("Text must contain at least one '$' symbol");
-    }
 
     int secondLastDollarIndex = text.lastIndexOf('$', lastDollarIndex - 1);
-    if (secondLastDollarIndex == -1) {
+    if (secondLastDollarIndex == -1)
       throw new IllegalArgumentException("Text must contain at least two '$' symbols");
-    }
 
     // Find the start of the line containing the first '$' of the last two
     int startOfFirstLine = text.lastIndexOf('\n', secondLastDollarIndex) + 1;
     // Find the start of the line containing the second '$' of the last two
     int startOfSecondLine = text.lastIndexOf('\n', lastDollarIndex - 1) + 1;
-    if (startOfSecondLine == -1) {
+    if (startOfSecondLine == -1)
       startOfSecondLine = 0; // If there's no newline before, start from the beginning of the text
-    }
+
     return text.substring(startOfFirstLine, startOfSecondLine);
   }
 
   // Logic behind saving output as txt files
   public static boolean saveToFile(String sb, Activity activity, String fileName) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
       return Utils.saveToFileApi29AndAbove(sb, activity, fileName);
-    } else {
-      return Utils.saveToFileBelowApi29(sb, activity, fileName);
-    }
+    else return Utils.saveToFileBelowApi29(sb, activity, fileName);
   }
 
   /* Save output txt file on devices running Android 11 and above and return a boolean if the file is saved */
@@ -651,9 +634,7 @@ public class Utils {
     if (resourceId != 0) {
       String changeLog = context.getString(resourceId);
       // Check if the resource is not empty
-      if (changeLog != null && !changeLog.isEmpty()) {
-        return changeLog;
-      }
+      if (changeLog != null && !changeLog.isEmpty()) return changeLog;
     }
 
     // Return default message if resource ID is invalid or the resource is empty
@@ -680,9 +661,8 @@ public class Utils {
   public static String extractVersionName(String text) {
     Pattern pattern = Pattern.compile("versionName\\s*\"([^\"]*)\"");
     Matcher matcher = pattern.matcher(text);
-    if (matcher.find()) {
-      return matcher.group(1);
-    }
+    if (matcher.find()) return matcher.group(1);
+
     return "";
   }
 
@@ -741,7 +721,7 @@ public class Utils {
     downloadButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          Utils.openUrl(activity, "https://github.com/DP-Hridayan/aShellYou/releases/latest");
+          Utils.openUrl(activity, Preferences.appGithubRelease);
           bottomSheetDialog.dismiss();
         });
     cancelButton.setOnClickListener(
@@ -755,9 +735,7 @@ public class Utils {
   public static String convertListToString(List<String> list) {
     StringBuilder sb = new StringBuilder();
     for (String s : list) {
-      if (!Utils.shellDeadError().equals(s) && !"<i></i>".equals(s)) {
-        sb.append(s).append("\n");
-      }
+      if (!Utils.shellDeadError().equals(s) && !"<i></i>".equals(s)) sb.append(s).append("\n");
     }
     return sb.toString();
   }
@@ -842,9 +820,7 @@ public class Utils {
             (dialogInterface, i) -> {
               RootShell.exec("su", true);
               RootShell.refresh();
-              if (!RootShell.hasPermission()) {
-                Utils.grantPermissionManually(activity, context);
-              }
+              if (!RootShell.hasPermission()) Utils.grantPermissionManually(activity, context);
             })
         .show();
   }
