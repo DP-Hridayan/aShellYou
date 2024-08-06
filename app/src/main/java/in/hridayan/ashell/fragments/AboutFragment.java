@@ -29,7 +29,7 @@ import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 
 public class AboutFragment extends Fragment
-        implements AboutAdapter.AdapterListener, Utils.FetchLatestVersionCodeCallback {
+    implements AboutAdapter.AdapterListener, Utils.FetchLatestVersionCodeCallback {
 
   private AboutViewModel viewModel;
   private FragmentAboutBinding binding;
@@ -38,9 +38,9 @@ public class AboutFragment extends Fragment
   @Nullable
   @Override
   public View onCreateView(
-          @NonNull LayoutInflater inflater,
-          @Nullable ViewGroup container,
-          @Nullable Bundle savedInstanceState) {
+      @NonNull LayoutInflater inflater,
+      @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
 
     binding = FragmentAboutBinding.inflate(inflater, container, false);
     viewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
@@ -59,41 +59,113 @@ public class AboutFragment extends Fragment
   }
 
   private void setupListeners() {
-    binding.arrowBack.setOnClickListener(v -> {
-      HapticUtils.weakVibrate(v, getContext());
-      requireActivity().getSupportFragmentManager().popBackStack();
-    });
+    binding.arrowBack.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v, getContext());
+          requireActivity().getSupportFragmentManager().popBackStack();
+        });
   }
 
   private List<Object> initializeItems() {
     List<Object> items = new ArrayList<>();
     items.add(new Category(getString(R.string.lead_developer)));
-    items.add(new Category.LeadDeveloperItem("Hridayan", getString(R.string.hridayan_about), R.mipmap.dp_hridayan));
+    items.add(
+        new Category.LeadDeveloperItem(
+            "Hridayan", getString(R.string.hridayan_about), R.mipmap.dp_hridayan));
 
     items.add(new Category(getString(R.string.contributors)));
-    items.add(new Category.ContributorsItem("id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
-    items.add(new Category.ContributorsItem("id_shivam", "Stɑrry Shivɑm", getString(R.string.shivam_about), R.mipmap.dp_shivam));
-    items.add(new Category.ContributorsItem("id_drDisagree", "DrDisagree", getString(R.string.drDisagree_about), R.mipmap.dp_drdisagree));
-    items.add(new Category.ContributorsItem("id_rikka", "RikkaApps", getString(R.string.rikka_about), R.mipmap.dp_shizuku));
-    items.add(new Category.ContributorsItem("id_sunilpaulmathew", "Sunilpaulmathew", getString(R.string.sunilpaulmathew_about), R.mipmap.dp_sunilpaulmathew));
-    items.add(new Category.ContributorsItem("id_khun_htetz", "Khun Htetz Naing", getString(R.string.khun_htetz_about), R.mipmap.dp_adb_otg));
-    items.add(new Category.ContributorsItem("id_marciozomb13", "marciozomb13", getString(R.string.marciozomb13_about), R.mipmap.dp_marciozomb13));
-    items.add(new Category.ContributorsItem("id_weiguangtwk", "weiguangtwk", getString(R.string.weiguangtwk_about), R.mipmap.dp_weiguangtwk));
-    items.add(new Category.ContributorsItem("id_winzort", "WINZORT", getString(R.string.winzort_about), R.mipmap.dp_winzort));
+    items.add(
+        new Category.ContributorsItem(
+            "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
+    items.add(
+        new Category.ContributorsItem(
+            "id_shivam", "Stɑrry Shivɑm", getString(R.string.shivam_about), R.mipmap.dp_shivam));
+    items.add(
+        new Category.ContributorsItem(
+            "id_drDisagree",
+            "DrDisagree",
+            getString(R.string.drDisagree_about),
+            R.mipmap.dp_drdisagree));
+    items.add(
+        new Category.ContributorsItem(
+            "id_rikka", "RikkaApps", getString(R.string.rikka_about), R.mipmap.dp_shizuku));
+    items.add(
+        new Category.ContributorsItem(
+            "id_sunilpaulmathew",
+            "Sunilpaulmathew",
+            getString(R.string.sunilpaulmathew_about),
+            R.mipmap.dp_sunilpaulmathew));
+    items.add(
+        new Category.ContributorsItem(
+            "id_khun_htetz",
+            "Khun Htetz Naing",
+            getString(R.string.khun_htetz_about),
+            R.mipmap.dp_adb_otg));
+    items.add(
+        new Category.ContributorsItem(
+            "id_marciozomb13",
+            "marciozomb13",
+            getString(R.string.marciozomb13_about),
+            R.mipmap.dp_marciozomb13));
+    items.add(
+        new Category.ContributorsItem(
+            "id_weiguangtwk",
+            "weiguangtwk",
+            getString(R.string.weiguangtwk_about),
+            R.mipmap.dp_weiguangtwk));
+    items.add(
+        new Category.ContributorsItem(
+            "id_winzort", "WINZORT", getString(R.string.winzort_about), R.mipmap.dp_winzort));
 
     items.add(new Category(getString(R.string.app)));
     try {
-      PackageInfo pInfo = requireContext().getPackageManager().getPackageInfo(requireContext().getPackageName(), 0);
-      items.add(new Category.AppItem("id_version", getString(R.string.version), pInfo.versionName, R.drawable.ic_version_tag));
+      PackageInfo pInfo =
+          requireContext().getPackageManager().getPackageInfo(requireContext().getPackageName(), 0);
+      items.add(
+          new Category.AppItem(
+              "id_version",
+              getString(R.string.version),
+              pInfo.versionName,
+              R.drawable.ic_version_tag));
     } catch (PackageManager.NameNotFoundException ignored) {
     }
 
-    items.add(new Category.AppItem("id_changelogs", getString(R.string.changelogs), getString(R.string.des_changelogs), R.drawable.ic_changelog));
-    items.add(new Category.AppItem("id_report", getString(R.string.report_issue), getString(R.string.des_report_issue), R.drawable.ic_report));
-    items.add(new Category.AppItem("id_feature", getString(R.string.feature_request), getString(R.string.des_feature_request), R.drawable.ic_feature));
-    items.add(new Category.AppItem("id_github", getString(R.string.github), getString(R.string.des_github), R.drawable.ic_github));
-    items.add(new Category.AppItem("id_telegram", getString(R.string.telegram_channel), getString(R.string.des_telegram_channel), R.drawable.ic_telegram));
-    items.add(new Category.AppItem("id_license", getString(R.string.license), getString(R.string.des_license), R.drawable.ic_license));
+    items.add(
+        new Category.AppItem(
+            "id_changelogs",
+            getString(R.string.changelogs),
+            getString(R.string.des_changelogs),
+            R.drawable.ic_changelog));
+    items.add(
+        new Category.AppItem(
+            "id_report",
+            getString(R.string.report_issue),
+            getString(R.string.des_report_issue),
+            R.drawable.ic_report));
+    items.add(
+        new Category.AppItem(
+            "id_feature",
+            getString(R.string.feature_request),
+            getString(R.string.des_feature_request),
+            R.drawable.ic_feature));
+    items.add(
+        new Category.AppItem(
+            "id_github",
+            getString(R.string.github),
+            getString(R.string.des_github),
+            R.drawable.ic_github));
+    items.add(
+        new Category.AppItem(
+            "id_telegram",
+            getString(R.string.telegram_channel),
+            getString(R.string.des_telegram_channel),
+            R.drawable.ic_telegram));
+    items.add(
+        new Category.AppItem(
+            "id_license",
+            getString(R.string.license),
+            getString(R.string.des_license),
+            R.drawable.ic_license));
 
     return items;
   }
@@ -125,10 +197,12 @@ public class AboutFragment extends Fragment
   }
 
   private void restoreRecyclerViewState() {
+    mRVPositionAndOffset = viewModel.getRVPositionAndOffset();
     if (mRVPositionAndOffset != null) {
       LinearLayoutManager layoutManager = (LinearLayoutManager) binding.rvAbout.getLayoutManager();
       if (layoutManager != null) {
-        layoutManager.scrollToPositionWithOffset(mRVPositionAndOffset.first, mRVPositionAndOffset.second);
+        layoutManager.scrollToPositionWithOffset(
+            mRVPositionAndOffset.first, mRVPositionAndOffset.second);
       }
     }
   }

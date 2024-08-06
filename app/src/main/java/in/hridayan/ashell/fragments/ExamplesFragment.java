@@ -56,9 +56,9 @@ public class ExamplesFragment extends Fragment
   private Context context;
   private BottomNavigationView mNav;
   private FragmentExamplesBinding binding;
-    private Pair mRVPositionAndOffset;
-    
-@Override
+  private Pair<Integer, Integer> mRVPositionAndOffset;
+
+  @Override
   public void onPause() {
     super.onPause();
     if (binding.rvSearchView != null) {
@@ -97,6 +97,7 @@ public class ExamplesFragment extends Fragment
       }
     }
   }
+
   @Nullable
   @Override
   public View onCreateView(
@@ -177,8 +178,7 @@ public class ExamplesFragment extends Fragment
                 : 1);
     binding.rvSearchView.setLayoutManager(mLayoutManager);
 
-    mExamplesAdapter =
-        new ExamplesAdapter(Commands.commandList(context), context, this);
+    mExamplesAdapter = new ExamplesAdapter(Commands.commandList(context), context, this);
     mExamplesAdapter.sortData();
     mExamplesAdapter.setOnItemClickListener(this);
     binding.rvSearchView.setAdapter(mExamplesAdapter);

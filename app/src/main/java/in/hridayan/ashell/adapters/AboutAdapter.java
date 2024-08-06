@@ -32,9 +32,9 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   private AdapterListener mListener;
   private final List<Object> items;
 
-    public AboutAdapter(List<Object> items) {
+  public AboutAdapter(List<Object> items) {
     this.items = items;
-    }
+  }
 
   public interface AdapterListener {
     void onCheckUpdate();
@@ -62,11 +62,14 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       case CATEGORY:
         return new CategoryViewHolder(inflater.inflate(R.layout.category_about, parent, false));
       case CATEGORY_LEAD_DEV_ITEM:
-        return new LeadDeveloperItemViewHolder(inflater.inflate(R.layout.category_lead_dev, parent, false));
+        return new LeadDeveloperItemViewHolder(
+            inflater.inflate(R.layout.category_lead_dev, parent, false));
       case CATEGORY_CONTRIBUTORS_ITEM:
-        return new ContributorsItemViewHolder(inflater.inflate(R.layout.category_contributors, parent, false));
+        return new ContributorsItemViewHolder(
+            inflater.inflate(R.layout.category_contributors, parent, false));
       case CATEGORY_APP_ITEM:
-        return new AppItemViewHolder(inflater.inflate(R.layout.category_app, parent, false), mListener);
+        return new AppItemViewHolder(
+            inflater.inflate(R.layout.category_app, parent, false), mListener);
       default:
         throw new IllegalArgumentException("Invalid view type");
     }
@@ -132,7 +135,9 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       buttonUrlMap.put(mSupportButton, "https://www.buymeacoffee.com/hridayan");
 
       for (Map.Entry<Button, String> entry : buttonUrlMap.entrySet()) {
-        entry.getKey().setOnClickListener(v -> Utils.openUrl(itemView.getContext(), entry.getValue()));
+        entry
+            .getKey()
+            .setOnClickListener(v -> Utils.openUrl(itemView.getContext(), entry.getValue()));
       }
     }
   }
@@ -160,20 +165,26 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
-      buttonView.setOnClickListener(v -> Utils.openUrl(itemView.getContext(), getContributorsIdUrlMap().get(item.getId())));
-      categoryContributorsLayout.setOnClickListener(v -> {
-        HapticUtils.weakVibrate(v, itemView.getContext());
-        toggleExpandableLayout();
-      });
+      buttonView.setOnClickListener(
+          v -> Utils.openUrl(itemView.getContext(), getContributorsIdUrlMap().get(item.getId())));
+      categoryContributorsLayout.setOnClickListener(
+          v -> {
+            HapticUtils.weakVibrate(v, itemView.getContext());
+            toggleExpandableLayout();
+          });
 
-      categoryContributorsLayout.setStrokeWidth(Utils.androidVersion() >= Build.VERSION_CODES.S ? 0 : 3);
+      categoryContributorsLayout.setStrokeWidth(
+          Utils.androidVersion() >= Build.VERSION_CODES.S ? 0 : 3);
     }
 
     private void toggleExpandableLayout() {
       final int ANIMATION_DURATION = 250;
       if (expandableLayout.getVisibility() == View.GONE) {
         expandableLayout.setVisibility(View.VISIBLE);
-        expandableLayout.measure(View.MeasureSpec.makeMeasureSpec(categoryContributorsLayout.getWidth(), View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        expandableLayout.measure(
+            View.MeasureSpec.makeMeasureSpec(
+                categoryContributorsLayout.getWidth(), View.MeasureSpec.EXACTLY),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         final int targetHeight = expandableLayout.getMeasuredHeight();
         animateLayoutHeight(expandableLayout, 0, targetHeight, ANIMATION_DURATION);
         expandButton.animate().rotation(180).setDuration(ANIMATION_DURATION).start();
@@ -186,20 +197,22 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void animateLayoutHeight(View view, int startHeight, int endHeight, int duration) {
       ValueAnimator animator = ValueAnimator.ofInt(startHeight, endHeight);
-      animator.addUpdateListener(animation -> {
-        view.getLayoutParams().height = (int) animation.getAnimatedValue();
-        view.requestLayout();
-      });
-      animator.addListener(new AnimatorListenerAdapter() {
-        @Override
-        public void onAnimationEnd(Animator animation) {
-          if (endHeight == 0) {
-            view.setVisibility(View.GONE);
-          } else {
-            view.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-          }
-        }
-      });
+      animator.addUpdateListener(
+          animation -> {
+            view.getLayoutParams().height = (int) animation.getAnimatedValue();
+            view.requestLayout();
+          });
+      animator.addListener(
+          new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+              if (endHeight == 0) {
+                view.setVisibility(View.GONE);
+              } else {
+                view.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+              }
+            }
+          });
       animator.setDuration(duration);
       animator.start();
     }
@@ -227,26 +240,35 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
-      View.OnClickListener clickListener = v -> {
-        HapticUtils.weakVibrate(v, itemView.getContext());
-        Utils.openUrl(itemView.getContext(), getLeadDevIdUrlMap().get(item.getId()));
-        if ("id_changelogs".equals(item.getId())) {
-          ((FragmentActivity) itemView.getContext()).getSupportFragmentManager().beginTransaction()
-                  .setCustomAnimations(R.anim.fragment_enter, R.anim.fragment_exit, R.anim.fragment_pop_enter, R.anim.fragment_pop_exit)
+      View.OnClickListener clickListener =
+          v -> {
+            HapticUtils.weakVibrate(v, itemView.getContext());
+
+            String url = getAppIdUrlMap().get(item.getId());
+            if (url != null) Utils.openUrl(itemView.getContext(), url);
+
+            if ("id_changelogs".equals(item.getId())) {
+              ((FragmentActivity) itemView.getContext())
+                  .getSupportFragmentManager()
+                  .beginTransaction()
+                  .setCustomAnimations(
+                      R.anim.fragment_enter,
+                      R.anim.fragment_exit,
+                      R.anim.fragment_pop_enter,
+                      R.anim.fragment_pop_exit)
                   .replace(R.id.fragment_container, new ChangelogFragment())
                   .addToBackStack(null)
                   .commit();
-        }
-      };
+            }
+          };
 
       if ("id_version".equals(item.getId())) {
         button.setVisibility(View.VISIBLE);
-        button.setOnClickListener(v -> {
-          HapticUtils.weakVibrate(v, itemView.getContext());
-          if (mListener != null) {
-            mListener.onCheckUpdate();
-          }
-        });
+        button.setOnClickListener(
+            v -> {
+              HapticUtils.weakVibrate(v, itemView.getContext());
+              if (mListener != null) mListener.onCheckUpdate();
+            });
       } else {
         button.setVisibility(View.GONE);
       }
@@ -254,7 +276,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       categoryAppLayout.setOnClickListener(clickListener);
 
       int paddingInPixels = (int) (Utils.convertDpToPixel(30, itemView.getContext()));
-      ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) itemView.getLayoutParams();
+      ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) itemView.getLayoutParams();
       layoutParams.bottomMargin = isLastItem ? paddingInPixels : 0;
       itemView.setLayoutParams(layoutParams);
     }
@@ -274,7 +297,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     return idUrlMap;
   }
 
-  private static Map<String, String> getLeadDevIdUrlMap() {
+  private static Map<String, String> getAppIdUrlMap() {
     Map<String, String> idUrlMap = new HashMap<>();
     idUrlMap.put("id_report", "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
     idUrlMap.put("id_feature", "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
