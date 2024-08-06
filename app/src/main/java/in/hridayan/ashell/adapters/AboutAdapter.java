@@ -232,7 +232,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       imageView = itemView.findViewById(R.id.image_view);
       titleTextView = itemView.findViewById(R.id.title_text_view);
       descriptionTextView = itemView.findViewById(R.id.description_text_view);
-      button = itemView.findViewById(R.id.button);
+      button = itemView.findViewById(R.id.check_update_button);
       categoryAppLayout = itemView.findViewById(R.id.category_app_layout);
       loadingDots = itemView.findViewById(R.id.loading_animation);
       mListener = listener;

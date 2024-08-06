@@ -2,6 +2,7 @@ package in.hridayan.ashell.fragments;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.button.MaterialButton;
 
 public class AboutFragment extends Fragment
     implements AboutAdapter.AdapterListener, Utils.FetchLatestVersionCodeCallback {
@@ -36,8 +38,8 @@ public class AboutFragment extends Fragment
   private AboutViewModel viewModel;
   private FragmentAboutBinding binding;
   private Pair<Integer, Integer> mRVPositionAndOffset;
-    private Button button;
     private LottieAnimationView loadingDots;
+    private Drawable updateButtonIcon;
 
   @Nullable
   @Override
@@ -213,16 +215,24 @@ public class AboutFragment extends Fragment
 
   @Override
   public void onCheckUpdate(Button button, LottieAnimationView animation) {
-        this.button = button;
-        this.loadingDots = animation;
-    //    button.setTextColor(android.R.color.transparent);
-        loadingDots.setVisibility(View.VISIBLE);
+    this.loadingDots = animation;
+    updateButtonIcon = button.getCompoundDrawables()[0]; // Save the original icon
+    button.setText(null);
+    // casting button to MaterialButton to use setIcon method.
+    ((MaterialButton) button).setIcon(null);
+    loadingDots.setVisibility(View.VISIBLE);
     new FetchLatestVersionCode(getContext(), this).execute(Preferences.buildGradleUrl);
   }
 
   @Override
   public void onResult(int result) {
-        loadingDots.setVisibility(View.GONE);
+    // Restore the original icon and text
+    loadingDots.setVisibility(View.GONE);
+    Button button = getView().findViewById(R.id.check_update_button);
+    button.setText(R.string.update);
+    // casting button to MaterialButton to use setIcon method.
+    ((MaterialButton) button).setIcon(updateButtonIcon);
+
     int message;
     switch (result) {
       case Preferences.UPDATE_AVAILABLE:
