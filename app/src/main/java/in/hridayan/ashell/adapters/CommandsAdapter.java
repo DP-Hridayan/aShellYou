@@ -1,7 +1,5 @@
 package in.hridayan.ashell.adapters;
 
-import android.graphics.Typeface;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import java.util.List;
 
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.utils.CommandItems;
-import in.hridayan.ashell.utils.Utils;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 05, 2022
@@ -23,8 +20,7 @@ import in.hridayan.ashell.utils.Utils;
 public class CommandsAdapter extends RecyclerView.Adapter<CommandsAdapter.ViewHolder> {
 
     private final List<CommandItems> data;
-
-    private static ClickListener mClickListener;
+    private ClickListener mClickListener;
 
     public CommandsAdapter(List<CommandItems> data) {
         this.data = data;
@@ -32,16 +28,19 @@ public class CommandsAdapter extends RecyclerView.Adapter<CommandsAdapter.ViewHo
 
     @NonNull
     @Override
-    public CommandsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_commands, parent, false);
-        return new CommandsAdapter.ViewHolder(rowItem);
+        return new ViewHolder(rowItem);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommandsAdapter.ViewHolder holder, int position) {
-        holder.mTitle.setText(this.data.get(position).getTitle());
-        if (this.data.get(position).getSummary() != null) {
-            holder.mSummary.setText(this.data.get(position).getSummary());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        CommandItems item = data.get(position);
+        holder.mTitle.setText(item.getTitle());
+
+        if (item.getSummary() != null) {
+            holder.mSummary.setText(item.getSummary());
+            holder.mSummary.setVisibility(View.VISIBLE);
         } else {
             holder.mSummary.setVisibility(View.GONE);
         }
@@ -49,31 +48,33 @@ public class CommandsAdapter extends RecyclerView.Adapter<CommandsAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return this.data.size();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final MaterialTextView mTitle, mSummary;
-
-        public ViewHolder(View view) {
-            super(view);
-            view.setOnClickListener(this);
-            this.mTitle = view.findViewById(R.id.title);
-            this.mSummary = view.findViewById(R.id.summary);
-        }
-
-        @Override
-        public void onClick(View view) {
-            mClickListener.onItemClick(this.mTitle.getText().toString(), view);
-        }
+        return data.size();
     }
 
     public void setOnItemClickListener(ClickListener clickListener) {
-        CommandsAdapter.mClickListener = clickListener;
+        this.mClickListener = clickListener;
     }
 
     public interface ClickListener {
         void onItemClick(String command, View v);
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final MaterialTextView mTitle;
+        private final MaterialTextView mSummary;
+
+        public ViewHolder(View view) {
+            super(view);
+            mTitle = view.findViewById(R.id.title);
+            mSummary = view.findViewById(R.id.summary);
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) {
+                mClickListener.onItemClick(mTitle.getText().toString(), view);
+            }
+        }
+    }
 }

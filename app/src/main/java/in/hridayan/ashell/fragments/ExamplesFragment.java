@@ -178,7 +178,7 @@ public class ExamplesFragment extends Fragment
     binding.rvSearchView.setLayoutManager(mLayoutManager);
 
     mExamplesAdapter =
-        new ExamplesAdapter(Commands.commandList(context), context, requireActivity(), this);
+        new ExamplesAdapter(Commands.commandList(context), context, this);
     mExamplesAdapter.sortData();
     mExamplesAdapter.setOnItemClickListener(this);
     binding.rvSearchView.setAdapter(mExamplesAdapter);
