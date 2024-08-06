@@ -14,6 +14,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -849,5 +850,10 @@ public class Utils {
   // String that shows Shell is dead in red color
   public static String shellDeadError() {
     return "<font color=#FF0000>" + "Shell is dead" + "</font>";
+  }
+
+  public static boolean isNightMode(Context context) {
+    return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+            == Configuration.UI_MODE_NIGHT_YES;
   }
 }

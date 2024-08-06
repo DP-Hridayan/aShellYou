@@ -49,8 +49,8 @@ android {
         }
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
             def buildTypeName = variant.buildType.name
             outputFileName = "aShell You ${variant.versionName}-${buildTypeName}.apk"
         }

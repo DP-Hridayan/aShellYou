@@ -247,7 +247,7 @@ public class SettingsFragment extends Fragment {
             false,
             false));
 
-    adapter = new SettingsAdapter(settingsData, context, currentTheme, requireActivity());
+    adapter = new SettingsAdapter(settingsData, context, requireActivity());
     binding.rvSettings.setAdapter(adapter);
     binding.rvSettings.setLayoutManager(new LinearLayoutManager(context));
 
