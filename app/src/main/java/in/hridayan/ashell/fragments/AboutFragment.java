@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
+import com.airbnb.lottie.LottieAnimationView;
 
 public class AboutFragment extends Fragment
     implements AboutAdapter.AdapterListener, Utils.FetchLatestVersionCodeCallback {
@@ -34,6 +36,8 @@ public class AboutFragment extends Fragment
   private AboutViewModel viewModel;
   private FragmentAboutBinding binding;
   private Pair<Integer, Integer> mRVPositionAndOffset;
+    private Button button;
+    private LottieAnimationView loadingDots;
 
   @Nullable
   @Override
@@ -208,12 +212,17 @@ public class AboutFragment extends Fragment
   }
 
   @Override
-  public void onCheckUpdate() {
+  public void onCheckUpdate(Button button, LottieAnimationView animation) {
+        this.button = button;
+        this.loadingDots = animation;
+    //    button.setTextColor(android.R.color.transparent);
+        loadingDots.setVisibility(View.VISIBLE);
     new FetchLatestVersionCode(getContext(), this).execute(Preferences.buildGradleUrl);
   }
 
   @Override
   public void onResult(int result) {
+        loadingDots.setVisibility(View.GONE);
     int message;
     switch (result) {
       case Preferences.UPDATE_AVAILABLE:

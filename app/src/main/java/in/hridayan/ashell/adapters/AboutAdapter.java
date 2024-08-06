@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.card.MaterialCardView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
@@ -37,7 +38,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   }
 
   public interface AdapterListener {
-    void onCheckUpdate();
+    void onCheckUpdate(Button button, LottieAnimationView loadingDots);
   }
 
   public void setAdapterListener(AdapterListener listener) {
@@ -206,11 +207,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-              if (endHeight == 0) {
+              if (endHeight == 0) 
                 view.setVisibility(View.GONE);
-              } else {
+              else 
                 view.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-              }
+              
             }
           });
       animator.setDuration(duration);
@@ -224,6 +225,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final LinearLayout categoryAppLayout;
     private final Button button;
     private final AdapterListener mListener;
+    private final LottieAnimationView loadingDots;
 
     public AppItemViewHolder(@NonNull View itemView, AdapterListener listener) {
       super(itemView);
@@ -232,6 +234,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       descriptionTextView = itemView.findViewById(R.id.description_text_view);
       button = itemView.findViewById(R.id.button);
       categoryAppLayout = itemView.findViewById(R.id.category_app_layout);
+      loadingDots = itemView.findViewById(R.id.loading_animation);
       mListener = listener;
     }
 
@@ -267,10 +270,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         button.setOnClickListener(
             v -> {
               HapticUtils.weakVibrate(v, itemView.getContext());
-              if (mListener != null) mListener.onCheckUpdate();
+              if (mListener != null) mListener.onCheckUpdate(button, loadingDots);
             });
       } else {
         button.setVisibility(View.GONE);
+        loadingDots.setVisibility(View.GONE);
       }
 
       categoryAppLayout.setOnClickListener(clickListener);
