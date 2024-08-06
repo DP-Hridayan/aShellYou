@@ -121,7 +121,7 @@
     <string name="remember_working_mode">Remember last working mode</string>
     <string name="request_permission">Request Permission</string>
     <string name="report">Report</string>
-    <string name="root">Root</string>
+    <string name="root" translatable="false">Root</string>
     <string name="root_access_denied_message">Root access is currently denied for aShell You. Grant root access or switch to non-root method</string>
     <string name="root_unavailable">Device is not rooted</string>
     <string name="root_unavailable_message">Root is not detected. Device might not be rooted or root presence might be hidden from aShell You</string>
@@ -141,7 +141,7 @@
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\' folder</string>
     <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\' folder</string>
     <string name="shell_working">Shell is working</string>
-    <string name="shizuku">Shizuku</string>
+    <string name="shizuku" translatable="false">Shizuku</string>
     <string name="shizuku_about">About Shizuku</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You. aShell You won\'t work without a proper Shizuku environment.</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
