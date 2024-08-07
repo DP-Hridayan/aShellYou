@@ -38,8 +38,8 @@ public class AboutFragment extends Fragment
   private AboutViewModel viewModel;
   private FragmentAboutBinding binding;
   private Pair<Integer, Integer> mRVPositionAndOffset;
-    private LottieAnimationView loadingDots;
-    private Drawable updateButtonIcon;
+  private LottieAnimationView loadingDots;
+  private Drawable updateButtonIcon;
 
   @Nullable
   @Override
@@ -227,26 +227,31 @@ public class AboutFragment extends Fragment
   @Override
   public void onResult(int result) {
     // Restore the original icon and text
-    loadingDots.setVisibility(View.GONE);
-    Button button = getView().findViewById(R.id.check_update_button);
-    button.setText(R.string.update);
-    // casting button to MaterialButton to use setIcon method.
-    ((MaterialButton) button).setIcon(updateButtonIcon);
+    if (getView() != null) {
+      loadingDots.setVisibility(View.GONE);
+      Button button = getView().findViewById(R.id.check_update_button);
+      button.setText(R.string.update);
+      // casting button to MaterialButton to use setIcon method.
+      ((MaterialButton) button).setIcon(updateButtonIcon);
+    }
 
     int message;
-    switch (result) {
-      case Preferences.UPDATE_AVAILABLE:
-        Utils.showBottomSheetUpdate(requireActivity(), getContext());
-        return;
-      case Preferences.UPDATE_NOT_AVAILABLE:
-        message = R.string.already_latest_version;
-        break;
-      case Preferences.CONNECTION_ERROR:
-        message = R.string.check_internet;
-        break;
-      default:
-        return;
+
+    if (getContext() != null) {
+      switch (result) {
+        case Preferences.UPDATE_AVAILABLE:
+          Utils.showBottomSheetUpdate(requireActivity(), getContext());
+          return;
+        case Preferences.UPDATE_NOT_AVAILABLE:
+          message = R.string.already_latest_version;
+          break;
+        case Preferences.CONNECTION_ERROR:
+          message = R.string.check_internet;
+          break;
+        default:
+          return;
+      }
+      ToastUtils.showToast(getContext(), message, ToastUtils.LENGTH_SHORT);
     }
-    ToastUtils.showToast(getContext(), message, ToastUtils.LENGTH_SHORT);
   }
 }
