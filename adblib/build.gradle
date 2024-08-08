@@ -7,6 +7,11 @@ android {
         minSdkVersion 14
         targetSdkVersion 34
     }
+    
+   lint {
+        baseline = file("lint-baseline.xml")
+    }
+    
     buildTypes {
         release {
             minifyEnabled false

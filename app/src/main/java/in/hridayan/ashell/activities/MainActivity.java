@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity
     mNav = findViewById(R.id.bottom_nav_bar);
 
     // Hide the navigation bar when the keyboard is visible
+
     KeyboardUtils.attachVisibilityListener(
         this,
         new KeyboardUtils.KeyboardVisibilityListener() {

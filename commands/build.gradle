@@ -8,6 +8,10 @@ android {
         targetSdkVersion 34
     }
     
+   lint {
+        baseline = file("lint-baseline.xml")
+    }
+    
     namespace 'commands'
     buildTypes {
         release {
