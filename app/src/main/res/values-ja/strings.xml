@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="access_denied">アクセス拒絶</string>
-    <string name="accept_device_prompt">このデバイスから初めて接続しようとする場合、他のデバイスのプロンプトを受け入れる必要があるかもしれません。</string>
+    <string name="accept_device_prompt">このデバイスから初めて接続しようとする場合、他のデバイスのプロンプトを受け入れる必要があるかもしれません</string>
     <string name="adb_device_connected">ADBデバイス接続</string>
     <string name="adb_device_not_connected">ADBデバイス接続ない</string>
     <string name="adb_device_waiting">ADBデバイス待つ</string>
@@ -11,11 +11,11 @@
     <string name="accept">認める</string>
     <string name="already_latest_version">バージョンは最新です</string>
     <string name="amoled_theme">AMOLED ブラックテーマ</string>
-    <string name="des_amoled_theme">OLEDスクリーンにソリッドブラックのテーマを使用すると、電力を節約できます。</string>
+    <string name="des_amoled_theme">OLEDスクリーンにソリッドブラックのテーマを使用すると、電力を節約できます</string>
     <string name="app_crashed">アプリがクラッシュしました :(</string>
     <string name="app_summary">「aShell You」はADBのあらゆるニーズに応えます。</string>
     <string name="app_updated_message">アプリがアップデートされたので、変更履歴を見たいですか？</string>
-    <string name="app_working_message">「aShell You」はまだ動作中です。終了するまで待つか、手動で停止して（停止ボタンをクリックして）新しいコマンドを実行してください。</string>
+    <string name="app_working_message">「aShell You」はまだ動作中です。終了するまで待つか、手動で停止して（停止ボタンをクリックして）新しいコマンドを実行してください</string>
     <string name="beta_warning">この機能は現在実験段階です。何か問題がありましたら、お知らせください</string>
     <string name="bookmarks">ブックマーク</string>
     <string name="bookmark_added_message">\'%s\' はブックマークされています</string>
@@ -114,13 +114,13 @@
     <string name="settings">設定</string>
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) 失敗</string>
     <string name="share_and_run">自動実行</string>
-    <string name="des_share_and_run">有効にすると、任意のテキストをシェルに共有します。 共有されたテキストを入力として、シェルが自動的に実行されます</string>
+    <string name="des_share_and_run">シェアを使って「aShell」にテキストを送信すると、自動実行されます</string>
     <string name="shell_output_not_saved_message">最後のコマンドの出力が保存されていない</string>
     <string name="shell_output_saved_message">最後のコマンドの出力は \'%s\' フォルダにエクスポートされます</string>
     <string name="shell_output_saved_whole_message">シェル出力は \'%s\' フォルダにエクスポートされます</string>
     <string name="shell_working">シェルは働いている</string>
     <string name="shizuku_about">「Shizuku」について</string>
-    <string name="shizuku_access_denied_message">aShell Youでは、「Shizuku」サービスへのアクセスが拒否されます。aShell Youは、適切な「Shizuku」環境がないと動作しません。</string>
+    <string name="shizuku_access_denied_message">「aShell You」では、「Shizuku」サービスへのアクセスが拒否されます。「aShell You」は、適切な「Shizuku」環境がないと動作しません。</string>
     <string name="shizuku_unavailable">「Shizuku」は使えない</string>
     <string name="shizuku_unavailable_message">お使いの端末に「Shizuku」がインストールされていないか、有効化されていません。 「Shizuku」の環境がないと、aShell Youは実行できません。</string>
     <string name="sort">ソート</string>
@@ -139,7 +139,7 @@
     <string name="update_available">アップデート可能 ！</string>
     <string name="update_available_summary">「aShell You」の新しいバージョンが利用可能です！リポジトリから新しいバージョンを取得するには、ダウンロードボタンをクリックしてください。</string>
     <string name="usb_warning_title">重要事項</string>
-    <string name="usb_warning_summary">ターゲットデバイスの開発者向けオプションで「USBデバッグ」を有効にする必要があります</string>
+    <string name="usb_warning_summary">ターゲットデバイスの開発者向けオプションで「USBデバッグ」を有効にする必要があります。</string>
     <string name="use">利用</string>
     <string name="vibration">触覚フィードバック</string>
     <string name="des_vibration">振動によるインタラクティブなフィードバック</string>
@@ -152,11 +152,11 @@
     <string name="save_preference">シェル出力保存設定</string>
     <string name="des_save_preference">シェル出力の保存する部分を選択する</string>
     <string name="smooth_scrolling">スムーズなスクロール</string>
-    <string name="des_smooth_scroll">上下方向の矢印をクリックすると、スムージング効果を使用します。</string>
+    <string name="des_smooth_scroll">上下方向の矢印をクリックすると、スムージング効果を使用します</string>
     <string name="ask_to_clean">シェル出力をクリアする前に尋ねる</string>
-    <string name="des_ask_to_clean">有効にすると、確認ボックスがポップアップ表示され、2回目の確認が必要になります。</string>
+    <string name="des_ask_to_clean">有効にすると、確認ボックスがポップアップ表示され、2回目の確認が必要になります</string>
     <string name="auto_update_check">自動更新チェック</string>
-    <string name="des_auto_update_check">アプリの起動時に、利用可能な新しいバージョンを自動的にチェックします。</string>
+    <string name="des_auto_update_check">アプリの起動時に、利用可能な新しいバージョンを自動的にチェックします</string>
     <string name="override_bookmarks_limit">ブックマークの上限をオーバーライドする</string>
     <string name="des_override_bookmarks">有効にした状態で大量のブックマークが追加されると、パフォーマンスの問題が発生する可能性があります！ ローエンドデバイスはオフのままにしてください</string>
     <string name="disable_softkey">ソフトキーボードを無効にする</string>
@@ -174,16 +174,16 @@
     <string name="khun_htetz_about">「ADB⚡OTG」の開発者\n彼のおかげで、OTG機能が「aShell」に実装できた。</string>
     <string name="krishna_about">世界最高の男は、信じられないほどの助けになってくれた。\n彼がいなければ、「aShell」はここになかった。本当にありがとう！</string>
     <string name="shivam_about">Android &amp; バックエンド開発者\nアプリのUIとUXに貢献した、非常にスキルの高い素晴らしい人物だ。</string>
-    <string name="drDisagree_about">「Iconify」の開発者\n「aShell」の問題を解決してくれたよ🤝</string>
-    <string name="marciozomb13_about">ポルトガル語翻訳を担当したフリーランス翻訳者</string>
-    <string name="weiguangtwk_about">中国語の翻訳を担当した人物</string>
-    <string name="winzort_about">トルコ語の翻訳は彼が担当</string>
+    <string name="drDisagree_about">「Iconify」の開発者\n「aShell」の問題を解決してくれたよ🤝。</string>
+    <string name="marciozomb13_about">ポルトガル語翻訳を担当したフリーランス翻訳者。</string>
+    <string name="weiguangtwk_about">中国語の翻訳を担当した人物。</string>
+    <string name="winzort_about">トルコ語の翻訳は彼が担当。</string>
     <string name="app">アプリ</string>
     <string name="version">バージョン</string>
     <string name="report_issue">問題を報告する</string>
     <string name="des_report_issue">アプリの使用中に直面した問題を報告する</string>
     <string name="feature_request">機能リクエスト</string>
-    <string name="des_feature_request">何かアイデアやご提案があれば、ぜひお聞かせください。</string>
+    <string name="des_feature_request">何かアイデアやご提案があれば、ぜひお聞かせください</string>
     <string name="github">「Github」</string>
     <string name="des_github">「aShellYou」リポジトリへのアクセス</string>
     <string name="telegram_channel">「Telegram」チャンネル</string>
