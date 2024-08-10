@@ -85,16 +85,6 @@
             android:layout_marginTop="10dp"
             android:paddingBottom="15dp">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:src="@drawable/ic_numbers"
-                android:background="@null"
-                android:clickable="false"
-                android:layout_marginTop="2dp"
-                android:id="@+id/shellSymbol"
-                android:layout_gravity="start|center" />
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"

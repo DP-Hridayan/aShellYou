@@ -1295,7 +1295,6 @@ public class AshellFragment extends Fragment {
           t -> binding.commandEditText.setText(null));
     }
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.shellSymbol);
 
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
@@ -1317,7 +1316,6 @@ public class AshellFragment extends Fragment {
           t -> binding.commandEditText.setText(null));
     }
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.shellSymbol);
 
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
@@ -1332,7 +1330,6 @@ public class AshellFragment extends Fragment {
     binding.commandInputLayout.setErrorIconDrawable(
         Utils.getDrawable(R.drawable.ic_error, requireActivity()));
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.shellSymbol);
     binding.commandEditText.requestFocus();
     Utils.snackBar(
             requireActivity().findViewById(android.R.id.content),

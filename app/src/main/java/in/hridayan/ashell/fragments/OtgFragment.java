@@ -457,11 +457,6 @@ public class OtgFragment extends Fragment
             switch (msg.what) {
               case DEVICE_FOUND:
                 initCommand();
-                if (adbConnection != null) {
-                  // Glow otg symbol when adb connection successfull
-                  binding.otgCableIcon.setColorFilter(
-                      Utils.getColor(R.color.green, requireActivity()));
-                }
                 Toast.makeText(context, getString(R.string.connected), Toast.LENGTH_SHORT).show();
                 break;
 
@@ -475,8 +470,6 @@ public class OtgFragment extends Fragment
                 break;
 
               case DEVICE_NOT_FOUND:
-                binding.otgCableIcon.clearColorFilter();
-                // Toast.makeText(context, "device not found!", Toast.LENGTH_SHORT).show();
                 adbConnection = null; // Fix this issue
                 break;
 
@@ -1022,8 +1015,7 @@ public class OtgFragment extends Fragment
         t -> binding.commandEditText.setText(null));
 
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.otgCableIcon);
-
+        
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(requireActivity().getString(R.string.error))
         .setMessage(requireActivity().getString(R.string.otg_not_connected))
