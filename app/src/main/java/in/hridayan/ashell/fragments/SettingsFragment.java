@@ -88,6 +88,7 @@ public class SettingsFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
+    postponeEnterTransition();
     setExitTransition(new Hold());
 
     setSharedElementEnterTransition(new MaterialContainerTransform());
@@ -257,6 +258,9 @@ public class SettingsFragment extends Fragment {
     binding.rvSettings.setAdapter(adapter);
     binding.rvSettings.setLayoutManager(new LinearLayoutManager(context));
 
+    // After recyclerview is drawn, start the transition
+    binding.rvSettings.getViewTreeObserver()
+            .addOnDrawListener(this::startPostponedEnterTransition);
     return view;
   }
 }

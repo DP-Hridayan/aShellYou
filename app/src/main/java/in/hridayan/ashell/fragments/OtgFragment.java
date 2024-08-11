@@ -251,7 +251,7 @@ public class OtgFragment extends Fragment
     binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
     List<SettingsItem> settingsList = new ArrayList<>();
-    adapter = new SettingsAdapter(settingsList, context);
+    adapter = new SettingsAdapter(settingsList, context, requireActivity());
 
     new FabExtendingOnScrollViewListener(binding.scrollView, binding.saveButton);
     new FabOtgScrollUpListener(binding.scrollView, binding.scrollUpButton);
