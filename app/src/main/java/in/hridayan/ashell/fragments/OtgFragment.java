@@ -45,6 +45,7 @@ import com.cgutman.adblib.AdbStream;
 import com.cgutman.adblib.UsbChannel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -230,6 +231,7 @@ public class OtgFragment extends Fragment
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    setExitTransition(new Hold());
 
     binding = FragmentOtgBinding.inflate(inflater, container, false);
 
@@ -294,17 +296,7 @@ public class OtgFragment extends Fragment
       binding.sendButton.setOnClickListener(
           v -> {
             HapticUtils.weakVibrate(v, context);
-            requireActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(
-                    R.anim.fragment_enter,
-                    R.anim.fragment_exit,
-                    R.anim.fragment_pop_enter,
-                    R.anim.fragment_pop_exit)
-                .replace(R.id.fragment_container, new ExamplesFragment())
-                .addToBackStack(null)
-                .commit();
+            goToExamples();
           });
     }
 
@@ -337,17 +329,7 @@ public class OtgFragment extends Fragment
               binding.sendButton.setOnClickListener(
                   v -> {
                     HapticUtils.weakVibrate(v, context);
-                    requireActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.fragment_enter,
-                            R.anim.fragment_exit,
-                            R.anim.fragment_pop_enter,
-                            R.anim.fragment_pop_exit)
-                        .replace(R.id.fragment_container, new ExamplesFragment())
-                        .addToBackStack(null)
-                        .commit();
+                    goToExamples();
                   });
 
             } else {
@@ -873,17 +855,8 @@ public class OtgFragment extends Fragment
     binding.settingsButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, getContext());
-          requireActivity()
-              .getSupportFragmentManager()
-              .beginTransaction()
-              .setCustomAnimations(
-                  R.anim.fragment_enter,
-                  R.anim.fragment_exit,
-                  R.anim.fragment_pop_enter,
-                  R.anim.fragment_pop_exit)
-              .replace(R.id.fragment_container, new SettingsFragment())
-              .addToBackStack(null)
-              .commit();
+
+          goToSettings();
         });
   }
 
@@ -1015,7 +988,7 @@ public class OtgFragment extends Fragment
         t -> binding.commandEditText.setText(null));
 
     Utils.alignMargin(binding.sendButton);
-        
+
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(requireActivity().getString(R.string.error))
         .setMessage(requireActivity().getString(R.string.otg_not_connected))
@@ -1048,5 +1021,31 @@ public class OtgFragment extends Fragment
       updateInputField(mainViewModel.getUseCommand());
       mainViewModel.setUseCommand(null);
     }
+  }
+
+  // Open command examples fragment
+  private void goToExamples() {
+    ExamplesFragment fragment = new ExamplesFragment();
+
+    requireActivity()
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .addSharedElement(binding.sendButton, "sendButtonToExamples")
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
+        .commit();
+  }
+
+  //  Open the settings fragment
+  private void goToSettings() {
+    SettingsFragment fragment = new SettingsFragment();
+
+    requireActivity()
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .addSharedElement(binding.settingsButton, "settingsButtonToSettings")
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
+        .commit();
   }
 }

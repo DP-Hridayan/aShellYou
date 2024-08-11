@@ -23,7 +23,7 @@
             android:layout_marginTop="20dp"
             android:id="@+id/app_name_layout">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -66,6 +66,7 @@
                 android:src="@drawable/ic_help"
                 android:layout_marginTop="2dp"
                 android:id="@+id/sendButton"
+                android:transitionName="sendButtonToExamples"
                 android:layout_gravity="center|end" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -161,7 +162,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/title_warning"
                     android:text="@string/usb_warning_summary"
-                    style="@style/InfoCardDescription"/>
+                    style="@style/InfoCardDescription" />
 
                 <Button
                     android:id="@+id/instructionsButton"
@@ -196,7 +197,8 @@
         android:layout_margin="25dp"
         app:layout_constraintStart_toStartOf="parent"
         style="?attr/materialIconButtonFilledTonalStyle"
-        android:id="@+id/settingsButton" />
+        android:id="@+id/settingsButton"
+        android:transitionName="settingsButtonToSettings" />
 
     <com.google.android.material.button.MaterialButton
         android:layout_height="48dp"

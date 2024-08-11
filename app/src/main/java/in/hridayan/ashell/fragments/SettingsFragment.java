@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.transition.Hold;
+import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.databinding.FragmentSettingsBinding;
@@ -85,6 +87,10 @@ public class SettingsFragment extends Fragment {
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+
+    setExitTransition(new Hold());
+
+    setSharedElementEnterTransition(new MaterialContainerTransform());
 
     binding = FragmentSettingsBinding.inflate(inflater, container, false);
     view = binding.getRoot();
