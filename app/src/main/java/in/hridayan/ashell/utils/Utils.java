@@ -299,7 +299,7 @@ public class Utils {
               mCommand.setText(bookmarks.get(which));
               mCommand.setSelection(mCommand.getText().length());
             })
-        .setPositiveButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setPositiveButton(context.getString(R.string.cancel), null)
         .setNegativeButton(
             context.getString(R.string.sort),
             (dialogInterface, i) -> {
@@ -424,7 +424,7 @@ public class Utils {
             (dialog, which) -> {
               Preferences.setWorkingMode(context, workingMode[0]);
             })
-        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(context.getString(R.string.cancel), null)
         .show();
   }
 
@@ -450,7 +450,7 @@ public class Utils {
             (dialog, which) -> {
               Preferences.setSavePreference(context, preference[0]);
             })
-        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(context.getString(R.string.cancel), null)
         .show();
   }
 
@@ -483,7 +483,7 @@ public class Utils {
             (dialog, which) -> {
               Preferences.setLocalAdbMode(context, preference[0]);
             })
-        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(context.getString(R.string.cancel), null)
         .show();
   }
 
@@ -523,9 +523,7 @@ public class Utils {
           });
     }
 
-    builder
-        .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
-        .show();
+    builder.setNegativeButton(context.getString(R.string.cancel), null).show();
   }
 
   /* Generate the file name of the exported txt file . The name will be the last executed command. It gets the last executed command from the History List */
@@ -815,7 +813,7 @@ public class Utils {
     new MaterialAlertDialogBuilder(activity)
         .setTitle(context.getString(R.string.access_denied))
         .setMessage(context.getString(R.string.root_access_denied_message))
-        .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setNegativeButton(context.getString(R.string.cancel), null)
         .setPositiveButton(
             context.getString(R.string.request_permission),
             (dialogInterface, i) -> {
@@ -831,7 +829,7 @@ public class Utils {
     new MaterialAlertDialogBuilder(activity)
         .setTitle(context.getString(R.string.access_denied))
         .setMessage(context.getString(R.string.shizuku_access_denied_message))
-        .setNegativeButton(context.getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setNegativeButton(context.getString(R.string.cancel), null)
         .setPositiveButton(
             context.getString(R.string.request_permission),
             (dialogInterface, i) -> Shizuku.requestPermission(0))
@@ -843,7 +841,7 @@ public class Utils {
     new MaterialAlertDialogBuilder(activity)
         .setTitle(context.getString(R.string.error))
         .setMessage(context.getString(R.string.grant_permission_manually))
-        .setPositiveButton(context.getString(R.string.ok), (dialogInterface, i) -> {})
+        .setPositiveButton(context.getString(R.string.ok), null)
         .show();
   }
 

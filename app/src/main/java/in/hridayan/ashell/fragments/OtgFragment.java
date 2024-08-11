@@ -906,7 +906,7 @@ public class OtgFragment extends Fragment
             new MaterialAlertDialogBuilder(requireActivity())
                 .setTitle(getString(R.string.clear_everything))
                 .setMessage(getString(R.string.clear_all_message))
-                .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+                .setNegativeButton(getString(R.string.cancel), null)
                 .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
                 .show();
           else clearAll();
@@ -993,7 +993,7 @@ public class OtgFragment extends Fragment
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(requireActivity().getString(R.string.error))
         .setMessage(requireActivity().getString(R.string.otg_not_connected))
-        .setPositiveButton(requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
+        .setPositiveButton(requireActivity().getString(R.string.ok), null)
         .show();
   }
 

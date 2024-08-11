@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.2.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.2.0)" variant="all" version="8.2.0">
+
+    <issue
+        id="Typos"
+        message="&quot;accomodate&quot; is a common misspelling; did you mean &quot;accommodate&quot;?"
+        errorLine1="    &lt;string name=&quot;changelog_v3_1_0&quot;>\n\n• Improvements to ADB OTG after initial release.\n\n• Some UI and logic adjustments to accomodate the new otg feature.&lt;/string>"
+        errorLine2="                                                                                                                               ^">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="36"
+            column="128"/>
+    </issue>
+
+</issues>

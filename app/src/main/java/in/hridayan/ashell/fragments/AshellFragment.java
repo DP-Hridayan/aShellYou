@@ -567,7 +567,7 @@ public class AshellFragment extends Fragment {
     new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.connected_device))
         .setMessage(device)
-        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(context.getString(R.string.cancel), null)
         .setPositiveButton(
             context.getString(R.string.change_mode),
             (dialog, i) -> {
@@ -604,7 +604,7 @@ public class AshellFragment extends Fragment {
               binding.commandInputLayout.setError(null);
               handleModeButtonTextAndCommandHint();
             })
-        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .show();
   }
 
@@ -686,7 +686,7 @@ public class AshellFragment extends Fragment {
               new MaterialAlertDialogBuilder(requireActivity())
                   .setTitle(getString(R.string.clear_everything))
                   .setMessage(getString(R.string.clear_all_message))
-                  .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+                  .setNegativeButton(getString(R.string.cancel), null)
                   .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
                   .show();
             else clearAll();
@@ -1267,7 +1267,7 @@ public class AshellFragment extends Fragment {
         .setCancelable(false)
         .setTitle(getString(R.string.shell_working))
         .setMessage(getString(R.string.app_working_message))
-        .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setPositiveButton(getString(R.string.cancel), null)
         .show();
   }
 
@@ -1277,7 +1277,7 @@ public class AshellFragment extends Fragment {
         .setCancelable(false)
         .setTitle(R.string.confirm_exit)
         .setMessage(getString(R.string.quit_app_message))
-        .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .setPositiveButton(
             getString(R.string.quit), (dialogInterface, i) -> requireActivity().finish())
         .show();
@@ -1300,7 +1300,7 @@ public class AshellFragment extends Fragment {
         .setNegativeButton(
             getString(R.string.shizuku_about),
             (dialogInterface, i) -> Utils.openUrl(context, "https://shizuku.rikka.app/"))
-        .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+        .setPositiveButton(getString(R.string.ok), null)
         .show();
   }
 
@@ -1318,7 +1318,7 @@ public class AshellFragment extends Fragment {
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
         .setMessage(getString(R.string.root_unavailable_message))
-        .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+        .setPositiveButton(getString(R.string.ok), null)
         .show();
   }
 
