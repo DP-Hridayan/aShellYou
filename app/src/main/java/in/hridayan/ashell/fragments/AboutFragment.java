@@ -1,7 +1,5 @@
 package in.hridayan.ashell.fragments;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -21,9 +19,10 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.MaterialContainerTransform;
+
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
-import in.hridayan.ashell.UI.Transitions;
 import in.hridayan.ashell.adapters.AboutAdapter;
 import in.hridayan.ashell.databinding.FragmentAboutBinding;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
@@ -53,6 +52,7 @@ public class AboutFragment extends Fragment
       @Nullable Bundle savedInstanceState) {
 
     binding = FragmentAboutBinding.inflate(inflater, container, false);
+    setSharedElementEnterTransition(new MaterialContainerTransform());
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
