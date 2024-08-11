@@ -1,5 +1,7 @@
 package in.hridayan.ashell.fragments;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -21,6 +23,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
+import in.hridayan.ashell.UI.Transitions;
 import in.hridayan.ashell.adapters.AboutAdapter;
 import in.hridayan.ashell.databinding.FragmentAboutBinding;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
