@@ -136,7 +136,7 @@ public class AshellFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-
+    setExitTransition(null);
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     // This function is for restoring the Run button's icon after a configuration change
@@ -231,7 +231,7 @@ public class AshellFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-    setExitTransition(new Hold());
+    setExitTransition(null);
 
     binding = FragmentAshellBinding.inflate(inflater, container, false);
 
@@ -1337,6 +1337,7 @@ public class AshellFragment extends Fragment {
 
   // Open command examples fragment
   private void goToExamples() {
+    setExitTransition(new Hold());
     ExamplesFragment fragment = new ExamplesFragment();
 
     requireActivity()
@@ -1350,6 +1351,7 @@ public class AshellFragment extends Fragment {
 
   //  Open the settings fragment
   private void goToSettings() {
+    setExitTransition(new Hold());
     SettingsFragment fragment = new SettingsFragment();
 
     requireActivity()

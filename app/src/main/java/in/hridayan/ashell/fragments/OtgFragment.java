@@ -137,6 +137,7 @@ public class OtgFragment extends Fragment
   @Override
   public void onResume() {
     super.onResume();
+    setExitTransition(null);
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")
@@ -231,7 +232,7 @@ public class OtgFragment extends Fragment
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    setExitTransition(new Hold());
+    setExitTransition(null);
 
     binding = FragmentOtgBinding.inflate(inflater, container, false);
 
@@ -1025,6 +1026,7 @@ public class OtgFragment extends Fragment
 
   // Open command examples fragment
   private void goToExamples() {
+    setExitTransition(new Hold());
     ExamplesFragment fragment = new ExamplesFragment();
 
     requireActivity()
@@ -1038,6 +1040,7 @@ public class OtgFragment extends Fragment
 
   //  Open the settings fragment
   private void goToSettings() {
+    setExitTransition(new Hold());
     SettingsFragment fragment = new SettingsFragment();
 
     requireActivity()
