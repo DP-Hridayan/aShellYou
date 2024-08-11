@@ -854,6 +854,6 @@ public class Utils {
 
   public static boolean isNightMode(Context context) {
     return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-            == Configuration.UI_MODE_NIGHT_YES;
+        == Configuration.UI_MODE_NIGHT_YES;
   }
 }

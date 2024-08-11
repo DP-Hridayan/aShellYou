@@ -32,6 +32,7 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.Transitions;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
@@ -430,13 +431,17 @@ public class AshellFragment extends Fragment {
   /*Calling this function hides the search bar and makes other buttons visible again*/
   private void hideSearchBar() {
     binding.search.setText(null);
-    binding.search.setVisibility(View.GONE);
+    Transitions.materialContainerTransformViewToView(binding.search, binding.searchButton);
     if (!binding.commandEditText.isFocused()) binding.commandEditText.requestFocus();
-    binding.bookmarksButton.setVisibility(View.VISIBLE);
-    binding.settingsButton.setVisibility(View.VISIBLE);
-    binding.historyButton.setVisibility(View.VISIBLE);
-    binding.clearButton.setVisibility(View.VISIBLE);
-    binding.searchButton.setVisibility(View.VISIBLE);
+    new Handler()
+        .postDelayed(
+            () -> {
+              binding.bookmarksButton.setVisibility(View.VISIBLE);
+              binding.settingsButton.setVisibility(View.VISIBLE);
+              binding.historyButton.setVisibility(View.VISIBLE);
+              binding.clearButton.setVisibility(View.VISIBLE);
+            },
+            200);
   }
 
   // Call to show the bottom navigation view
@@ -748,10 +753,9 @@ public class AshellFragment extends Fragment {
             binding.clearButton.setVisibility(View.GONE);
             binding.bookmarksButton.setVisibility(View.GONE);
             binding.settingsButton.setVisibility(View.GONE);
-            binding.searchButton.setVisibility(View.GONE);
-            binding.search.setVisibility(View.VISIBLE);
-            binding.search.requestFocus();
             binding.commandEditText.setText(null);
+            Transitions.materialContainerTransformViewToView(binding.searchButton, binding.search);
+            binding.search.requestFocus();
           }
         });
   }
