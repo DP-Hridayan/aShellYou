@@ -26,12 +26,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.Transitions;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
@@ -228,6 +230,8 @@ public class AshellFragment extends Fragment {
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+    setExitTransition(new Hold());
 
     binding = FragmentAshellBinding.inflate(inflater, container, false);
 
@@ -430,13 +434,17 @@ public class AshellFragment extends Fragment {
   /*Calling this function hides the search bar and makes other buttons visible again*/
   private void hideSearchBar() {
     binding.search.setText(null);
-    binding.search.setVisibility(View.GONE);
+    Transitions.materialContainerTransformViewToView(binding.search, binding.searchButton);
     if (!binding.commandEditText.isFocused()) binding.commandEditText.requestFocus();
-    binding.bookmarksButton.setVisibility(View.VISIBLE);
-    binding.settingsButton.setVisibility(View.VISIBLE);
-    binding.historyButton.setVisibility(View.VISIBLE);
-    binding.clearButton.setVisibility(View.VISIBLE);
-    binding.searchButton.setVisibility(View.VISIBLE);
+    new Handler()
+        .postDelayed(
+            () -> {
+              binding.bookmarksButton.setVisibility(View.VISIBLE);
+              binding.settingsButton.setVisibility(View.VISIBLE);
+              binding.historyButton.setVisibility(View.VISIBLE);
+              binding.clearButton.setVisibility(View.VISIBLE);
+            },
+            200);
   }
 
   // Call to show the bottom navigation view
@@ -607,17 +615,8 @@ public class AshellFragment extends Fragment {
     binding.settingsButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, getContext());
-          requireActivity()
-              .getSupportFragmentManager()
-              .beginTransaction()
-              .setCustomAnimations(
-                  R.anim.fragment_enter,
-                  R.anim.fragment_exit,
-                  R.anim.fragment_pop_enter,
-                  R.anim.fragment_pop_exit)
-              .replace(R.id.fragment_container, new SettingsFragment())
-              .addToBackStack(null)
-              .commit();
+
+          goToSettings();
         });
   }
 
@@ -748,10 +747,9 @@ public class AshellFragment extends Fragment {
             binding.clearButton.setVisibility(View.GONE);
             binding.bookmarksButton.setVisibility(View.GONE);
             binding.settingsButton.setVisibility(View.GONE);
-            binding.searchButton.setVisibility(View.GONE);
-            binding.search.setVisibility(View.VISIBLE);
-            binding.search.requestFocus();
             binding.commandEditText.setText(null);
+            Transitions.materialContainerTransformViewToView(binding.searchButton, binding.search);
+            binding.search.requestFocus();
           }
         });
   }
@@ -1295,7 +1293,6 @@ public class AshellFragment extends Fragment {
           t -> binding.commandEditText.setText(null));
     }
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.shellSymbol);
 
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
@@ -1317,7 +1314,6 @@ public class AshellFragment extends Fragment {
           t -> binding.commandEditText.setText(null));
     }
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.shellSymbol);
 
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
@@ -1332,7 +1328,6 @@ public class AshellFragment extends Fragment {
     binding.commandInputLayout.setErrorIconDrawable(
         Utils.getDrawable(R.drawable.ic_error, requireActivity()));
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.shellSymbol);
     binding.commandEditText.requestFocus();
     Utils.snackBar(
             requireActivity().findViewById(android.R.id.content),
@@ -1342,16 +1337,27 @@ public class AshellFragment extends Fragment {
 
   // Open command examples fragment
   private void goToExamples() {
+    ExamplesFragment fragment = new ExamplesFragment();
+
     requireActivity()
         .getSupportFragmentManager()
         .beginTransaction()
-        .setCustomAnimations(
-            R.anim.fragment_enter,
-            R.anim.fragment_exit,
-            R.anim.fragment_pop_enter,
-            R.anim.fragment_pop_exit)
-        .replace(R.id.fragment_container, new ExamplesFragment())
-        .addToBackStack(null)
+        .addSharedElement(binding.sendButton, "sendButtonToExamples")
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
+        .commit();
+  }
+
+  //  Open the settings fragment
+  private void goToSettings() {
+    SettingsFragment fragment = new SettingsFragment();
+
+    requireActivity()
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .addSharedElement(binding.settingsButton, "settingsButtonToSettings")
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
         .commit();
   }
 

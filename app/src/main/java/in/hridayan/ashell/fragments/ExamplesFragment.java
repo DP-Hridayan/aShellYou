@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
@@ -104,6 +105,7 @@ public class ExamplesFragment extends Fragment
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    setSharedElementEnterTransition(new MaterialContainerTransform());
     binding = FragmentExamplesBinding.inflate(inflater, container, false);
 
     view = binding.getRoot();

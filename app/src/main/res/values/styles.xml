@@ -6,6 +6,7 @@
         parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+     <item  name="android:windowActivityTransitions">true</item>
     </style>
 
     <style
@@ -63,7 +64,7 @@
         <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
         <item name="android:textAppearance">?attr/textAppearanceTitleMedium</item>
     </style>
-   <style
+    <style
         name="InfoCardDescription"
         parent="aShellYou.AppTheme">
         <item name="android:layout_gravity">start</item>
@@ -72,7 +73,6 @@
         <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
         <item name="android:textAppearance">?attr/textAppearanceBodySmall</item>
     </style>
-    
     // for devices running A11 and below
     <style
         name="ThemeOverlay.aShellYou.AmoledThemeBelowV31"
