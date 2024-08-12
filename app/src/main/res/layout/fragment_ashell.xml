@@ -85,16 +85,6 @@
             android:layout_marginTop="10dp"
             android:paddingBottom="15dp">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:src="@drawable/ic_numbers"
-                android:background="@null"
-                android:clickable="false"
-                android:layout_marginTop="2dp"
-                android:id="@+id/shellSymbol"
-                android:layout_gravity="start|center" />
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -102,7 +92,8 @@
                 android:src="@drawable/ic_help"
                 android:layout_marginTop="2dp"
                 android:id="@+id/sendButton"
-                android:layout_gravity="center|end" />
+                android:layout_gravity="center|end"
+                android:transitionName="sendButtonToExamples" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_height="wrap_content"
@@ -175,7 +166,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             style="?attr/materialIconButtonFilledTonalStyle"
-            android:id="@+id/settingsButton" />
+            android:id="@+id/settingsButton"
+            android:transitionName="settingsButtonToSettings"/>
 
         <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"

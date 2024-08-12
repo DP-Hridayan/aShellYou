@@ -16,6 +16,8 @@
 
 # General ProGuard rules to ensure meaningful stack traces
 -keepattributes *Annotation*
+-dontwarn javax.annotation.Nullable
+-keep class javax.annotation.** { *; }
 
 # Preserve class and method names for debugging
 -keepnames class * {

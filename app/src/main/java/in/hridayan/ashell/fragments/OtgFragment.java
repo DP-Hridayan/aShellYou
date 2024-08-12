@@ -45,6 +45,7 @@ import com.cgutman.adblib.AdbStream;
 import com.cgutman.adblib.UsbChannel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -136,6 +137,7 @@ public class OtgFragment extends Fragment
   @Override
   public void onResume() {
     super.onResume();
+    setExitTransition(null);
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")
@@ -230,6 +232,7 @@ public class OtgFragment extends Fragment
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    setExitTransition(null);
 
     binding = FragmentOtgBinding.inflate(inflater, container, false);
 
@@ -248,7 +251,7 @@ public class OtgFragment extends Fragment
     binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
     List<SettingsItem> settingsList = new ArrayList<>();
-    adapter = new SettingsAdapter(settingsList, context);
+    adapter = new SettingsAdapter(settingsList, context, requireActivity());
 
     new FabExtendingOnScrollViewListener(binding.scrollView, binding.saveButton);
     new FabOtgScrollUpListener(binding.scrollView, binding.scrollUpButton);
@@ -294,17 +297,7 @@ public class OtgFragment extends Fragment
       binding.sendButton.setOnClickListener(
           v -> {
             HapticUtils.weakVibrate(v, context);
-            requireActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(
-                    R.anim.fragment_enter,
-                    R.anim.fragment_exit,
-                    R.anim.fragment_pop_enter,
-                    R.anim.fragment_pop_exit)
-                .replace(R.id.fragment_container, new ExamplesFragment())
-                .addToBackStack(null)
-                .commit();
+            goToExamples();
           });
     }
 
@@ -337,17 +330,7 @@ public class OtgFragment extends Fragment
               binding.sendButton.setOnClickListener(
                   v -> {
                     HapticUtils.weakVibrate(v, context);
-                    requireActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.fragment_enter,
-                            R.anim.fragment_exit,
-                            R.anim.fragment_pop_enter,
-                            R.anim.fragment_pop_exit)
-                        .replace(R.id.fragment_container, new ExamplesFragment())
-                        .addToBackStack(null)
-                        .commit();
+                    goToExamples();
                   });
 
             } else {
@@ -457,11 +440,6 @@ public class OtgFragment extends Fragment
             switch (msg.what) {
               case DEVICE_FOUND:
                 initCommand();
-                if (adbConnection != null) {
-                  // Glow otg symbol when adb connection successfull
-                  binding.otgCableIcon.setColorFilter(
-                      Utils.getColor(R.color.green, requireActivity()));
-                }
                 Toast.makeText(context, getString(R.string.connected), Toast.LENGTH_SHORT).show();
                 break;
 
@@ -475,8 +453,6 @@ public class OtgFragment extends Fragment
                 break;
 
               case DEVICE_NOT_FOUND:
-                binding.otgCableIcon.clearColorFilter();
-                // Toast.makeText(context, "device not found!", Toast.LENGTH_SHORT).show();
                 adbConnection = null; // Fix this issue
                 break;
 
@@ -880,17 +856,8 @@ public class OtgFragment extends Fragment
     binding.settingsButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, getContext());
-          requireActivity()
-              .getSupportFragmentManager()
-              .beginTransaction()
-              .setCustomAnimations(
-                  R.anim.fragment_enter,
-                  R.anim.fragment_exit,
-                  R.anim.fragment_pop_enter,
-                  R.anim.fragment_pop_exit)
-              .replace(R.id.fragment_container, new SettingsFragment())
-              .addToBackStack(null)
-              .commit();
+
+          goToSettings();
         });
   }
 
@@ -939,7 +906,7 @@ public class OtgFragment extends Fragment
             new MaterialAlertDialogBuilder(requireActivity())
                 .setTitle(getString(R.string.clear_everything))
                 .setMessage(getString(R.string.clear_all_message))
-                .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+                .setNegativeButton(getString(R.string.cancel), null)
                 .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
                 .show();
           else clearAll();
@@ -1022,12 +989,11 @@ public class OtgFragment extends Fragment
         t -> binding.commandEditText.setText(null));
 
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.otgCableIcon);
 
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(requireActivity().getString(R.string.error))
         .setMessage(requireActivity().getString(R.string.otg_not_connected))
-        .setPositiveButton(requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
+        .setPositiveButton(requireActivity().getString(R.string.ok), null)
         .show();
   }
 
@@ -1056,5 +1022,33 @@ public class OtgFragment extends Fragment
       updateInputField(mainViewModel.getUseCommand());
       mainViewModel.setUseCommand(null);
     }
+  }
+
+  // Open command examples fragment
+  private void goToExamples() {
+    setExitTransition(new Hold());
+    ExamplesFragment fragment = new ExamplesFragment();
+
+    requireActivity()
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .addSharedElement(binding.sendButton, "sendButtonToExamples")
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
+        .commit();
+  }
+
+  //  Open the settings fragment
+  private void goToSettings() {
+    setExitTransition(new Hold());
+    SettingsFragment fragment = new SettingsFragment();
+
+    requireActivity()
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .addSharedElement(binding.settingsButton, "settingsButtonToSettings")
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
+        .commit();
   }
 }

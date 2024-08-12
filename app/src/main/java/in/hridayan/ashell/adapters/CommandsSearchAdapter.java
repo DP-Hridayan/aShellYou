@@ -29,7 +29,8 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
   private final Context context;
   private final UseCommandInSearchListener useCommandListener;
 
-  public CommandsSearchAdapter(@Nullable List<CommandItems> data, Context context, UseCommandInSearchListener listener) {
+  public CommandsSearchAdapter(
+      @Nullable List<CommandItems> data, Context context, UseCommandInSearchListener listener) {
     this.data = data != null ? data : new ArrayList<>();
     this.context = context;
     this.useCommandListener = listener;
@@ -42,7 +43,8 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_examples, parent, false);
+    View rowItem =
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_examples, parent, false);
     return new ViewHolder(rowItem);
   }
 
@@ -68,22 +70,19 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
 
   private void setMargins(View view, int position) {
     int paddingInPixels = (int) Utils.convertDpToPixel(30, context);
-    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+    ViewGroup.MarginLayoutParams layoutParams =
+        (ViewGroup.MarginLayoutParams) view.getLayoutParams();
 
-    if (position == data.size() - 1 && data.size() != 1) {
+    if (position == data.size() - 1 && data.size() != 1)
       layoutParams.bottomMargin = paddingInPixels;
-    } else if (position == 0 || data.size() == 1) {
-      layoutParams.topMargin = paddingInPixels;
-    } else {
-      layoutParams.bottomMargin = 30;
-    }
+    else if (position == 0 || data.size() == 1) layoutParams.topMargin = paddingInPixels;
+    else layoutParams.bottomMargin = 30;
 
     view.setLayoutParams(layoutParams);
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private final MaterialTextView mTitle;
-    private final MaterialTextView mSummary;
+    private final MaterialTextView mTitle, mSummary;
 
     public ViewHolder(View view) {
       super(view);
@@ -98,14 +97,18 @@ public class CommandsSearchAdapter extends RecyclerView.Adapter<CommandsSearchAd
       if (item.getExample() != null) {
         String sanitizedText = sanitizeText(item.getTitle());
         new MaterialAlertDialogBuilder(context)
-                .setTitle(R.string.example)
-                .setMessage(item.getExample())
-                .setPositiveButton(R.string.use, (dialogInterface, i) -> {
+            .setTitle(R.string.example)
+            .setMessage(item.getExample())
+            .setPositiveButton(
+                R.string.use,
+                (dialogInterface, i) -> {
                   item.setUseCounter(item.getUseCounter() + 1);
                   useCommandListener.useCommandInSearch(sanitizedText);
                 })
-                .setNegativeButton(R.string.copy, (dialogInterface, i) -> Utils.copyToClipboard(sanitizedText, context))
-                .show();
+            .setNegativeButton(
+                R.string.copy,
+                (dialogInterface, i) -> Utils.copyToClipboard(sanitizedText, context))
+            .show();
       }
     }
 

@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.transition.Hold;
+import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.databinding.FragmentSettingsBinding;
@@ -85,6 +87,11 @@ public class SettingsFragment extends Fragment {
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+
+    postponeEnterTransition();
+    setExitTransition(new Hold());
+
+    setSharedElementEnterTransition(new MaterialContainerTransform());
 
     binding = FragmentSettingsBinding.inflate(inflater, container, false);
     view = binding.getRoot();
@@ -251,6 +258,9 @@ public class SettingsFragment extends Fragment {
     binding.rvSettings.setAdapter(adapter);
     binding.rvSettings.setLayoutManager(new LinearLayoutManager(context));
 
+    // After recyclerview is drawn, start the transition
+    binding.rvSettings.getViewTreeObserver()
+            .addOnDrawListener(this::startPostponedEnterTransition);
     return view;
   }
 }

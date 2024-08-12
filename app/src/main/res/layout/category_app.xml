@@ -39,14 +39,38 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
+    <RelativeLayout
         android:layout_height="wrap_content"
-        android:text="@string/update"
-        android:layout_margin="24dp"
-        app:icon="@drawable/ic_check_update"
-        android:textAppearance="?attr/textAppearanceBodySmall" />
+        android:layout_width="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/check_update_button"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update"
+            android:layout_margin="24dp"
+            android:minWidth="120dp"
+            android:minHeight="48dp"
+            app:icon="@drawable/ic_check_update"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignStart="@id/check_update_button"
+            android:layout_alignEnd="@id/check_update_button"
+            android:layout_alignTop="@id/check_update_button"
+            android:layout_alignBottom="@id/check_update_button"
+            android:visibility="gone"
+            app:lottie_rawRes="@raw/loading_dots"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_colorFilter="?attr/colorOnPrimary" />
+
+    </RelativeLayout>
 
 </LinearLayout>

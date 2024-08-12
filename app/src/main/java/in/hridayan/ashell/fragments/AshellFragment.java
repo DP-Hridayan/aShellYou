@@ -26,12 +26,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.Transitions;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
@@ -134,7 +136,7 @@ public class AshellFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-
+    setExitTransition(null);
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     // This function is for restoring the Run button's icon after a configuration change
@@ -228,6 +230,8 @@ public class AshellFragment extends Fragment {
   @Override
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+    setExitTransition(null);
 
     binding = FragmentAshellBinding.inflate(inflater, container, false);
 
@@ -430,13 +434,17 @@ public class AshellFragment extends Fragment {
   /*Calling this function hides the search bar and makes other buttons visible again*/
   private void hideSearchBar() {
     binding.search.setText(null);
-    binding.search.setVisibility(View.GONE);
+    Transitions.materialContainerTransformViewToView(binding.search, binding.searchButton);
     if (!binding.commandEditText.isFocused()) binding.commandEditText.requestFocus();
-    binding.bookmarksButton.setVisibility(View.VISIBLE);
-    binding.settingsButton.setVisibility(View.VISIBLE);
-    binding.historyButton.setVisibility(View.VISIBLE);
-    binding.clearButton.setVisibility(View.VISIBLE);
-    binding.searchButton.setVisibility(View.VISIBLE);
+    new Handler()
+        .postDelayed(
+            () -> {
+              binding.bookmarksButton.setVisibility(View.VISIBLE);
+              binding.settingsButton.setVisibility(View.VISIBLE);
+              binding.historyButton.setVisibility(View.VISIBLE);
+              binding.clearButton.setVisibility(View.VISIBLE);
+            },
+            200);
   }
 
   // Call to show the bottom navigation view
@@ -559,7 +567,7 @@ public class AshellFragment extends Fragment {
     new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.connected_device))
         .setMessage(device)
-        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(context.getString(R.string.cancel), null)
         .setPositiveButton(
             context.getString(R.string.change_mode),
             (dialog, i) -> {
@@ -596,7 +604,7 @@ public class AshellFragment extends Fragment {
               binding.commandInputLayout.setError(null);
               handleModeButtonTextAndCommandHint();
             })
-        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .show();
   }
 
@@ -607,17 +615,8 @@ public class AshellFragment extends Fragment {
     binding.settingsButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, getContext());
-          requireActivity()
-              .getSupportFragmentManager()
-              .beginTransaction()
-              .setCustomAnimations(
-                  R.anim.fragment_enter,
-                  R.anim.fragment_exit,
-                  R.anim.fragment_pop_enter,
-                  R.anim.fragment_pop_exit)
-              .replace(R.id.fragment_container, new SettingsFragment())
-              .addToBackStack(null)
-              .commit();
+
+          goToSettings();
         });
   }
 
@@ -687,7 +686,7 @@ public class AshellFragment extends Fragment {
               new MaterialAlertDialogBuilder(requireActivity())
                   .setTitle(getString(R.string.clear_everything))
                   .setMessage(getString(R.string.clear_all_message))
-                  .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+                  .setNegativeButton(getString(R.string.cancel), null)
                   .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
                   .show();
             else clearAll();
@@ -748,10 +747,9 @@ public class AshellFragment extends Fragment {
             binding.clearButton.setVisibility(View.GONE);
             binding.bookmarksButton.setVisibility(View.GONE);
             binding.settingsButton.setVisibility(View.GONE);
-            binding.searchButton.setVisibility(View.GONE);
-            binding.search.setVisibility(View.VISIBLE);
-            binding.search.requestFocus();
             binding.commandEditText.setText(null);
+            Transitions.materialContainerTransformViewToView(binding.searchButton, binding.search);
+            binding.search.requestFocus();
           }
         });
   }
@@ -1269,7 +1267,7 @@ public class AshellFragment extends Fragment {
         .setCancelable(false)
         .setTitle(getString(R.string.shell_working))
         .setMessage(getString(R.string.app_working_message))
-        .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setPositiveButton(getString(R.string.cancel), null)
         .show();
   }
 
@@ -1279,7 +1277,7 @@ public class AshellFragment extends Fragment {
         .setCancelable(false)
         .setTitle(R.string.confirm_exit)
         .setMessage(getString(R.string.quit_app_message))
-        .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .setPositiveButton(
             getString(R.string.quit), (dialogInterface, i) -> requireActivity().finish())
         .show();
@@ -1295,7 +1293,6 @@ public class AshellFragment extends Fragment {
           t -> binding.commandEditText.setText(null));
     }
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.shellSymbol);
 
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
@@ -1303,7 +1300,7 @@ public class AshellFragment extends Fragment {
         .setNegativeButton(
             getString(R.string.shizuku_about),
             (dialogInterface, i) -> Utils.openUrl(context, "https://shizuku.rikka.app/"))
-        .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+        .setPositiveButton(getString(R.string.ok), null)
         .show();
   }
 
@@ -1317,12 +1314,11 @@ public class AshellFragment extends Fragment {
           t -> binding.commandEditText.setText(null));
     }
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.shellSymbol);
 
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
         .setMessage(getString(R.string.root_unavailable_message))
-        .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+        .setPositiveButton(getString(R.string.ok), null)
         .show();
   }
 
@@ -1332,7 +1328,6 @@ public class AshellFragment extends Fragment {
     binding.commandInputLayout.setErrorIconDrawable(
         Utils.getDrawable(R.drawable.ic_error, requireActivity()));
     Utils.alignMargin(binding.sendButton);
-    Utils.alignMargin(binding.shellSymbol);
     binding.commandEditText.requestFocus();
     Utils.snackBar(
             requireActivity().findViewById(android.R.id.content),
@@ -1342,16 +1337,29 @@ public class AshellFragment extends Fragment {
 
   // Open command examples fragment
   private void goToExamples() {
+    setExitTransition(new Hold());
+    ExamplesFragment fragment = new ExamplesFragment();
+
     requireActivity()
         .getSupportFragmentManager()
         .beginTransaction()
-        .setCustomAnimations(
-            R.anim.fragment_enter,
-            R.anim.fragment_exit,
-            R.anim.fragment_pop_enter,
-            R.anim.fragment_pop_exit)
-        .replace(R.id.fragment_container, new ExamplesFragment())
-        .addToBackStack(null)
+        .addSharedElement(binding.sendButton, "sendButtonToExamples")
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
+        .commit();
+  }
+
+  //  Open the settings fragment
+  private void goToSettings() {
+    setExitTransition(new Hold());
+    SettingsFragment fragment = new SettingsFragment();
+
+    requireActivity()
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .addSharedElement(binding.settingsButton, "settingsButtonToSettings")
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
         .commit();
   }
 

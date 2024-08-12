@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.divider.MaterialDivider;
+import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.utils.ChangelogItem;
 import java.util.List;
-import android.widget.TextView;
 
 public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.ViewHolder> {
 
@@ -25,7 +25,8 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_changelog, parent, false);
+    View view =
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_changelog, parent, false);
     return new ViewHolder(view);
   }
 
@@ -37,7 +38,8 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
     holder.descriptionTextView.setText(changelogItem.getDescription());
     holder.divider.setVisibility(position == changelogList.size() - 1 ? View.GONE : View.VISIBLE);
 
-    holder.titleTextView.setTextAppearance(context, position == 0 ? R.style.LatestVersionTitle : R.style.OtherVersionTitle);
+    holder.titleTextView.setTextAppearance(
+        position == 0 ? R.style.LatestVersionTitle : R.style.OtherVersionTitle);
   }
 
   @Override
@@ -47,8 +49,8 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.View
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
 
-    final TextView titleTextView;
-    final TextView descriptionTextView;
+    final MaterialTextView titleTextView;
+    final MaterialTextView descriptionTextView;
     final MaterialDivider divider;
 
     public ViewHolder(View itemView) {

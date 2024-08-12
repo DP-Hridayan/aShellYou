@@ -22,8 +22,6 @@
     <string name="echo">Exibir mensagem na tela</string>
     <string name="exit">Sair do projétil</string>
     <string name="file">Determinar o tipo de arquivo</string>
-    <string name="goto_top">Ir para o topo da saída do shell (comando divertido)</string>
-    <string name="goto_bottom">Ir para a parte inferior da saída do shell (comando divertido)</string>
     <string name="grep">Pesquisar arquivo(s) por linhas que correspondam a um determinado padrão</string>
     <string name="kill">Matar um processo especificando seu PID</string>
     <string name="logcat">Exibir o registro em tempo real de mensagens do sistema</string>

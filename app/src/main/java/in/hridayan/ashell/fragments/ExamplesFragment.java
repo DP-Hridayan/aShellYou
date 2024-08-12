@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
@@ -56,9 +57,9 @@ public class ExamplesFragment extends Fragment
   private Context context;
   private BottomNavigationView mNav;
   private FragmentExamplesBinding binding;
-    private Pair mRVPositionAndOffset;
-    
-@Override
+  private Pair<Integer, Integer> mRVPositionAndOffset;
+
+  @Override
   public void onPause() {
     super.onPause();
     if (binding.rvSearchView != null) {
@@ -97,12 +98,14 @@ public class ExamplesFragment extends Fragment
       }
     }
   }
+
   @Nullable
   @Override
   public View onCreateView(
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    setSharedElementEnterTransition(new MaterialContainerTransform());
     binding = FragmentExamplesBinding.inflate(inflater, container, false);
 
     view = binding.getRoot();
@@ -177,8 +180,7 @@ public class ExamplesFragment extends Fragment
                 : 1);
     binding.rvSearchView.setLayoutManager(mLayoutManager);
 
-    mExamplesAdapter =
-        new ExamplesAdapter(Commands.commandList(context), context, this);
+    mExamplesAdapter = new ExamplesAdapter(Commands.commandList(context), context, this);
     mExamplesAdapter.sortData();
     mExamplesAdapter.setOnItemClickListener(this);
     binding.rvSearchView.setAdapter(mExamplesAdapter);
@@ -287,7 +289,7 @@ public class ExamplesFragment extends Fragment
               Preferences.setSortingExamples(context, sortingOption[0]);
               if (isSortingOptionSame != sortingOption[0]) mExamplesAdapter.sortData();
             })
-        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .show();
   }
 
@@ -366,7 +368,7 @@ public class ExamplesFragment extends Fragment
               bookmarksAddedOrRemovedMessage(
                   !isAllItemBookmarked, isBatch, isLimitReached, selectedCount);
             })
-        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .show();
   }
 
@@ -458,7 +460,7 @@ public class ExamplesFragment extends Fragment
               updateSearchBar();
               Utils.snackBar(view, snackBarMessage).show();
             })
-        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .show();
   }
 
