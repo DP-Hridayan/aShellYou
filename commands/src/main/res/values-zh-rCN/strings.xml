@@ -15,7 +15,7 @@
     <string name="du_h">以较高可读性展示磁盘使用情况</string>
     <string name="dumpsys_activity">打印活动（activity）内容</string>
     <string name="dumpsys_battery">显示电池信息</string>
-    <string name="dumpsys_battery_set_level">改变电池百分比水平（0-100）</string>
+    <string name="dumpsys_battery_set_level">改变电池百分比水平（0&#8211;100）</string>
     <string name="dumpsys_battery_set_status">更改电池状态至未知，放电中，未充电或者电量已满</string>
     <string name="dumpsys_battery_reset">重置电池</string>
     <string name="dumpsys_display">打印电池状态</string>
