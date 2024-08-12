@@ -21,7 +21,7 @@
     <string name="bookmark_added_message">\'%s\' 已加入书签</string>
     <string name="batch_bookmark_added_message">%d个命令已加入书签</string>
     <string name="bookmark_limit_reached">书签达到设定数量，移除部分书签后再尝试添加</string>
-    <string name="bookmark_removed_message">\'%s\' 已已移出书签</string>
+    <string name="bookmark_removed_message">\'%s\' 已移出书签</string>
     <string name="batch_bookmark_removed_message">%d个命令已移出书签</string>
     <string name="batch_pinned_message">%d个命令被置顶</string>
     <string name="batch_unpinned_message">%d个命令被取消置顶</string>
