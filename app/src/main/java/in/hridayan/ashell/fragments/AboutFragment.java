@@ -53,6 +53,7 @@ public class AboutFragment extends Fragment
 
     binding = FragmentAboutBinding.inflate(inflater, container, false);
     setSharedElementEnterTransition(new MaterialContainerTransform());
+    postponeEnterTransition();
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
@@ -67,9 +68,11 @@ public class AboutFragment extends Fragment
   private void setupRecyclerView() {
     mNav.setVisibility(View.GONE);
     binding.rvAbout.setLayoutManager(new LinearLayoutManager(getContext()));
-    AboutAdapter adapter = new AboutAdapter(initializeItems());
+    AboutAdapter adapter = new AboutAdapter(initializeItems(), requireActivity());
     adapter.setAdapterListener(this);
     binding.rvAbout.setAdapter(adapter);
+    binding.rvAbout.getViewTreeObserver()
+            .addOnDrawListener(this::startPostponedEnterTransition);
   }
 
   private void setupListeners() {
@@ -242,8 +245,6 @@ public class AboutFragment extends Fragment
       // casting button to MaterialButton to use setIcon method.
       ((MaterialButton) button).setIcon(updateButtonIcon);
     }
-
-    int message;
 
     if (getContext() != null) {
       switch (result) {

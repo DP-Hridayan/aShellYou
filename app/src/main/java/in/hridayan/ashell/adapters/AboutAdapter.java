@@ -3,6 +3,7 @@ package in.hridayan.ashell.adapters;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +13,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.card.MaterialCardView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
+import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
@@ -32,9 +33,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   private static final int CATEGORY_APP_ITEM = 3;
   private AdapterListener mListener;
   private final List<Object> items;
+  private final Activity activity;
 
-  public AboutAdapter(List<Object> items) {
+  public AboutAdapter(List<Object> items, Activity activity) {
     this.items = items;
+    this.activity = activity;
   }
 
   public interface AdapterListener {
@@ -86,7 +89,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     } else if (holder instanceof ContributorsItemViewHolder) {
       ((ContributorsItemViewHolder) holder).bind((Category.ContributorsItem) item);
     } else if (holder instanceof AppItemViewHolder) {
-      ((AppItemViewHolder) holder).bind((Category.AppItem) item, position == items.size() - 1);
+      ((AppItemViewHolder) holder).bind(
+              (Category.AppItem) item,
+              position == items.size() - 1,
+              activity
+      );
     }
   }
 
@@ -207,11 +214,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-              if (endHeight == 0) 
+              if (endHeight == 0)
                 view.setVisibility(View.GONE);
-              else 
+              else
                 view.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-              
+
             }
           });
       animator.setDuration(duration);
@@ -238,10 +245,14 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       mListener = listener;
     }
 
-    public void bind(Category.AppItem item, boolean isLastItem) {
+    public void bind(Category.AppItem item, boolean isLastItem, Activity activity) {
       imageView.setImageResource(item.getImageResource());
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
+
+      if (item.getId().equals("id_changelogs")) {
+        categoryAppLayout.setTransitionName("aboutToChangelogs");
+      }
 
       View.OnClickListener clickListener =
           v -> {
@@ -251,17 +262,14 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (url != null) Utils.openUrl(itemView.getContext(), url);
 
             if ("id_changelogs".equals(item.getId())) {
-              ((FragmentActivity) itemView.getContext())
-                  .getSupportFragmentManager()
-                  .beginTransaction()
-                  .setCustomAnimations(
-                      R.anim.fragment_enter,
-                      R.anim.fragment_exit,
-                      R.anim.fragment_pop_enter,
-                      R.anim.fragment_pop_exit)
-                  .replace(R.id.fragment_container, new ChangelogFragment())
-                  .addToBackStack(null)
-                  .commit();
+              ChangelogFragment fragment = new ChangelogFragment();
+              ((MainActivity) activity)
+                      .getSupportFragmentManager()
+                      .beginTransaction()
+                      .addSharedElement(itemView, itemView.getTransitionName())
+                      .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+                      .addToBackStack(fragment.getClass().getSimpleName())
+                      .commit();
             }
           };
 
