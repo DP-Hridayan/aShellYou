@@ -472,7 +472,6 @@ public class OtgFragment extends Fragment
           }
         };
 
-    /*------------------------------------------------------*/
 
     AdbBase64 base64 = new OtgUtils.MyAdbBase64();
     try {
