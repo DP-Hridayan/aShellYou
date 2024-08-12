@@ -289,7 +289,7 @@ public class ExamplesFragment extends Fragment
               Preferences.setSortingExamples(context, sortingOption[0]);
               if (isSortingOptionSame != sortingOption[0]) mExamplesAdapter.sortData();
             })
-        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .show();
   }
 
@@ -368,7 +368,7 @@ public class ExamplesFragment extends Fragment
               bookmarksAddedOrRemovedMessage(
                   !isAllItemBookmarked, isBatch, isLimitReached, selectedCount);
             })
-        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .show();
   }
 
@@ -460,7 +460,7 @@ public class ExamplesFragment extends Fragment
               updateSearchBar();
               Utils.snackBar(view, snackBarMessage).show();
             })
-        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .show();
   }
 

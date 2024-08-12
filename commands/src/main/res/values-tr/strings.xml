@@ -24,8 +24,6 @@
     <string name="echo">Ekranda mesaj görüntüle</string>
     <string name="exit">Kabuktan çık</string>
     <string name="file">Dosya türünü belirle</string>
-    <string name="goto_top">Kabuk çıktısının en üstüne git (eğlenceli komut)</string>
-    <string name="goto_bottom">Kabuk çıktısının en altına git (eğlenceli komut)</string>
     <string name="grep">Belirli bir desene uyan satırları dosyada ara</string>
     <string name="kill">PID belirterek bir süreci sonlandır</string>
     <string name="logcat">Sistem mesajlarının gerçek zamanlı günlüğünü görüntüle</string>

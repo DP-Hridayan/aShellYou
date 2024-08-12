@@ -3,7 +3,6 @@ package in.hridayan.ashell.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -16,34 +15,41 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.fragments.ExamplesFragment;
+import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.fragments.AboutFragment;
+import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.viewmodels.AboutViewModel;
+import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import java.util.List;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
   private final List<SettingsItem> settingsList;
   private final Context context;
-  private Activity activity;
+  private final Activity activity;
+  private AboutViewModel aboutViewModel;
+  private ExamplesViewModel examplesViewModel;
 
-  public SettingsAdapter(List<SettingsItem> settingsList, Context context, Activity activity) {
+  public SettingsAdapter(
+      List<SettingsItem> settingsList,
+      Context context,
+      Activity activity,
+      AboutViewModel aboutVM,
+      ExamplesViewModel examplesVM) {
     this.settingsList = settingsList;
     this.context = context;
     this.activity = activity;
-  }
-
-  public SettingsAdapter(List<SettingsItem> settingsList, Context context) {
-    this.settingsList = settingsList;
-    this.context = context;
+    this.aboutViewModel = aboutVM;
+    this.examplesViewModel = examplesVM;
   }
 
   @NonNull
@@ -88,6 +94,15 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     }
 
     void bind(SettingsItem settingsItem, boolean isLastItem) {
+
+      if (settingsItem.getId().equals("id_about")) {
+        itemView.setTransitionName("settingsItemToAbout");
+      }
+
+      if (settingsItem.getId().equals("id_examples")) {
+        itemView.setTransitionName("sendButtonToExamples");
+      }
+
       symbolImageView.setImageDrawable(settingsItem.getSymbol(context));
       titleTextView.setText(settingsItem.getTitle());
       descriptionTextView.setText(settingsItem.getDescription());
@@ -141,11 +156,15 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           break;
 
         case "id_examples":
-          navigateToFragment(new ExamplesFragment());
+          examplesViewModel.setRVPositionAndOffset(null);
+          examplesViewModel.setToolbarExpanded(true);
+          loadFragmentWithTransition(new ExamplesFragment(), itemView);
           break;
 
         case "id_about":
-          navigateToFragment(new AboutFragment());
+          aboutViewModel.setRVPositionAndOffset(null);
+          aboutViewModel.setToolbarExpanded(true);
+          loadFragmentWithTransition(new AboutFragment(), itemView);
           break;
 
         case "id_default_language":
@@ -170,20 +189,14 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       }
     }
 
-    private void navigateToFragment(androidx.fragment.app.Fragment fragment) {
-      if (activity instanceof FragmentActivity) {
-        ((FragmentActivity) activity)
-            .getSupportFragmentManager()
-            .beginTransaction()
-            .setCustomAnimations(
-                R.anim.fragment_enter,
-                R.anim.fragment_exit,
-                R.anim.fragment_pop_enter,
-                R.anim.fragment_pop_exit)
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
-            .commit();
-      }
+    private void loadFragmentWithTransition(Fragment fragment, View itemView) {
+      ((MainActivity) activity)
+          .getSupportFragmentManager()
+          .beginTransaction()
+          .addSharedElement(itemView, itemView.getTransitionName())
+          .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+          .addToBackStack(fragment.getClass().getSimpleName())
+          .commit();
     }
   }
 }

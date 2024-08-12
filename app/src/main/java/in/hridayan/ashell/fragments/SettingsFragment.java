@@ -24,6 +24,8 @@ import in.hridayan.ashell.utils.MiuiCheck;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.viewmodels.AboutViewModel;
+import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,8 @@ public class SettingsFragment extends Fragment {
   private SettingsAdapter adapter;
   private int currentTheme;
   private SettingsViewModel viewModel;
+  private AboutViewModel aboutViewModel;
+  private ExamplesViewModel examplesViewModel;
   private Context context;
   private BottomNavigationView mNav;
   private Pair<Integer, Integer> mRVPositionAndOffset;
@@ -88,6 +92,7 @@ public class SettingsFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
+    postponeEnterTransition();
     setExitTransition(new Hold());
 
     setSharedElementEnterTransition(new MaterialContainerTransform());
@@ -100,6 +105,10 @@ public class SettingsFragment extends Fragment {
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
     viewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+
+    aboutViewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
+
+    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
 
     mNav.setVisibility(View.GONE);
 
@@ -253,10 +262,14 @@ public class SettingsFragment extends Fragment {
             false,
             false));
 
-    adapter = new SettingsAdapter(settingsData, context, requireActivity());
+    adapter =
+        new SettingsAdapter(
+            settingsData, context, requireActivity(), aboutViewModel, examplesViewModel);
     binding.rvSettings.setAdapter(adapter);
     binding.rvSettings.setLayoutManager(new LinearLayoutManager(context));
 
+    // After recyclerview is drawn, start the transition
+    binding.rvSettings.getViewTreeObserver().addOnDrawListener(this::startPostponedEnterTransition);
     return view;
   }
 }

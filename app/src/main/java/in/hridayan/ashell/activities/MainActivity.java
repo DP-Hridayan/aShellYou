@@ -24,7 +24,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
-import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
@@ -42,14 +41,11 @@ import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
 import in.hridayan.ashell.viewmodels.MainViewModel;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
     implements OtgFragment.OnFragmentInteractionListener, FetchLatestVersionCodeCallback {
   private boolean isKeyboardVisible, hasAppRestarted = true;
   public BottomNavigationView mNav;
-  private SettingsAdapter adapter;
   private SettingsItem settingsList;
   private static int currentFragment;
   private boolean isBlackThemeEnabled, isAmoledTheme;
@@ -101,9 +97,6 @@ public class MainActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
     ThemeUtils.updateTheme(this);
-
-    List<SettingsItem> settingsList = new ArrayList<>();
-    adapter = new SettingsAdapter(settingsList, this);
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);

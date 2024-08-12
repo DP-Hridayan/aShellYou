@@ -67,7 +67,10 @@ import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.viewmodels.AboutViewModel;
+import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
+import in.hridayan.ashell.viewmodels.SettingsViewModel;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -103,6 +106,9 @@ public class OtgFragment extends Fragment
   private FragmentOtgBinding binding;
   private CommandsAdapter mCommandsAdapter;
   private OnFragmentInteractionListener mListener;
+  private SettingsViewModel settingsViewModel;
+  private ExamplesViewModel examplesViewModel;
+  private AboutViewModel aboutViewModel;
 
   public interface OnFragmentInteractionListener {
     void onRequestReset();
@@ -244,14 +250,16 @@ public class OtgFragment extends Fragment
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
     // initialize viewmodel
-    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+    initializeViewModels();
 
     binding.rvCommands.addOnScrollListener(new FabExtendingOnScrollListener(binding.pasteButton));
 
     binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
     List<SettingsItem> settingsList = new ArrayList<>();
-    adapter = new SettingsAdapter(settingsList, context);
+    adapter =
+        new SettingsAdapter(
+            settingsList, context, requireActivity(), aboutViewModel, examplesViewModel);
 
     new FabExtendingOnScrollViewListener(binding.scrollView, binding.saveButton);
     new FabOtgScrollUpListener(binding.scrollView, binding.scrollUpButton);
@@ -906,7 +914,7 @@ public class OtgFragment extends Fragment
             new MaterialAlertDialogBuilder(requireActivity())
                 .setTitle(getString(R.string.clear_everything))
                 .setMessage(getString(R.string.clear_all_message))
-                .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+                .setNegativeButton(getString(R.string.cancel), null)
                 .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
                 .show();
           else clearAll();
@@ -993,7 +1001,7 @@ public class OtgFragment extends Fragment
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(requireActivity().getString(R.string.error))
         .setMessage(requireActivity().getString(R.string.otg_not_connected))
-        .setPositiveButton(requireActivity().getString(R.string.ok), (dialogInterface, i) -> {})
+        .setPositiveButton(requireActivity().getString(R.string.ok), null)
         .show();
   }
 
@@ -1027,6 +1035,8 @@ public class OtgFragment extends Fragment
   // Open command examples fragment
   private void goToExamples() {
     setExitTransition(new Hold());
+    examplesViewModel.setRVPositionAndOffset(null);
+    examplesViewModel.setToolbarExpanded(true);
     ExamplesFragment fragment = new ExamplesFragment();
 
     requireActivity()
@@ -1041,6 +1051,8 @@ public class OtgFragment extends Fragment
   //  Open the settings fragment
   private void goToSettings() {
     setExitTransition(new Hold());
+    settingsViewModel.setRVPositionAndOffset(null);
+    settingsViewModel.setToolbarExpanded(true);
     SettingsFragment fragment = new SettingsFragment();
 
     requireActivity()
@@ -1050,5 +1062,16 @@ public class OtgFragment extends Fragment
         .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
         .addToBackStack(fragment.getClass().getSimpleName())
         .commit();
+  }
+
+  // initialize viewModels
+  private void initializeViewModels() {
+    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
+    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+
+    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
+
+    aboutViewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
   }
 }

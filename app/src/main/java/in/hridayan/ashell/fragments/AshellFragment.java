@@ -48,7 +48,9 @@ import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AshellFragmentViewModel;
+import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
+import in.hridayan.ashell.viewmodels.SettingsViewModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -87,6 +89,8 @@ public class AshellFragment extends Fragment {
   private FragmentAshellBinding binding;
   private Pair<Integer, Integer> mRVPositionAndOffset;
   private String shell;
+  private SettingsViewModel settingsViewModel;
+  private ExamplesViewModel examplesViewModel;
 
   public AshellFragment() {}
 
@@ -243,6 +247,8 @@ public class AshellFragment extends Fragment {
 
     viewModel = new ViewModelProvider(requireActivity()).get(AshellFragmentViewModel.class);
     mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
 
     binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -434,7 +440,9 @@ public class AshellFragment extends Fragment {
   /*Calling this function hides the search bar and makes other buttons visible again*/
   private void hideSearchBar() {
     binding.search.setText(null);
+
     Transitions.materialContainerTransformViewToView(binding.search, binding.searchButton);
+    binding.searchButton.setIcon(Utils.getDrawable(R.drawable.ic_search, context));
     if (!binding.commandEditText.isFocused()) binding.commandEditText.requestFocus();
     new Handler()
         .postDelayed(
@@ -567,7 +575,7 @@ public class AshellFragment extends Fragment {
     new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.connected_device))
         .setMessage(device)
-        .setNegativeButton(context.getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(context.getString(R.string.cancel), null)
         .setPositiveButton(
             context.getString(R.string.change_mode),
             (dialog, i) -> {
@@ -604,7 +612,7 @@ public class AshellFragment extends Fragment {
               binding.commandInputLayout.setError(null);
               handleModeButtonTextAndCommandHint();
             })
-        .setNegativeButton(getString(R.string.cancel), (dialog, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .show();
   }
 
@@ -686,7 +694,7 @@ public class AshellFragment extends Fragment {
               new MaterialAlertDialogBuilder(requireActivity())
                   .setTitle(getString(R.string.clear_everything))
                   .setMessage(getString(R.string.clear_all_message))
-                  .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+                  .setNegativeButton(getString(R.string.cancel), null)
                   .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> clearAll())
                   .show();
             else clearAll();
@@ -748,6 +756,7 @@ public class AshellFragment extends Fragment {
             binding.bookmarksButton.setVisibility(View.GONE);
             binding.settingsButton.setVisibility(View.GONE);
             binding.commandEditText.setText(null);
+            binding.searchButton.setIcon(null);
             Transitions.materialContainerTransformViewToView(binding.searchButton, binding.search);
             binding.search.requestFocus();
           }
@@ -1267,7 +1276,7 @@ public class AshellFragment extends Fragment {
         .setCancelable(false)
         .setTitle(getString(R.string.shell_working))
         .setMessage(getString(R.string.app_working_message))
-        .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setPositiveButton(getString(R.string.cancel), null)
         .show();
   }
 
@@ -1277,7 +1286,7 @@ public class AshellFragment extends Fragment {
         .setCancelable(false)
         .setTitle(R.string.confirm_exit)
         .setMessage(getString(R.string.quit_app_message))
-        .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {})
+        .setNegativeButton(getString(R.string.cancel), null)
         .setPositiveButton(
             getString(R.string.quit), (dialogInterface, i) -> requireActivity().finish())
         .show();
@@ -1300,7 +1309,7 @@ public class AshellFragment extends Fragment {
         .setNegativeButton(
             getString(R.string.shizuku_about),
             (dialogInterface, i) -> Utils.openUrl(context, "https://shizuku.rikka.app/"))
-        .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+        .setPositiveButton(getString(R.string.ok), null)
         .show();
   }
 
@@ -1318,7 +1327,7 @@ public class AshellFragment extends Fragment {
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
         .setMessage(getString(R.string.root_unavailable_message))
-        .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {})
+        .setPositiveButton(getString(R.string.ok), null)
         .show();
   }
 
@@ -1337,6 +1346,10 @@ public class AshellFragment extends Fragment {
 
   // Open command examples fragment
   private void goToExamples() {
+
+    examplesViewModel.setRVPositionAndOffset(null);
+    examplesViewModel.setToolbarExpanded(true);
+
     setExitTransition(new Hold());
     ExamplesFragment fragment = new ExamplesFragment();
 
@@ -1351,7 +1364,10 @@ public class AshellFragment extends Fragment {
 
   //  Open the settings fragment
   private void goToSettings() {
+    settingsViewModel.setRVPositionAndOffset(null);
+    settingsViewModel.setToolbarExpanded(true);
     setExitTransition(new Hold());
+
     SettingsFragment fragment = new SettingsFragment();
 
     requireActivity()
