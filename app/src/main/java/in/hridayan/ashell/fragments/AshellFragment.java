@@ -48,7 +48,9 @@ import in.hridayan.ashell.utils.ThemeUtils;
 import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AshellFragmentViewModel;
+import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
+import in.hridayan.ashell.viewmodels.SettingsViewModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -87,6 +89,8 @@ public class AshellFragment extends Fragment {
   private FragmentAshellBinding binding;
   private Pair<Integer, Integer> mRVPositionAndOffset;
   private String shell;
+  private SettingsViewModel settingsViewModel;
+  private ExamplesViewModel examplesViewModel;
 
   public AshellFragment() {}
 
@@ -243,6 +247,8 @@ public class AshellFragment extends Fragment {
 
     viewModel = new ViewModelProvider(requireActivity()).get(AshellFragmentViewModel.class);
     mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
 
     binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -434,7 +440,9 @@ public class AshellFragment extends Fragment {
   /*Calling this function hides the search bar and makes other buttons visible again*/
   private void hideSearchBar() {
     binding.search.setText(null);
+
     Transitions.materialContainerTransformViewToView(binding.search, binding.searchButton);
+    binding.searchButton.setIcon(Utils.getDrawable(R.drawable.ic_search, context));
     if (!binding.commandEditText.isFocused()) binding.commandEditText.requestFocus();
     new Handler()
         .postDelayed(
@@ -748,6 +756,7 @@ public class AshellFragment extends Fragment {
             binding.bookmarksButton.setVisibility(View.GONE);
             binding.settingsButton.setVisibility(View.GONE);
             binding.commandEditText.setText(null);
+            binding.searchButton.setIcon(null);
             Transitions.materialContainerTransformViewToView(binding.searchButton, binding.search);
             binding.search.requestFocus();
           }
@@ -1337,6 +1346,10 @@ public class AshellFragment extends Fragment {
 
   // Open command examples fragment
   private void goToExamples() {
+
+    examplesViewModel.setRVPositionAndOffset(null);
+    examplesViewModel.setToolbarExpanded(true);
+
     setExitTransition(new Hold());
     ExamplesFragment fragment = new ExamplesFragment();
 
@@ -1351,7 +1364,10 @@ public class AshellFragment extends Fragment {
 
   //  Open the settings fragment
   private void goToSettings() {
+    settingsViewModel.setRVPositionAndOffset(null);
+    settingsViewModel.setToolbarExpanded(true);
     setExitTransition(new Hold());
+
     SettingsFragment fragment = new SettingsFragment();
 
     requireActivity()

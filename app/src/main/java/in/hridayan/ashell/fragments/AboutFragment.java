@@ -19,8 +19,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.Hold;
 import com.google.android.material.transition.MaterialContainerTransform;
-
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.Category;
 import in.hridayan.ashell.adapters.AboutAdapter;
@@ -53,6 +53,8 @@ public class AboutFragment extends Fragment
 
     binding = FragmentAboutBinding.inflate(inflater, container, false);
     setSharedElementEnterTransition(new MaterialContainerTransform());
+    postponeEnterTransition();
+    setExitTransition(new Hold());
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
@@ -67,9 +69,10 @@ public class AboutFragment extends Fragment
   private void setupRecyclerView() {
     mNav.setVisibility(View.GONE);
     binding.rvAbout.setLayoutManager(new LinearLayoutManager(getContext()));
-    AboutAdapter adapter = new AboutAdapter(initializeItems());
+    AboutAdapter adapter = new AboutAdapter(initializeItems(), requireActivity());
     adapter.setAdapterListener(this);
     binding.rvAbout.setAdapter(adapter);
+    binding.rvAbout.getViewTreeObserver().addOnDrawListener(this::startPostponedEnterTransition);
   }
 
   private void setupListeners() {
@@ -242,8 +245,6 @@ public class AboutFragment extends Fragment
       // casting button to MaterialButton to use setIcon method.
       ((MaterialButton) button).setIcon(updateButtonIcon);
     }
-
-    int message;
 
     if (getContext() != null) {
       switch (result) {

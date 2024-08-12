@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import androidx.transition.TransitionManager;
 
 public class Transitions {
-    
-    public static void materialContainerTransformViewToView(View startView, View endView) {
+
+  public static void materialContainerTransformViewToView(View startView, View endView) {
     // Set up the MaterialContainerTransform
     MaterialContainerTransform transform = new MaterialContainerTransform();
 
@@ -21,7 +21,7 @@ public class Transitions {
     transform.addTarget(endView);
 
     // Optionally add a curved path to the transform
-    transform.setPathMotion(new MaterialArcMotion());
+    // transform.setPathMotion(new MaterialArcMotion());
 
     // Since View to View transforms often are not transforming into full screens,
     // remove the transition's scrim.

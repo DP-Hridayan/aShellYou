@@ -27,6 +27,8 @@ import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.viewmodels.AboutViewModel;
+import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import java.util.List;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
@@ -34,11 +36,20 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   private final List<SettingsItem> settingsList;
   private final Context context;
   private final Activity activity;
+  private AboutViewModel aboutViewModel;
+  private ExamplesViewModel examplesViewModel;
 
-  public SettingsAdapter(List<SettingsItem> settingsList, Context context, Activity activity) {
+  public SettingsAdapter(
+      List<SettingsItem> settingsList,
+      Context context,
+      Activity activity,
+      AboutViewModel aboutVM,
+      ExamplesViewModel examplesVM) {
     this.settingsList = settingsList;
     this.context = context;
     this.activity = activity;
+    this.aboutViewModel = aboutVM;
+    this.examplesViewModel = examplesVM;
   }
 
   @NonNull
@@ -145,11 +156,15 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           break;
 
         case "id_examples":
+          examplesViewModel.setRVPositionAndOffset(null);
+          examplesViewModel.setToolbarExpanded(true);
           loadFragmentWithTransition(new ExamplesFragment(), itemView);
           break;
 
         case "id_about":
-            loadFragmentWithTransition(new AboutFragment(), itemView);
+          aboutViewModel.setRVPositionAndOffset(null);
+          aboutViewModel.setToolbarExpanded(true);
+          loadFragmentWithTransition(new AboutFragment(), itemView);
           break;
 
         case "id_default_language":
@@ -176,12 +191,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     private void loadFragmentWithTransition(Fragment fragment, View itemView) {
       ((MainActivity) activity)
-              .getSupportFragmentManager()
-              .beginTransaction()
-              .addSharedElement(itemView, itemView.getTransitionName())
-              .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
-              .addToBackStack(fragment.getClass().getSimpleName())
-              .commit();
+          .getSupportFragmentManager()
+          .beginTransaction()
+          .addSharedElement(itemView, itemView.getTransitionName())
+          .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+          .addToBackStack(fragment.getClass().getSimpleName())
+          .commit();
     }
   }
 }
