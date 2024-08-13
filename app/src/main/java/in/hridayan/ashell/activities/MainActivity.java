@@ -8,7 +8,6 @@ import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.SETTINGS_FRAGMENT;
 
-import in.hridayan.ashell.databinding.ActivityMainBinding;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,19 +17,18 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.preference.PreferenceManager;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.databinding.ActivityMainBinding;
 import in.hridayan.ashell.fragments.AboutFragment;
+import in.hridayan.ashell.fragments.AshellFragment;
 import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
+import in.hridayan.ashell.fragments.OtgFragment;
 import in.hridayan.ashell.fragments.SettingsFragment;
 import in.hridayan.ashell.fragments.StartFragment;
-import in.hridayan.ashell.fragments.AshellFragment;
-import in.hridayan.ashell.fragments.OtgFragment;
 import in.hridayan.ashell.utils.CrashHandler;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -52,17 +50,6 @@ public class MainActivity extends AppCompatActivity
   private Fragment fragment;
   private String pendingSharedText = null;
   private ActivityMainBinding binding;
-
-  // Reset the OtgFragment
-  @Override
-  public void onRequestReset() {
-    if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof OtgFragment)) {
-      currentFragment = OTG_FRAGMENT;
-      mNav.setSelectedItemId(R.id.nav_otgShell);
-      replaceFragment(new OtgFragment());
-    }
-  }
 
   // This funtion is run to perform actions if there is an update available or not
   @Override
@@ -137,6 +124,7 @@ public class MainActivity extends AppCompatActivity
       new FetchLatestVersionCode(this, this).execute(Preferences.buildGradleUrl);
     }
 
+    // Always put these at the last of onCreate
     Preferences.setActivityRecreated(this, false);
     hasAppRestarted = false;
   }
@@ -170,67 +158,28 @@ public class MainActivity extends AppCompatActivity
     setBadge(R.id.nav_wireless, "Soon");
 
     initialFragment();
-    handleIncomingIntent(getIntent());
-  }
-
-  // Takes the fragment we want to navigate to as argument and then starts that fragment
-  public void replaceFragment(Fragment fragment) {
-    if (!getSupportFragmentManager().isStateSaved()) {
-      setCurrentFragment();
-      getSupportFragmentManager()
-          .beginTransaction()
-          .replace(R.id.fragment_container, fragment)
-          .commit();
-    }
   }
 
   // If not on OtgShell then go to OtgShell
   private void showOtgFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof OtgFragment)) {
-      /* Don't show again logic
-      if (PreferenceManager.getDefaultSharedPreferences(this)
-          .getBoolean("Don't show beta otg warning", true)) {
-        showBetaWarning();
-      } else { */
-      currentFragment = OTG_FRAGMENT;
-      replaceFragment(new OtgFragment());
-
-      /*   } */
-    }
+        instanceof OtgFragment)) replaceFragment(new OtgFragment());
   }
 
   // If not on LocalShell then go to LocalShell (AshellFragment)
   private void showAshellFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof AshellFragment)) {
-      currentFragment = LOCAL_FRAGMENT;
-      replaceFragment(new AshellFragment());
-    }
+        instanceof AshellFragment)) replaceFragment(new AshellFragment());
   }
 
-  // Experimental feature warning for OtgShell
-  private void showBetaWarning() {
-    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
-    builder
-        .setCancelable(false)
-        .setTitle(getString(R.string.warning))
-        .setMessage(getString(R.string.beta_warning))
-        .setPositiveButton(
-            getString(R.string.accept), (dialogInterface, i) -> replaceFragment(new OtgFragment()))
-        .setNegativeButton(
-            getString(R.string.go_back),
-            (dialogInterface, i) -> mNav.setSelectedItemId(R.id.nav_localShell))
-        .setNeutralButton(
-            getString(R.string.donot_show_again),
-            (dialogInterface, i) -> {
-              PreferenceManager.getDefaultSharedPreferences(this)
-                  .edit()
-                  .putBoolean("Don't show beta otg warning", false)
-                  .apply();
-              replaceFragment(new OtgFragment());
-            })
-        .show();
+  private void setCurrentFragment() {
+    fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    if (fragment instanceof SettingsFragment) currentFragment = SETTINGS_FRAGMENT;
+    else if (fragment instanceof AshellFragment) currentFragment = LOCAL_FRAGMENT;
+    else if (fragment instanceof OtgFragment) currentFragment = OTG_FRAGMENT;
+    else if (fragment instanceof ExamplesFragment) currentFragment = EXAMPLES_FRAGMENT;
+    else if (fragment instanceof AboutFragment) currentFragment = ABOUT_FRAGMENT;
+    else if (fragment instanceof ChangelogFragment) currentFragment = CHANGELOG_FRAGMENT;
   }
 
   // Function to set a Badge on the Navigation Bar
@@ -248,29 +197,18 @@ public class MainActivity extends AppCompatActivity
       mNav.setVisibility(View.GONE);
       replaceFragment(new StartFragment());
     } else {
-      boolean isFragmentSaved = viewModel.isFragmentSaved();
-      if (isFragmentSaved) {
-        int currentFragment = viewModel.currentFragment();
-        switchFragments(currentFragment);
-      } else {
+      if (viewModel.isFragmentSaved()) switchFragments(viewModel.currentFragment());
+      else {
         int currentFragment = Preferences.getCurrentFragment(this);
         int workingMode = Preferences.getWorkingMode(this);
-        switchFragments(workingMode == MODE_REMEMBER_LAST_MODE ? currentFragment : workingMode + 1);
+        switchFragments(workingMode == MODE_REMEMBER_LAST_MODE ? currentFragment : workingMode);
       }
       handlePendingSharedText();
+      handleIncomingIntent(getIntent());
     }
   }
 
-  private void setCurrentFragment() {
-    fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-    if (fragment instanceof SettingsFragment) currentFragment = SETTINGS_FRAGMENT;
-    else if (fragment instanceof AshellFragment) currentFragment = LOCAL_FRAGMENT;
-    else if (fragment instanceof OtgFragment) currentFragment = OTG_FRAGMENT;
-    else if (fragment instanceof ExamplesFragment) currentFragment = EXAMPLES_FRAGMENT;
-    else if (fragment instanceof AboutFragment) currentFragment = ABOUT_FRAGMENT;
-    else if (fragment instanceof ChangelogFragment) currentFragment = CHANGELOG_FRAGMENT;
-  }
-
+  // Take the fragment value and switch to it accordingly
   private void switchFragments(int currentFragment) {
     switch (currentFragment) {
       case LOCAL_FRAGMENT:
@@ -297,6 +235,17 @@ public class MainActivity extends AppCompatActivity
 
       default:
         break;
+    }
+  }
+
+  // Takes the fragment we want to navigate to as argument and then starts that fragment
+  public void replaceFragment(Fragment fragment) {
+    if (!getSupportFragmentManager().isStateSaved()) {
+      getSupportFragmentManager()
+          .beginTransaction()
+          .replace(R.id.fragment_container, fragment)
+          .commit();
+      setCurrentFragment();
     }
   }
 
@@ -328,10 +277,12 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
-  // Execute functions when the Usb connection is removed
-  public void onUsbDetached() {
-    // Reset the OtgFragment in this case
-    onRequestReset();
+  public void clearPendingSharedText() {
+    pendingSharedText = null;
+  }
+
+  public String getPendingSharedText() {
+    return pendingSharedText;
   }
 
   private void handleIncomingIntent(Intent intent) {
@@ -351,40 +302,41 @@ public class MainActivity extends AppCompatActivity
 
   // Set the text in the Input Field
   private void setTextOnEditText(String text, Intent intent) {
-    int currentFragment = Preferences.getCurrentFragment(this);
+    setCurrentFragment();
 
     switch (currentFragment) {
       case LOCAL_FRAGMENT:
         AshellFragment fragmentLocalAdb =
             (AshellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (fragmentLocalAdb != null) {
-          if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-            fragmentLocalAdb.handleSharedTextIntent(getIntent(), text);
-          } else {
-            fragmentLocalAdb.updateInputField(text);
-          }
-        }
+        if (fragmentLocalAdb != null) fragmentLocalAdb.handleSharedTextIntent(intent, text);
         break;
 
       case OTG_FRAGMENT:
         OtgFragment fragmentOtg =
             (OtgFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (fragmentOtg != null) {
-          fragmentOtg.updateInputField(text);
-        }
+        if (fragmentOtg != null) fragmentOtg.updateInputField(text);
         break;
 
       default:
-        break;
+        return;
     }
   }
 
-  public String getPendingSharedText() {
-    return pendingSharedText;
+  // Execute functions when the Usb connection is removed
+  public void onUsbDetached() {
+    // Reset the OtgFragment in this case
+    onRequestReset();
   }
 
-  public void clearPendingSharedText() {
-    pendingSharedText = null;
+  // Reset the OtgFragment
+  @Override
+  public void onRequestReset() {
+    if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+        instanceof OtgFragment)) {
+      currentFragment = OTG_FRAGMENT;
+      mNav.setSelectedItemId(R.id.nav_otgShell);
+      replaceFragment(new OtgFragment());
+    }
   }
 
   /*We set the currentFragment value before then if current fragment value is SETTINGS_FRAGMENT we donot show the bottom navigation*/
