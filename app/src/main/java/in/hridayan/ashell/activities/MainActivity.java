@@ -118,14 +118,13 @@ public class MainActivity extends AppCompatActivity
           public void onKeyboardVisibilityChanged(boolean visible) {
             isKeyboardVisible = visible;
             if (isKeyboardVisible) mNav.setVisibility(View.GONE);
-            else {
+            else
               new Handler(Looper.getMainLooper())
                   .postDelayed(
                       () -> {
                         showBottomNavUnderConditions();
                       },
                       100);
-            }
           }
         });
 
@@ -144,9 +143,10 @@ public class MainActivity extends AppCompatActivity
     // Auto check for updates when app launches
     if (Preferences.getAutoUpdateCheck(this)
         && hasAppRestarted
-        && !(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstLaunch", true))) {
+        && !Preferences.getFirstLaunch(this)) {
       new FetchLatestVersionCode(this, this).execute(Preferences.buildGradleUrl);
     }
+
     hasAppRestarted = false;
   }
 

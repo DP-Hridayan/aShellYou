@@ -179,8 +179,6 @@ public class OtgFragment extends Fragment
     }
   }
 
-  /*------------------------------------------------------*/
-
   // USB Receiver
 
   BroadcastReceiver mUsbReceiver =
@@ -229,8 +227,6 @@ public class OtgFragment extends Fragment
           }
         }
       };
-
-  /*------------------------------------------------------*/
 
   @Nullable
   @Override
@@ -328,10 +324,9 @@ public class OtgFragment extends Fragment
           public void afterTextChanged(Editable s) {
             binding.commandEditText.requestFocus();
 
-            String inputText = s.toString();
-            if (inputText.isEmpty()) {
-
+            if (s.toString().trim().isEmpty()) {
               binding.commandInputLayout.setEndIconVisible(false);
+              binding.rvCommands.setVisibility(View.GONE);
               binding.sendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_help, requireActivity()));
 
@@ -477,7 +472,6 @@ public class OtgFragment extends Fragment
           }
         };
 
-    /*------------------------------------------------------*/
 
     AdbBase64 base64 = new OtgUtils.MyAdbBase64();
     try {

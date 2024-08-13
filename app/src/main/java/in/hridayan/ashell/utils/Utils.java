@@ -667,8 +667,7 @@ public class Utils {
 
   /* Compare current app version code with the one retrieved from github to see if update available */
   public static boolean isUpdateAvailable(int latestVersionCode) {
-    int currentVersionCode = BuildConfig.VERSION_CODE;
-    return currentVersionCode < latestVersionCode;
+    return BuildConfig.VERSION_CODE < latestVersionCode;
   }
 
   public static interface FetchLatestVersionCodeCallback {
