@@ -245,10 +245,7 @@ public class AshellFragment extends Fragment {
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
-    viewModel = new ViewModelProvider(requireActivity()).get(AshellFragmentViewModel.class);
-    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
-    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
+    initializeViewModels();
 
     binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -1364,8 +1361,12 @@ public class AshellFragment extends Fragment {
 
   //  Open the settings fragment
   private void goToSettings() {
-    settingsViewModel.setRVPositionAndOffset(null);
-    settingsViewModel.setToolbarExpanded(true);
+
+    if (settingsViewModel != null) {
+      settingsViewModel.setRVPositionAndOffset(null);
+      settingsViewModel.setToolbarExpanded(true);
+    }
+
     setExitTransition(new Hold());
 
     SettingsFragment fragment = new SettingsFragment();
@@ -1407,5 +1408,13 @@ public class AshellFragment extends Fragment {
       updateInputField(mainViewModel.getUseCommand());
       mainViewModel.setUseCommand(null);
     }
+  }
+
+  // initialize viewModels
+  private void initializeViewModels() {
+    viewModel = new ViewModelProvider(requireActivity()).get(AshellFragmentViewModel.class);
+    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
   }
 }

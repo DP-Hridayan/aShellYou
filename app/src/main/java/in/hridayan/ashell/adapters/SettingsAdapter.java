@@ -75,6 +75,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     int themeId =
         isAmoledTheme ? R.style.ThemeOverlay_aShellYou_AmoledTheme : R.style.aShellYou_AppTheme;
     context.setTheme(themeId);
+    /* we need to save the boolean value when activity recreates to perform certain functions based on it */
+    Preferences.setActivityRecreated(context, true);
     ((AppCompatActivity) context).recreate();
   }
 

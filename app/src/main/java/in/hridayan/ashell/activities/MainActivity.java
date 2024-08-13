@@ -44,11 +44,10 @@ import in.hridayan.ashell.viewmodels.MainViewModel;
 
 public class MainActivity extends AppCompatActivity
     implements OtgFragment.OnFragmentInteractionListener, FetchLatestVersionCodeCallback {
-  private boolean isKeyboardVisible, hasAppRestarted = true;
   public BottomNavigationView mNav;
   private SettingsItem settingsList;
   private static int currentFragment;
-  private boolean isBlackThemeEnabled, isAmoledTheme;
+  private boolean isKeyboardVisible, hasAppRestarted = true;
   private MainViewModel viewModel;
   private Fragment fragment;
   private String pendingSharedText = null;
@@ -87,10 +86,6 @@ public class MainActivity extends AppCompatActivity
   @Override
   protected void onResume() {
     super.onResume();
-    // Amoled theme
-    isAmoledTheme = Preferences.getAmoledTheme(this);
-    boolean currentTheme = isAmoledTheme;
-    if (currentTheme != isBlackThemeEnabled) recreate();
   }
 
   @Override
@@ -105,7 +100,6 @@ public class MainActivity extends AppCompatActivity
     Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(this));
 
     viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-    isAmoledTheme = Preferences.getAmoledTheme(this);
 
     mNav = findViewById(R.id.bottom_nav_bar);
 
@@ -135,82 +129,16 @@ public class MainActivity extends AppCompatActivity
 
     Preferences.setSavedVersionCode(this, Utils.currentVersion());
 
-    isBlackThemeEnabled = isAmoledTheme;
-
-    // Displaying badges on navigation bar
-    setBadge(R.id.nav_wireless, "Soon");
-
     // Auto check for updates when app launches
     if (Preferences.getAutoUpdateCheck(this)
         && hasAppRestarted
+        && !Preferences.getActivityRecreated(this)
         && !Preferences.getFirstLaunch(this)) {
       new FetchLatestVersionCode(this, this).execute(Preferences.buildGradleUrl);
     }
 
+    Preferences.setActivityRecreated(this, false);
     hasAppRestarted = false;
-  }
-
-  // Intent to get the text shared to aShell You app
-  private void handleSharedTextIntent(String sharedText, Intent intent) {
-    setTextOnEditText(sharedText, intent);
-  }
-
-  // Set the text in the Input Field
-  private void setTextOnEditText(String text, Intent intent) {
-    int currentFragment = Preferences.getCurrentFragment(this);
-
-    switch (currentFragment) {
-      case LOCAL_FRAGMENT:
-        AshellFragment fragmentLocalAdb =
-            (AshellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (fragmentLocalAdb != null) {
-          if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-            fragmentLocalAdb.handleSharedTextIntent(getIntent(), text);
-          } else {
-            fragmentLocalAdb.updateInputField(text);
-          }
-        }
-        break;
-
-      case OTG_FRAGMENT:
-        OtgFragment fragmentOtg =
-            (OtgFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (fragmentOtg != null) {
-          fragmentOtg.updateInputField(text);
-        }
-        break;
-
-      default:
-        break;
-    }
-  }
-
-  private void handlePendingSharedText() {
-    if (pendingSharedText != null) {
-      switch (Preferences.getCurrentFragment(this)) {
-        case LOCAL_FRAGMENT:
-          AshellFragment fragmentLocalAdb =
-              (AshellFragment)
-                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-          if (fragmentLocalAdb != null) {
-            fragmentLocalAdb.updateInputField(pendingSharedText);
-            clearPendingSharedText();
-          }
-          break;
-
-        case OTG_FRAGMENT:
-          OtgFragment fragmentOtg =
-              (OtgFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-          if (fragmentOtg != null) {
-            fragmentOtg.updateInputField(pendingSharedText);
-            clearPendingSharedText();
-          }
-          break;
-
-        default:
-          break;
-      }
-    }
   }
 
   // Main navigation setup
@@ -238,6 +166,8 @@ public class MainActivity extends AppCompatActivity
               return false;
           }
         });
+
+    setBadge(R.id.nav_wireless, "Soon");
 
     initialFragment();
     handleIncomingIntent(getIntent());
@@ -370,6 +300,34 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
+  private void handlePendingSharedText() {
+    if (pendingSharedText != null) {
+      switch (Preferences.getCurrentFragment(this)) {
+        case LOCAL_FRAGMENT:
+          AshellFragment fragmentLocalAdb =
+              (AshellFragment)
+                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+          if (fragmentLocalAdb != null) {
+            fragmentLocalAdb.updateInputField(pendingSharedText);
+            clearPendingSharedText();
+          }
+          break;
+
+        case OTG_FRAGMENT:
+          OtgFragment fragmentOtg =
+              (OtgFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+          if (fragmentOtg != null) {
+            fragmentOtg.updateInputField(pendingSharedText);
+            clearPendingSharedText();
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+
   // Execute functions when the Usb connection is removed
   public void onUsbDetached() {
     // Reset the OtgFragment in this case
@@ -385,6 +343,40 @@ public class MainActivity extends AppCompatActivity
         handleSharedTextIntent(sharedText, intent);
       }
     } else if ("com.example.ACTION_USB_DETACHED".equals(intent.getAction())) onUsbDetached();
+  }
+
+  private void handleSharedTextIntent(String sharedText, Intent intent) {
+    setTextOnEditText(sharedText, intent);
+  }
+
+  // Set the text in the Input Field
+  private void setTextOnEditText(String text, Intent intent) {
+    int currentFragment = Preferences.getCurrentFragment(this);
+
+    switch (currentFragment) {
+      case LOCAL_FRAGMENT:
+        AshellFragment fragmentLocalAdb =
+            (AshellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragmentLocalAdb != null) {
+          if (intent.hasExtra(Intent.EXTRA_TEXT)) {
+            fragmentLocalAdb.handleSharedTextIntent(getIntent(), text);
+          } else {
+            fragmentLocalAdb.updateInputField(text);
+          }
+        }
+        break;
+
+      case OTG_FRAGMENT:
+        OtgFragment fragmentOtg =
+            (OtgFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragmentOtg != null) {
+          fragmentOtg.updateInputField(text);
+        }
+        break;
+
+      default:
+        break;
+    }
   }
 
   public String getPendingSharedText() {
