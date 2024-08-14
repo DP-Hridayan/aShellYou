@@ -858,7 +858,7 @@ public class Utils {
         .show();
   }
 
-  // String that shows Shell is dead in red color
+  // String that shows Shell is dead in red colour
   public static String shellDeadError() {
     return "<font color=#FF0000>" + "Shell is dead" + "</font>";
   }
