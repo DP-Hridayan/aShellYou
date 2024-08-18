@@ -1,5 +1,7 @@
 package in.hridayan.ashell.activities;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import static in.hridayan.ashell.utils.Preferences.ABOUT_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.CHANGELOG_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.EXAMPLES_FRAGMENT;
@@ -241,10 +243,25 @@ public class MainActivity extends AppCompatActivity
   // Takes the fragment we want to navigate to as argument and then starts that fragment
   public void replaceFragment(Fragment fragment) {
     if (!getSupportFragmentManager().isStateSaved()) {
-      getSupportFragmentManager()
-          .beginTransaction()
-          .replace(R.id.fragment_container, fragment)
-          .commit();
+      // Clear the back stack before performing the fragment transaction
+      getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+      // Begin the transaction
+      FragmentTransaction transaction =
+          getSupportFragmentManager()
+              .beginTransaction()
+              .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName());
+
+      // if in settings fragment then add the shared element and backstack
+      if (currentFragment == SETTINGS_FRAGMENT) {
+        View settingsButton = AshellFragment.getSettingsButtonView();
+        transaction
+            .addSharedElement(settingsButton, "settingsButtonToSettings")
+            .addToBackStack(fragment.getClass().getSimpleName());
+      }
+
+      transaction.commit();
+
       setCurrentFragment();
     }
   }
