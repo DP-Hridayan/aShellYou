@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity
         pendingSharedText = sharedText;
         handleSharedTextIntent(sharedText, intent);
       }
-    } else if ("com.example.ACTION_USB_DETACHED".equals(intent.getAction())) onUsbDetached();
+    } else if ("in.hridayan.ashell.ACTION_USB_DETACHED".equals(intent.getAction())) onUsbDetached();
   }
 
   private void handleSharedTextIntent(String sharedText, Intent intent) {
