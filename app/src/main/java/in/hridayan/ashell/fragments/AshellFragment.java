@@ -92,7 +92,8 @@ public class AshellFragment extends Fragment {
   private String shell;
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
-private static WeakReference<View> settingsButtonRef;
+  private static WeakReference<View> settingsButtonRef;
+
   public AshellFragment() {}
 
   @Override
@@ -246,8 +247,8 @@ private static WeakReference<View> settingsButtonRef;
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
-        settingsButtonRef = new WeakReference<>(binding.settingsButton);
-        
+    settingsButtonRef = new WeakReference<>(binding.settingsButton);
+
     initializeViewModels();
 
     binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -380,6 +381,7 @@ private static WeakReference<View> settingsButtonRef;
         250,
         TimeUnit.MILLISECONDS);
 
+    mainViewModel.setHomeFragment(Preferences.LOCAL_FRAGMENT);
     return view;
   }
 
@@ -1420,8 +1422,8 @@ private static WeakReference<View> settingsButtonRef;
     settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
   }
-    
-   public static View getSettingsButtonView() {
-        return settingsButtonRef != null ? settingsButtonRef.get() : null;
-    }
+
+  public static View getSettingsButtonView() {
+    return settingsButtonRef != null ? settingsButtonRef.get() : null;
+  }
 }

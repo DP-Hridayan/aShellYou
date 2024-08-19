@@ -7,7 +7,9 @@ import in.hridayan.ashell.utils.Preferences;
 
 public class MainViewModel extends ViewModel {
   private static final int nullValue = 2004;
-  private int currentFragment = nullValue, previousFragment = Preferences.LOCAL_FRAGMENT;
+  private int currentFragment = nullValue,
+      previousFragment = Preferences.LOCAL_FRAGMENT,
+      whichHomeFragment;
 
   private String useCommand;
 
@@ -37,5 +39,13 @@ public class MainViewModel extends ViewModel {
 
   public void setPreviousFragment(int fragment) {
     previousFragment = fragment;
+  }
+
+  public int whichHomeFragment() {
+    return whichHomeFragment;
+  }
+
+  public void setHomeFragment(int fragment) {
+    whichHomeFragment = fragment;
   }
 }

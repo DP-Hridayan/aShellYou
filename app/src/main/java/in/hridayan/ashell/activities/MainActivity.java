@@ -93,38 +93,16 @@ public class MainActivity extends AppCompatActivity
     mNav = findViewById(R.id.bottom_nav_bar);
 
     // Hide the navigation bar when the keyboard is visible
+    keyboardVisibilityListener();
 
-    KeyboardUtils.attachVisibilityListener(
-        this,
-        new KeyboardUtils.KeyboardVisibilityListener() {
-          @Override
-          public void onKeyboardVisibilityChanged(boolean visible) {
-            isKeyboardVisible = visible;
-            if (isKeyboardVisible) mNav.setVisibility(View.GONE);
-            else
-              new Handler(Looper.getMainLooper())
-                  .postDelayed(
-                      () -> {
-                        showBottomNavUnderConditions();
-                      },
-                      100);
-          }
-        });
-
+    // The whole navigation setup
     setupNavigation();
 
     // Show What's new bottom sheet on opening the app after an update
-    if (Utils.isAppUpdated(this)) Utils.showBottomSheetChangelog(this);
-
-    Preferences.setSavedVersionCode(this, Utils.currentVersion());
+    showChangelogs();
 
     // Auto check for updates when app launches
-    if (Preferences.getAutoUpdateCheck(this)
-        && hasAppRestarted
-        && !Preferences.getActivityRecreated(this)
-        && !Preferences.getFirstLaunch(this)) {
-      new FetchLatestVersionCode(this, this).execute(Preferences.buildGradleUrl);
-    }
+    runAutoUpdateCheck();
 
     // Always put these at the last of onCreate
     Preferences.setActivityRecreated(this, false);
@@ -157,8 +135,10 @@ public class MainActivity extends AppCompatActivity
           }
         });
 
+    // Shows the "Soon" badge on Wireless ADB mode, will remove this as the feature is implemented
     setBadge(R.id.nav_wireless, "Soon");
 
+    // This function determines what fragment to show when the app launches or activity recreates
     initialFragment();
   }
 
@@ -243,27 +223,34 @@ public class MainActivity extends AppCompatActivity
   // Takes the fragment we want to navigate to as argument and then starts that fragment
   public void replaceFragment(Fragment fragment) {
     if (!getSupportFragmentManager().isStateSaved()) {
-      // Clear the back stack before performing the fragment transaction
-      getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+      // Clear the most recent fragment from the back stack
+      getSupportFragmentManager().popBackStack();
 
-      // Begin the transaction
+      // Begin the fragment transaction
       FragmentTransaction transaction =
           getSupportFragmentManager()
               .beginTransaction()
               .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName());
 
-      // if in settings fragment then add the shared element and backstack
+      // Handle the settings fragment case
       if (currentFragment == SETTINGS_FRAGMENT) {
-        View settingsButton = AshellFragment.getSettingsButtonView();
+        String tag = "settingsButtonToSettings";
+        View settingsButton = getSettingsButtonView();
+
         transaction
-            .addSharedElement(settingsButton, "settingsButtonToSettings")
+            .addSharedElement(settingsButton, tag)
             .addToBackStack(fragment.getClass().getSimpleName());
       }
 
       transaction.commit();
-
       setCurrentFragment();
     }
+  }
+
+  private View getSettingsButtonView() {
+    return viewModel.whichHomeFragment() == Preferences.LOCAL_FRAGMENT
+        ? AshellFragment.getSettingsButtonView()
+        : OtgFragment.getSettingsButtonView();
   }
 
   private void handlePendingSharedText() {
@@ -361,5 +348,42 @@ public class MainActivity extends AppCompatActivity
     setCurrentFragment();
     if (currentFragment == LOCAL_FRAGMENT || currentFragment == OTG_FRAGMENT)
       mNav.setVisibility(View.VISIBLE);
+  }
+
+  // show bottom sheet for changelog after an update
+  private void showChangelogs() {
+    if (Utils.isAppUpdated(this)) Utils.showBottomSheetChangelog(this);
+    /* we save the current version code and then when the app updates it compares the saved version code to the updated app's version code to determine whether to show changelogs */
+    Preferences.setSavedVersionCode(this, Utils.currentVersion());
+  }
+
+  // show update available bottom sheet
+  private void runAutoUpdateCheck() {
+    if (Preferences.getAutoUpdateCheck(this)
+        && hasAppRestarted
+        && !Preferences.getActivityRecreated(this)
+        && !Preferences.getFirstLaunch(this)) {
+      new FetchLatestVersionCode(this, this).execute(Preferences.buildGradleUrl);
+    }
+  }
+
+  // keyboard visibility listener
+  private void keyboardVisibilityListener() {
+    KeyboardUtils.attachVisibilityListener(
+        this,
+        new KeyboardUtils.KeyboardVisibilityListener() {
+          @Override
+          public void onKeyboardVisibilityChanged(boolean visible) {
+            isKeyboardVisible = visible;
+            if (isKeyboardVisible) mNav.setVisibility(View.GONE);
+            else
+              new Handler(Looper.getMainLooper())
+                  .postDelayed(
+                      () -> {
+                        showBottomNavUnderConditions();
+                      },
+                      100);
+          }
+        });
   }
 }

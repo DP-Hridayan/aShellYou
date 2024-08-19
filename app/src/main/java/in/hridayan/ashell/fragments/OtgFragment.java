@@ -74,6 +74,7 @@ import in.hridayan.ashell.viewmodels.SettingsViewModel;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -109,6 +110,7 @@ public class OtgFragment extends Fragment
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
   private AboutViewModel aboutViewModel;
+  private static WeakReference<View> settingsButtonRef;
 
   public interface OnFragmentInteractionListener {
     void onRequestReset();
@@ -244,7 +246,7 @@ public class OtgFragment extends Fragment
 
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-
+    settingsButtonRef = new WeakReference<>(binding.settingsButton);
     // initialize viewmodel
     initializeViewModels();
 
@@ -472,7 +474,6 @@ public class OtgFragment extends Fragment
           }
         };
 
-
     AdbBase64 base64 = new OtgUtils.MyAdbBase64();
     try {
       adbCrypto =
@@ -556,6 +557,7 @@ public class OtgFragment extends Fragment
 
     binding.commandEditText.setOnEditorActionListener(this);
     binding.commandEditText.setOnKeyListener(this);
+    mainViewModel.setHomeFragment(Preferences.OTG_FRAGMENT);
 
     return view;
   }
@@ -1067,5 +1069,9 @@ public class OtgFragment extends Fragment
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
 
     aboutViewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
+  }
+
+  public static View getSettingsButtonView() {
+    return settingsButtonRef != null ? settingsButtonRef.get() : null;
   }
 }
