@@ -1,7 +1,5 @@
 package in.hridayan.ashell.activities;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import static in.hridayan.ashell.utils.Preferences.ABOUT_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.CHANGELOG_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.EXAMPLES_FRAGMENT;
@@ -18,6 +16,8 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
