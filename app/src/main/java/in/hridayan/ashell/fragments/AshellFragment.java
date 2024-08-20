@@ -80,7 +80,7 @@ public class AshellFragment extends Fragment {
   private RootShell mRootShell;
   private BasicShell mBasicShell;
   private boolean isKeyboardVisible = false, sendButtonClicked = false, isEndIconVisible = false;
-  private int mPosition = 1, sendDrawable;
+  private int mPosition = 1;
   private final int ic_help = 10, ic_send = 11, ic_stop = 12;
   private List<String> mHistory = null, mResult = null, mRecentCommands, shellOutput, history;
   private View view;
@@ -102,9 +102,6 @@ public class AshellFragment extends Fragment {
 
     mainViewModel.setPreviousFragment(Preferences.LOCAL_FRAGMENT);
 
-    /*Since send button also works as help button, we need to keep track of what was its last mode(send or help) to get correct mode across configuration changes */
-    viewModel.setSendDrawable(
-        viewModel.isSendDrawableSaved() ? viewModel.getSendDrawable() : sendDrawable);
     viewModel.setSaveButtonVisible(isSaveButtonVisible());
 
     // Saves the viewing position of the recycler view
@@ -705,7 +702,7 @@ public class AshellFragment extends Fragment {
   }
 
   // Method to check if shell is busy root or shizuku
-  private boolean isShellBusy() {
+  public boolean isShellBusy() {
     if (isBasicMode() && mBasicShell != null) return BasicShell.isBusy();
     if (isShizukuMode() && mShizukuShell != null) return ShizukuShell.isBusy();
     if (isRootMode() && mRootShell != null) return RootShell.isBusy();
@@ -1249,7 +1246,7 @@ public class AshellFragment extends Fragment {
   }
 
   // Call this method to abort or stop running shell command
-  private void abortBasicShell() {
+  public void abortBasicShell() {
     BasicShell.destroy();
     viewModel.setSendDrawable(ic_help);
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -1257,7 +1254,7 @@ public class AshellFragment extends Fragment {
   }
 
   // Call this method to abort or stop running shizuku command
-  private void abortShizukuShell() {
+  public void abortShizukuShell() {
     mShizukuShell.destroy();
     viewModel.setSendDrawable(ic_help);
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -1265,7 +1262,7 @@ public class AshellFragment extends Fragment {
   }
 
   // Call this method to abort or stop running root command
-  private void abortRootShell() {
+  public void abortRootShell() {
     RootShell.destroy();
     viewModel.setSendDrawable(ic_help);
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -1423,6 +1420,7 @@ public class AshellFragment extends Fragment {
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
   }
 
+  // we refer the settings button view to use in activity
   public static View getSettingsButtonView() {
     return settingsButtonRef != null ? settingsButtonRef.get() : null;
   }

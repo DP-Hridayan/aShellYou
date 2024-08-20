@@ -122,6 +122,15 @@ public class MainActivity extends AppCompatActivity
               return true;
 
             case R.id.nav_otgShell:
+              AshellFragment fragment =
+                  (AshellFragment)
+                      getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+              if (fragment.isShellBusy()) {
+                ToastUtils.showToast(
+                    this, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
+                return false;
+              }
+
               showOtgFragment();
               Preferences.setCurrentFragment(this, OTG_FRAGMENT);
               return true;
