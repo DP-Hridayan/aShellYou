@@ -33,19 +33,20 @@ public class Preferences {
       PREF_LATEST_VERSION_NAME = "latest_version_name",
       PREF_LAST_SAVED_FILENAME = "last_saved_filename",
       PREF_HAPTICS_AND_VIBRATION = "id_vibration",
-      PREF_LOCAL_ADB_MODE = "id_local_adb_mode";
+      PREF_LOCAL_ADB_MODE = "id_local_adb_mode",
+      PREF_ACTIVITY_RECREATED = "activity_recreated";
   public static final int SORT_A_TO_Z = 0,
       SORT_Z_TO_A = 1,
       SORT_MOST_USED = 2,
       SORT_OLDEST = 2,
       SORT_NEWEST = 3,
       SORT_LEAST_USED = 3,
-      LOCAL_FRAGMENT = 1,
-      OTG_FRAGMENT = 2,
-      SETTINGS_FRAGMENT = 3,
-      ABOUT_FRAGMENT = 4,
-      EXAMPLES_FRAGMENT = 5,
-      CHANGELOG_FRAGMENT = 6,
+      LOCAL_FRAGMENT = 0,
+      OTG_FRAGMENT = 1,
+      SETTINGS_FRAGMENT = 2,
+      ABOUT_FRAGMENT = 3,
+      EXAMPLES_FRAGMENT = 4,
+      CHANGELOG_FRAGMENT = 5,
       MODE_LOCAL_ADB = 0,
       MODE_OTG = 1,
       MODE_REMEMBER_LAST_MODE = 2,
@@ -151,6 +152,15 @@ public class Preferences {
 
   public static void setAutoUpdateCheck(Context context, boolean value) {
     getSharedPreferences(context).edit().putBoolean(PREF_AUTO_UPDATE_CHECK, value).apply();
+  }
+
+  /* we need to check if the main activity is recreated (not restart) to perform certain tasks based on it */
+  public static boolean getActivityRecreated(Context context) {
+    return getSharedPreferences(context).getBoolean(PREF_ACTIVITY_RECREATED, false);
+  }
+
+  public static void setActivityRecreated(Context context, boolean value) {
+    getSharedPreferences(context).edit().putBoolean(PREF_ACTIVITY_RECREATED, value).apply();
   }
 
   public static int getLocalAdbMode(Context context) {

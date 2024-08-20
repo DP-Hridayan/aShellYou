@@ -167,7 +167,7 @@
             app:layout_constraintStart_toStartOf="parent"
             style="?attr/materialIconButtonFilledTonalStyle"
             android:id="@+id/settingsButton"
-            android:transitionName="settingsButtonToSettings"/>
+            android:transitionName="settingsButtonToSettings" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_height="48dp"

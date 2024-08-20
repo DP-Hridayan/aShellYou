@@ -194,15 +194,29 @@ public class Utils {
 
   public static List<String> getBookmarks(Context context) {
     List<String> mBookmarks = new ArrayList<>();
-    for (File file : Objects.requireNonNull(context.getExternalFilesDir("bookmarks").listFiles())) {
+
+    // Get the bookmarks directory
+    File bookmarksDir = context.getExternalFilesDir("bookmarks");
+
+    // Check if the directory is null or empty
+    if (bookmarksDir == null || bookmarksDir.listFiles() == null)
+      // Return empty list if bookmarks directory is null or has no files
+      return mBookmarks;
+
+    // Add bookmark files to the list
+    for (File file : bookmarksDir.listFiles()) {
       if (!file.getName().equalsIgnoreCase("specialCommands")) mBookmarks.add(file.getName());
     }
-    if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
-      for (String commands :
-          Objects.requireNonNull(
-                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-              .split("\\r?\\n")) {
-        if (!commands.trim().isEmpty()) mBookmarks.add(commands.trim());
+
+    // Handle specialCommands file
+    File specialCommandsFile = new File(bookmarksDir, "specialCommands");
+    if (specialCommandsFile.exists()) {
+      String fileContent = read(specialCommandsFile);
+      if (fileContent != null) {
+        String[] commands = fileContent.split("\\r?\\n");
+        for (String command : commands) {
+          if (!command.trim().isEmpty()) mBookmarks.add(command.trim());
+        }
       }
     }
 
@@ -667,8 +681,7 @@ public class Utils {
 
   /* Compare current app version code with the one retrieved from github to see if update available */
   public static boolean isUpdateAvailable(int latestVersionCode) {
-    int currentVersionCode = BuildConfig.VERSION_CODE;
-    return currentVersionCode < latestVersionCode;
+    return BuildConfig.VERSION_CODE < latestVersionCode;
   }
 
   public static interface FetchLatestVersionCodeCallback {
@@ -845,7 +858,7 @@ public class Utils {
         .show();
   }
 
-  // String that shows Shell is dead in red color
+  // String that shows Shell is dead in red colour
   public static String shellDeadError() {
     return "<font color=#FF0000>" + "Shell is dead" + "</font>";
   }

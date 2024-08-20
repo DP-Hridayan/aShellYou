@@ -92,10 +92,10 @@ public class SettingsFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
+    setSharedElementEnterTransition(new MaterialContainerTransform());
+
     postponeEnterTransition();
     setExitTransition(new Hold());
-
-    setSharedElementEnterTransition(new MaterialContainerTransform());
 
     binding = FragmentSettingsBinding.inflate(inflater, container, false);
     view = binding.getRoot();

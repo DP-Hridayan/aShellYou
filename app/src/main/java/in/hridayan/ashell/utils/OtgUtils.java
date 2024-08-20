@@ -90,7 +90,7 @@ public class OtgUtils {
 
     private void sendIntentUponDetached(Context context) {
       Intent intent = new Intent(context, MainActivity.class);
-      intent.setAction("com.example.ACTION_USB_DETACHED");
+      intent.setAction("in.hridayan.ashell.ACTION_USB_DETACHED");
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       context.startActivity(intent);
     }

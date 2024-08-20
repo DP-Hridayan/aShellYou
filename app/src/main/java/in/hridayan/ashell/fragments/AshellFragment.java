@@ -51,6 +51,7 @@ import in.hridayan.ashell.viewmodels.AshellFragmentViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -91,6 +92,7 @@ public class AshellFragment extends Fragment {
   private String shell;
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
+  private static WeakReference<View> settingsButtonRef;
 
   public AshellFragment() {}
 
@@ -245,10 +247,9 @@ public class AshellFragment extends Fragment {
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
-    viewModel = new ViewModelProvider(requireActivity()).get(AshellFragmentViewModel.class);
-    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
-    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
+    settingsButtonRef = new WeakReference<>(binding.settingsButton);
+
+    initializeViewModels();
 
     binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
     binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -380,6 +381,7 @@ public class AshellFragment extends Fragment {
         250,
         TimeUnit.MILLISECONDS);
 
+    mainViewModel.setHomeFragment(Preferences.LOCAL_FRAGMENT);
     return view;
   }
 
@@ -1364,8 +1366,12 @@ public class AshellFragment extends Fragment {
 
   //  Open the settings fragment
   private void goToSettings() {
-    settingsViewModel.setRVPositionAndOffset(null);
-    settingsViewModel.setToolbarExpanded(true);
+
+    if (settingsViewModel != null) {
+      settingsViewModel.setRVPositionAndOffset(null);
+      settingsViewModel.setToolbarExpanded(true);
+    }
+
     setExitTransition(new Hold());
 
     SettingsFragment fragment = new SettingsFragment();
@@ -1407,5 +1413,17 @@ public class AshellFragment extends Fragment {
       updateInputField(mainViewModel.getUseCommand());
       mainViewModel.setUseCommand(null);
     }
+  }
+
+  // initialize viewModels
+  private void initializeViewModels() {
+    viewModel = new ViewModelProvider(requireActivity()).get(AshellFragmentViewModel.class);
+    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
+  }
+
+  public static View getSettingsButtonView() {
+    return settingsButtonRef != null ? settingsButtonRef.get() : null;
   }
 }
