@@ -57,6 +57,7 @@ import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -155,6 +156,10 @@ public class AshellFragment extends Fragment {
         break;
 
       case ic_stop:
+        binding.sendButton.setColorFilter(
+            Utils.androidVersion() >= Build.VERSION_CODES.S
+                ? ThemeUtils.colorError(context)
+                : Utils.getColor(R.color.red, context));
         binding.sendButton.setImageDrawable(
             Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
         break;
@@ -372,7 +377,9 @@ public class AshellFragment extends Fragment {
         () -> {
           if (mResult != null
               && !mResult.isEmpty()
-              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())) updateUI(mResult);
+              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())) {
+            updateUI(mResult);
+          }
         },
         0,
         250,
