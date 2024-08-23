@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.fragment.app.FragmentManager;
 import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -221,7 +220,6 @@ public class AshellFragment extends Fragment {
         activity.clearPendingSharedText();
       }
     }
-        setupRecyclerView();
   }
 
   @Override
@@ -267,7 +265,7 @@ public class AshellFragment extends Fragment {
 
     binding.rvOutput.setAdapter(mShellOutputAdapter);
 
-  setupRecyclerView();
+    setupRecyclerView();
 
     // Paste and undo button onClickListener
     BehaviorFAB.pasteAndUndo(
@@ -511,13 +509,13 @@ public class AshellFragment extends Fragment {
   private void setupRecyclerView() {
     binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-   List<String> shellOutput = viewModel.getShellOutput();
-   if (shellOutput != null) {
+    List<String> shellOutput = viewModel.getShellOutput();
+    if (shellOutput != null) {
       mShellOutputAdapter = new ShellOutputAdapter(shellOutput);
       mResult = shellOutput;
     }
     binding.rvOutput.setAdapter(mShellOutputAdapter);
-        
+
     int scrollPosition = viewModel.getScrollPosition();
     binding.rvOutput.scrollToPosition(scrollPosition);
     String command = viewModel.getCommandText();
@@ -583,11 +581,14 @@ public class AshellFragment extends Fragment {
     new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.connected_device))
         .setMessage(device)
-        .setNegativeButton(context.getString(R.string.cancel), null)
+        .setNegativeButton(getString(R.string.cancel), null)
         .setPositiveButton(
-            context.getString(R.string.change_mode),
+            getString(R.string.change_mode),
             (dialog, i) -> {
-              localAdbModeDialog();
+              if (!isShellBusy()) localAdbModeDialog();
+              else
+                ToastUtils.showToast(
+                    context, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
             })
         .show();
   }
@@ -595,9 +596,7 @@ public class AshellFragment extends Fragment {
   // Dialog asking to choose preferred local adb commands executing mode
   private void localAdbModeDialog() {
     final CharSequence[] preferences = {
-      context.getString(R.string.basic_shell),
-      context.getString(R.string.shizuku),
-      getString(R.string.root)
+      getString(R.string.basic_shell), getString(R.string.shizuku), getString(R.string.root)
     };
 
     int savePreference = Preferences.getLocalAdbMode(context);
@@ -1185,15 +1184,12 @@ public class AshellFragment extends Fragment {
                         .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 
                     // Ensure focus is back on the command input
-                    if (!binding.commandEditText.isFocused()) 
+                    if (!binding.commandEditText.isFocused())
                       binding.commandEditText.requestFocus();
-                    
                   });
 
           // Shutdown the executor service
-          if (!mExecutors.isShutdown()) 
-            mExecutors.shutdown();
-          
+          if (!mExecutors.isShutdown()) mExecutors.shutdown();
         });
   }
 
