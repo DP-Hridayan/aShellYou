@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.FragmentManager;
 import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,7 +58,6 @@ import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -221,6 +221,7 @@ public class AshellFragment extends Fragment {
         activity.clearPendingSharedText();
       }
     }
+        setupRecyclerView();
   }
 
   @Override
@@ -266,7 +267,7 @@ public class AshellFragment extends Fragment {
 
     binding.rvOutput.setAdapter(mShellOutputAdapter);
 
-    setupRecyclerView();
+  setupRecyclerView();
 
     // Paste and undo button onClickListener
     BehaviorFAB.pasteAndUndo(
@@ -510,13 +511,14 @@ public class AshellFragment extends Fragment {
   private void setupRecyclerView() {
     binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-    List<String> shellOutput = viewModel.getShellOutput();
-    int scrollPosition = viewModel.getScrollPosition();
-    if (shellOutput != null) {
+   List<String> shellOutput = viewModel.getShellOutput();
+   if (shellOutput != null) {
       mShellOutputAdapter = new ShellOutputAdapter(shellOutput);
       mResult = shellOutput;
     }
     binding.rvOutput.setAdapter(mShellOutputAdapter);
+        
+    int scrollPosition = viewModel.getScrollPosition();
     binding.rvOutput.scrollToPosition(scrollPosition);
     String command = viewModel.getCommandText();
     if (command != null) binding.commandEditText.setText(command);
@@ -688,13 +690,11 @@ public class AshellFragment extends Fragment {
     binding.clearButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-
           if (mResult == null || mResult.isEmpty())
             ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
           else if (isShellBusy())
             ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
           else {
-            viewModel.setShellOutput(null);
             boolean switchState = Preferences.getClear(context);
             if (switchState)
               new MaterialAlertDialogBuilder(requireActivity())
@@ -724,7 +724,9 @@ public class AshellFragment extends Fragment {
 
     if (mRootShell != null && RootShell.isBusy()) abortRootShell();
 
+    viewModel.setShellOutput(null);
     mResult = null;
+
     if (binding.scrollUpButton.getVisibility() == View.VISIBLE)
       binding.scrollUpButton.setVisibility(View.GONE);
 
@@ -1009,33 +1011,31 @@ public class AshellFragment extends Fragment {
     binding.sendButton.setOnClickListener(
         v -> {
           sendButtonClicked = true;
+          if (isShellBusy()) ToastUtils.showToast(context, "busy", ToastUtils.LENGTH_SHORT);
+          else ToastUtils.showToast(context, "free", ToastUtils.LENGTH_SHORT);
           HapticUtils.weakVibrate(v, context);
 
+          // If shell is not busy and there is not any text in input field then go to examples
+          if (!hasTextInEditText() && !isShellBusy()) goToExamples();
+
           /*This block will run if basic shell mode is selected*/
-
-          if (isBasicMode()) {
-            if (!hasTextInEditText() && !BasicShell.isBusy()) goToExamples();
-            else if (isShellBusy()) abortBasicShell();
+          else if (isBasicMode()) {
+            if (mBasicShell != null && BasicShell.isBusy()) abortBasicShell();
             else execShell(v);
-
           }
 
           /*This block will run if shizuku mode is selected*/
-
           else if (isShizukuMode()) {
-            if (!hasTextInEditText() && !ShizukuShell.isBusy()) goToExamples();
-            else if (!Shizuku.pingBinder()) handleShizukuUnavailability();
+            if (!Shizuku.pingBinder()) handleShizukuUnavailability();
             else if (!ShizukuShell.hasPermission())
               Utils.shizukuPermRequestDialog(requireActivity(), context);
             else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
             else execShell(v);
-
           }
 
           /*This block w if root mode is selected*/
           else if (isRootMode()) {
-            if (!hasTextInEditText() && !RootShell.isBusy()) goToExamples();
-            else if (!RootShell.isDeviceRooted()) handleRootUnavailability();
+            if (!RootShell.isDeviceRooted()) handleRootUnavailability();
             else if (!RootShell.hasPermission())
               Utils.rootPermRequestDialog(requireActivity(), context);
             else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
@@ -1064,16 +1064,20 @@ public class AshellFragment extends Fragment {
 
   // This function is called when we want to run the shell after entering an adb command
   private void runShellCommand(String command) {
-    if (!isAdded()) return;
+    if (!isAdded() || getActivity() == null) return;
 
+    // Set up adapter if not already done
     if (binding.rvOutput.getAdapter() == null) binding.rvOutput.setAdapter(mShellOutputAdapter);
 
+    // Lock the screen orientation
     requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
+    // Clear input and hide the search bar if visible
     binding.commandEditText.setText(null);
     binding.commandEditText.clearFocus();
     if (binding.search.getVisibility() == View.VISIBLE) hideSearchBar();
 
+    // Process the command
     String finalCommand = command.replaceAll("^adb(?:\\s+-d)?\\s+shell\\s+", "");
 
     // Command to clear the shell output
@@ -1088,33 +1092,35 @@ public class AshellFragment extends Fragment {
       return;
     }
 
-    // Shizuku mode doesn't allow su commands , so we show a warning
-    if (finalCommand.startsWith("su") && isShizukuMode()
-        || finalCommand.startsWith("su") && isBasicMode()) {
+    // show warning for su command in non rooted methods
+    if (finalCommand.startsWith("su") && (isShizukuMode() || isBasicMode())) {
       suWarning();
       return;
     }
 
-    // If history is null then create a new list and add the final command
+    // Initialize mHistory if necessary
     if (mHistory == null) mHistory = new ArrayList<>();
 
     mHistory.add(finalCommand);
 
+    // Hide buttons and update send button
     binding.saveButton.hide();
     binding.shareButton.hide();
     viewModel.setSendDrawable(ic_stop);
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
-
     binding.sendButton.setColorFilter(
         Utils.androidVersion() >= Build.VERSION_CODES.S
             ? ThemeUtils.colorError(context)
             : Utils.getColor(R.color.red, context));
 
+    // Determine shell type
     if (isBasicMode()) shell = "\">BasicShell@";
     else if (isShizukuMode()) shell = "\">ShizukuShell@";
     else if (isRootMode()) shell = "\">RootShell@";
 
-    /* the mTitleText is the text that shows the connected device and the command that is executed */
+    // Create mTitleText and add it to mResult
+    if (mResult == null) mResult = new ArrayList<>();
+
     String mTitleText =
         "<font color=\""
             + Utils.getColor(
@@ -1133,12 +1139,9 @@ public class AshellFragment extends Fragment {
                 requireActivity())
             + "\"> # "
             + finalCommand;
-
-    if (mResult == null) {
-      mResult = new ArrayList<>();
-    }
     mResult.add(mTitleText);
 
+    // Execute the shell command in a background thread
     ExecutorService mExecutors = Executors.newSingleThreadExecutor();
     mExecutors.execute(
         () -> {
@@ -1146,25 +1149,25 @@ public class AshellFragment extends Fragment {
             case Preferences.BASIC_MODE:
               runBasicShell(finalCommand);
               break;
-
             case Preferences.SHIZUKU_MODE:
               runWithShizuku(finalCommand);
               break;
-
             case Preferences.ROOT_MODE:
               runWithRoot(finalCommand);
               break;
-
             default:
               return;
           }
 
+          // Post UI updates back to the main thread
           new Handler(Looper.getMainLooper())
               .post(
                   () -> {
+                    if (!isAdded()) return;
+
                     postExec();
 
-                    // Handles sendButton icon changes
+                    // Update send button based on command text presence
                     if (!hasTextInEditText()) {
                       viewModel.setSendDrawable(ic_help);
                       binding.sendButton.setImageDrawable(
@@ -1177,13 +1180,20 @@ public class AshellFragment extends Fragment {
                       binding.sendButton.clearColorFilter();
                     }
 
+                    // Unlock the screen orientation
                     requireActivity()
                         .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-                    if (!binding.commandEditText.isFocused())
+
+                    // Ensure focus is back on the command input
+                    if (!binding.commandEditText.isFocused()) 
                       binding.commandEditText.requestFocus();
+                    
                   });
 
-          if (!mExecutors.isShutdown()) mExecutors.shutdown();
+          // Shutdown the executor service
+          if (!mExecutors.isShutdown()) 
+            mExecutors.shutdown();
+          
         });
   }
 
@@ -1262,7 +1272,7 @@ public class AshellFragment extends Fragment {
 
   // Call this method to abort or stop running shizuku command
   public void abortShizukuShell() {
-    mShizukuShell.destroy();
+    if (mShizukuShell != null) mShizukuShell.destroy();
     viewModel.setSendDrawable(ic_help);
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
     binding.sendButton.clearColorFilter();
