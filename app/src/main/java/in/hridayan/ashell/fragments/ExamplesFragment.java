@@ -17,6 +17,7 @@ import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -490,6 +491,9 @@ public class ExamplesFragment extends Fragment
     Fragment fragment = new AshellFragment();
     if (mainViewModel.previousFragment() == Preferences.OTG_FRAGMENT) fragment = new OtgFragment();
 
+    // clear previous backstacks
+    clearBackStack();
+
     KeyboardUtils.closeKeyboard(requireActivity(), view);
     requireActivity()
         .getSupportFragmentManager()
@@ -500,7 +504,14 @@ public class ExamplesFragment extends Fragment
             R.anim.fragment_pop_enter,
             R.anim.fragment_pop_exit)
         .replace(R.id.fragment_container, fragment)
-        .addToBackStack(null)
         .commit();
+  }
+
+  private void clearBackStack() {
+    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+    if (fragmentManager.getBackStackEntryCount() > 0) {
+      // Pop all back stack entries
+      fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
   }
 }
