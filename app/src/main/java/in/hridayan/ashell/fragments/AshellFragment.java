@@ -267,10 +267,6 @@ public class AshellFragment extends Fragment {
 
     setupRecyclerView();
 
-    // Paste and undo button onClickListener
-    BehaviorFAB.pasteAndUndo(
-        binding.pasteButton, binding.undoButton, binding.commandEditText, context);
-
     // Toggles certain buttons visibility according to keyboard's visibility
     KeyboardUtils.attachVisibilityListener(
         requireActivity(),
@@ -282,17 +278,6 @@ public class AshellFragment extends Fragment {
 
     // Set the bottom navigation
     if (!isKeyboardVisible) mNav.setVisibility(View.VISIBLE);
-
-    // Handles the onclick listener of the top and bottom scrolling arrows
-    BehaviorFAB.handleTopAndBottomArrow(
-        binding.scrollUpButton,
-        binding.scrollDownButton,
-        binding.rvOutput,
-        null,
-        context,
-        "local_shell");
-
-    handleModeButtonTextAndCommandHint();
 
     // When there is any text in edit text , focus the edit text
     if (!binding.commandEditText.getText().toString().isEmpty())
@@ -344,6 +329,22 @@ public class AshellFragment extends Fragment {
             }
           }
         });
+
+    // Handles the onclick listener of the top and bottom scrolling arrows
+    BehaviorFAB.handleTopAndBottomArrow(
+        binding.scrollUpButton,
+        binding.scrollDownButton,
+        binding.rvOutput,
+        null,
+        context,
+        "local_shell");
+
+    // Paste and undo button onClickListener
+    BehaviorFAB.pasteAndUndo(
+        binding.pasteButton, binding.undoButton, binding.commandEditText, context);
+    pasteAndSaveButtonVisibility();
+
+    handleModeButtonTextAndCommandHint();
 
     modeButtonOnClickListener();
 
@@ -1437,5 +1438,12 @@ public class AshellFragment extends Fragment {
   // we refer the settings button view to use in activity
   public static View getSettingsButtonView() {
     return settingsButtonRef != null ? settingsButtonRef.get() : null;
+  }
+
+  // control visibility of paste and undo button
+  private void pasteAndSaveButtonVisibility() {
+    if (mResult != null || viewModel.getShellOutput() != null)
+      binding.pasteButton.setVisibility(View.GONE);
+    else binding.saveButton.setVisibility(View.VISIBLE);
   }
 }
