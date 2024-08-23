@@ -376,7 +376,8 @@ public class AshellFragment extends Fragment {
         () -> {
           if (mResult != null
               && !mResult.isEmpty()
-              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())) {
+              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())
+              && isShellBusy()) {
             updateUI(mResult);
           }
         },
