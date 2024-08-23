@@ -373,6 +373,7 @@ public class AshellFragment extends Fragment {
     commandEditTextOnEditorActionListener();
 
     ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+
     executor.scheduleWithFixedDelay(
         () -> {
           if (mResult != null
@@ -392,12 +393,19 @@ public class AshellFragment extends Fragment {
 
   // Functions
 
+  // initialize viewModels
+  private void initializeViewModels() {
+    viewModel = new ViewModelProvider(requireActivity()).get(AshellFragmentViewModel.class);
+    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
+  }
+
   private int lastIndexOf(String s, String splitTxt) {
     return s.lastIndexOf(splitTxt);
   }
 
   private List<String> getRecentCommands() {
-
     if (mHistory == null && viewModel.getHistory() != null) {
       mRecentCommands = viewModel.getHistory();
       mHistory = mRecentCommands;
@@ -405,7 +413,6 @@ public class AshellFragment extends Fragment {
       mRecentCommands = new ArrayList<>(mHistory);
       Collections.reverse(mRecentCommands);
     }
-
     return mRecentCommands;
   }
 
@@ -1012,8 +1019,7 @@ public class AshellFragment extends Fragment {
     binding.sendButton.setOnClickListener(
         v -> {
           sendButtonClicked = true;
-          if (isShellBusy()) ToastUtils.showToast(context, "busy", ToastUtils.LENGTH_SHORT);
-          else ToastUtils.showToast(context, "free", ToastUtils.LENGTH_SHORT);
+
           HapticUtils.weakVibrate(v, context);
 
           // If shell is not busy and there is not any text in input field then go to examples
@@ -1059,7 +1065,6 @@ public class AshellFragment extends Fragment {
   // initialize the shell command execution
   private void initializeShell() {
     if (!hasTextInEditText()) return;
-
     runShellCommand(binding.commandEditText.getText().toString().replace("\n", ""));
   }
 
@@ -1169,7 +1174,7 @@ public class AshellFragment extends Fragment {
                     postExec();
 
                     // Update send button based on command text presence
-                    if (!hasTextInEditText()) {
+                    if (!hasTextInEditText() && !isShellBusy()) {
                       viewModel.setSendDrawable(ic_help);
                       binding.sendButton.setImageDrawable(
                           Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -1223,7 +1228,7 @@ public class AshellFragment extends Fragment {
     mRootShell = new RootShell(mResult, finalCommand);
     RootShell.exec();
     try {
-      TimeUnit.MILLISECONDS.sleep(500);
+      TimeUnit.MILLISECONDS.sleep(250);
     } catch (InterruptedException ignored) {
     }
   }
@@ -1427,20 +1432,12 @@ public class AshellFragment extends Fragment {
     }
   }
 
-  // initialize viewModels
-  private void initializeViewModels() {
-    viewModel = new ViewModelProvider(requireActivity()).get(AshellFragmentViewModel.class);
-    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
-    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
-  }
-
   // we refer the settings button view to use in activity
   public static View getSettingsButtonView() {
     return settingsButtonRef != null ? settingsButtonRef.get() : null;
   }
 
-  // control visibility of paste and undo button
+  // control visibility of paste and save button
   private void pasteAndSaveButtonVisibility() {
     if (mResult != null || viewModel.getShellOutput() != null)
       binding.pasteButton.setVisibility(View.GONE);
