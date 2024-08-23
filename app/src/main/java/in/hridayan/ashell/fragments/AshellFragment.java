@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -263,8 +264,6 @@ public class AshellFragment extends Fragment {
 
     binding.rvOutput.addOnScrollListener(new FabLocalScrollDownListener(binding.scrollDownButton));
 
-    binding.rvOutput.setAdapter(mShellOutputAdapter);
-
     setupRecyclerView();
 
     // Toggles certain buttons visibility according to keyboard's visibility
@@ -348,8 +347,6 @@ public class AshellFragment extends Fragment {
 
     modeButtonOnClickListener();
 
-    sendButtonOnClickListener();
-
     settingsButtonOnClickListener();
 
     clearButtonOnClickListener();
@@ -372,20 +369,7 @@ public class AshellFragment extends Fragment {
 
     commandEditTextOnEditorActionListener();
 
-    ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-
-    executor.scheduleWithFixedDelay(
-        () -> {
-          if (mResult != null
-              && !mResult.isEmpty()
-              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())
-              && isShellBusy()) {
-            updateUI(mResult);
-          }
-        },
-        0,
-        250,
-        TimeUnit.MILLISECONDS);
+    sendButtonOnClickListener();
 
     mainViewModel.setHomeFragment(Preferences.LOCAL_FRAGMENT);
     return view;
@@ -522,8 +506,8 @@ public class AshellFragment extends Fragment {
     if (shellOutput != null) {
       mShellOutputAdapter = new ShellOutputAdapter(shellOutput);
       mResult = shellOutput;
+      binding.rvOutput.setAdapter(mShellOutputAdapter);
     }
-    binding.rvOutput.setAdapter(mShellOutputAdapter);
 
     int scrollPosition = viewModel.getScrollPosition();
     binding.rvOutput.scrollToPosition(scrollPosition);
@@ -986,7 +970,7 @@ public class AshellFragment extends Fragment {
 
             /*This block will run if basic shell mode is selected*/
             if (isBasicMode()) {
-              if (isShellBusy()) shellWorkingDialog();
+              if (mBasicShell != null && isShellBusy()) shellWorkingDialog();
               else execShell(v);
             }
 
@@ -1007,7 +991,6 @@ public class AshellFragment extends Fragment {
               else if (mRootShell != null && RootShell.isBusy()) shellWorkingDialog();
               else execShell(v);
             }
-
             return true;
           }
           return false;
@@ -1165,7 +1148,6 @@ public class AshellFragment extends Fragment {
               return;
           }
 
-          // Post UI updates back to the main thread
           new Handler(Looper.getMainLooper())
               .post(
                   () -> {
@@ -1198,6 +1180,22 @@ public class AshellFragment extends Fragment {
           // Shutdown the executor service
           if (!mExecutors.isShutdown()) mExecutors.shutdown();
         });
+
+    // Post UI updates back to the main thread
+    ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+
+    executor.scheduleWithFixedDelay(
+        () -> {
+          if (mResult != null
+              && !mResult.isEmpty()
+              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())
+              && isShellBusy()) {
+            updateUI(mResult);
+          }
+        },
+        0,
+        250,
+        TimeUnit.MILLISECONDS);
   }
 
   // Method to run commands using root
@@ -1406,7 +1404,6 @@ public class AshellFragment extends Fragment {
   private List<String> getHistory() {
     if (mHistory != null) return mHistory;
     else if (viewModel.getHistory() != null) return viewModel.getHistory();
-
     return mHistory;
   }
 
@@ -1441,6 +1438,6 @@ public class AshellFragment extends Fragment {
   private void pasteAndSaveButtonVisibility() {
     if (mResult != null || viewModel.getShellOutput() != null)
       binding.pasteButton.setVisibility(View.GONE);
-    else binding.saveButton.setVisibility(View.VISIBLE);
+    binding.saveButton.setVisibility(View.VISIBLE);
   }
 }
