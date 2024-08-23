@@ -168,6 +168,14 @@ public class AshellFragment extends Fragment {
         break;
     }
 
+    /* stop button doesnot appears when coming back to fragment while running continuous commands in root or basic shell mode. So we put this extra method to make sure it does */
+    if (isShellBusy()) {
+      binding.sendButton.setColorFilter(
+          Utils.androidVersion() >= Build.VERSION_CODES.S
+              ? ThemeUtils.colorError(context)
+              : Utils.getColor(R.color.red, context));
+      binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
+    }
     handleModeButtonTextAndCommandHint();
 
     handleUseCommand();
@@ -421,7 +429,7 @@ public class AshellFragment extends Fragment {
     ExecutorService mExecutors = Executors.newSingleThreadExecutor();
     mExecutors.execute(
         () -> {
-          ShellOutputAdapter mShellOutputAdapter = new ShellOutputAdapter(mData);
+          mShellOutputAdapter = new ShellOutputAdapter(mData);
           new Handler(Looper.getMainLooper())
               .post(
                   () -> {
@@ -1156,7 +1164,7 @@ public class AshellFragment extends Fragment {
                     postExec();
 
                     // Update send button based on command text presence
-                    if (!hasTextInEditText() && !isShellBusy()) {
+                    if (!hasTextInEditText()) {
                       viewModel.setSendDrawable(ic_help);
                       binding.sendButton.setImageDrawable(
                           Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -1436,8 +1444,9 @@ public class AshellFragment extends Fragment {
 
   // control visibility of paste and save button
   private void pasteAndSaveButtonVisibility() {
-    if (mResult != null || viewModel.getShellOutput() != null)
+    if (mResult != null || viewModel.getShellOutput() != null) {
       binding.pasteButton.setVisibility(View.GONE);
-    binding.saveButton.setVisibility(View.VISIBLE);
+      binding.saveButton.setVisibility(View.VISIBLE);
+    }
   }
 }
