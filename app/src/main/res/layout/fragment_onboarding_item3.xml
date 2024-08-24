@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.OnboardingItem3Fragment">
+
+    <ImageView
+        android:id="@+id/shape1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:alpha="0.2"
+        android:background="@drawable/ui_shape5"
+        android:backgroundTint="?attr/colorPrimaryContainer"
+        android:importantForAccessibility="no"
+        android:rotation="135"
+        android:translationX="40dp"
+        android:translationY="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/shape2"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:alpha="0.25"
+        android:background="@drawable/ui_shape3"
+        android:backgroundTint="?attr/colorTertiaryContainer"
+        android:importantForAccessibility="no"
+        android:rotation="60"
+        android:translationX="20dp"
+        android:translationY="240dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/shape3"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:alpha="0.3"
+        android:background="@drawable/ui_shape4"
+        android:backgroundTint="?attr/colorPrimaryContainer"
+        android:importantForAccessibility="no"
+        android:rotation="210"
+        android:translationX="-60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/shape4"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:alpha="0.35"
+        android:background="@drawable/ui_shape1"
+        android:backgroundTint="?attr/colorSecondaryContainer"
+        android:importantForAccessibility="no"
+        android:rotation="45"
+        android:translationX="-100dp"
+        android:translationY="-80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/shape5"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:alpha="0.4"
+        android:background="@drawable/ui_shape2"
+        android:backgroundTint="?attr/colorSecondaryContainer"
+        android:importantForAccessibility="no"
+        android:rotation="315"
+        android:translationX="-40dp"
+        android:translationY="-200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textView"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Screen 3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guidelineTop" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@id/textView">
+
+        <in.hridayan.ashell.UI.SelectableViewWidget
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:descriptionText="@string/mode_one_desc"
+            app:titleText="@string/mode_one_title" />
+
+        <in.hridayan.ashell.UI.SelectableViewWidget
+            android:id="@+id/shizuku"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:descriptionText="@string/mode_two_desc"
+            app:titleText="@string/mode_two_title" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.84" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

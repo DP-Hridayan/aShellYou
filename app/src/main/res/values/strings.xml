@@ -215,5 +215,11 @@
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     <string name="license">License</string>
     <string name="des_license">Learn about the license this app is using</string>
+    <string name="btn_continue">Continue</string>
+    <string name="back">Back</string>
+    <string name="mode_one_title">Root</string>
+    <string name="mode_one_desc">Use root access to change colors. All options will be available.</string>
+    <string name="mode_two_title">Shizuku</string>
+    <string name="mode_two_desc">Use shizuku to work without root. Limited options will be available.</string>
 
 </resources>

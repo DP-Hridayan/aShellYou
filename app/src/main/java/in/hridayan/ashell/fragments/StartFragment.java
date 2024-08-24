@@ -1,54 +1,189 @@
 package in.hridayan.ashell.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
+
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.adapters.OnboardingAdapter;
 import in.hridayan.ashell.utils.Preferences;
 import rikka.shizuku.Shizuku;
 
 public class StartFragment extends Fragment {
 
-  public StartFragment() {}
+    private OnboardingAdapter adapter;
+    private ViewPager2 viewPager;
+    private MaterialButton btnNext, btnPrev;
 
-  @Override
-  public View onCreateView(
-      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_start, container, false);
-    initViews(view);
-    return view;
-  }
-
-  private void initViews(View view) {
-    LinearLayoutCompat mStartLayout = view.findViewById(R.id.fragment_start);
-    MaterialButton mStartButton = view.findViewById(R.id.start_button);
-    MaterialTextView mAboutText = view.findViewById(R.id.about_text);
-
-    if (Shizuku.pingBinder()) {
-      Shizuku.requestPermission(0);
+    public StartFragment() {
     }
-    mStartLayout.setVisibility(View.VISIBLE);
-    mAboutText.setText(getString(R.string.app_summary));
 
-    mStartButton.setOnClickListener(
-        v -> {
-          Preferences.setFirstLaunch(requireContext(), false);
-          getParentFragmentManager()
-              .beginTransaction()
-              .setCustomAnimations(
-                      R.anim.fragment_enter,
-                      R.anim.fragment_exit,
-                      R.anim.fragment_pop_enter,
-                      R.anim.fragment_pop_exit
-               )
-              .replace(R.id.fragment_container, new AshellFragment())
-              .commit();
+    @Override
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_start, container, false);
+        initViews(view);
+        return view;
+    }
+
+    private void initViews(View view) {
+        viewPager = view.findViewById(R.id.viewPager);
+        btnNext = view.findViewById(R.id.btn_next);
+        btnPrev = view.findViewById(R.id.btn_prev);
+
+        adapter = new OnboardingAdapter(getChildFragmentManager(), requireActivity().getLifecycle());
+
+        adapter.addFragment(new OnboardingItem1Fragment());
+        adapter.addFragment(new OnboardingItem2Fragment());
+        adapter.addFragment(new OnboardingItem3Fragment());
+
+        viewPager.setAdapter(adapter);
+
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+                animateBackButton(position);
+                changeContinueButtonText(position);
+            }
         });
-  }
+
+        btnNext.setOnClickListener(v -> {
+            if (viewPager.getCurrentItem() == adapter.getItemCount() - 1) { // this is the last page, so verify root/shizuku and start the app
+//                if (Prefs.getString("working_method", "") == "") { // check pref for working method, if no working method saved, show toast
+//                    Toast.makeText(requireContext(), "Select a working method", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+
+                // Check which working method is selected, verify that and start the app
+//                if (Prefs.getString("working_method", "") == "root") {
+//                    check if root connection available here, if not show toast, else start the app
+//                } else if (Prefs.getString("working_method", "") == "shizuku") {
+//                    check if shizuku connection available here, if not show toast, else start the app
+//        if (Shizuku.pingBinder()) {
+//          Shizuku.requestPermission(0); // use a listener to get the result (permission granted/denied)
+//        }
+//        if (granted) {
+//        Preferences.setFirstLaunch(requireContext(), false);
+//        getParentFragmentManager()
+//                .beginTransaction()
+//                .setCustomAnimations(
+//                        R.anim.fragment_enter,
+//                        R.anim.fragment_exit,
+//                        R.anim.fragment_pop_enter,
+//                        R.anim.fragment_pop_exit
+//                )
+//                .replace(R.id.fragment_container, new AshellFragment())
+//                .commit();
+//                }
+//        }
+            } else { // this is not the last page, so just go to next page
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+            }
+        });
+
+        btnPrev.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true));
+
+        registerOnBackInvokedCallback();
+    }
+
+    private void animateBackButton(int position) {
+        int duration = 300;
+
+        if (position == 0 && btnPrev.getVisibility() == View.VISIBLE) {
+            AlphaAnimation fadeOut = getFadeOutAnimation(duration);
+            btnPrev.startAnimation(fadeOut);
+        } else if (position != 0 && btnPrev.getVisibility() != View.VISIBLE) {
+            AlphaAnimation fadeIn = getFadeInAnimation(duration);
+            btnPrev.startAnimation(fadeIn);
+        }
+    }
+
+    private @NonNull AlphaAnimation getFadeOutAnimation(int duration) {
+        AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+
+        fadeOut.setDuration(duration);
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                btnPrev.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
+        return fadeOut;
+    }
+
+    private @NonNull AlphaAnimation getFadeInAnimation(int duration) {
+        AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+
+        fadeIn.setDuration(duration);
+
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                btnPrev.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
+        return fadeIn;
+    }
+
+    private void changeContinueButtonText(int position) {
+        if (position == adapter.getItemCount() - 1) {
+            btnNext.setText(R.string.start);
+        } else {
+            btnNext.setText(R.string.btn_continue);
+        }
+    }
+
+    private void registerOnBackInvokedCallback() {
+        requireActivity().getOnBackPressedDispatcher().addCallback(
+                requireActivity(),
+                new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        onBackPressed();
+                    }
+                });
+    }
+
+    private void onBackPressed() {
+        if (viewPager.getCurrentItem() == 0) {
+            requireActivity().finish();
+        } else {
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+        }
+    }
 }
