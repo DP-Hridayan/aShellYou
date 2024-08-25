@@ -29,8 +29,7 @@
         android:backgroundTint="?attr/colorTertiaryContainer"
         android:importantForAccessibility="no"
         android:rotation="105"
-        android:translationX="30dp"
-        android:translationY="300dp"
+        android:translationY="320dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -71,7 +71,6 @@
         android:backgroundTint="?attr/colorSecondaryContainer"
         android:importantForAccessibility="no"
         android:rotation="315"
-        android:translationX="-40dp"
         android:translationY="-200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
