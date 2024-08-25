@@ -106,7 +106,7 @@
         android:layout_marginVertical="40dp"
         android:adjustViewBounds="true"
         android:importantForAccessibility="no"
-        android:src="@drawable/img_onboarding"
+        android:src="@drawable/ic_onboarding1"
         app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
