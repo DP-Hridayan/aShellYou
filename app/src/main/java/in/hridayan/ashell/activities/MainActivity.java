@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.color.DynamicColors;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.databinding.ActivityMainBinding;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
     ThemeUtils.updateTheme(this);
+    DynamicColors.applyToActivitiesIfAvailable(getApplication());
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);

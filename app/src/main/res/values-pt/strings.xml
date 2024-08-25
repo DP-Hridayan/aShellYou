@@ -117,7 +117,6 @@
     <string name="use">Usar</string>
     <string name="waiting_device">Aguardando por dispositivo</string>
     <string name="warning">Aviso</string>
-    <string name="working_mode">Modo de operação</string>
     <string name="yes">Sim</string>
     <string name="smooth_scrolling">Rolagem suave</string>
     <string name="des_smooth_scroll">Permite rolagem suave na saída do shell quando a seta superior ou inferior for clicada</string>

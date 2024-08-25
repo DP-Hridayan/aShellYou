@@ -14,6 +14,8 @@ import in.hridayan.ashell.utils.RootShell;
 import in.hridayan.ashell.utils.ShizukuShell;
 import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import rikka.shizuku.Shizuku;
 
 public class OnboardingItem3Fragment extends Fragment
@@ -35,7 +37,6 @@ public class OnboardingItem3Fragment extends Fragment
         v -> {
           // we donot select the widget unless we get root permission
           binding.root.setSelected(false);
-          rootShell.stopPermissionCheck();
           // request root permission
           requestRootPermission();
 
@@ -58,9 +59,17 @@ public class OnboardingItem3Fragment extends Fragment
 
   // request root permission
   private void requestRootPermission() {
-    RootShell.refresh();
-    if (!RootShell.isDeviceRooted()) handleRootUnavailability();
-    else rootShell.startPermissionCheck();
+    ExecutorService executor = Executors.newSingleThreadExecutor();
+    executor.execute(
+        () -> {
+          RootShell.refresh();
+          if (!RootShell.isDeviceRooted()) {
+            requireActivity().runOnUiThread(this::handleRootUnavailability);
+          } else {
+            rootShell.startPermissionCheck(); // Starts permission check
+          }
+        });
+    executor.shutdown();
   }
 
   @Override

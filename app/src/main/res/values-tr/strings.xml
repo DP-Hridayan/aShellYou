@@ -123,8 +123,7 @@
     <string name="use">Kullan</string>
     <string name="waiting_device">Cihaz bekleniyor</string>
     <string name="warning">Uyarı</string>
-    <string name="working_mode">Çalışma modu</string>
-    <string name="yes">Evet</string>
+       <string name="yes">Evet</string>
 
     <string name="smooth_scrolling">Yumuşak kaydırma</string>
     <string name="des_smooth_scroll">Yukarı veya aşağı oka tıklandığında kabuk çıktısında yumuşak kaydırmayı etkinleştirir</string>

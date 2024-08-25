@@ -119,7 +119,6 @@
     <string name="use">使用</string>
     <string name="waiting_device">正在等待设备</string>
     <string name="warning">请注意</string>
-    <string name="working_mode">工作模式</string>
     <string name="yes">是</string>
     <string name="smooth_scrolling">平滑滚动</string>
     <string name="des_smooth_scroll">当点击回到 顶部 或 底部 方向的箭头时，使用平滑效果</string>

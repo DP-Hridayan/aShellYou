@@ -163,7 +163,6 @@
     <string name="warning">ご注意</string>
     <string name="whats_new">新着情報 ！</string>
     <string name="whole_output">全体出力</string>
-    <string name="working_mode">作業モード</string>
     <string name="yes">はい</string>
     <string name="local_adb_mode">ローカルADBの作業モードを選択する</string>
     <string name="des_local_adb_mode">ターミナルコマンドをローカルで実行するモードを選択する</string>
