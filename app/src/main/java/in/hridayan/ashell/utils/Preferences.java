@@ -206,11 +206,11 @@ public class Preferences {
     getSharedPreferences(context).edit().putInt(PREF_SORTING_EXAMPLES, value).apply();
   }
 
-  public static void setWorkingMode(Context context, int value) {
+  public static void setLaunchMode(Context context, int value) {
     getSharedPreferences(context).edit().putInt(PREF_DEFAULT_LAUNCH_MODE, value).apply();
   }
 
-  public static int getWorkingMode(Context context) {
+  public static int getLaunchMode(Context context) {
     return getSharedPreferences(context).getInt(PREF_DEFAULT_LAUNCH_MODE, MODE_LOCAL_ADB);
   }
 

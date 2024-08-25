@@ -1,9 +1,13 @@
 package in.hridayan.ashell.utils;
 
 import android.content.pm.PackageManager;
+import android.content.Context;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import rikka.shizuku.Shizuku;
 import rikka.shizuku.ShizukuRemoteProcess;
 
@@ -16,10 +20,22 @@ public class ShizukuShell {
   private static ShizukuRemoteProcess mProcess = null;
   private static String mCommand;
   private static String mDir = "/";
+  private ScheduledExecutorService scheduler;
+  private Context context;
+  private ShizukuPermCallback permCallback;
 
   public ShizukuShell(List<String> output, String command) {
     mOutput = output;
     mCommand = command;
+  }
+
+  public ShizukuShell(Context context, ShizukuPermCallback permissionCallback) {
+    this.context = context;
+    this.permCallback = permissionCallback;
+  }
+
+  public interface ShizukuPermCallback {
+    void onShizukuPermGranted();
   }
 
   // Call this function after passing out output and command to ShizukuShell
@@ -75,5 +91,33 @@ public class ShizukuShell {
     if (Shizuku.pingBinder())
       return Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
     else return false;
+  }
+
+  // Start a background task to periodically check for Shizuku permission
+  public void startPermissionCheck() {
+
+    if (scheduler == null || scheduler.isShutdown()) {
+      scheduler = Executors.newScheduledThreadPool(1);
+    }
+
+    scheduler.scheduleAtFixedRate(
+        new Runnable() {
+          @Override
+          public void run() {
+            if (hasPermission()) {
+              if (permCallback != null) permCallback.onShizukuPermGranted();
+              stopPermissionCheck();
+            }
+          }
+        },
+        0,
+        500,
+        TimeUnit.MILLISECONDS);
+  }
+
+  public void stopPermissionCheck() {
+    if (scheduler != null && !scheduler.isShutdown()) {
+      scheduler.shutdown();
+    }
   }
 }

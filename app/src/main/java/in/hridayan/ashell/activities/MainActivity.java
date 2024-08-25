@@ -189,8 +189,8 @@ public class MainActivity extends AppCompatActivity
       if (viewModel.isFragmentSaved()) switchFragments(viewModel.currentFragment());
       else {
         int currentFragment = Preferences.getCurrentFragment(this);
-        int workingMode = Preferences.getWorkingMode(this);
-        switchFragments(workingMode == MODE_REMEMBER_LAST_MODE ? currentFragment : workingMode);
+        int launchMode = Preferences.getLaunchMode(this);
+        switchFragments(launchMode == MODE_REMEMBER_LAST_MODE ? currentFragment : launchMode);
       }
       handlePendingSharedText();
       handleIncomingIntent(getIntent());

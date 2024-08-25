@@ -414,7 +414,7 @@ public class Utils {
 
   /*------------------------------------------------------*/
 
-  public static void defaultWorkingModeDialog(Context context) {
+  public static void defaultLaunchModeDialog(Context context) {
 
     final CharSequence[] workingModes = {
       context.getString(R.string.local_adb),
@@ -422,11 +422,11 @@ public class Utils {
       context.getString(R.string.remember_working_mode)
     };
 
-    int defaultWorkingMode = Preferences.getWorkingMode(context);
+    int defaultWorkingMode = Preferences.getLaunchMode(context);
     final int[] workingMode = {defaultWorkingMode};
 
     new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.working_mode))
+        .setTitle(context.getString(R.string.launch_mode))
         .setSingleChoiceItems(
             workingModes,
             defaultWorkingMode,
@@ -436,7 +436,7 @@ public class Utils {
         .setPositiveButton(
             context.getString(R.string.choose),
             (dialog, which) -> {
-              Preferences.setWorkingMode(context, workingMode[0]);
+              Preferences.setLaunchMode(context, workingMode[0]);
             })
         .setNegativeButton(context.getString(R.string.cancel), null)
         .show();
@@ -687,7 +687,7 @@ public class Utils {
   public static interface FetchLatestVersionCodeCallback {
     void onResult(int result);
   }
-
+    
   // Bottom sheet showing the popup after the app is updated
   public static void showBottomSheetChangelog(Activity activity) {
     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);

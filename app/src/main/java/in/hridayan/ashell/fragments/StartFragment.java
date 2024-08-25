@@ -7,183 +7,187 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
-
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.OnboardingAdapter;
+import in.hridayan.ashell.fragments.OnboardingItem3Fragment;
 import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.utils.Utils;
 import rikka.shizuku.Shizuku;
 
 public class StartFragment extends Fragment {
 
-    private OnboardingAdapter adapter;
-    private ViewPager2 viewPager;
-    private MaterialButton btnNext, btnPrev;
+  private OnboardingAdapter adapter;
+  private ViewPager2 viewPager;
+  private MaterialButton btnNext, btnPrev;
 
-    public StartFragment() {
-    }
+  public StartFragment() {}
 
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_start, container, false);
-        initViews(view);
-        return view;
-    }
+  @Override
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.fragment_start, container, false);
+    initViews(view);
+    return view;
+  }
 
-    private void initViews(View view) {
-        viewPager = view.findViewById(R.id.viewPager);
-        btnNext = view.findViewById(R.id.btn_next);
-        btnPrev = view.findViewById(R.id.btn_prev);
+  private void initViews(View view) {
+    viewPager = view.findViewById(R.id.viewPager);
+    btnNext = view.findViewById(R.id.btn_next);
+    btnPrev = view.findViewById(R.id.btn_prev);
 
-        adapter = new OnboardingAdapter(getChildFragmentManager(), requireActivity().getLifecycle());
+    adapter = new OnboardingAdapter(getChildFragmentManager(), requireActivity().getLifecycle());
 
-        adapter.addFragment(new OnboardingItem1Fragment());
-        adapter.addFragment(new OnboardingItem2Fragment());
-        adapter.addFragment(new OnboardingItem3Fragment());
+    adapter.addFragment(new OnboardingItem1Fragment());
+    adapter.addFragment(new OnboardingItem2Fragment());
+    adapter.addFragment(new OnboardingItem3Fragment());
 
-        viewPager.setAdapter(adapter);
+    viewPager.setAdapter(adapter);
 
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
+    viewPager.registerOnPageChangeCallback(
+        new ViewPager2.OnPageChangeCallback() {
+          @Override
+          public void onPageSelected(int position) {
+            super.onPageSelected(position);
 
-                animateBackButton(position);
-                changeContinueButtonText(position);
-            }
+            animateBackButton(position);
+            changeContinueButtonText(position);
+          }
         });
 
-        btnNext.setOnClickListener(v -> {
-            if (viewPager.getCurrentItem() == adapter.getItemCount() - 1) { // this is the last page, so verify root/shizuku and start the app
-//                if (Prefs.getString("working_method", "") == "") { // check pref for working method, if no working method saved, show toast
-//                    Toast.makeText(requireContext(), "Select a working method", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+    btnNext.setOnClickListener(
+        v -> {
+          if (viewPager.getCurrentItem() == adapter.getItemCount() - 1) {
+            // this is the last page
+            if (isBasicMode()) confirmationDialog();
+            else enterHomeFragment();
 
-                // Check which working method is selected, verify that and start the app
-//                if (Prefs.getString("working_method", "") == "root") {
-//                    check if root connection available here, if not show toast, else start the app
-//                } else if (Prefs.getString("working_method", "") == "shizuku") {
-//                    check if shizuku connection available here, if not show toast, else start the app
-//        if (Shizuku.pingBinder()) {
-//          Shizuku.requestPermission(0); // use a listener to get the result (permission granted/denied)
-//        }
-//        if (granted) {
-//        Preferences.setFirstLaunch(requireContext(), false);
-//        getParentFragmentManager()
-//                .beginTransaction()
-//                .setCustomAnimations(
-//                        R.anim.fragment_enter,
-//                        R.anim.fragment_exit,
-//                        R.anim.fragment_pop_enter,
-//                        R.anim.fragment_pop_exit
-//                )
-//                .replace(R.id.fragment_container, new AshellFragment())
-//                .commit();
-//                }
-//        }
-            } else { // this is not the last page, so just go to next page
-                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-            }
+          } else { // this is not the last page, so just go to next page
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+          }
         });
 
-        btnPrev.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true));
+    btnPrev.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true));
 
-        registerOnBackInvokedCallback();
+    registerOnBackInvokedCallback();
+  }
+
+  private boolean isBasicMode() {
+    return Preferences.getLocalAdbMode(requireContext()) == Preferences.BASIC_MODE;
+  }
+
+  private void confirmationDialog() {
+    new MaterialAlertDialogBuilder(requireActivity())
+        .setTitle(getString(R.string.warning))
+        .setMessage(getString(R.string.confirm_basic_mode))
+        .setNegativeButton(getString(R.string.cancel), null)
+        .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> enterHomeFragment())
+        .show();
+  }
+
+  private void enterHomeFragment() {
+    Preferences.setFirstLaunch(requireContext(), false);
+    getParentFragmentManager()
+        .beginTransaction()
+        .setCustomAnimations(
+            R.anim.fragment_enter,
+            R.anim.fragment_exit,
+            R.anim.fragment_pop_enter,
+            R.anim.fragment_pop_exit)
+        .replace(R.id.fragment_container, new AshellFragment())
+        .commit();
+  }
+
+  private void animateBackButton(int position) {
+    int duration = 300;
+
+    if (position == 0 && btnPrev.getVisibility() == View.VISIBLE) {
+      AlphaAnimation fadeOut = getFadeOutAnimation(duration);
+      btnPrev.startAnimation(fadeOut);
+    } else if (position != 0 && btnPrev.getVisibility() != View.VISIBLE) {
+      AlphaAnimation fadeIn = getFadeInAnimation(duration);
+      btnPrev.startAnimation(fadeIn);
     }
+  }
 
-    private void animateBackButton(int position) {
-        int duration = 300;
+  private @NonNull AlphaAnimation getFadeOutAnimation(int duration) {
+    AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
 
-        if (position == 0 && btnPrev.getVisibility() == View.VISIBLE) {
-            AlphaAnimation fadeOut = getFadeOutAnimation(duration);
-            btnPrev.startAnimation(fadeOut);
-        } else if (position != 0 && btnPrev.getVisibility() != View.VISIBLE) {
-            AlphaAnimation fadeIn = getFadeInAnimation(duration);
-            btnPrev.startAnimation(fadeIn);
-        }
-    }
+    fadeOut.setDuration(duration);
 
-    private @NonNull AlphaAnimation getFadeOutAnimation(int duration) {
-        AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+    fadeOut.setAnimationListener(
+        new Animation.AnimationListener() {
+          @Override
+          public void onAnimationStart(Animation animation) {}
 
-        fadeOut.setDuration(duration);
+          @Override
+          public void onAnimationEnd(Animation animation) {
+            btnPrev.setVisibility(View.GONE);
+          }
 
-        fadeOut.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                btnPrev.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
+          @Override
+          public void onAnimationRepeat(Animation animation) {}
         });
 
-        return fadeOut;
-    }
+    return fadeOut;
+  }
 
-    private @NonNull AlphaAnimation getFadeInAnimation(int duration) {
-        AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+  private @NonNull AlphaAnimation getFadeInAnimation(int duration) {
+    AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
 
-        fadeIn.setDuration(duration);
+    fadeIn.setDuration(duration);
 
-        fadeIn.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                btnPrev.setVisibility(View.VISIBLE);
-            }
+    fadeIn.setAnimationListener(
+        new Animation.AnimationListener() {
+          @Override
+          public void onAnimationStart(Animation animation) {
+            btnPrev.setVisibility(View.VISIBLE);
+          }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-            }
+          @Override
+          public void onAnimationEnd(Animation animation) {}
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
+          @Override
+          public void onAnimationRepeat(Animation animation) {}
         });
 
-        return fadeIn;
-    }
+    return fadeIn;
+  }
 
-    private void changeContinueButtonText(int position) {
-        if (position == adapter.getItemCount() - 1) {
-            btnNext.setText(R.string.start);
-        } else {
-            btnNext.setText(R.string.btn_continue);
-        }
+  private void changeContinueButtonText(int position) {
+    if (position == adapter.getItemCount() - 1) {
+      btnNext.setText(R.string.start);
+    } else {
+      btnNext.setText(R.string.btn_continue);
     }
+  }
 
-    private void registerOnBackInvokedCallback() {
-        requireActivity().getOnBackPressedDispatcher().addCallback(
-                requireActivity(),
-                new OnBackPressedCallback(true) {
-                    @Override
-                    public void handleOnBackPressed() {
-                        onBackPressed();
-                    }
-                });
-    }
+  private void registerOnBackInvokedCallback() {
+    requireActivity()
+        .getOnBackPressedDispatcher()
+        .addCallback(
+            requireActivity(),
+            new OnBackPressedCallback(true) {
+              @Override
+              public void handleOnBackPressed() {
+                onBackPressed();
+              }
+            });
+  }
 
-    private void onBackPressed() {
-        if (viewPager.getCurrentItem() == 0) {
-            requireActivity().finish();
-        } else {
-            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
-        }
+  private void onBackPressed() {
+    if (viewPager.getCurrentItem() == 0) {
+      requireActivity().finish();
+    } else {
+      viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
     }
+  }
 }

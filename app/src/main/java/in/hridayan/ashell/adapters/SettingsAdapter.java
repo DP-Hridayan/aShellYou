@@ -178,7 +178,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           break;
 
         case "id_default_launch_mode":
-          Utils.defaultWorkingModeDialog(context);
+          Utils.defaultLaunchModeDialog(context);
           break;
 
         case "id_save_preference":
