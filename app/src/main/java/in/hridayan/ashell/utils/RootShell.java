@@ -1,5 +1,6 @@
 package in.hridayan.ashell.utils;
 
+import android.content.Context;
 import android.util.Log;
 import com.topjohnwu.superuser.Shell;
 import in.hridayan.ashell.BuildConfig;
@@ -9,6 +10,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /** A utility class for executing shell commands and scripts with root access. */
@@ -17,18 +21,29 @@ public class RootShell {
   private static List<String> mOutput;
   private static String mCommand;
   private static Process mProcess = null;
-  private static final int TIMEOUT = 750; // in milliseconds
+  private static final int TIMEOUT = 50; // in milliseconds
+  private ScheduledExecutorService scheduler;
+  private Context context;
+  private RootPermCallback permCallback;
 
   public RootShell(List<String> output, String command) {
     mOutput = output;
     mCommand = command;
   }
 
+  public RootShell(Context context, RootPermCallback permissionCallback) {
+    this.context = context;
+    this.permCallback = permissionCallback;
+  }
+
+  public interface RootPermCallback {
+    void onRootPermGranted();
+  }
+
   // Call this method after passing output and command to RootShell
   public static void exec() {
-
     try {
-      /*We prefix the command with "su -c " to run the command with root priviledge*/
+      /*We prefix the command with "su -c " to run the command with root privilege*/
       mProcess = Runtime.getRuntime().exec("su -c " + mCommand);
 
       BufferedReader mInput = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
@@ -38,12 +53,11 @@ public class RootShell {
         mOutput.add(line);
       }
       while ((line = mError.readLine()) != null) {
-
         mOutput.add("<font color=#FF0000>" + line + "</font>");
       }
       mProcess.waitFor();
-    } catch (Exception ignored) {
-
+    } catch (Exception e) {
+      Log.e("RootShell", "Failed to execute command", e);
     }
   }
 
@@ -51,7 +65,7 @@ public class RootShell {
     initialise();
   }
 
-  // initialise the shell
+  // Initialise the shell
   private static void initialise() {
     Shell.enableVerboseLogging = BuildConfig.DEBUG;
     Shell.setDefaultBuilder(
@@ -127,34 +141,31 @@ public class RootShell {
    * @return Whether root access is available.
    */
   public static boolean hasPermission() {
-    final AtomicBoolean hasPermission = new AtomicBoolean(false);
-    final Thread thread =
-        new Thread(
-            () -> {
-              try {
-                String result = exec("echo /checkRoot/", true);
-                hasPermission.set("/checkRoot/".equals(result));
-              } catch (Exception e) {
-                // Handle the exception
-              }
-            });
+    refresh();
 
+    final AtomicBoolean hasPerm = new AtomicBoolean(false);
+
+    // Create and start a new thread to perform the root check
+    Thread thread = new Thread(() -> hasPerm.set(Shell.getShell().isRoot()));
     thread.start();
+
     try {
-      thread.join(TIMEOUT); // Wait for the specified timeout
+      // Wait for the thread to finish
+      thread.join();
     } catch (InterruptedException e) {
+      // Handle the interruption and restore the thread's interrupted status
       Thread.currentThread().interrupt();
     }
 
-    // If the thread is still alive after the timeout, interrupt it
-    if (thread.isAlive()) {
-      thread.interrupt();
-    }
-
-    return hasPermission.get();
+    // Return the result of the root check
+    return hasPerm.get();
   }
 
-  /*Checks if device is rooted or not. This method quickly returns a result after a timeout to avoid cases where output is delayed. Also this method cannot detect root if the superuser application hides the root status from aShell You */
+  /**
+   * Checks if the device is rooted. This method quickly returns a result after a timeout to avoid
+   * cases where output is delayed. Also, this method cannot detect root if the superuser
+   * application hides the root status from aShell.
+   */
   public static boolean isDeviceRooted() {
     final AtomicBoolean isRooted = new AtomicBoolean(false);
     final Thread thread =
@@ -170,7 +181,7 @@ public class RootShell {
                   isRooted.set(true);
                 }
               } catch (Exception e) {
-                // Handle the exception
+                Log.e("RootShell", "Error checking if device is rooted", e);
               } finally {
                 if (process != null) {
                   process.destroy();
@@ -203,7 +214,7 @@ public class RootShell {
   /** Closes the current shell. */
   public static void closeShell() {
     try {
-      Shell shell = Shell.getCachedShell();
+      Shell shell = Shell.getShell();
       if (shell != null) {
         shell.close();
         destroy();
@@ -215,6 +226,39 @@ public class RootShell {
 
   // Destroys the running shell process
   public static void destroy() {
-    if (mProcess != null) mProcess.destroy();
+    if (mProcess != null) {
+      mProcess.destroy();
+      mProcess = null; // Nullify the process after destruction
+    }
+  }
+
+  // Start a background task to periodically check for Root permission
+  public void startPermissionCheck() {
+    // stops previous running checks
+    stopPermissionCheck();
+
+    if (scheduler == null || scheduler.isShutdown()) {
+      scheduler = Executors.newScheduledThreadPool(1);
+    }
+
+    scheduler.scheduleAtFixedRate(
+        new Runnable() {
+          @Override
+          public void run() {
+            if (hasPermission()) {
+              if (permCallback != null) permCallback.onRootPermGranted();
+              stopPermissionCheck();
+            }
+          }
+        },
+        0,
+        500,
+        TimeUnit.MILLISECONDS);
+  }
+
+  public void stopPermissionCheck() {
+    if (scheduler != null && !scheduler.isShutdown()) {
+      scheduler.shutdown();
+    }
   }
 }

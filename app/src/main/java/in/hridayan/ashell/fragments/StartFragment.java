@@ -1,7 +1,6 @@
 package in.hridayan.ashell.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +8,13 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.OnboardingAdapter;
-import in.hridayan.ashell.fragments.OnboardingItem3Fragment;
 import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.Utils;
-import rikka.shizuku.Shizuku;
 
 public class StartFragment extends Fragment {
 
@@ -163,11 +156,8 @@ public class StartFragment extends Fragment {
   }
 
   private void changeContinueButtonText(int position) {
-    if (position == adapter.getItemCount() - 1) {
-      btnNext.setText(R.string.start);
-    } else {
-      btnNext.setText(R.string.btn_continue);
-    }
+    if (position == adapter.getItemCount() - 1) btnNext.setText(R.string.start);
+    else btnNext.setText(R.string.btn_continue);
   }
 
   private void registerOnBackInvokedCallback() {
@@ -184,10 +174,7 @@ public class StartFragment extends Fragment {
   }
 
   private void onBackPressed() {
-    if (viewPager.getCurrentItem() == 0) {
-      requireActivity().finish();
-    } else {
-      viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
-    }
+    if (viewPager.getCurrentItem() == 0) requireActivity().finish();
+    else viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
   }
 }

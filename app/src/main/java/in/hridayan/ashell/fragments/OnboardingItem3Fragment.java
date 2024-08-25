@@ -16,10 +16,12 @@ import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import rikka.shizuku.Shizuku;
 
-public class OnboardingItem3Fragment extends Fragment implements ShizukuShell.ShizukuPermCallback {
+public class OnboardingItem3Fragment extends Fragment
+    implements ShizukuShell.ShizukuPermCallback, RootShell.RootPermCallback {
 
   private static FragmentOnboardingItem3Binding binding;
   private ShizukuShell shizukuShell;
+  private RootShell rootShell;
 
   @Override
   public View onCreateView(
@@ -27,16 +29,22 @@ public class OnboardingItem3Fragment extends Fragment implements ShizukuShell.Sh
     binding = FragmentOnboardingItem3Binding.inflate(inflater, container, false);
 
     shizukuShell = new ShizukuShell(requireContext(), this);
+    rootShell = new RootShell(requireContext(), this);
 
     binding.root.setOnClickListener(
         v -> {
-          permGrantedToast();
-          // requestRootPermission();
+          // we donot select the widget unless we get root permission
+          binding.root.setSelected(false);
+          rootShell.stopPermissionCheck();
+          // request root permission
+          requestRootPermission();
+
           binding.shizuku.setSelected(false);
         });
 
     binding.shizuku.setOnClickListener(
         v -> {
+          binding.shizuku.setSelected(false);
           // start permission check
           shizukuShell.startPermissionCheck();
           // request shizuku permission
@@ -50,17 +58,31 @@ public class OnboardingItem3Fragment extends Fragment implements ShizukuShell.Sh
 
   // request root permission
   private void requestRootPermission() {
-    RootShell.exec("su", true);
     RootShell.refresh();
-    if (!RootShell.hasPermission()) {
-      // if permission not granted , then ask the user to manually grant root permission
-      // unselect the root permission widget
-      binding.root.setSelected(false);
-    } else {
-      // Set root mode as preferred mode for running local adb commands
-      Preferences.setLocalAdbMode(requireContext(), Preferences.ROOT_MODE);
-      permGrantedToast();
-    }
+    if (!RootShell.isDeviceRooted()) handleRootUnavailability();
+    else rootShell.startPermissionCheck();
+  }
+
+  @Override
+  public void onRootPermGranted() {
+    requireActivity()
+        .runOnUiThread(
+            () -> {
+              binding.root.setSelected(true);
+              permGrantedToast();
+              // set default local adb mode to root
+              Preferences.setLocalAdbMode(requireContext(), Preferences.ROOT_MODE);
+            });
+  }
+
+  // show this dialog if device is not rooted
+  private void handleRootUnavailability() {
+    binding.root.setSelected(false);
+    new MaterialAlertDialogBuilder(requireActivity())
+        .setTitle(getString(R.string.warning))
+        .setMessage(getString(R.string.root_unavailable_message))
+        .setPositiveButton(getString(R.string.ok), null)
+        .show();
   }
 
   // request shizuku permission
@@ -68,8 +90,7 @@ public class OnboardingItem3Fragment extends Fragment implements ShizukuShell.Sh
     // Shizuku is not installed or running
     if (!Shizuku.pingBinder()) handleShizukuUnavailability();
     // Shizuku is running but havenot granted permission to aShellYou
-    else if (!ShizukuShell.hasPermission())
-      Utils.shizukuPermRequestDialog(requireActivity(), requireContext());
+    else if (!ShizukuShell.hasPermission()) Shizuku.requestPermission(0);
   }
 
   // this block executes immediately after permission is granted
@@ -78,6 +99,7 @@ public class OnboardingItem3Fragment extends Fragment implements ShizukuShell.Sh
     requireActivity()
         .runOnUiThread(
             () -> {
+              binding.shizuku.setSelected(true);
               permGrantedToast();
               // set default local adb mode to shizuku
               Preferences.setLocalAdbMode(requireContext(), Preferences.SHIZUKU_MODE);

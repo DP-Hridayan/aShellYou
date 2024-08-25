@@ -687,7 +687,7 @@ public class Utils {
   public static interface FetchLatestVersionCodeCallback {
     void onResult(int result);
   }
-    
+
   // Bottom sheet showing the popup after the app is updated
   public static void showBottomSheetChangelog(Activity activity) {
     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
