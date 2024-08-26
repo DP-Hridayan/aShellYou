@@ -270,6 +270,23 @@ public class SettingsFragment extends Fragment {
 
     // After recyclerview is drawn, start the transition
     binding.rvSettings.getViewTreeObserver().addOnDrawListener(this::startPostponedEnterTransition);
+
+    // intentional crash
+    throwLongException();
+
     return view;
+  }
+
+  public String generateLongMessage() {
+    StringBuilder message = new StringBuilder("Long Exception Message: ");
+    for (int i = 0; i < 1000; i++) { // Adjust the loop count for longer messages
+      message.append("This is line ").append(i).append(". ");
+    }
+    return message.toString();
+  }
+
+  public void throwLongException() {
+    String longMessage = generateLongMessage();
+    throw new RuntimeException(longMessage);
   }
 }
