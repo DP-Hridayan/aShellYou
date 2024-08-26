@@ -271,8 +271,8 @@ public class SettingsFragment extends Fragment {
     // After recyclerview is drawn, start the transition
     binding.rvSettings.getViewTreeObserver().addOnDrawListener(this::startPostponedEnterTransition);
 
-    // intentional crash
-    throwLongException();
+    // intentional crash with a long message
+    // throwLongException();
 
     return view;
   }
