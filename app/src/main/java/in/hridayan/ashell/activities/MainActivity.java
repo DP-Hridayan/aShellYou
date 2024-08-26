@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
     ThemeUtils.updateTheme(this);
-    DynamicColors.applyToActivitiesIfAvailable(getApplication());
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
@@ -250,6 +249,14 @@ public class MainActivity extends AppCompatActivity
             .addSharedElement(settingsButton, tag)
             .addToBackStack(fragment.getClass().getSimpleName());
       }
+      if (currentFragment == EXAMPLES_FRAGMENT) {
+        String tag = "sendButtonToExamples";
+        View sendButton = getSendButtonView();
+
+        transaction
+            .addSharedElement(sendButton, tag)
+            .addToBackStack(fragment.getClass().getSimpleName());
+      }
 
       transaction.commit();
       setCurrentFragment();
@@ -260,6 +267,12 @@ public class MainActivity extends AppCompatActivity
     return viewModel.whichHomeFragment() == Preferences.LOCAL_FRAGMENT
         ? AshellFragment.getSettingsButtonView()
         : OtgFragment.getSettingsButtonView();
+  }
+
+  private View getSendButtonView() {
+    return viewModel.whichHomeFragment() == Preferences.LOCAL_FRAGMENT
+        ? AshellFragment.getSendButtonView()
+        : OtgFragment.getSendButtonView();
   }
 
   private void handlePendingSharedText() {

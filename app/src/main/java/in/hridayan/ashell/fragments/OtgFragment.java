@@ -110,7 +110,7 @@ public class OtgFragment extends Fragment
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
   private AboutViewModel aboutViewModel;
-  private static WeakReference<View> settingsButtonRef;
+  private static WeakReference<View> settingsButtonRef, sendButtonRef;
 
   public interface OnFragmentInteractionListener {
     void onRequestReset();
@@ -247,6 +247,8 @@ public class OtgFragment extends Fragment
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
     settingsButtonRef = new WeakReference<>(binding.settingsButton);
+    sendButtonRef = new WeakReference<>(binding.sendButton);
+
     // initialize viewmodel
     initializeViewModels();
 
@@ -1073,5 +1075,9 @@ public class OtgFragment extends Fragment
 
   public static View getSettingsButtonView() {
     return settingsButtonRef != null ? settingsButtonRef.get() : null;
+  }
+
+  public static View getSendButtonView() {
+    return sendButtonRef != null ? sendButtonRef.get() : null;
   }
 }

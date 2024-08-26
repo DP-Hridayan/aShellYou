@@ -92,7 +92,7 @@ public class AshellFragment extends Fragment {
   private String shell;
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
-  private static WeakReference<View> settingsButtonRef;
+  private static WeakReference<View> settingsButtonRef, sendButtonRef;
 
   public AshellFragment() {}
 
@@ -257,6 +257,7 @@ public class AshellFragment extends Fragment {
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
     settingsButtonRef = new WeakReference<>(binding.settingsButton);
+    sendButtonRef = new WeakReference<>(binding.sendButton);
 
     initializeViewModels();
 
@@ -1370,9 +1371,10 @@ public class AshellFragment extends Fragment {
 
   // Open command examples fragment
   private void goToExamples() {
-
-    examplesViewModel.setRVPositionAndOffset(null);
-    examplesViewModel.setToolbarExpanded(true);
+    if (examplesViewModel != null) {
+      examplesViewModel.setRVPositionAndOffset(null);
+      examplesViewModel.setToolbarExpanded(true);
+    }
 
     setExitTransition(new Hold());
     ExamplesFragment fragment = new ExamplesFragment();
@@ -1395,7 +1397,6 @@ public class AshellFragment extends Fragment {
     }
 
     setExitTransition(new Hold());
-
     SettingsFragment fragment = new SettingsFragment();
 
     requireActivity()
@@ -1439,6 +1440,10 @@ public class AshellFragment extends Fragment {
   // we refer the settings button view to use in activity
   public static View getSettingsButtonView() {
     return settingsButtonRef != null ? settingsButtonRef.get() : null;
+  }
+
+  public static View getSendButtonView() {
+    return sendButtonRef != null ? sendButtonRef.get() : null;
   }
 
   // control visibility of paste and save button
