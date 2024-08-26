@@ -21,6 +21,7 @@ public class StartFragment extends Fragment {
   private OnboardingAdapter adapter;
   private ViewPager2 viewPager;
   private MaterialButton btnNext, btnPrev;
+  private OnBackPressedCallback onBackPressedCallback;
 
   public StartFragment() {}
 
@@ -161,20 +162,29 @@ public class StartFragment extends Fragment {
   }
 
   private void registerOnBackInvokedCallback() {
+    onBackPressedCallback =
+        new OnBackPressedCallback(true) {
+          @Override
+          public void handleOnBackPressed() {
+            onBackPressed();
+          }
+        };
+
     requireActivity()
         .getOnBackPressedDispatcher()
-        .addCallback(
-            requireActivity(),
-            new OnBackPressedCallback(true) {
-              @Override
-              public void handleOnBackPressed() {
-                onBackPressed();
-              }
-            });
+        .addCallback(requireActivity(), onBackPressedCallback);
   }
 
   private void onBackPressed() {
     if (viewPager.getCurrentItem() == 0) requireActivity().finish();
     else viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    if (onBackPressedCallback != null) {
+      onBackPressedCallback.remove(); // Deregister the callback
+    }
   }
 }
