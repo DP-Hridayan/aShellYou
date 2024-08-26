@@ -1034,10 +1034,24 @@ public class AshellFragment extends Fragment {
           /*This block w if root mode is selected*/
           else if (isRootMode()) {
             if (!RootShell.isDeviceRooted()) handleRootUnavailability();
-            else if (!RootShell.hasPermission())
-              Utils.rootPermRequestDialog(requireActivity(), context);
-            else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
-            else execShell(v);
+            else {
+              // We perform root shell permission check on a new thread
+              ExecutorService executor = Executors.newSingleThreadExecutor();
+              executor.execute(
+                  () -> {
+                    boolean hasPermission = RootShell.hasPermission();
+
+                    requireActivity()
+                        .runOnUiThread(
+                            () -> {
+                              if (!hasPermission)
+                                Utils.rootPermRequestDialog(requireActivity(), context);
+                              else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
+                              else execShell(v);
+                            });
+                  });
+              executor.shutdown();
+            }
           }
         });
   }
