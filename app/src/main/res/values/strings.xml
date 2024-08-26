@@ -125,8 +125,8 @@
     <string name="request_permission">Request Permission</string>
     <string name="report">Report</string>
     <string
-            name="root"
-            translatable="false">Root</string>
+        name="root"
+        translatable="false">Root</string>
     <string name="root_access_denied_message">Root access is currently denied for aShell You. Grant root access or switch to non-root method</string>
     <string name="root_unavailable">Device is not rooted</string>
     <string name="root_unavailable_message">Root is not detected. Device might not be rooted or root presence might be hidden from aShell You</string>
@@ -147,8 +147,8 @@
     <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\' folder</string>
     <string name="shell_working">Shell is working</string>
     <string
-            name="shizuku"
-            translatable="false">Shizuku</string>
+        name="shizuku"
+        translatable="false">Shizuku</string>
     <string name="shizuku_about">About Shizuku</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You. aShell You won\'t work without a proper Shizuku environment.</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
@@ -228,5 +228,8 @@
     <string name="mode_two_title">Shizuku</string>
     <string name="mode_two_desc">Use shizuku to run commands. Commands that require root won\'t execute.</string>
     <string name="confirm_basic_mode">No higher privelege is granted. App will only execute basic commands. You can change the working mode later in settings</string>
-
+    <string name="examples_layout_style">Examples layout style</string>
+    <string name="des_examples_layout_style">Choose the preferred layout style to view command examples</string>
+    <string name="grid">Grid</string>
+    <string name="list">List</string>
 </resources>

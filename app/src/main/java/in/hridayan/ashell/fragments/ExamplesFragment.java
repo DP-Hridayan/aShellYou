@@ -177,8 +177,8 @@ public class ExamplesFragment extends Fragment
         new GridLayoutManager(
             context,
             getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-                ? 2
-                : 1);
+                ? Preferences.GRID_STYLE
+                : Preferences.getExamplesLayoutStyle(context));
     binding.rvSearchView.setLayoutManager(mLayoutManager);
 
     mExamplesAdapter = new ExamplesAdapter(Commands.commandList(context), context, this);

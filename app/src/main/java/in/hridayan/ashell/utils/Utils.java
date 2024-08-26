@@ -867,4 +867,31 @@ public class Utils {
     return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
         == Configuration.UI_MODE_NIGHT_YES;
   }
+
+  public static void examplesLayoutStyleDialog(Context context) {
+    final CharSequence[] preferences = {
+      context.getString(R.string.list), context.getString(R.string.grid)
+    };
+
+    int savePreference = Preferences.getExamplesLayoutStyle(context) - 1;
+    final int[] preference = {savePreference};
+
+    String title = context.getString(R.string.choose);
+
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(title)
+        .setSingleChoiceItems(
+            preferences,
+            savePreference,
+            (dialog, which) -> {
+              preference[0] = which + 1;
+            })
+        .setPositiveButton(
+            context.getString(R.string.choose),
+            (dialog, which) -> {
+              Preferences.setExamplesLayoutStyle(context, preference[0]);
+            })
+        .setNegativeButton(context.getString(R.string.cancel), null)
+        .show();
+  }
 }

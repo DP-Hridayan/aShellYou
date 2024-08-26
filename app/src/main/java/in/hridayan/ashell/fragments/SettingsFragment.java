@@ -201,6 +201,15 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
+            "id_examples_layout_style",
+            R.drawable.ic_styles,
+            getString(R.string.examples_layout_style),
+            getString(R.string.des_examples_layout_style),
+            false,
+            false));
+
+    settingsData.add(
+        new SettingsItem(
             "id_vibration",
             R.drawable.ic_vibration,
             getString(R.string.vibration),

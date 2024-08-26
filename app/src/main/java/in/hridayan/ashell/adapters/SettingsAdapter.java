@@ -180,7 +180,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         case "id_default_launch_mode":
           Utils.defaultLaunchModeDialog(context);
           break;
-
+                
+                case "id_examples_layout_style" :
+                Utils.examplesLayoutStyleDialog(context);
+break;
+                
         case "id_save_preference":
           Utils.savePreferenceDialog(context);
           break;

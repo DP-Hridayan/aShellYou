@@ -34,7 +34,8 @@ public class Preferences {
       PREF_LAST_SAVED_FILENAME = "last_saved_filename",
       PREF_HAPTICS_AND_VIBRATION = "id_vibration",
       PREF_LOCAL_ADB_MODE = "id_local_adb_mode",
-      PREF_ACTIVITY_RECREATED = "activity_recreated";
+      PREF_ACTIVITY_RECREATED = "activity_recreated",
+      PREF_EXAMPLES_LAYOUT_STYLE = "id_examples_layout_style";
   public static final int SORT_A_TO_Z = 0,
       SORT_Z_TO_A = 1,
       SORT_MOST_USED = 2,
@@ -58,7 +59,9 @@ public class Preferences {
       ALL_OUTPUT = 1,
       BASIC_MODE = 0,
       SHIZUKU_MODE = 1,
-      ROOT_MODE = 2;
+      ROOT_MODE = 2,
+      LIST_STYLE = 1,
+      GRID_STYLE = 2;
 
   private static SharedPreferences getSharedPreferences(Context context) {
     return PreferenceManager.getDefaultSharedPreferences(context);
@@ -195,6 +198,14 @@ public class Preferences {
 
   public static void setSortingOption(Context context, int value) {
     getSharedPreferences(context).edit().putInt(PREF_SORTING_OPTION, value).apply();
+  }
+
+  public static int getExamplesLayoutStyle(Context context) {
+    return getSharedPreferences(context).getInt(PREF_EXAMPLES_LAYOUT_STYLE, LIST_STYLE);
+  }
+
+  public static void setExamplesLayoutStyle(Context context, int value) {
+    getSharedPreferences(context).edit().putInt(PREF_EXAMPLES_LAYOUT_STYLE, value).apply();
   }
 
   public static int getSortingExamples(Context context) {

@@ -12,7 +12,7 @@
     app:cardBackgroundColor="?attr/colorSurfaceContainer"
     app:cardElevation="0dp"
     app:strokeWidth="0dp"
-    app:strokeColor="?attr/colorTertiary" 
+    app:strokeColor="?attr/colorTertiary"
     app:cardCornerRadius="15dp"
     android:layout_gravity="center">
 
