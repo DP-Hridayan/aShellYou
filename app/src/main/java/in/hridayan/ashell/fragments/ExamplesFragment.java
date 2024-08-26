@@ -186,6 +186,7 @@ public class ExamplesFragment extends Fragment
     mExamplesAdapter.setOnItemClickListener(this);
     binding.rvSearchView.setAdapter(mExamplesAdapter);
     binding.rvSearchView.setVisibility(View.VISIBLE);
+
     editText.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -214,6 +215,7 @@ public class ExamplesFragment extends Fragment
 
     binding.chipSearchSummary.setVisibility(View.GONE);
     binding.noCommandFound.setVisibility(View.GONE);
+    binding.searchImg.setVisibility(View.VISIBLE);
 
     if (text != null && !text.toString().isEmpty()) {
 
@@ -222,10 +224,14 @@ public class ExamplesFragment extends Fragment
       if (filteredList.isEmpty()) {
         binding.noCommandFound.setVisibility(View.VISIBLE);
         binding.chipSearchSummary.setVisibility(View.VISIBLE);
+        binding.searchImg.setVisibility(View.VISIBLE);
         if (isSummaryChipClicked) chipSummaryOnClick(text, filteredList);
         /* if filtered list is empty again after running chipSummaryOnClick, then we show no command found text message */
-        if (filteredList.isEmpty()) binding.noCommandFound.setVisibility(View.VISIBLE);
-      }
+        if (filteredList.isEmpty()) {
+          binding.noCommandFound.setVisibility(View.VISIBLE);
+          binding.searchImg.setVisibility(View.VISIBLE);
+        }
+      } else binding.searchImg.setVisibility(View.GONE);
     }
     binding.rvSearch.setVisibility(View.VISIBLE);
     CommandsSearchAdapter adapter = new CommandsSearchAdapter(filteredList, context, this);
@@ -260,6 +266,7 @@ public class ExamplesFragment extends Fragment
   /* Onclick function for the chip which appears when no search result is found when only searched through titles */
   private void chipSummaryOnClick(CharSequence text, List<CommandItems> filteredList) {
     binding.noCommandFound.setVisibility(View.GONE);
+    binding.searchImg.setVisibility(View.GONE);
     searchTitleAndSummary(text, filteredList);
     binding.chipSearchSummary.setVisibility(View.GONE);
   }
