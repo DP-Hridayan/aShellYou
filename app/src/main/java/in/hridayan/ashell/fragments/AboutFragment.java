@@ -227,10 +227,13 @@ public class AboutFragment extends Fragment
   @Override
   public void onCheckUpdate(Button button, LottieAnimationView animation) {
     this.loadingDots = animation;
-    updateButtonIcon = button.getCompoundDrawables()[0]; // Save the original icon
-    button.setText(null);
-    // casting button to MaterialButton to use setIcon method.
-    ((MaterialButton) button).setIcon(null);
+    if (button != null) {
+      updateButtonIcon = button.getCompoundDrawables()[0]; // Save the original icon
+      button.setText(null);
+      // casting button to MaterialButton to use setIcon method.
+      ((MaterialButton) button).setIcon(null);
+    }
+
     loadingDots.setVisibility(View.VISIBLE);
     new FetchLatestVersionCode(getContext(), this).execute(Preferences.buildGradleUrl);
   }
