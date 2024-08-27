@@ -29,7 +29,7 @@ import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.databinding.FragmentExamplesBinding;
-import in.hridayan.ashell.utils.CommandItems;
+import in.hridayan.ashell.items.CommandItems;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;

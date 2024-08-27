@@ -1,7 +1,7 @@
 package in.hridayan.ashell.viewmodels;
 
 import android.util.Pair;
-import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.items.SettingsItem;
 import java.util.List;
 import androidx.lifecycle.ViewModel;
 

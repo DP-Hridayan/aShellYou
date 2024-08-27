@@ -1,9 +1,9 @@
 package in.hridayan.ashell.UI;
 
-public class Category {
+public class CategoryAbout {
   private String name;
 
-  public Category(String name) {
+  public CategoryAbout(String name) {
     this.name = name;
   }
 

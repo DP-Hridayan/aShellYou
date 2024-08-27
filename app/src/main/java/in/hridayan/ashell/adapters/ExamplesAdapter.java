@@ -17,7 +17,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.utils.CommandItems;
+import in.hridayan.ashell.items.CommandItems;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.Utils;

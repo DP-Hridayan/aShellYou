@@ -13,7 +13,7 @@ import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.ThemeUtils;
+import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
 import java.text.SimpleDateFormat;

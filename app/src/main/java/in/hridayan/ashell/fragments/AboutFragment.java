@@ -22,13 +22,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.Hold;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.Category;
+import in.hridayan.ashell.UI.CategoryAbout;
 import in.hridayan.ashell.adapters.AboutAdapter;
 import in.hridayan.ashell.databinding.FragmentAboutBinding;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.ToastUtils;
+import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import java.util.ArrayList;
@@ -85,61 +85,61 @@ public class AboutFragment extends Fragment
 
   private List<Object> initializeItems() {
     List<Object> items = new ArrayList<>();
-    items.add(new Category(getString(R.string.lead_developer)));
+    items.add(new CategoryAbout(getString(R.string.lead_developer)));
     items.add(
-        new Category.LeadDeveloperItem(
+        new CategoryAbout.LeadDeveloperItem(
             "Hridayan", getString(R.string.hridayan_about), R.mipmap.dp_hridayan));
 
-    items.add(new Category(getString(R.string.contributors)));
+    items.add(new CategoryAbout(getString(R.string.contributors)));
     items.add(
-        new Category.ContributorsItem(
+        new CategoryAbout.ContributorsItem(
             "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
     items.add(
-        new Category.ContributorsItem(
+        new CategoryAbout.ContributorsItem(
             "id_shivam", "Stɑrry Shivɑm", getString(R.string.shivam_about), R.mipmap.dp_shivam));
     items.add(
-        new Category.ContributorsItem(
+        new CategoryAbout.ContributorsItem(
             "id_drDisagree",
             "DrDisagree",
             getString(R.string.drDisagree_about),
             R.mipmap.dp_drdisagree));
     items.add(
-        new Category.ContributorsItem(
+        new CategoryAbout.ContributorsItem(
             "id_rikka", "RikkaApps", getString(R.string.rikka_about), R.mipmap.dp_shizuku));
     items.add(
-        new Category.ContributorsItem(
+        new CategoryAbout.ContributorsItem(
             "id_sunilpaulmathew",
             "Sunilpaulmathew",
             getString(R.string.sunilpaulmathew_about),
             R.mipmap.dp_sunilpaulmathew));
     items.add(
-        new Category.ContributorsItem(
+        new CategoryAbout.ContributorsItem(
             "id_khun_htetz",
             "Khun Htetz Naing",
             getString(R.string.khun_htetz_about),
             R.mipmap.dp_adb_otg));
     items.add(
-        new Category.ContributorsItem(
+        new CategoryAbout.ContributorsItem(
             "id_marciozomb13",
             "marciozomb13",
             getString(R.string.marciozomb13_about),
             R.mipmap.dp_marciozomb13));
     items.add(
-        new Category.ContributorsItem(
+        new CategoryAbout.ContributorsItem(
             "id_weiguangtwk",
             "weiguangtwk",
             getString(R.string.weiguangtwk_about),
             R.mipmap.dp_weiguangtwk));
     items.add(
-        new Category.ContributorsItem(
+        new CategoryAbout.ContributorsItem(
             "id_winzort", "WINZORT", getString(R.string.winzort_about), R.mipmap.dp_winzort));
 
-    items.add(new Category(getString(R.string.app)));
+    items.add(new CategoryAbout(getString(R.string.app)));
     try {
       PackageInfo pInfo =
           requireContext().getPackageManager().getPackageInfo(requireContext().getPackageName(), 0);
       items.add(
-          new Category.AppItem(
+          new CategoryAbout.AppItem(
               "id_version",
               getString(R.string.version),
               pInfo.versionName,
@@ -148,37 +148,37 @@ public class AboutFragment extends Fragment
     }
 
     items.add(
-        new Category.AppItem(
+        new CategoryAbout.AppItem(
             "id_changelogs",
             getString(R.string.changelogs),
             getString(R.string.des_changelogs),
             R.drawable.ic_changelog));
     items.add(
-        new Category.AppItem(
+        new CategoryAbout.AppItem(
             "id_report",
             getString(R.string.report_issue),
             getString(R.string.des_report_issue),
             R.drawable.ic_report));
     items.add(
-        new Category.AppItem(
+        new CategoryAbout.AppItem(
             "id_feature",
             getString(R.string.feature_request),
             getString(R.string.des_feature_request),
             R.drawable.ic_feature));
     items.add(
-        new Category.AppItem(
+        new CategoryAbout.AppItem(
             "id_github",
             getString(R.string.github),
             getString(R.string.des_github),
             R.drawable.ic_github));
     items.add(
-        new Category.AppItem(
+        new CategoryAbout.AppItem(
             "id_telegram",
             getString(R.string.telegram_channel),
             getString(R.string.des_telegram_channel),
             R.drawable.ic_telegram));
     items.add(
-        new Category.AppItem(
+        new CategoryAbout.AppItem(
             "id_license",
             getString(R.string.license),
             getString(R.string.des_license),

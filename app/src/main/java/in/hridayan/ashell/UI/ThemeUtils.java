@@ -1,4 +1,4 @@
-package in.hridayan.ashell.utils;
+package in.hridayan.ashell.UI;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -6,6 +6,8 @@ import android.os.Build;
 import android.util.TypedValue;
 import androidx.appcompat.app.AppCompatActivity;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.utils.Utils;
 
 public class ThemeUtils {
   private static boolean isAmoledTheme;

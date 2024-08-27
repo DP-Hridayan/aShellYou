@@ -1,4 +1,4 @@
-package in.hridayan.ashell.utils;
+package in.hridayan.ashell.items;
 
 import android.content.Context;
 import java.io.Serializable;

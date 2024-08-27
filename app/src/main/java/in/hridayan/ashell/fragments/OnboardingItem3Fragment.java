@@ -12,7 +12,7 @@ import in.hridayan.ashell.databinding.FragmentOnboardingItem3Binding;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.RootShell;
 import in.hridayan.ashell.utils.ShizukuShell;
-import in.hridayan.ashell.utils.ToastUtils;
+import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

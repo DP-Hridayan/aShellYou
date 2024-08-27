@@ -22,7 +22,7 @@ import in.hridayan.ashell.databinding.FragmentSettingsBinding;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.MiuiCheck;
 import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;

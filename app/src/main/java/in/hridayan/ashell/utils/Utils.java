@@ -39,6 +39,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.UI.ToastUtils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;

@@ -12,7 +12,7 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.List;
 
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.utils.CommandItems;
+import in.hridayan.ashell.items.CommandItems;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 05, 2022

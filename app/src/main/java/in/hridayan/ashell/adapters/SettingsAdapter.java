@@ -25,7 +25,7 @@ import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;

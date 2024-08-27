@@ -1,4 +1,4 @@
-package in.hridayan.ashell.utils;
+package in.hridayan.ashell.items;
 
 import androidx.annotation.Nullable;
 import android.content.Context;

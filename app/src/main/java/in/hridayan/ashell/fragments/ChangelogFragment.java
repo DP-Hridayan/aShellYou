@@ -18,7 +18,7 @@ import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.databinding.FragmentChangelogBinding;
-import in.hridayan.ashell.utils.ChangelogItem;
+import in.hridayan.ashell.items.ChangelogItem;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.ChangelogViewModel;

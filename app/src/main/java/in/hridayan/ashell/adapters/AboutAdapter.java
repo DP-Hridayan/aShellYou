@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.card.MaterialCardView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.Category;
+import in.hridayan.ashell.UI.CategoryAbout;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -51,10 +51,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   @Override
   public int getItemViewType(int position) {
     Object item = items.get(position);
-    if (item instanceof Category) return CATEGORY;
-    else if (item instanceof Category.LeadDeveloperItem) return CATEGORY_LEAD_DEV_ITEM;
-    else if (item instanceof Category.ContributorsItem) return CATEGORY_CONTRIBUTORS_ITEM;
-    else if (item instanceof Category.AppItem) return CATEGORY_APP_ITEM;
+    if (item instanceof CategoryAbout) return CATEGORY;
+    else if (item instanceof CategoryAbout.LeadDeveloperItem) return CATEGORY_LEAD_DEV_ITEM;
+    else if (item instanceof CategoryAbout.ContributorsItem) return CATEGORY_CONTRIBUTORS_ITEM;
+    else if (item instanceof CategoryAbout.AppItem) return CATEGORY_APP_ITEM;
     return -1;
   }
 
@@ -83,17 +83,14 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
     Object item = items.get(position);
     if (holder instanceof CategoryViewHolder) {
-      ((CategoryViewHolder) holder).bind((Category) item);
+      ((CategoryViewHolder) holder).bind((CategoryAbout) item);
     } else if (holder instanceof LeadDeveloperItemViewHolder) {
-      ((LeadDeveloperItemViewHolder) holder).bind((Category.LeadDeveloperItem) item);
+      ((LeadDeveloperItemViewHolder) holder).bind((CategoryAbout.LeadDeveloperItem) item);
     } else if (holder instanceof ContributorsItemViewHolder) {
-      ((ContributorsItemViewHolder) holder).bind((Category.ContributorsItem) item);
+      ((ContributorsItemViewHolder) holder).bind((CategoryAbout.ContributorsItem) item);
     } else if (holder instanceof AppItemViewHolder) {
-      ((AppItemViewHolder) holder).bind(
-              (Category.AppItem) item,
-              position == items.size() - 1,
-              activity
-      );
+      ((AppItemViewHolder) holder)
+          .bind((CategoryAbout.AppItem) item, position == items.size() - 1, activity);
     }
   }
 
@@ -110,7 +107,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       categoryTextView = itemView.findViewById(R.id.category_text_view);
     }
 
-    public void bind(Category category) {
+    public void bind(CategoryAbout category) {
       categoryTextView.setText(category.getName());
     }
   }
@@ -131,7 +128,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       mSupportButton = itemView.findViewById(R.id.support);
     }
 
-    public void bind(Category.LeadDeveloperItem item) {
+    public void bind(CategoryAbout.LeadDeveloperItem item) {
       imageView.setImageResource(item.getImageResource());
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
@@ -168,7 +165,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       categoryContributorsLayout = itemView.findViewById(R.id.category_contributors_layout);
     }
 
-    public void bind(Category.ContributorsItem item) {
+    public void bind(CategoryAbout.ContributorsItem item) {
       imageView.setImageResource(item.getImageResource());
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
@@ -214,11 +211,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-              if (endHeight == 0)
-                view.setVisibility(View.GONE);
-              else
-                view.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-
+              if (endHeight == 0) view.setVisibility(View.GONE);
+              else view.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
             }
           });
       animator.setDuration(duration);
@@ -245,7 +239,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       mListener = listener;
     }
 
-    public void bind(Category.AppItem item, boolean isLastItem, Activity activity) {
+    public void bind(CategoryAbout.AppItem item, boolean isLastItem, Activity activity) {
       imageView.setImageResource(item.getImageResource());
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
@@ -264,12 +258,12 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if ("id_changelogs".equals(item.getId())) {
               ChangelogFragment fragment = new ChangelogFragment();
               ((MainActivity) activity)
-                      .getSupportFragmentManager()
-                      .beginTransaction()
-                      .addSharedElement(itemView, itemView.getTransitionName())
-                      .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
-                      .addToBackStack(fragment.getClass().getSimpleName())
-                      .commit();
+                  .getSupportFragmentManager()
+                  .beginTransaction()
+                  .addSharedElement(itemView, itemView.getTransitionName())
+                  .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+                  .addToBackStack(fragment.getClass().getSimpleName())
+                  .commit();
             }
           };
 
