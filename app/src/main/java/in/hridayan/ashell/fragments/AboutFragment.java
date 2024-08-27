@@ -268,7 +268,7 @@ public class AboutFragment extends Fragment
 
   private void latestVersionDialog(Context context) {
     if (isAdded()) {
-      View dialogView = LayoutInflater.from(context).inflate(R.layout.latest_version_dialog, null);
+      View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_latest_version, null);
 
       new MaterialAlertDialogBuilder(context).setView(dialogView).show();
     }

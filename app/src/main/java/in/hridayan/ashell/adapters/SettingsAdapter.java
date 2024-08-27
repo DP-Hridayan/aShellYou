@@ -20,12 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
+import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -178,19 +179,19 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           break;
 
         case "id_default_launch_mode":
-          Utils.defaultLaunchModeDialog(context);
+          DialogUtils.defaultLaunchModeDialog(context);
           break;
-                
-                case "id_examples_layout_style" :
-                Utils.examplesLayoutStyleDialog(context);
-break;
-                
+
+        case "id_examples_layout_style":
+          DialogUtils.examplesLayoutStyleDialog(context);
+          break;
+
         case "id_save_preference":
-          Utils.savePreferenceDialog(context);
+          DialogUtils.savePreferenceDialog(context);
           break;
 
         case "id_local_adb_mode":
-          Utils.localAdbModeDialog(context);
+          DialogUtils.localAdbModeDialog(context);
           break;
       }
     }

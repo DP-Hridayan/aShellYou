@@ -32,14 +32,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.UI.ToastUtils;
 import java.io.BufferedReader;
 import java.io.File;
@@ -56,7 +53,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import rikka.shizuku.Shizuku;
 
 public class Utils {
   public static Intent intent;
@@ -290,120 +286,6 @@ public class Utils {
     }
   }
 
-  public static void bookmarksDialog(
-      Context context,
-      Activity activity,
-      TextInputEditText mCommand,
-      TextInputLayout mCommandInput) {
-
-    List<String> bookmarks = Utils.getBookmarks(context);
-
-    int totalBookmarks = bookmarks.size();
-
-    String title = context.getString(R.string.bookmarks) + " (" + totalBookmarks + ")";
-
-    CharSequence[] bookmarkItems = new CharSequence[bookmarks.size()];
-    for (int i = 0; i < bookmarks.size(); i++) {
-      bookmarkItems[i] = bookmarks.get(i);
-    }
-
-    new MaterialAlertDialogBuilder(activity)
-        .setTitle(title)
-        .setItems(
-            bookmarkItems,
-            (dialog, which) -> {
-              mCommand.setText(bookmarks.get(which));
-              mCommand.setSelection(mCommand.getText().length());
-            })
-        .setPositiveButton(context.getString(R.string.cancel), null)
-        .setNegativeButton(
-            context.getString(R.string.sort),
-            (dialogInterface, i) -> {
-              Utils.sortingDialog(context, activity, mCommand, mCommandInput);
-            })
-        .setNeutralButton(
-            context.getString(R.string.delete_all),
-            (DialogInterface, i) -> {
-              Utils.deleteDialog(context, activity, mCommand, mCommandInput);
-            })
-        .show();
-  }
-
-  public static void deleteDialog(
-      Context context,
-      Activity activity,
-      TextInputEditText mCommand,
-      TextInputLayout mCommandInput) {
-
-    new MaterialAlertDialogBuilder(activity)
-        .setTitle(context.getString(R.string.confirm_delete))
-        .setMessage(context.getString(R.string.confirm_delete_message))
-        .setPositiveButton(
-            context.getString(R.string.ok),
-            (dialogInterface, i) -> {
-              List<String> bookmarks = Utils.getBookmarks(context);
-              for (String item : bookmarks) {
-                Utils.deleteFromBookmark(item, context);
-              }
-              String s = mCommand.getText().toString();
-              if (s.length() != 0) mCommandInput.setEndIconDrawable(R.drawable.ic_add_bookmark);
-              else mCommandInput.setEndIconVisible(false);
-            })
-        .setNegativeButton(
-            context.getString(R.string.cancel),
-            (dialogInterface, i) -> {
-              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
-            })
-        .setOnCancelListener(
-            v -> {
-              List<String> bookmarks = Utils.getBookmarks(context);
-              if (bookmarks.size() != 0)
-                Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
-            })
-        .show();
-  }
-
-  public static void sortingDialog(
-      Context context,
-      Activity activity,
-      TextInputEditText mCommand,
-      TextInputLayout mCommandInput) {
-    CharSequence[] sortingOptions = {
-      context.getString(R.string.sort_A_Z),
-      context.getString(R.string.sort_Z_A),
-      context.getString(R.string.sort_newest),
-      context.getString(R.string.sort_oldest)
-    };
-    int currentSortingOption = Preferences.getSortingOption(context);
-
-    final int[] sortingOption = {currentSortingOption};
-
-    new MaterialAlertDialogBuilder(activity)
-        .setTitle(context.getString(R.string.sort))
-        .setSingleChoiceItems(
-            sortingOptions,
-            currentSortingOption,
-            (dialog, which) -> {
-              sortingOption[0] = which;
-            })
-        .setPositiveButton(
-            context.getString(R.string.ok),
-            (dialog, which) -> {
-              Preferences.setSortingOption(context, sortingOption[0]);
-              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
-            })
-        .setNegativeButton(
-            context.getString(R.string.cancel),
-            (dialog, i) -> {
-              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
-            })
-        .setOnCancelListener(
-            v -> {
-              Utils.bookmarksDialog(context, activity, mCommand, mCommandInput);
-            })
-        .show();
-  }
-
   public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
     HapticUtils.weakVibrate(view, context);
     boolean switchState = Preferences.getOverrideBookmarks(context);
@@ -416,130 +298,9 @@ public class Utils {
 
   /*------------------------------------------------------*/
 
-  public static void defaultLaunchModeDialog(Context context) {
-
-    final CharSequence[] workingModes = {
-      context.getString(R.string.local_adb),
-      context.getString(R.string.otg),
-      context.getString(R.string.remember_working_mode)
-    };
-
-    int defaultWorkingMode = Preferences.getLaunchMode(context);
-    final int[] workingMode = {defaultWorkingMode};
-
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.launch_mode))
-        .setSingleChoiceItems(
-            workingModes,
-            defaultWorkingMode,
-            (dialog, which) -> {
-              workingMode[0] = which;
-            })
-        .setPositiveButton(
-            context.getString(R.string.choose),
-            (dialog, which) -> {
-              Preferences.setLaunchMode(context, workingMode[0]);
-            })
-        .setNegativeButton(context.getString(R.string.cancel), null)
-        .show();
-  }
-
-  // Dialog asking to choose preferred output saving option
-  public static void savePreferenceDialog(Context context) {
-    final CharSequence[] preferences = {
-      context.getString(R.string.only_last_command_output), context.getString(R.string.whole_output)
-    };
-
-    int savePreference = Preferences.getSavePreference(context);
-    final int[] preference = {savePreference};
-
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.save))
-        .setSingleChoiceItems(
-            preferences,
-            savePreference,
-            (dialog, which) -> {
-              preference[0] = which;
-            })
-        .setPositiveButton(
-            context.getString(R.string.choose),
-            (dialog, which) -> {
-              Preferences.setSavePreference(context, preference[0]);
-            })
-        .setNegativeButton(context.getString(R.string.cancel), null)
-        .show();
-  }
-
-  // Dialog asking to choose preferred local adb commands executing mode
-  public static void localAdbModeDialog(Context context) {
-    final CharSequence[] preferences = {
-      context.getString(R.string.basic_shell),
-      context.getString(R.string.shizuku),
-      context.getString(R.string.root)
-    };
-
-    int savePreference = Preferences.getLocalAdbMode(context);
-    final int[] preference = {savePreference};
-
-    String title =
-        context.getString(R.string.local_adb)
-            + " "
-            + context.getString(R.string.mode).toLowerCase();
-
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(title)
-        .setSingleChoiceItems(
-            preferences,
-            savePreference,
-            (dialog, which) -> {
-              preference[0] = which;
-            })
-        .setPositiveButton(
-            context.getString(R.string.choose),
-            (dialog, which) -> {
-              Preferences.setLocalAdbMode(context, preference[0]);
-            })
-        .setNegativeButton(context.getString(R.string.cancel), null)
-        .show();
-  }
-
-  // Method to show a dialog showing the device name on which shell is being executed
-  public static void connectedDeviceDialog(Context context, String connectedDevice) {
-    String device = connectedDevice;
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.connected_device))
-        .setMessage(device)
-        .show();
-  }
-
   public static float convertDpToPixel(float dp, Context context) {
     float scale = context.getResources().getDisplayMetrics().density;
     return dp * scale + 0.5f;
-  }
-
-  // Dialog to show if the shell output is saved or not
-  public static void outputSavedDialog(Activity activity, Context context, boolean saved) {
-    String successMessage =
-        Preferences.getSavePreference(context) == Preferences.ALL_OUTPUT
-            ? context.getString(
-                R.string.shell_output_saved_whole_message, Environment.DIRECTORY_DOWNLOADS)
-            : context.getString(
-                R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS);
-    String message =
-        saved ? successMessage : context.getString(R.string.shell_output_not_saved_message);
-    String title = saved ? context.getString(R.string.success) : context.getString(R.string.failed);
-
-    MaterialAlertDialogBuilder builder =
-        new MaterialAlertDialogBuilder(activity).setTitle(title).setMessage(message);
-    if (saved) {
-      builder.setPositiveButton(
-          context.getString(R.string.open),
-          (dialogInterface, i) -> {
-            Utils.openTextFileWithIntent(Preferences.getLastSavedFileName(context), context);
-          });
-    }
-
-    builder.setNegativeButton(context.getString(R.string.cancel), null).show();
   }
 
   /* Generate the file name of the exported txt file . The name will be the last executed command. It gets the last executed command from the History List */
@@ -823,43 +584,6 @@ public class Utils {
         + BuildConfig.VERSION_CODE;
   }
 
-  // Method for displaying the root permission requesting dialog
-  public static void rootPermRequestDialog(Activity activity, Context context) {
-    new MaterialAlertDialogBuilder(activity)
-        .setTitle(context.getString(R.string.access_denied))
-        .setMessage(context.getString(R.string.root_access_denied_message))
-        .setNegativeButton(context.getString(R.string.cancel), null)
-        .setPositiveButton(
-            context.getString(R.string.request_permission),
-            (dialogInterface, i) -> {
-              RootShell.exec("su", true);
-              RootShell.refresh();
-              if (!RootShell.hasPermission()) Utils.grantPermissionManually(activity, context);
-            })
-        .show();
-  }
-
-  // Method for displaying the shizuku permission requesting dialog
-  public static void shizukuPermRequestDialog(Activity activity, Context context) {
-    new MaterialAlertDialogBuilder(activity)
-        .setTitle(context.getString(R.string.access_denied))
-        .setMessage(context.getString(R.string.shizuku_access_denied_message))
-        .setNegativeButton(context.getString(R.string.cancel), null)
-        .setPositiveButton(
-            context.getString(R.string.request_permission),
-            (dialogInterface, i) -> Shizuku.requestPermission(0))
-        .show();
-  }
-
-  /*Method to display a dialog which asks user to manually grant root permission*/
-  public static void grantPermissionManually(Activity activity, Context context) {
-    new MaterialAlertDialogBuilder(activity)
-        .setTitle(context.getString(R.string.error))
-        .setMessage(context.getString(R.string.grant_permission_manually))
-        .setPositiveButton(context.getString(R.string.ok), null)
-        .show();
-  }
-
   // String that shows Shell is dead in red colour
   public static String shellDeadError() {
     return "<font color=#FF0000>" + "Shell is dead" + "</font>";
@@ -868,32 +592,5 @@ public class Utils {
   public static boolean isNightMode(Context context) {
     return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
         == Configuration.UI_MODE_NIGHT_YES;
-  }
-
-  public static void examplesLayoutStyleDialog(Context context) {
-    final CharSequence[] preferences = {
-      context.getString(R.string.list), context.getString(R.string.grid)
-    };
-
-    int savePreference = Preferences.getExamplesLayoutStyle(context) - 1;
-    final int[] preference = {savePreference};
-
-    String title = context.getString(R.string.choose);
-
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(title)
-        .setSingleChoiceItems(
-            preferences,
-            savePreference,
-            (dialog, which) -> {
-              preference[0] = which + 1;
-            })
-        .setPositiveButton(
-            context.getString(R.string.choose),
-            (dialog, which) -> {
-              Preferences.setExamplesLayoutStyle(context, preference[0]);
-            })
-        .setNegativeButton(context.getString(R.string.cancel), null)
-        .show();
   }
 }

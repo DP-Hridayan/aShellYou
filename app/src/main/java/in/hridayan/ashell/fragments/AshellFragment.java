@@ -32,7 +32,10 @@ import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
+import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.UI.Transitions;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
@@ -44,8 +47,6 @@ import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.RootShell;
 import in.hridayan.ashell.utils.ShizukuShell;
-import in.hridayan.ashell.UI.ThemeUtils;
-import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AshellFragmentViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -646,7 +647,7 @@ public class AshellFragment extends Fragment {
           if (Utils.getBookmarks(context).isEmpty())
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
           else
-            Utils.bookmarksDialog(
+            DialogUtils.bookmarksDialog(
                 context, requireActivity(), binding.commandEditText, binding.commandInputLayout);
         });
   }
@@ -830,7 +831,7 @@ public class AshellFragment extends Fragment {
           if (saved) Preferences.setLastSavedFileName(context, fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
-          Utils.outputSavedDialog(requireActivity(), context, saved);
+          DialogUtils.outputSavedDialog(requireActivity(), context, saved);
         });
   }
 
@@ -986,7 +987,7 @@ public class AshellFragment extends Fragment {
             else if (isShizukuMode()) {
               if (!Shizuku.pingBinder()) handleShizukuUnavailability();
               else if (!ShizukuShell.hasPermission())
-                Utils.shizukuPermRequestDialog(requireActivity(), context);
+                DialogUtils.shizukuPermRequestDialog(requireActivity(), context);
               else if (mShizukuShell != null && ShizukuShell.isBusy()) shellWorkingDialog();
               else execShell(v);
             }
@@ -995,7 +996,7 @@ public class AshellFragment extends Fragment {
             else if (isRootMode()) {
               if (!RootShell.isDeviceRooted()) handleRootUnavailability();
               else if (!RootShell.hasPermission())
-                Utils.rootPermRequestDialog(requireActivity(), context);
+                DialogUtils.rootPermRequestDialog(requireActivity(), context);
               else if (mRootShell != null && RootShell.isBusy()) shellWorkingDialog();
               else execShell(v);
             }
@@ -1026,7 +1027,7 @@ public class AshellFragment extends Fragment {
           else if (isShizukuMode()) {
             if (!Shizuku.pingBinder()) handleShizukuUnavailability();
             else if (!ShizukuShell.hasPermission())
-              Utils.shizukuPermRequestDialog(requireActivity(), context);
+              DialogUtils.shizukuPermRequestDialog(requireActivity(), context);
             else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
             else execShell(v);
           }
@@ -1045,7 +1046,7 @@ public class AshellFragment extends Fragment {
                         .runOnUiThread(
                             () -> {
                               if (!hasPermission)
-                                Utils.rootPermRequestDialog(requireActivity(), context);
+                                DialogUtils.rootPermRequestDialog(requireActivity(), context);
                               else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
                               else execShell(v);
                             });

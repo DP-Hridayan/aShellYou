@@ -53,19 +53,20 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollUpListener;
 import in.hridayan.ashell.UI.BehaviorFAB.OtgShareButtonListener;
+import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.databinding.FragmentOtgBinding;
+import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.OtgUtils;
 import in.hridayan.ashell.utils.OtgUtils.Const;
 import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
 import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.items.SettingsItem;
-import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -567,7 +568,7 @@ public class OtgFragment extends Fragment
   // Waiting dialog that asks user to accept the usb debugging prompt on the other device
   private void waitingDialog(Context context) {
     if (isAdded()) {
-      View dialogView = LayoutInflater.from(context).inflate(R.layout.loading_dialog_layout, null);
+      View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null);
       ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
 
       mWaitingDialog =
@@ -782,10 +783,10 @@ public class OtgFragment extends Fragment
           HapticUtils.weakVibrate(v, context);
           if (mDevice != null) {
             String connectedDevice = mDevice.getProductName();
-            Utils.connectedDeviceDialog(
+            DialogUtils.connectedDeviceDialog(
                 context, adbConnection == null ? getString(R.string.none) : connectedDevice);
 
-          } else Utils.connectedDeviceDialog(context, getString(R.string.none));
+          } else DialogUtils.connectedDeviceDialog(context, getString(R.string.none));
         });
   }
 
@@ -838,7 +839,7 @@ public class OtgFragment extends Fragment
           if (saved) Preferences.setLastSavedFileName(context, fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
-          Utils.outputSavedDialog(requireActivity(), context, saved);
+          DialogUtils.outputSavedDialog(requireActivity(), context, saved);
         });
   }
 
@@ -929,7 +930,7 @@ public class OtgFragment extends Fragment
           if (Utils.getBookmarks(context).isEmpty())
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
           else
-            Utils.bookmarksDialog(
+            DialogUtils.bookmarksDialog(
                 context, requireActivity(), binding.commandEditText, binding.commandInputLayout);
         });
   }
