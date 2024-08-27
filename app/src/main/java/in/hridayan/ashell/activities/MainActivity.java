@@ -23,7 +23,10 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.color.DynamicColors;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.BottomSheets;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.databinding.ActivityMainBinding;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.AshellFragment;
@@ -32,13 +35,11 @@ import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.OtgFragment;
 import in.hridayan.ashell.fragments.SettingsFragment;
 import in.hridayan.ashell.fragments.StartFragment;
+import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.CrashHandler;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.items.SettingsItem;
-import in.hridayan.ashell.UI.ThemeUtils;
-import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
 import in.hridayan.ashell.viewmodels.MainViewModel;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity
   // This funtion is run to perform actions if there is an update available or not
   @Override
   public void onResult(int result) {
-    if (result == Preferences.UPDATE_AVAILABLE) Utils.showBottomSheetUpdate(this, this);
+    if (result == Preferences.UPDATE_AVAILABLE) BottomSheets.showBottomSheetUpdate(this, this);
   }
 
   @Override
@@ -374,7 +375,7 @@ public class MainActivity extends AppCompatActivity
 
   // show bottom sheet for changelog after an update
   private void showChangelogs() {
-    if (Utils.isAppUpdated(this)) Utils.showBottomSheetChangelog(this);
+    if (Utils.isAppUpdated(this)) BottomSheets.showBottomSheetChangelog(this);
     /* we save the current version code and then when the app updates it compares the saved version code to the updated app's version code to determine whether to show changelogs */
     Preferences.setSavedVersionCode(this, Utils.currentVersion());
   }

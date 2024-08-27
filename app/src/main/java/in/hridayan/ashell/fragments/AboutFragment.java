@@ -22,6 +22,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.Hold;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.BottomSheets;
 import in.hridayan.ashell.UI.CategoryAbout;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.adapters.AboutAdapter;
@@ -252,7 +253,7 @@ public class AboutFragment extends Fragment
     if (getContext() != null) {
       switch (result) {
         case Preferences.UPDATE_AVAILABLE:
-          Utils.showBottomSheetUpdate(requireActivity(), getContext());
+          BottomSheets.showBottomSheetUpdate(requireActivity(), getContext());
           return;
         case Preferences.UPDATE_NOT_AVAILABLE:
           latestVersionDialog(getContext());
