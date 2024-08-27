@@ -46,7 +46,9 @@ public class RootShell {
   public static void exec() {
     try {
       /*We prefix the command with "su -c " to run the command with root privilege*/
-      mProcess = Runtime.getRuntime().exec("su -c " + mCommand);
+      /*  String finalCommand = isMultiCommand(mCommand) ? mCommand : "su -c" + filterCommand(mCommand); */
+
+      mProcess = Runtime.getRuntime().exec("su -c " + filterCommand(mCommand));
 
       BufferedReader mInput = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
       BufferedReader mError = new BufferedReader(new InputStreamReader(mProcess.getErrorStream()));
@@ -62,6 +64,22 @@ public class RootShell {
       Log.e("RootShell", "Failed to execute command", e);
     }
   }
+
+  private static String filterCommand(String command) {
+    return command.replaceAll("(?i)^\\s*su\\s+-c\\s+", "");
+  }
+
+  /* public static boolean isMultiCommand(String command) {
+    // Define special characters that indicate a multi-command
+    String[] specialCharacters = {"|", ">", "<", "&&", "||", ";"};
+
+    // Check if the command contains any special character
+    for (String character : specialCharacters) {
+      if (command.contains(character)) return true;
+    }
+
+    return false;
+  } */
 
   static {
     initialise();
@@ -148,16 +166,17 @@ public class RootShell {
     ExecutorService executor = Executors.newSingleThreadExecutor();
 
     try {
-        Future<?> future = executor.submit(() -> hasPerm.set(Shell.getShell().isRoot()));
-        future.get(500, TimeUnit.MILLISECONDS); // Adjust timeout as needed
+      Future<?> future = executor.submit(() -> hasPerm.set(Shell.getShell().isRoot()));
+      future.get(500, TimeUnit.MILLISECONDS); // Adjust timeout as needed
     } catch (Exception e) {
-        Log.e("RootShell", "Error checking permission", e);
+      Log.e("RootShell", "Error checking permission", e);
     } finally {
-        executor.shutdown();
+      executor.shutdown();
     }
 
     return hasPerm.get();
-}
+  }
+
   /**
    * Checks if the device is rooted. This method quickly returns a result after a timeout to avoid
    * cases where output is delayed. Also, this method cannot detect root if the superuser
@@ -168,33 +187,37 @@ public class RootShell {
     ExecutorService executor = Executors.newSingleThreadExecutor();
 
     try {
-        Future<?> future = executor.submit(() -> {
-            Process process = null;
-            try {
-                process = Runtime.getRuntime().exec("which su");
-                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                String response = reader.readLine();
-                if (response != null && response.contains("su")) {
+      Future<?> future =
+          executor.submit(
+              () -> {
+                Process process = null;
+                try {
+                  process = Runtime.getRuntime().exec("which su");
+                  BufferedReader reader =
+                      new BufferedReader(new InputStreamReader(process.getInputStream()));
+                  String response = reader.readLine();
+                  if (response != null && response.contains("su")) {
                     isRooted.set(true);
-                }
-            } catch (Exception e) {
-                Log.e("RootShell", "Error checking if device is rooted", e);
-            } finally {
-                if (process != null) {
+                  }
+                } catch (Exception e) {
+                  Log.e("RootShell", "Error checking if device is rooted", e);
+                } finally {
+                  if (process != null) {
                     process.destroy();
+                  }
                 }
-            }
-        });
+              });
 
-        future.get(TIMEOUT, TimeUnit.MILLISECONDS); // Adjust timeout as needed
+      future.get(TIMEOUT, TimeUnit.MILLISECONDS); // Adjust timeout as needed
     } catch (Exception e) {
-        Log.e("RootShell", "Error checking if device is rooted", e);
+      Log.e("RootShell", "Error checking if device is rooted", e);
     } finally {
-        executor.shutdown();
+      executor.shutdown();
     }
 
     return isRooted.get();
-}
+  }
+
   // Checks if root shell is busy or not
   public static boolean isBusy() {
     return mOutput != null
