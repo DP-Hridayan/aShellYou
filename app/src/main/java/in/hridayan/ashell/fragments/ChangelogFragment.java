@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialContainerTransform;
-
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.databinding.FragmentChangelogBinding;

@@ -1,9 +1,10 @@
-package in.hridayan.ashell.utils;
+package in.hridayan.ashell.shell;
 
 import android.content.Context;
 import android.util.Log;
 import com.topjohnwu.superuser.Shell;
 import in.hridayan.ashell.BuildConfig;
+import in.hridayan.ashell.utils.Utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

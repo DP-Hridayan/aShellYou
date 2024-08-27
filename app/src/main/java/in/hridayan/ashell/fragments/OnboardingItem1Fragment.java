@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import in.hridayan.ashell.databinding.FragmentOnboardingItem1Binding;
 
 public class OnboardingItem1Fragment extends Fragment {

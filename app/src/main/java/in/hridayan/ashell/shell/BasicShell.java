@@ -1,5 +1,6 @@
-package in.hridayan.ashell.utils;
+package in.hridayan.ashell.shell;
 
+import in.hridayan.ashell.utils.Utils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;

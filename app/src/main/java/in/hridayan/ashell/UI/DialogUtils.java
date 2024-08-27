@@ -8,7 +8,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.RootShell;
+import in.hridayan.ashell.shell.RootShell;
 import in.hridayan.ashell.utils.Utils;
 import java.util.List;
 import rikka.shizuku.Shizuku;
