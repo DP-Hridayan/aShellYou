@@ -179,6 +179,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           }
           break;
 
+        case "id_configure_save_directory":
+          // Add the onclick listener here , eg open the dialog to put  the path manually or choose
+          //  use seal dialog
+          break;
+
         case "id_default_launch_mode":
           DialogUtils.defaultLaunchModeDialog(context);
           break;

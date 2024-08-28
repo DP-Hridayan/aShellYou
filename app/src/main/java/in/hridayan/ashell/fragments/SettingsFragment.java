@@ -159,6 +159,15 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
+            "id_configure_save_directory",
+            R.drawable.ic_directory,
+            getString(R.string.configure_save_directory),
+            getString(R.string.des_configure_save_directory),
+            false,
+            false));
+
+    settingsData.add(
+        new SettingsItem(
             "id_local_adb_mode",
             R.drawable.ic_terminal,
             getString(R.string.local_adb_mode),

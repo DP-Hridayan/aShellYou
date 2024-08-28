@@ -230,6 +230,8 @@
     <string name="confirm_basic_mode">No higher privelege is granted. App will only execute basic commands. You can change the working mode later in settings</string>
     <string name="examples_layout_style">Examples layout style</string>
     <string name="des_examples_layout_style">Choose the preferred layout style to view command examples</string>
+    <string name="configure_save_directory">Configure saving directory</string>
+    <string name="des_configure_save_directory">Choose a directory to save shell output text files</string>
     <string name="grid">Grid</string>
     <string name="list">List</string>
 </resources>
