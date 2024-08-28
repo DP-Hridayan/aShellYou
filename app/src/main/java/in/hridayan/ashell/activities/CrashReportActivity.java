@@ -11,11 +11,12 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
-import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.UI.ThemeUtils;
-import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
+import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
+import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.utils.DeviceUtils;
+import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.utils.Utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -87,7 +88,7 @@ public class CrashReportActivity extends AppCompatActivity {
 
   /*Text to be shown in the report. We fetch the user device details such as Android version , manufacturer , app version etc. for debugging.*/
   private static String reportContent(String stackTrace, String message) {
-    String deviceDetails = Utils.getDeviceDetails();
+    String deviceDetails = DeviceUtils.getDeviceDetails();
     String reportContent =
         getCurrentDateTime()
             + "\n"

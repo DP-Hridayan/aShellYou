@@ -21,6 +21,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.DialogUtils;
+import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
@@ -128,7 +129,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             settingsItem.saveSwitchState(context);
 
             if (settingsItem.getId().equals("id_amoled_theme")) {
-              if (Utils.isNightMode(context)) applyTheme(isChecked);
+              if (ThemeUtils.isNightMode(context)) applyTheme(isChecked);
             }
           });
     }

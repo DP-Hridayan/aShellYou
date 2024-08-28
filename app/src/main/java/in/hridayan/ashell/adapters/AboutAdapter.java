@@ -20,6 +20,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.CategoryAbout;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.fragments.ChangelogFragment;
+import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.HashMap;
@@ -179,7 +180,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           });
 
       categoryContributorsLayout.setStrokeWidth(
-          Utils.androidVersion() >= Build.VERSION_CODES.S ? 0 : 3);
+          DeviceUtils.androidVersion() >= Build.VERSION_CODES.S ? 0 : 3);
     }
 
     private void toggleExpandableLayout() {

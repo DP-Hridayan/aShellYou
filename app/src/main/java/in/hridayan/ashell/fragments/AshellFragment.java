@@ -45,6 +45,7 @@ import in.hridayan.ashell.shell.BasicShell;
 import in.hridayan.ashell.shell.RootShell;
 import in.hridayan.ashell.shell.ShizukuShell;
 import in.hridayan.ashell.utils.Commands;
+import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.Utils;
@@ -157,9 +158,9 @@ public class AshellFragment extends Fragment {
 
       case ic_stop:
         binding.sendButton.setColorFilter(
-            Utils.androidVersion() >= Build.VERSION_CODES.S
+            DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
                 ? ThemeUtils.colorError(context)
-                : Utils.getColor(R.color.red, context));
+                : ThemeUtils.getColor(R.color.red, context));
         binding.sendButton.setImageDrawable(
             Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
         break;
@@ -171,9 +172,9 @@ public class AshellFragment extends Fragment {
     /* stop button doesnot appears when coming back to fragment while running continuous commands in root or basic shell mode. So we put this extra method to make sure it does */
     if (isShellBusy()) {
       binding.sendButton.setColorFilter(
-          Utils.androidVersion() >= Build.VERSION_CODES.S
+          DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
               ? ThemeUtils.colorError(context)
-              : Utils.getColor(R.color.red, context));
+              : ThemeUtils.getColor(R.color.red, context));
       binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
     }
     handleModeButtonTextAndCommandHint();
@@ -566,13 +567,13 @@ public class AshellFragment extends Fragment {
     binding.modeButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v, context);
-          if (isBasicMode()) connectedDeviceDialog(Utils.getDeviceName());
+          if (isBasicMode()) connectedDeviceDialog(DeviceUtils.getDeviceName());
           else if (isShizukuMode()) {
             boolean hasShizuku = Shizuku.pingBinder() && ShizukuShell.hasPermission();
-            connectedDeviceDialog(hasShizuku ? Utils.getDeviceName() : getString(R.string.none));
+            connectedDeviceDialog(hasShizuku ? DeviceUtils.getDeviceName() : getString(R.string.none));
           } else if (isRootMode()) {
             boolean hasRoot = RootShell.isDeviceRooted() && RootShell.hasPermission();
-            connectedDeviceDialog(hasRoot ? Utils.getDeviceName() : getString(R.string.none));
+            connectedDeviceDialog(hasRoot ? DeviceUtils.getDeviceName() : getString(R.string.none));
           }
         });
   }
@@ -815,12 +816,12 @@ public class AshellFragment extends Fragment {
           switch (Preferences.getSavePreference(context)) {
             case Preferences.ALL_OUTPUT:
               sb = Utils.convertListToString(mResult);
-              fileName = "shizukuOutput" + Utils.getCurrentDateTime();
+              fileName = "shizukuOutput" + DeviceUtils.getCurrentDateTime();
               break;
 
             case Preferences.LAST_COMMAND_OUTPUT:
               sb = buildResultsString().toString();
-              fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
+              fileName = Utils.generateFileName(mHistory) + DeviceUtils.getCurrentDateTime();
               break;
 
             default:
@@ -1119,9 +1120,9 @@ public class AshellFragment extends Fragment {
     viewModel.setSendDrawable(ic_stop);
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
     binding.sendButton.setColorFilter(
-        Utils.androidVersion() >= Build.VERSION_CODES.S
+        DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
             ? ThemeUtils.colorError(context)
-            : Utils.getColor(R.color.red, context));
+            : ThemeUtils.getColor(R.color.red, context));
 
     // Determine shell type
     if (isBasicMode()) shell = "\">BasicShell@";
@@ -1133,17 +1134,17 @@ public class AshellFragment extends Fragment {
 
     String mTitleText =
         "<font color=\""
-            + Utils.getColor(
-                Utils.androidVersion() >= Build.VERSION_CODES.S
+            + ThemeUtils.getColor(
+                DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
                     ? android.R.color.system_accent1_500
                     : R.color.blue,
                 requireActivity())
             + shell
-            + Utils.getDeviceName()
+            + DeviceUtils.getDeviceName()
             + " | "
             + "</font><font color=\""
-            + Utils.getColor(
-                Utils.androidVersion() >= Build.VERSION_CODES.S
+            + ThemeUtils.getColor(
+                DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
                     ? android.R.color.system_accent3_500
                     : R.color.green,
                 requireActivity())

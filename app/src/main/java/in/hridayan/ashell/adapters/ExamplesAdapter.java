@@ -1,5 +1,7 @@
 package in.hridayan.ashell.adapters;
 
+import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.utils.DeviceUtils;
 import static in.hridayan.ashell.utils.Preferences.*;
 
 import android.animation.ObjectAnimator;
@@ -92,8 +94,8 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
 
     public void bind(CommandItems item, int position) {
       pin.setVisibility(item.isPinned() ? View.VISIBLE : View.GONE);
-      if (Utils.androidVersion() >= Build.VERSION_CODES.S) {
-        pin.setColorFilter(Utils.getColor(pinColor(), context));
+      if (DeviceUtils.androidVersion() >= Build.VERSION_CODES.S) {
+        pin.setColorFilter(ThemeUtils.getColor(pinColor(), context));
       }
       card.setStrokeWidth(item.isPinned() ? 3 : 0);
       card.setChecked(item.isChecked());

@@ -27,6 +27,7 @@ import in.hridayan.ashell.UI.CategoryAbout;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.adapters.AboutAdapter;
 import in.hridayan.ashell.databinding.FragmentAboutBinding;
+import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AboutFragment extends Fragment
-    implements AboutAdapter.AdapterListener, Utils.FetchLatestVersionCodeCallback {
+    implements AboutAdapter.AdapterListener, DeviceUtils.FetchLatestVersionCodeCallback {
 
   private AboutViewModel viewModel;
   private FragmentAboutBinding binding;

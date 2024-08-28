@@ -1,5 +1,6 @@
 package in.hridayan.ashell.activities;
 
+import in.hridayan.ashell.utils.DeviceUtils;
 import static in.hridayan.ashell.utils.Preferences.ABOUT_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.CHANGELOG_FRAGMENT;
 import static in.hridayan.ashell.utils.Preferences.EXAMPLES_FRAGMENT;
@@ -41,7 +42,7 @@ import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Preferences;
 import in.hridayan.ashell.utils.Utils;
-import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
+import in.hridayan.ashell.utils.DeviceUtils.FetchLatestVersionCodeCallback;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 
 public class MainActivity extends AppCompatActivity
@@ -375,9 +376,9 @@ public class MainActivity extends AppCompatActivity
 
   // show bottom sheet for changelog after an update
   private void showChangelogs() {
-    if (Utils.isAppUpdated(this)) BottomSheets.showBottomSheetChangelog(this);
+    if (DeviceUtils.isAppUpdated(this)) BottomSheets.showBottomSheetChangelog(this);
     /* we save the current version code and then when the app updates it compares the saved version code to the updated app's version code to determine whether to show changelogs */
-    Preferences.setSavedVersionCode(this, Utils.currentVersion());
+    Preferences.setSavedVersionCode(this, DeviceUtils.currentVersion());
   }
 
   // show update available bottom sheet

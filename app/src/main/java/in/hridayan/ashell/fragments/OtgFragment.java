@@ -62,6 +62,7 @@ import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.databinding.FragmentOtgBinding;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.Commands;
+import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.OtgUtils;
 import in.hridayan.ashell.utils.OtgUtils.Const;
@@ -826,11 +827,11 @@ public class OtgFragment extends Fragment
           switch (Preferences.getSavePreference(context)) {
             case Preferences.ALL_OUTPUT:
               sb = binding.shellOutput.getText().toString();
-              fileName = "otg_output" + Utils.getCurrentDateTime();
+              fileName = "otg_output" + DeviceUtils.getCurrentDateTime();
               break;
             case Preferences.LAST_COMMAND_OUTPUT:
               sb = Utils.lastCommandOutput(binding.shellOutput.getText().toString());
-              fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
+              fileName = Utils.generateFileName(mHistory) + DeviceUtils.getCurrentDateTime();
               break;
             default:
               break;

@@ -2,7 +2,7 @@ package in.hridayan.ashell.utils;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
+import in.hridayan.ashell.utils.DeviceUtils.FetchLatestVersionCodeCallback;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -38,9 +38,9 @@ public class FetchLatestVersionCode extends AsyncTask<String, Void, Integer> {
       return Preferences.CONNECTION_ERROR; // Error occurred
     }
 
-    int latestVersionCode = Utils.extractVersionCode(result.toString());
-    if (Utils.isUpdateAvailable(latestVersionCode)) {
-      Preferences.setLatestVersionName(context, Utils.extractVersionName(result.toString()));
+    int latestVersionCode = DeviceUtils.extractVersionCode(result.toString());
+    if (DeviceUtils.isUpdateAvailable(latestVersionCode)) {
+      Preferences.setLatestVersionName(context, DeviceUtils.extractVersionName(result.toString()));
       return Preferences.UPDATE_AVAILABLE; // Update available
     } else {
       return Preferences.UPDATE_NOT_AVAILABLE; // No update available
