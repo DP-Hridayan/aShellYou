@@ -839,7 +839,7 @@ public class OtgFragment extends Fragment
           if (saved) Preferences.setLastSavedFileName(context, fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
-          DialogUtils.outputSavedDialog(requireActivity(), context, saved);
+          DialogUtils.outputSavedDialog(context, saved);
         });
   }
 
@@ -931,7 +931,7 @@ public class OtgFragment extends Fragment
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
           else
             DialogUtils.bookmarksDialog(
-                context, requireActivity(), binding.commandEditText, binding.commandInputLayout);
+                context, binding.commandEditText, binding.commandInputLayout);
         });
   }
 

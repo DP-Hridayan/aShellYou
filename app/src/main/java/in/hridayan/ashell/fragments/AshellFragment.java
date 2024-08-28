@@ -648,7 +648,7 @@ public class AshellFragment extends Fragment {
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
           else
             DialogUtils.bookmarksDialog(
-                context, requireActivity(), binding.commandEditText, binding.commandInputLayout);
+                context, binding.commandEditText, binding.commandInputLayout);
         });
   }
 
@@ -831,7 +831,7 @@ public class AshellFragment extends Fragment {
           if (saved) Preferences.setLastSavedFileName(context, fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
-          DialogUtils.outputSavedDialog(requireActivity(), context, saved);
+          DialogUtils.outputSavedDialog(context, saved);
         });
   }
 
@@ -979,25 +979,25 @@ public class AshellFragment extends Fragment {
 
             /*This block will run if basic shell mode is selected*/
             if (isBasicMode()) {
-              if (mBasicShell != null && isShellBusy()) shellWorkingDialog();
+              if (mBasicShell != null && isShellBusy()) DialogUtils.shellWorkingDialog(context);
               else execShell(v);
             }
 
             /*This block will run if shizuku mode is selected*/
             else if (isShizukuMode()) {
               if (!Shizuku.pingBinder()) handleShizukuUnavailability();
-              else if (!ShizukuShell.hasPermission())
-                DialogUtils.shizukuPermRequestDialog(requireActivity(), context);
-              else if (mShizukuShell != null && ShizukuShell.isBusy()) shellWorkingDialog();
+              else if (!ShizukuShell.hasPermission()) DialogUtils.shizukuPermRequestDialog(context);
+              else if (mShizukuShell != null && ShizukuShell.isBusy())
+                DialogUtils.shellWorkingDialog(context);
               else execShell(v);
             }
 
             /*This block w if root mode is selected*/
             else if (isRootMode()) {
               if (!RootShell.isDeviceRooted()) handleRootUnavailability();
-              else if (!RootShell.hasPermission())
-                DialogUtils.rootPermRequestDialog(requireActivity(), context);
-              else if (mRootShell != null && RootShell.isBusy()) shellWorkingDialog();
+              else if (!RootShell.hasPermission()) DialogUtils.rootPermRequestDialog(context);
+              else if (mRootShell != null && RootShell.isBusy())
+                DialogUtils.shellWorkingDialog(context);
               else execShell(v);
             }
             return true;
@@ -1026,8 +1026,7 @@ public class AshellFragment extends Fragment {
           /*This block will run if shizuku mode is selected*/
           else if (isShizukuMode()) {
             if (!Shizuku.pingBinder()) handleShizukuUnavailability();
-            else if (!ShizukuShell.hasPermission())
-              DialogUtils.shizukuPermRequestDialog(requireActivity(), context);
+            else if (!ShizukuShell.hasPermission()) DialogUtils.shizukuPermRequestDialog(context);
             else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
             else execShell(v);
           }
@@ -1045,8 +1044,7 @@ public class AshellFragment extends Fragment {
                     requireActivity()
                         .runOnUiThread(
                             () -> {
-                              if (!hasPermission)
-                                DialogUtils.rootPermRequestDialog(requireActivity(), context);
+                              if (!hasPermission) DialogUtils.rootPermRequestDialog(context);
                               else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
                               else execShell(v);
                             });
@@ -1100,7 +1098,7 @@ public class AshellFragment extends Fragment {
 
     // Command to exit the app
     if (finalCommand.equals("exit")) {
-      confirmExitDialog();
+      DialogUtils.confirmExitDialog(context, requireActivity());
       return;
     }
 
@@ -1310,28 +1308,6 @@ public class AshellFragment extends Fragment {
     binding.sendButton.clearColorFilter();
   }
 
-  // show shell working dialog
-  private void shellWorkingDialog() {
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setCancelable(false)
-        .setTitle(getString(R.string.shell_working))
-        .setMessage(getString(R.string.app_working_message))
-        .setPositiveButton(getString(R.string.cancel), null)
-        .show();
-  }
-
-  // asks confirmation dialog before exiting the app
-  private void confirmExitDialog() {
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setCancelable(false)
-        .setTitle(R.string.confirm_exit)
-        .setMessage(getString(R.string.quit_app_message))
-        .setNegativeButton(getString(R.string.cancel), null)
-        .setPositiveButton(
-            getString(R.string.quit), (dialogInterface, i) -> requireActivity().finish())
-        .show();
-  }
-
   // error handling when shizuku is unavailable
   private void handleShizukuUnavailability() {
     binding.commandInputLayout.setError(getString(R.string.shizuku_unavailable));
@@ -1343,14 +1319,7 @@ public class AshellFragment extends Fragment {
     }
     Utils.alignMargin(binding.sendButton);
 
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setTitle(getString(R.string.warning))
-        .setMessage(getString(R.string.shizuku_unavailable_message))
-        .setNegativeButton(
-            getString(R.string.shizuku_about),
-            (dialogInterface, i) -> Utils.openUrl(context, "https://shizuku.rikka.app/"))
-        .setPositiveButton(getString(R.string.ok), null)
-        .show();
+    DialogUtils.shizukuUnavailableDialog(context);
   }
 
   // error handling when root is unavailable
@@ -1364,11 +1333,7 @@ public class AshellFragment extends Fragment {
     }
     Utils.alignMargin(binding.sendButton);
 
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setTitle(getString(R.string.warning))
-        .setMessage(getString(R.string.root_unavailable_message))
-        .setPositiveButton(getString(R.string.ok), null)
-        .show();
+    DialogUtils.rootUnavailableDialog(context);
   }
 
   // Show warning when running su commands with shizuku

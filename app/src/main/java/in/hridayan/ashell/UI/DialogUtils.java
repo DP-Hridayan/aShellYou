@@ -136,10 +136,31 @@ public class DialogUtils {
   /* <--------DIALOGS SHOWN AFTER ERRORS -------> */
 
   /*Method to display a dialog which asks user to manually grant root permission*/
-  public static void grantPermissionManually(Activity activity, Context context) {
-    new MaterialAlertDialogBuilder(activity)
+  public static void grantPermissionManually(Context context) {
+    new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.error))
         .setMessage(context.getString(R.string.grant_permission_manually))
+        .setPositiveButton(context.getString(R.string.ok), null)
+        .show();
+  }
+
+  // Display error when shizuku is not installed or running on the device
+  public static void shizukuUnavailableDialog(Context context) {
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(context.getString(R.string.warning))
+        .setMessage(context.getString(R.string.shizuku_unavailable_message))
+        .setNegativeButton(
+            context.getString(R.string.shizuku_about),
+            (dialogInterface, i) -> Utils.openUrl(context, "https://shizuku.rikka.app/"))
+        .setPositiveButton(context.getString(R.string.ok), null)
+        .show();
+  }
+
+  public static void rootUnavailableDialog(Context context) {
+
+    new MaterialAlertDialogBuilder(context)
+        .setTitle(context.getString(R.string.warning))
+        .setMessage(context.getString(R.string.root_unavailable_message))
         .setPositiveButton(context.getString(R.string.ok), null)
         .show();
   }
@@ -147,8 +168,8 @@ public class DialogUtils {
   /* <--------DIALOGS SHOWN TO REQUEST PERMISSION -------> */
 
   // Method for displaying the shizuku permission requesting dialog
-  public static void shizukuPermRequestDialog(Activity activity, Context context) {
-    new MaterialAlertDialogBuilder(activity)
+  public static void shizukuPermRequestDialog(Context context) {
+    new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.access_denied))
         .setMessage(context.getString(R.string.shizuku_access_denied_message))
         .setNegativeButton(context.getString(R.string.cancel), null)
@@ -159,8 +180,8 @@ public class DialogUtils {
   }
 
   // Method for displaying the root permission requesting dialog
-  public static void rootPermRequestDialog(Activity activity, Context context) {
-    new MaterialAlertDialogBuilder(activity)
+  public static void rootPermRequestDialog(Context context) {
+    new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.access_denied))
         .setMessage(context.getString(R.string.root_access_denied_message))
         .setNegativeButton(context.getString(R.string.cancel), null)
@@ -169,8 +190,7 @@ public class DialogUtils {
             (dialogInterface, i) -> {
               RootShell.exec("su", true);
               RootShell.refresh();
-              if (!RootShell.hasPermission())
-                DialogUtils.grantPermissionManually(activity, context);
+              if (!RootShell.hasPermission()) DialogUtils.grantPermissionManually(context);
             })
         .show();
   }
@@ -178,7 +198,7 @@ public class DialogUtils {
   /* <--------DIALOGS SHOWN FOR FEEDBACK PURPOSES -------> */
 
   // Dialog to show if the shell output is saved or not
-  public static void outputSavedDialog(Activity activity, Context context, boolean saved) {
+  public static void outputSavedDialog(Context context, boolean saved) {
     String successMessage =
         Preferences.getSavePreference(context) == Preferences.ALL_OUTPUT
             ? context.getString(
@@ -190,7 +210,7 @@ public class DialogUtils {
     String title = saved ? context.getString(R.string.success) : context.getString(R.string.failed);
 
     MaterialAlertDialogBuilder builder =
-        new MaterialAlertDialogBuilder(activity).setTitle(title).setMessage(message);
+        new MaterialAlertDialogBuilder(context).setTitle(title).setMessage(message);
     if (saved) {
       builder.setPositiveButton(
           context.getString(R.string.open),
@@ -206,10 +226,7 @@ public class DialogUtils {
 
   // Dialog showing all the bookmarked items
   public static void bookmarksDialog(
-      Context context,
-      Activity activity,
-      TextInputEditText mCommand,
-      TextInputLayout mCommandInput) {
+      Context context, TextInputEditText mCommand, TextInputLayout mCommandInput) {
 
     List<String> bookmarks = Utils.getBookmarks(context);
 
@@ -222,7 +239,7 @@ public class DialogUtils {
       bookmarkItems[i] = bookmarks.get(i);
     }
 
-    new MaterialAlertDialogBuilder(activity)
+    new MaterialAlertDialogBuilder(context)
         .setTitle(title)
         .setItems(
             bookmarkItems,
@@ -234,24 +251,21 @@ public class DialogUtils {
         .setNegativeButton(
             context.getString(R.string.sort),
             (dialogInterface, i) -> {
-              sortingDialog(context, activity, mCommand, mCommandInput);
+              sortingDialog(context, mCommand, mCommandInput);
             })
         .setNeutralButton(
             context.getString(R.string.delete_all),
             (DialogInterface, i) -> {
-              deleteDialog(context, activity, mCommand, mCommandInput);
+              deleteDialog(context, mCommand, mCommandInput);
             })
         .show();
   }
 
   // Dialog shown to confirm if the user actually wants to delete all bookmarks
   public static void deleteDialog(
-      Context context,
-      Activity activity,
-      TextInputEditText mCommand,
-      TextInputLayout mCommandInput) {
+      Context context, TextInputEditText mCommand, TextInputLayout mCommandInput) {
 
-    new MaterialAlertDialogBuilder(activity)
+    new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.confirm_delete))
         .setMessage(context.getString(R.string.confirm_delete_message))
         .setPositiveButton(
@@ -268,23 +282,19 @@ public class DialogUtils {
         .setNegativeButton(
             context.getString(R.string.cancel),
             (dialogInterface, i) -> {
-              bookmarksDialog(context, activity, mCommand, mCommandInput);
+              bookmarksDialog(context, mCommand, mCommandInput);
             })
         .setOnCancelListener(
             v -> {
               List<String> bookmarks = Utils.getBookmarks(context);
-              if (bookmarks.size() != 0)
-                bookmarksDialog(context, activity, mCommand, mCommandInput);
+              if (bookmarks.size() != 0) bookmarksDialog(context, mCommand, mCommandInput);
             })
         .show();
   }
 
   // Dialog showing sorting options for bookmarks
   public static void sortingDialog(
-      Context context,
-      Activity activity,
-      TextInputEditText mCommand,
-      TextInputLayout mCommandInput) {
+      Context context, TextInputEditText mCommand, TextInputLayout mCommandInput) {
     CharSequence[] sortingOptions = {
       context.getString(R.string.sort_A_Z),
       context.getString(R.string.sort_Z_A),
@@ -295,7 +305,7 @@ public class DialogUtils {
 
     final int[] sortingOption = {currentSortingOption};
 
-    new MaterialAlertDialogBuilder(activity)
+    new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.sort))
         .setSingleChoiceItems(
             sortingOptions,
@@ -307,16 +317,16 @@ public class DialogUtils {
             context.getString(R.string.ok),
             (dialog, which) -> {
               Preferences.setSortingOption(context, sortingOption[0]);
-              bookmarksDialog(context, activity, mCommand, mCommandInput);
+              bookmarksDialog(context, mCommand, mCommandInput);
             })
         .setNegativeButton(
             context.getString(R.string.cancel),
             (dialog, i) -> {
-              bookmarksDialog(context, activity, mCommand, mCommandInput);
+              bookmarksDialog(context, mCommand, mCommandInput);
             })
         .setOnCancelListener(
             v -> {
-              bookmarksDialog(context, activity, mCommand, mCommandInput);
+              bookmarksDialog(context, mCommand, mCommandInput);
             })
         .show();
   }
@@ -327,6 +337,28 @@ public class DialogUtils {
     new MaterialAlertDialogBuilder(context)
         .setTitle(context.getString(R.string.connected_device))
         .setMessage(device)
+        .show();
+  }
+
+  // show shell working dialog
+  public static void shellWorkingDialog(Context context) {
+    new MaterialAlertDialogBuilder(context)
+        .setCancelable(false)
+        .setTitle(context.getString(R.string.shell_working))
+        .setMessage(context.getString(R.string.app_working_message))
+        .setPositiveButton(context.getString(R.string.cancel), null)
+        .show();
+  }
+
+  // asks confirmation dialog before exiting the app
+  public static void confirmExitDialog(Context context, Activity activity) {
+    new MaterialAlertDialogBuilder(context)
+        .setCancelable(false)
+        .setTitle(R.string.confirm_exit)
+        .setMessage(context.getString(R.string.quit_app_message))
+        .setNegativeButton(context.getString(R.string.cancel), null)
+        .setPositiveButton(
+            context.getString(R.string.quit), (dialogInterface, i) -> activity.finish())
         .show();
   }
 }
