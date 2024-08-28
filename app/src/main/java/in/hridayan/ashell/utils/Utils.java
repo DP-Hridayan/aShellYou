@@ -47,6 +47,14 @@ import java.util.Objects;
 public class Utils {
   public static Intent intent;
 
+  /* <--------FILE ACTIONS -------> */
+
+  // Generate the filename
+  public static String generateFileName(List<String> mHistory) {
+    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
+  }
+
+  // Checks if filename is valid
   private static boolean isValidFilename(String s) {
 
     String[] invalidChars = {"*", "/", ":", "<", ">", "?", "\\", "|"};
@@ -57,16 +65,7 @@ public class Utils {
     return true;
   }
 
-  public static Drawable getDrawable(int drawable, Context context) {
-    return ContextCompat.getDrawable(context, drawable);
-  }
-
-  public static Snackbar snackBar(View view, String message) {
-    Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
-    snackbar.setAction(R.string.dismiss, v -> snackbar.dismiss());
-    return snackbar;
-  }
-
+  // Reads a file
   private static String read(File file) {
     BufferedReader buf = null;
     try {
@@ -89,14 +88,7 @@ public class Utils {
     return null;
   }
 
-  public static void copyToClipboard(String text, Context context) {
-    ClipboardManager clipboard =
-        (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-    ClipData clip = ClipData.newPlainText(context.getString(R.string.copied_to_clipboard), text);
-    clipboard.setPrimaryClip(clip);
-    ToastUtils.showToast(context, R.string.copied_to_clipboard, ToastUtils.LENGTH_SHORT);
-  }
-
+  // Create a file at the path
   public static void create(String text, File path) {
     try {
       FileWriter writer = new FileWriter(path);
@@ -104,193 +96,6 @@ public class Utils {
       writer.close();
     } catch (IOException ignored) {
     }
-  }
-
-  public static void openUrl(Context context, String url) {
-    try {
-      Intent intent = new Intent(Intent.ACTION_VIEW);
-      intent.setData(Uri.parse(url));
-      context.startActivity(intent);
-    } catch (ActivityNotFoundException ignored) {
-    }
-  }
-
-  public static void pasteFromClipboard(TextInputEditText editText) {
-    if (editText == null) return;
-
-    ClipboardManager clipboard =
-        (ClipboardManager) editText.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-
-    if (clipboard == null) return;
-
-    if (clipboard.hasPrimaryClip()
-        && clipboard.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-      ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
-      if (item != null && item.getText() != null) {
-        String clipboardText = item.getText().toString();
-        editText.setText(clipboardText);
-        editText.setSelection(editText.getText().length());
-      }
-    } else {
-      ToastUtils.showToast(
-          editText.getContext().getApplicationContext(),
-          R.string.clipboard_empty,
-          ToastUtils.LENGTH_SHORT);
-    }
-  }
-
-  public static void alignMargin(View component) {
-    ViewGroup.MarginLayoutParams params =
-        (ViewGroup.MarginLayoutParams) component.getLayoutParams();
-    params.bottomMargin = 29;
-    component.setLayoutParams(params);
-    component.requestLayout();
-  }
-
-  public static boolean isToolbarExpanded(AppBarLayout appBarLayout) {
-    return appBarLayout.getTop() == 0;
-  }
-
-  public static int recyclerViewPosition(RecyclerView recyclerView) {
-    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-
-    return firstVisibleItemPosition;
-  }
-
-  public static List<String> getBookmarks(Context context) {
-    List<String> mBookmarks = new ArrayList<>();
-
-    // Get the bookmarks directory
-    File bookmarksDir = context.getExternalFilesDir("bookmarks");
-
-    // Check if the directory is null or empty
-    if (bookmarksDir == null || bookmarksDir.listFiles() == null)
-      // Return empty list if bookmarks directory is null or has no files
-      return mBookmarks;
-
-    // Add bookmark files to the list
-    for (File file : bookmarksDir.listFiles()) {
-      if (!file.getName().equalsIgnoreCase("specialCommands")) mBookmarks.add(file.getName());
-    }
-
-    // Handle specialCommands file
-    File specialCommandsFile = new File(bookmarksDir, "specialCommands");
-    if (specialCommandsFile.exists()) {
-      String fileContent = read(specialCommandsFile);
-      if (fileContent != null) {
-        String[] commands = fileContent.split("\\r?\\n");
-        for (String command : commands) {
-          if (!command.trim().isEmpty()) mBookmarks.add(command.trim());
-        }
-      }
-    }
-
-    switch (Preferences.getSortingOption(context)) {
-      case SORT_A_TO_Z:
-        Collections.sort(mBookmarks);
-        break;
-      case SORT_Z_TO_A:
-        Collections.sort(mBookmarks, Collections.reverseOrder());
-        break;
-      case SORT_NEWEST:
-        break;
-      case SORT_OLDEST:
-        Collections.reverse(mBookmarks);
-        break;
-    }
-
-    return mBookmarks;
-  }
-
-  public static boolean isBookmarked(String command, Context context) {
-    if (isValidFilename(command))
-      return new File(context.getExternalFilesDir("bookmarks"), command).exists();
-    else {
-      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
-        for (String commands :
-            Objects.requireNonNull(
-                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-                .split("\\r?\\n")) {
-          if (commands.trim().equals(command)) return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  public static void addToBookmark(String command, Context context) {
-    if (isValidFilename(command))
-      create(command, new File(context.getExternalFilesDir("bookmarks"), command));
-    else {
-      StringBuilder sb = new StringBuilder();
-      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
-        for (String commands :
-            Objects.requireNonNull(
-                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-                .split("\\r?\\n")) {
-          sb.append(commands).append("\n");
-        }
-        sb.append(command).append("\n");
-      } else sb.append(command).append("\n");
-
-      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
-    }
-  }
-
-  public static boolean deleteFromBookmark(String command, Context context) {
-    if (isValidFilename(command))
-      return new File(context.getExternalFilesDir("bookmarks"), command).delete();
-    else {
-      StringBuilder sb = new StringBuilder();
-      for (String commands :
-          Objects.requireNonNull(
-                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
-              .split("\\r?\\n")) {
-        if (!commands.equals(command)) sb.append(commands).append("\n");
-      }
-      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
-      return true;
-    }
-  }
-
-  public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
-    HapticUtils.weakVibrate(view, context);
-    boolean switchState = Preferences.getOverrideBookmarks(context);
-
-    if (Utils.getBookmarks(context).size() <= Preferences.MAX_BOOKMARKS_LIMIT - 1 || switchState) {
-      Utils.addToBookmark(bookmark, context);
-      Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
-    } else Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();
-  }
-
-  public static float convertDpToPixel(float dp, Context context) {
-    float scale = context.getResources().getDisplayMetrics().density;
-    return dp * scale + 0.5f;
-  }
-
-  /* Generate the file name of the exported txt file . The name will be the last executed command. It gets the last executed command from the History List */
-  public static String generateFileName(List<String> mHistory) {
-    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
-  }
-
-  public static String lastCommandOutput(String text) {
-    int lastDollarIndex = text.lastIndexOf('$');
-    if (lastDollarIndex == -1)
-      throw new IllegalArgumentException("Text must contain at least one '$' symbol");
-
-    int secondLastDollarIndex = text.lastIndexOf('$', lastDollarIndex - 1);
-    if (secondLastDollarIndex == -1)
-      throw new IllegalArgumentException("Text must contain at least two '$' symbols");
-
-    // Find the start of the line containing the first '$' of the last two
-    int startOfFirstLine = text.lastIndexOf('\n', secondLastDollarIndex) + 1;
-    // Find the start of the line containing the second '$' of the last two
-    int startOfSecondLine = text.lastIndexOf('\n', lastDollarIndex - 1) + 1;
-    if (startOfSecondLine == -1)
-      startOfSecondLine = 0; // If there's no newline before, start from the beginning of the text
-
-    return text.substring(startOfFirstLine, startOfSecondLine);
   }
 
   // Logic behind saving output as txt files
@@ -364,6 +169,246 @@ public class Utils {
     }
   }
 
+  // Method to open the text file
+  public static void openTextFileWithIntent(String fileName, Context context) {
+    File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+    File file = new File(directory, fileName);
+
+    if (file.exists()) {
+      Uri fileUri = FileProvider.getUriForFile(context, "in.hridayan.ashell.fileprovider", file);
+      Intent intent = new Intent(Intent.ACTION_VIEW);
+      intent.setDataAndType(fileUri, "text/plain");
+      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+      try {
+        context.startActivity(intent);
+      } catch (ActivityNotFoundException e) {
+        Toast.makeText(
+                context, context.getString(R.string.no_application_found), Toast.LENGTH_SHORT)
+            .show();
+      }
+    } else {
+      Toast.makeText(context, context.getString(R.string.file_not_found), Toast.LENGTH_SHORT)
+          .show();
+    }
+  }
+
+  /* <--------CLIPBOARD ACTIONS -------> */
+
+  // Copy the text on the clipboard
+  public static void copyToClipboard(String text, Context context) {
+    ClipboardManager clipboard =
+        (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+    ClipData clip = ClipData.newPlainText(context.getString(R.string.copied_to_clipboard), text);
+    clipboard.setPrimaryClip(clip);
+    ToastUtils.showToast(context, R.string.copied_to_clipboard, ToastUtils.LENGTH_SHORT);
+  }
+
+  // Paste text from clipboard
+  public static void pasteFromClipboard(TextInputEditText editText) {
+    if (editText == null) return;
+
+    ClipboardManager clipboard =
+        (ClipboardManager) editText.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+
+    if (clipboard == null) return;
+
+    if (clipboard.hasPrimaryClip()
+        && clipboard.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+      ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
+      if (item != null && item.getText() != null) {
+        String clipboardText = item.getText().toString();
+        editText.setText(clipboardText);
+        editText.setSelection(editText.getText().length());
+      }
+    } else {
+      ToastUtils.showToast(
+          editText.getContext().getApplicationContext(),
+          R.string.clipboard_empty,
+          ToastUtils.LENGTH_SHORT);
+    }
+  }
+
+  /* <-------- BOOKMARK ACTIONS -------> */
+
+  // Return the bookmarks list
+  public static List<String> getBookmarks(Context context) {
+    List<String> mBookmarks = new ArrayList<>();
+
+    // Get the bookmarks directory
+    File bookmarksDir = context.getExternalFilesDir("bookmarks");
+
+    // Check if the directory is null or empty
+    if (bookmarksDir == null || bookmarksDir.listFiles() == null)
+      // Return empty list if bookmarks directory is null or has no files
+      return mBookmarks;
+
+    // Add bookmark files to the list
+    for (File file : bookmarksDir.listFiles()) {
+      if (!file.getName().equalsIgnoreCase("specialCommands")) mBookmarks.add(file.getName());
+    }
+
+    // Handle specialCommands file
+    File specialCommandsFile = new File(bookmarksDir, "specialCommands");
+    if (specialCommandsFile.exists()) {
+      String fileContent = read(specialCommandsFile);
+      if (fileContent != null) {
+        String[] commands = fileContent.split("\\r?\\n");
+        for (String command : commands) {
+          if (!command.trim().isEmpty()) mBookmarks.add(command.trim());
+        }
+      }
+    }
+
+    // Sort them according to preference
+    switch (Preferences.getSortingOption(context)) {
+      case SORT_A_TO_Z:
+        Collections.sort(mBookmarks);
+        break;
+      case SORT_Z_TO_A:
+        Collections.sort(mBookmarks, Collections.reverseOrder());
+        break;
+      case SORT_NEWEST:
+        break;
+      case SORT_OLDEST:
+        Collections.reverse(mBookmarks);
+        break;
+    }
+
+    return mBookmarks;
+  }
+
+  // Checks if the command is already bookmarked
+  public static boolean isBookmarked(String command, Context context) {
+    if (isValidFilename(command))
+      return new File(context.getExternalFilesDir("bookmarks"), command).exists();
+    else {
+      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
+        for (String commands :
+            Objects.requireNonNull(
+                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+                .split("\\r?\\n")) {
+          if (commands.trim().equals(command)) return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  // Add the command to bookmarks
+  public static void addToBookmark(String command, Context context) {
+    if (isValidFilename(command))
+      create(command, new File(context.getExternalFilesDir("bookmarks"), command));
+    else {
+      StringBuilder sb = new StringBuilder();
+      if (new File(context.getExternalFilesDir("bookmarks"), "specialCommands").exists()) {
+        for (String commands :
+            Objects.requireNonNull(
+                    read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+                .split("\\r?\\n")) {
+          sb.append(commands).append("\n");
+        }
+        sb.append(command).append("\n");
+      } else sb.append(command).append("\n");
+
+      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
+    }
+  }
+
+  // Delete the command from bookmarks
+  public static boolean deleteFromBookmark(String command, Context context) {
+    if (isValidFilename(command))
+      return new File(context.getExternalFilesDir("bookmarks"), command).delete();
+    else {
+      StringBuilder sb = new StringBuilder();
+      for (String commands :
+          Objects.requireNonNull(
+                  read(new File(context.getExternalFilesDir("bookmarks"), "specialCommands")))
+              .split("\\r?\\n")) {
+        if (!commands.equals(command)) sb.append(commands).append("\n");
+      }
+      create(sb.toString(), new File(context.getExternalFilesDir("bookmarks"), "specialCommands"));
+      return true;
+    }
+  }
+
+  /* Onclick listener of the add bookmarks icon ( It is the icon in the text input field that allows adding or removing from bookmarks) */
+  public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
+    HapticUtils.weakVibrate(view, context);
+    boolean switchState = Preferences.getOverrideBookmarks(context);
+
+    // if current bookmarks is less than limit add it else show a toast
+    if (Utils.getBookmarks(context).size() <= Preferences.MAX_BOOKMARKS_LIMIT - 1 || switchState) {
+      Utils.addToBookmark(bookmark, context);
+      Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
+    } else Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();
+  }
+
+  public static Drawable getDrawable(int drawable, Context context) {
+    return ContextCompat.getDrawable(context, drawable);
+  }
+
+  public static Snackbar snackBar(View view, String message) {
+    Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+    snackbar.setAction(R.string.dismiss, v -> snackbar.dismiss());
+    return snackbar;
+  }
+
+  public static void openUrl(Context context, String url) {
+    try {
+      Intent intent = new Intent(Intent.ACTION_VIEW);
+      intent.setData(Uri.parse(url));
+      context.startActivity(intent);
+    } catch (ActivityNotFoundException ignored) {
+    }
+  }
+
+  // Aligns a margin of certain button
+  public static void alignMargin(View component) {
+    ViewGroup.MarginLayoutParams params =
+        (ViewGroup.MarginLayoutParams) component.getLayoutParams();
+    params.bottomMargin = 29;
+    component.setLayoutParams(params);
+    component.requestLayout();
+  }
+
+  // returns if the app toolbar is expanded
+  public static boolean isToolbarExpanded(AppBarLayout appBarLayout) {
+    return appBarLayout.getTop() == 0;
+  }
+
+  public static int recyclerViewPosition(RecyclerView recyclerView) {
+    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+
+    return firstVisibleItemPosition;
+  }
+
+  public static float convertDpToPixel(float dp, Context context) {
+    float scale = context.getResources().getDisplayMetrics().density;
+    return dp * scale + 0.5f;
+  }
+
+  /* Generate the file name of the exported txt file . The name will be the last executed command. It gets the last executed command from the History List */
+
+  public static String lastCommandOutput(String text) {
+    int lastDollarIndex = text.lastIndexOf('$');
+    if (lastDollarIndex == -1)
+      throw new IllegalArgumentException("Text must contain at least one '$' symbol");
+
+    int secondLastDollarIndex = text.lastIndexOf('$', lastDollarIndex - 1);
+    if (secondLastDollarIndex == -1)
+      throw new IllegalArgumentException("Text must contain at least two '$' symbols");
+
+    // Find the start of the line containing the first '$' of the last two
+    int startOfFirstLine = text.lastIndexOf('\n', secondLastDollarIndex) + 1;
+    // Find the start of the line containing the second '$' of the last two
+    int startOfSecondLine = text.lastIndexOf('\n', lastDollarIndex - 1) + 1;
+    if (startOfSecondLine == -1)
+      startOfSecondLine = 0; // If there's no newline before, start from the beginning of the text
+
+    return text.substring(startOfFirstLine, startOfSecondLine);
+  }
+
   // Method to load the changelogs text
   public static String loadChangelogText(String versionNumber, Context context) {
     int resourceId =
@@ -390,29 +435,6 @@ public class Utils {
       if (!Utils.shellDeadError().equals(s) && !"<i></i>".equals(s)) sb.append(s).append("\n");
     }
     return sb.toString();
-  }
-
-  // Method to open the text file
-  public static void openTextFileWithIntent(String fileName, Context context) {
-    File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-    File file = new File(directory, fileName);
-
-    if (file.exists()) {
-      Uri fileUri = FileProvider.getUriForFile(context, "in.hridayan.ashell.fileprovider", file);
-      Intent intent = new Intent(Intent.ACTION_VIEW);
-      intent.setDataAndType(fileUri, "text/plain");
-      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-      try {
-        context.startActivity(intent);
-      } catch (ActivityNotFoundException e) {
-        Toast.makeText(
-                context, context.getString(R.string.no_application_found), Toast.LENGTH_SHORT)
-            .show();
-      }
-    } else {
-      Toast.makeText(context, context.getString(R.string.file_not_found), Toast.LENGTH_SHORT)
-          .show();
-    }
   }
 
   // String that shows Shell is dead in red colour
