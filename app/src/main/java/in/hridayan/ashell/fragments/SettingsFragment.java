@@ -18,6 +18,7 @@ import com.google.android.material.transition.Hold;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.databinding.FragmentSettingsBinding;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -123,7 +124,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_amoled_theme",
+            Const.PREF_AMOLED_THEME,
             R.drawable.ic_amoled_theme,
             getString(R.string.amoled_theme),
             getString(R.string.des_amoled_theme),
@@ -132,7 +133,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_clear",
+            Const.PREF_CLEAR,
             R.drawable.ic_clear,
             getString(R.string.ask_to_clean),
             getString(R.string.des_ask_to_clean),
@@ -141,7 +142,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_share_and_run",
+            Const.PREF_SHARE_AND_RUN,
             R.drawable.ic_share,
             getString(R.string.share_and_run),
             getString(R.string.des_share_and_run),
@@ -150,7 +151,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_auto_update_check",
+            Const.PREF_AUTO_UPDATE_CHECK,
             R.drawable.ic_auto_update,
             getString(R.string.auto_update_check),
             getString(R.string.des_auto_update_check),
@@ -159,7 +160,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_configure_save_directory",
+            Const.PREF_OUTPUT_SAVE_DIRECTORY,
             R.drawable.ic_directory,
             getString(R.string.configure_save_directory),
             getString(R.string.des_configure_save_directory),
@@ -168,7 +169,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_local_adb_mode",
+            Const.PREF_LOCAL_ADB_MODE,
             R.drawable.ic_terminal,
             getString(R.string.local_adb_mode),
             getString(R.string.des_local_adb_mode),
@@ -182,7 +183,7 @@ public class SettingsFragment extends Fragment {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiuiCheck.isMiui()) {
       settingsData.add(
           new SettingsItem(
-              "id_default_language",
+              Const.ID_DEF_LANGUAGE,
               R.drawable.ic_language,
               getString(R.string.default_language),
               getString(R.string.des_default_language),
@@ -192,7 +193,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_default_launch_mode",
+            Const.PREF_DEFAULT_LAUNCH_MODE,
             R.drawable.ic_mode,
             getString(R.string.default_launch_mode),
             getString(R.string.des_default_launch_mode),
@@ -201,7 +202,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_disable_softkey",
+            Const.PREF_DISABLE_SOFTKEY,
             R.drawable.ic_disable_keyboard,
             getString(R.string.disable_softkey),
             getString(R.string.des_disable_softkey),
@@ -210,7 +211,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_examples_layout_style",
+            Const.PREF_EXAMPLES_LAYOUT_STYLE,
             R.drawable.ic_styles,
             getString(R.string.examples_layout_style),
             getString(R.string.des_examples_layout_style),
@@ -219,7 +220,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_vibration",
+            Const.PREF_HAPTICS_AND_VIBRATION,
             R.drawable.ic_vibration,
             getString(R.string.vibration),
             getString(R.string.des_vibration),
@@ -228,7 +229,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_override_bookmarks",
+            Const.PREF_OVERRIDE_BOOKMARKS,
             R.drawable.ic_warning,
             getString(R.string.override_bookmarks_limit),
             getString(R.string.des_override_bookmarks),
@@ -237,7 +238,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_save_preference",
+            Const.PREF_SAVE_PREFERENCE,
             R.drawable.ic_save_24px,
             getString(R.string.save_preference),
             getString(R.string.des_save_preference),
@@ -246,7 +247,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_smooth_scroll",
+            Const.PREF_SMOOTH_SCROLL,
             R.drawable.ic_scroll,
             getString(R.string.smooth_scrolling),
             getString(R.string.des_smooth_scroll),
@@ -255,7 +256,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_unhide_cards",
+            Const.ID_UNHIDE_CARDS,
             R.drawable.ic_cards,
             getString(R.string.unhide_cards),
             getString(R.string.des_unhide_cards),
@@ -264,7 +265,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_examples",
+            Const.ID_EXAMPLES,
             R.drawable.ic_numbers,
             getString(R.string.commands),
             getString(R.string.des_examples),
@@ -273,7 +274,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_about",
+            Const.ID_ABOUT,
             R.drawable.ic_info,
             getString(R.string.about),
             getString(R.string.des_about),

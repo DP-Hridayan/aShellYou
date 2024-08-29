@@ -115,6 +115,7 @@ public class Utils {
       values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
       values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
       values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+
       Uri uri =
           activity.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
 
@@ -132,7 +133,6 @@ public class Utils {
     return false;
   }
 
-    
   /*Save output txt file on devices running Android 10 and below and return a boolean if the file is saved */
   public static boolean saveToFileBelowApi29(String sb, Activity activity, String fileName) {
     if (activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)

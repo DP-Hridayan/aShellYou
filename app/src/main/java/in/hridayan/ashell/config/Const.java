@@ -6,6 +6,8 @@ public interface Const {
   String SHARED_PREFS = BuildConfig.APPLICATION_ID + "_preferences";
 
   String DEV_EMAIL = "hridayanofficial@gmail.com";
+
+  // preferences tags
   String PREF_FIRST_LAUNCH = "first_launch";
   String PREF_AMOLED_THEME = "id_amoled_theme";
   String PREF_COUNTER_PREFIX = "counter_";
@@ -30,14 +32,33 @@ public interface Const {
   String PREF_ACTIVITY_RECREATED = "activity_recreated";
   String PREF_EXAMPLES_LAYOUT_STYLE = "id_examples_layout_style";
   String PREF_OUTPUT_SAVE_DIRECTORY = "output_save_directory";
+
+  // tags for things like onclick listeners
+  String ID_DEF_LANGUAGE = "id_default_language";
+  String ID_UNHIDE_CARDS = "id_unhide_cards";
+  String ID_EXAMPLES = "id_examples";
+  String ID_ABOUT = "id_about";
+  String ID_VERSION = "id_version";
+  String ID_CHANGELOGS = "id_changelogs";
+  String ID_REPORT = "id_report";
+  String ID_FEATURE = "id_feature";
+  String ID_GITHUB = "id_github";
+  String ID_TELEGRAM = "id_telegram";
+  String ID_DISCORD = "id_discord";
+  String ID_LICENSE = "id_license";
+
+  // url for the build.gradle file of the app
   String URL_BUILD_GRADLE =
       "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
+  // url to open instructions for otg
   String URL_OTG_INSTRUCTIONS =
       "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md";
+  // url for github release
   String URL_GITHUB_RELEASE = "https://github.com/DP-Hridayan/aShellYou/releases/latest";
   // used in OTG utils
   String TAG = "flashbot";
 
+  // integers
   int SORT_A_TO_Z = 0;
   int SORT_Z_TO_A = 1;
   int SORT_MOST_USED = 2;

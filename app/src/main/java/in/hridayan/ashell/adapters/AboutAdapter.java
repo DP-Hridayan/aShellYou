@@ -19,6 +19,7 @@ import com.google.android.material.card.MaterialCardView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.CategoryAbout;
 import in.hridayan.ashell.activities.MainActivity;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -245,7 +246,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
-      if (item.getId().equals("id_changelogs")) {
+      if (item.getId().equals(Const.ID_CHANGELOGS)) {
         categoryAppLayout.setTransitionName("aboutToChangelogs");
       }
 
@@ -256,7 +257,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             String url = getAppIdUrlMap().get(item.getId());
             if (url != null) Utils.openUrl(itemView.getContext(), url);
 
-            if ("id_changelogs".equals(item.getId())) {
+            if (Const.ID_CHANGELOGS.equals(item.getId())) {
               ChangelogFragment fragment = new ChangelogFragment();
               ((MainActivity) activity)
                   .getSupportFragmentManager()
@@ -268,7 +269,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
           };
 
-      if ("id_version".equals(item.getId())) {
+      if (Const.ID_VERSION.equals(item.getId())) {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             v -> {
@@ -306,12 +307,14 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
   private static Map<String, String> getAppIdUrlMap() {
     Map<String, String> idUrlMap = new HashMap<>();
-    idUrlMap.put("id_report", "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
-    idUrlMap.put("id_feature", "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
-    idUrlMap.put("id_github", "https:github.com/DP-Hridayan/aShellYou");
-    idUrlMap.put("id_telegram", "https://t.me/aShellYou");
-    idUrlMap.put("id_discord", "https://discord.gg/cq5R2fF8sZ");
-    idUrlMap.put("id_license", "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md");
+    idUrlMap.put(Const.ID_REPORT, "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
+    idUrlMap.put(
+        Const.ID_FEATURE, "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
+    idUrlMap.put(Const.ID_GITHUB, "https:github.com/DP-Hridayan/aShellYou");
+    idUrlMap.put(Const.ID_TELEGRAM, "https://t.me/aShellYou");
+    idUrlMap.put(Const.ID_DISCORD, "https://discord.gg/cq5R2fF8sZ");
+    idUrlMap.put(
+        Const.ID_LICENSE, "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md");
     return idUrlMap;
   }
 }
