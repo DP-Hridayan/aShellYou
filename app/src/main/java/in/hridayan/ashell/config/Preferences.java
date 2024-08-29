@@ -24,6 +24,14 @@ public class Preferences {
     editor.putString(Const.PREF_LATEST_VERSION_NAME, value).apply();
   }
 
+  public static String getSavedOutputDir() {
+    return prefs.getString(Const.PREF_OUTPUT_SAVE_DIRECTORY, "");
+  }
+
+  public static void setSavedOutputDir(String value) {
+    editor.putString(Const.PREF_OUTPUT_SAVE_DIRECTORY, value).apply();
+  }
+
   public static String getLastSavedFileName() {
     return prefs.getString(Const.PREF_LAST_SAVED_FILENAME, "");
   }

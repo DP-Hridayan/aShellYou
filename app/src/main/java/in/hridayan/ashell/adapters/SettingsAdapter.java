@@ -109,7 +109,18 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
       symbolImageView.setImageDrawable(settingsItem.getSymbol(context));
       titleTextView.setText(settingsItem.getTitle());
-      descriptionTextView.setText(settingsItem.getDescription());
+      // descriptionTextView.setText(settingsItem.getDescription());
+
+      // set the description text to the output save directory if the id is
+      // "id_configure_save_directory"
+      // and the output save directory is not empty.
+      String outputSaveDirectory = Preferences.getSavedOutputDir();
+      if (settingsItem.getId().equals("id_configure_save_directory")
+          && !outputSaveDirectory.isEmpty()) {
+        descriptionTextView.setText(Uri.parse(outputSaveDirectory).getPath());
+      } else {
+        descriptionTextView.setText(settingsItem.getDescription());
+      }
       descriptionTextView.setVisibility(
           TextUtils.isEmpty(settingsItem.getDescription()) ? View.GONE : View.VISIBLE);
 
@@ -180,8 +191,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           break;
 
         case "id_configure_save_directory":
-          // Add the onclick listener here , eg open the dialog to put  the path manually or choose
-          //  use seal dialog
+          activity.startActivityForResult(
+              new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE), MainActivity.SAVE_DIRECTORY_CODE);
           break;
 
         case "id_default_launch_mode":

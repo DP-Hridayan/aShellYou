@@ -9,6 +9,7 @@ import static in.hridayan.ashell.config.Const.OTG_FRAGMENT;
 import static in.hridayan.ashell.config.Const.SETTINGS_FRAGMENT;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
   private Fragment fragment;
   private String pendingSharedText = null;
   private ActivityMainBinding binding;
+  public static final Integer SAVE_DIRECTORY_CODE = 369126;
 
   // This funtion is run to perform actions if there is an update available or not
   @Override
@@ -414,5 +416,19 @@ public class MainActivity extends AppCompatActivity
                       100);
           }
         });
+  }
+
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == SAVE_DIRECTORY_CODE && resultCode == RESULT_OK) {
+      Uri treeUri = data.getData();
+      if (treeUri != null) {
+        getContentResolver()
+            .takePersistableUriPermission(
+                treeUri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        Preferences.setSavedOutputDir(String.valueOf(treeUri));
+      }
+    }
   }
 }

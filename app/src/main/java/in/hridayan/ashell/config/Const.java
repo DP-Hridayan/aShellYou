@@ -29,6 +29,7 @@ public interface Const {
   String PREF_LOCAL_ADB_MODE = "id_local_adb_mode";
   String PREF_ACTIVITY_RECREATED = "activity_recreated";
   String PREF_EXAMPLES_LAYOUT_STYLE = "id_examples_layout_style";
+  String PREF_OUTPUT_SAVE_DIRECTORY = "output_save_directory";
   String URL_BUILD_GRADLE =
       "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
   String URL_OTG_INSTRUCTIONS =
