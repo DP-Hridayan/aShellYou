@@ -8,14 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.utils.DeviceUtils;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 
 public class ThemeUtils {
   private static boolean isAmoledTheme;
 
   public static void updateTheme(AppCompatActivity activity) {
 
-    isAmoledTheme = Preferences.getAmoledTheme(activity);
+    isAmoledTheme = Preferences.getAmoledTheme();
 
     int currentMode =
         activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;

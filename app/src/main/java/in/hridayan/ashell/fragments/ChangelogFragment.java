@@ -103,7 +103,7 @@ public class ChangelogFragment extends Fragment {
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
     binding.arrowBack.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           dispatcher.onBackPressed();
         });
 

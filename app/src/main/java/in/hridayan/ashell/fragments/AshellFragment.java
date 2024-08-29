@@ -40,6 +40,7 @@ import in.hridayan.ashell.UI.Transitions;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.databinding.FragmentAshellBinding;
 import in.hridayan.ashell.shell.BasicShell;
 import in.hridayan.ashell.shell.RootShell;
@@ -47,7 +48,7 @@ import in.hridayan.ashell.shell.ShizukuShell;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AshellFragmentViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -102,7 +103,7 @@ public class AshellFragment extends Fragment {
   public void onPause() {
     super.onPause();
 
-    mainViewModel.setPreviousFragment(Preferences.LOCAL_FRAGMENT);
+    mainViewModel.setPreviousFragment(Const.LOCAL_FRAGMENT);
 
     viewModel.setSaveButtonVisible(isSaveButtonVisible());
 
@@ -381,7 +382,7 @@ public class AshellFragment extends Fragment {
 
     sendButtonOnClickListener();
 
-    mainViewModel.setHomeFragment(Preferences.LOCAL_FRAGMENT);
+    mainViewModel.setHomeFragment(Const.LOCAL_FRAGMENT);
     return view;
   }
 
@@ -478,7 +479,7 @@ public class AshellFragment extends Fragment {
   // handles text shared to ashell you
   public void handleSharedTextIntent(Intent intent, String sharedText) {
     if (sharedText != null) {
-      boolean switchState = Preferences.getShareAndRun(context);
+      boolean switchState = Preferences.getShareAndRun();
       updateInputField(sharedText);
       if (switchState) {
         if (!Shizuku.pingBinder() && isShizukuMode()) handleShizukuUnavailability();
@@ -566,7 +567,7 @@ public class AshellFragment extends Fragment {
   private void modeButtonOnClickListener() {
     binding.modeButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           if (isBasicMode()) connectedDeviceDialog(DeviceUtils.getDeviceName());
           else if (isShizukuMode()) {
             boolean hasShizuku = Shizuku.pingBinder() && ShizukuShell.hasPermission();
@@ -602,7 +603,7 @@ public class AshellFragment extends Fragment {
       getString(R.string.basic_shell), getString(R.string.shizuku), getString(R.string.root)
     };
 
-    int savePreference = Preferences.getLocalAdbMode(context);
+    int savePreference = Preferences.getLocalAdbMode();
     final int[] preference = {savePreference};
 
     String title = getString(R.string.local_adb) + " " + getString(R.string.mode).toLowerCase();
@@ -618,7 +619,7 @@ public class AshellFragment extends Fragment {
         .setPositiveButton(
             getString(R.string.choose),
             (dialog, which) -> {
-              Preferences.setLocalAdbMode(context, preference[0]);
+              Preferences.setLocalAdbMode( preference[0]);
               binding.commandInputLayout.setError(null);
               handleModeButtonTextAndCommandHint();
             })
@@ -632,7 +633,7 @@ public class AshellFragment extends Fragment {
 
     binding.settingsButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, getContext());
+          HapticUtils.weakVibrate(v);
 
           goToSettings();
         });
@@ -643,7 +644,7 @@ public class AshellFragment extends Fragment {
     binding.bookmarksButton.setTooltipText(getString(R.string.bookmarks));
     binding.bookmarksButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
 
           if (Utils.getBookmarks(context).isEmpty())
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
@@ -659,7 +660,7 @@ public class AshellFragment extends Fragment {
 
     binding.historyButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
 
           if (mHistory == null && viewModel.getHistory() == null)
             ToastUtils.showToast(context, R.string.no_history, ToastUtils.LENGTH_SHORT);
@@ -691,13 +692,13 @@ public class AshellFragment extends Fragment {
 
     binding.clearButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           if (mResult == null || mResult.isEmpty())
             ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
           else if (isShellBusy())
             ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
           else {
-            boolean switchState = Preferences.getClear(context);
+            boolean switchState = Preferences.getClear();
             if (switchState)
               new MaterialAlertDialogBuilder(requireActivity())
                   .setTitle(getString(R.string.clear_everything))
@@ -754,7 +755,7 @@ public class AshellFragment extends Fragment {
 
     binding.searchButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
 
           if (mResult == null || mResult.isEmpty())
             ToastUtils.showToast(context, R.string.nothing_to_search, ToastUtils.LENGTH_SHORT);
@@ -806,20 +807,20 @@ public class AshellFragment extends Fragment {
 
     binding.saveButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           shellOutput = viewModel.getShellOutput();
 
           history = viewModel.getHistory();
           initializeResults();
           String sb = null, fileName = null;
 
-          switch (Preferences.getSavePreference(context)) {
-            case Preferences.ALL_OUTPUT:
+          switch (Preferences.getSavePreference()) {
+            case Const.ALL_OUTPUT:
               sb = Utils.convertListToString(mResult);
               fileName = "shizukuOutput" + DeviceUtils.getCurrentDateTime();
               break;
 
-            case Preferences.LAST_COMMAND_OUTPUT:
+            case Const.LAST_COMMAND_OUTPUT:
               sb = buildResultsString().toString();
               fileName = Utils.generateFileName(mHistory) + DeviceUtils.getCurrentDateTime();
               break;
@@ -829,7 +830,7 @@ public class AshellFragment extends Fragment {
           }
 
           boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
-          if (saved) Preferences.setLastSavedFileName(context, fileName + ".txt");
+          if (saved) Preferences.setLastSavedFileName(fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
           DialogUtils.outputSavedDialog(context, saved);
@@ -840,7 +841,7 @@ public class AshellFragment extends Fragment {
   private void shareButtonOnClickListener() {
     binding.shareButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           shellOutput = viewModel.getShellOutput();
           history = viewModel.getHistory();
           initializeResults();
@@ -900,7 +901,7 @@ public class AshellFragment extends Fragment {
   private void commandInputLayoutEndIconOnClickListener(Editable s) {
     binding.commandInputLayout.setEndIconOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
             Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
             Utils.snackBar(view, getString(R.string.bookmark_removed_message, s.toString().trim()))
@@ -974,7 +975,7 @@ public class AshellFragment extends Fragment {
   private void commandEditTextOnEditorActionListener() {
     binding.commandEditText.setOnEditorActionListener(
         (v, actionId, event) -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           if (actionId == EditorInfo.IME_ACTION_SEND) {
             sendButtonClicked = true;
 
@@ -1013,7 +1014,7 @@ public class AshellFragment extends Fragment {
         v -> {
           sendButtonClicked = true;
 
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
 
           // If shell is not busy and there is not any text in input field then go to examples
           if (!hasTextInEditText() && !isShellBusy()) goToExamples();
@@ -1156,14 +1157,14 @@ public class AshellFragment extends Fragment {
     ExecutorService mExecutors = Executors.newSingleThreadExecutor();
     mExecutors.execute(
         () -> {
-          switch (Preferences.getLocalAdbMode(context)) {
-            case Preferences.BASIC_MODE:
+          switch (Preferences.getLocalAdbMode()) {
+            case Const.BASIC_MODE:
               runBasicShell(finalCommand);
               break;
-            case Preferences.SHIZUKU_MODE:
+            case Const.SHIZUKU_MODE:
               runWithShizuku(finalCommand);
               break;
-            case Preferences.ROOT_MODE:
+            case Const.ROOT_MODE:
               runWithRoot(finalCommand);
               break;
             default:
@@ -1266,17 +1267,17 @@ public class AshellFragment extends Fragment {
 
   // boolean that checks if the current set mode is basic mode
   private boolean isBasicMode() {
-    return Preferences.getLocalAdbMode(context) == Preferences.BASIC_MODE;
+    return Preferences.getLocalAdbMode() == Const.BASIC_MODE;
   }
 
   // boolean that checks if the current set mode is shizuku mode
   private boolean isShizukuMode() {
-    return Preferences.getLocalAdbMode(context) == Preferences.SHIZUKU_MODE;
+    return Preferences.getLocalAdbMode() == Const.SHIZUKU_MODE;
   }
 
   // boolean that checks if the current set mode is root mode
   private boolean isRootMode() {
-    return Preferences.getLocalAdbMode(context) == Preferences.ROOT_MODE;
+    return Preferences.getLocalAdbMode() == Const.ROOT_MODE;
   }
 
   // This methods checks if there is valid text in the edit text

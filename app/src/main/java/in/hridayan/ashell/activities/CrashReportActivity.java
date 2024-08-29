@@ -14,8 +14,9 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
 import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.utils.DeviceUtils;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,7 +71,7 @@ public class CrashReportActivity extends AppCompatActivity {
   private void sendCrashReport(String stackTrace, String message) {
 
     String subject = "Crash Report";
-    String to = Preferences.devEmail;
+    String to = Const.DEV_EMAIL;
 
     try {
       String uriText =

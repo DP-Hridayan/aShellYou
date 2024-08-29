@@ -7,7 +7,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.shell.RootShell;
 import in.hridayan.ashell.utils.Utils;
 import java.util.List;
@@ -25,7 +26,7 @@ public class DialogUtils {
       context.getString(R.string.root)
     };
 
-    int savePreference = Preferences.getLocalAdbMode(context);
+    int savePreference = Preferences.getLocalAdbMode();
     final int[] preference = {savePreference};
 
     String title =
@@ -44,7 +45,7 @@ public class DialogUtils {
         .setPositiveButton(
             context.getString(R.string.choose),
             (dialog, which) -> {
-              Preferences.setLocalAdbMode(context, preference[0]);
+              Preferences.setLocalAdbMode(preference[0]);
             })
         .setNegativeButton(context.getString(R.string.cancel), null)
         .show();
@@ -59,7 +60,7 @@ public class DialogUtils {
       context.getString(R.string.remember_working_mode)
     };
 
-    int defaultWorkingMode = Preferences.getLaunchMode(context);
+    int defaultWorkingMode = Preferences.getLaunchMode();
     final int[] workingMode = {defaultWorkingMode};
 
     new MaterialAlertDialogBuilder(context)
@@ -73,7 +74,7 @@ public class DialogUtils {
         .setPositiveButton(
             context.getString(R.string.choose),
             (dialog, which) -> {
-              Preferences.setLaunchMode(context, workingMode[0]);
+              Preferences.setLaunchMode(workingMode[0]);
             })
         .setNegativeButton(context.getString(R.string.cancel), null)
         .show();
@@ -85,7 +86,7 @@ public class DialogUtils {
       context.getString(R.string.list), context.getString(R.string.grid)
     };
 
-    int savePreference = Preferences.getExamplesLayoutStyle(context) - 1;
+    int savePreference = Preferences.getExamplesLayoutStyle() - 1;
     final int[] preference = {savePreference};
 
     String title = context.getString(R.string.choose);
@@ -101,7 +102,7 @@ public class DialogUtils {
         .setPositiveButton(
             context.getString(R.string.choose),
             (dialog, which) -> {
-              Preferences.setExamplesLayoutStyle(context, preference[0]);
+              Preferences.setExamplesLayoutStyle(preference[0]);
             })
         .setNegativeButton(context.getString(R.string.cancel), null)
         .show();
@@ -113,7 +114,7 @@ public class DialogUtils {
       context.getString(R.string.only_last_command_output), context.getString(R.string.whole_output)
     };
 
-    int savePreference = Preferences.getSavePreference(context);
+    int savePreference = Preferences.getSavePreference();
     final int[] preference = {savePreference};
 
     new MaterialAlertDialogBuilder(context)
@@ -127,7 +128,7 @@ public class DialogUtils {
         .setPositiveButton(
             context.getString(R.string.choose),
             (dialog, which) -> {
-              Preferences.setSavePreference(context, preference[0]);
+              Preferences.setSavePreference(preference[0]);
             })
         .setNegativeButton(context.getString(R.string.cancel), null)
         .show();
@@ -200,7 +201,7 @@ public class DialogUtils {
   // Dialog to show if the shell output is saved or not
   public static void outputSavedDialog(Context context, boolean saved) {
     String successMessage =
-        Preferences.getSavePreference(context) == Preferences.ALL_OUTPUT
+        Preferences.getSavePreference() == Const.ALL_OUTPUT
             ? context.getString(
                 R.string.shell_output_saved_whole_message, Environment.DIRECTORY_DOWNLOADS)
             : context.getString(
@@ -215,7 +216,7 @@ public class DialogUtils {
       builder.setPositiveButton(
           context.getString(R.string.open),
           (dialogInterface, i) -> {
-            Utils.openTextFileWithIntent(Preferences.getLastSavedFileName(context), context);
+            Utils.openTextFileWithIntent(Preferences.getLastSavedFileName(), context);
           });
     }
 
@@ -301,7 +302,7 @@ public class DialogUtils {
       context.getString(R.string.sort_newest),
       context.getString(R.string.sort_oldest)
     };
-    int currentSortingOption = Preferences.getSortingOption(context);
+    int currentSortingOption = Preferences.getSortingOption();
 
     final int[] sortingOption = {currentSortingOption};
 
@@ -316,7 +317,7 @@ public class DialogUtils {
         .setPositiveButton(
             context.getString(R.string.ok),
             (dialog, which) -> {
-              Preferences.setSortingOption(context, sortingOption[0]);
+              Preferences.setSortingOption(sortingOption[0]);
               bookmarksDialog(context, mCommand, mCommandInput);
             })
         .setNegativeButton(

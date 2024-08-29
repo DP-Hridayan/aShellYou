@@ -28,11 +28,12 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.databinding.FragmentExamplesBinding;
 import in.hridayan.ashell.items.CommandItems;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
@@ -131,7 +132,7 @@ public class ExamplesFragment extends Fragment
 
     binding.arrowBack.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           dispatcher.onBackPressed();
         });
 
@@ -141,7 +142,7 @@ public class ExamplesFragment extends Fragment
     binding.searchBar.setNavigationIcon(R.drawable.ic_search);
     binding.searchBar.setOnMenuItemClickListener(
         item -> {
-          HapticUtils.weakVibrate(view, context);
+          HapticUtils.weakVibrate(view);
           switch (item.getItemId()) {
             case R.id.sort:
               sortingDialog(context, getActivity());
@@ -177,8 +178,8 @@ public class ExamplesFragment extends Fragment
         new GridLayoutManager(
             context,
             getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-                ? Preferences.GRID_STYLE
-                : Preferences.getExamplesLayoutStyle(context));
+                ? Const.GRID_STYLE
+                : Preferences.getExamplesLayoutStyle());
     binding.rvSearchView.setLayoutManager(mLayoutManager);
 
     mExamplesAdapter = new ExamplesAdapter(Commands.commandList(context), context, this);
@@ -279,7 +280,7 @@ public class ExamplesFragment extends Fragment
       getString(R.string.least_used)
     };
 
-    int currentSortingOption = Preferences.getSortingExamples(context);
+    int currentSortingOption = Preferences.getSortingExamples();
     isSortingOptionSame = currentSortingOption;
     final int[] sortingOption = {currentSortingOption};
 
@@ -294,7 +295,7 @@ public class ExamplesFragment extends Fragment
         .setPositiveButton(
             getString(R.string.ok),
             (dialog, which) -> {
-              Preferences.setSortingExamples(context, sortingOption[0]);
+              Preferences.setSortingExamples(sortingOption[0]);
               if (isSortingOptionSame != sortingOption[0]) mExamplesAdapter.sortData();
             })
         .setNegativeButton(getString(R.string.cancel), null)
@@ -386,8 +387,8 @@ public class ExamplesFragment extends Fragment
     int selectedItems = mExamplesAdapter.getSelectedItemsSize();
     boolean isAllItemBookmarked = mExamplesAdapter.isAllItemsBookmarked(),
         isLimitReached =
-            selectedItems + Utils.getBookmarks(context).size() > Preferences.MAX_BOOKMARKS_LIMIT
-                && !Preferences.getOverrideBookmarks(context);
+            selectedItems + Utils.getBookmarks(context).size() > Const.MAX_BOOKMARKS_LIMIT
+                && !Preferences.getOverrideBookmarks();
 
     boolean isBatch = selectedItems > 1;
     if (isBatch) batchBookmarkDialog(selectedItems, isAllItemBookmarked, isLimitReached, isBatch);
@@ -496,7 +497,7 @@ public class ExamplesFragment extends Fragment
   private void navigateToFragmentAndSetCommand(String command) {
     mainViewModel.setUseCommand(command);
     Fragment fragment = new AshellFragment();
-    if (mainViewModel.previousFragment() == Preferences.OTG_FRAGMENT) fragment = new OtgFragment();
+    if (mainViewModel.previousFragment() == Const.OTG_FRAGMENT) fragment = new OtgFragment();
 
     // clear previous backstacks
     clearBackStack();

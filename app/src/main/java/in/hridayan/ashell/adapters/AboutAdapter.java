@@ -175,7 +175,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           v -> Utils.openUrl(itemView.getContext(), getContributorsIdUrlMap().get(item.getId())));
       categoryContributorsLayout.setOnClickListener(
           v -> {
-            HapticUtils.weakVibrate(v, itemView.getContext());
+            HapticUtils.weakVibrate(v);
             toggleExpandableLayout();
           });
 
@@ -251,7 +251,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
       View.OnClickListener clickListener =
           v -> {
-            HapticUtils.weakVibrate(v, itemView.getContext());
+            HapticUtils.weakVibrate(v);
 
             String url = getAppIdUrlMap().get(item.getId());
             if (url != null) Utils.openUrl(itemView.getContext(), url);
@@ -272,7 +272,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             v -> {
-              HapticUtils.weakVibrate(v, itemView.getContext());
+              HapticUtils.weakVibrate(v);
               if (mListener != null) mListener.onCheckUpdate(button, loadingDots);
             });
       } else {

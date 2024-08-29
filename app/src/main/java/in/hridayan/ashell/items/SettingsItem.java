@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
+import in.hridayan.ashell.config.Preferences;
 
 public class SettingsItem {
   private int symbolResId;
@@ -15,8 +16,7 @@ public class SettingsItem {
 
   public SettingsItem(
       String id,
-        @Nullable
-      @DrawableRes int symbolResId,
+      @Nullable @DrawableRes int symbolResId,
       String title,
       String description,
       boolean hasSwitch,
@@ -57,15 +57,12 @@ public class SettingsItem {
     this.isChecked = isChecked;
   }
 
-  public void saveSwitchState(Context context) {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    SharedPreferences.Editor editor = prefs.edit();
+  public void saveSwitchState() {
+    // SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+    SharedPreferences.Editor editor = Preferences.prefs.edit();
+
     editor.putBoolean(id, isChecked);
     editor.apply();
-  }
-
-  public void loadSwitchState(Context context) {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    isChecked = prefs.getBoolean(id, false);
   }
 }

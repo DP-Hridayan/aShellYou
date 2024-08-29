@@ -1,9 +1,9 @@
 package in.hridayan.ashell.utils;
 
-import static in.hridayan.ashell.utils.Preferences.SORT_A_TO_Z;
-import static in.hridayan.ashell.utils.Preferences.SORT_NEWEST;
-import static in.hridayan.ashell.utils.Preferences.SORT_OLDEST;
-import static in.hridayan.ashell.utils.Preferences.SORT_Z_TO_A;
+import static in.hridayan.ashell.config.Const.SORT_A_TO_Z;
+import static in.hridayan.ashell.config.Const.SORT_NEWEST;
+import static in.hridayan.ashell.config.Const.SORT_OLDEST;
+import static in.hridayan.ashell.config.Const.SORT_Z_TO_A;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -32,6 +32,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ToastUtils;
+import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -260,7 +262,7 @@ public class Utils {
     }
 
     // Sort them according to preference
-    switch (Preferences.getSortingOption(context)) {
+    switch (Preferences.getSortingOption()) {
       case SORT_A_TO_Z:
         Collections.sort(mBookmarks);
         break;
@@ -333,11 +335,11 @@ public class Utils {
 
   /* Onclick listener of the add bookmarks icon ( It is the icon in the text input field that allows adding or removing from bookmarks) */
   public static void addBookmarkIconOnClickListener(String bookmark, View view, Context context) {
-    HapticUtils.weakVibrate(view, context);
-    boolean switchState = Preferences.getOverrideBookmarks(context);
+    HapticUtils.weakVibrate(view);
+    boolean switchState = Preferences.getOverrideBookmarks();
 
     // if current bookmarks is less than limit add it else show a toast
-    if (Utils.getBookmarks(context).size() <= Preferences.MAX_BOOKMARKS_LIMIT - 1 || switchState) {
+    if (Utils.getBookmarks(context).size() <= Const.MAX_BOOKMARKS_LIMIT - 1 || switchState) {
       Utils.addToBookmark(bookmark, context);
       Utils.snackBar(view, context.getString(R.string.bookmark_added_message, bookmark)).show();
     } else Utils.snackBar(view, context.getString(R.string.bookmark_limit_reached)).show();

@@ -1,5 +1,6 @@
 package in.hridayan.ashell.fragments;
 
+import in.hridayan.ashell.config.Const;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_NOT_FOUND;
@@ -65,9 +66,8 @@ import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.OtgUtils;
-import in.hridayan.ashell.utils.OtgUtils.Const;
 import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -139,7 +139,7 @@ public class OtgFragment extends Fragment
   public void onPause() {
     super.onPause();
 
-    mainViewModel.setPreviousFragment(Preferences.OTG_FRAGMENT);
+    mainViewModel.setPreviousFragment(Const.OTG_FRAGMENT);
 
     if (isKeyboardVisible) KeyboardUtils.closeKeyboard(requireActivity(), view);
   }
@@ -150,7 +150,7 @@ public class OtgFragment extends Fragment
     setExitTransition(null);
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
-    if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")
+    if (Preferences.getSpecificCardVisibility( "warning_usb_debugging")
         && adbConnection == null) binding.usbWarningCard.setVisibility(View.VISIBLE);
     else if (binding.usbWarningCard.getVisibility() == View.VISIBLE)
       binding.usbWarningCard.setVisibility(View.GONE);
@@ -292,7 +292,7 @@ public class OtgFragment extends Fragment
     }
 
     // Show the info card by checking preferences
-    if (Preferences.getSpecificCardVisibility(context, "warning_usb_debugging")
+    if (Preferences.getSpecificCardVisibility( "warning_usb_debugging")
         && adbConnection == null) {
       binding.usbWarningCard.setVisibility(View.VISIBLE);
     } else if (binding.usbWarningCard.getVisibility() == View.VISIBLE) {
@@ -306,7 +306,7 @@ public class OtgFragment extends Fragment
       binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
       binding.sendButton.setOnClickListener(
           v -> {
-            HapticUtils.weakVibrate(v, context);
+            HapticUtils.weakVibrate(v);
             goToExamples();
           });
     }
@@ -338,7 +338,7 @@ public class OtgFragment extends Fragment
 
               binding.sendButton.setOnClickListener(
                   v -> {
-                    HapticUtils.weakVibrate(v, context);
+                    HapticUtils.weakVibrate(v);
                     goToExamples();
                   });
 
@@ -414,7 +414,7 @@ public class OtgFragment extends Fragment
 
               binding.commandInputLayout.setEndIconOnClickListener(
                   v -> {
-                    HapticUtils.weakVibrate(v, context);
+                    HapticUtils.weakVibrate(v);
                     if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
                       Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
                       Utils.snackBar(
@@ -561,7 +561,7 @@ public class OtgFragment extends Fragment
 
     binding.commandEditText.setOnEditorActionListener(this);
     binding.commandEditText.setOnKeyListener(this);
-    mainViewModel.setHomeFragment(Preferences.OTG_FRAGMENT);
+    mainViewModel.setHomeFragment(Const.OTG_FRAGMENT);
 
     return view;
   }
@@ -714,7 +714,7 @@ public class OtgFragment extends Fragment
 
   @Override
   public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-    HapticUtils.weakVibrate(v, context);
+    HapticUtils.weakVibrate(v);
     /* We always return false because we want to dismiss the keyboard */
     if (adbConnection != null && actionId == EditorInfo.IME_ACTION_DONE) putCommand();
 
@@ -781,7 +781,7 @@ public class OtgFragment extends Fragment
   private void modeButtonOnClickListener() {
     binding.modeButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           if (mDevice != null) {
             String connectedDevice = mDevice.getProductName();
             DialogUtils.connectedDeviceDialog(
@@ -820,16 +820,16 @@ public class OtgFragment extends Fragment
   private void saveButtonOnClickListener() {
     binding.saveButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           history = mHistory;
           String sb = null, fileName = null;
 
-          switch (Preferences.getSavePreference(context)) {
-            case Preferences.ALL_OUTPUT:
+          switch (Preferences.getSavePreference()) {
+            case Const.ALL_OUTPUT:
               sb = binding.shellOutput.getText().toString();
               fileName = "otg_output" + DeviceUtils.getCurrentDateTime();
               break;
-            case Preferences.LAST_COMMAND_OUTPUT:
+            case Const.LAST_COMMAND_OUTPUT:
               sb = Utils.lastCommandOutput(binding.shellOutput.getText().toString());
               fileName = Utils.generateFileName(mHistory) + DeviceUtils.getCurrentDateTime();
               break;
@@ -837,7 +837,7 @@ public class OtgFragment extends Fragment
               break;
           }
           boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
-          if (saved) Preferences.setLastSavedFileName(context, fileName + ".txt");
+          if (saved) Preferences.setLastSavedFileName( fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
           DialogUtils.outputSavedDialog(context, saved);
@@ -848,7 +848,7 @@ public class OtgFragment extends Fragment
   private void shareButtonOnClickListener() {
     binding.shareButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           String fileName = Utils.generateFileName(mHistory);
           Utils.shareOutput(
               requireActivity(),
@@ -863,7 +863,7 @@ public class OtgFragment extends Fragment
     binding.settingsButton.setTooltipText(getString(R.string.settings));
     binding.settingsButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, getContext());
+          HapticUtils.weakVibrate(v);
 
           goToSettings();
         });
@@ -874,7 +874,7 @@ public class OtgFragment extends Fragment
     binding.historyButton.setTooltipText(getString(R.string.history));
     binding.historyButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
 
           if (history == null)
             ToastUtils.showToast(context, R.string.no_history, ToastUtils.LENGTH_SHORT);
@@ -905,8 +905,8 @@ public class OtgFragment extends Fragment
     binding.clearButton.setTooltipText(getString(R.string.clear_screen));
     binding.clearButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
-          boolean switchState = Preferences.getClear(context);
+          HapticUtils.weakVibrate(v);
+          boolean switchState = Preferences.getClear();
 
           if (binding.shellOutput.getText().toString().isEmpty())
             ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
@@ -926,7 +926,7 @@ public class OtgFragment extends Fragment
     binding.bookmarksButton.setTooltipText(getString(R.string.bookmarks));
     binding.bookmarksButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
 
           if (Utils.getBookmarks(context).isEmpty())
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
@@ -940,7 +940,7 @@ public class OtgFragment extends Fragment
   private void sendButtonOnClickListener() {
     binding.sendButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           KeyboardUtils.closeKeyboard(requireActivity(), v);
           modeButtonOnClickListener();
           sendButtonClicked = true;
@@ -1009,9 +1009,9 @@ public class OtgFragment extends Fragment
   private void crossOnClickListener() {
     binding.cross.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           binding.usbWarningCard.setVisibility(View.GONE);
-          Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", false);
+          Preferences.setSpecificCardVisibility("warning_usb_debugging", false);
         });
   }
 
@@ -1019,8 +1019,8 @@ public class OtgFragment extends Fragment
   private void instructionsButtonOnClickListener() {
     binding.instructionsButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
-          Utils.openUrl(context, Preferences.otgInstructions);
+          HapticUtils.weakVibrate(v);
+          Utils.openUrl(context, Const.URL_OTG_INSTRUCTIONS);
         });
   }
 

@@ -3,6 +3,7 @@ package in.hridayan.ashell.utils;
 import android.content.Context;
 import android.os.Build;
 import in.hridayan.ashell.BuildConfig;
+import in.hridayan.ashell.config.Preferences;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -56,7 +57,7 @@ public class DeviceUtils {
 
   /* returns if app has just been updated , used to perform certain things after opening the app after an update */
   public static boolean isAppUpdated(Context context) {
-    savedVersionCode = Preferences.getSavedVersionCode(context);
+    savedVersionCode = Preferences.getSavedVersionCode();
     return savedVersionCode != currentVersion() && savedVersionCode != 1;
   }
 

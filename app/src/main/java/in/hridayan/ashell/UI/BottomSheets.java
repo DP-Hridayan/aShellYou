@@ -9,14 +9,15 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 
 public class BottomSheets {
 
   /* <--------BOTTOM SHEETS SHOWN FOR FEEDBACK -------> */
-    
+
   // Bottom sheet showing the popup after the app is updated
   public static void showBottomSheetChangelog(Activity activity) {
     BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(activity);
@@ -58,16 +59,16 @@ public class BottomSheets {
             + " "
             + context.getString(R.string.version)
             + " : "
-            + Preferences.getLatestVersionName(context));
+            + Preferences.getLatestVersionName());
     downloadButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
-          Utils.openUrl(activity, Preferences.appGithubRelease);
+          HapticUtils.weakVibrate(v);
+          Utils.openUrl(activity, Const.URL_GITHUB_RELEASE);
           bottomSheetDialog.dismiss();
         });
     cancelButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           bottomSheetDialog.dismiss();
         });
   }

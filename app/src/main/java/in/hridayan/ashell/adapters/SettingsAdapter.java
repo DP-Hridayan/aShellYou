@@ -27,7 +27,7 @@ import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -78,7 +78,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         isAmoledTheme ? R.style.ThemeOverlay_aShellYou_AmoledTheme : R.style.aShellYou_AppTheme;
     context.setTheme(themeId);
     /* we need to save the boolean value when activity recreates to perform certain functions based on it */
-    Preferences.setActivityRecreated(context, true);
+    Preferences.setActivityRecreated(true);
     ((AppCompatActivity) context).recreate();
   }
 
@@ -126,7 +126,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       switchView.setOnCheckedChangeListener(
           (buttonView, isChecked) -> {
             settingsItem.setChecked(isChecked);
-            settingsItem.saveSwitchState(context);
+            settingsItem.saveSwitchState();
 
             if (settingsItem.getId().equals("id_amoled_theme")) {
               if (ThemeUtils.isNightMode(context)) applyTheme(isChecked);
@@ -137,7 +137,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     private void setupClickListener(SettingsItem settingsItem) {
       settingsItemLayout.setOnClickListener(
           v -> {
-            HapticUtils.weakVibrate(v, context);
+            HapticUtils.weakVibrate(v);
             handleItemClick(settingsItem.getId());
           });
     }
@@ -153,7 +153,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     private void handleItemClick(String id) {
       switch (id) {
         case "id_unhide_cards":
-          Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
+          Preferences.setSpecificCardVisibility("warning_usb_debugging", true);
           Toast.makeText(
                   context, context.getString(R.string.unhide_cards_message), Toast.LENGTH_SHORT)
               .show();

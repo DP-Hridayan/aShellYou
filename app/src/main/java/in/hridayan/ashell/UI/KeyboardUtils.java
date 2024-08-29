@@ -8,7 +8,7 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import com.google.android.material.textfield.TextInputEditText;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 
 public class KeyboardUtils {
 
@@ -48,7 +48,7 @@ public class KeyboardUtils {
     InputMethodManager imm =
         (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-    boolean disableSoftKey = Preferences.getDisableSoftkey(context);
+    boolean disableSoftKey = Preferences.getDisableSoftkey();
     if (disableSoftKey) {
       if (imm != null) imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 

@@ -14,7 +14,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.OnboardingAdapter;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 
 public class StartFragment extends Fragment {
 
@@ -75,7 +76,7 @@ public class StartFragment extends Fragment {
   }
 
   private boolean isBasicMode() {
-    return Preferences.getLocalAdbMode(requireContext()) == Preferences.BASIC_MODE;
+    return Preferences.getLocalAdbMode() == Const.BASIC_MODE;
   }
 
   private void confirmationDialog() {
@@ -88,7 +89,7 @@ public class StartFragment extends Fragment {
   }
 
   private void enterHomeFragment() {
-    Preferences.setFirstLaunch(requireContext(), false);
+    Preferences.setFirstLaunch(false);
     getParentFragmentManager()
         .beginTransaction()
         .setCustomAnimations(

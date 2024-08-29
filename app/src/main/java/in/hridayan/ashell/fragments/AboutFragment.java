@@ -26,11 +26,12 @@ import in.hridayan.ashell.UI.BottomSheets;
 import in.hridayan.ashell.UI.CategoryAbout;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.adapters.AboutAdapter;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.databinding.FragmentAboutBinding;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class AboutFragment extends Fragment
   private void setupListeners() {
     binding.arrowBack.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, getContext());
+          HapticUtils.weakVibrate(v);
           requireActivity().getSupportFragmentManager().popBackStack();
         });
   }
@@ -237,7 +238,7 @@ public class AboutFragment extends Fragment
     }
 
     loadingDots.setVisibility(View.VISIBLE);
-    new FetchLatestVersionCode(getContext(), this).execute(Preferences.buildGradleUrl);
+    new FetchLatestVersionCode(getContext(), this).execute(Const.URL_BUILD_GRADLE);
   }
 
   @Override
@@ -253,13 +254,13 @@ public class AboutFragment extends Fragment
 
     if (getContext() != null) {
       switch (result) {
-        case Preferences.UPDATE_AVAILABLE:
+        case Const.UPDATE_AVAILABLE:
           BottomSheets.showBottomSheetUpdate(requireActivity(), getContext());
           return;
-        case Preferences.UPDATE_NOT_AVAILABLE:
+        case Const.UPDATE_NOT_AVAILABLE:
           latestVersionDialog(getContext());
           break;
-        case Preferences.CONNECTION_ERROR:
+        case Const.CONNECTION_ERROR:
           ToastUtils.showToast(getContext(), R.string.check_internet, ToastUtils.LENGTH_SHORT);
           break;
         default:

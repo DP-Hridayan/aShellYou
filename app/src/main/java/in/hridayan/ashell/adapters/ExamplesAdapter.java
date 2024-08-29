@@ -2,7 +2,7 @@ package in.hridayan.ashell.adapters;
 
 import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.utils.DeviceUtils;
-import static in.hridayan.ashell.utils.Preferences.*;
+import static in.hridayan.ashell.config.Const.*;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -21,7 +21,7 @@ import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.items.CommandItems;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import java.util.*;
 
@@ -123,7 +123,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     }
 
     private void showExampleDialog(CommandItems item) {
-      HapticUtils.weakVibrate(itemView, context);
+      HapticUtils.weakVibrate(itemView);
       String sanitizedText = sanitizeText(item.getTitle());
       new MaterialAlertDialogBuilder(context)
           .setTitle(R.string.example)
@@ -247,7 +247,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
           if (item1.isPinned() != item2.isPinned()) {
             return Boolean.compare(item2.isPinned(), item1.isPinned());
           }
-          int sortOption = Preferences.getSortingExamples(context);
+          int sortOption = Preferences.getSortingExamples();
           switch (sortOption) {
             case SORT_A_TO_Z:
               return item1.getTitle().compareToIgnoreCase(item2.getTitle());

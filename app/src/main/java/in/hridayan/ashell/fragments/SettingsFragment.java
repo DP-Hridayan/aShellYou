@@ -22,7 +22,7 @@ import in.hridayan.ashell.databinding.FragmentSettingsBinding;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.MiuiCheck;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -115,7 +115,7 @@ public class SettingsFragment extends Fragment {
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
     binding.arrowBack.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           dispatcher.onBackPressed();
         });
 
@@ -128,7 +128,7 @@ public class SettingsFragment extends Fragment {
             getString(R.string.amoled_theme),
             getString(R.string.des_amoled_theme),
             true,
-            Preferences.getAmoledTheme(context)));
+            Preferences.getAmoledTheme()));
 
     settingsData.add(
         new SettingsItem(
@@ -137,7 +137,7 @@ public class SettingsFragment extends Fragment {
             getString(R.string.ask_to_clean),
             getString(R.string.des_ask_to_clean),
             true,
-            Preferences.getClear(context)));
+            Preferences.getClear()));
 
     settingsData.add(
         new SettingsItem(
@@ -146,7 +146,7 @@ public class SettingsFragment extends Fragment {
             getString(R.string.share_and_run),
             getString(R.string.des_share_and_run),
             true,
-            Preferences.getShareAndRun(context)));
+            Preferences.getShareAndRun()));
 
     settingsData.add(
         new SettingsItem(
@@ -155,7 +155,7 @@ public class SettingsFragment extends Fragment {
             getString(R.string.auto_update_check),
             getString(R.string.des_auto_update_check),
             true,
-            Preferences.getAutoUpdateCheck(context)));
+            Preferences.getAutoUpdateCheck()));
 
     settingsData.add(
         new SettingsItem(
@@ -206,7 +206,7 @@ public class SettingsFragment extends Fragment {
             getString(R.string.disable_softkey),
             getString(R.string.des_disable_softkey),
             true,
-            Preferences.getDisableSoftkey(context)));
+            Preferences.getDisableSoftkey()));
 
     settingsData.add(
         new SettingsItem(
@@ -224,7 +224,7 @@ public class SettingsFragment extends Fragment {
             getString(R.string.vibration),
             getString(R.string.des_vibration),
             true,
-            Preferences.getHapticsAndVibration(context)));
+            Preferences.getHapticsAndVibration()));
 
     settingsData.add(
         new SettingsItem(
@@ -233,7 +233,7 @@ public class SettingsFragment extends Fragment {
             getString(R.string.override_bookmarks_limit),
             getString(R.string.des_override_bookmarks),
             true,
-            Preferences.getOverrideBookmarks(context)));
+            Preferences.getOverrideBookmarks()));
 
     settingsData.add(
         new SettingsItem(
@@ -251,7 +251,7 @@ public class SettingsFragment extends Fragment {
             getString(R.string.smooth_scrolling),
             getString(R.string.des_smooth_scroll),
             true,
-            Preferences.getSmoothScroll(context)));
+            Preferences.getSmoothScroll()));
 
     settingsData.add(
         new SettingsItem(
