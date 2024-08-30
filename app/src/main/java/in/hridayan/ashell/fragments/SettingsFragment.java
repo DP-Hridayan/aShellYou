@@ -160,7 +160,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            Const.PREF_OUTPUT_SAVE_DIRECTORY,
+            Const.ID_CONFIG_SAVE_DIR,
             R.drawable.ic_directory,
             getString(R.string.configure_save_directory),
             getString(R.string.des_configure_save_directory),

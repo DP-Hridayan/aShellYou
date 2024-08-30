@@ -35,6 +35,7 @@ public interface Const {
 
   // tags for things like onclick listeners
   String ID_DEF_LANGUAGE = "id_default_language";
+  String ID_CONFIG_SAVE_DIR = "id_configure_save_directory";
   String ID_UNHIDE_CARDS = "id_unhide_cards";
   String ID_EXAMPLES = "id_examples";
   String ID_ABOUT = "id_about";
@@ -46,6 +47,9 @@ public interface Const {
   String ID_TELEGRAM = "id_telegram";
   String ID_DISCORD = "id_discord";
   String ID_LICENSE = "id_license";
+
+  String URL_DEV_GITHUB = "https://github.com/DP-Hridayan";
+  String URL_DEV_BM_COFFEE = "https://www.buymeacoffee.com/hridayan";
 
   // url for the build.gradle file of the app
   String URL_BUILD_GRADLE =

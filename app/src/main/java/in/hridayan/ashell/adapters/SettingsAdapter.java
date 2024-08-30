@@ -23,6 +23,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.activities.MainActivity;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.items.SettingsItem;
@@ -99,11 +100,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     void bind(SettingsItem settingsItem, boolean isLastItem) {
 
-      if (settingsItem.getId().equals("id_about")) {
+      if (settingsItem.getId().equals(Const.ID_ABOUT)) {
         itemView.setTransitionName("settingsItemToAbout");
       }
 
-      if (settingsItem.getId().equals("id_examples")) {
+      if (settingsItem.getId().equals(Const.ID_EXAMPLES)) {
         itemView.setTransitionName("sendButtonToExamples");
       }
 
@@ -115,7 +116,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       // "id_configure_save_directory"
       // and the output save directory is not empty.
       String outputSaveDirectory = Preferences.getSavedOutputDir();
-      if (settingsItem.getId().equals("id_configure_save_directory")
+      if (settingsItem.getId().equals(Const.ID_CONFIG_SAVE_DIR)
           && !outputSaveDirectory.isEmpty()) {
         descriptionTextView.setText(Uri.parse(outputSaveDirectory).getPath());
       } else {
@@ -139,7 +140,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             settingsItem.setChecked(isChecked);
             settingsItem.saveSwitchState();
 
-            if (settingsItem.getId().equals("id_amoled_theme")) {
+            if (settingsItem.getId().equals(Const.PREF_AMOLED_THEME)) {
               if (ThemeUtils.isNightMode(context)) applyTheme(isChecked);
             }
           });
@@ -163,26 +164,26 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     private void handleItemClick(String id) {
       switch (id) {
-        case "id_unhide_cards":
+        case Const.ID_UNHIDE_CARDS:
           Preferences.setSpecificCardVisibility("warning_usb_debugging", true);
           Toast.makeText(
                   context, context.getString(R.string.unhide_cards_message), Toast.LENGTH_SHORT)
               .show();
           break;
 
-        case "id_examples":
+        case Const.ID_EXAMPLES:
           examplesViewModel.setRVPositionAndOffset(null);
           examplesViewModel.setToolbarExpanded(true);
           loadFragmentWithTransition(new ExamplesFragment(), itemView);
           break;
 
-        case "id_about":
+        case Const.ID_ABOUT:
           aboutViewModel.setRVPositionAndOffset(null);
           aboutViewModel.setToolbarExpanded(true);
           loadFragmentWithTransition(new AboutFragment(), itemView);
           break;
 
-        case "id_default_language":
+        case Const.ID_DEF_LANGUAGE:
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             Intent intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
             intent.setData(Uri.parse("package:" + context.getPackageName()));
@@ -190,24 +191,24 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           }
           break;
 
-        case "id_configure_save_directory":
+        case Const.ID_CONFIG_SAVE_DIR:
           activity.startActivityForResult(
               new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE), MainActivity.SAVE_DIRECTORY_CODE);
           break;
 
-        case "id_default_launch_mode":
+        case Const.PREF_DEFAULT_LAUNCH_MODE:
           DialogUtils.defaultLaunchModeDialog(context);
           break;
 
-        case "id_examples_layout_style":
+        case Const.PREF_EXAMPLES_LAYOUT_STYLE:
           DialogUtils.examplesLayoutStyleDialog(context);
           break;
 
-        case "id_save_preference":
+        case Const.PREF_SAVE_PREFERENCE:
           DialogUtils.savePreferenceDialog(context);
           break;
 
-        case "id_local_adb_mode":
+        case Const.PREF_LOCAL_ADB_MODE:
           DialogUtils.localAdbModeDialog(context);
           break;
       }
