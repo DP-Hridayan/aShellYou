@@ -48,6 +48,8 @@ public interface Const {
   String ID_DISCORD = "id_discord";
   String ID_LICENSE = "id_license";
 
+  /* <--------U R L s -------> */
+
   String URL_DEV_GITHUB = "https://github.com/DP-Hridayan";
   String URL_DEV_BM_COFFEE = "https://www.buymeacoffee.com/hridayan";
 
@@ -92,4 +94,28 @@ public interface Const {
 
   // used in OTG utils
   double PUSH_PERCENT = 0.5;
+
+  /* <--------NAMES OF CONTRIBUTORS -------> */
+  public static enum Contributors {
+    HRIDAYAN("Hridayan"),
+    KRISHNA("Krishna"),
+    STARRY("Stɑrry Shivɑm"),
+    DISAGREE("DrDisagree"),
+    RIKKA("RikkaApps"),
+    SUNILPAULMATHEW("Sunilpaulmathew"),
+    KHUN_HTETZ("Khun Htetz Naing"),
+    MARCIOZOMB("marciozomb13"),
+    WEIGUANGTWK("weiguangtwk"),
+    WINZORT("WINZORT");
+
+    private final String name;
+
+    Contributors(String name) {
+      this.name = name;
+    }
+
+    public String getName() {
+      return name;
+    }
+  }
 }

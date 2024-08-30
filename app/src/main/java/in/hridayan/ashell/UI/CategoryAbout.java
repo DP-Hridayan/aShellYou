@@ -1,5 +1,7 @@
 package in.hridayan.ashell.UI;
 
+import in.hridayan.ashell.config.Const;
+
 public class CategoryAbout {
   private String name;
 
@@ -36,17 +38,19 @@ public class CategoryAbout {
   }
 
   public static class ContributorsItem {
-    private String id, title, description;
+    private Const.Contributors id;
+    private String title, description;
     private int imageResource;
 
-    public ContributorsItem(String id, String title, String description, int imageResource) {
+    public ContributorsItem(
+        Const.Contributors id, String title, String description, int imageResource) {
       this.id = id;
       this.title = title;
       this.description = description;
       this.imageResource = imageResource;
     }
 
-    public String getId() {
+    public Const.Contributors getId() {
       return id;
     }
 

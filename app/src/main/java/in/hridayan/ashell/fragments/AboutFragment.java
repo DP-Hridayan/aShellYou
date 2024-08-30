@@ -36,6 +36,7 @@ import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import java.util.ArrayList;
 import java.util.List;
+import in.hridayan.ashell.config.Const.Contributors;
 
 public class AboutFragment extends Fragment
     implements AboutAdapter.AdapterListener, DeviceUtils.FetchLatestVersionCodeCallback {
@@ -91,51 +92,65 @@ public class AboutFragment extends Fragment
     items.add(new CategoryAbout(getString(R.string.lead_developer)));
     items.add(
         new CategoryAbout.LeadDeveloperItem(
-            "Hridayan", getString(R.string.hridayan_about), R.mipmap.dp_hridayan));
+            Contributors.HRIDAYAN.getName(),
+            getString(R.string.hridayan_about),
+            R.mipmap.dp_hridayan));
 
     items.add(new CategoryAbout(getString(R.string.contributors)));
     items.add(
         new CategoryAbout.ContributorsItem(
-            "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
+            Contributors.KRISHNA,
+            Contributors.KRISHNA.getName(),
+            getString(R.string.krishna_about),
+            R.mipmap.dp_krishna));
     items.add(
         new CategoryAbout.ContributorsItem(
-            "id_shivam", "Stɑrry Shivɑm", getString(R.string.shivam_about), R.mipmap.dp_shivam));
+            Contributors.STARRY,
+            Contributors.STARRY.getName(),
+            getString(R.string.shivam_about),
+            R.mipmap.dp_shivam));
     items.add(
         new CategoryAbout.ContributorsItem(
-            "id_drDisagree",
-            "DrDisagree",
+            Contributors.DISAGREE,
+            Contributors.DISAGREE.getName(),
             getString(R.string.drDisagree_about),
             R.mipmap.dp_drdisagree));
     items.add(
         new CategoryAbout.ContributorsItem(
-            "id_rikka", "RikkaApps", getString(R.string.rikka_about), R.mipmap.dp_shizuku));
+            Contributors.RIKKA,
+            Contributors.RIKKA.getName(),
+            getString(R.string.rikka_about),
+            R.mipmap.dp_shizuku));
     items.add(
         new CategoryAbout.ContributorsItem(
-            "id_sunilpaulmathew",
-            "Sunilpaulmathew",
+            Contributors.SUNILPAULMATHEW,
+            Contributors.SUNILPAULMATHEW.getName(),
             getString(R.string.sunilpaulmathew_about),
             R.mipmap.dp_sunilpaulmathew));
     items.add(
         new CategoryAbout.ContributorsItem(
-            "id_khun_htetz",
-            "Khun Htetz Naing",
+            Contributors.KHUN_HTETZ,
+            Contributors.KHUN_HTETZ.getName(),
             getString(R.string.khun_htetz_about),
             R.mipmap.dp_adb_otg));
     items.add(
         new CategoryAbout.ContributorsItem(
-            "id_marciozomb13",
-            "marciozomb13",
+            Contributors.MARCIOZOMB,
+            Contributors.MARCIOZOMB.getName(),
             getString(R.string.marciozomb13_about),
             R.mipmap.dp_marciozomb13));
     items.add(
         new CategoryAbout.ContributorsItem(
-            "id_weiguangtwk",
-            "weiguangtwk",
+            Contributors.WEIGUANGTWK,
+            Contributors.WEIGUANGTWK.getName(),
             getString(R.string.weiguangtwk_about),
             R.mipmap.dp_weiguangtwk));
     items.add(
         new CategoryAbout.ContributorsItem(
-            "id_winzort", "WINZORT", getString(R.string.winzort_about), R.mipmap.dp_winzort));
+            Contributors.WINZORT,
+            Contributors.WINZORT.getName(),
+            getString(R.string.winzort_about),
+            R.mipmap.dp_winzort));
 
     items.add(new CategoryAbout(getString(R.string.app)));
     try {
@@ -143,7 +158,7 @@ public class AboutFragment extends Fragment
           requireContext().getPackageManager().getPackageInfo(requireContext().getPackageName(), 0);
       items.add(
           new CategoryAbout.AppItem(
-              "id_version",
+              Const.ID_VERSION,
               getString(R.string.version),
               pInfo.versionName,
               R.drawable.ic_version_tag));
@@ -152,37 +167,37 @@ public class AboutFragment extends Fragment
 
     items.add(
         new CategoryAbout.AppItem(
-            "id_changelogs",
+            Const.ID_CHANGELOGS,
             getString(R.string.changelogs),
             getString(R.string.des_changelogs),
             R.drawable.ic_changelog));
     items.add(
         new CategoryAbout.AppItem(
-            "id_report",
+            Const.ID_REPORT,
             getString(R.string.report_issue),
             getString(R.string.des_report_issue),
             R.drawable.ic_report));
     items.add(
         new CategoryAbout.AppItem(
-            "id_feature",
+            Const.ID_FEATURE,
             getString(R.string.feature_request),
             getString(R.string.des_feature_request),
             R.drawable.ic_feature));
     items.add(
         new CategoryAbout.AppItem(
-            "id_github",
+            Const.ID_GITHUB,
             getString(R.string.github),
             getString(R.string.des_github),
             R.drawable.ic_github));
     items.add(
         new CategoryAbout.AppItem(
-            "id_telegram",
+            Const.ID_TELEGRAM,
             getString(R.string.telegram_channel),
             getString(R.string.des_telegram_channel),
             R.drawable.ic_telegram));
     items.add(
         new CategoryAbout.AppItem(
-            "id_license",
+            Const.ID_LICENSE,
             getString(R.string.license),
             getString(R.string.des_license),
             R.drawable.ic_license));

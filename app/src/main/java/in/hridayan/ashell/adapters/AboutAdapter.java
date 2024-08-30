@@ -20,6 +20,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.CategoryAbout;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Const.Contributors;
 import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -291,17 +292,17 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
   }
 
-  private static Map<String, String> getContributorsIdUrlMap() {
-    Map<String, String> idUrlMap = new HashMap<>();
-    idUrlMap.put("id_rikka", "https://github.com/RikkaApps/Shizuku");
-    idUrlMap.put("id_sunilpaulmathew", "https://gitlab.com/sunilpaulmathew/ashell");
-    idUrlMap.put("id_khun_htetz", "https://github.com/KhunHtetzNaing/ADB-OTG");
-    idUrlMap.put("id_krishna", "https://github.com/KrishnaSSH");
-    idUrlMap.put("id_shivam", "https://github.com/starry-shivam");
-    idUrlMap.put("id_drDisagree", "https://github.com/Mahmud0808");
-    idUrlMap.put("id_marciozomb13", "https://github.com/marciozomb13");
-    idUrlMap.put("id_weiguangtwk", "https://github.com/WeiguangTWK");
-    idUrlMap.put("id_winzort", "https://github.com/mikropsoft");
+  private static Map<Contributors, String> getContributorsIdUrlMap() {
+    Map<Contributors, String> idUrlMap = new HashMap<>();
+    idUrlMap.put(Contributors.RIKKA, "https://github.com/RikkaApps/Shizuku");
+    idUrlMap.put(Contributors.SUNILPAULMATHEW, "https://gitlab.com/sunilpaulmathew/ashell");
+    idUrlMap.put(Contributors.KHUN_HTETZ, "https://github.com/KhunHtetzNaing/ADB-OTG");
+    idUrlMap.put(Contributors.KRISHNA, "https://github.com/KrishnaSSH");
+    idUrlMap.put(Contributors.STARRY, "https://github.com/starry-shivam");
+    idUrlMap.put(Contributors.DISAGREE, "https://github.com/Mahmud0808");
+    idUrlMap.put(Contributors.MARCIOZOMB, "https://github.com/marciozomb13");
+    idUrlMap.put(Contributors.WEIGUANGTWK, "https://github.com/WeiguangTWK");
+    idUrlMap.put(Contributors.WINZORT, "https://github.com/mikropsoft");
     return idUrlMap;
   }
 
