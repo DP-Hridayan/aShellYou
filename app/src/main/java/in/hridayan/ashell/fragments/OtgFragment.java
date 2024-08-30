@@ -147,11 +147,16 @@ public class OtgFragment extends Fragment
   @Override
   public void onResume() {
     super.onResume();
+
     setExitTransition(null);
+
+    // if bottom navigation is not visible , then make it visible
+    if (mNav != null && mNav.getVisibility() == View.GONE) mNav.setVisibility(View.VISIBLE);
+
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
-    if (Preferences.getSpecificCardVisibility( "warning_usb_debugging")
-        && adbConnection == null) binding.usbWarningCard.setVisibility(View.VISIBLE);
+    if (Preferences.getSpecificCardVisibility("warning_usb_debugging") && adbConnection == null)
+      binding.usbWarningCard.setVisibility(View.VISIBLE);
     else if (binding.usbWarningCard.getVisibility() == View.VISIBLE)
       binding.usbWarningCard.setVisibility(View.GONE);
 
@@ -292,8 +297,7 @@ public class OtgFragment extends Fragment
     }
 
     // Show the info card by checking preferences
-    if (Preferences.getSpecificCardVisibility( "warning_usb_debugging")
-        && adbConnection == null) {
+    if (Preferences.getSpecificCardVisibility("warning_usb_debugging") && adbConnection == null) {
       binding.usbWarningCard.setVisibility(View.VISIBLE);
     } else if (binding.usbWarningCard.getVisibility() == View.VISIBLE) {
       binding.usbWarningCard.setVisibility(View.GONE);
@@ -837,7 +841,7 @@ public class OtgFragment extends Fragment
               break;
           }
           boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
-          if (saved) Preferences.setLastSavedFileName( fileName + ".txt");
+          if (saved) Preferences.setLastSavedFileName(fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
           DialogUtils.outputSavedDialog(context, saved);

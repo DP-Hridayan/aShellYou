@@ -142,7 +142,13 @@ public class AshellFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
+
+    // we set exit transition to null
     setExitTransition(null);
+
+    // if bottom navigation is not visible , then make it visible
+    if (mNav != null && mNav.getVisibility() == View.GONE) mNav.setVisibility(View.VISIBLE);
+
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     // This function is for restoring the Run button's icon after a configuration change
@@ -571,7 +577,8 @@ public class AshellFragment extends Fragment {
           if (isBasicMode()) connectedDeviceDialog(DeviceUtils.getDeviceName());
           else if (isShizukuMode()) {
             boolean hasShizuku = Shizuku.pingBinder() && ShizukuShell.hasPermission();
-            connectedDeviceDialog(hasShizuku ? DeviceUtils.getDeviceName() : getString(R.string.none));
+            connectedDeviceDialog(
+                hasShizuku ? DeviceUtils.getDeviceName() : getString(R.string.none));
           } else if (isRootMode()) {
             boolean hasRoot = RootShell.isDeviceRooted() && RootShell.hasPermission();
             connectedDeviceDialog(hasRoot ? DeviceUtils.getDeviceName() : getString(R.string.none));
@@ -619,7 +626,7 @@ public class AshellFragment extends Fragment {
         .setPositiveButton(
             getString(R.string.choose),
             (dialog, which) -> {
-              Preferences.setLocalAdbMode( preference[0]);
+              Preferences.setLocalAdbMode(preference[0]);
               binding.commandInputLayout.setError(null);
               handleModeButtonTextAndCommandHint();
             })
