@@ -32,6 +32,7 @@ import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
+import in.hridayan.ashell.UI.BottomNavUtils;
 import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.ThemeUtils;
@@ -147,7 +148,7 @@ public class AshellFragment extends Fragment {
     setExitTransition(null);
 
     // if bottom navigation is not visible , then make it visible
-    if (mNav != null && mNav.getVisibility() == View.GONE) mNav.setVisibility(View.VISIBLE);
+    BottomNavUtils.showNavSmoothly(mNav);
 
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 

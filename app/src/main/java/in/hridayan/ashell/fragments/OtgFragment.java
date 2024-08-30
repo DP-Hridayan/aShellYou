@@ -1,5 +1,6 @@
 package in.hridayan.ashell.fragments;
 
+import in.hridayan.ashell.UI.BottomNavUtils;
 import in.hridayan.ashell.config.Const;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
@@ -151,7 +152,7 @@ public class OtgFragment extends Fragment
     setExitTransition(null);
 
     // if bottom navigation is not visible , then make it visible
-    if (mNav != null && mNav.getVisibility() == View.GONE) mNav.setVisibility(View.VISIBLE);
+    BottomNavUtils.showNavSmoothly(mNav);
 
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 

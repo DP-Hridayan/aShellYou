@@ -25,6 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.BottomNavUtils;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
@@ -136,7 +137,7 @@ public class ExamplesFragment extends Fragment
           dispatcher.onBackPressed();
         });
 
-    mNav.setVisibility(View.GONE);
+    BottomNavUtils.hideNavSmoothly(mNav);
 
     binding.searchBar.clearFocus();
     binding.searchBar.setNavigationIcon(R.drawable.ic_search);
