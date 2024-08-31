@@ -209,12 +209,18 @@ public class DialogUtils {
 
   // Dialog to show if the shell output is saved or not
   public static void outputSavedDialog(Context context, boolean saved) {
+
+    String saveDir = Environment.DIRECTORY_DOWNLOADS;
+
+    String outputSaveDirectory = Preferences.getSavedOutputDir();
+    if (!outputSaveDirectory.equals("")) {
+      saveDir = DocumentTreeUtil.getFullPathFromTreeUri(Uri.parse(outputSaveDirectory), context);
+    }
+
     String successMessage =
         Preferences.getSavePreference() == Const.ALL_OUTPUT
-            ? context.getString(
-                R.string.shell_output_saved_whole_message, Environment.DIRECTORY_DOWNLOADS)
-            : context.getString(
-                R.string.shell_output_saved_message, Environment.DIRECTORY_DOWNLOADS);
+            ? context.getString(R.string.shell_output_saved_whole_message, saveDir)
+            : context.getString(R.string.shell_output_saved_message, saveDir);
     String message =
         saved ? successMessage : context.getString(R.string.shell_output_not_saved_message);
     String title = saved ? context.getString(R.string.success) : context.getString(R.string.failed);
@@ -376,9 +382,7 @@ public class DialogUtils {
   public static MaterialTextView configureSaveDirDialog(Context context, Activity activity) {
     View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_choose_directory, null);
 
-    new MaterialAlertDialogBuilder(context)
-        .setView(dialogView)
-        .show();
+    new MaterialAlertDialogBuilder(context).setView(dialogView).show();
 
     MaterialTextView textView = dialogView.findViewById(R.id.path);
     Button folderPicker = dialogView.findViewById(R.id.folder_picker);
