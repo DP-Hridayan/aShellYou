@@ -55,7 +55,7 @@ public class Utils {
 
   // Generate the filename
   public static String generateFileName(List<String> mHistory) {
-    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "") + ".txt";
+    return mHistory.get(mHistory.size() - 1).replace("/", "-").replace(" ", "");
   }
 
   // Checks if filename is valid
