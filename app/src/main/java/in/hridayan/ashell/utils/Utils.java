@@ -23,18 +23,19 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.ToastUtils;
+import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -46,11 +47,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
-import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.ToastUtils;
-import in.hridayan.ashell.config.Const;
-import in.hridayan.ashell.config.Preferences;
 
 public class Utils {
 
@@ -170,7 +166,7 @@ public class Utils {
         if (activity.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
-                    activity, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                    activity, new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             return false;
         }
 
@@ -239,7 +235,6 @@ public class Utils {
             Toast.makeText(context, context.getString(R.string.file_not_found), Toast.LENGTH_SHORT).show();
         }
     }
-
 
     /* <--------CLIPBOARD ACTIONS -------> */
 
@@ -481,8 +476,7 @@ public class Utils {
     public static String convertListToString(List<String> list) {
         StringBuilder sb = new StringBuilder();
         for (String s : list) {
-            if (!Utils.shellDeadError().equals(s) && !"<i></i>".equals(s))
-                sb.append(s).append("\n");
+            if (!Utils.shellDeadError().equals(s) && !"<i></i>".equals(s)) sb.append(s).append("\n");
         }
         return sb.toString();
     }
