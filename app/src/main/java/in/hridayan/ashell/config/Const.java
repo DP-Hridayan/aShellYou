@@ -96,26 +96,33 @@ public interface Const {
   double PUSH_PERCENT = 0.5;
 
   /* <--------NAMES OF CONTRIBUTORS -------> */
+    
   public static enum Contributors {
-    HRIDAYAN("Hridayan"),
-    KRISHNA("Krishna"),
-    STARRY("Stɑrry Shivɑm"),
-    DISAGREE("DrDisagree"),
-    RIKKA("RikkaApps"),
-    SUNILPAULMATHEW("Sunilpaulmathew"),
-    KHUN_HTETZ("Khun Htetz Naing"),
-    MARCIOZOMB("marciozomb13"),
-    WEIGUANGTWK("weiguangtwk"),
-    WINZORT("WINZORT");
 
-    private final String name;
+    // assigning names and their github profile links to each contributors
+    HRIDAYAN("Hridayan", "https://github.com/DP-Hridayan"),
+    KRISHNA("Krishna", "https://github.com/KrishnaSSH"),
+    STARRY("Stɑrry Shivɑm", "https://github.com/starry-shivam"),
+    DISAGREE("DrDisagree", "https://github.com/Mahmud0808"),
+    RIKKA("RikkaApps", "https://github.com/RikkaApps/Shizuku"),
+    SUNILPAULMATHEW("Sunilpaulmathew", "https://gitlab.com/sunilpaulmathew/ashell"),
+    KHUN_HTETZ("Khun Htetz Naing", "https://github.com/KhunHtetzNaing/ADB-OTG"),
+    MARCIOZOMB("marciozomb13", "https://github.com/marciozomb13"),
+    WEIGUANGTWK("weiguangtwk", "https://github.com/WeiguangTWK"),
+    WINZORT("WINZORT", "https://github.com/mikropsoft");
+    private final String name, github;
 
-    Contributors(String name) {
+    Contributors(String name, String github) {
       this.name = name;
+      this.github = github;
     }
 
     public String getName() {
       return name;
+    }
+
+    public String getGithub() {
+      return github;
     }
   }
 }

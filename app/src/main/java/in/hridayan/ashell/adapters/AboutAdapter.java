@@ -173,8 +173,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
+      // onclick listener for github button which redirects to the github profiles of individual
+      // contributors
       buttonView.setOnClickListener(
-          v -> Utils.openUrl(itemView.getContext(), getContributorsIdUrlMap().get(item.getId())));
+          v -> Utils.openUrl(itemView.getContext(), item.getId().getGithub()));
       categoryContributorsLayout.setOnClickListener(
           v -> {
             HapticUtils.weakVibrate(v);
@@ -290,20 +292,6 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       layoutParams.bottomMargin = isLastItem ? paddingInPixels : 0;
       itemView.setLayoutParams(layoutParams);
     }
-  }
-
-  private static Map<Contributors, String> getContributorsIdUrlMap() {
-    Map<Contributors, String> idUrlMap = new HashMap<>();
-    idUrlMap.put(Contributors.RIKKA, "https://github.com/RikkaApps/Shizuku");
-    idUrlMap.put(Contributors.SUNILPAULMATHEW, "https://gitlab.com/sunilpaulmathew/ashell");
-    idUrlMap.put(Contributors.KHUN_HTETZ, "https://github.com/KhunHtetzNaing/ADB-OTG");
-    idUrlMap.put(Contributors.KRISHNA, "https://github.com/KrishnaSSH");
-    idUrlMap.put(Contributors.STARRY, "https://github.com/starry-shivam");
-    idUrlMap.put(Contributors.DISAGREE, "https://github.com/Mahmud0808");
-    idUrlMap.put(Contributors.MARCIOZOMB, "https://github.com/marciozomb13");
-    idUrlMap.put(Contributors.WEIGUANGTWK, "https://github.com/WeiguangTWK");
-    idUrlMap.put(Contributors.WINZORT, "https://github.com/mikropsoft");
-    return idUrlMap;
   }
 
   private static Map<String, String> getAppIdUrlMap() {

@@ -1367,6 +1367,7 @@ public class AshellFragment extends Fragment {
     }
 
     setExitTransition(new Hold());
+        
     ExamplesFragment fragment = new ExamplesFragment();
 
     requireActivity()
