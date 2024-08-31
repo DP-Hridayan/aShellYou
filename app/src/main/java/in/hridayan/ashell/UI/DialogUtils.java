@@ -19,6 +19,7 @@ import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.shell.RootShell;
 import in.hridayan.ashell.utils.DocumentTreeUtil;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.List;
 import rikka.shizuku.Shizuku;
@@ -400,12 +401,16 @@ public class DialogUtils {
 
     folderPicker.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
+
           activity.startActivityForResult(
               new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE), MainActivity.SAVE_DIRECTORY_CODE);
         });
 
     reset.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
+
           Preferences.setSavedOutputDir("");
           if (textView != null && textView.getVisibility() == View.VISIBLE)
             textView.setText(Const.PREF_DEFAULT_SAVE_DIRECTORY);
