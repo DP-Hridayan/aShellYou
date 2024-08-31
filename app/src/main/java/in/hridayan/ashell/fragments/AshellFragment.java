@@ -825,7 +825,7 @@ public class AshellFragment extends Fragment {
           switch (Preferences.getSavePreference()) {
             case Const.ALL_OUTPUT:
               sb = Utils.convertListToString(mResult);
-              fileName = "shizukuOutput" + DeviceUtils.getCurrentDateTime();
+              fileName = "shellOutput" + DeviceUtils.getCurrentDateTime();
               break;
 
             case Const.LAST_COMMAND_OUTPUT:
@@ -1367,7 +1367,7 @@ public class AshellFragment extends Fragment {
     }
 
     setExitTransition(new Hold());
-        
+
     ExamplesFragment fragment = new ExamplesFragment();
 
     requireActivity()
