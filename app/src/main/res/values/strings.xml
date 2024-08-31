@@ -68,6 +68,7 @@
     <string name="current">Current</string>
     <string name="default_launch_mode">Default launch mode</string>
     <string name="delete_all">Delete all</string>
+    <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>
     <string name="des_default_language">Choose the default language for the app</string>
     <string name="des_default_launch_mode">Choose what ADB mode should be opened directly when app launches</string>
@@ -87,6 +88,7 @@
     <string name="grant_permission">Grant permission</string>
     <string name="grant_permission_manually">If the permission dialog doesn\'t appear, please grant root permission manually via the superuser application</string>
     <string name="flashing">Flashing</string>
+    <string name="folder_picker">Folder picker</string>
     <string name="go_back">Go back</string>
     <string name="history">History</string>
     <string name="instructions">Instructions</string>
@@ -230,8 +232,8 @@
     <string name="confirm_basic_mode">No higher privelege is granted. App will only execute basic commands. You can change the working mode later in settings</string>
     <string name="examples_layout_style">Examples layout style</string>
     <string name="des_examples_layout_style">Choose the preferred layout style to view command examples</string>
-    <string name="configure_save_directory">Configure saving directory</string>
-    <string name="des_configure_save_directory">Choose a directory to save shell output text files</string>
+    <string name="configure_save_directory">Configure save directory</string>
+    <string name="des_configure_save_directory">Choose a directory to save the shell output</string>
     <string name="grid">Grid</string>
     <string name="list">List</string>
 </resources>

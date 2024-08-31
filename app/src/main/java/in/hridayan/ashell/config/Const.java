@@ -1,5 +1,6 @@
 package in.hridayan.ashell.config;
 
+import android.os.Environment;
 import in.hridayan.ashell.BuildConfig;
 
 public interface Const {
@@ -32,6 +33,9 @@ public interface Const {
   String PREF_ACTIVITY_RECREATED = "activity_recreated";
   String PREF_EXAMPLES_LAYOUT_STYLE = "id_examples_layout_style";
   String PREF_OUTPUT_SAVE_DIRECTORY = "output_save_directory";
+  String PREF_DEFAULT_SAVE_DIRECTORY =
+      Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+          .getAbsolutePath();
 
   // tags for things like onclick listeners
   String ID_DEF_LANGUAGE = "id_default_language";
@@ -96,7 +100,7 @@ public interface Const {
   double PUSH_PERCENT = 0.5;
 
   /* <--------NAMES OF CONTRIBUTORS -------> */
-    
+
   public static enum Contributors {
 
     // assigning names and their github profile links to each contributors

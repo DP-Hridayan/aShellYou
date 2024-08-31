@@ -1,6 +1,7 @@
 package in.hridayan.ashell.fragments;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
@@ -22,6 +23,7 @@ import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.databinding.FragmentSettingsBinding;
 import in.hridayan.ashell.items.SettingsItem;
+import in.hridayan.ashell.utils.DocumentTreeUtil;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.MiuiCheck;
 import in.hridayan.ashell.config.Preferences;
@@ -69,6 +71,17 @@ public class SettingsFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
+
+    // we refresh the text in the editText onResume to update the newly set file path
+    if (adapter.textViewSaveDir != null
+        && adapter.textViewSaveDir.getVisibility() == View.VISIBLE) {
+      String outputSaveDirectory = Preferences.getSavedOutputDir();
+      if (!outputSaveDirectory.equals("")) {
+        String outputSaveDirPath =
+            DocumentTreeUtil.getFullPathFromTreeUri(Uri.parse(outputSaveDirectory), context);
+        adapter.textViewSaveDir.setText(outputSaveDirPath);
+      }
+    }
 
     if (binding.rvSettings != null && binding.rvSettings.getLayoutManager() != null) {
 

@@ -1,0 +1,81 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="25dp">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_directory"
+        app:tint="?attr/colorPrimary" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/configure_save_directory"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?attr/textAppearanceHeadlineSmall"
+        android:gravity="center"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/des_configure_save_directory"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:elevation="0dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="?attr/colorPrimary">
+
+        <TextView
+            android:id="@+id/path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"
+            android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_reset"
+        style="@style/Widget.Material3.Chip.Assist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/default_folder"
+        android:checked="false"
+        android:checkable="false"
+        android:layout_gravity="center"
+        app:chipIcon="@drawable/ic_reset"
+        app:ensureMinTouchTargetSize="true" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/folder_picker"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        app:icon="@drawable/ic_directory"
+        style="@style/Widget.Material3.Button.Icon"
+        android:id="@+id/folder_picker" />
+
+</LinearLayout>

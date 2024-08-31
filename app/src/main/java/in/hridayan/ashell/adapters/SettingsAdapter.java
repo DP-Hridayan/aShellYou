@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.DialogUtils;
@@ -42,7 +43,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   private final Activity activity;
   private final AboutViewModel aboutViewModel;
   private final ExamplesViewModel examplesViewModel;
-
+    public MaterialTextView textViewSaveDir;
+    
   public SettingsAdapter(
       List<SettingsItem> settingsList,
       Context context,
@@ -55,7 +57,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     this.aboutViewModel = aboutVM;
     this.examplesViewModel = examplesVM;
   }
-
+    
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -111,18 +113,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
       symbolImageView.setImageDrawable(settingsItem.getSymbol(context));
       titleTextView.setText(settingsItem.getTitle());
-      // descriptionTextView.setText(settingsItem.getDescription());
+      descriptionTextView.setText(settingsItem.getDescription());
 
-      // set the description text to the output save directory if the id is
-      // "id_configure_save_directory"
-      // and the output save directory is not empty.
-      String outputSaveDirectory = Preferences.getSavedOutputDir();
-      if (settingsItem.getId().equals(Const.ID_CONFIG_SAVE_DIR) && !outputSaveDirectory.isEmpty()) {
-        String outputSaveDirPath = DocumentTreeUtil.getFullPathFromTreeUri(Uri.parse(outputSaveDirectory), context);
-        descriptionTextView.setText(outputSaveDirPath);
-      } else {
-        descriptionTextView.setText(settingsItem.getDescription());
-      }
       descriptionTextView.setVisibility(
           TextUtils.isEmpty(settingsItem.getDescription()) ? View.GONE : View.VISIBLE);
 
@@ -193,8 +185,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           break;
 
         case Const.ID_CONFIG_SAVE_DIR:
-          activity.startActivityForResult(
-              new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE), MainActivity.SAVE_DIRECTORY_CODE);
+         textViewSaveDir = DialogUtils.configureSaveDirDialog(context, activity);
           break;
 
         case Const.PREF_DEFAULT_LAUNCH_MODE:

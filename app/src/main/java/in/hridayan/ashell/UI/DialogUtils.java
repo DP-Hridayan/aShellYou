@@ -2,14 +2,23 @@ package in.hridayan.ashell.UI;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.shell.RootShell;
+import in.hridayan.ashell.utils.DocumentTreeUtil;
 import in.hridayan.ashell.utils.Utils;
 import java.util.List;
 import rikka.shizuku.Shizuku;
@@ -361,5 +370,43 @@ public class DialogUtils {
         .setPositiveButton(
             context.getString(R.string.quit), (dialogInterface, i) -> activity.finish())
         .show();
+  }
+
+  // configure save directory dialog
+  public static MaterialTextView configureSaveDirDialog(Context context, Activity activity) {
+    View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_choose_directory, null);
+
+    new MaterialAlertDialogBuilder(context)
+        .setView(dialogView)
+        .show();
+
+    MaterialTextView textView = dialogView.findViewById(R.id.path);
+    Button folderPicker = dialogView.findViewById(R.id.folder_picker);
+    Chip reset = dialogView.findViewById(R.id.chip_reset);
+
+    String outputSaveDirectory = Preferences.getSavedOutputDir();
+    if (outputSaveDirectory.equals("")) {
+      textView.setText(Const.PREF_DEFAULT_SAVE_DIRECTORY);
+    } else {
+      String outputSaveDirPath =
+          DocumentTreeUtil.getFullPathFromTreeUri(Uri.parse(outputSaveDirectory), context);
+
+      textView.setText(outputSaveDirPath);
+    }
+
+    folderPicker.setOnClickListener(
+        v -> {
+          activity.startActivityForResult(
+              new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE), MainActivity.SAVE_DIRECTORY_CODE);
+        });
+
+    reset.setOnClickListener(
+        v -> {
+          Preferences.setSavedOutputDir("");
+          if (textView != null && textView.getVisibility() == View.VISIBLE)
+            textView.setText(Const.PREF_DEFAULT_SAVE_DIRECTORY);
+        });
+
+    return textView;
   }
 }
