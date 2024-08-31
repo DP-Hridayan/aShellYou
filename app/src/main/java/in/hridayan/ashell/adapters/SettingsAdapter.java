@@ -27,6 +27,7 @@ import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.items.SettingsItem;
+import in.hridayan.ashell.utils.DocumentTreeUtil;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
@@ -39,8 +40,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   private final List<SettingsItem> settingsList;
   private final Context context;
   private final Activity activity;
-  private AboutViewModel aboutViewModel;
-  private ExamplesViewModel examplesViewModel;
+  private final AboutViewModel aboutViewModel;
+  private final ExamplesViewModel examplesViewModel;
 
   public SettingsAdapter(
       List<SettingsItem> settingsList,
@@ -116,9 +117,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       // "id_configure_save_directory"
       // and the output save directory is not empty.
       String outputSaveDirectory = Preferences.getSavedOutputDir();
-      if (settingsItem.getId().equals(Const.ID_CONFIG_SAVE_DIR)
-          && !outputSaveDirectory.isEmpty()) {
-        descriptionTextView.setText(Uri.parse(outputSaveDirectory).getPath());
+      if (settingsItem.getId().equals(Const.ID_CONFIG_SAVE_DIR) && !outputSaveDirectory.isEmpty()) {
+        String outputSaveDirPath = DocumentTreeUtil.getFullPathFromTreeUri(Uri.parse(outputSaveDirectory), context);
+        descriptionTextView.setText(outputSaveDirPath);
       } else {
         descriptionTextView.setText(settingsItem.getDescription());
       }
