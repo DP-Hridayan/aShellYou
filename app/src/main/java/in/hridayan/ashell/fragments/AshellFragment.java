@@ -1,6 +1,6 @@
 package in.hridayan.ashell.fragments;
 
-import android.animation.ValueAnimator;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.animation.Animator;
@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.animation.AnimatorListenerAdapter;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
@@ -625,33 +625,24 @@ public class AshellFragment extends Fragment {
     if (expandableLayout.getVisibility() == View.GONE) {
       expandableLayout.setVisibility(View.VISIBLE);
       expandableLayout.measure(
-          View.MeasureSpec.makeMeasureSpec(dialogLayout.getWidth(), View.MeasureSpec.EXACTLY),
-          View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-      final int targetHeight = expandableLayout.getMeasuredHeight();
-      animateLayoutHeight(expandableLayout, 0, targetHeight, ANIMATION_DURATION);
-    } else {
-      final int initialHeight = expandableLayout.getHeight();
-      animateLayoutHeight(expandableLayout, initialHeight, 0, ANIMATION_DURATION);
-    }
-  }
+              View.MeasureSpec.makeMeasureSpec(dialogLayout.getWidth(), View.MeasureSpec.EXACTLY),
+              View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
 
-  private void animateLayoutHeight(View view, int startHeight, int endHeight, int duration) {
-    ValueAnimator animator = ValueAnimator.ofInt(startHeight, endHeight);
-    animator.addUpdateListener(
-        animation -> {
-          view.getLayoutParams().height = (int) animation.getAnimatedValue();
-          view.requestLayout();
-        });
-    animator.addListener(
-        new AnimatorListenerAdapter() {
-          @Override
-          public void onAnimationEnd(Animator animation) {
-            if (endHeight == 0) view.setVisibility(View.GONE);
-            else view.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-          }
-        });
-    animator.setDuration(duration);
-    animator.start();
+      expandableLayout.setPivotY(0);
+      ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(expandableLayout, "scaleY", 0f, 1f);
+      scaleYAnimator.setDuration(ANIMATION_DURATION);
+      scaleYAnimator.start();
+    } else {
+      ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(expandableLayout, "scaleY", 1f, 0f);
+      scaleYAnimator.setDuration(ANIMATION_DURATION);
+      scaleYAnimator.addListener(new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationEnd(Animator animation) {
+          expandableLayout.setVisibility(View.GONE);
+        }
+      });
+      scaleYAnimator.start();
+    }
   }
 
   // Dialog asking to choose preferred local adb commands executing mode

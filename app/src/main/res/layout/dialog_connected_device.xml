@@ -1,17 +1,16 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialog_layout"
-    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     android:layerType="hardware"
+    android:orientation="vertical"
     android:padding="25dp">
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/ic_terminal"
         app:tint="?attr/colorPrimary" />
@@ -20,13 +19,13 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/connected_device"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="10dp"
-        android:textAppearance="?attr/textAppearanceHeadlineSmall"
         android:gravity="center"
-        android:textAlignment="center" />
+        android:text="@string/connected_device"
+        android:textAlignment="center"
+        android:textAppearance="?attr/textAppearanceHeadlineSmall" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
@@ -35,8 +34,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:elevation="0dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="?attr/colorPrimary">
+        app:strokeColor="?attr/colorPrimary"
+        app:strokeWidth="1dp">
 
         <TextView
             android:id="@+id/device"
@@ -49,15 +48,15 @@
     </com.google.android.material.card.MaterialCardView>
 
     <Button
-        android:layout_height="wrap_content"
+        android:id="@+id/switchMode"
+        style="@style/Widget.Material3.Button.Icon"
         android:layout_width="wrap_content"
-        android:visibility="gone"
-        android:text="@string/switch_mode"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        app:icon="@drawable/ic_reset"
-        style="@style/Widget.Material3.Button.Icon"
-        android:id="@+id/switchMode" />
+        android:text="@string/switch_mode"
+        android:visibility="gone"
+        app:icon="@drawable/ic_reset" />
 
     <LinearLayout
         android:id="@+id/options_expanded"
@@ -68,20 +67,22 @@
 
         <RadioGroup
             android:id="@+id/radioGroup"
-            android:checkedButton="@+id/radio_button_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/radio_button_1">
 
             <RadioButton
                 android:id="@+id/basic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/basic_shell" />
+
             <RadioButton
                 android:id="@+id/shizuku"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/shizuku" />
+
             <RadioButton
                 android:id="@+id/root"
                 android:layout_width="match_parent"
@@ -98,19 +99,26 @@
 
             <Button
                 android:id="@+id/cancel"
+                style="@style/Widget.Material3.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="@string/cancel"
-                style="@style/Widget.Material3.Button.Icon" />
+                android:text="@string/cancel" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/confirm"
+                style="@style/Widget.Material3.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="@string/confirm"
-                style="@style/Widget.Material3.Button.Icon" />
+                android:text="@string/confirm" />
 
         </LinearLayout>
 
