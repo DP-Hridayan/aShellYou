@@ -611,12 +611,22 @@ public class AshellFragment extends Fragment {
 
     radioGroup.check(getCheckedId());
 
+    radioGroup.setOnCheckedChangeListener(
+        new RadioGroup.OnCheckedChangeListener() {
+          @Override
+          public void onCheckedChanged(RadioGroup group, int checkedId) {
+            HapticUtils.weakVibrate((View) group);
+          }
+        });
+
     device.setText(connectedDevice);
 
     switchMode.setVisibility(View.VISIBLE);
 
     switchMode.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
+
           if (!isShellBusy()) toggleExpandableLayout(dialogLayout, expandableLayout);
           else
             ToastUtils.showToast(
@@ -625,6 +635,8 @@ public class AshellFragment extends Fragment {
 
     confirm.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
+
           int checkedId = getCheckedIntValue(radioGroup.getCheckedRadioButtonId());
           Preferences.setLocalAdbMode(checkedId);
           binding.commandInputLayout.setError(null);
@@ -632,7 +644,11 @@ public class AshellFragment extends Fragment {
           dialog.dismiss();
         });
 
-    cancel.setOnClickListener(v -> dialog.dismiss());
+    cancel.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          dialog.dismiss();
+        });
   }
 
   // returns the id of the radio button which is set as the adb mode
