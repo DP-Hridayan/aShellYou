@@ -146,6 +146,8 @@ public class AshellFragment extends Fragment {
 
     // If keyboard is visible then we close it before leaving fragment
     if (isKeyboardVisible) KeyboardUtils.closeKeyboard(requireActivity(), view);
+
+    BottomNavUtils.hideNavSmoothly(mNav);
   }
 
   @Override

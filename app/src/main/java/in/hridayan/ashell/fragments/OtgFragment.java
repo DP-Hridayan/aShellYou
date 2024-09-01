@@ -143,6 +143,8 @@ public class OtgFragment extends Fragment
     mainViewModel.setPreviousFragment(Const.OTG_FRAGMENT);
 
     if (isKeyboardVisible) KeyboardUtils.closeKeyboard(requireActivity(), view);
+
+    BottomNavUtils.hideNavSmoothly(mNav);
   }
 
   @Override

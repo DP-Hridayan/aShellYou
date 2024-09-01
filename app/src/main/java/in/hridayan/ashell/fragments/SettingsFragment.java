@@ -18,7 +18,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.Hold;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.BottomNavUtils;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.databinding.FragmentSettingsBinding;
@@ -119,13 +118,13 @@ public class SettingsFragment extends Fragment {
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
+    mNav.setVisibility(View.GONE);
+
     viewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
     aboutViewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
 
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
-
-    BottomNavUtils.hideNavSmoothly(mNav);
 
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
     binding.arrowBack.setOnClickListener(

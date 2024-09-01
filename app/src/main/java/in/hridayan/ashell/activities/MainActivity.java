@@ -427,8 +427,7 @@ public class MainActivity extends AppCompatActivity
         getContentResolver()
             .takePersistableUriPermission(
                 treeUri,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         Preferences.setSavedOutputDir(String.valueOf(treeUri));
       }
     }

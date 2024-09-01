@@ -16,6 +16,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.OnboardingAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
+import in.hridayan.ashell.utils.HapticUtils;
 
 public class StartFragment extends Fragment {
 
@@ -42,7 +43,7 @@ public class StartFragment extends Fragment {
     adapter = new OnboardingAdapter(getChildFragmentManager(), requireActivity().getLifecycle());
 
     adapter.addFragment(new OnboardingItem1Fragment());
-// adapter.addFragment(new OnboardingItem2Fragment());
+    // adapter.addFragment(new OnboardingItem2Fragment());
     adapter.addFragment(new OnboardingItem3Fragment());
 
     viewPager.setAdapter(adapter);
@@ -60,6 +61,8 @@ public class StartFragment extends Fragment {
 
     btnNext.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
+
           if (viewPager.getCurrentItem() == adapter.getItemCount() - 1) {
             // this is the last page
             if (isBasicMode()) confirmationDialog();
@@ -70,7 +73,11 @@ public class StartFragment extends Fragment {
           }
         });
 
-    btnPrev.setOnClickListener(v -> viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true));
+    btnPrev.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+        });
 
     registerOnBackInvokedCallback();
   }

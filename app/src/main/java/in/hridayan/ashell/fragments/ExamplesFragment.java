@@ -25,7 +25,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.BottomNavUtils;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
@@ -117,6 +116,8 @@ public class ExamplesFragment extends Fragment
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
+    mNav.setVisibility(View.GONE);
+
     editText = binding.searchView.getSearchEditText();
     searchBarMenu = binding.searchBar.getMenu();
     sort = searchBarMenu.findItem(R.id.sort);
@@ -136,8 +137,6 @@ public class ExamplesFragment extends Fragment
           HapticUtils.weakVibrate(v);
           dispatcher.onBackPressed();
         });
-
-    BottomNavUtils.hideNavSmoothly(mNav);
 
     binding.searchBar.clearFocus();
     binding.searchBar.setNavigationIcon(R.drawable.ic_search);
