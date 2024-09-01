@@ -1,14 +1,14 @@
 package in.hridayan.ashell.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.animation.Animator;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.animation.AnimatorListenerAdapter;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
@@ -22,9 +22,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
+import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -49,6 +50,7 @@ import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
 import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentAshellBinding;
 import in.hridayan.ashell.shell.BasicShell;
 import in.hridayan.ashell.shell.RootShell;
@@ -56,7 +58,6 @@ import in.hridayan.ashell.shell.ShizukuShell;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AshellFragmentViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -600,24 +601,71 @@ public class AshellFragment extends Fragment {
 
     MaterialTextView device = dialogView.findViewById(R.id.device);
     Button switchMode = dialogView.findViewById(R.id.switchMode);
-
+    Button confirm = dialogView.findViewById(R.id.confirm);
+    Button cancel = dialogView.findViewById(R.id.cancel);
     LinearLayout dialogLayout = dialogView.findViewById(R.id.dialog_layout);
     LinearLayout expandableLayout = dialogView.findViewById(R.id.options_expanded);
+    RadioGroup radioGroup = dialogView.findViewById(R.id.radioGroup);
 
-    switchMode.setVisibility(View.VISIBLE);
+    AlertDialog dialog = new MaterialAlertDialogBuilder(context).setView(dialogView).show();
+
+    radioGroup.check(getCheckedId());
 
     device.setText(connectedDevice);
 
+    switchMode.setVisibility(View.VISIBLE);
+
     switchMode.setOnClickListener(
         v -> {
-          /*   if (!isShellBusy()) localAdbModeDialog();
+          if (!isShellBusy()) toggleExpandableLayout(dialogLayout, expandableLayout);
           else
             ToastUtils.showToast(
-                context, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);*/
-          toggleExpandableLayout(dialogLayout, expandableLayout);
+                context, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
         });
 
-    new MaterialAlertDialogBuilder(context).setView(dialogView).show();
+    confirm.setOnClickListener(
+        v -> {
+          int checkedId = getCheckedIntValue(radioGroup.getCheckedRadioButtonId());
+          Preferences.setLocalAdbMode(checkedId);
+          binding.commandInputLayout.setError(null);
+          handleModeButtonTextAndCommandHint();
+          dialog.dismiss();
+        });
+
+    cancel.setOnClickListener(v -> dialog.dismiss());
+  }
+
+  // returns the id of the radio button which is set as the adb mode
+  private int getCheckedId() {
+    switch (Preferences.getLocalAdbMode()) {
+      case Const.BASIC_MODE:
+        return R.id.basic;
+
+      case Const.SHIZUKU_MODE:
+        return R.id.shizuku;
+
+      case Const.ROOT_MODE:
+        return R.id.root;
+
+      default:
+        return R.id.basic;
+    }
+  }
+
+  private int getCheckedIntValue(int checkedId) {
+    switch (checkedId) {
+      case R.id.basic:
+        return Const.BASIC_MODE;
+
+      case R.id.shizuku:
+        return Const.SHIZUKU_MODE;
+
+      case R.id.root:
+        return Const.ROOT_MODE;
+
+      default:
+        return Const.BASIC_MODE;
+    }
   }
 
   private void toggleExpandableLayout(LinearLayout dialogLayout, LinearLayout expandableLayout) {
@@ -625,8 +673,8 @@ public class AshellFragment extends Fragment {
     if (expandableLayout.getVisibility() == View.GONE) {
       expandableLayout.setVisibility(View.VISIBLE);
       expandableLayout.measure(
-              View.MeasureSpec.makeMeasureSpec(dialogLayout.getWidth(), View.MeasureSpec.EXACTLY),
-              View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+          View.MeasureSpec.makeMeasureSpec(dialogLayout.getWidth(), View.MeasureSpec.EXACTLY),
+          View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
 
       expandableLayout.setPivotY(0);
       ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(expandableLayout, "scaleY", 0f, 1f);
@@ -635,44 +683,15 @@ public class AshellFragment extends Fragment {
     } else {
       ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(expandableLayout, "scaleY", 1f, 0f);
       scaleYAnimator.setDuration(ANIMATION_DURATION);
-      scaleYAnimator.addListener(new AnimatorListenerAdapter() {
-        @Override
-        public void onAnimationEnd(Animator animation) {
-          expandableLayout.setVisibility(View.GONE);
-        }
-      });
+      scaleYAnimator.addListener(
+          new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+              expandableLayout.setVisibility(View.GONE);
+            }
+          });
       scaleYAnimator.start();
     }
-  }
-
-  // Dialog asking to choose preferred local adb commands executing mode
-  private void localAdbModeDialog() {
-    final CharSequence[] preferences = {
-      getString(R.string.basic_shell), getString(R.string.shizuku), getString(R.string.root)
-    };
-
-    int savePreference = Preferences.getLocalAdbMode();
-    final int[] preference = {savePreference};
-
-    String title = getString(R.string.local_adb) + " " + getString(R.string.mode).toLowerCase();
-
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(title)
-        .setSingleChoiceItems(
-            preferences,
-            savePreference,
-            (dialog, which) -> {
-              preference[0] = which;
-            })
-        .setPositiveButton(
-            getString(R.string.choose),
-            (dialog, which) -> {
-              Preferences.setLocalAdbMode(preference[0]);
-              binding.commandInputLayout.setError(null);
-              handleModeButtonTextAndCommandHint();
-            })
-        .setNegativeButton(getString(R.string.cancel), null)
-        .show();
   }
 
   // OnClick listener for the settings button
