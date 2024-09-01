@@ -65,6 +65,7 @@
         android:checked="false"
         android:checkable="false"
         android:layout_gravity="center"
+        app:chipBackgroundColor="?attr/colorSurfaceContainerHigh"
         app:chipIcon="@drawable/ic_reset"
         app:ensureMinTouchTargetSize="true" />
 
