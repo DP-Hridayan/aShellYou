@@ -589,8 +589,19 @@ public class AshellFragment extends Fragment {
             connectedDeviceDialog(
                 hasShizuku ? DeviceUtils.getDeviceName() : getString(R.string.none));
           } else if (isRootMode()) {
-            boolean hasRoot = RootShell.isDeviceRooted() && RootShell.hasPermission();
-            connectedDeviceDialog(hasRoot ? DeviceUtils.getDeviceName() : getString(R.string.none));
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute(
+                () -> {
+                  boolean hasRoot = RootShell.isDeviceRooted() && RootShell.hasPermission();
+
+                  requireActivity()
+                      .runOnUiThread(
+                          () -> {
+                            connectedDeviceDialog(
+                                hasRoot ? DeviceUtils.getDeviceName() : getString(R.string.none));
+                          });
+                });
+            executor.shutdown();
           }
         });
   }
@@ -1059,12 +1070,15 @@ public class AshellFragment extends Fragment {
     binding.commandEditText.setOnEditorActionListener(
         (v, actionId, event) -> {
           HapticUtils.weakVibrate(v);
-          if (actionId == EditorInfo.IME_ACTION_SEND) {
+          if (actionId == EditorInfo.IME_ACTION_SEND && hasTextInEditText()) {
             sendButtonClicked = true;
 
+            // If shell is not busy and there is not any text in input field then go to examples
+            if (!hasTextInEditText() && !isShellBusy()) goToExamples();
+
             /*This block will run if basic shell mode is selected*/
-            if (isBasicMode()) {
-              if (mBasicShell != null && isShellBusy()) DialogUtils.shellWorkingDialog(context);
+            else if (isBasicMode()) {
+              if (mBasicShell != null && BasicShell.isBusy()) abortBasicShell();
               else execShell(v);
             }
 
@@ -1072,18 +1086,30 @@ public class AshellFragment extends Fragment {
             else if (isShizukuMode()) {
               if (!Shizuku.pingBinder()) handleShizukuUnavailability();
               else if (!ShizukuShell.hasPermission()) DialogUtils.shizukuPermRequestDialog(context);
-              else if (mShizukuShell != null && ShizukuShell.isBusy())
-                DialogUtils.shellWorkingDialog(context);
+              else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
               else execShell(v);
             }
 
             /*This block w if root mode is selected*/
             else if (isRootMode()) {
               if (!RootShell.isDeviceRooted()) handleRootUnavailability();
-              else if (!RootShell.hasPermission()) DialogUtils.rootPermRequestDialog(context);
-              else if (mRootShell != null && RootShell.isBusy())
-                DialogUtils.shellWorkingDialog(context);
-              else execShell(v);
+              else {
+                // We perform root shell permission check on a new thread
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                executor.execute(
+                    () -> {
+                      boolean hasPermission = RootShell.hasPermission();
+
+                      requireActivity()
+                          .runOnUiThread(
+                              () -> {
+                                if (!hasPermission) DialogUtils.rootPermRequestDialog(context);
+                                else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
+                                else execShell(v);
+                              });
+                    });
+                executor.shutdown();
+              }
             }
             return true;
           }

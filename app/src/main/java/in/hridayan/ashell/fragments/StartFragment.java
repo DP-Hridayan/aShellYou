@@ -42,7 +42,7 @@ public class StartFragment extends Fragment {
     adapter = new OnboardingAdapter(getChildFragmentManager(), requireActivity().getLifecycle());
 
     adapter.addFragment(new OnboardingItem1Fragment());
-    adapter.addFragment(new OnboardingItem2Fragment());
+// adapter.addFragment(new OnboardingItem2Fragment());
     adapter.addFragment(new OnboardingItem3Fragment());
 
     viewPager.setAdapter(adapter);

@@ -1,48 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.2.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.2.0)" variant="all" version="8.2.0">
+<issues format="6" by="lint 8.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.2.1)" variant="all" version="8.2.1">
 
     <issue
-        id="ExtraTranslation"
-        message="&quot;goto_top&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;goto_top&quot;>Ir para o topo da saída do shell (comando divertido)&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~">
+        id="OldTargetApi"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details."
+        errorLine1="        targetSdkVersion 34"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-pt/strings.xml"
-            line="25"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ExtraTranslation"
-        message="&quot;goto_bottom&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;goto_bottom&quot;>Ir para a parte inferior da saída do shell (comando divertido)&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt/strings.xml"
-            line="26"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ExtraTranslation"
-        message="&quot;goto_top&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;goto_top&quot;>Kabuk çıktısının en üstüne git (eğlenceli komut)&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-tr/strings.xml"
-            line="27"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ExtraTranslation"
-        message="&quot;goto_bottom&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;goto_bottom&quot;>Kabuk çıktısının en altına git (eğlenceli komut)&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-tr/strings.xml"
-            line="28"
-            column="13"/>
+            file="build.gradle"
+            line="8"
+            column="9"/>
     </issue>
 
 </issues>

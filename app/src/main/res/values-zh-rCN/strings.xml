@@ -150,7 +150,7 @@
     <string name="already_latest_version">你使用的是最新版</string>
     <string name="app_crashed">软件崩溃了: (</string>
     <string name="basic_shell">普通终端</string>
-    <string name="change_mode">切换模式</string>
+    <string name="switch_mode">切换模式</string>
     <string name="check_internet">请检查网络连接</string>
     <string name="command_title_root">输入命令</string>
     <string name="confirm_exit">确认退出</string>

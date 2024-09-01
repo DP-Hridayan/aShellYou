@@ -31,7 +31,7 @@
     <string name="cancel">キャンセル</string>
     <string name="changelogs">チェンジログ</string>
     <string name="basic_shell">基本シェル</string>
-    <string name="change_mode">モード変更</string>
+    <string name="switch_mode">モード変更</string>
     <string name="check_internet">インターネット接続の確認</string>
     <string name="choose">選択する</string>
     <string name="clear_all_message">この画面のすべてを消去してもよろしいですか？</string>

@@ -16,7 +16,7 @@ android {
         targetSdk 34
 
         versionCode 47
-        versionName "v5.0.0-test"
+        versionName "v5.0.0"
 
     }
     
