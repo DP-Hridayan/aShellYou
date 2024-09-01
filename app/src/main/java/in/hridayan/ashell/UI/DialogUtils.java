@@ -350,11 +350,13 @@ public class DialogUtils {
 
   // Method to show a dialog showing the device name on which shell is being executed
   public static void connectedDeviceDialog(Context context, String connectedDevice) {
-    String device = connectedDevice;
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.connected_device))
-        .setMessage(device)
-        .show();
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_connected_device, null);
+
+    MaterialTextView device = dialogView.findViewById(R.id.device);
+        
+    device.setText(connectedDevice);
+
+    new MaterialAlertDialogBuilder(context).setView(dialogView).show();
   }
 
   // show shell working dialog
@@ -382,8 +384,6 @@ public class DialogUtils {
   // configure save directory dialog
   public static MaterialTextView configureSaveDirDialog(Context context, Activity activity) {
     View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_choose_directory, null);
-
-    new MaterialAlertDialogBuilder(context).setView(dialogView).show();
 
     MaterialTextView textView = dialogView.findViewById(R.id.path);
     Button folderPicker = dialogView.findViewById(R.id.folder_picker);
@@ -415,6 +415,8 @@ public class DialogUtils {
           if (textView != null && textView.getVisibility() == View.VISIBLE)
             textView.setText(Const.PREF_DEFAULT_SAVE_DIRECTORY);
         });
+
+    new MaterialAlertDialogBuilder(context).setView(dialogView).show();
 
     return textView;
   }

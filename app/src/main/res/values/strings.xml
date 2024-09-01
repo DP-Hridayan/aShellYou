@@ -36,7 +36,6 @@
     <string name="batch_unpinned_message">%d commands are unpinned</string>
     <string name="cancel">Cancel</string>
     <string name="changelogs">Changelogs</string>
-    <string name="change_mode">Change mode</string>
     <string name="check_internet">Check your internet connection</string>
     <string name="choose">Choose</string>
     <string name="clear_all_message">Are you sure you want to clear everything on this screen?</string>
@@ -164,6 +163,7 @@
     <string name="success">Success</string>
     <string name="support">Support</string>
     <string name="su_warning_message">This mode doesn\'t support root related commands. Please switch to root mode</string>
+    <string name="switch_mode">Switch mode</string>
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
     <string name="unhide_cards_message">All info cards will be visible now</string>

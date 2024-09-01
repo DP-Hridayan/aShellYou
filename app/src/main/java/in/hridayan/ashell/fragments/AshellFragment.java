@@ -1,11 +1,14 @@
 package in.hridayan.ashell.fragments;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.animation.Animator;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
@@ -17,6 +20,9 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.animation.AnimatorListenerAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
@@ -26,6 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
@@ -589,20 +596,62 @@ public class AshellFragment extends Fragment {
 
   // Method to show a dialog showing the device name on which shell is being executed
   private void connectedDeviceDialog(String connectedDevice) {
-    String device = connectedDevice;
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.connected_device))
-        .setMessage(device)
-        .setNegativeButton(getString(R.string.cancel), null)
-        .setPositiveButton(
-            getString(R.string.change_mode),
-            (dialog, i) -> {
-              if (!isShellBusy()) localAdbModeDialog();
-              else
-                ToastUtils.showToast(
-                    context, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
-            })
-        .show();
+    View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_connected_device, null);
+
+    MaterialTextView device = dialogView.findViewById(R.id.device);
+    Button switchMode = dialogView.findViewById(R.id.switchMode);
+
+    LinearLayout dialogLayout = dialogView.findViewById(R.id.dialog_layout);
+    LinearLayout expandableLayout = dialogView.findViewById(R.id.options_expanded);
+
+    switchMode.setVisibility(View.VISIBLE);
+
+    device.setText(connectedDevice);
+
+    switchMode.setOnClickListener(
+        v -> {
+          /*   if (!isShellBusy()) localAdbModeDialog();
+          else
+            ToastUtils.showToast(
+                context, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);*/
+          toggleExpandableLayout(dialogLayout, expandableLayout);
+        });
+
+    new MaterialAlertDialogBuilder(context).setView(dialogView).show();
+  }
+
+  private void toggleExpandableLayout(LinearLayout dialogLayout, LinearLayout expandableLayout) {
+    final int ANIMATION_DURATION = 250;
+    if (expandableLayout.getVisibility() == View.GONE) {
+      expandableLayout.setVisibility(View.VISIBLE);
+      expandableLayout.measure(
+          View.MeasureSpec.makeMeasureSpec(dialogLayout.getWidth(), View.MeasureSpec.EXACTLY),
+          View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+      final int targetHeight = expandableLayout.getMeasuredHeight();
+      animateLayoutHeight(expandableLayout, 0, targetHeight, ANIMATION_DURATION);
+    } else {
+      final int initialHeight = expandableLayout.getHeight();
+      animateLayoutHeight(expandableLayout, initialHeight, 0, ANIMATION_DURATION);
+    }
+  }
+
+  private void animateLayoutHeight(View view, int startHeight, int endHeight, int duration) {
+    ValueAnimator animator = ValueAnimator.ofInt(startHeight, endHeight);
+    animator.addUpdateListener(
+        animation -> {
+          view.getLayoutParams().height = (int) animation.getAnimatedValue();
+          view.requestLayout();
+        });
+    animator.addListener(
+        new AnimatorListenerAdapter() {
+          @Override
+          public void onAnimationEnd(Animator animation) {
+            if (endHeight == 0) view.setVisibility(View.GONE);
+            else view.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+          }
+        });
+    animator.setDuration(duration);
+    animator.start();
   }
 
   // Dialog asking to choose preferred local adb commands executing mode

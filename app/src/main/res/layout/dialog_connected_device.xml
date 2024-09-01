@@ -1,0 +1,119 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_layout"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layerType="hardware"
+    android:padding="25dp">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_terminal"
+        app:tint="?attr/colorPrimary" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/connected_device"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?attr/textAppearanceHeadlineSmall"
+        android:gravity="center"
+        android:textAlignment="center" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:elevation="0dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="?attr/colorPrimary">
+
+        <TextView
+            android:id="@+id/device"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"
+            android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:text="@string/switch_mode"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        app:icon="@drawable/ic_reset"
+        style="@style/Widget.Material3.Button.Icon"
+        android:id="@+id/switchMode" />
+
+    <LinearLayout
+        android:id="@+id/options_expanded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:checkedButton="@+id/radio_button_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/basic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/basic_shell" />
+            <RadioButton
+                android:id="@+id/shizuku"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/shizuku" />
+            <RadioButton
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/root" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cancel"
+                style="@style/Widget.Material3.Button.Icon" />
+
+            <Button
+                android:id="@+id/confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/confirm"
+                style="@style/Widget.Material3.Button.Icon" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
