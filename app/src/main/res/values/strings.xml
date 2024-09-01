@@ -42,6 +42,7 @@
     <string name="clear_everything">Clear everything</string>
     <string name="clear_screen">Clear screen</string>
     <string name="clipboard_empty">Clipboard doesn\'t contain text</string>
+    <string name="close">Close</string>
     <string name="commands">Commands</string>
     <string name="command_title">Input ADB Command</string>
     <string name="command_title_root">Input command</string>
@@ -129,8 +130,8 @@
         name="root"
         translatable="false">Root</string>
     <string name="root_access_denied_message">Root access is currently denied for aShell You. Grant root access or switch to non-root method</string>
-    <string name="root_unavailable">Device is not rooted</string>
-    <string name="root_unavailable_message">Root is not detected. Device might not be rooted or root presence might be hidden from aShell You</string>
+    <string name="root_unavailable">Root is not accessible</string>
+    <string name="root_unavailable_message">Device might not be rooted or root presence might be hidden from aShell You</string>
     <string name="save">Save</string>
     <string name="su_warning">Root commands are not available</string>
     <string name="search">Search</string>
@@ -153,7 +154,7 @@
     <string name="shizuku_about">About Shizuku</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You. aShell You won\'t work without a proper Shizuku environment.</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
-    <string name="shizuku_unavailable_message">Shizuku is not installed or not properly configured on your device. aShell You won\'t work without a proper Shizuku environment.</string>
+    <string name="shizuku_unavailable_message">Shizuku is not installed or  properly configured on your device</string>
     <string name="sort">Sort</string>
     <string name="sort_A_Z">A → Z</string>
     <string name="sort_Z_A">Z → A</string>

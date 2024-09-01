@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
@@ -88,11 +89,7 @@ public class OnboardingItem3Fragment extends Fragment
   // show this dialog if device is not rooted
   private void handleRootUnavailability() {
     binding.root.setSelected(false);
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setTitle(getString(R.string.warning))
-        .setMessage(getString(R.string.root_unavailable_message))
-        .setPositiveButton(getString(R.string.ok), null)
-        .show();
+    DialogUtils.rootUnavailableDialog(requireContext());
   }
 
   // request shizuku permission
@@ -119,14 +116,7 @@ public class OnboardingItem3Fragment extends Fragment
   private void handleShizukuUnavailability() {
     binding.shizuku.setSelected(false);
     // Show dialog that shizuku is unavailable
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setTitle(getString(R.string.warning))
-        .setMessage(getString(R.string.shizuku_unavailable_message))
-        .setNegativeButton(
-            getString(R.string.shizuku_about),
-            (dialogInterface, i) -> Utils.openUrl(requireContext(), "https://shizuku.rikka.app/"))
-        .setPositiveButton(getString(R.string.ok), null)
-        .show();
+    DialogUtils.shizukuUnavailableDialog(requireContext());
   }
 
   private void permGrantedToast() {

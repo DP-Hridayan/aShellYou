@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import androidx.appcompat.app.AlertDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -157,23 +158,38 @@ public class DialogUtils {
 
   // Display error when shizuku is not installed or running on the device
   public static void shizukuUnavailableDialog(Context context) {
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.warning))
-        .setMessage(context.getString(R.string.shizuku_unavailable_message))
-        .setNegativeButton(
-            context.getString(R.string.shizuku_about),
-            (dialogInterface, i) -> Utils.openUrl(context, "https://shizuku.rikka.app/"))
-        .setPositiveButton(context.getString(R.string.ok), null)
-        .show();
+    View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_no_shizuku, null);
+
+    AlertDialog dialog = new MaterialAlertDialogBuilder(context).setView(dialogView).show();
+
+    Button close = dialogView.findViewById(R.id.close);
+    Button aboutShizuku = dialogView.findViewById(R.id.aboutShizuku);
+
+    close.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          dialog.dismiss();
+        });
+
+    aboutShizuku.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          Utils.openUrl(context, Const.URL_SHIZUKU_SITE);
+        });
   }
 
   public static void rootUnavailableDialog(Context context) {
+    View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_no_root, null);
 
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.warning))
-        .setMessage(context.getString(R.string.root_unavailable_message))
-        .setPositiveButton(context.getString(R.string.ok), null)
-        .show();
+    AlertDialog dialog = new MaterialAlertDialogBuilder(context).setView(dialogView).show();
+
+    Button close = dialogView.findViewById(R.id.close);
+
+    close.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          dialog.dismiss();
+        });
   }
 
   /* <--------DIALOGS SHOWN TO REQUEST PERMISSION -------> */
@@ -350,10 +366,10 @@ public class DialogUtils {
 
   // Method to show a dialog showing the device name on which shell is being executed
   public static void connectedDeviceDialog(Context context, String connectedDevice) {
-        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_connected_device, null);
+    View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_connected_device, null);
 
     MaterialTextView device = dialogView.findViewById(R.id.device);
-        
+
     device.setText(connectedDevice);
 
     new MaterialAlertDialogBuilder(context).setView(dialogView).show();
