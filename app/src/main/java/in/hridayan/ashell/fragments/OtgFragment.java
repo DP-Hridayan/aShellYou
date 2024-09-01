@@ -1003,11 +1003,7 @@ public class OtgFragment extends Fragment
 
     Utils.alignMargin(binding.sendButton);
 
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setTitle(requireActivity().getString(R.string.error))
-        .setMessage(requireActivity().getString(R.string.otg_not_connected))
-        .setPositiveButton(requireActivity().getString(R.string.ok), null)
-        .show();
+    DialogUtils.otgConnectionErrDialog(context);
   }
 
   // The cross which dismisses the card asking to turn on usb debugging

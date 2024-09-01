@@ -114,7 +114,7 @@
     <string name="open">Open</string>
     <string name="open_adb">Open ADB shell</string>
     <string name="otg">OTG</string>
-    <string name="otg_not_connected">Device is not properly connected. Connect the device properly through OTG and try again</string>
+    <string name="otg_not_connected">Connect the device properly through OTG and try again</string>
     <string name="paste">Paste</string>
     <string name="pin">Pin</string>
     <string name="pinned_message">\'%s\' has been pinned</string>

@@ -192,6 +192,20 @@ public class DialogUtils {
         });
   }
 
+     public static void otgConnectionErrDialog(Context context) {
+    View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_no_otg_connection, null);
+
+    AlertDialog dialog = new MaterialAlertDialogBuilder(context).setView(dialogView).show();
+
+    Button close = dialogView.findViewById(R.id.close);
+
+    close.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          dialog.dismiss();
+        });
+  }
+    
   /* <--------DIALOGS SHOWN TO REQUEST PERMISSION -------> */
 
   // Method for displaying the shizuku permission requesting dialog
