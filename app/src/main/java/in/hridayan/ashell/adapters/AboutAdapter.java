@@ -299,11 +299,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     idUrlMap.put(Const.ID_REPORT, "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
     idUrlMap.put(
         Const.ID_FEATURE, "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
-    idUrlMap.put(Const.ID_GITHUB, "https:github.com/DP-Hridayan/aShellYou");
-    idUrlMap.put(Const.ID_TELEGRAM, "https://t.me/aShellYou");
+    idUrlMap.put(Const.ID_GITHUB, Const.URL_GITHUB_REPOSITORY);
+    idUrlMap.put(Const.ID_TELEGRAM, Const.URL_TELEGRAM);
     idUrlMap.put(Const.ID_DISCORD, "https://discord.gg/cq5R2fF8sZ");
-    idUrlMap.put(
-        Const.ID_LICENSE, "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md");
+    idUrlMap.put(Const.ID_LICENSE, Const.URL_APP_LICENSE);
     return idUrlMap;
   }
 }

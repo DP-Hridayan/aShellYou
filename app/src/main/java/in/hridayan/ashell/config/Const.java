@@ -63,9 +63,12 @@ public interface Const {
   // url to open instructions for otg
   String URL_OTG_INSTRUCTIONS =
       "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md";
+  String URL_GITHUB_REPOSITORY = "https://github.com/DP-Hridayan/aShellYou";
   // url for github release
   String URL_GITHUB_RELEASE = "https://github.com/DP-Hridayan/aShellYou/releases/latest";
   String URL_SHIZUKU_SITE = "https://shizuku.rikka.app/";
+  String URL_APP_LICENSE = "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md";
+  String URL_TELEGRAM = "https://t.me/aShellYou";
 
   // used in OTG utils
   String TAG = "flashbot";
