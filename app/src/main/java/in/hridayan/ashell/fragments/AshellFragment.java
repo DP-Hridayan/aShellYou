@@ -645,11 +645,7 @@ public class AshellFragment extends Fragment {
         v -> {
           HapticUtils.weakVibrate(v);
 
-          if (icon instanceof AnimatedVectorDrawable) {
-            AnimatedVectorDrawable animatedVector = (AnimatedVectorDrawable) icon;
-            animatedVector.stop();
-            animatedVector.start();
-          }
+          Utils.startAnim(icon);
 
           if (!isShellBusy()) toggleExpandableLayout(dialogLayout, expandableLayout);
           else

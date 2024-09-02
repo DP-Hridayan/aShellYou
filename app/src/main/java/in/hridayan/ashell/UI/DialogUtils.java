@@ -3,6 +3,7 @@ package in.hridayan.ashell.UI;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -192,7 +193,7 @@ public class DialogUtils {
         });
   }
 
-     public static void otgConnectionErrDialog(Context context) {
+  public static void otgConnectionErrDialog(Context context) {
     View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_no_otg_connection, null);
 
     AlertDialog dialog = new MaterialAlertDialogBuilder(context).setView(dialogView).show();
@@ -205,7 +206,7 @@ public class DialogUtils {
           dialog.dismiss();
         });
   }
-    
+
   /* <--------DIALOGS SHOWN TO REQUEST PERMISSION -------> */
 
   // Method for displaying the shizuku permission requesting dialog
@@ -418,8 +419,9 @@ public class DialogUtils {
     MaterialTextView textView = dialogView.findViewById(R.id.path);
     Button folderPicker = dialogView.findViewById(R.id.folder_picker);
     Chip reset = dialogView.findViewById(R.id.chip_reset);
-
+    Drawable icon = reset.getChipIcon();
     String outputSaveDirectory = Preferences.getSavedOutputDir();
+
     if (outputSaveDirectory.equals("")) {
       textView.setText(Const.PREF_DEFAULT_SAVE_DIRECTORY);
     } else {
@@ -440,6 +442,8 @@ public class DialogUtils {
     reset.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
+
+          Utils.startAnim(icon);
 
           Preferences.setSavedOutputDir("");
           if (textView != null && textView.getVisibility() == View.VISIBLE)
