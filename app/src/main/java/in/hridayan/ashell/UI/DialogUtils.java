@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -211,14 +212,28 @@ public class DialogUtils {
 
   // Method for displaying the shizuku permission requesting dialog
   public static void shizukuPermRequestDialog(Context context) {
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.access_denied))
-        .setMessage(context.getString(R.string.shizuku_access_denied_message))
-        .setNegativeButton(context.getString(R.string.cancel), null)
-        .setPositiveButton(
-            context.getString(R.string.request_permission),
-            (dialogInterface, i) -> Shizuku.requestPermission(0))
-        .show();
+    View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_shizuku_perm, null);
+
+    AlertDialog dialog = new MaterialAlertDialogBuilder(context).setView(dialogView).show();
+
+    MaterialCardView request = dialogView.findViewById(R.id.request_perm);
+    MaterialCardView cancel = dialogView.findViewById(R.id.cancel);
+
+    request.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+
+          Shizuku.requestPermission(0);
+
+          dialog.dismiss();
+        });
+
+    cancel.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+
+          dialog.dismiss();
+        });
   }
 
   // Method for displaying the root permission requesting dialog

@@ -152,7 +152,7 @@
         name="shizuku"
         translatable="false">Shizuku</string>
     <string name="shizuku_about">About Shizuku</string>
-    <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You. aShell You won\'t work without a proper Shizuku environment.</string>
+    <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
     <string name="shizuku_unavailable_message">Shizuku is not installed or  properly configured on your device</string>
     <string name="sort">Sort</string>

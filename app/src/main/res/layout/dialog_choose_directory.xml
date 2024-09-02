@@ -22,8 +22,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="10dp"
-        android:textAppearance="?attr/textAppearanceHeadlineSmall"
         android:gravity="center"
+        style="@style/DialogTitleAppearance"
         android:textAlignment="center" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/des_configure_save_directory"
         android:layout_gravity="center_horizontal"
-        android:textAppearance="?attr/textAppearanceBodyMedium" />
+        style="@style/DialogDescriptionAppearance" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
+            android:alpha="0.90"
             android:textAppearance="?attr/textAppearanceBodyLarge" />
 
     </com.google.android.material.card.MaterialCardView>

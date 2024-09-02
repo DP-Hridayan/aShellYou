@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialog_layout"
     android:layout_width="match_parent"
@@ -25,7 +26,7 @@
         android:gravity="center"
         android:text="@string/connected_device"
         android:textAlignment="center"
-        android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+        style="@style/DialogTitleAppearance" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
@@ -43,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
-            android:textAppearance="?attr/textAppearanceBodyLarge" />
+            style="@style/DialogDescriptionAppearance" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -76,19 +77,22 @@
                 android:id="@+id/basic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/basic_shell" />
+                android:text="@string/basic_shell"
+                android:alpha="0.85" />
 
             <RadioButton
                 android:id="@+id/shizuku"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/shizuku" />
+                android:text="@string/shizuku"
+                android:alpha="0.85" />
 
             <RadioButton
                 android:id="@+id/root"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/root" />
+                android:text="@string/root"
+                android:alpha="0.85" />
 
         </RadioGroup>
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style
+        name="DialogTitleAppearance"
+        parent="aShellYou.AppTheme">
+        <item name="android:alpha">0.85</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadlineSmall</item>
+    </style>
+
+    <style
+        name="DialogDescriptionAppearance"
+        parent="aShellYou.AppTheme">
+        <item name="android:alpha">0.85</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+    </style>
+
+</resources>
