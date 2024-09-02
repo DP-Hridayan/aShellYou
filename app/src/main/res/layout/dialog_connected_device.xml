@@ -47,7 +47,7 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/switchMode"
         style="@style/Widget.Material3.Button.Icon"
         android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/switch_mode"
         android:visibility="gone"
-        app:icon="@drawable/ic_reset" />
+        app:icon="@drawable/rotate_reset" />
 
     <LinearLayout
         android:id="@+id/options_expanded"
