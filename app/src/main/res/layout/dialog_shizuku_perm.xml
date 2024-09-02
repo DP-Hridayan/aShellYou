@@ -52,11 +52,10 @@
             android:layout_height="wrap_content"
             android:text="@string/request_permission"
             android:layout_gravity="center_horizontal"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
             android:layout_margin="15dp"
             android:gravity="center"
             android:textColor="?attr/colorOnPrimaryContainer"
-            android:textStyle="bold"
             android:textAlignment="center" />
 
     </com.google.android.material.card.MaterialCardView>
@@ -76,11 +75,10 @@
             android:layout_height="wrap_content"
             android:text="@string/cancel"
             android:layout_gravity="center_horizontal"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
             android:layout_margin="15dp"
             android:gravity="center"
             android:textColor="?attr/colorOnPrimaryContainer"
-            android:textStyle="bold"
             android:textAlignment="center" />
 
     </com.google.android.material.card.MaterialCardView>
