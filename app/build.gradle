@@ -67,7 +67,7 @@ dependencies {
     def material_version = "1.13.0-alpha05"
     def preference_version = "1.2.1"
     def shizuku_version = "13.1.0"
-    def libsu_version = "3.2.0"
+    def libsu_version = "6.0.0"
     def glide_version = "4.16.0"
     def lottie_version = "6.5.0"
 
