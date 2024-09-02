@@ -1430,8 +1430,6 @@ public class AshellFragment extends Fragment {
       binding.commandInputLayout.setErrorIconOnClickListener(
           t -> binding.commandEditText.setText(null));
     }
-    Utils.alignMargin(binding.sendButton);
-
     DialogUtils.shizukuUnavailableDialog(context);
   }
 
@@ -1444,7 +1442,6 @@ public class AshellFragment extends Fragment {
       binding.commandInputLayout.setErrorIconOnClickListener(
           t -> binding.commandEditText.setText(null));
     }
-    Utils.alignMargin(binding.sendButton);
 
     DialogUtils.rootUnavailableDialog(context);
   }
@@ -1454,7 +1451,6 @@ public class AshellFragment extends Fragment {
     binding.commandInputLayout.setError(getString(R.string.su_warning));
     binding.commandInputLayout.setErrorIconDrawable(
         Utils.getDrawable(R.drawable.ic_error, requireActivity()));
-    Utils.alignMargin(binding.sendButton);
     binding.commandEditText.requestFocus();
     Utils.snackBar(
             requireActivity().findViewById(android.R.id.content),

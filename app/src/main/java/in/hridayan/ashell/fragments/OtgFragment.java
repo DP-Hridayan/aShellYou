@@ -1003,8 +1003,6 @@ public class OtgFragment extends Fragment
     binding.commandInputLayout.setErrorIconOnClickListener(
         t -> binding.commandEditText.setText(null));
 
-    Utils.alignMargin(binding.sendButton);
-
     DialogUtils.otgConnectionErrDialog(context);
   }
 

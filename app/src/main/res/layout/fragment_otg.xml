@@ -64,10 +64,10 @@
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="25dp"
                 android:src="@drawable/ic_help"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="12dp"
                 android:id="@+id/sendButton"
                 android:transitionName="sendButtonToExamples"
-                android:layout_gravity="center|end" />
+                android:layout_gravity="center|end|top" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_height="wrap_content"

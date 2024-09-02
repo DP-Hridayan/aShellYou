@@ -416,15 +416,6 @@ public class Utils {
     }
   }
 
-  // Aligns a margin of certain button
-  public static void alignMargin(View component) {
-    ViewGroup.MarginLayoutParams params =
-        (ViewGroup.MarginLayoutParams) component.getLayoutParams();
-    params.bottomMargin = 29;
-    component.setLayoutParams(params);
-    component.requestLayout();
-  }
-
   // returns if the app toolbar is expanded
   public static boolean isToolbarExpanded(AppBarLayout appBarLayout) {
     return appBarLayout.getTop() == 0;
