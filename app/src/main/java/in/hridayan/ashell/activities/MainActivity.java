@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity
 
       // Handle the settings fragment case
       if (currentFragment == SETTINGS_FRAGMENT) {
-        String tag = "settingsButtonToSettings";
+        String tag = Const.SETTINGS_TO_SETTINGS;
         View settingsButton = getSettingsButtonView();
 
         if (settingsButton != null) {
@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity
         }
       }
       if (currentFragment == EXAMPLES_FRAGMENT) {
-        String tag = "sendButtonToExamples";
+        String tag = Const.SEND_TO_EXAMPLES;
         View sendButton = getSendButtonView();
 
         if (sendButton != null) {

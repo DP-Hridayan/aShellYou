@@ -238,18 +238,30 @@ public class DialogUtils {
 
   // Method for displaying the root permission requesting dialog
   public static void rootPermRequestDialog(Context context) {
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.access_denied))
-        .setMessage(context.getString(R.string.root_access_denied_message))
-        .setNegativeButton(context.getString(R.string.cancel), null)
-        .setPositiveButton(
-            context.getString(R.string.request_permission),
-            (dialogInterface, i) -> {
-              RootShell.exec("su", true);
-              RootShell.refresh();
-              if (!RootShell.hasPermission()) DialogUtils.grantPermissionManually(context);
-            })
-        .show();
+    View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_root_perm, null);
+
+    AlertDialog dialog = new MaterialAlertDialogBuilder(context).setView(dialogView).show();
+
+    MaterialCardView request = dialogView.findViewById(R.id.request_perm);
+    MaterialCardView cancel = dialogView.findViewById(R.id.cancel);
+
+    request.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+
+          RootShell.exec("su", true);
+          RootShell.refresh();
+          if (!RootShell.hasPermission()) DialogUtils.grantPermissionManually(context);
+
+          dialog.dismiss();
+        });
+
+    cancel.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+
+          dialog.dismiss();
+        });
   }
 
   /* <--------DIALOGS SHOWN FOR FEEDBACK PURPOSES -------> */

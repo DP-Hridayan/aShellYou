@@ -51,6 +51,12 @@ public interface Const {
   String ID_TELEGRAM = "id_telegram";
   String ID_DISCORD = "id_discord";
   String ID_LICENSE = "id_license";
+    
+   /* <--------Transition Names-------> */
+    
+    String SEND_TO_EXAMPLES = "sendButtonToExamples";
+    String SETTINGS_TO_ABOUT = "settingsItemToAbout";
+    String SETTINGS_TO_SETTINGS = "settingsButtonToSettings";
 
   /* <--------U R L s -------> */
 

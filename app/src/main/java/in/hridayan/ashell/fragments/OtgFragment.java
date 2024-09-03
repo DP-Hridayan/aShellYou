@@ -1043,7 +1043,7 @@ public class OtgFragment extends Fragment
     requireActivity()
         .getSupportFragmentManager()
         .beginTransaction()
-        .addSharedElement(binding.sendButton, "sendButtonToExamples")
+        .addSharedElement(binding.sendButton, Const.SEND_TO_EXAMPLES)
         .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
         .addToBackStack(fragment.getClass().getSimpleName())
         .commit();
@@ -1059,7 +1059,7 @@ public class OtgFragment extends Fragment
     requireActivity()
         .getSupportFragmentManager()
         .beginTransaction()
-        .addSharedElement(binding.settingsButton, "settingsButtonToSettings")
+        .addSharedElement(binding.settingsButton, Const.SETTINGS_TO_SETTINGS)
         .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
         .addToBackStack(fragment.getClass().getSimpleName())
         .commit();

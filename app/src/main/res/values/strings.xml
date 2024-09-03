@@ -129,7 +129,7 @@
     <string
         name="root"
         translatable="false">Root</string>
-    <string name="root_access_denied_message">Root access is currently denied for aShell You. Grant root access or switch to non-root method</string>
+    <string name="root_access_denied_message">Root access is currently denied for aShell You</string>
     <string name="root_unavailable">Root is not accessible</string>
     <string name="root_unavailable_message">Device might not be rooted or root presence might be hidden from aShell You</string>
     <string name="save">Save</string>
