@@ -5,7 +5,8 @@
     style="@style/CategoryContributorsCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12dp"
+    android:layout_marginVertical="10dp"
+    android:layout_marginHorizontal="20dp"
     android:elevation="0dp"
     android:focusable="true"
     android:foreground="?@attr/selectableItemBackground"
@@ -87,7 +88,6 @@
                     app:paddingEnd="12dp" />
 
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

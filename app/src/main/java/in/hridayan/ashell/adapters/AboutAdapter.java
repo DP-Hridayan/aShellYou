@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.CategoryAbout;
@@ -118,7 +119,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   private static class LeadDeveloperItemViewHolder extends RecyclerView.ViewHolder {
     private final ImageView imageView;
     private final TextView titleTextView, descriptionTextView;
-    private final Button mMailButton, mXButton, mGithubButton, mSupportButton;
+    private final MaterialButton mMailButton, mTelegram, mGithubButton;
+    private final LinearLayout support;
 
     public LeadDeveloperItemViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -127,8 +129,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       descriptionTextView = itemView.findViewById(R.id.description_text_view);
       mMailButton = itemView.findViewById(R.id.mail);
       mGithubButton = itemView.findViewById(R.id.github);
-      mXButton = itemView.findViewById(R.id.x);
-      mSupportButton = itemView.findViewById(R.id.support);
+      mTelegram = itemView.findViewById(R.id.telegram);
+      support = itemView.findViewById(R.id.supportLayout);
     }
 
     public void bind(CategoryAbout.LeadDeveloperItem item) {
@@ -136,13 +138,13 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
-      Map<Button, String> buttonUrlMap = new HashMap<>();
-      buttonUrlMap.put(mXButton, "https://x.com/Spirriy1?t=VCLYRLEN-Pgq_RS2gQU-bg&s=09");
-      buttonUrlMap.put(mGithubButton, Const.URL_DEV_GITHUB);
-      buttonUrlMap.put(mMailButton, "mailto:" + Const.DEV_EMAIL);
-      buttonUrlMap.put(mSupportButton, Const.URL_DEV_BM_COFFEE);
+      Map<View, String> viewUrlMap = new HashMap<>();
+      viewUrlMap.put(mTelegram, "https://t.me/hridayan");
+      viewUrlMap.put(mGithubButton, Const.URL_DEV_GITHUB);
+      viewUrlMap.put(mMailButton, "mailto:" + Const.DEV_EMAIL);
+      viewUrlMap.put(support, Const.URL_DEV_BM_COFFEE);
 
-      for (Map.Entry<Button, String> entry : buttonUrlMap.entrySet()) {
+      for (Map.Entry<View, String> entry : viewUrlMap.entrySet()) {
         entry
             .getKey()
             .setOnClickListener(v -> Utils.openUrl(itemView.getContext(), entry.getValue()));
