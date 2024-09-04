@@ -155,7 +155,7 @@
     <string name="shizuku_about">About Shizuku</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
-    <string name="shizuku_unavailable_message">Shizuku is not installed or  properly configured on your device</string>
+    <string name="shizuku_unavailable_message">Shizuku is not installed or properly configured on your device</string>
     <string name="sort">Sort</string>
     <string name="sort_A_Z">A → Z</string>
     <string name="sort_Z_A">Z → A</string>
@@ -163,7 +163,7 @@
     <string name="sort_oldest">Oldest</string>
     <string name="start">Start</string>
     <string name="success">Success</string>
-    <string name="support_message">You can support the development by buying me coffee !</string>
+    <string name="support_message">Like what I do?\nConsider buying me a coffee !</string>
     <string name="su_warning_message">This mode doesn\'t support root related commands. Please switch to root mode</string>
     <string name="switch_mode">Switch mode</string>
     <string name="unpin">Unpin</string>
