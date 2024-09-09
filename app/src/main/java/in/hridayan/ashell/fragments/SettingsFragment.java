@@ -1,6 +1,7 @@
 package in.hridayan.ashell.fragments;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Pair;
@@ -18,11 +19,13 @@ import com.google.android.material.transition.Hold;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.databinding.FragmentSettingsBinding;
+import in.hridayan.ashell.items.SettingsItem;
+import in.hridayan.ashell.utils.DocumentTreeUtil;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.MiuiCheck;
-import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -68,6 +71,17 @@ public class SettingsFragment extends Fragment {
   public void onResume() {
     super.onResume();
 
+    // we refresh the text in the editText onResume to update the newly set file path
+    if (adapter.textViewSaveDir != null
+        && adapter.textViewSaveDir.getVisibility() == View.VISIBLE) {
+      String outputSaveDirectory = Preferences.getSavedOutputDir();
+      if (!outputSaveDirectory.equals("")) {
+        String outputSaveDirPath =
+            DocumentTreeUtil.getFullPathFromTreeUri(Uri.parse(outputSaveDirectory), context);
+        adapter.textViewSaveDir.setText(outputSaveDirPath);
+      }
+    }
+
     if (binding.rvSettings != null && binding.rvSettings.getLayoutManager() != null) {
 
       binding.appBarLayout.setExpanded(viewModel.isToolbarExpanded());
@@ -104,18 +118,18 @@ public class SettingsFragment extends Fragment {
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
+    mNav.setVisibility(View.GONE);
+
     viewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
     aboutViewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
 
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
 
-    mNav.setVisibility(View.GONE);
-
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
     binding.arrowBack.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           dispatcher.onBackPressed();
         });
 
@@ -123,43 +137,52 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_amoled_theme",
+            Const.PREF_AMOLED_THEME,
             R.drawable.ic_amoled_theme,
             getString(R.string.amoled_theme),
             getString(R.string.des_amoled_theme),
             true,
-            Preferences.getAmoledTheme(context)));
+            Preferences.getAmoledTheme()));
 
     settingsData.add(
         new SettingsItem(
-            "id_clear",
+            Const.PREF_CLEAR,
             R.drawable.ic_clear,
             getString(R.string.ask_to_clean),
             getString(R.string.des_ask_to_clean),
             true,
-            Preferences.getClear(context)));
+            Preferences.getClear()));
 
     settingsData.add(
         new SettingsItem(
-            "id_share_and_run",
+            Const.PREF_SHARE_AND_RUN,
             R.drawable.ic_share,
             getString(R.string.share_and_run),
             getString(R.string.des_share_and_run),
             true,
-            Preferences.getShareAndRun(context)));
+            Preferences.getShareAndRun()));
 
     settingsData.add(
         new SettingsItem(
-            "id_auto_update_check",
+            Const.PREF_AUTO_UPDATE_CHECK,
             R.drawable.ic_auto_update,
             getString(R.string.auto_update_check),
             getString(R.string.des_auto_update_check),
             true,
-            Preferences.getAutoUpdateCheck(context)));
+            Preferences.getAutoUpdateCheck()));
 
     settingsData.add(
         new SettingsItem(
-            "id_local_adb_mode",
+            Const.ID_CONFIG_SAVE_DIR,
+            R.drawable.ic_directory,
+            getString(R.string.configure_save_directory),
+            getString(R.string.des_configure_save_directory),
+            false,
+            false));
+
+    settingsData.add(
+        new SettingsItem(
+            Const.PREF_LOCAL_ADB_MODE,
             R.drawable.ic_terminal,
             getString(R.string.local_adb_mode),
             getString(R.string.des_local_adb_mode),
@@ -173,7 +196,7 @@ public class SettingsFragment extends Fragment {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiuiCheck.isMiui()) {
       settingsData.add(
           new SettingsItem(
-              "id_default_language",
+              Const.ID_DEF_LANGUAGE,
               R.drawable.ic_language,
               getString(R.string.default_language),
               getString(R.string.des_default_language),
@@ -183,7 +206,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_default_launch_mode",
+            Const.PREF_DEFAULT_LAUNCH_MODE,
             R.drawable.ic_mode,
             getString(R.string.default_launch_mode),
             getString(R.string.des_default_launch_mode),
@@ -192,34 +215,43 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_disable_softkey",
+            Const.PREF_DISABLE_SOFTKEY,
             R.drawable.ic_disable_keyboard,
             getString(R.string.disable_softkey),
             getString(R.string.des_disable_softkey),
             true,
-            Preferences.getDisableSoftkey(context)));
+            Preferences.getDisableSoftkey()));
 
     settingsData.add(
         new SettingsItem(
-            "id_vibration",
+            Const.PREF_EXAMPLES_LAYOUT_STYLE,
+            R.drawable.ic_styles,
+            getString(R.string.examples_layout_style),
+            getString(R.string.des_examples_layout_style),
+            false,
+            false));
+
+    settingsData.add(
+        new SettingsItem(
+            Const.PREF_HAPTICS_AND_VIBRATION,
             R.drawable.ic_vibration,
             getString(R.string.vibration),
             getString(R.string.des_vibration),
             true,
-            Preferences.getHapticsAndVibration(context)));
+            Preferences.getHapticsAndVibration()));
 
     settingsData.add(
         new SettingsItem(
-            "id_override_bookmarks",
+            Const.PREF_OVERRIDE_BOOKMARKS,
             R.drawable.ic_warning,
             getString(R.string.override_bookmarks_limit),
             getString(R.string.des_override_bookmarks),
             true,
-            Preferences.getOverrideBookmarks(context)));
+            Preferences.getOverrideBookmarks()));
 
     settingsData.add(
         new SettingsItem(
-            "id_save_preference",
+            Const.PREF_SAVE_PREFERENCE,
             R.drawable.ic_save_24px,
             getString(R.string.save_preference),
             getString(R.string.des_save_preference),
@@ -228,16 +260,16 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_smooth_scroll",
+            Const.PREF_SMOOTH_SCROLL,
             R.drawable.ic_scroll,
             getString(R.string.smooth_scrolling),
             getString(R.string.des_smooth_scroll),
             true,
-            Preferences.getSmoothScroll(context)));
+            Preferences.getSmoothScroll()));
 
     settingsData.add(
         new SettingsItem(
-            "id_unhide_cards",
+            Const.ID_UNHIDE_CARDS,
             R.drawable.ic_cards,
             getString(R.string.unhide_cards),
             getString(R.string.des_unhide_cards),
@@ -246,7 +278,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_examples",
+            Const.ID_EXAMPLES,
             R.drawable.ic_numbers,
             getString(R.string.commands),
             getString(R.string.des_examples),
@@ -255,7 +287,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            "id_about",
+            Const.ID_ABOUT,
             R.drawable.ic_info,
             getString(R.string.about),
             getString(R.string.des_about),
@@ -270,6 +302,23 @@ public class SettingsFragment extends Fragment {
 
     // After recyclerview is drawn, start the transition
     binding.rvSettings.getViewTreeObserver().addOnDrawListener(this::startPostponedEnterTransition);
+
+    // intentional crash with a long message
+    // throwLongException();
+
     return view;
+  }
+
+  public String generateLongMessage() {
+    StringBuilder message = new StringBuilder("Long Exception Message: ");
+    for (int i = 0; i < 1000; i++) { // Adjust the loop count for longer messages
+      message.append("This is line ").append(i).append(". ");
+    }
+    return message.toString();
+  }
+
+  public void throwLongException() {
+    String longMessage = generateLongMessage();
+    throw new RuntimeException(longMessage);
   }
 }

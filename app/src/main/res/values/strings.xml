@@ -5,6 +5,7 @@
     <string
         name="app_name"
         translatable="false">aShell You</string>
+    <string name="app_tagline">ADB at your fingertips</string>
 
     <string name="abort_command">Abort command first</string>
     <string name="access_denied">Access denied</string>
@@ -19,7 +20,7 @@
     <string name="already_latest_version">You are using the latest version</string>
     <string name="amoled_theme">Amoled dark theme</string>
     <string name="des_amoled_theme">Pure black theme for devices with OLED panel</string>
-    <string name="app_crashed">App has crashed :(</string>
+    <string name="app_crashed">App has crashed</string>
     <string name="app_summary">aShell You is here for all your ADB needs</string>
     <string name="app_updated_message">App is updated, want to see changelogs?</string>
     <string name="app_working_message">aShell You is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
@@ -35,19 +36,19 @@
     <string name="batch_unpinned_message">%d commands are unpinned</string>
     <string name="cancel">Cancel</string>
     <string name="changelogs">Changelogs</string>
-    <string name="change_mode">Change mode</string>
     <string name="check_internet">Check your internet connection</string>
     <string name="choose">Choose</string>
     <string name="clear_all_message">Are you sure you want to clear everything on this screen?</string>
     <string name="clear_everything">Clear everything</string>
     <string name="clear_screen">Clear screen</string>
     <string name="clipboard_empty">Clipboard doesn\'t contain text</string>
+    <string name="close">Close</string>
     <string name="commands">Commands</string>
     <string name="command_title">Input ADB Command</string>
     <string name="command_title_root">Input command</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_batch_add_bookmark">Selected %d items will be added to bookmarks</string>
-    <string name="confirm_batch_remove_bookmark">Selected %d items will be  removed from bookmarks</string>
+    <string name="confirm_batch_remove_bookmark">Selected %d items will be removed from bookmarks</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_exit">Confirm exit</string>
@@ -67,6 +68,7 @@
     <string name="current">Current</string>
     <string name="default_launch_mode">Default launch mode</string>
     <string name="delete_all">Delete all</string>
+    <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>
     <string name="des_default_language">Choose the default language for the app</string>
     <string name="des_default_launch_mode">Choose what ADB mode should be opened directly when app launches</string>
@@ -83,14 +85,18 @@
     <string name="failed">Failed</string>
     <string name="file_not_found">File not found</string>
     <string name="generate_key_failed">Failed to generate and save key pair</string>
+    <string name="grant_permission">Grant permission</string>
     <string name="grant_permission_manually">If the permission dialog doesn\'t appear, please grant root permission manually via the superuser application</string>
     <string name="flashing">Flashing</string>
+    <string name="folder_picker">Folder picker</string>
     <string name="go_back">Go back</string>
     <string name="history">History</string>
     <string name="instructions">Instructions</string>
     <string name="latest">Latest</string>
+    <string name="launch_mode">Launch mode</string>
     <string name="least_used">Least used</string>
     <string name="local_adb">Local ADB</string>
+    <string name="mail">E-mail</string>
     <string name="menu">Menu</string>
     <string name="mode">Mode</string>
     <string name="most_used">Most used</string>
@@ -109,7 +115,7 @@
     <string name="open">Open</string>
     <string name="open_adb">Open ADB shell</string>
     <string name="otg">OTG</string>
-    <string name="otg_not_connected">Device is not properly connected. Connect the device properly through OTG and try again</string>
+    <string name="otg_not_connected">Connect the device properly through OTG and try again</string>
     <string name="paste">Paste</string>
     <string name="pin">Pin</string>
     <string name="pinned_message">\'%s\' has been pinned</string>
@@ -121,10 +127,12 @@
     <string name="remember_working_mode">Remember last working mode</string>
     <string name="request_permission">Request Permission</string>
     <string name="report">Report</string>
-    <string name="root" translatable="false">Root</string>
-    <string name="root_access_denied_message">Root access is currently denied for aShell You. Grant root access or switch to non-root method</string>
-    <string name="root_unavailable">Device is not rooted</string>
-    <string name="root_unavailable_message">Root is not detected. Device might not be rooted or root presence might be hidden from aShell You</string>
+    <string
+        name="root"
+        translatable="false">Root</string>
+    <string name="root_access_denied_message">Root access is currently denied for aShell You</string>
+    <string name="root_unavailable">Root is not accessible</string>
+    <string name="root_unavailable_message">Device might not be rooted or root presence might be hidden from aShell You</string>
     <string name="save">Save</string>
     <string name="su_warning">Root commands are not available</string>
     <string name="search">Search</string>
@@ -141,11 +149,13 @@
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\' folder</string>
     <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\' folder</string>
     <string name="shell_working">Shell is working</string>
-    <string name="shizuku" translatable="false">Shizuku</string>
+    <string
+        name="shizuku"
+        translatable="false">Shizuku</string>
     <string name="shizuku_about">About Shizuku</string>
-    <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You. aShell You won\'t work without a proper Shizuku environment.</string>
+    <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
-    <string name="shizuku_unavailable_message">Shizuku is not installed or not properly configured on your device. aShell You won\'t work without a proper Shizuku environment.</string>
+    <string name="shizuku_unavailable_message">Shizuku is not installed or properly configured on your device</string>
     <string name="sort">Sort</string>
     <string name="sort_A_Z">A → Z</string>
     <string name="sort_Z_A">Z → A</string>
@@ -153,8 +163,9 @@
     <string name="sort_oldest">Oldest</string>
     <string name="start">Start</string>
     <string name="success">Success</string>
-    <string name="support">Support</string>
+    <string name="support_message">Like what I do?\nConsider buying me a coffee !</string>
     <string name="su_warning_message">This mode doesn\'t support root related commands. Please switch to root mode</string>
+    <string name="switch_mode">Switch mode</string>
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
     <string name="unhide_cards_message">All info cards will be visible now</string>
@@ -170,7 +181,6 @@
     <string name="warning">Warning</string>
     <string name="whats_new">What\'s new !</string>
     <string name="whole_output">Whole output</string>
-    <string name="working_mode">Working mode</string>
     <string name="yes">Yes</string>
     <string name="local_adb_mode">Choose local adb working mode</string>
     <string name="des_local_adb_mode">Choose a preffered mode for executing shell commands on your device</string>
@@ -183,7 +193,7 @@
     <string name="auto_update_check">Auto update check</string>
     <string name="des_auto_update_check">Automatically checks for available newer versions when the app launches</string>
     <string name="override_bookmarks_limit">Override maximum bookmarks limit</string>
-    <string name="des_override_bookmarks"> Might cause lag if a large number of bookmarks are added! Low end devices should keep this option turned off</string>
+    <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low end devices should keep this option turned off</string>
     <string name="disable_softkey">Disable soft keyboard</string>
     <string name="des_disable_softkey">Useful when you want to use an external keyboard</string>
     <string name="des_examples">Collection of some command templates</string>
@@ -211,9 +221,22 @@
     <string name="des_feature_request">If you have any ideas or suggestions in your mind , let us know</string>
     <string name="github">Github</string>
     <string name="des_github">Visit the github repository of aShell You</string>
+    <string name="telegram">Telegram</string>
     <string name="telegram_channel">Telegram channel</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     <string name="license">License</string>
     <string name="des_license">Learn about the license this app is using</string>
-
+    <string name="btn_continue">Continue</string>
+    <string name="back">Back</string>
+    <string name="mode_one_title">Root</string>
+    <string name="mode_one_desc">Use root access to run commands. Rooted commands can be executed.</string>
+    <string name="mode_two_title">Shizuku</string>
+    <string name="mode_two_desc">Use shizuku to run commands. Commands that require root won\'t execute.</string>
+    <string name="confirm_basic_mode">No higher privelege is granted. App will only execute basic commands. You can change the working mode later in settings</string>
+    <string name="examples_layout_style">Examples layout style</string>
+    <string name="des_examples_layout_style">Choose the preferred layout style to view command examples</string>
+    <string name="configure_save_directory">Configure save directory</string>
+    <string name="des_configure_save_directory">Choose a directory to save the shell output</string>
+    <string name="grid">Grid</string>
+    <string name="list">List</string>
 </resources>

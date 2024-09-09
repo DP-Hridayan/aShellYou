@@ -15,11 +15,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.Category;
+import in.hridayan.ashell.UI.CategoryAbout;
 import in.hridayan.ashell.activities.MainActivity;
+import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Const.Contributors;
 import in.hridayan.ashell.fragments.ChangelogFragment;
+import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.HashMap;
@@ -51,10 +55,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   @Override
   public int getItemViewType(int position) {
     Object item = items.get(position);
-    if (item instanceof Category) return CATEGORY;
-    else if (item instanceof Category.LeadDeveloperItem) return CATEGORY_LEAD_DEV_ITEM;
-    else if (item instanceof Category.ContributorsItem) return CATEGORY_CONTRIBUTORS_ITEM;
-    else if (item instanceof Category.AppItem) return CATEGORY_APP_ITEM;
+    if (item instanceof CategoryAbout) return CATEGORY;
+    else if (item instanceof CategoryAbout.LeadDeveloperItem) return CATEGORY_LEAD_DEV_ITEM;
+    else if (item instanceof CategoryAbout.ContributorsItem) return CATEGORY_CONTRIBUTORS_ITEM;
+    else if (item instanceof CategoryAbout.AppItem) return CATEGORY_APP_ITEM;
     return -1;
   }
 
@@ -83,17 +87,14 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
     Object item = items.get(position);
     if (holder instanceof CategoryViewHolder) {
-      ((CategoryViewHolder) holder).bind((Category) item);
+      ((CategoryViewHolder) holder).bind((CategoryAbout) item);
     } else if (holder instanceof LeadDeveloperItemViewHolder) {
-      ((LeadDeveloperItemViewHolder) holder).bind((Category.LeadDeveloperItem) item);
+      ((LeadDeveloperItemViewHolder) holder).bind((CategoryAbout.LeadDeveloperItem) item);
     } else if (holder instanceof ContributorsItemViewHolder) {
-      ((ContributorsItemViewHolder) holder).bind((Category.ContributorsItem) item);
+      ((ContributorsItemViewHolder) holder).bind((CategoryAbout.ContributorsItem) item);
     } else if (holder instanceof AppItemViewHolder) {
-      ((AppItemViewHolder) holder).bind(
-              (Category.AppItem) item,
-              position == items.size() - 1,
-              activity
-      );
+      ((AppItemViewHolder) holder)
+          .bind((CategoryAbout.AppItem) item, position == items.size() - 1, activity);
     }
   }
 
@@ -110,7 +111,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       categoryTextView = itemView.findViewById(R.id.category_text_view);
     }
 
-    public void bind(Category category) {
+    public void bind(CategoryAbout category) {
       categoryTextView.setText(category.getName());
     }
   }
@@ -118,7 +119,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   private static class LeadDeveloperItemViewHolder extends RecyclerView.ViewHolder {
     private final ImageView imageView;
     private final TextView titleTextView, descriptionTextView;
-    private final Button mMailButton, mXButton, mGithubButton, mSupportButton;
+    private final MaterialButton mMailButton, mTelegram, mGithubButton;
+    private final LinearLayout support;
 
     public LeadDeveloperItemViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -127,22 +129,22 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       descriptionTextView = itemView.findViewById(R.id.description_text_view);
       mMailButton = itemView.findViewById(R.id.mail);
       mGithubButton = itemView.findViewById(R.id.github);
-      mXButton = itemView.findViewById(R.id.x);
-      mSupportButton = itemView.findViewById(R.id.support);
+      mTelegram = itemView.findViewById(R.id.telegram);
+      support = itemView.findViewById(R.id.supportLayout);
     }
 
-    public void bind(Category.LeadDeveloperItem item) {
+    public void bind(CategoryAbout.LeadDeveloperItem item) {
       imageView.setImageResource(item.getImageResource());
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
-      Map<Button, String> buttonUrlMap = new HashMap<>();
-      buttonUrlMap.put(mXButton, "https://x.com/Spirriy1?t=VCLYRLEN-Pgq_RS2gQU-bg&s=09");
-      buttonUrlMap.put(mGithubButton, "https://github.com/DP-Hridayan");
-      buttonUrlMap.put(mMailButton, "mailto:hridayanofficial@gmail.com");
-      buttonUrlMap.put(mSupportButton, "https://www.buymeacoffee.com/hridayan");
+      Map<View, String> viewUrlMap = new HashMap<>();
+      viewUrlMap.put(mTelegram, "https://t.me/hridayan");
+      viewUrlMap.put(mGithubButton, Const.URL_DEV_GITHUB);
+      viewUrlMap.put(mMailButton, "mailto:" + Const.DEV_EMAIL);
+      viewUrlMap.put(support, Const.URL_DEV_BM_COFFEE);
 
-      for (Map.Entry<Button, String> entry : buttonUrlMap.entrySet()) {
+      for (Map.Entry<View, String> entry : viewUrlMap.entrySet()) {
         entry
             .getKey()
             .setOnClickListener(v -> Utils.openUrl(itemView.getContext(), entry.getValue()));
@@ -168,21 +170,23 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       categoryContributorsLayout = itemView.findViewById(R.id.category_contributors_layout);
     }
 
-    public void bind(Category.ContributorsItem item) {
+    public void bind(CategoryAbout.ContributorsItem item) {
       imageView.setImageResource(item.getImageResource());
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
+      // onclick listener for github button which redirects to the github profiles of individual
+      // contributors
       buttonView.setOnClickListener(
-          v -> Utils.openUrl(itemView.getContext(), getContributorsIdUrlMap().get(item.getId())));
+          v -> Utils.openUrl(itemView.getContext(), item.getId().getGithub()));
       categoryContributorsLayout.setOnClickListener(
           v -> {
-            HapticUtils.weakVibrate(v, itemView.getContext());
+            HapticUtils.weakVibrate(v);
             toggleExpandableLayout();
           });
 
       categoryContributorsLayout.setStrokeWidth(
-          Utils.androidVersion() >= Build.VERSION_CODES.S ? 0 : 3);
+          DeviceUtils.androidVersion() >= Build.VERSION_CODES.S ? 0 : 3);
     }
 
     private void toggleExpandableLayout() {
@@ -214,11 +218,8 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-              if (endHeight == 0)
-                view.setVisibility(View.GONE);
-              else
-                view.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
-
+              if (endHeight == 0) view.setVisibility(View.GONE);
+              else view.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
             }
           });
       animator.setDuration(duration);
@@ -245,39 +246,39 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       mListener = listener;
     }
 
-    public void bind(Category.AppItem item, boolean isLastItem, Activity activity) {
+    public void bind(CategoryAbout.AppItem item, boolean isLastItem, Activity activity) {
       imageView.setImageResource(item.getImageResource());
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
-      if (item.getId().equals("id_changelogs")) {
+      if (item.getId().equals(Const.ID_CHANGELOGS)) {
         categoryAppLayout.setTransitionName("aboutToChangelogs");
       }
 
       View.OnClickListener clickListener =
           v -> {
-            HapticUtils.weakVibrate(v, itemView.getContext());
+            HapticUtils.weakVibrate(v);
 
             String url = getAppIdUrlMap().get(item.getId());
             if (url != null) Utils.openUrl(itemView.getContext(), url);
 
-            if ("id_changelogs".equals(item.getId())) {
+            if (Const.ID_CHANGELOGS.equals(item.getId())) {
               ChangelogFragment fragment = new ChangelogFragment();
               ((MainActivity) activity)
-                      .getSupportFragmentManager()
-                      .beginTransaction()
-                      .addSharedElement(itemView, itemView.getTransitionName())
-                      .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
-                      .addToBackStack(fragment.getClass().getSimpleName())
-                      .commit();
+                  .getSupportFragmentManager()
+                  .beginTransaction()
+                  .addSharedElement(itemView, itemView.getTransitionName())
+                  .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+                  .addToBackStack(fragment.getClass().getSimpleName())
+                  .commit();
             }
           };
 
-      if ("id_version".equals(item.getId())) {
+      if (Const.ID_VERSION.equals(item.getId())) {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             v -> {
-              HapticUtils.weakVibrate(v, itemView.getContext());
+              HapticUtils.weakVibrate(v);
               if (mListener != null) mListener.onCheckUpdate(button, loadingDots);
             });
       } else {
@@ -295,28 +296,15 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
   }
 
-  private static Map<String, String> getContributorsIdUrlMap() {
-    Map<String, String> idUrlMap = new HashMap<>();
-    idUrlMap.put("id_rikka", "https://github.com/RikkaApps/Shizuku");
-    idUrlMap.put("id_sunilpaulmathew", "https://gitlab.com/sunilpaulmathew/ashell");
-    idUrlMap.put("id_khun_htetz", "https://github.com/KhunHtetzNaing/ADB-OTG");
-    idUrlMap.put("id_krishna", "https://github.com/KrishnaSSH");
-    idUrlMap.put("id_shivam", "https://github.com/starry-shivam");
-    idUrlMap.put("id_drDisagree", "https://github.com/Mahmud0808");
-    idUrlMap.put("id_marciozomb13", "https://github.com/marciozomb13");
-    idUrlMap.put("id_weiguangtwk", "https://github.com/WeiguangTWK");
-    idUrlMap.put("id_winzort", "https://github.com/mikropsoft");
-    return idUrlMap;
-  }
-
   private static Map<String, String> getAppIdUrlMap() {
     Map<String, String> idUrlMap = new HashMap<>();
-    idUrlMap.put("id_report", "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
-    idUrlMap.put("id_feature", "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
-    idUrlMap.put("id_github", "https:github.com/DP-Hridayan/aShellYou");
-    idUrlMap.put("id_telegram", "https://t.me/aShellYou");
-    idUrlMap.put("id_discord", "https://discord.gg/cq5R2fF8sZ");
-    idUrlMap.put("id_license", "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md");
+    idUrlMap.put(Const.ID_REPORT, "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
+    idUrlMap.put(
+        Const.ID_FEATURE, "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
+    idUrlMap.put(Const.ID_GITHUB, Const.URL_GITHUB_REPOSITORY);
+    idUrlMap.put(Const.ID_TELEGRAM, Const.URL_TELEGRAM);
+    idUrlMap.put(Const.ID_DISCORD, "https://discord.gg/cq5R2fF8sZ");
+    idUrlMap.put(Const.ID_LICENSE, Const.URL_APP_LICENSE);
     return idUrlMap;
   }
 }

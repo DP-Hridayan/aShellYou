@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.divider.MaterialDivider;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.utils.ChangelogItem;
+import in.hridayan.ashell.items.ChangelogItem;
 import java.util.List;
 
 public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.ViewHolder> {

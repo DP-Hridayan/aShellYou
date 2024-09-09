@@ -1,4 +1,4 @@
-package in.hridayan.ashell.utils;
+package in.hridayan.ashell.items;
 
 public class ChangelogItem {
   private String title;

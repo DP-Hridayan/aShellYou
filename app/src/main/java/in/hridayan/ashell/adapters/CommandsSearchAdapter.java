@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.utils.CommandItems;
+import in.hridayan.ashell.items.CommandItems;
 import in.hridayan.ashell.utils.Utils;
 
 /*

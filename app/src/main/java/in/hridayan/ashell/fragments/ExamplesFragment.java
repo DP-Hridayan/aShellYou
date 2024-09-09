@@ -17,6 +17,7 @@ import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,11 +28,12 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.databinding.FragmentExamplesBinding;
-import in.hridayan.ashell.utils.CommandItems;
+import in.hridayan.ashell.items.CommandItems;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
@@ -114,6 +116,8 @@ public class ExamplesFragment extends Fragment
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
+    mNav.setVisibility(View.GONE);
+
     editText = binding.searchView.getSearchEditText();
     searchBarMenu = binding.searchBar.getMenu();
     sort = searchBarMenu.findItem(R.id.sort);
@@ -130,17 +134,15 @@ public class ExamplesFragment extends Fragment
 
     binding.arrowBack.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           dispatcher.onBackPressed();
         });
-
-    mNav.setVisibility(View.GONE);
 
     binding.searchBar.clearFocus();
     binding.searchBar.setNavigationIcon(R.drawable.ic_search);
     binding.searchBar.setOnMenuItemClickListener(
         item -> {
-          HapticUtils.weakVibrate(view, context);
+          HapticUtils.weakVibrate(view);
           switch (item.getItemId()) {
             case R.id.sort:
               sortingDialog(context, getActivity());
@@ -176,8 +178,8 @@ public class ExamplesFragment extends Fragment
         new GridLayoutManager(
             context,
             getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-                ? 2
-                : 1);
+                ? Const.GRID_STYLE
+                : Preferences.getExamplesLayoutStyle());
     binding.rvSearchView.setLayoutManager(mLayoutManager);
 
     mExamplesAdapter = new ExamplesAdapter(Commands.commandList(context), context, this);
@@ -185,6 +187,7 @@ public class ExamplesFragment extends Fragment
     mExamplesAdapter.setOnItemClickListener(this);
     binding.rvSearchView.setAdapter(mExamplesAdapter);
     binding.rvSearchView.setVisibility(View.VISIBLE);
+
     editText.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -213,6 +216,7 @@ public class ExamplesFragment extends Fragment
 
     binding.chipSearchSummary.setVisibility(View.GONE);
     binding.noCommandFound.setVisibility(View.GONE);
+    binding.searchImg.setVisibility(View.VISIBLE);
 
     if (text != null && !text.toString().isEmpty()) {
 
@@ -221,10 +225,14 @@ public class ExamplesFragment extends Fragment
       if (filteredList.isEmpty()) {
         binding.noCommandFound.setVisibility(View.VISIBLE);
         binding.chipSearchSummary.setVisibility(View.VISIBLE);
+        binding.searchImg.setVisibility(View.VISIBLE);
         if (isSummaryChipClicked) chipSummaryOnClick(text, filteredList);
         /* if filtered list is empty again after running chipSummaryOnClick, then we show no command found text message */
-        if (filteredList.isEmpty()) binding.noCommandFound.setVisibility(View.VISIBLE);
-      }
+        if (filteredList.isEmpty()) {
+          binding.noCommandFound.setVisibility(View.VISIBLE);
+          binding.searchImg.setVisibility(View.VISIBLE);
+        }
+      } else binding.searchImg.setVisibility(View.GONE);
     }
     binding.rvSearch.setVisibility(View.VISIBLE);
     CommandsSearchAdapter adapter = new CommandsSearchAdapter(filteredList, context, this);
@@ -259,6 +267,7 @@ public class ExamplesFragment extends Fragment
   /* Onclick function for the chip which appears when no search result is found when only searched through titles */
   private void chipSummaryOnClick(CharSequence text, List<CommandItems> filteredList) {
     binding.noCommandFound.setVisibility(View.GONE);
+    binding.searchImg.setVisibility(View.GONE);
     searchTitleAndSummary(text, filteredList);
     binding.chipSearchSummary.setVisibility(View.GONE);
   }
@@ -271,7 +280,7 @@ public class ExamplesFragment extends Fragment
       getString(R.string.least_used)
     };
 
-    int currentSortingOption = Preferences.getSortingExamples(context);
+    int currentSortingOption = Preferences.getSortingExamples();
     isSortingOptionSame = currentSortingOption;
     final int[] sortingOption = {currentSortingOption};
 
@@ -286,7 +295,7 @@ public class ExamplesFragment extends Fragment
         .setPositiveButton(
             getString(R.string.ok),
             (dialog, which) -> {
-              Preferences.setSortingExamples(context, sortingOption[0]);
+              Preferences.setSortingExamples(sortingOption[0]);
               if (isSortingOptionSame != sortingOption[0]) mExamplesAdapter.sortData();
             })
         .setNegativeButton(getString(R.string.cancel), null)
@@ -378,8 +387,8 @@ public class ExamplesFragment extends Fragment
     int selectedItems = mExamplesAdapter.getSelectedItemsSize();
     boolean isAllItemBookmarked = mExamplesAdapter.isAllItemsBookmarked(),
         isLimitReached =
-            selectedItems + Utils.getBookmarks(context).size() > Preferences.MAX_BOOKMARKS_LIMIT
-                && !Preferences.getOverrideBookmarks(context);
+            selectedItems + Utils.getBookmarks(context).size() > Const.MAX_BOOKMARKS_LIMIT
+                && !Preferences.getOverrideBookmarks();
 
     boolean isBatch = selectedItems > 1;
     if (isBatch) batchBookmarkDialog(selectedItems, isAllItemBookmarked, isLimitReached, isBatch);
@@ -488,7 +497,10 @@ public class ExamplesFragment extends Fragment
   private void navigateToFragmentAndSetCommand(String command) {
     mainViewModel.setUseCommand(command);
     Fragment fragment = new AshellFragment();
-    if (mainViewModel.previousFragment() == Preferences.OTG_FRAGMENT) fragment = new OtgFragment();
+    if (mainViewModel.previousFragment() == Const.OTG_FRAGMENT) fragment = new OtgFragment();
+
+    // clear previous backstacks
+    clearBackStack();
 
     KeyboardUtils.closeKeyboard(requireActivity(), view);
     requireActivity()
@@ -500,7 +512,14 @@ public class ExamplesFragment extends Fragment
             R.anim.fragment_pop_enter,
             R.anim.fragment_pop_exit)
         .replace(R.id.fragment_container, fragment)
-        .addToBackStack(null)
         .commit();
+  }
+
+  private void clearBackStack() {
+    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+    if (fragmentManager.getBackStackEntryCount() > 0) {
+      // Pop all back stack entries
+      fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
   }
 }

@@ -1,9 +1,8 @@
 package in.hridayan.ashell.utils;
 
-import android.content.Context;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 
 public class HapticUtils {
 
@@ -13,8 +12,8 @@ public class HapticUtils {
     Strong
   }
 
-  public static void vibrate(View view, VibrationType type, Context context) {
-    if (Preferences.getHapticsAndVibration(context)) {
+  public static void vibrate(View view, VibrationType type) {
+    if (Preferences.getHapticsAndVibration()) {
       switch (type) {
         case Weak:
           view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
@@ -26,11 +25,11 @@ public class HapticUtils {
     }
   }
 
-  public static void weakVibrate(View view, Context context) {
-    vibrate(view, VibrationType.Weak, context);
+  public static void weakVibrate(View view) {
+    vibrate(view, VibrationType.Weak);
   }
 
-  public static void strongVibrate(View view, Context context) {
-    vibrate(view, VibrationType.Strong, context);
+  public static void strongVibrate(View view) {
+    vibrate(view, VibrationType.Strong);
   }
 }

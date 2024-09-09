@@ -13,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import java.util.Objects;
 
@@ -324,7 +324,7 @@ public class BehaviorFAB {
 
           @Override
           public void onClick(View v) {
-            HapticUtils.weakVibrate(v, context);
+            HapticUtils.weakVibrate(v);
 
             long currentTime = System.currentTimeMillis();
 
@@ -335,7 +335,7 @@ public class BehaviorFAB {
 
             } else {
 
-              boolean switchState = Preferences.getSmoothScroll(context);
+              boolean switchState = Preferences.getSmoothScroll();
               if (switchState) {
                 smoothTopScroll(fragment, recyclerView, scrollView);
               } else {
@@ -353,7 +353,7 @@ public class BehaviorFAB {
 
           @Override
           public void onClick(View v) {
-            HapticUtils.weakVibrate(v, context);
+            HapticUtils.weakVibrate(v);
 
             long currentTime = System.currentTimeMillis();
 
@@ -364,7 +364,7 @@ public class BehaviorFAB {
 
             } else {
 
-              boolean switchState = Preferences.getSmoothScroll(context);
+              boolean switchState = Preferences.getSmoothScroll();
               if (switchState) {
 
                 smoothBottomScroll(fragment, recyclerView, scrollView);
@@ -435,7 +435,7 @@ public class BehaviorFAB {
 
     paste.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           undo.show();
           mHandler.postDelayed(
               () -> {
@@ -448,7 +448,7 @@ public class BehaviorFAB {
 
     undo.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           editText.setText(null);
           undo.hide();
           mHandler.removeCallbacksAndMessages(null);

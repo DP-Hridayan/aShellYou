@@ -116,15 +116,13 @@
     <string name="sort_oldest">En eski</string>
     <string name="start">Başlat</string>
     <string name="success">Başarılı</string>
-    <string name="support">Destek</string>
     <string name="su_warning_message">aShell You kök ile ilgili kullanımlar için tasarlanmamıştır. İptal ediliyor.</string>
     <string name="unpin">Sabitlemeyi kaldır</string>
     <string name="unpinned_message">\'%s\' sabitleme işlemi kaldırıldı</string>
     <string name="use">Kullan</string>
     <string name="waiting_device">Cihaz bekleniyor</string>
     <string name="warning">Uyarı</string>
-    <string name="working_mode">Çalışma modu</string>
-    <string name="yes">Evet</string>
+       <string name="yes">Evet</string>
 
     <string name="smooth_scrolling">Yumuşak kaydırma</string>
     <string name="des_smooth_scroll">Yukarı veya aşağı oka tıklandığında kabuk çıktısında yumuşak kaydırmayı etkinleştirir</string>

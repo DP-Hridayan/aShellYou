@@ -1,9 +1,14 @@
 package in.hridayan.ashell.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,35 +22,46 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
+import in.hridayan.ashell.UI.BottomNavUtils;
+import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.UI.Transitions;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
+import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentAshellBinding;
-import in.hridayan.ashell.utils.BasicShell;
+import in.hridayan.ashell.shell.BasicShell;
+import in.hridayan.ashell.shell.RootShell;
+import in.hridayan.ashell.shell.ShizukuShell;
 import in.hridayan.ashell.utils.Commands;
+import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.RootShell;
-import in.hridayan.ashell.utils.ShizukuShell;
-import in.hridayan.ashell.utils.ThemeUtils;
-import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AshellFragmentViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -80,7 +96,7 @@ public class AshellFragment extends Fragment {
   private RootShell mRootShell;
   private BasicShell mBasicShell;
   private boolean isKeyboardVisible = false, sendButtonClicked = false, isEndIconVisible = false;
-  private int mPosition = 1, sendDrawable;
+  private int mPosition = 1;
   private final int ic_help = 10, ic_send = 11, ic_stop = 12;
   private List<String> mHistory = null, mResult = null, mRecentCommands, shellOutput, history;
   private View view;
@@ -92,7 +108,7 @@ public class AshellFragment extends Fragment {
   private String shell;
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
-  private static WeakReference<View> settingsButtonRef;
+  private static WeakReference<View> settingsButtonRef, sendButtonRef;
 
   public AshellFragment() {}
 
@@ -100,11 +116,8 @@ public class AshellFragment extends Fragment {
   public void onPause() {
     super.onPause();
 
-    mainViewModel.setPreviousFragment(Preferences.LOCAL_FRAGMENT);
+    mainViewModel.setPreviousFragment(Const.LOCAL_FRAGMENT);
 
-    /*Since send button also works as help button, we need to keep track of what was its last mode(send or help) to get correct mode across configuration changes */
-    viewModel.setSendDrawable(
-        viewModel.isSendDrawableSaved() ? viewModel.getSendDrawable() : sendDrawable);
     viewModel.setSaveButtonVisible(isSaveButtonVisible());
 
     // Saves the viewing position of the recycler view
@@ -137,12 +150,20 @@ public class AshellFragment extends Fragment {
 
     // If keyboard is visible then we close it before leaving fragment
     if (isKeyboardVisible) KeyboardUtils.closeKeyboard(requireActivity(), view);
+
+    BottomNavUtils.hideNavSmoothly(mNav);
   }
 
   @Override
   public void onResume() {
     super.onResume();
+
+    // we set exit transition to null
     setExitTransition(null);
+
+    // if bottom navigation is not visible , then make it visible
+    BottomNavUtils.showNavSmoothly(mNav);
+
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     // This function is for restoring the Run button's icon after a configuration change
@@ -158,6 +179,10 @@ public class AshellFragment extends Fragment {
         break;
 
       case ic_stop:
+        binding.sendButton.setColorFilter(
+            DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
+                ? ThemeUtils.colorError(context)
+                : ThemeUtils.getColor(R.color.red, context));
         binding.sendButton.setImageDrawable(
             Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
         break;
@@ -166,6 +191,14 @@ public class AshellFragment extends Fragment {
         break;
     }
 
+    /* stop button doesnot appears when coming back to fragment while running continuous commands in root or basic shell mode. So we put this extra method to make sure it does */
+    if (isShellBusy()) {
+      binding.sendButton.setColorFilter(
+          DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
+              ? ThemeUtils.colorError(context)
+              : ThemeUtils.getColor(R.color.red, context));
+      binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
+    }
     handleModeButtonTextAndCommandHint();
 
     handleUseCommand();
@@ -248,6 +281,7 @@ public class AshellFragment extends Fragment {
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
     settingsButtonRef = new WeakReference<>(binding.settingsButton);
+    sendButtonRef = new WeakReference<>(binding.sendButton);
 
     initializeViewModels();
 
@@ -262,13 +296,7 @@ public class AshellFragment extends Fragment {
 
     binding.rvOutput.addOnScrollListener(new FabLocalScrollDownListener(binding.scrollDownButton));
 
-    binding.rvOutput.setAdapter(mShellOutputAdapter);
-
     setupRecyclerView();
-
-    // Paste and undo button onClickListener
-    BehaviorFAB.pasteAndUndo(
-        binding.pasteButton, binding.undoButton, binding.commandEditText, context);
 
     // Toggles certain buttons visibility according to keyboard's visibility
     KeyboardUtils.attachVisibilityListener(
@@ -281,17 +309,6 @@ public class AshellFragment extends Fragment {
 
     // Set the bottom navigation
     if (!isKeyboardVisible) mNav.setVisibility(View.VISIBLE);
-
-    // Handles the onclick listener of the top and bottom scrolling arrows
-    BehaviorFAB.handleTopAndBottomArrow(
-        binding.scrollUpButton,
-        binding.scrollDownButton,
-        binding.rvOutput,
-        null,
-        context,
-        "local_shell");
-
-    handleModeButtonTextAndCommandHint();
 
     // When there is any text in edit text , focus the edit text
     if (!binding.commandEditText.getText().toString().isEmpty())
@@ -344,9 +361,23 @@ public class AshellFragment extends Fragment {
           }
         });
 
-    modeButtonOnClickListener();
+    // Handles the onclick listener of the top and bottom scrolling arrows
+    BehaviorFAB.handleTopAndBottomArrow(
+        binding.scrollUpButton,
+        binding.scrollDownButton,
+        binding.rvOutput,
+        null,
+        context,
+        "local_shell");
 
-    sendButtonOnClickListener();
+    // Paste and undo button onClickListener
+    BehaviorFAB.pasteAndUndo(
+        binding.pasteButton, binding.undoButton, binding.commandEditText, context);
+    pasteAndSaveButtonVisibility();
+
+    handleModeButtonTextAndCommandHint();
+
+    modeButtonOnClickListener();
 
     settingsButtonOnClickListener();
 
@@ -370,29 +401,27 @@ public class AshellFragment extends Fragment {
 
     commandEditTextOnEditorActionListener();
 
-    ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    executor.scheduleWithFixedDelay(
-        () -> {
-          if (mResult != null
-              && !mResult.isEmpty()
-              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())) updateUI(mResult);
-        },
-        0,
-        250,
-        TimeUnit.MILLISECONDS);
+    sendButtonOnClickListener();
 
-    mainViewModel.setHomeFragment(Preferences.LOCAL_FRAGMENT);
+    mainViewModel.setHomeFragment(Const.LOCAL_FRAGMENT);
     return view;
   }
 
   // Functions
+
+  // initialize viewModels
+  private void initializeViewModels() {
+    viewModel = new ViewModelProvider(requireActivity()).get(AshellFragmentViewModel.class);
+    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
+  }
 
   private int lastIndexOf(String s, String splitTxt) {
     return s.lastIndexOf(splitTxt);
   }
 
   private List<String> getRecentCommands() {
-
     if (mHistory == null && viewModel.getHistory() != null) {
       mRecentCommands = viewModel.getHistory();
       mHistory = mRecentCommands;
@@ -400,7 +429,6 @@ public class AshellFragment extends Fragment {
       mRecentCommands = new ArrayList<>(mHistory);
       Collections.reverse(mRecentCommands);
     }
-
     return mRecentCommands;
   }
 
@@ -425,7 +453,7 @@ public class AshellFragment extends Fragment {
     ExecutorService mExecutors = Executors.newSingleThreadExecutor();
     mExecutors.execute(
         () -> {
-          ShellOutputAdapter mShellOutputAdapter = new ShellOutputAdapter(mData);
+          mShellOutputAdapter = new ShellOutputAdapter(mData);
           new Handler(Looper.getMainLooper())
               .post(
                   () -> {
@@ -472,7 +500,7 @@ public class AshellFragment extends Fragment {
   // handles text shared to ashell you
   public void handleSharedTextIntent(Intent intent, String sharedText) {
     if (sharedText != null) {
-      boolean switchState = Preferences.getShareAndRun(context);
+      boolean switchState = Preferences.getShareAndRun();
       updateInputField(sharedText);
       if (switchState) {
         if (!Shizuku.pingBinder() && isShizukuMode()) handleShizukuUnavailability();
@@ -507,12 +535,13 @@ public class AshellFragment extends Fragment {
     binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
     List<String> shellOutput = viewModel.getShellOutput();
-    int scrollPosition = viewModel.getScrollPosition();
     if (shellOutput != null) {
       mShellOutputAdapter = new ShellOutputAdapter(shellOutput);
       mResult = shellOutput;
+      binding.rvOutput.setAdapter(mShellOutputAdapter);
     }
-    binding.rvOutput.setAdapter(mShellOutputAdapter);
+
+    int scrollPosition = viewModel.getScrollPosition();
     binding.rvOutput.scrollToPosition(scrollPosition);
     String command = viewModel.getCommandText();
     if (command != null) binding.commandEditText.setText(command);
@@ -559,63 +588,146 @@ public class AshellFragment extends Fragment {
   private void modeButtonOnClickListener() {
     binding.modeButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
-          if (isBasicMode()) connectedDeviceDialog(Utils.getDeviceName());
+          HapticUtils.weakVibrate(v);
+          if (isBasicMode()) connectedDeviceDialog(DeviceUtils.getDeviceName());
           else if (isShizukuMode()) {
             boolean hasShizuku = Shizuku.pingBinder() && ShizukuShell.hasPermission();
-            connectedDeviceDialog(hasShizuku ? Utils.getDeviceName() : getString(R.string.none));
+            connectedDeviceDialog(
+                hasShizuku ? DeviceUtils.getDeviceName() : getString(R.string.none));
           } else if (isRootMode()) {
-            boolean hasRoot = RootShell.isDeviceRooted() && RootShell.hasPermission();
-            connectedDeviceDialog(hasRoot ? Utils.getDeviceName() : getString(R.string.none));
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute(
+                () -> {
+                  boolean hasRoot = RootShell.isDeviceRooted() && RootShell.hasPermission();
+
+                  requireActivity()
+                      .runOnUiThread(
+                          () -> {
+                            connectedDeviceDialog(
+                                hasRoot ? DeviceUtils.getDeviceName() : getString(R.string.none));
+                          });
+                });
+            executor.shutdown();
           }
         });
   }
 
   // Method to show a dialog showing the device name on which shell is being executed
   private void connectedDeviceDialog(String connectedDevice) {
-    String device = connectedDevice;
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(context.getString(R.string.connected_device))
-        .setMessage(device)
-        .setNegativeButton(context.getString(R.string.cancel), null)
-        .setPositiveButton(
-            context.getString(R.string.change_mode),
-            (dialog, i) -> {
-              localAdbModeDialog();
-            })
-        .show();
+    View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_connected_device, null);
+
+    MaterialTextView device = dialogView.findViewById(R.id.device);
+    MaterialButton switchMode = dialogView.findViewById(R.id.switchMode);
+    Drawable icon = switchMode.getIcon();
+    Button confirm = dialogView.findViewById(R.id.confirm);
+    Button cancel = dialogView.findViewById(R.id.cancel);
+    LinearLayout dialogLayout = dialogView.findViewById(R.id.dialog_layout);
+    LinearLayout expandableLayout = dialogView.findViewById(R.id.options_expanded);
+    RadioGroup radioGroup = dialogView.findViewById(R.id.radioGroup);
+
+    AlertDialog dialog = new MaterialAlertDialogBuilder(context).setView(dialogView).show();
+
+    radioGroup.check(getCheckedId());
+
+    radioGroup.setOnCheckedChangeListener(
+        new RadioGroup.OnCheckedChangeListener() {
+          @Override
+          public void onCheckedChanged(RadioGroup group, int checkedId) {
+            HapticUtils.weakVibrate((View) group);
+          }
+        });
+
+    device.setText(connectedDevice);
+
+    switchMode.setVisibility(View.VISIBLE);
+
+    switchMode.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+
+          Utils.startAnim(icon);
+
+          if (!isShellBusy()) toggleExpandableLayout(dialogLayout, expandableLayout);
+          else
+            ToastUtils.showToast(
+                context, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
+        });
+
+    confirm.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+
+          int checkedId = getCheckedIntValue(radioGroup.getCheckedRadioButtonId());
+          Preferences.setLocalAdbMode(checkedId);
+          binding.commandInputLayout.setError(null);
+          handleModeButtonTextAndCommandHint();
+          dialog.dismiss();
+        });
+
+    cancel.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          dialog.dismiss();
+        });
   }
 
-  // Dialog asking to choose preferred local adb commands executing mode
-  private void localAdbModeDialog() {
-    final CharSequence[] preferences = {
-      context.getString(R.string.basic_shell),
-      context.getString(R.string.shizuku),
-      getString(R.string.root)
-    };
+  // returns the id of the radio button which is set as the adb mode
+  private int getCheckedId() {
+    switch (Preferences.getLocalAdbMode()) {
+      case Const.BASIC_MODE:
+        return R.id.basic;
 
-    int savePreference = Preferences.getLocalAdbMode(context);
-    final int[] preference = {savePreference};
+      case Const.SHIZUKU_MODE:
+        return R.id.shizuku;
 
-    String title = getString(R.string.local_adb) + " " + getString(R.string.mode).toLowerCase();
+      case Const.ROOT_MODE:
+        return R.id.root;
 
-    new MaterialAlertDialogBuilder(context)
-        .setTitle(title)
-        .setSingleChoiceItems(
-            preferences,
-            savePreference,
-            (dialog, which) -> {
-              preference[0] = which;
-            })
-        .setPositiveButton(
-            getString(R.string.choose),
-            (dialog, which) -> {
-              Preferences.setLocalAdbMode(context, preference[0]);
-              binding.commandInputLayout.setError(null);
-              handleModeButtonTextAndCommandHint();
-            })
-        .setNegativeButton(getString(R.string.cancel), null)
-        .show();
+      default:
+        return R.id.basic;
+    }
+  }
+
+  private int getCheckedIntValue(int checkedId) {
+    switch (checkedId) {
+      case R.id.basic:
+        return Const.BASIC_MODE;
+
+      case R.id.shizuku:
+        return Const.SHIZUKU_MODE;
+
+      case R.id.root:
+        return Const.ROOT_MODE;
+
+      default:
+        return Const.BASIC_MODE;
+    }
+  }
+
+  private void toggleExpandableLayout(LinearLayout dialogLayout, LinearLayout expandableLayout) {
+    final int ANIMATION_DURATION = 250;
+    if (expandableLayout.getVisibility() == View.GONE) {
+      expandableLayout.setVisibility(View.VISIBLE);
+      expandableLayout.measure(
+          View.MeasureSpec.makeMeasureSpec(dialogLayout.getWidth(), View.MeasureSpec.EXACTLY),
+          View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+
+      expandableLayout.setPivotY(0);
+      ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(expandableLayout, "scaleY", 0f, 1f);
+      scaleYAnimator.setDuration(ANIMATION_DURATION);
+      scaleYAnimator.start();
+    } else {
+      ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(expandableLayout, "scaleY", 1f, 0f);
+      scaleYAnimator.setDuration(ANIMATION_DURATION);
+      scaleYAnimator.addListener(
+          new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+              expandableLayout.setVisibility(View.GONE);
+            }
+          });
+      scaleYAnimator.start();
+    }
   }
 
   // OnClick listener for the settings button
@@ -624,7 +736,7 @@ public class AshellFragment extends Fragment {
 
     binding.settingsButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, getContext());
+          HapticUtils.weakVibrate(v);
 
           goToSettings();
         });
@@ -635,13 +747,13 @@ public class AshellFragment extends Fragment {
     binding.bookmarksButton.setTooltipText(getString(R.string.bookmarks));
     binding.bookmarksButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
 
           if (Utils.getBookmarks(context).isEmpty())
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
           else
-            Utils.bookmarksDialog(
-                context, requireActivity(), binding.commandEditText, binding.commandInputLayout);
+            DialogUtils.bookmarksDialog(
+                context, binding.commandEditText, binding.commandInputLayout);
         });
   }
 
@@ -651,7 +763,7 @@ public class AshellFragment extends Fragment {
 
     binding.historyButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
 
           if (mHistory == null && viewModel.getHistory() == null)
             ToastUtils.showToast(context, R.string.no_history, ToastUtils.LENGTH_SHORT);
@@ -683,15 +795,13 @@ public class AshellFragment extends Fragment {
 
     binding.clearButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
-
+          HapticUtils.weakVibrate(v);
           if (mResult == null || mResult.isEmpty())
             ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
           else if (isShellBusy())
             ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
           else {
-            viewModel.setShellOutput(null);
-            boolean switchState = Preferences.getClear(context);
+            boolean switchState = Preferences.getClear();
             if (switchState)
               new MaterialAlertDialogBuilder(requireActivity())
                   .setTitle(getString(R.string.clear_everything))
@@ -705,7 +815,7 @@ public class AshellFragment extends Fragment {
   }
 
   // Method to check if shell is busy root or shizuku
-  private boolean isShellBusy() {
+  public boolean isShellBusy() {
     if (isBasicMode() && mBasicShell != null) return BasicShell.isBusy();
     if (isShizukuMode() && mShizukuShell != null) return ShizukuShell.isBusy();
     if (isRootMode() && mRootShell != null) return RootShell.isBusy();
@@ -720,7 +830,9 @@ public class AshellFragment extends Fragment {
 
     if (mRootShell != null && RootShell.isBusy()) abortRootShell();
 
+    viewModel.setShellOutput(null);
     mResult = null;
+
     if (binding.scrollUpButton.getVisibility() == View.VISIBLE)
       binding.scrollUpButton.setVisibility(View.GONE);
 
@@ -746,7 +858,7 @@ public class AshellFragment extends Fragment {
 
     binding.searchButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
 
           if (mResult == null || mResult.isEmpty())
             ToastUtils.showToast(context, R.string.nothing_to_search, ToastUtils.LENGTH_SHORT);
@@ -798,22 +910,22 @@ public class AshellFragment extends Fragment {
 
     binding.saveButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           shellOutput = viewModel.getShellOutput();
 
           history = viewModel.getHistory();
           initializeResults();
           String sb = null, fileName = null;
 
-          switch (Preferences.getSavePreference(context)) {
-            case Preferences.ALL_OUTPUT:
+          switch (Preferences.getSavePreference()) {
+            case Const.ALL_OUTPUT:
               sb = Utils.convertListToString(mResult);
-              fileName = "shizukuOutput" + Utils.getCurrentDateTime();
+              fileName = "shellOutput" + DeviceUtils.getCurrentDateTime();
               break;
 
-            case Preferences.LAST_COMMAND_OUTPUT:
+            case Const.LAST_COMMAND_OUTPUT:
               sb = buildResultsString().toString();
-              fileName = Utils.generateFileName(mHistory) + Utils.getCurrentDateTime();
+              fileName = Utils.generateFileName(mHistory) + DeviceUtils.getCurrentDateTime();
               break;
 
             default:
@@ -821,10 +933,10 @@ public class AshellFragment extends Fragment {
           }
 
           boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
-          if (saved) Preferences.setLastSavedFileName(context, fileName + ".txt");
+          if (saved) Preferences.setLastSavedFileName(fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
-          Utils.outputSavedDialog(requireActivity(), context, saved);
+          DialogUtils.outputSavedDialog(context, saved);
         });
   }
 
@@ -832,7 +944,7 @@ public class AshellFragment extends Fragment {
   private void shareButtonOnClickListener() {
     binding.shareButton.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           shellOutput = viewModel.getShellOutput();
           history = viewModel.getHistory();
           initializeResults();
@@ -892,7 +1004,7 @@ public class AshellFragment extends Fragment {
   private void commandInputLayoutEndIconOnClickListener(Editable s) {
     binding.commandInputLayout.setEndIconOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, context);
+          HapticUtils.weakVibrate(v);
           if (Utils.isBookmarked(s.toString().trim(), requireActivity())) {
             Utils.deleteFromBookmark(s.toString().trim(), requireActivity());
             Utils.snackBar(view, getString(R.string.bookmark_removed_message, s.toString().trim()))
@@ -966,34 +1078,48 @@ public class AshellFragment extends Fragment {
   private void commandEditTextOnEditorActionListener() {
     binding.commandEditText.setOnEditorActionListener(
         (v, actionId, event) -> {
-          HapticUtils.weakVibrate(v, context);
-          if (actionId == EditorInfo.IME_ACTION_SEND) {
+          HapticUtils.weakVibrate(v);
+          if (actionId == EditorInfo.IME_ACTION_SEND && hasTextInEditText()) {
             sendButtonClicked = true;
 
+            // If shell is not busy and there is not any text in input field then go to examples
+            if (!hasTextInEditText() && !isShellBusy()) goToExamples();
+
             /*This block will run if basic shell mode is selected*/
-            if (isBasicMode()) {
-              if (isShellBusy()) shellWorkingDialog();
+            else if (isBasicMode()) {
+              if (mBasicShell != null && BasicShell.isBusy()) abortBasicShell();
               else execShell(v);
             }
 
             /*This block will run if shizuku mode is selected*/
             else if (isShizukuMode()) {
               if (!Shizuku.pingBinder()) handleShizukuUnavailability();
-              else if (!ShizukuShell.hasPermission())
-                Utils.shizukuPermRequestDialog(requireActivity(), context);
-              else if (mShizukuShell != null && ShizukuShell.isBusy()) shellWorkingDialog();
+              else if (!ShizukuShell.hasPermission()) DialogUtils.shizukuPermRequestDialog(context);
+              else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
               else execShell(v);
             }
 
             /*This block w if root mode is selected*/
             else if (isRootMode()) {
               if (!RootShell.isDeviceRooted()) handleRootUnavailability();
-              else if (!RootShell.hasPermission())
-                Utils.rootPermRequestDialog(requireActivity(), context);
-              else if (mRootShell != null && RootShell.isBusy()) shellWorkingDialog();
-              else execShell(v);
-            }
+              else {
+                // We perform root shell permission check on a new thread
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                executor.execute(
+                    () -> {
+                      boolean hasPermission = RootShell.hasPermission();
 
+                      requireActivity()
+                          .runOnUiThread(
+                              () -> {
+                                if (!hasPermission) DialogUtils.rootPermRequestDialog(context);
+                                else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
+                                else execShell(v);
+                              });
+                    });
+                executor.shutdown();
+              }
+            }
             return true;
           }
           return false;
@@ -1005,37 +1131,46 @@ public class AshellFragment extends Fragment {
     binding.sendButton.setOnClickListener(
         v -> {
           sendButtonClicked = true;
-          HapticUtils.weakVibrate(v, context);
+
+          HapticUtils.weakVibrate(v);
+
+          // If shell is not busy and there is not any text in input field then go to examples
+          if (!hasTextInEditText() && !isShellBusy()) goToExamples();
 
           /*This block will run if basic shell mode is selected*/
-
-          if (isBasicMode()) {
-            if (!hasTextInEditText() && !BasicShell.isBusy()) goToExamples();
-            else if (isShellBusy()) abortBasicShell();
+          else if (isBasicMode()) {
+            if (mBasicShell != null && BasicShell.isBusy()) abortBasicShell();
             else execShell(v);
-
           }
 
           /*This block will run if shizuku mode is selected*/
-
           else if (isShizukuMode()) {
-            if (!hasTextInEditText() && !ShizukuShell.isBusy()) goToExamples();
-            else if (!Shizuku.pingBinder()) handleShizukuUnavailability();
-            else if (!ShizukuShell.hasPermission())
-              Utils.shizukuPermRequestDialog(requireActivity(), context);
+            if (!Shizuku.pingBinder()) handleShizukuUnavailability();
+            else if (!ShizukuShell.hasPermission()) DialogUtils.shizukuPermRequestDialog(context);
             else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
             else execShell(v);
-
           }
 
           /*This block w if root mode is selected*/
           else if (isRootMode()) {
-            if (!hasTextInEditText() && !RootShell.isBusy()) goToExamples();
-            else if (!RootShell.isDeviceRooted()) handleRootUnavailability();
-            else if (!RootShell.hasPermission())
-              Utils.rootPermRequestDialog(requireActivity(), context);
-            else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
-            else execShell(v);
+            if (!RootShell.isDeviceRooted()) handleRootUnavailability();
+            else {
+              // We perform root shell permission check on a new thread
+              ExecutorService executor = Executors.newSingleThreadExecutor();
+              executor.execute(
+                  () -> {
+                    boolean hasPermission = RootShell.hasPermission();
+
+                    requireActivity()
+                        .runOnUiThread(
+                            () -> {
+                              if (!hasPermission) DialogUtils.rootPermRequestDialog(context);
+                              else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
+                              else execShell(v);
+                            });
+                  });
+              executor.shutdown();
+            }
           }
         });
   }
@@ -1054,22 +1189,25 @@ public class AshellFragment extends Fragment {
   // initialize the shell command execution
   private void initializeShell() {
     if (!hasTextInEditText()) return;
-
     runShellCommand(binding.commandEditText.getText().toString().replace("\n", ""));
   }
 
   // This function is called when we want to run the shell after entering an adb command
   private void runShellCommand(String command) {
-    if (!isAdded()) return;
+    if (!isAdded() || getActivity() == null) return;
 
+    // Set up adapter if not already done
     if (binding.rvOutput.getAdapter() == null) binding.rvOutput.setAdapter(mShellOutputAdapter);
 
+    // Lock the screen orientation
     requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
+    // Clear input and hide the search bar if visible
     binding.commandEditText.setText(null);
     binding.commandEditText.clearFocus();
     if (binding.search.getVisibility() == View.VISIBLE) hideSearchBar();
 
+    // Process the command
     String finalCommand = command.replaceAll("^adb(?:\\s+-d)?\\s+shell\\s+", "");
 
     // Command to clear the shell output
@@ -1080,77 +1218,73 @@ public class AshellFragment extends Fragment {
 
     // Command to exit the app
     if (finalCommand.equals("exit")) {
-      confirmExitDialog();
+      DialogUtils.confirmExitDialog(context, requireActivity());
       return;
     }
 
-    // Shizuku mode doesn't allow su commands , so we show a warning
-    if (finalCommand.startsWith("su") && isShizukuMode()
-        || finalCommand.startsWith("su") && isBasicMode()) {
+    // show warning for su command in non rooted methods
+    if (finalCommand.startsWith("su") && (isShizukuMode() || isBasicMode())) {
       suWarning();
       return;
     }
 
-    // If history is null then create a new list and add the final command
+    // Initialize mHistory if necessary
     if (mHistory == null) mHistory = new ArrayList<>();
 
     mHistory.add(finalCommand);
 
+    // Hide buttons and update send button
     binding.saveButton.hide();
     binding.shareButton.hide();
     viewModel.setSendDrawable(ic_stop);
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
-
     binding.sendButton.setColorFilter(
-        Utils.androidVersion() >= Build.VERSION_CODES.S
+        DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
             ? ThemeUtils.colorError(context)
-            : Utils.getColor(R.color.red, context));
+            : ThemeUtils.getColor(R.color.red, context));
 
+    // Determine shell type
     if (isBasicMode()) shell = "\">BasicShell@";
     else if (isShizukuMode()) shell = "\">ShizukuShell@";
     else if (isRootMode()) shell = "\">RootShell@";
 
-    /* the mTitleText is the text that shows the connected device and the command that is executed */
+    // Create mTitleText and add it to mResult
+    if (mResult == null) mResult = new ArrayList<>();
+
     String mTitleText =
         "<font color=\""
-            + Utils.getColor(
-                Utils.androidVersion() >= Build.VERSION_CODES.S
+            + ThemeUtils.getColor(
+                DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
                     ? android.R.color.system_accent1_500
                     : R.color.blue,
                 requireActivity())
             + shell
-            + Utils.getDeviceName()
+            + DeviceUtils.getDeviceName()
             + " | "
             + "</font><font color=\""
-            + Utils.getColor(
-                Utils.androidVersion() >= Build.VERSION_CODES.S
+            + ThemeUtils.getColor(
+                DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
                     ? android.R.color.system_accent3_500
                     : R.color.green,
                 requireActivity())
             + "\"> # "
             + finalCommand;
-
-    if (mResult == null) {
-      mResult = new ArrayList<>();
-    }
     mResult.add(mTitleText);
 
+    // Execute the shell command in a background thread
     ExecutorService mExecutors = Executors.newSingleThreadExecutor();
     mExecutors.execute(
         () -> {
-          switch (Preferences.getLocalAdbMode(context)) {
-            case Preferences.BASIC_MODE:
+          switch (Preferences.getLocalAdbMode()) {
+            case Const.BASIC_MODE:
               runBasicShell(finalCommand);
               break;
-
-            case Preferences.SHIZUKU_MODE:
+            case Const.SHIZUKU_MODE:
               runWithShizuku(finalCommand);
               break;
-
-            case Preferences.ROOT_MODE:
+            case Const.ROOT_MODE:
               runWithRoot(finalCommand);
               break;
-
             default:
               return;
           }
@@ -1158,9 +1292,11 @@ public class AshellFragment extends Fragment {
           new Handler(Looper.getMainLooper())
               .post(
                   () -> {
+                    if (!isAdded()) return;
+
                     postExec();
 
-                    // Handles sendButton icon changes
+                    // Update send button based on command text presence
                     if (!hasTextInEditText()) {
                       viewModel.setSendDrawable(ic_help);
                       binding.sendButton.setImageDrawable(
@@ -1173,14 +1309,34 @@ public class AshellFragment extends Fragment {
                       binding.sendButton.clearColorFilter();
                     }
 
+                    // Unlock the screen orientation
                     requireActivity()
                         .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+
+                    // Ensure focus is back on the command input
                     if (!binding.commandEditText.isFocused())
                       binding.commandEditText.requestFocus();
                   });
 
+          // Shutdown the executor service
           if (!mExecutors.isShutdown()) mExecutors.shutdown();
         });
+
+    // Post UI updates back to the main thread
+    ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+
+    executor.scheduleWithFixedDelay(
+        () -> {
+          if (mResult != null
+              && !mResult.isEmpty()
+              && !mResult.get(mResult.size() - 1).equals(Utils.shellDeadError())
+              && isShellBusy()) {
+            updateUI(mResult);
+          }
+        },
+        0,
+        250,
+        TimeUnit.MILLISECONDS);
   }
 
   // Method to run commands using root
@@ -1211,7 +1367,7 @@ public class AshellFragment extends Fragment {
     mRootShell = new RootShell(mResult, finalCommand);
     RootShell.exec();
     try {
-      TimeUnit.MILLISECONDS.sleep(500);
+      TimeUnit.MILLISECONDS.sleep(250);
     } catch (InterruptedException ignored) {
     }
   }
@@ -1229,17 +1385,17 @@ public class AshellFragment extends Fragment {
 
   // boolean that checks if the current set mode is basic mode
   private boolean isBasicMode() {
-    return Preferences.getLocalAdbMode(context) == Preferences.BASIC_MODE;
+    return Preferences.getLocalAdbMode() == Const.BASIC_MODE;
   }
 
   // boolean that checks if the current set mode is shizuku mode
   private boolean isShizukuMode() {
-    return Preferences.getLocalAdbMode(context) == Preferences.SHIZUKU_MODE;
+    return Preferences.getLocalAdbMode() == Const.SHIZUKU_MODE;
   }
 
   // boolean that checks if the current set mode is root mode
   private boolean isRootMode() {
-    return Preferences.getLocalAdbMode(context) == Preferences.ROOT_MODE;
+    return Preferences.getLocalAdbMode() == Const.ROOT_MODE;
   }
 
   // This methods checks if there is valid text in the edit text
@@ -1249,7 +1405,7 @@ public class AshellFragment extends Fragment {
   }
 
   // Call this method to abort or stop running shell command
-  private void abortBasicShell() {
+  public void abortBasicShell() {
     BasicShell.destroy();
     viewModel.setSendDrawable(ic_help);
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
@@ -1257,41 +1413,19 @@ public class AshellFragment extends Fragment {
   }
 
   // Call this method to abort or stop running shizuku command
-  private void abortShizukuShell() {
-    mShizukuShell.destroy();
+  public void abortShizukuShell() {
+    if (mShizukuShell != null) mShizukuShell.destroy();
     viewModel.setSendDrawable(ic_help);
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
     binding.sendButton.clearColorFilter();
   }
 
   // Call this method to abort or stop running root command
-  private void abortRootShell() {
+  public void abortRootShell() {
     RootShell.destroy();
     viewModel.setSendDrawable(ic_help);
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
     binding.sendButton.clearColorFilter();
-  }
-
-  // show shell working dialog
-  private void shellWorkingDialog() {
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setCancelable(false)
-        .setTitle(getString(R.string.shell_working))
-        .setMessage(getString(R.string.app_working_message))
-        .setPositiveButton(getString(R.string.cancel), null)
-        .show();
-  }
-
-  // asks confirmation dialog before exiting the app
-  private void confirmExitDialog() {
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setCancelable(false)
-        .setTitle(R.string.confirm_exit)
-        .setMessage(getString(R.string.quit_app_message))
-        .setNegativeButton(getString(R.string.cancel), null)
-        .setPositiveButton(
-            getString(R.string.quit), (dialogInterface, i) -> requireActivity().finish())
-        .show();
   }
 
   // error handling when shizuku is unavailable
@@ -1303,16 +1437,7 @@ public class AshellFragment extends Fragment {
       binding.commandInputLayout.setErrorIconOnClickListener(
           t -> binding.commandEditText.setText(null));
     }
-    Utils.alignMargin(binding.sendButton);
-
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setTitle(getString(R.string.warning))
-        .setMessage(getString(R.string.shizuku_unavailable_message))
-        .setNegativeButton(
-            getString(R.string.shizuku_about),
-            (dialogInterface, i) -> Utils.openUrl(context, "https://shizuku.rikka.app/"))
-        .setPositiveButton(getString(R.string.ok), null)
-        .show();
+    DialogUtils.shizukuUnavailableDialog(context);
   }
 
   // error handling when root is unavailable
@@ -1324,13 +1449,8 @@ public class AshellFragment extends Fragment {
       binding.commandInputLayout.setErrorIconOnClickListener(
           t -> binding.commandEditText.setText(null));
     }
-    Utils.alignMargin(binding.sendButton);
 
-    new MaterialAlertDialogBuilder(requireActivity())
-        .setTitle(getString(R.string.warning))
-        .setMessage(getString(R.string.root_unavailable_message))
-        .setPositiveButton(getString(R.string.ok), null)
-        .show();
+    DialogUtils.rootUnavailableDialog(context);
   }
 
   // Show warning when running su commands with shizuku
@@ -1338,7 +1458,6 @@ public class AshellFragment extends Fragment {
     binding.commandInputLayout.setError(getString(R.string.su_warning));
     binding.commandInputLayout.setErrorIconDrawable(
         Utils.getDrawable(R.drawable.ic_error, requireActivity()));
-    Utils.alignMargin(binding.sendButton);
     binding.commandEditText.requestFocus();
     Utils.snackBar(
             requireActivity().findViewById(android.R.id.content),
@@ -1348,17 +1467,19 @@ public class AshellFragment extends Fragment {
 
   // Open command examples fragment
   private void goToExamples() {
-
-    examplesViewModel.setRVPositionAndOffset(null);
-    examplesViewModel.setToolbarExpanded(true);
+    if (examplesViewModel != null) {
+      examplesViewModel.setRVPositionAndOffset(null);
+      examplesViewModel.setToolbarExpanded(true);
+    }
 
     setExitTransition(new Hold());
+
     ExamplesFragment fragment = new ExamplesFragment();
 
     requireActivity()
         .getSupportFragmentManager()
         .beginTransaction()
-        .addSharedElement(binding.sendButton, "sendButtonToExamples")
+        .addSharedElement(binding.sendButton, Const.SEND_TO_EXAMPLES)
         .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
         .addToBackStack(fragment.getClass().getSimpleName())
         .commit();
@@ -1373,13 +1494,12 @@ public class AshellFragment extends Fragment {
     }
 
     setExitTransition(new Hold());
-
     SettingsFragment fragment = new SettingsFragment();
 
     requireActivity()
         .getSupportFragmentManager()
         .beginTransaction()
-        .addSharedElement(binding.settingsButton, "settingsButtonToSettings")
+        .addSharedElement(binding.settingsButton, Const.SETTINGS_TO_SETTINGS)
         .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
         .addToBackStack(fragment.getClass().getSimpleName())
         .commit();
@@ -1389,7 +1509,6 @@ public class AshellFragment extends Fragment {
   private List<String> getHistory() {
     if (mHistory != null) return mHistory;
     else if (viewModel.getHistory() != null) return viewModel.getHistory();
-
     return mHistory;
   }
 
@@ -1415,15 +1534,20 @@ public class AshellFragment extends Fragment {
     }
   }
 
-  // initialize viewModels
-  private void initializeViewModels() {
-    viewModel = new ViewModelProvider(requireActivity()).get(AshellFragmentViewModel.class);
-    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-    settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
-    examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
-  }
-
+  // we refer the settings button view to use in activity
   public static View getSettingsButtonView() {
     return settingsButtonRef != null ? settingsButtonRef.get() : null;
+  }
+
+  public static View getSendButtonView() {
+    return sendButtonRef != null ? sendButtonRef.get() : null;
+  }
+
+  // control visibility of paste and save button
+  private void pasteAndSaveButtonVisibility() {
+    if (mResult != null || viewModel.getShellOutput() != null) {
+      binding.pasteButton.setVisibility(View.GONE);
+      binding.saveButton.setVisibility(View.VISIBLE);
+    }
   }
 }

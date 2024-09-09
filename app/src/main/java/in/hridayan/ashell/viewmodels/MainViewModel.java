@@ -1,14 +1,12 @@
 package in.hridayan.ashell.viewmodels;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Const;
 
 public class MainViewModel extends ViewModel {
   private static final int nullValue = 2004;
   private int currentFragment = nullValue,
-      previousFragment = Preferences.LOCAL_FRAGMENT,
+      previousFragment = Const.LOCAL_FRAGMENT,
       whichHomeFragment;
 
   private String useCommand;

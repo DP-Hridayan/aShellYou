@@ -1,14 +1,15 @@
 package in.hridayan.ashell.activities;
 
-import static in.hridayan.ashell.utils.Preferences.ABOUT_FRAGMENT;
-import static in.hridayan.ashell.utils.Preferences.CHANGELOG_FRAGMENT;
-import static in.hridayan.ashell.utils.Preferences.EXAMPLES_FRAGMENT;
-import static in.hridayan.ashell.utils.Preferences.LOCAL_FRAGMENT;
-import static in.hridayan.ashell.utils.Preferences.MODE_REMEMBER_LAST_MODE;
-import static in.hridayan.ashell.utils.Preferences.OTG_FRAGMENT;
-import static in.hridayan.ashell.utils.Preferences.SETTINGS_FRAGMENT;
+import static in.hridayan.ashell.config.Const.ABOUT_FRAGMENT;
+import static in.hridayan.ashell.config.Const.CHANGELOG_FRAGMENT;
+import static in.hridayan.ashell.config.Const.EXAMPLES_FRAGMENT;
+import static in.hridayan.ashell.config.Const.LOCAL_FRAGMENT;
+import static in.hridayan.ashell.config.Const.MODE_REMEMBER_LAST_MODE;
+import static in.hridayan.ashell.config.Const.OTG_FRAGMENT;
+import static in.hridayan.ashell.config.Const.SETTINGS_FRAGMENT;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,8 +22,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.color.DynamicColors;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.BottomSheets;
 import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.UI.ToastUtils;
+import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.ActivityMainBinding;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.AshellFragment;
@@ -31,15 +38,13 @@ import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.OtgFragment;
 import in.hridayan.ashell.fragments.SettingsFragment;
 import in.hridayan.ashell.fragments.StartFragment;
+import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.CrashHandler;
+import in.hridayan.ashell.utils.DeviceUtils;
+import in.hridayan.ashell.utils.DeviceUtils.FetchLatestVersionCodeCallback;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.SettingsItem;
-import in.hridayan.ashell.utils.ThemeUtils;
-import in.hridayan.ashell.utils.ToastUtils;
 import in.hridayan.ashell.utils.Utils;
-import in.hridayan.ashell.utils.Utils.FetchLatestVersionCodeCallback;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 
 public class MainActivity extends AppCompatActivity
@@ -52,11 +57,12 @@ public class MainActivity extends AppCompatActivity
   private Fragment fragment;
   private String pendingSharedText = null;
   private ActivityMainBinding binding;
+  public static final Integer SAVE_DIRECTORY_CODE = 369126;
 
   // This funtion is run to perform actions if there is an update available or not
   @Override
   public void onResult(int result) {
-    if (result == Preferences.UPDATE_AVAILABLE) Utils.showBottomSheetUpdate(this, this);
+    if (result == Const.UPDATE_AVAILABLE) BottomSheets.showBottomSheetUpdate(this, this);
   }
 
   @Override
@@ -105,7 +111,7 @@ public class MainActivity extends AppCompatActivity
     runAutoUpdateCheck();
 
     // Always put these at the last of onCreate
-    Preferences.setActivityRecreated(this, false);
+    Preferences.setActivityRecreated(false);
     hasAppRestarted = false;
   }
 
@@ -114,16 +120,23 @@ public class MainActivity extends AppCompatActivity
     mNav.setVisibility(View.VISIBLE);
     mNav.setOnItemSelectedListener(
         item -> {
-          HapticUtils.weakVibrate(mNav, this);
+          HapticUtils.weakVibrate(mNav);
           switch (item.getItemId()) {
             case R.id.nav_localShell:
               showAshellFragment();
-              Preferences.setCurrentFragment(this, LOCAL_FRAGMENT);
+              Preferences.setCurrentFragment(LOCAL_FRAGMENT);
               return true;
 
             case R.id.nav_otgShell:
+              fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+              if (fragment instanceof AshellFragment && ((AshellFragment) fragment).isShellBusy()) {
+                ToastUtils.showToast(
+                    this, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
+                return false;
+              }
+
               showOtgFragment();
-              Preferences.setCurrentFragment(this, OTG_FRAGMENT);
+              Preferences.setCurrentFragment(OTG_FRAGMENT);
               return true;
 
             case R.id.nav_wireless:
@@ -155,7 +168,8 @@ public class MainActivity extends AppCompatActivity
   }
 
   private void setCurrentFragment() {
-    fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
     if (fragment instanceof SettingsFragment) currentFragment = SETTINGS_FRAGMENT;
     else if (fragment instanceof AshellFragment) currentFragment = LOCAL_FRAGMENT;
     else if (fragment instanceof OtgFragment) currentFragment = OTG_FRAGMENT;
@@ -175,15 +189,15 @@ public class MainActivity extends AppCompatActivity
   // Since there is option to set which working mode you want to display when app is launched , this
   // piece of code handles the logic for initial fragment
   private void initialFragment() {
-    if (Preferences.getFirstLaunch(this)) {
+    if (Preferences.getFirstLaunch()) {
       mNav.setVisibility(View.GONE);
       replaceFragment(new StartFragment());
     } else {
       if (viewModel.isFragmentSaved()) switchFragments(viewModel.currentFragment());
       else {
-        int currentFragment = Preferences.getCurrentFragment(this);
-        int workingMode = Preferences.getWorkingMode(this);
-        switchFragments(workingMode == MODE_REMEMBER_LAST_MODE ? currentFragment : workingMode);
+        int currentFragment = Preferences.getCurrentFragment();
+        int launchMode = Preferences.getLaunchMode();
+        switchFragments(launchMode == MODE_REMEMBER_LAST_MODE ? currentFragment : launchMode);
       }
       handlePendingSharedText();
       handleIncomingIntent(getIntent());
@@ -234,12 +248,24 @@ public class MainActivity extends AppCompatActivity
 
       // Handle the settings fragment case
       if (currentFragment == SETTINGS_FRAGMENT) {
-        String tag = "settingsButtonToSettings";
+        String tag = Const.SETTINGS_TO_SETTINGS;
         View settingsButton = getSettingsButtonView();
 
-        transaction
-            .addSharedElement(settingsButton, tag)
-            .addToBackStack(fragment.getClass().getSimpleName());
+        if (settingsButton != null) {
+          transaction
+              .addSharedElement(settingsButton, tag)
+              .addToBackStack(fragment.getClass().getSimpleName());
+        }
+      }
+      if (currentFragment == EXAMPLES_FRAGMENT) {
+        String tag = Const.SEND_TO_EXAMPLES;
+        View sendButton = getSendButtonView();
+
+        if (sendButton != null) {
+          transaction
+              .addSharedElement(sendButton, tag)
+              .addToBackStack(fragment.getClass().getSimpleName());
+        }
       }
 
       transaction.commit();
@@ -248,14 +274,20 @@ public class MainActivity extends AppCompatActivity
   }
 
   private View getSettingsButtonView() {
-    return viewModel.whichHomeFragment() == Preferences.LOCAL_FRAGMENT
+    return viewModel.whichHomeFragment() == LOCAL_FRAGMENT
         ? AshellFragment.getSettingsButtonView()
         : OtgFragment.getSettingsButtonView();
   }
 
+  private View getSendButtonView() {
+    return viewModel.whichHomeFragment() == LOCAL_FRAGMENT
+        ? AshellFragment.getSendButtonView()
+        : OtgFragment.getSendButtonView();
+  }
+
   private void handlePendingSharedText() {
     if (pendingSharedText != null) {
-      switch (Preferences.getCurrentFragment(this)) {
+      switch (Preferences.getCurrentFragment()) {
         case LOCAL_FRAGMENT:
           AshellFragment fragmentLocalAdb =
               (AshellFragment)
@@ -352,18 +384,18 @@ public class MainActivity extends AppCompatActivity
 
   // show bottom sheet for changelog after an update
   private void showChangelogs() {
-    if (Utils.isAppUpdated(this)) Utils.showBottomSheetChangelog(this);
+    if (DeviceUtils.isAppUpdated(this)) BottomSheets.showBottomSheetChangelog(this);
     /* we save the current version code and then when the app updates it compares the saved version code to the updated app's version code to determine whether to show changelogs */
-    Preferences.setSavedVersionCode(this, Utils.currentVersion());
+    Preferences.setSavedVersionCode(DeviceUtils.currentVersion());
   }
 
   // show update available bottom sheet
   private void runAutoUpdateCheck() {
-    if (Preferences.getAutoUpdateCheck(this)
+    if (Preferences.getAutoUpdateCheck()
         && hasAppRestarted
-        && !Preferences.getActivityRecreated(this)
-        && !Preferences.getFirstLaunch(this)) {
-      new FetchLatestVersionCode(this, this).execute(Preferences.buildGradleUrl);
+        && !Preferences.getActivityRecreated()
+        && !Preferences.getFirstLaunch()) {
+      new FetchLatestVersionCode(this, this).execute(Const.URL_BUILD_GRADLE);
     }
   }
 
@@ -385,5 +417,19 @@ public class MainActivity extends AppCompatActivity
                       100);
           }
         });
+  }
+
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == SAVE_DIRECTORY_CODE && resultCode == RESULT_OK) {
+      Uri treeUri = data.getData();
+      if (treeUri != null) {
+        getContentResolver()
+            .takePersistableUriPermission(
+                treeUri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        Preferences.setSavedOutputDir(String.valueOf(treeUri));
+      }
+    }
   }
 }

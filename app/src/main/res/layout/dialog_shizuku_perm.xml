@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="30dp"
+    android:paddingVertical="20dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_404_error"
+        android:layout_marginHorizontal="35dp"
+        app:tint="?attr/colorPrimary" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/access_denied"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        style="@style/DialogTitleAppearance"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/shizuku_access_denied_message"
+        android:layout_gravity="center_horizontal"
+        style="@style/DialogDescriptionAppearance" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/request_perm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        style="@style/CardViewTopCornersRounded">
+
+        <TextView
+            android:id="@+id/t1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/request_permission"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textAlignment="center" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        style="@style/CardViewBottomCornersRounded">
+
+        <TextView
+            android:id="@+id/t2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textAlignment="center" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

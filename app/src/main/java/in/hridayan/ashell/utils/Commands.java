@@ -2,7 +2,8 @@ package in.hridayan.ashell.utils;
 
 import android.content.Context;
 import commands.R;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.items.CommandItems;
+import in.hridayan.ashell.config.Preferences;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;

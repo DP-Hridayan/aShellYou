@@ -22,20 +22,24 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.Hold;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.Category;
+import in.hridayan.ashell.UI.BottomSheets;
+import in.hridayan.ashell.UI.CategoryAbout;
+import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.adapters.AboutAdapter;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.databinding.FragmentAboutBinding;
+import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.ToastUtils;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import java.util.ArrayList;
 import java.util.List;
+import in.hridayan.ashell.config.Const.Contributors;
 
 public class AboutFragment extends Fragment
-    implements AboutAdapter.AdapterListener, Utils.FetchLatestVersionCodeCallback {
+    implements AboutAdapter.AdapterListener, DeviceUtils.FetchLatestVersionCodeCallback {
 
   private AboutViewModel viewModel;
   private FragmentAboutBinding binding;
@@ -78,69 +82,83 @@ public class AboutFragment extends Fragment
   private void setupListeners() {
     binding.arrowBack.setOnClickListener(
         v -> {
-          HapticUtils.weakVibrate(v, getContext());
+          HapticUtils.weakVibrate(v);
           requireActivity().getSupportFragmentManager().popBackStack();
         });
   }
 
   private List<Object> initializeItems() {
     List<Object> items = new ArrayList<>();
-    items.add(new Category(getString(R.string.lead_developer)));
+    items.add(new CategoryAbout(getString(R.string.lead_developer)));
     items.add(
-        new Category.LeadDeveloperItem(
-            "Hridayan", getString(R.string.hridayan_about), R.mipmap.dp_hridayan));
+        new CategoryAbout.LeadDeveloperItem(
+            Contributors.HRIDAYAN.getName(),
+            getString(R.string.hridayan_about),
+            R.mipmap.dp_hridayan));
 
-    items.add(new Category(getString(R.string.contributors)));
+    items.add(new CategoryAbout(getString(R.string.contributors)));
     items.add(
-        new Category.ContributorsItem(
-            "id_krishna", "Krishna", getString(R.string.krishna_about), R.mipmap.dp_krishna));
+        new CategoryAbout.ContributorsItem(
+            Contributors.KRISHNA,
+            Contributors.KRISHNA.getName(),
+            getString(R.string.krishna_about),
+            R.mipmap.dp_krishna));
     items.add(
-        new Category.ContributorsItem(
-            "id_shivam", "Stɑrry Shivɑm", getString(R.string.shivam_about), R.mipmap.dp_shivam));
+        new CategoryAbout.ContributorsItem(
+            Contributors.STARRY,
+            Contributors.STARRY.getName(),
+            getString(R.string.shivam_about),
+            R.mipmap.dp_shivam));
     items.add(
-        new Category.ContributorsItem(
-            "id_drDisagree",
-            "DrDisagree",
+        new CategoryAbout.ContributorsItem(
+            Contributors.DISAGREE,
+            Contributors.DISAGREE.getName(),
             getString(R.string.drDisagree_about),
             R.mipmap.dp_drdisagree));
     items.add(
-        new Category.ContributorsItem(
-            "id_rikka", "RikkaApps", getString(R.string.rikka_about), R.mipmap.dp_shizuku));
+        new CategoryAbout.ContributorsItem(
+            Contributors.RIKKA,
+            Contributors.RIKKA.getName(),
+            getString(R.string.rikka_about),
+            R.mipmap.dp_shizuku));
     items.add(
-        new Category.ContributorsItem(
-            "id_sunilpaulmathew",
-            "Sunilpaulmathew",
+        new CategoryAbout.ContributorsItem(
+            Contributors.SUNILPAULMATHEW,
+            Contributors.SUNILPAULMATHEW.getName(),
             getString(R.string.sunilpaulmathew_about),
             R.mipmap.dp_sunilpaulmathew));
     items.add(
-        new Category.ContributorsItem(
-            "id_khun_htetz",
-            "Khun Htetz Naing",
+        new CategoryAbout.ContributorsItem(
+            Contributors.KHUN_HTETZ,
+            Contributors.KHUN_HTETZ.getName(),
             getString(R.string.khun_htetz_about),
             R.mipmap.dp_adb_otg));
     items.add(
-        new Category.ContributorsItem(
-            "id_marciozomb13",
-            "marciozomb13",
+        new CategoryAbout.ContributorsItem(
+            Contributors.MARCIOZOMB,
+            Contributors.MARCIOZOMB.getName(),
             getString(R.string.marciozomb13_about),
             R.mipmap.dp_marciozomb13));
     items.add(
-        new Category.ContributorsItem(
-            "id_weiguangtwk",
-            "weiguangtwk",
+        new CategoryAbout.ContributorsItem(
+            Contributors.WEIGUANGTWK,
+            Contributors.WEIGUANGTWK.getName(),
             getString(R.string.weiguangtwk_about),
             R.mipmap.dp_weiguangtwk));
     items.add(
-        new Category.ContributorsItem(
-            "id_winzort", "WINZORT", getString(R.string.winzort_about), R.mipmap.dp_winzort));
+        new CategoryAbout.ContributorsItem(
+            Contributors.WINZORT,
+            Contributors.WINZORT.getName(),
+            getString(R.string.winzort_about),
+            R.mipmap.dp_winzort));
 
-    items.add(new Category(getString(R.string.app)));
+    items.add(new CategoryAbout(getString(R.string.app)));
     try {
       PackageInfo pInfo =
           requireContext().getPackageManager().getPackageInfo(requireContext().getPackageName(), 0);
       items.add(
-          new Category.AppItem(
-              "id_version",
+          new CategoryAbout.AppItem(
+              Const.ID_VERSION,
               getString(R.string.version),
               pInfo.versionName,
               R.drawable.ic_version_tag));
@@ -148,38 +166,38 @@ public class AboutFragment extends Fragment
     }
 
     items.add(
-        new Category.AppItem(
-            "id_changelogs",
+        new CategoryAbout.AppItem(
+            Const.ID_CHANGELOGS,
             getString(R.string.changelogs),
             getString(R.string.des_changelogs),
             R.drawable.ic_changelog));
     items.add(
-        new Category.AppItem(
-            "id_report",
+        new CategoryAbout.AppItem(
+            Const.ID_REPORT,
             getString(R.string.report_issue),
             getString(R.string.des_report_issue),
             R.drawable.ic_report));
     items.add(
-        new Category.AppItem(
-            "id_feature",
+        new CategoryAbout.AppItem(
+            Const.ID_FEATURE,
             getString(R.string.feature_request),
             getString(R.string.des_feature_request),
             R.drawable.ic_feature));
     items.add(
-        new Category.AppItem(
-            "id_github",
+        new CategoryAbout.AppItem(
+            Const.ID_GITHUB,
             getString(R.string.github),
             getString(R.string.des_github),
             R.drawable.ic_github));
     items.add(
-        new Category.AppItem(
-            "id_telegram",
+        new CategoryAbout.AppItem(
+            Const.ID_TELEGRAM,
             getString(R.string.telegram_channel),
             getString(R.string.des_telegram_channel),
             R.drawable.ic_telegram));
     items.add(
-        new Category.AppItem(
-            "id_license",
+        new CategoryAbout.AppItem(
+            Const.ID_LICENSE,
             getString(R.string.license),
             getString(R.string.des_license),
             R.drawable.ic_license));
@@ -227,12 +245,15 @@ public class AboutFragment extends Fragment
   @Override
   public void onCheckUpdate(Button button, LottieAnimationView animation) {
     this.loadingDots = animation;
-    updateButtonIcon = button.getCompoundDrawables()[0]; // Save the original icon
-    button.setText(null);
-    // casting button to MaterialButton to use setIcon method.
-    ((MaterialButton) button).setIcon(null);
+    if (button != null) {
+      updateButtonIcon = button.getCompoundDrawables()[0]; // Save the original icon
+      button.setText(null);
+      // casting button to MaterialButton to use setIcon method.
+      ((MaterialButton) button).setIcon(null);
+    }
+
     loadingDots.setVisibility(View.VISIBLE);
-    new FetchLatestVersionCode(getContext(), this).execute(Preferences.buildGradleUrl);
+    new FetchLatestVersionCode(getContext(), this).execute(Const.URL_BUILD_GRADLE);
   }
 
   @Override
@@ -248,13 +269,13 @@ public class AboutFragment extends Fragment
 
     if (getContext() != null) {
       switch (result) {
-        case Preferences.UPDATE_AVAILABLE:
-          Utils.showBottomSheetUpdate(requireActivity(), getContext());
+        case Const.UPDATE_AVAILABLE:
+          BottomSheets.showBottomSheetUpdate(requireActivity(), getContext());
           return;
-        case Preferences.UPDATE_NOT_AVAILABLE:
+        case Const.UPDATE_NOT_AVAILABLE:
           latestVersionDialog(getContext());
           break;
-        case Preferences.CONNECTION_ERROR:
+        case Const.CONNECTION_ERROR:
           ToastUtils.showToast(getContext(), R.string.check_internet, ToastUtils.LENGTH_SHORT);
           break;
         default:
@@ -265,7 +286,7 @@ public class AboutFragment extends Fragment
 
   private void latestVersionDialog(Context context) {
     if (isAdded()) {
-      View dialogView = LayoutInflater.from(context).inflate(R.layout.latest_version_dialog, null);
+      View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_latest_version, null);
 
       new MaterialAlertDialogBuilder(context).setView(dialogView).show();
     }

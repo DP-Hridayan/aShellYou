@@ -112,12 +112,10 @@
     <string name="sort_oldest">Mais antigos</string>
     <string name="start">Iniciar</string>
     <string name="success">Sucesso</string>
-    <string name="support">Suporte</string>
     <string name="su_warning_message">O aShell You não foi projetado para usos relacionados a root. Abortando.</string>
     <string name="use">Usar</string>
     <string name="waiting_device">Aguardando por dispositivo</string>
     <string name="warning">Aviso</string>
-    <string name="working_mode">Modo de operação</string>
     <string name="yes">Sim</string>
     <string name="smooth_scrolling">Rolagem suave</string>
     <string name="des_smooth_scroll">Permite rolagem suave na saída do shell quando a seta superior ou inferior for clicada</string>

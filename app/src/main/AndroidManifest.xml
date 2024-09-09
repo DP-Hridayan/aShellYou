@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".AshellYou"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -29,7 +30,7 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:configChanges="keyboardHidden|uiMode|orientation|screenSize"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="unspecified"
             android:launchMode="singleTask"
             android:exported="true">

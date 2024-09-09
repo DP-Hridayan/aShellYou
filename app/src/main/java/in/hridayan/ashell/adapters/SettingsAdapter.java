@@ -20,12 +20,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.UI.DialogUtils;
+import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.activities.MainActivity;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
+import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Preferences;
-import in.hridayan.ashell.utils.SettingsItem;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -36,8 +39,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   private final List<SettingsItem> settingsList;
   private final Context context;
   private final Activity activity;
-  private AboutViewModel aboutViewModel;
-  private ExamplesViewModel examplesViewModel;
+  private final AboutViewModel aboutViewModel;
+  private final ExamplesViewModel examplesViewModel;
+  public MaterialTextView textViewSaveDir;
 
   public SettingsAdapter(
       List<SettingsItem> settingsList,
@@ -76,7 +80,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         isAmoledTheme ? R.style.ThemeOverlay_aShellYou_AmoledTheme : R.style.aShellYou_AppTheme;
     context.setTheme(themeId);
     /* we need to save the boolean value when activity recreates to perform certain functions based on it */
-    Preferences.setActivityRecreated(context, true);
+    Preferences.setActivityRecreated(true);
     ((AppCompatActivity) context).recreate();
   }
 
@@ -97,17 +101,18 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     void bind(SettingsItem settingsItem, boolean isLastItem) {
 
-      if (settingsItem.getId().equals("id_about")) {
-        itemView.setTransitionName("settingsItemToAbout");
+      if (settingsItem.getId().equals(Const.ID_ABOUT)) {
+        itemView.setTransitionName(Const.SETTINGS_TO_ABOUT);
       }
 
-      if (settingsItem.getId().equals("id_examples")) {
-        itemView.setTransitionName("sendButtonToExamples");
+      if (settingsItem.getId().equals(Const.ID_EXAMPLES)) {
+        itemView.setTransitionName(Const.SEND_TO_EXAMPLES);
       }
 
       symbolImageView.setImageDrawable(settingsItem.getSymbol(context));
       titleTextView.setText(settingsItem.getTitle());
       descriptionTextView.setText(settingsItem.getDescription());
+
       descriptionTextView.setVisibility(
           TextUtils.isEmpty(settingsItem.getDescription()) ? View.GONE : View.VISIBLE);
 
@@ -124,18 +129,17 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       switchView.setOnCheckedChangeListener(
           (buttonView, isChecked) -> {
             settingsItem.setChecked(isChecked);
-            settingsItem.saveSwitchState(context);
+            settingsItem.saveSwitchState();
 
-            if (settingsItem.getId().equals("id_amoled_theme")) {
-              if (Utils.isNightMode(context)) applyTheme(isChecked);
-            }
+            if (settingsItem.getId().equals(Const.PREF_AMOLED_THEME)
+                && ThemeUtils.isNightMode(context)) applyTheme(isChecked);
           });
     }
 
     private void setupClickListener(SettingsItem settingsItem) {
       settingsItemLayout.setOnClickListener(
           v -> {
-            HapticUtils.weakVibrate(v, context);
+            HapticUtils.weakVibrate(v);
             handleItemClick(settingsItem.getId());
           });
     }
@@ -150,26 +154,26 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     private void handleItemClick(String id) {
       switch (id) {
-        case "id_unhide_cards":
-          Preferences.setSpecificCardVisibility(context, "warning_usb_debugging", true);
+        case Const.ID_UNHIDE_CARDS:
+          Preferences.setSpecificCardVisibility("warning_usb_debugging", true);
           Toast.makeText(
                   context, context.getString(R.string.unhide_cards_message), Toast.LENGTH_SHORT)
               .show();
           break;
 
-        case "id_examples":
+        case Const.ID_EXAMPLES:
           examplesViewModel.setRVPositionAndOffset(null);
           examplesViewModel.setToolbarExpanded(true);
           loadFragmentWithTransition(new ExamplesFragment(), itemView);
           break;
 
-        case "id_about":
+        case Const.ID_ABOUT:
           aboutViewModel.setRVPositionAndOffset(null);
           aboutViewModel.setToolbarExpanded(true);
           loadFragmentWithTransition(new AboutFragment(), itemView);
           break;
 
-        case "id_default_language":
+        case Const.ID_DEF_LANGUAGE:
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             Intent intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
             intent.setData(Uri.parse("package:" + context.getPackageName()));
@@ -177,16 +181,24 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           }
           break;
 
-        case "id_default_launch_mode":
-          Utils.defaultWorkingModeDialog(context);
+        case Const.ID_CONFIG_SAVE_DIR:
+          textViewSaveDir = DialogUtils.configureSaveDirDialog(context, activity);
           break;
 
-        case "id_save_preference":
-          Utils.savePreferenceDialog(context);
+        case Const.PREF_DEFAULT_LAUNCH_MODE:
+          DialogUtils.defaultLaunchModeDialog(context);
           break;
 
-        case "id_local_adb_mode":
-          Utils.localAdbModeDialog(context);
+        case Const.PREF_EXAMPLES_LAYOUT_STYLE:
+          DialogUtils.examplesLayoutStyleDialog(context);
+          break;
+
+        case Const.PREF_SAVE_PREFERENCE:
+          DialogUtils.savePreferenceDialog(context);
+          break;
+
+        case Const.PREF_LOCAL_ADB_MODE:
+          DialogUtils.localAdbModeDialog(context);
           break;
       }
     }

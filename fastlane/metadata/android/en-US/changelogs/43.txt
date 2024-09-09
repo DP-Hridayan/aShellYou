@@ -1,5 +1,0 @@
-
-
-• Fixed an issue with Sharing text to aShell You where the text did not appear when app was starting fresh
-
-• Fixed minor UI issues

@@ -15,7 +15,7 @@ import com.cgutman.adblib.AdbConnection;
 import com.cgutman.adblib.AdbStream;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.utils.OtgUtils.ByteUtils;
-import in.hridayan.ashell.utils.OtgUtils.Const;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
 import java.io.File;
 import java.io.FileInputStream;
@@ -167,11 +167,6 @@ public class OtgUtils {
 
       stream.write(ByteUtils.concat("QUIT".getBytes(), ByteUtils.intToByteArray(0)));
     }
-  }
-
-  public static class Const {
-    public static final String TAG = "flashbot";
-    public static final double PUSH_PERCENT = 0.5;
   }
 
   public static class ExternalCmdStore {

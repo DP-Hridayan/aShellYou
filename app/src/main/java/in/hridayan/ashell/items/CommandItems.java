@@ -1,8 +1,8 @@
-package in.hridayan.ashell.utils;
+package in.hridayan.ashell.items;
 
 import android.content.Context;
 import java.io.Serializable;
-import in.hridayan.ashell.utils.Preferences;
+import in.hridayan.ashell.config.Preferences;
 
 public class CommandItems implements Serializable {
 
@@ -16,8 +16,8 @@ public class CommandItems implements Serializable {
     this.mSummary = summary(title, context);
     this.mExample = example;
     this.context = context;
-    this.mUseCounter = Preferences.getUseCounter(context, mTitle);
-    this.isPinned = Preferences.getPinned(context, mTitle);
+    this.mUseCounter = Preferences.getUseCounter( mTitle);
+    this.isPinned = Preferences.getPinned( mTitle);
   }
 
   public String getTitle() {
@@ -38,7 +38,7 @@ public class CommandItems implements Serializable {
 
   public void setUseCounter(int counter) {
     this.mUseCounter = counter;
-    Preferences.setUseCounter(context, mTitle, counter);
+    Preferences.setUseCounter( mTitle, counter);
   }
 
   public boolean isPinned() {
@@ -47,7 +47,7 @@ public class CommandItems implements Serializable {
 
   public void setPinned(boolean pinned) {
     this.isPinned = pinned;
-    Preferences.setPinned(context, mTitle, pinned);
+    Preferences.setPinned( mTitle, pinned);
   }
 
   public boolean isChecked() {

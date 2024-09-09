@@ -92,12 +92,10 @@
     <string name="sort_oldest">पुराना</string>
     <string name="start">प्रारंभ</string>
     <string name="success">सफलता</string>
-    <string name="support">समर्थन</string>
     <string name="su_warning_message">aShell You रूट संबंधित उपयोग के लिए डिज़ाइन नहीं किया गया था। बंद करें।</string>
     <string name="use">उपयोग करें</string>
     <string name="waiting_device">डिवाइस के लिए प्रतीक्षा कर रहा है</string>
     <string name="warning">चेतावनी</string>
-    <string name="working_mode">काम का मोड</string>
     <string name="yes">हां</string>
     <string name="smooth_scrolling">मुलायम स्क्रोलिंग</string>
     <string name="des_smooth_scroll">जब ऊपर या नीचे की तीर को क्लिक किया जाता है, तो शैल के आउटपुट में मुलायम स्क्रोलिंग की अनुमति देता है</string>

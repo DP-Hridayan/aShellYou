@@ -1,0 +1,11 @@
+
+
+• Huge UI and UX improvements across all sections of the app
+
+• Added ROOT and BASIC shell in addition to Shizuku shell for running commands
+
+• Added option to save output in custom directory
+
+• Fixed a lot of bugs and issues
+
+• Optimised app code for better performance and stability
