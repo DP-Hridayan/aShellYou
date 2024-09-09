@@ -19,7 +19,7 @@
         errorLine2="                                                                                                                               ^">
         <location
             file="src/main/res/values/strings.xml"
-            line="38"
+            line="39"
             column="128"/>
     </issue>
 

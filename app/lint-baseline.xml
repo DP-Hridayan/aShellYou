@@ -8,7 +8,7 @@
         errorLine2="                                               ~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/UI/DialogUtils.java"
-            line="46"
+            line="48"
             column="48"/>
     </issue>
 
@@ -30,7 +30,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="1223"
+            line="1258"
             column="23"/>
     </issue>
 
@@ -41,7 +41,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="1232"
+            line="1267"
             column="23"/>
     </issue>
 
@@ -129,7 +129,7 @@
         errorLine2="           ~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="673"
+            line="693"
             column="12"/>
     </issue>
 
@@ -140,7 +140,7 @@
         errorLine2="           ~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="676"
+            line="696"
             column="12"/>
     </issue>
 
@@ -151,7 +151,7 @@
         errorLine2="           ~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="679"
+            line="699"
             column="12"/>
     </issue>
 
@@ -162,7 +162,7 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-            line="148"
+            line="147"
             column="18"/>
     </issue>
 
@@ -173,7 +173,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-            line="152"
+            line="151"
             column="18"/>
     </issue>
 
@@ -184,7 +184,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-            line="157"
+            line="156"
             column="18"/>
     </issue>
 
@@ -195,7 +195,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-            line="162"
+            line="161"
             column="18"/>
     </issue>
 
@@ -206,7 +206,7 @@
         errorLine2="                 ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-            line="166"
+            line="165"
             column="18"/>
     </issue>
 
@@ -241,6 +241,17 @@
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
             line="142"
             column="18"/>
+    </issue>
+
+    <issue
+        id="VectorRaster"
+        message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more"
+        errorLine1="    android:width=&quot;884dp&quot;"
+        errorLine2="                   ~~~~~">
+        <location
+            file="src/main/res/drawable/ic_bmc_logo.xml"
+            line="3"
+            column="20"/>
     </issue>
 
     <issue
@@ -294,7 +305,7 @@
         errorLine2="             ~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/utils/Utils.java"
-            line="471"
+            line="461"
             column="14"/>
     </issue>
 
@@ -305,7 +316,7 @@
         errorLine2="              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-            line="365"
+            line="364"
             column="15"/>
         <location
             file="src/main/res/values-ja/strings.xml"
@@ -321,7 +332,7 @@
         errorLine2="                                                ^">
         <location
             file="src/main/res/values/strings.xml"
-            line="233"
+            line="235"
             column="49"/>
     </issue>
 
@@ -382,23 +393,56 @@
 
     <issue
         id="ExtraTranslation"
-        message="&quot;change_mode&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;change_mode&quot;>モード変更&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        message="&quot;support&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;support&quot;>समर्थन&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-ja/strings.xml"
-            line="34"
+            file="src/main/res/values-hi/strings.xml"
+            line="95"
             column="13"/>
     </issue>
 
     <issue
         id="ExtraTranslation"
-        message="&quot;change_mode&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;change_mode&quot;>切换模式&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        message="&quot;support&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;support&quot;>Suporte&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt/strings.xml"
+            line="115"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;support&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;support&quot;>支持我&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-zh-rCN/strings.xml"
-            line="153"
+            line="115"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;support&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;support&quot;>Destek&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="119"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;support&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;support&quot;>支援&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ja/strings.xml"
+            line="149"
             column="13"/>
     </issue>
 
@@ -565,6 +609,17 @@
         <location
             file="src/main/res/drawable/ic_add_bookmark.xml"
             line="10"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (3986 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;M879.57 341.85l-7.04-35.5c-6.31-31.85-20.65-61.94-53.34-73.45-10.48-3.69-22.37-5.27-30.4-12.89-8.04-7.62-10.41-19.46-12.27-30.44-3.44-20.15-6.68-40.31-10.21-60.43-3.04-17.29-5.45-36.72-13.38-52.58-10.33-21.3-31.75-33.76-53.05-42-10.91-4.08-22.05-7.52-33.36-10.32C613.3 10.19 557.34 5.03 502.59 2.09c-65.71-3.63-131.61-2.53-197.17 3.27-48.79 4.44-100.19 9.81-146.56 26.69-16.95 6.17-34.42 13.59-47.3 26.68-15.82 16.09-20.98 40.97-9.43 61.03 8.21 14.25 22.11 24.32 36.86 30.98 19.2 8.58 39.26 15.11 59.84 19.47 57.3 12.67 116.64 17.64 175.18 19.76 64.88 2.62 129.86 0.49 194.43-6.35 15.97-1.76 31.91-3.86 47.82-6.32 18.73-2.87 30.76-27.37 25.24-44.44-6.61-20.41-24.37-28.32-44.45-25.24-2.96 0.46-5.9 0.89-8.86 1.32l-2.13 0.31c-6.8 0.86-13.6 1.67-20.41 2.41-14.05 1.52-28.13 2.75-42.26 3.72-31.62 2.2-63.33 3.22-95.03 3.27-31.14 0-62.3-0.88-93.38-2.93-14.18-0.93-28.32-2.11-42.43-3.54-6.42-0.67-12.82-1.38-19.22-2.17l-6.09-0.77-1.32-0.19-6.32-0.92c-12.9-1.94-25.81-4.18-38.58-6.88-1.28-0.29-2.44-1-3.26-2.03-0.83-1.03-1.28-2.31-1.28-3.63 0-1.32 0.45-2.6 1.28-3.63 0.82-1.03 1.98-1.74 3.26-2.03h0.25c11.06-2.36 22.21-4.37 33.39-6.13 3.73-0.58 7.47-1.15 11.22-1.72h0.1c7.01-0.46 14.05-1.72 21.01-2.54 60.63-6.31 121.62-8.46 182.55-6.44 29.57 0.86 59.14 2.6 88.58 5.59 6.33 0.66 12.63 1.35 18.92 2.12 2.41 0.29 4.84 0.64 7.26 0.93l4.89 0.7c14.25 2.13 28.42 4.7 42.52 7.73 20.89 4.54 47.71 6.02 57 28.91 2.96 7.26 4.31 15.33 5.94 22.95l2.08 9.72c0.06 0.18 0.1 0.35 0.12 0.54 4.92 22.94 9.85 45.88 14.78 68.82 0.36 1.7 0.37 3.45 0.03 5.15-0.35 1.69-1.04 3.3-2.03 4.72-1 1.42-2.28 2.62-3.75 3.52-1.48 0.91-3.13 1.5-4.85 1.74h-0.13l-3.02 0.41-2.97 0.39c-9.43 1.23-18.87 2.38-28.32 3.45-18.62 2.12-37.27 3.95-55.94 5.5-37.11 3.09-74.29 5.11-111.55 6.08-18.99 0.5-37.96 0.74-56.94 0.7-75.52-0.06-150.97-4.45-225.99-13.14-8.12-0.97-16.24-2-24.36-3.05 6.3 0.81-4.58-0.62-6.78-0.93-5.16-0.72-10.32-1.47-15.49-2.25-17.32-2.6-34.55-5.8-51.84-8.61-20.91-3.44-40.9-1.72-59.81 8.61-15.52 8.49-28.08 21.52-36.01 37.33-8.16 16.87-10.58 35.23-14.23 53.35-3.65 18.11-9.33 37.61-7.18 56.21 4.63 40.14 32.7 72.76 73.06 80.06 37.98 6.88 76.16 12.46 114.44 17.21 150.39 18.42 302.32 20.62 453.19 6.57 12.28-1.15 24.55-2.4 36.8-3.75 3.83-0.42 7.7 0.02 11.33 1.29 3.64 1.27 6.94 3.34 9.67 6.05 2.73 2.71 4.82 6 6.12 9.62 1.3 3.63 1.77 7.5 1.37 11.33l-3.82 37.13c-7.69 75.03-15.39 150.05-23.09 225.07-8.03 78.79-16.11 157.56-24.24 236.33-2.3 22.19-4.59 44.37-6.88 66.54-2.21 21.84-2.52 44.36-6.66 65.94-6.54 33.93-29.51 54.77-63.03 62.39-30.71 6.99-62.08 10.66-93.57 10.94-34.91 0.19-69.8-1.36-104.72-1.17-37.27 0.21-82.92-3.23-111.68-30.97-25.28-24.36-28.77-62.51-32.22-95.5-4.58-43.67-9.13-87.33-13.64-130.99l-25.29-242.77-16.37-157.07c-0.27-2.6-0.55-5.16-0.81-7.78-1.96-18.74-15.22-37.08-36.13-36.13-17.89 0.79-38.23 16-36.13 36.13l12.13 116.45 25.08 240.89c7.15 68.43 14.28 136.86 21.39 205.31 1.38 13.11 2.67 26.26 4.11 39.37 7.87 71.65 62.58 110.26 130.34 121.13 39.58 6.37 80.12 7.68 120.28 8.33 51.48 0.83 103.48 2.81 154.11-6.52 75.04-13.77 131.34-63.87 139.38-141.59 2.29-22.44 4.59-44.88 6.88-67.33 7.63-74.24 15.24-148.49 22.85-222.74l24.88-242.61 11.41-111.19c0.57-5.51 2.9-10.69 6.64-14.78 3.74-4.09 8.7-6.86 14.14-7.91 21.46-4.18 41.97-11.33 57.23-27.65 24.3-26 29.13-59.9 20.55-94.07zM72.43 365.83c0.33-0.15-0.28 2.65-0.53 3.96-0.05-1.98 0.05-3.73 0.53-3.96zm2.08 16.11c0.17-0.12 0.69 0.57 1.22 1.39-0.8-0.75-1.32-1.32-1.24-1.39h0.02zm2.05 2.7c0.74 1.26 1.14 2.05 0 0zm4.11 3.34h0.11c0 0.12 0.18 0.24 0.25 0.36-0.11-0.13-0.24-0.25-0.38-0.36h0.02zm720.13-4.99c-7.71 7.33-19.33 10.74-30.8 12.44-128.71 19.1-259.29 28.77-389.4 24.5-93.12-3.18-185.26-13.52-277.46-26.55-9.03-1.27-18.82-2.92-25.03-9.58-11.7-12.56-5.96-37.86-2.91-53.03 2.79-13.91 8.12-32.44 24.66-34.41 25.81-3.03 55.78 7.86 81.32 11.73 30.74 4.69 61.59 8.45 92.56 11.27 132.18 12.04 266.59 10.17 398.18-7.45 23.99-3.22 47.88-6.97 71.7-11.24 21.22-3.8 44.74-10.94 57.55 11.03 8.8 14.97 9.97 35 8.61 51.91-0.42 7.37-3.64 14.31-9 19.38h0.02z&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_bmc_logo.xml"
+            line="20"
             column="27"/>
     </issue>
 
@@ -999,6 +1054,28 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.drawable.ic_support` appears to be unused"
+        errorLine1="&lt;vector"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_support.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_x` appears to be unused"
+        errorLine1="&lt;vector"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_x.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.mipmap.shortcut_commands` appears to be unused">
         <location
             file="src/main/res/mipmap-hdpi/shortcut_commands.png"/>
@@ -1198,17 +1275,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.change_mode` appears to be unused"
-        errorLine1="    &lt;string name=&quot;change_mode&quot;>モード変更&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-ja/strings.xml"
-            line="34"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.string.connecting` appears to be unused"
         errorLine1="    &lt;string name=&quot;connecting&quot;>connecting\u2026&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~">
@@ -1297,12 +1363,23 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.string.support` appears to be unused"
+        errorLine1="    &lt;string name=&quot;support&quot;>समर्थन&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-hi/strings.xml"
+            line="95"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.string.menu` appears to be unused"
         errorLine1="    &lt;string name=&quot;menu&quot;>Menu&lt;/string>"
         errorLine2="            ~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="99"
+            line="100"
             column="13"/>
     </issue>
 
@@ -1313,7 +1390,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="115"
+            line="116"
             column="13"/>
     </issue>
 
@@ -1324,7 +1401,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="121"
+            line="122"
             column="13"/>
     </issue>
 
@@ -1335,7 +1412,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="122"
+            line="123"
             column="13"/>
     </issue>
 
@@ -1346,7 +1423,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="154"
+            line="155"
             column="13"/>
     </issue>
 
@@ -1536,7 +1613,18 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/category_contributors.xml"
-            line="50"
+            line="51"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                &lt;ImageView"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/category_lead_dev.xml"
+            line="151"
             column="18"/>
     </issue>
 
@@ -1558,7 +1646,7 @@
         errorLine2="     ~~~~~~~~~">
         <location
             file="src/main/res/layout/dialog_connected_device.xml"
-            line="10"
+            line="11"
             column="6"/>
     </issue>
 
@@ -1592,6 +1680,28 @@
         <location
             file="src/main/res/layout/dialog_no_shizuku.xml"
             line="10"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/dialog_root_perm.xml"
+            line="11"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/dialog_shizuku_perm.xml"
+            line="11"
             column="6"/>
     </issue>
 
@@ -1767,7 +1877,7 @@
         errorLine2="                                 ~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="1487"
+            line="1518"
             column="34"/>
     </issue>
 
@@ -1778,7 +1888,7 @@
         errorLine2="                                 ~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="1490"
+            line="1521"
             column="34"/>
     </issue>
 
@@ -1789,7 +1899,7 @@
         errorLine2="                                 ~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="1493"
+            line="1524"
             column="34"/>
     </issue>
 
