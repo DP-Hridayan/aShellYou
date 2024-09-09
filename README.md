@@ -55,7 +55,7 @@
 <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="assets/github.png" width="50%" alt="Get it on GitHub" /></a>
 
 <div align="center">
-  <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="assets/fdroid.png" width="49%" alt="Get it on F-Droid" /></a>
+  <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="assets/IzzyOnDroidButton.svg" width="49%" alt="Get it on F-Droid" /></a>
 </div>
 
 <div align="center">
