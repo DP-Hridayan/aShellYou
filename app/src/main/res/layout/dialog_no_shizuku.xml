@@ -24,8 +24,8 @@
         android:text="@string/shizuku_unavailable"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:textAppearance="?attr/textAppearanceHeadlineSmall"
         android:gravity="center"
+        style="@style/DialogTitleAppearance"
         android:textAlignment="center" />
 
     <TextView
@@ -35,35 +35,35 @@
         android:layout_marginTop="10dp"
         android:text="@string/shizuku_unavailable_message"
         android:layout_gravity="center_horizontal"
-        android:textAppearance="?attr/textAppearanceBodyMedium" />
+        style="@style/DialogDescriptionAppearance" />
 
-           <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/close"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:text="@string/close" />
 
-            <Button
-                android:id="@+id/close"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/close" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+        <Button
+            android:id="@+id/aboutShizuku"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/shizuku" />
 
-            <Button
-                android:id="@+id/aboutShizuku"
-                style="@style/Widget.Material3.Button.Icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/shizuku" />
-
-        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

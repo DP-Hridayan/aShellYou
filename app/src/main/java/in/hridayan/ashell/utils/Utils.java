@@ -14,6 +14,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -21,7 +22,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -36,7 +36,6 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
-import in.hridayan.ashell.utils.DocumentTreeUtil;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -416,15 +415,6 @@ public class Utils {
     }
   }
 
-  // Aligns a margin of certain button
-  public static void alignMargin(View component) {
-    ViewGroup.MarginLayoutParams params =
-        (ViewGroup.MarginLayoutParams) component.getLayoutParams();
-    params.bottomMargin = 29;
-    component.setLayoutParams(params);
-    component.requestLayout();
-  }
-
   // returns if the app toolbar is expanded
   public static boolean isToolbarExpanded(AppBarLayout appBarLayout) {
     return appBarLayout.getTop() == 0;
@@ -494,5 +484,14 @@ public class Utils {
   // String that shows Shell is dead in red colour
   public static String shellDeadError() {
     return "<font color=#FF0000>" + "Shell is dead" + "</font>";
+  }
+
+  // start animation of animated drawable
+  public static void startAnim(Drawable icon) {
+    if (icon instanceof AnimatedVectorDrawable) {
+      AnimatedVectorDrawable animatedVector = (AnimatedVectorDrawable) icon;
+      animatedVector.stop();
+      animatedVector.start();
+    }
   }
 }

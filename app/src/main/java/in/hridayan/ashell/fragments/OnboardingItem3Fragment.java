@@ -15,6 +15,7 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentOnboardingItem3Binding;
 import in.hridayan.ashell.shell.RootShell;
 import in.hridayan.ashell.shell.ShizukuShell;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,7 +23,6 @@ import rikka.shizuku.Shizuku;
 
 public class OnboardingItem3Fragment extends Fragment
     implements ShizukuShell.ShizukuPermCallback, RootShell.RootPermCallback {
-
   private static FragmentOnboardingItem3Binding binding;
   private ShizukuShell shizukuShell;
   private RootShell rootShell;
@@ -37,6 +37,7 @@ public class OnboardingItem3Fragment extends Fragment
 
     binding.root.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
           // we donot select the widget unless we get root permission
           binding.root.setSelected(false);
           // request root permission
@@ -47,6 +48,8 @@ public class OnboardingItem3Fragment extends Fragment
 
     binding.shizuku.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
+
           binding.shizuku.setSelected(false);
           // start permission check
           shizukuShell.startPermissionCheck();

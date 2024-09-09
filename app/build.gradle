@@ -15,8 +15,8 @@ android {
         minSdk 26
         targetSdk 34
 
-        versionCode 47
-        versionName "v5.0.0"
+        versionCode 48
+        versionName "v5.1.0-test"
 
     }
     
@@ -69,7 +69,7 @@ dependencies {
     def shizuku_version = "13.1.0"
     def libsu_version = "3.2.0"
     def glide_version = "4.16.0"
-    def lottie_version = "6.5.0"
+    def lottie_version = "6.5.2"
 
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"

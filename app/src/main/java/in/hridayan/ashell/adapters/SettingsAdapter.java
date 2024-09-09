@@ -18,7 +18,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.DialogUtils;
@@ -28,7 +27,6 @@ import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.items.SettingsItem;
-import in.hridayan.ashell.utils.DocumentTreeUtil;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
@@ -43,8 +41,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   private final Activity activity;
   private final AboutViewModel aboutViewModel;
   private final ExamplesViewModel examplesViewModel;
-    public MaterialTextView textViewSaveDir;
-    
+  public MaterialTextView textViewSaveDir;
+
   public SettingsAdapter(
       List<SettingsItem> settingsList,
       Context context,
@@ -57,7 +55,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     this.aboutViewModel = aboutVM;
     this.examplesViewModel = examplesVM;
   }
-    
+
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -104,11 +102,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     void bind(SettingsItem settingsItem, boolean isLastItem) {
 
       if (settingsItem.getId().equals(Const.ID_ABOUT)) {
-        itemView.setTransitionName("settingsItemToAbout");
+        itemView.setTransitionName(Const.SETTINGS_TO_ABOUT);
       }
 
       if (settingsItem.getId().equals(Const.ID_EXAMPLES)) {
-        itemView.setTransitionName("sendButtonToExamples");
+        itemView.setTransitionName(Const.SEND_TO_EXAMPLES);
       }
 
       symbolImageView.setImageDrawable(settingsItem.getSymbol(context));
@@ -133,9 +131,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             settingsItem.setChecked(isChecked);
             settingsItem.saveSwitchState();
 
-            if (settingsItem.getId().equals(Const.PREF_AMOLED_THEME)) {
-              if (ThemeUtils.isNightMode(context)) applyTheme(isChecked);
-            }
+            if (settingsItem.getId().equals(Const.PREF_AMOLED_THEME)
+                && ThemeUtils.isNightMode(context)) applyTheme(isChecked);
           });
     }
 
@@ -185,7 +182,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           break;
 
         case Const.ID_CONFIG_SAVE_DIR:
-         textViewSaveDir = DialogUtils.configureSaveDirDialog(context, activity);
+          textViewSaveDir = DialogUtils.configureSaveDirDialog(context, activity);
           break;
 
         case Const.PREF_DEFAULT_LAUNCH_MODE:

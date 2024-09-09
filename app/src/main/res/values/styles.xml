@@ -6,7 +6,7 @@
         parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-     <item  name="android:windowActivityTransitions">true</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 
     <style
@@ -72,6 +72,55 @@
         <item name="android:paddingHorizontal">10dp</item>
         <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
         <item name="android:textAppearance">?attr/textAppearanceBodySmall</item>
+    </style>
+
+    <style
+            name="DialogTitleAppearance"
+        parent="aShellYou.AppTheme">
+        <item name="android:alpha">1</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadlineSmall</item>
+    </style>
+
+    <style
+            name="DialogDescriptionAppearance"
+        parent="aShellYou.AppTheme">
+        <item name="android:alpha">1</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+    </style>
+
+    <style name="CardViewTopCornersRounded">
+        <item name="shapeAppearance">@style/TopCornersRoundedShape</item>
+        <item name="cardBackgroundColor">?attr/colorPrimaryContainer</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <style
+        name="TopCornersRoundedShape"
+        parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">2dp</item>
+        <item name="cornerSizeBottomLeft">2dp</item>
+    </style>
+
+
+    <style name="CardViewBottomCornersRounded">
+        <item name="shapeAppearance">@style/BottomCornersRoundedShape</item>
+        <item name="cardBackgroundColor">?attr/colorPrimaryContainer</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <style
+        name="BottomCornersRoundedShape"
+        parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+        <item name="cornerSizeTopRight">2dp</item>
+        <item name="cornerSizeTopLeft">2dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
     </style>
     // for devices running A11 and below
     <style

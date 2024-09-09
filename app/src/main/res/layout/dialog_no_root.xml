@@ -24,8 +24,8 @@
         android:text="@string/root_unavailable"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:textAppearance="?attr/textAppearanceHeadlineSmall"
         android:gravity="center"
+        style="@style/DialogTitleAppearance"
         android:textAlignment="center" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/root_unavailable_message"
         android:layout_gravity="center_horizontal"
-        android:textAppearance="?attr/textAppearanceBodyMedium" />
+        style="@style/DialogDescriptionAppearance" />
 
     <Button
         android:layout_height="wrap_content"
