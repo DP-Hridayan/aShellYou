@@ -146,7 +146,6 @@
     <string name="sort_oldest">最古</string>
     <string name="start">スタート</string>
     <string name="success">サクセス</string>
-    <string name="support">支援</string>
     <string name="su_warning_message">「aShellYou」は、Root関連の機能用に設計されておらず、異常終了する。</string>
     <string name="unpin">キャンセルトップ</string>
     <string name="unpinned_message">\'%s\' はトップされませんでした</string>

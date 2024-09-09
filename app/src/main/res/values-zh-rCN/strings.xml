@@ -112,7 +112,6 @@
     <string name="sort_oldest">最早</string>
     <string name="start">开始</string>
     <string name="success">成功</string>
-    <string name="support">支持我</string>
     <string name="su_warning_message">aShellYou 不是为Root相关功能设计的，异常终止。</string>
     <string name="unpin">取消置顶</string>
     <string name="unpinned_message">\'%s\' 已取消置顶</string>
