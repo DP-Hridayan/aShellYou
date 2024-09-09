@@ -20,8 +20,8 @@
 
 
 ## Requirements ⚙️
-* A working [Shizuku](https://shizuku.rikka.app/) environment
-* Shizuku is not needed to run ADB commands on other devices via OTG
+* A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
+* Shizuku / ROOT is not needed to run ADB commands on other devices via OTG
 * Knowledge about basic ADB/Linux commands
 
 
@@ -83,7 +83,7 @@
 | Task                   | Status   |
 |------------------------|----------|
 | Wifi ADB Feature       | ⬜ To Do  |
-| Implement root shell   | ⬜ To Do  |
+| Implement root shell   | ✅ To Do  |
 | Redesigning Homepage   | ⬜ To Do  |
 | Proper localization    | ⬜ To Do  |
 | Fix OTG Issue          | ✅ Done  |
