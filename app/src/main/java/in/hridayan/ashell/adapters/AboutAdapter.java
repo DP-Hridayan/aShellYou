@@ -147,7 +147,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       for (Map.Entry<View, String> entry : viewUrlMap.entrySet()) {
         entry
             .getKey()
-            .setOnClickListener(v -> Utils.openUrl(itemView.getContext(), entry.getValue()));
+            .setOnClickListener(
+                v -> {
+                  HapticUtils.weakVibrate(v);
+                  Utils.openUrl(itemView.getContext(), entry.getValue());
+                });
       }
     }
   }
@@ -178,7 +182,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       // onclick listener for github button which redirects to the github profiles of individual
       // contributors
       buttonView.setOnClickListener(
-          v -> Utils.openUrl(itemView.getContext(), item.getId().getGithub()));
+          v -> {
+            HapticUtils.weakVibrate(v);
+            Utils.openUrl(itemView.getContext(), item.getId().getGithub());
+          });
       categoryContributorsLayout.setOnClickListener(
           v -> {
             HapticUtils.weakVibrate(v);

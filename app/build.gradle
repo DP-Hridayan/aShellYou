@@ -15,8 +15,8 @@ android {
         minSdk 26
         targetSdk 34
 
-        versionCode 48
-        versionName "v5.1.0"
+        versionCode 49
+        versionName "v5.2.0-test"
 
     }
     

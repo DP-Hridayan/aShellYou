@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
@@ -313,6 +314,7 @@ public class ExamplesFragment extends Fragment
   private void searchBarNavigationIconOnClickListener(int numSelectedItems) {
     binding.searchBar.setNavigationOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
           if (numSelectedItems > 0) {
             endSelection();
             mExamplesAdapter.deselectAll();

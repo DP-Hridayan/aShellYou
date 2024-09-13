@@ -155,7 +155,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     private void handleItemClick(String id) {
       switch (id) {
         case Const.ID_UNHIDE_CARDS:
-          Preferences.setSpecificCardVisibility("warning_usb_debugging", true);
+          Preferences.setSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING, true);
           Toast.makeText(
                   context, context.getString(R.string.unhide_cards_message), Toast.LENGTH_SHORT)
               .show();

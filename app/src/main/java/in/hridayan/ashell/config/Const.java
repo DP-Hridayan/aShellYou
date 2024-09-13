@@ -140,4 +140,8 @@ public interface Const {
       return github;
     }
   }
+    
+    public static enum InfoCards {
+    	WARNING_USB_DEBUGGING;
+    }
 }
