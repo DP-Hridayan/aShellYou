@@ -1,4 +1,4 @@
-package in.hridayan.ashell.fragments;
+package in.hridayan.ashell.fragments.home;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -56,6 +56,8 @@ import in.hridayan.ashell.adapters.ShellOutputAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentAshellBinding;
+import in.hridayan.ashell.fragments.ExamplesFragment;
+import in.hridayan.ashell.fragments.settings.SettingsFragment;
 import in.hridayan.ashell.shell.BasicShell;
 import in.hridayan.ashell.shell.RootShell;
 import in.hridayan.ashell.shell.ShizukuShell;

@@ -1,4 +1,4 @@
-package in.hridayan.ashell.fragments;
+package in.hridayan.ashell.fragments.setup;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +16,10 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.OnboardingAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
+import in.hridayan.ashell.fragments.home.AshellFragment;
+import in.hridayan.ashell.fragments.setup.OnboardingItem1Fragment;
+import in.hridayan.ashell.fragments.setup.OnboardingItem2Fragment;
+import in.hridayan.ashell.fragments.setup.OnboardingItem3Fragment;
 import in.hridayan.ashell.utils.HapticUtils;
 
 public class StartFragment extends Fragment {

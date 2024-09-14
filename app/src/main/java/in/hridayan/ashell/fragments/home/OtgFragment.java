@@ -1,4 +1,4 @@
-package in.hridayan.ashell.fragments;
+package in.hridayan.ashell.fragments.home;
 
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
@@ -64,6 +64,8 @@ import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentOtgBinding;
+import in.hridayan.ashell.fragments.ExamplesFragment;
+import in.hridayan.ashell.fragments.settings.SettingsFragment;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.DeviceUtils;

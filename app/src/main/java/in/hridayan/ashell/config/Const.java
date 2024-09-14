@@ -57,6 +57,7 @@ public interface Const {
     String SEND_TO_EXAMPLES = "sendButtonToExamples";
     String SETTINGS_TO_ABOUT = "settingsItemToAbout";
     String SETTINGS_TO_SETTINGS = "settingsButtonToSettings";
+    String SETTINGS_TO_LOOK_AND_FEEL = "settingsToLookAndFeel";
 
   /* <--------U R L s -------> */
 

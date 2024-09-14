@@ -15,6 +15,7 @@
     <string name="adb_device_waiting">Waiting for ADB device</string>
     <string name="adb_shell">ADB shell</string>
     <string name="add_bookmark">Add bookmark</string>
+    <string name="additional_settings">Additional settings</string>
     <string name="about">About</string>
     <string name="accept">Accept</string>
     <string name="already_latest_version">You are using the latest version</string>
@@ -66,6 +67,7 @@
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="crash_report">Crash report</string>
     <string name="current">Current</string>
+    <string name="dark_theme">Dark theme</string>
     <string name="default_launch_mode">Default launch mode</string>
     <string name="delete_all">Delete all</string>
     <string name="default_folder">Default folder</string>
@@ -79,6 +81,8 @@
     <string name="disabled">Disabled</string>
     <string name="donot_show_again">Don\'t show again</string>
     <string name="download">Download</string>
+    <string name="dynamic_colors">Dynamic colors</string>
+    <string name="des_dynamic_colors">Automatically set the app theme according to the device wallpaper</string>
     <string name="error">Error</string>
     <string name="example">Example</string>
     <string name="examples">Examples</string>
@@ -90,12 +94,14 @@
     <string name="flashing">Flashing</string>
     <string name="folder_picker">Folder picker</string>
     <string name="go_back">Go back</string>
+    <string name="high_contrast_dark_theme">High contrast dark theme</string>
     <string name="history">History</string>
     <string name="instructions">Instructions</string>
     <string name="latest">Latest</string>
     <string name="launch_mode">Launch mode</string>
     <string name="least_used">Least used</string>
     <string name="local_adb">Local ADB</string>
+    <string name="look_and_feel">Look &amp; Feel</string>
     <string name="mail">E-mail</string>
     <string name="menu">Menu</string>
     <string name="mode">Mode</string>
@@ -110,7 +116,9 @@
     <string name="no_history">No command history</string>
     <string name="nothing_to_clear">Nothing to clear</string>
     <string name="nothing_to_search">Nothing to search</string>
+    <string name="off">Off</string>
     <string name="ok">OK</string>
+    <string name="on">On</string>
     <string name="only_last_command_output">Only last command output</string>
     <string name="open">Open</string>
     <string name="open_adb">Open ADB shell</string>
@@ -166,6 +174,7 @@
     <string name="support_message">Like what I do?\nConsider buying me a coffee !</string>
     <string name="su_warning_message">This mode doesn\'t support root related commands. Please switch to root mode</string>
     <string name="switch_mode">Switch mode</string>
+    <string name="system">System</string>
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
     <string name="unhide_cards_message">All info cards will be visible now</string>

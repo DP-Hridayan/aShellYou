@@ -26,6 +26,7 @@ import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
+import in.hridayan.ashell.fragments.settings.LookAndFeel;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.config.Preferences;
@@ -108,6 +109,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       if (settingsItem.getId().equals(Const.ID_EXAMPLES)) {
         itemView.setTransitionName(Const.SEND_TO_EXAMPLES);
       }
+            
+                  if (settingsItem.getId().equals(Const.PREF_AMOLED_THEME)) {
+        itemView.setTransitionName(Const.SETTINGS_TO_LOOK_AND_FEEL);
+      }
+            
 
       symbolImageView.setImageDrawable(settingsItem.getSymbol(context));
       titleTextView.setText(settingsItem.getTitle());
@@ -154,6 +160,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     private void handleItemClick(String id) {
       switch (id) {
+                case Const.PREF_AMOLED_THEME :
+                loadFragmentWithTransition(new LookAndFeel(), itemView);
+                break;
+                
         case Const.ID_UNHIDE_CARDS:
           Preferences.setSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING, true);
           Toast.makeText(
