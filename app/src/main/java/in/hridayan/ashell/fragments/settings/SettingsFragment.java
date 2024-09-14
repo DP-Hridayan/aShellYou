@@ -137,9 +137,9 @@ public class SettingsFragment extends Fragment {
             Const.PREF_AMOLED_THEME,
             R.drawable.ic_pallete,
             getString(R.string.look_and_feel),
-            getString(R.string.des_amoled_theme),
-            true,
-            Preferences.getAmoledTheme()));
+            getString(R.string.des_look_and_feel),
+            false,
+            false));
 
     settingsData.add(
         new SettingsItem(

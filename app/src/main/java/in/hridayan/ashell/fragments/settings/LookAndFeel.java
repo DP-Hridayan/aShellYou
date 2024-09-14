@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import androidx.activity.OnBackPressedDispatcher;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Pair;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -85,6 +84,7 @@ public class LookAndFeel extends Fragment {
 
     setupThemeOptions();
     setupAmoledSwitch();
+    setupDynamicColorsSwitch();
 
     return view;
   }
@@ -107,7 +107,21 @@ public class LookAndFeel extends Fragment {
     binding.switchHighContrastDarkTheme.setOnCheckedChangeListener(
         (view, isChecked) -> {
           saveSwitchState(Const.PREF_AMOLED_THEME, isChecked);
-          if (ThemeUtils.isNightMode(context)) applyAmoledTheme(isChecked);
+          if (ThemeUtils.isNightMode(context)) {
+            Preferences.setActivityRecreated(true);
+            requireActivity().recreate();
+          }
+        });
+  }
+
+  // Setting up the amoled switch
+  private void setupDynamicColorsSwitch() {
+    binding.switchDynamicColors.setChecked(Preferences.getDynamicColors());
+    binding.switchDynamicColors.setOnCheckedChangeListener(
+        (view, isChecked) -> {
+          saveSwitchState(Const.PREF_DYNAMIC_COLORS, isChecked);
+          Preferences.setActivityRecreated(true);
+          requireActivity().recreate();
         });
   }
 
@@ -141,13 +155,5 @@ public class LookAndFeel extends Fragment {
     SharedPreferences.Editor editor = Preferences.prefs.edit();
     editor.putBoolean(prefId, isChecked);
     editor.apply();
-  }
-
-  private void applyAmoledTheme(boolean isAmoledTheme) {
-    int themeId =
-        isAmoledTheme ? R.style.ThemeOverlay_aShellYou_AmoledTheme : R.style.aShellYou_AppTheme;
-    context.setTheme(themeId);
-    Preferences.setActivityRecreated(true);
-    requireActivity().recreate();
   }
 }

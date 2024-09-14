@@ -102,6 +102,7 @@
     <string name="least_used">Least used</string>
     <string name="local_adb">Local ADB</string>
     <string name="look_and_feel">Look &amp; Feel</string>
+    <string name="des_look_and_feel">Dynamic colors, Dark theme</string>
     <string name="mail">E-mail</string>
     <string name="menu">Menu</string>
     <string name="mode">Mode</string>

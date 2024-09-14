@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,15 +20,14 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.DialogUtils;
-import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.settings.LookAndFeel;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -47,7 +45,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   private final ExamplesViewModel examplesViewModel;
   public MaterialTextView textViewSaveDir;
   private Map<String, WeakReference<View>> viewMap;
-    private WeakReference itemRef;
+  private WeakReference itemRef;
 
   public SettingsAdapter(
       List<SettingsItem> settingsList,
@@ -86,16 +84,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   }
 
   public View getItemViewById(String id) {
-    return viewMap.get(id) !=  null ? viewMap.get(id).get() : null;
-  }
-
-  private void applyTheme(boolean isAmoledTheme) {
-    int themeId =
-        isAmoledTheme ? R.style.ThemeOverlay_aShellYou_AmoledTheme : R.style.aShellYou_AppTheme;
-    context.setTheme(themeId);
-    /* we need to save the boolean value when activity recreates to perform certain functions based on it */
-    Preferences.setActivityRecreated(true);
-    ((AppCompatActivity) context).recreate();
+    return viewMap.get(id) != null ? viewMap.get(id).get() : null;
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {
@@ -114,18 +103,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     }
 
     void bind(SettingsItem settingsItem, boolean isLastItem) {
-
-      if (settingsItem.getId().equals(Const.ID_ABOUT)) {
-        itemView.setTransitionName(Const.SETTINGS_TO_ABOUT);
-      }
-
-      if (settingsItem.getId().equals(Const.ID_EXAMPLES)) {
-        itemView.setTransitionName(Const.SEND_TO_EXAMPLES);
-      }
-
-      if (settingsItem.getId().equals(Const.PREF_AMOLED_THEME)) {
-        itemView.setTransitionName(Const.SETTINGS_TO_LOOK_AND_FEEL);
-      }
 
       symbolImageView.setImageDrawable(settingsItem.getSymbol(context));
       titleTextView.setText(settingsItem.getTitle());
@@ -148,9 +125,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           (view, isChecked) -> {
             settingsItem.setChecked(isChecked);
             settingsItem.saveSwitchState();
-
-            if (settingsItem.getId().equals(Const.PREF_AMOLED_THEME)
-                && ThemeUtils.isNightMode(context)) applyTheme(isChecked);
           });
     }
 
@@ -186,7 +160,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         case Const.ID_EXAMPLES:
           examplesViewModel.setRVPositionAndOffset(null);
           examplesViewModel.setToolbarExpanded(true);
-                examplesViewModel.setEnteringFromSettings(true);
+          examplesViewModel.setEnteringFromSettings(true);
           loadFragmentWithTransition(new ExamplesFragment(), itemView);
           break;
 

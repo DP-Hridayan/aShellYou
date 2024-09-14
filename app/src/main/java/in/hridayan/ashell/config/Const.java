@@ -11,12 +11,13 @@ public interface Const {
   // preferences tags
   String PREF_FIRST_LAUNCH = "first_launch";
   String PREF_AMOLED_THEME = "id_amoled_theme";
-    String PREF_THEME_MODE= "id_theme_mode";
+  String PREF_THEME_MODE = "id_theme_mode";
   String PREF_COUNTER_PREFIX = "counter_";
   String PREF_PINNED_PREFIX = "pinned";
   String PREF_CLEAR = "id_clear";
   String PREF_SHARE_AND_RUN = "id_share_and_run";
   String PREF_DISABLE_SOFTKEY = "id_disable_softkey";
+  String PREF_DYNAMIC_COLORS = "id_dynamic_colors";
   String PREF_OVERRIDE_BOOKMARKS = "id_override_bookmarks";
   String PREF_SMOOTH_SCROLL = "id_smooth_scroll";
   String PREF_SAVED_VERSION_CODE = "saved_version_code";
@@ -52,13 +53,13 @@ public interface Const {
   String ID_TELEGRAM = "id_telegram";
   String ID_DISCORD = "id_discord";
   String ID_LICENSE = "id_license";
-    
-   /* <--------Transition Names-------> */
-    
-    String SEND_TO_EXAMPLES = "sendButtonToExamples";
-    String SETTINGS_TO_ABOUT = "settingsItemToAbout";
-    String SETTINGS_TO_SETTINGS = "settingsButtonToSettings";
-    String SETTINGS_TO_LOOK_AND_FEEL = "settingsToLookAndFeel";
+
+  /* <--------Transition Names-------> */
+
+  String SEND_TO_EXAMPLES = "sendButtonToExamples";
+  String SETTINGS_TO_ABOUT = "settingsItemToAbout";
+  String SETTINGS_TO_SETTINGS = "settingsButtonToSettings";
+  String SETTINGS_TO_LOOK_AND_FEEL = "settingsToLookAndFeel";
 
   /* <--------U R L s -------> */
 
@@ -94,7 +95,7 @@ public interface Const {
   int ABOUT_FRAGMENT = 3;
   int EXAMPLES_FRAGMENT = 4;
   int CHANGELOG_FRAGMENT = 5;
-    int SET_LOOK_AND_FEEL = 100;
+  int SET_LOOK_AND_FEEL = 100;
   int MODE_LOCAL_ADB = 0;
   int MODE_OTG = 1;
   int MODE_REMEMBER_LAST_MODE = 2;
@@ -143,8 +144,8 @@ public interface Const {
       return github;
     }
   }
-    
-    public static enum InfoCards {
-    	WARNING_USB_DEBUGGING;
-    }
+
+  public static enum InfoCards {
+    WARNING_USB_DEBUGGING;
+  }
 }

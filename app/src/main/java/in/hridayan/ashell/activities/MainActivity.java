@@ -18,12 +18,10 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.color.DynamicColors;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BottomSheets;
 import in.hridayan.ashell.UI.KeyboardUtils;
@@ -46,7 +44,6 @@ import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.DeviceUtils.FetchLatestVersionCodeCallback;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 
 public class MainActivity extends AppCompatActivity
@@ -252,7 +249,7 @@ public class MainActivity extends AppCompatActivity
           getSupportFragmentManager()
               .beginTransaction()
               .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
-             .addToBackStack(fragment.getClass().getSimpleName());
+              .addToBackStack(fragment.getClass().getSimpleName());
 
       // Handle the settings fragment case
       if (currentFragment == SETTINGS_FRAGMENT) {
@@ -265,7 +262,7 @@ public class MainActivity extends AppCompatActivity
               .addToBackStack(fragment.getClass().getSimpleName());
         }
       }
-            
+
       if (currentFragment == EXAMPLES_FRAGMENT) {
         String tag = Const.SEND_TO_EXAMPLES;
         View sendButton = getSendButtonView();
@@ -276,13 +273,11 @@ public class MainActivity extends AppCompatActivity
               .addToBackStack(fragment.getClass().getSimpleName());
         }
       }
-            
+
       transaction.commit();
       setCurrentFragment();
     }
   }
-    
-    
 
   private View getSettingsButtonView() {
     return viewModel.whichHomeFragment() == LOCAL_FRAGMENT
