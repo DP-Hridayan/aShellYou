@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.util.TypedValue;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.utils.DeviceUtils;
@@ -28,6 +29,9 @@ public class ThemeUtils {
     else activity.setTheme(R.style.aShellYou_AppTheme);
   }
 
+    public static void applyTheme(int mode) {
+        AppCompatDelegate.setDefaultNightMode(mode);
+    }
   // Returns if device is in dark mode
   public static boolean isNightMode(Context context) {
     return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)

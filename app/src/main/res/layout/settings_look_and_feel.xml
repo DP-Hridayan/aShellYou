@@ -89,15 +89,16 @@
                 android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="5dp"
                 android:layout_marginVertical="10dp"
                 android:checkedButton="@+id/system">
 
                 <RelativeLayout
+                    android:id="@+id/darkSystem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="5dp"
                     android:background="?selectableItemBackground"
                     android:paddingVertical="10dp">
 
@@ -121,10 +122,13 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/darkOn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:background="?selectableItemBackground"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="5dp"
                     android:paddingVertical="10dp">
 
                     <TextView
@@ -147,10 +151,13 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                   android:id="@+id/darkOff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:background="?selectableItemBackground"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="5dp"
                     android:paddingVertical="10dp">
 
                     <TextView

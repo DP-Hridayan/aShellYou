@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.databinding.FragmentChangelogBinding;
@@ -84,8 +83,7 @@ public class ChangelogFragment extends Fragment {
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-
-    setSharedElementEnterTransition(new MaterialContainerTransform());
+    
     binding = FragmentChangelogBinding.inflate(inflater, container, false);
     context = requireContext();
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);

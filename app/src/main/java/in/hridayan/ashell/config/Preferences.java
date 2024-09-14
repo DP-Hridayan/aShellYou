@@ -3,6 +3,7 @@ package in.hridayan.ashell.config;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
+import androidx.appcompat.app.AppCompatDelegate;
 import in.hridayan.ashell.AshellYou;
 import in.hridayan.ashell.BuildConfig;
 
@@ -119,7 +120,15 @@ public class Preferences {
   public static void setActivityRecreated(boolean value) {
     editor.putBoolean(Const.PREF_ACTIVITY_RECREATED, value).apply();
   }
+    
+    public static int getThemeMode(){
+        return prefs.getInt(Const.PREF_THEME_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    }
 
+    public static void setThemeMode(int value){
+        editor.putInt(Const.PREF_THEME_MODE,value).apply();
+    }
+    
   public static int getLocalAdbMode() {
     return prefs.getInt(Const.PREF_LOCAL_ADB_MODE, Const.BASIC_MODE);
   }

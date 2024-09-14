@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.transition.Hold;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.SettingsAdapter;
@@ -36,7 +35,7 @@ import java.util.List;
 public class SettingsFragment extends Fragment {
 
   private List<SettingsItem> settingsData;
-  private SettingsAdapter adapter;
+  private static SettingsAdapter adapter;
   private int currentTheme;
   private SettingsViewModel viewModel;
   private AboutViewModel aboutViewModel;
@@ -108,9 +107,6 @@ public class SettingsFragment extends Fragment {
 
     setSharedElementEnterTransition(new MaterialContainerTransform());
 
-    postponeEnterTransition();
-    setExitTransition(new Hold());
-
     binding = FragmentSettingsBinding.inflate(inflater, container, false);
     view = binding.getRoot();
 
@@ -127,6 +123,7 @@ public class SettingsFragment extends Fragment {
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
 
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
+
     binding.arrowBack.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
@@ -138,8 +135,8 @@ public class SettingsFragment extends Fragment {
     settingsData.add(
         new SettingsItem(
             Const.PREF_AMOLED_THEME,
-            R.drawable.ic_amoled_theme,
-            getString(R.string.amoled_theme),
+            R.drawable.ic_pallete,
+            getString(R.string.look_and_feel),
             getString(R.string.des_amoled_theme),
             true,
             Preferences.getAmoledTheme()));

@@ -81,6 +81,8 @@ public class ExamplesFragment extends Fragment
       }
       // Save toolbar state
       viewModel.setToolbarExpanded(Utils.isToolbarExpanded(binding.appBarLayout));
+
+      viewModel.setEnteringFromSettings(false);
     }
   }
 
@@ -110,7 +112,13 @@ public class ExamplesFragment extends Fragment
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    setSharedElementEnterTransition(new MaterialContainerTransform());
+
+    viewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
+    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
+    if (!viewModel.isEnteringFromSettings())
+      setSharedElementEnterTransition(new MaterialContainerTransform());
+
     binding = FragmentExamplesBinding.inflate(inflater, container, false);
 
     view = binding.getRoot();
@@ -129,9 +137,6 @@ public class ExamplesFragment extends Fragment
     selectAll = searchBarMenu.findItem(R.id.select_all);
     deselectAll = searchBarMenu.findItem(R.id.deselect_all);
     itemList = Commands.commandList(context);
-
-    viewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
-    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
 

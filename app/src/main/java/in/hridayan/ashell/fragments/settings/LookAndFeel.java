@@ -1,103 +1,153 @@
 package in.hridayan.ashell.fragments.settings;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.graphics.drawable.AnimatedVectorDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Pair;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
+import android.widget.RadioButton;
 import androidx.activity.OnBackPressedDispatcher;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
+import android.util.Pair;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textview.MaterialTextView;
-import com.google.android.material.transition.Hold;
-import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.BehaviorFAB;
-import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
-import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
-import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
-import in.hridayan.ashell.UI.BottomNavUtils;
-import in.hridayan.ashell.UI.DialogUtils;
-import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.ThemeUtils;
-import in.hridayan.ashell.UI.ToastUtils;
-import in.hridayan.ashell.UI.Transitions;
-import in.hridayan.ashell.activities.MainActivity;
-import in.hridayan.ashell.adapters.CommandsAdapter;
-import in.hridayan.ashell.adapters.ShellOutputAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
-import in.hridayan.ashell.databinding.FragmentAshellBinding;
 import in.hridayan.ashell.databinding.SettingsLookAndFeelBinding;
-import in.hridayan.ashell.shell.BasicShell;
-import in.hridayan.ashell.shell.RootShell;
-import in.hridayan.ashell.shell.ShizukuShell;
-import in.hridayan.ashell.utils.Commands;
-import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
+import android.content.Context;
+import android.content.SharedPreferences;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
-import in.hridayan.ashell.viewmodels.AshellFragmentViewModel;
-import in.hridayan.ashell.viewmodels.ExamplesViewModel;
-import in.hridayan.ashell.viewmodels.MainViewModel;
-import in.hridayan.ashell.viewmodels.SettingsViewModel;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.ConcurrentModificationException;
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import rikka.shizuku.Shizuku;
+import in.hridayan.ashell.viewmodels.SettingsItemViewModel;
 
 public class LookAndFeel extends Fragment {
 
   private SettingsLookAndFeelBinding binding;
   private View view;
+  private BottomNavigationView mNav;
+  private Context context;
+  private SettingsItemViewModel viewModel;
+
+  @Override
+  public void onPause() {
+    super.onPause();
+
+    viewModel.setToolbarExpanded(Utils.isToolbarExpanded(binding.appBarLayout));
+
+    int scrollX = binding.nestedScrollView.getScrollX();
+    int scrollY = binding.nestedScrollView.getScrollY();
+    Pair<Integer, Integer> scrollPosition = new Pair<>(scrollX, scrollY);
+    viewModel.setScrollPosition(scrollPosition);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+
+    binding.appBarLayout.setExpanded(viewModel.isToolbarExpanded());
+
+    Pair<Integer, Integer> savedScrollPosition = viewModel.getScrollPosition();
+    if (savedScrollPosition != null) {
+      // Ensure the NestedScrollView is fully laid out before restoring the scroll position
+      binding
+          .nestedScrollView
+          .getViewTreeObserver()
+          .addOnGlobalLayoutListener(
+              () ->
+                  binding.nestedScrollView.scrollTo(
+                      savedScrollPosition.first, savedScrollPosition.second));
+    }
+  }
 
   public LookAndFeel() {}
 
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    setSharedElementEnterTransition(new MaterialContainerTransform());
     binding = SettingsLookAndFeelBinding.inflate(inflater, container, false);
+    context = requireContext();
+    viewModel = new ViewModelProvider(requireActivity()).get(SettingsItemViewModel.class);
+    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
+    mNav.setVisibility(View.GONE);
     view = binding.getRoot();
-
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
 
+    binding.arrowBack.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          dispatcher.onBackPressed();
+        });
+
+    setupThemeOptions();
+    setupAmoledSwitch();
+
     return view;
+  }
+
+  // Setting up the theme options
+  private void setupThemeOptions() {
+    setRadioButtonState(binding.system, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+    setRadioButtonState(binding.on, AppCompatDelegate.MODE_NIGHT_YES);
+    setRadioButtonState(binding.off, AppCompatDelegate.MODE_NIGHT_NO);
+
+    // Handle click events for alternative views (dark versions)
+    binding.darkSystem.setOnClickListener(v -> binding.system.performClick());
+    binding.darkOn.setOnClickListener(v -> binding.on.performClick());
+    binding.darkOff.setOnClickListener(v -> binding.off.performClick());
+  }
+
+  // Setting up the amoled switch
+  private void setupAmoledSwitch() {
+    binding.switchHighContrastDarkTheme.setChecked(Preferences.getAmoledTheme());
+    binding.switchHighContrastDarkTheme.setOnCheckedChangeListener(
+        (view, isChecked) -> {
+          saveSwitchState(Const.PREF_AMOLED_THEME, isChecked);
+          if (ThemeUtils.isNightMode(context)) applyAmoledTheme(isChecked);
+        });
+  }
+
+  // Method to handle RadioButton states and clicks
+  private void setRadioButtonState(RadioButton button, int mode) {
+    button.setChecked(Preferences.getThemeMode() == mode);
+    button.setOnClickListener(
+        v -> {
+          if (Preferences.getThemeMode() != mode) {
+            HapticUtils.weakVibrate(v);
+            handleRadioButtonSelection(button, mode);
+          }
+        });
+  }
+
+  private void handleRadioButtonSelection(RadioButton button, int mode) {
+    clearRadioButtons(); // Uncheck all radio buttons
+    button.setChecked(true);
+    Preferences.setThemeMode(mode);
+    ThemeUtils.applyTheme(mode);
+  }
+
+  // Uncheck all radio buttons
+  private void clearRadioButtons() {
+    binding.system.setChecked(false);
+    binding.on.setChecked(false);
+    binding.off.setChecked(false);
+  }
+
+  private void saveSwitchState(String prefId, boolean isChecked) {
+    SharedPreferences.Editor editor = Preferences.prefs.edit();
+    editor.putBoolean(prefId, isChecked);
+    editor.apply();
+  }
+
+  private void applyAmoledTheme(boolean isAmoledTheme) {
+    int themeId =
+        isAmoledTheme ? R.style.ThemeOverlay_aShellYou_AmoledTheme : R.style.aShellYou_AppTheme;
+    context.setTheme(themeId);
+    Preferences.setActivityRecreated(true);
+    requireActivity().recreate();
   }
 }

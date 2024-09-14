@@ -11,6 +11,7 @@ public interface Const {
   // preferences tags
   String PREF_FIRST_LAUNCH = "first_launch";
   String PREF_AMOLED_THEME = "id_amoled_theme";
+    String PREF_THEME_MODE= "id_theme_mode";
   String PREF_COUNTER_PREFIX = "counter_";
   String PREF_PINNED_PREFIX = "pinned";
   String PREF_CLEAR = "id_clear";
@@ -93,6 +94,7 @@ public interface Const {
   int ABOUT_FRAGMENT = 3;
   int EXAMPLES_FRAGMENT = 4;
   int CHANGELOG_FRAGMENT = 5;
+    int SET_LOOK_AND_FEEL = 100;
   int MODE_LOCAL_ADB = 0;
   int MODE_OTG = 1;
   int MODE_REMEMBER_LAST_MODE = 2;

@@ -7,6 +7,7 @@ import static in.hridayan.ashell.config.Const.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.config.Const.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.config.Const.OTG_FRAGMENT;
 import static in.hridayan.ashell.config.Const.SETTINGS_FRAGMENT;
+import static in.hridayan.ashell.config.Const.SET_LOOK_AND_FEEL;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -36,6 +37,7 @@ import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.home.AshellFragment;
 import in.hridayan.ashell.fragments.home.OtgFragment;
+import in.hridayan.ashell.fragments.settings.LookAndFeel;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
 import in.hridayan.ashell.fragments.setup.StartFragment;
 import in.hridayan.ashell.items.SettingsItem;
@@ -176,6 +178,7 @@ public class MainActivity extends AppCompatActivity
     else if (fragment instanceof ExamplesFragment) currentFragment = EXAMPLES_FRAGMENT;
     else if (fragment instanceof AboutFragment) currentFragment = ABOUT_FRAGMENT;
     else if (fragment instanceof ChangelogFragment) currentFragment = CHANGELOG_FRAGMENT;
+    else if (fragment instanceof LookAndFeel) currentFragment = SET_LOOK_AND_FEEL;
   }
 
   // Function to set a Badge on the Navigation Bar
@@ -229,6 +232,10 @@ public class MainActivity extends AppCompatActivity
         replaceFragment(new AboutFragment());
         break;
 
+      case SET_LOOK_AND_FEEL:
+        replaceFragment(new LookAndFeel());
+        break;
+
       default:
         break;
     }
@@ -244,7 +251,8 @@ public class MainActivity extends AppCompatActivity
       FragmentTransaction transaction =
           getSupportFragmentManager()
               .beginTransaction()
-              .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName());
+              .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+             .addToBackStack(fragment.getClass().getSimpleName());
 
       // Handle the settings fragment case
       if (currentFragment == SETTINGS_FRAGMENT) {
@@ -257,6 +265,7 @@ public class MainActivity extends AppCompatActivity
               .addToBackStack(fragment.getClass().getSimpleName());
         }
       }
+            
       if (currentFragment == EXAMPLES_FRAGMENT) {
         String tag = Const.SEND_TO_EXAMPLES;
         View sendButton = getSendButtonView();
@@ -267,11 +276,13 @@ public class MainActivity extends AppCompatActivity
               .addToBackStack(fragment.getClass().getSimpleName());
         }
       }
-
+            
       transaction.commit();
       setCurrentFragment();
     }
   }
+    
+    
 
   private View getSettingsButtonView() {
     return viewModel.whichHomeFragment() == LOCAL_FRAGMENT

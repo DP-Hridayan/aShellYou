@@ -33,7 +33,10 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
@@ -43,6 +46,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   private final AboutViewModel aboutViewModel;
   private final ExamplesViewModel examplesViewModel;
   public MaterialTextView textViewSaveDir;
+  private Map<String, WeakReference<View>> viewMap;
+    private WeakReference itemRef;
 
   public SettingsAdapter(
       List<SettingsItem> settingsList,
@@ -55,6 +60,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     this.activity = activity;
     this.aboutViewModel = aboutVM;
     this.examplesViewModel = examplesVM;
+    this.viewMap = new HashMap<>();
   }
 
   @NonNull
@@ -68,12 +74,19 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
     SettingsItem settingsItem = settingsList.get(position);
+
+    viewMap.put(settingsItem.getId(), new WeakReference<>(holder.itemView));
+
     holder.bind(settingsItem, position == getItemCount() - 1);
   }
 
   @Override
   public int getItemCount() {
     return settingsList.size();
+  }
+
+  public View getItemViewById(String id) {
+    return viewMap.get(id) !=  null ? viewMap.get(id).get() : null;
   }
 
   private void applyTheme(boolean isAmoledTheme) {
@@ -109,11 +122,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       if (settingsItem.getId().equals(Const.ID_EXAMPLES)) {
         itemView.setTransitionName(Const.SEND_TO_EXAMPLES);
       }
-            
-                  if (settingsItem.getId().equals(Const.PREF_AMOLED_THEME)) {
+
+      if (settingsItem.getId().equals(Const.PREF_AMOLED_THEME)) {
         itemView.setTransitionName(Const.SETTINGS_TO_LOOK_AND_FEEL);
       }
-            
 
       symbolImageView.setImageDrawable(settingsItem.getSymbol(context));
       titleTextView.setText(settingsItem.getTitle());
@@ -133,7 +145,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       switchView.setVisibility(settingsItem.hasSwitch() ? View.VISIBLE : View.GONE);
       switchView.setChecked(settingsItem.isChecked());
       switchView.setOnCheckedChangeListener(
-          (buttonView, isChecked) -> {
+          (view, isChecked) -> {
             settingsItem.setChecked(isChecked);
             settingsItem.saveSwitchState();
 
@@ -160,10 +172,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     private void handleItemClick(String id) {
       switch (id) {
-                case Const.PREF_AMOLED_THEME :
-                loadFragmentWithTransition(new LookAndFeel(), itemView);
-                break;
-                
+        case Const.PREF_AMOLED_THEME:
+          loadFragmentWithTransition(new LookAndFeel(), itemView);
+          break;
+
         case Const.ID_UNHIDE_CARDS:
           Preferences.setSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING, true);
           Toast.makeText(
@@ -174,6 +186,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         case Const.ID_EXAMPLES:
           examplesViewModel.setRVPositionAndOffset(null);
           examplesViewModel.setToolbarExpanded(true);
+                examplesViewModel.setEnteringFromSettings(true);
           loadFragmentWithTransition(new ExamplesFragment(), itemView);
           break;
 
@@ -217,7 +230,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       ((MainActivity) activity)
           .getSupportFragmentManager()
           .beginTransaction()
-          .addSharedElement(itemView, itemView.getTransitionName())
           .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
           .addToBackStack(fragment.getClass().getSimpleName())
           .commit();
