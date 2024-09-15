@@ -152,7 +152,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       switch (id) {
         case Const.ID_LOOK_AND_FEEL:
           viewModel.setScrollPosition(null);
-          examplesViewModel.setToolbarExpanded(true);
+          viewModel.setToolbarExpanded(true);
           loadFragmentWithTransition(new LookAndFeel(), itemView);
           break;
 
@@ -174,14 +174,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           aboutViewModel.setRVPositionAndOffset(null);
           aboutViewModel.setToolbarExpanded(true);
           loadFragmentWithTransition(new AboutFragment(), itemView);
-          break;
-
-        case Const.ID_DEF_LANGUAGE:
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            Intent intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
-            intent.setData(Uri.parse("package:" + context.getPackageName()));
-            context.startActivity(intent);
-          }
           break;
 
         case Const.ID_CONFIG_SAVE_DIR:

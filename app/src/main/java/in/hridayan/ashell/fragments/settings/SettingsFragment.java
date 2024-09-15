@@ -190,21 +190,6 @@ public class SettingsFragment extends Fragment {
             false,
             false));
 
-    // App locale setting is only available on Android 13+
-    // Also, it's not functional on MIUI devices even on Android 13,
-    // Thanks to Xiaomi's broken implementation of standard Android APIs.
-    // See: https://github.com/Pool-Of-Tears/GreenStash/issues/130 for more information.
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiuiCheck.isMiui()) {
-      settingsData.add(
-          new SettingsItem(
-              Const.ID_DEF_LANGUAGE,
-              R.drawable.ic_language,
-              getString(R.string.default_language),
-              getString(R.string.des_default_language),
-              false,
-              false));
-    }
-
     settingsData.add(
         new SettingsItem(
             Const.PREF_DEFAULT_LAUNCH_MODE,

@@ -1,8 +1,11 @@
 package in.hridayan.ashell.fragments.settings;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,7 @@ import in.hridayan.ashell.utils.HapticUtils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import in.hridayan.ashell.config.Preferences;
+import in.hridayan.ashell.utils.MiuiCheck;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.SettingsItemViewModel;
 
@@ -87,6 +91,7 @@ public class LookAndFeel extends Fragment {
     setupThemeOptions();
     setupAmoledSwitch();
     setupDynamicColorsSwitch();
+    setupDefaultLanguageOnClick();
 
     return view;
   }
@@ -132,6 +137,25 @@ public class LookAndFeel extends Fragment {
           requireActivity().recreate();
         });
     binding.dynamicColors.setOnClickListener(v -> binding.switchDynamicColors.performClick());
+  }
+
+  private void setupDefaultLanguageOnClick() {
+    // App locale setting is only available on Android 13+
+    // Also, it's not functional on MIUI devices even on Android 13,
+    // Thanks to Xiaomi's broken implementation of standard Android APIs.
+    // See: https://github.com/Pool-Of-Tears/GreenStash/issues/130 for more information.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiuiCheck.isMiui())
+      binding.defaultLanguage.setVisibility(View.VISIBLE);
+
+    binding.defaultLanguage.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Intent intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
+            intent.setData(Uri.parse("package:" + context.getPackageName()));
+            context.startActivity(intent);
+          }
+        });
   }
 
   // Method to handle RadioButton states and clicks

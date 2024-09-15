@@ -257,7 +257,7 @@
                 android:clickable="true"
                 android:background="?selectableItemBackground"
                 android:paddingHorizontal="25dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center">
 
                 <ImageView
@@ -306,6 +306,55 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:thumbIcon="@drawable/thumb_drawable" />
 
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/defaultLanguage"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:background="?selectableItemBackground"
+                android:paddingHorizontal="25dp"
+                android:layout_marginBottom="25dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/icon3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:tint="?attr/colorPrimary"
+                    android:src="@drawable/ic_language"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:text="@string/default_language"
+                    android:textSize="18sp"
+                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/icon3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/description3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="15dp"
+                    android:paddingBottom="20dp"
+                    android:text="@string/des_default_language"
+                    style="@style/ItemDescription"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/title3"
+                    app:layout_constraintTop_toBottomOf="@id/title3" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
