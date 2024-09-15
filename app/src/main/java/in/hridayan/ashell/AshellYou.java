@@ -19,8 +19,6 @@ public class AshellYou extends Application {
     Preferences.init();
 
     AppCompatDelegate.setDefaultNightMode(Preferences.getThemeMode());
-
-    if (Preferences.getDynamicColors()) DynamicColors.applyToActivitiesIfAvailable(this);
   }
 
   public static Context getAppContext() {

@@ -304,7 +304,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/title2"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:thumbIcon="@drawable/thumb_drawable" />
+                    app:thumbIcon="@drawable/thumb_drawable"  />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

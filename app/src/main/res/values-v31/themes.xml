@@ -5,8 +5,8 @@
         name="aShellYou.AppTheme"
         parent="Theme.Material3.DayNight.NoActionBar"
         tools:ignore="PrivateResource">
-
-        <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_neutral_variant95</item>
+        <item name="colorSurface">@color/m3_ref_palette_neutral_variant95</item>
+        <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_neutral_variant90</item>
         <item name="colorSurfaceContainer">@color/m3_ref_palette_neutral92</item>
 
     </style>
