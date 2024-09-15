@@ -295,7 +295,7 @@ public class SettingsFragment extends Fragment {
     binding.rvSettings.getViewTreeObserver().addOnDrawListener(this::startPostponedEnterTransition);
 
     // intentional crash with a long message
-    // throwLongException();
+    //  throwLongException();
 
     return view;
   }
@@ -303,7 +303,7 @@ public class SettingsFragment extends Fragment {
   public String generateLongMessage() {
     StringBuilder message = new StringBuilder("Long Exception Message: ");
     for (int i = 0; i < 1000; i++) { // Adjust the loop count for longer messages
-      message.append("This is line ").append(i).append(". ");
+      message.append("This is an intentional crash ").append(i).append(". ");
     }
     return message.toString();
   }

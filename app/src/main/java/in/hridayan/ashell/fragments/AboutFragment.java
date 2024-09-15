@@ -53,7 +53,7 @@ public class AboutFragment extends Fragment
       @Nullable Bundle savedInstanceState) {
 
     binding = FragmentAboutBinding.inflate(inflater, container, false);
-    
+
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
     viewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
@@ -195,7 +195,7 @@ public class AboutFragment extends Fragment
             getString(R.string.license),
             getString(R.string.des_license),
             R.drawable.ic_license));
-
+        
     return items;
   }
 
@@ -284,5 +284,18 @@ public class AboutFragment extends Fragment
 
       new MaterialAlertDialogBuilder(context).setView(dialogView).show();
     }
+  }
+
+  public String generateLongMessage() {
+    StringBuilder message = new StringBuilder("Long Exception Message: ");
+    for (int i = 0; i < 1000; i++) { // Adjust the loop count for longer messages
+      message.append("This is an intentional crash ").append(i).append(". ");
+    }
+    return message.toString();
+  }
+
+  public void throwLongException() {
+    String longMessage = generateLongMessage();
+    throw new RuntimeException(longMessage);
   }
 }
