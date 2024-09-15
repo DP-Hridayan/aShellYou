@@ -45,6 +45,9 @@ import in.hridayan.ashell.utils.DeviceUtils.FetchLatestVersionCodeCallback;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.viewmodels.MainViewModel;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity
     implements OtgFragment.OnFragmentInteractionListener, FetchLatestVersionCodeCallback {
@@ -248,8 +251,16 @@ public class MainActivity extends AppCompatActivity
       FragmentTransaction transaction =
           getSupportFragmentManager()
               .beginTransaction()
-              .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
-              .addToBackStack(fragment.getClass().getSimpleName());
+              .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName());
+
+      Set<Integer> backStackFragments =
+          new HashSet<>(
+              Arrays.asList(
+                  SET_LOOK_AND_FEEL, ABOUT_FRAGMENT, EXAMPLES_FRAGMENT, CHANGELOG_FRAGMENT));
+
+      if (backStackFragments.contains(currentFragment)) {
+        transaction.addToBackStack(fragment.getClass().getSimpleName());
+      }
 
       // Handle the settings fragment case
       if (currentFragment == SETTINGS_FRAGMENT) {

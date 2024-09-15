@@ -1,6 +1,7 @@
 package in.hridayan.ashell.fragments.settings;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.SettingsLookAndFeelBinding;
+import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -113,10 +115,14 @@ public class LookAndFeel extends Fragment {
             requireActivity().recreate();
           }
         });
+    binding.highContrastDarkTheme.setOnClickListener(
+        v -> binding.switchHighContrastDarkTheme.performClick());
   }
 
   // Setting up the amoled switch
   private void setupDynamicColorsSwitch() {
+    binding.dynamicColors.setVisibility(
+        DeviceUtils.androidVersion() >= Build.VERSION_CODES.S ? View.VISIBLE : View.GONE);
     binding.switchDynamicColors.setChecked(Preferences.getDynamicColors());
     binding.switchDynamicColors.setOnCheckedChangeListener(
         (view, isChecked) -> {
@@ -125,6 +131,7 @@ public class LookAndFeel extends Fragment {
           Preferences.setActivityRecreated(true);
           requireActivity().recreate();
         });
+    binding.dynamicColors.setOnClickListener(v -> binding.switchDynamicColors.performClick());
   }
 
   // Method to handle RadioButton states and clicks

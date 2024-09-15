@@ -151,7 +151,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                   android:id="@+id/darkOff"
+                    android:id="@+id/darkOff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -198,10 +198,11 @@
                 android:clickable="true"
                 android:background="?selectableItemBackground"
                 android:paddingHorizontal="25dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/img1"
+                    android:id="@+id/icon1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:tint="?attr/colorPrimary"
@@ -220,7 +221,7 @@
                     android:textSize="18sp"
                     android:textAppearance="?attr/textAppearanceTitleLarge"
                     app:layout_constraintEnd_toStartOf="@id/switchHighContrastDarkTheme"
-                    app:layout_constraintStart_toEndOf="@id/img1"
+                    app:layout_constraintStart_toEndOf="@id/icon1"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -256,12 +257,11 @@
                 android:clickable="true"
                 android:background="?selectableItemBackground"
                 android:paddingHorizontal="25dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="25dp"
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/img2"
+                    android:id="@+id/icon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:tint="?attr/colorPrimary"
@@ -280,7 +280,7 @@
                     android:textSize="18sp"
                     android:textAppearance="?attr/textAppearanceTitleLarge"
                     app:layout_constraintEnd_toStartOf="@id/switchDynamicColors"
-                    app:layout_constraintStart_toEndOf="@id/img2"
+                    app:layout_constraintStart_toEndOf="@id/icon2"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -304,7 +304,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/title2"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:thumbIcon="@drawable/thumb_drawable"  />
+                    app:thumbIcon="@drawable/thumb_drawable" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
