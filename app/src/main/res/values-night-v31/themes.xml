@@ -29,6 +29,40 @@
     </style>
 
     <style
+        name="aShellYou.AmoledTheme"
+        parent="Theme.Material3.DayNight.NoActionBar"
+        tools:ignore="PrivateResource">
+        <item name="android:colorBackground">@color/m3_ref_palette_neutral_variant0</item>
+        <item name="android:windowBackground">@color/m3_ref_palette_neutral_variant0</item>
+        <item name="colorSurface">@color/m3_ref_palette_neutral_variant0</item>
+        <item name="colorSurfaceContainer">@color/m3_ref_palette_neutral6</item>
+        <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_neutral0</item>
+        <item name="colorSurfaceContainerLow">@color/m3_ref_palette_neutral4</item>
+        <item name="colorSurfaceContainerHigh">@color/m3_ref_palette_neutral10</item>
+        <item name="colorSurfaceContainerHighest">@color/m3_ref_palette_neutral0</item>
+        <item name="colorSurfaceBright">@color/m3_ref_palette_neutral10</item>
+        <item name="colorSurfaceDim">@color/m3_ref_palette_neutral0</item>
+        <item name="toolBarContentScrim">@color/m3_ref_palette_neutral_variant10</item>
+    </style>
+
+    <style
+        name="aShellYou.AmoledTheme.DynamicColors"
+        parent="Theme.Material3.DynamicColors.DayNight.NoActionBar"
+        tools:ignore="PrivateResource">
+        <item name="android:colorBackground">@color/m3_ref_palette_dynamic_neutral_variant0</item>
+        <item name="android:windowBackground">@color/m3_ref_palette_dynamic_neutral_variant0</item>
+        <item name="colorSurface">@color/m3_ref_palette_dynamic_neutral_variant0</item>
+        <item name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral6</item>
+        <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_dynamic_neutral0</item>
+        <item name="colorSurfaceContainerLow">@color/m3_ref_palette_dynamic_neutral4</item>
+        <item name="colorSurfaceContainerHigh">@color/m3_ref_palette_dynamic_neutral10</item>
+        <item name="colorSurfaceContainerHighest">@color/m3_ref_palette_dynamic_neutral0</item>
+        <item name="colorSurfaceBright">@color/m3_ref_palette_dynamic_neutral10</item>
+        <item name="colorSurfaceDim">@color/m3_ref_palette_dynamic_neutral0</item>
+        <item name="toolBarContentScrim">@color/m3_ref_palette_dynamic_neutral_variant10</item>
+    </style>
+
+    <style
         name="BottomNavigation"
         parent="aShellYou.AppTheme"
         tools:ignore="PrivateResource">
