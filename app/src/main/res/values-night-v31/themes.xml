@@ -12,7 +12,10 @@
 
         <item name="colorSurfaceContainer">@color/m3_ref_palette_neutral10</item>
         <item name="toolBarContentScrim">@color/m3_ref_palette_neutral_variant10</item>
-
+        <item name="colorPrimaryContainer">@color/m3_ref_palette_primary30</item>
+        <item name="colorOnPrimaryContainer">@color/m3_ref_palette_primary90</item>
+        <item name="colorTertiaryContainer">@color/m3_ref_palette_tertiary30</item>
+        <item name="colorOnTertiaryContainer">@color/m3_ref_palette_tertiary90</item>
     </style>
 
     <style
@@ -25,6 +28,11 @@
 
         <item name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral10</item>
         <item name="toolBarContentScrim">@color/m3_ref_palette_dynamic_neutral_variant10</item>
+
+        <item name="colorPrimaryContainer">@color/m3_ref_palette_dynamic_primary30</item>
+        <item name="colorOnPrimaryContainer">@color/m3_ref_palette_dynamic_primary90</item>
+        <item name="colorTertiaryContainer">@color/m3_ref_palette_dynamic_tertiary30</item>
+        <item name="colorOnTertiaryContainer">@color/m3_ref_palette_dynamic_tertiary90</item>
 
     </style>
 
@@ -42,6 +50,10 @@
         <item name="colorSurfaceContainerHighest">@color/m3_ref_palette_neutral0</item>
         <item name="colorSurfaceBright">@color/m3_ref_palette_neutral10</item>
         <item name="colorSurfaceDim">@color/m3_ref_palette_neutral0</item>
+        <item name="colorPrimaryContainer">@color/m3_ref_palette_primary30</item>
+        <item name="colorOnPrimaryContainer">@color/m3_ref_palette_primary90</item>
+        <item name="colorTertiaryContainer">@color/m3_ref_palette_tertiary30</item>
+        <item name="colorOnTertiaryContainer">@color/m3_ref_palette_tertiary90</item>
         <item name="toolBarContentScrim">@color/m3_ref_palette_neutral_variant10</item>
     </style>
 
@@ -59,6 +71,11 @@
         <item name="colorSurfaceContainerHighest">@color/m3_ref_palette_dynamic_neutral0</item>
         <item name="colorSurfaceBright">@color/m3_ref_palette_dynamic_neutral10</item>
         <item name="colorSurfaceDim">@color/m3_ref_palette_dynamic_neutral0</item>
+        <item name="colorPrimaryContainer">@color/m3_ref_palette_dynamic_primary30</item>
+        <item name="colorOnPrimaryContainer">@color/m3_ref_palette_dynamic_primary90</item>
+        <item name="colorTertiaryContainer">@color/m3_ref_palette_dynamic_tertiary30</item>
+        <item name="colorOnTertiaryContainer">@color/m3_ref_palette_dynamic_tertiary90</item>
+
         <item name="toolBarContentScrim">@color/m3_ref_palette_dynamic_neutral_variant10</item>
     </style>
 

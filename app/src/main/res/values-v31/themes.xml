@@ -8,7 +8,10 @@
         <item name="colorSurface">@color/m3_ref_palette_neutral_variant95</item>
         <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_neutral_variant90</item>
         <item name="colorSurfaceContainer">@color/m3_ref_palette_neutral92</item>
-
+        <item name="colorPrimaryContainer">@color/m3_ref_palette_primary90</item>
+        <item name="colorOnPrimaryContainer">@color/m3_ref_palette_primary10</item>
+        <item name="colorTertiaryContainer">@color/m3_ref_palette_tertiary90</item>
+        <item name="colorOnTertiaryContainer">@color/m3_ref_palette_tertiary10</item>
     </style>
 
     <style
@@ -18,7 +21,10 @@
         <item name="colorSurface">@color/m3_ref_palette_dynamic_neutral_variant96</item>
         <item name="colorSurfaceContainerLowest">@color/m3_ref_palette_dynamic_neutral_variant92</item>
         <item name="colorSurfaceContainer">@color/m3_ref_palette_dynamic_neutral92</item>
-
+        <item name="colorPrimaryContainer">@color/m3_ref_palette_dynamic_primary90</item>
+        <item name="colorOnPrimaryContainer">@color/m3_ref_palette_dynamic_primary10</item>
+        <item name="colorTertiaryContainer">@color/m3_ref_palette_dynamic_tertiary90</item>
+        <item name="colorOnTertiaryContainer">@color/m3_ref_palette_dynamic_tertiary10</item>
     </style>
 
     <style
