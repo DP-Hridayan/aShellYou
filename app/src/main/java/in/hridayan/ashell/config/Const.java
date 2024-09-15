@@ -40,6 +40,7 @@ public interface Const {
           .getAbsolutePath();
 
   // tags for things like onclick listeners
+  String ID_LOOK_AND_FEEL = "id_look_and_feel";
   String ID_DEF_LANGUAGE = "id_default_language";
   String ID_CONFIG_SAVE_DIR = "id_configure_save_directory";
   String ID_UNHIDE_CARDS = "id_unhide_cards";

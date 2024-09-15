@@ -2,6 +2,7 @@ package in.hridayan.ashell;
 
 import android.app.Application;
 import android.content.Context;
+import androidx.appcompat.app.AppCompatDelegate;
 import com.google.android.material.color.DynamicColors;
 import in.hridayan.ashell.config.Preferences;
 import java.lang.ref.WeakReference;
@@ -16,6 +17,8 @@ public class AshellYou extends Application {
     contextReference = new WeakReference<>(getApplicationContext());
 
     Preferences.init();
+
+    AppCompatDelegate.setDefaultNightMode(Preferences.getThemeMode());
 
     if (Preferences.getDynamicColors()) DynamicColors.applyToActivitiesIfAvailable(this);
   }

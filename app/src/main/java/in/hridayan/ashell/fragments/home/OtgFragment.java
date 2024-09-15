@@ -115,7 +115,6 @@ public class OtgFragment extends Fragment
   private OnFragmentInteractionListener mListener;
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
-  private AboutViewModel aboutViewModel;
   private static WeakReference<View> settingsButtonRef, sendButtonRef;
 
   public interface OnFragmentInteractionListener {
@@ -272,7 +271,7 @@ public class OtgFragment extends Fragment
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter =
         new SettingsAdapter(
-            settingsList, context, requireActivity(), aboutViewModel, examplesViewModel);
+            settingsList, context, requireActivity(), null,null, examplesViewModel);
 
     new FabExtendingOnScrollViewListener(binding.scrollView, binding.saveButton);
     new FabOtgScrollUpListener(binding.scrollView, binding.scrollUpButton);
@@ -1074,8 +1073,6 @@ public class OtgFragment extends Fragment
     settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
-
-    aboutViewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
   }
 
   public static View getSettingsButtonView() {

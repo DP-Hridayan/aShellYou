@@ -13,17 +13,20 @@ import in.hridayan.ashell.config.Preferences;
 
 public class ThemeUtils {
   private static boolean isAmoledTheme, isDynamicTheme;
+  private static int themeMode;
 
   public static void updateTheme(AppCompatActivity activity) {
 
     isAmoledTheme = Preferences.getAmoledTheme();
     isDynamicTheme = Preferences.getDynamicColors();
+    themeMode = Preferences.getThemeMode();
+
+    AppCompatDelegate.setDefaultNightMode(themeMode);
 
     int currentMode =
         activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
     if (isAmoledTheme && isNightMode(activity)) {
-
       if (DeviceUtils.androidVersion() >= Build.VERSION_CODES.S)
         activity.setTheme(
             isDynamicTheme

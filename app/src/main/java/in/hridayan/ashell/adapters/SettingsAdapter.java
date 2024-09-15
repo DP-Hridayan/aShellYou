@@ -31,6 +31,7 @@ import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
+import in.hridayan.ashell.viewmodels.SettingsItemViewModel;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +44,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   private final Activity activity;
   private final AboutViewModel aboutViewModel;
   private final ExamplesViewModel examplesViewModel;
+  private final SettingsItemViewModel viewModel;
   public MaterialTextView textViewSaveDir;
   private Map<String, WeakReference<View>> viewMap;
   private WeakReference itemRef;
@@ -51,11 +53,13 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       List<SettingsItem> settingsList,
       Context context,
       Activity activity,
+      SettingsItemViewModel itemViewModel,
       AboutViewModel aboutVM,
       ExamplesViewModel examplesVM) {
     this.settingsList = settingsList;
     this.context = context;
     this.activity = activity;
+    this.viewModel = itemViewModel;
     this.aboutViewModel = aboutVM;
     this.examplesViewModel = examplesVM;
     this.viewMap = new HashMap<>();
@@ -146,7 +150,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     private void handleItemClick(String id) {
       switch (id) {
-        case Const.PREF_AMOLED_THEME:
+        case Const.ID_LOOK_AND_FEEL:
+          viewModel.setScrollPosition(null);
+          examplesViewModel.setToolbarExpanded(true);
           loadFragmentWithTransition(new LookAndFeel(), itemView);
           break;
 

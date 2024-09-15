@@ -106,6 +106,7 @@ public class LookAndFeel extends Fragment {
     binding.switchHighContrastDarkTheme.setChecked(Preferences.getAmoledTheme());
     binding.switchHighContrastDarkTheme.setOnCheckedChangeListener(
         (view, isChecked) -> {
+          HapticUtils.weakVibrate(view);
           saveSwitchState(Const.PREF_AMOLED_THEME, isChecked);
           if (ThemeUtils.isNightMode(context)) {
             Preferences.setActivityRecreated(true);
@@ -119,6 +120,7 @@ public class LookAndFeel extends Fragment {
     binding.switchDynamicColors.setChecked(Preferences.getDynamicColors());
     binding.switchDynamicColors.setOnCheckedChangeListener(
         (view, isChecked) -> {
+          HapticUtils.weakVibrate(view);
           saveSwitchState(Const.PREF_DYNAMIC_COLORS, isChecked);
           Preferences.setActivityRecreated(true);
           requireActivity().recreate();

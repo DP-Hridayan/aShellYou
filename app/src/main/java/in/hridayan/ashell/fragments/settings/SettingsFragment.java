@@ -28,6 +28,7 @@ import in.hridayan.ashell.utils.MiuiCheck;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
+import in.hridayan.ashell.viewmodels.SettingsItemViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class SettingsFragment extends Fragment {
   private SettingsViewModel viewModel;
   private AboutViewModel aboutViewModel;
   private ExamplesViewModel examplesViewModel;
+  private SettingsItemViewModel itemViewModel;
   private Context context;
   private BottomNavigationView mNav;
   private Pair<Integer, Integer> mRVPositionAndOffset;
@@ -122,6 +124,8 @@ public class SettingsFragment extends Fragment {
 
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
 
+    itemViewModel = new ViewModelProvider(requireActivity()).get(SettingsItemViewModel.class);
+
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
 
     binding.arrowBack.setOnClickListener(
@@ -134,7 +138,7 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            Const.PREF_AMOLED_THEME,
+            Const.ID_LOOK_AND_FEEL,
             R.drawable.ic_pallete,
             getString(R.string.look_and_feel),
             getString(R.string.des_look_and_feel),
@@ -293,7 +297,12 @@ public class SettingsFragment extends Fragment {
 
     adapter =
         new SettingsAdapter(
-            settingsData, context, requireActivity(), aboutViewModel, examplesViewModel);
+            settingsData,
+            context,
+            requireActivity(),
+            itemViewModel,
+            aboutViewModel,
+            examplesViewModel);
     binding.rvSettings.setAdapter(adapter);
     binding.rvSettings.setLayoutManager(new LinearLayoutManager(context));
 
