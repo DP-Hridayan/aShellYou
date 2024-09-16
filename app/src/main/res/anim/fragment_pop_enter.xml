@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shareInterpolator="false">
     <alpha
-        android:duration="350"
+        android:duration="50"
         android:fillAfter="true"
         android:fillBefore="true"
         android:fillEnabled="true"
@@ -12,11 +12,11 @@
         android:startOffset="66"
         android:toAlpha="1.0" />
     <translate
-        android:duration="350"
+        android:duration="450"
         android:fillAfter="true"
         android:fillBefore="true"
         android:fillEnabled="true"
         android:interpolator="@anim/fast_out_extra_slow_in"
-        android:fromXDelta="-50%"
+        android:fromXDelta="-15%"
         android:toXDelta="0%" />
 </set>
