@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android"
+<set
+        xmlns:android="http://schemas.android.com/apk/res/android"
     android:shareInterpolator="false">
     <alpha
         android:duration="50"
@@ -10,16 +11,12 @@
         android:interpolator="@android:anim/linear_interpolator"
         android:startOffset="35"
         android:toAlpha="0.0" />
-    <scale
-        android:duration="350"
+    <translate
+        android:duration="200"
         android:fillAfter="true"
         android:fillBefore="true"
         android:fillEnabled="true"
-        android:fromXScale="1"
-        android:fromYScale="1"
         android:interpolator="@anim/fast_out_extra_slow_in"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:toXScale="1.15"
-        android:toYScale="1.15" />
+        android:fromXDelta="0%"
+        android:toXDelta="-100%" />
 </set>

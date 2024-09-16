@@ -83,7 +83,7 @@ public class ChangelogFragment extends Fragment {
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    
+
     binding = FragmentChangelogBinding.inflate(inflater, container, false);
     context = requireContext();
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);

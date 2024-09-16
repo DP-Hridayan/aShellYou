@@ -80,6 +80,17 @@ public class LookAndFeel extends Fragment {
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
     mNav.setVisibility(View.GONE);
     view = binding.getRoot();
+
+    onBackPressedDispatcher();
+    setupThemeOptions();
+    setupAmoledSwitch();
+    setupDynamicColorsSwitch();
+    setupDefaultLanguageOnClick();
+
+    return view;
+  }
+
+  private void onBackPressedDispatcher() {
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
 
     binding.arrowBack.setOnClickListener(
@@ -87,13 +98,6 @@ public class LookAndFeel extends Fragment {
           HapticUtils.weakVibrate(v);
           dispatcher.onBackPressed();
         });
-
-    setupThemeOptions();
-    setupAmoledSwitch();
-    setupDynamicColorsSwitch();
-    setupDefaultLanguageOnClick();
-
-    return view;
   }
 
   // Setting up the theme options

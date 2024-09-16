@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android"
+<set
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:shareInterpolator="false">
     <alpha
-        android:duration="50"
+        android:duration="350"
         android:fillAfter="true"
         android:fillBefore="true"
         android:fillEnabled="true"
@@ -10,16 +11,12 @@
         android:interpolator="@android:anim/linear_interpolator"
         android:startOffset="66"
         android:toAlpha="1.0" />
-    <scale
+    <translate
         android:duration="350"
         android:fillAfter="true"
         android:fillBefore="true"
         android:fillEnabled="true"
-        android:fromXScale="1.15"
-        android:fromYScale="1.15"
         android:interpolator="@anim/fast_out_extra_slow_in"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:toXScale="1"
-        android:toYScale="1" />
+        android:fromXDelta="-50%"
+        android:toXDelta="0%" />
 </set>

@@ -153,7 +153,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         case Const.ID_LOOK_AND_FEEL:
           viewModel.setScrollPosition(null);
           viewModel.setToolbarExpanded(true);
-          loadFragmentWithTransition(new LookAndFeel(), itemView);
+          loadFragmentWithTransition(new LookAndFeel());
           break;
 
         case Const.ID_UNHIDE_CARDS:
@@ -167,13 +167,13 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           examplesViewModel.setRVPositionAndOffset(null);
           examplesViewModel.setToolbarExpanded(true);
           examplesViewModel.setEnteringFromSettings(true);
-          loadFragmentWithTransition(new ExamplesFragment(), itemView);
+          loadFragmentWithTransition(new ExamplesFragment());
           break;
 
         case Const.ID_ABOUT:
           aboutViewModel.setRVPositionAndOffset(null);
           aboutViewModel.setToolbarExpanded(true);
-          loadFragmentWithTransition(new AboutFragment(), itemView);
+          loadFragmentWithTransition(new AboutFragment());
           break;
 
         case Const.ID_CONFIG_SAVE_DIR:
@@ -198,10 +198,15 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       }
     }
 
-    private void loadFragmentWithTransition(Fragment fragment, View itemView) {
+    private void loadFragmentWithTransition(Fragment fragment) {
       ((MainActivity) activity)
           .getSupportFragmentManager()
           .beginTransaction()
+          .setCustomAnimations(
+              R.anim.fragment_enter,
+              R.anim.fragment_exit,
+              R.anim.fragment_pop_enter,
+              R.anim.fragment_pop_exit)
           .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
           .addToBackStack(fragment.getClass().getSimpleName())
           .commit();
