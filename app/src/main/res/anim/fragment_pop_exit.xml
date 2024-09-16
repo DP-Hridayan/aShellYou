@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shareInterpolator="false"
     android:zAdjustment="top">
+    
     <alpha
         android:duration="50"
         android:fillAfter="true"
@@ -10,14 +11,13 @@
         android:fillEnabled="true"
         android:fromAlpha="1"
         android:interpolator="@android:anim/linear_interpolator"
-        android:startOffset="66"
         android:toAlpha="0.0" />
     <translate
-        android:duration="350"
+        android:duration="300"
         android:fillAfter="true"
         android:fillBefore="true"
         android:fillEnabled="true"
         android:interpolator="@anim/fast_out_extra_slow_in"
         android:fromXDelta="0%"
-        android:toXDelta="100%" />
+        android:toXDelta="10%" />
 </set>
