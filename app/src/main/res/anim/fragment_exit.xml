@@ -13,7 +13,7 @@
         android:toAlpha="0.0" />
     
     <translate
-        android:duration="300"
+        android:duration="@android:integer/config_mediumAnimTime"
         android:fillAfter="true"
         android:fillBefore="true"
         android:fillEnabled="true"
