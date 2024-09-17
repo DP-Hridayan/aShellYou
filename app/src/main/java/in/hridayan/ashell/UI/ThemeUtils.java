@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.config.Preferences;
+import in.hridayan.ashell.utils.DeviceUtils;
 
 public class ThemeUtils {
   private static boolean isAmoledTheme, isDynamicTheme;
@@ -23,22 +23,26 @@ public class ThemeUtils {
 
     AppCompatDelegate.setDefaultNightMode(themeMode);
 
-    int currentMode =
-        activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-    if (isAmoledTheme && isNightMode(activity)) {
-      if (DeviceUtils.androidVersion() >= Build.VERSION_CODES.S)
-        activity.setTheme(
-            isDynamicTheme
-                ? R.style.aShellYou_AmoledTheme_DynamicColors
-                : R.style.aShellYou_AmoledTheme);
-      else activity.setTheme(R.style.ThemeOverlay_aShellYou_AmoledThemeBelowV31);
-    } else if (isDynamicTheme) activity.setTheme(R.style.aShellYou_DynamicColors);
-    else activity.setTheme(R.style.aShellYou_AppTheme);
+    if (isAmoledTheme && isNightMode(activity)) setHighContrastDarkTheme(activity);
+    else setNormalTheme(activity);
   }
 
   public static void applyTheme(int mode) {
     AppCompatDelegate.setDefaultNightMode(mode);
+  }
+
+  private static void setHighContrastDarkTheme(AppCompatActivity activity) {
+    if (DeviceUtils.androidVersion() >= Build.VERSION_CODES.S)
+      activity.setTheme(
+          isDynamicTheme
+              ? R.style.aShellYou_AmoledTheme_DynamicColors
+              : R.style.aShellYou_AmoledTheme);
+    else activity.setTheme(R.style.ThemeOverlay_aShellYou_AmoledThemeBelowV31);
+  }
+
+  private static void setNormalTheme(AppCompatActivity activity) {
+    if (isDynamicTheme) activity.setTheme(R.style.aShellYou_DynamicColors);
+    else activity.setTheme(R.style.aShellYou_AppTheme);
   }
 
   // Returns if device is in dark mode
