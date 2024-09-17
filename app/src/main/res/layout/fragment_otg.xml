@@ -46,10 +46,11 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="OTG"
+                    android:minWidth="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    style="@style/Widget.Material3.Button.Icon"
+                    style="@style/Widget.Material3.Button"
                     android:id="@+id/modeButton" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

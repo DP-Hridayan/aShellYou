@@ -27,10 +27,6 @@ public class ThemeUtils {
     else setNormalTheme(activity);
   }
 
-  public static void applyTheme(int mode) {
-    AppCompatDelegate.setDefaultNightMode(mode);
-  }
-
   private static void setHighContrastDarkTheme(AppCompatActivity activity) {
     if (DeviceUtils.androidVersion() >= Build.VERSION_CODES.S)
       activity.setTheme(
