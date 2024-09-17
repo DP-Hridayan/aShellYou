@@ -10,6 +10,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
@@ -28,6 +29,7 @@ public class StartFragment extends Fragment {
   private ViewPager2 viewPager;
   private MaterialButton btnNext, btnPrev;
   private OnBackPressedCallback onBackPressedCallback;
+  private BottomNavigationView mNav;
 
   public StartFragment() {}
 
@@ -40,9 +42,12 @@ public class StartFragment extends Fragment {
   }
 
   private void initViews(View view) {
+    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
     viewPager = view.findViewById(R.id.viewPager);
     btnNext = view.findViewById(R.id.btn_next);
     btnPrev = view.findViewById(R.id.btn_prev);
+
+    mNav.setVisibility(View.GONE);
 
     adapter = new OnboardingAdapter(getChildFragmentManager(), requireActivity().getLifecycle());
 

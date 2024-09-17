@@ -115,7 +115,6 @@ public class OtgFragment extends Fragment
   private OnFragmentInteractionListener mListener;
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
-  private static WeakReference<View> settingsButtonRef, sendButtonRef;
 
   public interface OnFragmentInteractionListener {
     void onRequestReset();
@@ -258,9 +257,7 @@ public class OtgFragment extends Fragment
 
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-    settingsButtonRef = new WeakReference<>(binding.settingsButton);
-    sendButtonRef = new WeakReference<>(binding.sendButton);
-
+    
     // initialize viewmodel
     initializeViewModels();
 
@@ -271,7 +268,7 @@ public class OtgFragment extends Fragment
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter =
         new SettingsAdapter(
-            settingsList, context, requireActivity(), null,null, examplesViewModel);
+            settingsList, context, requireActivity(), null, null, examplesViewModel);
 
     new FabExtendingOnScrollViewListener(binding.scrollView, binding.saveButton);
     new FabOtgScrollUpListener(binding.scrollView, binding.scrollUpButton);
@@ -1073,13 +1070,5 @@ public class OtgFragment extends Fragment
     settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
-  }
-
-  public static View getSettingsButtonView() {
-    return settingsButtonRef != null ? settingsButtonRef.get() : null;
-  }
-
-  public static View getSendButtonView() {
-    return sendButtonRef != null ? sendButtonRef.get() : null;
   }
 }

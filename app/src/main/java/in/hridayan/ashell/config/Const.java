@@ -83,6 +83,8 @@ public interface Const {
   // used in OTG utils
   String TAG = "flashbot";
 
+  String CURRENT_FRAGMENT = "current_fragment";
+    
   // integers
   int SORT_A_TO_Z = 0;
   int SORT_Z_TO_A = 1;
@@ -92,11 +94,6 @@ public interface Const {
   int SORT_LEAST_USED = 3;
   int LOCAL_FRAGMENT = 0;
   int OTG_FRAGMENT = 1;
-  int SETTINGS_FRAGMENT = 2;
-  int ABOUT_FRAGMENT = 3;
-  int EXAMPLES_FRAGMENT = 4;
-  int CHANGELOG_FRAGMENT = 5;
-  int SET_LOOK_AND_FEEL = 100;
   int MODE_LOCAL_ADB = 0;
   int MODE_OTG = 1;
   int MODE_REMEMBER_LAST_MODE = 2;

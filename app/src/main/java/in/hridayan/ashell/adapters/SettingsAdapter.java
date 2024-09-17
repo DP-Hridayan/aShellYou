@@ -153,7 +153,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         case Const.ID_LOOK_AND_FEEL:
           viewModel.setScrollPosition(null);
           viewModel.setToolbarExpanded(true);
-          loadFragmentWithTransition(new LookAndFeel());
+          navigate(new LookAndFeel());
           break;
 
         case Const.ID_UNHIDE_CARDS:
@@ -167,13 +167,13 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           examplesViewModel.setRVPositionAndOffset(null);
           examplesViewModel.setToolbarExpanded(true);
           examplesViewModel.setEnteringFromSettings(true);
-          loadFragmentWithTransition(new ExamplesFragment());
+          navigate(new ExamplesFragment());
           break;
 
         case Const.ID_ABOUT:
           aboutViewModel.setRVPositionAndOffset(null);
           aboutViewModel.setToolbarExpanded(true);
-          loadFragmentWithTransition(new AboutFragment());
+          navigate(new AboutFragment());
           break;
 
         case Const.ID_CONFIG_SAVE_DIR:
@@ -198,7 +198,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       }
     }
 
-    private void loadFragmentWithTransition(Fragment fragment) {
+    private void navigate(Fragment fragment) {
       ((MainActivity) activity)
           .getSupportFragmentManager()
           .beginTransaction()

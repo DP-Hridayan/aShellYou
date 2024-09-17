@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +27,6 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -69,7 +67,6 @@ import in.hridayan.ashell.viewmodels.AshellFragmentViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -110,7 +107,6 @@ public class AshellFragment extends Fragment {
   private String shell;
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
-  private static WeakReference<View> settingsButtonRef, sendButtonRef;
 
   public AshellFragment() {}
 
@@ -281,9 +277,6 @@ public class AshellFragment extends Fragment {
     view = binding.getRoot();
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-
-    settingsButtonRef = new WeakReference<>(binding.settingsButton);
-    sendButtonRef = new WeakReference<>(binding.sendButton);
 
     initializeViewModels();
 
@@ -1534,15 +1527,6 @@ public class AshellFragment extends Fragment {
       updateInputField(mainViewModel.getUseCommand());
       mainViewModel.setUseCommand(null);
     }
-  }
-
-  // we refer the settings button view to use in activity
-  public static View getSettingsButtonView() {
-    return settingsButtonRef != null ? settingsButtonRef.get() : null;
-  }
-
-  public static View getSendButtonView() {
-    return sendButtonRef != null ? sendButtonRef.get() : null;
   }
 
   // control visibility of paste and save button
