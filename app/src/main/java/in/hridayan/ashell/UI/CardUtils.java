@@ -1,6 +1,8 @@
 package in.hridayan.ashell.UI;
 
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import com.google.android.material.card.MaterialCardView;
 
 public class CardUtils {
@@ -13,7 +15,8 @@ public class CardUtils {
       // Animate translation to the left of the screen
       card.animate()
           .translationX(-width)
-          .setDuration(200) // Duration of the animation
+          .setDuration(200)
+          .setInterpolator(new AccelerateInterpolator()) // Duration of the animation
           .withEndAction(() -> card.setVisibility(View.GONE))
           .start();
     }
@@ -27,7 +30,8 @@ public class CardUtils {
       // Animate translation to its original position
       card.animate()
           .translationX(0)
-          .setDuration(200) // Duration of the animation
+          .setDuration(200)
+          .setInterpolator(new DecelerateInterpolator()) // Duration of the animation
           .start();
     }
   }

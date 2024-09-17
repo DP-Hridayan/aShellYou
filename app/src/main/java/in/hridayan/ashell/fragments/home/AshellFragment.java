@@ -791,11 +791,13 @@ public class AshellFragment extends Fragment {
     binding.clearButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          if (mResult == null || mResult.isEmpty())
+
+          if (mResult == null || mResult.isEmpty()) {
             ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
-          else if (isShellBusy())
+          } else if (isShellBusy()) {
             ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
-          else {
+            return;
+          } else {
             boolean switchState = Preferences.getClear();
             if (switchState)
               new MaterialAlertDialogBuilder(requireActivity())
@@ -819,11 +821,7 @@ public class AshellFragment extends Fragment {
 
   // This function is called when we want to clear the screen
   private void clearAll() {
-    if (mBasicShell != null && BasicShell.isBusy()) abortBasicShell();
-
-    if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
-
-    if (mRootShell != null && RootShell.isBusy()) abortRootShell();
+    handleClearExceptions();
 
     viewModel.setShellOutput(null);
     mResult = null;
@@ -845,6 +843,17 @@ public class AshellFragment extends Fragment {
     showBottomNav();
     binding.commandEditText.clearFocus();
     if (!binding.commandEditText.isFocused()) binding.commandEditText.requestFocus();
+  }
+
+  private void handleClearExceptions() {
+    if (mResult == null || mResult.isEmpty()) {
+      ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
+      return;
+
+    } else if (isShellBusy()) {
+      ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
+      return;
+    }
   }
 
   // OnClick listener for the search button
@@ -1206,7 +1215,7 @@ public class AshellFragment extends Fragment {
     String finalCommand = command.replaceAll("^adb(?:\\s+-d)?\\s+shell\\s+", "");
 
     // Command to clear the shell output
-    if (finalCommand.equals("clear") && mResult != null) {
+    if (finalCommand.equals("clear")) {
       clearAll();
       return;
     }
