@@ -392,61 +392,6 @@
     </issue>
 
     <issue
-        id="ExtraTranslation"
-        message="&quot;support&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;support&quot;>समर्थन&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-hi/strings.xml"
-            line="95"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ExtraTranslation"
-        message="&quot;support&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;support&quot;>Suporte&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt/strings.xml"
-            line="115"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ExtraTranslation"
-        message="&quot;support&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;support&quot;>支持我&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-zh-rCN/strings.xml"
-            line="115"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ExtraTranslation"
-        message="&quot;support&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;support&quot;>Destek&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-tr/strings.xml"
-            line="119"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ExtraTranslation"
-        message="&quot;support&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;support&quot;>支援&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-ja/strings.xml"
-            line="149"
-            column="13"/>
-    </issue>
-
-    <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;commands&quot;): This should probably be a plural rather than a string"
         errorLine1="    &lt;string name=&quot;batch_bookmark_added_message&quot;>%d commands are bookmarked&lt;/string>"
@@ -1358,17 +1303,6 @@
         <location
             file="src/main/res/values/strings.xml"
             line="92"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.support` appears to be unused"
-        errorLine1="    &lt;string name=&quot;support&quot;>समर्थन&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-hi/strings.xml"
-            line="95"
             column="13"/>
     </issue>
 

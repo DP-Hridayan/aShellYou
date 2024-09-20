@@ -60,7 +60,14 @@ android {
         buildConfig = true
         viewBinding true
     }
+    
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
 }
+
+
 
 dependencies {
     def lifecycle_version = "2.7.0"
