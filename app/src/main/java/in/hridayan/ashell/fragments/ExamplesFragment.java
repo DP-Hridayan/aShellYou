@@ -182,12 +182,7 @@ public class ExamplesFragment extends Fragment
     binding.rvSearch.setLayoutManager(new LinearLayoutManager(context));
 
     binding.rvSearchView.setLayoutManager(new LinearLayoutManager(context));
-    GridLayoutManager mLayoutManager =
-        new GridLayoutManager(
-            context,
-            getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-                ? Const.GRID_STYLE
-                : Preferences.getExamplesLayoutStyle());
+    GridLayoutManager mLayoutManager = new GridLayoutManager(context, getSpanCount());
     binding.rvSearchView.setLayoutManager(mLayoutManager);
 
     mExamplesAdapter = new ExamplesAdapter(Commands.commandList(context), context, this);
@@ -216,6 +211,16 @@ public class ExamplesFragment extends Fragment
         });
 
     return view;
+  }
+
+  private int getSpanCount() {
+    int spanCount =
+        getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
+            ? Const.GRID_STYLE
+            : Preferences.getExamplesLayoutStyle();
+
+    if (spanCount >= 1) return spanCount;
+    else return 1;
   }
 
   private void filterList(CharSequence text) {

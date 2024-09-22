@@ -178,7 +178,7 @@ public class LookAndFeel extends Fragment {
     clearRadioButtons(); // Uncheck all radio buttons
     button.setChecked(true);
     Preferences.setThemeMode(mode);
-    ThemeUtils.applyTheme(mode);
+    AppCompatDelegate.setDefaultNightMode(mode);
   }
 
   // Uncheck all radio buttons
