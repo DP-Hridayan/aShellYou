@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="am_force_stop">Parar um determinado pacote</string>
     <string name="am_kill">Matar todos os processos em segundo plano associados a um determinado pacote</string>
@@ -10,9 +10,15 @@
     <string name="cd_hyphen">Ir para o diretório anterior</string>
     <string name="cd_..">Ir para o diretório pai</string>
     <string name="clear">Limpar tela de terminal</string>
+    <string name="cmd_uimode_night_no">Alterar o tema do dispositivo para o modo claro</string>
+    <string name="cmd_uimode_night_yes">Alterar o tema do dispositivo para o modo escuro</string>
     <string name="cp">Copiar um arquivo</string>
     <string name="cp_r">Copiar um arquivo ou diretório</string>
+    <string name="date">Mostra a data e hora atuais</string>
+    <string name="df_h_slashsystem">Mostra o espaço disponível e usado em disco na partição do sistema &#47;em um formato legível por humanos</string>
+    <string name="dmesg">Exibe mensagens do kernel e do sistema</string>
     <string name="du_h">Mostra o uso do disco em forma legível</string>
+    <string name="du_sh_slashsystemslashasterisk">Mostra o uso de disco de cada diretório dentro do &#47;sistema&#47;</string>
     <string name="dumpsys_activity">Imprimir informações da atividade</string>
     <string name="dumpsys_battery">Imprimir estatísticas da bateria</string>
     <string name="dumpsys_battery_set_level">Altere o nível de 0 para 100</string>
@@ -22,7 +28,9 @@
     <string name="echo">Exibir mensagem na tela</string>
     <string name="exit">Sair do projétil</string>
     <string name="file">Determinar o tipo de arquivo</string>
+    <string name="getenforce">Exibe o modo SELinux atual (Forçado, Permissivo ou Desativado)</string>
     <string name="grep">Pesquisar arquivo(s) por linhas que correspondam a um determinado padrão</string>
+    <string name="iptables_L">Lista as regras atuais de tabelas IP</string>
     <string name="kill">Matar um processo especificando seu PID</string>
     <string name="logcat">Exibir o registro em tempo real de mensagens do sistema</string>
     <string name="logcat_g">Exibir os tamanhos de buffer de log atuais</string>
@@ -39,6 +47,8 @@
     <string name="pm_clear_cache_only">Limpar apenas o cache associado a um app</string>
     <string name="pm_clear_user">Excluir apenas os dados associados a um determinado usuário</string>
     <string name="pm_disable">Desativar um pacote ou componente (escrito como pacote ou classe)</string>
+    <string name="pm_disable_user">Desativar um aplicativo</string>
+    <string name="pm_disable_user_user">Desinstalar um app de um determinado usuário</string>
     <string name="pm_dump">Listar informações de um app</string>
     <string name="pm_dump_package_packages">Listar informações de todos os apps</string>
     <string name="pm_enable">Ativar um determinado pacote ou componente (escrito como pacote ou classe)</string>
@@ -117,6 +127,7 @@
     <string name="sync">Sincronizar dados no disco com a memória</string>
     <string name="top">Listar processos em execução no sistema</string>
     <string name="top_n">Atualizar a tela x vezes, então sair</string>
+    <string name="uptime">Obter o tempo de sistema ligado</string>
     <string name="whoami">Imprimir o ID do usuário e o nome atuais</string>
     <string name="wm_density">Mostra a densidade atual da tela</string>
     <string name="wm_density_reset">Redefinir densidade de tela para o padrão</string>
