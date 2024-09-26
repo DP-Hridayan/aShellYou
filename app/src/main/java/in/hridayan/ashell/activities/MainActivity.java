@@ -1,5 +1,6 @@
 package in.hridayan.ashell.activities;
 
+import android.os.Binder;
 import static in.hridayan.ashell.config.Const.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.config.Const.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.config.Const.OTG_FRAGMENT;
@@ -203,6 +204,7 @@ public class MainActivity extends AppCompatActivity
     if (pendingSharedText != null) {
       switch (Preferences.getCurrentFragment()) {
         case LOCAL_FRAGMENT:
+          if (!(fragment instanceof AshellFragment)) replaceFragment(new AshellFragment());
           AshellFragment fragmentLocalAdb =
               (AshellFragment)
                   getSupportFragmentManager().findFragmentById(R.id.fragment_container);
@@ -255,6 +257,7 @@ public class MainActivity extends AppCompatActivity
 
     switch (currentFragment) {
       case LOCAL_FRAGMENT:
+        if (!(fragment instanceof AshellFragment)) replaceFragment(new AshellFragment());
         AshellFragment fragmentLocalAdb =
             (AshellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (fragmentLocalAdb != null) fragmentLocalAdb.handleSharedTextIntent(intent, text);
