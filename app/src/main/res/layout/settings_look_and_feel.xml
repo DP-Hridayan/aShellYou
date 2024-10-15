@@ -7,8 +7,7 @@
     android:layout_gravity="center"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:background="?attr/colorSurface"
-    android:transitionName="settingsToLookAndFeel">
+    android:background="?attr/colorSurface">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

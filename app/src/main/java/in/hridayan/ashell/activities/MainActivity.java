@@ -1,6 +1,5 @@
 package in.hridayan.ashell.activities;
 
-import android.os.Binder;
 import static in.hridayan.ashell.config.Const.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.config.Const.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.config.Const.OTG_FRAGMENT;
