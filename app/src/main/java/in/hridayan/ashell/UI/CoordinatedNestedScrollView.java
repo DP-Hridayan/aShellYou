@@ -31,20 +31,13 @@ public class CoordinatedNestedScrollView extends NestedScrollView {
   @Override
   public void onNestedScroll(
       View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
-    if (dyConsumed > 0) {
-      // Scroll down: Hide BottomNavigationView
-      BottomNavigationView bottomNavigationView =
-          ((Activity) getContext()).findViewById(R.id.bottom_nav_bar);
-      if (bottomNavigationView != null) {
-        bottomNavigationView.setVisibility(View.GONE);
-      }
-    } else if (dyConsumed < 0) {
-      // Scroll up: Show BottomNavigationView
-      BottomNavigationView bottomNavigationView =
-          ((Activity) getContext()).findViewById(R.id.bottom_nav_bar);
-      if (bottomNavigationView != null) {
-        bottomNavigationView.setVisibility(View.VISIBLE);
-      }
+
+    BottomNavigationView bottomNavigationView =
+        ((Activity) getContext()).findViewById(R.id.bottom_nav_bar);
+
+    if (bottomNavigationView != null) {
+      if (dyConsumed > 0) bottomNavigationView.setVisibility(View.GONE);
+      else if (dyConsumed < 0) bottomNavigationView.setVisibility(View.VISIBLE);
     }
   }
 }

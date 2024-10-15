@@ -6,5 +6,9 @@
         <attr name="descriptionText" format="reference" />
         <attr name="isSelected" format="boolean" />
     </declare-styleable>
+    
+   <declare-styleable name="YourCustomView">
+    <attr name="toolBarContentScrim" format="reference|color"/>
+</declare-styleable>
 
 </resources>

@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.databinding.FragmentChangelogBinding;
@@ -31,7 +30,7 @@ public class ChangelogFragment extends Fragment {
   private Pair<Integer, Integer> mRVPositionAndOffset;
   private BottomNavigationView mNav;
 
-  private final String[] versionNames = {
+  private final String[] versionNames = {"v5.2.0",
     "v5.1.0", "v5.0.0", "v4.4.0", "v4.3.1", "v4.3.0", "v4.2.1", "v4.2.0", "v4.1.0", "v4.0.3",
     "v4.0.2", "v4.0.1", "v4.0.0", "v3.9.1", "v3.9.0", "v3.8.2", "v3.8.1", "v3.8.0", "v3.7.0",
     "v3.6.0", "v3.5.1", "v3.5.0", "v3.4.0", "v3.3.0", "v3.2.0", "v3.1.0", "v3.0.0", "v2.0.2",
@@ -85,7 +84,6 @@ public class ChangelogFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
-    setSharedElementEnterTransition(new MaterialContainerTransform());
     binding = FragmentChangelogBinding.inflate(inflater, container, false);
     context = requireContext();
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);

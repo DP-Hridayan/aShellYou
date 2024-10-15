@@ -1,4 +1,4 @@
-package in.hridayan.ashell.fragments;
+package in.hridayan.ashell.fragments.setup;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

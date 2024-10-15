@@ -19,8 +19,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.transition.Hold;
-import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BottomSheets;
 import in.hridayan.ashell.UI.CategoryAbout;
@@ -31,7 +29,6 @@ import in.hridayan.ashell.databinding.FragmentAboutBinding;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import java.util.ArrayList;
@@ -56,9 +53,6 @@ public class AboutFragment extends Fragment
       @Nullable Bundle savedInstanceState) {
 
     binding = FragmentAboutBinding.inflate(inflater, container, false);
-    setSharedElementEnterTransition(new MaterialContainerTransform());
-    postponeEnterTransition();
-    setExitTransition(new Hold());
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
@@ -201,7 +195,7 @@ public class AboutFragment extends Fragment
             getString(R.string.license),
             getString(R.string.des_license),
             R.drawable.ic_license));
-
+        
     return items;
   }
 
@@ -290,5 +284,18 @@ public class AboutFragment extends Fragment
 
       new MaterialAlertDialogBuilder(context).setView(dialogView).show();
     }
+  }
+
+  public String generateLongMessage() {
+    StringBuilder message = new StringBuilder("Long Exception Message: ");
+    for (int i = 0; i < 1000; i++) { // Adjust the loop count for longer messages
+      message.append("This is an intentional crash ").append(i).append(". ");
+    }
+    return message.toString();
+  }
+
+  public void throwLongException() {
+    String longMessage = generateLongMessage();
+    throw new RuntimeException(longMessage);
   }
 }

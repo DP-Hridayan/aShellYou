@@ -3,11 +3,20 @@
 
     <style
         name="aShellYou.AppTheme"
+        parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowActivityTransitions">true</item>
+    </style>
+
+    <style
+        name="aShellYou.DynamicColors"
         parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowActivityTransitions">true</item>
     </style>
+
 
     <style
         name="ExpandedToolbarTitle"
@@ -75,14 +84,14 @@
     </style>
 
     <style
-            name="DialogTitleAppearance"
+        name="DialogTitleAppearance"
         parent="aShellYou.AppTheme">
         <item name="android:alpha">1</item>
         <item name="android:textAppearance">?attr/textAppearanceHeadlineSmall</item>
     </style>
 
     <style
-            name="DialogDescriptionAppearance"
+        name="DialogDescriptionAppearance"
         parent="aShellYou.AppTheme">
         <item name="android:alpha">1</item>
         <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>

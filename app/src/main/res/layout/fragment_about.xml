@@ -6,8 +6,7 @@
     android:layout_gravity="center"
     android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:transitionName="settingsItemToAbout">
+    android:orientation="vertical"   >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"

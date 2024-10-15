@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,18 +20,22 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.DialogUtils;
-import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
+import in.hridayan.ashell.fragments.settings.LookAndFeel;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
+import in.hridayan.ashell.viewmodels.SettingsItemViewModel;
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
@@ -41,19 +44,25 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   private final Activity activity;
   private final AboutViewModel aboutViewModel;
   private final ExamplesViewModel examplesViewModel;
+  private final SettingsItemViewModel viewModel;
   public MaterialTextView textViewSaveDir;
+  private Map<String, WeakReference<View>> viewMap;
+  private WeakReference itemRef;
 
   public SettingsAdapter(
       List<SettingsItem> settingsList,
       Context context,
       Activity activity,
+      SettingsItemViewModel itemViewModel,
       AboutViewModel aboutVM,
       ExamplesViewModel examplesVM) {
     this.settingsList = settingsList;
     this.context = context;
     this.activity = activity;
+    this.viewModel = itemViewModel;
     this.aboutViewModel = aboutVM;
     this.examplesViewModel = examplesVM;
+    this.viewMap = new HashMap<>();
   }
 
   @NonNull
@@ -67,6 +76,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
     SettingsItem settingsItem = settingsList.get(position);
+
+    viewMap.put(settingsItem.getId(), new WeakReference<>(holder.itemView));
+
     holder.bind(settingsItem, position == getItemCount() - 1);
   }
 
@@ -75,13 +87,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     return settingsList.size();
   }
 
-  private void applyTheme(boolean isAmoledTheme) {
-    int themeId =
-        isAmoledTheme ? R.style.ThemeOverlay_aShellYou_AmoledTheme : R.style.aShellYou_AppTheme;
-    context.setTheme(themeId);
-    /* we need to save the boolean value when activity recreates to perform certain functions based on it */
-    Preferences.setActivityRecreated(true);
-    ((AppCompatActivity) context).recreate();
+  public View getItemViewById(String id) {
+    return viewMap.get(id) != null ? viewMap.get(id).get() : null;
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {
@@ -101,14 +108,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     void bind(SettingsItem settingsItem, boolean isLastItem) {
 
-      if (settingsItem.getId().equals(Const.ID_ABOUT)) {
-        itemView.setTransitionName(Const.SETTINGS_TO_ABOUT);
-      }
-
-      if (settingsItem.getId().equals(Const.ID_EXAMPLES)) {
-        itemView.setTransitionName(Const.SEND_TO_EXAMPLES);
-      }
-
       symbolImageView.setImageDrawable(settingsItem.getSymbol(context));
       titleTextView.setText(settingsItem.getTitle());
       descriptionTextView.setText(settingsItem.getDescription());
@@ -127,12 +126,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       switchView.setVisibility(settingsItem.hasSwitch() ? View.VISIBLE : View.GONE);
       switchView.setChecked(settingsItem.isChecked());
       switchView.setOnCheckedChangeListener(
-          (buttonView, isChecked) -> {
+          (view, isChecked) -> {
             settingsItem.setChecked(isChecked);
             settingsItem.saveSwitchState();
-
-            if (settingsItem.getId().equals(Const.PREF_AMOLED_THEME)
-                && ThemeUtils.isNightMode(context)) applyTheme(isChecked);
           });
     }
 
@@ -154,8 +150,14 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     private void handleItemClick(String id) {
       switch (id) {
+        case Const.ID_LOOK_AND_FEEL:
+          viewModel.setScrollPosition(null);
+          viewModel.setToolbarExpanded(true);
+          navigate(new LookAndFeel());
+          break;
+
         case Const.ID_UNHIDE_CARDS:
-          Preferences.setSpecificCardVisibility("warning_usb_debugging", true);
+          Preferences.setSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING, true);
           Toast.makeText(
                   context, context.getString(R.string.unhide_cards_message), Toast.LENGTH_SHORT)
               .show();
@@ -164,21 +166,14 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         case Const.ID_EXAMPLES:
           examplesViewModel.setRVPositionAndOffset(null);
           examplesViewModel.setToolbarExpanded(true);
-          loadFragmentWithTransition(new ExamplesFragment(), itemView);
+          examplesViewModel.setEnteringFromSettings(true);
+          navigate(new ExamplesFragment());
           break;
 
         case Const.ID_ABOUT:
           aboutViewModel.setRVPositionAndOffset(null);
           aboutViewModel.setToolbarExpanded(true);
-          loadFragmentWithTransition(new AboutFragment(), itemView);
-          break;
-
-        case Const.ID_DEF_LANGUAGE:
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            Intent intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
-            intent.setData(Uri.parse("package:" + context.getPackageName()));
-            context.startActivity(intent);
-          }
+          navigate(new AboutFragment());
           break;
 
         case Const.ID_CONFIG_SAVE_DIR:
@@ -203,11 +198,15 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
       }
     }
 
-    private void loadFragmentWithTransition(Fragment fragment, View itemView) {
+    private void navigate(Fragment fragment) {
       ((MainActivity) activity)
           .getSupportFragmentManager()
           .beginTransaction()
-          .addSharedElement(itemView, itemView.getTransitionName())
+          .setCustomAnimations(
+              R.anim.fragment_enter,
+              R.anim.fragment_exit,
+              R.anim.fragment_pop_enter,
+              R.anim.fragment_pop_exit)
           .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
           .addToBackStack(fragment.getClass().getSimpleName())
           .commit();

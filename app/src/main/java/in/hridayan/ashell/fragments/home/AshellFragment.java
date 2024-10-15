@@ -1,4 +1,4 @@
-package in.hridayan.ashell.fragments;
+package in.hridayan.ashell.fragments.home;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +27,6 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -56,6 +54,8 @@ import in.hridayan.ashell.adapters.ShellOutputAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentAshellBinding;
+import in.hridayan.ashell.fragments.ExamplesFragment;
+import in.hridayan.ashell.fragments.settings.SettingsFragment;
 import in.hridayan.ashell.shell.BasicShell;
 import in.hridayan.ashell.shell.RootShell;
 import in.hridayan.ashell.shell.ShizukuShell;
@@ -67,7 +67,6 @@ import in.hridayan.ashell.viewmodels.AshellFragmentViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -108,7 +107,6 @@ public class AshellFragment extends Fragment {
   private String shell;
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
-  private static WeakReference<View> settingsButtonRef, sendButtonRef;
 
   public AshellFragment() {}
 
@@ -279,9 +277,6 @@ public class AshellFragment extends Fragment {
     view = binding.getRoot();
 
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-
-    settingsButtonRef = new WeakReference<>(binding.settingsButton);
-    sendButtonRef = new WeakReference<>(binding.sendButton);
 
     initializeViewModels();
 
@@ -796,11 +791,13 @@ public class AshellFragment extends Fragment {
     binding.clearButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          if (mResult == null || mResult.isEmpty())
+
+          if (mResult == null || mResult.isEmpty()) {
             ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
-          else if (isShellBusy())
+          } else if (isShellBusy()) {
             ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
-          else {
+            return;
+          } else {
             boolean switchState = Preferences.getClear();
             if (switchState)
               new MaterialAlertDialogBuilder(requireActivity())
@@ -824,11 +821,7 @@ public class AshellFragment extends Fragment {
 
   // This function is called when we want to clear the screen
   private void clearAll() {
-    if (mBasicShell != null && BasicShell.isBusy()) abortBasicShell();
-
-    if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
-
-    if (mRootShell != null && RootShell.isBusy()) abortRootShell();
+    handleClearExceptions();
 
     viewModel.setShellOutput(null);
     mResult = null;
@@ -850,6 +843,17 @@ public class AshellFragment extends Fragment {
     showBottomNav();
     binding.commandEditText.clearFocus();
     if (!binding.commandEditText.isFocused()) binding.commandEditText.requestFocus();
+  }
+
+  private void handleClearExceptions() {
+    if (mResult == null || mResult.isEmpty()) {
+      ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT);
+      return;
+
+    } else if (isShellBusy()) {
+      ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT);
+      return;
+    }
   }
 
   // OnClick listener for the search button
@@ -1211,7 +1215,7 @@ public class AshellFragment extends Fragment {
     String finalCommand = command.replaceAll("^adb(?:\\s+-d)?\\s+shell\\s+", "");
 
     // Command to clear the shell output
-    if (finalCommand.equals("clear") && mResult != null) {
+    if (finalCommand.equals("clear")) {
       clearAll();
       return;
     }
@@ -1532,15 +1536,6 @@ public class AshellFragment extends Fragment {
       updateInputField(mainViewModel.getUseCommand());
       mainViewModel.setUseCommand(null);
     }
-  }
-
-  // we refer the settings button view to use in activity
-  public static View getSettingsButtonView() {
-    return settingsButtonRef != null ? settingsButtonRef.get() : null;
-  }
-
-  public static View getSendButtonView() {
-    return sendButtonRef != null ? sendButtonRef.get() : null;
   }
 
   // control visibility of paste and save button

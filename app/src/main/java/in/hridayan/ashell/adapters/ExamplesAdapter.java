@@ -1,7 +1,5 @@
 package in.hridayan.ashell.adapters;
 
-import in.hridayan.ashell.UI.ThemeUtils;
-import in.hridayan.ashell.utils.DeviceUtils;
 import static in.hridayan.ashell.config.Const.*;
 
 import android.animation.ObjectAnimator;
@@ -19,9 +17,11 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.items.CommandItems;
-import in.hridayan.ashell.utils.HapticUtils;
+import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.config.Preferences;
+import in.hridayan.ashell.items.CommandItems;
+import in.hridayan.ashell.utils.DeviceUtils;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.util.*;
 
@@ -84,7 +84,12 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
       this.mSummary = view.findViewById(R.id.summary);
       this.pin = view.findViewById(R.id.pin);
 
-      view.setOnClickListener(v -> handleClick());
+      view.setOnClickListener(
+          v -> {
+            HapticUtils.weakVibrate(v);
+            handleClick();
+          });
+
       view.setOnLongClickListener(
           v -> {
             startItemSelecting();

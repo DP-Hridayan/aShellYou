@@ -1,4 +1,4 @@
-package in.hridayan.ashell.fragments;
+package in.hridayan.ashell.fragments.setup;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,12 +10,17 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.OnboardingAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
+import in.hridayan.ashell.fragments.home.AshellFragment;
+import in.hridayan.ashell.fragments.setup.OnboardingItem1Fragment;
+import in.hridayan.ashell.fragments.setup.OnboardingItem2Fragment;
+import in.hridayan.ashell.fragments.setup.OnboardingItem3Fragment;
 import in.hridayan.ashell.utils.HapticUtils;
 
 public class StartFragment extends Fragment {
@@ -24,6 +29,7 @@ public class StartFragment extends Fragment {
   private ViewPager2 viewPager;
   private MaterialButton btnNext, btnPrev;
   private OnBackPressedCallback onBackPressedCallback;
+  private BottomNavigationView mNav;
 
   public StartFragment() {}
 
@@ -36,9 +42,12 @@ public class StartFragment extends Fragment {
   }
 
   private void initViews(View view) {
+    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
     viewPager = view.findViewById(R.id.viewPager);
     btnNext = view.findViewById(R.id.btn_next);
     btnPrev = view.findViewById(R.id.btn_prev);
+
+    mNav.setVisibility(View.GONE);
 
     adapter = new OnboardingAdapter(getChildFragmentManager(), requireActivity().getLifecycle());
 
