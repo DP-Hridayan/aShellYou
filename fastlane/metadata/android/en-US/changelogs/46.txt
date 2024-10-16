@@ -1,9 +1,0 @@
-
-
-• Added vibration for haptic feedback
-
-• Added option to change app language from within the app (for devices running Android 13 and above only and excluding unsupported devices)
-
-• Fixed some crashes and improved crash reporting
-
-• Minor UI improvements

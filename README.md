@@ -53,10 +53,10 @@
 
 <div align="center">
 <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="assets/github.png" width="50%" alt="Get it on GitHub" /></a>
-
 <div align="center">
-  <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="assets/IzzyOnDroidButton.svg" width="49%" alt="Get it on F-Droid" /></a>
+  <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="assets/izzy.png" width="49%" alt="Get it on F-Droid" /></a>
 </div>
+<br/>
 
 <div align="center">
   <a href="https://github.com/DP-Hridayan/aShellYou"><img alt="Repo Size" src="https://img.shields.io/github/repo-size/DP-Hridayan/aShellYou?style=for-the-badge"></a>
@@ -69,14 +69,14 @@
 
 <div align="center">
   <a href="https://t.me/aShellYou">
-    <img src="assets/telegram.png" alt="Telegram Channel" width="55%" height="auto">
+    <img src="assets/telegram.png" alt="Telegram Channel" width="45%%%" height="auto">
   </a>
 </div>
-</br>
+
 
 
 ## Fuel my code with a coffee ☕️
-  <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="60%" alt="Buy Me a Coffee" /></a>
+  <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="49%" alt="Buy Me a Coffee" /></a>
 
 </br>
 
