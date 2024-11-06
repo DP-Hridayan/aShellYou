@@ -16,7 +16,7 @@ import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
 import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.utils.DeviceUtils;
-import in.hridayan.ashell.config.Preferences;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,18 +51,28 @@ public class CrashReportActivity extends AppCompatActivity {
     // Show the crash info
     crashInfo = findViewById(R.id.crash_info);
     crashInfo.setText(stackTrace + "\n\n" + message);
-    reportButton.setOnClickListener(v -> sendCrashReport(stackTrace, message));
+
+    reportButton.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          sendCrashReport(stackTrace, message);
+        });
+
     copyText.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
           Utils.copyToClipboard(reportContent(stackTrace, message), this);
         });
+
     copyButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
           Utils.copyToClipboard(reportContent(stackTrace, message), this);
         });
 
     shareButton.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
           Utils.shareOutput(this, this, "crash_report.txt", reportContent(stackTrace, message));
         });
   }

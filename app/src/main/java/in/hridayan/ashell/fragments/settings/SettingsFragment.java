@@ -1,4 +1,4 @@
-package in.hridayan.ashell.fragments;
+package in.hridayan.ashell.fragments.settings;
 
 import android.content.Context;
 import android.net.Uri;
@@ -15,20 +15,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.transition.Hold;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.SettingsAdapter;
 import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentSettingsBinding;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.DocumentTreeUtil;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.MiuiCheck;
-import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
+import in.hridayan.ashell.viewmodels.SettingsItemViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +36,12 @@ import java.util.List;
 public class SettingsFragment extends Fragment {
 
   private List<SettingsItem> settingsData;
-  private SettingsAdapter adapter;
+  private static SettingsAdapter adapter;
   private int currentTheme;
   private SettingsViewModel viewModel;
   private AboutViewModel aboutViewModel;
   private ExamplesViewModel examplesViewModel;
+  private SettingsItemViewModel itemViewModel;
   private Context context;
   private BottomNavigationView mNav;
   private Pair<Integer, Integer> mRVPositionAndOffset;
@@ -108,9 +109,6 @@ public class SettingsFragment extends Fragment {
 
     setSharedElementEnterTransition(new MaterialContainerTransform());
 
-    postponeEnterTransition();
-    setExitTransition(new Hold());
-
     binding = FragmentSettingsBinding.inflate(inflater, container, false);
     view = binding.getRoot();
 
@@ -126,7 +124,10 @@ public class SettingsFragment extends Fragment {
 
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
 
+    itemViewModel = new ViewModelProvider(requireActivity()).get(SettingsItemViewModel.class);
+
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
+
     binding.arrowBack.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
@@ -137,12 +138,12 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            Const.PREF_AMOLED_THEME,
-            R.drawable.ic_amoled_theme,
-            getString(R.string.amoled_theme),
-            getString(R.string.des_amoled_theme),
-            true,
-            Preferences.getAmoledTheme()));
+            Const.ID_LOOK_AND_FEEL,
+            R.drawable.ic_pallete,
+            getString(R.string.look_and_feel),
+            getString(R.string.des_look_and_feel),
+            false,
+            false));
 
     settingsData.add(
         new SettingsItem(
@@ -188,21 +189,6 @@ public class SettingsFragment extends Fragment {
             getString(R.string.des_local_adb_mode),
             false,
             false));
-
-    // App locale setting is only available on Android 13+
-    // Also, it's not functional on MIUI devices even on Android 13,
-    // Thanks to Xiaomi's broken implementation of standard Android APIs.
-    // See: https://github.com/Pool-Of-Tears/GreenStash/issues/130 for more information.
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiuiCheck.isMiui()) {
-      settingsData.add(
-          new SettingsItem(
-              Const.ID_DEF_LANGUAGE,
-              R.drawable.ic_language,
-              getString(R.string.default_language),
-              getString(R.string.des_default_language),
-              false,
-              false));
-    }
 
     settingsData.add(
         new SettingsItem(
@@ -296,7 +282,12 @@ public class SettingsFragment extends Fragment {
 
     adapter =
         new SettingsAdapter(
-            settingsData, context, requireActivity(), aboutViewModel, examplesViewModel);
+            settingsData,
+            context,
+            requireActivity(),
+            itemViewModel,
+            aboutViewModel,
+            examplesViewModel);
     binding.rvSettings.setAdapter(adapter);
     binding.rvSettings.setLayoutManager(new LinearLayoutManager(context));
 
@@ -304,7 +295,7 @@ public class SettingsFragment extends Fragment {
     binding.rvSettings.getViewTreeObserver().addOnDrawListener(this::startPostponedEnterTransition);
 
     // intentional crash with a long message
-    // throwLongException();
+    //  throwLongException();
 
     return view;
   }
@@ -312,7 +303,7 @@ public class SettingsFragment extends Fragment {
   public String generateLongMessage() {
     StringBuilder message = new StringBuilder("Long Exception Message: ");
     for (int i = 0; i < 1000; i++) { // Adjust the loop count for longer messages
-      message.append("This is line ").append(i).append(". ");
+      message.append("This is an intentional crash ").append(i).append(". ");
     }
     return message.toString();
   }

@@ -1,12 +1,11 @@
 package in.hridayan.ashell.config;
 
-import android.content.Context;
 import static android.content.Context.MODE_PRIVATE;
+
 import android.content.SharedPreferences;
-import androidx.preference.PreferenceManager;
+import androidx.appcompat.app.AppCompatDelegate;
 import in.hridayan.ashell.AshellYou;
 import in.hridayan.ashell.BuildConfig;
-import in.hridayan.ashell.config.Const;
 
 public class Preferences {
 
@@ -15,6 +14,14 @@ public class Preferences {
           .createDeviceProtectedStorageContext()
           .getSharedPreferences(Const.SHARED_PREFS, MODE_PRIVATE);
   static SharedPreferences.Editor editor = prefs.edit();
+    
+    public static void init(){
+        if(prefs == null){
+            prefs = AshellYou.getAppContext()
+          .createDeviceProtectedStorageContext()
+          .getSharedPreferences(Const.SHARED_PREFS, MODE_PRIVATE);
+        }
+    }
 
   public static String getLatestVersionName() {
     return prefs.getString(Const.PREF_LATEST_VERSION_NAME, BuildConfig.VERSION_NAME);
@@ -81,6 +88,14 @@ public class Preferences {
     editor.putBoolean(Const.PREF_DISABLE_SOFTKEY, value).apply();
   }
 
+  public static boolean getDynamicColors() {
+    return prefs.getBoolean(Const.PREF_DYNAMIC_COLORS, true);
+  }
+
+  public static void setDynamicColors(boolean value) {
+    editor.putBoolean(Const.PREF_DYNAMIC_COLORS, value).apply();
+  }
+
   public static boolean getHapticsAndVibration() {
     return prefs.getBoolean(Const.PREF_HAPTICS_AND_VIBRATION, true);
   }
@@ -120,6 +135,14 @@ public class Preferences {
 
   public static void setActivityRecreated(boolean value) {
     editor.putBoolean(Const.PREF_ACTIVITY_RECREATED, value).apply();
+  }
+
+  public static int getThemeMode() {
+    return prefs.getInt(Const.PREF_THEME_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+  }
+
+  public static void setThemeMode(int value) {
+    editor.putInt(Const.PREF_THEME_MODE, value).apply();
   }
 
   public static int getLocalAdbMode() {
@@ -205,12 +228,12 @@ public class Preferences {
     editor.putBoolean(getPinnedKey(title), value).apply();
   }
 
-  public static boolean getSpecificCardVisibility(String title) {
-    return prefs.getBoolean(getCardKey(title), true);
+  public static boolean getSpecificCardVisibility(Const.InfoCards key) {
+    return prefs.getBoolean(getCardKey(key.toString()), true);
   }
 
-  public static void setSpecificCardVisibility(String title, boolean value) {
-    editor.putBoolean(getCardKey(title), value).apply();
+  public static void setSpecificCardVisibility(Const.InfoCards key, boolean value) {
+    editor.putBoolean(getCardKey(key.toString()), value).apply();
   }
 
   private static String getCounterKey(String title) {
@@ -221,7 +244,7 @@ public class Preferences {
     return Const.PREF_PINNED_PREFIX + title;
   }
 
-  private static String getCardKey(String title) {
-    return Const.PREF_SPECIFIC_CARD_VISIBILITY + title;
+  private static String getCardKey(String key) {
+    return Const.PREF_SPECIFIC_CARD_VISIBILITY + key;
   }
 }

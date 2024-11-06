@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
@@ -29,11 +30,13 @@ import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentExamplesBinding;
+import in.hridayan.ashell.fragments.home.AshellFragment;
+import in.hridayan.ashell.fragments.home.OtgFragment;
 import in.hridayan.ashell.items.CommandItems;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
@@ -78,6 +81,8 @@ public class ExamplesFragment extends Fragment
       }
       // Save toolbar state
       viewModel.setToolbarExpanded(Utils.isToolbarExpanded(binding.appBarLayout));
+
+      viewModel.setEnteringFromSettings(false);
     }
   }
 
@@ -107,7 +112,13 @@ public class ExamplesFragment extends Fragment
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    setSharedElementEnterTransition(new MaterialContainerTransform());
+
+    viewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
+    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
+    if (!viewModel.isEnteringFromSettings())
+      setSharedElementEnterTransition(new MaterialContainerTransform());
+
     binding = FragmentExamplesBinding.inflate(inflater, container, false);
 
     view = binding.getRoot();
@@ -126,9 +137,6 @@ public class ExamplesFragment extends Fragment
     selectAll = searchBarMenu.findItem(R.id.select_all);
     deselectAll = searchBarMenu.findItem(R.id.deselect_all);
     itemList = Commands.commandList(context);
-
-    viewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
-    mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
     OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
 
@@ -174,12 +182,7 @@ public class ExamplesFragment extends Fragment
     binding.rvSearch.setLayoutManager(new LinearLayoutManager(context));
 
     binding.rvSearchView.setLayoutManager(new LinearLayoutManager(context));
-    GridLayoutManager mLayoutManager =
-        new GridLayoutManager(
-            context,
-            getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-                ? Const.GRID_STYLE
-                : Preferences.getExamplesLayoutStyle());
+    GridLayoutManager mLayoutManager = new GridLayoutManager(context, getSpanCount());
     binding.rvSearchView.setLayoutManager(mLayoutManager);
 
     mExamplesAdapter = new ExamplesAdapter(Commands.commandList(context), context, this);
@@ -208,6 +211,16 @@ public class ExamplesFragment extends Fragment
         });
 
     return view;
+  }
+
+  private int getSpanCount() {
+    int spanCount =
+        getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
+            ? Const.GRID_STYLE
+            : Preferences.getExamplesLayoutStyle();
+
+    if (spanCount >= 1) return spanCount;
+    else return 1;
   }
 
   private void filterList(CharSequence text) {
@@ -313,6 +326,7 @@ public class ExamplesFragment extends Fragment
   private void searchBarNavigationIconOnClickListener(int numSelectedItems) {
     binding.searchBar.setNavigationOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
           if (numSelectedItems > 0) {
             endSelection();
             mExamplesAdapter.deselectAll();

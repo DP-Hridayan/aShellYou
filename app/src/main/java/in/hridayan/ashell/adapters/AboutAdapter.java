@@ -21,7 +21,6 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.CategoryAbout;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
-import in.hridayan.ashell.config.Const.Contributors;
 import in.hridayan.ashell.fragments.ChangelogFragment;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -147,7 +146,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       for (Map.Entry<View, String> entry : viewUrlMap.entrySet()) {
         entry
             .getKey()
-            .setOnClickListener(v -> Utils.openUrl(itemView.getContext(), entry.getValue()));
+            .setOnClickListener(
+                v -> {
+                  HapticUtils.weakVibrate(v);
+                  Utils.openUrl(itemView.getContext(), entry.getValue());
+                });
       }
     }
   }
@@ -178,7 +181,10 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       // onclick listener for github button which redirects to the github profiles of individual
       // contributors
       buttonView.setOnClickListener(
-          v -> Utils.openUrl(itemView.getContext(), item.getId().getGithub()));
+          v -> {
+            HapticUtils.weakVibrate(v);
+            Utils.openUrl(itemView.getContext(), item.getId().getGithub());
+          });
       categoryContributorsLayout.setOnClickListener(
           v -> {
             HapticUtils.weakVibrate(v);
@@ -251,10 +257,6 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
-      if (item.getId().equals(Const.ID_CHANGELOGS)) {
-        categoryAppLayout.setTransitionName("aboutToChangelogs");
-      }
-
       View.OnClickListener clickListener =
           v -> {
             HapticUtils.weakVibrate(v);
@@ -267,7 +269,11 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
               ((MainActivity) activity)
                   .getSupportFragmentManager()
                   .beginTransaction()
-                  .addSharedElement(itemView, itemView.getTransitionName())
+                  .setCustomAnimations(
+                      R.anim.fragment_enter,
+                      R.anim.fragment_exit,
+                      R.anim.fragment_pop_enter,
+                      R.anim.fragment_pop_exit)
                   .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
                   .addToBackStack(fragment.getClass().getSimpleName())
                   .commit();

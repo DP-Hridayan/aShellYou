@@ -1,12 +1,8 @@
 package in.hridayan.ashell.activities;
 
-import static in.hridayan.ashell.config.Const.ABOUT_FRAGMENT;
-import static in.hridayan.ashell.config.Const.CHANGELOG_FRAGMENT;
-import static in.hridayan.ashell.config.Const.EXAMPLES_FRAGMENT;
 import static in.hridayan.ashell.config.Const.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.config.Const.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.config.Const.OTG_FRAGMENT;
-import static in.hridayan.ashell.config.Const.SETTINGS_FRAGMENT;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,12 +13,8 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.color.DynamicColors;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BottomSheets;
 import in.hridayan.ashell.UI.KeyboardUtils;
@@ -31,21 +23,15 @@ import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.ActivityMainBinding;
-import in.hridayan.ashell.fragments.AboutFragment;
-import in.hridayan.ashell.fragments.AshellFragment;
-import in.hridayan.ashell.fragments.ChangelogFragment;
-import in.hridayan.ashell.fragments.ExamplesFragment;
-import in.hridayan.ashell.fragments.OtgFragment;
-import in.hridayan.ashell.fragments.SettingsFragment;
-import in.hridayan.ashell.fragments.StartFragment;
+import in.hridayan.ashell.fragments.home.AshellFragment;
+import in.hridayan.ashell.fragments.home.OtgFragment;
+import in.hridayan.ashell.fragments.setup.StartFragment;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.CrashHandler;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.DeviceUtils.FetchLatestVersionCodeCallback;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Utils;
-import in.hridayan.ashell.viewmodels.MainViewModel;
 
 public class MainActivity extends AppCompatActivity
     implements OtgFragment.OnFragmentInteractionListener, FetchLatestVersionCodeCallback {
@@ -53,7 +39,6 @@ public class MainActivity extends AppCompatActivity
   private SettingsItem settingsList;
   private static int currentFragment;
   private boolean isKeyboardVisible, hasAppRestarted = true;
-  private MainViewModel viewModel;
   private Fragment fragment;
   private String pendingSharedText = null;
   private ActivityMainBinding binding;
@@ -72,21 +57,34 @@ public class MainActivity extends AppCompatActivity
   }
 
   @Override
-  protected void onPause() {
-    super.onPause();
-    setCurrentFragment();
-    viewModel.setCurrentFragment(currentFragment);
+  protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    Fragment currentFragment =
+        getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    if (currentFragment != null)
+      getSupportFragmentManager().putFragment(outState, Const.CURRENT_FRAGMENT, currentFragment);
   }
 
   @Override
-  protected void onResume() {
-    super.onResume();
+  protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    super.onRestoreInstanceState(savedInstanceState);
+
+    if (savedInstanceState != null) {
+      try {
+        Fragment currentFragment =
+            getSupportFragmentManager().getFragment(savedInstanceState, Const.CURRENT_FRAGMENT);
+        if (currentFragment != null) replaceFragment(currentFragment);
+      } catch (IllegalStateException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    EdgeToEdge.enable(this);
     ThemeUtils.updateTheme(this);
+    EdgeToEdge.enable(this);
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
@@ -94,33 +92,35 @@ public class MainActivity extends AppCompatActivity
     // Catch exceptions
     Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(this));
 
-    viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
     mNav = findViewById(R.id.bottom_nav_bar);
 
-    // Hide the navigation bar when the keyboard is visible
-    keyboardVisibilityListener();
-
-    // The whole navigation setup
     setupNavigation();
 
-    // Show What's new bottom sheet on opening the app after an update
+    handlePendingSharedText();
+
+    handleIncomingIntent(getIntent());
+
+    keyboardVisibilityListener();
+
     showChangelogs();
 
-    // Auto check for updates when app launches
     runAutoUpdateCheck();
 
-    // Always put these at the last of onCreate
     Preferences.setActivityRecreated(false);
+
     hasAppRestarted = false;
   }
 
   // Main navigation setup
   private void setupNavigation() {
+    initialFragment();
+
     mNav.setVisibility(View.VISIBLE);
+
     mNav.setOnItemSelectedListener(
         item -> {
           HapticUtils.weakVibrate(mNav);
+
           switch (item.getItemId()) {
             case R.id.nav_localShell:
               showAshellFragment();
@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity
                     this, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
                 return false;
               }
-
               showOtgFragment();
               Preferences.setCurrentFragment(OTG_FRAGMENT);
               return true;
@@ -148,11 +147,7 @@ public class MainActivity extends AppCompatActivity
           }
         });
 
-    // Shows the "Soon" badge on Wireless ADB mode, will remove this as the feature is implemented
     setBadge(R.id.nav_wireless, "Soon");
-
-    // This function determines what fragment to show when the app launches or activity recreates
-    initialFragment();
   }
 
   // If not on OtgShell then go to OtgShell
@@ -167,18 +162,6 @@ public class MainActivity extends AppCompatActivity
         instanceof AshellFragment)) replaceFragment(new AshellFragment());
   }
 
-  private void setCurrentFragment() {
-    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-
-    if (fragment instanceof SettingsFragment) currentFragment = SETTINGS_FRAGMENT;
-    else if (fragment instanceof AshellFragment) currentFragment = LOCAL_FRAGMENT;
-    else if (fragment instanceof OtgFragment) currentFragment = OTG_FRAGMENT;
-    else if (fragment instanceof ExamplesFragment) currentFragment = EXAMPLES_FRAGMENT;
-    else if (fragment instanceof AboutFragment) currentFragment = ABOUT_FRAGMENT;
-    else if (fragment instanceof ChangelogFragment) currentFragment = CHANGELOG_FRAGMENT;
-  }
-
-  // Function to set a Badge on the Navigation Bar
   private void setBadge(int id, String text) {
     BadgeDrawable badge = mNav.getOrCreateBadge(id);
     badge.setVisible(true);
@@ -186,109 +169,41 @@ public class MainActivity extends AppCompatActivity
     badge.setHorizontalOffset(0);
   }
 
-  // Since there is option to set which working mode you want to display when app is launched , this
-  // piece of code handles the logic for initial fragment
   private void initialFragment() {
     if (Preferences.getFirstLaunch()) {
-      mNav.setVisibility(View.GONE);
       replaceFragment(new StartFragment());
     } else {
-      if (viewModel.isFragmentSaved()) switchFragments(viewModel.currentFragment());
-      else {
-        int currentFragment = Preferences.getCurrentFragment();
-        int launchMode = Preferences.getLaunchMode();
-        switchFragments(launchMode == MODE_REMEMBER_LAST_MODE ? currentFragment : launchMode);
-      }
-      handlePendingSharedText();
-      handleIncomingIntent(getIntent());
+      int currentFragment = Preferences.getCurrentFragment();
+      int launchMode = Preferences.getLaunchMode();
+      defaultHomeFragment(launchMode == MODE_REMEMBER_LAST_MODE ? currentFragment : launchMode);
     }
   }
 
-  // Take the fragment value and switch to it accordingly
-  private void switchFragments(int currentFragment) {
-    switch (currentFragment) {
-      case LOCAL_FRAGMENT:
-        mNav.setSelectedItemId(R.id.nav_localShell);
-        replaceFragment(new AshellFragment());
-        break;
-      case OTG_FRAGMENT:
-        mNav.setSelectedItemId(R.id.nav_otgShell);
-        replaceFragment(new OtgFragment());
-        break;
-      case SETTINGS_FRAGMENT:
-        replaceFragment(new SettingsFragment());
-        break;
-      case EXAMPLES_FRAGMENT:
-        replaceFragment(new ExamplesFragment());
-        break;
-
-      case CHANGELOG_FRAGMENT:
-        replaceFragment(new ChangelogFragment());
-        break;
-      case ABOUT_FRAGMENT:
-        replaceFragment(new AboutFragment());
-        break;
-
-      default:
-        break;
+  private void defaultHomeFragment(int fragmentId) {
+    if (fragmentId == Const.LOCAL_FRAGMENT) {
+      mNav.setSelectedItemId(R.id.nav_localShell);
+      replaceFragment(new AshellFragment());
+    } else if (fragmentId == Const.OTG_FRAGMENT) {
+      mNav.setSelectedItemId(R.id.nav_otgShell);
+      replaceFragment(new OtgFragment());
     }
   }
 
   // Takes the fragment we want to navigate to as argument and then starts that fragment
   public void replaceFragment(Fragment fragment) {
     if (!getSupportFragmentManager().isStateSaved()) {
-      // Clear the most recent fragment from the back stack
-      getSupportFragmentManager().popBackStack();
-
-      // Begin the fragment transaction
-      FragmentTransaction transaction =
-          getSupportFragmentManager()
-              .beginTransaction()
-              .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName());
-
-      // Handle the settings fragment case
-      if (currentFragment == SETTINGS_FRAGMENT) {
-        String tag = Const.SETTINGS_TO_SETTINGS;
-        View settingsButton = getSettingsButtonView();
-
-        if (settingsButton != null) {
-          transaction
-              .addSharedElement(settingsButton, tag)
-              .addToBackStack(fragment.getClass().getSimpleName());
-        }
-      }
-      if (currentFragment == EXAMPLES_FRAGMENT) {
-        String tag = Const.SEND_TO_EXAMPLES;
-        View sendButton = getSendButtonView();
-
-        if (sendButton != null) {
-          transaction
-              .addSharedElement(sendButton, tag)
-              .addToBackStack(fragment.getClass().getSimpleName());
-        }
-      }
-
-      transaction.commit();
-      setCurrentFragment();
+      getSupportFragmentManager()
+          .beginTransaction()
+          .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+          .commit();
     }
-  }
-
-  private View getSettingsButtonView() {
-    return viewModel.whichHomeFragment() == LOCAL_FRAGMENT
-        ? AshellFragment.getSettingsButtonView()
-        : OtgFragment.getSettingsButtonView();
-  }
-
-  private View getSendButtonView() {
-    return viewModel.whichHomeFragment() == LOCAL_FRAGMENT
-        ? AshellFragment.getSendButtonView()
-        : OtgFragment.getSendButtonView();
   }
 
   private void handlePendingSharedText() {
     if (pendingSharedText != null) {
       switch (Preferences.getCurrentFragment()) {
         case LOCAL_FRAGMENT:
+          if (!(fragment instanceof AshellFragment)) replaceFragment(new AshellFragment());
           AshellFragment fragmentLocalAdb =
               (AshellFragment)
                   getSupportFragmentManager().findFragmentById(R.id.fragment_container);
@@ -338,10 +253,10 @@ public class MainActivity extends AppCompatActivity
 
   // Set the text in the Input Field
   private void setTextOnEditText(String text, Intent intent) {
-    setCurrentFragment();
 
     switch (currentFragment) {
       case LOCAL_FRAGMENT:
+        if (!(fragment instanceof AshellFragment)) replaceFragment(new AshellFragment());
         AshellFragment fragmentLocalAdb =
             (AshellFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (fragmentLocalAdb != null) fragmentLocalAdb.handleSharedTextIntent(intent, text);
@@ -375,11 +290,24 @@ public class MainActivity extends AppCompatActivity
     }
   }
 
-  /*We set the currentFragment value before then if current fragment value is SETTINGS_FRAGMENT we donot show the bottom navigation*/
-  private void showBottomNavUnderConditions() {
-    setCurrentFragment();
-    if (currentFragment == LOCAL_FRAGMENT || currentFragment == OTG_FRAGMENT)
-      mNav.setVisibility(View.VISIBLE);
+  // keyboard visibility listener
+  private void keyboardVisibilityListener() {
+    KeyboardUtils.attachVisibilityListener(
+        this,
+        new KeyboardUtils.KeyboardVisibilityListener() {
+          @Override
+          public void onKeyboardVisibilityChanged(boolean visible) {
+            isKeyboardVisible = visible;
+            if (isKeyboardVisible) mNav.setVisibility(View.GONE);
+            else
+              new Handler(Looper.getMainLooper())
+                  .postDelayed(
+                      () -> {
+                        mNav.setVisibility(View.VISIBLE);
+                      },
+                      100);
+          }
+        });
   }
 
   // show bottom sheet for changelog after an update
@@ -397,26 +325,6 @@ public class MainActivity extends AppCompatActivity
         && !Preferences.getFirstLaunch()) {
       new FetchLatestVersionCode(this, this).execute(Const.URL_BUILD_GRADLE);
     }
-  }
-
-  // keyboard visibility listener
-  private void keyboardVisibilityListener() {
-    KeyboardUtils.attachVisibilityListener(
-        this,
-        new KeyboardUtils.KeyboardVisibilityListener() {
-          @Override
-          public void onKeyboardVisibilityChanged(boolean visible) {
-            isKeyboardVisible = visible;
-            if (isKeyboardVisible) mNav.setVisibility(View.GONE);
-            else
-              new Handler(Looper.getMainLooper())
-                  .postDelayed(
-                      () -> {
-                        showBottomNavUnderConditions();
-                      },
-                      100);
-          }
-        });
   }
 
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -4,6 +4,8 @@
     //Created by DP-Hridayan
     Absolutely necessary to follow this string name format
     
+    <string name="changelog_v5_2_1">\n\n• Maintenance update</string>
+    <string name="changelog_v5_2_0">\n\n• UI improvements\n\n• Fixed some bugs</string>
     <string name="changelog_v5_1_0">\n\n• Small UI improvements</string>
     <string name="changelog_v5_0_0">\n\n• Huge UI and UX improvements across all sections of the app\n\n• Added ROOT and BASIC shell in addition to Shizuku shell for running commands\n\n• Added option to save output in custom directory\n\n• Fixed a lot of bugs and issues\n\n• Optimised app\'s code for better performance and stability</string>
     <string name="changelog_v4_4_0">\n\n• Added vibration for haptic feedback\n\n• Added option to change app language from within the app (for devices running Android 13 and above only and excluding unsupported devices)\n\n• Fixed some crashes and improved crash reporting\n\n• Minor UI improvements</string>

@@ -1,7 +1,5 @@
-package in.hridayan.ashell.fragments;
+package in.hridayan.ashell.fragments.home;
 
-import in.hridayan.ashell.UI.BottomNavUtils;
-import in.hridayan.ashell.config.Const;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_NOT_FOUND;
@@ -55,20 +53,25 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollUpListener;
 import in.hridayan.ashell.UI.BehaviorFAB.OtgShareButtonListener;
+import in.hridayan.ashell.UI.BottomNavUtils;
+import in.hridayan.ashell.UI.CardUtils;
 import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.SettingsAdapter;
+import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentOtgBinding;
+import in.hridayan.ashell.fragments.ExamplesFragment;
+import in.hridayan.ashell.fragments.settings.SettingsFragment;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.OtgUtils;
 import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
-import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
@@ -112,8 +115,6 @@ public class OtgFragment extends Fragment
   private OnFragmentInteractionListener mListener;
   private SettingsViewModel settingsViewModel;
   private ExamplesViewModel examplesViewModel;
-  private AboutViewModel aboutViewModel;
-  private static WeakReference<View> settingsButtonRef, sendButtonRef;
 
   public interface OnFragmentInteractionListener {
     void onRequestReset();
@@ -158,10 +159,10 @@ public class OtgFragment extends Fragment
 
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
-    if (Preferences.getSpecificCardVisibility("warning_usb_debugging") && adbConnection == null)
-      binding.usbWarningCard.setVisibility(View.VISIBLE);
+    if (Preferences.getSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING)
+        && adbConnection == null) CardUtils.showCardSmoothly(binding.usbWarningCard);
     else if (binding.usbWarningCard.getVisibility() == View.VISIBLE)
-      binding.usbWarningCard.setVisibility(View.GONE);
+      CardUtils.hideCardSmoothly(binding.usbWarningCard);
 
     handleUseCommand();
 
@@ -256,9 +257,7 @@ public class OtgFragment extends Fragment
 
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
     mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-    settingsButtonRef = new WeakReference<>(binding.settingsButton);
-    sendButtonRef = new WeakReference<>(binding.sendButton);
-
+    
     // initialize viewmodel
     initializeViewModels();
 
@@ -269,7 +268,7 @@ public class OtgFragment extends Fragment
     List<SettingsItem> settingsList = new ArrayList<>();
     adapter =
         new SettingsAdapter(
-            settingsList, context, requireActivity(), aboutViewModel, examplesViewModel);
+            settingsList, context, requireActivity(), null, null, examplesViewModel);
 
     new FabExtendingOnScrollViewListener(binding.scrollView, binding.saveButton);
     new FabOtgScrollUpListener(binding.scrollView, binding.scrollUpButton);
@@ -300,11 +299,10 @@ public class OtgFragment extends Fragment
     }
 
     // Show the info card by checking preferences
-    if (Preferences.getSpecificCardVisibility("warning_usb_debugging") && adbConnection == null) {
-      binding.usbWarningCard.setVisibility(View.VISIBLE);
-    } else if (binding.usbWarningCard.getVisibility() == View.VISIBLE) {
-      binding.usbWarningCard.setVisibility(View.GONE);
-    }
+    if (Preferences.getSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING)
+        && adbConnection == null) CardUtils.showCardSmoothly(binding.usbWarningCard);
+    else if (binding.usbWarningCard.getVisibility() == View.VISIBLE)
+      CardUtils.hideCardSmoothly(binding.usbWarningCard);
 
     if (isSendDrawable) {
       binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
@@ -1011,8 +1009,8 @@ public class OtgFragment extends Fragment
     binding.cross.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          binding.usbWarningCard.setVisibility(View.GONE);
-          Preferences.setSpecificCardVisibility("warning_usb_debugging", false);
+          CardUtils.hideCardSmoothly(binding.usbWarningCard);
+          Preferences.setSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING, false);
         });
   }
 
@@ -1072,15 +1070,5 @@ public class OtgFragment extends Fragment
     settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
-
-    aboutViewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
-  }
-
-  public static View getSettingsButtonView() {
-    return settingsButtonRef != null ? settingsButtonRef.get() : null;
-  }
-
-  public static View getSendButtonView() {
-    return sendButtonRef != null ? sendButtonRef.get() : null;
   }
 }
