@@ -71,7 +71,7 @@ android {
 
 dependencies {
     def lifecycle_version = "2.7.0"
-    def material_version = "1.13.0-alpha06"
+    def material_version = "1.13.0-alpha09"
     def preference_version = "1.2.1"
     def shizuku_version = "13.1.0"
     def libsu_version = "3.2.0"
