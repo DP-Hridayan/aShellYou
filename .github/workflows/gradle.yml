@@ -37,7 +37,7 @@ jobs:
       run: chmod +x gradlew
       
     - name: app assembleRelease
-      run: gradlew app:assembleRelease
+      run: ./gradlew app:assembleRelease
       
     - name: Build with Gradle Wrapper
       run: ./gradlew build
