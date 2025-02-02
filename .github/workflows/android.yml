@@ -22,16 +22,16 @@ jobs:
 
     - name: Set up Android SDK
       run: |
-        sudo apt update
-        sudo apt install -y unzip
+        apt update
+        apt install -y unzip wget
         wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -P $HOME
         unzip $HOME/commandlinetools-linux-7583922_latest.zip -d $HOME/android-sdk
         rm $HOME/commandlinetools-linux-7583922_latest.zip
-        yes | $HOME/android-sdk/tools/bin/sdkmanager --licenses
-        $HOME/android-sdk/tools/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3"
+        yes | $HOME/android-sdk/cmdline-tools/bin/sdkmanager --licenses
+        $HOME/android-sdk/cmdline-tools/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3"
       env:
         ANDROID_HOME: $HOME/android-sdk
-        PATH: $HOME/android-sdk/tools:$HOME/android-sdk/platform-tools:$PATH
+        PATH: $HOME/android-sdk/cmdline-tools:$HOME/android-sdk/platform-tools:$PATH
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
