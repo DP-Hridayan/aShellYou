@@ -1,38 +1,36 @@
 name: Android CI
 
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     - name: Set up JDK 11
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v2
       with:
         java-version: '11'
         distribution: 'temurin'
-        cache: gradle
 
-    - name: Install dependencies and set up Android SDK
+    - name: Install dependencies
       run: |
-        echo "Installing dependencies"
-        sudo apt-get update
-        sudo apt-get install -y unzip wget
-        echo "Setting up Android SDK"
-        mkdir -p $HOME/android-sdk/cmdline-tools
-        wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -P $HOME
-        unzip $HOME/commandlinetools-linux-7583922_latest.zip -d $HOME/android-sdk/cmdline-tools
-        rm $HOME/commandlinetools-linux-7583922_latest.zip
-        yes | $HOME/android-sdk/cmdline-tools/bin/sdkmanager --licenses
-        $HOME/android-sdk/cmdline-tools/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3"
+        apt-get update
+        apt-get install -y sudo unzip wget
+
+    - name: Set up Android SDK
+      run: |
+        sudo mkdir -p $HOME/android-sdk/cmdline-tools
+        sudo wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -P $HOME
+        sudo unzip $HOME/commandlinetools-linux-7583922_latest.zip -d $HOME/android-sdk/cmdline-tools
+        sudo rm $HOME/commandlinetools-linux-7583922_latest.zip
+        yes | sudo $HOME/android-sdk/cmdline-tools/bin/sdkmanager --licenses
+        sudo $HOME/android-sdk/cmdline-tools/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3"
       env:
+        JAVA_HOME: ${{ runner.tool_cache }}/Java_11
         ANDROID_HOME: $HOME/android-sdk
         PATH: $HOME/android-sdk/cmdline-tools:$HOME/android-sdk/platform-tools:$PATH
 
