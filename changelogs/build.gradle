@@ -4,14 +4,22 @@ android {
     compileSdkVersion 34
 
     defaultConfig {
-        minSdkVersion 14
         targetSdkVersion 34
     }
     
    lint {
         baseline = file("lint-baseline.xml")
     }
-    
+    subprojects {
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion 27
+                buildToolsVersion "27.0.2"
+            }
+        }
+    }
+}
     namespace 'changelogs'
     buildTypes {
         release {
