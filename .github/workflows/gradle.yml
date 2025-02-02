@@ -37,7 +37,7 @@ jobs:
       run: chmod +x gradlew
       
     - name: Build app with assembleRelease
-      run: ./gradlew app:assembleRelease
+      run: ./gradlew app:assembleRelease --warning-mode all
       
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
@@ -67,5 +67,5 @@ jobs:
 
     # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
     # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
-    - name: Generate and submit dependency graph
-      uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+    #- name: Generate and submit dependency graph
+     # uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
