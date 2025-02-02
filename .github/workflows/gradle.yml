@@ -35,7 +35,10 @@ jobs:
       
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-
+      
+    - name: app assembleRelease
+      run: gradlew app:assembleRelease
+      
     - name: Build with Gradle Wrapper
       run: ./gradlew build
       
