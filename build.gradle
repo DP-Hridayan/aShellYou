@@ -2,3 +2,7 @@ plugins {
     id 'com.android.application' version '8.2.1' apply false
     id 'com.android.library' version '8.2.1' apply false
 }
+dependencies {
+    implementation 'com.android.tools.build:gradle:8.0.0'
+    // other dependencies
+}
