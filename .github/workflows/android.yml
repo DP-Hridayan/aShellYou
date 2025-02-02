@@ -1,25 +1,24 @@
 name: Android CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Set up JDK 11
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v4
       with:
         java-version: '11'
         distribution: 'temurin'
-
-    - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y unzip wget coreutils
+        cache: gradle
 
     - name: Set up Android SDK
       run: |
@@ -30,7 +29,6 @@ jobs:
         yes | $HOME/android-sdk/cmdline-tools/bin/sdkmanager --licenses
         $HOME/android-sdk/cmdline-tools/bin/sdkmanager "platforms;android-30" "build-tools;30.0.3"
       env:
-        JAVA_HOME: ${{ runner.tool_cache }}/Java_11
         ANDROID_HOME: $HOME/android-sdk
         PATH: $HOME/android-sdk/cmdline-tools:$HOME/android-sdk/platform-tools:$PATH
 
