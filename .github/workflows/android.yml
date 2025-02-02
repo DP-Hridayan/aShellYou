@@ -20,8 +20,12 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Set up Android SDK
+    - name: Install dependencies and set up Android SDK
       run: |
+        echo "Installing dependencies"
+        sudo apt-get update
+        sudo apt-get install -y unzip wget
+        echo "Setting up Android SDK"
         mkdir -p $HOME/android-sdk/cmdline-tools
         wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -P $HOME
         unzip $HOME/commandlinetools-linux-7583922_latest.zip -d $HOME/android-sdk/cmdline-tools
