@@ -85,6 +85,7 @@ public class LookAndFeel extends Fragment {
     setupThemeOptions();
     setupAmoledSwitch();
     setupDynamicColorsSwitch();
+    setupHapticAndVibration();
     setupDefaultLanguageOnClick();
 
     return view;
@@ -128,7 +129,7 @@ public class LookAndFeel extends Fragment {
         v -> binding.switchHighContrastDarkTheme.performClick());
   }
 
-  // Setting up the amoled switch
+  // Setting up the dynamic color switch
   private void setupDynamicColorsSwitch() {
     binding.dynamicColors.setVisibility(
         DeviceUtils.androidVersion() >= Build.VERSION_CODES.S ? View.VISIBLE : View.GONE);
@@ -141,6 +142,18 @@ public class LookAndFeel extends Fragment {
           requireActivity().recreate();
         });
     binding.dynamicColors.setOnClickListener(v -> binding.switchDynamicColors.performClick());
+  }
+
+  // Setting up the haptic and vibration switch
+  private void setupHapticAndVibration() {
+    binding.switchHapticAndVibration.setChecked(Preferences.getHapticsAndVibration());
+    binding.switchHapticAndVibration.setOnCheckedChangeListener(
+        (view, isChecked) -> {
+          HapticUtils.weakVibrate(view);
+          saveSwitchState(Const.PREF_HAPTICS_AND_VIBRATION, isChecked);
+        });
+    binding.hapticAndVibration.setOnClickListener(
+        v -> binding.switchHapticAndVibration.performClick());
   }
 
   private void setupDefaultLanguageOnClick() {
