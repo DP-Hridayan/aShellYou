@@ -83,7 +83,7 @@ public class ShizukuShell {
   }
 
   // Call this method to destroy the shell
-  public void destroy() {
+  public static void destroy() {
     if (mProcess != null) mProcess.destroy();
   }
 

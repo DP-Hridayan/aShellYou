@@ -258,7 +258,7 @@ public class AshellFragment extends Fragment {
 
     if (mBasicShell != null) BasicShell.destroy();
 
-    if (mShizukuShell != null) mShizukuShell.destroy();
+    if (mShizukuShell != null) ShizukuShell.destroy();
 
     if (mRootShell != null) RootShell.destroy();
   }
@@ -937,6 +937,7 @@ public class AshellFragment extends Fragment {
           }
 
           boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
+          // We add .txt after the final file name to give text format
           if (saved) Preferences.setLastSavedFileName(fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
@@ -958,7 +959,8 @@ public class AshellFragment extends Fragment {
             String result = mResult.get(i);
             if (!Utils.shellDeadError().equals(result)) sb.append(result).append("\n");
           }
-          String fileName = Utils.generateFileName(mHistory);
+          // We add .txt after the final file name to give it text format
+          String fileName = Utils.generateFileName(mHistory) + ".txt";
           Utils.shareOutput(requireActivity(), context, fileName, sb.toString());
         });
   }
