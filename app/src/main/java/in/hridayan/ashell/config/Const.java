@@ -2,6 +2,9 @@ package in.hridayan.ashell.config;
 
 import android.os.Environment;
 import in.hridayan.ashell.BuildConfig;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public interface Const {
   String SHARED_PREFS = BuildConfig.APPLICATION_ID + "_preferences";
@@ -58,7 +61,7 @@ public interface Const {
   /* <--------Transition Names-------> */
   String SEND_TO_EXAMPLES = "sendButtonToExamples";
   String SETTINGS_TO_SETTINGS = "settingsButtonToSettings";
-  
+
   /* <--------U R L s -------> */
   String URL_DEV_GITHUB = "https://github.com/DP-Hridayan";
   String URL_DEV_BM_COFFEE = "https://www.buymeacoffee.com/hridayan";
@@ -80,7 +83,7 @@ public interface Const {
   String TAG = "flashbot";
 
   String CURRENT_FRAGMENT = "current_fragment";
-    
+
   // integers
   int SORT_A_TO_Z = 0;
   int SORT_Z_TO_A = 1;
@@ -107,6 +110,38 @@ public interface Const {
 
   // used in OTG utils
   double PUSH_PERCENT = 0.5;
+
+  // Set of some sensitive packages of the android which should be handled carefully while executing
+  // adb commands
+  Set<String> SENSITIVE_PACKAGES =
+      Collections.unmodifiableSet(
+          new HashSet<String>() {
+            {
+              add("com.android.systemui");
+              add("com.android.settings");
+              add("com.android.frameworkres");
+              add("com.android.providers.settings");
+              add("com.android.permissioncontroller");
+              add("com.android.inputmethod.latin");
+              add("com.android.server.telecom");
+              add("com.android.phone");
+              add("com.android.providers.media");
+              add("com.android.packageinstaller");
+              add("com.android.externalstorage");
+              add("com.android.documentsui");
+              add("com.android.wifi");
+            }
+          });
+
+  // Check if packageName contains any of the strings in SENSITIVE_PACKAGES
+  public static boolean isPackageSensitive(String packageName) {
+    for (String sensitive : SENSITIVE_PACKAGES) {
+      if (packageName.contains(sensitive)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   /* <--------NAMES OF CONTRIBUTORS -------> */
 

@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
@@ -1195,7 +1196,48 @@ public class AshellFragment extends Fragment {
   // initialize the shell command execution
   private void initializeShell() {
     if (!hasTextInEditText()) return;
-    runShellCommand(binding.commandEditText.getText().toString().replace("\n", ""));
+    String command = binding.commandEditText.getText().toString().replace("\n", "");
+    if (Const.isPackageSensitive(command)) sensitivePackageWarningDialog(command);
+    else runShellCommand(command);
+  }
+
+  private void sensitivePackageWarningDialog(String command) {
+    LayoutInflater inflater = LayoutInflater.from(context);
+    View dialogView = inflater.inflate(R.layout.dialog_sensitive_package_warning, null);
+
+    MaterialButton okButton = dialogView.findViewById(R.id.ok);
+    MaterialButton cancelButton = dialogView.findViewById(R.id.cancel);
+
+    AlertDialog dialog =
+        new MaterialAlertDialogBuilder(context).setView(dialogView).setCancelable(false).create();
+
+    dialog.show();
+
+    // Start countdown timer (10 seconds)
+    new CountDownTimer(10000, 1000) {
+      int timeLeft = 10;
+
+      @Override
+      public void onTick(long millisUntilFinished) {
+        okButton.setText("OK (" + timeLeft + "s)");
+        timeLeft--;
+      }
+
+      @Override
+      public void onFinish() {
+        okButton.setText("OK");
+        okButton.setEnabled(true);
+      }
+    }.start();
+
+    okButton.setOnClickListener(
+        v -> {
+          // Run the command containing sensitive package name
+          runShellCommand(command);
+          dialog.dismiss();
+        });
+
+    cancelButton.setOnClickListener(v -> dialog.dismiss());
   }
 
   // This function is called when we want to run the shell after entering an adb command

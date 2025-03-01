@@ -25,6 +25,7 @@
     <string name="app_summary">aShell You is here for all your ADB needs</string>
     <string name="app_updated_message">App is updated, want to see changelogs?</string>
     <string name="app_working_message">aShell You is still working. Please wait for it to finish or manually stop (by clicking the stop button) to run a new command</string>
+    <string name="are_you_sure">Are you sure you want to continue?</string>
     <string name="basic_shell">Basic shell</string>
     <string name="beta_warning">This feature is currently in its experimental phase. If you encounter any issues please let us know.</string>
     <string name="behavior">Behavior</string>
@@ -135,6 +136,7 @@
     <string name="nothing_to_search">Nothing to search</string>
     <string name="off">Off</string>
     <string name="ok">OK</string>
+    <string name="ok_countdown">OK (10s)</string>
     <string name="on">On</string>
     <string name="only_last_command_output">Only last command output</string>
     <string name="open">Open</string>
@@ -165,6 +167,9 @@
     <string name="search_output">Search output here</string>
     <string name="selected">Selected</string>
     <string name="select_all">Select all</string>
+    <string name="sensitive_packages_warning1">You are about to execute ADB commands involving critical system packages. Modifying, disabling, or uninstalling these packages may cause serious issues, including:</string>
+    <string name="sensitive_packages_warning2">⚠️ System crashes or boot loops\n⚠️ Loss of essential features (e.g., UI, network, security)\n⚠️ Permanent damage requiring a factory reset or firmware reinstallation</string>
+    <string name="sensitive_packages_warning3">If you are unsure about the impact, DO NOT PROCEED unless you have a full backup and know how to recover your device.</string>
     <string name="search_summary">Search in commands summary?</string>
     <string name="settings">Settings</string>
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) fail</string>
@@ -205,6 +210,7 @@
     <string name="des_vibration">Interactive haptics for touch feedback</string>
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
+    <string name="warning_v2">⚠ WARNING: Proceed with Caution! ⚠</string>
     <string name="whats_new">What\'s new !</string>
     <string name="whole_output">Whole output</string>
     <string name="yes">Yes</string>
