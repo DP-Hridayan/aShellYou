@@ -195,7 +195,7 @@ public class AboutFragment extends Fragment
             getString(R.string.license),
             getString(R.string.des_license),
             R.drawable.ic_license));
-        
+
     return items;
   }
 
@@ -244,6 +244,8 @@ public class AboutFragment extends Fragment
       button.setText(null);
       // casting button to MaterialButton to use setIcon method.
       ((MaterialButton) button).setIcon(null);
+      button.setMinWidth(button.getWidth());
+      button.setMinHeight(button.getHeight());
     }
 
     loadingDots.setVisibility(View.VISIBLE);
@@ -256,7 +258,7 @@ public class AboutFragment extends Fragment
     if (getView() != null) {
       loadingDots.setVisibility(View.GONE);
       Button button = getView().findViewById(R.id.check_update_button);
-      button.setText(R.string.update);
+      button.setText(R.string.check_updates);
       // casting button to MaterialButton to use setIcon method.
       ((MaterialButton) button).setIcon(updateButtonIcon);
     }

@@ -39,6 +39,7 @@
     <string name="cancel">Cancel</string>
     <string name="changelogs">Changelogs</string>
     <string name="check_internet">Check your internet connection</string>
+    <string name="check_updates">Check updates</string>
     <string name="choose">Choose</string>
     <string name="clear_all_message">Are you sure you want to clear everything on this screen?</string>
     <string name="clear_everything">Clear everything</string>
@@ -76,6 +77,20 @@
     <string name="des_default_language">Choose the default language for the app</string>
     <string name="des_default_launch_mode">Choose what ADB mode should be opened directly when app launches</string>
     <string name="device_not_connected">Device not connected</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="des_disclaimer">This app allows you to execute ADB (Android Debug Bridge) commands directly on your device without needing a PC. Please read the following carefully before using the app:</string>
+    <string name="disclaimer_1_title">Use at Your Own Risk</string>
+    <string name="disclaimer_1_description">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability. You are solely responsible for any changes made using this app.</string>
+    <string name="disclaimer_2_title">Root is not Mandatory, but Caution Needed</string>
+    <string name="disclaimer_2_description">While root access is not mandatory, certain commands may require elevated permissions. Misuse of ADB commands can lead to data loss, app crashes, or unexpected system behavior.</string>
+    <string name="disclaimer_3_title">We Are Not Liable</string>
+    <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app. Proceed with caution and ensure you understand the commands you execute.</string>
+    <string name="disclaimer_4_title">Intended for Advanced Users</string>
+    <string name="disclaimer_4_description">This app is designed for users who have a basic understanding of ADB commands. If you are unsure about a command’s effect, research it before executing it.</string>
+    <string name="disclaimer_5_title">Permissions and Security</string>
+    <string name="disclaimer_5_description">This app may require special permissions to function properly. It does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
+    <string name="disclaimer_end">By using this app, you acknowledge and agree to these terms. If you do not accept these conditions, please refrain from using the app.</string>
+
     <string name="discord">Discord</string>
     <string name="des_discord">Join the discord community</string>
     <string name="dismiss">Dismiss</string>

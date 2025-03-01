@@ -119,7 +119,7 @@ public class AshellFragment extends Fragment {
     viewModel.setSaveButtonVisible(isSaveButtonVisible());
 
     // Saves the viewing position of the recycler view
-    if (binding.rvOutput != null) {
+    if (binding.rvOutput != null && binding.rvOutput.getLayoutManager() != null) {
       LinearLayoutManager layoutManager = (LinearLayoutManager) binding.rvOutput.getLayoutManager();
 
       int currentPosition = layoutManager.findLastVisibleItemPosition();
@@ -255,11 +255,8 @@ public class AshellFragment extends Fragment {
   @Override
   public void onDestroy() {
     super.onDestroy();
-
     if (mBasicShell != null) BasicShell.destroy();
-
     if (mShizukuShell != null) ShizukuShell.destroy();
-
     if (mRootShell != null) RootShell.destroy();
   }
 
@@ -280,7 +277,10 @@ public class AshellFragment extends Fragment {
 
     initializeViewModels();
 
-    binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
+    if (binding.rvOutput.getLayoutManager() == null) {
+      binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
+    }
+
     binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
     binding.rvCommands.addOnScrollListener(new FabExtendingOnScrollListener(binding.pasteButton));
@@ -1298,7 +1298,7 @@ public class AshellFragment extends Fragment {
           new Handler(Looper.getMainLooper())
               .post(
                   () -> {
-                    if (!isAdded()) return;
+                    if (!isAdded() || getActivity() == null || binding == null) return;
 
                     postExec();
 
