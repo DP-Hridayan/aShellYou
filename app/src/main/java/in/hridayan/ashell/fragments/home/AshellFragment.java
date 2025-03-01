@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
@@ -119,7 +120,7 @@ public class AshellFragment extends Fragment {
     viewModel.setSaveButtonVisible(isSaveButtonVisible());
 
     // Saves the viewing position of the recycler view
-    if (binding.rvOutput != null) {
+    if (binding.rvOutput != null && binding.rvOutput.getLayoutManager() != null) {
       LinearLayoutManager layoutManager = (LinearLayoutManager) binding.rvOutput.getLayoutManager();
 
       int currentPosition = layoutManager.findLastVisibleItemPosition();
@@ -255,11 +256,8 @@ public class AshellFragment extends Fragment {
   @Override
   public void onDestroy() {
     super.onDestroy();
-
     if (mBasicShell != null) BasicShell.destroy();
-
-    if (mShizukuShell != null) mShizukuShell.destroy();
-
+    if (mShizukuShell != null) ShizukuShell.destroy();
     if (mRootShell != null) RootShell.destroy();
   }
 
@@ -280,7 +278,10 @@ public class AshellFragment extends Fragment {
 
     initializeViewModels();
 
-    binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
+    if (binding.rvOutput.getLayoutManager() == null) {
+      binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
+    }
+
     binding.rvCommands.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
     binding.rvCommands.addOnScrollListener(new FabExtendingOnScrollListener(binding.pasteButton));
@@ -937,6 +938,7 @@ public class AshellFragment extends Fragment {
           }
 
           boolean saved = Utils.saveToFile(sb, requireActivity(), fileName);
+          // We add .txt after the final file name to give text format
           if (saved) Preferences.setLastSavedFileName(fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
@@ -958,7 +960,8 @@ public class AshellFragment extends Fragment {
             String result = mResult.get(i);
             if (!Utils.shellDeadError().equals(result)) sb.append(result).append("\n");
           }
-          String fileName = Utils.generateFileName(mHistory);
+          // We add .txt after the final file name to give it text format
+          String fileName = Utils.generateFileName(mHistory) + ".txt";
           Utils.shareOutput(requireActivity(), context, fileName, sb.toString());
         });
   }
@@ -1193,7 +1196,48 @@ public class AshellFragment extends Fragment {
   // initialize the shell command execution
   private void initializeShell() {
     if (!hasTextInEditText()) return;
-    runShellCommand(binding.commandEditText.getText().toString().replace("\n", ""));
+    String command = binding.commandEditText.getText().toString().replace("\n", "");
+    if (Const.isPackageSensitive(command)) sensitivePackageWarningDialog(command);
+    else runShellCommand(command);
+  }
+
+  private void sensitivePackageWarningDialog(String command) {
+    LayoutInflater inflater = LayoutInflater.from(context);
+    View dialogView = inflater.inflate(R.layout.dialog_sensitive_package_warning, null);
+
+    MaterialButton okButton = dialogView.findViewById(R.id.ok);
+    MaterialButton cancelButton = dialogView.findViewById(R.id.cancel);
+
+    AlertDialog dialog =
+        new MaterialAlertDialogBuilder(context).setView(dialogView).setCancelable(false).create();
+
+    dialog.show();
+
+    // Start countdown timer (10 seconds)
+    new CountDownTimer(10000, 1000) {
+      int timeLeft = 10;
+
+      @Override
+      public void onTick(long millisUntilFinished) {
+        okButton.setText("OK (" + timeLeft + "s)");
+        timeLeft--;
+      }
+
+      @Override
+      public void onFinish() {
+        okButton.setText("OK");
+        okButton.setEnabled(true);
+      }
+    }.start();
+
+    okButton.setOnClickListener(
+        v -> {
+          // Run the command containing sensitive package name
+          runShellCommand(command);
+          dialog.dismiss();
+        });
+
+    cancelButton.setOnClickListener(v -> dialog.dismiss());
   }
 
   // This function is called when we want to run the shell after entering an adb command
@@ -1296,7 +1340,7 @@ public class AshellFragment extends Fragment {
           new Handler(Looper.getMainLooper())
               .post(
                   () -> {
-                    if (!isAdded()) return;
+                    if (!isAdded() || getActivity() == null || binding == null) return;
 
                     postExec();
 

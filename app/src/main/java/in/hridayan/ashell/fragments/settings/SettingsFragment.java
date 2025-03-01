@@ -219,15 +219,6 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            Const.PREF_HAPTICS_AND_VIBRATION,
-            R.drawable.ic_vibration,
-            getString(R.string.vibration),
-            getString(R.string.des_vibration),
-            true,
-            Preferences.getHapticsAndVibration()));
-
-    settingsData.add(
-        new SettingsItem(
             Const.PREF_OVERRIDE_BOOKMARKS,
             R.drawable.ic_warning,
             getString(R.string.override_bookmarks_limit),
