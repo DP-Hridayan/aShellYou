@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
@@ -44,8 +46,21 @@ public class BottomSheets {
     bottomSheetDialog.setContentView(bottomSheetView);
     bottomSheetDialog.show();
 
+    // Do a little tweaking to get the layout containing the progress bar the same height after text
+    // description dissapears
+    FrameLayout frameLayout = bottomSheetView.findViewById(R.id.progressBarLayout);
+    frameLayout.post(
+        () -> {
+          int currentHeight = frameLayout.getHeight();
+          frameLayout.setMinimumHeight(currentHeight);
+          ViewGroup.LayoutParams params = frameLayout.getLayoutParams();
+          params.height = currentHeight; // Set max height
+          frameLayout.setLayoutParams(params);
+        });
+
     MaterialTextView currentVersion = bottomSheetView.findViewById(R.id.current_version);
     MaterialTextView latestVersion = bottomSheetView.findViewById(R.id.latest_version);
+    MaterialTextView description = bottomSheetView.findViewById(R.id.body);
     MaterialButton downloadButton = bottomSheetView.findViewById(R.id.download_button);
     MaterialButton cancelButton = bottomSheetView.findViewById(R.id.cancel_button);
     LinearProgressIndicator progressBar = bottomSheetView.findViewById(R.id.download_progress);
@@ -66,7 +81,7 @@ public class BottomSheets {
     downloadButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          AppUpdater.fetchLatestReleaseAndInstall(activity, progressBar);
+          AppUpdater.fetchLatestReleaseAndInstall(activity, progressBar, description);
         });
 
     cancelButton.setOnClickListener(

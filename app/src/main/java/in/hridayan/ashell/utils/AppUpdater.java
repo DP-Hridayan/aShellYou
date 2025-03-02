@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.core.content.FileProvider;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import java.io.File;
@@ -32,7 +33,11 @@ public class AppUpdater {
           + "/releases/latest";
 
   public static void fetchLatestReleaseAndInstall(
-      Activity activity, LinearProgressIndicator progressBar) {
+      Activity activity, LinearProgressIndicator progressBar, MaterialTextView description) {
+
+    description.setVisibility(View.GONE);
+    progressBar.setVisibility(View.VISIBLE);
+
     new Thread(
             () -> {
               try {
@@ -68,21 +73,28 @@ public class AppUpdater {
 
                 if (apkUrl == null) throw new Exception("No APK file found.");
 
-                downloadAndInstallApk(activity, apkUrl, apkFileName, progressBar);
+                downloadAndInstallApk(activity, apkUrl, apkFileName, progressBar, description);
 
               } catch (Exception e) {
                 Log.e("AppUpdater", "Error fetching update", e);
                 activity.runOnUiThread(
-                    () ->
-                        Toast.makeText(activity, "Failed: " + e.getMessage(), Toast.LENGTH_LONG)
-                            .show());
+                    () -> {
+                      progressBar.setVisibility(View.GONE);
+                      description.setVisibility(View.VISIBLE);
+                      Toast.makeText(activity, "Failed: " + e.getMessage(), Toast.LENGTH_LONG)
+                          .show();
+                    });
               }
             })
         .start();
   }
 
   private static void downloadAndInstallApk(
-      Activity activity, String url, String fileName, LinearProgressIndicator progressBar) {
+      Activity activity,
+      String url,
+      String fileName,
+      LinearProgressIndicator progressBar,
+      MaterialTextView description) {
 
     File dir = activity.getExternalFilesDir(null);
     if (dir != null) {
@@ -146,6 +158,7 @@ public class AppUpdater {
                     cursor.close();
                     activity.runOnUiThread(
                         () -> {
+                          description.setVisibility(View.VISIBLE);
                           progressBar.setVisibility(View.GONE);
                           promptInstall(activity, apkFile);
                         });
@@ -154,6 +167,7 @@ public class AppUpdater {
                     cursor.close();
                     activity.runOnUiThread(
                         () -> {
+                          description.setVisibility(View.VISIBLE);
                           progressBar.setVisibility(View.GONE);
                           Toast.makeText(activity, "Download failed!", Toast.LENGTH_SHORT).show();
                         });
