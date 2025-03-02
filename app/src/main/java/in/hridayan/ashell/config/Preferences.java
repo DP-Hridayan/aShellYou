@@ -14,14 +14,15 @@ public class Preferences {
           .createDeviceProtectedStorageContext()
           .getSharedPreferences(Const.SHARED_PREFS, MODE_PRIVATE);
   static SharedPreferences.Editor editor = prefs.edit();
-    
-    public static void init(){
-        if(prefs == null){
-            prefs = AshellYou.getAppContext()
-          .createDeviceProtectedStorageContext()
-          .getSharedPreferences(Const.SHARED_PREFS, MODE_PRIVATE);
-        }
+
+  public static void init() {
+    if (prefs == null) {
+      prefs =
+          AshellYou.getAppContext()
+              .createDeviceProtectedStorageContext()
+              .getSharedPreferences(Const.SHARED_PREFS, MODE_PRIVATE);
     }
+  }
 
   public static String getLatestVersionName() {
     return prefs.getString(Const.PREF_LATEST_VERSION_NAME, BuildConfig.VERSION_NAME);
@@ -45,6 +46,14 @@ public class Preferences {
 
   public static void setLastSavedFileName(String value) {
     editor.putString(Const.PREF_LAST_SAVED_FILENAME, value).apply();
+  }
+
+  public static String getUpdateApkFileName() {
+    return prefs.getString(Const.PREF_UPDATE_APK_FILE_NAME, null);
+  }
+
+  public static void setUpdateApkFileName(String value) {
+    editor.putString(Const.PREF_UPDATE_APK_FILE_NAME, value).apply();
   }
 
   /*Boolean to check if app has been launched first time after installation , so we return true by default*/
@@ -126,6 +135,14 @@ public class Preferences {
 
   public static void setAutoUpdateCheck(boolean value) {
     editor.putBoolean(Const.PREF_AUTO_UPDATE_CHECK, value).apply();
+  }
+
+  public static boolean getUnknownSourcePermAskStatus() {
+    return prefs.getBoolean(Const.PREF_UNKNOWN_SOURCE_PERM_ASKED, false);
+  }
+
+  public static void setUnknownSourcePermAskStatus(boolean value) {
+    editor.putBoolean(Const.PREF_UNKNOWN_SOURCE_PERM_ASKED, value).apply();
   }
 
   /* we need to check if the main activity is recreated (not restart) to perform certain tasks based on it */

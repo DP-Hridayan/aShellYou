@@ -6,12 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.config.Const;
-import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.config.Preferences;
+import in.hridayan.ashell.utils.AppUpdater;
+import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 
 public class BottomSheets {
@@ -47,6 +48,7 @@ public class BottomSheets {
     MaterialTextView latestVersion = bottomSheetView.findViewById(R.id.latest_version);
     MaterialButton downloadButton = bottomSheetView.findViewById(R.id.download_button);
     MaterialButton cancelButton = bottomSheetView.findViewById(R.id.cancel_button);
+    LinearProgressIndicator progressBar = bottomSheetView.findViewById(R.id.download_progress);
 
     currentVersion.setText(
         context.getString(R.string.current)
@@ -60,12 +62,13 @@ public class BottomSheets {
             + context.getString(R.string.version)
             + " : "
             + Preferences.getLatestVersionName());
+
     downloadButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          Utils.openUrl(activity, Const.URL_GITHUB_RELEASE);
-          bottomSheetDialog.dismiss();
+          AppUpdater.fetchLatestReleaseAndInstall(activity, progressBar);
         });
+
     cancelButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);

@@ -47,6 +47,15 @@
         android:text="@string/update_available_summary"
         android:textAppearance="?attr/textAppearanceBodyMedium" />
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/download_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:max="100" />
+
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -55,18 +64,26 @@
 
         <Button
             android:id="@+id/cancel_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
-            android:layout_marginVertical="25dp"
+            android:layout_margin="25dp"
+            android:layout_weight="3"
             style="?attr/materialButtonOutlinedStyle" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
 
         <Button
             android:id="@+id/download_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/download"
             android:layout_margin="25dp"
+            android:layout_weight="3"
             android:textAppearance="?attr/textAppearanceBodyMedium" />
 
     </LinearLayout>

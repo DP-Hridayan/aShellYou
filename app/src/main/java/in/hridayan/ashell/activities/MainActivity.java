@@ -6,6 +6,7 @@ import static in.hridayan.ashell.config.Const.OTG_FRAGMENT;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -27,11 +28,13 @@ import in.hridayan.ashell.fragments.home.AshellFragment;
 import in.hridayan.ashell.fragments.home.OtgFragment;
 import in.hridayan.ashell.fragments.setup.StartFragment;
 import in.hridayan.ashell.items.SettingsItem;
+import in.hridayan.ashell.utils.AppUpdater;
 import in.hridayan.ashell.utils.CrashHandler;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.DeviceUtils.FetchLatestVersionCodeCallback;
 import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity
     implements OtgFragment.OnFragmentInteractionListener, FetchLatestVersionCodeCallback {
@@ -54,6 +57,29 @@ public class MainActivity extends AppCompatActivity
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     handleIncomingIntent(intent);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    if (Preferences.getUnknownSourcePermAskStatus()) {
+      Preferences.setUnknownSourcePermAskStatus(false);
+
+      String apkFileName = Preferences.getUpdateApkFileName();
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+          && getPackageManager().canRequestPackageInstalls()) {
+        // Permission granted, retry installation
+
+        if (apkFileName != null) {
+          File apkFile = new File(getExternalFilesDir(null), apkFileName);
+          if (apkFile.exists()) {
+            AppUpdater.promptInstall(this, apkFile);
+          }
+        }
+      }
+    }
   }
 
   @Override

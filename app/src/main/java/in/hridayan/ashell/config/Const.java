@@ -38,6 +38,8 @@ public interface Const {
   String PREF_ACTIVITY_RECREATED = "activity_recreated";
   String PREF_EXAMPLES_LAYOUT_STYLE = "id_examples_layout_style";
   String PREF_OUTPUT_SAVE_DIRECTORY = "output_save_directory";
+  String PREF_UNKNOWN_SOURCE_PERM_ASKED = "unknown_source_permission";
+  String PREF_UPDATE_APK_FILE_NAME = "update_apk_file_name";
   String PREF_DEFAULT_SAVE_DIRECTORY =
       Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
           .getAbsolutePath();
@@ -72,6 +74,8 @@ public interface Const {
   // url to open instructions for otg
   String URL_OTG_INSTRUCTIONS =
       "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md";
+  String GITHUB_OWNER = "dp-hridayan";
+  String GITHUB_REPOSITORY = "ashellyou";
   String URL_GITHUB_REPOSITORY = "https://github.com/DP-Hridayan/aShellYou";
   // url for github release
   String URL_GITHUB_RELEASE = "https://github.com/DP-Hridayan/aShellYou/releases/latest";

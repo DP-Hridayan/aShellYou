@@ -190,6 +190,7 @@ public class LookAndFeel extends Fragment {
   private void handleRadioButtonSelection(RadioButton button, int mode) {
     clearRadioButtons(); // Uncheck all radio buttons
     button.setChecked(true);
+    Preferences.setActivityRecreated(true);
     Preferences.setThemeMode(mode);
     AppCompatDelegate.setDefaultNightMode(mode);
   }
