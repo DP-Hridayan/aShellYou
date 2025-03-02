@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
@@ -64,6 +65,7 @@ public class BottomSheets {
     MaterialButton downloadButton = bottomSheetView.findViewById(R.id.download_button);
     MaterialButton cancelButton = bottomSheetView.findViewById(R.id.cancel_button);
     LinearProgressIndicator progressBar = bottomSheetView.findViewById(R.id.download_progress);
+    LottieAnimationView loadingDots = bottomSheetDialog.findViewById(R.id.loading_animation);
 
     currentVersion.setText(
         context.getString(R.string.current)
@@ -81,7 +83,8 @@ public class BottomSheets {
     downloadButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          AppUpdater.fetchLatestReleaseAndInstall(activity, progressBar, description);
+          AppUpdater.fetchLatestReleaseAndInstall(
+              activity, progressBar, description, loadingDots, downloadButton);
         });
 
     cancelButton.setOnClickListener(

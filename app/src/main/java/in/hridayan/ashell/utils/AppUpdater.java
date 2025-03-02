@@ -10,8 +10,11 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.core.content.FileProvider;
+import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.config.Const;
@@ -22,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import in.hridayan.ashell.R;
 
 public class AppUpdater {
 
@@ -33,9 +37,15 @@ public class AppUpdater {
           + "/releases/latest";
 
   public static void fetchLatestReleaseAndInstall(
-      Activity activity, LinearProgressIndicator progressBar, MaterialTextView description) {
+      Activity activity,
+      LinearProgressIndicator progressBar,
+      MaterialTextView description,
+      LottieAnimationView loadingDots,
+      Button downloadButton) {
 
     description.setVisibility(View.GONE);
+    downloadButton.setText(null);
+    loadingDots.setVisibility(View.VISIBLE); // The loading animation on download button
     progressBar.setVisibility(View.VISIBLE);
 
     new Thread(
@@ -73,13 +83,23 @@ public class AppUpdater {
 
                 if (apkUrl == null) throw new Exception("No APK file found.");
 
-                downloadAndInstallApk(activity, apkUrl, apkFileName, progressBar, description);
+                downloadAndInstallApk(
+                    activity,
+                    apkUrl,
+                    apkFileName,
+                    progressBar,
+                    description,
+                    loadingDots,
+                    downloadButton);
 
               } catch (Exception e) {
                 Log.e("AppUpdater", "Error fetching update", e);
                 activity.runOnUiThread(
                     () -> {
                       progressBar.setVisibility(View.GONE);
+                      loadingDots.setVisibility(
+                          View.GONE); // The loading animation on download button
+                      downloadButton.setText(R.string.download);
                       description.setVisibility(View.VISIBLE);
                       Toast.makeText(activity, "Failed: " + e.getMessage(), Toast.LENGTH_LONG)
                           .show();
@@ -94,7 +114,9 @@ public class AppUpdater {
       String url,
       String fileName,
       LinearProgressIndicator progressBar,
-      MaterialTextView description) {
+      MaterialTextView description,
+      LottieAnimationView loadingDots,
+      Button downloadButton) {
 
     File dir = activity.getExternalFilesDir(null);
     if (dir != null) {
@@ -158,8 +180,10 @@ public class AppUpdater {
                     cursor.close();
                     activity.runOnUiThread(
                         () -> {
-                          description.setVisibility(View.VISIBLE);
+                          loadingDots.setVisibility(View.GONE);
                           progressBar.setVisibility(View.GONE);
+                          downloadButton.setText(R.string.download);
+                          description.setVisibility(View.VISIBLE);
                           promptInstall(activity, apkFile);
                         });
                   } else if (status == DownloadManager.STATUS_FAILED) {
@@ -167,8 +191,10 @@ public class AppUpdater {
                     cursor.close();
                     activity.runOnUiThread(
                         () -> {
-                          description.setVisibility(View.VISIBLE);
+                          loadingDots.setVisibility(View.GONE);
                           progressBar.setVisibility(View.GONE);
+                          downloadButton.setText(R.string.download);
+                          description.setVisibility(View.VISIBLE);
                           Toast.makeText(activity, "Download failed!", Toast.LENGTH_SHORT).show();
                         });
                   }

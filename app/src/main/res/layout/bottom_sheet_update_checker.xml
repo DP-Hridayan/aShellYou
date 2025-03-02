@@ -86,13 +86,35 @@
             android:layout_weight="1" />
 
 
-        <Button
-            android:id="@+id/download_button"
-            android:layout_width="0dp"
+        <RelativeLayout
             android:layout_height="wrap_content"
-            android:text="@string/download"
+            android:layout_width="0dp"
             android:layout_weight="3"
-            android:textAppearance="?attr/textAppearanceBodyMedium" />
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/download_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/download"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loading_animation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignStart="@id/download_button"
+                android:layout_alignEnd="@id/download_button"
+                android:layout_alignTop="@id/download_button"
+                android:layout_alignBottom="@id/download_button"
+                android:visibility="gone"
+                app:lottie_rawRes="@raw/loading_dots"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_colorFilter="?attr/colorOnPrimary" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
