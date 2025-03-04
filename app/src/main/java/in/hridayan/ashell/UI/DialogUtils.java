@@ -70,6 +70,7 @@ public class DialogUtils {
     final CharSequence[] workingModes = {
       context.getString(R.string.local_adb),
       context.getString(R.string.otg),
+      context.getString(R.string.wifi_adb),
       context.getString(R.string.remember_working_mode)
     };
 

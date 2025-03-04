@@ -2,6 +2,9 @@ package in.hridayan.ashell.config;
 
 import android.os.Environment;
 import in.hridayan.ashell.BuildConfig;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public interface Const {
   String SHARED_PREFS = BuildConfig.APPLICATION_ID + "_preferences";
@@ -35,6 +38,8 @@ public interface Const {
   String PREF_ACTIVITY_RECREATED = "activity_recreated";
   String PREF_EXAMPLES_LAYOUT_STYLE = "id_examples_layout_style";
   String PREF_OUTPUT_SAVE_DIRECTORY = "output_save_directory";
+  String PREF_UNKNOWN_SOURCE_PERM_ASKED = "unknown_source_permission";
+  String PREF_UPDATE_APK_FILE_NAME = "update_apk_file_name";
   String PREF_DEFAULT_SAVE_DIRECTORY =
       Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
           .getAbsolutePath();
@@ -58,7 +63,7 @@ public interface Const {
   /* <--------Transition Names-------> */
   String SEND_TO_EXAMPLES = "sendButtonToExamples";
   String SETTINGS_TO_SETTINGS = "settingsButtonToSettings";
-  
+
   /* <--------U R L s -------> */
   String URL_DEV_GITHUB = "https://github.com/DP-Hridayan";
   String URL_DEV_BM_COFFEE = "https://www.buymeacoffee.com/hridayan";
@@ -69,6 +74,8 @@ public interface Const {
   // url to open instructions for otg
   String URL_OTG_INSTRUCTIONS =
       "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md";
+  String GITHUB_OWNER = "dp-hridayan";
+  String GITHUB_REPOSITORY = "ashellyou";
   String URL_GITHUB_REPOSITORY = "https://github.com/DP-Hridayan/aShellYou";
   // url for github release
   String URL_GITHUB_RELEASE = "https://github.com/DP-Hridayan/aShellYou/releases/latest";
@@ -80,7 +87,7 @@ public interface Const {
   String TAG = "flashbot";
 
   String CURRENT_FRAGMENT = "current_fragment";
-    
+
   // integers
   int SORT_A_TO_Z = 0;
   int SORT_Z_TO_A = 1;
@@ -90,9 +97,11 @@ public interface Const {
   int SORT_LEAST_USED = 3;
   int LOCAL_FRAGMENT = 0;
   int OTG_FRAGMENT = 1;
+  int WIFI_ADB_FRAGMENT = 2;
   int MODE_LOCAL_ADB = 0;
   int MODE_OTG = 1;
-  int MODE_REMEMBER_LAST_MODE = 2;
+  int MODE_WIFI_ADB = 2;
+  int MODE_REMEMBER_LAST_MODE = 3;
   int MAX_BOOKMARKS_LIMIT = 25;
   int UPDATE_AVAILABLE = 1;
   int UPDATE_NOT_AVAILABLE = 0;
@@ -107,6 +116,38 @@ public interface Const {
 
   // used in OTG utils
   double PUSH_PERCENT = 0.5;
+
+  // Set of some sensitive packages of the android which should be handled carefully while executing
+  // adb commands
+  Set<String> SENSITIVE_PACKAGES =
+      Collections.unmodifiableSet(
+          new HashSet<String>() {
+            {
+              add("com.android.systemui");
+              add("com.android.settings");
+              add("com.android.frameworkres");
+              add("com.android.providers.settings");
+              add("com.android.permissioncontroller");
+              add("com.android.inputmethod.latin");
+              add("com.android.server.telecom");
+              add("com.android.phone");
+              add("com.android.providers.media");
+              add("com.android.packageinstaller");
+              add("com.android.externalstorage");
+              add("com.android.documentsui");
+              add("com.android.wifi");
+            }
+          });
+
+  // Check if packageName contains any of the strings in SENSITIVE_PACKAGES
+  public static boolean isPackageSensitive(String packageName) {
+    for (String sensitive : SENSITIVE_PACKAGES) {
+      if (packageName.contains(sensitive)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   /* <--------NAMES OF CONTRIBUTORS -------> */
 

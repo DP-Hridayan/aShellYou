@@ -854,7 +854,7 @@ public class OtgFragment extends Fragment
     binding.shareButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          String fileName = Utils.generateFileName(mHistory);
+          String fileName = Utils.generateFileName(mHistory)+".txt";
           Utils.shareOutput(
               requireActivity(),
               context,
