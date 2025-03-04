@@ -35,8 +35,15 @@ public class WifiAdbShell {
 
       String adbPath = adbFile.getAbsolutePath();
 
+      boolean needsShellPrefix = shouldUseShellPrefix(mCommand);
+
       // Use system linker to execute ADB
-      String[] fullCommand = {"su", "-c", adbPath + " shell " + mCommand};
+      String[] fullCommand;
+      if (needsShellPrefix) {
+        fullCommand = new String[] {"su", "-c", adbPath + " shell " + mCommand};
+      } else {
+        fullCommand = new String[] {"su", "-c", adbPath + " " + mCommand};
+      }
 
       mProcess = Runtime.getRuntime().exec(fullCommand);
 
@@ -100,6 +107,7 @@ public class WifiAdbShell {
                 while ((line = reader.readLine()) != null) {
                   if (line.contains("Successfully paired")) { // Check for success message
                     isSuccess = true;
+
                     break;
                   }
                 }
@@ -204,14 +212,6 @@ public class WifiAdbShell {
         .start();
   }
 
-  private static String adbPath(Context context) {
-    File adbFile = new File(context.getFilesDir(), "adb");
-    if (!adbFile.exists()) {
-      return "adb file not found";
-    }
-    return adbFile.getAbsolutePath();
-  }
-
   // Starts the adb tcpip server
   public static void startServer(Context context) {
     try {
@@ -240,6 +240,67 @@ public class WifiAdbShell {
   // Destroys the running shell process
   public static void destroy() {
     if (mProcess != null) mProcess.destroy();
+  }
+
+  // This function determines if certain commands should use shell prefix in the command
+  private static boolean shouldUseShellPrefix(String command) {
+    String[] shellCommands = {
+      "pm",
+      "settings",
+      "svc",
+      "dumpsys",
+      "am",
+      "cmd",
+      "monkey",
+      "input",
+      "logcat",
+      "getprop",
+      "setprop",
+      "top",
+      "wm",
+      "content",
+      "uiautomator",
+      "screencap",
+      "screenrecord",
+      "chmod",
+      "chown",
+      "ls",
+      "cd",
+      "df",
+      "du",
+      "cat",
+      "grep",
+      "ps",
+      "kill",
+      "log",
+      "date",
+      "id",
+      "uptime",
+      "reboot",
+      "svc",
+      "ime",
+      "service",
+      "ip",
+      "ifconfig",
+      "netcfg",
+      "netstat"
+    };
+
+    for (String prefix : shellCommands) {
+      if (command.trim().startsWith(prefix)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private static String adbPath(Context context) {
+    File adbFile = new File(context.getFilesDir(), "adb");
+    if (!adbFile.exists()) {
+      return "adb file not found";
+    }
+    return adbFile.getAbsolutePath();
   }
 
   public static void copyAdbBinaryToData(Context context) {
