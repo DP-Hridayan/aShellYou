@@ -142,7 +142,7 @@ public class BottomSheets {
 
                   @Override
                   public void onFailure(String errorMessage) {
-                    ToastUtils.showToast(context, "Pairing failed", ToastUtils.LENGTH_SHORT);
+                    ToastUtils.showToast(context, context.getString(R.string.pairing_failed), ToastUtils.LENGTH_SHORT);
                   }
                 });
           }
@@ -181,7 +181,7 @@ public class BottomSheets {
 
                   @Override
                   public void onFailure(String errorMessage) {
-                    ToastUtils.showToast(context, "Pairing failed", ToastUtils.LENGTH_SHORT);
+                    ToastUtils.showToast(context, context.getString(R.string.pairing_failed), ToastUtils.LENGTH_SHORT);
                   }
                 });
           }
