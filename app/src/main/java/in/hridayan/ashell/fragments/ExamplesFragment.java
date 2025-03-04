@@ -34,6 +34,7 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentExamplesBinding;
 import in.hridayan.ashell.fragments.home.AshellFragment;
 import in.hridayan.ashell.fragments.home.OtgFragment;
+import in.hridayan.ashell.fragments.home.WifiAdbFragment;
 import in.hridayan.ashell.items.CommandItems;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -512,6 +513,8 @@ public class ExamplesFragment extends Fragment
     mainViewModel.setUseCommand(command);
     Fragment fragment = new AshellFragment();
     if (mainViewModel.previousFragment() == Const.OTG_FRAGMENT) fragment = new OtgFragment();
+    else if (mainViewModel.previousFragment() == Const.WIFI_ADB_FRAGMENT)
+      fragment = new WifiAdbFragment();
 
     // clear previous backstacks
     clearBackStack();

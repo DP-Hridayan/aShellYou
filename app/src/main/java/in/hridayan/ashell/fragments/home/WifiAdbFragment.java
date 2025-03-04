@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -30,6 +32,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.Hold;
+import in.hridayan.ashell.AshellYou;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -56,6 +59,7 @@ import in.hridayan.ashell.shell.WifiAdbShell;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
+import in.hridayan.ashell.utils.SystemMountHelper;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
@@ -169,6 +173,9 @@ public class WifiAdbFragment extends Fragment {
     initializeViewModels();
 
     WifiAdbShell.copyAdbBinaryToData(context);
+
+    // Run in a background thread to avoid blocking the UI
+    new CheckAndRemountTask().execute();
 
     if (binding.rvOutput.getLayoutManager() == null) {
       binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -449,7 +456,7 @@ public class WifiAdbFragment extends Fragment {
         v -> {
           HapticUtils.weakVibrate(v);
 
-          BottomSheets.showBottomSheetPairAndConnect(context,requireActivity());
+          BottomSheets.showBottomSheetPairAndConnect(context, requireActivity());
         });
   }
 
@@ -1163,5 +1170,25 @@ public class WifiAdbFragment extends Fragment {
       binding.pasteButton.setVisibility(View.GONE);
       binding.saveButton.setVisibility(View.VISIBLE);
     }
+  }
+
+  private static class CheckAndRemountTask extends AsyncTask<Void, Void, Boolean> {
+    @Override
+    protected Boolean doInBackground(Void... voids) {
+      if (SystemMountHelper.isSystemReadOnly()) {
+        return SystemMountHelper.remountSystemRW();
+      }
+      return true; // Already RW
+    }
+
+    /*   @Override
+    protected void onPostExecute(Boolean success) {
+      if (success) {
+        Toast.makeText(AshellYou.getAppContext(), "System is now Read-Write", Toast.LENGTH_SHORT).show();
+      } else {
+        Toast.makeText(AshellYou.getAppContext(), "Failed to change to Read-Write", Toast.LENGTH_SHORT)
+            .show();
+      }
+    } */
   }
 }
