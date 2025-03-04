@@ -2,16 +2,16 @@
     <item
         android:id="@+id/nav_localShell"
         android:icon="@drawable/ic_numbers"
-        android:title="Local ADB" />
+        android:title="@string/local_adb" />
 
     <item
         android:id="@+id/nav_otgShell"
         android:icon="@drawable/ic_otg"
-        android:title="OTG" />
-    
-   <item
+        android:title="@string/otg" />
+
+    <item
         android:id="@+id/nav_wireless"
         android:icon="@drawable/ic_wireless"
-        android:title="Wifi ADB" />
+        android:title="@string/wifi_adb" />
     
 </menu>

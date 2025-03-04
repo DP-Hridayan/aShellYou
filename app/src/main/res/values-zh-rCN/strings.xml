@@ -29,6 +29,7 @@
     <string name="batch_unpinned_message">%d个命令被取消置顶</string>
     <string name="cancel">取消</string>
     <string name="changelogs">更新日志</string>
+    <string name="check_updates">检查更新</string>
     <string name="choose">选择</string>
     <string name="clear_all_message">确定清除屏幕上的所有内容？</string>
     <string name="clear_everything">全部清除</string>
@@ -58,6 +59,7 @@
     <string name="delete_all">全部删除</string>
     <string name="des_default_launch_mode">选择运行ADB命令的默认模式</string>
     <string name="device_not_connected">设备未连接</string>
+    <string name="disclaimer_end">使用此软件即视为同意以上条款。否则，请删除此软件</string>
     <string name="discord">Discord</string>
     <string name="des_discord">加入 Discord</string>
     <string name="dismiss">取消</string>
@@ -80,6 +82,7 @@
     <string name="mail">电子邮件</string>
     <string name="menu">菜单</string>
     <string name="most_used">最多使用</string>
+    <string name="must_fill">必须填写</string>
     <string name="none">无</string>
     <string name="no_command">无命令</string>
     <string name="no_command_found">没有匹配的命令</string>
@@ -89,7 +92,9 @@
     <string name="otg">OTG</string>
     <string name="otg_not_connected">设备连接异常。请使用OTG重新连接设备，然后重试</string>
     <string name="paste">粘贴</string>
+    <string name="pairing_code">配对码</string>
     <string name="pin">置顶</string>
+    <string name="port">端口</string>
     <string name="press_back">再次操作来退出</string>
     <string name="process_destroy_message">aShellYou 正忙。强行停止当前进程？</string>
     <string name="progress">进度</string>
@@ -103,6 +108,7 @@
     <string name="search_output">在此处搜索输出内容</string>
     <string name="selected">选择</string>
     <string name="select_all">全选</string>
+    <string name="sensitive_packages_warning3">如果对于这些风险你均不知晓，那么在创建必要备份或者了解还原方法之前 不！要！继续</string>
     <string name="search_summary">在命令摘要中搜索？</string>
     <string name="settings">设置</string>
     <string name="set_adb_interface_fail">函数 setAdbInterface(device, intf) 失败</string>
@@ -130,6 +136,7 @@
     <string name="use">使用</string>
     <string name="waiting_device">正在等待设备</string>
     <string name="warning">请注意</string>
+    <string name="wifi_adb">WiFi ADB</string>
     <string name="yes">是</string>
     <string name="smooth_scrolling">平滑滚动</string>
     <string name="des_smooth_scroll">当点击回到 顶部 或 底部 方向的箭头时，使用平滑效果</string>
@@ -162,11 +169,13 @@
     <string name="abort_command">请先终止正在运行的命令</string>
     <string name="already_latest_version">你使用的是最新版</string>
     <string name="app_crashed">软件崩溃了: (</string>
+    <string name="are_you_sure">确认继续？</string>
     <string name="basic_shell">普通终端</string>
     <string name="switch_mode">切换模式</string>
     <string name="check_internet">请检查网络连接</string>
     <string name="command_title_root">输入命令</string>
     <string name="confirm_exit">确认退出</string>
+    <string name="connect">连接</string>
     <string name="connected">已连接</string>
     <string name="crash_report">崩溃报告</string>
     <string name="current">当前</string>
@@ -178,6 +187,7 @@
     <string name="grant_permission">获取权限</string>
     <string name="grant_permission_manually">若授权窗口未弹出，请通过你的SU管理程序手动授予root权限</string>
     <string name="instructions">指南</string>
+    <string name="ip_address">IP地址</string>
     <string name="latest">最新</string>
     <string name="mode">模式</string>
     <string name="no_application_found">没有找到用于执行该任务的软件</string>
@@ -186,6 +196,7 @@
     <string name="no_history">无历史命令</string>
     <string name="nothing_to_clear">没什么可清的</string>
     <string name="nothing_to_search">无可检索项</string>
+    <string name="ok_countdown">好的（10秒自动关闭）</string>
     <string name="on">开</string>
     <string name="only_last_command_output">仅输出最近一次的命令输出</string>
     <string name="open">打开</string>
@@ -204,6 +215,7 @@
     <string name="usb_warning_summary">你需要在目标设备打开开发者选项的USB调试</string>
     <string name="vibration">触感反馈</string>
     <string name="des_vibration">为交互反馈启用震动功能</string>
+    <string name="wireless_debugging">无线ADB</string>
     <string name="whats_new">这一次更新了什么？</string>
     <string name="whole_output">所有输出</string>
     <string name="local_adb_mode">选择本地adb的工作模式</string>
@@ -239,4 +251,23 @@
     <string name="des_configure_save_directory">配置目录保存终端输出</string>
     <string name="grid">网格</string>
     <string name="list">列表</string>
+    <string name="disclaimer">免责声明</string>
+    <string name="des_disclaimer">本软件允许你在不使用PC的情况下使用ADB命令行。请在使用前仔细阅读以下说明</string>
+    <string name="disclaimer_1_title">请自行承担风险</string>
+    <string name="disclaimer_1_description">运行ADB命令不仅可以修改系统设置，还可以管理文件甚至执行影响设备稳定性的操作。使用本软件产生的后果均由你自行承担</string>
+    <string name="disclaimer_2_title">记住：小心驶得万年船</string>
+    <string name="disclaimer_2_description">即使不使用Root权限，滥用ADB权限也足以导致资料丢失，应用崩溃以及系统异常</string>
+    <string name="disclaimer_3_title">我们不为此负责</string>
+    <string name="disclaimer_3_description">开发者不为用户使用本软件时过失行为造成的损失担责。小心使用本软件仅在你知道这个命令的作用时使用它</string>
+    <string name="disclaimer_4_title">仅为熟手用户设计</string>
+    <string name="disclaimer_4_description">这个软件仅为已经对于ADB的用途烂熟于心的用户设计。如果你不知道某些要执行的命令是干什么的，执行前你最好研究研究</string>
+    <string name="disclaimer_5_title">权限与安全</string>
+    <string name="disclaimer_5_description">这个软件会请求部分特殊权限以正常运行。本软件并不会收集用户数据，但你应当知晓授予ADB相关权限的影响</string>
+    <string name="pair">配对</string>
+    <string name="paired">已配对</string>
+    <string name="pairing_port">配对端口</string>
+    <string name="sensitive_packages_warning1">你即将执行与关键系统软件有关的命令. 修改、冻结或者卸载这些软件将导致包括但不限于以下问题：</string>
+    <string name="sensitive_packages_warning2">⚠️ 系统崩溃重启（比如 “卡米”现象）\n⚠️ 失去重要功能 (比如 系统界面消失, 网络与安全功能失效)\n⚠️ 在恢复出厂设置或重刷固件前均无法修复的故障</string>
+    <string name="warning_v2">⚠ 真要这么办吗 ⚠</string>
+    <string name="pairing_failed">配对失败</string>
 </resources>
