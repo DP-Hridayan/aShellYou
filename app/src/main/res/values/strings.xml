@@ -281,4 +281,5 @@
     <string name="des_configure_save_directory">Choose a directory to save the shell output</string>
     <string name="grid">Grid</string>
     <string name="list">List</string>
+    <string name="pairing_failed">Pairing failed</string>
 </resources>
