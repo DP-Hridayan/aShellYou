@@ -121,7 +121,12 @@ public class BottomSheets {
             hasError = true;
           }
 
-          if (!hasError) {
+          if (!hasError) { // Start the loading dots animation on pair button
+            LottieAnimationView loadingDots =
+                bottomSheetView.findViewById(R.id.loading_anim_on_pair);
+            loadingDots.setVisibility(View.VISIBLE);
+            pairButton.setText(null);
+
             WifiAdbShell.pair(
                 context,
                 pairingIP,
@@ -131,7 +136,10 @@ public class BottomSheets {
                   @Override
                   public void onSuccess() {
                     HapticUtils.weakVibrate(v);
+                    loadingDots.setVisibility(View.GONE);
+                    pairButton.setText(R.string.pair);
                     connectLayout.setVisibility(View.VISIBLE);
+                    connectingIPEditText.setText(pairingIP);
                     pairButton.setText(context.getString(R.string.paired));
                     pairButton.setOnClickListener(
                         v -> {
@@ -142,7 +150,9 @@ public class BottomSheets {
 
                   @Override
                   public void onFailure(String errorMessage) {
-                    ToastUtils.showToast(context, context.getString(R.string.pairing_failed), ToastUtils.LENGTH_SHORT);
+                    loadingDots.setVisibility(View.GONE);
+                    pairButton.setText(R.string.pair);
+                    ToastUtils.showToast(context, "Pairing failed", ToastUtils.LENGTH_SHORT);
                   }
                 });
           }
@@ -166,6 +176,12 @@ public class BottomSheets {
           }
 
           if (!hasError) {
+            // Start the loading dots animation on the connect button
+            LottieAnimationView loadingDots =
+                bottomSheetView.findViewById(R.id.loading_anim_on_connect);
+            loadingDots.setVisibility(View.VISIBLE);
+            connectButton.setText(null);
+
             WifiAdbShell.connect(
                 context,
                 connectingIP,
@@ -174,6 +190,8 @@ public class BottomSheets {
                   @Override
                   public void onSuccess() {
                     HapticUtils.weakVibrate(v);
+                    loadingDots.setVisibility(View.GONE);
+                    connectButton.setText(R.string.connect);
                     bottomSheetDialog.dismiss();
                     ToastUtils.showToast(
                         context, context.getString(R.string.connected), ToastUtils.LENGTH_SHORT);
@@ -181,7 +199,9 @@ public class BottomSheets {
 
                   @Override
                   public void onFailure(String errorMessage) {
-                    ToastUtils.showToast(context, context.getString(R.string.pairing_failed), ToastUtils.LENGTH_SHORT);
+                    loadingDots.setVisibility(View.GONE);
+                    connectButton.setText(R.string.connect);
+                    ToastUtils.showToast(context, "Pairing failed", ToastUtils.LENGTH_SHORT);
                   }
                 });
           }

@@ -112,13 +112,37 @@
 
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/pair_button"
-            android:layout_width="wrap_content"
+
+        <RelativeLayout
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
             android:layout_marginBottom="25dp"
-            android:text="@string/pair" />
+            android:layout_gravity="center">
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pair_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/pair" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loading_anim_on_pair"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignStart="@id/pair_button"
+                android:layout_alignEnd="@id/pair_button"
+                android:layout_alignTop="@id/pair_button"
+                android:layout_alignBottom="@id/pair_button"
+                android:visibility="gone"
+                app:lottie_rawRes="@raw/loading_dots"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_colorFilter="?attr/colorOnPrimary" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/connectLayout"
@@ -200,13 +224,34 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/connect_button"
-                    android:layout_width="0dp"
+                <RelativeLayout
                     android:layout_height="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_weight="4.5"
-                    android:text="@string/connect" />
+                    android:layout_gravity="center">
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/connect_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/connect" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/loading_anim_on_connect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_alignStart="@id/connect_button"
+                        android:layout_alignEnd="@id/connect_button"
+                        android:layout_alignTop="@id/connect_button"
+                        android:layout_alignBottom="@id/connect_button"
+                        android:visibility="gone"
+                        app:lottie_rawRes="@raw/loading_dots"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_colorFilter="?attr/colorOnPrimary" />
+
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

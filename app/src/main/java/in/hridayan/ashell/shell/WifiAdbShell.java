@@ -36,7 +36,7 @@ public class WifiAdbShell {
       String adbPath = adbFile.getAbsolutePath();
 
       // Use system linker to execute ADB
-      String[] fullCommand = {"su", "-c", adbPath + " " + mCommand};
+      String[] fullCommand = {"su", "-c", adbPath + " shell " + mCommand};
 
       mProcess = Runtime.getRuntime().exec(fullCommand);
 
@@ -81,6 +81,11 @@ public class WifiAdbShell {
                 String[] pairCommand = {
                   "su", "-c", adbPath + " pair " + ip + ":" + port + " " + pairingCode
                 };
+
+                // kill the server first and start a fresh one
+                killServer(context);
+                Thread.sleep(500);
+                startServer(context);
 
                 Process pairingProcess = Runtime.getRuntime().exec(pairCommand);
                 BufferedReader reader =
@@ -180,6 +185,7 @@ public class WifiAdbShell {
                 new Handler(Looper.getMainLooper())
                     .post(
                         () -> {
+                          // finalSuccess = device connected
                           if (finalSuccess) {
                             if (callback != null) callback.onSuccess();
                           } else {
@@ -196,6 +202,32 @@ public class WifiAdbShell {
               }
             })
         .start();
+  }
+
+  private static String adbPath(Context context) {
+    File adbFile = new File(context.getFilesDir(), "adb");
+    if (!adbFile.exists()) {
+      return "adb file not found";
+    }
+    return adbFile.getAbsolutePath();
+  }
+
+  // Starts the adb tcpip server
+  public static void startServer(Context context) {
+    try {
+      String[] startServer = {"su", "-c", adbPath(context) + "start-server"};
+      Runtime.getRuntime().exec(startServer);
+    } catch (Exception e) {
+    }
+  }
+
+  // Kills the adb tcpip server
+  public static void killServer(Context context) {
+    try {
+      String[] killServer = {"su", "-c", adbPath(context) + "kill-server"};
+      Runtime.getRuntime().exec(killServer);
+    } catch (Exception e) {
+    }
   }
 
   // Checks if shell is busy or not
