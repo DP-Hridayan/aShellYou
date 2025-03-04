@@ -3,6 +3,7 @@ package in.hridayan.ashell.activities;
 import static in.hridayan.ashell.config.Const.LOCAL_FRAGMENT;
 import static in.hridayan.ashell.config.Const.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.config.Const.OTG_FRAGMENT;
+import static in.hridayan.ashell.config.Const.WIFI_ADB_FRAGMENT;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -26,6 +27,7 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.ActivityMainBinding;
 import in.hridayan.ashell.fragments.home.AshellFragment;
 import in.hridayan.ashell.fragments.home.OtgFragment;
+import in.hridayan.ashell.fragments.home.WifiAdbFragment;
 import in.hridayan.ashell.fragments.setup.StartFragment;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.utils.AppUpdater;
@@ -165,15 +167,28 @@ public class MainActivity extends AppCompatActivity
               return true;
 
             case R.id.nav_wireless:
-              ToastUtils.showToast(this, "Soon", ToastUtils.LENGTH_SHORT);
-              return false;
+              fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+              if (fragment instanceof AshellFragment && ((AshellFragment) fragment).isShellBusy()) {
+                ToastUtils.showToast(
+                    this, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
+                return false;
+              }
+              showWifiAdbFragment();
+              Preferences.setCurrentFragment(WIFI_ADB_FRAGMENT);
+              return true;
 
             default:
               return false;
           }
         });
 
-    setBadge(R.id.nav_wireless, "Soon");
+    setBadge(R.id.nav_wireless, "Beta");
+  }
+
+  // If not on LocalShell then go to LocalShell (AshellFragment)
+  private void showAshellFragment() {
+    if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+        instanceof AshellFragment)) replaceFragment(new AshellFragment());
   }
 
   // If not on OtgShell then go to OtgShell
@@ -182,10 +197,10 @@ public class MainActivity extends AppCompatActivity
         instanceof OtgFragment)) replaceFragment(new OtgFragment());
   }
 
-  // If not on LocalShell then go to LocalShell (AshellFragment)
-  private void showAshellFragment() {
+  // If not on WifiAdbShell then go to WifiAdbShell
+  private void showWifiAdbFragment() {
     if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof AshellFragment)) replaceFragment(new AshellFragment());
+        instanceof WifiAdbFragment)) replaceFragment(new WifiAdbFragment());
   }
 
   private void setBadge(int id, String text) {
@@ -212,6 +227,9 @@ public class MainActivity extends AppCompatActivity
     } else if (fragmentId == Const.OTG_FRAGMENT) {
       mNav.setSelectedItemId(R.id.nav_otgShell);
       replaceFragment(new OtgFragment());
+    } else if (fragmentId == Const.WIFI_ADB_FRAGMENT) {
+      mNav.setSelectedItemId(R.id.nav_wireless);
+      replaceFragment(new WifiAdbFragment());
     }
   }
 
@@ -244,6 +262,16 @@ public class MainActivity extends AppCompatActivity
               (OtgFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
           if (fragmentOtg != null) {
             fragmentOtg.updateInputField(pendingSharedText);
+            clearPendingSharedText();
+          }
+          break;
+
+        case WIFI_ADB_FRAGMENT:
+          WifiAdbFragment fragmentWifiAdb =
+              (WifiAdbFragment)
+                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+          if (fragmentWifiAdb != null) {
+            fragmentWifiAdb.updateInputField(pendingSharedText);
             clearPendingSharedText();
           }
           break;

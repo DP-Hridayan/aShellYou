@@ -60,6 +60,7 @@
     <string name="confirm_pin_single">\[%s\] will be pinned\nDo you wish to continue?</string>
     <string name="confirm_unpin">Do you want to unpin the selected commands?</string>
     <string name="confirm_unpin_single">\[%s\] will be unpinned\nDo you wish to continue?</string>
+    <string name="connect">Connect</string>
     <string name="connected">Connected</string>
     <string name="connected_device">Connected device</string>
     <string name="connecting">connecting\u2026</string>
@@ -114,6 +115,7 @@
     <string name="high_contrast_dark_theme">High contrast dark theme</string>
     <string name="history">History</string>
     <string name="instructions">Instructions</string>
+    <string name="ip_address">IP address</string>
     <string name="latest">Latest</string>
     <string name="launch_mode">Launch mode</string>
     <string name="least_used">Least used</string>
@@ -124,6 +126,7 @@
     <string name="menu">Menu</string>
     <string name="mode">Mode</string>
     <string name="most_used">Most used</string>
+    <string name="must_fill">Must fill</string>
     <string name="none">None</string>
 
     <string name="no_application_found">No application found to perform the task</string>
@@ -144,8 +147,13 @@
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Connect the device properly through OTG and try again</string>
     <string name="paste">Paste</string>
+    <string name="pair">Pair</string>
+    <string name="paired">Paired</string>
+    <string name="pairing_port">Pairing port</string>
+        <string name="pairing_code">Pairing code</string>
     <string name="pin">Pin</string>
     <string name="pinned_message">\'%s\' has been pinned</string>
+    <string name="port">Port</string>
     <string name="press_back">Press back again to exit</string>
     <string name="process_destroy_message">aShell You is still working. Do you want to stop the current process?</string>
     <string name="progress">Progress</string>
@@ -211,8 +219,10 @@
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
     <string name="warning_v2">⚠ WARNING: Proceed with Caution! ⚠</string>
+    <string name="wireless_debugging">Wireless Debugging</string>
     <string name="whats_new">What\'s new !</string>
     <string name="whole_output">Whole output</string>
+    <string name="wifi_adb">Wifi ADB</string>
     <string name="yes">Yes</string>
     <string name="local_adb_mode">Choose local adb working mode</string>
     <string name="des_local_adb_mode">Choose a preffered mode for executing shell commands on your device</string>

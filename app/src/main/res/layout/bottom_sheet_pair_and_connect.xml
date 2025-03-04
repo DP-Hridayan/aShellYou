@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp"
+            android:paddingHorizontal="25dp"
+            android:text="@string/wireless_debugging"
+            android:textStyle="bold"
+            android:textAppearance="?attr/textAppearanceTitleLarge"
+            android:textAlignment="center"
+            android:gravity="center" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/pair"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:text="@string/pair"
+            android:layout_gravity="start"
+            android:textColor="?attr/colorPrimary"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginHorizontal="25dp"
+            android:hint="@string/ip_address"
+            android:id="@+id/ipAddressPairInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:gravity="center_vertical"
+                android:cursorVisible="true"
+                android:paddingHorizontal="10dp"
+                android:digits=".0123456789"
+                android:maxLines="1"
+                android:inputType="textAutoComplete | numberDecimal"
+                android:id="@+id/ipAddressPairEditText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="25dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="@string/port"
+                android:id="@+id/pairingPortInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:gravity="center_vertical"
+                    android:cursorVisible="true"
+                    android:paddingHorizontal="10dp"
+                    android:digits="0123456789"
+                    android:maxLength="5"
+                    android:maxLines="1"
+                    android:inputType="textAutoComplete | numberDecimal"
+                    android:id="@+id/pairingPortEditText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="4.5"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="@string/pairing_code"
+                android:id="@+id/pairingCodeInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:gravity="center_vertical"
+                    android:cursorVisible="true"
+                    android:paddingHorizontal="10dp"
+                    android:digits="0123456789"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:inputType="textAutoComplete | numberDecimal"
+                    android:id="@+id/pairingCodeEditText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pair_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="25dp"
+            android:text="@string/pair" />
+
+        <LinearLayout
+            android:id="@+id/connectLayout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:dividerColor="?attr/colorPrimary"
+                app:dividerInsetEnd="20dp"
+                app:dividerInsetStart="20dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/connect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:text="@string/connect"
+                android:layout_gravity="start"
+                android:textColor="?attr/colorPrimary"
+                android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginHorizontal="25dp"
+                android:hint="@string/ip_address"
+                android:id="@+id/ipAddressConnectInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:gravity="center_vertical"
+                    android:cursorVisible="true"
+                    android:paddingHorizontal="10dp"
+                    android:digits=".0123456789"
+                    android:maxLines="1"
+                    android:inputType="textAutoComplete | numberDecimal"
+                    android:id="@+id/ipAddressConnectEditText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="25dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="4.5"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="@string/port"
+                    android:id="@+id/connectPortInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:gravity="center_vertical"
+                        android:cursorVisible="true"
+                        android:paddingHorizontal="10dp"
+                        android:digits="0123456789"
+                        android:maxLength="5"
+                        android:maxLines="1"
+                        android:inputType="textAutoComplete | numberDecimal"
+                        android:id="@+id/connectPortEditText" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/connect_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4.5"
+                    android:text="@string/connect" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

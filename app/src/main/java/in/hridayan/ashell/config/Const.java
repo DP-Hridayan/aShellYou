@@ -97,9 +97,11 @@ public interface Const {
   int SORT_LEAST_USED = 3;
   int LOCAL_FRAGMENT = 0;
   int OTG_FRAGMENT = 1;
+  int WIFI_ADB_FRAGMENT = 2;
   int MODE_LOCAL_ADB = 0;
   int MODE_OTG = 1;
-  int MODE_REMEMBER_LAST_MODE = 2;
+  int MODE_WIFI_ADB = 2;
+  int MODE_REMEMBER_LAST_MODE = 3;
   int MAX_BOOKMARKS_LIMIT = 25;
   int UPDATE_AVAILABLE = 1;
   int UPDATE_NOT_AVAILABLE = 0;
