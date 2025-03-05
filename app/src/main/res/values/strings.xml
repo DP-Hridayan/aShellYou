@@ -162,6 +162,7 @@
     <string name="remember_working_mode">Remember last working mode</string>
     <string name="request_permission">Request Permission</string>
     <string name="report">Report</string>
+    <string name="resume">Resume</string>
     <string
         name="root"
         translatable="false">Root</string>

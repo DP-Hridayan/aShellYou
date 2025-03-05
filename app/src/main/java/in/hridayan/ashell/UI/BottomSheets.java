@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
@@ -20,6 +21,7 @@ import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.config.Preferences;
+import in.hridayan.ashell.fragments.home.WifiAdbFragment;
 import in.hridayan.ashell.shell.WifiAdbShell;
 import in.hridayan.ashell.utils.AppUpdater;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -192,6 +194,19 @@ public class BottomSheets {
                     HapticUtils.weakVibrate(v);
                     loadingDots.setVisibility(View.GONE);
                     connectButton.setText(R.string.connect);
+
+                    if (activity instanceof AppCompatActivity) {
+                      AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
+                      WifiAdbFragment fragment =
+                          (WifiAdbFragment)
+                              appCompatActivity
+                                  .getSupportFragmentManager()
+                                  .findFragmentByTag(WifiAdbFragment.class.getSimpleName());
+                      if (fragment != null) {
+                        fragment.handleViewsWhenDeviceConnected();
+                      }
+                    }
+
                     bottomSheetDialog.dismiss();
                     ToastUtils.showToast(
                         context, context.getString(R.string.connected), ToastUtils.LENGTH_SHORT);
@@ -201,7 +216,7 @@ public class BottomSheets {
                   public void onFailure(String errorMessage) {
                     loadingDots.setVisibility(View.GONE);
                     connectButton.setText(R.string.connect);
-                    ToastUtils.showToast(context, "Pairing failed", ToastUtils.LENGTH_SHORT);
+                    ToastUtils.showToast(context, "Connection failed", ToastUtils.LENGTH_SHORT);
                   }
                 });
           }

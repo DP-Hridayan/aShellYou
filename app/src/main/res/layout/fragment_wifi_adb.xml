@@ -83,8 +83,10 @@
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/inputFrameLayout"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:paddingBottom="15dp"
             android:clipChildren="false"
@@ -127,6 +129,85 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="25dp"
+            app:strokeWidth="0dp"
+            app:cardCornerRadius="25dp"
+            app:cardBackgroundColor="?attr/colorSurfaceContainer"
+            android:id="@+id/wirelessDebuggingCardView">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content "
+                    android:src="@drawable/ic_wireless"
+                    app:tint="?attr/colorPrimary"
+                    android:layout_margin="25dp"
+                    android:layout_gravity="center_horizontal" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Wireless\nDebugging"
+                    android:textAlignment="center" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/connectButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/connect" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginBottom="25dp"
+                    app:strokeWidth="0dp"
+                    app:cardCornerRadius="25dp"
+                    android:background="?attr/colorSurfaceContainerLowest"
+                    android:id="@+id/wirelessConnectedDevice">
+
+                    <LinearLayout
+                        android:id="@+id/connectedDeviceLayout"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/connectedDeviceName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textAlignment="center"
+                            android:layout_margin="10dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/resumeButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="25dp"
+                            android:text="@string/resume" />
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_height="wrap_content"
@@ -179,6 +260,7 @@
             android:layout_height="48dp"
             android:layout_width="48dp"
             app:icon="@drawable/ic_bookmarks"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="@id/settingsButton"
             app:layout_constraintStart_toEndOf="@id/settingsButton"
             app:layout_constraintEnd_toStartOf="@id/historyButton"
@@ -189,6 +271,7 @@
             android:layout_height="48dp"
             android:layout_width="48dp"
             app:icon="@drawable/ic_history"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="@id/settingsButton"
             app:layout_constraintStart_toEndOf="@id/bookmarksButton"
             app:layout_constraintEnd_toStartOf="@id/clearButton"
@@ -199,6 +282,7 @@
             android:layout_height="48dp"
             android:layout_width="48dp"
             app:icon="@drawable/ic_clear"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="@id/settingsButton"
             app:layout_constraintStart_toEndOf="@id/historyButton"
             app:layout_constraintEnd_toStartOf="@id/searchButton"
@@ -209,6 +293,7 @@
             android:layout_height="48dp"
             android:layout_width="48dp"
             app:icon="@drawable/ic_search"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="@id/settingsButton"
             app:layout_constraintEnd_toEndOf="parent"
             style="?attr/materialIconButtonFilledTonalStyle"
@@ -292,6 +377,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginBottom="100dp"
+        android:visibility="gone"
         app:icon="@drawable/ic_paste"
         android:layout_marginEnd="25dp"
         app:layout_constraintEnd_toEndOf="parent"

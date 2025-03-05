@@ -8,14 +8,21 @@ import in.hridayan.ashell.utils.Utils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class WifiAdbShell {
 
   private static List<String> mOutput;
   private static String mCommand;
+  private static volatile boolean isMonitoring = false;
+  private static Thread monitoringThread;
+
   private static Process mProcess = null;
   private static final int TIMEOUT = 750; // in milliseconds
 
@@ -24,39 +31,35 @@ public class WifiAdbShell {
     mCommand = command;
   }
 
-  // Call this method after passing output and command to BasicShell
-  public static void exec(Context context) {
+    // executes the commands send to adb
+  public static void execCommand(Context context) {
     try {
-      File adbFile = new File(context.getFilesDir(), "adb"); // Check if file exists
-      if (!adbFile.exists()) {
-        mOutput.add("ADB binary not found at: " + adbFile.getAbsolutePath());
-        return;
-      }
+      ProcessBuilder processBuilder;
+      boolean useShellPrefix = shouldUseShellPrefix(mCommand);
+      String[] commandArray =
+          useShellPrefix ? new String[] {"shell", mCommand} : mCommand.split(" ");
 
-      String adbPath = adbFile.getAbsolutePath();
+      String[] fullCommand = new String[commandArray.length + 1];
+      fullCommand[0] = adbPath(context);
+      System.arraycopy(commandArray, 0, fullCommand, 1, commandArray.length);
 
-      boolean needsShellPrefix = shouldUseShellPrefix(mCommand);
+      processBuilder = new ProcessBuilder(fullCommand);
 
-      // Use system linker to execute ADB
-      String[] fullCommand;
-      if (needsShellPrefix) {
-        fullCommand = new String[] {"su", "-c", adbPath + " shell " + mCommand};
-      } else {
-        fullCommand = new String[] {"su", "-c", adbPath + " " + mCommand};
-      }
+      // Fix tmp dir issue
+      String tmpDir = ensureTmpDir(context);
+      Map<String, String> env = processBuilder.environment();
+      env.put("HOME", context.getFilesDir().getAbsolutePath());
+      env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
+      env.put("TMPDIR", tmpDir);
 
-      mProcess = Runtime.getRuntime().exec(fullCommand);
-
+      mProcess = processBuilder.start();
       BufferedReader mInput = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
       BufferedReader mError = new BufferedReader(new InputStreamReader(mProcess.getErrorStream()));
 
       String line;
-      while ((line = mInput.readLine()) != null) {
-        mOutput.add(line);
-      }
-      while ((line = mError.readLine()) != null) {
-        mOutput.add("<font color=#FF0000>" + line + "</font>"); // Log errors in red
-      }
+      while ((line = mInput.readLine()) != null) mOutput.add(line);
+      while ((line = mError.readLine()) != null)
+        mOutput.add("<font color=#FF0000>" + line + "</font>");
 
       int exitCode = mProcess.waitFor();
       mOutput.add("Process exited with code: " + exitCode);
@@ -66,35 +69,42 @@ public class WifiAdbShell {
     }
   }
 
+  // Ensure tmp directory exists and return its path
+  private static String ensureTmpDir(Context context) {
+    File tmpDir = new File(context.getFilesDir(), "tmp");
+    if (!tmpDir.exists()) {
+      boolean created = tmpDir.mkdirs();
+      Log.d("WifiAdbShell", "TMPDIR created: " + created);
+    }
+    return tmpDir.getAbsolutePath();
+  }
+
   public interface PairingCallback {
     void onSuccess();
 
     void onFailure(String errorMessage);
   }
 
+    // pair the device using ip, port and pairing code
   public static void pair(
       Context context, String ip, String port, String pairingCode, PairingCallback callback) {
     new Thread(
-            () -> { // Run in background thread
+            () -> {
               try {
-                File adbFile = new File(context.getFilesDir(), "adb");
-                if (!adbFile.exists()) {
-                  if (callback != null)
-                    callback.onFailure("ADB binary not found at: " + adbFile.getAbsolutePath());
-                  return;
-                }
-
-                String adbPath = adbFile.getAbsolutePath();
-                String[] pairCommand = {
-                  "su", "-c", adbPath + " pair " + ip + ":" + port + " " + pairingCode
-                };
-
-                // kill the server first and start a fresh one
+                // Kill any existing ADB server before pairing
                 killServer(context);
-                Thread.sleep(500);
-                startServer(context);
+                Thread.sleep(500); // Short delay before starting again
 
-                Process pairingProcess = Runtime.getRuntime().exec(pairCommand);
+                ProcessBuilder processBuilder =
+                    new ProcessBuilder(adbPath(context), "pair", ip + ":" + port, pairingCode);
+                String tmpDir = ensureTmpDir(context);
+                Map<String, String> env = processBuilder.environment();
+                env.put("HOME", context.getFilesDir().getAbsolutePath());
+                env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
+                env.put("TMPDIR", tmpDir); // Set TMPDIR to a writable path
+
+                Process pairingProcess = processBuilder.start();
+
                 BufferedReader reader =
                     new BufferedReader(new InputStreamReader(pairingProcess.getInputStream()));
                 BufferedReader errorReader =
@@ -104,10 +114,10 @@ public class WifiAdbShell {
                 boolean isSuccess = false;
                 StringBuilder errorMessage = new StringBuilder();
 
+                // Read ADB output
                 while ((line = reader.readLine()) != null) {
-                  if (line.contains("Successfully paired")) { // Check for success message
+                  if (line.contains("Successfully paired")) {
                     isSuccess = true;
-
                     break;
                   }
                 }
@@ -116,19 +126,24 @@ public class WifiAdbShell {
                   errorMessage.append(line).append("\n");
                 }
 
-                pairingProcess.waitFor(); // Wait for process to finish
+                // Timeout check (if it takes too long)
+                pairingProcess.waitFor(5, java.util.concurrent.TimeUnit.SECONDS);
+                pairingProcess.destroy();
 
                 boolean finalSuccess = isSuccess;
                 String finalErrorMessage = errorMessage.toString().trim();
 
-                // Run callback on main thread
                 new Handler(Looper.getMainLooper())
                     .post(
                         () -> {
                           if (finalSuccess) {
                             if (callback != null) callback.onSuccess();
                           } else {
-                            if (callback != null) callback.onFailure(finalErrorMessage);
+                            if (callback != null)
+                              callback.onFailure(
+                                  finalErrorMessage.isEmpty()
+                                      ? "Pairing failed"
+                                      : finalErrorMessage);
                           }
                         });
 
@@ -149,21 +164,21 @@ public class WifiAdbShell {
     void onFailure(String errorMessage);
   }
 
+    // connect the device using the ip and port
   public static void connect(Context context, String ip, String port, ConnectingCallback callback) {
     new Thread(
             () -> { // Run in background thread
               try {
-                File adbFile = new File(context.getFilesDir(), "adb");
-                if (!adbFile.exists()) {
-                  if (callback != null)
-                    callback.onFailure("ADB binary not found at: " + adbFile.getAbsolutePath());
-                  return;
-                }
+                ProcessBuilder processBuilder =
+                    new ProcessBuilder(adbPath(context), "connect", ip + ":" + port);
 
-                String adbPath = adbFile.getAbsolutePath();
-                String[] connectCommand = {"su", "-c", adbPath + " connect " + ip + ":" + port};
+                String tmpDir = ensureTmpDir(context);
+                Map<String, String> env = processBuilder.environment();
+                env.put("HOME", context.getFilesDir().getAbsolutePath());
+                env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
+                env.put("TMPDIR", tmpDir); // Set TMPDIR to a writable path
 
-                Process connectingProcess = Runtime.getRuntime().exec(connectCommand);
+                Process connectingProcess = processBuilder.start();
                 BufferedReader reader =
                     new BufferedReader(new InputStreamReader(connectingProcess.getInputStream()));
                 BufferedReader errorReader =
@@ -212,22 +227,205 @@ public class WifiAdbShell {
         .start();
   }
 
+  public interface ConnectedDevicesCallback {
+    void onDevicesListed(String devices);
+
+    void onFailure(String errorMessage);
+  }
+
+  public static void getConnectedDevices(Context context, ConnectedDevicesCallback callback) {
+    new Thread(
+            () -> {
+              try {
+
+                ProcessBuilder processBuilder = new ProcessBuilder(adbPath(context), "devices");
+                String tmpDir = ensureTmpDir(context);
+                Map<String, String> env = processBuilder.environment();
+                env.put("HOME", context.getFilesDir().getAbsolutePath());
+                env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
+                env.put("TMPDIR", tmpDir); // Set TMPDIR to a writable path
+
+                Process listProcess = processBuilder.start();
+
+                BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(listProcess.getInputStream()));
+                BufferedReader errorReader =
+                    new BufferedReader(new InputStreamReader(listProcess.getErrorStream()));
+
+                StringBuilder devicesList = new StringBuilder();
+
+                // Read the first line (header) and ignore it
+                reader.readLine();
+
+                String currentLine;
+                while ((currentLine = reader.readLine()) != null) {
+                  if (!currentLine.trim().isEmpty()) {
+                    devicesList.append(currentLine).append("\n"); // Append each device to the list
+                  }
+                }
+
+                // Capture errors if any
+                StringBuilder errorMessage = new StringBuilder();
+                while ((currentLine = errorReader.readLine()) != null) {
+                  errorMessage.append(currentLine).append("\n");
+                }
+
+                listProcess.waitFor(); // Wait for process to finish
+
+                String finalDeviceList = devicesList.toString().trim();
+                String finalErrorMessage = errorMessage.toString().trim();
+
+                new Handler(Looper.getMainLooper())
+                    .post(
+                        () -> {
+                          if (!finalDeviceList.isEmpty()) {
+                            if (callback != null) callback.onDevicesListed(finalDeviceList);
+                          } else {
+                            if (callback != null)
+                              callback.onFailure(
+                                  finalErrorMessage.isEmpty()
+                                      ? "No devices connected"
+                                      : finalErrorMessage);
+                          }
+                        });
+
+              } catch (Exception e) {
+                new Handler(Looper.getMainLooper())
+                    .post(
+                        () -> {
+                          if (callback != null) callback.onFailure(e.getMessage());
+                        });
+              }
+            })
+        .start();
+  }
+
+  public interface DeviceConnectionCallback {
+    void onDeviceConnected(String devices);
+
+    void onDeviceDisconnected();
+  }
+
+  public static void monitorConnectedDevices(Context context, DeviceConnectionCallback callback) {
+    if (isMonitoring) return;
+    isMonitoring = true;
+
+    monitoringThread =
+        new Thread(
+            () -> {
+              Process process = null;
+              BufferedReader reader = null;
+              Set<String> connectedDevices = new HashSet<>();
+
+              try {
+                ProcessBuilder processBuilder =
+                    new ProcessBuilder(adbPath(context), "track-devices");
+                String tmpDir = ensureTmpDir(context);
+                Map<String, String> env = processBuilder.environment();
+                env.put("HOME", context.getFilesDir().getAbsolutePath());
+                env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
+                env.put("TMPDIR", tmpDir); // Set TMPDIR to a writable path
+
+                process = processBuilder.start();
+                reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+                String line;
+                while (isMonitoring && (line = reader.readLine()) != null) {
+                  line = line.trim();
+                  if (line.isEmpty()) continue; // Ignore empty lines
+
+                  String[] parts = line.split("\\s+"); // Split by space
+                  if (parts.length != 2) continue; // Ignore malformed lines
+
+                  String deviceId = parts[0];
+                  String status = parts[1];
+
+                  new Handler(Looper.getMainLooper())
+                      .post(
+                          () -> {
+                            if (status.equals("device")) {
+                              if (!connectedDevices.contains(deviceId)) {
+                                connectedDevices.add(deviceId);
+                                callback.onDeviceConnected(deviceId);
+                              }
+                            } else { // Disconnected or offline
+                              if (connectedDevices.contains(deviceId)) {
+                                connectedDevices.remove(deviceId);
+                                callback.onDeviceDisconnected();
+                              }
+                            }
+                          });
+                }
+              } catch (Exception e) {
+                e.printStackTrace();
+                new Handler(Looper.getMainLooper()).post(callback::onDeviceDisconnected);
+              } finally {
+                isMonitoring = false;
+                if (reader != null)
+                  try {
+                    reader.close();
+                  } catch (IOException ignored) {
+                  }
+                if (process != null) process.destroy();
+              }
+            });
+
+    monitoringThread.start();
+  }
+
+  public static void stopMonitoring() {
+    isMonitoring = false;
+    if (monitoringThread != null) {
+      monitoringThread.interrupt();
+      monitoringThread = null;
+    }
+  }
+
+  public static String exec(Context context, String... command) {
+    try {
+      ProcessBuilder processBuilder = new ProcessBuilder(command);
+      String tmpDir = ensureTmpDir(context);
+      Map<String, String> env = processBuilder.environment();
+      env.put("HOME", context.getFilesDir().getAbsolutePath());
+      env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
+      env.put("TMPDIR", tmpDir); // Set TMPDIR to a writable path
+
+      Process process = processBuilder.start();
+      BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+      BufferedReader errorReader =
+          new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+      StringBuilder output = new StringBuilder();
+      String line;
+
+      while ((line = reader.readLine()) != null) {
+        output.append(line).append("\n");
+      }
+      while ((line = errorReader.readLine()) != null) {
+        output.append("ERROR: ").append(line).append("\n");
+      }
+
+      process.waitFor();
+      return output.toString().trim();
+    } catch (Exception e) {
+      return "Exception: " + e.getMessage();
+    }
+  }
+
+  // Restart the adb server
+  public static void restartAdbServer(Context context) {
+    exec(context, "kill-server");
+    exec(context, "start-server");
+  }
+
   // Starts the adb tcpip server
   public static void startServer(Context context) {
-    try {
-      String[] startServer = {"su", "-c", adbPath(context) + "start-server"};
-      Runtime.getRuntime().exec(startServer);
-    } catch (Exception e) {
-    }
+    exec(context, "start-server");
   }
 
   // Kills the adb tcpip server
   public static void killServer(Context context) {
-    try {
-      String[] killServer = {"su", "-c", adbPath(context) + "kill-server"};
-      Runtime.getRuntime().exec(killServer);
-    } catch (Exception e) {
-    }
+    exec(context, "kill-server");
   }
 
   // Checks if shell is busy or not
@@ -291,45 +489,10 @@ public class WifiAdbShell {
         return true;
       }
     }
-
     return false;
   }
 
   private static String adbPath(Context context) {
-    File adbFile = new File(context.getFilesDir(), "adb");
-    if (!adbFile.exists()) {
-      return "adb file not found";
-    }
-    return adbFile.getAbsolutePath();
-  }
-
-  public static void copyAdbBinaryToData(Context context) {
-    try {
-      File adbFile = new File(context.getFilesDir(), "adb");
-
-      if (!adbFile.exists()) {
-        InputStream in = context.getAssets().open("adb");
-        FileOutputStream out = new FileOutputStream(adbFile);
-
-        byte[] buffer = new byte[1024];
-        int read;
-        while ((read = in.read(buffer)) != -1) {
-          out.write(buffer, 0, read);
-        }
-
-        in.close();
-        out.close();
-
-        // Set permissions
-        adbFile.setExecutable(true, false);
-        adbFile.setReadable(true, false);
-        adbFile.setWritable(true, false);
-
-        // Extra step: chmod 755
-        Runtime.getRuntime().exec("chmod 755 " + adbFile.getAbsolutePath()).waitFor();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    return context.getApplicationInfo().nativeLibraryDir + "/libadb.so";
   }
 }

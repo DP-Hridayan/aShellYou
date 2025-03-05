@@ -17,6 +17,10 @@ android {
 
         versionCode 50
         versionName "v5.2.1"
+        
+        ndk {
+            abiFilters 'arm64-v8a', 'armeabi-v7a','x86','x86_64'
+        }
 
     }
     
@@ -64,6 +68,12 @@ android {
     dependenciesInfo {
         includeInApk = false
         includeInBundle = false
+    }
+    
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -19,7 +18,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -32,7 +30,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.Hold;
-import in.hridayan.ashell.AshellYou;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -53,13 +50,11 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentWifiAdbBinding;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
-import in.hridayan.ashell.shell.RootShell;
 import in.hridayan.ashell.shell.ShizukuShell;
 import in.hridayan.ashell.shell.WifiAdbShell;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.SystemMountHelper;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
@@ -103,6 +98,8 @@ public class WifiAdbFragment extends Fragment {
   @Override
   public void onPause() {
     super.onPause();
+
+    WifiAdbShell.stopMonitoring();
 
     mainViewModel.setPreviousFragment(Const.WIFI_ADB_FRAGMENT);
 
@@ -172,10 +169,9 @@ public class WifiAdbFragment extends Fragment {
 
     initializeViewModels();
 
-    WifiAdbShell.copyAdbBinaryToData(context);
+    checkConnectedDevices();
 
-    // Run in a background thread to avoid blocking the UI
-    new CheckAndRemountTask().execute();
+    startMonitoringAdbWifi();
 
     if (binding.rvOutput.getLayoutManager() == null) {
       binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -266,6 +262,11 @@ public class WifiAdbFragment extends Fragment {
     // Paste and undo button onClickListener
     BehaviorFAB.pasteAndUndo(
         binding.pasteButton, binding.undoButton, binding.commandEditText, context);
+
+    connectButtonOnClickListener();
+
+    resumeButtonOnClickListener();
+
     pasteAndSaveButtonVisibility();
 
     modeButtonOnClickListener();
@@ -305,6 +306,75 @@ public class WifiAdbFragment extends Fragment {
     mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
     settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
+  }
+
+  private void connectButtonOnClickListener() {
+
+    binding.connectButton.setOnClickListener(
+        v -> {
+          BottomSheets.showBottomSheetPairAndConnect(context, requireActivity());
+        });
+  }
+
+  private void resumeButtonOnClickListener() {
+    binding.resumeButton.setOnClickListener(
+        v -> {
+          handleViewsWhenDeviceConnected();
+        });
+  }
+
+  public void handleViewsWhenDeviceConnected() {
+    binding.bookmarksButton.setVisibility(View.VISIBLE);
+    binding.historyButton.setVisibility(View.VISIBLE);
+    binding.clearButton.setVisibility(View.VISIBLE);
+    binding.searchButton.setVisibility(View.VISIBLE);
+    binding.inputFrameLayout.setVisibility(View.VISIBLE);
+    binding.pasteButton.setVisibility(View.VISIBLE);
+    binding.wirelessDebuggingCardView.setVisibility(View.GONE);
+  }
+
+  private void startMonitoringAdbWifi() {
+    WifiAdbShell.monitorConnectedDevices(
+        context,
+        new WifiAdbShell.DeviceConnectionCallback() {
+          @Override
+          public void onDeviceConnected(String devices) {}
+
+          @Override
+          public void onDeviceDisconnected() {
+            binding.bookmarksButton.setVisibility(View.GONE);
+            binding.historyButton.setVisibility(View.GONE);
+            binding.clearButton.setVisibility(View.GONE);
+            binding.searchButton.setVisibility(View.GONE);
+            binding.inputFrameLayout.setVisibility(View.GONE);
+            binding.outputCardView.setVisibility(View.GONE);
+            binding.pasteButton.setVisibility(View.GONE);
+            binding.saveButton.setVisibility(View.GONE);
+            binding.shareButton.setVisibility(View.GONE);
+
+            checkConnectedDevices();
+            binding.wirelessDebuggingCardView.setVisibility(View.VISIBLE);
+            checkConnectedDevices();
+          }
+        });
+  }
+
+  private void checkConnectedDevices() {
+    WifiAdbShell.getConnectedDevices(
+        context,
+        new WifiAdbShell.ConnectedDevicesCallback() {
+          @Override
+          public void onDevicesListed(String devices) {
+            // Display the connected devices in a TextView
+            binding.connectedDeviceLayout.setVisibility(View.VISIBLE);
+            binding.connectedDeviceName.setText("Connected Devices\n\n" + devices);
+          }
+
+          @Override
+          public void onFailure(String errorMessage) {
+            binding.connectedDeviceLayout.setVisibility(View.GONE);
+          }
+        });
   }
 
   private int lastIndexOf(String s, String splitTxt) {
@@ -385,16 +455,7 @@ public class WifiAdbFragment extends Fragment {
   // handles text shared to ashell you
   public void handleSharedTextIntent(Intent intent, String sharedText) {
     if (sharedText != null) {
-      boolean switchState = Preferences.getShareAndRun();
       updateInputField(sharedText);
-      if (switchState) {
-
-        if (!RootShell.isDeviceRooted()) handleRootUnavailability();
-        else {
-          binding.commandEditText.setText(sharedText);
-          initializeShell();
-        }
-      }
     }
   }
 
@@ -816,26 +877,20 @@ public class WifiAdbFragment extends Fragment {
 
             // If shell is not busy and there is not any text in input field then go to examples
             if (!hasTextInEditText() && !isShellBusy()) goToExamples();
-            else {
-              if (!RootShell.isDeviceRooted()) handleRootUnavailability();
               else {
                 // We perform root shell permission check on a new thread
                 ExecutorService executor = Executors.newSingleThreadExecutor();
                 executor.execute(
                     () -> {
-                      boolean hasPermission = RootShell.hasPermission();
-
                       requireActivity()
                           .runOnUiThread(
                               () -> {
-                                if (!hasPermission) DialogUtils.rootPermRequestDialog(context);
-                                else if (mWifiAdbShell != null && WifiAdbShell.isBusy())
+                                 if (mWifiAdbShell != null && WifiAdbShell.isBusy())
                                   abortWifiAdbShell();
                                 else execShell(v);
                               });
                     });
                 executor.shutdown();
-              }
             }
             return true;
           }
@@ -854,28 +909,21 @@ public class WifiAdbFragment extends Fragment {
           // If shell is not busy and there is not any text in input field then go to examples
           if (!hasTextInEditText() && !isShellBusy()) goToExamples();
 
-          // Need root for Wifi adb
-          else {
-            if (!RootShell.isDeviceRooted()) handleRootUnavailability();
             else {
               // We perform root shell permission check on a new thread
               ExecutorService executor = Executors.newSingleThreadExecutor();
               executor.execute(
                   () -> {
-                    boolean hasPermission = RootShell.hasPermission();
-
                     requireActivity()
                         .runOnUiThread(
                             () -> {
-                              if (!hasPermission) DialogUtils.rootPermRequestDialog(context);
-                              else if (mWifiAdbShell != null && WifiAdbShell.isBusy())
+                               if (mWifiAdbShell != null && WifiAdbShell.isBusy())
                                 abortWifiAdbShell();
                               else execShell(v);
                             });
                   });
               executor.shutdown();
             }
-          }
         });
   }
 
@@ -1062,7 +1110,7 @@ public class WifiAdbFragment extends Fragment {
   private void runWifiAdbShell(String finalCommand) {
     mPosition = mResult.size();
     mWifiAdbShell = new WifiAdbShell(mResult, finalCommand);
-    WifiAdbShell.exec(context);
+    WifiAdbShell.execCommand(context);
     try {
       TimeUnit.MILLISECONDS.sleep(250);
     } catch (InterruptedException ignored) {
@@ -1170,25 +1218,5 @@ public class WifiAdbFragment extends Fragment {
       binding.pasteButton.setVisibility(View.GONE);
       binding.saveButton.setVisibility(View.VISIBLE);
     }
-  }
-
-  private static class CheckAndRemountTask extends AsyncTask<Void, Void, Boolean> {
-    @Override
-    protected Boolean doInBackground(Void... voids) {
-      if (SystemMountHelper.isSystemReadOnly()) {
-        return SystemMountHelper.remountSystemRW();
-      }
-      return true; // Already RW
-    }
-
-    /*   @Override
-    protected void onPostExecute(Boolean success) {
-      if (success) {
-        Toast.makeText(AshellYou.getAppContext(), "System is now Read-Write", Toast.LENGTH_SHORT).show();
-      } else {
-        Toast.makeText(AshellYou.getAppContext(), "Failed to change to Read-Write", Toast.LENGTH_SHORT)
-            .show();
-      }
-    } */
   }
 }
