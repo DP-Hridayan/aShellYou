@@ -99,8 +99,6 @@ public class WifiAdbFragment extends Fragment {
   public void onPause() {
     super.onPause();
 
-    WifiAdbShell.stopMonitoring();
-
     mainViewModel.setPreviousFragment(Const.WIFI_ADB_FRAGMENT);
 
     // If keyboard is visible then we close it before leaving fragment
@@ -170,8 +168,6 @@ public class WifiAdbFragment extends Fragment {
     initializeViewModels();
 
     checkConnectedDevices();
-
-    startMonitoringAdbWifi();
 
     if (binding.rvOutput.getLayoutManager() == null) {
       binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -306,57 +302,6 @@ public class WifiAdbFragment extends Fragment {
     mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
     settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
-  }
-
-  private void connectButtonOnClickListener() {
-
-    binding.connectButton.setOnClickListener(
-        v -> {
-          BottomSheets.showBottomSheetPairAndConnect(context, requireActivity());
-        });
-  }
-
-  private void resumeButtonOnClickListener() {
-    binding.resumeButton.setOnClickListener(
-        v -> {
-          handleViewsWhenDeviceConnected();
-        });
-  }
-
-  public void handleViewsWhenDeviceConnected() {
-    binding.bookmarksButton.setVisibility(View.VISIBLE);
-    binding.historyButton.setVisibility(View.VISIBLE);
-    binding.clearButton.setVisibility(View.VISIBLE);
-    binding.searchButton.setVisibility(View.VISIBLE);
-    binding.inputFrameLayout.setVisibility(View.VISIBLE);
-    binding.pasteButton.setVisibility(View.VISIBLE);
-    binding.wirelessDebuggingCardView.setVisibility(View.GONE);
-  }
-
-  private void startMonitoringAdbWifi() {
-    WifiAdbShell.monitorConnectedDevices(
-        context,
-        new WifiAdbShell.DeviceConnectionCallback() {
-          @Override
-          public void onDeviceConnected(String devices) {}
-
-          @Override
-          public void onDeviceDisconnected() {
-            binding.bookmarksButton.setVisibility(View.GONE);
-            binding.historyButton.setVisibility(View.GONE);
-            binding.clearButton.setVisibility(View.GONE);
-            binding.searchButton.setVisibility(View.GONE);
-            binding.inputFrameLayout.setVisibility(View.GONE);
-            binding.outputCardView.setVisibility(View.GONE);
-            binding.pasteButton.setVisibility(View.GONE);
-            binding.saveButton.setVisibility(View.GONE);
-            binding.shareButton.setVisibility(View.GONE);
-
-            checkConnectedDevices();
-            binding.wirelessDebuggingCardView.setVisibility(View.VISIBLE);
-            checkConnectedDevices();
-          }
-        });
   }
 
   private void checkConnectedDevices() {
@@ -509,6 +454,30 @@ public class WifiAdbFragment extends Fragment {
 
     if (binding.pasteButton.getVisibility() == View.GONE && !sendButtonClicked && mResult == null)
       setVisibilityWithDelay(binding.pasteButton, 100);
+  }
+
+  private void connectButtonOnClickListener() {
+    binding.connectButton.setOnClickListener(
+        v -> {
+          BottomSheets.showBottomSheetPairAndConnect(context, requireActivity());
+        });
+  }
+    
+    private void resumeButtonOnClickListener() {
+    binding.resumeButton.setOnClickListener(
+        v -> {
+          handleViewsWhenDeviceConnected();
+        });
+  }
+
+  public void handleViewsWhenDeviceConnected() {
+    binding.bookmarksButton.setVisibility(View.VISIBLE);
+    binding.historyButton.setVisibility(View.VISIBLE);
+    binding.clearButton.setVisibility(View.VISIBLE);
+    binding.searchButton.setVisibility(View.VISIBLE);
+    binding.inputFrameLayout.setVisibility(View.VISIBLE);
+    binding.pasteButton.setVisibility(View.VISIBLE);
+    binding.wirelessDebuggingCardView.setVisibility(View.GONE);
   }
 
   // Onclick listener for the button indicating working mode
@@ -877,20 +846,20 @@ public class WifiAdbFragment extends Fragment {
 
             // If shell is not busy and there is not any text in input field then go to examples
             if (!hasTextInEditText() && !isShellBusy()) goToExamples();
-              else {
-                // We perform root shell permission check on a new thread
-                ExecutorService executor = Executors.newSingleThreadExecutor();
-                executor.execute(
-                    () -> {
-                      requireActivity()
-                          .runOnUiThread(
-                              () -> {
-                                 if (mWifiAdbShell != null && WifiAdbShell.isBusy())
-                                  abortWifiAdbShell();
-                                else execShell(v);
-                              });
-                    });
-                executor.shutdown();
+            else {
+              // We perform root shell permission check on a new thread
+              ExecutorService executor = Executors.newSingleThreadExecutor();
+              executor.execute(
+                  () -> {
+                    requireActivity()
+                        .runOnUiThread(
+                            () -> {
+                              if (mWifiAdbShell != null && WifiAdbShell.isBusy())
+                                abortWifiAdbShell();
+                              else execShell(v);
+                            });
+                  });
+              executor.shutdown();
             }
             return true;
           }
@@ -908,22 +877,20 @@ public class WifiAdbFragment extends Fragment {
 
           // If shell is not busy and there is not any text in input field then go to examples
           if (!hasTextInEditText() && !isShellBusy()) goToExamples();
-
-            else {
-              // We perform root shell permission check on a new thread
-              ExecutorService executor = Executors.newSingleThreadExecutor();
-              executor.execute(
-                  () -> {
-                    requireActivity()
-                        .runOnUiThread(
-                            () -> {
-                               if (mWifiAdbShell != null && WifiAdbShell.isBusy())
-                                abortWifiAdbShell();
-                              else execShell(v);
-                            });
-                  });
-              executor.shutdown();
-            }
+          else {
+            // We perform root shell permission check on a new thread
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute(
+                () -> {
+                  requireActivity()
+                      .runOnUiThread(
+                          () -> {
+                            if (mWifiAdbShell != null && WifiAdbShell.isBusy()) abortWifiAdbShell();
+                            else execShell(v);
+                          });
+                });
+            executor.shutdown();
+          }
         });
   }
 
@@ -1181,12 +1148,10 @@ public class WifiAdbFragment extends Fragment {
 
   //  Open the settings fragment
   private void goToSettings() {
-
     if (settingsViewModel != null) {
       settingsViewModel.setRVPositionAndOffset(null);
       settingsViewModel.setToolbarExpanded(true);
     }
-
     setExitTransition(new Hold());
     SettingsFragment fragment = new SettingsFragment();
 
