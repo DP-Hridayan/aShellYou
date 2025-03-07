@@ -318,7 +318,10 @@ public class AshellFragment extends Fragment {
             binding.commandEditText.requestFocus();
 
             // If shizuku is busy return
-            if (mShizukuShell != null && ShizukuShell.isBusy()) return;
+
+            if ((mShizukuShell != null && ShizukuShell.isBusy())
+                || (mRootShell != null && RootShell.isBusy())
+                || (mBasicShell != null && BasicShell.isBusy())) return;
             else if (s.toString().trim().isEmpty()) {
 
               binding.commandInputLayout.setEndIconVisible(false);
@@ -1073,7 +1076,8 @@ public class AshellFragment extends Fragment {
             /*This block will run if shizuku mode is selected*/
             else if (isShizukuMode()) {
               if (!Shizuku.pingBinder()) handleShizukuUnavailability();
-              else if (!ShizukuShell.hasPermission()) PermissionDialogs.shizukuPermissionDialog(context);
+              else if (!ShizukuShell.hasPermission())
+                PermissionDialogs.shizukuPermissionDialog(context);
               else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
               else execShell(v);
             }
@@ -1125,7 +1129,8 @@ public class AshellFragment extends Fragment {
           /*This block will run if shizuku mode is selected*/
           else if (isShizukuMode()) {
             if (!Shizuku.pingBinder()) handleShizukuUnavailability();
-            else if (!ShizukuShell.hasPermission()) PermissionDialogs.shizukuPermissionDialog(context);
+            else if (!ShizukuShell.hasPermission())
+              PermissionDialogs.shizukuPermissionDialog(context);
             else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
             else execShell(v);
           }

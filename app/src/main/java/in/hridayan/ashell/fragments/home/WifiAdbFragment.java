@@ -39,7 +39,6 @@ import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.UI.Transitions;
-import in.hridayan.ashell.UI.bottomsheets.WifiAdbBottomSheet;
 import in.hridayan.ashell.UI.dialogs.ActionDialogs;
 import in.hridayan.ashell.UI.dialogs.ErrorDialogs;
 import in.hridayan.ashell.UI.dialogs.FeedbackDialogs;
@@ -51,7 +50,6 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentWifiAdbBinding;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
-import in.hridayan.ashell.shell.ShizukuShell;
 import in.hridayan.ashell.shell.WifiAdbShell;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.DeviceUtils;
@@ -77,7 +75,6 @@ import java.util.concurrent.TimeUnit;
 public class WifiAdbFragment extends Fragment {
   private CommandsAdapter mCommandAdapter;
   private ShellOutputAdapter mShellOutputAdapter;
-  private ShizukuShell mShizukuShell;
   private WifiAdbShell mWifiAdbShell;
   private boolean isKeyboardVisible = false, sendButtonClicked = false, isEndIconVisible = false;
   private int mPosition = 1;
@@ -208,9 +205,8 @@ public class WifiAdbFragment extends Fragment {
             binding.commandEditText.requestFocus();
 
             // If shizuku is busy return
-            if (mShizukuShell != null && ShizukuShell.isBusy()) return;
+            if (mWifiAdbShell != null && WifiAdbShell.isBusy()) return;
             else if (s.toString().trim().isEmpty()) {
-
               binding.commandInputLayout.setEndIconVisible(false);
               binding.rvCommands.setVisibility(View.GONE);
               binding.sendButton.setImageDrawable(
@@ -247,8 +243,6 @@ public class WifiAdbFragment extends Fragment {
     // Paste and undo button onClickListener
     BehaviorFAB.pasteAndUndo(
         binding.pasteButton, binding.undoButton, binding.commandEditText, context);
-
-    
 
     pasteAndSaveButtonVisibility();
 
@@ -773,19 +767,8 @@ public class WifiAdbFragment extends Fragment {
             // If shell is not busy and there is not any text in input field then go to examples
             if (!hasTextInEditText() && !isShellBusy()) goToExamples();
             else {
-              // We perform root shell permission check on a new thread
-              ExecutorService executor = Executors.newSingleThreadExecutor();
-              executor.execute(
-                  () -> {
-                    requireActivity()
-                        .runOnUiThread(
-                            () -> {
-                              if (mWifiAdbShell != null && WifiAdbShell.isBusy())
-                                abortWifiAdbShell();
-                              else execShell(v);
-                            });
-                  });
-              executor.shutdown();
+              if (mWifiAdbShell != null && WifiAdbShell.isBusy()) abortWifiAdbShell();
+              else execShell(v);
             }
             return true;
           }
@@ -804,18 +787,8 @@ public class WifiAdbFragment extends Fragment {
           // If shell is not busy and there is not any text in input field then go to examples
           if (!hasTextInEditText() && !isShellBusy()) goToExamples();
           else {
-            // We perform root shell permission check on a new thread
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            executor.execute(
-                () -> {
-                  requireActivity()
-                      .runOnUiThread(
-                          () -> {
-                            if (mWifiAdbShell != null && WifiAdbShell.isBusy()) abortWifiAdbShell();
-                            else execShell(v);
-                          });
-                });
-            executor.shutdown();
+            if (mWifiAdbShell != null && WifiAdbShell.isBusy()) abortWifiAdbShell();
+            else execShell(v);
           }
         });
   }

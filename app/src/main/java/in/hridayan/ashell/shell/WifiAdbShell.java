@@ -7,14 +7,10 @@ import android.util.Log;
 import in.hridayan.ashell.utils.Utils;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class WifiAdbShell {
 
@@ -24,14 +20,14 @@ public class WifiAdbShell {
   private static Thread monitoringThread;
 
   private static Process mProcess = null;
-  private static final int TIMEOUT = 750; // in milliseconds
+  private static final int TIMEOUT = 5; //in seconds
 
   public WifiAdbShell(List<String> output, String command) {
     mOutput = output;
     mCommand = command;
   }
 
-    // executes the commands send to adb
+  // executes the commands send to adb
   public static void execCommand(Context context) {
     try {
       ProcessBuilder processBuilder;
@@ -45,14 +41,10 @@ public class WifiAdbShell {
 
       processBuilder = new ProcessBuilder(fullCommand);
 
-      // Fix tmp dir issue
-      String tmpDir = ensureTmpDir(context);
-      Map<String, String> env = processBuilder.environment();
-      env.put("HOME", context.getFilesDir().getAbsolutePath());
-      env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
-      env.put("TMPDIR", tmpDir);
+      configureEnvironment(context, processBuilder);
 
       mProcess = processBuilder.start();
+
       BufferedReader mInput = new BufferedReader(new InputStreamReader(mProcess.getInputStream()));
       BufferedReader mError = new BufferedReader(new InputStreamReader(mProcess.getErrorStream()));
 
@@ -69,27 +61,18 @@ public class WifiAdbShell {
     }
   }
 
-  // Ensure tmp directory exists and return its path
-  private static String ensureTmpDir(Context context) {
-    File tmpDir = new File(context.getFilesDir(), "tmp");
-    if (!tmpDir.exists()) {
-      boolean created = tmpDir.mkdirs();
-      Log.d("WifiAdbShell", "TMPDIR created: " + created);
-    }
-    return tmpDir.getAbsolutePath();
-  }
-
   public interface PairingCallback {
     void onSuccess();
 
     void onFailure(String errorMessage);
   }
 
-    // pair the device using ip, port and pairing code
+  // pair the device using ip, port and pairing code
   public static void pair(
       Context context, String ip, String port, String pairingCode, PairingCallback callback) {
     new Thread(
             () -> {
+              Process pairingProcess = null;
               try {
                 // Kill any existing ADB server before pairing
                 killServer(context);
@@ -97,13 +80,10 @@ public class WifiAdbShell {
 
                 ProcessBuilder processBuilder =
                     new ProcessBuilder(adbPath(context), "pair", ip + ":" + port, pairingCode);
-                String tmpDir = ensureTmpDir(context);
-                Map<String, String> env = processBuilder.environment();
-                env.put("HOME", context.getFilesDir().getAbsolutePath());
-                env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
-                env.put("TMPDIR", tmpDir); // Set TMPDIR to a writable path
 
-                Process pairingProcess = processBuilder.start();
+                configureEnvironment(context, processBuilder);
+
+                pairingProcess = processBuilder.start();
 
                 BufferedReader reader =
                     new BufferedReader(new InputStreamReader(pairingProcess.getInputStream()));
@@ -127,8 +107,9 @@ public class WifiAdbShell {
                 }
 
                 // Timeout check (if it takes too long)
-                pairingProcess.waitFor(5, java.util.concurrent.TimeUnit.SECONDS);
-                pairingProcess.destroy();
+                if (!pairingProcess.waitFor(TIMEOUT, TimeUnit.SECONDS)) {
+                  pairingProcess.destroy(); // Kill process if timeout happens
+                }
 
                 boolean finalSuccess = isSuccess;
                 String finalErrorMessage = errorMessage.toString().trim();
@@ -153,6 +134,11 @@ public class WifiAdbShell {
                         () -> {
                           if (callback != null) callback.onFailure(e.getMessage());
                         });
+              } finally {
+                if (pairingProcess != null) {
+                  pairingProcess.destroy();
+                  if (pairingProcess.isAlive()) pairingProcess.destroyForcibly();
+                }
               }
             })
         .start();
@@ -164,21 +150,19 @@ public class WifiAdbShell {
     void onFailure(String errorMessage);
   }
 
-    // connect the device using the ip and port
+  // connect the device using the ip and port
   public static void connect(Context context, String ip, String port, ConnectingCallback callback) {
     new Thread(
-            () -> { // Run in background thread
+            () -> {
+              Process connectingProcess = null;
               try {
                 ProcessBuilder processBuilder =
                     new ProcessBuilder(adbPath(context), "connect", ip + ":" + port);
 
-                String tmpDir = ensureTmpDir(context);
-                Map<String, String> env = processBuilder.environment();
-                env.put("HOME", context.getFilesDir().getAbsolutePath());
-                env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
-                env.put("TMPDIR", tmpDir); // Set TMPDIR to a writable path
+                configureEnvironment(context, processBuilder);
 
-                Process connectingProcess = processBuilder.start();
+                connectingProcess = processBuilder.start();
+
                 BufferedReader reader =
                     new BufferedReader(new InputStreamReader(connectingProcess.getInputStream()));
                 BufferedReader errorReader =
@@ -222,6 +206,12 @@ public class WifiAdbShell {
                         () -> {
                           if (callback != null) callback.onFailure(e.getMessage());
                         });
+              } finally {
+
+                if (connectingProcess != null) {
+                  connectingProcess.destroy();
+                  if (connectingProcess.isAlive()) connectingProcess.destroyForcibly();
+                }
               }
             })
         .start();
@@ -236,16 +226,13 @@ public class WifiAdbShell {
   public static void getConnectedDevices(Context context, ConnectedDevicesCallback callback) {
     new Thread(
             () -> {
+              Process listProcess = null;
               try {
-
                 ProcessBuilder processBuilder = new ProcessBuilder(adbPath(context), "devices");
-                String tmpDir = ensureTmpDir(context);
-                Map<String, String> env = processBuilder.environment();
-                env.put("HOME", context.getFilesDir().getAbsolutePath());
-                env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
-                env.put("TMPDIR", tmpDir); // Set TMPDIR to a writable path
 
-                Process listProcess = processBuilder.start();
+                configureEnvironment(context, processBuilder);
+
+                listProcess = processBuilder.start();
 
                 BufferedReader reader =
                     new BufferedReader(new InputStreamReader(listProcess.getInputStream()));
@@ -295,21 +282,25 @@ public class WifiAdbShell {
                         () -> {
                           if (callback != null) callback.onFailure(e.getMessage());
                         });
+              } finally {
+                if (listProcess != null) {
+                  listProcess.destroy();
+                  if (listProcess.isAlive()) listProcess.destroyForcibly();
+                }
               }
             })
         .start();
   }
 
   public static String exec(Context context, String... command) {
+    Process process = null;
     try {
       ProcessBuilder processBuilder = new ProcessBuilder(command);
-      String tmpDir = ensureTmpDir(context);
-      Map<String, String> env = processBuilder.environment();
-      env.put("HOME", context.getFilesDir().getAbsolutePath());
-      env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
-      env.put("TMPDIR", tmpDir); // Set TMPDIR to a writable path
 
-      Process process = processBuilder.start();
+      configureEnvironment(context, processBuilder);
+
+      process = processBuilder.start();
+
       BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
       BufferedReader errorReader =
           new BufferedReader(new InputStreamReader(process.getErrorStream()));
@@ -328,6 +319,11 @@ public class WifiAdbShell {
       return output.toString().trim();
     } catch (Exception e) {
       return "Exception: " + e.getMessage();
+    } finally {
+      if (process != null) {
+        process.destroy();
+        if (process.isAlive()) process.destroyForcibly();
+      }
     }
   }
 
@@ -357,6 +353,24 @@ public class WifiAdbShell {
   // Destroys the running shell process
   public static void destroy() {
     if (mProcess != null) mProcess.destroy();
+  }
+
+  private static void configureEnvironment(Context context, ProcessBuilder processBuilder) {
+    String tmpDir = ensureTmpDir(context);
+    Map<String, String> env = processBuilder.environment();
+    env.put("HOME", context.getFilesDir().getAbsolutePath());
+    env.put("ADB_VENDOR_KEYS", context.getFilesDir().getAbsolutePath());
+    env.put("TMPDIR", tmpDir);
+  }
+
+  // Ensure tmp directory exists and return its path
+  private static String ensureTmpDir(Context context) {
+    File tmpDir = new File(context.getFilesDir(), "tmp");
+    if (!tmpDir.exists()) {
+      boolean created = tmpDir.mkdirs();
+      Log.d("WifiAdbShell", "TMPDIR created: " + created);
+    }
+    return tmpDir.getAbsolutePath();
   }
 
   // This function determines if certain commands should use shell prefix in the command
