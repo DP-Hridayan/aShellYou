@@ -1,6 +1,7 @@
 package in.hridayan.ashell.fragments.home;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import in.hridayan.ashell.fragments.settings.SettingsFragment;
 import in.hridayan.ashell.shell.ShizukuShell;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.viewmodels.HomeViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
 import rikka.shizuku.Shizuku;
@@ -33,6 +35,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   private Context context;
   private SettingsViewModel settingsViewModel;
   private MainViewModel mainViewModel;
+  private HomeViewModel viewModel;
 
   @Nullable
   @Override
@@ -60,11 +63,14 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
 
     pairButtonOnClickListener();
 
+    restoreScrollViewPosition();
+
     return binding.getRoot();
   }
 
   // initialize viewModels
   private void initializeViewModels() {
+    viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
     mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
     settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
   }
@@ -176,11 +182,15 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   private void shizukuAccessCard() {
     String accessStatus = getString(R.string.shizuku_access) + ": " + getString(R.string.none);
     String shizukuVersion = getString(R.string.version) + ": " + getString(R.string.none);
+    Drawable shizukuIcon = Utils.getDrawable(R.drawable.ic_error, context);
+
     if (Shizuku.pingBinder() && ShizukuShell.hasPermission()) {
       accessStatus = getString(R.string.shizuku_access) + ": " + getString(R.string.granted);
       shizukuVersion = getString(R.string.version) + ": " + Double.toString(Shizuku.getVersion());
+      shizukuIcon = Utils.getDrawable(R.drawable.ic_shizuku, context);
     }
 
+    binding.shizukuIcon.setImageDrawable(shizukuIcon);
     binding.shizukuAccessText.setText(accessStatus);
     binding.shizukuVersionText.setText(shizukuVersion);
     binding.shizukuAccessCard.setOnClickListener(
@@ -203,12 +213,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
     requireActivity()
         .runOnUiThread(
             () -> {
-              String accessStatus =
-                  getString(R.string.shizuku_access) + ": " + getString(R.string.granted);
-              String shizukuVersion =
-                  getString(R.string.version) + ": " + Double.toString(Shizuku.getVersion());
-              binding.shizukuAccessText.setText(accessStatus);
-              binding.shizukuVersionText.setText(shizukuVersion);
+              shizukuAccessCard();
               permGrantedToast();
               // set default local adb mode to shizuku
               Preferences.setLocalAdbMode(Const.SHIZUKU_MODE);
@@ -229,6 +234,22 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
         });
   }
 
+  private void restoreScrollViewPosition() {
+    viewModel
+        .getScrollY()
+        .observe(
+            getViewLifecycleOwner(),
+            y -> {
+              if (y != null) {
+                binding.scrollView.post(() -> binding.scrollView.scrollTo(0, y));
+              }
+            });
+  }
+
+  private void saveScrollViewPosition() {
+    viewModel.setScrollY(binding.scrollView.getScrollY());
+  }
+
   @Override
   public void onDestroyView() {
     super.onDestroyView();
@@ -239,5 +260,12 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   public void onResume() {
     super.onResume();
     setupAccessCards();
+    restoreScrollViewPosition();
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    saveScrollViewPosition();
   }
 }

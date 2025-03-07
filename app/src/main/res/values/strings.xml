@@ -15,9 +15,9 @@
     <string name="adb_device_waiting">Waiting for ADB device</string>
     <string name="adb_shell">ADB shell</string>
     <string name="adb_through_otg">ADB Through OTG</string>
-    <string name="adb_through_otg_summary">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.\n\nPlease refer to the step-by-step guide first</string>
+    <string name="adb_through_otg_summary">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.</string>
     <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
-<string name="adb_via_wireless_debugging_summary">Connect to other devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.\n\nPlease refer to the step-by-step guide first</string>
+<string name="adb_via_wireless_debugging_summary">Connect to other devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add_bookmark">Add bookmark</string>
     <string name="additional_settings">Additional settings</string>
     <string name="about">About</string>
