@@ -152,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/ic_help"
                 android:transitionName="sendButtonToExamples"
                 android:id="@+id/sendButton" />
