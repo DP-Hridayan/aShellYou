@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import in.hridayan.ashell.R;
 
 public class CoordinatedNestedScrollView extends NestedScrollView {
@@ -31,13 +30,5 @@ public class CoordinatedNestedScrollView extends NestedScrollView {
   @Override
   public void onNestedScroll(
       View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
-
-    BottomNavigationView bottomNavigationView =
-        ((Activity) getContext()).findViewById(R.id.bottom_nav_bar);
-
-    if (bottomNavigationView != null) {
-      if (dyConsumed > 0) bottomNavigationView.setVisibility(View.GONE);
-      else if (dyConsumed < 0) bottomNavigationView.setVisibility(View.VISIBLE);
-    }
   }
 }

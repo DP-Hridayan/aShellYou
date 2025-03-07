@@ -6,17 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.UI.ToastUtils;
+import in.hridayan.ashell.UI.dialogs.ErrorDialogs;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentOnboardingItem3Binding;
 import in.hridayan.ashell.shell.RootShell;
 import in.hridayan.ashell.shell.ShizukuShell;
 import in.hridayan.ashell.utils.HapticUtils;
-import in.hridayan.ashell.utils.Utils;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import rikka.shizuku.Shizuku;
@@ -92,7 +89,7 @@ public class OnboardingItem3Fragment extends Fragment
   // show this dialog if device is not rooted
   private void handleRootUnavailability() {
     binding.root.setSelected(false);
-    DialogUtils.rootUnavailableDialog(requireContext());
+    ErrorDialogs.rootUnavailableDialog(requireContext());
   }
 
   // request shizuku permission
@@ -119,7 +116,7 @@ public class OnboardingItem3Fragment extends Fragment
   private void handleShizukuUnavailability() {
     binding.shizuku.setSelected(false);
     // Show dialog that shizuku is unavailable
-    DialogUtils.shizukuUnavailableDialog(requireContext());
+    ErrorDialogs.shizukuUnavailableDialog(requireContext());
   }
 
   private void permGrantedToast() {

@@ -55,9 +55,7 @@
             tools:override="true">复制</string>
     <string name="copied_to_clipboard">已复制</string>
     <string name="dark_theme">暗色主题</string>
-    <string name="default_launch_mode">默认工作模式</string>
     <string name="delete_all">全部删除</string>
-    <string name="des_default_launch_mode">选择运行ADB命令的默认模式</string>
     <string name="device_not_connected">设备未连接</string>
     <string name="disclaimer_end">使用此软件即视为同意以上条款。否则，请删除此软件</string>
     <string name="discord">Discord</string>
@@ -76,7 +74,6 @@
     <string name="go_back">返回</string>
     <string name="high_contrast_dark_theme">高对比度暗色主题</string>
     <string name="history">历史</string>
-    <string name="launch_mode">启动时默认模式</string>
     <string name="least_used">最少使用</string>
     <string name="local_adb">本地ADB</string>
     <string name="mail">电子邮件</string>

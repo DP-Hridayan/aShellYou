@@ -1,5 +1,8 @@
 package in.hridayan.ashell.fragments.home;
 
+import in.hridayan.ashell.UI.dialogs.ActionDialogs;
+import in.hridayan.ashell.UI.dialogs.ErrorDialogs;
+import in.hridayan.ashell.UI.dialogs.FeedbackDialogs;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_NOT_FOUND;
@@ -43,9 +46,9 @@ import com.cgutman.adblib.AdbConnection;
 import com.cgutman.adblib.AdbCrypto;
 import com.cgutman.adblib.AdbStream;
 import com.cgutman.adblib.UsbChannel;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.Hold;
+import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
@@ -53,9 +56,6 @@ import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabOtgScrollUpListener;
 import in.hridayan.ashell.UI.BehaviorFAB.OtgShareButtonListener;
-import in.hridayan.ashell.UI.BottomNavUtils;
-import in.hridayan.ashell.UI.CardUtils;
-import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.activities.MainActivity;
@@ -73,14 +73,12 @@ import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.OtgUtils;
 import in.hridayan.ashell.utils.OtgUtils.MessageOtg;
 import in.hridayan.ashell.utils.Utils;
-import in.hridayan.ashell.viewmodels.AboutViewModel;
 import in.hridayan.ashell.viewmodels.ExamplesViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -96,7 +94,6 @@ public class OtgFragment extends Fragment
   private AdbCrypto adbCrypto;
   private AdbConnection adbConnection;
   private UsbManager mManager;
-  private BottomNavigationView mNav;
   private SettingsAdapter adapter;
   private AlertDialog mWaitingDialog;
   private String user = null, deviceName;
@@ -144,8 +141,6 @@ public class OtgFragment extends Fragment
     mainViewModel.setPreviousFragment(Const.OTG_FRAGMENT);
 
     if (isKeyboardVisible) KeyboardUtils.closeKeyboard(requireActivity(), view);
-
-    BottomNavUtils.hideNavSmoothly(mNav);
   }
 
   @Override
@@ -154,15 +149,7 @@ public class OtgFragment extends Fragment
 
     setExitTransition(null);
 
-    // if bottom navigation is not visible , then make it visible
-    BottomNavUtils.showNavSmoothly(mNav);
-
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
-
-    if (Preferences.getSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING)
-        && adbConnection == null) CardUtils.showCardSmoothly(binding.usbWarningCard);
-    else if (binding.usbWarningCard.getVisibility() == View.VISIBLE)
-      CardUtils.hideCardSmoothly(binding.usbWarningCard);
 
     handleUseCommand();
 
@@ -249,6 +236,8 @@ public class OtgFragment extends Fragment
       @Nullable Bundle savedInstanceState) {
     setExitTransition(null);
 
+    setSharedElementEnterTransition(new MaterialContainerTransform());
+
     binding = FragmentOtgBinding.inflate(inflater, container, false);
 
     view = binding.getRoot();
@@ -256,8 +245,7 @@ public class OtgFragment extends Fragment
     context = requireContext();
 
     mManager = (UsbManager) requireActivity().getSystemService(Context.USB_SERVICE);
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-    
+
     // initialize viewmodel
     initializeViewModels();
 
@@ -293,16 +281,6 @@ public class OtgFragment extends Fragment
           if (visible) buttonsVisibilityGone();
           else buttonsVisibilityVisible();
         });
-
-    if (!isKeyboardVisible) {
-      mNav.setVisibility(View.VISIBLE);
-    }
-
-    // Show the info card by checking preferences
-    if (Preferences.getSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING)
-        && adbConnection == null) CardUtils.showCardSmoothly(binding.usbWarningCard);
-    else if (binding.usbWarningCard.getVisibility() == View.VISIBLE)
-      CardUtils.hideCardSmoothly(binding.usbWarningCard);
 
     if (isSendDrawable) {
       binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_send, requireActivity()));
@@ -460,7 +438,6 @@ public class OtgFragment extends Fragment
               case CONNECTING:
                 //   Toast.makeText(context, "connecting", Toast.LENGTH_SHORT).show();
                 if (adbConnection == null) {
-                  binding.usbWarningCard.setVisibility(View.GONE);
                   waitingDialog(context);
                 }
 
@@ -536,12 +513,6 @@ public class OtgFragment extends Fragment
         }
       }
     }
-
-    // OnClickListener of the Instruction button on the info card
-    instructionsButtonOnClickListener();
-
-    // The cross to dismiss the info card
-    crossOnClickListener();
 
     // Button to view the connected device
     modeButtonOnClickListener();
@@ -779,7 +750,6 @@ public class OtgFragment extends Fragment
 
     binding.saveButton.setVisibility(View.GONE);
     binding.shareButton.setVisibility(View.GONE);
-    showBottomNav();
   }
 
   // Button showing the mode and connected device
@@ -789,17 +759,11 @@ public class OtgFragment extends Fragment
           HapticUtils.weakVibrate(v);
           if (mDevice != null) {
             String connectedDevice = mDevice.getProductName();
-            DialogUtils.connectedDeviceDialog(
+            FeedbackDialogs.connectedDeviceDialog(
                 context, adbConnection == null ? getString(R.string.none) : connectedDevice);
 
-          } else DialogUtils.connectedDeviceDialog(context, getString(R.string.none));
+          } else FeedbackDialogs.connectedDeviceDialog(context, getString(R.string.none));
         });
-  }
-
-  // Animate the bottom navigation bar to appear
-  private void showBottomNav() {
-    if (getActivity() != null && getActivity() instanceof MainActivity)
-      ((MainActivity) getActivity()).mNav.animate().translationY(0);
   }
 
   // Hide buttons when keyboard is visible
@@ -845,7 +809,7 @@ public class OtgFragment extends Fragment
           if (saved) Preferences.setLastSavedFileName(fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
-          DialogUtils.outputSavedDialog(context, saved);
+          FeedbackDialogs.outputSavedDialog(context, saved);
         });
   }
 
@@ -854,7 +818,7 @@ public class OtgFragment extends Fragment
     binding.shareButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          String fileName = Utils.generateFileName(mHistory)+".txt";
+          String fileName = Utils.generateFileName(mHistory) + ".txt";
           Utils.shareOutput(
               requireActivity(),
               context,
@@ -936,7 +900,7 @@ public class OtgFragment extends Fragment
           if (Utils.getBookmarks(context).isEmpty())
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
           else
-            DialogUtils.bookmarksDialog(
+            ActionDialogs.bookmarksDialog(
                 context, binding.commandEditText, binding.commandInputLayout);
         });
   }
@@ -1001,26 +965,7 @@ public class OtgFragment extends Fragment
     binding.commandInputLayout.setErrorIconOnClickListener(
         t -> binding.commandEditText.setText(null));
 
-    DialogUtils.otgConnectionErrDialog(context);
-  }
-
-  // The cross which dismisses the card asking to turn on usb debugging
-  private void crossOnClickListener() {
-    binding.cross.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v);
-          CardUtils.hideCardSmoothly(binding.usbWarningCard);
-          Preferences.setSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING, false);
-        });
-  }
-
-  // Onclick listener of Instruction button on the card
-  private void instructionsButtonOnClickListener() {
-    binding.instructionsButton.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v);
-          Utils.openUrl(context, Const.URL_OTG_INSTRUCTIONS);
-        });
+    ErrorDialogs.otgConnectionErrDialog(context);
   }
 
   // Get the command when using Use feature

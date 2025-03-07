@@ -117,9 +117,9 @@ public class RootShell {
   public static String exec(String command, boolean root) {
     List<String> output;
     if (root) {
-      output = Shell.su(command).exec().getOut();
+      output = Shell.cmd(command).exec().getOut();
     } else {
-      output = Shell.sh(command).exec().getOut();
+      output = Shell.cmd(command).exec().getOut();
     }
     return parseOutput(output);
   }
@@ -134,9 +134,9 @@ public class RootShell {
   public static String exec(InputStream script, boolean root) {
     List<String> output;
     if (root) {
-      output = Shell.su(script).exec().getOut();
+      output = Shell.cmd(script).exec().getOut();
     } else {
-      output = Shell.sh(script).exec().getOut();
+      output = Shell.cmd(script).exec().getOut();
     }
     return parseOutput(output);
   }
@@ -150,9 +150,9 @@ public class RootShell {
    */
   public static void exec(InputStream script, boolean root, ArrayList<String> output) {
     if (root) {
-      Shell.su(script).to(output, output).exec();
+      Shell.cmd(script).to(output, output).exec();
     } else {
-      Shell.sh(script).to(output, output).exec();
+      Shell.cmd(script).to(output, output).exec();
     }
   }
 

@@ -15,7 +15,6 @@ import android.util.Pair;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.config.Const;
@@ -34,7 +33,6 @@ public class LookAndFeel extends Fragment {
 
   private SettingsLookAndFeelBinding binding;
   private View view;
-  private BottomNavigationView mNav;
   private Context context;
   private SettingsItemViewModel viewModel;
 
@@ -77,8 +75,6 @@ public class LookAndFeel extends Fragment {
     binding = SettingsLookAndFeelBinding.inflate(inflater, container, false);
     context = requireContext();
     viewModel = new ViewModelProvider(requireActivity()).get(SettingsItemViewModel.class);
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-    mNav.setVisibility(View.GONE);
     view = binding.getRoot();
 
     onBackPressedDispatcher();

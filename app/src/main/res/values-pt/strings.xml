@@ -58,12 +58,10 @@
     <string name="copied_to_clipboard">Copiado para área de transferência</string>
     <string name="crash_report">Relatório de falhas</string>
     <string name="current">Atual</string>
-    <string name="default_launch_mode">Modo de inicialização padrão</string>
     <string name="delete_all">Apagar todos</string>
     <string name="default_folder">Pasta padrão</string>
     <string name="default_language">Idioma padrão</string>
     <string name="des_default_language">Escolha o idioma padrão para o app</string>
-    <string name="des_default_launch_mode">Escolha qual modo ADB deve ser aberto diretamente ao abrir o app</string>
     <string name="device_not_connected">Dispositivo não conectado</string>
     <string name="discord">Discord</string>
     <string name="des_discord">Junte-se à comunidade do discord</string>
@@ -85,7 +83,6 @@
     <string name="history">Histórico</string>
     <string name="instructions">Instruções</string>
     <string name="latest">Mais recentes</string>
-    <string name="launch_mode">Modo de inicialização</string>
     <string name="least_used">Menos utilizados</string>
     <string name="local_adb">ADB Local</string>
     <string name="mail">E-mail</string>

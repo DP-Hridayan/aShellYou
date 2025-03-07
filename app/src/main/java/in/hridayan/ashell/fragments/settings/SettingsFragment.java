@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.SettingsAdapter;
@@ -43,7 +42,6 @@ public class SettingsFragment extends Fragment {
   private ExamplesViewModel examplesViewModel;
   private SettingsItemViewModel itemViewModel;
   private Context context;
-  private BottomNavigationView mNav;
   private Pair<Integer, Integer> mRVPositionAndOffset;
   private FragmentSettingsBinding binding;
   private View view;
@@ -113,10 +111,6 @@ public class SettingsFragment extends Fragment {
     view = binding.getRoot();
 
     context = requireContext();
-
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-
-    mNav.setVisibility(View.GONE);
 
     viewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
@@ -192,15 +186,6 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            Const.PREF_DEFAULT_LAUNCH_MODE,
-            R.drawable.ic_mode,
-            getString(R.string.default_launch_mode),
-            getString(R.string.des_default_launch_mode),
-            false,
-            false));
-
-    settingsData.add(
-        new SettingsItem(
             Const.PREF_DISABLE_SOFTKEY,
             R.drawable.ic_disable_keyboard,
             getString(R.string.disable_softkey),
@@ -243,15 +228,6 @@ public class SettingsFragment extends Fragment {
             getString(R.string.des_smooth_scroll),
             true,
             Preferences.getSmoothScroll()));
-
-    settingsData.add(
-        new SettingsItem(
-            Const.ID_UNHIDE_CARDS,
-            R.drawable.ic_cards,
-            getString(R.string.unhide_cards),
-            getString(R.string.des_unhide_cards),
-            false,
-            false));
 
     settingsData.add(
         new SettingsItem(

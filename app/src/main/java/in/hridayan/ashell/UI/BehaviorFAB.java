@@ -62,7 +62,6 @@ public class BehaviorFAB {
 
   // Function class for visibility of Top Scroll Button in Otg Shell Fragment
   public static class FabOtgScrollUpListener implements ViewTreeObserver.OnScrollChangedListener {
-
     private final CoordinatedNestedScrollView scrollView;
     private final FloatingActionButton fab;
     private int lastScrollY = 0;

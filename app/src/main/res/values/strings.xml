@@ -14,6 +14,10 @@
     <string name="adb_device_not_connected">ADB device not connected.</string>
     <string name="adb_device_waiting">Waiting for ADB device</string>
     <string name="adb_shell">ADB shell</string>
+    <string name="adb_through_otg">ADB Through OTG</string>
+    <string name="adb_through_otg_summary">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.\n\nPlease refer to the step-by-step guide first</string>
+    <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
+<string name="adb_via_wireless_debugging_summary">Connect to other devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.\n\nPlease refer to the step-by-step guide first</string>
     <string name="add_bookmark">Add bookmark</string>
     <string name="additional_settings">Additional settings</string>
     <string name="about">About</string>
@@ -65,6 +69,7 @@
     <string name="connected_device">Connected device</string>
     <string name="connecting">connecting\u2026</string>
     <string name="connecting_hint">confirm authorization on target device</string>
+    <string name="connection_failed">Connection failed</string>
     <string
         name="copy"
         tools:override="true">Copy</string>
@@ -72,12 +77,10 @@
     <string name="crash_report">Crash report</string>
     <string name="current">Current</string>
     <string name="dark_theme">Dark theme</string>
-    <string name="default_launch_mode">Default launch mode</string>
     <string name="delete_all">Delete all</string>
     <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>
     <string name="des_default_language">Choose the default language for the app</string>
-    <string name="des_default_launch_mode">Choose what ADB mode should be opened directly when app launches</string>
     <string name="device_not_connected">Device not connected</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="des_disclaimer">This app allows you to execute ADB (Android Debug Bridge) commands directly on your device without needing a PC. Please read the following carefully before using the app:</string>
@@ -107,6 +110,7 @@
     <string name="failed">Failed</string>
     <string name="file_not_found">File not found</string>
     <string name="generate_key_failed">Failed to generate and save key pair</string>
+    <string name="granted">Granted</string>
     <string name="grant_permission">Grant permission</string>
     <string name="grant_permission_manually">If the permission dialog doesn\'t appear, please grant root permission manually via the superuser application</string>
     <string name="flashing">Flashing</string>
@@ -117,9 +121,9 @@
     <string name="instructions">Instructions</string>
     <string name="ip_address">IP address</string>
     <string name="latest">Latest</string>
-    <string name="launch_mode">Launch mode</string>
     <string name="least_used">Least used</string>
     <string name="local_adb">Local ADB</string>
+    <string name="local_adb_summary">Execute ADB commands directly on your device using Shizuku or root. Manage apps, control system settings, and perform advanced debugging—all without needing a PC.</string>
     <string name="look_and_feel">Look &amp; Feel</string>
     <string name="des_look_and_feel">Dynamic colors, Dark theme, Language</string>
     <string name="mail">E-mail</string>
@@ -135,6 +139,7 @@
     <string name="no_command">No command</string>
     <string name="no_command_found">No command found that matches your query</string>
     <string name="no_history">No command history</string>
+    <string name="not_available">Not available</string>
     <string name="nothing_to_clear">Nothing to clear</string>
     <string name="nothing_to_search">Nothing to search</string>
     <string name="off">Off</string>
@@ -166,7 +171,9 @@
     <string
         name="root"
         translatable="false">Root</string>
+    <string name="root_access">Root access</string>
     <string name="root_access_denied_message">Root access is currently denied for aShell You</string>
+    <string name="root_provider">Root provider</string>
     <string name="root_unavailable">Root is not accessible</string>
     <string name="root_unavailable_message">Device might not be rooted or root presence might be hidden from aShell You</string>
     <string name="save">Save</string>
@@ -192,6 +199,7 @@
         name="shizuku"
         translatable="false">Shizuku</string>
     <string name="shizuku_about">About Shizuku</string>
+    <string name="shizuku_access">Shizuku access</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
     <string name="shizuku_unavailable_message">Shizuku is not installed or properly configured on your device</string>

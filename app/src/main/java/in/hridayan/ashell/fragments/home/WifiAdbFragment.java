@@ -26,22 +26,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.Hold;
+import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.BehaviorFAB;
 import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
 import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
-import in.hridayan.ashell.UI.BottomNavUtils;
-import in.hridayan.ashell.UI.BottomSheets;
-import in.hridayan.ashell.UI.DialogUtils;
 import in.hridayan.ashell.UI.KeyboardUtils;
 import in.hridayan.ashell.UI.ThemeUtils;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.UI.Transitions;
+import in.hridayan.ashell.UI.bottomsheets.WifiAdbBottomSheet;
+import in.hridayan.ashell.UI.dialogs.ActionDialogs;
+import in.hridayan.ashell.UI.dialogs.ErrorDialogs;
+import in.hridayan.ashell.UI.dialogs.FeedbackDialogs;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
@@ -74,8 +75,6 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class WifiAdbFragment extends Fragment {
-
-  private BottomNavigationView mNav;
   private CommandsAdapter mCommandAdapter;
   private ShellOutputAdapter mShellOutputAdapter;
   private ShizukuShell mShizukuShell;
@@ -103,8 +102,6 @@ public class WifiAdbFragment extends Fragment {
 
     // If keyboard is visible then we close it before leaving fragment
     if (isKeyboardVisible) KeyboardUtils.closeKeyboard(requireActivity(), view);
-
-    BottomNavUtils.hideNavSmoothly(mNav);
   }
 
   @Override
@@ -113,9 +110,6 @@ public class WifiAdbFragment extends Fragment {
 
     // we set exit transition to null
     setExitTransition(null);
-
-    // if bottom navigation is not visible , then make it visible
-    BottomNavUtils.showNavSmoothly(mNav);
 
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
@@ -157,17 +151,15 @@ public class WifiAdbFragment extends Fragment {
 
     setExitTransition(null);
 
+    setSharedElementEnterTransition(new MaterialContainerTransform());
+
     binding = FragmentWifiAdbBinding.inflate(inflater, container, false);
 
     context = requireContext();
 
     view = binding.getRoot();
 
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-
     initializeViewModels();
-
-    checkConnectedDevices();
 
     if (binding.rvOutput.getLayoutManager() == null) {
       binding.rvOutput.setLayoutManager(new LinearLayoutManager(requireActivity()));
@@ -193,9 +185,6 @@ public class WifiAdbFragment extends Fragment {
           if (visible) buttonsVisibilityGone();
           else buttonsVisibilityVisible();
         });
-
-    // Set the bottom navigation
-    if (!isKeyboardVisible) mNav.setVisibility(View.VISIBLE);
 
     // When there is any text in edit text , focus the edit text
     if (!binding.commandEditText.getText().toString().isEmpty())
@@ -259,9 +248,7 @@ public class WifiAdbFragment extends Fragment {
     BehaviorFAB.pasteAndUndo(
         binding.pasteButton, binding.undoButton, binding.commandEditText, context);
 
-    connectButtonOnClickListener();
-
-    resumeButtonOnClickListener();
+    
 
     pasteAndSaveButtonVisibility();
 
@@ -285,8 +272,6 @@ public class WifiAdbFragment extends Fragment {
 
     shareButtonVisibilityHandler();
 
-    appNameLayoutOnClickListener();
-
     commandEditTextOnEditorActionListener();
 
     sendButtonOnClickListener();
@@ -302,24 +287,6 @@ public class WifiAdbFragment extends Fragment {
     mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
     settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
     examplesViewModel = new ViewModelProvider(requireActivity()).get(ExamplesViewModel.class);
-  }
-
-  private void checkConnectedDevices() {
-    WifiAdbShell.getConnectedDevices(
-        context,
-        new WifiAdbShell.ConnectedDevicesCallback() {
-          @Override
-          public void onDevicesListed(String devices) {
-            // Display the connected devices in a TextView
-            binding.connectedDeviceLayout.setVisibility(View.VISIBLE);
-            binding.connectedDeviceName.setText("Connected Devices\n\n" + devices);
-          }
-
-          @Override
-          public void onFailure(String errorMessage) {
-            binding.connectedDeviceLayout.setVisibility(View.GONE);
-          }
-        });
   }
 
   private int lastIndexOf(String s, String splitTxt) {
@@ -383,12 +350,6 @@ public class WifiAdbFragment extends Fragment {
               binding.clearButton.setVisibility(View.VISIBLE);
             },
             200);
-  }
-
-  // Call to show the bottom navigation view
-  private void showBottomNav() {
-    if (getActivity() != null && getActivity() instanceof MainActivity)
-      ((MainActivity) getActivity()).mNav.animate().translationY(0);
   }
 
   // Call to set the visibility of elements with a delay
@@ -456,37 +417,12 @@ public class WifiAdbFragment extends Fragment {
       setVisibilityWithDelay(binding.pasteButton, 100);
   }
 
-  private void connectButtonOnClickListener() {
-    binding.connectButton.setOnClickListener(
-        v -> {
-          BottomSheets.showBottomSheetPairAndConnect(context, requireActivity());
-        });
-  }
-    
-    private void resumeButtonOnClickListener() {
-    binding.resumeButton.setOnClickListener(
-        v -> {
-          handleViewsWhenDeviceConnected();
-        });
-  }
-
-  public void handleViewsWhenDeviceConnected() {
-    binding.bookmarksButton.setVisibility(View.VISIBLE);
-    binding.historyButton.setVisibility(View.VISIBLE);
-    binding.clearButton.setVisibility(View.VISIBLE);
-    binding.searchButton.setVisibility(View.VISIBLE);
-    binding.inputFrameLayout.setVisibility(View.VISIBLE);
-    binding.pasteButton.setVisibility(View.VISIBLE);
-    binding.wirelessDebuggingCardView.setVisibility(View.GONE);
-  }
-
   // Onclick listener for the button indicating working mode
   private void modeButtonOnClickListener() {
     binding.modeButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
 
-          BottomSheets.showBottomSheetPairAndConnect(context, requireActivity());
         });
   }
 
@@ -512,7 +448,7 @@ public class WifiAdbFragment extends Fragment {
           if (Utils.getBookmarks(context).isEmpty())
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
           else
-            DialogUtils.bookmarksDialog(
+            ActionDialogs.bookmarksDialog(
                 context, binding.commandEditText, binding.commandInputLayout);
         });
   }
@@ -601,7 +537,6 @@ public class WifiAdbFragment extends Fragment {
     binding.rvOutput.setAdapter(null);
     binding.saveButton.setVisibility(View.GONE);
     binding.shareButton.setVisibility(View.GONE);
-    showBottomNav();
     binding.commandEditText.clearFocus();
     if (!binding.commandEditText.isFocused()) binding.commandEditText.requestFocus();
   }
@@ -699,7 +634,7 @@ public class WifiAdbFragment extends Fragment {
           if (saved) Preferences.setLastSavedFileName(fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
-          DialogUtils.outputSavedDialog(context, saved);
+          FeedbackDialogs.outputSavedDialog(context, saved);
         });
   }
 
@@ -750,15 +685,6 @@ public class WifiAdbFragment extends Fragment {
               if (Math.abs(dy) >= 90) binding.shareButton.hide();
             }
           }
-        });
-  }
-
-  // To dismiss the search I have not found other way than add an onclick listener on the app name
-  // layout itself
-  private void appNameLayoutOnClickListener() {
-    binding.appNameLayout.setOnClickListener(
-        v -> {
-          if (binding.search.getVisibility() == View.VISIBLE) hideSearchBar();
         });
   }
 
@@ -978,7 +904,7 @@ public class WifiAdbFragment extends Fragment {
 
     // Command to exit the app
     if (finalCommand.equals("exit")) {
-      DialogUtils.confirmExitDialog(context, requireActivity());
+      FeedbackDialogs.confirmExitDialog(context, requireActivity());
       return;
     }
 
@@ -1123,7 +1049,7 @@ public class WifiAdbFragment extends Fragment {
           t -> binding.commandEditText.setText(null));
     }
 
-    DialogUtils.rootUnavailableDialog(context);
+    ErrorDialogs.rootUnavailableDialog(context);
   }
 
   // Open command examples fragment

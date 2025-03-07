@@ -27,8 +27,6 @@ public interface Const {
   String PREF_SORTING_OPTION = "sorting_option";
   String PREF_SORTING_EXAMPLES = "sorting_examples";
   String PREF_CURRENT_FRAGMENT = "current_fragment";
-  String PREF_DEFAULT_LAUNCH_MODE = "id_default_launch_mode";
-  String PREF_SPECIFIC_CARD_VISIBILITY = "specific_card_visibility";
   String PREF_AUTO_UPDATE_CHECK = "id_auto_update_check";
   String PREF_SAVE_PREFERENCE = "id_save_preference";
   String PREF_LATEST_VERSION_NAME = "latest_version_name";
@@ -63,6 +61,9 @@ public interface Const {
   /* <--------Transition Names-------> */
   String SEND_TO_EXAMPLES = "sendButtonToExamples";
   String SETTINGS_TO_SETTINGS = "settingsButtonToSettings";
+  String FRAGMENT_LOCAL_SHELL = "fragmentLocalShell";
+    String FRAGMENT_OTG_SHELL = "fragmentOtgShell";
+    String FRAGMENT_WIFI_ADB_SHELL = "fragmentWifiAdbShell";
 
   /* <--------U R L s -------> */
   String URL_DEV_GITHUB = "https://github.com/DP-Hridayan";
@@ -95,6 +96,7 @@ public interface Const {
   int SORT_OLDEST = 2;
   int SORT_NEWEST = 3;
   int SORT_LEAST_USED = 3;
+  int HOME_FRAGMENT = 2025;
   int LOCAL_FRAGMENT = 0;
   int OTG_FRAGMENT = 1;
   int WIFI_ADB_FRAGMENT = 2;

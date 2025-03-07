@@ -213,14 +213,6 @@ public class Preferences {
     editor.putInt(Const.PREF_SORTING_EXAMPLES, value).apply();
   }
 
-  public static void setLaunchMode(int value) {
-    editor.putInt(Const.PREF_DEFAULT_LAUNCH_MODE, value).apply();
-  }
-
-  public static int getLaunchMode() {
-    return prefs.getInt(Const.PREF_DEFAULT_LAUNCH_MODE, Const.MODE_LOCAL_ADB);
-  }
-
   public static int getCurrentFragment() {
     return prefs.getInt(Const.PREF_CURRENT_FRAGMENT, Const.LOCAL_FRAGMENT);
   }
@@ -245,23 +237,11 @@ public class Preferences {
     editor.putBoolean(getPinnedKey(title), value).apply();
   }
 
-  public static boolean getSpecificCardVisibility(Const.InfoCards key) {
-    return prefs.getBoolean(getCardKey(key.toString()), true);
-  }
-
-  public static void setSpecificCardVisibility(Const.InfoCards key, boolean value) {
-    editor.putBoolean(getCardKey(key.toString()), value).apply();
-  }
-
   private static String getCounterKey(String title) {
     return Const.PREF_COUNTER_PREFIX + title;
   }
 
   private static String getPinnedKey(String title) {
     return Const.PREF_PINNED_PREFIX + title;
-  }
-
-  private static String getCardKey(String key) {
-    return Const.PREF_SPECIFIC_CARD_VISIBILITY + key;
   }
 }

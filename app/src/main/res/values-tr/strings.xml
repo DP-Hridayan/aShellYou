@@ -52,9 +52,7 @@
         name="copy"
         tools:override="true">Kopyala</string>
     <string name="copied_to_clipboard">Panoya kopyalandı</string>
-    <string name="default_launch_mode">Varsayılan çalışma modu</string>
     <string name="delete_all">Tümünü sil</string>
-    <string name="des_default_launch_mode">ADB komutlarını çalıştırmak için varsayılan çalışma modunu seçin</string>
     <string name="device_not_connected">Cihaz bağlı değil</string>
     <string name="discord">Discord</string>
     <string name="des_discord">Discord topluluğuna katılın</string>

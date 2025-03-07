@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.ChangelogAdapter;
 import in.hridayan.ashell.databinding.FragmentChangelogBinding;
@@ -28,7 +27,6 @@ public class ChangelogFragment extends Fragment {
   private Context context;
   private FragmentChangelogBinding binding;
   private Pair<Integer, Integer> mRVPositionAndOffset;
-  private BottomNavigationView mNav;
 
   private final String[] versionNames = {"v5.2.1","v5.2.0",
     "v5.1.0", "v5.0.0", "v4.4.0", "v4.3.1", "v4.3.0", "v4.2.1", "v4.2.0", "v4.1.0", "v4.0.3",
@@ -86,8 +84,6 @@ public class ChangelogFragment extends Fragment {
 
     binding = FragmentChangelogBinding.inflate(inflater, container, false);
     context = requireContext();
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-    mNav.setVisibility(View.GONE);
 
     return binding.getRoot();
   }
