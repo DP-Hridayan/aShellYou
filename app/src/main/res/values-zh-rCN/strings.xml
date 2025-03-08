@@ -8,6 +8,7 @@
     <string name="adb_device_not_connected">ADB设备未连接</string>
     <string name="adb_device_waiting">等待ADB设备</string>
     <string name="adb_shell">ADB Shell</string>
+    <string name="adb_via_wireless_debugging_summary">通过WiFi连接到另一个启动了无线调试的设备并使其执行命令</string>
     <string name="add_bookmark">添加书签</string>
     <string name="additional_settings">额外设置</string>
     <string name="about">关于</string>
@@ -50,6 +51,7 @@
     <string name="connected_device">连接的设备</string>
     <string name="connecting">连接中\u2026</string>
     <string name="connecting_hint">需在目标设备上确认</string>
+    <string name="connection_failed">连接失败</string>
     <string
             name="copy"
             tools:override="true">复制</string>
@@ -115,6 +117,7 @@
     <string name="shell_output_saved_message">上个命令的输出已导出到 \'%s\' 。</string>
     <string name="shell_working">Shell 仍在运行</string>
     <string name="shizuku_about">关于 Shizuku</string>
+    <string name="shizuku_access">Shizuku权限</string>
     <string name="shizuku_access_denied_message">执行被拒绝。没有 Shizuku 授权，将无法使用。</string>
     <string name="shizuku_unavailable">Shizuku 不可用</string>
     <string name="shizuku_unavailable_message">您的设备上未安装 Shizuku 或未激活。没有 Shizuku 环境，aShell You 无法运行。</string>
@@ -181,6 +184,7 @@
     <string name="des_default_language">为本软件更改默认语言</string>
     <string name="download">下载</string>
     <string name="file_not_found">文件未找到</string>
+    <string name="granted">已授权</string>
     <string name="grant_permission">获取权限</string>
     <string name="grant_permission_manually">若授权窗口未弹出，请通过你的SU管理程序手动授予root权限</string>
     <string name="instructions">指南</string>
@@ -200,7 +204,9 @@
     <string name="pinned_message">\'%s\' 已被置顶</string>
     <string name="remember_working_mode">保留退出时的模式</string>
     <string name="report">反馈</string>
+    <string name="root_access">Root权限</string>
     <string name="root_access_denied_message">Root权限被拒绝，使用别的模式或者授予Root权限</string>
+    <string name="root_provider">Root提供方</string>
     <string name="root_unavailable">该设备不具备Root权限</string>
     <string name="root_unavailable_message">未检测到Root. 设备可能未被Root或者su被隐藏（比如sulist未添加aShell You）</string>
     <string name="shell_output_saved_whole_message">终端输出已被保存至\'%s\'文件夹</string>
@@ -233,6 +239,7 @@
     <string name="license">开源协议</string>
     <string name="des_license">了解这个软件所使用的开源协议</string>
     <string name="dynamic_colors">莫奈取色</string>
+    <string name="local_adb_summary">使用设备的Shizuku或者Root权限直接执行命令实现管理应用、修改设置、进行高阶调试等功能——不再劳烦电脑出马</string>
     <string name="look_and_feel">外观 &amp; 体验</string>
     <string name="des_look_and_feel">莫奈取色，暗色主题以及语言设置</string>
     <string name="btn_continue">继续</string>
@@ -267,4 +274,8 @@
     <string name="sensitive_packages_warning2">⚠️ 系统崩溃重启（比如 “卡米”现象）\n⚠️ 失去重要功能 (比如 系统界面消失, 网络与安全功能失效)\n⚠️ 在恢复出厂设置或重刷固件前均无法修复的故障</string>
     <string name="warning_v2">⚠ 真要这么办吗 ⚠</string>
     <string name="pairing_failed">配对失败</string>
+    <string name="adb_through_otg">OTG</string>
+    <string name="adb_through_otg_summary">通过OTG让另一个设备执行ADB命令。需要给目标设备打开USB调试功能</string>
+    <string name="adb_via_wireless_debugging">无线ADB</string>
+    <string name="resume">继续</string>
 </resources>
