@@ -35,6 +35,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/otg_not_connected"
         android:layout_gravity="center_horizontal"
+        android:justificationMode="inter_word"
         style="@style/DialogDescriptionAppearance" />
 
     <Button

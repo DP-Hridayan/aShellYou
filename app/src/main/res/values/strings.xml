@@ -17,7 +17,7 @@
     <string name="adb_through_otg">ADB Through OTG</string>
     <string name="adb_through_otg_summary">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.</string>
     <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
-<string name="adb_via_wireless_debugging_summary">Connect to other devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
+    <string name="adb_via_wireless_debugging_summary">Connect to other devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add_bookmark">Add bookmark</string>
     <string name="additional_settings">Additional settings</string>
     <string name="about">About</string>
@@ -104,6 +104,8 @@
     <string name="download">Download</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="des_dynamic_colors">Automatically set the app theme according to the device wallpaper</string>
+    <string name="enter_pairing_code">Enter Pairing Code</string>
+    <string name="enter_six_digit_pairing_code">Enter six digit pairing code</string>
     <string name="error">Error</string>
     <string name="example">Example</string>
     <string name="examples">Examples</string>
@@ -155,7 +157,7 @@
     <string name="pair">Pair</string>
     <string name="paired">Paired</string>
     <string name="pairing_port">Pairing port</string>
-        <string name="pairing_code">Pairing code</string>
+    <string name="pairing_code">Pairing code</string>
     <string name="pin">Pin</string>
     <string name="pinned_message">\'%s\' has been pinned</string>
     <string name="port">Port</string>
@@ -209,6 +211,7 @@
     <string name="sort_newest">Newest</string>
     <string name="sort_oldest">Oldest</string>
     <string name="start">Start</string>
+    <string name="submit">Submit</string>
     <string name="success">Success</string>
     <string name="support_message">Like what I do?\nConsider buying me a coffee !</string>
     <string name="su_warning_message">This mode doesn\'t support root related commands. Please switch to root mode</string>

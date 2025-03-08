@@ -1,8 +1,12 @@
 package in.hridayan.ashell.fragments.home;
 
+import android.Manifest;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import androidx.lifecycle.ViewModelProvider;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ToastUtils;
@@ -22,6 +30,8 @@ import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentHomeBinding;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
+import in.hridayan.ashell.shell.AdbMdns;
+import in.hridayan.ashell.shell.AdbPairingNotificationWorker;
 import in.hridayan.ashell.shell.ShizukuShell;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
@@ -36,6 +46,10 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   private SettingsViewModel settingsViewModel;
   private MainViewModel mainViewModel;
   private HomeViewModel viewModel;
+  private String adbPort;
+  private AdbMdns adbMdns;
+    private Handler timeoutHandler = new Handler(Looper.getMainLooper());
+private Runnable timeoutRunnable;
 
   @Nullable
   @Override
@@ -63,9 +77,17 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
 
     pairButtonOnClickListener();
 
-    restoreScrollViewPosition();
-
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      requestPermissions(new String[] {Manifest.permission.POST_NOTIFICATIONS}, 100);
+    }
+        
     return binding.getRoot();
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    restoreScrollViewPosition();
   }
 
   // initialize viewModels
@@ -230,9 +252,90 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
     binding.pairWirelessDebugging.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          WifiAdbBottomSheet.showPairAndConnectBottomSheet(context, requireActivity());
+
+          stopMdns();
+          pairThisDevice();
         });
   }
+
+  private void pairOtherDevice() {
+    WifiAdbBottomSheet.showPairAndConnectBottomSheet(context, requireActivity());
+  }
+
+  private void pairThisDevice() {
+    showSearchingNotification();
+    startAdbCodesSearch();
+  }
+
+  private void showSearchingNotification() {
+    OneTimeWorkRequest workRequest =
+        new OneTimeWorkRequest.Builder(AdbPairingNotificationWorker.class)
+            .setInputData(
+                new Data.Builder().putString("message", "Searching for Pairing Codes...").build())
+            .build();
+
+    WorkManager.getInstance(context)
+        .enqueueUniqueWork("adb_searching_notification", ExistingWorkPolicy.REPLACE, workRequest);
+  }
+
+  
+
+private void startAdbCodesSearch() {
+    adbMdns = new AdbMdns(
+        context,
+        new AdbMdns.AdbFoundCallback() {
+            @Override
+            public void onPairingCodeDetected(String ipAddress, int port) {
+                Preferences.setAdbIp(ipAddress);
+                Preferences.setAdbPairingPort(String.valueOf(port));
+
+                WorkManager.getInstance(context).cancelUniqueWork("adb_searching_notification");
+                enterPairingCodeNotification();
+            }
+
+            @Override
+            public void onConnectCodeDetected(String ipAddress, int port) {
+                Preferences.setAdbIp(ipAddress);
+                Preferences.setAdbConnectingPort(String.valueOf(port));
+
+            }
+        });
+
+    adbMdns.start();
+    startTimeout(); // Start the 3-minute timeout
+}
+
+private void startTimeout() {
+    timeoutRunnable = () -> {
+        stopMdns();
+        WorkManager.getInstance(context).cancelUniqueWork("adb_searching_notification");
+        ToastUtils.showToast(context, "ADB detection timeout", ToastUtils.LENGTH_SHORT);
+    };
+    timeoutHandler.postDelayed(timeoutRunnable, 3*60*1000); // 3 minutes
+}
+
+private void cancelTimeout() {
+    if (timeoutRunnable != null) {
+        timeoutHandler.removeCallbacks(timeoutRunnable);
+    }
+}
+
+private void stopMdns() {
+    if (adbMdns != null) {
+        adbMdns.stop();
+        adbMdns = null;
+    }
+    cancelTimeout();
+}
+
+  private void enterPairingCodeNotification() {
+    OneTimeWorkRequest workRequest =
+        new OneTimeWorkRequest.Builder(AdbPairingNotificationWorker.class).build();
+
+    WorkManager.getInstance(context)
+        .enqueueUniqueWork("adb_pairing_notification", ExistingWorkPolicy.REPLACE, workRequest);
+  }
+
 
   private void restoreScrollViewPosition() {
     viewModel
@@ -240,7 +343,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
         .observe(
             getViewLifecycleOwner(),
             y -> {
-              if (y != null) {
+              if (binding != null && binding.scrollView != null && y != null) {
                 binding.scrollView.post(() -> binding.scrollView.scrollTo(0, y));
               }
             });
@@ -253,7 +356,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    binding = null;
+    stopMdns();
   }
 
   @Override

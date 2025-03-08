@@ -56,6 +56,38 @@ public class Preferences {
     editor.putString(Const.PREF_UPDATE_APK_FILE_NAME, value).apply();
   }
 
+  public static String getAdbPairingPort() {
+    return prefs.getString(Const.ADB_PAIRING_PORT, null);
+  }
+
+  public static void setAdbPairingPort(String value) {
+    editor.putString(Const.ADB_PAIRING_PORT, value).apply();
+  }
+
+  public static String getAdbConnectingPort() {
+    return prefs.getString(Const.ADB_CONNECTING_PORT, null);
+  }
+
+  public static void setAdbConnectingPort(String value) {
+    editor.putString(Const.ADB_CONNECTING_PORT, value).apply();
+  }
+
+  public static String getAdbIp() {
+    return prefs.getString(Const.ADB_IP, null);
+  }
+
+  public static void setAdbIp(String value) {
+    editor.putString(Const.ADB_IP, value).apply();
+  }
+
+  public static String getAdbPairingCode() {
+    return prefs.getString(Const.ADB_PAIRING_CODE, null);
+  }
+
+  public static void setAdbPairingCode(String value) {
+    editor.putString(Const.ADB_PAIRING_CODE, value).apply();
+  }
+
   /*Boolean to check if app has been launched first time after installation , so we return true by default*/
   public static boolean getFirstLaunch() {
     return prefs.getBoolean(Const.PREF_FIRST_LAUNCH, true);

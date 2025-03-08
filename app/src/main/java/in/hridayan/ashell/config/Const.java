@@ -41,8 +41,12 @@ public interface Const {
   String PREF_DEFAULT_SAVE_DIRECTORY =
       Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
           .getAbsolutePath();
+    String ADB_IP="adb_ip";
+   String ADB_PAIRING_PORT = "adb_pairing_port";
+    String ADB_CONNECTING_PORT = "adb_connecting_port";
+    String ADB_PAIRING_CODE="adb_pairing_code";
 
-  // tags for things like onclick listeners
+  // tags for things like onclick listeners 
   String ID_LOOK_AND_FEEL = "id_look_and_feel";
   String ID_DEF_LANGUAGE = "id_default_language";
   String ID_CONFIG_SAVE_DIR = "id_configure_save_directory";
