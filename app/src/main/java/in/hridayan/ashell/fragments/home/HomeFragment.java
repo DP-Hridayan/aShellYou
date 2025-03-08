@@ -221,7 +221,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   }
 
   private void permGrantedToast() {
-    ToastUtils.showToast(requireContext(), "Granted", ToastUtils.LENGTH_SHORT);
+    ToastUtils.showToast(requireContext(), getString(R.string.granted), ToastUtils.LENGTH_SHORT);
   }
 
   private void rootAccessCard() {}
