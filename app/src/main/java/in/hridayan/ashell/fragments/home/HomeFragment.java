@@ -1,49 +1,40 @@
 package in.hridayan.ashell.fragments.home;
 
-import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.UI.bottomsheets.WifiAdbBottomSheet;
-import in.hridayan.ashell.UI.dialogs.ActionDialogs;
 import in.hridayan.ashell.UI.dialogs.ErrorDialogs;
 import in.hridayan.ashell.UI.dialogs.PermissionDialogs;
+import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentHomeBinding;
-import in.hridayan.ashell.fragments.home.HomeFragment;
+import in.hridayan.ashell.fragments.PairingFragment;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
-import in.hridayan.ashell.shell.AdbMdns;
-import in.hridayan.ashell.shell.AdbPairingNotificationWorker;
 import in.hridayan.ashell.shell.ShizukuShell;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.HomeViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
-import java.util.List;
 import rikka.shizuku.Shizuku;
 
 public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCallback {
@@ -52,10 +43,6 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   private SettingsViewModel settingsViewModel;
   private MainViewModel mainViewModel;
   private HomeViewModel viewModel;
-  private String adbPort;
-  private AdbMdns adbMdns;
-  private Handler timeoutHandler = new Handler(Looper.getMainLooper());
-  private Runnable timeoutRunnable;
 
   @Nullable
   @Override
@@ -81,11 +68,9 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
 
     wirelessAdbCardOnClickListener();
 
-    pairButtonOnClickListener();
+    instructionsButtonWifiAdb();
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      requestPermissions(new String[] {Manifest.permission.POST_NOTIFICATIONS}, 100);
-    }
+    pairButtonOnClickListener();
 
     return binding.getRoot();
   }
@@ -151,7 +136,6 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
     binding.wirelessAdbCard.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          goToWifiAdbFragment();
         });
   }
 
@@ -176,6 +160,25 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
         .getSupportFragmentManager()
         .beginTransaction()
         .addSharedElement(binding.otgAdbCard, Const.FRAGMENT_OTG_SHELL)
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
+        .commit();
+  }
+
+  private void goToPairingFragment() {
+    PairingFragment fragment = new PairingFragment();
+
+    // Reset previous exit transition to avoid conflicts
+    setExitTransition(null);
+
+    requireActivity()
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .setCustomAnimations(
+            R.anim.fragment_enter,
+            R.anim.fragment_exit,
+            R.anim.fragment_pop_enter,
+            R.anim.fragment_pop_exit)
         .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
         .addToBackStack(fragment.getClass().getSimpleName())
         .commit();
@@ -254,6 +257,22 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
 
   private void rootAccessCard() {}
 
+  private void instructionsButtonWifiAdb() {
+    binding.instructionWireless.setOnClickListener(
+        v -> {
+          wifiAdbInstructions();
+        });
+  }
+
+  private void wifiAdbInstructions() {
+    Intent intent = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
+    try {
+      startActivity(intent);
+    } catch (ActivityNotFoundException e) {
+      Toast.makeText(context, "Developer options not available!", Toast.LENGTH_SHORT).show();
+    }
+  }
+
   private void pairButtonOnClickListener() {
     binding.pairWirelessDebugging.setOnClickListener(
         v -> {
@@ -274,6 +293,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
         v -> {
           HapticUtils.weakVibrate(v);
           pairThisDevice();
+        goToPairingFragment();
           dialog.dismiss();
         });
 
@@ -290,78 +310,8 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   }
 
   private void pairThisDevice() {
-    // If mdns is running , stop it
-    stopMdns();
-    showSearchingNotification();
-    startPairingCodeSearch();
-  }
-
-  private void showSearchingNotification() {
-    OneTimeWorkRequest workRequest =
-        new OneTimeWorkRequest.Builder(AdbPairingNotificationWorker.class)
-            .setInputData(
-                new Data.Builder().putString("message", "Searching for Pairing Codes...").build())
-            .build();
-
-    WorkManager.getInstance(context)
-        .enqueueUniqueWork("adb_searching_notification", ExistingWorkPolicy.REPLACE, workRequest);
-  }
-
-  // Start searching for wireless debugging pairing code
-  private void startPairingCodeSearch() {
-    adbMdns =
-        new AdbMdns(
-            context,
-            new AdbMdns.AdbFoundCallback() {
-              @Override
-              public void onPairingCodeDetected(String ipAddress, int port) {
-                Preferences.setAdbIp(ipAddress);
-                Preferences.setAdbPairingPort(String.valueOf(port));
-                enterPairingCodeNotification();
-              }
-
-              @Override
-              public void onConnectCodeDetected(String ipAddress, int port) {
-                Preferences.setAdbIp(ipAddress);
-                Preferences.setAdbConnectingPort(String.valueOf(port));
-              }
-            });
-
-    adbMdns.start();
-    startTimeout(); // Start the 3-minute timeout
-  }
-
-  // We run a timeout after which the pairing code searching will stop
-  private void startTimeout() {
-    timeoutRunnable =
-        () -> {
-          stopMdns();
-          WorkManager.getInstance(context).cancelUniqueWork("adb_searching_notification");
-          ToastUtils.showToast(context, "ADB detection timeout", ToastUtils.LENGTH_SHORT);
-        };
-    timeoutHandler.postDelayed(timeoutRunnable, 3 * 60 * 1000); // 3 minutes
-  }
-
-  private void cancelTimeout() {
-    if (timeoutRunnable != null) {
-      timeoutHandler.removeCallbacks(timeoutRunnable);
-    }
-  }
-
-  private void stopMdns() {
-    if (adbMdns != null) {
-      adbMdns.stop();
-      adbMdns = null;
-    }
-    cancelTimeout();
-  }
-
-  private void enterPairingCodeNotification() {
-    OneTimeWorkRequest workRequest =
-        new OneTimeWorkRequest.Builder(AdbPairingNotificationWorker.class).build();
-
-    WorkManager.getInstance(context)
-        .enqueueUniqueWork("adb_pairing_notification", ExistingWorkPolicy.REPLACE, workRequest);
+        // We start the pairing from the activity to avoid destroying when fragment destroys
+    ((MainActivity) requireActivity()).pairThisDevice();
   }
 
   private void restoreScrollViewPosition() {
@@ -391,7 +341,6 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    stopMdns();
   }
 
   @Override

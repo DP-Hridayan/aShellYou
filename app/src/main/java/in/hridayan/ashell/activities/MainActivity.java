@@ -8,11 +8,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.UI.bottomsheets.ChangelogBottomSheet;
 import in.hridayan.ashell.UI.bottomsheets.UpdateCheckerBottomSheet;
 import in.hridayan.ashell.config.Const;
@@ -24,6 +31,8 @@ import in.hridayan.ashell.fragments.home.OtgFragment;
 import in.hridayan.ashell.fragments.home.WifiAdbFragment;
 import in.hridayan.ashell.fragments.setup.StartFragment;
 import in.hridayan.ashell.items.SettingsItem;
+import in.hridayan.ashell.shell.AdbMdns;
+import in.hridayan.ashell.shell.AdbPairingNotificationWorker;
 import in.hridayan.ashell.utils.AppUpdater;
 import in.hridayan.ashell.utils.CrashHandler;
 import in.hridayan.ashell.utils.DeviceUtils;
@@ -40,20 +49,31 @@ public class MainActivity extends AppCompatActivity
   private String pendingSharedText = null;
   private ActivityMainBinding binding;
   public static final Integer SAVE_DIRECTORY_CODE = 369126;
+  private String adbPort;
+  private AdbMdns adbMdns;
+  private Handler timeoutHandler = new Handler(Looper.getMainLooper());
+  private Runnable timeoutRunnable;
 
   // This funtion is run to perform actions if there is an update available or not
   @Override
   public void onResult(int result) {
-    if (result == Const.UPDATE_AVAILABLE){
-       UpdateCheckerBottomSheet updateChecker = new UpdateCheckerBottomSheet(this, this);
-updateChecker.show();
-    } 
+    if (result == Const.UPDATE_AVAILABLE) {
+      UpdateCheckerBottomSheet updateChecker = new UpdateCheckerBottomSheet(this, this);
+      updateChecker.show();
+    }
   }
 
   @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     handleIncomingIntent(intent);
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    // Stop Mdns if running
+    stopMdns();
   }
 
   @Override
@@ -257,9 +277,9 @@ updateChecker.show();
 
   // show bottom sheet for changelog after an update
   private void showChangelogs() {
-    if (DeviceUtils.isAppUpdated(this)){
-        ChangelogBottomSheet changelogSheet = new ChangelogBottomSheet(this);
-changelogSheet.show();
+    if (DeviceUtils.isAppUpdated(this)) {
+      ChangelogBottomSheet changelogSheet = new ChangelogBottomSheet(this);
+      changelogSheet.show();
     }
     /* we save the current version code and then when the app updates it compares the saved version code to the updated app's version code to determine whether to show changelogs */
     Preferences.setSavedVersionCode(DeviceUtils.currentVersion());
@@ -277,5 +297,79 @@ changelogSheet.show();
         Preferences.setSavedOutputDir(String.valueOf(treeUri));
       }
     }
+  }
+
+  public void pairThisDevice() {
+    stopMdns();
+    showSearchingNotification();
+    startPairingCodeSearch();
+  }
+
+  private void showSearchingNotification() {
+    OneTimeWorkRequest workRequest =
+        new OneTimeWorkRequest.Builder(AdbPairingNotificationWorker.class)
+            .setInputData(
+                new Data.Builder().putString("message", "Searching for Pairing Codes...").build())
+            .build();
+
+    WorkManager.getInstance(this)
+        .enqueueUniqueWork("adb_searching_notification", ExistingWorkPolicy.REPLACE, workRequest);
+  }
+
+  // Start searching for wireless debugging pairing code
+  private void startPairingCodeSearch() {
+    adbMdns =
+        new AdbMdns(
+            this,
+            new AdbMdns.AdbFoundCallback() {
+              @Override
+              public void onPairingCodeDetected(String ipAddress, int port) {
+                Preferences.setAdbIp(ipAddress);
+                Preferences.setAdbPairingPort(String.valueOf(port));
+                enterPairingCodeNotification();
+              }
+
+              @Override
+              public void onConnectCodeDetected(String ipAddress, int port) {
+                Preferences.setAdbIp(ipAddress);
+                Preferences.setAdbConnectingPort(String.valueOf(port));
+              }
+            });
+
+    adbMdns.start();
+    startTimeout(); // Start the 3-minute timeout
+  }
+
+  // We run a timeout after which the pairing code searching will stop
+  private void startTimeout() {
+    timeoutRunnable =
+        () -> {
+          stopMdns();
+          WorkManager.getInstance(this).cancelUniqueWork("adb_searching_notification");
+          ToastUtils.showToast(this, "ADB detection timeout", ToastUtils.LENGTH_SHORT);
+        };
+    timeoutHandler.postDelayed(timeoutRunnable, 3 * 60 * 1000); // 3 minutes
+  }
+
+  private void cancelTimeout() {
+    if (timeoutRunnable != null) {
+      timeoutHandler.removeCallbacks(timeoutRunnable);
+    }
+  }
+
+  private void stopMdns() {
+    if (adbMdns != null) {
+      adbMdns.stop();
+      adbMdns = null;
+    }
+    cancelTimeout();
+  }
+
+  private void enterPairingCodeNotification() {
+    OneTimeWorkRequest workRequest =
+        new OneTimeWorkRequest.Builder(AdbPairingNotificationWorker.class).build();
+
+    WorkManager.getInstance(this)
+        .enqueueUniqueWork("adb_pairing_notification", ExistingWorkPolicy.REPLACE, workRequest);
   }
 }

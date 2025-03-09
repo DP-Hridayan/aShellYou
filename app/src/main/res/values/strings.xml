@@ -71,7 +71,7 @@
     <string name="connecting_hint">confirm authorization on target device</string>
     <string name="connection_failed">Connection failed</string>
     <string name="connect_this_device">Connect this device</string>
- <string name="connect_other_device">Connect other device</string>
+    <string name="connect_other_device">Connect other device</string>
     <string
         name="copy"
         tools:override="true">Copy</string>
@@ -83,6 +83,7 @@
     <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>
     <string name="des_default_language">Choose the default language for the app</string>
+    <string name="developer_options">Developer options</string>
     <string name="device_not_connected">Device not connected</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="des_disclaimer">This app allows you to execute ADB (Android Debug Bridge) commands directly on your device without needing a PC. Please read the following carefully before using the app:</string>
@@ -106,6 +107,7 @@
     <string name="download">Download</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="des_dynamic_colors">Automatically set the app theme according to the device wallpaper</string>
+    <string name="enable_wifi">Enable wifi</string>
     <string name="enter_pairing_code">Enter Pairing Code</string>
     <string name="enter_six_digit_pairing_code">Enter six digit pairing code</string>
     <string name="error">Error</string>
@@ -146,6 +148,9 @@
     <string name="not_available">Not available</string>
     <string name="nothing_to_clear">Nothing to clear</string>
     <string name="nothing_to_search">Nothing to search</string>
+    <string name="notification_access_not_granted">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
+    <string name="notification_settings">Notification settings</string>
+    <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to "Android". Go to Notification Settings ~ Notification Style to change the Notification Style.\n\nOtherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="off">Off</string>
     <string name="ok">OK</string>
     <string name="ok_countdown">OK (10s)</string>
@@ -158,6 +163,8 @@
     <string name="paste">Paste</string>
     <string name="pair">Pair</string>
     <string name="paired">Paired</string>
+    <string name="pairing">Pairing</string>
+    <string name="pairing_notification_hint">You will receive a notification from aShell You to help you with pairing</string>
     <string name="pairing_port">Pairing port</string>
     <string name="pairing_code">Pairing code</string>
     <string name="pin">Pin</string>
@@ -235,9 +242,14 @@
     <string name="warning">Warning</string>
     <string name="warning_v2">⚠ WARNING: Proceed with Caution! ⚠</string>
     <string name="wireless_debugging">Wireless Debugging</string>
+ <string name="wireless_debugging_guide_1">Go to Developer options &gt; Wireless Debugging. Tap on Pair device with Pairing Code.</string>
+     <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
+    
+    <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="whats_new">What\'s new !</string>
     <string name="whole_output">Whole output</string>
     <string name="wifi_adb">Wifi ADB</string>
+    <string name="wifi_connection_required">To use the Wireless Debugging feature, your device must be connected to a Wi-Fi network. If your Wi-Fi connection has no Internet access then turn off mobile data for a solid Wi-Fi connection.</string>
     <string name="yes">Yes</string>
     <string name="local_adb_mode">Choose local adb working mode</string>
     <string name="des_local_adb_mode">Choose a preffered mode for executing shell commands on your device</string>
