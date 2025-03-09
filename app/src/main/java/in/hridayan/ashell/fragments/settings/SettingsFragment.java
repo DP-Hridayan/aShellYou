@@ -148,14 +148,14 @@ public class SettingsFragment extends Fragment {
             true,
             Preferences.getClear()));
 
-    settingsData.add(
+  /*  settingsData.add(
         new SettingsItem(
             Const.PREF_SHARE_AND_RUN,
             R.drawable.ic_share,
             getString(R.string.share_and_run),
             getString(R.string.des_share_and_run),
             true,
-            Preferences.getShareAndRun()));
+            Preferences.getShareAndRun()));*/
 
     settingsData.add(
         new SettingsItem(

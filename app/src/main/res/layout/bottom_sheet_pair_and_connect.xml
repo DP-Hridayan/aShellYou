@@ -24,6 +24,42 @@
             android:textAlignment="center"
             android:gravity="center" />
 
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="25dp"
+            app:strokeWidth="0dp"
+            app:cardCornerRadius="25dp"
+            app:cardBackgroundColor="?attr/colorErrorContainer">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:padding="25dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_height="24dp"
+                    android:layout_width="24dp"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/ic_warning"
+                    app:tint="?attr/colorOnErrorContainer"
+                    android:layout_gravity="center_vertical" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/turn_off_mobile_data"
+                    android:layout_gravity="start"
+                    android:textColor="?attr/colorOnErrorContainer"
+                    android:textAppearance="?attr/textAppearanceBodySmall" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/pair"
             android:layout_width="match_parent"

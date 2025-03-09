@@ -10,25 +10,30 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-
 import androidx.lifecycle.ViewModelProvider;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.UI.bottomsheets.WifiAdbBottomSheet;
+import in.hridayan.ashell.UI.dialogs.ActionDialogs;
 import in.hridayan.ashell.UI.dialogs.ErrorDialogs;
 import in.hridayan.ashell.UI.dialogs.PermissionDialogs;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentHomeBinding;
+import in.hridayan.ashell.fragments.home.HomeFragment;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
 import in.hridayan.ashell.shell.AdbMdns;
 import in.hridayan.ashell.shell.AdbPairingNotificationWorker;
@@ -38,6 +43,7 @@ import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.HomeViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
+import java.util.List;
 import rikka.shizuku.Shizuku;
 
 public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCallback {
@@ -48,8 +54,8 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   private HomeViewModel viewModel;
   private String adbPort;
   private AdbMdns adbMdns;
-    private Handler timeoutHandler = new Handler(Looper.getMainLooper());
-private Runnable timeoutRunnable;
+  private Handler timeoutHandler = new Handler(Looper.getMainLooper());
+  private Runnable timeoutRunnable;
 
   @Nullable
   @Override
@@ -77,10 +83,10 @@ private Runnable timeoutRunnable;
 
     pairButtonOnClickListener();
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
       requestPermissions(new String[] {Manifest.permission.POST_NOTIFICATIONS}, 100);
     }
-        
+
     return binding.getRoot();
   }
 
@@ -253,8 +259,29 @@ private Runnable timeoutRunnable;
         v -> {
           HapticUtils.weakVibrate(v);
 
-          stopMdns();
+          chooseWifiAdbModeDialog();
+        });
+  }
+
+  private void chooseWifiAdbModeDialog() {
+    View dialogView = inflateDialogView(context, R.layout.dialog_wifi_adb_mode);
+    AlertDialog dialog = createDialog(context, dialogView);
+
+    MaterialCardView thisDeviceCard = dialogView.findViewById(R.id.modeThisDevice);
+    MaterialCardView otherDeviceCard = dialogView.findViewById(R.id.modeOtherDevice);
+
+    thisDeviceCard.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
           pairThisDevice();
+          dialog.dismiss();
+        });
+
+    otherDeviceCard.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          pairOtherDevice();
+          dialog.dismiss();
         });
   }
 
@@ -263,8 +290,10 @@ private Runnable timeoutRunnable;
   }
 
   private void pairThisDevice() {
+    // If mdns is running , stop it
+    stopMdns();
     showSearchingNotification();
-    startAdbCodesSearch();
+    startPairingCodeSearch();
   }
 
   private void showSearchingNotification() {
@@ -278,55 +307,54 @@ private Runnable timeoutRunnable;
         .enqueueUniqueWork("adb_searching_notification", ExistingWorkPolicy.REPLACE, workRequest);
   }
 
-  
-
-private void startAdbCodesSearch() {
-    adbMdns = new AdbMdns(
-        context,
-        new AdbMdns.AdbFoundCallback() {
-            @Override
-            public void onPairingCodeDetected(String ipAddress, int port) {
+  // Start searching for wireless debugging pairing code
+  private void startPairingCodeSearch() {
+    adbMdns =
+        new AdbMdns(
+            context,
+            new AdbMdns.AdbFoundCallback() {
+              @Override
+              public void onPairingCodeDetected(String ipAddress, int port) {
                 Preferences.setAdbIp(ipAddress);
                 Preferences.setAdbPairingPort(String.valueOf(port));
-
-                WorkManager.getInstance(context).cancelUniqueWork("adb_searching_notification");
                 enterPairingCodeNotification();
-            }
+              }
 
-            @Override
-            public void onConnectCodeDetected(String ipAddress, int port) {
+              @Override
+              public void onConnectCodeDetected(String ipAddress, int port) {
                 Preferences.setAdbIp(ipAddress);
                 Preferences.setAdbConnectingPort(String.valueOf(port));
-
-            }
-        });
+              }
+            });
 
     adbMdns.start();
     startTimeout(); // Start the 3-minute timeout
-}
+  }
 
-private void startTimeout() {
-    timeoutRunnable = () -> {
-        stopMdns();
-        WorkManager.getInstance(context).cancelUniqueWork("adb_searching_notification");
-        ToastUtils.showToast(context, "ADB detection timeout", ToastUtils.LENGTH_SHORT);
-    };
-    timeoutHandler.postDelayed(timeoutRunnable, 3*60*1000); // 3 minutes
-}
+  // We run a timeout after which the pairing code searching will stop
+  private void startTimeout() {
+    timeoutRunnable =
+        () -> {
+          stopMdns();
+          WorkManager.getInstance(context).cancelUniqueWork("adb_searching_notification");
+          ToastUtils.showToast(context, "ADB detection timeout", ToastUtils.LENGTH_SHORT);
+        };
+    timeoutHandler.postDelayed(timeoutRunnable, 3 * 60 * 1000); // 3 minutes
+  }
 
-private void cancelTimeout() {
+  private void cancelTimeout() {
     if (timeoutRunnable != null) {
-        timeoutHandler.removeCallbacks(timeoutRunnable);
+      timeoutHandler.removeCallbacks(timeoutRunnable);
     }
-}
+  }
 
-private void stopMdns() {
+  private void stopMdns() {
     if (adbMdns != null) {
-        adbMdns.stop();
-        adbMdns = null;
+      adbMdns.stop();
+      adbMdns = null;
     }
     cancelTimeout();
-}
+  }
 
   private void enterPairingCodeNotification() {
     OneTimeWorkRequest workRequest =
@@ -335,7 +363,6 @@ private void stopMdns() {
     WorkManager.getInstance(context)
         .enqueueUniqueWork("adb_pairing_notification", ExistingWorkPolicy.REPLACE, workRequest);
   }
-
 
   private void restoreScrollViewPosition() {
     viewModel
@@ -351,6 +378,14 @@ private void stopMdns() {
 
   private void saveScrollViewPosition() {
     viewModel.setScrollY(binding.scrollView.getScrollY());
+  }
+
+  private View inflateDialogView(Context context, int layoutRes) {
+    return LayoutInflater.from(context).inflate(layoutRes, null);
+  }
+
+  private AlertDialog createDialog(Context context, View view) {
+    return new MaterialAlertDialogBuilder(context).setView(view).show();
   }
 
   @Override

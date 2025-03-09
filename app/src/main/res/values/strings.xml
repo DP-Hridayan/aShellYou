@@ -70,6 +70,8 @@
     <string name="connecting">connecting\u2026</string>
     <string name="connecting_hint">confirm authorization on target device</string>
     <string name="connection_failed">Connection failed</string>
+    <string name="connect_this_device">Connect this device</string>
+ <string name="connect_other_device">Connect other device</string>
     <string
         name="copy"
         tools:override="true">Copy</string>
@@ -217,6 +219,7 @@
     <string name="su_warning_message">This mode doesn\'t support root related commands. Please switch to root mode</string>
     <string name="switch_mode">Switch mode</string>
     <string name="system">System</string>
+    <string name="turn_off_mobile_data">Turn off Mobile Data if the Wifi connection has NO INTERNET</string>
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
     <string name="unhide_cards_message">All info cards will be visible now</string>

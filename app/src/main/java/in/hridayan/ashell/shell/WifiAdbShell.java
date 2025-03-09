@@ -219,7 +219,6 @@ public class WifiAdbShell {
 
   public interface ConnectedDevicesCallback {
     void onDevicesListed(String devices);
-
     void onFailure(String errorMessage);
   }
 

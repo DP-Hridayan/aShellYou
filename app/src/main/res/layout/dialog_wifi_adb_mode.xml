@@ -1,0 +1,53 @@
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="30dp"
+    android:paddingVertical="20dp">
+
+   <com.google.android.material.card.MaterialCardView
+        android:id="@+id/modeThisDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        style="@style/CardViewTopCornersRounded">
+
+        <TextView
+            android:id="@+id/t1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connect_this_device"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textAlignment="center" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/modeOtherDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="center_horizontal"
+        style="@style/CardViewBottomCornersRounded">
+
+        <TextView
+            android:id="@+id/t2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connect_other_device"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="?attr/textAppearanceLabelLarge"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textAlignment="center" />
+
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>
