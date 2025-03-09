@@ -169,7 +169,6 @@ public class AdbPairingNotification extends Service {
   }
 
   private void showFinalNotification(String title, String message) {
-    // Create the updated notification
     Notification notification =
         new NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_adb)
