@@ -21,7 +21,7 @@
 
 ## Requirements ⚙️
 * A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
-* Shizuku / ROOT is not needed to run ADB commands on other devices via OTG
+* Shizuku / ROOT is not needed to run ADB commands on other devices via OTG or Wireless Debugging
 * Knowledge about basic ADB/Linux commands
 
 
