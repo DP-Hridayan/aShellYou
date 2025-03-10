@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.os.Bundle;
 import android.view.View;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.fragment.app.Fragment;
 import in.hridayan.ashell.databinding.FragmentPairingBinding;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -39,6 +40,14 @@ public class PairingFragment extends Fragment {
     notificationSettingsButton();
     wifiEnableButton();
     developerOptionsButton();
+
+    OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
+
+    binding.arrowBack.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          dispatcher.onBackPressed();
+        });
 
     return view;
   }

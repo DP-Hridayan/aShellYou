@@ -84,6 +84,7 @@
     <string name="default_language">Default language</string>
     <string name="des_default_language">Choose the default language for the app</string>
     <string name="developer_options">Developer options</string>
+    <string name="developer_options_not_available">Developer options not available</string>
     <string name="device_not_connected">Device not connected</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="des_disclaimer">This app allows you to execute ADB (Android Debug Bridge) commands directly on your device without needing a PC. Please read the following carefully before using the app:</string>

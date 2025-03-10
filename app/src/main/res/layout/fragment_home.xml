@@ -197,72 +197,6 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/otgAdbCard"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginVertical="13dp"
-            android:transitionName="fragmentOtgShell"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            app:cardCornerRadius="25dp"
-            app:strokeWidth="0dp"
-            app:cardBackgroundColor="?attr/colorSurfaceContainer">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="start"
-                android:padding="25dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_height="36dp"
-                        android:layout_width="36dp"
-                        android:padding="6dp"
-                        android:src="@drawable/ic_otg"
-                        app:tint="?attr/colorOnPrimaryContainer"
-                        android:background="@drawable/circular_bg"
-                        android:layout_gravity="center_vertical" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/adb_through_otg"
-                        android:layout_marginStart="25dp"
-                        style="@style/ItemTitle"
-                        android:layout_gravity="center_vertical" />
-
-                </LinearLayout>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/adb_through_otg_summary"
-                    android:layout_marginVertical="25dp"
-                    style="@style/ItemDescription"
-                    android:lineSpacingMultiplier="1.2"
-                    android:justificationMode="inter_word"
-                    android:layout_gravity="center_vertical" />
-
-                <Button
-                    android:id="@+id/instructionOtg"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="@string/instructions"
-                    style="@style/Widget.Material3.Button.Icon"
-                    app:icon="@drawable/ic_open_in_new" />
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
             android:id="@+id/wirelessAdbCard"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -332,6 +266,72 @@
                     android:layout_marginVertical="5dp"
                     style="@style/Widget.Material3.Button.Icon"
                     app:icon="@drawable/ic_connect" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/otgAdbCard"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginVertical="13dp"
+            android:transitionName="fragmentOtgShell"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            app:cardCornerRadius="25dp"
+            app:strokeWidth="0dp"
+            app:cardBackgroundColor="?attr/colorSurfaceContainer">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="start"
+                android:padding="25dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_height="36dp"
+                        android:layout_width="36dp"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_otg"
+                        app:tint="?attr/colorOnPrimaryContainer"
+                        android:background="@drawable/circular_bg"
+                        android:layout_gravity="center_vertical" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/adb_through_otg"
+                        android:layout_marginStart="25dp"
+                        style="@style/ItemTitle"
+                        android:layout_gravity="center_vertical" />
+
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/adb_through_otg_summary"
+                    android:layout_marginVertical="25dp"
+                    style="@style/ItemDescription"
+                    android:lineSpacingMultiplier="1.2"
+                    android:justificationMode="inter_word"
+                    android:layout_gravity="center_vertical" />
+
+                <Button
+                    android:id="@+id/instructionOtg"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/instructions"
+                    style="@style/Widget.Material3.Button.Icon"
+                    app:icon="@drawable/ic_open_in_new" />
 
             </LinearLayout>
 

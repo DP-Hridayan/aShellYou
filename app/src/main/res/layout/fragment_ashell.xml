@@ -186,17 +186,22 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="@id/guidelineOutputLayout">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                app:layout_constraintTop_toTopOf="@id/guidelineOutputLayout"
                 android:visibility="gone"
                 android:id="@+id/rvCommands" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-               app:layout_constraintTop_toTopOf="@id/guidelineOutputLayout"
+                app:layout_constraintTop_toTopOf="@id/guidelineOutputLayout"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="15dp"
                 app:strokeWidth="0dp"
@@ -214,7 +219,7 @@
                     android:id="@+id/rvOutput" />
 
             </com.google.android.material.card.MaterialCardView>
-
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.Guideline
             android:layout_height="wrap_content"

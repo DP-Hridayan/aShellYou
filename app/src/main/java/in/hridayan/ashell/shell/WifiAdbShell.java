@@ -20,7 +20,7 @@ public class WifiAdbShell {
   private static Thread monitoringThread;
 
   private static Process mProcess = null;
-  private static final int TIMEOUT = 5; //in seconds
+  private static final int TIMEOUT = 5; // in seconds
 
   public WifiAdbShell(List<String> output, String command) {
     mOutput = output;
@@ -219,6 +219,7 @@ public class WifiAdbShell {
 
   public interface ConnectedDevicesCallback {
     void onDevicesListed(String devices);
+
     void onFailure(String errorMessage);
   }
 
@@ -379,6 +380,7 @@ public class WifiAdbShell {
       "settings",
       "svc",
       "dumpsys",
+      "dmesg",
       "am",
       "cmd",
       "monkey",

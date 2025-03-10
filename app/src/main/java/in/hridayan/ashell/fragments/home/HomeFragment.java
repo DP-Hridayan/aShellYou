@@ -136,6 +136,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
     binding.wirelessAdbCard.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
+          goToWifiAdbFragment();
         });
   }
 
@@ -233,9 +234,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   }
 
   private void requestShizukuPermission() {
-    // Shizuku is not installed or running
     if (!Shizuku.pingBinder()) ErrorDialogs.shizukuUnavailableDialog(requireContext());
-    // Shizuku is running but havenot granted permission to aShellYou
     else if (!ShizukuShell.hasPermission()) PermissionDialogs.shizukuPermissionDialog(context);
   }
 
@@ -252,7 +251,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   }
 
   private void permGrantedToast() {
-    ToastUtils.showToast(requireContext(), "Granted", ToastUtils.LENGTH_SHORT);
+    ToastUtils.showToast(requireContext(), getString(R.string.granted), ToastUtils.LENGTH_SHORT);
   }
 
   private void rootAccessCard() {}
@@ -264,14 +263,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
         });
   }
 
-  private void wifiAdbInstructions() {
-    Intent intent = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
-    try {
-      startActivity(intent);
-    } catch (ActivityNotFoundException e) {
-      Toast.makeText(context, "Developer options not available!", Toast.LENGTH_SHORT).show();
-    }
-  }
+  private void wifiAdbInstructions() {}
 
   private void pairButtonOnClickListener() {
     binding.pairWirelessDebugging.setOnClickListener(
@@ -293,7 +285,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
         v -> {
           HapticUtils.weakVibrate(v);
           pairThisDevice();
-        goToPairingFragment();
+          goToPairingFragment();
           dialog.dismiss();
         });
 
@@ -310,7 +302,7 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
   }
 
   private void pairThisDevice() {
-        // We start the pairing from the activity to avoid destroying when fragment destroys
+    // We start the pairing from the activity to avoid destroying when fragment destroys
     ((MainActivity) requireActivity()).pairThisDevice();
   }
 
