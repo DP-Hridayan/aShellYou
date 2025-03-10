@@ -19,12 +19,14 @@ import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -380,11 +382,15 @@ public class AshellFragment extends Fragment {
 
     searchWordChangeListener();
 
+    searchBarEndIconOnClickListener();
+
     saveButtonOnClickListener();
 
     shareButtonOnClickListener();
 
     shareButtonVisibilityHandler();
+
+    interceptOnBackPress();
 
     commandEditTextOnEditorActionListener();
 
@@ -470,6 +476,26 @@ public class AshellFragment extends Fragment {
               binding.clearButton.setVisibility(View.VISIBLE);
             },
             200);
+  }
+
+  private void searchBarEndIconOnClickListener() {
+    binding.search.setOnTouchListener(
+        (v, event) -> {
+          if (event.getAction() == MotionEvent.ACTION_UP) {
+            Drawable drawableEnd = binding.search.getCompoundDrawablesRelative()[2];
+            if (drawableEnd != null) {
+              int drawableStartX =
+                  binding.search.getWidth()
+                      - binding.search.getPaddingEnd()
+                      - drawableEnd.getIntrinsicWidth();
+              if (event.getX() >= drawableStartX) {
+                hideSearchBar();
+                return true;
+              }
+            }
+          }
+          return false;
+        });
   }
 
   // Call to set the visibility of elements with a delay
@@ -1564,5 +1590,24 @@ public class AshellFragment extends Fragment {
       binding.pasteButton.setVisibility(View.GONE);
       binding.saveButton.setVisibility(View.VISIBLE);
     }
+  }
+
+  private void interceptOnBackPress() {
+    requireActivity()
+        .getOnBackPressedDispatcher()
+        .addCallback(
+            getViewLifecycleOwner(),
+            new OnBackPressedCallback(true) {
+              @Override
+              public void handleOnBackPressed() {
+                if (isShellBusy()) {
+                  ToastUtils.showToast(
+                      context, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
+                } else {
+                  setEnabled(false); // Remove this callback
+                  requireActivity().onBackPressed(); // Go back
+                }
+              }
+            });
   }
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,9 +16,11 @@ import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -260,6 +263,8 @@ public class WifiAdbFragment extends Fragment {
 
     searchWordChangeListener();
 
+    searchBarEndIconOnClickListener();
+
     saveButtonOnClickListener();
 
     shareButtonOnClickListener();
@@ -269,6 +274,8 @@ public class WifiAdbFragment extends Fragment {
     commandEditTextOnEditorActionListener();
 
     sendButtonOnClickListener();
+
+    interceptOnBackPress();
 
     mainViewModel.setHomeFragment(Const.WIFI_ADB_FRAGMENT);
     return view;
@@ -346,6 +353,27 @@ public class WifiAdbFragment extends Fragment {
             200);
   }
 
+  private void searchBarEndIconOnClickListener() {
+    binding.search.setOnTouchListener(
+        (v, event) -> {
+          if (event.getAction() == MotionEvent.ACTION_UP) {
+            Drawable drawableEnd =
+                binding.search.getCompoundDrawablesRelative()[2]; // Right drawable
+            if (drawableEnd != null) {
+              int drawableStartX =
+                  binding.search.getWidth()
+                      - binding.search.getPaddingEnd()
+                      - drawableEnd.getIntrinsicWidth();
+              if (event.getX() >= drawableStartX) {
+                hideSearchBar();
+                return true;
+              }
+            }
+          }
+          return false;
+        });
+  }
+
   // Call to set the visibility of elements with a delay
   private void setVisibilityWithDelay(View view, int delayMillis) {
     new Handler(Looper.getMainLooper())
@@ -416,7 +444,6 @@ public class WifiAdbFragment extends Fragment {
     binding.modeButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-
         });
   }
 
@@ -867,7 +894,7 @@ public class WifiAdbFragment extends Fragment {
     if (binding.search.getVisibility() == View.VISIBLE) hideSearchBar();
 
     // Process the command
-    String finalCommand = command.replaceAll("^adb(?:\\s+-d)?\\s+shell\\s+", "");
+    String finalCommand = command.replaceAll("^(adb\\s+)?(shell\\s+)?", "").trim();
 
     // Command to clear the shell output
     if (finalCommand.equals("clear")) {
@@ -976,7 +1003,7 @@ public class WifiAdbFragment extends Fragment {
   private void runWifiAdbShell(String finalCommand) {
     mPosition = mResult.size();
     mWifiAdbShell = new WifiAdbShell(mResult, finalCommand);
-    WifiAdbShell.execCommand(context);
+    WifiAdbShell.execCommand(context, requireActivity());
     try {
       TimeUnit.MILLISECONDS.sleep(250);
     } catch (InterruptedException ignored) {
@@ -1082,5 +1109,24 @@ public class WifiAdbFragment extends Fragment {
       binding.pasteButton.setVisibility(View.GONE);
       binding.saveButton.setVisibility(View.VISIBLE);
     }
+  }
+
+  private void interceptOnBackPress() {
+    requireActivity()
+        .getOnBackPressedDispatcher()
+        .addCallback(
+            getViewLifecycleOwner(),
+            new OnBackPressedCallback(true) {
+              @Override
+              public void handleOnBackPressed() {
+                if (mWifiAdbShell != null && mWifiAdbShell.isBusy()) {
+                  ToastUtils.showToast(
+                      context, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
+                } else {
+                  setEnabled(false); // Remove this callback
+                  requireActivity().onBackPressed(); // Go back
+                }
+              }
+            });
   }
 }

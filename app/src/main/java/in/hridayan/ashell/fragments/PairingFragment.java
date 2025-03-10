@@ -13,6 +13,7 @@ import androidx.activity.OnBackPressedDispatcher;
 import androidx.fragment.app.Fragment;
 import in.hridayan.ashell.databinding.FragmentPairingBinding;
 import in.hridayan.ashell.utils.HapticUtils;
+import in.hridayan.ashell.utils.PermissionUtils;
 import in.hridayan.ashell.utils.Utils;
 
 public class PairingFragment extends Fragment {
@@ -53,7 +54,7 @@ public class PairingFragment extends Fragment {
   }
 
   private void handleNotificationAccess() {
-    if (Utils.hasNotificationAccess(context)) {
+    if (PermissionUtils.hasNotificationPermission(context)) {
       binding.notificationHint.setVisibility(View.VISIBLE);
       binding.notificationAccess.setVisibility(View.GONE);
     } else {
@@ -66,7 +67,7 @@ public class PairingFragment extends Fragment {
     binding.notificationButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          Utils.openAppNotificationSettings(context);
+          PermissionUtils.openAppNotificationSettings(context);
         });
   }
 

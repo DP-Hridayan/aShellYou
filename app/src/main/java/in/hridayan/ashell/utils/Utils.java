@@ -503,28 +503,6 @@ public class Utils {
     }
   }
 
-  // Check if app has notification access
-  public static boolean hasNotificationAccess(Context context) {
-    boolean hasPermission;
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      hasPermission =
-          ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
-              == PackageManager.PERMISSION_GRANTED;
-    } else {
-      NotificationManager notificationManager =
-          (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-      hasPermission = notificationManager != null && notificationManager.areNotificationsEnabled();
-    }
-    return hasPermission;
-  }
-
-  // Request notification access
-  public static void openAppNotificationSettings(Context context) {
-    Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-    intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
-    context.startActivity(intent);
-  }
-
   // checks if device is connected to wifi
   public static boolean isConnectedToWifi(Context context) {
     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);

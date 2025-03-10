@@ -1,9 +1,11 @@
 package in.hridayan.ashell.shell;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import in.hridayan.ashell.utils.PermissionUtils;
 import in.hridayan.ashell.utils.Utils;
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,9 +30,17 @@ public class WifiAdbShell {
   }
 
   // executes the commands send to adb
-  public static void execCommand(Context context) {
+  public static void execCommand(Context context, Activity activity) {
+    if (!PermissionUtils.haveStoragePermission(context)) {
+      if (doesAdbCommandNeedStorageAccess(mCommand)) {
+        PermissionUtils.requestStoragePermission(activity);
+        return;
+      }
+    }
+
     try {
       ProcessBuilder processBuilder;
+
       boolean useShellPrefix = shouldUseShellPrefix(mCommand);
       String[] commandArray =
           useShellPrefix ? new String[] {"shell", mCommand} : mCommand.split(" ");
@@ -410,6 +420,8 @@ public class WifiAdbShell {
       "uptime",
       "reboot",
       "svc",
+      "whoami",
+      "ping",
       "ime",
       "service",
       "ip",
@@ -423,6 +435,43 @@ public class WifiAdbShell {
         return true;
       }
     }
+    return false;
+  }
+
+  private static boolean doesAdbCommandNeedStorageAccess(String command) {
+    // List of ADB commands that directly interact with storage
+    String[] storageCommands = {
+      "push",
+      "pull",
+      "backup",
+      "restore",
+      "install",
+      "uninstall",
+      "cp",
+      "mv",
+      "rm",
+      "rmdir",
+      "mkdir",
+      "ls",
+      "stat",
+      "find",
+      "touch",
+      "chmod",
+      "chown"
+    };
+
+    // Check if the command starts with any known storage command
+    for (String cmd : storageCommands) {
+      if (command.contains(cmd + " ")) {
+        return true;
+      }
+    }
+
+    // Check if the command has file paths that indicate storage access
+    if (command.matches(".*\\b(/sdcard/|/storage/emulated/|\\.apk)\\b.*")) {
+      return true;
+    }
+
     return false;
   }
 

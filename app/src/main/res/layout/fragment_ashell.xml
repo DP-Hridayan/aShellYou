@@ -91,6 +91,7 @@
                 android:gravity="start"
                 android:hint="@string/search_output"
                 android:drawableStart="@drawable/ic_search"
+                android:drawableEnd="@drawable/ic_cross"
                 android:id="@+id/search" />
 
         </com.google.android.material.card.MaterialCardView>
