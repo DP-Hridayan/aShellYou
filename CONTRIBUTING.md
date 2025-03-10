@@ -90,6 +90,8 @@ If you find a bug, please open an issue and include the following information:
 - Android Version: 12
 - App Version: 1.0.0
 
+---
+
 ## Suggesting Features
 
 If you have an idea for a new feature or improvement, please open an issue and include the following information:
