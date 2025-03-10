@@ -1,0 +1,667 @@
+[
+  {
+    "command": "am force-stop <package>",
+    "example": "am force-stop com.android.package",
+    "description": "Force stops a specific package, terminating its processes."
+  },
+  {
+    "command": "am kill <package>",
+    "example": "am kill com.android.package",
+    "description": "Kills the background processes of a specific package."
+  },
+  {
+    "command": "am kill-all",
+    "example": "am kill-all",
+    "description": "Kills all background processes."
+  },
+  {
+    "command": "cat <file_path>",
+    "example": "cat /system/build.prop",
+    "description": "Displays the contents of a file."
+  },
+  {
+    "command": "cd <directory_path>",
+    "example": "cd /sdcard",
+    "description": "Changes the current directory to the specified path."
+  },
+  {
+    "command": "cd /",
+    "example": "cd /",
+    "description": "Changes the current directory to the root directory."
+  },
+  {
+    "command": "cd ~",
+    "example": "cd ~",
+    "description": "Changes the current directory to the home directory."
+  },
+  {
+    "command": "cd ..",
+    "example": "cd ..",
+    "description": "Moves up one directory level."
+  },
+  {
+    "command": "cd -",
+    "example": "cd -",
+    "description": "Changes to the previous directory."
+  },
+  {
+    "command": "clear",
+    "example": "clear",
+    "description": "Clears the terminal screen."
+  },
+  {
+    "command": "cmd uimode night no",
+    "example": "cmd uimode night no",
+    "description": "Disables night mode in the system UI."
+  },
+  {
+    "command": "cmd uimode night yes",
+    "example": "cmd uimode night yes",
+    "description": "Enables night mode in the system UI."
+  },
+  {
+    "command": "cp <from> <to>",
+    "example": "cp /system/build.prop /sdcard\nor\ncp /system/build.prop /sdcard/build_prop-backup.txt",
+    "description": "Copies a file or directory from one location to another."
+  },
+  {
+    "command": "cp -r <from> <to>",
+    "example": "cp -r /system/app /sdcard\n\ncp -r /system/app /sdcard/abc",
+    "description": "Recursively copies a directory and its contents."
+  },
+  {
+    "command": "date",
+    "example": "date",
+    "description": "Displays the current date and time."
+  },
+  {
+    "command": "df -h /system",
+    "example": "df -h /system",
+    "description": "Displays disk usage information for the /system partition in a human-readable format."
+  },
+  {
+    "command": "dmesg",
+    "example": "dmesg",
+    "description": "Displays kernel messages."
+  },
+  {
+    "command": "du -h",
+    "example": "du -h",
+    "description": "Displays disk usage of files and directories in a human-readable format."
+  },
+  {
+    "command": "du -sh /system/*",
+    "example": "du -sh/system/*",
+    "description": "Displays a summary of disk usage for files and directories in /system."
+  },
+  {
+    "command": "dumpsys activity",
+    "example": "dumpsys activity",
+    "description": "Displays information about activities and their states."
+  },
+  {
+    "command": "dumpsys battery",
+    "example": "dumpsys battery",
+    "description": "Displays battery status and information."
+  },
+  {
+    "command": "dumpsys battery set level <n>",
+    "example": "dumpsys battery set level 95",
+    "description": "Sets the battery level to a specific value (for testing purposes)."
+  },
+  {
+    "command": "dumpsys battery set status <n>",
+    "example": "dumpsys battery set status 0",
+    "description": "Sets the battery status to a specific value (for testing purposes)."
+  },
+  {
+    "command": "dumpsys battery reset",
+    "example": "dumpsys battery reset",
+    "description": "Resets the battery statistics."
+  },
+  {
+    "command": "dumpsys display",
+    "example": "dumpsys display",
+    "description": "Displays information about the display system."
+  },
+  {
+    "command": "echo <message>",
+    "example": "echo Hello World",
+    "description": "Prints a message to the terminal."
+  },
+  {
+    "command": "exit",
+    "example": "exit",
+    "description": "Exits the current shell session."
+  },
+  {
+    "command": "file <file_path>",
+    "example": "file /system/build.prop",
+    "description": "Determines the type of a file."
+  },
+  {
+    "command": "getenforce",
+    "example": "getenforce",
+    "description": "Displays the current SELinux mode (Enforcing, Permissive, or Disabled)."
+  },
+  {
+    "command": "grep",
+    "example": "grep",
+    "description": "Searches for a pattern in files or input."
+  },
+  {
+    "command": "iptables -L",
+    "example": "iptables -L",
+    "description": "Lists all iptables rules."
+  },
+  {
+    "command": "kill <pid>",
+    "example": "kill <pid>",
+    "description": "Terminates a process with the specified process ID."
+  },
+  {
+    "command": "logcat",
+    "example": "logcat",
+    "description": "Displays system logs."
+  },
+  {
+    "command": "logcat -g",
+    "example": "logcat -g",
+    "description": "Displays the size of the log buffer."
+  },
+  {
+    "command": "logcat -G <size>",
+    "example": "logcat -G 1M",
+    "description": "Sets the size of the log buffer."
+  },
+  {
+    "command": "logcat -c",
+    "example": "logcat -c",
+    "description": "Clears the log buffer."
+  },
+  {
+    "command": "ls",
+    "example": "ls /system",
+    "description": "Lists files and directories in the specified path."
+  },
+  {
+    "command": "ls -R",
+    "example": "ls -R /system",
+    "description": "Recursively lists files and directories."
+  },
+  {
+    "command": "ls -s",
+    "example": "ls -s /system",
+    "description": "Lists files and directories with their sizes."
+  },
+  {
+    "command": "mkdir <file_path>",
+    "example": "mkdir /sdcard/abc",
+    "description": "Creates a new directory."
+  },
+  {
+    "command": "mv <from> <to>",
+    "example": "mv /system/app /sdcard\n\nmv /system/app /sdcard/abc",
+    "description": "Moves or renames a file or directory."
+  },
+  {
+    "command": "netstat",
+    "example": "netstat",
+    "description": "Displays network connections and statistics."
+  },
+  {
+    "command": "ping",
+    "example": "ping",
+    "description": "Tests network connectivity to a host."
+  },
+  {
+    "command": "pm clear <package>",
+    "example": "pm clear com.android.package",
+    "description": "Clears the data and cache of a specific package."
+  },
+  {
+    "command": "pm clear --cache-only <package>",
+    "example": "pm clear --cache-only com.android.package",
+    "description": "Clears only the cache of a specific package."
+  },
+  {
+    "command": "pm clear --user <user_id> <package>",
+    "example": "pm clear --user 0 com.android.package",
+    "description": "Clears the data and cache of a specific package for a specific user."
+  },
+  {
+    "command": "pm disable <package/component>",
+    "example": "pm disable com.android.package/com.android.package.exampleActivity",
+    "description": "Disables a specific component of a package."
+  },
+  {
+    "command": "pm disable-user <package>",
+    "example": "pm disable-user com.android.package",
+    "description": "Disables a package for the current user."
+  },
+  {
+    "command": "pm disable-user --user <user_id> <package>",
+    "example": "pm disable-user --user 0 com.android.package",
+    "description": "Disables a package for a specific user."
+  },
+  {
+    "command": "pm dump <package>",
+    "example": "pm dump com.android.package",
+    "description": "Dumps information about a specific package."
+  },
+  {
+    "command": "pm dump package packages",
+    "example": "pm dump package packages",
+    "description": "Dumps information about all installed packages."
+  },
+  {
+    "command": "pm enable <package/component>",
+    "example": "pm enable com.android.package/com.android.package.exampleActivity",
+    "description": "Enables a specific component of a package."
+  },
+  {
+    "command": "pm grant <package> <Permission>",
+    "example": "pm grant com.android.package android.permission.WRITE_EXTERNAL_STORAGE",
+    "description": "Grants a specific permission to a package."
+  },
+  {
+    "command": "pm hide <package>",
+    "example": "pm hide com.android.package",
+    "description": "Hides a package from the user."
+  },
+  {
+    "command": "pm install <apk_path>",
+    "example": "pm install /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file."
+  },
+  {
+    "command": "pm install -d <apk_path>",
+    "example": "pm install -d /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with downgrade permission."
+  },
+  {
+    "command": "pm install -f <apk_path>",
+    "example": "pm install -f /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file on the internal system memory."
+  },
+  {
+    "command": "pm install -g <apk_path>",
+    "example": "pm install -g /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file and grants all runtime permissions."
+  },
+  {
+    "command": "pm install -i <installer> <apk_path>",
+    "example": "pm install -i com.google.android.packageinstaller /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with a specific installer package."
+  },
+  {
+    "command": "pm install -p <split_apk_path>",
+    "example": "pm install -p /data/local/tmp/base.apk",
+    "description": "Installs a split APK file."
+  },
+  {
+    "command": "pm install -R <apk_path>",
+    "example": "pm install -R /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with reinstall permission."
+  },
+  {
+    "command": "pm install -t <apk_path>",
+    "example": "pm install -t /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with test-only permission."
+  },
+  {
+    "command": "pm install --abi <apk_path>",
+    "example": "pm install --abi /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with a specific ABI."
+  },
+  {
+    "command": "pm install --dont-kill <apk_path>",
+    "example": "pm install --dont-kill /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file without killing the app."
+  },
+  {
+    "command": "pm install --full <apk_path>",
+    "example": "pm install --full /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with full permissions."
+  },
+  {
+    "command": "pm install --install-location <location> <apk_path>",
+    "example": "pm install --install-location 1 /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file at a specific location."
+  },
+  {
+    "command": "pm install --install-reason <reason> <apk_path>",
+    "example": "pm install --install-reason 2 /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with a specific install reason."
+  },
+  {
+    "command": "pm install --instant <apk_path>",
+    "example": "pm install --instant /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file as an instant app."
+  },
+  {
+    "command": "pm install --restrict-permissions <apk_path>",
+    "example": "pm install --restrict-permissions /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with restricted permissions."
+  },
+  {
+    "command": "pm install --pkg <package> <apk_path>",
+    "example": "pm install --pkg in.hridayan.ashell /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file for a specific package."
+  },
+  {
+    "command": "pm install --user <user_id> <apk_path>",
+    "example": "pm install --user0 /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file for a specific user."
+  },
+  {
+    "command": "pm install-abandon <session_id>",
+    "example": "pm install-abandon 01234567",
+    "description": "Abandons an active install session."
+  },
+  {
+    "command": "pm install-commit <session_id>",
+    "example": "pm install-commit 01234567",
+    "description": "Commits an active install session."
+  },
+  {
+    "command": "pm install-create",
+    "example": "pm install-create",
+    "description": "Creates a new install session."
+  },
+  {
+    "command": "pm install-existing",
+    "example": "pm install-existing com.android.package",
+    "description": "Installs an existing package."
+  },
+  {
+    "command": "pm install-existing --full <package>",
+    "example": "pm install-existing --full com.android.package",
+    "description": "Installs an existing package with full permissions."
+  },
+  {
+    "command": "pm install-existing --instant <package>",
+    "example": "pm install-existing --instant com.android.package",
+    "description": "Installs an existing package as an instant app."
+  },
+  {
+    "command": "pm install-existing --restrict-permissions <package>",
+    "example": "pm install-existing --restrict-permissions com.android.package",
+    "description": "Installs an existing package with restricted permissions."
+  },
+  {
+    "command": "pm install-existing --user <user_id> <package>",
+    "example": "pm install-existing --user 0 com.android.package",
+    "description": "Installs an existing package for a specific user."
+  },
+  {
+    "command": "pm install-existing --wait <package>",
+    "example": "pm install-existing --wait com.android.package",
+    "description": "Installs an existing package and waits for it to complete."
+  },
+  {
+    "command": "pm install-remove <session_id> <split_name>",
+    "example": "pm install-remove 01234567 /data/local/tmp/base.apk",
+    "description": "Removes a split APK from an install session."
+  },
+  {
+    "command": "pm install-write <size> <session_id> <split_name> <split_path>",
+    "example": "pm install-write 123 01234567 base.apk /data/local/tmp/base.apk",
+    "description": "Writes a split APK to an install session."
+  },
+  {
+    "command": "pm list features",
+    "example": "pm list features",
+    "description": "Lists all features supported by the device."
+  },
+  {
+    "command": "pm list libraries",
+    "example": "pm list libraries",
+    "description": "Lists all shared libraries on the device."
+  },
+  {
+    "command": "pm list packages",
+    "example": "pm list packages",
+    "description": "Lists all installed packages."
+  },
+  {
+    "command": "pm list packages -3",
+    "example": "pm list packages -3",
+    "description": "Lists all third-party installed packages."
+  },
+  {
+    "command": "pm list packages -a",
+    "example": "pm list packages -a",
+    "description": "Lists all packages, including system and third-party."
+  },
+  {
+    "command": "pm list packages -d",
+    "example": "pm list packages -d",
+    "description": "Lists all disabled packages."
+  },
+  {
+    "command": "pm list packages -e",
+    "example": "pm list packages -e",
+    "description": "Lists all enabled packages."
+  },
+  {
+    "command": "pm list packages -f",
+    "example": "pm list packages -f",
+    "description": "Lists all packages with their APK file paths."
+  },
+  {
+    "command": "pm list packages -i",
+    "example": "pm list packages -i",
+    "description": "Lists all packages with their installer information."
+  },
+  {
+    "command": "pm list packages -s",
+    "example": "pm list packages -s",
+    "description": "Lists all system packages."
+  },
+  {
+    "command": "pm list packages --show-versioncode",
+    "example": "pm list packages --show-versioncode",
+    "description": "Lists all packages with their version codes."
+  },
+  {
+    "command": "pm list packages -u",
+    "example": "pm list packages -u",
+    "description": "Lists all packages including uninstalled ones."
+  },
+  {
+    "command": "pm list packages -U",
+    "example": "pm list packages -U",
+    "description": "Lists all packages with their UIDs."
+  },
+  {
+    "command": "pm list permissions",
+    "example": "pm list permissions",
+    "description": "Lists all permissions defined on the device."
+  },
+  {
+    "command": "pm list permissions -d",
+    "example": "pm list permissions -d",
+    "description": "Lists all dangerous permissions."
+  },
+  {
+    "command": "pm list permissions -f",
+    "example": "pm list permissions -f",
+    "description": "Lists all permissions with their descriptions."
+  },
+  {
+    "command": "pm list permissions -g",
+    "example": "pm list permissions -g",
+    "description": "Lists all permissions grouped by their protection level."
+  },
+  {
+    "command": "pm list permissions -s",
+    "example": "pm list permissions -s",
+    "description": "Lists all permissions with their short descriptions."
+  },
+  {
+    "command": "pm list permissions -u",
+    "example": "pm list permissions -u",
+    "description": "Lists all permissions with their usage information."
+  },
+  {
+    "command": "pm list users",
+    "example": "pm list users",
+    "description": "Lists all users on the device."
+  },
+  {
+    "command": "pm path <package>",
+    "example": "pm path com.android.package",
+    "description": "Displays the installation path of a specific package."
+  },
+  {
+    "command": "pm revoke <package> <Permission>",
+    "example": "pm revoke com.android.package android.permission.WRITE_EXTERNAL_STORAGE",
+    "description": "Revokes a specific permission from a package."
+  },
+  {
+    "command": "pm reset-permissions -p <package>",
+    "example": "pm reset-permissions -p com.android.package",
+    "description": "Resets the permissions of a specific package."
+  },
+  {
+    "command": "pm suspend <package>",
+    "example": "pm suspend com.android.package",
+    "description": "Suspends a specific package."
+  },
+  {
+    "command": "pm unhide <package>",
+    "example": "pm unhide com.android.package",
+    "description": "Unhides a specific package."
+  },
+  {
+    "command": "pm uninstall <package>",
+    "example": "pm uninstall com.android.package",
+    "description": "Uninstalls a specific package."
+  },
+  {
+    "command": "pm uninstall -k <package>",
+    "example": "pm uninstall -k com.android.package",
+    "description": "Uninstalls a specific package but keeps its data and cache."
+  },
+  {
+    "command": "pm uninstall --user <user_id> <package>",
+    "example": "pm uninstall --user 0 com.android.package",
+    "description": "Uninstalls a specific package for a specific user."
+  },
+  {
+    "command": "pm uninstall --versionCode <version_code> <package>",
+    "example": "pm uninstall --versionCode 123 com.android.package",
+    "description": "Uninstalls a specific package version."
+  },
+  {
+    "command": "pm uninstall-system-updates <package>",
+    "example": "pm uninstall-system-updates com.android.package",
+    "description": "Uninstalls system updates for a specific package."
+  },
+  {
+    "command": "pm unsuspend <package>",
+    "example": "pm unsuspend com.android.package",
+    "description": "Unsuspends a specific package."
+  },
+  {
+    "command": "ps",
+    "example": "ps",
+    "description": "Displays information about running processes."
+  },
+  {
+    "command": "pwd",
+    "example": "pwd",
+    "description": "Displays the current working directory."
+  },
+  {
+    "command": "reboot",
+    "example": "reboot",
+    "description": "Reboots the device."
+  },
+  {
+    "command": "reboot -p",
+    "example": "reboot -p",
+    "description": "Powers off the device."
+  },
+  {
+    "command": "reboot recovery",
+    "example": "reboot recovery",
+    "description": "Reboots the device into recovery mode."
+  },
+  {
+    "command": "reboot fastboot",
+    "example": "reboot fastboot",
+    "description": "Reboots the device into fastboot mode."
+  },
+  {
+    "command": "reboot bootloader",
+    "example": "reboot bootloader",
+    "description": "Reboots the device into bootloader mode."
+  },
+  {
+    "command": "rm <file_path>",
+    "example": "rm /sdcard/example.txt",
+    "description": "Deletes a file."
+  },
+  {
+    "command": "rm -r <file_path>",
+    "example": "rm -r /sdcard/abc",
+    "description": "Recursively deletes a directory and its contents."
+  },
+  {
+    "command": "service list",
+    "example": "service list",
+    "description": "Lists all services running on the device."
+  },
+  {
+    "command": "sleep <second>",
+    "example": "sleep 5",
+    "description": "Pauses the execution for a specified number of seconds."
+  },
+  {
+    "command": "sync",
+    "example": "sync",
+    "description": "Flushes file system buffers, ensuring data is written to storage."
+  },
+  {
+    "command": "top",
+    "example": "top",
+    "description": "Displays real-time information about system processes."
+  },
+  {
+    "command": "top -n <number>",
+    "example": "top -n1",
+    "description": "Displays real-time information about system processes for a specific number of iterations."
+  },
+  {
+    "command": "uptime",
+    "example": "uptime",
+    "description": "Displays the system uptime."
+  },
+  {
+    "command": "whoami",
+    "example": "whoami",
+    "description": "Displays the current user."
+  },
+  {
+    "command": "wm density",
+    "example": "wm density",
+    "description": "Displays or sets the display density."
+  },
+  {
+    "command": "wm density reset",
+    "example": "wm density reset",
+    "description": "Resets the display density to the default value."
+  },
+  {
+    "command": "wm size",
+    "example": "wm size",
+    "description": "Displays or sets the display size."
+  },
+  {
+    "command": "wm size reset",
+    "example": "wm size reset",
+    "description": "Resets the display size to the default value."
+  }
+]
