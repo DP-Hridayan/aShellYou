@@ -894,7 +894,7 @@ public class WifiAdbFragment extends Fragment {
     if (binding.search.getVisibility() == View.VISIBLE) hideSearchBar();
 
     // Process the command
-    String finalCommand = command.replaceAll("^(adb\\s+)?(shell\\s+)?", "").trim();
+    String finalCommand = command.replaceFirst("^adb\\s+", "").trim();
 
     // Command to clear the shell output
     if (finalCommand.equals("clear")) {

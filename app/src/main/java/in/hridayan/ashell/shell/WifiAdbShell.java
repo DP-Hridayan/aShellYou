@@ -41,9 +41,7 @@ public class WifiAdbShell {
     try {
       ProcessBuilder processBuilder;
 
-      boolean useShellPrefix = shouldUseShellPrefix(mCommand);
-      String[] commandArray =
-          useShellPrefix ? new String[] {"shell", mCommand} : mCommand.split(" ");
+      String[] commandArray = mCommand.split(" ");
 
       String[] fullCommand = new String[commandArray.length + 1];
       fullCommand[0] = adbPath(context);
@@ -381,61 +379,6 @@ public class WifiAdbShell {
       Log.d("WifiAdbShell", "TMPDIR created: " + created);
     }
     return tmpDir.getAbsolutePath();
-  }
-
-  // This function determines if certain commands should use shell prefix in the command
-  private static boolean shouldUseShellPrefix(String command) {
-    String[] shellCommands = {
-      "pm",
-      "settings",
-      "svc",
-      "dumpsys",
-      "dmesg",
-      "am",
-      "cmd",
-      "monkey",
-      "input",
-      "logcat",
-      "getprop",
-      "setprop",
-      "top",
-      "wm",
-      "content",
-      "uiautomator",
-      "screencap",
-      "screenrecord",
-      "chmod",
-      "chown",
-      "ls",
-      "cd",
-      "df",
-      "du",
-      "cat",
-      "grep",
-      "ps",
-      "kill",
-      "log",
-      "date",
-      "id",
-      "uptime",
-      "reboot",
-      "svc",
-      "whoami",
-      "ping",
-      "ime",
-      "service",
-      "ip",
-      "ifconfig",
-      "netcfg",
-      "netstat"
-    };
-
-    for (String prefix : shellCommands) {
-      if (command.trim().startsWith(prefix)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private static boolean doesAdbCommandNeedStorageAccess(String command) {
