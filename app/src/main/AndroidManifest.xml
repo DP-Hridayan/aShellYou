@@ -107,7 +107,7 @@
         </provider>
 
         <service
-            android:name=".shell.AdbPairingNotification"
+            android:name=".shell.wifiadb.AdbPairingNotification"
             android:foregroundServiceType="specialUse"
             android:exported="false" />
 

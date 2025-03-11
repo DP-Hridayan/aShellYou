@@ -7,18 +7,17 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.shell.wifiadb.WifiAdbConnect;
+import in.hridayan.ashell.shell.wifiadb.WifiAdbPair;
 import in.hridayan.ashell.ui.ToastUtils;
-import in.hridayan.ashell.fragments.home.WifiAdbFragment;
-import in.hridayan.ashell.shell.WifiAdbShell;
+import in.hridayan.ashell.shell.wifiadb.WifiAdbShell;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 
@@ -155,12 +154,12 @@ public class WifiAdbBottomSheet {
 
     startLoadingAnimation(pairButton, loadingAnim);
 
-    WifiAdbShell.pair(
+    WifiAdbPair.pair(
         context,
         ip,
         port,
         code,
-        new WifiAdbShell.PairingCallback() {
+        new WifiAdbPair.PairingCallback() {
           @Override
           public void onSuccess() {
             HapticUtils.weakVibrate(view);
@@ -206,11 +205,11 @@ public class WifiAdbBottomSheet {
 
     startLoadingAnimation(connectButton, loadingAnim);
 
-    WifiAdbShell.connect(
+    WifiAdbConnect.connect(
         context,
         ip,
         port,
-        new WifiAdbShell.ConnectingCallback() {
+        new WifiAdbConnect.ConnectingCallback() {
           @Override
           public void onSuccess() {
             HapticUtils.weakVibrate(view);

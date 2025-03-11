@@ -1,4 +1,4 @@
-package in.hridayan.ashell.shell;
+package in.hridayan.ashell.shell.localadb;
 
 import in.hridayan.ashell.utils.Utils;
 import java.io.BufferedReader;

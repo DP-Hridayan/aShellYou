@@ -1,4 +1,4 @@
-package in.hridayan.ashell.shell;
+package in.hridayan.ashell.shell.wifiadb;
 
 import android.app.*;
 import android.content.Context;
@@ -81,12 +81,12 @@ public class AdbPairingNotification extends Service {
     String ip = Preferences.getAdbIp();
     String port = Preferences.getAdbPairingPort();
 
-    WifiAdbShell.pair(
+    WifiAdbPair.pair(
         this,
         ip,
         port,
         code,
-        new WifiAdbShell.PairingCallback() {
+        new WifiAdbPair.PairingCallback() {
           @Override
           public void onSuccess() {
             connectAdb();
@@ -105,11 +105,11 @@ public class AdbPairingNotification extends Service {
   private void connectAdb() {
     String ip = Preferences.getAdbIp();
     String port = Preferences.getAdbConnectingPort();
-    WifiAdbShell.connect(
+    WifiAdbConnect.connect(
         this,
         ip,
         port,
-        new WifiAdbShell.ConnectingCallback() {
+        new WifiAdbConnect.ConnectingCallback() {
           @Override
           public void onSuccess() {
             showFinalNotification(getString(R.string.success), getString(R.string.connected));

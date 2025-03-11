@@ -1,4 +1,4 @@
-package in.hridayan.ashell.shell;
+package in.hridayan.ashell.shell.localadb;
 
 import android.content.Context;
 import android.content.pm.PackageManager;

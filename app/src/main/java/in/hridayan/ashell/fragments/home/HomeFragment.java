@@ -29,7 +29,7 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentHomeBinding;
 import in.hridayan.ashell.fragments.PairingFragment;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
-import in.hridayan.ashell.shell.ShizukuShell;
+import in.hridayan.ashell.shell.localadb.ShizukuShell;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.HomeViewModel;

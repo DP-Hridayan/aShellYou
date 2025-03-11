@@ -1,4 +1,4 @@
-package in.hridayan.ashell.shell;
+package in.hridayan.ashell.shell.wifiadb;
 
 import android.content.Context;
 import android.net.nsd.NsdManager;

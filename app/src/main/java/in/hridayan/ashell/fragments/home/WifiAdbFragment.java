@@ -53,7 +53,7 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentWifiAdbBinding;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
-import in.hridayan.ashell.shell.WifiAdbShell;
+import in.hridayan.ashell.shell.wifiadb.WifiAdbShell;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;

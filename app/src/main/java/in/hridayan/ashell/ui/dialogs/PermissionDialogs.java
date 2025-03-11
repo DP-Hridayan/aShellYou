@@ -8,7 +8,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.ui.dialogs.ErrorDialogs;
-import in.hridayan.ashell.shell.RootShell;
+import in.hridayan.ashell.shell.localadb.RootShell;
 import in.hridayan.ashell.utils.HapticUtils;
 import rikka.shizuku.Shizuku;
 
