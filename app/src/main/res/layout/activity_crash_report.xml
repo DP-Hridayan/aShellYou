@@ -87,7 +87,7 @@
 
             </LinearLayout>
 
-            <in.hridayan.ashell.UI.CoordinatedNestedScrollView
+            <in.hridayan.ashell.ui.CoordinatedNestedScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     android:textIsSelectable="true"
                     android:textSize="14sp" />
 
-            </in.hridayan.ashell.UI.CoordinatedNestedScrollView>
+            </in.hridayan.ashell.ui.CoordinatedNestedScrollView>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

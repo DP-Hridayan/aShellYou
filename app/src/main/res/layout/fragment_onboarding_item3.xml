@@ -119,14 +119,14 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <in.hridayan.ashell.UI.SelectableViewWidget
+            <in.hridayan.ashell.ui.SelectableViewWidget
                 android:id="@+id/root"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:descriptionText="@string/mode_one_desc"
                 app:titleText="@string/mode_one_title" />
 
-            <in.hridayan.ashell.UI.SelectableViewWidget
+            <in.hridayan.ashell.ui.SelectableViewWidget
                 android:id="@+id/shizuku"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

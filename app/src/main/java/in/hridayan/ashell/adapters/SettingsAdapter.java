@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.dialogs.SettingsDialogs;
+import in.hridayan.ashell.ui.dialogs.SettingsDialogs;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.fragments.AboutFragment;

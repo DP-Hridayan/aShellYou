@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI;
+package in.hridayan.ashell.ui;
 
 import android.app.Activity;
 import android.content.Context;

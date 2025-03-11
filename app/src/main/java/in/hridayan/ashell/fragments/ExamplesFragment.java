@@ -25,7 +25,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.ui.KeyboardUtils;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.config.Const;

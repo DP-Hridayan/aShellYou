@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI.bottomsheets;
+package in.hridayan.ashell.ui.bottomsheets;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI.bottomsheets;
+package in.hridayan.ashell.ui.bottomsheets;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.ToastUtils;
+import in.hridayan.ashell.ui.ToastUtils;
 import in.hridayan.ashell.fragments.home.WifiAdbFragment;
 import in.hridayan.ashell.shell.WifiAdbShell;
 import in.hridayan.ashell.utils.HapticUtils;

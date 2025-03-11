@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI;
+package in.hridayan.ashell.ui;
 
 import android.widget.Toast;
 import android.content.Context;

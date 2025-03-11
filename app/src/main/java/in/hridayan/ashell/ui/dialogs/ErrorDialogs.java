@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI.dialogs;
+package in.hridayan.ashell.ui.dialogs;
 
 import android.content.Context;
 import android.view.LayoutInflater;

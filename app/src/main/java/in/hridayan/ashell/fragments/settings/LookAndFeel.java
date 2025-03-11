@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.ui.ThemeUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.SettingsLookAndFeelBinding;

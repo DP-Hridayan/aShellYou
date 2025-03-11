@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI;
+package in.hridayan.ashell.ui;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

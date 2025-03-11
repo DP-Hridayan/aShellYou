@@ -183,7 +183,7 @@
             android:visibility="gone"
             app:cardCornerRadius="20dp">
 
-            <in.hridayan.ashell.UI.CoordinatedNestedScrollView
+            <in.hridayan.ashell.ui.CoordinatedNestedScrollView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:scrollbars="vertical"
@@ -201,7 +201,7 @@
                     android:textIsSelectable="true"
                     android:textSize="14sp" />
 
-            </in.hridayan.ashell.UI.CoordinatedNestedScrollView>
+            </in.hridayan.ashell.ui.CoordinatedNestedScrollView>
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.constraintlayout.widget.Guideline

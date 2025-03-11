@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI.dialogs;
+package in.hridayan.ashell.ui.dialogs;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.dialogs.ErrorDialogs;
+import in.hridayan.ashell.ui.dialogs.ErrorDialogs;
 import in.hridayan.ashell.shell.RootShell;
 import in.hridayan.ashell.utils.HapticUtils;
 import rikka.shizuku.Shizuku;

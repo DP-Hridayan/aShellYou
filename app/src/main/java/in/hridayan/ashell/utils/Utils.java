@@ -41,7 +41,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.ToastUtils;
+import in.hridayan.ashell.ui.ToastUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import java.io.BufferedReader;

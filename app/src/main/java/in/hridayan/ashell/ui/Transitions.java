@@ -1,4 +1,4 @@
-package in.hridayan.ashell.UI;
+package in.hridayan.ashell.ui;
 
 import android.view.View;
 import com.google.android.material.transition.MaterialContainerTransform;
