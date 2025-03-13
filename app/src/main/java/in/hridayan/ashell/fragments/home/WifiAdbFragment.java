@@ -32,7 +32,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.Hold;
-import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.ui.BehaviorFAB;
 import in.hridayan.ashell.ui.BehaviorFAB.FabExtendingOnScrollListener;
@@ -108,9 +107,6 @@ public class WifiAdbFragment extends Fragment {
   public void onResume() {
     super.onResume();
 
-    // we set exit transition to null
-    setExitTransition(null);
-
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
     handleUseCommand();
@@ -150,8 +146,6 @@ public class WifiAdbFragment extends Fragment {
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
     setExitTransition(null);
-
-    setSharedElementEnterTransition(new MaterialContainerTransform());
 
     binding = FragmentWifiAdbBinding.inflate(inflater, container, false);
 
@@ -1002,7 +996,8 @@ public class WifiAdbFragment extends Fragment {
   // Method to run commands using root
   private void runWifiAdbShell(String finalCommand) {
     mPosition = mResult.size();
-    mWifiAdbShell = new WifiAdbShell(mResult, finalCommand);
+    mWifiAdbShell =
+        new WifiAdbShell(mResult, finalCommand, mainViewModel.getSelectedWifiAdbDevice());
     WifiAdbShell.execCommand(context, requireActivity());
     try {
       TimeUnit.MILLISECONDS.sleep(250);

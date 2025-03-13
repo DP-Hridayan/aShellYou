@@ -201,7 +201,6 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginVertical="13dp"
-            android:transitionName="fragmentWifiAdbShell"
             android:background="?selectableItemBackground"
             android:clickable="true"
             app:cardCornerRadius="25dp"
@@ -259,13 +258,13 @@
                     app:icon="@drawable/ic_open_in_new" />
 
                 <Button
-                    android:id="@+id/pairWirelessDebugging"
+                    android:id="@+id/startWirelessDebugging"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="@string/pair"
-                    android:layout_marginVertical="5dp"
+                    android:text="@string/start"
                     style="@style/Widget.Material3.Button.Icon"
-                    app:icon="@drawable/ic_connect" />
+                    app:icon="@drawable/ic_play" />
+
 
             </LinearLayout>
 

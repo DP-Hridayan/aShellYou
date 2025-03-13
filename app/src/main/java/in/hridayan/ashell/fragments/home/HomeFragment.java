@@ -1,33 +1,27 @@
 package in.hridayan.ashell.fragments.home;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.ui.ToastUtils;
-import in.hridayan.ashell.ui.bottomsheets.WifiAdbBottomSheet;
+import in.hridayan.ashell.adapters.WifiAdbDevicesAdapter;
+import in.hridayan.ashell.shell.localadb.RootShell;
+import in.hridayan.ashell.shell.wifiadb.WifiAdbConnectedDevices;
+import in.hridayan.ashell.ui.dialogs.ActionDialogs;
 import in.hridayan.ashell.ui.dialogs.ErrorDialogs;
 import in.hridayan.ashell.ui.dialogs.PermissionDialogs;
-import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentHomeBinding;
-import in.hridayan.ashell.fragments.PairingFragment;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
 import in.hridayan.ashell.shell.localadb.ShizukuShell;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -35,14 +29,20 @@ import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.HomeViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
+import java.util.List;
+import in.hridayan.ashell.items.WifiAdbDevicesItem;
+import java.util.ArrayList;
+import java.util.concurrent.Executors;
 import rikka.shizuku.Shizuku;
 
-public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCallback {
+public class HomeFragment extends Fragment
+    implements ShizukuShell.ShizukuPermCallback, RootShell.RootPermCallback {
   private FragmentHomeBinding binding;
   private Context context;
   private SettingsViewModel settingsViewModel;
   private MainViewModel mainViewModel;
   private HomeViewModel viewModel;
+  private RootShell rootShell;
 
   @Nullable
   @Override
@@ -52,7 +52,11 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
       @Nullable Bundle savedInstanceState) {
     binding = FragmentHomeBinding.inflate(inflater, container, false);
 
+    setExitTransition(null);
+
     context = requireContext();
+
+    rootShell = new RootShell(requireContext(), this);
 
     initializeViewModels();
 
@@ -70,7 +74,9 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
 
     instructionsButtonWifiAdb();
 
-    pairButtonOnClickListener();
+    startButtonOnClickListener();
+
+    fetchAndUpdateDeviceList();
 
     return binding.getRoot();
   }
@@ -86,6 +92,33 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
     viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
     mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
     settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
+  }
+
+  private void fetchAndUpdateDeviceList() {
+    List<WifiAdbDevicesItem> deviceList = new ArrayList<>();
+    WifiAdbDevicesAdapter adapter = new WifiAdbDevicesAdapter(context, deviceList, mainViewModel);
+
+    // Fetch connected devices
+    WifiAdbConnectedDevices.getConnectedDevices(
+        context,
+        new WifiAdbConnectedDevices.ConnectedDevicesCallback() {
+          @Override
+          public void onDevicesListed(@NonNull List<String> devices) {
+            updateDeviceList(deviceList, adapter, devices);
+          }
+
+          @Override
+          public void onFailure(String errorMessage) {}
+        });
+  }
+
+  private void updateDeviceList(
+      List<WifiAdbDevicesItem> deviceList, WifiAdbDevicesAdapter adapter, List<String> devices) {
+    deviceList.clear();
+    for (String ipPort : devices) {
+      deviceList.add(new WifiAdbDevicesItem(ipPort));
+    }
+    adapter.notifyDataSetChanged();
   }
 
   private void settingsOnClickListener() {
@@ -136,7 +169,8 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
     binding.wirelessAdbCard.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          goToWifiAdbFragment();
+          ActionDialogs.wifiAdbDevicesDialog(
+              context, (AppCompatActivity) context, binding.wirelessAdbCard, mainViewModel, this);
         });
   }
 
@@ -166,25 +200,6 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
         .commit();
   }
 
-  private void goToPairingFragment() {
-    PairingFragment fragment = new PairingFragment();
-
-    // Reset previous exit transition to avoid conflicts
-    setExitTransition(null);
-
-    requireActivity()
-        .getSupportFragmentManager()
-        .beginTransaction()
-        .setCustomAnimations(
-            R.anim.fragment_enter,
-            R.anim.fragment_exit,
-            R.anim.fragment_pop_enter,
-            R.anim.fragment_pop_exit)
-        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
-        .addToBackStack(fragment.getClass().getSimpleName())
-        .commit();
-  }
-
   private void instructionsOtgButtonOnClickListener() {
     binding.instructionOtg.setOnClickListener(
         v -> {
@@ -193,26 +208,13 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
         });
   }
 
-  private void goToWifiAdbFragment() {
-    setExitTransition(new Hold());
-    WifiAdbFragment fragment = new WifiAdbFragment();
-
-    requireActivity()
-        .getSupportFragmentManager()
-        .beginTransaction()
-        .addSharedElement(binding.wirelessAdbCard, Const.FRAGMENT_WIFI_ADB_SHELL)
-        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
-        .addToBackStack(fragment.getClass().getSimpleName())
-        .commit();
-  }
-
   private void setupAccessCards() {
     shizukuAccessCard();
-    // rootAccessCard();
+    rootAccessCard();
   }
 
   private void shizukuAccessCard() {
-    String accessStatus = getString(R.string.shizuku_access) + ": " + getString(R.string.none);
+    String accessStatus = getString(R.string.shizuku_access) + ": " + getString(R.string.denied);
     String shizukuVersion = getString(R.string.version) + ": " + getString(R.string.none);
     Drawable shizukuIcon = Utils.getDrawable(R.drawable.ic_error, context);
 
@@ -244,17 +246,60 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
         .runOnUiThread(
             () -> {
               shizukuAccessCard();
-              permGrantedToast();
               // set default local adb mode to shizuku
               Preferences.setLocalAdbMode(Const.SHIZUKU_MODE);
             });
   }
 
-  private void permGrantedToast() {
-    ToastUtils.showToast(requireContext(), getString(R.string.granted), ToastUtils.LENGTH_SHORT);
+  private void rootAccessCard() {
+    updateRootStatus();
+
+    binding.rootAccessCard.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          requestRootPermission();
+        });
   }
 
-  private void rootAccessCard() {}
+  // Update root access status
+  private void updateRootStatus() {
+    boolean isRooted = viewModel.isDeviceRooted();
+    binding.rootAccessText.setText(
+        getString(R.string.root_access)
+            + ": "
+            + getString(isRooted ? R.string.granted : R.string.denied));
+    binding.rootProviderText.setText(
+        getString(R.string.root_provider)
+            + ": "
+            + (isRooted ? RootShell.getRootProvider() : getString(R.string.none)));
+    binding.rootVersionText.setText(
+        getString(R.string.version)
+            + ": "
+            + (isRooted ? RootShell.getRootVersion() : getString(R.string.none)));
+    binding.rootIcon.setImageDrawable(
+        Utils.getDrawable(isRooted ? R.drawable.magisk_logo : R.drawable.ic_error, context));
+  }
+
+  // Request root permission
+  private void requestRootPermission() {
+    Executors.newSingleThreadExecutor()
+        .execute(
+            () -> {
+              if (RootShell.isDeviceRooted()) rootShell.startPermissionCheck();
+            });
+  }
+
+  // Handle root permission granted
+  @Override
+  public void onRootPermGranted() {
+    requireActivity()
+        .runOnUiThread(
+            () -> {
+              viewModel.setDeviceRooted(true);
+              updateRootStatus();
+              Preferences.setLocalAdbMode(Const.ROOT_MODE);
+            });
+  }
 
   private void instructionsButtonWifiAdb() {
     binding.instructionWireless.setOnClickListener(
@@ -265,45 +310,17 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
 
   private void wifiAdbInstructions() {}
 
-  private void pairButtonOnClickListener() {
-    binding.pairWirelessDebugging.setOnClickListener(
+  private void startButtonOnClickListener() {
+    binding.startWirelessDebugging.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-
-          chooseWifiAdbModeDialog();
+          ActionDialogs.wifiAdbDevicesDialog(
+              context,
+              (AppCompatActivity) context,
+              binding.startWirelessDebugging,
+              mainViewModel,
+              this);
         });
-  }
-
-  private void chooseWifiAdbModeDialog() {
-    View dialogView = inflateDialogView(context, R.layout.dialog_wifi_adb_mode);
-    AlertDialog dialog = createDialog(context, dialogView);
-
-    MaterialCardView thisDeviceCard = dialogView.findViewById(R.id.modeThisDevice);
-    MaterialCardView otherDeviceCard = dialogView.findViewById(R.id.modeOtherDevice);
-
-    thisDeviceCard.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v);
-          pairThisDevice();
-          goToPairingFragment();
-          dialog.dismiss();
-        });
-
-    otherDeviceCard.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v);
-          pairOtherDevice();
-          dialog.dismiss();
-        });
-  }
-
-  private void pairOtherDevice() {
-    WifiAdbBottomSheet.showPairAndConnectBottomSheet(context, requireActivity());
-  }
-
-  private void pairThisDevice() {
-    // We start the pairing from the activity to avoid destroying when fragment destroys
-    ((MainActivity) requireActivity()).pairThisDevice();
   }
 
   private void restoreScrollViewPosition() {
@@ -320,14 +337,6 @@ public class HomeFragment extends Fragment implements ShizukuShell.ShizukuPermCa
 
   private void saveScrollViewPosition() {
     viewModel.setScrollY(binding.scrollView.getScrollY());
-  }
-
-  private View inflateDialogView(Context context, int layoutRes) {
-    return LayoutInflater.from(context).inflate(layoutRes, null);
-  }
-
-  private AlertDialog createDialog(Context context, View view) {
-    return new MaterialAlertDialogBuilder(context).setView(view).show();
   }
 
   @Override

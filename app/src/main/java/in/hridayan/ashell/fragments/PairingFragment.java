@@ -1,16 +1,18 @@
 package in.hridayan.ashell.fragments;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.provider.Settings;
-import android.content.ActivityNotFoundException;
-import android.widget.Toast;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.fragment.app.Fragment;
+import in.hridayan.ashell.R;
+import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.databinding.FragmentPairingBinding;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.PermissionUtils;
@@ -41,14 +43,8 @@ public class PairingFragment extends Fragment {
     notificationSettingsButton();
     wifiEnableButton();
     developerOptionsButton();
-
-    OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
-
-    binding.arrowBack.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v);
-          dispatcher.onBackPressed();
-        });
+    pairThisDevice();
+    backPressDispatcher();
 
     return view;
   }
@@ -97,7 +93,24 @@ public class PairingFragment extends Fragment {
     try {
       startActivity(intent);
     } catch (ActivityNotFoundException e) {
-      Toast.makeText(context, "Developer options not available!", Toast.LENGTH_SHORT).show();
+      Toast.makeText(
+              context, getString(R.string.developer_options_not_available), Toast.LENGTH_SHORT)
+          .show();
     }
+  }
+
+  private void pairThisDevice() {
+    // We start the pairing from the activity to avoid destroying when fragment destroys
+      ((MainActivity) requireActivity()).pairThisDevice();
+  }
+
+  private void backPressDispatcher() {
+    OnBackPressedDispatcher dispatcher = requireActivity().getOnBackPressedDispatcher();
+
+    binding.arrowBack.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          dispatcher.onBackPressed();
+        });
   }
 }

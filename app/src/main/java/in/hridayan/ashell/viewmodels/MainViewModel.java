@@ -8,8 +8,7 @@ public class MainViewModel extends ViewModel {
   private int currentFragment = nullValue,
       previousFragment = Const.LOCAL_FRAGMENT,
       whichHomeFragment;
-
-  private String useCommand;
+  private String useCommand, selectedWifiAdbDevice;
 
   public void setUseCommand(String text) {
     this.useCommand = text;
@@ -45,5 +44,13 @@ public class MainViewModel extends ViewModel {
 
   public void setHomeFragment(int fragment) {
     whichHomeFragment = fragment;
+  }
+
+  public String getSelectedWifiAdbDevice() {
+    return selectedWifiAdbDevice;
+  }
+
+  public void setSelectedWifiAdbDevice(String value) {
+    this.selectedWifiAdbDevice = value;
   }
 }

@@ -176,7 +176,7 @@ public class AdbMdns {
     public void onServiceResolved(NsdServiceInfo resolvedService) {
       if (running
           && isMatchingNetwork(resolvedService)
-          && isPortAvailable(resolvedService.getPort())) {
+          && isPortAvailable(resolvedService.getPort())) { 
         String ipAddress = resolvedService.getHost().getHostAddress();
         int portNumber = resolvedService.getPort();
 

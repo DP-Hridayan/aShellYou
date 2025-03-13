@@ -3,5 +3,6 @@
     <color name="green">#00FF00</color>
     <color name="blue">#0000FF</color>
     <color name="black">#000000</color>
+    <color name="dim_background">#80000000</color>
     <color name="transparent">#00000000</color>
 </resources>

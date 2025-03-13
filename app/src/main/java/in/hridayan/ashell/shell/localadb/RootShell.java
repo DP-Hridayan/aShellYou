@@ -276,4 +276,44 @@ public class RootShell {
       scheduler.shutdown();
     }
   }
+    
+    /**
+ * Gets the root provider name.
+ * @return The root provider name (e.g., "KernelSU", "Magisk"), or "Unknown" if not found.
+ */
+public static String getRootProvider() {
+    // Check for KernelSU
+    Shell.Result ksuResult = Shell.cmd("su -c ksu --version").exec();
+    if (ksuResult.isSuccess()) {
+        return "KernelSU";
+    }
+
+    // Check for Magisk
+    Shell.Result magiskResult = Shell.cmd("su -c magisk -V").exec();
+    if (magiskResult.isSuccess()) {
+        return "Magisk";
+    }
+
+    return "Unknown";
+}
+
+/**
+ * Gets the version of the current root provider.
+ * @return The root version as a string, or "Unknown" if not found.
+ */
+public static String getRootVersion() {
+    // Check KernelSU version
+    Shell.Result ksuResult = Shell.cmd("su -c ksu --version").exec();
+    if (ksuResult.isSuccess() && !ksuResult.getOut().isEmpty()) {
+        return ksuResult.getOut().get(0);
+    }
+
+    // Check Magisk version
+    Shell.Result magiskResult = Shell.cmd("su -c magisk -V").exec();
+    if (magiskResult.isSuccess() && !magiskResult.getOut().isEmpty()) {
+        return magiskResult.getOut().get(0);
+    }
+
+    return "Unknown";
+}
 }

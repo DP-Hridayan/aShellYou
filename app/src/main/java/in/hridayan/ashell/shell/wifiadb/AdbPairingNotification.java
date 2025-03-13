@@ -15,7 +15,6 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.R;
 
 public class AdbPairingNotification extends Service {
-
   private static final String CHANNEL_ID = "adb_pairing_channel";
   private static final int PAIRING_NOTIFICATION_ID = 101;
   private static final String PAIRING_CODE = "pairing_code";

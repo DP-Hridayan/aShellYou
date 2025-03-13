@@ -66,7 +66,9 @@
     <string name="confirm_unpin_single">\[%s\] will be unpinned\nDo you wish to continue?</string>
     <string name="connect">Connect</string>
     <string name="connected">Connected</string>
+    <string name="connect_a_new_device">Connect a new device</string>
     <string name="connected_device">Connected device</string>
+    <string name="connected_devices">Connected devices</string>
     <string name="connecting">connecting\u2026</string>
     <string name="connecting_hint">confirm authorization on target device</string>
     <string name="connection_failed">Connection failed</string>
@@ -81,10 +83,11 @@
     <string name="dark_theme">Dark theme</string>
     <string name="delete_all">Delete all</string>
     <string name="default_folder">Default folder</string>
+    <string name="denied">Denied</string>
     <string name="default_language">Default language</string>
     <string name="des_default_language">Choose the default language for the app</string>
     <string name="developer_options">Developer options</string>
-    <string name="developer_options_not_available">Developer options not available</string>
+    <string name="developer_options_not_available">Developer options not available!</string>
     <string name="device_not_connected">Device not connected</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="des_disclaimer">This app allows you to execute ADB (Android Debug Bridge) commands directly on your device without needing a PC. Please read the following carefully before using the app:</string>
@@ -99,7 +102,7 @@
     <string name="disclaimer_5_title">Permissions and Security</string>
     <string name="disclaimer_5_description">This app may require special permissions to function properly. It does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
     <string name="disclaimer_end">By using this app, you acknowledge and agree to these terms. If you do not accept these conditions, please refrain from using the app.</string>
-
+    <string name="disconnected">Disconnected</string>
     <string name="discord">Discord</string>
     <string name="des_discord">Join the discord community</string>
     <string name="dismiss">Dismiss</string>
@@ -243,13 +246,14 @@
     <string name="warning">Warning</string>
     <string name="warning_v2">⚠ WARNING: Proceed with Caution! ⚠</string>
     <string name="wireless_debugging">Wireless Debugging</string>
- <string name="wireless_debugging_guide_1">Go to Developer options &gt; Wireless Debugging. Tap on Pair device with Pairing Code.</string>
-     <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
-    
+    <string name="wireless_debugging_guide_1">Go to Developer options &gt; Wireless Debugging. Tap on Pair device with Pairing Code.</string>
+    <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
+
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="whats_new">What\'s new !</string>
     <string name="whole_output">Whole output</string>
     <string name="wifi_adb">Wifi ADB</string>
+    <string name="wifi_adb_devices_information">Select a target device to continue</string>
     <string name="wifi_connection_required">To use the Wireless Debugging feature, your device must be connected to a Wi-Fi network. If your Wi-Fi connection has no Internet access then turn off mobile data for a solid Wi-Fi connection.</string>
     <string name="yes">Yes</string>
     <string name="local_adb_mode">Choose local adb working mode</string>

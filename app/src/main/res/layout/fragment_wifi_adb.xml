@@ -8,8 +8,7 @@
     android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
     android:clipChildren="false"
-    android:clipToPadding="false"
-    android:transitionName="fragmentWifiAdbShell">
+    android:clipToPadding="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"

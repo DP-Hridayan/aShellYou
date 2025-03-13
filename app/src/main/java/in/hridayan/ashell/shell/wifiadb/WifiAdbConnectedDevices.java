@@ -95,7 +95,7 @@ public class WifiAdbConnectedDevices {
      * @return True if the line contains an IP:Port, false otherwise.
      */
     private static boolean isWirelessDevice(String deviceLine) {
-        return deviceLine != null && deviceLine.contains(":") && deviceLine.contains("device");
+        return deviceLine != null  && deviceLine.contains("device");
     }
 
     /**

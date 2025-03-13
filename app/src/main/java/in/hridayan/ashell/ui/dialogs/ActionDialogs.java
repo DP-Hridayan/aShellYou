@@ -1,25 +1,36 @@
 package in.hridayan.ashell.ui.dialogs;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import androidx.appcompat.app.AlertDialog;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.adapters.WifiAdbDevicesAdapter;
 import in.hridayan.ashell.config.Preferences;
-import in.hridayan.ashell.fragments.home.HomeFragment;
+import in.hridayan.ashell.items.WifiAdbDevicesItem;
+import in.hridayan.ashell.shell.wifiadb.WifiAdbConnectedDevices;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.viewmodels.MainViewModel;
+import java.util.ArrayList;
 import java.util.List;
-import rikka.shizuku.Shizuku;
 
 /**
  * Handles dialogs for bookmark-related actions, such as viewing, sorting, and deleting bookmarks.
  */
 public class ActionDialogs {
+  private static View modeDialogView;
+  private static View devicesDialogView;
 
   /** Displays a dialog listing all bookmarked items. */
   public static void bookmarksDialog(
@@ -116,5 +127,118 @@ public class ActionDialogs {
     if (!Utils.getBookmarks(context).isEmpty()) {
       bookmarksDialog(context, mCommand, mCommandInput);
     }
+  }
+
+  public static void wifiAdbDevicesDialog(
+      Context context,
+      AppCompatActivity activity,
+      View startView,
+      MainViewModel viewModel,
+      Fragment homeFragment) {
+
+    ViewGroup rootView = activity.findViewById(android.R.id.content);
+    devicesDialogView = DialogUtils.inflateDialogView(activity, R.layout.dialog_wifi_adb_devices);
+
+    FrameLayout dialogContainer = devicesDialogView.findViewById(R.id.dialog_container);
+    MaterialCardView dialogCard = devicesDialogView.findViewById(R.id.dialog_card);
+    MaterialCardView connectNewDevice = devicesDialogView.findViewById(R.id.connectDevice);
+    RecyclerView recyclerView = devicesDialogView.findViewById(R.id.rv_wifi_adb_devices);
+
+    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+
+    List<WifiAdbDevicesItem> deviceList = new ArrayList<>();
+    WifiAdbDevicesAdapter adapter = new WifiAdbDevicesAdapter(activity, deviceList, viewModel);
+    recyclerView.setAdapter(adapter);
+
+    // Initially hide the dialog to prevent flickering
+    devicesDialogView.setAlpha(0f);
+    rootView.addView(devicesDialogView);
+
+    WifiAdbConnectedDevices.getConnectedDevices(
+        activity,
+        new WifiAdbConnectedDevices.ConnectedDevicesCallback() {
+          @Override
+          public void onDevicesListed(@NonNull List<String> devices) {
+            WifiAdbDialogUtils.updateDeviceList(deviceList, adapter, devices);
+            recyclerView.post(
+                () ->
+                    DialogAnimation.showDialogWithTransition(
+                        startView, dialogCard, devicesDialogView, false));
+          }
+
+          @Override
+          public void onFailure(String errorMessage) {
+            Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
+            recyclerView.post(
+                () ->
+                    DialogAnimation.showDialogWithTransition(
+                        startView, dialogCard, devicesDialogView, false));
+          }
+        });
+
+    dialogContainer.setOnClickListener(
+        v ->
+            DialogAnimation.dismissDialogWithTransition(
+                startView, dialogCard, devicesDialogView, rootView, false));
+
+    connectNewDevice.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          chooseWifiAdbModeDialog(context, activity, homeFragment, connectNewDevice, startView);
+        });
+  }
+
+  private static void chooseWifiAdbModeDialog(
+      Context context,
+      AppCompatActivity activity,
+      Fragment homeFragment,
+      View startView,
+      View startButton) {
+
+    ViewGroup rootView = activity.findViewById(android.R.id.content);
+    modeDialogView = DialogUtils.inflateDialogView(activity, R.layout.dialog_wifi_adb_mode);
+
+    FrameLayout dialogContainer = modeDialogView.findViewById(R.id.dialog_container);
+    MaterialCardView dialog = modeDialogView.findViewById(R.id.dialog);
+    MaterialCardView thisDeviceCard = modeDialogView.findViewById(R.id.modeThisDevice);
+    MaterialCardView otherDeviceCard = modeDialogView.findViewById(R.id.modeOtherDevice);
+
+    modeDialogView.setAlpha(0f);
+    rootView.addView(modeDialogView);
+
+    DialogAnimation.showDialogWithTransition(startView, dialog, modeDialogView, true);
+    devicesDialogView.setVisibility(View.INVISIBLE);
+
+    thisDeviceCard.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          devicesDialogView.setVisibility(View.GONE);
+          modeDialogView.setVisibility(View.GONE);
+          WifiAdbDialogUtils.goToPairingFragment(activity, homeFragment);
+        });
+
+    otherDeviceCard.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          modeDialogView.setVisibility(View.GONE);
+          devicesDialogView.setVisibility(View.GONE);
+          startButton.setVisibility(View.VISIBLE);
+          WifiAdbDialogUtils.pairOtherDevice(context, activity);
+        });
+
+    dialogContainer.setOnClickListener(
+        v -> {
+          devicesDialogView.setVisibility(View.VISIBLE);
+          DialogAnimation.dismissDialogWithTransition(
+              startView, dialog, modeDialogView, rootView, true);
+        });
+  }
+
+  public static View getWifiAdbModeDialogView() {
+    return modeDialogView;
+  }
+
+  public static View getWifiAdbDevicesDialogView() {
+    return devicesDialogView;
   }
 }
