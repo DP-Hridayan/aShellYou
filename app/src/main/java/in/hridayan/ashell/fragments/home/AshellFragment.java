@@ -1605,7 +1605,7 @@ public class AshellFragment extends Fragment {
                       context, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
                 } else {
                   setEnabled(false); // Remove this callback
-                  requireActivity().onBackPressed(); // Go back
+                  requireActivity().getOnBackPressedDispatcher().onBackPressed(); // Go back
                 }
               }
             });

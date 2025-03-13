@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -77,6 +78,8 @@ public class HomeFragment extends Fragment
     startButtonOnClickListener();
 
     fetchAndUpdateDeviceList();
+
+    interceptOnBackPress();
 
     return binding.getRoot();
   }
@@ -337,6 +340,26 @@ public class HomeFragment extends Fragment
 
   private void saveScrollViewPosition() {
     viewModel.setScrollY(binding.scrollView.getScrollY());
+  }
+
+  private void interceptOnBackPress() {
+    requireActivity()
+        .getOnBackPressedDispatcher()
+        .addCallback(
+            getViewLifecycleOwner(),
+            new OnBackPressedCallback(true) {
+              @Override
+              public void handleOnBackPressed() {
+                if (ActionDialogs.isAnyDialogVisible()) {
+                  if (ActionDialogs.isWifiAdbDevicesDialogVisible())
+                    ActionDialogs.dismissDevicesDialog();
+                  if (ActionDialogs.isWifiAdbModeDialogVisible()) ActionDialogs.dismissModeDialog();
+                } else {
+                  setEnabled(false); // Remove this callback
+                  requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                }
+              }
+            });
   }
 
   @Override

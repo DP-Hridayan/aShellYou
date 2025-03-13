@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -29,8 +28,15 @@ import java.util.List;
  * Handles dialogs for bookmark-related actions, such as viewing, sorting, and deleting bookmarks.
  */
 public class ActionDialogs {
-  private static View modeDialogView;
+
+  private static MaterialCardView connectNewDevice;
+  private static MaterialCardView devicesDialog;
+  private static MaterialCardView modeDialog;
   private static View devicesDialogView;
+  private static View modeDialogView;
+  private static View startViewDeviceDialog;
+  private static ViewGroup rootViewDevicesDialog;
+  private static ViewGroup rootViewModeDialog;
 
   /** Displays a dialog listing all bookmarked items. */
   public static void bookmarksDialog(
@@ -136,15 +142,16 @@ public class ActionDialogs {
       MainViewModel viewModel,
       Fragment homeFragment) {
 
-    ViewGroup rootView = activity.findViewById(android.R.id.content);
+    rootViewDevicesDialog = activity.findViewById(android.R.id.content);
     devicesDialogView = DialogUtils.inflateDialogView(activity, R.layout.dialog_wifi_adb_devices);
 
     FrameLayout dialogContainer = devicesDialogView.findViewById(R.id.dialog_container);
-    MaterialCardView dialogCard = devicesDialogView.findViewById(R.id.dialog_card);
-    MaterialCardView connectNewDevice = devicesDialogView.findViewById(R.id.connectDevice);
+    devicesDialog = devicesDialogView.findViewById(R.id.dialog_card);
+    connectNewDevice = devicesDialogView.findViewById(R.id.connectDevice);
     MaterialCardView cardNoDevicesWarning =
         devicesDialogView.findViewById(R.id.noDevicesWarningCard);
     MaterialCardView cardDevicesHint = devicesDialogView.findViewById(R.id.devicesHintCard);
+    startViewDeviceDialog = startView;
     RecyclerView recyclerView = devicesDialogView.findViewById(R.id.rv_wifi_adb_devices);
 
     recyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -155,7 +162,7 @@ public class ActionDialogs {
 
     // Initially hide the dialog to prevent flickering
     devicesDialogView.setAlpha(0f);
-    rootView.addView(devicesDialogView);
+    rootViewDevicesDialog.addView(devicesDialogView);
 
     WifiAdbConnectedDevices.getConnectedDevices(
         activity,
@@ -169,53 +176,52 @@ public class ActionDialogs {
             recyclerView.post(
                 () -> {
                   DialogAnimation.showDialogWithTransition(
-                      startView, dialogCard, devicesDialogView, false);
+                      startViewDeviceDialog, devicesDialog, devicesDialogView, false);
                 });
           }
 
           @Override
           public void onFailure(String errorMessage) {
-            Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
             updateInfoCard(deviceList, cardNoDevicesWarning, cardDevicesHint);
-
+                    
             recyclerView.post(
                 () ->
                     DialogAnimation.showDialogWithTransition(
-                        startView, dialogCard, devicesDialogView, false));
+                        startViewDeviceDialog, devicesDialog, devicesDialogView, false));
           }
         });
 
     dialogContainer.setOnClickListener(
         v ->
             DialogAnimation.dismissDialogWithTransition(
-                startView, dialogCard, devicesDialogView, rootView, false));
+                startViewDeviceDialog,
+                devicesDialog,
+                devicesDialogView,
+                rootViewDevicesDialog,
+                false));
 
     connectNewDevice.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-          chooseWifiAdbModeDialog(context, activity, homeFragment, connectNewDevice, startView);
+          chooseWifiAdbModeDialog(context, activity, homeFragment, startView);
         });
   }
 
   private static void chooseWifiAdbModeDialog(
-      Context context,
-      AppCompatActivity activity,
-      Fragment homeFragment,
-      View startView,
-      View startButton) {
+      Context context, AppCompatActivity activity, Fragment homeFragment, View startButton) {
 
-    ViewGroup rootView = activity.findViewById(android.R.id.content);
+    rootViewModeDialog = activity.findViewById(android.R.id.content);
     modeDialogView = DialogUtils.inflateDialogView(activity, R.layout.dialog_wifi_adb_mode);
 
     FrameLayout dialogContainer = modeDialogView.findViewById(R.id.dialog_container);
-    MaterialCardView dialog = modeDialogView.findViewById(R.id.dialog);
+    modeDialog = modeDialogView.findViewById(R.id.dialog);
     MaterialCardView thisDeviceCard = modeDialogView.findViewById(R.id.modeThisDevice);
     MaterialCardView otherDeviceCard = modeDialogView.findViewById(R.id.modeOtherDevice);
 
     modeDialogView.setAlpha(0f);
-    rootView.addView(modeDialogView);
+    rootViewModeDialog.addView(modeDialogView);
 
-    DialogAnimation.showDialogWithTransition(startView, dialog, modeDialogView, true);
+    DialogAnimation.showDialogWithTransition(connectNewDevice, modeDialog, modeDialogView, true);
     devicesDialogView.setVisibility(View.INVISIBLE);
 
     thisDeviceCard.setOnClickListener(
@@ -239,7 +245,7 @@ public class ActionDialogs {
         v -> {
           devicesDialogView.setVisibility(View.VISIBLE);
           DialogAnimation.dismissDialogWithTransition(
-              startView, dialog, modeDialogView, rootView, true);
+              connectNewDevice, modeDialog, modeDialogView, rootViewModeDialog, true);
         });
   }
 
@@ -254,6 +260,29 @@ public class ActionDialogs {
       cardNoDevicesWarning.setVisibility(View.GONE);
       cardDevicesHint.setVisibility(View.VISIBLE);
     }
+  }
+
+  public static void dismissDevicesDialog() {
+    DialogAnimation.dismissDialogWithTransition(
+        startViewDeviceDialog, devicesDialog, devicesDialogView, rootViewDevicesDialog, false);
+  }
+
+  public static void dismissModeDialog() {
+    devicesDialogView.setVisibility(View.VISIBLE);
+    DialogAnimation.dismissDialogWithTransition(
+        connectNewDevice, modeDialog, modeDialogView, rootViewModeDialog, true);
+  }
+
+  public static boolean isWifiAdbDevicesDialogVisible() {
+    return devicesDialogView != null && devicesDialogView.getVisibility() == View.VISIBLE;
+  }
+
+  public static boolean isWifiAdbModeDialogVisible() {
+    return modeDialogView != null && modeDialogView.getVisibility() == View.VISIBLE;
+  }
+
+  public static boolean isAnyDialogVisible() {
+    return isWifiAdbDevicesDialogVisible() || isWifiAdbModeDialogVisible();
   }
 
   public static View getWifiAdbModeDialogView() {
