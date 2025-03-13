@@ -148,6 +148,7 @@
     <string name="no_changelog">No changelog</string>
     <string name="no_command">No command</string>
     <string name="no_command_found">No command found that matches your query</string>
+    <string name="no_connected_devices">No devices has been connected yet! Connect a device to proceed</string>
     <string name="no_history">No command history</string>
     <string name="not_available">Not available</string>
     <string name="nothing_to_clear">Nothing to clear</string>
@@ -171,6 +172,7 @@
     <string name="pairing_notification_hint">You will receive a notification from aShell You to help you with pairing</string>
     <string name="pairing_port">Pairing port</string>
     <string name="pairing_code">Pairing code</string>
+    <string name="permission_optional">Granting these permissions is optional!</string>
     <string name="pin">Pin</string>
     <string name="pinned_message">\'%s\' has been pinned</string>
     <string name="port">Port</string>

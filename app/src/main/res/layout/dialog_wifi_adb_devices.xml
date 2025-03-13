@@ -36,15 +36,16 @@
                 style="@style/DialogTitleAppearance" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/devicesHintCard"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:clickable="true"
                 android:layout_marginBottom="15dp"
+                android:layout_gravity="center"
                 app:cardBackgroundColor="?attr/colorTertiaryContainer"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp"
-                app:cardCornerRadius="15dp"
-                android:layout_gravity="center">
+                app:cardCornerRadius="15dp">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="fill_parent"
@@ -68,6 +69,46 @@
                         android:text="@string/wifi_adb_devices_information"
                         android:layout_weight="7"
                         android:textColor="?attr/colorOnTertiaryContainer"
+                        android:alpha="0.9"
+                        android:textAppearance="?attr/textAppearanceBodySmall" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.google.android.material.card.MaterialCardView>
+
+                       <com.google.android.material.card.MaterialCardView
+                android:id="@+id/noDevicesWarningCard"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:layout_marginBottom="15dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="?attr/colorErrorContainer"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
+                app:cardCornerRadius="15dp"   >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_error"
+                        android:layout_marginEnd="15dp"
+                        app:tint="?attr/colorOnErrorContainer" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/no_connected_devices"
+                        android:layout_weight="7"
+                        android:textColor="?attr/colorOnErrorContainer"
                         android:alpha="0.9"
                         android:textAppearance="?attr/textAppearanceBodySmall" />
 

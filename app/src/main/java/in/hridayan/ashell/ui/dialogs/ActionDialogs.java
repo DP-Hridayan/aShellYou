@@ -142,6 +142,9 @@ public class ActionDialogs {
     FrameLayout dialogContainer = devicesDialogView.findViewById(R.id.dialog_container);
     MaterialCardView dialogCard = devicesDialogView.findViewById(R.id.dialog_card);
     MaterialCardView connectNewDevice = devicesDialogView.findViewById(R.id.connectDevice);
+    MaterialCardView cardNoDevicesWarning =
+        devicesDialogView.findViewById(R.id.noDevicesWarningCard);
+    MaterialCardView cardDevicesHint = devicesDialogView.findViewById(R.id.devicesHintCard);
     RecyclerView recyclerView = devicesDialogView.findViewById(R.id.rv_wifi_adb_devices);
 
     recyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -160,15 +163,21 @@ public class ActionDialogs {
           @Override
           public void onDevicesListed(@NonNull List<String> devices) {
             WifiAdbDialogUtils.updateDeviceList(deviceList, adapter, devices);
+
+            updateInfoCard(deviceList, cardNoDevicesWarning, cardDevicesHint);
+
             recyclerView.post(
-                () ->
-                    DialogAnimation.showDialogWithTransition(
-                        startView, dialogCard, devicesDialogView, false));
+                () -> {
+                  DialogAnimation.showDialogWithTransition(
+                      startView, dialogCard, devicesDialogView, false);
+                });
           }
 
           @Override
           public void onFailure(String errorMessage) {
             Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
+            updateInfoCard(deviceList, cardNoDevicesWarning, cardDevicesHint);
+
             recyclerView.post(
                 () ->
                     DialogAnimation.showDialogWithTransition(
@@ -232,6 +241,19 @@ public class ActionDialogs {
           DialogAnimation.dismissDialogWithTransition(
               startView, dialog, modeDialogView, rootView, true);
         });
+  }
+
+  public static void updateInfoCard(
+      List<WifiAdbDevicesItem> deviceList,
+      MaterialCardView cardNoDevicesWarning,
+      MaterialCardView cardDevicesHint) {
+    if (deviceList.isEmpty()) {
+      cardNoDevicesWarning.setVisibility(View.VISIBLE);
+      cardDevicesHint.setVisibility(View.GONE);
+    } else {
+      cardNoDevicesWarning.setVisibility(View.GONE);
+      cardDevicesHint.setVisibility(View.VISIBLE);
+    }
   }
 
   public static View getWifiAdbModeDialogView() {

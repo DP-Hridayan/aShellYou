@@ -65,9 +65,7 @@ public class StartFragment extends Fragment {
           HapticUtils.weakVibrate(v);
 
           if (viewPager.getCurrentItem() == adapter.getItemCount() - 1) {
-            // this is the last page
-            if (isBasicMode()) confirmationDialog();
-            else enterHomeFragment();
+            enterHomeFragment();
           } else { // this is not the last page, so just go to next page
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
           }
@@ -85,7 +83,7 @@ public class StartFragment extends Fragment {
     return Preferences.getLocalAdbMode() == Const.BASIC_MODE;
   }
 
-  private void confirmationDialog() {
+  /* private void confirmationDialog() {
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
         .setMessage(getString(R.string.confirm_basic_mode))
@@ -93,6 +91,7 @@ public class StartFragment extends Fragment {
         .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> enterHomeFragment())
         .show();
   }
+    */
 
   private void enterHomeFragment() {
     Preferences.setFirstLaunch(false);

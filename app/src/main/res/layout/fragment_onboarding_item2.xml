@@ -110,127 +110,122 @@
                 android:id="@+id/des_disclaimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.8"
                 android:text="@string/des_disclaimer"
-                android:textSize="16sp"
+                android:textStyle="bold"
+                android:alpha="0.9"
+                android:textAppearance="?attr/textAppearanceBodySmall"
                 android:padding="20dp"
-                android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:lineSpacingMultiplier="1.2" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_1_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disclaimer_1_title"
-                android:textSize="18sp"
                 android:padding="20dp"
-                android:textStyle="bold"
                 android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_1_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.8"
                 android:text="@string/disclaimer_1_description"
-                android:textSize="16sp"
                 android:paddingBottom="20dp"
                 android:layout_marginHorizontal="20dp"
                 android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:textStyle="bold"
+                android:alpha="0.9"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_2_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disclaimer_2_title"
-                android:textSize="18sp"
                 android:padding="20dp"
-                android:textStyle="bold"
                 android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_2_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.8"
                 android:text="@string/disclaimer_2_description"
-                android:textSize="16sp"
                 android:paddingBottom="20dp"
                 android:layout_marginHorizontal="20dp"
                 android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:textStyle="bold"
+                android:alpha="0.9"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_3_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disclaimer_3_title"
-                android:textSize="18sp"
                 android:padding="20dp"
-                android:textStyle="bold"
                 android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_3_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.8"
                 android:text="@string/disclaimer_3_description"
-                android:textSize="16sp"
                 android:paddingBottom="20dp"
                 android:layout_marginHorizontal="20dp"
                 android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:textStyle="bold"
+                android:alpha="0.9"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_4_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disclaimer_4_title"
-                android:textSize="18sp"
                 android:padding="20dp"
-                android:textStyle="bold"
                 android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_4_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.8"
                 android:text="@string/disclaimer_4_description"
-                android:textSize="16sp"
                 android:paddingBottom="20dp"
                 android:layout_marginHorizontal="20dp"
                 android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:textStyle="bold"
+                android:alpha="0.9"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_5_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/disclaimer_5_title"
-                android:textSize="18sp"
                 android:padding="20dp"
-                android:textStyle="bold"
                 android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_5_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.8"
                 android:text="@string/disclaimer_5_description"
-                android:textSize="16sp"
                 android:paddingBottom="20dp"
                 android:layout_marginHorizontal="20dp"
                 android:lineSpacingMultiplier="1.2"
-                android:justificationMode="inter_word" />
+                android:textStyle="bold"
+                android:alpha="0.9"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
 
         </LinearLayout>
 

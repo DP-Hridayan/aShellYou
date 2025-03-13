@@ -19,40 +19,48 @@
         style="@style/DialogTitleAppearance"
         android:textAlignment="center" />
 
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/sensitive_packages_warning1"
-        android:justificationMode="inter_word"
-        android:textSize="16sp" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
+        android:scrollIndicators="none">
+        
+        <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_margin="10dp"
-        android:text="@string/sensitive_packages_warning2"
-        android:justificationMode="inter_word"
-        android:textSize="16sp" />
+        android:orientation="vertical">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/sensitive_packages_warning3"
-        android:justificationMode="inter_word"
-        android:textSize="16sp" />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/sensitive_packages_warning1"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_margin="10dp"
-        android:text="@string/are_you_sure"
-        android:justificationMode="inter_word"
-        android:textSize="16sp" />
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:text="@string/sensitive_packages_warning2"
+            android:textAppearance="?attr/textAppearanceBodySmall"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/sensitive_packages_warning3"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:text="@string/are_you_sure"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+            
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,7 +95,9 @@
                 android:layout_marginEnd="8dp"
                 android:layout_weight="2.5"
                 android:enabled="false"
-                android:text="@string/ok_countdown" />
+                android:backgroundTint="?attr/colorErrorContainer"
+                android:text="@string/ok_countdown"
+                android:textColor="?attr/colorOnErrorContainer" />
 
         </LinearLayout>
 

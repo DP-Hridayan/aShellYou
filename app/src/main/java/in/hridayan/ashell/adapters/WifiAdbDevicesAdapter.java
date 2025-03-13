@@ -53,15 +53,14 @@ public class WifiAdbDevicesAdapter
   @Override
   public void onBindViewHolder(@NonNull DeviceViewHolder holder, int position) {
     WifiAdbDevicesItem device = deviceList.get(position);
+
     holder.deviceTextView.setText(device.getIpPort());
 
-    holder.cardView.setOnClickListener(
+    holder.cardConnectedDevices.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
           mainViewModel.setSelectedWifiAdbDevice(device.getIpPort());
-          
           View devicesDialogView = ActionDialogs.getWifiAdbDevicesDialogView();
-
           if (devicesDialogView != null) devicesDialogView.setVisibility(View.GONE);
           WifiAdbDialogUtils.goToWifiAdbFragment((AppCompatActivity) context);
         });
@@ -69,7 +68,6 @@ public class WifiAdbDevicesAdapter
     holder.iconDisconnect.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
-
           new Thread(
                   () -> {
                     ((Activity) context)
@@ -107,13 +105,13 @@ public class WifiAdbDevicesAdapter
 
   static class DeviceViewHolder extends RecyclerView.ViewHolder {
     MaterialTextView deviceTextView;
-    MaterialCardView cardView;
+    MaterialCardView cardConnectedDevices;
     ImageView iconDisconnect;
 
     DeviceViewHolder(View itemView) {
       super(itemView);
       deviceTextView = itemView.findViewById(R.id.device);
-      cardView = itemView.findViewById(R.id.wifi_adb_devices_card);
+      cardConnectedDevices = itemView.findViewById(R.id.wifi_adb_devices_card);
       iconDisconnect = itemView.findViewById(R.id.iconDisconnect);
     }
   }

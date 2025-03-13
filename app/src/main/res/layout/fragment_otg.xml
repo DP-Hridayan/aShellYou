@@ -158,11 +158,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@id/guidelineOutputLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_height="wrap_content"
@@ -179,7 +180,7 @@
             app:layout_constraintTop_toTopOf="@id/guidelineOutputLayout"
             app:strokeWidth="0dp"
             android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="15dp"
+            android:layout_marginTop="15dp"
             android:visibility="gone"
             app:cardCornerRadius="20dp">
 
@@ -204,15 +205,7 @@
             </in.hridayan.ashell.ui.CoordinatedNestedScrollView>
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.30"
-            android:id="@+id/guidelineOutputLayout" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_height="wrap_content"
@@ -302,5 +295,12 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.95"
         android:id="@+id/guidelineBottom" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.30"
+        android:id="@+id/guidelineOutputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
