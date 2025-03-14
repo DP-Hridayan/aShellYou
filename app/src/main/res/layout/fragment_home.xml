@@ -124,14 +124,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/shizuku_access"
-                                style="@style/ItemDescription" />
+                                style="@style/ItemDescriptionBold" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/shizuku_version_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/version"
-                                style="@style/ItemDescription" />
+                                style="@style/ItemDescriptionBold" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -174,20 +174,20 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/root_access"
-                                style="@style/ItemDescription" />
+                                style="@style/ItemDescriptionBold" />
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/root_provider_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/root_provider"
-                                style="@style/ItemDescription" />
+                                style="@style/ItemDescriptionBold" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/root_version_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/version"
-                                style="@style/ItemDescription" />
+                                style="@style/ItemDescriptionBold" />
 
                         </LinearLayout>
                     </LinearLayout>

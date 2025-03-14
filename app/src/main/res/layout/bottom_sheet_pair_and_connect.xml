@@ -53,11 +53,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/turn_off_mobile_data"
-                    android:layout_gravity="center_vertical" 
-                    android:textStyle="bold"
-                    android:alpha="0.9"
+                    android:layout_gravity="center_vertical"
                     android:textColor="?attr/colorOnErrorContainer"
-                    android:textAppearance="?attr/textAppearanceBodySmall" />
+                    style="@style/ItemDescriptionBold" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -69,8 +67,7 @@
             android:layout_margin="25dp"
             android:text="@string/pair"
             android:layout_gravity="start"
-            android:textColor="?attr/colorPrimary"
-            android:textAppearance="?attr/textAppearanceTitleMedium" />
+            style="@style/ItemSubTitle" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_height="wrap_content"
@@ -204,8 +201,7 @@
                 android:layout_margin="25dp"
                 android:text="@string/connect"
                 android:layout_gravity="start"
-                android:textColor="?attr/colorPrimary"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
+                style="@style/ItemSubTitle" />
 
 
             <com.google.android.material.textfield.TextInputLayout

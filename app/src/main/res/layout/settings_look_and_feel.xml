@@ -79,10 +79,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/dark_theme"
-                android:textColor="?attr/colorPrimary"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="10dp"
-                android:textAppearance="?attr/textAppearanceLabelLarge" />
+                style="@style/ItemSubTitle" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
@@ -185,10 +184,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/additional_settings"
-                android:textColor="?attr/colorPrimary"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginVertical="20dp"
-                android:textAppearance="?attr/textAppearanceLabelLarge" />
+                style="@style/ItemSubTitle" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/high_contrast_dark_theme"
