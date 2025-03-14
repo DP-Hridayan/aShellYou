@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -5,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:background="?attr/colorSurface"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:background="?attr/colorSurface">
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -55,22 +56,22 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:gravity="start">
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="vertical">
 
 
             <ImageView
                 android:id="@+id/undraw_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="100dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="40dp"
+                android:layout_marginHorizontal="100dp"
+                android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
                 android:importantForAccessibility="no"
-                android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_undraw_theme" />
 
 
@@ -78,9 +79,9 @@
                 android:id="@+id/darkTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/dark_theme"
-                android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="25dp"
+                android:text="@string/dark_theme"
                 style="@style/ItemSubTitle" />
 
             <RadioGroup
@@ -94,21 +95,20 @@
                     android:id="@+id/darkSystem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:paddingStart="25dp"
                     android:paddingEnd="5dp"
+                    android:paddingStart="25dp"
+                    android:paddingVertical="10dp"
                     android:background="?selectableItemBackground"
-                    android:paddingVertical="10dp">
+                    android:clickable="true">
 
                     <TextView
                         android:id="@+id/system_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/system"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:textSize="18sp"
-                        android:textAppearance="?attr/textAppearanceTitleLarge" />
+                        android:text="@string/system"
+                        style="@style/ItemTitle" />
 
                     <RadioButton
                         android:id="@+id/system"
@@ -123,21 +123,20 @@
                     android:id="@+id/darkOn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:background="?selectableItemBackground"
-                    android:paddingStart="25dp"
                     android:paddingEnd="5dp"
-                    android:paddingVertical="10dp">
+                    android:paddingStart="25dp"
+                    android:paddingVertical="10dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true">
 
                     <TextView
                         android:id="@+id/on_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/on"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:textSize="18sp"
-                        android:textAppearance="?attr/textAppearanceTitleLarge" />
+                        android:text="@string/on"
+                        style="@style/ItemTitle" />
 
                     <RadioButton
                         android:id="@+id/on"
@@ -152,21 +151,20 @@
                     android:id="@+id/darkOff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:background="?selectableItemBackground"
-                    android:paddingStart="25dp"
                     android:paddingEnd="5dp"
-                    android:paddingVertical="10dp">
+                    android:paddingStart="25dp"
+                    android:paddingVertical="10dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true">
 
                     <TextView
                         android:id="@+id/off_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/off"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:textSize="18sp"
-                        android:textAppearance="?attr/textAppearanceTitleLarge" />
+                        android:text="@string/off"
+                        style="@style/ItemTitle" />
 
                     <RadioButton
                         android:id="@+id/off"
@@ -183,56 +181,55 @@
                 android:id="@+id/additional_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/additional_settings"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginVertical="20dp"
+                android:text="@string/additional_settings"
                 style="@style/ItemSubTitle" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/high_contrast_dark_theme"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:clickable="true"
-                android:background="?selectableItemBackground"
-                android:paddingHorizontal="25dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:paddingHorizontal="25dp"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
                 android:gravity="center">
 
                 <ImageView
                     android:id="@+id/icon1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="?attr/colorPrimary"
                     android:src="@drawable/ic_amoled_theme"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimary" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
                     android:layout_marginHorizontal="15dp"
+                    android:paddingTop="15dp"
                     android:text="@string/high_contrast_dark_theme"
-                    android:textSize="18sp"
-                    android:textAppearance="?attr/textAppearanceTitleLarge"
                     app:layout_constraintEnd_toStartOf="@id/switchHighContrastDarkTheme"
                     app:layout_constraintStart_toEndOf="@id/icon1"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/ItemTitle" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/description1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
                     android:layout_marginEnd="15dp"
+                    android:layout_marginTop="7dp"
                     android:paddingBottom="20dp"
                     android:text="@string/des_amoled_theme"
-                    style="@style/ItemDescription"
                     app:layout_constraintEnd_toStartOf="@id/switchHighContrastDarkTheme"
                     app:layout_constraintStart_toStartOf="@id/title1"
-                    app:layout_constraintTop_toBottomOf="@id/title1" />
+                    app:layout_constraintTop_toBottomOf="@id/title1"
+                    style="@style/ItemDescription" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switchHighContrastDarkTheme"
@@ -249,49 +246,48 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/dynamic_colors"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:clickable="true"
-                android:background="?selectableItemBackground"
-                android:paddingHorizontal="25dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:paddingHorizontal="25dp"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
                 android:gravity="center">
 
                 <ImageView
                     android:id="@+id/icon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="?attr/colorPrimary"
                     android:src="@drawable/ic_dynamic_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimary" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
                     android:layout_marginHorizontal="15dp"
+                    android:paddingTop="15dp"
                     android:text="@string/dynamic_colors"
-                    android:textSize="18sp"
-                    android:textAppearance="?attr/textAppearanceTitleLarge"
                     app:layout_constraintEnd_toStartOf="@id/switchDynamicColors"
                     app:layout_constraintStart_toEndOf="@id/icon2"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/ItemTitle" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/description2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
                     android:layout_marginEnd="15dp"
+                    android:layout_marginTop="7dp"
                     android:paddingBottom="20dp"
                     android:text="@string/des_dynamic_colors"
-                    style="@style/ItemDescription"
                     app:layout_constraintEnd_toStartOf="@id/switchDynamicColors"
                     app:layout_constraintStart_toStartOf="@id/title2"
-                    app:layout_constraintTop_toBottomOf="@id/title2" />
+                    app:layout_constraintTop_toBottomOf="@id/title2"
+                    style="@style/ItemDescription" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switchDynamicColors"
@@ -308,49 +304,48 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/haptic_and_vibration"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:clickable="true"
-                android:background="?selectableItemBackground"
-                android:paddingHorizontal="25dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:paddingHorizontal="25dp"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
                 android:gravity="center">
 
                 <ImageView
                     android:id="@+id/icon3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="?attr/colorPrimary"
                     android:src="@drawable/ic_vibration"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimary" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
                     android:layout_marginHorizontal="15dp"
+                    android:paddingTop="15dp"
                     android:text="@string/vibration"
-                    android:textSize="18sp"
-                    android:textAppearance="?attr/textAppearanceTitleLarge"
                     app:layout_constraintEnd_toStartOf="@id/switchHapticAndVibration"
                     app:layout_constraintStart_toEndOf="@id/icon3"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/ItemTitle" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/description3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
                     android:layout_marginEnd="15dp"
+                    android:layout_marginTop="7dp"
                     android:paddingBottom="20dp"
                     android:text="@string/des_vibration"
-                    style="@style/ItemDescription"
                     app:layout_constraintEnd_toStartOf="@id/switchHapticAndVibration"
                     app:layout_constraintStart_toStartOf="@id/title3"
-                    app:layout_constraintTop_toBottomOf="@id/title3" />
+                    app:layout_constraintTop_toBottomOf="@id/title3"
+                    style="@style/ItemDescription" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switchHapticAndVibration"
@@ -367,50 +362,49 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/defaultLanguage"
-                android:visibility="gone"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:clickable="true"
-                android:background="?selectableItemBackground"
-                android:paddingHorizontal="25dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
-                android:gravity="center">
+                android:paddingHorizontal="25dp"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/icon4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="?attr/colorPrimary"
                     android:src="@drawable/ic_language"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimary" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
                     android:layout_marginHorizontal="15dp"
+                    android:paddingTop="15dp"
                     android:text="@string/default_language"
-                    android:textSize="18sp"
-                    android:textAppearance="?attr/textAppearanceTitleLarge"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/icon4"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/ItemTitle" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/description4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
                     android:layout_marginEnd="15dp"
+                    android:layout_marginTop="7dp"
                     android:paddingBottom="20dp"
                     android:text="@string/des_default_language"
-                    style="@style/ItemDescription"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/title4"
-                    app:layout_constraintTop_toBottomOf="@id/title4" />
+                    app:layout_constraintTop_toBottomOf="@id/title4"
+                    style="@style/ItemDescription" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

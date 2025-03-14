@@ -2,9 +2,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?attr/colorSurface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.textview.MaterialTextView
@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="@string/app_crashed"
-        android:textStyle="bold"
         android:textAppearance="?attr/textAppearanceTitleLarge"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -39,11 +39,11 @@
         android:layout_height="0dp"
         android:layout_margin="15dp"
         app:cardCornerRadius="20dp"
-        app:strokeWidth="0dp"
         app:layout_constraintTop_toBottomOf="@id/guidelineBottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeWidth="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,38 +62,37 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginHorizontal="10dp"
-                    android:textAppearance="?attr/textAppearanceTitleSmall"
-                    android:text="@string/crash_report" />
+                    android:layout_weight="1"
+                    android:text="@string/crash_report"
+                    style="@style/ItemDescription" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/copy_button"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:src="@drawable/ic_copy"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:background="@null"
-                    android:clickable="true" />
+                    android:clickable="true"
+                    android:src="@drawable/ic_copy" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/copy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="@string/copy"
                     android:clickable="true"
-                    android:textAppearance="?attr/textAppearanceTitleSmall" />
-
+                    android:text="@string/copy"
+                    style="@style/ItemDescription"/>
             </LinearLayout>
 
             <in.hridayan.ashell.ui.CoordinatedNestedScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/colorSurfaceContainerLowest"
                 android:scrollbars="vertical"
-                android:scrollbarThumbVertical="@drawable/scrollbar"
-                android:background="?attr/colorSurfaceContainerLowest">
+                android:scrollbarThumbVertical="@drawable/scrollbar">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/crash_info"
@@ -103,25 +102,24 @@
                     android:layout_marginBottom="10dp"
                     android:padding="8dp"
                     android:textIsSelectable="true"
-                    android:textSize="14sp" />
-
+                    style="@style/ItemDescription" />
             </in.hridayan.ashell.ui.CoordinatedNestedScrollView>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_height="wrap_content"
+        android:id="@+id/fab_share"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
-        app:layout_constraintBottom_toTopOf="@id/report_button"
-        app:srcCompat="@drawable/ic_share"
-        android:layout_gravity="bottom|end"
         android:layout_marginBottom="25dp"
-        app:tint="?attr/colorOnTertiaryContainer"
+        android:layout_gravity="bottom|end"
         app:backgroundTint="?attr/colorTertiaryContainer"
+        app:layout_constraintBottom_toTopOf="@id/report_button"
         app:layout_constraintEnd_toEndOf="parent"
-        style="?attr/floatingActionButtonSmallStyle"
-        android:id="@+id/fab_share" />
+        app:srcCompat="@drawable/ic_share"
+        app:tint="?attr/colorOnTertiaryContainer"
+        style="?attr/floatingActionButtonSmallStyle" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/report_button"
@@ -129,12 +127,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
         android:layout_marginEnd="25dp"
-        app:icon="@drawable/ic_report"
         android:text="@string/report"
-        style="?attr/extendedFloatingActionButtonStyle"
+        app:icon="@drawable/ic_report"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        style="?attr/extendedFloatingActionButtonStyle" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineBottom"

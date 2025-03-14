@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="UTF-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -37,8 +38,8 @@
         android:id="@+id/shape3"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="-30dp"
+        android:layout_marginTop="100dp"
         android:alpha="0.4"
         android:background="@drawable/ui_shape3"
         android:backgroundTint="?attr/colorPrimaryContainer"
@@ -78,18 +79,17 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView"
-        style="@style/TextAppearance.Material3.HeadlineLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guidelineTop" />
+        app:layout_constraintTop_toTopOf="@id/guidelineTop"
+        style="@style/TextAppearance.Material3.HeadlineLarge" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView2"
-        style="@style/TextAppearance.Material3.HeadlineLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.8"
@@ -97,7 +97,8 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        style="@style/TextAppearance.Material3.HeadlineLarge" />
 
     <ImageView
         android:layout_width="0dp"

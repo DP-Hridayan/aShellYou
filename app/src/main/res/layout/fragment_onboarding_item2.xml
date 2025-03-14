@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -82,8 +82,8 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadingEdgeLength="60dp"
         android:paddingBottom="80dp"
+        android:fadingEdgeLength="60dp"
         android:fillViewport="true"
         android:gravity="center"
         android:requiresFadingEdge="vertical"
@@ -100,132 +100,132 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer"
-                style="@style/TextAppearance.Material3.HeadlineLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/disclaimer"
                 android:textStyle="bold"
-                android:text="@string/disclaimer" />
+                style="@style/TextAppearance.Material3.HeadlineLarge" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/des_disclaimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/des_disclaimer"
-                android:textStyle="bold"
-                android:alpha="0.9"
-                android:textAppearance="?attr/textAppearanceBodySmall"
                 android:padding="20dp"
-                android:lineSpacingMultiplier="1.2" />
+                android:alpha="0.9"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/des_disclaimer"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_1_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disclaimer_1_title"
                 android:padding="20dp"
                 android:lineSpacingMultiplier="1.2"
-                android:textStyle="bold"
-                android:textAppearance="?attr/textAppearanceBodyLarge" />
+                android:text="@string/disclaimer_1_title"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_1_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disclaimer_1_description"
-                android:paddingBottom="20dp"
                 android:layout_marginHorizontal="20dp"
-                android:lineSpacingMultiplier="1.2"
-                android:textStyle="bold"
+                android:paddingBottom="20dp"
                 android:alpha="0.9"
-                android:textAppearance="?attr/textAppearanceBodySmall" />
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/disclaimer_1_description"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_2_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disclaimer_2_title"
                 android:padding="20dp"
                 android:lineSpacingMultiplier="1.2"
-                android:textStyle="bold"
-                android:textAppearance="?attr/textAppearanceBodyLarge" />
+                android:text="@string/disclaimer_2_title"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_2_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disclaimer_2_description"
-                android:paddingBottom="20dp"
                 android:layout_marginHorizontal="20dp"
-                android:lineSpacingMultiplier="1.2"
-                android:textStyle="bold"
+                android:paddingBottom="20dp"
                 android:alpha="0.9"
-                android:textAppearance="?attr/textAppearanceBodySmall" />
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/disclaimer_2_description"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_3_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disclaimer_3_title"
                 android:padding="20dp"
                 android:lineSpacingMultiplier="1.2"
-                android:textStyle="bold"
-                android:textAppearance="?attr/textAppearanceBodyLarge" />
+                android:text="@string/disclaimer_3_title"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_3_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disclaimer_3_description"
-                android:paddingBottom="20dp"
                 android:layout_marginHorizontal="20dp"
-                android:lineSpacingMultiplier="1.2"
-                android:textStyle="bold"
+                android:paddingBottom="20dp"
                 android:alpha="0.9"
-                android:textAppearance="?attr/textAppearanceBodySmall" />
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/disclaimer_3_description"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_4_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disclaimer_4_title"
                 android:padding="20dp"
                 android:lineSpacingMultiplier="1.2"
-                android:textStyle="bold"
-                android:textAppearance="?attr/textAppearanceBodyLarge" />
+                android:text="@string/disclaimer_4_title"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_4_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disclaimer_4_description"
-                android:paddingBottom="20dp"
                 android:layout_marginHorizontal="20dp"
-                android:lineSpacingMultiplier="1.2"
-                android:textStyle="bold"
+                android:paddingBottom="20dp"
                 android:alpha="0.9"
-                android:textAppearance="?attr/textAppearanceBodySmall" />
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/disclaimer_4_description"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_5_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disclaimer_5_title"
                 android:padding="20dp"
                 android:lineSpacingMultiplier="1.2"
-                android:textStyle="bold"
-                android:textAppearance="?attr/textAppearanceBodyLarge" />
+                android:text="@string/disclaimer_5_title"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/disclaimer_5_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/disclaimer_5_description"
-                android:paddingBottom="20dp"
                 android:layout_marginHorizontal="20dp"
-                android:lineSpacingMultiplier="1.2"
-                android:textStyle="bold"
+                android:paddingBottom="20dp"
                 android:alpha="0.9"
-                android:textAppearance="?attr/textAppearanceBodySmall" />
+                android:lineSpacingMultiplier="1.2"
+                android:text="@string/disclaimer_5_description"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

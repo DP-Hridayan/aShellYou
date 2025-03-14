@@ -148,14 +148,14 @@ public class SettingsFragment extends Fragment {
             true,
             Preferences.getClear()));
 
-  /*  settingsData.add(
-        new SettingsItem(
-            Const.PREF_SHARE_AND_RUN,
-            R.drawable.ic_share,
-            getString(R.string.share_and_run),
-            getString(R.string.des_share_and_run),
-            true,
-            Preferences.getShareAndRun()));*/
+    /*  settingsData.add(
+    new SettingsItem(
+        Const.PREF_SHARE_AND_RUN,
+        R.drawable.ic_share,
+        getString(R.string.share_and_run),
+        getString(R.string.des_share_and_run),
+        true,
+        Preferences.getShareAndRun()));*/
 
     settingsData.add(
         new SettingsItem(
@@ -262,7 +262,7 @@ public class SettingsFragment extends Fragment {
     binding.rvSettings.getViewTreeObserver().addOnDrawListener(this::startPostponedEnterTransition);
 
     // intentional crash with a long message
-    //  throwLongException();
+    // throwLongException();
 
     return view;
   }
