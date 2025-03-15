@@ -15,24 +15,24 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.transition.Hold;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.WifiAdbDevicesAdapter;
-import in.hridayan.ashell.shell.localadb.RootShell;
-import in.hridayan.ashell.shell.wifiadb.WifiAdbConnectedDevices;
-import in.hridayan.ashell.ui.dialogs.ActionDialogs;
-import in.hridayan.ashell.ui.dialogs.ErrorDialogs;
-import in.hridayan.ashell.ui.dialogs.PermissionDialogs;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentHomeBinding;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
+import in.hridayan.ashell.items.WifiAdbDevicesItem;
+import in.hridayan.ashell.shell.localadb.RootShell;
 import in.hridayan.ashell.shell.localadb.ShizukuShell;
+import in.hridayan.ashell.shell.wifiadb.WifiAdbConnectedDevices;
+import in.hridayan.ashell.ui.dialogs.ActionDialogs;
+import in.hridayan.ashell.ui.dialogs.ErrorDialogs;
+import in.hridayan.ashell.ui.dialogs.PermissionDialogs;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
 import in.hridayan.ashell.viewmodels.HomeViewModel;
 import in.hridayan.ashell.viewmodels.MainViewModel;
 import in.hridayan.ashell.viewmodels.SettingsViewModel;
-import java.util.List;
-import in.hridayan.ashell.items.WifiAdbDevicesItem;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import rikka.shizuku.Shizuku;
 
@@ -97,33 +97,6 @@ public class HomeFragment extends Fragment
     settingsViewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
   }
 
-  private void fetchAndUpdateDeviceList() {
-    List<WifiAdbDevicesItem> deviceList = new ArrayList<>();
-    WifiAdbDevicesAdapter adapter = new WifiAdbDevicesAdapter(context, deviceList, mainViewModel);
-
-    // Fetch connected devices
-    WifiAdbConnectedDevices.getConnectedDevices(
-        context,
-        new WifiAdbConnectedDevices.ConnectedDevicesCallback() {
-          @Override
-          public void onDevicesListed(@NonNull List<String> devices) {
-            updateDeviceList(deviceList, adapter, devices);
-          }
-
-          @Override
-          public void onFailure(String errorMessage) {}
-        });
-  }
-
-  private void updateDeviceList(
-      List<WifiAdbDevicesItem> deviceList, WifiAdbDevicesAdapter adapter, List<String> devices) {
-    deviceList.clear();
-    for (String ipPort : devices) {
-      deviceList.add(new WifiAdbDevicesItem(ipPort));
-    }
-    adapter.notifyDataSetChanged();
-  }
-
   private void settingsOnClickListener() {
     binding.settings.setOnClickListener(
         v -> {
@@ -160,23 +133,6 @@ public class HomeFragment extends Fragment
         });
   }
 
-  private void otgAdbCardOnClickListener() {
-    binding.otgAdbCard.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v);
-          goToOtgFragment();
-        });
-  }
-
-  private void wirelessAdbCardOnClickListener() {
-    binding.wirelessAdbCard.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v);
-          ActionDialogs.wifiAdbDevicesDialog(
-              context, (AppCompatActivity) context, binding.wirelessAdbCard, mainViewModel, this);
-        });
-  }
-
   private void goToAshellFragment() {
     setExitTransition(new Hold());
     AshellFragment fragment = new AshellFragment();
@@ -188,27 +144,6 @@ public class HomeFragment extends Fragment
         .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
         .addToBackStack(fragment.getClass().getSimpleName())
         .commit();
-  }
-
-  private void goToOtgFragment() {
-    setExitTransition(new Hold());
-    OtgFragment fragment = new OtgFragment();
-
-    requireActivity()
-        .getSupportFragmentManager()
-        .beginTransaction()
-        .addSharedElement(binding.otgAdbCard, Const.FRAGMENT_OTG_SHELL)
-        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
-        .addToBackStack(fragment.getClass().getSimpleName())
-        .commit();
-  }
-
-  private void instructionsOtgButtonOnClickListener() {
-    binding.instructionOtg.setOnClickListener(
-        v -> {
-          HapticUtils.weakVibrate(v);
-          Utils.openUrl(context, Const.URL_OTG_INSTRUCTIONS);
-        });
   }
 
   private void setupAccessCards() {
@@ -304,14 +239,55 @@ public class HomeFragment extends Fragment
             });
   }
 
+  private void otgAdbCardOnClickListener() {
+    binding.otgAdbCard.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          goToOtgFragment();
+        });
+  }
+
+  private void goToOtgFragment() {
+    setExitTransition(new Hold());
+    OtgFragment fragment = new OtgFragment();
+
+    requireActivity()
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .addSharedElement(binding.otgAdbCard, Const.FRAGMENT_OTG_SHELL)
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
+        .commit();
+  }
+
+  private void instructionsOtgButtonOnClickListener() {
+    binding.instructionOtg.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          Utils.openUrl(context, Const.URL_OTG_INSTRUCTIONS);
+        });
+  }
+
+  private void wirelessAdbCardOnClickListener() {
+    binding.wirelessAdbCard.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          ActionDialogs.wifiAdbDevicesDialog(
+              context, (AppCompatActivity) context, binding.wirelessAdbCard, mainViewModel, this);
+        });
+  }
+
   private void instructionsButtonWifiAdb() {
     binding.instructionWireless.setOnClickListener(
         v -> {
+          HapticUtils.weakVibrate(v);
           wifiAdbInstructions();
         });
   }
 
-  private void wifiAdbInstructions() {}
+  private void wifiAdbInstructions() {
+    Utils.openUrl(context, Const.URL_WIRELESS_DEBUGGING_INSTRUCTIONS);
+  }
 
   private void startButtonOnClickListener() {
     binding.startWirelessDebugging.setOnClickListener(
@@ -324,6 +300,33 @@ public class HomeFragment extends Fragment
               mainViewModel,
               this);
         });
+  }
+
+  private void fetchAndUpdateDeviceList() {
+    List<WifiAdbDevicesItem> deviceList = new ArrayList<>();
+    WifiAdbDevicesAdapter adapter = new WifiAdbDevicesAdapter(context, deviceList, mainViewModel);
+
+    // Fetch connected devices
+    WifiAdbConnectedDevices.getConnectedDevices(
+        context,
+        new WifiAdbConnectedDevices.ConnectedDevicesCallback() {
+          @Override
+          public void onDevicesListed(@NonNull List<String> devices) {
+            updateDeviceList(deviceList, adapter, devices);
+          }
+
+          @Override
+          public void onFailure(String errorMessage) {}
+        });
+  }
+
+  private void updateDeviceList(
+      List<WifiAdbDevicesItem> deviceList, WifiAdbDevicesAdapter adapter, List<String> devices) {
+    deviceList.clear();
+    for (String ipPort : devices) {
+      deviceList.add(new WifiAdbDevicesItem(ipPort));
+    }
+    adapter.notifyDataSetChanged();
   }
 
   private void restoreScrollViewPosition() {

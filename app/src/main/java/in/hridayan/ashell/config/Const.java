@@ -41,12 +41,12 @@ public interface Const {
   String PREF_DEFAULT_SAVE_DIRECTORY =
       Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
           .getAbsolutePath();
-    String ADB_IP="adb_ip";
-   String ADB_PAIRING_PORT = "adb_pairing_port";
-    String ADB_CONNECTING_PORT = "adb_connecting_port";
-    String ADB_PAIRING_CODE="adb_pairing_code";
+  String ADB_IP = "adb_ip";
+  String ADB_PAIRING_PORT = "adb_pairing_port";
+  String ADB_CONNECTING_PORT = "adb_connecting_port";
+  String ADB_PAIRING_CODE = "adb_pairing_code";
 
-  // tags for things like onclick listeners 
+  // tags for things like onclick listeners
   String ID_LOOK_AND_FEEL = "id_look_and_feel";
   String ID_DEF_LANGUAGE = "id_default_language";
   String ID_CONFIG_SAVE_DIR = "id_configure_save_directory";
@@ -66,8 +66,8 @@ public interface Const {
   String SEND_TO_EXAMPLES = "sendButtonToExamples";
   String SETTINGS_TO_SETTINGS = "settingsButtonToSettings";
   String FRAGMENT_LOCAL_SHELL = "fragmentLocalShell";
-    String FRAGMENT_OTG_SHELL = "fragmentOtgShell";
-    String FRAGMENT_WIFI_ADB_SHELL = "fragmentWifiAdbShell";
+  String FRAGMENT_OTG_SHELL = "fragmentOtgShell";
+  String FRAGMENT_WIFI_ADB_SHELL = "fragmentWifiAdbShell";
 
   /* <--------U R L s -------> */
   String URL_DEV_GITHUB = "https://github.com/DP-Hridayan";
@@ -76,9 +76,10 @@ public interface Const {
   // url for the build.gradle file of the app
   String URL_BUILD_GRADLE =
       "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
-  // url to open instructions for otg
   String URL_OTG_INSTRUCTIONS =
       "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md";
+  String URL_WIRELESS_DEBUGGING_INSTRUCTIONS =
+      "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md";
   String GITHUB_OWNER = "dp-hridayan";
   String GITHUB_REPOSITORY = "ashellyou";
   String URL_GITHUB_REPOSITORY = "https://github.com/DP-Hridayan/aShellYou";
