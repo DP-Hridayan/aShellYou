@@ -33,7 +33,6 @@
             android:text="@string/app_name"
             style="@style/ExpandedToolbarTitle" />
 
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/localAdbCard"
             android:layout_width="match_parent"
@@ -44,8 +43,7 @@
             android:transitionName="fragmentLocalShell"
             app:cardBackgroundColor="?attr/colorSurfaceContainer"
             app:cardCornerRadius="25dp"
-            app:strokeWidth="0dp">
-
+            app:strokeColor="?attr/colorSurfaceContainerHighest">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,12 +67,20 @@
                         app:tint="?attr/colorOnPrimaryContainer" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
                         android:text="@string/local_adb"
                         style="@style/ItemTitle" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_right" />
 
                 </LinearLayout>
 
@@ -135,6 +141,7 @@
                                 style="@style/ItemDescriptionBold" />
 
                         </LinearLayout>
+
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
@@ -176,6 +183,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/root_access"
                                 style="@style/ItemDescriptionBold" />
+
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/root_provider_text"
                                 android:layout_width="wrap_content"
@@ -191,8 +199,11 @@
                                 style="@style/ItemDescriptionBold" />
 
                         </LinearLayout>
+
                     </LinearLayout>
+
                 </com.google.android.material.card.MaterialCardView>
+
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -206,8 +217,7 @@
             android:clickable="true"
             app:cardBackgroundColor="?attr/colorSurfaceContainer"
             app:cardCornerRadius="25dp"
-            app:strokeWidth="0dp">
-
+            app:strokeColor="?attr/colorSurfaceContainerHighest">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -231,12 +241,20 @@
                         app:tint="?attr/colorOnPrimaryContainer" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
                         android:text="@string/adb_via_wireless_debugging"
                         style="@style/ItemTitle" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_right" />
 
                 </LinearLayout>
 
@@ -266,7 +284,6 @@
                     app:icon="@drawable/ic_play"
                     style="@style/Widget.Material3.Button.Icon" />
 
-
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -281,8 +298,7 @@
             android:transitionName="fragmentOtgShell"
             app:cardBackgroundColor="?attr/colorSurfaceContainer"
             app:cardCornerRadius="25dp"
-            app:strokeWidth="0dp">
-
+            app:strokeColor="?attr/colorSurfaceContainerHighest">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -306,12 +322,20 @@
                         app:tint="?attr/colorOnPrimaryContainer" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
                         android:text="@string/adb_through_otg"
                         style="@style/ItemTitle" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_right" />
 
                 </LinearLayout>
 
@@ -336,5 +360,7 @@
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
+
 </ScrollView>
