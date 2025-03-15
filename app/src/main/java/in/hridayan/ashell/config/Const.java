@@ -27,8 +27,6 @@ public interface Const {
   String PREF_SORTING_OPTION = "sorting_option";
   String PREF_SORTING_EXAMPLES = "sorting_examples";
   String PREF_CURRENT_FRAGMENT = "current_fragment";
-  String PREF_DEFAULT_LAUNCH_MODE = "id_default_launch_mode";
-  String PREF_SPECIFIC_CARD_VISIBILITY = "specific_card_visibility";
   String PREF_AUTO_UPDATE_CHECK = "id_auto_update_check";
   String PREF_SAVE_PREFERENCE = "id_save_preference";
   String PREF_LATEST_VERSION_NAME = "latest_version_name";
@@ -38,9 +36,15 @@ public interface Const {
   String PREF_ACTIVITY_RECREATED = "activity_recreated";
   String PREF_EXAMPLES_LAYOUT_STYLE = "id_examples_layout_style";
   String PREF_OUTPUT_SAVE_DIRECTORY = "output_save_directory";
+  String PREF_UNKNOWN_SOURCE_PERM_ASKED = "unknown_source_permission";
+  String PREF_UPDATE_APK_FILE_NAME = "update_apk_file_name";
   String PREF_DEFAULT_SAVE_DIRECTORY =
       Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
           .getAbsolutePath();
+  String ADB_IP = "adb_ip";
+  String ADB_PAIRING_PORT = "adb_pairing_port";
+  String ADB_CONNECTING_PORT = "adb_connecting_port";
+  String ADB_PAIRING_CODE = "adb_pairing_code";
 
   // tags for things like onclick listeners
   String ID_LOOK_AND_FEEL = "id_look_and_feel";
@@ -61,6 +65,9 @@ public interface Const {
   /* <--------Transition Names-------> */
   String SEND_TO_EXAMPLES = "sendButtonToExamples";
   String SETTINGS_TO_SETTINGS = "settingsButtonToSettings";
+  String FRAGMENT_LOCAL_SHELL = "fragmentLocalShell";
+  String FRAGMENT_OTG_SHELL = "fragmentOtgShell";
+  String FRAGMENT_WIFI_ADB_SHELL = "fragmentWifiAdbShell";
 
   /* <--------U R L s -------> */
   String URL_DEV_GITHUB = "https://github.com/DP-Hridayan";
@@ -69,9 +76,12 @@ public interface Const {
   // url for the build.gradle file of the app
   String URL_BUILD_GRADLE =
       "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
-  // url to open instructions for otg
   String URL_OTG_INSTRUCTIONS =
       "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md";
+  String URL_WIRELESS_DEBUGGING_INSTRUCTIONS =
+      "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md";
+  String GITHUB_OWNER = "dp-hridayan";
+  String GITHUB_REPOSITORY = "ashellyou";
   String URL_GITHUB_REPOSITORY = "https://github.com/DP-Hridayan/aShellYou";
   // url for github release
   String URL_GITHUB_RELEASE = "https://github.com/DP-Hridayan/aShellYou/releases/latest";
@@ -91,11 +101,14 @@ public interface Const {
   int SORT_OLDEST = 2;
   int SORT_NEWEST = 3;
   int SORT_LEAST_USED = 3;
+  int HOME_FRAGMENT = 2025;
   int LOCAL_FRAGMENT = 0;
   int OTG_FRAGMENT = 1;
+  int WIFI_ADB_FRAGMENT = 2;
   int MODE_LOCAL_ADB = 0;
   int MODE_OTG = 1;
-  int MODE_REMEMBER_LAST_MODE = 2;
+  int MODE_WIFI_ADB = 2;
+  int MODE_REMEMBER_LAST_MODE = 3;
   int MAX_BOOKMARKS_LIMIT = 25;
   int UPDATE_AVAILABLE = 1;
   int UPDATE_NOT_AVAILABLE = 0;

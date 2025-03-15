@@ -14,6 +14,10 @@
     <string name="adb_device_not_connected">ADB device not connected.</string>
     <string name="adb_device_waiting">Waiting for ADB device</string>
     <string name="adb_shell">ADB shell</string>
+    <string name="adb_through_otg">ADB Through OTG</string>
+    <string name="adb_through_otg_summary">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.</string>
+    <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
+    <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add_bookmark">Add bookmark</string>
     <string name="additional_settings">Additional settings</string>
     <string name="about">About</string>
@@ -60,10 +64,16 @@
     <string name="confirm_pin_single">\[%s\] will be pinned\nDo you wish to continue?</string>
     <string name="confirm_unpin">Do you want to unpin the selected commands?</string>
     <string name="confirm_unpin_single">\[%s\] will be unpinned\nDo you wish to continue?</string>
+    <string name="connect">Connect</string>
     <string name="connected">Connected</string>
+    <string name="connect_a_new_device">Connect a new device</string>
     <string name="connected_device">Connected device</string>
+    <string name="connected_devices">Connected devices</string>
     <string name="connecting">connecting\u2026</string>
     <string name="connecting_hint">confirm authorization on target device</string>
+    <string name="connection_failed">Connection failed</string>
+    <string name="connect_this_device">Connect this device</string>
+    <string name="connect_other_device">Connect other device</string>
     <string
         name="copy"
         tools:override="true">Copy</string>
@@ -71,12 +81,13 @@
     <string name="crash_report">Crash report</string>
     <string name="current">Current</string>
     <string name="dark_theme">Dark theme</string>
-    <string name="default_launch_mode">Default launch mode</string>
     <string name="delete_all">Delete all</string>
     <string name="default_folder">Default folder</string>
+    <string name="denied">Denied</string>
     <string name="default_language">Default language</string>
     <string name="des_default_language">Choose the default language for the app</string>
-    <string name="des_default_launch_mode">Choose what ADB mode should be opened directly when app launches</string>
+    <string name="developer_options">Developer options</string>
+    <string name="developer_options_not_available">Developer options not available!</string>
     <string name="device_not_connected">Device not connected</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="des_disclaimer">This app allows you to execute ADB (Android Debug Bridge) commands directly on your device without needing a PC. Please read the following carefully before using the app:</string>
@@ -91,7 +102,7 @@
     <string name="disclaimer_5_title">Permissions and Security</string>
     <string name="disclaimer_5_description">This app may require special permissions to function properly. It does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
     <string name="disclaimer_end">By using this app, you acknowledge and agree to these terms. If you do not accept these conditions, please refrain from using the app.</string>
-
+    <string name="disconnected">Disconnected</string>
     <string name="discord">Discord</string>
     <string name="des_discord">Join the discord community</string>
     <string name="dismiss">Dismiss</string>
@@ -100,12 +111,16 @@
     <string name="download">Download</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="des_dynamic_colors">Automatically set the app theme according to the device wallpaper</string>
+    <string name="enable_wifi">Enable wifi</string>
+    <string name="enter_pairing_code">Enter Pairing Code</string>
+    <string name="enter_six_digit_pairing_code">Enter six digit pairing code</string>
     <string name="error">Error</string>
     <string name="example">Example</string>
     <string name="examples">Examples</string>
     <string name="failed">Failed</string>
     <string name="file_not_found">File not found</string>
     <string name="generate_key_failed">Failed to generate and save key pair</string>
+    <string name="granted">Granted</string>
     <string name="grant_permission">Grant permission</string>
     <string name="grant_permission_manually">If the permission dialog doesn\'t appear, please grant root permission manually via the superuser application</string>
     <string name="flashing">Flashing</string>
@@ -114,16 +129,18 @@
     <string name="high_contrast_dark_theme">High contrast dark theme</string>
     <string name="history">History</string>
     <string name="instructions">Instructions</string>
+    <string name="ip_address">IP address</string>
     <string name="latest">Latest</string>
-    <string name="launch_mode">Launch mode</string>
     <string name="least_used">Least used</string>
     <string name="local_adb">Local ADB</string>
+    <string name="local_adb_summary">Execute ADB commands directly on your device using Shizuku or root. Manage apps, control system settings, and perform advanced debugging—all without needing a PC.</string>
     <string name="look_and_feel">Look &amp; Feel</string>
     <string name="des_look_and_feel">Dynamic colors, Dark theme, Language</string>
     <string name="mail">E-mail</string>
     <string name="menu">Menu</string>
     <string name="mode">Mode</string>
     <string name="most_used">Most used</string>
+    <string name="must_fill">Must fill</string>
     <string name="none">None</string>
 
     <string name="no_application_found">No application found to perform the task</string>
@@ -131,9 +148,14 @@
     <string name="no_changelog">No changelog</string>
     <string name="no_command">No command</string>
     <string name="no_command_found">No command found that matches your query</string>
+    <string name="no_connected_devices">No devices has been connected yet! Connect a device to proceed</string>
     <string name="no_history">No command history</string>
+    <string name="not_available">Not available</string>
     <string name="nothing_to_clear">Nothing to clear</string>
     <string name="nothing_to_search">Nothing to search</string>
+    <string name="notification_access_not_granted">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
+    <string name="notification_settings">Notification settings</string>
+    <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to "Android". Go to Notification Settings ~ Notification Style to change the Notification Style.\n\nOtherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="off">Off</string>
     <string name="ok">OK</string>
     <string name="ok_countdown">OK (10s)</string>
@@ -144,8 +166,16 @@
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Connect the device properly through OTG and try again</string>
     <string name="paste">Paste</string>
+    <string name="pair">Pair</string>
+    <string name="paired">Paired</string>
+    <string name="pairing">Pairing</string>
+    <string name="pairing_notification_hint">You will receive a notification from aShell You to help you with pairing</string>
+    <string name="pairing_port">Pairing port</string>
+    <string name="pairing_code">Pairing code</string>
+    <string name="permission_optional">Granting these permissions is optional!</string>
     <string name="pin">Pin</string>
     <string name="pinned_message">\'%s\' has been pinned</string>
+    <string name="port">Port</string>
     <string name="press_back">Press back again to exit</string>
     <string name="process_destroy_message">aShell You is still working. Do you want to stop the current process?</string>
     <string name="progress">Progress</string>
@@ -154,10 +184,13 @@
     <string name="remember_working_mode">Remember last working mode</string>
     <string name="request_permission">Request Permission</string>
     <string name="report">Report</string>
+    <string name="resume">Resume</string>
     <string
         name="root"
         translatable="false">Root</string>
+    <string name="root_access">Root access</string>
     <string name="root_access_denied_message">Root access is currently denied for aShell You</string>
+    <string name="root_provider">Root provider</string>
     <string name="root_unavailable">Root is not accessible</string>
     <string name="root_unavailable_message">Device might not be rooted or root presence might be hidden from aShell You</string>
     <string name="save">Save</string>
@@ -183,6 +216,7 @@
         name="shizuku"
         translatable="false">Shizuku</string>
     <string name="shizuku_about">About Shizuku</string>
+    <string name="shizuku_access">Shizuku access</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
     <string name="shizuku_unavailable_message">Shizuku is not installed or properly configured on your device</string>
@@ -192,11 +226,13 @@
     <string name="sort_newest">Newest</string>
     <string name="sort_oldest">Oldest</string>
     <string name="start">Start</string>
+    <string name="submit">Submit</string>
     <string name="success">Success</string>
     <string name="support_message">Like what I do?\nConsider buying me a coffee !</string>
     <string name="su_warning_message">This mode doesn\'t support root related commands. Please switch to root mode</string>
     <string name="switch_mode">Switch mode</string>
     <string name="system">System</string>
+    <string name="turn_off_mobile_data">Turn off Mobile Data if the Wifi connection has NO INTERNET</string>
     <string name="unpin">Unpin</string>
     <string name="unpinned_message">\'%s\' has been unpinned</string>
     <string name="unhide_cards_message">All info cards will be visible now</string>
@@ -211,8 +247,16 @@
     <string name="waiting_device">Waiting for device</string>
     <string name="warning">Warning</string>
     <string name="warning_v2">⚠ WARNING: Proceed with Caution! ⚠</string>
+    <string name="wireless_debugging">Wireless Debugging</string>
+    <string name="wireless_debugging_guide_1">Go to Developer options &gt; Wireless Debugging. Tap on Pair device with Pairing Code.</string>
+    <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
+    <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
+    <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="whats_new">What\'s new !</string>
     <string name="whole_output">Whole output</string>
+    <string name="wifi_adb">Wifi ADB</string>
+    <string name="wifi_adb_devices_information">Select a target device to continue</string>
+    <string name="wifi_connection_required">To use the Wireless Debugging feature, your device must be connected to a Wi-Fi network. If your Wi-Fi connection has no Internet access then turn off mobile data for a solid Wi-Fi connection.</string>
     <string name="yes">Yes</string>
     <string name="local_adb_mode">Choose local adb working mode</string>
     <string name="des_local_adb_mode">Choose a preffered mode for executing shell commands on your device</string>
@@ -271,4 +315,5 @@
     <string name="des_configure_save_directory">Choose a directory to save the shell output</string>
     <string name="grid">Grid</string>
     <string name="list">List</string>
+    <string name="pairing_failed">Pairing failed</string>
 </resources>

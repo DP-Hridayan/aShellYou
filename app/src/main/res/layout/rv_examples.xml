@@ -1,27 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/commands_card"
-    android:layout_height="wrap_content"
     android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:layout_gravity="center"
+    android:checkable="true"
     android:clickable="true"
     android:focusable="true"
-    android:checkable="true"
     app:cardBackgroundColor="?attr/colorSurfaceContainer"
-    app:cardElevation="0dp"
-    app:strokeWidth="0dp"
-    app:strokeColor="?attr/colorTertiary"
     app:cardCornerRadius="15dp"
-    android:layout_gravity="center">
+    app:cardElevation="0dp"
+    app:strokeColor="?attr/colorTertiary"
+    app:strokeWidth="0dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|start"
         android:layout_margin="15dp"
         android:layout_marginStart="25dp"
+        android:layout_gravity="center|start"
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
@@ -40,14 +40,14 @@
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/pin"
-        android:visibility="gone"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_pinned"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:layout_gravity="end|top"
         android:background="@null"
         android:clickable="false"
         android:rotation="45"
-        android:layout_gravity="end|top" />
+        android:src="@drawable/ic_pinned"
+        android:visibility="gone" />
 
 </com.google.android.material.card.MaterialCardView>

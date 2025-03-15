@@ -2,16 +2,11 @@ package in.hridayan.ashell.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -19,10 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.DialogUtils;
+import in.hridayan.ashell.ui.dialogs.SettingsDialogs;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
-import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.fragments.AboutFragment;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.settings.LookAndFeel;
@@ -156,13 +150,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           navigate(new LookAndFeel());
           break;
 
-        case Const.ID_UNHIDE_CARDS:
-          Preferences.setSpecificCardVisibility(Const.InfoCards.WARNING_USB_DEBUGGING, true);
-          Toast.makeText(
-                  context, context.getString(R.string.unhide_cards_message), Toast.LENGTH_SHORT)
-              .show();
-          break;
-
         case Const.ID_EXAMPLES:
           examplesViewModel.setRVPositionAndOffset(null);
           examplesViewModel.setToolbarExpanded(true);
@@ -177,23 +164,19 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
           break;
 
         case Const.ID_CONFIG_SAVE_DIR:
-          textViewSaveDir = DialogUtils.configureSaveDirDialog(context, activity);
+          textViewSaveDir = SettingsDialogs.configureSaveDirDialog(context, activity);
           break;
-
-        case Const.PREF_DEFAULT_LAUNCH_MODE:
-          DialogUtils.defaultLaunchModeDialog(context);
-          break;
-
+     
         case Const.PREF_EXAMPLES_LAYOUT_STYLE:
-          DialogUtils.examplesLayoutStyleDialog(context);
+          SettingsDialogs.examplesLayoutStyleDialog(context);
           break;
 
         case Const.PREF_SAVE_PREFERENCE:
-          DialogUtils.savePreferenceDialog(context);
+          SettingsDialogs.savePreferenceDialog(context);
           break;
 
         case Const.PREF_LOCAL_ADB_MODE:
-          DialogUtils.localAdbModeDialog(context);
+          SettingsDialogs.localAdbModeDialog(context);
           break;
       }
     }

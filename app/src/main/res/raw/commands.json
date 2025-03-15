@@ -1,0 +1,667 @@
+[
+  {
+    "command": "adb shell am force-stop <package>",
+    "example": "adb shell am force-stop com.android.package",
+    "description": "Force stops a specific package, terminating its processes."
+  },
+  {
+    "command": "adb shell am kill <package>",
+    "example": "adb shell am kill com.android.package",
+    "description": "Kills the background processes of a specific package."
+  },
+  {
+    "command": "adb shell am kill-all",
+    "example": "adb shell am kill-all",
+    "description": "Kills all background processes."
+  },
+  {
+    "command": "adb shell cat <file_path>",
+    "example": "adb shell cat /system/build.prop",
+    "description": "Displays the contents of a file."
+  },
+  {
+    "command": "adb shell cd <directory_path>",
+    "example": "adb shell cd /sdcard",
+    "description": "Changes the current directory to the specified path."
+  },
+  {
+    "command": "adb shell cd /",
+    "example": "adb shell cd /",
+    "description": "Changes the current directory to the root directory."
+  },
+  {
+    "command": "adb shell cd ~",
+    "example": "adb shell cd ~",
+    "description": "Changes the current directory to the home directory."
+  },
+  {
+    "command": "adb shell cd ..",
+    "example": "adb shell cd ..",
+    "description": "Moves up one directory level."
+  },
+  {
+    "command": "adb shell cd -",
+    "example": "adb shell cd -",
+    "description": "Changes to the previous directory."
+  },
+  {
+    "command": "adb shell clear",
+    "example": "adb shell clear",
+    "description": "Clears the terminal screen."
+  },
+  {
+    "command": "adb shell cmd uimode night no",
+    "example": "adb shell cmd uimode night no",
+    "description": "Disables night mode in the system UI."
+  },
+  {
+    "command": "adb shell cmd uimode night yes",
+    "example": "adb shell cmd uimode night yes",
+    "description": "Enables night mode in the system UI."
+  },
+  {
+    "command": "adb shell cp <from> <to>",
+    "example": "adb shell cp /system/build.prop /sdcard\nor\nadb shell cp /system/build.prop /sdcard/build_prop-backup.txt",
+    "description": "Copies a file or directory from one location to another."
+  },
+  {
+    "command": "adb shell cp -r <from> <to>",
+    "example": "adb shell cp -r /system/app /sdcard\n\nadb shell cp -r /system/app /sdcard/abc",
+    "description": "Recursively copies a directory and its contents."
+  },
+  {
+    "command": "adb shell date",
+    "example": "adb shell date",
+    "description": "Displays the current date and time."
+  },
+  {
+    "command": "adb shell df -h /system",
+    "example": "adb shell df -h /system",
+    "description": "Displays disk usage information for the /system partition in a human-readable format."
+  },
+  {
+    "command": "adb shell dmesg",
+    "example": "adb shell dmesg",
+    "description": "Displays kernel messages."
+  },
+  {
+    "command": "adb shell du -h",
+    "example": "adb shell du -h",
+    "description": "Displays disk usage of files and directories in a human-readable format."
+  },
+  {
+    "command": "adb shell du -sh /system/*",
+    "example": "adb shell du -sh/system/*",
+    "description": "Displays a summary of disk usage for files and directories in /system."
+  },
+  {
+    "command": "adb shell dumpsys activity",
+    "example": "adb shell dumpsys activity",
+    "description": "Displays information about activities and their states."
+  },
+  {
+    "command": "adb shell dumpsys battery",
+    "example": "adb shell dumpsys battery",
+    "description": "Displays battery status and information."
+  },
+  {
+    "command": "adb shell dumpsys battery set level <n>",
+    "example": "adb shell dumpsys battery set level 95",
+    "description": "Sets the battery level to a specific value (for testing purposes)."
+  },
+  {
+    "command": "adb shell dumpsys battery set status <n>",
+    "example": "adb shell dumpsys battery set status 0",
+    "description": "Sets the battery status to a specific value (for testing purposes)."
+  },
+  {
+    "command": "adb shell dumpsys battery reset",
+    "example": "adb shell dumpsys battery reset",
+    "description": "Resets the battery statistics."
+  },
+  {
+    "command": "adb shell dumpsys display",
+    "example": "adb shell dumpsys display",
+    "description": "Displays information about the display system."
+  },
+  {
+    "command": "adb shell echo <message>",
+    "example": "adb shell echo Hello World",
+    "description": "Prints a message to the terminal."
+  },
+  {
+    "command": "adb shell exit",
+    "example": "adb shell exit",
+    "description": "Exits the current shell session."
+  },
+  {
+    "command": "adb shell file <file_path>",
+    "example": "adb shell file /system/build.prop",
+    "description": "Determines the type of a file."
+  },
+  {
+    "command": "adb shell getenforce",
+    "example": "adb shell getenforce",
+    "description": "Displays the current SELinux mode (Enforcing, Permissive, or Disabled)."
+  },
+  {
+    "command": "adb shell grep",
+    "example": "adb shell grep",
+    "description": "Searches for a pattern in files or input."
+  },
+  {
+    "command": "adb shell iptables -L",
+    "example": "adb shell iptables -L",
+    "description": "Lists all iptables rules."
+  },
+  {
+    "command": "adb shell kill <pid>",
+    "example": "adb shell kill <pid>",
+    "description": "Terminates a process with the specified process ID."
+  },
+  {
+    "command": "adb shell logcat",
+    "example": "adb shell logcat",
+    "description": "Displays system logs."
+  },
+  {
+    "command": "adb shell logcat -g",
+    "example": "adb shell logcat -g",
+    "description": "Displays the size of the log buffer."
+  },
+  {
+    "command": "adb shell logcat -G <size>",
+    "example": "adb shell logcat -G 1M",
+    "description": "Sets the size of the log buffer."
+  },
+  {
+    "command": "adb shell logcat -c",
+    "example": "adb shell logcat -c",
+    "description": "Clears the log buffer."
+  },
+  {
+    "command": "adb shell ls",
+    "example": "adb shell ls /system",
+    "description": "Lists files and directories in the specified path."
+  },
+  {
+    "command": "adb shell ls -R",
+    "example": "adb shell ls -R /system",
+    "description": "Recursively lists files and directories."
+  },
+  {
+    "command": "adb shell ls -s",
+    "example": "adb shell ls -s /system",
+    "description": "Lists files and directories with their sizes."
+  },
+  {
+    "command": "adb shell mkdir <file_path>",
+    "example": "adb shell mkdir /sdcard/abc",
+    "description": "Creates a new directory."
+  },
+  {
+    "command": "adb shell mv <from> <to>",
+    "example": "adb shell mv /system/app /sdcard\n\nadb shell mv /system/app /sdcard/abc",
+    "description": "Moves or renames a file or directory."
+  },
+  {
+    "command": "adb shell netstat",
+    "example": "adb shell netstat",
+    "description": "Displays network connections and statistics."
+  },
+  {
+    "command": "adb shell ping",
+    "example": "adb shell ping",
+    "description": "Tests network connectivity to a host."
+  },
+  {
+    "command": "adb shell pm clear <package>",
+    "example": "adb shell pm clear com.android.package",
+    "description": "Clears the data and cache of a specific package."
+  },
+  {
+    "command": "adb shell pm clear --cache-only <package>",
+    "example": "adb shell pm clear --cache-only com.android.package",
+    "description": "Clears only the cache of a specific package."
+  },
+  {
+    "command": "adb shell pm clear --user <user_id> <package>",
+    "example": "adb shell pm clear --user 0 com.android.package",
+    "description": "Clears the data and cache of a specific package for a specific user."
+  },
+  {
+    "command": "adb shell pm disable <package/component>",
+    "example": "adb shell pm disable com.android.package/com.android.package.exampleActivity",
+    "description": "Disables a specific component of a package."
+  },
+  {
+    "command": "adb shell pm disable-user <package>",
+    "example": "adb shell pm disable-user com.android.package",
+    "description": "Disables a package for the current user."
+  },
+  {
+    "command": "adb shell pm disable-user --user <user_id> <package>",
+    "example": "adb shell pm disable-user --user 0 com.android.package",
+    "description": "Disables a package for a specific user."
+  },
+  {
+    "command": "adb shell pm dump <package>",
+    "example": "adb shell pm dump com.android.package",
+    "description": "Dumps information about a specific package."
+  },
+  {
+    "command": "adb shell pm dump package packages",
+    "example": "adb shell pm dump package packages",
+    "description": "Dumps information about all installed packages."
+  },
+  {
+    "command": "adb shell pm enable <package/component>",
+    "example": "adb shell pm enable com.android.package/com.android.package.exampleActivity",
+    "description": "Enables a specific component of a package."
+  },
+  {
+    "command": "adb shell pm grant <package> <Permission>",
+    "example": "adb shell pm grant com.android.package android.permission.WRITE_EXTERNAL_STORAGE",
+    "description": "Grants a specific permission to a package."
+  },
+  {
+    "command": "adb shell pm hide <package>",
+    "example": "adb shell pm hide com.android.package",
+    "description": "Hides a package from the user."
+  },
+  {
+    "command": "adb shell pm install <apk_path>",
+    "example": "adb shell pm install /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file."
+  },
+  {
+    "command": "adb shell pm install -d <apk_path>",
+    "example": "adb shell pm install -d /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with downgrade permission."
+  },
+  {
+    "command": "adb shell pm install -f <apk_path>",
+    "example": "adb shell pm install -f /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file on the internal system memory."
+  },
+  {
+    "command": "adb shell pm install -g <apk_path>",
+    "example": "adb shell pm install -g /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file and grants all runtime permissions."
+  },
+  {
+    "command": "adb shell pm install -i <installer> <apk_path>",
+    "example": "adb shell pm install -i com.google.android.packageinstaller /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with a specific installer package."
+  },
+  {
+    "command": "adb shell pm install -p <split_apk_path>",
+    "example": "adb shell pm install -p /data/local/tmp/base.apk",
+    "description": "Installs a split APK file."
+  },
+  {
+    "command": "adb shell pm install -R <apk_path>",
+    "example": "adb shell pm install -R /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with reinstall permission."
+  },
+  {
+    "command": "adb shell pm install -t <apk_path>",
+    "example": "adb shell pm install -t /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with test-only permission."
+  },
+  {
+    "command": "adb shell pm install --abi <apk_path>",
+    "example": "adb shell pm install --abi /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with a specific ABI."
+  },
+  {
+    "command": "adb shell pm install --dont-kill <apk_path>",
+    "example": "adb shell pm install --dont-kill /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file without killing the app."
+  },
+  {
+    "command": "adb shell pm install --full <apk_path>",
+    "example": "adb shell pm install --full /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with full permissions."
+  },
+  {
+    "command": "adb shell pm install --install-location <location> <apk_path>",
+    "example": "adb shell pm install --install-location 1 /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file at a specific location."
+  },
+  {
+    "command": "adb shell pm install --install-reason <reason> <apk_path>",
+    "example": "adb shell pm install --install-reason 2 /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with a specific install reason."
+  },
+  {
+    "command": "adb shell pm install --instant <apk_path>",
+    "example": "adb shell pm install --instant /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file as an instant app."
+  },
+  {
+    "command": "adb shell pm install --restrict-permissions <apk_path>",
+    "example": "adb shell pm install --restrict-permissions /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file with restricted permissions."
+  },
+  {
+    "command": "adb shell pm install --pkg <package> <apk_path>",
+    "example": "adb shell pm install --pkg in.hridayan.ashell /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file for a specific package."
+  },
+  {
+    "command": "adb shell pm install --user <user_id> <apk_path>",
+    "example": "adb shell pm install --user0 /data/local/tmp/aShellYou.apk",
+    "description": "Installs an APK file for a specific user."
+  },
+  {
+    "command": "adb shell pm install-abandon <session_id>",
+    "example": "adb shell pm install-abandon 01234567",
+    "description": "Abandons an active install session."
+  },
+  {
+    "command": "adb shell pm install-commit <session_id>",
+    "example": "adb shell pm install-commit 01234567",
+    "description": "Commits an active install session."
+  },
+  {
+    "command": "adb shell pm install-create",
+    "example": "adb shell pm install-create",
+    "description": "Creates a new install session."
+  },
+  {
+    "command": "adb shell pm install-existing",
+    "example": "adb shell pm install-existing com.android.package",
+    "description": "Installs an existing package."
+  },
+  {
+    "command": "adb shell pm install-existing --full <package>",
+    "example": "adb shell pm install-existing --full com.android.package",
+    "description": "Installs an existing package with full permissions."
+  },
+  {
+    "command": "adb shell pm install-existing --instant <package>",
+    "example": "adb shell pm install-existing --instant com.android.package",
+    "description": "Installs an existing package as an instant app."
+  },
+  {
+    "command": "adb shell pm install-existing --restrict-permissions <package>",
+    "example": "adb shell pm install-existing --restrict-permissions com.android.package",
+    "description": "Installs an existing package with restricted permissions."
+  },
+  {
+    "command": "adb shell pm install-existing --user <user_id> <package>",
+    "example": "adb shell pm install-existing --user 0 com.android.package",
+    "description": "Installs an existing package for a specific user."
+  },
+  {
+    "command": "adb shell pm install-existing --wait <package>",
+    "example": "adb shell pm install-existing --wait com.android.package",
+    "description": "Installs an existing package and waits for it to complete."
+  },
+  {
+    "command": "adb shell pm install-remove <session_id> <split_name>",
+    "example": "adb shell pm install-remove 01234567 /data/local/tmp/base.apk",
+    "description": "Removes a split APK from an install session."
+  },
+  {
+    "command": "adb shell pm install-write <size> <session_id> <split_name> <split_path>",
+    "example": "adb shell pm install-write 123 01234567 base.apk /data/local/tmp/base.apk",
+    "description": "Writes a split APK to an install session."
+  },
+  {
+    "command": "adb shell pm list features",
+    "example": "adb shell pm list features",
+    "description": "Lists all features supported by the device."
+  },
+  {
+    "command": "adb shell pm list libraries",
+    "example": "adb shell pm list libraries",
+    "description": "Lists all shared libraries on the device."
+  },
+  {
+    "command": "adb shell pm list packages",
+    "example": "adb shell pm list packages",
+    "description": "Lists all installed packages."
+  },
+  {
+    "command": "adb shell pm list packages -3",
+    "example": "adb shell pm list packages -3",
+    "description": "Lists all third-party installed packages."
+  },
+  {
+    "command": "adb shell pm list packages -a",
+    "example": "adb shell pm list packages -a",
+    "description": "Lists all packages, including system and third-party."
+  },
+  {
+    "command": "adb shell pm list packages -d",
+    "example": "adb shell pm list packages -d",
+    "description": "Lists all disabled packages."
+  },
+  {
+    "command": "adb shell pm list packages -e",
+    "example": "adb shell pm list packages -e",
+    "description": "Lists all enabled packages."
+  },
+  {
+    "command": "adb shell pm list packages -f",
+    "example": "adb shell pm list packages -f",
+    "description": "Lists all packages with their APK file paths."
+  },
+  {
+    "command": "adb shell pm list packages -i",
+    "example": "adb shell pm list packages -i",
+    "description": "Lists all packages with their installer information."
+  },
+  {
+    "command": "adb shell pm list packages -s",
+    "example": "adb shell pm list packages -s",
+    "description": "Lists all system packages."
+  },
+  {
+    "command": "adb shell pm list packages --show-versioncode",
+    "example": "adb shell pm list packages --show-versioncode",
+    "description": "Lists all packages with their version codes."
+  },
+  {
+    "command": "adb shell pm list packages -u",
+    "example": "adb shell pm list packages -u",
+    "description": "Lists all packages including uninstalled ones."
+  },
+  {
+    "command": "adb shell pm list packages -U",
+    "example": "adb shell pm list packages -U",
+    "description": "Lists all packages with their UIDs."
+  },
+  {
+    "command": "adb shell pm list permissions",
+    "example": "adb shell pm list permissions",
+    "description": "Lists all permissions defined on the device."
+  },
+  {
+    "command": "adb shell pm list permissions -d",
+    "example": "adb shell pm list permissions -d",
+    "description": "Lists all dangerous permissions."
+  },
+  {
+    "command": "adb shell pm list permissions -f",
+    "example": "adb shell pm list permissions -f",
+    "description": "Lists all permissions with their descriptions."
+  },
+  {
+    "command": "adb shell pm list permissions -g",
+    "example": "adb shell pm list permissions -g",
+    "description": "Lists all permissions grouped by their protection level."
+  },
+  {
+    "command": "adb shell pm list permissions -s",
+    "example": "adb shell pm list permissions -s",
+    "description": "Lists all permissions with their short descriptions."
+  },
+  {
+    "command": "adb shell pm list permissions -u",
+    "example": "adb shell pm list permissions -u",
+    "description": "Lists all permissions with their usage information."
+  },
+  {
+    "command": "adb shell pm list users",
+    "example": "adb shell pm list users",
+    "description": "Lists all users on the device."
+  },
+  {
+    "command": "adb shell pm path <package>",
+    "example": "adb shell pm path com.android.package",
+    "description": "Displays the installation path of a specific package."
+  },
+  {
+    "command": "adb shell pm revoke <package> <Permission>",
+    "example": "adb shell pm revoke com.android.package android.permission.WRITE_EXTERNAL_STORAGE",
+    "description": "Revokes a specific permission from a package."
+  },
+  {
+    "command": "adb shell pm reset-permissions -p <package>",
+    "example": "adb shell pm reset-permissions -p com.android.package",
+    "description": "Resets the permissions of a specific package."
+  },
+  {
+    "command": "adb shell pm suspend <package>",
+    "example": "adb shell pm suspend com.android.package",
+    "description": "Suspends a specific package."
+  },
+  {
+    "command": "adb shell pm unhide <package>",
+    "example": "adb shell pm unhide com.android.package",
+    "description": "Unhides a specific package."
+  },
+  {
+    "command": "adb shell pm uninstall <package>",
+    "example": "adb shell pm uninstall com.android.package",
+    "description": "Uninstalls a specific package."
+  },
+  {
+    "command": "adb shell pm uninstall -k <package>",
+    "example": "adb shell pm uninstall -k com.android.package",
+    "description": "Uninstalls a specific package but keeps its data and cache."
+  },
+  {
+    "command": "adb shell pm uninstall --user <user_id> <package>",
+    "example": "adb shell pm uninstall --user 0 com.android.package",
+    "description": "Uninstalls a specific package for a specific user."
+  },
+  {
+    "command": "adb shell pm uninstall --versionCode <version_code> <package>",
+    "example": "adb shell pm uninstall --versionCode 123 com.android.package",
+    "description": "Uninstalls a specific package version."
+  },
+  {
+    "command": "adb shell pm uninstall-system-updates <package>",
+    "example": "adb shell pm uninstall-system-updates com.android.package",
+    "description": "Uninstalls system updates for a specific package."
+  },
+  {
+    "command": "adb shell pm unsuspend <package>",
+    "example": "adb shell pm unsuspend com.android.package",
+    "description": "Unsuspends a specific package."
+  },
+  {
+    "command": "adb shell ps",
+    "example": "adb shell ps",
+    "description": "Displays information about running processes."
+  },
+  {
+    "command": "adb shell pwd",
+    "example": "adb shell pwd",
+    "description": "Displays the current working directory."
+  },
+  {
+    "command": "adb shell reboot",
+    "example": "adb shell reboot",
+    "description": "Reboots the device."
+  },
+  {
+    "command": "adb shell reboot -p",
+    "example": "adb shell reboot -p",
+    "description": "Powers off the device."
+  },
+  {
+    "command": "adb shell reboot recovery",
+    "example": "adb shell reboot recovery",
+    "description": "Reboots the device into recovery mode."
+  },
+  {
+    "command": "adb shell reboot fastboot",
+    "example": "adb shell reboot fastboot",
+    "description": "Reboots the device into fastboot mode."
+  },
+  {
+    "command": "adb shell reboot bootloader",
+    "example": "adb shell reboot bootloader",
+    "description": "Reboots the device into bootloader mode."
+  },
+  {
+    "command": "adb shell rm <file_path>",
+    "example": "adb shell rm /sdcard/example.txt",
+    "description": "Deletes a file."
+  },
+  {
+    "command": "adb shell rm -r <file_path>",
+    "example": "adb shell rm -r /sdcard/abc",
+    "description": "Recursively deletes a directory and its contents."
+  },
+  {
+    "command": "adb shell service list",
+    "example": "adb shell service list",
+    "description": "Lists all services running on the device."
+  },
+  {
+    "command": "adb shell sleep <second>",
+    "example": "adb shell sleep 5",
+    "description": "Pauses the execution for a specified number of seconds."
+  },
+  {
+    "command": "adb shell sync",
+    "example": "adb shell sync",
+    "description": "Flushes file system buffers, ensuring data is written to storage."
+  },
+  {
+    "command": "adb shell top",
+    "example": "adb shell top",
+    "description": "Displays real-time information about system processes."
+  },
+  {
+    "command": "adb shell top -n <number>",
+    "example": "adb shell top -n1",
+    "description": "Displays real-time information about system processes for a specific number of iterations."
+  },
+  {
+    "command": "adb shell uptime",
+    "example": "adb shell uptime",
+    "description": "Displays the system uptime."
+  },
+  {
+    "command": "adb shell whoami",
+    "example": "adb shell whoami",
+    "description": "Displays the current user."
+  },
+  {
+    "command": "adb shell wm density",
+    "example": "adb shell wm density",
+    "description": "Displays or sets the display density."
+  },
+  {
+    "command": "adb shell wm density reset",
+    "example": "adb shell wm density reset",
+    "description": "Resets the display density to the default value."
+  },
+  {
+    "command": "adb shell wm size",
+    "example": "adb shell wm size",
+    "description": "Displays or sets the display size."
+  },
+  {
+    "command": "adb shell wm size reset",
+    "example": "adb shell wm size reset",
+    "description": "Resets the display size to the default value."
+  }
+]

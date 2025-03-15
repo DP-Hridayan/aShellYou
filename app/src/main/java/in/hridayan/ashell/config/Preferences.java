@@ -14,14 +14,15 @@ public class Preferences {
           .createDeviceProtectedStorageContext()
           .getSharedPreferences(Const.SHARED_PREFS, MODE_PRIVATE);
   static SharedPreferences.Editor editor = prefs.edit();
-    
-    public static void init(){
-        if(prefs == null){
-            prefs = AshellYou.getAppContext()
-          .createDeviceProtectedStorageContext()
-          .getSharedPreferences(Const.SHARED_PREFS, MODE_PRIVATE);
-        }
+
+  public static void init() {
+    if (prefs == null) {
+      prefs =
+          AshellYou.getAppContext()
+              .createDeviceProtectedStorageContext()
+              .getSharedPreferences(Const.SHARED_PREFS, MODE_PRIVATE);
     }
+  }
 
   public static String getLatestVersionName() {
     return prefs.getString(Const.PREF_LATEST_VERSION_NAME, BuildConfig.VERSION_NAME);
@@ -45,6 +46,46 @@ public class Preferences {
 
   public static void setLastSavedFileName(String value) {
     editor.putString(Const.PREF_LAST_SAVED_FILENAME, value).apply();
+  }
+
+  public static String getUpdateApkFileName() {
+    return prefs.getString(Const.PREF_UPDATE_APK_FILE_NAME, null);
+  }
+
+  public static void setUpdateApkFileName(String value) {
+    editor.putString(Const.PREF_UPDATE_APK_FILE_NAME, value).apply();
+  }
+
+  public static String getAdbPairingPort() {
+    return prefs.getString(Const.ADB_PAIRING_PORT, null);
+  }
+
+  public static void setAdbPairingPort(String value) {
+    editor.putString(Const.ADB_PAIRING_PORT, value).apply();
+  }
+
+  public static String getAdbConnectingPort() {
+    return prefs.getString(Const.ADB_CONNECTING_PORT, null);
+  }
+
+  public static void setAdbConnectingPort(String value) {
+    editor.putString(Const.ADB_CONNECTING_PORT, value).apply();
+  }
+
+  public static String getAdbIp() {
+    return prefs.getString(Const.ADB_IP, null);
+  }
+
+  public static void setAdbIp(String value) {
+    editor.putString(Const.ADB_IP, value).apply();
+  }
+
+  public static String getAdbPairingCode() {
+    return prefs.getString(Const.ADB_PAIRING_CODE, null);
+  }
+
+  public static void setAdbPairingCode(String value) {
+    editor.putString(Const.ADB_PAIRING_CODE, value).apply();
   }
 
   /*Boolean to check if app has been launched first time after installation , so we return true by default*/
@@ -128,6 +169,14 @@ public class Preferences {
     editor.putBoolean(Const.PREF_AUTO_UPDATE_CHECK, value).apply();
   }
 
+  public static boolean getUnknownSourcePermAskStatus() {
+    return prefs.getBoolean(Const.PREF_UNKNOWN_SOURCE_PERM_ASKED, false);
+  }
+
+  public static void setUnknownSourcePermAskStatus(boolean value) {
+    editor.putBoolean(Const.PREF_UNKNOWN_SOURCE_PERM_ASKED, value).apply();
+  }
+
   /* we need to check if the main activity is recreated (not restart) to perform certain tasks based on it */
   public static boolean getActivityRecreated() {
     return prefs.getBoolean(Const.PREF_ACTIVITY_RECREATED, false);
@@ -196,14 +245,6 @@ public class Preferences {
     editor.putInt(Const.PREF_SORTING_EXAMPLES, value).apply();
   }
 
-  public static void setLaunchMode(int value) {
-    editor.putInt(Const.PREF_DEFAULT_LAUNCH_MODE, value).apply();
-  }
-
-  public static int getLaunchMode() {
-    return prefs.getInt(Const.PREF_DEFAULT_LAUNCH_MODE, Const.MODE_LOCAL_ADB);
-  }
-
   public static int getCurrentFragment() {
     return prefs.getInt(Const.PREF_CURRENT_FRAGMENT, Const.LOCAL_FRAGMENT);
   }
@@ -228,23 +269,11 @@ public class Preferences {
     editor.putBoolean(getPinnedKey(title), value).apply();
   }
 
-  public static boolean getSpecificCardVisibility(Const.InfoCards key) {
-    return prefs.getBoolean(getCardKey(key.toString()), true);
-  }
-
-  public static void setSpecificCardVisibility(Const.InfoCards key, boolean value) {
-    editor.putBoolean(getCardKey(key.toString()), value).apply();
-  }
-
   private static String getCounterKey(String title) {
     return Const.PREF_COUNTER_PREFIX + title;
   }
 
   private static String getPinnedKey(String title) {
     return Const.PREF_PINNED_PREFIX + title;
-  }
-
-  private static String getCardKey(String key) {
-    return Const.PREF_SPECIFIC_CARD_VISIBILITY + key;
   }
 }

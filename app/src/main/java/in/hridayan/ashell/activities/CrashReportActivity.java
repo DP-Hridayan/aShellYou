@@ -11,9 +11,9 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollViewListener;
-import in.hridayan.ashell.UI.CoordinatedNestedScrollView;
-import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.ui.BehaviorFAB.FabExtendingOnScrollViewListener;
+import in.hridayan.ashell.ui.CoordinatedNestedScrollView;
+import in.hridayan.ashell.ui.ThemeUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;

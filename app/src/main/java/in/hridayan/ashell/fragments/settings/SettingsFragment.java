@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.SettingsAdapter;
@@ -43,7 +42,6 @@ public class SettingsFragment extends Fragment {
   private ExamplesViewModel examplesViewModel;
   private SettingsItemViewModel itemViewModel;
   private Context context;
-  private BottomNavigationView mNav;
   private Pair<Integer, Integer> mRVPositionAndOffset;
   private FragmentSettingsBinding binding;
   private View view;
@@ -114,10 +112,6 @@ public class SettingsFragment extends Fragment {
 
     context = requireContext();
 
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-
-    mNav.setVisibility(View.GONE);
-
     viewModel = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
     aboutViewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
@@ -154,14 +148,14 @@ public class SettingsFragment extends Fragment {
             true,
             Preferences.getClear()));
 
-    settingsData.add(
-        new SettingsItem(
-            Const.PREF_SHARE_AND_RUN,
-            R.drawable.ic_share,
-            getString(R.string.share_and_run),
-            getString(R.string.des_share_and_run),
-            true,
-            Preferences.getShareAndRun()));
+    /*  settingsData.add(
+    new SettingsItem(
+        Const.PREF_SHARE_AND_RUN,
+        R.drawable.ic_share,
+        getString(R.string.share_and_run),
+        getString(R.string.des_share_and_run),
+        true,
+        Preferences.getShareAndRun()));*/
 
     settingsData.add(
         new SettingsItem(
@@ -187,15 +181,6 @@ public class SettingsFragment extends Fragment {
             R.drawable.ic_terminal,
             getString(R.string.local_adb_mode),
             getString(R.string.des_local_adb_mode),
-            false,
-            false));
-
-    settingsData.add(
-        new SettingsItem(
-            Const.PREF_DEFAULT_LAUNCH_MODE,
-            R.drawable.ic_mode,
-            getString(R.string.default_launch_mode),
-            getString(R.string.des_default_launch_mode),
             false,
             false));
 
@@ -246,15 +231,6 @@ public class SettingsFragment extends Fragment {
 
     settingsData.add(
         new SettingsItem(
-            Const.ID_UNHIDE_CARDS,
-            R.drawable.ic_cards,
-            getString(R.string.unhide_cards),
-            getString(R.string.des_unhide_cards),
-            false,
-            false));
-
-    settingsData.add(
-        new SettingsItem(
             Const.ID_EXAMPLES,
             R.drawable.ic_numbers,
             getString(R.string.commands),
@@ -286,7 +262,7 @@ public class SettingsFragment extends Fragment {
     binding.rvSettings.getViewTreeObserver().addOnDrawListener(this::startPostponedEnterTransition);
 
     // intentional crash with a long message
-    //  throwLongException();
+    // throwLongException();
 
     return view;
   }

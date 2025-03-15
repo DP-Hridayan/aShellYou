@@ -19,12 +19,14 @@ import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -33,22 +35,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.android.material.transition.Hold;
+import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.BehaviorFAB;
-import in.hridayan.ashell.UI.BehaviorFAB.FabExtendingOnScrollListener;
-import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollDownListener;
-import in.hridayan.ashell.UI.BehaviorFAB.FabLocalScrollUpListener;
-import in.hridayan.ashell.UI.BottomNavUtils;
-import in.hridayan.ashell.UI.DialogUtils;
-import in.hridayan.ashell.UI.KeyboardUtils;
-import in.hridayan.ashell.UI.ThemeUtils;
-import in.hridayan.ashell.UI.ToastUtils;
-import in.hridayan.ashell.UI.Transitions;
+import in.hridayan.ashell.ui.BehaviorFAB;
+import in.hridayan.ashell.ui.BehaviorFAB.FabExtendingOnScrollListener;
+import in.hridayan.ashell.ui.BehaviorFAB.FabLocalScrollDownListener;
+import in.hridayan.ashell.ui.BehaviorFAB.FabLocalScrollUpListener;
+import in.hridayan.ashell.ui.KeyboardUtils;
+import in.hridayan.ashell.ui.ThemeUtils;
+import in.hridayan.ashell.ui.ToastUtils;
+import in.hridayan.ashell.ui.Transitions;
+import in.hridayan.ashell.ui.dialogs.ActionDialogs;
+import in.hridayan.ashell.ui.dialogs.ErrorDialogs;
+import in.hridayan.ashell.ui.dialogs.FeedbackDialogs;
+import in.hridayan.ashell.ui.dialogs.PermissionDialogs;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.adapters.CommandsAdapter;
 import in.hridayan.ashell.adapters.ShellOutputAdapter;
@@ -57,9 +61,9 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentAshellBinding;
 import in.hridayan.ashell.fragments.ExamplesFragment;
 import in.hridayan.ashell.fragments.settings.SettingsFragment;
-import in.hridayan.ashell.shell.BasicShell;
-import in.hridayan.ashell.shell.RootShell;
-import in.hridayan.ashell.shell.ShizukuShell;
+import in.hridayan.ashell.shell.localadb.BasicShell;
+import in.hridayan.ashell.shell.localadb.RootShell;
+import in.hridayan.ashell.shell.localadb.ShizukuShell;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -88,8 +92,6 @@ import rikka.shizuku.Shizuku;
  */
 
 public class AshellFragment extends Fragment {
-
-  private BottomNavigationView mNav;
   private CommandsAdapter mCommandAdapter;
   private ShellOutputAdapter mShellOutputAdapter;
   private ShizukuShell mShizukuShell;
@@ -149,8 +151,6 @@ public class AshellFragment extends Fragment {
 
     // If keyboard is visible then we close it before leaving fragment
     if (isKeyboardVisible) KeyboardUtils.closeKeyboard(requireActivity(), view);
-
-    BottomNavUtils.hideNavSmoothly(mNav);
   }
 
   @Override
@@ -159,9 +159,6 @@ public class AshellFragment extends Fragment {
 
     // we set exit transition to null
     setExitTransition(null);
-
-    // if bottom navigation is not visible , then make it visible
-    BottomNavUtils.showNavSmoothly(mNav);
 
     KeyboardUtils.disableKeyboard(context, requireActivity(), view);
 
@@ -266,15 +263,13 @@ public class AshellFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-    setExitTransition(null);
+    setSharedElementEnterTransition(new MaterialContainerTransform());
 
     binding = FragmentAshellBinding.inflate(inflater, container, false);
 
     context = requireContext();
 
     view = binding.getRoot();
-
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
 
     initializeViewModels();
 
@@ -303,9 +298,6 @@ public class AshellFragment extends Fragment {
           else buttonsVisibilityVisible();
         });
 
-    // Set the bottom navigation
-    if (!isKeyboardVisible) mNav.setVisibility(View.VISIBLE);
-
     // When there is any text in edit text , focus the edit text
     if (!binding.commandEditText.getText().toString().isEmpty())
       binding.commandEditText.requestFocus();
@@ -328,7 +320,10 @@ public class AshellFragment extends Fragment {
             binding.commandEditText.requestFocus();
 
             // If shizuku is busy return
-            if (mShizukuShell != null && ShizukuShell.isBusy()) return;
+
+            if ((mShizukuShell != null && ShizukuShell.isBusy())
+                || (mRootShell != null && RootShell.isBusy())
+                || (mBasicShell != null && BasicShell.isBusy())) return;
             else if (s.toString().trim().isEmpty()) {
 
               binding.commandInputLayout.setEndIconVisible(false);
@@ -387,13 +382,15 @@ public class AshellFragment extends Fragment {
 
     searchWordChangeListener();
 
+    searchBarEndIconOnClickListener();
+
     saveButtonOnClickListener();
 
     shareButtonOnClickListener();
 
     shareButtonVisibilityHandler();
 
-    appNameLayoutOnClickListener();
+    interceptOnBackPress();
 
     commandEditTextOnEditorActionListener();
 
@@ -481,10 +478,24 @@ public class AshellFragment extends Fragment {
             200);
   }
 
-  // Call to show the bottom navigation view
-  private void showBottomNav() {
-    if (getActivity() != null && getActivity() instanceof MainActivity)
-      ((MainActivity) getActivity()).mNav.animate().translationY(0);
+  private void searchBarEndIconOnClickListener() {
+    binding.search.setOnTouchListener(
+        (v, event) -> {
+          if (event.getAction() == MotionEvent.ACTION_UP) {
+            Drawable drawableEnd = binding.search.getCompoundDrawablesRelative()[2];
+            if (drawableEnd != null) {
+              int drawableStartX =
+                  binding.search.getWidth()
+                      - binding.search.getPaddingEnd()
+                      - drawableEnd.getIntrinsicWidth();
+              if (event.getX() >= drawableStartX) {
+                hideSearchBar();
+                return true;
+              }
+            }
+          }
+          return false;
+        });
   }
 
   // Call to set the visibility of elements with a delay
@@ -748,7 +759,7 @@ public class AshellFragment extends Fragment {
           if (Utils.getBookmarks(context).isEmpty())
             ToastUtils.showToast(context, R.string.no_bookmarks, ToastUtils.LENGTH_SHORT);
           else
-            DialogUtils.bookmarksDialog(
+            ActionDialogs.bookmarksDialog(
                 context, binding.commandEditText, binding.commandInputLayout);
         });
   }
@@ -841,7 +852,6 @@ public class AshellFragment extends Fragment {
     binding.rvOutput.setAdapter(null);
     binding.saveButton.setVisibility(View.GONE);
     binding.shareButton.setVisibility(View.GONE);
-    showBottomNav();
     binding.commandEditText.clearFocus();
     if (!binding.commandEditText.isFocused()) binding.commandEditText.requestFocus();
   }
@@ -942,7 +952,7 @@ public class AshellFragment extends Fragment {
           if (saved) Preferences.setLastSavedFileName(fileName + ".txt");
 
           // Dialog showing if the output has been saved or not
-          DialogUtils.outputSavedDialog(context, saved);
+          FeedbackDialogs.outputSavedDialog(context, saved);
         });
   }
 
@@ -995,15 +1005,6 @@ public class AshellFragment extends Fragment {
               if (Math.abs(dy) >= 90) binding.shareButton.hide();
             }
           }
-        });
-  }
-
-  // To dismiss the search I have not found other way than add an onclick listener on the app name
-  // layout itself
-  private void appNameLayoutOnClickListener() {
-    binding.appNameLayout.setOnClickListener(
-        v -> {
-          if (binding.search.getVisibility() == View.VISIBLE) hideSearchBar();
         });
   }
 
@@ -1101,7 +1102,8 @@ public class AshellFragment extends Fragment {
             /*This block will run if shizuku mode is selected*/
             else if (isShizukuMode()) {
               if (!Shizuku.pingBinder()) handleShizukuUnavailability();
-              else if (!ShizukuShell.hasPermission()) DialogUtils.shizukuPermRequestDialog(context);
+              else if (!ShizukuShell.hasPermission())
+                PermissionDialogs.shizukuPermissionDialog(context);
               else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
               else execShell(v);
             }
@@ -1119,7 +1121,7 @@ public class AshellFragment extends Fragment {
                       requireActivity()
                           .runOnUiThread(
                               () -> {
-                                if (!hasPermission) DialogUtils.rootPermRequestDialog(context);
+                                if (!hasPermission) PermissionDialogs.rootPermissionDialog(context);
                                 else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
                                 else execShell(v);
                               });
@@ -1153,7 +1155,8 @@ public class AshellFragment extends Fragment {
           /*This block will run if shizuku mode is selected*/
           else if (isShizukuMode()) {
             if (!Shizuku.pingBinder()) handleShizukuUnavailability();
-            else if (!ShizukuShell.hasPermission()) DialogUtils.shizukuPermRequestDialog(context);
+            else if (!ShizukuShell.hasPermission())
+              PermissionDialogs.shizukuPermissionDialog(context);
             else if (mShizukuShell != null && ShizukuShell.isBusy()) abortShizukuShell();
             else execShell(v);
           }
@@ -1171,7 +1174,7 @@ public class AshellFragment extends Fragment {
                     requireActivity()
                         .runOnUiThread(
                             () -> {
-                              if (!hasPermission) DialogUtils.rootPermRequestDialog(context);
+                              if (!hasPermission) PermissionDialogs.rootPermissionDialog(context);
                               else if (mRootShell != null && RootShell.isBusy()) abortRootShell();
                               else execShell(v);
                             });
@@ -1266,7 +1269,7 @@ public class AshellFragment extends Fragment {
 
     // Command to exit the app
     if (finalCommand.equals("exit")) {
-      DialogUtils.confirmExitDialog(context, requireActivity());
+      FeedbackDialogs.confirmExitDialog(context, requireActivity());
       return;
     }
 
@@ -1485,7 +1488,7 @@ public class AshellFragment extends Fragment {
       binding.commandInputLayout.setErrorIconOnClickListener(
           t -> binding.commandEditText.setText(null));
     }
-    DialogUtils.shizukuUnavailableDialog(context);
+    ErrorDialogs.shizukuUnavailableDialog(context);
   }
 
   // error handling when root is unavailable
@@ -1498,7 +1501,7 @@ public class AshellFragment extends Fragment {
           t -> binding.commandEditText.setText(null));
     }
 
-    DialogUtils.rootUnavailableDialog(context);
+    ErrorDialogs.rootUnavailableDialog(context);
   }
 
   // Show warning when running su commands with shizuku
@@ -1535,7 +1538,6 @@ public class AshellFragment extends Fragment {
 
   //  Open the settings fragment
   private void goToSettings() {
-
     if (settingsViewModel != null) {
       settingsViewModel.setRVPositionAndOffset(null);
       settingsViewModel.setToolbarExpanded(true);
@@ -1588,5 +1590,24 @@ public class AshellFragment extends Fragment {
       binding.pasteButton.setVisibility(View.GONE);
       binding.saveButton.setVisibility(View.VISIBLE);
     }
+  }
+
+  private void interceptOnBackPress() {
+    requireActivity()
+        .getOnBackPressedDispatcher()
+        .addCallback(
+            getViewLifecycleOwner(),
+            new OnBackPressedCallback(true) {
+              @Override
+              public void handleOnBackPressed() {
+                if (isShellBusy()) {
+                  ToastUtils.showToast(
+                      context, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
+                } else {
+                  setEnabled(false); // Remove this callback
+                  requireActivity().getOnBackPressedDispatcher().onBackPressed(); // Go back
+                }
+              }
+            });
   }
 }

@@ -5,7 +5,9 @@ import static in.hridayan.ashell.config.Const.SORT_NEWEST;
 import static in.hridayan.ashell.config.Const.SORT_OLDEST;
 import static in.hridayan.ashell.config.Const.SORT_Z_TO_A;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipDescription;
@@ -16,10 +18,16 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -33,7 +41,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.ToastUtils;
+import in.hridayan.ashell.ui.ToastUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import java.io.BufferedReader;
@@ -492,6 +500,50 @@ public class Utils {
       AnimatedVectorDrawable animatedVector = (AnimatedVectorDrawable) icon;
       animatedVector.stop();
       animatedVector.start();
+    }
+  }
+
+  // checks if device is connected to wifi
+  public static boolean isConnectedToWifi(Context context) {
+    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    if (wifiManager == null) return false;
+
+    WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+
+    // Check if connected to a WiFi network (even if no internet)
+    if (wifiInfo != null && wifiInfo.getNetworkId() != -1) {
+      return true;
+    }
+
+    // Extra check for Android 10+ to detect WiFi when mobile data is on
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+      ConnectivityManager connectivityManager =
+          (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+      if (connectivityManager == null) return false;
+
+      Network activeNetwork = connectivityManager.getActiveNetwork();
+      if (activeNetwork == null) return false;
+
+      NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(activeNetwork);
+      if (capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public static void askUserToEnableWifi(Context context) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+      // Android 10+ (API 29+): Show system WiFi enable popup
+      Intent panelIntent = new Intent(Settings.Panel.ACTION_WIFI);
+      context.startActivity(panelIntent);
+    } else {
+      // Android 9 and below: Enable WiFi directly (Needs CHANGE_WIFI_STATE permission)
+      WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+      if (wifiManager != null && !wifiManager.isWifiEnabled()) {
+        wifiManager.setWifiEnabled(true);
+      }
     }
   }
 }

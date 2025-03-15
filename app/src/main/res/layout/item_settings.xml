@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,34 +13,34 @@
         android:id="@+id/symbol_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:tint="?attr/colorPrimary"
         android:layout_marginStart="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorPrimary" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/setting_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp"
         android:layout_marginHorizontal="15dp"
-        style="@style/ItemTitle"
+        android:paddingTop="15dp"
         app:layout_constraintEnd_toStartOf="@id/setting_switch"
         app:layout_constraintStart_toEndOf="@id/symbol_image_view"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/ItemTitle" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/setting_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
         android:layout_marginEnd="15dp"
+        android:layout_marginTop="7dp"
         android:paddingBottom="20dp"
-        style="@style/ItemDescription"
         app:layout_constraintEnd_toStartOf="@id/setting_switch"
         app:layout_constraintStart_toStartOf="@id/setting_title"
-        app:layout_constraintTop_toBottomOf="@id/setting_title" />
+        app:layout_constraintTop_toBottomOf="@id/setting_title"
+        style="@style/ItemDescription" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/setting_switch"

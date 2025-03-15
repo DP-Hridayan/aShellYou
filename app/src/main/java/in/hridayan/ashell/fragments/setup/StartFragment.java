@@ -10,17 +10,13 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.OnboardingAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
-import in.hridayan.ashell.fragments.home.AshellFragment;
-import in.hridayan.ashell.fragments.setup.OnboardingItem1Fragment;
-import in.hridayan.ashell.fragments.setup.OnboardingItem2Fragment;
-import in.hridayan.ashell.fragments.setup.OnboardingItem3Fragment;
+import in.hridayan.ashell.fragments.home.HomeFragment;
 import in.hridayan.ashell.utils.HapticUtils;
 
 public class StartFragment extends Fragment {
@@ -29,7 +25,6 @@ public class StartFragment extends Fragment {
   private ViewPager2 viewPager;
   private MaterialButton btnNext, btnPrev;
   private OnBackPressedCallback onBackPressedCallback;
-  private BottomNavigationView mNav;
 
   public StartFragment() {}
 
@@ -42,12 +37,9 @@ public class StartFragment extends Fragment {
   }
 
   private void initViews(View view) {
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
     viewPager = view.findViewById(R.id.viewPager);
     btnNext = view.findViewById(R.id.btn_next);
     btnPrev = view.findViewById(R.id.btn_prev);
-
-    mNav.setVisibility(View.GONE);
 
     adapter = new OnboardingAdapter(getChildFragmentManager(), requireActivity().getLifecycle());
 
@@ -73,10 +65,7 @@ public class StartFragment extends Fragment {
           HapticUtils.weakVibrate(v);
 
           if (viewPager.getCurrentItem() == adapter.getItemCount() - 1) {
-            // this is the last page
-            if (isBasicMode()) confirmationDialog();
-            else enterHomeFragment();
-
+            enterHomeFragment();
           } else { // this is not the last page, so just go to next page
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
           }
@@ -87,7 +76,6 @@ public class StartFragment extends Fragment {
           HapticUtils.weakVibrate(v);
           viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
         });
-
     registerOnBackInvokedCallback();
   }
 
@@ -95,7 +83,7 @@ public class StartFragment extends Fragment {
     return Preferences.getLocalAdbMode() == Const.BASIC_MODE;
   }
 
-  private void confirmationDialog() {
+  /* private void confirmationDialog() {
     new MaterialAlertDialogBuilder(requireActivity())
         .setTitle(getString(R.string.warning))
         .setMessage(getString(R.string.confirm_basic_mode))
@@ -103,6 +91,7 @@ public class StartFragment extends Fragment {
         .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> enterHomeFragment())
         .show();
   }
+    */
 
   private void enterHomeFragment() {
     Preferences.setFirstLaunch(false);
@@ -113,7 +102,7 @@ public class StartFragment extends Fragment {
             R.anim.fragment_exit,
             R.anim.fragment_pop_enter,
             R.anim.fragment_pop_exit)
-        .replace(R.id.fragment_container, new AshellFragment())
+        .replace(R.id.fragment_container, new HomeFragment())
         .commit();
   }
 

@@ -6,39 +6,39 @@ import in.hridayan.ashell.config.Preferences;
 
 public class CommandItems implements Serializable {
 
-  private final String mTitle, mSummary, mExample;
-  private int mUseCounter;
+  private final String command, description, example;
+  private int useCounter;
   private Context context;
   private boolean isChecked, isPinned;
 
-  public CommandItems(String title, String example, Context context) {
-    this.mTitle = title;
-    this.mSummary = summary(title, context);
-    this.mExample = example;
+  public CommandItems(String command, String example, String description, Context context) {
+    this.command = command;
+    this.description = description;
+    this.example = example;
     this.context = context;
-    this.mUseCounter = Preferences.getUseCounter( mTitle);
-    this.isPinned = Preferences.getPinned( mTitle);
+    this.useCounter = Preferences.getUseCounter(command);
+    this.isPinned = Preferences.getPinned(command);
   }
 
   public String getTitle() {
-    return mTitle;
+    return command;
   }
 
   public String getSummary() {
-    return mSummary;
+    return description;
   }
 
   public String getExample() {
-    return mExample;
+    return example;
   }
 
   public int getUseCounter() {
-    return mUseCounter;
+    return useCounter;
   }
 
   public void setUseCounter(int counter) {
-    this.mUseCounter = counter;
-    Preferences.setUseCounter( mTitle, counter);
+    this.useCounter = counter;
+    Preferences.setUseCounter( command, counter);
   }
 
   public boolean isPinned() {
@@ -47,7 +47,7 @@ public class CommandItems implements Serializable {
 
   public void setPinned(boolean pinned) {
     this.isPinned = pinned;
-    Preferences.setPinned( mTitle, pinned);
+    Preferences.setPinned( command, pinned);
   }
 
   public boolean isChecked() {
@@ -56,29 +56,5 @@ public class CommandItems implements Serializable {
 
   public void setChecked(boolean checked) {
     isChecked = checked;
-  }
-
-  /*We use identifier to find the summary strings as they have been named exactly as the commands with some characters replaced as shown below*/
-  private String summary(String title, Context context) {
-    String trimmedTitle =
-        title
-            .replaceAll("cd -", "cd_hyphen")
-            .replaceAll("<[^>]*>", "")
-            .replaceAll("/", "slash")
-            .replaceAll("~", "tilde")
-            .replaceAll("\\*", "asterisk")
-            .trim()
-            .replaceAll("[ -]+", "_")
-            .replaceAll("-", "_")
-            .replaceAll("_+", "_");
-    int resourceId =
-        context.getResources().getIdentifier(trimmedTitle, "string", context.getPackageName());
-
-    /*We haven't defined any summary strings for the package name suggestions , so we return null if resource id is not found */
-    if (resourceId == 0) {
-      return null;
-    } else {
-      return context.getResources().getString(resourceId);
-    }
   }
 }

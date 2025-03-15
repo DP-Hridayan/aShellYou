@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/settings"
+            android:layout_width="wrap_content "
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="45dp"
+            android:layout_gravity="start"
+            android:src="@drawable/ic_settings"
+            android:transitionName="settingsButtonToSettings"
+            app:tint="?attr/colorControlNormal" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/app_name_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="start"
+            android:text="@string/app_name"
+            style="@style/ExpandedToolbarTitle" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/localAdbCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="13dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:transitionName="fragmentLocalShell"
+            app:cardBackgroundColor="?attr/colorSurfaceContainer"
+            app:cardCornerRadius="25dp"
+            app:strokeColor="?attr/colorSurfaceContainerHighest">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center_vertical"
+                        android:padding="6dp"
+                        android:background="@drawable/circular_bg"
+                        android:src="@drawable/ic_adb2"
+                        app:tint="?attr/colorOnPrimaryContainer" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:text="@string/local_adb"
+                        style="@style/ItemTitle" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_right" />
+
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/local_adb_summary"
+                    style="@style/ItemDescription" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/shizukuAccessCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    app:cardBackgroundColor="?attr/colorSecondaryContainer"
+                    app:strokeWidth="0dp"
+                    style="@style/CardViewTopCornersRounded">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="15dp"
+                        android:paddingVertical="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/shizuku_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_error"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/shizuku_access_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/shizuku_access"
+                                style="@style/ItemDescriptionBold" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/shizuku_version_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/version"
+                                style="@style/ItemDescriptionBold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/rootAccessCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    app:cardBackgroundColor="?attr/colorSecondaryContainer"
+                    app:strokeWidth="0dp"
+                    style="@style/CardViewBottomCornersRounded">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="15dp"
+                        android:paddingVertical="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/root_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_error"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/root_access_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/root_access"
+                                style="@style/ItemDescriptionBold" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/root_provider_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/root_provider"
+                                style="@style/ItemDescriptionBold" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/root_version_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/version"
+                                style="@style/ItemDescriptionBold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/wirelessAdbCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="13dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            app:cardBackgroundColor="?attr/colorSurfaceContainer"
+            app:cardCornerRadius="25dp"
+            app:strokeColor="?attr/colorSurfaceContainerHighest">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center_vertical"
+                        android:padding="6dp"
+                        android:background="@drawable/circular_bg"
+                        android:src="@drawable/ic_wireless"
+                        app:tint="?attr/colorOnPrimaryContainer" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:text="@string/adb_via_wireless_debugging"
+                        style="@style/ItemTitle" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_right" />
+
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/adb_via_wireless_debugging_summary"
+                    style="@style/ItemDescription" />
+
+                <Button
+                    android:id="@+id/instructionWireless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/instructions"
+                    app:icon="@drawable/ic_open_in_new"
+                    style="@style/Widget.Material3.Button.Icon" />
+
+                <Button
+                    android:id="@+id/startWirelessDebugging"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start"
+                    app:icon="@drawable/ic_play"
+                    style="@style/Widget.Material3.Button.Icon" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/otgAdbCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="13dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:transitionName="fragmentOtgShell"
+            app:cardBackgroundColor="?attr/colorSurfaceContainer"
+            app:cardCornerRadius="25dp"
+            app:strokeColor="?attr/colorSurfaceContainerHighest">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center_vertical"
+                        android:padding="6dp"
+                        android:background="@drawable/circular_bg"
+                        android:src="@drawable/ic_otg"
+                        app:tint="?attr/colorOnPrimaryContainer" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
+                        android:text="@string/adb_through_otg"
+                        style="@style/ItemTitle" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_arrow_right" />
+
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/adb_through_otg_summary"
+                    style="@style/ItemDescription" />
+
+                <Button
+                    android:id="@+id/instructionOtg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/instructions"
+                    app:icon="@drawable/ic_open_in_new"
+                    style="@style/Widget.Material3.Button.Icon" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</ScrollView>
