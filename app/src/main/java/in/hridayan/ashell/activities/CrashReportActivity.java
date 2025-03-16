@@ -6,14 +6,10 @@ import android.os.Bundle;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageButton;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.ui.BehaviorFAB.FabExtendingOnScrollViewListener;
-import in.hridayan.ashell.ui.CoordinatedNestedScrollView;
 import in.hridayan.ashell.ui.ThemeUtils;
+import in.hridayan.ashell.databinding.ActivityCrashReportBinding;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -22,11 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CrashReportActivity extends AppCompatActivity {
-  private MaterialTextView copyText, crashInfo;
-  private AppCompatImageButton copyButton;
-  private ExtendedFloatingActionButton reportButton;
-  private FloatingActionButton shareButton;
-  private CoordinatedNestedScrollView scrollView;
+  private ActivityCrashReportBinding binding;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -34,43 +26,36 @@ public class CrashReportActivity extends AppCompatActivity {
     ThemeUtils.updateTheme(this);
 
     super.onCreate(savedInstanceState);
+
     setContentView(R.layout.activity_crash_report);
 
-    copyText = findViewById(R.id.copy);
-    copyButton = findViewById(R.id.copy_button);
-    reportButton = findViewById(R.id.report_button);
-    shareButton = findViewById(R.id.fab_share);
-    scrollView = findViewById(R.id.scrollView);
-
-    new FabExtendingOnScrollViewListener(scrollView, reportButton);
+    new FabExtendingOnScrollViewListener(binding.scrollView, binding.reportButton);
 
     // Get the crash report from intent or SharedPreferences
     String stackTrace = getIntent().getStringExtra("stackTrace");
     String message = getIntent().getStringExtra("message");
 
-    // Show the crash info
-    crashInfo = findViewById(R.id.crash_info);
-    crashInfo.setText(stackTrace + "\n\n" + message);
+    binding.crashLogTextView.setText(stackTrace + "\n\n" + message);
 
-    reportButton.setOnClickListener(
+    binding.reportButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
           sendCrashReport(stackTrace, message);
         });
 
-    copyText.setOnClickListener(
+    binding.copyText.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
           Utils.copyToClipboard(reportContent(stackTrace, message), this);
         });
 
-    copyButton.setOnClickListener(
+    binding.copyIcon.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
           Utils.copyToClipboard(reportContent(stackTrace, message), this);
         });
 
-    shareButton.setOnClickListener(
+    binding.shareButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
           Utils.shareOutput(this, this, "crash_report.txt", reportContent(stackTrace, message));
@@ -79,7 +64,6 @@ public class CrashReportActivity extends AppCompatActivity {
 
   /*This function takes the report text and initiate the intent to send the email with the subject and body*/
   private void sendCrashReport(String stackTrace, String message) {
-
     String subject = "Crash Report";
     String to = Const.DEV_EMAIL;
 

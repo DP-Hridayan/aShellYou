@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/app_crashed"
+        android:id="@+id/appCrashed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
-        android:id="@+id/undraw_img"
+        android:id="@+id/undrawImg"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="25dp"
@@ -28,13 +28,13 @@
         android:adjustViewBounds="true"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_undraw_bug"
-        app:layout_constraintBottom_toTopOf="@id/card_view"
+        app:layout_constraintBottom_toTopOf="@id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_crashed" />
+        app:layout_constraintTop_toBottomOf="@id/appCrashed" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_view"
+        android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="15dp"
@@ -68,7 +68,7 @@
                     style="@style/ItemDescription" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/copy_button"
+                    android:id="@+id/copyIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
@@ -77,7 +77,7 @@
                     android:src="@drawable/ic_copy" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/copy"
+                    android:id="@+id/copyText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -95,7 +95,7 @@
                 android:scrollbarThumbVertical="@drawable/scrollbar">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/crash_info"
+                    android:id="@+id/crashLogTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
@@ -108,21 +108,21 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_share"
+        android:id="@+id/shareButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
         android:layout_gravity="bottom|end"
         app:backgroundTint="?attr/colorTertiaryContainer"
-        app:layout_constraintBottom_toTopOf="@id/report_button"
+        app:layout_constraintBottom_toTopOf="@id/reportButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_share"
         app:tint="?attr/colorOnTertiaryContainer"
         style="?attr/floatingActionButtonSmallStyle" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/report_button"
+        android:id="@+id/reportButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
