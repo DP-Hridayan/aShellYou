@@ -82,11 +82,12 @@
 
 | Task                   | Status   |
 |------------------------|----------|
-| Wifi ADB Feature       | ✅ To Do  |
-| Implement root shell   | ✅ To Do  |
-| Redesigning Homepage   | ✅ To Do  |
-| Proper localization    | ⬜ To Do  |
-| Fix OTG Issue          | ✅ Done  |
+| Wifi ADB Feature       | ✅ Done  |
+| Implement root shell   | ✅ Done  |
+| Redesigning Homepage   | ✅ Done  |
+| Proper localization    | ⬜ To Do |
+| Fix scripts execution  | ⬜ To Do |
+| Add Fastboot           | ⬜ To Do |
 
 </br>
 
