@@ -55,8 +55,8 @@
     <string name="connecting_hint">需在目标设备上确认</string>
     <string name="connect_other_device">连接其它设备</string>
     <string
-            name="copy"
-            tools:override="true">复制</string>
+        name="copy"
+        tools:override="true">复制</string>
     <string name="copied_to_clipboard">已复制</string>
     <string name="dark_theme">暗色主题</string>
     <string name="delete_all">全部删除</string>
@@ -194,6 +194,7 @@
     <string name="des_default_language">为本软件更改默认语言</string>
     <string name="download">下载</string>
     <string name="file_not_found">文件未找到</string>
+    <string name="github_download_warning">您即将直接从 GitHub 下载更新。与应用商店的更新不同，这些更新未经过安全审核。您确定要继续吗？</string>
     <string name="granted">已授权</string>
     <string name="grant_permission">获取权限</string>
     <string name="grant_permission_manually">若授权窗口未弹出，请通过你的SU管理程序手动授予root权限</string>
