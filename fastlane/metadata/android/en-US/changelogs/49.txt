@@ -1,5 +1,0 @@
-
-
-• UI improvements
-
-• Fixed some bugs

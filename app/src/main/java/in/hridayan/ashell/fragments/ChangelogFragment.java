@@ -28,7 +28,7 @@ public class ChangelogFragment extends Fragment {
   private FragmentChangelogBinding binding;
   private Pair<Integer, Integer> mRVPositionAndOffset;
 
-  private final String[] versionNames = {"v6.0.0","v5.2.1","v5.2.0",
+  private final String[] versionNames = {"v6.0.1","v6.0.0","v5.2.1","v5.2.0",
     "v5.1.0", "v5.0.0", "v4.4.0", "v4.3.1", "v4.3.0", "v4.2.1", "v4.2.0", "v4.1.0", "v4.0.3",
     "v4.0.2", "v4.0.1", "v4.0.0", "v3.9.1", "v3.9.0", "v3.8.2", "v3.8.1", "v3.8.0", "v3.7.0",
     "v3.6.0", "v3.5.1", "v3.5.0", "v3.4.0", "v3.3.0", "v3.2.0", "v3.1.0", "v3.0.0", "v2.0.2",

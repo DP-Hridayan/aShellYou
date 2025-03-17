@@ -6,7 +6,6 @@
         name="app_name"
         translatable="false">aShell You</string>
     <string name="app_tagline">ADB at your fingertips</string>
-
     <string name="abort_command">Abort command first</string>
     <string name="access_denied">Access denied</string>
     <string name="accept_device_prompt">You might need to accept a prompt on the other device if you are trying to connect to it for the first time from this device</string>
@@ -120,6 +119,7 @@
     <string name="failed">Failed</string>
     <string name="file_not_found">File not found</string>
     <string name="generate_key_failed">Failed to generate and save key pair</string>
+    <string name="github_download_warning">You\'re about to download updates directly from GitHub. Unlike updates from app stores, these are not reviewed for security. Do you want to continue?</string>
     <string name="granted">Granted</string>
     <string name="grant_permission">Grant permission</string>
     <string name="grant_permission_manually">If the permission dialog doesn\'t appear, please grant root permission manually via the superuser application</string>
