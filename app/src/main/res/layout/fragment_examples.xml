@@ -1,15 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_examples"
-    android:transitionName="sendButtonToExamples"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:orientation="vertical"
-    android:fitsSystemWindows="false"
     android:background="?attr/colorSurface"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical"
+    android:transitionName="sendButtonToExamples"
     tools:ignore="PrivateResource">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -61,11 +62,11 @@
         android:id="@+id/rvSearchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layoutAnimation="@anim/layout_animator"
         android:paddingHorizontal="10dp"
+        android:layoutAnimation="@anim/layout_animator"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <in.hridayan.ashell.UI.CustomSearchView
+    <in.hridayan.ashell.ui.CustomSearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -81,24 +82,24 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipSearchSummary"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.Material3.Chip.Suggestion"
-            android:text="@string/search_summary"
-            android:checked="true"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="60dp"
-            android:layout_marginStart="25dp" />
+            android:checked="true"
+            android:text="@string/search_summary"
+            android:visibility="gone"
+            style="@style/Widget.Material3.Chip.Suggestion" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/noCommandFound"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="16sp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginHorizontal="25dp"
-            android:text="@string/no_command_found" />
+            android:text="@string/no_command_found"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -108,16 +109,16 @@
                 android:id="@+id/searchImg"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="gone"
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginVertical="20dp"
                 android:adjustViewBounds="true"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_undraw_search"
-                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRight"
                 app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-                app:layout_constraintEnd_toEndOf="@id/guidelineRight" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineBottom"
@@ -142,6 +143,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </in.hridayan.ashell.UI.CustomSearchView>
+    </in.hridayan.ashell.ui.CustomSearchView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -21,12 +21,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.transition.MaterialContainerTransform;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.KeyboardUtils;
+import in.hridayan.ashell.ui.KeyboardUtils;
 import in.hridayan.ashell.adapters.CommandsSearchAdapter;
 import in.hridayan.ashell.adapters.ExamplesAdapter;
 import in.hridayan.ashell.config.Const;
@@ -34,6 +33,7 @@ import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.FragmentExamplesBinding;
 import in.hridayan.ashell.fragments.home.AshellFragment;
 import in.hridayan.ashell.fragments.home.OtgFragment;
+import in.hridayan.ashell.fragments.home.WifiAdbFragment;
 import in.hridayan.ashell.items.CommandItems;
 import in.hridayan.ashell.utils.Commands;
 import in.hridayan.ashell.utils.HapticUtils;
@@ -60,7 +60,6 @@ public class ExamplesFragment extends Fragment
   private int isSortingOptionSame;
   private boolean isSummaryChipClicked = false, isAllItemsSelected;
   private Context context;
-  private BottomNavigationView mNav;
   private FragmentExamplesBinding binding;
   private Pair<Integer, Integer> mRVPositionAndOffset;
 
@@ -124,10 +123,6 @@ public class ExamplesFragment extends Fragment
     view = binding.getRoot();
 
     context = requireContext();
-
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-
-    mNav.setVisibility(View.GONE);
 
     editText = binding.searchView.getSearchEditText();
     searchBarMenu = binding.searchBar.getMenu();
@@ -512,6 +507,8 @@ public class ExamplesFragment extends Fragment
     mainViewModel.setUseCommand(command);
     Fragment fragment = new AshellFragment();
     if (mainViewModel.previousFragment() == Const.OTG_FRAGMENT) fragment = new OtgFragment();
+    else if (mainViewModel.previousFragment() == Const.WIFI_ADB_FRAGMENT)
+      fragment = new WifiAdbFragment();
 
     // clear previous backstacks
     clearBackStack();

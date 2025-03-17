@@ -8,7 +8,7 @@
         android:fillAfter="true"
         android:fillBefore="true"
         android:fillEnabled="true"
-        android:fromAlpha="0"
+        android:fromAlpha="0.5"
         android:interpolator="@android:anim/linear_interpolator"
         android:startOffset="66"
         android:toAlpha="1.0" />

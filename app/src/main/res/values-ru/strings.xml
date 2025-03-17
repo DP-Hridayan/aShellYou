@@ -62,12 +62,10 @@
     <string name="crash_report">Отчет о сбое</string>
     <string name="current">Текущий</string>
     <string name="dark_theme">Темная тема</string>
-    <string name="default_launch_mode">Режим запуска по умолчанию</string>
     <string name="delete_all">Удалить все</string>
     <string name="default_folder">Папка по умолчанию</string>
     <string name="default_language">Язык по умолчанию</string>
     <string name="des_default_language">Выберите язык по умолчанию для приложения</string>
-    <string name="des_default_launch_mode">Выберите, какой режим ADB должен открываться непосредственно при запуске приложения</string>
     <string name="device_not_connected">Устройство не подключено</string>
     <string name="discord">Discord</string>
     <string name="des_discord">Присоединяйтесь к сообществу discord</string>
@@ -92,7 +90,6 @@
     <string name="history">История</string>
     <string name="instructions">Инструкции</string>
     <string name="latest">Последние</string>
-    <string name="launch_mode">Режим запуска</string>
     <string name="least_used">Редко используемые</string>
     <string name="local_adb">Local ADB</string>
     <string name="look_and_feel">Оформление &amp; восприятие</string>

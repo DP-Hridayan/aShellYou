@@ -2,14 +2,36 @@
 <issues format="6" by="lint 8.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.2.1)" variant="all" version="8.2.1">
 
     <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="            + context.getString(R.string.mode).toLowerCase();"
-        errorLine2="                                               ~~~~~~~~~~~">
+        id="MissingPermission"
+        message="Call requires permission which may be rejected by user: code should explicitly check to see if permission is available (with `checkPermission`) or explicitly handle a potential `SecurityException`"
+        errorLine1="    manager.notify(PAIRING_NOTIFICATION_ID, notification);"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/UI/DialogUtils.java"
-            line="48"
-            column="48"/>
+            file="src/main/java/in/hridayan/ashell/shell/wifiadb/AdbPairingNotification.java"
+            line="182"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="WrongViewCast"
+        message="Unexpected implicit cast to `MaterialButton`: layout tag was `Button`"
+        errorLine1="        downloadButton = bottomSheetView.findViewById(R.id.download_button);"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/bottomsheets/UpdateCheckerBottomSheet.java"
+            line="62"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="WrongViewCast"
+        message="Unexpected implicit cast to `MaterialButton`: layout tag was `Button`"
+        errorLine1="        cancelButton = bottomSheetView.findViewById(R.id.cancel_button);"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/bottomsheets/UpdateCheckerBottomSheet.java"
+            line="63"
+            column="9"/>
     </issue>
 
     <issue
@@ -24,18 +46,24 @@
     </issue>
 
     <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="            + context.getString(R.string.mode).toLowerCase(),"
+        errorLine2="                                               ~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/dialogs/SettingsDialogs.java"
+            line="43"
+            column="48"/>
+    </issue>
+
+    <issue
         id="InlinedApi"
         message="Field requires API level 31 (current min is 26): `android.R.color#system_accent1_500`"
         errorLine1="                    ? android.R.color.system_accent1_500"
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-<<<<<<< HEAD
-            file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="1258"
-=======
             file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="1262"
->>>>>>> test
+            line="1309"
             column="23"/>
     </issue>
 
@@ -45,13 +73,8 @@
         errorLine1="                    ? android.R.color.system_accent3_500"
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-<<<<<<< HEAD
-            file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="1267"
-=======
             file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="1271"
->>>>>>> test
+            line="1318"
             column="23"/>
     </issue>
 
@@ -78,14 +101,80 @@
     </issue>
 
     <issue
-        id="MissingConstraints"
-        message="This view is not constrained vertically: at runtime it will jump to the top unless you add a vertical constraint"
-        errorLine1="                &lt;com.google.android.material.textview.MaterialTextView"
-        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 26): `android.R.color#system_accent1_500`"
+        errorLine1="                    ? android.R.color.system_accent1_500"
+        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/layout/fragment_otg.xml"
-            line="157"
-            column="18"/>
+            file="src/main/java/in/hridayan/ashell/fragments/home/WifiAdbFragment.java"
+            line="926"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="InlinedApi"
+        message="Field requires API level 31 (current min is 26): `android.R.color#system_accent3_500`"
+        errorLine1="                    ? android.R.color.system_accent3_500"
+        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/home/WifiAdbFragment.java"
+            line="935"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 29 (current min is 26): `android.app.NotificationChannel#setAllowBubbles`"
+        errorLine1="      channel.setAllowBubbles(false);"
+        errorLine2="              ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifiadb/AdbPairingNotification.java"
+            line="222"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 30 (current min is 26): `AdbMdns`"
+        errorLine1="        new AdbMdns("
+        errorLine2="        ~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
+            line="322"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 30 (current min is 26): ``"
+        errorLine1="            new AdbMdns.AdbFoundCallback() {"
+        errorLine2="            ^">
+        <location
+            file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
+            line="324"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 30 (current min is 26): `start`"
+        errorLine1="    adbMdns.start();"
+        errorLine2="            ~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
+            line="339"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 30 (current min is 26): `stop`"
+        errorLine1="      adbMdns.stop();"
+        errorLine2="              ~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
+            line="362"
+            column="15"/>
     </issue>
 
     <issue
@@ -111,25 +200,47 @@
     </issue>
 
     <issue
-        id="InflateParams"
-        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
-        errorLine1="        LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_changelog, null);"
-        errorLine2="                                                                               ~~~~">
+        id="WrongConstant"
+        message="Must be one of: NotificationManager.IMPORTANCE_UNSPECIFIED, NotificationManager.IMPORTANCE_NONE, NotificationManager.IMPORTANCE_MIN, NotificationManager.IMPORTANCE_LOW, NotificationManager.IMPORTANCE_DEFAULT, NotificationManager.IMPORTANCE_HIGH"
+        errorLine1="              CHANNEL_ID, &quot;ADB Pairing Channel&quot;, NotificationManager.IMPORTANCE_MAX);"
+        errorLine2="                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/UI/BottomSheets.java"
-            line="25"
-            column="80"/>
+            file="src/main/java/in/hridayan/ashell/shell/wifiadb/AdbPairingNotification.java"
+            line="216"
+            column="50"/>
     </issue>
 
     <issue
         id="InflateParams"
         message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
-        errorLine1="        LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_update_checker, null);"
-        errorLine2="                                                                                    ~~~~">
+        errorLine1="        bottomSheetView = LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_changelog, null);"
+        errorLine2="                                                                                                 ~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/UI/BottomSheets.java"
-            line="42"
-            column="85"/>
+            file="src/main/java/in/hridayan/ashell/ui/bottomsheets/ChangelogBottomSheet.java"
+            line="37"
+            column="98"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="        bottomSheetView = LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_update_checker, null);"
+        errorLine2="                                                                                                      ~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/bottomsheets/UpdateCheckerBottomSheet.java"
+            line="54"
+            column="103"/>
+    </issue>
+
+    <issue
+        id="InflateParams"
+        message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
+        errorLine1="        LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_pair_and_connect, null);"
+        errorLine2="                                                                                      ~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/bottomsheets/WifiAdbBottomSheet.java"
+            line="36"
+            column="87"/>
     </issue>
 
     <issue
@@ -138,13 +249,8 @@
         errorLine1="      case R.id.basic:"
         errorLine2="           ~~~~~~~~~~">
         <location
-<<<<<<< HEAD
-            file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="693"
-=======
             file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="688"
->>>>>>> test
+            line="700"
             column="12"/>
     </issue>
 
@@ -154,13 +260,8 @@
         errorLine1="      case R.id.shizuku:"
         errorLine2="           ~~~~~~~~~~~~">
         <location
-<<<<<<< HEAD
-            file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="696"
-=======
             file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="691"
->>>>>>> test
+            line="703"
             column="12"/>
     </issue>
 
@@ -170,13 +271,8 @@
         errorLine1="      case R.id.root:"
         errorLine2="           ~~~~~~~~~">
         <location
-<<<<<<< HEAD
-            file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="699"
-=======
             file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="694"
->>>>>>> test
+            line="706"
             column="12"/>
     </issue>
 
@@ -187,11 +283,7 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-<<<<<<< HEAD
-            line="147"
-=======
-            line="155"
->>>>>>> test
+            line="150"
             column="18"/>
     </issue>
 
@@ -202,11 +294,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-<<<<<<< HEAD
-            line="151"
-=======
-            line="159"
->>>>>>> test
+            line="154"
             column="18"/>
     </issue>
 
@@ -217,11 +305,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-<<<<<<< HEAD
-            line="156"
-=======
-            line="164"
->>>>>>> test
+            line="159"
             column="18"/>
     </issue>
 
@@ -232,11 +316,7 @@
         errorLine2="                 ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-<<<<<<< HEAD
-            line="161"
-=======
-            line="169"
->>>>>>> test
+            line="164"
             column="18"/>
     </issue>
 
@@ -247,44 +327,7 @@
         errorLine2="                 ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-<<<<<<< HEAD
-            line="165"
-=======
-            line="173"
->>>>>>> test
-            column="18"/>
-    </issue>
-
-    <issue
-        id="NonConstantResourceId"
-        message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
-        errorLine1="            case R.id.nav_localShell:"
-        errorLine2="                 ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="125"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="NonConstantResourceId"
-        message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
-        errorLine1="            case R.id.nav_otgShell:"
-        errorLine2="                 ~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="130"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="NonConstantResourceId"
-        message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
-        errorLine1="            case R.id.nav_wireless:"
-        errorLine2="                 ~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="141"
+            line="168"
             column="18"/>
     </issue>
 
@@ -322,36 +365,25 @@
     </issue>
 
     <issue
-        id="LockedOrientationActivity"
-        message="Expecting `android:screenOrientation=&quot;unspecified&quot;` or `&quot;fullSensor&quot;` for this activity so the user can use the application in any orientation and provide a great experience on Chrome OS devices"
-        errorLine1="            android:screenOrientation=&quot;portrait&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/AndroidManifest.xml"
-            line="34"
-            column="13"/>
-    </issue>
-
-    <issue
         id="PrivateResource"
         message="The resource `@string/copy` is marked as private in androidx.preference:preference:1.2.1"
         errorLine1="                    android:text=&quot;@string/copy&quot;"
         errorLine2="                                  ~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_crash_report.xml"
-            line="84"
+            line="85"
             column="35"/>
     </issue>
 
     <issue
-        id="DiscouragedApi"
-        message="Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(&quot;bar&quot;, &quot;foo&quot;, null)`)."
-        errorLine1="        context.getResources().getIdentifier(trimmedTitle, &quot;string&quot;, context.getPackageName());"
-        errorLine2="                               ~~~~~~~~~~~~~">
+        id="PrivateResource"
+        message="Overriding `@string/copy` which is marked as private in androidx.preference:preference:1.2.1. If deliberate, use tools:override=&quot;true&quot;, otherwise pick a different name."
+        errorLine1="    &lt;string name=&quot;copy&quot;>Копировать&lt;/string>"
+        errorLine2="                  ~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/items/CommandItems.java"
-            line="75"
-            column="32"/>
+            file="src/main/res/values-ru/strings.xml"
+            line="60"
+            column="19"/>
     </issue>
 
     <issue
@@ -361,7 +393,7 @@
         errorLine2="             ~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/utils/Utils.java"
-            line="461"
+            line="469"
             column="14"/>
     </issue>
 
@@ -372,11 +404,7 @@
         errorLine2="              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-<<<<<<< HEAD
-            line="364"
-=======
-            line="378"
->>>>>>> test
+            line="373"
             column="15"/>
         <location
             file="src/main/res/values-ja/strings.xml"
@@ -392,66 +420,40 @@
         errorLine2="                                                ^">
         <location
             file="src/main/res/values/strings.xml"
-<<<<<<< HEAD
-            line="235"
-=======
-            line="246"
->>>>>>> test
+            line="311"
             column="49"/>
     </issue>
 
     <issue
-        id="ExtraTranslation"
-        message="&quot;cd&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;cd&quot;>Alterar diretório&lt;/string>"
-        errorLine2="            ~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt/strings.xml"
-            line="27"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ExtraTranslation"
-        message="&quot;cd_slash&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;cd_slash&quot;>Ir para o diretório raiz&lt;/string>"
+        id="Untranslatable"
+        message="The resource string &quot;app_name&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;app_name&quot;>aShell You&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-pt/strings.xml"
-            line="28"
+            file="src/main/res/values-ru/strings.xml"
+            line="3"
             column="13"/>
     </issue>
 
     <issue
-        id="ExtraTranslation"
-        message="&quot;cd_tilde&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;cd_tilde&quot;>Ir para o diretório inicial&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~">
+        id="Untranslatable"
+        message="The resource string &quot;root&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;root&quot;>Root&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~">
         <location
-            file="src/main/res/values-pt/strings.xml"
-            line="29"
+            file="src/main/res/values-ru/strings.xml"
+            line="129"
             column="13"/>
     </issue>
 
     <issue
-        id="ExtraTranslation"
-        message="&quot;cd_hyphen&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;cd_hyphen&quot;>Ir para o diretório anterior&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~">
+        id="Untranslatable"
+        message="The resource string &quot;shizuku&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;shizuku&quot;>Shizuku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-pt/strings.xml"
-            line="30"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ExtraTranslation"
-        message="&quot;cd___&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;cd_..&quot;>Ir para o diretório pai&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt/strings.xml"
-            line="31"
+            file="src/main/res/values-ru/strings.xml"
+            line="148"
             column="13"/>
     </issue>
 
@@ -462,7 +464,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="33"
+            line="38"
             column="5"/>
     </issue>
 
@@ -473,7 +475,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="36"
+            line="41"
             column="5"/>
     </issue>
 
@@ -484,7 +486,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="37"
+            line="42"
             column="5"/>
     </issue>
 
@@ -495,7 +497,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="38"
+            line="43"
             column="5"/>
     </issue>
 
@@ -506,7 +508,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="52"
+            line="58"
             column="5"/>
     </issue>
 
@@ -517,7 +519,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="53"
+            line="59"
             column="5"/>
     </issue>
 
@@ -528,7 +530,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="53"
+            line="59"
             column="5"/>
         <location
             file="src/main/res/values-ja/strings.xml"
@@ -582,10 +584,142 @@
     </issue>
 
     <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="    adapter.notifyDataSetChanged();"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/home/HomeFragment.java"
+            line="329"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="                                notifyDataSetChanged();"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/adapters/WifiAdbDevicesAdapter.java"
+            line="78"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="    adapter.notifyDataSetChanged();"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/dialogs/WifiAdbDialogUtils.java"
+            line="24"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 26"
+        errorLine1="    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifiadb/AdbPairingNotification.java"
+            line="202"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 26"
+        errorLine1="    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifiadb/AdbPairingNotification.java"
+            line="213"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 26"
+        errorLine1="    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/utils/AppUpdater.java"
+            line="227"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 26"
+        errorLine1="      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O"
+        errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
+            line="88"
+            column="11"/>
+    </issue>
+
+    <issue
         id="ObsoleteSdkInt"
         message="This folder configuration (`v26`) is unnecessary; `minSdkVersion` is 26. Merge all the resources in this folder into `mipmap-anydpi`.">
         <location
             file="src/main/res/mipmap-anydpi-v26"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="Do not place Android context classes in static fields; this is a memory leak"
+        errorLine1="  private static View devicesDialogView;"
+        errorLine2="          ~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/dialogs/ActionDialogs.java"
+            line="35"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="Do not place Android context classes in static fields; this is a memory leak"
+        errorLine1="  private static View modeDialogView;"
+        errorLine2="          ~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/dialogs/ActionDialogs.java"
+            line="36"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="Do not place Android context classes in static fields; this is a memory leak"
+        errorLine1="  private static View startViewDeviceDialog;"
+        errorLine2="          ~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/dialogs/ActionDialogs.java"
+            line="37"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="Do not place Android context classes in static fields; this is a memory leak"
+        errorLine1="  private static ViewGroup rootViewDevicesDialog;"
+        errorLine2="          ~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/dialogs/ActionDialogs.java"
+            line="38"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        message="Do not place Android context classes in static fields; this is a memory leak"
+        errorLine1="  private static ViewGroup rootViewModeDialog;"
+        errorLine2="          ~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ui/dialogs/ActionDialogs.java"
+            line="39"
+            column="11"/>
     </issue>
 
     <issue
@@ -606,7 +740,7 @@
         errorLine2="          ~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/setup/OnboardingItem3Fragment.java"
-            line="26"
+            line="23"
             column="11"/>
     </issue>
 
@@ -617,7 +751,7 @@
         errorLine2="          ~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/settings/SettingsFragment.java"
-            line="39"
+            line="38"
             column="11"/>
     </issue>
 
@@ -652,6 +786,28 @@
             file="src/main/res/drawable/ic_cancel.xml"
             line="10"
             column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (926 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="&lt;path android:fillColor=&quot;@android:color/white&quot; android:pathData=&quot;M480,880Q397,880 324,848.5Q251,817 197,763Q143,709 111.5,636Q80,563 80,480Q80,397 111.5,324Q143,251 197,197Q251,143 324,111.5Q397,80 480,80Q563,80 636,111.5Q709,143 763,197Q817,251 848.5,324Q880,397 880,480Q880,563 848.5,636Q817,709 763,763Q709,817 636,848.5Q563,880 480,880ZM480,800Q614,800 707,707Q800,614 800,480Q800,346 707,253Q614,160 480,160Q346,160 253,253Q160,346 160,480Q160,614 253,707Q346,800 480,800ZM480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480ZM360,680L520,680Q553,680 576.5,656.5Q600,633 600,600L600,540Q600,514 583,497Q566,480 540,480Q566,480 583,463Q600,446 600,420L600,360Q600,327 576.5,303.5Q553,280 520,280L360,280L360,360L520,360Q520,360 520,360Q520,360 520,360L520,440Q520,440 520,440Q520,440 520,440L440,440L440,520L520,520Q520,520 520,520Q520,520 520,520L520,600Q520,600 520,600Q520,600 520,600L360,600L360,680Z&quot;/>"
+        errorLine2="                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_counter_three.xml"
+            line="2"
+            column="66"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (858 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="&lt;path android:fillColor=&quot;@android:color/white&quot; android:pathData=&quot;M480,880Q397,880 324,848.5Q251,817 197,763Q143,709 111.5,636Q80,563 80,480Q80,397 111.5,324Q143,251 197,197Q251,143 324,111.5Q397,80 480,80Q563,80 636,111.5Q709,143 763,197Q817,251 848.5,324Q880,397 880,480Q880,563 848.5,636Q817,709 763,763Q709,817 636,848.5Q563,880 480,880ZM480,800Q614,800 707,707Q800,614 800,480Q800,346 707,253Q614,160 480,160Q346,160 253,253Q160,346 160,480Q160,614 253,707Q346,800 480,800ZM480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480Q480,480 480,480ZM360,680L600,680L600,600L440,600L440,520Q440,520 440,520Q440,520 440,520L520,520Q553,520 576.5,496.5Q600,473 600,440L600,360Q600,327 576.5,303.5Q553,280 520,280L360,280L360,360L520,360Q520,360 520,360Q520,360 520,360L520,440Q520,440 520,440Q520,440 520,440L440,440Q407,440 383.5,463.5Q360,487 360,520L360,680Z&quot;/>"
+        errorLine2="                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_counter_two.xml"
+            line="2"
+            column="66"/>
     </issue>
 
     <issue
@@ -751,6 +907,39 @@
             file="src/main/res/drawable/ic_mode.xml"
             line="10"
             column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1049 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;M762,876L414,526Q383,533 354.5,545Q326,557 301,574Q280,588 254.5,588.5Q229,589 212,571Q194,553 195.5,527.5Q197,502 217,487Q240,470 265.5,456Q291,442 318,430L228,340Q202,354 177.5,369.5Q153,385 130,403Q110,419 84.5,419Q59,419 42,401Q24,383 25,358Q26,333 46,317Q68,299 91,282.5Q114,266 140,252L84,196Q73,185 73,168Q73,151 84,140Q95,129 112,129Q129,129 140,140L819,819Q831,831 831,847.5Q831,864 819,876Q807,887 790.5,887.5Q774,888 762,876ZM480,840Q438,840 409,810.5Q380,781 380,740Q380,698 409,669Q438,640 480,640Q522,640 551,669Q580,698 580,740Q580,781 551,810.5Q522,840 480,840ZM753,565Q737,581 715.5,580.5Q694,580 678,564Q673,559 668,554Q663,549 658,544L562,448Q549,435 557,421Q565,407 585,412Q630,423 670.5,443Q711,463 746,490Q764,504 766.5,526.5Q769,549 753,565ZM918,401Q901,419 876,419.5Q851,420 831,404Q759,345 669.5,312.5Q580,280 480,280Q459,280 439.5,281.5Q420,283 400,286Q375,290 355,275.5Q335,261 331,236Q327,211 342,191Q357,171 382,167Q406,163 430.5,161.5Q455,160 480,160Q605,160 715.5,201.5Q826,243 914,316Q934,333 935,358Q936,383 918,401Z&quot; />"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_no_wifi.xml"
+            line="10"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1035 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;M200,760Q183,760 171.5,748.5Q160,737 160,720Q160,703 171.5,691.5Q183,680 200,680L240,680L240,400Q240,317 290,252.5Q340,188 420,168L420,140Q420,115 437.5,97.5Q455,80 480,80Q505,80 522.5,97.5Q540,115 540,140L540,168Q620,188 670,252.5Q720,317 720,400L720,680L760,680Q777,680 788.5,691.5Q800,703 800,720Q800,737 788.5,748.5Q777,760 760,760L200,760ZM480,460L480,460L480,460L480,460Q480,460 480,460Q480,460 480,460Q480,460 480,460Q480,460 480,460ZM480,880Q447,880 423.5,856.5Q400,833 400,800L560,800Q560,833 536.5,856.5Q513,880 480,880ZM320,680L640,680L640,400Q640,334 593,287Q546,240 480,240Q414,240 367,287Q320,334 320,400L320,680ZM120,400Q103,400 91.5,387Q80,374 82,357Q90,282 124,217.5Q158,153 211,105Q224,94 240.5,95Q257,96 267,110Q277,124 275,140Q273,156 260,168Q221,205 196,254Q171,303 163,360Q161,377 149,388.5Q137,400 120,400ZM840,400Q823,400 811,388.5Q799,377 797,360Q789,303 764,254Q739,205 700,168Q687,156 685,140Q683,124 693,110Q703,96 719.5,95Q736,94 749,105Q802,153 836,217.5Q870,282 878,357Q880,374 868.5,387Q857,400 840,400Z&quot; />"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_notification.xml"
+            line="10"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (1010 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="&lt;path android:fillColor=&quot;@android:color/white&quot; android:pathData=&quot;M646,760L200,760Q183,760 171.5,748.5Q160,737 160,720Q160,703 171.5,691.5Q183,680 200,680L240,680L240,400Q240,367 248.5,335Q257,303 274,274L334,334Q327,350 323.5,366.5Q320,383 320,400L320,680L568,680L84,196Q73,185 73,168Q73,151 84,140Q95,129 112,129Q129,129 140,140L820,820Q831,831 831.5,847.5Q832,864 820,876Q809,887 792,887Q775,887 764,876L646,760ZM540,168Q620,188 670,252.5Q720,317 720,400L720,510Q720,530 707.5,540Q695,550 680,550Q665,550 652.5,539.5Q640,529 640,509L640,400Q640,334 593,287Q546,240 480,240Q464,240 446,244Q428,248 414,254Q397,261 380.5,257Q364,253 355,238Q347,225 349.5,210.5Q352,196 365,189Q378,182 392,177Q406,172 420,168L420,140Q420,115 437.5,97.5Q455,80 480,80Q505,80 522.5,97.5Q540,115 540,140L540,168ZM444,556L444,556L444,556L444,556ZM480,880Q450,880 426.5,863.5Q403,847 403,819Q403,811 409.5,805.5Q416,800 424,800L536,800Q544,800 550.5,805.5Q557,811 557,819Q557,847 533.5,863.5Q510,880 480,880ZM513,399Q513,399 513,399Q513,399 513,399L513,399L513,399Q513,399 513,399Q513,399 513,399Z&quot;/>"
+        errorLine2="                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_notification_error.xml"
+            line="2"
+            column="66"/>
     </issue>
 
     <issue
@@ -1041,6 +1230,17 @@
 
     <issue
         id="VectorPath"
+        message="Very long vector path (1628 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;M212,571Q194,553 195.5,527.5Q197,502 217,487Q274,445 341,422.5Q408,400 480,400Q492,400 503.5,400Q515,400 527,402Q552,404 568,423Q584,442 582,467Q580,492 561,508Q542,524 517,522Q508,521 498.5,520.5Q489,520 480,520Q431,520 386,534Q341,548 301,575Q280,589 254.5,589Q229,589 212,571ZM480,160Q599,160 710.5,200Q822,240 913,316Q933,333 934.5,358.5Q936,384 918,402Q900,420 875,419.5Q850,419 830,403Q755,343 666,311.5Q577,280 480,280Q383,280 294,311.5Q205,343 130,403Q110,419 85,419.5Q60,420 42,402Q24,384 25.5,358.5Q27,333 47,316Q138,240 249.5,200Q361,160 480,160ZM668,860Q656,855 645.5,849.5Q635,844 624,836L595,845Q582,849 569.5,844Q557,839 550,828L542,814Q535,802 537,788Q539,774 550,765L572,746Q570,734 570,720Q570,706 572,694L550,675Q539,666 537,652.5Q535,639 542,627L551,612Q558,601 570,596Q582,591 595,595L624,604Q635,596 645.5,590.5Q656,585 668,580L674,551Q677,537 687.5,528.5Q698,520 712,520L728,520Q742,520 752.5,529Q763,538 766,552L772,580Q784,585 794.5,590.5Q805,596 816,604L845,595Q858,591 870.5,596Q883,601 890,612L898,626Q905,638 903,652Q901,666 890,675L868,694Q870,706 870,720Q870,734 868,746L890,765Q901,774 903,787.5Q905,801 898,813L889,828Q882,839 870,844Q858,849 845,845L816,836Q805,844 794.5,849.5Q784,855 772,860L766,889Q763,903 752.5,911.5Q742,920 728,920L712,920Q698,920 687.5,911Q677,902 674,888L668,860ZM720,640Q687,640 663.5,663.5Q640,687 640,720Q640,753 663.5,776.5Q687,800 720,800Q753,800 776.5,776.5Q800,753 800,720Q800,687 776.5,663.5Q753,640 720,640ZM396,716Q396,683 416,658Q436,633 468,633Q473,633 476.5,637.5Q480,642 480,647L480,785Q480,790 476.5,794.5Q473,799 468,799Q436,799 416,774Q396,749 396,716Z&quot; />"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_wifi_settings.xml"
+            line="10"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
         message="Very long vector path (812 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
         errorLine1="        android:pathData=&quot;M5.3 14.275q-0.45-0.45-0.425-1.075 0.025-0.625 0.5-0.975 1.375-1.05 3.063-1.638Q10.125 10 12 10q1.9 0 3.588 0.6 1.687 0.6 3.062 1.675 0.475 0.35 0.488 0.963Q19.15 13.85 18.7 14.3q-0.425 0.425-1.037 0.438-0.613 0.012-1.138-0.338-0.975-0.675-2.112-1.037Q13.275 13 12 13t-2.412 0.375Q8.45 13.75 7.5 14.4q-0.55 0.375-1.162 0.338Q5.725 14.7 5.3 14.275zM1.05 10.05Q0.625 9.625 0.625 9.012 0.625 8.4 1.075 8q2.225-1.875 5-2.938Q8.85 4 12 4t5.925 1.062q2.775 1.063 5 2.938 0.45 0.4 0.463 1 0.012 0.6-0.438 1.05-0.425 0.425-1.037 0.45-0.613 0.025-1.113-0.375-1.825-1.475-4.062-2.3Q14.5 7 12 7 9.5 7 7.263 7.825 5.025 8.65 3.2 10.125q-0.5 0.4-1.112 0.375-0.613-0.025-1.038-0.45zM12 20q-0.85 0-1.425-0.575Q10 18.85 10 18q0-0.85 0.575-1.425Q11.15 16 12 16q0.85 0 1.425 0.575Q14 17.15 14 18q0 0.85-0.575 1.425Q12.85 20 12 20z&quot; />"
         errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -1062,13 +1262,46 @@
     </issue>
 
     <issue
+        id="InefficientWeight"
+        message="Use a `layout_width` of `0dp` instead of `wrap_content` for better performance"
+        errorLine1="                android:layout_width=&quot;wrap_content&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_ashell.xml"
+            line="107"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="InefficientWeight"
+        message="Use a `layout_width` of `0dp` instead of `wrap_content` for better performance"
+        errorLine1="                android:layout_width=&quot;wrap_content&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_otg.xml"
+            line="80"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="InefficientWeight"
+        message="Use a `layout_width` of `0dp` instead of `wrap_content` for better performance"
+        errorLine1="                android:layout_width=&quot;wrap_content&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_wifi_adb.xml"
+            line="106"
+            column="17"/>
+    </issue>
+
+    <issue
         id="Overdraw"
         message="Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
         errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_crash_report.xml"
-            line="5"
+            line="7"
             column="5"/>
     </issue>
 
@@ -1079,7 +1312,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_main.xml"
-            line="11"
+            line="9"
             column="5"/>
     </issue>
 
@@ -1090,6 +1323,28 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/category_app.xml"
+            line="8"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@color/dim_background` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
+        errorLine1="        android:background=&quot;@color/dim_background&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/dialog_wifi_adb_devices.xml"
+            line="8"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@color/dim_background` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
+        errorLine1="    android:background=&quot;@color/dim_background&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/dialog_wifi_adb_mode.xml"
             line="7"
             column="5"/>
     </issue>
@@ -1097,12 +1352,12 @@
     <issue
         id="Overdraw"
         message="Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
-        errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="        android:background=&quot;?attr/colorSurface&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_about.xml"
-            line="7"
-            column="5"/>
+            line="9"
+            column="9"/>
     </issue>
 
     <issue
@@ -1119,12 +1374,12 @@
     <issue
         id="Overdraw"
         message="Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
-        errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="        android:background=&quot;?attr/colorSurface&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_changelog.xml"
-            line="8"
-            column="5"/>
+            line="10"
+            column="9"/>
     </issue>
 
     <issue
@@ -1134,7 +1389,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_examples.xml"
-            line="12"
+            line="10"
             column="5"/>
     </issue>
 
@@ -1155,8 +1410,30 @@
         errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="10"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
+        errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
             file="src/main/res/layout/fragment_settings.xml"
-            line="11"
+            line="10"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
+        errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_wifi_adb.xml"
+            line="8"
             column="5"/>
     </issue>
 
@@ -1174,21 +1451,43 @@
     <issue
         id="Overdraw"
         message="Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
-        errorLine1="    android:background=&quot;?attr/colorSurface&quot;>"
+        errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/settings_look_and_feel.xml"
-            line="10"
+            line="9"
             column="5"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_adb` appears to be unused"
+        message="The resource `R.menu.bottom_nav_menu` appears to be unused"
+        errorLine1="&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/menu/bottom_nav_menu.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.transparent` appears to be unused"
+        errorLine1="    &lt;color name=&quot;transparent&quot;>#00000000&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="7"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_cards` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
         <location
-            file="src/main/res/drawable/ic_adb.xml"
+            file="src/main/res/drawable/ic_cards.xml"
             line="1"
             column="1"/>
     </issue>
@@ -1217,22 +1516,22 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_shell` appears to be unused"
+        message="The resource `R.drawable.ic_mode` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
         <location
-            file="src/main/res/drawable/ic_shell.xml"
+            file="src/main/res/drawable/ic_mode.xml"
             line="1"
             column="1"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_shizuku` appears to be unused"
+        message="The resource `R.drawable.ic_shell` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
         <location
-            file="src/main/res/drawable/ic_shizuku.xml"
+            file="src/main/res/drawable/ic_shell.xml"
             line="1"
             column="1"/>
     </issue>
@@ -1255,6 +1554,17 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_x.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.kernelsu_logo` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/kernelsu_logo.xml"
             line="1"
             column="1"/>
     </issue>
@@ -1366,7 +1676,7 @@
         errorLine2="            ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="20"
+            line="24"
             column="13"/>
     </issue>
 
@@ -1377,7 +1687,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="22"
+            line="26"
             column="13"/>
     </issue>
 
@@ -1388,7 +1698,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="25"
+            line="29"
             column="13"/>
     </issue>
 
@@ -1399,29 +1709,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="26"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.cd` appears to be unused"
-        errorLine1="    &lt;string name=&quot;cd&quot;>Alterar diretório&lt;/string>"
-        errorLine2="            ~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt/strings.xml"
-            line="27"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.cd_slash` appears to be unused"
-        errorLine1="    &lt;string name=&quot;cd_slash&quot;>Ir para o diretório raiz&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt/strings.xml"
-            line="28"
+            line="30"
             column="13"/>
     </issue>
 
@@ -1432,18 +1720,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="29"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.cd_tilde` appears to be unused"
-        errorLine1="    &lt;string name=&quot;cd_tilde&quot;>Ir para o diretório inicial&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt/strings.xml"
-            line="29"
+            line="34"
             column="13"/>
     </issue>
 
@@ -1454,29 +1731,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="30"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.cd_hyphen` appears to be unused"
-        errorLine1="    &lt;string name=&quot;cd_hyphen&quot;>Ir para o diretório anterior&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt/strings.xml"
-            line="30"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.cd___` appears to be unused"
-        errorLine1="    &lt;string name=&quot;cd_..&quot;>Ir para o diretório pai&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt/strings.xml"
-            line="31"
+            line="35"
             column="13"/>
     </issue>
 
@@ -1487,7 +1742,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="63"
+            line="72"
             column="13"/>
     </issue>
 
@@ -1498,7 +1753,18 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="64"
+            line="73"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.disclaimer_end` appears to be unused"
+        errorLine1="    &lt;string name=&quot;disclaimer_end&quot;>By using this app, you acknowledge and agree to these terms. If you do not accept these conditions, please refrain from using the app.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="104"
             column="13"/>
     </issue>
 
@@ -1509,7 +1775,7 @@
         errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="79"
+            line="106"
             column="13"/>
     </issue>
 
@@ -1520,7 +1786,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="80"
+            line="107"
             column="13"/>
     </issue>
 
@@ -1531,7 +1797,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="82"
+            line="109"
             column="13"/>
     </issue>
 
@@ -1542,7 +1808,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="83"
+            line="110"
             column="13"/>
     </issue>
 
@@ -1553,7 +1819,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="89"
+            line="119"
             column="13"/>
     </issue>
 
@@ -1564,7 +1830,7 @@
         errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="97"
+            line="128"
             column="13"/>
     </issue>
 
@@ -1575,11 +1841,18 @@
         errorLine2="            ~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-<<<<<<< HEAD
-            line="100"
-=======
-            line="108"
->>>>>>> test
+            line="140"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.not_available` appears to be unused"
+        errorLine1="    &lt;string name=&quot;not_available&quot;>Not available&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="153"
             column="13"/>
     </issue>
 
@@ -1590,11 +1863,18 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-<<<<<<< HEAD
-            line="116"
-=======
-            line="126"
->>>>>>> test
+            line="165"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pairing_port` appears to be unused"
+        errorLine1="    &lt;string name=&quot;pairing_port&quot;>Pairing port&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="173"
             column="13"/>
     </issue>
 
@@ -1605,11 +1885,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-<<<<<<< HEAD
-            line="122"
-=======
-            line="132"
->>>>>>> test
+            line="179"
             column="13"/>
     </issue>
 
@@ -1620,11 +1896,51 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-<<<<<<< HEAD
-            line="123"
-=======
-            line="133"
->>>>>>> test
+            line="180"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.remember_working_mode` appears to be unused"
+        errorLine1="    &lt;string name=&quot;remember_working_mode&quot;>Remember last working mode&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="184"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.resume` appears to be unused"
+        errorLine1="    &lt;string name=&quot;resume&quot;>Resume&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="187"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.share_and_run` appears to be unused"
+        errorLine1="    &lt;string name=&quot;share_and_run&quot;>Auto run shared commands&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="209"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.des_share_and_run` appears to be unused"
+        errorLine1="    &lt;string name=&quot;des_share_and_run&quot;>If enabled then sharing any text to aShell You automatically runs the shell with the shared text as input&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="210"
             column="13"/>
     </issue>
 
@@ -1635,23 +1951,151 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-<<<<<<< HEAD
-            line="155"
-=======
-            line="165"
->>>>>>> test
+            line="218"
             column="13"/>
     </issue>
 
     <issue
-        id="UselessLeaf"
-        message="This `LinearLayout` view is unnecessary (no children, no `background`, no `id`, no `style`)"
-        errorLine1="    &lt;LinearLayout"
-        errorLine2="     ~~~~~~~~~~~~">
+        id="UnusedResources"
+        message="The resource `R.string.unhide_cards_message` appears to be unused"
+        errorLine1="    &lt;string name=&quot;unhide_cards_message&quot;>All info cards will be visible now&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/layout/fragment_onboarding_item2.xml"
-            line="91"
-            column="6"/>
+            file="src/main/res/values/strings.xml"
+            line="238"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.update` appears to be unused"
+        errorLine1="    &lt;string name=&quot;update&quot;>Update&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="239"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.usb_warning_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;usb_warning_title&quot;>Important&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="242"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.usb_warning_summary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;usb_warning_summary&quot;>You need to turn on USB Debugging in the developer settings of the target device&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="243"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.warning` appears to be unused"
+        errorLine1="    &lt;string name=&quot;warning&quot;>Warning&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="248"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.unhide_cards` appears to be unused"
+        errorLine1="    &lt;string name=&quot;unhide_cards&quot;>Unhide info cards&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="276"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.des_unhide_cards` appears to be unused"
+        errorLine1="    &lt;string name=&quot;des_unhide_cards&quot;>All information cards will be visible again&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="277"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.confirm_basic_mode` appears to be unused"
+        errorLine1="    &lt;string name=&quot;confirm_basic_mode&quot;>No higher privelege is granted. App will only execute basic commands. You can change the working mode later in settings&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="311"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.InfoCardStyle` appears to be unused"
+        errorLine1="        name=&quot;InfoCardStyle&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="78"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.InfoCardTitle` appears to be unused"
+        errorLine1="        name=&quot;InfoCardTitle&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="86"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.InfoCardDescription` appears to be unused"
+        errorLine1="        name=&quot;InfoCardDescription&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="95"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.BottomNavigation` appears to be unused"
+        errorLine1="        name=&quot;BottomNavigation&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-night-v31/themes.xml"
+            line="83"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UselessParent"
+        message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary"
+        errorLine1="        &lt;LinearLayout"
+        errorLine2="         ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/dialog_sensitive_package_warning.xml"
+            line="71"
+            column="10"/>
     </issue>
 
     <issue
@@ -1790,14 +2234,47 @@
     </issue>
 
     <issue
-        id="ButtonStyle"
-        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)"
-        errorLine1="        &lt;Button"
-        errorLine2="         ~~~~~~">
+        id="ClickableViewAccessibility"
+        message="Custom view ``TextInputEditText`` has `setOnTouchListener` called on it but does not override `performClick`"
+        errorLine1="    binding.search.setOnTouchListener("
+        errorLine2="    ^">
         <location
-            file="src/main/res/layout/bottom_sheet_update_checker.xml"
-            line="64"
-            column="10"/>
+            file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
+            line="482"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        message="`onTouch` lambda should call `View#performClick` when a click is detected"
+        errorLine1="        (v, event) -> {"
+        errorLine2="        ^">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
+            line="483"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        message="Custom view ``TextInputEditText`` has `setOnTouchListener` called on it but does not override `performClick`"
+        errorLine1="    binding.search.setOnTouchListener("
+        errorLine2="    ^">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/home/WifiAdbFragment.java"
+            line="351"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        message="`onTouch` lambda should call `View#performClick` when a click is detected"
+        errorLine1="        (v, event) -> {"
+        errorLine2="        ^">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/home/WifiAdbFragment.java"
+            line="352"
+            column="9"/>
     </issue>
 
     <issue
@@ -1807,8 +2284,19 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_crash_report.xml"
-            line="112"
+            line="110"
             column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                &lt;ImageView"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/bottom_sheet_pair_and_connect.xml"
+            line="41"
+            column="18"/>
     </issue>
 
     <issue
@@ -1818,7 +2306,7 @@
         errorLine2="     ~~~~~~~~~">
         <location
             file="src/main/res/layout/category_app.xml"
-            line="10"
+            line="11"
             column="6"/>
     </issue>
 
@@ -1829,7 +2317,7 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/category_contributors.xml"
-            line="51"
+            line="52"
             column="18"/>
     </issue>
 
@@ -1851,7 +2339,7 @@
         errorLine2="     ~~~~~~~~~">
         <location
             file="src/main/res/layout/dialog_choose_directory.xml"
-            line="9"
+            line="10"
             column="6"/>
     </issue>
 
@@ -1862,7 +2350,7 @@
         errorLine2="     ~~~~~~~~~">
         <location
             file="src/main/res/layout/dialog_connected_device.xml"
-            line="11"
+            line="12"
             column="6"/>
     </issue>
 
@@ -1873,7 +2361,7 @@
         errorLine2="     ~~~~~~~~~">
         <location
             file="src/main/res/layout/dialog_no_otg_connection.xml"
-            line="10"
+            line="11"
             column="6"/>
     </issue>
 
@@ -1884,7 +2372,7 @@
         errorLine2="     ~~~~~~~~~">
         <location
             file="src/main/res/layout/dialog_no_root.xml"
-            line="10"
+            line="11"
             column="6"/>
     </issue>
 
@@ -1895,7 +2383,7 @@
         errorLine2="     ~~~~~~~~~">
         <location
             file="src/main/res/layout/dialog_no_shizuku.xml"
-            line="10"
+            line="11"
             column="6"/>
     </issue>
 
@@ -1924,11 +2412,44 @@
     <issue
         id="ContentDescription"
         message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/dialog_wifi_adb_devices.xml"
+            line="57"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/dialog_wifi_adb_devices.xml"
+            line="97"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/dialog_wifi_adb_devices.xml"
+            line="143"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
         errorLine1="                &lt;ImageView"
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_about.xml"
-            line="33"
+            line="35"
             column="18"/>
     </issue>
 
@@ -1939,7 +2460,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_ashell.xml"
-            line="93"
+            line="151"
             column="14"/>
     </issue>
 
@@ -1950,7 +2471,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_ashell.xml"
-            line="218"
+            line="220"
             column="6"/>
     </issue>
 
@@ -1961,7 +2482,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_ashell.xml"
-            line="232"
+            line="234"
             column="6"/>
     </issue>
 
@@ -1972,7 +2493,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_ashell.xml"
-            line="247"
+            line="249"
             column="6"/>
     </issue>
 
@@ -1983,7 +2504,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_ashell.xml"
-            line="262"
+            line="264"
             column="6"/>
     </issue>
 
@@ -1994,7 +2515,7 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_changelog.xml"
-            line="36"
+            line="37"
             column="18"/>
     </issue>
 
@@ -2005,8 +2526,107 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_examples.xml"
-            line="37"
+            line="38"
             column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="17"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="60"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="78"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                        &lt;ImageView"
+        errorLine2="                         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="115"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                        &lt;ImageView"
+        errorLine2="                         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="166"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="234"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="252"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="315"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="333"
+            column="22"/>
     </issue>
 
     <issue
@@ -2016,7 +2636,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="67"
+            line="126"
             column="14"/>
     </issue>
 
@@ -2027,7 +2647,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="258"
+            line="210"
             column="6"/>
     </issue>
 
@@ -2038,7 +2658,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="272"
+            line="224"
             column="6"/>
     </issue>
 
@@ -2049,7 +2669,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="287"
+            line="239"
             column="6"/>
     </issue>
 
@@ -2060,7 +2680,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="302"
+            line="254"
             column="6"/>
     </issue>
 
@@ -2070,9 +2690,152 @@
         errorLine1="                &lt;ImageView"
         errorLine2="                 ~~~~~~~~~">
         <location
-            file="src/main/res/layout/fragment_settings.xml"
+            file="src/main/res/layout/fragment_pairing.xml"
             line="38"
             column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="80"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="118"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="173"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="211"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                &lt;ImageView"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="255"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                &lt;ImageView"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="303"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                &lt;ImageView"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="325"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                &lt;ImageView"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_settings.xml"
+            line="39"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="            &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_wifi_adb.xml"
+            line="152"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_wifi_adb.xml"
+            line="220"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_wifi_adb.xml"
+            line="234"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_wifi_adb.xml"
+            line="249"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_wifi_adb.xml"
+            line="264"
+            column="6"/>
     </issue>
 
     <issue
@@ -2089,11 +2852,33 @@
     <issue
         id="ContentDescription"
         message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/rv_wifi_adb_devices.xml"
+            line="24"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/rv_wifi_adb_devices.xml"
+            line="44"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
         errorLine1="                &lt;ImageView"
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/settings_look_and_feel.xml"
-            line="36"
+            line="37"
             column="18"/>
     </issue>
 
@@ -2104,7 +2889,7 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/settings_look_and_feel.xml"
-            line="203"
+            line="199"
             column="18"/>
     </issue>
 
@@ -2115,7 +2900,7 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/settings_look_and_feel.xml"
-            line="262"
+            line="257"
             column="18"/>
     </issue>
 
@@ -2126,8 +2911,52 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/settings_look_and_feel.xml"
-            line="322"
+            line="315"
             column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                &lt;ImageView"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/settings_look_and_feel.xml"
+            line="374"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="        okButton.setText(&quot;OK (&quot; + timeLeft + &quot;s)&quot;);"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
+            line="1225"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="        okButton.setText(&quot;OK (&quot; + timeLeft + &quot;s)&quot;);"
+        errorLine2="                         ~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
+            line="1225"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="        okButton.setText(&quot;OK&quot;);"
+        errorLine2="                         ~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
+            line="1231"
+            column="26"/>
     </issue>
 
     <issue
@@ -2136,13 +2965,8 @@
         errorLine1="      binding.modeButton.setText(&quot;Basic shell&quot;);"
         errorLine2="                                 ~~~~~~~~~~~~~">
         <location
-<<<<<<< HEAD
-            file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="1518"
-=======
             file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="1522"
->>>>>>> test
+            line="1568"
             column="34"/>
     </issue>
 
@@ -2152,13 +2976,8 @@
         errorLine1="      binding.modeButton.setText(&quot;Shizuku&quot;);"
         errorLine2="                                 ~~~~~~~~~">
         <location
-<<<<<<< HEAD
-            file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="1521"
-=======
             file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="1525"
->>>>>>> test
+            line="1571"
             column="34"/>
     </issue>
 
@@ -2168,36 +2987,9 @@
         errorLine1="      binding.modeButton.setText(&quot;Root&quot;);"
         errorLine2="                                 ~~~~~~">
         <location
-<<<<<<< HEAD
-            file="src/main/java/in/hridayan/ashell/fragments/AshellFragment.java"
-            line="1524"
-=======
             file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="1528"
->>>>>>> test
+            line="1574"
             column="34"/>
-    </issue>
-
-    <issue
-        id="SetTextI18n"
-        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
-        errorLine1="        context.getString(R.string.current)"
-        errorLine2="        ^">
-        <location
-            file="src/main/java/in/hridayan/ashell/UI/BottomSheets.java"
-            line="52"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="SetTextI18n"
-        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
-        errorLine1="        context.getString(R.string.latest)"
-        errorLine2="        ^">
-        <location
-            file="src/main/java/in/hridayan/ashell/UI/BottomSheets.java"
-            line="58"
-            column="9"/>
     </issue>
 
     <issue
@@ -2212,58 +3004,69 @@
     </issue>
 
     <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;Local ADB&quot;, should use `@string` resource"
-        errorLine1="        android:title=&quot;Local ADB&quot; />"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="        getString(R.string.root_access)"
+        errorLine2="        ^">
         <location
-            file="src/main/res/menu/bottom_nav_menu.xml"
-            line="5"
+            file="src/main/java/in/hridayan/ashell/fragments/home/HomeFragment.java"
+            line="206"
             column="9"/>
     </issue>
 
     <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;OTG&quot;, should use `@string` resource"
-        errorLine1="        android:title=&quot;OTG&quot; />"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~">
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="        getString(R.string.root_provider)"
+        errorLine2="        ^">
         <location
-            file="src/main/res/menu/bottom_nav_menu.xml"
-            line="10"
+            file="src/main/java/in/hridayan/ashell/fragments/home/HomeFragment.java"
+            line="210"
             column="9"/>
     </issue>
 
     <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;Wifi ADB&quot;, should use `@string` resource"
-        errorLine1="        android:title=&quot;Wifi ADB&quot; />"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~">
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="        getString(R.string.version)"
+        errorLine2="        ^">
         <location
-            file="src/main/res/menu/bottom_nav_menu.xml"
-            line="15"
+            file="src/main/java/in/hridayan/ashell/fragments/home/HomeFragment.java"
+            line="214"
             column="9"/>
     </issue>
 
     <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;Screen 2&quot;, should use `@string` resource"
-        errorLine1="        android:text=&quot;Screen 2&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~">
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="        okButton.setText(&quot;OK (&quot; + timeLeft + &quot;s)&quot;);"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/layout/fragment_onboarding_item2.xml"
-            line="86"
-            column="9"/>
+            file="src/main/java/in/hridayan/ashell/fragments/home/WifiAdbFragment.java"
+            line="854"
+            column="26"/>
     </issue>
 
     <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;OTG&quot;, should use `@string` resource"
-        errorLine1="                    android:text=&quot;OTG&quot;"
-        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="        okButton.setText(&quot;OK (&quot; + timeLeft + &quot;s)&quot;);"
+        errorLine2="                         ~~~~~~">
         <location
-            file="src/main/res/layout/fragment_otg.xml"
-            line="48"
-            column="21"/>
+            file="src/main/java/in/hridayan/ashell/fragments/home/WifiAdbFragment.java"
+            line="854"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="        okButton.setText(&quot;OK&quot;);"
+        errorLine2="                         ~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/home/WifiAdbFragment.java"
+            line="860"
+            column="26"/>
     </issue>
 
     <issue
@@ -2284,7 +3087,7 @@
         errorLine2="                     ~~~~~~~~">
         <location
             file="src/main/res/layout/settings_look_and_feel.xml"
-            line="133"
+            line="132"
             column="22"/>
     </issue>
 
@@ -2295,7 +3098,7 @@
         errorLine2="                     ~~~~~~~~">
         <location
             file="src/main/res/layout/settings_look_and_feel.xml"
-            line="162"
+            line="160"
             column="22"/>
     </issue>
 

@@ -26,19 +26,37 @@
         <item name="android:layout_gravity">start|center</item>
         <item name="android:padding">1.0dip</item>
         <item name="android:letterSpacing">0.1</item>
+        <item name="android:alpha">0.95</item>
     </style>
 
     <style
         name="ItemTitle"
         parent="aShellYou.AppTheme">
-        <item name="android:textSize">18.0sp</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyLarge</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:alpha">0.95</item>
     </style>
 
+        <style
+        name="ItemSubTitle"
+        parent="aShellYou.AppTheme">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+    </style>
+
+    
     <style
         name="ItemDescription"
         parent="aShellYou.AppTheme">
-        <item name="android:textSize">13.0sp</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodySmall</item>
+        <item name="android:alpha">0.9</item>
+    </style>
+
+    <style
+        name="ItemDescriptionBold"
+        parent="aShellYou.AppTheme">
+        <item name="android:textAppearance">?attr/textAppearanceBodySmall</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:alpha">0.9</item>
     </style>
 

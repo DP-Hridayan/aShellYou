@@ -61,11 +61,9 @@
     <string name="copied_to_clipboard">コピー済み</string>
     <string name="crash_report">クラッシュレポート</string>
     <string name="current">現在</string>
-    <string name="default_launch_mode">デフォルト動作モード</string>
     <string name="delete_all">すべて削除する</string>
     <string name="default_language">デフォルト言語</string>
     <string name="des_default_language">アプリのデフォルト言語を選択する</string>
-    <string name="des_default_launch_mode">ADBコマンドを実行するデフォルトモードを選択する</string>
     <string name="device_not_connected">デバイスが接続されていない</string>
     <string name="discord">「Discord」</string>
     <string name="des_discord">「Discord」コミュニティに参加する</string>

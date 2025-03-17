@@ -16,13 +16,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.BottomSheets;
-import in.hridayan.ashell.UI.CategoryAbout;
-import in.hridayan.ashell.UI.ToastUtils;
+import in.hridayan.ashell.ui.CategoryAbout;
+import in.hridayan.ashell.ui.ToastUtils;
+import in.hridayan.ashell.ui.bottomsheets.UpdateCheckerBottomSheet;
 import in.hridayan.ashell.adapters.AboutAdapter;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.databinding.FragmentAboutBinding;
@@ -43,7 +42,6 @@ public class AboutFragment extends Fragment
   private Pair<Integer, Integer> mRVPositionAndOffset;
   private LottieAnimationView loadingDots;
   private Drawable updateButtonIcon;
-  private BottomNavigationView mNav;
 
   @Nullable
   @Override
@@ -54,8 +52,6 @@ public class AboutFragment extends Fragment
 
     binding = FragmentAboutBinding.inflate(inflater, container, false);
 
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-
     viewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
 
     setupRecyclerView();
@@ -65,7 +61,6 @@ public class AboutFragment extends Fragment
   }
 
   private void setupRecyclerView() {
-    mNav.setVisibility(View.GONE);
     binding.rvAbout.setLayoutManager(new LinearLayoutManager(getContext()));
     AboutAdapter adapter = new AboutAdapter(initializeItems(), requireActivity());
     adapter.setAdapterListener(this);
@@ -266,7 +261,8 @@ public class AboutFragment extends Fragment
     if (getContext() != null) {
       switch (result) {
         case Const.UPDATE_AVAILABLE:
-          BottomSheets.showBottomSheetUpdate(requireActivity(), getContext());
+         UpdateCheckerBottomSheet updateChecker = new UpdateCheckerBottomSheet(requireActivity(), requireContext());
+updateChecker.show();
           return;
         case Const.UPDATE_NOT_AVAILABLE:
           latestVersionDialog(getContext());
