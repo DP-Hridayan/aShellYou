@@ -44,8 +44,9 @@
 
 
 ## Instructions 
-* How to Setup Shizuku [here](instructions/Shizuku.md)
-* How to Use OTG [here](instructions/OTG.md)
+* How to Setup Shizuku [here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/Shizuku.md)
+* How to Use OTG [here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md)
+* How to Use Wireless ADB Feature [here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md)
 
 </br>
 
