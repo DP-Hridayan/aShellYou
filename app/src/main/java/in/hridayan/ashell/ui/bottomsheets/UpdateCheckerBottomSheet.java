@@ -16,8 +16,8 @@ import in.hridayan.ashell.BuildConfig;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.ui.dialogs.FeedbackDialogs;
-import in.hridayan.ashell.utils.AppUpdater;
 import in.hridayan.ashell.utils.HapticUtils;
+import in.hridayan.ashell.utils.app.updater.AppUpdater;
 
 public class UpdateCheckerBottomSheet {
 

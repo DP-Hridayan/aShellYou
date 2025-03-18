@@ -19,20 +19,20 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
+import in.hridayan.ashell.adapters.AboutAdapter;
+import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Const.Contributors;
+import in.hridayan.ashell.databinding.FragmentAboutBinding;
 import in.hridayan.ashell.ui.CategoryAbout;
 import in.hridayan.ashell.ui.ToastUtils;
 import in.hridayan.ashell.ui.bottomsheets.UpdateCheckerBottomSheet;
-import in.hridayan.ashell.adapters.AboutAdapter;
-import in.hridayan.ashell.config.Const;
-import in.hridayan.ashell.databinding.FragmentAboutBinding;
 import in.hridayan.ashell.utils.DeviceUtils;
-import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.utils.app.updater.FetchLatestVersionCode;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import java.util.ArrayList;
 import java.util.List;
-import in.hridayan.ashell.config.Const.Contributors;
 
 public class AboutFragment extends Fragment
     implements AboutAdapter.AdapterListener, DeviceUtils.FetchLatestVersionCodeCallback {

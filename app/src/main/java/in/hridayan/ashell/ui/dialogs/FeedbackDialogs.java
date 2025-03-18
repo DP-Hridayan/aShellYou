@@ -14,9 +14,9 @@ import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
-import in.hridayan.ashell.utils.AppUpdater;
 import in.hridayan.ashell.utils.DocumentTreeUtil;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.utils.app.updater.AppUpdater;
 
 /**
  * Handles feedback dialogs related to shell output, device connection, shell execution status, and

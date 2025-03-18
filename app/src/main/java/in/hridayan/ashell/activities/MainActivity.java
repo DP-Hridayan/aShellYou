@@ -18,10 +18,6 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.ui.ThemeUtils;
-import in.hridayan.ashell.ui.ToastUtils;
-import in.hridayan.ashell.ui.bottomsheets.ChangelogBottomSheet;
-import in.hridayan.ashell.ui.bottomsheets.UpdateCheckerBottomSheet;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.ActivityMainBinding;
@@ -33,11 +29,16 @@ import in.hridayan.ashell.fragments.setup.StartFragment;
 import in.hridayan.ashell.items.SettingsItem;
 import in.hridayan.ashell.shell.wifiadb.AdbMdns;
 import in.hridayan.ashell.shell.wifiadb.AdbPairingNotificationWorker;
-import in.hridayan.ashell.utils.AppUpdater;
-import in.hridayan.ashell.utils.CrashHandler;
+import in.hridayan.ashell.ui.ThemeUtils;
+import in.hridayan.ashell.ui.ToastUtils;
+import in.hridayan.ashell.ui.bottomsheets.ChangelogBottomSheet;
+import in.hridayan.ashell.ui.bottomsheets.UpdateCheckerBottomSheet;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.DeviceUtils.FetchLatestVersionCodeCallback;
-import in.hridayan.ashell.utils.FetchLatestVersionCode;
+import in.hridayan.ashell.utils.app.CrashHandler;
+import in.hridayan.ashell.utils.app.updater.ApkInstaller;
+import in.hridayan.ashell.utils.app.updater.AppUpdater;
+import in.hridayan.ashell.utils.app.updater.FetchLatestVersionCode;
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         if (apkFileName != null) {
           File apkFile = new File(getExternalFilesDir(null), apkFileName);
           if (apkFile.exists()) {
-            AppUpdater.promptInstall(this, apkFile);
+            ApkInstaller.installApk(this, apkFile);
           }
         }
       }
