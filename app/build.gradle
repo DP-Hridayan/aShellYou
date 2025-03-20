@@ -86,7 +86,7 @@ dependencies {
     def shizuku_version = "13.1.0"
     def libsu_version = "6.0.0"
     def glide_version = "4.16.0"
-    def lottie_version = "6.6.3"
+    def lottie_version = "6.6.4"
 
     implementation 'com.google.code.gson:gson:2.12.1'
     implementation "com.google.android.material:material:$material_version"
