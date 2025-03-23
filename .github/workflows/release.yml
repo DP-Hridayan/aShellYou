@@ -124,30 +124,30 @@ jobs:
             });
             return response.data.body;
 
-      - name: Create Release with Generated Notes
+      - name: Debug Output
+        run: |
+          echo "Generated Notes:"
+          echo "${{ steps.generate-release-notes.outputs.result }}"
+          echo "Changelog:"
+          echo "${{ env.CHANGELOG }}"
+
+      - name: Combine Release Notes and Changelog
+        run: |
+          GENERATED_NOTES="${{ steps.generate-release-notes.outputs.result }}"
+          CHANGELOG="${{ env.CHANGELOG }}"
+
+          # Combine generated notes and changelog
+          FULL_NOTES="$GENERATED_NOTES"
+
+          echo "FULL_NOTES<<EOF" >> $GITHUB_ENV
+          echo "$FULL_NOTES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Publish Release using gh CLI
         run: |
           gh release create "${{ github.ref_name }}" \
             "aShellYou-${{ github.ref_name }}-release.apk" \
             --title "aShell You ${{ github.ref_name }}" \
-            --notes "${{ steps.generate-release-notes.outputs.result }}"
+            --notes "$FULL_NOTES"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Update Release with Changelog
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { data: release } = await github.rest.repos.getReleaseByTag({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag: process.env.GITHUB_REF_NAME,
-            });
-
-            const updatedBody = `${{ env.CHANGELOG }}\n\n${release.body}`;
-
-            await github.rest.repos.updateRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.id,
-              body: updatedBody,
-            });
