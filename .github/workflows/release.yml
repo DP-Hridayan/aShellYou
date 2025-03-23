@@ -1,0 +1,66 @@
+name: Release APK
+
+on:
+  push:
+    tags:
+      - "v*"  # Runs only when a version tag like "v6.0.1" is pushed
+
+jobs:
+  release:
+    name: Build and Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Decode Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
+
+      - name: Set Environment Variables
+        run: |
+          echo "KEYSTORE_PATH=keystore.jks" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Grant Execute Permission to Gradle
+        run: chmod +x gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleRelease
+
+      - name: Find Release APK
+        run: echo "APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' -print -quit)" >> $GITHUB_ENV
+
+      - name: Install apksigner
+        run: sudo apt-get update && sudo apt-get install -y apksigner
+
+      - name: Sign APK
+        run: |
+          apksigner sign --ks keystore.jks \
+          --ks-pass pass:$KEYSTORE_PASSWORD --key-pass pass:$KEY_PASSWORD \
+          --out app-release-signed.apk $APK_PATH
+
+      - name: Verify APK Signature
+        run: apksigner verify --verbose --print-certs app-release-signed.apk
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app-release-signed.apk
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: "Automated release build"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
