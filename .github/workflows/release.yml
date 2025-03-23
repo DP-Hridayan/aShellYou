@@ -88,11 +88,19 @@ jobs:
         run: |
           mv "${{ env.APK_PATH }}" "aShellYou-${{ github.ref_name }}-release.apk"
 
+      - name: Install xmllint
+        run: sudo apt-get install -y libxml2-utils
+
       - name: Extract Changelog from strings.xml
         run: |
           VERSION_TAG="${{ github.ref_name }}"       # Example: v6.0.1
           VERSION_TAG_XML=$(echo $VERSION_TAG | tr '.' '_' | tr -d 'v')  # Convert v6.0.1 → 6_0_1
-          CHANGELOG=$(xmllint --xpath "string(//string[@name='changelog_v${VERSION_TAG_XML}'])" changelogs/src/main/res/values/strings.xml || echo "No changelog found for $VERSION_TAG")
+          CHANGELOG=$(xmllint --xpath "string(//string[@name='changelog_v${VERSION_TAG_XML}']/text())" changelogs/src/main/res/values/strings.xml || echo "No changelog found for $VERSION_TAG")
+
+          if [[ -z "$CHANGELOG" ]]; then
+            echo "No changelog found for version $VERSION_TAG"
+            exit 1
+          fi
 
           echo "CHANGELOG<<EOF" >> $GITHUB_ENV
           echo "$CHANGELOG" >> $GITHUB_ENV
