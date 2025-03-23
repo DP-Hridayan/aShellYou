@@ -31,6 +31,9 @@ jobs:
         run: |
           echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
           ls -lah keystore.jks
+          
+          - name: Debug Keystore
+  run: keytool -list -keystore keystore.jks -storepass "${{ secrets.KEYSTORE_PASSWORD }}" -v
 
       - name: Set Keystore Path
         run: echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
