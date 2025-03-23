@@ -124,13 +124,20 @@ jobs:
             });
             return response.data.body;
 
+      - name: Debug Output
+        run: |
+          echo "Generated Notes:"
+          echo "${{ steps.generate-release-notes.outputs.result }}"
+          echo "Changelog:"
+          echo "${{ env.CHANGELOG }}"
+
       - name: Combine Release Notes and Changelog
         run: |
           GENERATED_NOTES="${{ steps.generate-release-notes.outputs.result }}"
           CHANGELOG="${{ env.CHANGELOG }}"
 
           # Combine generated notes and changelog
-          FULL_NOTES="$CHANGELOG \n\n$GENERATED_NOTES"
+          FULL_NOTES="$CHANGELOG  \n\n$GENERATED_NOTES"
 
           echo "FULL_NOTES<<EOF" >> $GITHUB_ENV
           echo "$FULL_NOTES" >> $GITHUB_ENV
