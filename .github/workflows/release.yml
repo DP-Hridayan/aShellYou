@@ -31,9 +31,9 @@ jobs:
         run: |
           echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
           ls -lah keystore.jks
-          
-          - name: Debug Keystore
-  run: keytool -list -keystore keystore.jks -storepass "${{ secrets.KEYSTORE_PASSWORD }}" -v
+
+      - name: Debug Keystore
+        run: keytool -list -keystore keystore.jks -storepass "${{ secrets.KEYSTORE_PASSWORD }}" -v
 
       - name: Set Keystore Path
         run: echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
@@ -53,6 +53,10 @@ jobs:
       - name: Find Release APK
         run: |
           APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' -print -quit)
+          if [[ -z "$APK_PATH" ]]; then
+            echo "No APK found!"
+            exit 1
+          fi
           echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
           echo "Found APK at: $APK_PATH"
 
