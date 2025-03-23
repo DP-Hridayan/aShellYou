@@ -98,9 +98,15 @@ jobs:
           CHANGELOG=$(xmllint --xpath "string(//string[@name='changelog_v${VERSION_TAG_XML}']/text())" changelogs/src/main/res/values/strings.xml || echo "No changelog found for $VERSION_TAG")
 
           if [[ -z "$CHANGELOG" ]]; then
-            echo "No changelog found for version $VERSION_TAG"
+            echo "#### Refer to full changelogs $VERSION_TAG"
             exit 1
           fi
+
+          # Replace • with * and \n with two spaces followed by \n
+          CHANGELOG=$(echo "$CHANGELOG" | sed 's/•/*/g' | sed 's/\\n/  \n/g')
+
+          # Add ### Changelogs before the changelog text
+          CHANGELOG="### Changelog  \n$CHANGELOG"
 
           echo "CHANGELOG<<EOF" >> $GITHUB_ENV
           echo "$CHANGELOG" >> $GITHUB_ENV
