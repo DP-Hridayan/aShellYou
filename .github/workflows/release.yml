@@ -106,7 +106,7 @@ jobs:
           CHANGELOG=$(echo "$CHANGELOG" | sed 's/•/*/g' | sed 's/\\n/  \n/g')
 
           # Add ### Changelogs before the changelog text
-          CHANGELOG="### Changelog  \n$CHANGELOG"
+          CHANGELOG="### Changelog  $CHANGELOG"
 
           echo "CHANGELOG<<EOF" >> $GITHUB_ENV
           echo "$CHANGELOG" >> $GITHUB_ENV
