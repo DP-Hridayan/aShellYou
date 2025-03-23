@@ -41,10 +41,18 @@ jobs:
         run: ./gradlew assembleRelease --stacktrace
 
       - name: Find Release APK
-        run: echo "APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' -print -quit)" >> $GITHUB_ENV
+        run: |
+          APK_PATH=$(ls -t app/build/outputs/apk/release/*.apk | head -n1)
+          echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
+          echo "Found APK: $APK_PATH"
 
-      - name: Install apksigner
-        run: sudo apt-get update && sudo apt-get install -y apksigner
+      - name: Install Android SDK Build Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zipalign
+          echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
+          echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          echo "$HOME/android-sdk/build-tools/34.0.0" >> $GITHUB_PATH
 
       - name: Sign APK
         run: |
@@ -55,10 +63,13 @@ jobs:
       - name: Verify APK Signature
         run: apksigner verify --verbose --print-certs app-release-signed.apk
 
+      - name: Move Signed APK
+        run: mv app-release-signed.apk app/build/outputs/apk/release/
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: app-release-signed.apk
+          files: app/build/outputs/apk/release/app-release-signed.apk
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           body: "Automated release build"
