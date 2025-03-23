@@ -33,9 +33,9 @@ jobs:
       - name: Set Environment Variables
         run: |
           echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
-          echo "KEYSTORE_PASSWORD=$(echo -n '${{ secrets.KEYSTORE_PASSWORD }}')" >> $GITHUB_ENV
-          echo "KEY_ALIAS=$(echo -n '${{ secrets.KEY_ALIAS }}')" >> $GITHUB_ENV
-          echo "KEY_PASSWORD=$(echo -n '${{ secrets.KEY_PASSWORD }}')" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Grant Execute Permission to Gradle
         run: chmod +x gradlew
@@ -53,8 +53,7 @@ jobs:
           echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
           echo "Found APK at: $APK_PATH"
 
-      - name: Upload APK as Artifact (For Test Branch)
-        if: github.ref == 'refs/heads/test'
+      - name: Upload APK as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Signed-APK
@@ -74,16 +73,26 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: Signed-APK
-          path: .
+          path: artifacts/
 
-      - name: Rename APK (if necessary)
+      - name: Find Downloaded APK
         run: |
-          mv "${{ env.APK_PATH }}" "aShell You ${{ github.ref_name }}-release.apk"
+          APK_PATH=$(find artifacts -name '*.apk' -print -quit)
+          if [[ -z "$APK_PATH" ]]; then
+            echo "No downloaded APK found!"
+            exit 1
+          fi
+          echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
+          echo "Downloaded APK at: $APK_PATH"
+
+      - name: Rename APK
+        run: |
+          mv "${{ env.APK_PATH }}" "aShellYou-${{ github.ref_name }}-release.apk"
 
       - name: Publish Release
         uses: softprops/action-gh-release@v2
         with:
-          files: "aShell You ${{ github.ref_name }}-release.apk"
+          files: "aShellYou-${{ github.ref_name }}-release.apk"
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           body: "Automated release build"
