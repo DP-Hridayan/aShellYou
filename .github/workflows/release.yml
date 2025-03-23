@@ -137,11 +137,7 @@ jobs:
           CHANGELOG="${{ env.CHANGELOG }}"
 
           # Combine generated notes and changelog
-          FULL_NOTES="$GENERATED_NOTES"
-
-          echo "FULL_NOTES<<EOF" >> $GITHUB_ENV
-          echo "$FULL_NOTES" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          FULL_NOTES="$CHANGELOG  \n\n$GENERATED_NOTES"
 
       - name: Publish Release using gh CLI
         run: |
