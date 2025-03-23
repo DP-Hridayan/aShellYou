@@ -106,7 +106,7 @@ jobs:
           CHANGELOG=$(echo "$CHANGELOG" | sed 's/•/*/g' | sed 's/\\n/  \n/g')
 
           # Add ### Changelog before the changelog text
-          CHANGELOG="### Changelog  \n$CHANGELOG"
+          CHANGELOG="### Changelog  $CHANGELOG"
 
           echo "CHANGELOG<<EOF" >> $GITHUB_ENV
           echo "$CHANGELOG" >> $GITHUB_ENV
@@ -139,16 +139,18 @@ jobs:
           # Combine generated notes and changelog
           FULL_NOTES="$CHANGELOG  \n\n$GENERATED_NOTES"
 
-          # Escape special characters for JSON
-          FULL_NOTES_ESCAPED=$(echo "$FULL_NOTES" | jq -Rs .)
+          # Write FULL_NOTES to a temporary file
+          echo "$FULL_NOTES" > release_notes.txt
 
-          echo "FULL_NOTES_ESCAPED=$FULL_NOTES_ESCAPED" >> $GITHUB_ENV
+          # Debug the contents of the file
+          echo "Contents of release_notes.txt:"
+          cat release_notes.txt
 
       - name: Publish Release using gh CLI
         run: |
           gh release create "${{ github.ref_name }}" \
             "aShellYou-${{ github.ref_name }}-release.apk" \
             --title "aShell You ${{ github.ref_name }}" \
-            --notes "$(echo $FULL_NOTES_ESCAPED | jq -r .)"
+            --notes-file release_notes.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
