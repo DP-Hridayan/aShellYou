@@ -137,7 +137,7 @@ jobs:
           CHANGELOG="${{ env.CHANGELOG }}"
 
           # Combine generated notes and changelog
-          FULL_NOTES="$CHANGELOG  \n\n$GENERATED_NOTES"
+          FULL_NOTES="$CHANGELOG  $GENERATED_NOTES"
 
           # Write FULL_NOTES to a temporary file
           echo "$FULL_NOTES" > release_notes.txt
