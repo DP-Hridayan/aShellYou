@@ -90,14 +90,11 @@ jobs:
         run: |
           mv "${{ env.APK_PATH }}" "aShellYou-${{ github.ref_name }}-release.apk"
 
-      - name: Publish Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: "aShellYou-${{ github.ref_name }}-release.apk"
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          body: "Automated release build"
-          draft: false
-          prerelease: false
+      - name: Publish Release using gh CLI
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            "aShellYou-${{ github.ref_name }}-release.apk" \
+            --title "Release ${{ github.ref_name }}" \
+            --notes "Automated release build"
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
