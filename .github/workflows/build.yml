@@ -3,7 +3,7 @@ name: Build and Sign APK
 on:
   push:
     branches:
-      - test  # Change to your default branch
+      - test  # Change this to your branch name
 
 jobs:
   build:
@@ -23,11 +23,13 @@ jobs:
       - name: Decode Keystore
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        run: echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
+        run: |
+          mkdir -p app
+          echo "$KEYSTORE_BASE64" | base64 --decode > app/keystore.jks
 
       - name: Set Environment Variables
         run: |
-          echo "KEYSTORE_PATH=keystore.jks" >> $GITHUB_ENV
+          echo "KEYSTORE_PATH=app/keystore.jks" >> $GITHUB_ENV
           echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
           echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
           echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
@@ -36,7 +38,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build APK
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease --stacktrace
 
       - name: Find Release APK
         run: echo "APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' -print -quit)" >> $GITHUB_ENV
@@ -46,9 +48,9 @@ jobs:
 
       - name: Sign APK
         run: |
-          apksigner sign --ks keystore.jks \
-          --ks-pass pass:$KEYSTORE_PASSWORD --key-pass pass:$KEY_PASSWORD \
-          --out app-release-signed.apk $APK_PATH
+          apksigner sign --ks "$KEYSTORE_PATH" \
+          --ks-pass pass:"$KEYSTORE_PASSWORD" --key-pass pass:"$KEY_PASSWORD" \
+          --out app-release-signed.apk "$APK_PATH"
 
       - name: Verify APK Signature
         run: apksigner verify --verbose --print-certs app-release-signed.apk
