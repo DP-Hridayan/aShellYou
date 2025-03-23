@@ -2,8 +2,6 @@ name: Build and Release APK
 
 on:
   push:
-    branches:
-      - test  # Runs on push to the test branch
     tags:
       - "v*"  # Runs when a tag like "v6.0.1" is pushed
 
