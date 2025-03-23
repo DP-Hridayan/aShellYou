@@ -3,9 +3,9 @@ name: Build and Release APK
 on:
   push:
     branches:
-      - test  # Change this to your development branch
+      - test  # Runs on push to the test branch
     tags:
-      - "v*"  # Runs only when a version tag like "v6.0.1" is pushed
+      - "v*"  # Runs when a tag like "v6.0.1" is pushed
 
 jobs:
   build:
@@ -30,19 +30,19 @@ jobs:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
           echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
-          ls -lah keystore.jks
+          file keystore.jks  # Verify it's a valid Java Keystore
+          ls -lah keystore.jks  # Check file size
 
       - name: Debug Keystore
-        run: keytool -list -keystore keystore.jks -storepass "${{ secrets.KEYSTORE_PASSWORD }}" -v
-
-      - name: Set Keystore Path
-        run: echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
+        run: |
+          keytool -list -keystore keystore.jks -storepass "${{ secrets.KEYSTORE_PASSWORD }}" -v || echo "❌ Keystore password incorrect!"
 
       - name: Set Environment Variables
         run: |
-          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
-          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
-          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+          echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=$(echo -n '${{ secrets.KEYSTORE_PASSWORD }}')" >> $GITHUB_ENV
+          echo "KEY_ALIAS=$(echo -n '${{ secrets.KEY_ALIAS }}')" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=$(echo -n '${{ secrets.KEY_PASSWORD }}')" >> $GITHUB_ENV
 
       - name: Grant Execute Permission to Gradle
         run: chmod +x gradlew
@@ -54,21 +54,24 @@ jobs:
         run: |
           APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' -print -quit)
           if [[ -z "$APK_PATH" ]]; then
-            echo "No APK found!"
+            echo "❌ No APK found!"
             exit 1
           fi
           echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
-          echo "Found APK at: $APK_PATH"
+          echo "✅ Found APK at: $APK_PATH"
 
       - name: Sign APK
         run: |
+          echo "🔑 Signing APK..."
           $ANDROID_SDK_ROOT/build-tools/34.0.0/apksigner sign \
-          --ks "$KEYSTORE_PATH" \
+          --ks "keystore.jks" \
           --ks-pass pass:"$KEYSTORE_PASSWORD" --key-pass pass:"$KEY_PASSWORD" \
-          --out app-release-signed.apk "$APK_PATH"
+          --out app-release-signed.apk "$APK_PATH" || { echo "❌ Signing failed!"; exit 1; }
 
       - name: Verify APK Signature
-        run: $ANDROID_SDK_ROOT/build-tools/34.0.0/apksigner verify --verbose --print-certs app-release-signed.apk
+        run: |
+          echo "🔍 Verifying APK signature..."
+          $ANDROID_SDK_ROOT/build-tools/34.0.0/apksigner verify --verbose --print-certs app-release-signed.apk
 
       - name: Upload Signed APK as Artifact (For Test Branch)
         if: github.ref == 'refs/heads/test'
@@ -96,7 +99,7 @@ jobs:
           files: app-release-signed.apk
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
-          body: "Automated release build"
+          body: "🚀 Automated release build"
           draft: false
           prerelease: false
         env:
