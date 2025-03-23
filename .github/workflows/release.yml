@@ -105,18 +105,45 @@ jobs:
           # Replace • with * and \n with two spaces followed by \n
           CHANGELOG=$(echo "$CHANGELOG" | sed 's/•/*/g' | sed 's/\\n/  \n/g')
 
-          # Add ### Changelogs before the changelog text
-          CHANGELOG="### Changelog  $CHANGELOG"
+          # Add ### Changelog before the changelog text
+          CHANGELOG="### Changelog  \n$CHANGELOG"
 
           echo "CHANGELOG<<EOF" >> $GITHUB_ENV
           echo "$CHANGELOG" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+
+      - name: Generate Release Notes
+        id: generate-release-notes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const response = await github.rest.repos.generateReleaseNotes({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: process.env.GITHUB_REF_NAME,
+            });
+            return response.data.body;
+
+      - name: Combine Changelog and Generated Notes
+        run: |
+          GENERATED_NOTES="${{ steps.generate-release-notes.outputs.result }}"
+          CHANGELOG="${{ env.CHANGELOG }}"
+
+          # Combine custom changelog and generated notes
+          FULL_NOTES="$CHANGELOG  \n\n$GENERATED_NOTES"
+
+          # Write FULL_NOTES to a temporary file
+          echo "$FULL_NOTES" > release_notes.txt
+
+          # Debug the contents of the file
+          echo "Contents of release_notes.txt:"
+          cat release_notes.txt
 
       - name: Publish Release using gh CLI
         run: |
           gh release create "${{ github.ref_name }}" \
             "aShellYou-${{ github.ref_name }}-release.apk" \
             --title "aShell You ${{ github.ref_name }}" \
-            --notes "$CHANGELOG"
+            --notes-file release_notes.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
