@@ -33,33 +33,32 @@ jobs:
       - name: Set Environment Variables
         run: |
           echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
-          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
-          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
-          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=$(echo -n '${{ secrets.KEYSTORE_PASSWORD }}')" >> $GITHUB_ENV
+          echo "KEY_ALIAS=$(echo -n '${{ secrets.KEY_ALIAS }}')" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=$(echo -n '${{ secrets.KEY_PASSWORD }}')" >> $GITHUB_ENV
+
+      - name: Grant Execute Permission to Gradle
+        run: chmod +x gradlew
 
       - name: Build APK
         run: ./gradlew assembleRelease --stacktrace
 
-      - name: Find and Sign APK
+      - name: Find Release APK
         run: |
           APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' -print -quit)
           if [[ -z "$APK_PATH" ]]; then
-            echo "No APK found."
+            echo "No APK found!"
             exit 1
           fi
-          $ANDROID_SDK_ROOT/build-tools/34.0.0/apksigner sign \
-            --ks "$KEYSTORE_PATH" \
-            --ks-pass pass:"$KEYSTORE_PASSWORD" --key-pass pass:"$KEY_PASSWORD" \
-            --out app-release-signed.apk "$APK_PATH"
+          echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
+          echo "Found APK at: $APK_PATH"
 
-      - name: Verify APK Signature
-        run: $ANDROID_SDK_ROOT/build-tools/34.0.0/apksigner verify --verbose app-release-signed.apk
-
-      - name: Upload Signed APK as Artifact
+      - name: Upload APK as Artifact (For Test Branch)
+        if: github.ref == 'refs/heads/test'
         uses: actions/upload-artifact@v4
         with:
           name: Signed-APK
-          path: app-release-signed.apk
+          path: ${{ env.APK_PATH }}
 
   release:
     name: Create GitHub Release
@@ -68,16 +67,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Download Signed APK
         uses: actions/download-artifact@v4
         with:
           name: Signed-APK
           path: .
 
+      - name: Rename APK (if necessary)
+        run: |
+          mv "${{ env.APK_PATH }}" "aShell You ${{ github.ref_name }}-release.apk"
+
       - name: Publish Release
         uses: softprops/action-gh-release@v2
         with:
-          files: app-release-signed.apk
+          files: "aShell You ${{ github.ref_name }}-release.apk"
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           body: "Automated release build"
