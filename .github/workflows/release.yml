@@ -30,8 +30,7 @@ jobs:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
           echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
-          keytool -list -keystore keystore.jks -storepass "${{ secrets.KEYSTORE_PASSWORD }}" || exit 1
-          echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
+          
 
       - name: Set Environment Variables
         run: |
