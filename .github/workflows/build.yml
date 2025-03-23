@@ -3,7 +3,7 @@ name: Build and Sign APK
 on:
   push:
     branches:
-      - main  # Change to your default branch
+      - test  # Change to your default branch
 
 jobs:
   build:
