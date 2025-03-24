@@ -3,7 +3,7 @@
     tools:ignore="MissingTranslation">
     //Created by DP-Hridayan
     Absolutely necessary to follow this string name format
-    <string name="changelog_v6_0_2">\n\n• Added WIRELESS DEBUGGING mode for running ADB commands on both own or other device\n\n• Redesigned homepage for minimal navigation and less cluttery input field screen\n\n• Added Warning feedback when executing commands involving critical system packages\n\n• Added in-app updater. Now you can directly download the latest package without visiting Github repository\n\n• Fixed a lot of bugs</string>
+    <string name="changelog_v6_0_2">\n\n• Adapted Github Actions for release builds.\n\n• What this means for you?\n• All subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\n\n• Maintenance update</string>
     <string name="changelog_v6_0_0">\n\n• Added WIRELESS DEBUGGING mode for running ADB commands on both own or other device\n\n• Redesigned homepage for minimal navigation and less cluttery input field screen\n\n• Added Warning feedback when executing commands involving critical system packages\n\n• Added in-app updater. Now you can directly download the latest package without visiting Github repository\n\n• Fixed a lot of bugs</string>
     <string name="changelog_v5_2_1">\n\n• Maintenance update</string>
