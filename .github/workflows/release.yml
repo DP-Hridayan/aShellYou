@@ -1,0 +1,155 @@
+name: Build and Release APK
+
+on:
+  push:
+    tags:
+      - "v*"  # Runs when a tag like "v6.0.1" is pushed
+
+jobs:
+  build:
+    name: Build and Sign APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Decode Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
+
+      - name: Set Environment Variables
+        run: |
+          echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=$(echo -n '${{ secrets.KEYSTORE_PASSWORD }}')" >> $GITHUB_ENV
+          echo "KEY_ALIAS=$(echo -n '${{ secrets.KEY_ALIAS }}')" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=$(echo -n '${{ secrets.KEY_PASSWORD }}')" >> $GITHUB_ENV
+
+      - name: Grant Execute Permission to Gradle
+        run: chmod +x gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleRelease --stacktrace
+
+      - name: Find Release APK
+        run: |
+          APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' -print -quit)
+          if [[ -z "$APK_PATH" ]]; then
+            echo "No APK found!"
+            exit 1
+          fi
+          echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
+          echo "Found APK at: $APK_PATH"
+
+      - name: Upload APK as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Signed-APK
+          path: ${{ env.APK_PATH }}
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download Signed APK
+        uses: actions/download-artifact@v4
+        with:
+          name: Signed-APK
+          path: artifacts/
+
+      - name: Find Downloaded APK
+        run: |
+          APK_PATH=$(find artifacts -name '*.apk' -print -quit)
+          if [[ -z "$APK_PATH" ]]; then
+            echo "No downloaded APK found!"
+            exit 1
+          fi
+          echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
+          echo "Downloaded APK at: $APK_PATH"
+
+      - name: Rename APK
+        run: |
+          mv "${{ env.APK_PATH }}" "aShellYou-${{ github.ref_name }}-release.apk"
+
+      - name: Install xmllint
+        run: sudo apt-get install -y libxml2-utils
+
+      - name: Extract Changelog from strings.xml
+        run: |
+          VERSION_TAG="${{ github.ref_name }}"       # Example: v6.0.1
+          VERSION_TAG_XML=$(echo $VERSION_TAG | tr '.' '_' | tr -d 'v')  # Convert v6.0.1 → 6_0_1
+          CHANGELOG=$(xmllint --xpath "string(//string[@name='changelog_v${VERSION_TAG_XML}']/text())" changelogs/src/main/res/values/strings.xml || echo "No changelog found for $VERSION_TAG")
+
+          if [[ -z "$CHANGELOG" ]]; then
+            echo "#### Refer to full changelogs $VERSION_TAG"
+            exit 1
+          fi
+
+          # Replace • with * and \n with two spaces followed by \n
+          CHANGELOG=$(echo "$CHANGELOG" | sed 's/•/*/g' | sed 's/\\n/  \n/g')
+
+          # Add ### Changelog before the changelog text
+          CHANGELOG="### Changelog  \n$CHANGELOG"
+
+          # Write CHANGELOG to a temporary file
+          echo -e "$CHANGELOG" > changelog.txt
+
+          # Debug the contents of the file
+          echo "Contents of changelog.txt:"
+          cat changelog.txt
+
+      - name: Generate Release Notes
+        id: generate-release-notes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const response = await github.rest.repos.generateReleaseNotes({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: process.env.GITHUB_REF_NAME,
+            });
+            return response.data.body;
+
+      - name: Write Generated Notes to File
+        run: |
+          # Write GENERATED_NOTES to a temporary file
+          echo "${{ steps.generate-release-notes.outputs.result }}" > generated_notes.txt
+
+          # Debug the contents of the file
+          echo "Contents of generated_notes.txt:"
+          cat generated_notes.txt
+
+      - name: Combine Release Notes and Changelog
+        run: |
+          # Combine custom changelog and generated notes
+          cat changelog.txt generated_notes.txt > release_notes.txt
+
+          # Debug the contents of the file
+          echo "Contents of release_notes.txt:"
+          cat release_notes.txt
+
+      - name: Publish Release using gh CLI
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            "aShellYou-${{ github.ref_name }}-release.apk" \
+            --title "aShell You ${{ github.ref_name }}" \
+            --notes-file release_notes.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

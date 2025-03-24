@@ -12,7 +12,7 @@ android {
         baseline = file("lint-baseline.xml")
     }
     
-    namespace 'changelogs'
+    namespace 'in.hridayan.changelogs'
     buildTypes {
         release {
             minifyEnabled true

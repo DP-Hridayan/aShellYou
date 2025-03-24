@@ -80,26 +80,31 @@
             android:background="?attr/colorSurface"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipSearchSummary"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="60dp"
-            android:checked="true"
-            android:text="@string/search_summary"
-            android:visibility="gone"
-            style="@style/Widget.Material3.Chip.Suggestion" />
+            android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/noCommandFound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginHorizontal="25dp"
-            android:text="@string/no_command_found"
-            android:textSize="16sp"
-            android:visibility="gone" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/noCommandFound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:text="@string/no_command_found"
+                android:visibility="gone"
+                style="@style/ItemDescription" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipSearchSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:checked="true"
+                android:text="@string/search_summary"
+                android:visibility="gone"
+                style="@style/Widget.Material3.Chip.Suggestion" />
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
