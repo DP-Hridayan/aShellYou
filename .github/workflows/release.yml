@@ -32,9 +32,9 @@ jobs:
       - name: Set Environment Variables
         run: |
           echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
-          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
-          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
-          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=$(echo -n '${{ secrets.KEYSTORE_PASSWORD }}')" >> $GITHUB_ENV
+          echo "KEY_ALIAS=$(echo -n '${{ secrets.KEY_ALIAS }}')" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=$(echo -n '${{ secrets.KEY_PASSWORD }}')" >> $GITHUB_ENV
 
       - name: Grant Execute Permission to Gradle
         run: chmod +x gradlew
@@ -108,47 +108,11 @@ jobs:
           # Add ### Changelog before the changelog text
           CHANGELOG="### Changelog  \n$CHANGELOG"
 
-          # Write CHANGELOG to a temporary file
-          echo -e "$CHANGELOG" > changelog.txt
-
-          # Debug the contents of the file
-          echo "Contents of changelog.txt:"
-          cat changelog.txt
-
-      - name: Generate Release Notes
-        id: generate-release-notes
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const response = await github.rest.repos.generateReleaseNotes({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: process.env.GITHUB_REF_NAME,
-            });
-            return response.data.body;
-
-      - name: Write Cleaned Generated Notes to File
-        run: |
-          # Write the generated release notes to a file
-          echo "${{ steps.generate-release-notes.outputs.result }}" > generated_notes.txt
-
-          # Debug output
-          echo "Generated notes:"
-          cat generated_notes.txt
-
-      - name: Combine Release Notes and Changelog
-        run: |
-          # Combine custom changelog and generated notes
-          cat changelog.txt generated_notes.txt > release_notes.txt
-
-          # Confirm the file is combined
-          echo "Combined release notes written to release_notes.txt"
-
       - name: Publish Release using gh CLI
         run: |
           gh release create "${{ github.ref_name }}" \
             "aShellYou-${{ github.ref_name }}-release.apk" \
             --title "aShell You ${{ github.ref_name }}" \
-            --notes-file release_notes.txt
+            --notes "$CHANGELOG"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
