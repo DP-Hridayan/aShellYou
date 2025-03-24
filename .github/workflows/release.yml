@@ -129,18 +129,12 @@ jobs:
 
       - name: Write Generated Notes to File
         run: |
-          # Ensure generated release notes are available
-          if [ -z "${{ steps.generate-release-notes.outputs.result }}" ]; then
-            echo "No generated release notes found!"
-            exit 1
-          fi
-          
           # Write GENERATED_NOTES to a temporary file
           echo "${{ steps.generate-release-notes.outputs.result }}" > generated_notes.txt
 
           # Ensure the file is created
           echo "Generated release notes written to generated_notes.txt"
-
+          
       - name: Combine Release Notes and Changelog
         run: |
           # Combine custom changelog and generated notes
