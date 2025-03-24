@@ -106,17 +106,16 @@ jobs:
           CHANGELOG=$(echo "$CHANGELOG" | sed 's/•/*/g' | sed 's/\\n/  \n/g')
 
           # Add ### Changelog before the changelog text
-          CHANGELOG="### Changelog  \n$CHANGELOG"
-          
-          # Save changelog to environment variable for later use
-          echo "CHANGELOG_TEXT=$CHANGELOG" >> $GITHUB_ENV
+          CHANGELOG="### Changelog  $CHANGELOG"
+
+          # Write CHANGELOG to a temporary file
+          echo -e "$CHANGELOG" > changelog.txt
 
       - name: Publish Release using gh CLI
         run: |
           gh release create "${{ github.ref_name }}" \
             "aShellYou-${{ github.ref_name }}-release.apk" \
             --title "aShell You ${{ github.ref_name }}" \
-            --notes "${{ env.CHANGELOG_TEXT }}"
-            
+            --notes-file changelog.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
