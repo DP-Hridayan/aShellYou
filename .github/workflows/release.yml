@@ -115,7 +115,7 @@ jobs:
           echo "Contents of changelog.txt:"
           cat changelog.txt
 
-      - name: Generate Release Notes
+    - name: Generate Release Notes
         id: generate-release-notes
         uses: actions/github-script@v7
         with:
@@ -127,13 +127,13 @@ jobs:
             });
             return response.data.body;
 
-      - name: Write Generated Notes to File
+      - name: Write Cleaned Generated Notes to File
         run: |
-          # Write GENERATED_NOTES to a temporary file
-          echo "${{ steps.generate-release-notes.outputs.result }}" > generated_notes.txt
+          # Clean the generated release notes by removing leading/trailing whitespaces
+          echo "${{ steps.generate-release-notes.outputs.result }}" | sed 's/^[ \t]*//;s/[ \t]*$//' > generated_notes.txt
 
-          # Ensure the file is created
-          echo "Generated release notes written to generated_notes.txt"
+          # Debug output
+          cat generated_notes.txt
           
       - name: Combine Release Notes and Changelog
         run: |
