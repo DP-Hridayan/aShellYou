@@ -115,7 +115,7 @@ jobs:
           echo "Contents of changelog.txt:"
           cat changelog.txt
 
-    - name: Generate Release Notes
+      - name: Generate Release Notes
         id: generate-release-notes
         uses: actions/github-script@v7
         with:
@@ -134,7 +134,7 @@ jobs:
 
           # Debug output
           cat generated_notes.txt
-          
+
       - name: Combine Release Notes and Changelog
         run: |
           # Combine custom changelog and generated notes
