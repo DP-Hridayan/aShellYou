@@ -32,9 +32,9 @@ jobs:
       - name: Set Environment Variables
         run: |
           echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
-          echo "KEYSTORE_PASSWORD=$(echo -n '${{ secrets.KEYSTORE_PASSWORD }}')" >> $GITHUB_ENV
-          echo "KEY_ALIAS=$(echo -n '${{ secrets.KEY_ALIAS }}')" >> $GITHUB_ENV
-          echo "KEY_PASSWORD=$(echo -n '${{ secrets.KEY_PASSWORD }}')" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Grant Execute Permission to Gradle
         run: chmod +x gradlew
@@ -129,10 +129,11 @@ jobs:
 
       - name: Write Cleaned Generated Notes to File
         run: |
-          # Clean the generated release notes by removing leading/trailing whitespaces
-          echo "${{ steps.generate-release-notes.outputs.result }}" | sed 's/^[ \t]*//;s/[ \t]*$//' > generated_notes.txt
+          # Write the generated release notes to a file
+          echo "${{ steps.generate-release-notes.outputs.result }}" > generated_notes.txt
 
           # Debug output
+          echo "Generated notes:"
           cat generated_notes.txt
 
       - name: Combine Release Notes and Changelog
