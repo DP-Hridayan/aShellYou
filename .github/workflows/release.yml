@@ -130,7 +130,7 @@ jobs:
       - name: Write Generated Notes to File
         run: |
           # Ensure generated release notes are available
-          if [[ -z "${{ steps.generate-release-notes.outputs.result }}" ]]; then
+          if [ -z "${{ steps.generate-release-notes.outputs.result }}" ]; then
             echo "No generated release notes found!"
             exit 1
           fi
