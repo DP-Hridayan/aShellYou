@@ -107,12 +107,16 @@ jobs:
 
           # Add ### Changelog before the changelog text
           CHANGELOG="### Changelog  \n$CHANGELOG"
+          
+          # Save changelog to environment variable for later use
+          echo "CHANGELOG_TEXT=$CHANGELOG" >> $GITHUB_ENV
 
       - name: Publish Release using gh CLI
         run: |
           gh release create "${{ github.ref_name }}" \
             "aShellYou-${{ github.ref_name }}-release.apk" \
             --title "aShell You ${{ github.ref_name }}" \
-            --notes "$CHANGELOG"
+            --notes "${{ env.CHANGELOG_TEXT }}"
+            
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
