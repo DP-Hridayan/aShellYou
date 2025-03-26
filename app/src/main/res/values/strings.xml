@@ -90,12 +90,8 @@
     <string name="device_not_connected">Device not connected</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="des_disclaimer">This app allows you to execute ADB (Android Debug Bridge) commands directly on your device without needing a PC. Please read the following carefully before using the app:</string>
-    <string name="disclaimer_1_title">Use at Your Own Risk</string>
-    <string name="disclaimer_1_description">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability. You are solely responsible for any changes made using this app.</string>
-    <string name="disclaimer_2_title">Root is not Mandatory, but Caution Needed</string>
     <string name="disclaimer_2_description">While root access is not mandatory, certain commands may require elevated permissions. Misuse of ADB commands can lead to data loss, app crashes, or unexpected system behavior.</string>
     <string name="disclaimer_3_title">We Are Not Liable</string>
-    <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app. Proceed with caution and ensure you understand the commands you execute.</string>
     <string name="disclaimer_4_title">Intended for Advanced Users</string>
     <string name="disclaimer_4_description">This app is designed for users who have a basic understanding of ADB commands. If you are unsure about a command’s effect, research it before executing it.</string>
     <string name="disclaimer_5_title">Permissions and Security</string>
@@ -155,7 +151,7 @@
     <string name="nothing_to_search">Nothing to search</string>
     <string name="notification_access_not_granted">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
     <string name="notification_settings">Notification settings</string>
-    <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to "Android". Go to Notification Settings ~ Notification Style to change the Notification Style.\n\nOtherwise you might not be able to enter the pairing code from the notification.</string>
+    <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="off">Off</string>
     <string name="ok">OK</string>
     <string name="ok_countdown">OK (10s)</string>
@@ -201,7 +197,7 @@
     <string name="selected">Selected</string>
     <string name="select_all">Select all</string>
     <string name="sensitive_packages_warning1">You are about to execute ADB commands involving critical system packages. Modifying, disabling, or uninstalling these packages may cause serious issues, including:</string>
-    <string name="sensitive_packages_warning2">⚠️ System crashes or boot loops\n⚠️ Loss of essential features (e.g., UI, network, security)\n⚠️ Permanent damage requiring a factory reset or firmware reinstallation</string>
+    <string name="sensitive_packages_warning2">⚠️ System crashes or boot loops ⚠️ Loss of essential features (e.g., UI, network, security) ⚠️ Permanent damage requiring a factory reset or firmware reinstallation</string>
     <string name="sensitive_packages_warning3">If you are unsure about the impact, DO NOT PROCEED unless you have a full backup and know how to recover your device.</string>
     <string name="search_summary">Search in commands summary?</string>
     <string name="settings">Settings</string>
@@ -249,7 +245,6 @@
     <string name="warning_v2">⚠ WARNING: Proceed with Caution! ⚠</string>
     <string name="wireless_debugging">Wireless Debugging</string>
     <string name="wireless_debugging_guide_1">Go to Developer options &gt; Wireless Debugging. Tap on Pair device with Pairing Code.</string>
-    <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="whats_new">What\'s new !</string>
@@ -316,4 +311,9 @@
     <string name="grid">Grid</string>
     <string name="list">List</string>
     <string name="pairing_failed">Pairing failed</string>
+    <string name="disclaimer_1_title">Use at Your Own Risk</string>
+    <string name="disclaimer_1_description">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability. You are solely responsible for any changes made using this app.</string>
+    <string name="disclaimer_2_title">Root is not Mandatory, but Caution Needed</string>
+    <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app. Proceed with caution and ensure you understand the commands you execute.</string>
+    <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
 </resources>
