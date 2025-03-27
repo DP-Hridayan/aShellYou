@@ -31,12 +31,12 @@
     <string name="are_you_sure">هل أنت متأكد أنك تريد المتابعة؟</string>
     <string name="basic_shell">واجهة أساسية</string>
     <string name="beta_warning">هذه الميزة حاليًا في مرحلتها التجريبية. إذا واجهت أي مشكلات، يرجى إخبارنا.</string>
-    <string name="behavior">السلوك</string>
+    <string name="behavior">لسالوك</string>
     <string name="bookmarks">الإشارات المرجعية</string>
-    <string name="bookmark_added_message">'%s' تمت إضافتها للإشارات المرجعية</string>
+    <string name="bookmark_added_message">"%s" تمت إضافتها للإشارات المرجعية</string>
     <string name="batch_bookmark_added_message">%d أوامر تمت إضافتها للإشارات المرجعية</string>
     <string name="bookmark_limit_reached">تم الوصول إلى الحد الأقصى للإشارات المرجعية! احذف بعض الإشارات المرجعية لإضافة إشارات جديدة</string>
-    <string name="bookmark_removed_message">'%s' تمت إزالتها من الإشارات المرجعية</string>
+    <string name="bookmark_removed_message">"%s" تمت إزالتها من الإشارات المرجعية</string>
     <string name="batch_bookmark_removed_message">%d أوامر تمت إزالتها من الإشارات المرجعية</string>
     <string name="batch_pinned_message">%d أوامر تم تثبيتها</string>
     <string name="batch_unpinned_message">%d أوامر تم إلغاء تثبيتها</string>
