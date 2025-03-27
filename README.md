@@ -21,7 +21,7 @@
 
 ## Requirements ⚙️
 * A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
-* Shizuku / ROOT is not needed to run ADB commands on other devices via OTG
+* Shizuku / ROOT is not needed to run ADB commands on other devices via OTG or Wireless Debugging
 * Knowledge about basic ADB/Linux commands
 
 
@@ -29,8 +29,8 @@
 
 ## Features ✨
 * 🎨 Features a modern Material Design 3 user interface
-* 📲 Execute commands on your device using Shizuku
-* 🔌 Run commands on other devices via OTG connection
+* 📲 Execute commands on your device using Shizuku , ROOT or Wirless Debugging
+* 🔌 Run commands on other devices via OTG connection or Wireless Debugging
 * 📚 Provides examples of common ADB commands
 * 🛠️ Supports continuously running commands like logcat and top
 * 🔍 Search within the last command output
@@ -44,8 +44,9 @@
 
 
 ## Instructions 
-* How to Setup Shizuku [here](instructions/Shizuku.md)
-* How to Use OTG [here](instructions/OTG.md)
+* How to Setup Shizuku [here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/Shizuku.md)
+* How to Use OTG [here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md)
+* How to Use Wireless ADB Feature [here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md)
 
 </br>
 
@@ -82,11 +83,12 @@
 
 | Task                   | Status   |
 |------------------------|----------|
-| Wifi ADB Feature       | ⬜ To Do  |
-| Implement root shell   | ✅ To Do  |
-| Redesigning Homepage   | ⬜ To Do  |
-| Proper localization    | ⬜ To Do  |
-| Fix OTG Issue          | ✅ Done  |
+| Wifi ADB Feature       | ✅ Done  |
+| Implement root shell   | ✅ Done  |
+| Redesigning Homepage   | ✅ Done  |
+| Proper localization    | ⬜ To Do |
+| Fix scripts execution  | ⬜ To Do |
+| Add Fastboot           | ⬜ To Do |
 
 </br>
 

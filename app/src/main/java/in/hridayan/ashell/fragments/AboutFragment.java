@@ -16,24 +16,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.BottomSheets;
-import in.hridayan.ashell.UI.CategoryAbout;
-import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.adapters.AboutAdapter;
 import in.hridayan.ashell.config.Const;
+import in.hridayan.ashell.config.Const.Contributors;
 import in.hridayan.ashell.databinding.FragmentAboutBinding;
+import in.hridayan.ashell.ui.CategoryAbout;
+import in.hridayan.ashell.ui.ToastUtils;
+import in.hridayan.ashell.ui.bottomsheets.UpdateCheckerBottomSheet;
 import in.hridayan.ashell.utils.DeviceUtils;
-import in.hridayan.ashell.utils.FetchLatestVersionCode;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
+import in.hridayan.ashell.utils.app.updater.FetchLatestVersionCode;
 import in.hridayan.ashell.viewmodels.AboutViewModel;
 import java.util.ArrayList;
 import java.util.List;
-import in.hridayan.ashell.config.Const.Contributors;
 
 public class AboutFragment extends Fragment
     implements AboutAdapter.AdapterListener, DeviceUtils.FetchLatestVersionCodeCallback {
@@ -43,7 +42,6 @@ public class AboutFragment extends Fragment
   private Pair<Integer, Integer> mRVPositionAndOffset;
   private LottieAnimationView loadingDots;
   private Drawable updateButtonIcon;
-  private BottomNavigationView mNav;
 
   @Nullable
   @Override
@@ -54,8 +52,6 @@ public class AboutFragment extends Fragment
 
     binding = FragmentAboutBinding.inflate(inflater, container, false);
 
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-
     viewModel = new ViewModelProvider(requireActivity()).get(AboutViewModel.class);
 
     setupRecyclerView();
@@ -65,7 +61,6 @@ public class AboutFragment extends Fragment
   }
 
   private void setupRecyclerView() {
-    mNav.setVisibility(View.GONE);
     binding.rvAbout.setLayoutManager(new LinearLayoutManager(getContext()));
     AboutAdapter adapter = new AboutAdapter(initializeItems(), requireActivity());
     adapter.setAdapterListener(this);
@@ -195,7 +190,7 @@ public class AboutFragment extends Fragment
             getString(R.string.license),
             getString(R.string.des_license),
             R.drawable.ic_license));
-        
+
     return items;
   }
 
@@ -244,6 +239,8 @@ public class AboutFragment extends Fragment
       button.setText(null);
       // casting button to MaterialButton to use setIcon method.
       ((MaterialButton) button).setIcon(null);
+      button.setMinWidth(button.getWidth());
+      button.setMinHeight(button.getHeight());
     }
 
     loadingDots.setVisibility(View.VISIBLE);
@@ -256,7 +253,7 @@ public class AboutFragment extends Fragment
     if (getView() != null) {
       loadingDots.setVisibility(View.GONE);
       Button button = getView().findViewById(R.id.check_update_button);
-      button.setText(R.string.update);
+      button.setText(R.string.check_updates);
       // casting button to MaterialButton to use setIcon method.
       ((MaterialButton) button).setIcon(updateButtonIcon);
     }
@@ -264,7 +261,8 @@ public class AboutFragment extends Fragment
     if (getContext() != null) {
       switch (result) {
         case Const.UPDATE_AVAILABLE:
-          BottomSheets.showBottomSheetUpdate(requireActivity(), getContext());
+         UpdateCheckerBottomSheet updateChecker = new UpdateCheckerBottomSheet(requireActivity(), requireContext());
+updateChecker.show();
           return;
         case Const.UPDATE_NOT_AVAILABLE:
           latestVersionDialog(getContext());

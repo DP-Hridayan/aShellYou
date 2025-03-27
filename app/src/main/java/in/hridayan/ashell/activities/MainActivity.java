@@ -1,41 +1,48 @@
 package in.hridayan.ashell.activities;
 
 import static in.hridayan.ashell.config.Const.LOCAL_FRAGMENT;
-import static in.hridayan.ashell.config.Const.MODE_REMEMBER_LAST_MODE;
 import static in.hridayan.ashell.config.Const.OTG_FRAGMENT;
+import static in.hridayan.ashell.config.Const.WIFI_ADB_FRAGMENT;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.BottomSheets;
-import in.hridayan.ashell.UI.KeyboardUtils;
-import in.hridayan.ashell.UI.ThemeUtils;
-import in.hridayan.ashell.UI.ToastUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.ActivityMainBinding;
 import in.hridayan.ashell.fragments.home.AshellFragment;
+import in.hridayan.ashell.fragments.home.HomeFragment;
 import in.hridayan.ashell.fragments.home.OtgFragment;
+import in.hridayan.ashell.fragments.home.WifiAdbFragment;
 import in.hridayan.ashell.fragments.setup.StartFragment;
 import in.hridayan.ashell.items.SettingsItem;
-import in.hridayan.ashell.utils.CrashHandler;
+import in.hridayan.ashell.shell.wifiadb.AdbMdns;
+import in.hridayan.ashell.shell.wifiadb.AdbPairingNotificationWorker;
+import in.hridayan.ashell.ui.ThemeUtils;
+import in.hridayan.ashell.ui.ToastUtils;
+import in.hridayan.ashell.ui.bottomsheets.ChangelogBottomSheet;
+import in.hridayan.ashell.ui.bottomsheets.UpdateCheckerBottomSheet;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.DeviceUtils.FetchLatestVersionCodeCallback;
-import in.hridayan.ashell.utils.FetchLatestVersionCode;
-import in.hridayan.ashell.utils.HapticUtils;
+import in.hridayan.ashell.utils.app.CrashHandler;
+import in.hridayan.ashell.utils.app.updater.ApkInstaller;
+import in.hridayan.ashell.utils.app.updater.AppUpdater;
+import in.hridayan.ashell.utils.app.updater.FetchLatestVersionCode;
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity
     implements OtgFragment.OnFragmentInteractionListener, FetchLatestVersionCodeCallback {
-  public BottomNavigationView mNav;
   private SettingsItem settingsList;
   private static int currentFragment;
   private boolean isKeyboardVisible, hasAppRestarted = true;
@@ -43,17 +50,54 @@ public class MainActivity extends AppCompatActivity
   private String pendingSharedText = null;
   private ActivityMainBinding binding;
   public static final Integer SAVE_DIRECTORY_CODE = 369126;
+  private String adbPort;
+  private AdbMdns adbMdns;
+  private Handler timeoutHandler = new Handler(Looper.getMainLooper());
+  private Runnable timeoutRunnable;
 
   // This funtion is run to perform actions if there is an update available or not
   @Override
   public void onResult(int result) {
-    if (result == Const.UPDATE_AVAILABLE) BottomSheets.showBottomSheetUpdate(this, this);
+    if (result == Const.UPDATE_AVAILABLE) {
+      UpdateCheckerBottomSheet updateChecker = new UpdateCheckerBottomSheet(this, this);
+      updateChecker.show();
+    }
   }
 
   @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     handleIncomingIntent(intent);
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    // Stop Mdns if running
+    stopMdns();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    if (Preferences.getUnknownSourcePermAskStatus()) {
+      Preferences.setUnknownSourcePermAskStatus(false);
+
+      String apkFileName = Preferences.getUpdateApkFileName();
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+          && getPackageManager().canRequestPackageInstalls()) {
+        // Permission granted, retry installation
+
+        if (apkFileName != null) {
+          File apkFile = new File(getExternalFilesDir(null), apkFileName);
+          if (apkFile.exists()) {
+            ApkInstaller.installApk(this, apkFile);
+          }
+        }
+      }
+    }
   }
 
   @Override
@@ -92,101 +136,24 @@ public class MainActivity extends AppCompatActivity
     // Catch exceptions
     Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(this));
 
-    mNav = findViewById(R.id.bottom_nav_bar);
+    initialFragment();
 
-    setupNavigation();
+    runAutoUpdateCheck();
+
+    showChangelogs();
 
     handlePendingSharedText();
 
     handleIncomingIntent(getIntent());
-
-    keyboardVisibilityListener();
-
-    showChangelogs();
-
-    runAutoUpdateCheck();
 
     Preferences.setActivityRecreated(false);
 
     hasAppRestarted = false;
   }
 
-  // Main navigation setup
-  private void setupNavigation() {
-    initialFragment();
-
-    mNav.setVisibility(View.VISIBLE);
-
-    mNav.setOnItemSelectedListener(
-        item -> {
-          HapticUtils.weakVibrate(mNav);
-
-          switch (item.getItemId()) {
-            case R.id.nav_localShell:
-              showAshellFragment();
-              Preferences.setCurrentFragment(LOCAL_FRAGMENT);
-              return true;
-
-            case R.id.nav_otgShell:
-              fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-              if (fragment instanceof AshellFragment && ((AshellFragment) fragment).isShellBusy()) {
-                ToastUtils.showToast(
-                    this, getString(R.string.abort_command), ToastUtils.LENGTH_SHORT);
-                return false;
-              }
-              showOtgFragment();
-              Preferences.setCurrentFragment(OTG_FRAGMENT);
-              return true;
-
-            case R.id.nav_wireless:
-              ToastUtils.showToast(this, "Soon", ToastUtils.LENGTH_SHORT);
-              return false;
-
-            default:
-              return false;
-          }
-        });
-
-    setBadge(R.id.nav_wireless, "Soon");
-  }
-
-  // If not on OtgShell then go to OtgShell
-  private void showOtgFragment() {
-    if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof OtgFragment)) replaceFragment(new OtgFragment());
-  }
-
-  // If not on LocalShell then go to LocalShell (AshellFragment)
-  private void showAshellFragment() {
-    if (!(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
-        instanceof AshellFragment)) replaceFragment(new AshellFragment());
-  }
-
-  private void setBadge(int id, String text) {
-    BadgeDrawable badge = mNav.getOrCreateBadge(id);
-    badge.setVisible(true);
-    badge.setText(text);
-    badge.setHorizontalOffset(0);
-  }
-
+  // Set the initial fragment upon launch
   private void initialFragment() {
-    if (Preferences.getFirstLaunch()) {
-      replaceFragment(new StartFragment());
-    } else {
-      int currentFragment = Preferences.getCurrentFragment();
-      int launchMode = Preferences.getLaunchMode();
-      defaultHomeFragment(launchMode == MODE_REMEMBER_LAST_MODE ? currentFragment : launchMode);
-    }
-  }
-
-  private void defaultHomeFragment(int fragmentId) {
-    if (fragmentId == Const.LOCAL_FRAGMENT) {
-      mNav.setSelectedItemId(R.id.nav_localShell);
-      replaceFragment(new AshellFragment());
-    } else if (fragmentId == Const.OTG_FRAGMENT) {
-      mNav.setSelectedItemId(R.id.nav_otgShell);
-      replaceFragment(new OtgFragment());
-    }
+    replaceFragment(Preferences.getFirstLaunch() ? new StartFragment() : new HomeFragment());
   }
 
   // Takes the fragment we want to navigate to as argument and then starts that fragment
@@ -196,6 +163,16 @@ public class MainActivity extends AppCompatActivity
           .beginTransaction()
           .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
           .commit();
+    }
+  }
+
+  // show update available bottom sheet
+  private void runAutoUpdateCheck() {
+    if (Preferences.getAutoUpdateCheck()
+        && hasAppRestarted
+        && !Preferences.getActivityRecreated()
+        && !Preferences.getFirstLaunch()) {
+      new FetchLatestVersionCode(this, this).execute(Const.URL_BUILD_GRADLE);
     }
   }
 
@@ -218,6 +195,16 @@ public class MainActivity extends AppCompatActivity
               (OtgFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
           if (fragmentOtg != null) {
             fragmentOtg.updateInputField(pendingSharedText);
+            clearPendingSharedText();
+          }
+          break;
+
+        case WIFI_ADB_FRAGMENT:
+          WifiAdbFragment fragmentWifiAdb =
+              (WifiAdbFragment)
+                  getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+          if (fragmentWifiAdb != null) {
+            fragmentWifiAdb.updateInputField(pendingSharedText);
             clearPendingSharedText();
           }
           break;
@@ -285,46 +272,18 @@ public class MainActivity extends AppCompatActivity
     if ((getSupportFragmentManager().findFragmentById(R.id.fragment_container)
         instanceof OtgFragment)) {
       currentFragment = OTG_FRAGMENT;
-      mNav.setSelectedItemId(R.id.nav_otgShell);
       replaceFragment(new OtgFragment());
     }
   }
 
-  // keyboard visibility listener
-  private void keyboardVisibilityListener() {
-    KeyboardUtils.attachVisibilityListener(
-        this,
-        new KeyboardUtils.KeyboardVisibilityListener() {
-          @Override
-          public void onKeyboardVisibilityChanged(boolean visible) {
-            isKeyboardVisible = visible;
-            if (isKeyboardVisible) mNav.setVisibility(View.GONE);
-            else
-              new Handler(Looper.getMainLooper())
-                  .postDelayed(
-                      () -> {
-                        mNav.setVisibility(View.VISIBLE);
-                      },
-                      100);
-          }
-        });
-  }
-
   // show bottom sheet for changelog after an update
   private void showChangelogs() {
-    if (DeviceUtils.isAppUpdated(this)) BottomSheets.showBottomSheetChangelog(this);
+    if (DeviceUtils.isAppUpdated(this)) {
+      ChangelogBottomSheet changelogSheet = new ChangelogBottomSheet(this);
+      changelogSheet.show();
+    }
     /* we save the current version code and then when the app updates it compares the saved version code to the updated app's version code to determine whether to show changelogs */
     Preferences.setSavedVersionCode(DeviceUtils.currentVersion());
-  }
-
-  // show update available bottom sheet
-  private void runAutoUpdateCheck() {
-    if (Preferences.getAutoUpdateCheck()
-        && hasAppRestarted
-        && !Preferences.getActivityRecreated()
-        && !Preferences.getFirstLaunch()) {
-      new FetchLatestVersionCode(this, this).execute(Const.URL_BUILD_GRADLE);
-    }
   }
 
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -339,5 +298,79 @@ public class MainActivity extends AppCompatActivity
         Preferences.setSavedOutputDir(String.valueOf(treeUri));
       }
     }
+  }
+
+  public void pairThisDevice() {
+    stopMdns();
+    showSearchingNotification();
+    startPairingCodeSearch();
+  }
+
+  private void showSearchingNotification() {
+    OneTimeWorkRequest workRequest =
+        new OneTimeWorkRequest.Builder(AdbPairingNotificationWorker.class)
+            .setInputData(
+                new Data.Builder().putString("message", "Searching for Pairing Codes...").build())
+            .build();
+
+    WorkManager.getInstance(this)
+        .enqueueUniqueWork("adb_searching_notification", ExistingWorkPolicy.REPLACE, workRequest);
+  }
+
+  // Start searching for wireless debugging pairing code
+  private void startPairingCodeSearch() {
+    adbMdns =
+        new AdbMdns(
+            this,
+            new AdbMdns.AdbFoundCallback() {
+              @Override
+              public void onPairingCodeDetected(String ipAddress, int port) {
+                Preferences.setAdbIp(ipAddress);
+                Preferences.setAdbPairingPort(String.valueOf(port));
+                enterPairingCodeNotification();
+              }
+
+              @Override
+              public void onConnectCodeDetected(String ipAddress, int port) {
+                Preferences.setAdbIp(ipAddress);
+                Preferences.setAdbConnectingPort(String.valueOf(port));
+              }
+            });
+
+    adbMdns.start();
+    startTimeout(); // Start the 3-minute timeout
+  }
+
+  // We run a timeout after which the pairing code searching will stop
+  private void startTimeout() {
+    timeoutRunnable =
+        () -> {
+          stopMdns();
+          WorkManager.getInstance(this).cancelUniqueWork("adb_searching_notification");
+          ToastUtils.showToast(this, "ADB detection timeout", ToastUtils.LENGTH_SHORT);
+        };
+    timeoutHandler.postDelayed(timeoutRunnable, 3 * 60 * 1000); // 3 minutes
+  }
+
+  private void cancelTimeout() {
+    if (timeoutRunnable != null) {
+      timeoutHandler.removeCallbacks(timeoutRunnable);
+    }
+  }
+
+  private void stopMdns() {
+    if (adbMdns != null) {
+      adbMdns.stop();
+      adbMdns = null;
+    }
+    cancelTimeout();
+  }
+
+  private void enterPairingCodeNotification() {
+    OneTimeWorkRequest workRequest =
+        new OneTimeWorkRequest.Builder(AdbPairingNotificationWorker.class).build();
+
+    WorkManager.getInstance(this)
+        .enqueueUniqueWork("adb_pairing_notification", ExistingWorkPolicy.REPLACE, workRequest);
   }
 }

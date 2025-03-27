@@ -15,9 +15,8 @@ import android.util.Pair;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.ThemeUtils;
+import in.hridayan.ashell.ui.ThemeUtils;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.databinding.SettingsLookAndFeelBinding;
@@ -34,7 +33,6 @@ public class LookAndFeel extends Fragment {
 
   private SettingsLookAndFeelBinding binding;
   private View view;
-  private BottomNavigationView mNav;
   private Context context;
   private SettingsItemViewModel viewModel;
 
@@ -77,14 +75,13 @@ public class LookAndFeel extends Fragment {
     binding = SettingsLookAndFeelBinding.inflate(inflater, container, false);
     context = requireContext();
     viewModel = new ViewModelProvider(requireActivity()).get(SettingsItemViewModel.class);
-    mNav = requireActivity().findViewById(R.id.bottom_nav_bar);
-    mNav.setVisibility(View.GONE);
     view = binding.getRoot();
 
     onBackPressedDispatcher();
     setupThemeOptions();
     setupAmoledSwitch();
     setupDynamicColorsSwitch();
+    setupHapticAndVibration();
     setupDefaultLanguageOnClick();
 
     return view;
@@ -128,7 +125,7 @@ public class LookAndFeel extends Fragment {
         v -> binding.switchHighContrastDarkTheme.performClick());
   }
 
-  // Setting up the amoled switch
+  // Setting up the dynamic color switch
   private void setupDynamicColorsSwitch() {
     binding.dynamicColors.setVisibility(
         DeviceUtils.androidVersion() >= Build.VERSION_CODES.S ? View.VISIBLE : View.GONE);
@@ -141,6 +138,18 @@ public class LookAndFeel extends Fragment {
           requireActivity().recreate();
         });
     binding.dynamicColors.setOnClickListener(v -> binding.switchDynamicColors.performClick());
+  }
+
+  // Setting up the haptic and vibration switch
+  private void setupHapticAndVibration() {
+    binding.switchHapticAndVibration.setChecked(Preferences.getHapticsAndVibration());
+    binding.switchHapticAndVibration.setOnCheckedChangeListener(
+        (view, isChecked) -> {
+          HapticUtils.weakVibrate(view);
+          saveSwitchState(Const.PREF_HAPTICS_AND_VIBRATION, isChecked);
+        });
+    binding.hapticAndVibration.setOnClickListener(
+        v -> binding.switchHapticAndVibration.performClick());
   }
 
   private void setupDefaultLanguageOnClick() {
@@ -177,6 +186,7 @@ public class LookAndFeel extends Fragment {
   private void handleRadioButtonSelection(RadioButton button, int mode) {
     clearRadioButtons(); // Uncheck all radio buttons
     button.setChecked(true);
+    Preferences.setActivityRecreated(true);
     Preferences.setThemeMode(mode);
     AppCompatDelegate.setDefaultNightMode(mode);
   }

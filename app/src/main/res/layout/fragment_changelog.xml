@@ -1,45 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/fragment_changelog"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:background="?attr/colorSurface"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-  
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragment_changelog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="?attr/colorSurface"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            app:expandedTitleMarginBottom="45dp"
-            app:expandedTitleMarginEnd="25dp"
-            app:expandedTitleMarginStart="25dp"
-            app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="@string/changelogs"
-            style="@style/ToolbarContentScrim">
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                app:expandedTitleMarginBottom="45dp"
+                app:expandedTitleMarginEnd="25dp"
+                app:expandedTitleMarginStart="25dp"
+                app:expandedTitleTextAppearance="@style/ExpandedToolbarTitle"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:title="@string/changelogs"
+                style="@style/ToolbarContentScrim">
 
             <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin">
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin">
 
                 <ImageView
-                    android:id="@+id/arrowBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/arrow_back"
-                    app:layout_constraintStart_toStartOf="parent" />
+                        android:id="@+id/arrowBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/arrow_back"
+                        app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -47,9 +48,9 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChangelogs"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:id="@+id/rvChangelogs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

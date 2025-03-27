@@ -18,7 +18,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.UI.CategoryAbout;
+import in.hridayan.ashell.ui.CategoryAbout;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.fragments.ChangelogFragment;

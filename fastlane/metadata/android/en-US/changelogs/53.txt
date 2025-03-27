@@ -1,0 +1,6 @@
+
+
+• Adapted Github Actions for release builds.
+
+• What this means for you?
+• All subsequent builds including this will be more secure!
