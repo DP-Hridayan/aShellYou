@@ -141,13 +141,13 @@ public class MainActivity extends AppCompatActivity
     runAutoUpdateCheck();
 
     showChangelogs();
-
+        
     handlePendingSharedText();
-
+        
     handleIncomingIntent(getIntent());
 
     Preferences.setActivityRecreated(false);
-
+        
     hasAppRestarted = false;
   }
 
