@@ -36,8 +36,8 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="nosensor"
+            android:configChanges="keyboardHidden|screenSize"
+            android:screenOrientation="fullSensor"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"
             android:exported="true">
