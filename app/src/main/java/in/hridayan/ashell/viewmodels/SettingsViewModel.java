@@ -10,7 +10,7 @@ public class SettingsViewModel extends ViewModel {
 
   private List<SettingsItem> settingsData;
   private int scrollPosition;
-  private Pair<Integer, Integer> rvPositionAndOffset;
+  private Pair<Integer, Integer> rvPositionAndOffset= new Pair<>(0,0);
 
   public List<SettingsItem> getSettingsData() {
     return settingsData;

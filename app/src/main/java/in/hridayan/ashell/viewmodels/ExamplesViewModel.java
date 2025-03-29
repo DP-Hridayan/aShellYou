@@ -23,11 +23,11 @@ public class ExamplesViewModel extends ViewModel {
   public void setToolbarExpanded(boolean toolbarExpanded) {
     isToolbarExpanded = toolbarExpanded;
   }
-    
+
     public void setEnteringFromSettings(boolean value){
         isEnteringFromSettings = value;
     }
-    
+
     public boolean isEnteringFromSettings(){
         return isEnteringFromSettings;
     }

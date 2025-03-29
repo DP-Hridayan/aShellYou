@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     compileSdkVersion 34
@@ -25,4 +26,10 @@ android {
           proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
         }
     }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+dependencies {
+    implementation 'androidx.core:core-ktx:1.15.0'
 }

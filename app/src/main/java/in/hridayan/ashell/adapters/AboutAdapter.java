@@ -183,7 +183,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       buttonView.setOnClickListener(
           v -> {
             HapticUtils.weakVibrate(v);
-            Utils.openUrl(itemView.getContext(), item.getId().getGithub());
+            Utils.openUrl(itemView.getContext(), item.getId().getGithubUrl());
           });
       categoryContributorsLayout.setOnClickListener(
           v -> {
