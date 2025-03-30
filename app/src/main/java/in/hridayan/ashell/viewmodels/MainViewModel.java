@@ -8,7 +8,8 @@ public class MainViewModel extends ViewModel {
   private int currentFragment = nullValue,
       previousFragment = Const.LOCAL_FRAGMENT,
       whichHomeFragment;
-  private String useCommand, selectedWifiAdbDevice;
+  private String useCommand;
+  private String selectedWifiAdbDevice;
 
   public void setUseCommand(String text) {
     this.useCommand = text;

@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.textview.MaterialTextView;
 import in.hridayan.ashell.R;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -15,10 +17,10 @@ import java.util.List;
  */
 public class ShellOutputAdapter extends RecyclerView.Adapter<ShellOutputAdapter.ViewHolder> {
 
-  private final List<String> data;
+  private  List<String> data;
 
   public ShellOutputAdapter(List<String> data) {
-    this.data = data;
+      this.data = (data != null)? data : new ArrayList<>();
   }
 
   @NonNull

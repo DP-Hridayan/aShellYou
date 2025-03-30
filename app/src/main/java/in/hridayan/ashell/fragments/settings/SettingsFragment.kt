@@ -262,9 +262,9 @@ class SettingsFragment : Fragment() {
         // intentional crash with a long message
         // throwLongException();
         return view
-    }
 
-    fun generateLongMessage(): String {
+}
+    private fun generateLongMessage(): String {
         val message = StringBuilder("Long Exception Message: ")
         for (i in 0..999) { // Adjust the loop count for longer messages
             message.append("This is an intentional crash ").append(i).append(". ")
@@ -272,7 +272,7 @@ class SettingsFragment : Fragment() {
         return message.toString()
     }
 
-    fun throwLongException() {
+    private fun throwLongException() {
         val longMessage = generateLongMessage()
         throw RuntimeException(longMessage)
     }

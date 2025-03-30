@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Pair
 import android.view.LayoutInflater
 import android.view.Menu
@@ -17,6 +18,7 @@ import android.widget.EditText
 import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,7 +47,7 @@ import java.util.Locale
 class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
     UseCommandListener, UseCommandInSearchListener {
     private val viewModel: ExamplesViewModel by viewModels()
-    private val mainViewModel: MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var itemList: List<CommandItems>
     private lateinit var mExamplesAdapter: ExamplesAdapter
     private lateinit var sort: MenuItem
@@ -211,7 +213,7 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
         binding.noCommandFound.visibility = View.GONE
         binding.searchImg.visibility = View.VISIBLE
 
-        if (text != null && !text.toString().isEmpty()) {
+        if (text != null && text.toString().isNotEmpty()) {
             searchTitle(text, filteredList)
 
             if (filteredList.isEmpty()) {
@@ -510,34 +512,9 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
 
     /* This function is called when we use the "Use" feature in commands examples to set the command in the fragment edit text */
     private fun navigateToFragmentAndSetCommand(command: String) {
-        mainViewModel.setUseCommand(command)
-        var fragment: Fragment = AshellFragment()
-        if (mainViewModel.previousFragment() == Const.OTG_FRAGMENT) fragment = OtgFragment()
-        else if (mainViewModel.previousFragment() == Const.WIFI_ADB_FRAGMENT) fragment =
-            WifiAdbFragment()
-
-        // clear previous backstacks
-        clearBackStack()
-
-        KeyboardUtils.closeKeyboard(requireActivity(), view)
-        requireActivity()
-            .supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(
-                R.anim.fragment_enter,
-                R.anim.fragment_exit,
-                R.anim.fragment_pop_enter,
-                R.anim.fragment_pop_exit
-            )
-            .replace(R.id.fragment_container, fragment)
-            .commit()
-    }
-
-    private fun clearBackStack() {
-        val fragmentManager = requireActivity().supportFragmentManager
-        if (fragmentManager.backStackEntryCount > 0) {
-            // Pop all back stack entries
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        }
+        Log.d("examples",command)
+        mainViewModel.useCommand = command
+        val dispatcher: OnBackPressedDispatcher = requireActivity().onBackPressedDispatcher
+        dispatcher.onBackPressed()
     }
 }

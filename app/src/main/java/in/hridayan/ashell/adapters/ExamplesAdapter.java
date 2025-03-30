@@ -1,8 +1,12 @@
 package in.hridayan.ashell.adapters;
 
-import static in.hridayan.ashell.config.Const.*;
+import static in.hridayan.ashell.config.Const.SORT_A_TO_Z;
+import static in.hridayan.ashell.config.Const.SORT_LEAST_USED;
+import static in.hridayan.ashell.config.Const.SORT_MOST_USED;
+import static in.hridayan.ashell.config.Const.SORT_Z_TO_A;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -10,20 +14,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import in.hridayan.ashell.R;
-import in.hridayan.ashell.ui.ThemeUtils;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.items.CommandItems;
+import in.hridayan.ashell.ui.ThemeUtils;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
-import java.util.*;
 
 public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHolder> {
   private final List<CommandItems> data;
@@ -173,6 +184,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     return selectedItems.size();
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   public void selectAll() {
     for (CommandItems item : data) {
       if (!item.isChecked()) {
@@ -183,6 +195,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     notifyDataSetChanged();
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   public void deselectAll() {
     for (CommandItems item : data) {
       if (item.isChecked()) {
@@ -225,6 +238,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     return text.replaceAll("<[^>]*>", "").trim();
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   public void pinUnpinSelectedItems(boolean isAllPinned) {
 
     if (!selectedItems.isEmpty()) {
@@ -246,6 +260,7 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
     }
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   public void sortData() {
     data.sort(
         (item1, item2) -> {

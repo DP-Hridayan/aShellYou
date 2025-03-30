@@ -72,7 +72,7 @@ class ChangelogFragment : Fragment() {
         binding = FragmentChangelogBinding.inflate(inflater, container, false)
         context = requireContext()
 
-        return binding!!.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
