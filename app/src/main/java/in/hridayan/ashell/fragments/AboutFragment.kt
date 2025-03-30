@@ -62,7 +62,7 @@ class AboutFragment : Fragment(), AdapterListener,
     }
 
     private fun setupListeners() {
-        binding.arrowBack.setOnClickListener { v: View? ->
+        binding.arrowBack.setOnClickListener { v: View ->
             HapticUtils.weakVibrate(v)
             requireActivity().supportFragmentManager.popBackStack()
         }
@@ -264,7 +264,7 @@ class AboutFragment : Fragment(), AdapterListener,
         }
 
         loadingDots.visibility = View.VISIBLE
-        FetchLatestVersionCode(context, this).execute(Const.URL_BUILD_GRADLE)
+        FetchLatestVersionCode(this).execute(Const.URL_BUILD_GRADLE)
     }
 
     override fun onResult(result: Int) {

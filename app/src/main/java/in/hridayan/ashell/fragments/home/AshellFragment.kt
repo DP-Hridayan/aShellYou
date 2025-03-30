@@ -65,6 +65,7 @@ import `in`.hridayan.ashell.ui.dialogs.ActionDialogs
 import `in`.hridayan.ashell.ui.dialogs.ErrorDialogs
 import `in`.hridayan.ashell.ui.dialogs.FeedbackDialogs
 import `in`.hridayan.ashell.ui.dialogs.PermissionDialogs
+import `in`.hridayan.ashell.utils.BookmarkUtils
 import `in`.hridayan.ashell.utils.Commands
 import `in`.hridayan.ashell.utils.DeviceUtils
 import `in`.hridayan.ashell.utils.HapticUtils
@@ -121,8 +122,8 @@ class AshellFragment : Fragment() {
         if (binding.rvOutput.layoutManager != null) {
             val layoutManager = binding.rvOutput.layoutManager as LinearLayoutManager?
 
-            val currentPosition = layoutManager!!.findLastVisibleItemPosition()
-            val currentView = layoutManager.findViewByPosition(currentPosition)
+            val currentPosition = layoutManager?.findLastVisibleItemPosition() ?: 0
+            val currentView = layoutManager?.findViewByPosition(currentPosition)
 
             if (currentView != null) {
                 mRVPositionAndOffset = Pair(currentPosition, currentView.top)
@@ -158,7 +159,7 @@ class AshellFragment : Fragment() {
         // we set exit transition to null
         exitTransition = null
 
-        KeyboardUtils.disableKeyboard(context, requireActivity(), view)
+        KeyboardUtils.disableKeyboard(requireActivity(), view)
 
         // This function is for restoring the Run button's icon after a configuration change
         when (viewModel.sendDrawable) {
@@ -173,9 +174,9 @@ class AshellFragment : Fragment() {
             ic_stop -> {
                 binding.sendButton.setColorFilter(
                     if (DeviceUtils.androidVersion() >= Build.VERSION_CODES.S)
-                        ThemeUtils.colorError(context)
+                        ThemeUtils.colorError(requireContext())
                     else
-                        ThemeUtils.getColor(R.color.red, context)
+                        ThemeUtils.getColor(R.color.red, requireContext())
                 )
                 binding.sendButton.setImageDrawable(
                     Utils.getDrawable(R.drawable.ic_stop, requireActivity())
@@ -189,9 +190,9 @@ class AshellFragment : Fragment() {
         if (isShellBusy) {
             binding.sendButton.setColorFilter(
                 if (DeviceUtils.androidVersion() >= Build.VERSION_CODES.S)
-                    ThemeUtils.colorError(context)
+                    ThemeUtils.colorError(requireContext())
                 else
-                    ThemeUtils.getColor(R.color.red, context)
+                    ThemeUtils.getColor(R.color.red, requireContext())
             )
             binding.sendButton.setImageDrawable(
                 Utils.getDrawable(
@@ -238,7 +239,7 @@ class AshellFragment : Fragment() {
         if (binding.commandEditText.text.toString().isNotEmpty() && isEndIconVisible) {
             binding.commandInputLayout.endIconDrawable =
                 Utils.getDrawable(
-                    if (Utils.isBookmarked(
+                    if (BookmarkUtils.isBookmarked(
                             binding.commandEditText.text.toString(),
                             requireActivity()
                         )
@@ -295,12 +296,14 @@ class AshellFragment : Fragment() {
 
         // Toggles certain buttons visibility according to keyboard's visibility
         KeyboardUtils.attachVisibilityListener(
-            requireActivity()
-        ) { visible: Boolean ->
-            isKeyboardVisible = visible
-            if (visible) buttonsVisibilityGone()
-            else buttonsVisibilityVisible()
-        }
+            requireActivity(),
+            object : KeyboardUtils.KeyboardVisibilityListener {
+                override fun onVisibilityChanged(isVisible: Boolean) {
+                    isKeyboardVisible = isVisible
+                    if (isVisible) buttonsVisibilityGone() else buttonsVisibilityVisible()
+                }
+            }
+        )
 
         // When there is any text in edit text , focus the edit text
         if (binding.commandEditText.text.toString().isNotEmpty()
@@ -344,7 +347,7 @@ class AshellFragment : Fragment() {
                             Utils.getDrawable(R.drawable.ic_send, requireActivity())
                         )
                         binding.commandInputLayout.endIconDrawable = Utils.getDrawable(
-                            if (Utils.isBookmarked(
+                            if (BookmarkUtils.isBookmarked(
                                     s.toString().trim { it <= ' ' },
                                     requireActivity()
                                 )
@@ -370,13 +373,12 @@ class AshellFragment : Fragment() {
             binding.scrollDownButton,
             binding.rvOutput,
             null,
-            context,
             "local_shell"
         )
 
         // Paste and undo button onClickListener
         BehaviorFAB.pasteAndUndo(
-            binding.pasteButton, binding.undoButton, binding.commandEditText, context
+            binding.pasteButton, binding.undoButton, binding.commandEditText
         )
         pasteAndSaveButtonVisibility()
 
@@ -468,7 +470,7 @@ class AshellFragment : Fragment() {
         binding.search.text = null
 
         Transitions.materialContainerTransformViewToView(binding.search, binding.searchButton)
-        binding.searchButton.icon = Utils.getDrawable(R.drawable.ic_search, context)
+        binding.searchButton.icon = Utils.getDrawable(R.drawable.ic_search, requireContext())
         if (!binding.commandEditText.isFocused) binding.commandEditText.requestFocus()
         Handler(Looper.getMainLooper())
             .postDelayed(
@@ -537,7 +539,7 @@ class AshellFragment : Fragment() {
         if (text != null) {
             binding.commandEditText.setText(text)
             binding.commandEditText.requestFocus()
-            binding.commandEditText.setSelection(binding.commandEditText.text!!.length)
+            binding.commandEditText.setSelection(binding.commandEditText.text?.length ?: 0)
             viewModel.sendDrawable = ic_send
             binding.sendButton.setImageDrawable(
                 Utils.getDrawable(
@@ -580,8 +582,8 @@ class AshellFragment : Fragment() {
     // Converts the List<String> mResult to String
     private fun buildResultsString(): StringBuilder {
         val sb = StringBuilder()
-        for (i in mPosition..<mResult!!.size) {
-            val result = mResult!![i]
+        for (i in mPosition..<(mResult?.size ?: 0)) {
+            val result = mResult?.get(i)
             if (Utils.shellDeadError() != result && "<i></i>" != result) sb.append(result)
                 .append("\n")
         }
@@ -613,11 +615,11 @@ class AshellFragment : Fragment() {
     private fun modeButtonOnClickListener() {
         binding.modeButton.setOnClickListener { v: View? ->
             HapticUtils.weakVibrate(v)
-            if (isBasicMode) connectedDeviceDialog(DeviceUtils.getDeviceName())
+            if (isBasicMode) connectedDeviceDialog(DeviceUtils.deviceName)
             else if (isShizukuMode) {
                 val hasShizuku = Shizuku.pingBinder() && ShizukuShell.hasPermission()
                 connectedDeviceDialog(
-                    if (hasShizuku) DeviceUtils.getDeviceName() else getString(
+                    if (hasShizuku) DeviceUtils.deviceName else getString(
                         R.string.none
                     )
                 )
@@ -628,7 +630,7 @@ class AshellFragment : Fragment() {
                     requireActivity()
                         .runOnUiThread {
                             connectedDeviceDialog(
-                                if (hasRoot) DeviceUtils.getDeviceName() else getString(
+                                if (hasRoot) DeviceUtils.deviceName else getString(
                                     R.string.none
                                 )
                             )
@@ -756,10 +758,10 @@ class AshellFragment : Fragment() {
         binding.bookmarksButton.tooltipText = getString(R.string.bookmarks)
         binding.bookmarksButton.setOnClickListener { v: View? ->
             HapticUtils.weakVibrate(v)
-            if (Utils.getBookmarks(context)
+            if (BookmarkUtils.getBookmarks(requireContext())
                     .isEmpty()
             ) ToastUtils.showToast(
-                context,
+                requireContext(),
                 R.string.no_bookmarks,
                 ToastUtils.LENGTH_SHORT
             )
@@ -776,7 +778,7 @@ class AshellFragment : Fragment() {
         binding.historyButton.setOnClickListener { v: View? ->
             HapticUtils.weakVibrate(v)
             if (mHistory == null && viewModel.history == null) ToastUtils.showToast(
-                context,
+                requireContext(),
                 R.string.no_history,
                 ToastUtils.LENGTH_SHORT
             )
@@ -785,21 +787,25 @@ class AshellFragment : Fragment() {
                     requireContext(), binding.commandEditText
                 )
                 val menu = popupMenu.menu
-                for (i in recentCommands!!.indices) {
-                    val add = menu.add(
-                        Menu.NONE,
-                        i,
-                        Menu.NONE,
-                        recentCommands!![i]
-                    )
+                recentCommands?.let {
+                    for (i in it.indices) {
+                        menu.add(
+                            Menu.NONE,
+                            i,
+                            Menu.NONE,
+                            recentCommands?.get(i)
+                        )
+                    }
                 }
                 popupMenu.setOnMenuItemClickListener { item: MenuItem ->
-                    for (i in recentCommands!!.indices) {
-                        if (item.itemId == i) {
-                            binding.commandEditText.setText(recentCommands!![i])
-                            binding.commandEditText.setSelection(
-                                binding.commandEditText.text!!.length
-                            )
+                    recentCommands?.let {
+                        for (i in it.indices) {
+                            if (item.itemId == i) {
+                                binding.commandEditText.setText(recentCommands?.get(i))
+                                binding.commandEditText.setSelection(
+                                    binding.commandEditText.text?.length ?: 0
+                                )
+                            }
                         }
                     }
                     false
@@ -815,15 +821,15 @@ class AshellFragment : Fragment() {
 
         binding.clearButton.setOnClickListener { v: View? ->
             HapticUtils.weakVibrate(v)
-            if (mResult == null || mResult!!.isEmpty()) {
+            if (mResult == null || mResult?.isEmpty() == true) {
                 ToastUtils.showToast(
-                    context,
+                    requireContext(),
                     R.string.nothing_to_clear,
                     ToastUtils.LENGTH_SHORT
                 )
             } else if (isShellBusy) {
                 ToastUtils.showToast(
-                    context,
+                    requireContext(),
                     R.string.abort_command,
                     ToastUtils.LENGTH_SHORT
                 )
@@ -880,11 +886,15 @@ class AshellFragment : Fragment() {
     }
 
     private fun handleClearExceptions() {
-        if (mResult == null || mResult!!.isEmpty()) {
-            ToastUtils.showToast(context, R.string.nothing_to_clear, ToastUtils.LENGTH_SHORT)
+        if (mResult == null || mResult?.isEmpty() == true) {
+            ToastUtils.showToast(
+                requireContext(),
+                R.string.nothing_to_clear,
+                ToastUtils.LENGTH_SHORT
+            )
             return
         } else if (isShellBusy) {
-            ToastUtils.showToast(context, R.string.abort_command, ToastUtils.LENGTH_SHORT)
+            ToastUtils.showToast(requireContext(), R.string.abort_command, ToastUtils.LENGTH_SHORT)
             return
         }
     }
@@ -895,13 +905,13 @@ class AshellFragment : Fragment() {
 
         binding.searchButton.setOnClickListener { v: View? ->
             HapticUtils.weakVibrate(v)
-            if (mResult == null || mResult!!.isEmpty()) ToastUtils.showToast(
-                context,
+            if (mResult == null || mResult?.isEmpty() == true) ToastUtils.showToast(
+                requireContext(),
                 R.string.nothing_to_search,
                 ToastUtils.LENGTH_SHORT
             )
             else if (isShellBusy) ToastUtils.showToast(
-                context,
+                requireContext(),
                 R.string.abort_command,
                 ToastUtils.LENGTH_SHORT
             )
@@ -940,12 +950,12 @@ class AshellFragment : Fragment() {
                     if (s.toString().trim { it <= ' ' }.isEmpty()) updateUI(mResult)
                     else {
                         val mResultSorted: MutableList<String> = ArrayList()
-                        for (i in mPosition..<mResult!!.size) {
-                            if (mResult!![i]
+                        for (i in mPosition..<(mResult?.size ?: 0)) {
+                            if (mResult?.get(i).toString()
                                     .lowercase(Locale.getDefault())
                                     .contains(s.toString().lowercase(Locale.getDefault()))
                             ) mResultSorted.add(
-                                mResult!![i]
+                                mResult?.get(i).toString()
                             )
                         }
                         updateUI(mResultSorted)
@@ -967,15 +977,15 @@ class AshellFragment : Fragment() {
 
             when (Preferences.getSavePreference()) {
                 Const.ALL_OUTPUT -> {
-                    sb = Utils.convertListToString(mResult)
+                    sb = mResult?.let { Utils.convertListToString(it) }
                     fileName =
-                        "shellOutput" + DeviceUtils.getCurrentDateTime()
+                        "shellOutput" + DeviceUtils.currentDateTime
                 }
 
                 Const.LAST_COMMAND_OUTPUT -> {
                     sb = buildResultsString().toString()
                     fileName =
-                        Utils.generateFileName(mHistory) + DeviceUtils.getCurrentDateTime()
+                        mHistory?.let { Utils.generateFileName(it) } + DeviceUtils.currentDateTime
                 }
 
                 else -> {}
@@ -999,7 +1009,7 @@ class AshellFragment : Fragment() {
             initializeResults()
 
             val sb = StringBuilder()
-            for (i in mPosition..<mResult!!.size) {
+            for (i in mPosition..<(mResult?.size ?: 0)) {
                 val result = mResult!![i]
                 if (Utils.shellDeadError() != result) sb.append(result)
                     .append("\n")
@@ -1008,7 +1018,7 @@ class AshellFragment : Fragment() {
             val fileName = Utils.generateFileName(mHistory) + ".txt"
             Utils.shareOutput(
                 requireActivity(),
-                context,
+                requireContext(),
                 fileName,
                 sb.toString()
             )
@@ -1049,12 +1059,12 @@ class AshellFragment : Fragment() {
     private fun commandInputLayoutEndIconOnClickListener(s: Editable) {
         binding.commandInputLayout.setEndIconOnClickListener { v: View? ->
             HapticUtils.weakVibrate(v)
-            if (Utils.isBookmarked(
+            if (BookmarkUtils.isBookmarked(
                     s.toString().trim { it <= ' ' },
                     requireActivity()
                 )
             ) {
-                Utils.deleteFromBookmark(
+                BookmarkUtils.deleteFromBookmark(
                     s.toString().trim { it <= ' ' },
                     requireActivity()
                 )
@@ -1064,13 +1074,13 @@ class AshellFragment : Fragment() {
                         R.string.bookmark_removed_message,
                         s.toString().trim { it <= ' ' })
                 )
-                    .show()
-            } else Utils.addBookmarkIconOnClickListener(
-                s.toString().trim { it <= ' ' }, view, context
+                    ?.show()
+            } else BookmarkUtils.addBookmarkIconOnClickListener(
+                s.toString().trim { it <= ' ' }, view, requireContext()
             )
             binding.commandInputLayout.endIconDrawable =
                 Utils.getDrawable(
-                    if (Utils.isBookmarked(
+                    if (BookmarkUtils.isBookmarked(
                             s.toString().trim { it <= ' ' }, requireActivity()
                         )
                     )
@@ -1098,8 +1108,7 @@ class AshellFragment : Fragment() {
                     mCommandAdapter =
                         CommandsAdapter(
                             Commands.getPackageInfo(
-                                "$packageNamePrefix.",
-                                context
+                                "$packageNamePrefix.", requireContext()
                             )
                         )
                     if (isAdded) binding.rvCommands.layoutManager =
@@ -1123,7 +1132,7 @@ class AshellFragment : Fragment() {
                     mCommandAdapter = CommandsAdapter(
                         Commands.getCommand(
                             s.toString(),
-                            context
+                            requireContext()
                         )
                     )
                     if (isAdded) binding.rvCommands.layoutManager =
@@ -1338,9 +1347,9 @@ class AshellFragment : Fragment() {
         )
         binding.sendButton.setColorFilter(
             if (DeviceUtils.androidVersion() >= Build.VERSION_CODES.S)
-                ThemeUtils.colorError(context)
+                ThemeUtils.colorError(requireContext())
             else
-                ThemeUtils.getColor(R.color.red, context)
+                ThemeUtils.getColor(R.color.red, requireContext())
         )
 
         // Determine shell type
@@ -1354,19 +1363,18 @@ class AshellFragment : Fragment() {
         val mTitleText =
             ("<font color=\""
                     + ThemeUtils.getColor(
-                if (DeviceUtils.androidVersion() >= Build.VERSION_CODES.S)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
                     android.R.color.system_accent1_500
                 else
                     R.color.blue,
                 requireActivity()
             )
                     + shell
-                    + DeviceUtils.getDeviceName()
+                    + DeviceUtils.deviceName
                     + " | "
                     + "</font><font color=\""
                     + ThemeUtils.getColor(
-                if (DeviceUtils.androidVersion() >= Build.VERSION_CODES.S)
-
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
                     android.R.color.system_accent3_500
                 else
                     R.color.green,
@@ -1581,7 +1589,7 @@ class AshellFragment : Fragment() {
             requireActivity().findViewById(android.R.id.content),
             getString(R.string.su_warning_message)
         )
-            .show()
+            ?.show()
     }
 
     // Open command examples fragment
@@ -1591,7 +1599,7 @@ class AshellFragment : Fragment() {
 
         exitTransition = Hold()
 
-        val fragment: ExamplesFragment = ExamplesFragment()
+        val fragment = ExamplesFragment()
 
         val fragmentManager = requireActivity().supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
@@ -1618,7 +1626,7 @@ class AshellFragment : Fragment() {
         settingsViewModel.isToolbarExpanded = true
 
         exitTransition = Hold()
-        val fragment: SettingsFragment = SettingsFragment()
+        val fragment = SettingsFragment()
 
         requireActivity()
             .supportFragmentManager

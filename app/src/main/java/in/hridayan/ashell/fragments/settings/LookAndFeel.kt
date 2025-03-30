@@ -101,7 +101,7 @@ class LookAndFeel : Fragment() {
         binding.switchHighContrastDarkTheme.setOnCheckedChangeListener { view: CompoundButton?, isChecked: Boolean ->
             HapticUtils.weakVibrate(view)
             saveSwitchState(Const.PREF_AMOLED_THEME, isChecked)
-            if (ThemeUtils.isNightMode(context)) {
+            if (ThemeUtils.isNightMode(requireContext())) {
                 Preferences.setActivityRecreated(true)
                 requireActivity().recreate()
             }
@@ -138,7 +138,7 @@ class LookAndFeel : Fragment() {
         // Also, it's not functional on MIUI devices even on Android 13,
         // Thanks to Xiaomi's broken implementation of standard Android APIs.
         // See: https://github.com/Pool-Of-Tears/GreenStash/issues/130 for more information.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiuiCheck.isMiui()) binding.defaultLanguage.visibility =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !MiuiCheck.isMiui) binding.defaultLanguage.visibility =
             View.VISIBLE
 
         binding.defaultLanguage.setOnClickListener { v: View? ->

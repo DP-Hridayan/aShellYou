@@ -26,20 +26,20 @@ class AshellYou : Application() {
         @JvmStatic
         val appContext: Context?
             get() {
-                if (contextReference == null || contextReference!!.get() == null) {
+                if (contextReference == null || contextReference?.get() == null) {
                     contextReference =
                         WeakReference(
-                            getInstance().applicationContext
+                            getInstance()?.applicationContext
                         )
                 }
-                return contextReference!!.get()
+                return contextReference?.get()
             }
 
-        private fun getInstance(): AshellYou {
+        private fun getInstance(): AshellYou? {
             if (instance == null) {
                 instance = AshellYou()
             }
-            return instance!!
+            return instance
         }
     }
 }

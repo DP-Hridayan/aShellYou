@@ -32,6 +32,7 @@ import in.hridayan.ashell.R;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.items.CommandItems;
 import in.hridayan.ashell.ui.ThemeUtils;
+import in.hridayan.ashell.utils.BookmarkUtils;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
@@ -207,22 +208,22 @@ public class ExamplesAdapter extends RecyclerView.Adapter<ExamplesAdapter.ViewHo
   }
 
   public void addSelectedToBookmarks() {
-    Set<String> bookmarksSet = new HashSet<>(Utils.getBookmarks(context));
+    Set<String> bookmarksSet = new HashSet<>(BookmarkUtils.getBookmarks(context));
     for (CommandItems item : selectedItems) {
       String command = sanitizeText(item.getTitle());
-      if (!bookmarksSet.contains(command)) Utils.addToBookmark(command, context);
+      if (!bookmarksSet.contains(command)) BookmarkUtils.addToBookmark(command, context);
     }
   }
 
   public void deleteSelectedFromBookmarks() {
     for (CommandItems item : selectedItems) {
-      Utils.deleteFromBookmark(sanitizeText(item.getTitle()), context);
+      BookmarkUtils.deleteFromBookmark(sanitizeText(item.getTitle()), context);
     }
   }
 
   public boolean isAllItemsBookmarked() {
     for (CommandItems item : selectedItems) {
-      if (!Utils.isBookmarked(sanitizeText(item.getTitle()), context)) return false;
+      if (!BookmarkUtils.isBookmarked(sanitizeText(item.getTitle()), context)) return false;
     }
     return true;
   }

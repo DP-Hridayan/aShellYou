@@ -21,7 +21,6 @@ import `in`.hridayan.ashell.viewmodels.ChangelogViewModel
 
 class ChangelogFragment : Fragment() {
     private  val viewModel: ChangelogViewModel by viewModels()
-    private lateinit var context: Context
     private lateinit var binding: FragmentChangelogBinding
     private lateinit var mRVPositionAndOffset: Pair<Int, Int>
 
@@ -38,8 +37,8 @@ class ChangelogFragment : Fragment() {
         val layoutManager =
             binding.rvChangelogs.layoutManager as LinearLayoutManager?
 
-        val currentPosition = layoutManager?.findLastVisibleItemPosition()
-        val currentView = layoutManager?.findViewByPosition(currentPosition!!)
+        val currentPosition = layoutManager?.findLastVisibleItemPosition() ?: 0
+        val currentView = layoutManager?.findViewByPosition(currentPosition)
 
         if (currentView != null) {
             mRVPositionAndOffset = Pair(currentPosition, currentView.top)
@@ -55,12 +54,12 @@ class ChangelogFragment : Fragment() {
             viewModel.isToolbarExpanded.let { binding.appBarLayout.setExpanded(it) }
 
             mRVPositionAndOffset = viewModel.rvPositionAndOffset
-            val position = viewModel.rvPositionAndOffset?.first
-            val offset = viewModel.rvPositionAndOffset?.second
+            val position = viewModel.rvPositionAndOffset?.first?: 0
+            val offset = viewModel.rvPositionAndOffset?.second?: 0
 
             // Restore recyclerView scroll position
             (binding.rvChangelogs.layoutManager as LinearLayoutManager)
-                .scrollToPositionWithOffset(position!!, offset!!)
+                .scrollToPositionWithOffset(position, offset)
         }
     }
 
@@ -68,9 +67,8 @@ class ChangelogFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         binding = FragmentChangelogBinding.inflate(inflater, container, false)
-        context = requireContext()
 
         return binding.root
     }
@@ -90,13 +88,13 @@ class ChangelogFragment : Fragment() {
             changelogItems.add(
                 ChangelogItem(
                     getString(R.string.version) + "\t\t" + versionName,
-                    Utils.loadChangelogText(versionName, getContext())
+                    Utils.loadChangelogText(versionName, requireContext())
                 )
             )
         }
 
-        val adapter: ChangelogAdapter = ChangelogAdapter(changelogItems, getContext())
+        val adapter = ChangelogAdapter(changelogItems, requireContext())
         binding.rvChangelogs.adapter = adapter
-        binding.rvChangelogs.layoutManager = LinearLayoutManager(context)
+        binding.rvChangelogs.layoutManager = LinearLayoutManager(requireContext())
     }
 }

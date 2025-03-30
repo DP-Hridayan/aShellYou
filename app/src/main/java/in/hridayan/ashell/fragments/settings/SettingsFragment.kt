@@ -43,8 +43,8 @@ class SettingsFragment : Fragment() {
         val layoutManager =
             binding.rvSettings.layoutManager as LinearLayoutManager?
 
-        val currentPosition = layoutManager!!.findLastVisibleItemPosition()
-        val currentView = layoutManager.findViewByPosition(currentPosition)
+        val currentPosition = layoutManager?.findLastVisibleItemPosition() ?: 0
+        val currentView = layoutManager?.findViewByPosition(currentPosition)
 
         if (currentView != null) {
             mRVPositionAndOffset = Pair(currentPosition, currentView.top)
@@ -222,16 +222,16 @@ class SettingsFragment : Fragment() {
             )
         )
 
-        settingsData.add(
-            SettingsItem(
-                Const.ID_EXAMPLES,
-                R.drawable.ic_numbers,
-                getString(R.string.commands),
-                getString(R.string.des_examples),
-                false,
-                false
-            )
-        )
+        /*  settingsData.add(
+              SettingsItem(
+                  Const.ID_EXAMPLES,
+                  R.drawable.ic_numbers,
+                  getString(R.string.commands),
+                  getString(R.string.des_examples),
+                  false,
+                  false
+              )
+          )*/
 
         settingsData.add(
             SettingsItem(
@@ -260,21 +260,22 @@ class SettingsFragment : Fragment() {
         binding.rvSettings.viewTreeObserver.addOnDrawListener { this.startPostponedEnterTransition() }
 
         // intentional crash with a long message
-        // throwLongException();
+        ///throwLongException();
         return view
 
-}
+    }
+
+    private fun throwLongException() {
+        val longMessage = generateLongMessage()
+        throw RuntimeException(longMessage)
+    }
+
     private fun generateLongMessage(): String {
         val message = StringBuilder("Long Exception Message: ")
         for (i in 0..999) { // Adjust the loop count for longer messages
             message.append("This is an intentional crash ").append(i).append(". ")
         }
         return message.toString()
-    }
-
-    private fun throwLongException() {
-        val longMessage = generateLongMessage()
-        throw RuntimeException(longMessage)
     }
 
     companion object {

@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -32,11 +31,8 @@ import `in`.hridayan.ashell.adapters.ExamplesAdapter.UseCommandListener
 import `in`.hridayan.ashell.config.Const
 import `in`.hridayan.ashell.config.Preferences
 import `in`.hridayan.ashell.databinding.FragmentExamplesBinding
-import `in`.hridayan.ashell.fragments.home.AshellFragment
-import `in`.hridayan.ashell.fragments.home.OtgFragment
-import `in`.hridayan.ashell.fragments.home.WifiAdbFragment
 import `in`.hridayan.ashell.items.CommandItems
-import `in`.hridayan.ashell.ui.KeyboardUtils
+import `in`.hridayan.ashell.utils.BookmarkUtils
 import `in`.hridayan.ashell.utils.Commands
 import `in`.hridayan.ashell.utils.HapticUtils
 import `in`.hridayan.ashell.utils.Utils
@@ -61,7 +57,6 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
     private var isSortingOptionSame = 0
     private var isSummaryChipClicked = false
     private var isAllItemsSelected = false
-    private var context: Context? = null
     private lateinit var binding: FragmentExamplesBinding
     private lateinit var mRVPositionAndOffset: Pair<Int, Int>
 
@@ -70,8 +65,8 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
         val layoutManager =
             binding.rvSearchView.layoutManager as LinearLayoutManager?
 
-        val currentPosition = layoutManager?.findLastVisibleItemPosition()
-        val currentView = layoutManager?.findViewByPosition(currentPosition!!)
+        val currentPosition = layoutManager?.findLastVisibleItemPosition() ?: 0
+        val currentView = layoutManager?.findViewByPosition(currentPosition)
 
         if (currentView != null) {
             mRVPositionAndOffset = Pair(currentPosition, currentView.top)
@@ -110,8 +105,6 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
 
         view = binding.root
 
-        context = requireContext()
-
         editText = binding.searchView.searchEditText
         searchBarMenu = binding.searchBar.menu
         sort = searchBarMenu.findItem(R.id.sort)
@@ -119,7 +112,7 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
         pin = searchBarMenu.findItem(R.id.pin)
         selectAll = searchBarMenu.findItem(R.id.select_all)
         deselectAll = searchBarMenu.findItem(R.id.deselect_all)
-        itemList = Commands.commandList(context)
+        itemList = Commands.commandList(requireContext())
 
         val dispatcher: OnBackPressedDispatcher = requireActivity().onBackPressedDispatcher
 
@@ -171,7 +164,7 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
         binding.rvSearchView.layoutManager = mLayoutManager
 
         mExamplesAdapter = ExamplesAdapter(
-            Commands.commandList(context), context,
+            Commands.commandList(requireContext()), requireContext(),
             this
         )
         mExamplesAdapter.sortData()
@@ -394,7 +387,7 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
         val selectedItems = mExamplesAdapter.selectedItemsSize
         val isAllItemBookmarked = mExamplesAdapter.isAllItemsBookmarked
         val isLimitReached =
-            selectedItems + Utils.getBookmarks(context).size > Const.MAX_BOOKMARKS_LIMIT
+            selectedItems + BookmarkUtils.getBookmarks(requireContext()).size > Const.MAX_BOOKMARKS_LIMIT
                     && !Preferences.getOverrideBookmarks()
 
         val isBatch = selectedItems > 1
@@ -425,17 +418,17 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
         if (isLimitReached && isAdded) Utils.snackBar(
             view,
             getString(R.string.bookmark_limit_reached)
-        ).show()
+        )?.show()
         else if (isBatch) {
             val message =
                 if (isAdded) R.string.batch_bookmark_added_message else R.string.batch_bookmark_removed_message
-            Utils.snackBar(view, getString(message, selectedCount)).show()
+            Utils.snackBar(view, getString(message, selectedCount))?.show()
         } else {
             val command =
                 mExamplesAdapter.sanitizeText(mExamplesAdapter.selectedItems[0].title)
             val message =
                 if (isAdded) R.string.bookmark_added_message else R.string.bookmark_removed_message
-            Utils.snackBar(view, getString(message, command)).show()
+            Utils.snackBar(view, getString(message, command))?.show()
         }
     }
 
@@ -488,7 +481,7 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
                 mExamplesAdapter.pinUnpinSelectedItems(isAllItemsPinned)
                 endSelection()
                 updateSearchBar()
-                Utils.snackBar(view, snackBarMessage).show()
+                Utils.snackBar(view, snackBarMessage)?.show()
             }
             .setNegativeButton(getString(R.string.cancel), null)
             .show()
@@ -512,7 +505,7 @@ class ExamplesFragment : Fragment(), ExamplesAdapter.OnItemClickListener,
 
     /* This function is called when we use the "Use" feature in commands examples to set the command in the fragment edit text */
     private fun navigateToFragmentAndSetCommand(command: String) {
-        Log.d("examples",command)
+        Log.d("examples", command)
         mainViewModel.useCommand = command
         val dispatcher: OnBackPressedDispatcher = requireActivity().onBackPressedDispatcher
         dispatcher.onBackPressed()

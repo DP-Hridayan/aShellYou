@@ -24,7 +24,6 @@ import androidx.work.WorkManager;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
-import in.hridayan.ashell.databinding.ActivityCrashReportBinding;
 import in.hridayan.ashell.databinding.ActivityMainBinding;
 import in.hridayan.ashell.fragments.home.AshellFragment;
 import in.hridayan.ashell.fragments.home.HomeFragment;
@@ -42,7 +41,6 @@ import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.DeviceUtils.FetchLatestVersionCodeCallback;
 import in.hridayan.ashell.utils.app.CrashHandler;
 import in.hridayan.ashell.utils.app.updater.ApkInstaller;
-import in.hridayan.ashell.utils.app.updater.AppUpdater;
 import in.hridayan.ashell.utils.app.updater.FetchLatestVersionCode;
 
 import java.io.File;
@@ -181,7 +179,7 @@ public class MainActivity extends AppCompatActivity
                 && hasAppRestarted
                 && !Preferences.getActivityRecreated()
                 && !Preferences.getFirstLaunch()) {
-            new FetchLatestVersionCode(this, this).execute(Const.URL_BUILD_GRADLE);
+            new FetchLatestVersionCode(this).execute(Const.URL_BUILD_GRADLE);
         }
     }
 

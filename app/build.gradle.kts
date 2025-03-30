@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdk = 26
         targetSdk = 35
-        versionCode = 53
+        versionCode = 52
         versionName = "v6.0.2"
 
         ndk {

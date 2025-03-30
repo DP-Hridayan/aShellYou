@@ -111,7 +111,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void bind(CategoryAbout category) {
-      categoryTextView.setText(category.getName());
+      categoryTextView.setText(category.name);
     }
   }
 
@@ -133,9 +133,9 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void bind(CategoryAbout.LeadDeveloperItem item) {
-      imageView.setImageResource(item.getImageResource());
-      titleTextView.setText(item.getTitle());
-      descriptionTextView.setText(item.getDescription());
+      imageView.setImageResource(item.imageResource);
+      titleTextView.setText(item.title);
+      descriptionTextView.setText(item.description);
 
       Map<View, String> viewUrlMap = new HashMap<>();
       viewUrlMap.put(mTelegram, "https://t.me/hridayan");
@@ -174,9 +174,9 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void bind(CategoryAbout.ContributorsItem item) {
-      imageView.setImageResource(item.getImageResource());
-      titleTextView.setText(item.getTitle());
-      descriptionTextView.setText(item.getDescription());
+      imageView.setImageResource(item.imageResource);
+      titleTextView.setText(item.title);
+      descriptionTextView.setText(item.description);
 
       // onclick listener for github button which redirects to the github profiles of individual
       // contributors
@@ -253,18 +253,18 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void bind(CategoryAbout.AppItem item, boolean isLastItem, Activity activity) {
-      imageView.setImageResource(item.getImageResource());
-      titleTextView.setText(item.getTitle());
-      descriptionTextView.setText(item.getDescription());
+      imageView.setImageResource(item.imageResource);
+      titleTextView.setText(item.title);
+      descriptionTextView.setText(item.description);
 
       View.OnClickListener clickListener =
           v -> {
             HapticUtils.weakVibrate(v);
 
-            String url = getAppIdUrlMap().get(item.getId());
+            String url = getAppIdUrlMap().get(item.id);
             if (url != null) Utils.openUrl(itemView.getContext(), url);
 
-            if (Const.ID_CHANGELOGS.equals(item.getId())) {
+            if (Const.ID_CHANGELOGS.equals(item.id)) {
               ChangelogFragment fragment = new ChangelogFragment();
               ((MainActivity) activity)
                   .getSupportFragmentManager()
@@ -280,7 +280,7 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
           };
 
-      if (Const.ID_VERSION.equals(item.getId())) {
+      if (Const.ID_VERSION.equals(item.id)) {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             v -> {
