@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
     namespace 'in.hridayan.ashell'
 
     defaultConfig {
         applicationId "in.hridayan.ashell"
         minSdk 26
-        targetSdk 34
+        targetSdk 35
         versionCode 53
         versionName "v6.0.2"
 
@@ -79,7 +79,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.12.1'
     implementation "com.google.android.material:material:${versions.material}"
     implementation "androidx.lifecycle:lifecycle-viewmodel:${versions.lifecycle}"
-    implementation "androidx.work:work-runtime:2.9.0"
+    implementation "androidx.work:work-runtime:2.10.0"
     implementation "androidx.preference:preference:${versions.preference}"
     implementation "dev.rikka.shizuku:api:${versions.shizuku}"
     implementation "com.github.topjohnwu.libsu:core:${versions.libsu}"
