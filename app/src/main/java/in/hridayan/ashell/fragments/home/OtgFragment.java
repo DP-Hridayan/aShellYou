@@ -671,7 +671,7 @@ public class OtgFragment extends Fragment
 
                                             binding.scrollView.post(
                                                     () -> {
-                                                        binding.scrollView.fullScroll(binding.scrollView.FOCUS_DOWN);
+                                                        binding.scrollView.fullScroll(View.FOCUS_DOWN);
                                                         binding.commandEditText.requestFocus();
                                                     });
                                         });
