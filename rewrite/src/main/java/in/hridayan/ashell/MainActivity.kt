@@ -8,9 +8,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import `in`.hridayan.ashell.ui.screens.HomeScreen
-import `in`.hridayan.ashell.ui.theme.AShellYouTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
+import `in`.hridayan.ashell.presentation.navigation.Navigation
+import `in`.hridayan.ashell.presentation.ui.screens.CommandExamplesScreen
+import `in`.hridayan.ashell.presentation.ui.screens.HomeScreen
+import `in`.hridayan.ashell.presentation.ui.theme.AShellYouTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +25,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             AShellYouTheme {
                 Surface(
-                    modifier = Modifier
+                    modifier = Modifier.Companion
                         .fillMaxSize(),
                     color = MaterialTheme.colorScheme.surface
                 ) {
-                    HomeScreen()
+                    Navigation()
                 }
             }
         }
