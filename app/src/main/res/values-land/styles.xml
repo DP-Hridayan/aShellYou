@@ -1,7 +1,0 @@
-<resources xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
-
-    <style name="ToolbarContentScrimLandScape" parent="" tools:ignore="PrivateResource">
-        <item name="android:background">@color/transparent</item>
-        <item name="contentScrim">?attr/colorSurface</item>
-    </style>
-</resources>

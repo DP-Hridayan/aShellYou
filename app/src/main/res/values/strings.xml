@@ -1,10 +1,6 @@
-<resources
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string
-        name="app_name"
-        translatable="false">aShell You</string>
+    <string name="app_name" translatable="false">aShell You</string>
     <string name="app_tagline">ADB at your fingertips</string>
     <string name="abort_command">Abort command first</string>
     <string name="access_denied">Access denied</string>
@@ -17,7 +13,11 @@
     <string name="adb_through_otg_summary">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.</string>
     <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
+    <string name="add">Add</string>
     <string name="add_bookmark">Add bookmark</string>
+    <string name="add_command">Add command</string>
+    <string name="add_command_description">Add command description</string>
+    <string name="add_command_example">Add command example</string>
     <string name="additional_settings">Additional settings</string>
     <string name="about">About</string>
     <string name="accept">Accept</string>
@@ -50,6 +50,7 @@
     <string name="clear_screen">Clear screen</string>
     <string name="clipboard_empty">Clipboard doesn\'t contain text</string>
     <string name="close">Close</string>
+    <string name="command">Command</string>
     <string name="commands">Commands</string>
     <string name="command_title">Input ADB Command</string>
     <string name="command_title_root">Input command</string>
@@ -73,9 +74,7 @@
     <string name="connection_failed">Connection failed</string>
     <string name="connect_this_device">Connect this device</string>
     <string name="connect_other_device">Connect other device</string>
-    <string
-        name="copy"
-        tools:override="true">Copy</string>
+    <string name="copy" tools:override="true">Copy</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="crash_report">Crash report</string>
     <string name="current">Current</string>
@@ -84,6 +83,7 @@
     <string name="default_folder">Default folder</string>
     <string name="denied">Denied</string>
     <string name="default_language">Default language</string>
+    <string name="description">Description</string>
     <string name="des_default_language">Choose the default language for the app</string>
     <string name="developer_options">Developer options</string>
     <string name="developer_options_not_available">Developer options not available!</string>
@@ -119,6 +119,7 @@
     <string name="granted">Granted</string>
     <string name="grant_permission">Grant permission</string>
     <string name="grant_permission_manually">If the permission dialog doesn\'t appear, please grant root permission manually via the superuser application</string>
+    <string name="field_cannot_be_blank">Field cannot be blank</string>
     <string name="flashing">Flashing</string>
     <string name="folder_picker">Folder picker</string>
     <string name="go_back">Go back</string>
@@ -181,9 +182,7 @@
     <string name="request_permission">Request Permission</string>
     <string name="report">Report</string>
     <string name="resume">Resume</string>
-    <string
-        name="root"
-        translatable="false">Root</string>
+    <string name="root" translatable="false">Root</string>
     <string name="root_access">Root access</string>
     <string name="root_access_denied_message">Root access is currently denied for aShell You</string>
     <string name="root_provider">Root provider</string>
@@ -194,7 +193,7 @@
     <string name="search">Search</string>
     <string name="search_command">Search commands here</string>
     <string name="search_output">Search output here</string>
-    <string name="selected">Selected</string>
+    <string name="selected" tools:ignore="PrivateResource">Selected</string>
     <string name="select_all">Select all</string>
     <string name="sensitive_packages_warning1">You are about to execute ADB commands involving critical system packages. Modifying, disabling, or uninstalling these packages may cause serious issues, including:</string>
     <string name="sensitive_packages_warning2">⚠️ System crashes or boot loops ⚠️ Loss of essential features (e.g., UI, network, security) ⚠️ Permanent damage requiring a factory reset or firmware reinstallation</string>
@@ -208,9 +207,7 @@
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\' folder</string>
     <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\' folder</string>
     <string name="shell_working">Shell is working</string>
-    <string
-        name="shizuku"
-        translatable="false">Shizuku</string>
+    <string name="shizuku" translatable="false">Shizuku</string>
     <string name="shizuku_about">About Shizuku</string>
     <string name="shizuku_access">Shizuku access</string>
     <string name="shizuku_access_denied_message">Access to Shizuku service is denied for aShell You</string>
@@ -303,7 +300,7 @@
     <string name="mode_one_desc">Use root access to run commands. Rooted commands can be executed.</string>
     <string name="mode_two_title">Shizuku</string>
     <string name="mode_two_desc">Use shizuku to run commands. Commands that require root won\'t execute.</string>
-    <string name="confirm_basic_mode">No higher privelege is granted. App will only execute basic commands. You can change the working mode later in settings</string>
+    <string name="confirm_basic_mode">No higher privilege is granted. App will only execute basic commands. You can change the working mode later in settings</string>
     <string name="examples_layout_style">Examples layout style</string>
     <string name="des_examples_layout_style">Choose the preferred layout style to view command examples</string>
     <string name="configure_save_directory">Configure save directory</string>

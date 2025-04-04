@@ -1,6 +1,1 @@
 /build
-/release
-.kotlin
-.idea
-signingConfigs/**
-*.jks

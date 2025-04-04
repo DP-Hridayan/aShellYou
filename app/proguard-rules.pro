@@ -1,34 +1,21 @@
-# Preserve the line number information for debugging stack traces.
--keepattributes SourceFile,LineNumberTable
+# Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
 
-# Glide-specific rules
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep class * extends com.bumptech.glide.module.AppGlideModule {
-    <init>(...);
-}
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-    **[] $VALUES;
-    public *;
-}
--keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
-    *** rewind();
-}
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
 
-# General ProGuard rules to ensure meaningful stack traces
--keepattributes *Annotation*
--dontwarn javax.annotation.Nullable
--keep class javax.annotation.** { *; }
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
 
-# Preserve class and method names for debugging
--keepnames class * {
-    public *;
-}
-
-# Keep the names of your activities, fragments, and services
--keep class in.hridayan.ashell.** { *; }
-
-# For libraries you are using (e.g., Retrofit, OkHttp)
--keep class retrofit2.** { *; }
--keep class okhttp3.** { *; }
-
-# Add any other library rules as necessary
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
