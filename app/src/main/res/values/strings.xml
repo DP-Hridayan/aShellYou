@@ -127,6 +127,7 @@
     <string name="history">History</string>
     <string name="instructions">Instructions</string>
     <string name="ip_address">IP address</string>
+    <string name="label">Label</string>
     <string name="latest">Latest</string>
     <string name="least_used">Least used</string>
     <string name="local_adb">Local ADB</string>
