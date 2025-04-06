@@ -9,8 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import `in`.hridayan.ashell.core.presentation.navigation.Navigation
 import `in`.hridayan.ashell.core.presentation.ui.theme.AShellYouTheme
+import `in`.hridayan.ashell.navigation.Navigation
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

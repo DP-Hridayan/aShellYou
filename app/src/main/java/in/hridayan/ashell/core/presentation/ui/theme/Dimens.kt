@@ -9,6 +9,8 @@ object Dimens {
     val paddingLarge = 20.dp
     val paddingExtraLarge = 25.dp
 
+    val undrawImgPadding = 100.dp
+
     val iconSizeSmall = 16.dp
     val iconSizeMedium = 20.dp
     val iconSizeLarge = 24.dp

@@ -29,11 +29,13 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.config.URL_OTG_INSTRUCTIONS
 import `in`.hridayan.ashell.core.common.config.URL_WIRELESS_DEBUGGING_INSTRUCTIONS
 import `in`.hridayan.ashell.core.common.utils.UrlUtils
-import `in`.hridayan.ashell.core.presentation.navigation.navigateTo
 import `in`.hridayan.ashell.core.presentation.ui.component.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.ui.component.card.BottomCornerRoundedCard
 import `in`.hridayan.ashell.core.presentation.ui.component.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.ui.component.card.TopCornerRoundedCard
+import `in`.hridayan.ashell.navigation.CommandExamplesScreen
+import `in`.hridayan.ashell.navigation.LookAndFeel
+import `in`.hridayan.ashell.navigation.navigateTo
 
 @Composable
 fun HomeScreen() {
@@ -52,14 +54,14 @@ fun HomeScreen() {
 }
 
 @Composable
-fun SettingsButton(modifier: Modifier = Modifier.Companion) {
+fun SettingsButton(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(id = R.drawable.ic_settings),
         contentDescription = null,
         colorFilter = ColorFilter.Companion.tint(
             MaterialTheme.colorScheme.onSurfaceVariant
         ),
-        modifier = Modifier.Companion
+        modifier = modifier
             .padding(vertical = 45.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
@@ -69,18 +71,18 @@ fun SettingsButton(modifier: Modifier = Modifier.Companion) {
 }
 
 @Composable
-fun AppNameText(modifier: Modifier = Modifier.Companion) {
+fun AppNameText(modifier: Modifier = Modifier) {
     Text(
         text = stringResource(id = R.string.app_name),
         style = MaterialTheme.typography.headlineLarge,
-        modifier = Modifier.Companion
+        modifier = modifier
             .padding(bottom = 20.dp)
             .alpha(0.9f)
     )
 }
 
 @Composable
-fun LocalAdbCard(modifier: Modifier = Modifier.Companion) {
+fun LocalAdbCard(modifier: Modifier = Modifier) {
     NavigationCard(
         title = stringResource(R.string.local_adb),
         description = stringResource(R.string.local_adb_summary),
@@ -94,7 +96,7 @@ fun LocalAdbCard(modifier: Modifier = Modifier.Companion) {
 }
 
 @Composable
-fun WirelessDebuggingCard(modifier: Modifier = Modifier.Companion) {
+fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
     NavigationCard(
         title = stringResource(R.string.adb_via_wireless_debugging),
         description = stringResource(R.string.adb_via_wireless_debugging_summary),
@@ -113,7 +115,7 @@ fun WirelessDebuggingCard(modifier: Modifier = Modifier.Companion) {
 }
 
 @Composable
-fun OtgAdbCard(modifier: Modifier = Modifier.Companion) {
+fun OtgAdbCard(modifier: Modifier = Modifier) {
     NavigationCard(
         title = stringResource(R.string.adb_through_otg),
         description = stringResource(R.string.adb_through_otg_summary),
@@ -128,7 +130,7 @@ fun OtgAdbCard(modifier: Modifier = Modifier.Companion) {
 @Composable
 fun ShizukuAccessCard(modifier: Modifier) {
     TopCornerRoundedCard(
-        modifier = Modifier.Companion.padding(bottom = 5.dp),
+        modifier = modifier.padding(bottom = 5.dp),
         onClick = {},
         content = {
             Row(
@@ -161,7 +163,7 @@ fun ShizukuAccessCard(modifier: Modifier) {
 
 @Composable
 fun RootAccessCard(modifier: Modifier) {
-    BottomCornerRoundedCard(modifier = Modifier.Companion, onClick = {}, content = {
+    BottomCornerRoundedCard(modifier = modifier, onClick = {}, content = {
         Row(
             modifier = Modifier.Companion
                 .padding(horizontal = 15.dp, vertical = 10.dp)
@@ -199,7 +201,7 @@ fun RootAccessCard(modifier: Modifier) {
 }
 
 @Composable
-fun WirelessDebuggingInstructionButton(modifier: Modifier = Modifier.Companion) {
+fun WirelessDebuggingInstructionButton(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     IconWithTextButton(
         icon = painterResource(R.drawable.ic_open_in_new),
@@ -216,19 +218,19 @@ fun WirelessDebuggingInstructionButton(modifier: Modifier = Modifier.Companion) 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WirelessDebuggingStartButton(modifier: Modifier = Modifier.Companion) {
+fun WirelessDebuggingStartButton(modifier: Modifier = Modifier) {
     IconWithTextButton(
         icon = painterResource(R.drawable.ic_play),
         text = stringResource(R.string.start),
         contentDescription = null,
         modifier = modifier,
         onClick = {
-            navigateTo("command_examples")
+            navigateTo(LookAndFeel)
         })
-    }
+}
 
 @Composable
-fun OtgInstructionButton(modifier: Modifier = Modifier.Companion) {
+fun OtgInstructionButton(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     IconWithTextButton(
         icon = painterResource(R.drawable.ic_open_in_new),

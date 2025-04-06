@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kapt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -68,6 +69,7 @@ dependencies {
     implementation(libs.compose.ui.tooling)
     implementation(libs.material)
     implementation(libs.material3)
+    implementation(libs.material.icons.extended)
     implementation(libs.navigation.compose)
 
     implementation(libs.room.ktx)
