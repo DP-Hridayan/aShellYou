@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -16,18 +17,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.commandexamples.presentation.component.inputfield.OutlinedInputField
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
 import `in`.hridayan.ashell.core.presentation.ui.component.dialog.CustomDialog
 import `in`.hridayan.ashell.core.presentation.ui.component.text.DialogTitle
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 @Composable
-fun AddCommandDialog(
+fun EditCommandDialog(
     modifier: Modifier = Modifier.Companion,
     onDismiss: () -> Unit,
+    id : Int,
     viewModel: CommandViewModel = hiltViewModel()
 ) {
 
@@ -76,7 +78,8 @@ fun AddCommandDialog(
                         onClick = onDismiss, modifier = Modifier.Companion.weight(1f)
                     )
 
-                    AddButton(
+                    UpdateButton(
+                        id = id,
                         viewModel = viewModel,
                         onSuccess = onDismiss,
                         modifier = Modifier.Companion.weight(1f)
@@ -84,18 +87,24 @@ fun AddCommandDialog(
                 }
             }
         })
+
 }
 
 @Composable
 private fun CommandInputField(
     value: String, onValueChange: (String) -> Unit, isError: Boolean, modifier: Modifier
 ) {
-    OutlinedInputField(
-        hint = stringResource(R.string.command),
+    val label =
+        if (isError) stringResource(R.string.field_cannot_be_blank) else stringResource(R.string.command)
+
+    OutlinedTextField(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = Dimens.paddingLarge),
         value = value,
         onValueChange = onValueChange,
-        isError = isError,
-        modifier = modifier
+        label = { Text(label) },
+        isError = isError
     )
 }
 
@@ -132,19 +141,20 @@ private fun LabelInputField(value: String, onValueChange: (String) -> Unit, modi
 }
 
 @Composable
-private fun AddButton(
+fun UpdateButton(
+    id:Int,
     viewModel: CommandViewModel,
     onSuccess: () -> Unit,
     modifier: Modifier = Modifier.Companion
 ) {
     Button(
         modifier = modifier, onClick = {
-            viewModel.addCommand {
+            viewModel.editCommand (id = id) {
                 onSuccess()
             }
         }) {
         Text(
-            text = stringResource(R.string.add), style = MaterialTheme.typography.labelLarge
+            text = stringResource(R.string.update), style = MaterialTheme.typography.labelLarge
         )
     }
 }
@@ -159,3 +169,4 @@ private fun CancelButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
         )
     }
 }
+

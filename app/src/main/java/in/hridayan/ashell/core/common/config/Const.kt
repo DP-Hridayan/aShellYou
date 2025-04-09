@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.core.common.config
 
+const val MODE_DARK = 2
+const val MODE_LIGHT = 1
+const val MODE_SYSTEM = 0
 const val URL_BUILD_GRADLE: String =
     "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle"
 const val URL_OTG_INSTRUCTIONS: String =

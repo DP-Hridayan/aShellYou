@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 @Composable
 fun IconWithTextButton(
@@ -29,7 +30,7 @@ fun IconWithTextButton(
             modifier = modifier.animateContentSize()
         ) {
             Icon(
-                modifier = Modifier.size(20.dp),
+                modifier = Modifier.size(Dimens.iconSizeMedium),
                 painter = icon,
                 contentDescription = contentDescription,
                 tint = MaterialTheme.colorScheme.onPrimary

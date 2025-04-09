@@ -2,8 +2,11 @@ package `in`.hridayan.ashell.commandexamples.presentation.screens
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -31,6 +34,7 @@ import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewMo
 import `in`.hridayan.ashell.core.presentation.ui.component.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
@@ -42,6 +46,7 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
 
     Scaffold(
         modifier = Modifier.Companion.nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
             TopAppBarLarge(
                 title = stringResource(id = R.string.commands),
@@ -75,17 +80,18 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
             modifier = Modifier.Companion
                 .fillMaxWidth()
                 .padding(it)
-                .padding(top = Dimens.paddingMedium)
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
+            contentPadding = PaddingValues(vertical = Dimens.paddingMedium),
             verticalArrangement = Arrangement.spacedBy(Dimens.paddingMedium)
         ) {
-            items(commands.size) { index ->
+            items(commands.size, key = { index -> commands[index].id }) { index ->
                 CommandItem(
-                    modifier = Modifier.Companion,
+                    modifier = Modifier.Companion.animateItem(),
+                    id = commands[index].id,
                     command = commands[index].command,
                     description = commands[index].description,
-                    example = commands[index].example,
-                    labels = commands[index].labels
+                    isFavourite = commands[index].isFavourite,
+                    labels = commands[index].labels,
                 )
             }
         }

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface CommandRepository {
     suspend fun insertCommand(command: CommandEntity)
     suspend fun updateCommand(command: CommandEntity)
-    suspend fun deleteCommand(command: CommandEntity)
+    suspend fun deleteCommand(id: Int)
     fun getCommandCount(): Int
     suspend fun getCommandById(id: Int): CommandEntity?
     fun getCommandsAlphabetically(): Flow<List<CommandEntity>>

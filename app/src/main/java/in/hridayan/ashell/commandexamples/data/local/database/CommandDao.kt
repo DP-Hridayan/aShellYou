@@ -17,8 +17,8 @@ interface CommandDao {
     @Update
     suspend fun updateCommand(command: CommandEntity)
 
-    @Delete
-    suspend fun deleteCommand(command: CommandEntity)
+    @Query("DELETE FROM commands WHERE id = :commandId")
+    suspend fun deleteCommand(commandId: Int)
 
     @Query("SELECT COUNT(*) FROM commands")
     fun getCommandCount(): Int

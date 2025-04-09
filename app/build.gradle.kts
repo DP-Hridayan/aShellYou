@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.material3)
     implementation(libs.material.icons.extended)
+    implementation(libs.datastore.preferences)
     implementation(libs.navigation.compose)
 
     implementation(libs.room.ktx)

@@ -24,10 +24,7 @@ class CommandViewModel @Inject constructor(
     private val _description = MutableStateFlow("")
     val description: StateFlow<String> = _description
 
-    private val _example = MutableStateFlow("")
-    val example: StateFlow<String> = _example
-
-    private val _label= MutableStateFlow("")
+    private val _label = MutableStateFlow("")
     val label: StateFlow<String> = _label
 
     private val _commandError = MutableStateFlow(false)
@@ -36,18 +33,16 @@ class CommandViewModel @Inject constructor(
     private val _descriptionError = MutableStateFlow(false)
     val descriptionError: StateFlow<Boolean> = _descriptionError
 
-    private val _exampleError = MutableStateFlow(false)
-    val exampleError: StateFlow<Boolean> = _exampleError
-
     init {
         viewModelScope.launch(Dispatchers.IO) {
         }
     }
 
-    val allCommands: Flow<List<CommandEntity>> = commandRepository.getCommandsAlphabetically().stateIn(
-        viewModelScope,
-        SharingStarted.Companion.Lazily, emptyList()
-    )
+    val allCommands: Flow<List<CommandEntity>> =
+        commandRepository.getCommandsAlphabetically().stateIn(
+            viewModelScope,
+            SharingStarted.Companion.Lazily, emptyList()
+        )
 
     fun onCommandChange(newValue: String) {
         _command.value = newValue
@@ -59,40 +54,85 @@ class CommandViewModel @Inject constructor(
         _descriptionError.value = false
     }
 
-    fun onExampleChange(newValue: String) {
-        _example.value = newValue
-        _exampleError.value = false
-    }
-
     fun onLabelChange(newValue: String) {
         _label.value = newValue
     }
 
+    fun getCommandCount(): Int {
+        var count = 0
+        viewModelScope.launch(Dispatchers.IO) {
+            count = commandRepository.getCommandCount()
+        }
+        return count
+    }
+
     fun addCommand(onSuccess: () -> Unit) {
-        val isCommandValid = _command.value.isNotBlank()
-        val isDescriptionValid = _description.value.isNotBlank()
-        val isExampleValid = _example.value.isNotBlank()
+        val isCommandValid = _command.value.trim().isNotBlank()
+        val isDescriptionValid = _description.value.trim().isNotBlank()
 
         _commandError.value = !isCommandValid
         _descriptionError.value = !isDescriptionValid
-        _exampleError.value = !isExampleValid
 
-        if (isCommandValid && isDescriptionValid && isExampleValid) {
+        if (isCommandValid && isDescriptionValid) {
             viewModelScope.launch {
                 commandRepository.insertCommand(
                     CommandEntity(
-                        command = _command.value,
-                        description = _description.value,
-                        example = _example.value,
-                        labels = listOf(_label.value)
+                        command = _command.value.trim(),
+                        description = _description.value.trim(),
+                        labels = listOf(_label.value.trim())
                     )
                 )
                 _command.value = ""
                 _description.value = ""
-                _example.value = ""
                 _label.value = ""
                 onSuccess()
             }
+        }
+    }
+
+    fun deleteCommand(id: Int, onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            commandRepository.deleteCommand(id)
+            onSuccess()
+        }
+    }
+
+    suspend fun setFieldsForEdit(id: Int) {
+        val commandById = commandRepository.getCommandById(id)
+        _command.value = commandById?.command ?: ""
+        _description.value = commandById?.description ?: ""
+        _label.value = commandById?.labels?.firstOrNull() ?: ""
+    }
+
+    fun editCommand(id: Int, onSuccess: () -> Unit) {
+        val isCommandValid = _command.value.trim().isNotBlank()
+        val isDescriptionValid = _description.value.trim().isNotBlank()
+
+        _commandError.value = !isCommandValid
+        _descriptionError.value = !isDescriptionValid
+
+        if (isCommandValid && isDescriptionValid) {
+            viewModelScope.launch {
+                commandRepository.updateCommand(
+                    CommandEntity(
+                        id = id,
+                        command = _command.value.trim(),
+                        description = _description.value.trim(),
+                        labels = listOf(_label.value.trim())
+                    )
+                )
+                _command.value = ""
+                _description.value = ""
+                _label.value = ""
+                onSuccess()
+            }
+        }
+    }
+
+    fun toggleFavourite(id: Int, isFavourite: Boolean, onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            commandRepository.updateFavoriteStatus(id, isFavourite)
+            onSuccess()
         }
     }
 }

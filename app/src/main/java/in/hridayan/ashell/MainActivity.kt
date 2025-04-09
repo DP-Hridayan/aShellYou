@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import `in`.hridayan.ashell.core.presentation.ui.theme.AShellYouTheme
+import `in`.hridayan.ashell.core.presentation.ui.viewmodel.MainViewModel
 import `in`.hridayan.ashell.navigation.Navigation
 
 @AndroidEntryPoint
@@ -18,10 +20,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val viewModel: MainViewModel = hiltViewModel()
+
             AShellYouTheme {
                 Surface(
-                    modifier = Modifier.Companion
-                        .fillMaxSize(),
+                    modifier = Modifier.Companion.fillMaxSize(),
                     color = MaterialTheme.colorScheme.surface
                 ) {
                     Navigation()

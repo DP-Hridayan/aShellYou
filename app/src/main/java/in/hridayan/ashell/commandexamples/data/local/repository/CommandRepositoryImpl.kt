@@ -18,8 +18,8 @@ class CommandRepositoryImpl @Inject constructor(
         commandDao.updateCommand(command)
     }
 
-    override suspend fun deleteCommand(command: CommandEntity) {
-        commandDao.deleteCommand(command)
+    override suspend fun deleteCommand(id: Int) {
+        commandDao.deleteCommand(id)
     }
 
     override fun getCommandCount(): Int {

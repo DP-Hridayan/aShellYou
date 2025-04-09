@@ -1,19 +1,25 @@
 package `in`.hridayan.ashell.home.presentation.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.overscroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -25,6 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.config.URL_OTG_INSTRUCTIONS
 import `in`.hridayan.ashell.core.common.config.URL_WIRELESS_DEBUGGING_INSTRUCTIONS
@@ -33,23 +40,31 @@ import `in`.hridayan.ashell.core.presentation.ui.component.button.IconWithTextBu
 import `in`.hridayan.ashell.core.presentation.ui.component.card.BottomCornerRoundedCard
 import `in`.hridayan.ashell.core.presentation.ui.component.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.ui.component.card.TopCornerRoundedCard
+import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
+import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LookAndFeel
 import `in`.hridayan.ashell.navigation.navigateTo
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen() {
-    Column(
-        modifier = Modifier.Companion
-            .fillMaxSize()
-            .padding(25.dp)
-            .verticalScroll(rememberScrollState())
-    ) {
-        SettingsButton()
-        AppNameText()
-        LocalAdbCard()
-        WirelessDebuggingCard()
-        OtgAdbCard()
+fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    Scaffold(contentWindowInsets = WindowInsets.safeDrawing) {
+        Column(
+            modifier = Modifier.Companion
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(it)
+                .padding(Dimens.paddingExtraLarge),
+        ) {
+            SettingsButton()
+            AppNameText()
+            LocalAdbCard()
+            WirelessDebuggingCard()
+            OtgAdbCard()
+        }
     }
 }
 
@@ -62,11 +77,13 @@ fun SettingsButton(modifier: Modifier = Modifier) {
             MaterialTheme.colorScheme.onSurfaceVariant
         ),
         modifier = modifier
-            .padding(vertical = 45.dp)
+            .padding(bottom = 45.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
-                onClick = { })
+                onClick = {
+                    navigateTo(LookAndFeel)
+                })
     )
 }
 
@@ -225,7 +242,7 @@ fun WirelessDebuggingStartButton(modifier: Modifier = Modifier) {
         contentDescription = null,
         modifier = modifier,
         onClick = {
-            navigateTo(LookAndFeel)
+            navigateTo(CommandExamplesScreen)
         })
 }
 
