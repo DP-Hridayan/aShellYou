@@ -73,7 +73,7 @@ dependencies {
             shizuku   : "13.1.0",
             libsu     : "6.0.0",
             glide     : "4.16.0",
-            lottie    : "6.6.4"
+            lottie    : "6.6.6"
     ]
 
     implementation 'com.google.code.gson:gson:2.12.1'
