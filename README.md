@@ -9,7 +9,6 @@
 
 </br>
 
-
 <div align="center">
   <img src="assets/Motion.gif" width="100%" alt="Motion GIF">
 </div>
