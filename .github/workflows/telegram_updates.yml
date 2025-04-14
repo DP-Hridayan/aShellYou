@@ -3,7 +3,7 @@ name: Telegram Bot Notify
 on:
   push:
     branches:
-      - main
+      - master
   watch:
     types: [started]
   issues:
