@@ -2,7 +2,6 @@
   <img src="assets/mockups.svg" width="100%" alt="Banner">
 </div>
 
-
 </br>
 
 # aShell You 
