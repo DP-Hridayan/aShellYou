@@ -54,8 +54,7 @@ jobs:
             send_message "🔨 *Push* by [$ACTOR](https://github.com/$ACTOR)\n• *Message:* $COMMIT_MSG\n[View Commit]($COMMIT_URL)"
 
           elif [[ "$EVENT_NAME" == "watch" ]]; then
-            REPO_ESCAPED=$(escape_markdown "$REPO")
-            send_message "⭐ *$ACTOR* starred [$REPO_ESCAPED](https://github.com/$REPO)"
+            send_message "⭐ *$ACTOR* starred aShell You"
 
           elif [[ "$EVENT_NAME" == "issues" ]]; then
             ISSUE_ACTION="${{ github.event.action }}"
