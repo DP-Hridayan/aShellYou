@@ -25,68 +25,52 @@ jobs:
           THREAD_ID: ${{ secrets.THREAD_ID }}
         run: |
           EVENT_NAME="${{ github.event_name }}"
-          ACTOR_RAW="${{ github.actor }}"
-          REPO_RAW="${{ github.repository }}"
-
-          escape_markdown_v2() {
-            echo "$1" | sed -e 's/\\/\\\\/g' \
-                            -e 's/\*/\\*/g' \
-                            -e 's/_/\\_/g' \
-                            -e 's/(/\/g' \
-                            -e 's/)/\/g' \
-                            -e 's/~/\\~/g' \
-                            -e 's/`/\\`/g' \
-                            -e 's/>/\\>/g' \
-                            -e 's/#/\\#/g' \
-                            -e 's/\+/\\+/g' \
-                            -e 's/-/\\-/g' \
-                            -e 's/=/\\=/g' \
-                            -e 's/|/\\|/g' \
-                            -e 's/{/\\{/g' \
-                            -e 's/}/\\}/g' \
-                            -e 's/\./\\./g' \
-                            -e 's/!/\\!/g' \
-                            -e ':a;N;$!ba;s/\n/\\n/g'
-          }
-
-          ACTOR=$(escape_markdown_v2 "$ACTOR_RAW")
-          REPO=$(escape_markdown_v2 "$REPO_RAW")
+          ACTOR="${{ github.actor }}"
+          REPO="${{ github.repository }}"
           API_URL="https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"
+          
+          escape_markdown() { 
+          echo "$1" | sed -e 's/[*]/\\&/g' \
+                  -e 's/_/\\_/g' \
+                  -e 's/(/\/g' \
+                  -e 's/)/\/g' \
+                  -e 's/`/\\`/g'
+                  }
 
           send_message() {
-            curl -s -X POST "$API_URL" \
+            curl -s -X POST $API_URL \
               -d chat_id="$CHAT_ID" \
               -d message_thread_id="$THREAD_ID" \
-              -d text="$1" \
-              -d parse_mode=MarkdownV2
+              -d text="$(echo -e "$1")" \
+              -d parse_mode=Markdown
           }
 
           if [[ "$EVENT_NAME" == "push" ]]; then
             COMMIT_MSG_RAW="${{ github.event.head_commit.message }}"
             COMMIT_URL="${{ github.event.head_commit.url }}"
-            COMMIT_MSG=$(escape_markdown_v2 "$COMMIT_MSG_RAW")
-            send_message "🔨 *Push* by [${ACTOR}](https://github\\.com/${ACTOR})\\n• *Message:* ${COMMIT_MSG}\\n[View Commit](${COMMIT_URL})"
+            COMMIT_MSG=$(escape_markdown "$COMMIT_MSG_RAW")
+            send_message "🔨 *Push* by [$ACTOR](https://github.com/$ACTOR)\n• *Message:* $COMMIT_MSG\n[View Commit]($COMMIT_URL)"
 
           elif [[ "$EVENT_NAME" == "watch" ]]; then
-            send_message "⭐ ${ACTOR} starred aShell You"
+            send_message "⭐ *$ACTOR* starred aShell You"
 
           elif [[ "$EVENT_NAME" == "issues" ]]; then
             ISSUE_ACTION="${{ github.event.action }}"
             ISSUE_TITLE_RAW="${{ github.event.issue.title }}"
             ISSUE_URL="${{ github.event.issue.html_url }}"
-            ISSUE_TITLE=$(escape_markdown_v2 "$ISSUE_TITLE_RAW")
-            send_message "🐛 *Issue ${ISSUE_ACTION}* by [${ACTOR}](https://github\\.com/${ACTOR}):\\n• ${ISSUE_TITLE}\\n[View Issue](${ISSUE_URL})"
+            ISSUE_TITLE=$(escape_markdown "$ISSUE_TITLE_RAW")
+            send_message "🐛 *Issue $ISSUE_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$ISSUE_TITLE*\n[View Issue]($ISSUE_URL)"
 
           elif [[ "$EVENT_NAME" == "pull_request" ]]; then
             PR_ACTION="${{ github.event.action }}"
             PR_TITLE_RAW="${{ github.event.pull_request.title }}"
             PR_URL="${{ github.event.pull_request.html_url }}"
-            PR_TITLE=$(escape_markdown_v2 "$PR_TITLE_RAW")
-            send_message "🔃 *Pull Request ${PR_ACTION}* by [${ACTOR}](https://github\\.com/${ACTOR}):\\n• ${PR_TITLE}\\n[View PR](${PR_URL})"
+            PR_TITLE=$(escape_markdown "$PR_TITLE_RAW")
+            send_message "🔃 *Pull Request $PR_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$PR_TITLE*\n[View PR]($PR_URL)"
 
           elif [[ "$EVENT_NAME" == "release" ]]; then
             REL_NAME_RAW="${{ github.event.release.name }}"
             REL_URL="${{ github.event.release.html_url }}"
-            REL_NAME=$(escape_markdown_v2 "$REL_NAME_RAW")
-            send_message "🚀 *New Release Published* by [${ACTOR}](https://github\\.com/${ACTOR}):\\n• ${REL_NAME}\\n[View Release](${REL_URL})"
+            REL_NAME=$(escape_markdown "$REL_NAME_RAW")
+            send_message "🚀 *New Release Published* by [$ACTOR](https://github.com/$ACTOR):\n• *$REL_NAME*\n[View Release]($REL_URL)"
           fi
