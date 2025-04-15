@@ -8,38 +8,31 @@
 
 </br>
 
-<p align="center">
-
-  <!-- Project Info -->
-  <a href="https://github.com/DP-Hridayan/aShellYou">
-    <img alt="Repo Stars" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&color=FFD700&label=Stars&logo=github" />
+<p align="center">  <!-- GitHub Info -->  <a href="https://github.com/DP-Hridayan/aShellYou/stargazers">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Stars" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/forks">
-    <img alt="Repo Forks" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&color=FF8C00&label=Forks&logo=git" />
+    <img alt="GitHub forks" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Forks" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/issues">
-    <img alt="Open Issues" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&color=1E90FF&label=Issues&logo=github" />
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Issues" />
   </a>
-  <a href="https://github.com/DP-Hridayan/aShellYou/pulls">
-    <img alt="Pull Requests" src="https://img.shields.io/github/issues-pr/DP-Hridayan/aShellYou?style=for-the-badge&color=9932CC&label=PRs&logo=github" />
+  <a href="https://github.com/DP-Hridayan/aShellYou/releases">
+    <img alt="GitHub release" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Release" />
   </a>
-
-  <!-- Build & License -->
+  <a href="https://github.com/DP-Hridayan/aShellYou/releases">
+    <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?style=for-the-badge&logo=download&label=Downloads" />
+  </a>
+  <a href="https://github.com/DP-Hridayan/aShellYou/graphs/contributors">
+    <img alt="Contributors" src="https://img.shields.io/github/contributors/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Contributors" />
+  </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/blob/main/LICENSE">
-    <img alt="License" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&color=32CD32&label=License&logo=open-source-initiative" />
-  </a>
-  <img alt="Last Commit" src="https://img.shields.io/github/last-commit/DP-Hridayan/aShellYou?style=for-the-badge&color=DC143C&label=Last%20Commit&logo=git" />
-  
-  <!-- Size Info -->
-  <img alt="Code Size" src="https://img.shields.io/github/languages/code-size/DP-Hridayan/aShellYou?style=for-the-badge&color=00CED1&label=Code%20Size&logo=files" />
-  <img alt="Repo Size" src="https://img.shields.io/github/repo-size/DP-Hridayan/aShellYou?style=for-the-badge&color=20B2AA&label=Repo%20Size&logo=github" />
-
-  <!-- Tech -->
-  <img alt="Platform" src="https://img.shields.io/badge/platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
-  <img alt="Language" src="https://img.shields.io/badge/Language-Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" />
-
-</p>
-
+    <img alt="License" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&logo=open-source-initiative&label=License" />
+  </a></p><p align="center">  <!-- Tech Stack -->  <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+  <img alt="Language" src="https://img.shields.io/badge/Language-Java-007396?style=for-the-badge&logo=java&logoColor=white" />
+  <img alt="UI" src="https://img.shields.io/badge/UI-XML-E44D26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-21-yellow?style=for-the-badge" />
+  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-34-blue?style=for-the-badge" /></p>
 
 ## Requirements
 * A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
