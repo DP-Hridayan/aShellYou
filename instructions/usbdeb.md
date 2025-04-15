@@ -46,4 +46,11 @@ Enable USB Debugging to unlock advanced developer features and connect your Andr
 
 Your device is now ready to communicate over ADB. You can connect it to another device or PC and start issuing ADB commands using tools like `aShellYou`.
 
-For more help, join our [Telegram Community](https://t.me/aShellYou) or check out the [full documentation](https://github.com/DP-Hridayan/aShellYou).
+</br>
+
+## Need Help?
+
+If you run into any issues or want to ask questions, feel free to:
+
+- Join our [Telegram Community](https://t.me/aShellYou)
+- Open an [Issue on GitHub](https://github.com/DP-Hridayan/aShellYou/issues)
