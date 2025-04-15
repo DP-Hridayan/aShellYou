@@ -116,7 +116,6 @@
 
 <div align="center" style="font-family: 'Roboto', sans-serif;">
 
-  <!-- Download Options -->
   <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
     <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
       <img src="assets/github.png" width="150" alt="Get it on GitHub" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
