@@ -1,9 +1,14 @@
-name: Deploy Website to GitHub Pages
+name: Deploy Website
 
 on:
   push:
     branches:
       - master
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
@@ -13,14 +18,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Pages
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v3
 
-      - name: Upload website folder
+      - name: Upload static files
         uses: actions/upload-pages-artifact@v2
         with:
           path: website
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v2
