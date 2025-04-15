@@ -48,12 +48,6 @@
   <br/>
 </div>
 
-## Requirements
-* A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
-* Shizuku / ROOT is not needed to run ADB commands on other devices via OTG or Wireless Debugging
-* Knowledge about basic ADB/Linux commands
-
-
 </br>
 
 ## Features
@@ -103,9 +97,12 @@
 
 </br>
 
+## Requirements
+* A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
+* Shizuku / ROOT is not needed to run ADB commands on other devices via OTG or Wireless Debugging
+* Knowledge about basic ADB/Linux commands
 
 ## Instructions
-
 * How to Setup Shizuku: [Instructions here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/Shizuku.md)
 * How to Use OTG: [Instructions here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md)
 * How to Use Wireless ADB Feature: [Instructions here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md)
