@@ -11,7 +11,7 @@
 
 </br>
 
-## Requirements ⚙️
+## Requirements
 * A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
 * Shizuku / ROOT is not needed to run ADB commands on other devices via OTG or Wireless Debugging
 * Knowledge about basic ADB/Linux commands
@@ -19,7 +19,7 @@
 
 </br>
 
-## Features ✨
+## Features
 * 🎨 Features a modern Material Design 3 user interface
 * 📲 Execute commands on your device using Shizuku , ROOT or Wirless Debugging
 * 🔌 Run commands on other devices via OTG connection or Wireless Debugging
@@ -42,7 +42,7 @@
 
 </br>
 
-## Download 📥
+## Download
 
 <div align="center">
 <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="assets/github.png" width="50%" alt="Get it on GitHub" /></a>
@@ -58,7 +58,7 @@
 
 
 
-## Discussions Channel 💬
+## Discussions Channel
 
 <div align="center">
   <a href="https://t.me/aShellYou">
@@ -68,7 +68,7 @@
 
 
 
-## Fuel my code with a coffee ☕️
+## Fuel my code with a coffee
   <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="49%" alt="Buy Me a Coffee" /></a>
 
 </br>
@@ -84,7 +84,7 @@
 
 </br>
 
-## Star History ⭐
+## Star History
 </br>
 
 
