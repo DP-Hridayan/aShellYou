@@ -98,14 +98,27 @@
 </br>
 
 ## Requirements
-* A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
-* Shizuku / ROOT is not needed to run ADB commands on other devices via OTG or Wireless Debugging
-* Knowledge about basic ADB/Linux commands
+
+> * 📱 A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
+> * 🔗 Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
+> * ⚙️ Basic knowledge of **ADB/Linux commands** is recommended
+
+---
 
 ## Instructions
-* How to Setup Shizuku: [Instructions here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/Shizuku.md)
-* How to Use OTG: [Instructions here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md)
-* How to Use Wireless ADB Feature: [Instructions here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md)
+
+⚙️ **How to Setup Shizuku**  
+> [Follow this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/Shizuku.md) to configure Shizuku on your device.
+
+<br/>
+
+🔌 **How to Use OTG**  
+> Learn to connect and control another Android device via OTG [using this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md).
+
+<br/>
+
+📶 **How to Use Wireless ADB**  
+> Enable and use ADB wirelessly to run commands on other devices [with this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md).
 
 <br/>
 
