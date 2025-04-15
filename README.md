@@ -1,11 +1,8 @@
-<div align="center">
-  <img src="assets/mockups.svg" width="100%" alt="Banner">
-</div>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=aShell%20You&animation=fadeIn&desc=Just%20for%20your%20ADB%20needs&descAlign=50&descAlignY=55&fontAlignY=35" />
+</p>
 
 </br>
-
-# aShell You 
-### Run ADB commands on your device or on other devices 🌱
 
 </br>
 
