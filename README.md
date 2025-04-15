@@ -2,8 +2,6 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=aShell%20You&animation=fadeIn&desc=Just%20for%20your%20ADB%20needs&descAlign=50&descAlignY=55&fontAlignY=35" />
 </p>
 
-## 🧩 Overview
-
 > aShell You is a fully-featured Android shell utility with **Material Design 3 UI**, letting you run ADB, root, and shell commands on this device or others via OTG/wireless, packed in a beautiful and smart interface.
 
 </br>
@@ -42,7 +40,7 @@
 
 </br>
 
-## Screenshots
+<h2 align="center">Screenshots</h2>
   <div align="center">
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="25%" style="margin:10px" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="25%" style="margin:10px" />
@@ -56,7 +54,7 @@
 
 </br>
 
-## Features
+<h2 align="center">Features</h2>
 
 🎨 **Modern Material Design 3 UI**  
 > Experience a clean, smooth, and responsive user interface built with Material You, adapting to your device's wallpaper and theme settings.
@@ -103,7 +101,7 @@
 
 </br>
 
-## Requirements
+<h2 align="center">Requirements</h2>
 
 > * 📱 A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
 > * 🔗 Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
@@ -111,7 +109,7 @@
 
 <br/>
 
-## Instructions
+<h2 align="center">Instructions</h2>
 
 ⚙️ **How to Setup Shizuku**  
 > [Follow this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/Shizuku.md) to configure Shizuku on your device.
@@ -128,44 +126,25 @@
 
 <br/>
 
-## Download
+<h2 align="center">Resources & Links</h2>
 
-<div align="center" style="font-family: 'Roboto', sans-serif;">
-
-  <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
-    <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
-      <img src="assets/github.png" width="150" alt="Get it on GitHub" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
-    </a>
-    <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell">
-      <img src="assets/izzy.png" width="150" alt="Get it on F-Droid" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
-    </a>
-  </div>
-  
-</div>
-
-<br/>
-
-## Discussions Channel
-
-<div align="center">
-  <a href="https://t.me/aShellYou">
-    <img src="assets/telegram.png" alt="Telegram Channel" width="45%" height="auto" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
+<p align="center">  <!-- Download buttons -->  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
+    <img src="assets/github.png" width="130" alt="GitHub" />
   </a>
-</div>
-
-<br/>
-
-## Fuel my code with a coffee
-
-<div align="center">
-  <a href="https://www.buymeacoffee.com/Hridayan">
-    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="49%" alt="Buy Me a Coffee" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
+  &nbsp;&nbsp;
+  <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell">
+    <img src="assets/izzy.png" width="130" alt="F-Droid" />
   </a>
-</div>
+  <br/><br/>  <!-- Telegram button -->  <a href="https://t.me/aShellYou">
+    <img src="assets/telegram.png" width="180" alt="Join Telegram" />
+  </a>
+  <br/><br/>  <!-- Buy Me a Coffee -->  <a href="https://www.buymeacoffee.com/Hridayan">
+    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="200" alt="Buy Me a Coffee" />
+  </a></p>
 
-<br/>
+  </br>
 
-## Task List
+<h2 align="center">Task list</h2>
 
 <table align="center" style="border-collapse: collapse; margin-top: 20px;">
   <tr>
@@ -200,7 +179,7 @@
 
 <br/>
 
-## Star History
+<h2 align="center">Star history</h2>
 
 <a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
  <picture>
@@ -212,7 +191,7 @@
 
 </br>
 
-## License
+<h2 align="center">License</h2>
 ```
 Designed and developed by Hridayan @2024
 This project is licensed under the GNU General Public License v3.0
@@ -221,7 +200,7 @@ This project is licensed under the GNU General Public License v3.0
 
 </br>
 
-### Summary
+<h2 align="center">Summary</h2>
 
 | Permitted 🚀                         | Not Permitted 🚫                     |
 |--------------------------------------|--------------------------------------|
@@ -233,7 +212,7 @@ This project is licensed under the GNU General Public License v3.0
 
 </br>
 
-## Contributors 
+<h2 align="center">Contributors</h2>
 <a href="https://github.com/dp-hridayan/ashellyou/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=dp-hridayan/ashellyou" />
 </a>
