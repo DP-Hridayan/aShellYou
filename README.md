@@ -6,10 +6,40 @@
 
 > aShell You is a fully-featured Android shell utility with **Material Design 3 UI**, letting you run ADB, root, and shell commands on this device or others via OTG/wireless, packed in a beautiful and smart interface.
 
-
-
-
 </br>
+
+<p align="center">
+
+  <!-- Project Info -->
+  <a href="https://github.com/DP-Hridayan/aShellYou">
+    <img alt="Repo Stars" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&color=FFD700&label=Stars&logo=github" />
+  </a>
+  <a href="https://github.com/DP-Hridayan/aShellYou/forks">
+    <img alt="Repo Forks" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&color=FF8C00&label=Forks&logo=git" />
+  </a>
+  <a href="https://github.com/DP-Hridayan/aShellYou/issues">
+    <img alt="Open Issues" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&color=1E90FF&label=Issues&logo=github" />
+  </a>
+  <a href="https://github.com/DP-Hridayan/aShellYou/pulls">
+    <img alt="Pull Requests" src="https://img.shields.io/github/issues-pr/DP-Hridayan/aShellYou?style=for-the-badge&color=9932CC&label=PRs&logo=github" />
+  </a>
+
+  <!-- Build & License -->
+  <a href="https://github.com/DP-Hridayan/aShellYou/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&color=32CD32&label=License&logo=open-source-initiative" />
+  </a>
+  <img alt="Last Commit" src="https://img.shields.io/github/last-commit/DP-Hridayan/aShellYou?style=for-the-badge&color=DC143C&label=Last%20Commit&logo=git" />
+  
+  <!-- Size Info -->
+  <img alt="Code Size" src="https://img.shields.io/github/languages/code-size/DP-Hridayan/aShellYou?style=for-the-badge&color=00CED1&label=Code%20Size&logo=files" />
+  <img alt="Repo Size" src="https://img.shields.io/github/repo-size/DP-Hridayan/aShellYou?style=for-the-badge&color=20B2AA&label=Repo%20Size&logo=github" />
+
+  <!-- Tech -->
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+  <img alt="Language" src="https://img.shields.io/badge/Language-Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" />
+
+</p>
+
 
 ## Requirements
 * A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
