@@ -103,9 +103,9 @@
 
 <h2 align="center">Requirements</h2>
 
-> * 📱 A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
-> * 🔗 Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
-> * ⚙️ Basic knowledge of **ADB/Linux commands** is recommended
+> * A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
+> * Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
+> * Basic knowledge of **ADB/Linux commands** is recommended
 
 <br/>
 
