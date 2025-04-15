@@ -186,8 +186,6 @@
 <br/>
 
 ## Star History
-</br>
-
 
 <a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
  <picture>
@@ -197,8 +195,6 @@
  </picture>
 </a>
 
-
-
 </br>
 
 ## License
@@ -207,6 +203,9 @@ Designed and developed by Hridayan @2024
 This project is licensed under the GNU General Public License v3.0
 ```
 [Full License copy here](LICENSE.md)
+
+</br>
+
 ### Summary
 
 | Permitted 🚀                         | Not Permitted 🚫                     |
@@ -217,12 +216,10 @@ This project is licensed under the GNU General Public License v3.0
 | ✔️ Access to the source code         | ❌ Restricting other users' freedoms |
 | ✔️ Distribution with original terms  |                                      |
 
-
-
-## Contributors 
-
 </br>
 
+## Contributors 
 <a href="https://github.com/dp-hridayan/ashellyou/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=dp-hridayan/ashellyou" />
 </a>
+</br>
