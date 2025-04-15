@@ -103,7 +103,7 @@
 > * 🔗 Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
 > * ⚙️ Basic knowledge of **ADB/Linux commands** is recommended
 
----
+<br/>
 
 ## Instructions
 
