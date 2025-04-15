@@ -2,7 +2,6 @@
   <img src="assets/mockups.svg" width="100%" alt="Banner">
 </div>
 
-
 </br>
 
 # aShell You 
@@ -10,14 +9,12 @@
 
 </br>
 
-
 <div align="center">
   <img src="assets/Motion.gif" width="100%" alt="Motion GIF">
 </div>
 
 
 </br>
-
 
 ## Requirements ⚙️
 * A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
