@@ -34,6 +34,20 @@
   <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-21-yellow?style=for-the-badge" />
   <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-34-blue?style=for-the-badge" /></p>
 
+  <br></br>
+
+## Screenshots
+  <div align="center">
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="30%" style="margin:10px" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="30%" style="margin:10px" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpeg" width="30%" style="margin:10px" />
+  <br/>
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpeg" width="30%" style="margin:10px" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.jpeg" width="30%" style="margin:10px" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/8.jpeg" width="30%" style="margin:10px" />
+  <br/>
+</div>
+
 ## Requirements
 * A working [Shizuku](https://shizuku.rikka.app/) or ROOT environment
 * Shizuku / ROOT is not needed to run ADB commands on other devices via OTG or Wireless Debugging
