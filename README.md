@@ -57,17 +57,40 @@
 </br>
 
 ## Features
-* 🎨 Features a modern Material Design 3 user interface
-* 📲 Execute commands on your device using Shizuku , ROOT or Wirless Debugging
-* 🔌 Run commands on other devices via OTG connection or Wireless Debugging
-* 📚 Provides examples of common ADB commands
-* 🛠️ Supports continuously running commands like logcat and top
-* 🔍 Search within the last command output
-* 📝 Save the last command output as a text file
-* 📤 Share output directly to other apps
-* 📑 Bookmark frequently used commands
-* 🌑 Includes an AMOLED theme
-* 🎉 Offers many additional features
+## Features
+
+* 🎨 **Modern Material Design 3 UI**  
+> Experience a clean, smooth, and responsive user interface built with Material You, adapting to your device's wallpaper and theme settings.
+
+* 📲 **Execute Commands with Ease**  
+> Run ADB shell commands directly on your device using Shizuku, root access, or Wireless Debugging — all without needing a PC.
+
+* 🔌 **Control Other Devices**  
+> Send ADB commands to other Android devices using OTG cable or Wireless Debugging — perfect for developers and tinkerers.
+
+* 📚 **Common ADB Command Examples**  
+> Built-in examples help you understand and run useful commands instantly without memorizing syntax.
+
+* 🛠️ **Support for Continuous Commands** 
+> Seamlessly run long or continuous shell commands like `logcat`, `top`, or `watch` and view live updates without interruptions.
+
+* 🔍 **Search in Command Output**  
+> Quickly find what you're looking for in the output of your last command using the integrated search functionality.
+
+* 📝 **Save Output to File**  
+> Save the output of any command to a `.txt` file for future reference or sharing — handy for logs and debugging.
+
+* 📤 **Share Output Instantly**  
+> One-tap sharing lets you send your output to other apps like Notes, Gmail, or Telegram.
+
+* 📑 **Bookmark Commands**  
+> Save frequently used commands to bookmarks so you can run them again with a single tap.
+
+* 🌑 **AMOLED-Friendly Dark Theme**  
+> Includes a sleek dark mode designed to save battery and look great on AMOLED screens.
+
+* 🎉 **Packed with Extras**  
+> Tons of small but useful features to enhance your productivity and make ADB power-user workflows smoother.
 
 </br>
 
