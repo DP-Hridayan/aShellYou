@@ -1,37 +1,49 @@
-# 📱 How to Turn on USB Debugging
+# USB Debugging Setup Guide
 
-Unlock the potential of your Android device by enabling USB Debugging! This guide will walk you through the steps. Let's get started! 🚀
+Enable USB Debugging to unlock advanced developer features and connect your Android device for ADB operations.
 
-## 🛠️ Prerequisites
+</br>
 
-- An Android device 📱
-- A USB cable 🔌
+## Prerequisites
 
-## 🔍 Steps to Enable USB Debugging
+- An Android device
+- A USB cable
 
-1. **Open Settings** ⚙️
-   - Go to your device's **Settings** app.
+</br>
 
-2. **Navigate to About Phone** ℹ️
-   - Scroll down and tap on **About Phone**.
+## Steps to Enable USB Debugging
 
-3. **Find Build Number** 🔢
-   - Look for the **Build Number** entry. It might be under **Software Information** on some devices.
+1. **Open your device settings**
+   - Launch the `Settings` app on your Android device.
 
-4. **Enable Developer Mode** 👨‍💻
-   - Tap **Build Number** 7 times until you see a message saying "You are now a developer!"
+2. **Go to About Phone**
+   - Scroll to the bottom and tap on **About Phone**.
 
-5. **Access Developer Options** 🔧
-   - Go back to the **Settings** main menu.
-   - Scroll down and tap on **Developer Options**.
+3. **Locate the Build Number**
+   - Look for the **Build Number** entry.  
+     *Note: On some devices, this might be under `Settings > About Phone > Software Information`.*
 
-6. **Turn on USB Debugging** ✅
-   - Find the **USB Debugging** option and toggle it **ON**.
+4. **Enable Developer Mode**
+   - Tap the **Build Number** entry **seven times**.
+   - You should see a toast saying:  
+     `"You are now a developer!"`
 
-7. **Confirm Your Choice** 🛡️
-   - A confirmation message will appear. Tap **OK** to enable USB Debugging.
+5. **Open Developer Options**
+   - Go back to the main `Settings` menu.
+   - Navigate to **`System > Developer Options`**  
+     *(or just **`Developer Options`**, depending on your device).*
 
-## 🎉 You're Done!
+6. **Enable USB Debugging**
+   - Scroll down to find **`USB Debugging`**.
+   - Toggle it **ON**.
 
-You've successfully enabled USB Debugging on your device! Now you can connect your device to your computer and start exploring more advanced features. Happy debugging! 🖥️🔧
+7. **Confirm the Action**
+   - A prompt will appear. Tap **OK** to confirm and enable USB Debugging.
 
+</br>
+
+## You're All Set
+
+Your device is now ready to communicate over ADB. You can connect it to another device or PC and start issuing ADB commands using tools like `aShellYou`.
+
+For more help, join our [Telegram Community](https://t.me/aShellYou) or check out the [full documentation](https://github.com/DP-Hridayan/aShellYou).
