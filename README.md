@@ -72,54 +72,86 @@
 </br>
 
 
-## Instructions 
-* How to Setup Shizuku [here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/Shizuku.md)
-* How to Use OTG [here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md)
-* How to Use Wireless ADB Feature [here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md)
+## Instructions
 
-</br>
+* How to Setup Shizuku: [Instructions here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/Shizuku.md)
+* How to Use OTG: [Instructions here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md)
+* How to Use Wireless ADB Feature: [Instructions here](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md)
+
+<br/>
 
 ## Download
 
-<div align="center">
-<a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/"><img src="assets/github.png" width="50%" alt="Get it on GitHub" /></a>
-<div align="center">
-  <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell"><img src="assets/izzy.png" width="49%" alt="Get it on F-Droid" /></a>
+<div align="center" style="font-family: 'Roboto', sans-serif;">
+
+  <!-- Download Options -->
+  <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+    <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
+      <img src="assets/github.png" width="150" alt="Get it on GitHub" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
+    </a>
+    <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell">
+      <img src="assets/izzy.png" width="150" alt="Get it on F-Droid" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
+    </a>
+  </div>
+  
 </div>
+
 <br/>
-
-<div align="center">
-  <a href="https://github.com/DP-Hridayan/aShellYou"><img alt="Repo Size" src="https://img.shields.io/github/repo-size/DP-Hridayan/aShellYou?style=for-the-badge"></a>
-  <a href="https://github.com/DP-Hridayan/aShellYou/releases"><img src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?color=%233DDC84&logo=android&logoColor=%23fff&style=for-the-badge" alt="Downloads"></a>
-</div>
-
-
 
 ## Discussions Channel
 
 <div align="center">
   <a href="https://t.me/aShellYou">
-    <img src="assets/telegram.png" alt="Telegram Channel" width="45%%%" height="auto">
+    <img src="assets/telegram.png" alt="Telegram Channel" width="45%" height="auto" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
   </a>
 </div>
 
-
+<br/>
 
 ## Fuel my code with a coffee
-  <a href="https://www.buymeacoffee.com/Hridayan"><img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="49%" alt="Buy Me a Coffee" /></a>
 
-</br>
+<div align="center">
+  <a href="https://www.buymeacoffee.com/Hridayan">
+    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="49%" alt="Buy Me a Coffee" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
+  </a>
+</div>
 
-| Task                   | Status   |
-|------------------------|----------|
-| Wifi ADB Feature       | ✅ Done  |
-| Implement root shell   | ✅ Done  |
-| Redesigning Homepage   | ✅ Done  |
-| Proper localization    | ⬜ To Do |
-| Fix scripts execution  | ⬜ To Do |
-| Add Fastboot           | ⬜ To Do |
+<br/>
 
-</br>
+## Task List
+
+<table align="center" style="border-collapse: collapse; margin-top: 20px;">
+  <tr>
+    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Task</th>
+    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Status</th>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border: 1px solid #ddd;">Wifi ADB Feature</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border: 1px solid #ddd;">Implement root shell</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border: 1px solid #ddd;">Redesigning Homepage</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border: 1px solid #ddd;">Proper localization</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border: 1px solid #ddd;">Fix scripts execution</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
+  </tr>
+  <tr>
+    <td style="padding: 8px; border: 1px solid #ddd;">Add Fastboot</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
+  </tr>
+</table>
+
+<br/>
 
 ## Star History
 </br>
