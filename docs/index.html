@@ -1,215 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>aShell You</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #fafafa;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            transition: background-color 0.3s;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>aShell You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --primary: #1b5e20;
+      --primary-light: #4caf50;
+      --primary-dark: #003300;
+      --bg: #f5f5f5;
+      --text: #212121;
+    }
 
-        header {
-            background-color: #6200ea;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        header h1 {
-            font-size: 2.5em;
-        }
+    html, body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
 
-        main {
-            padding: 20px;
-        }
+    header {
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
 
-        .banner, .motion-gif {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            margin-bottom: 20px;
-        }
+    header h1 {
+      font-size: 3em;
+    }
 
-        .feature-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
 
-        .feature-card {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px;
+    }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
 
-        .feature-card i {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
 
-        .feature-card h3 {
-            font-size: 1.25em;
-            margin-bottom: 10px;
-        }
+    .card:hover {
+      transform: translateY(-6px);
+    }
 
-        .cta-btn {
-            display: block;
-            background-color: #6200ea;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            border-radius: 50px;
-            margin-top: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
+    .card i {
+      font-size: 2.2em;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
 
-        .cta-btn:hover {
-            background-color: #3700b3;
-        }
+    .card h3 {
+      margin-bottom: 10px;
+      color: var(--primary-dark);
+    }
 
-        .footer {
-            background-color: #6200ea;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
+    .cta-button {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 14px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 40px auto;
+      transition: background 0.3s ease;
+    }
 
-        /* Media Queries for Responsiveness */
-        @media (max-width: 768px) {
-            .feature-cards {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
+    .cta-button:hover {
+      background-color: var(--primary-dark);
+    }
 
-        @media (max-width: 480px) {
-            .feature-cards {
-                grid-template-columns: 1fr;
-            }
+    .screenshots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
 
-            header h1 {
-                font-size: 1.8em;
-            }
-        }
+    .screenshots img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      max-height: 400px;
+      object-fit: contain;
+    }
 
-        .dark-mode {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
+    footer {
+      background-color: var(--primary-dark);
+      color: white;
+      text-align: center;
+      padding: 25px 10px;
+      margin-top: 50px;
+    }
 
-        .dark-mode header {
-            background-color: #3700b3;
-        }
-
-        .dark-mode .cta-btn {
-            background-color: #bb86fc;
-        }
-
-        .dark-mode .cta-btn:hover {
-            background-color: #6200ea;
-        }
-    </style>
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2em;
+      }
+      .cta-button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>aShell You</h1>
-        <p>Run ADB commands on your device or other devices with ease 🌱</p>
-    </header>
 
-    <main>
+  <header>
+    <h1>aShell You</h1>
+    <p>Run ADB commands effortlessly on your device or others — no root needed!</p>
+  </header>
 
-        <section>
-            <h2>Features ✨</h2>
-            <div class="feature-cards">
-                <div class="feature-card">
-                    <i class="material-icons">phone_android</i>
-                    <h3>Run commands on your device</h3>
-                    <p>Execute commands using Shizuku, ROOT, or Wireless Debugging</p>
-                </div>
+  <section class="container">
+    <h2>Why aShell You?</h2>
+    <div class="features">
+      <div class="card">
+        <i class="fas fa-terminal"></i>
+        <h3>Run Commands</h3>
+        <p>Execute commands directly via ROOT, Shizuku, or Wireless Debugging.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-link"></i>
+        <h3>Connect Other Devices</h3>
+        <p>Use OTG or Wireless Debugging to control other phones.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-save"></i>
+        <h3>Save Outputs</h3>
+        <p>Save and share command outputs like a pro.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-search"></i>
+        <h3>Search Outputs</h3>
+        <p>Quickly search your logs or output files.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-bookmark"></i>
+        <h3>Bookmarks</h3>
+        <p>Access your most-used commands instantly.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-moon"></i>
+        <h3>Dark Mode</h3>
+        <p>AMOLED-friendly dark mode built-in.</p>
+      </div>
+    </div>
 
-                <div class="feature-card">
-                    <i class="material-icons">device_hub</i>
-                    <h3>Run commands on other devices</h3>
-                    <p>Connect devices via OTG or Wireless Debugging</p>
-                </div>
+    <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/" class="cta-button">Download from GitHub</a>
 
-                <div class="feature-card">
-                    <i class="material-icons">save_alt</i>
-                    <h3>Save & Share Command Output</h3>
-                    <p>Save outputs as text files and share directly</p>
-                </div>
+    <h2 style="margin-top: 50px;">Screenshots</h2>
+    <div class="screenshots">
+      <img src="assets/banner.png" alt="Banner">
+      <img src="assets/motion.gif" alt="App motion">
+      <!-- Add more screenshots as needed -->
+    </div>
 
-                <div class="feature-card">
-                    <i class="material-icons">search</i>
-                    <h3>Search Outputs</h3>
-                    <p>Search within your command's output</p>
-                </div>
+    <h2 style="margin-top: 60px;">Join the Community</h2>
+    <a href="https://t.me/aShellYou" class="cta-button">Join Telegram</a>
 
-                <div class="feature-card">
-                    <i class="material-icons">bookmark</i>
-                    <h3>Bookmark Commands</h3>
-                    <p>Keep your frequently used commands handy</p>
-                </div>
+    <h2 style="margin-top: 60px;">Support the Developer</h2>
+    <a href="https://www.buymeacoffee.com/Hridayan">
+      <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" alt="Buy Me a Coffee" width="220" />
+    </a>
+  </section>
 
-                <div class="feature-card">
-                    <i class="material-icons">dark_mode</i>
-                    <h3>AMOLED Dark Mode</h3>
-                    <p>Switch to dark mode for battery savings and comfort</p>
-                </div>
-            </div>
+  <footer>
+    <p>&copy; 2025 aShell You — All rights reserved.</p>
+  </footer>
 
-            <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/" class="cta-btn">Get it on GitHub</a>
-
-            <h2>Discussions 💬</h2>
-            <a href="https://t.me/aShellYou" class="cta-btn">Join the Telegram Channel</a>
-        </section>
-
-        <section>
-            <h2>Fuel My Code ☕</h2>
-            <a href="https://www.buymeacoffee.com/Hridayan">
-                <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="200" alt="Buy Me a Coffee" />
-            </a>
-        </section>
-
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2025 aShell You - All Rights Reserved</p>
-    </footer>
-
-    <script>
-        // Dark mode toggle (can be expanded to be more sophisticated)
-        const toggleDarkMode = () => {
-            document.body.classList.toggle('dark-mode');
-        };
-
-        // For demonstration, we add a basic dark mode toggle (optional)
-        window.addEventListener('load', () => {
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                toggleDarkMode();
-            }
-        });
-    </script>
 </body>
-  </html>
+</html>
