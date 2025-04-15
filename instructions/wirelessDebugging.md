@@ -71,3 +71,10 @@
 If you face any issues while setting up wireless debugging, please check the following:
 - Ensure both devices are connected to the same Wi-Fi network.
 - Restart the devices if necessary and reattempt the pairing.
+
+## Need Help?
+
+If you run into any issues or want to ask questions, feel free to:
+
+- Join our [Telegram Community](https://t.me/aShellYou)
+- Open an [Issue on GitHub](https://github.com/DP-Hridayan/aShellYou/issues)
