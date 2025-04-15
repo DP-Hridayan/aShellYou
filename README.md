@@ -57,39 +57,48 @@
 </br>
 
 ## Features
-## Features
 
-* 🎨 **Modern Material Design 3 UI**  
+🎨 **Modern Material Design 3 UI**  
 > Experience a clean, smooth, and responsive user interface built with Material You, adapting to your device's wallpaper and theme settings.
+</br>
 
-* 📲 **Execute Commands with Ease**  
+📲 **Execute Commands with Ease**  
 > Run ADB shell commands directly on your device using Shizuku, root access, or Wireless Debugging — all without needing a PC.
+</br>
 
-* 🔌 **Control Other Devices**  
+🔌 **Control Other Devices**  
 > Send ADB commands to other Android devices using OTG cable or Wireless Debugging — perfect for developers and tinkerers.
+</br>
 
-* 📚 **Common ADB Command Examples**  
+📚 **Common ADB Command Examples**  
 > Built-in examples help you understand and run useful commands instantly without memorizing syntax.
+</br>
 
-* 🛠️ **Support for Continuous Commands** 
+🛠️ **Support for Continuous Commands** 
 > Seamlessly run long or continuous shell commands like `logcat`, `top`, or `watch` and view live updates without interruptions.
+</br>
 
-* 🔍 **Search in Command Output**  
+🔍 **Search in Command Output**  
 > Quickly find what you're looking for in the output of your last command using the integrated search functionality.
+</br>
 
-* 📝 **Save Output to File**  
+📝 **Save Output to File**  
 > Save the output of any command to a `.txt` file for future reference or sharing — handy for logs and debugging.
+</br>
 
-* 📤 **Share Output Instantly**  
+📤 **Share Output Instantly**  
 > One-tap sharing lets you send your output to other apps like Notes, Gmail, or Telegram.
+</br>
 
-* 📑 **Bookmark Commands**  
+📑 **Bookmark Commands**  
 > Save frequently used commands to bookmarks so you can run them again with a single tap.
+</br>
 
-* 🌑 **AMOLED-Friendly Dark Theme**  
+🌑 **AMOLED-Friendly Dark Theme**  
 > Includes a sleek dark mode designed to save battery and look great on AMOLED screens.
+</br>
 
-* 🎉 **Packed with Extras**  
+🎉 **Packed with Extras**  
 > Tons of small but useful features to enhance your productivity and make ADB power-user workflows smoother.
 
 </br>
