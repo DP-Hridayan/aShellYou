@@ -201,7 +201,7 @@
 
 </br>
 
-## Licence
+## License
 ```
 Designed and developed by Hridayan @2024
 This project is licensed under the GNU General Public License v3.0
