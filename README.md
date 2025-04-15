@@ -121,7 +121,7 @@
 
 <br/>
 
-📶 **How to Use Wireless ADB**  
+🛜 **How to Use Wireless ADB**  
 > Enable and use ADB wirelessly to run commands on other devices [with this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md).
 
 <br/>
