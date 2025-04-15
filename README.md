@@ -8,7 +8,8 @@
 
 </br>
 
-<p align="center">  <!-- GitHub Info -->  <a href="https://github.com/DP-Hridayan/aShellYou/stargazers">
+<p align="center"> 
+<a href="https://github.com/DP-Hridayan/aShellYou/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Stars" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/forks">
@@ -28,13 +29,18 @@
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/blob/main/LICENSE">
     <img alt="License" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&logo=open-source-initiative&label=License" />
-  </a></p><p align="center">  <!-- Tech Stack -->  <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+  </a>
+</p>
+
+<p align="center"> 
+    <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
   <img alt="Language" src="https://img.shields.io/badge/Language-Java-007396?style=for-the-badge&logo=java&logoColor=white" />
   <img alt="UI" src="https://img.shields.io/badge/UI-XML-E44D26?style=for-the-badge&logo=html5&logoColor=white" />
   <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-21-yellow?style=for-the-badge" />
-  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-34-blue?style=for-the-badge" /></p>
+  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-34-blue?style=for-the-badge" />
+</p>
 
-  <br></br>
+</br>
 
 ## Screenshots
   <div align="center">
