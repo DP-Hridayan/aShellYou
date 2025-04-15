@@ -206,7 +206,7 @@
 Designed and developed by Hridayan @2024
 This project is licensed under the GNU General Public License v3.0
 ```
-[Full License copy](LICENSE.md)
+[Full License copy here](LICENSE.md)
 ### Summary
 
 | Permitted 🚀                         | Not Permitted 🚫                     |
