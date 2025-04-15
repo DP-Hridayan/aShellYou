@@ -38,13 +38,13 @@
 
 ## Screenshots
   <div align="center">
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="30%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="30%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpeg" width="30%" style="margin:10px" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="25%" style="margin:10px" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="25%" style="margin:10px" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpeg" width="25%" style="margin:10px" />
   <br/>
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpeg" width="30%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.jpeg" width="30%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/8.jpeg" width="30%" style="margin:10px" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpeg" width="25%" style="margin:10px" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.jpeg" width="25%" style="margin:10px" />
+  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/8.jpeg" width="25%" style="margin:10px" />
   <br/>
 </div>
 
