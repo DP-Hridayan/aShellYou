@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=aShell%20You&animation=fadeIn&desc=Just%20for%20your%20ADB%20needs&descAlign=50&descAlignY=55&fontAlignY=35" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=aShell%20You&animation=fadeIn&desc=ADB%20at%20your%20fingertips&descAlign=50&descAlignY=55&fontAlignY=35" />
 </p>
 
 > aShell You is a fully-featured Android shell utility with **Material Design 3 UI**, letting you run ADB, root, and shell commands on this device or others via OTG/wireless, packed in a beautiful and smart interface.
