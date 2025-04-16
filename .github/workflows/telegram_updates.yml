@@ -64,6 +64,7 @@ jobs:
           send_message "✅ *Issue closed* by [$ACTOR](https://github.com/$ACTOR)\n• *Reason:* \`$ISSUE_REASON\`\n• *$ISSUE_TITLE*\n[View Issue]($ISSUE_URL)"
           else
           send_message "🐛 *Issue $ISSUE_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$ISSUE_TITLE*\n[View Issue]($ISSUE_URL)"
+          fi
 
           elif [[ "$EVENT_NAME" == "pull_request" ]]; then
             PR_ACTION="${{ github.event.action }}"
