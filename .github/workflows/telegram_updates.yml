@@ -55,11 +55,15 @@ jobs:
             send_message "⭐ *$ACTOR* starred aShell You"
 
           elif [[ "$EVENT_NAME" == "issues" ]]; then
-            ISSUE_ACTION="${{ github.event.action }}"
-            ISSUE_TITLE_RAW="${{ github.event.issue.title }}"
-            ISSUE_URL="${{ github.event.issue.html_url }}"
-            ISSUE_TITLE=$(escape_markdown "$ISSUE_TITLE_RAW")
-            send_message "🐛 *Issue $ISSUE_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$ISSUE_TITLE*\n[View Issue]($ISSUE_URL)"
+          ISSUE_ACTION="${{ github.event.action }}"
+          ISSUE_TITLE_RAW="${{ github.event.issue.title }}"
+          ISSUE_URL="${{ github.event.issue.html_url }}"
+          ISSUE_TITLE=$(escape_markdown "$ISSUE_TITLE_RAW")
+          if [[ "$ISSUE_ACTION" == "closed" ]]; then
+          ISSUE_REASON="${{ github.event.issue.state_reason }}"
+          send_message "✅ *Issue closed* by [$ACTOR](https://github.com/$ACTOR)\n• *Reason:* \`$ISSUE_REASON\`\n• *$ISSUE_TITLE*\n[View Issue]($ISSUE_URL)"
+          else
+          send_message "🐛 *Issue $ISSUE_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$ISSUE_TITLE*\n[View Issue]($ISSUE_URL)"
 
           elif [[ "$EVENT_NAME" == "pull_request" ]]; then
             PR_ACTION="${{ github.event.action }}"
