@@ -30,52 +30,67 @@ jobs:
           API_URL="https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"
           
           escape_markdown() { 
-          echo "$1" | sed -e 's/[*]/\\&/g' \
-                  -e 's/_/\\_/g' \
-                  -e 's/(/\/g' \
-                  -e 's/)/\/g' \
-                  -e 's/`/\\`/g'
-                  }
+            echo "$1" | sed -e 's/[*]/\\&/g' \
+                            -e 's/_/\\_/g' \
+                            -e 's/(/\/g' \
+                            -e 's/)/\/g' \
+                            -e 's/`/\\`/g'
+          }
 
           send_message() {
-            curl -s -X POST $API_URL \
-              -d chat_id="$CHAT_ID" \
-              -d message_thread_id="$THREAD_ID" \
-              -d text="$(echo -e "$1")" \
-              -d parse_mode=Markdown
+            # If a second parameter is passed, include reply_markup.
+            if [ -z "$2" ]; then
+              curl -s -X POST $API_URL \
+                -d chat_id="$CHAT_ID" \
+                -d message_thread_id="$THREAD_ID" \
+                -d text="$(echo -e "$1")" \
+                -d parse_mode=Markdown
+            else
+              curl -s -X POST $API_URL \
+                -d chat_id="$CHAT_ID" \
+                -d message_thread_id="$THREAD_ID" \
+                -d text="$(echo -e "$1")" \
+                -d parse_mode=Markdown \
+                -d reply_markup="$2"
+            fi
           }
 
           if [[ "$EVENT_NAME" == "push" ]]; then
             COMMIT_MSG_RAW="${{ github.event.head_commit.message }}"
             COMMIT_URL="${{ github.event.head_commit.url }}"
             COMMIT_MSG=$(escape_markdown "$COMMIT_MSG_RAW")
-            send_message "🔨 *Push* by [$ACTOR](https://github.com/$ACTOR)\n• *Message:* $COMMIT_MSG\n[View Commit]($COMMIT_URL)"
+            REPLY='{"inline_keyboard": [[{"text": "View Commit", "url": "'"$COMMIT_URL"'"}]]}'
+            send_message "🔨 *Push* by [$ACTOR](https://github.com/$ACTOR)\n• *Message:* $COMMIT_MSG" "$REPLY"
 
           elif [[ "$EVENT_NAME" == "watch" ]]; then
             send_message "⭐ *$ACTOR* starred aShell You"
 
           elif [[ "$EVENT_NAME" == "issues" ]]; then
-          ISSUE_ACTION="${{ github.event.action }}"
-          ISSUE_TITLE_RAW="${{ github.event.issue.title }}"
-          ISSUE_URL="${{ github.event.issue.html_url }}"
-          ISSUE_TITLE=$(escape_markdown "$ISSUE_TITLE_RAW")
-          if [[ "$ISSUE_ACTION" == "closed" ]]; then
-          ISSUE_REASON="${{ github.event.issue.state_reason }}"
-          send_message "✅ *Issue closed* by [$ACTOR](https://github.com/$ACTOR)\n• *Reason:* \`$ISSUE_REASON\`\n• *$ISSUE_TITLE*\n[View Issue]($ISSUE_URL)"
-          else
-          send_message "🐛 *Issue $ISSUE_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$ISSUE_TITLE*\n[View Issue]($ISSUE_URL)"
-          fi
+            ISSUE_ACTION="${{ github.event.action }}"
+            ISSUE_TITLE_RAW="${{ github.event.issue.title }}"
+            ISSUE_URL="${{ github.event.issue.html_url }}"
+            ISSUE_TITLE=$(escape_markdown "$ISSUE_TITLE_RAW")
+            if [[ "$ISSUE_ACTION" == "closed" ]]; then
+              ISSUE_REASON="${{ github.event.issue.state_reason }}"
+              REPLY='{"inline_keyboard": [[{"text": "View Issue", "url": "'"$ISSUE_URL"'"}]]}'
+              send_message "✅ *Issue closed* by [$ACTOR](https://github.com/$ACTOR)\n• *Reason:* \`$ISSUE_REASON\`\n• *$ISSUE_TITLE*" "$REPLY"
+            else
+              REPLY='{"inline_keyboard": [[{"text": "View Issue", "url": "'"$ISSUE_URL"'"}]]}'
+              send_message "🐛 *Issue $ISSUE_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$ISSUE_TITLE*" "$REPLY"
+            fi
 
           elif [[ "$EVENT_NAME" == "pull_request" ]]; then
             PR_ACTION="${{ github.event.action }}"
             PR_TITLE_RAW="${{ github.event.pull_request.title }}"
             PR_URL="${{ github.event.pull_request.html_url }}"
             PR_TITLE=$(escape_markdown "$PR_TITLE_RAW")
-            send_message "🔃 *Pull Request $PR_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$PR_TITLE*\n[View PR]($PR_URL)"
+            REPLY='{"inline_keyboard": [[{"text": "View PR", "url": "'"$PR_URL"'"}]]}'
+            send_message "🔃 *Pull Request $PR_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$PR_TITLE*" "$REPLY"
 
           elif [[ "$EVENT_NAME" == "release" ]]; then
             REL_NAME_RAW="${{ github.event.release.name }}"
             REL_URL="${{ github.event.release.html_url }}"
             REL_NAME=$(escape_markdown "$REL_NAME_RAW")
-            send_message "🚀 *New Release Published* by [$ACTOR](https://github.com/$ACTOR):\n• *$REL_NAME*\n[View Release]($REL_URL)"
+            REPLY='{"inline_keyboard": [[{"text": "View Release", "url": "'"$REL_URL"'"}]]}'
+            send_message "🚀 *New Release Published* by [$ACTOR](https://github.com/$ACTOR):\n• *$REL_NAME*" "$REPLY"
           fi
