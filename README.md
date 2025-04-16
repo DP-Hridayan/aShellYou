@@ -194,7 +194,7 @@
 <h2 align="center">License</h2>
 
 ```
-Designed and developed by Hridayan @2024
+Designed and developed by DP Hridayan @2024
 This project is licensed under the GNU General Public License v3.0
 ```
 [Full License copy here](LICENSE.md)
