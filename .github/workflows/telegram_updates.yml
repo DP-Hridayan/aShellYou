@@ -80,13 +80,23 @@ jobs:
             fi
 
           elif [[ "$EVENT_NAME" == "pull_request" ]]; then
-            PR_ACTION="${{ github.event.action }}"
-            PR_TITLE_RAW="${{ github.event.pull_request.title }}"
-            PR_URL="${{ github.event.pull_request.html_url }}"
-            PR_TITLE=$(escape_markdown "$PR_TITLE_RAW")
-            REPLY='{"inline_keyboard": [[{"text": "View PR", "url": "'"$PR_URL"'"}]]}'
-            send_message "🔃 *Pull Request $PR_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$PR_TITLE*" "$REPLY"
-
+          PR_ACTION="${{ github.event.action }}"
+          PR_TITLE_RAW="${{ github.event.pull_request.title }}"
+          PR_URL="${{ github.event.pull_request.html_url }}"
+          PR_TITLE=$(escape_markdown "$PR_TITLE_RAW")
+          PR_MERGED="${{ github.event.pull_request.merged }}"
+          REPLY='{"inline_keyboard": [[{"text": "View PR", "url": "'"$PR_URL"'"}]]}'
+          if [[ "$PR_ACTION" == "closed" ]]; then
+          if [[ "$PR_MERGED" == "true" ]]; then
+          STATUS="*Merged*"
+          else
+          STATUS="*Closed without merge*"
+          fi
+          send_message "🔃 *Pull Request closed* by [$ACTOR](https://github.com/$ACTOR)\n• $STATUS\n• *$PR_TITLE*" "$REPLY"
+          else
+          send_message "🔃 *Pull Request $PR_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$PR_TITLE*" "$REPLY"
+          fi
+          
           elif [[ "$EVENT_NAME" == "release" ]]; then
             REL_NAME_RAW="${{ github.event.release.name }}"
             REL_URL="${{ github.event.release.html_url }}"
