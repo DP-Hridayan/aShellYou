@@ -146,7 +146,7 @@
 
   ## Translation Progress
 
-![Crowdin Translation Status](https://raw.githubusercontent.com/DP-Hridayan/ashellyou/DP-Hridayan-patch-1/translations.svg)
+![Crowdin Translation Status](https://raw.githubusercontent.com/DP-Hridayan/ashellyou/master/translations.svg)
 
 </br>
 
