@@ -20,6 +20,7 @@ jobs:
       - name: Upload Strings
         uses: crowdin/github-action@v2
         with:
+          branch: master
           upload_translations: false
           upload_sources: true
           download_translations: false
