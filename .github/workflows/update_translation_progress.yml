@@ -1,1 +1,36 @@
+name: Update Translation Progress SVG
 
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */12 * * *" 
+
+jobs:
+  generate-svg:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Generate translation SVG
+        run: python .github/scripts/generate_crowdin_svg.py
+        env:
+          CROWDIN_API_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+
+      - name: Commit and push SVG
+        run: |
+          git config user.name "Crowdin Bot"
+          git config user.email "crowdin-bot@example.com"
+          git add translations.svg
+          git commit -m "Update translation progress SVG"
+          git push
