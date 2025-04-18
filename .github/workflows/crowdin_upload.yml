@@ -20,7 +20,6 @@ jobs:
       - name: Upload Strings
         uses: crowdin/github-action@v2
         with:
-          branch: master
           upload_translations: false
           upload_sources: true
           download_translations: false
@@ -29,4 +28,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PAT }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
