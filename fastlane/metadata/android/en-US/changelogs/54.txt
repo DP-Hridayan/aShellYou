@@ -1,0 +1,3 @@
+
+
+• Fixed the issue which caused per app translations to be broken for aShell You
