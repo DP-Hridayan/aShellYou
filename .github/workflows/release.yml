@@ -119,9 +119,9 @@ jobs:
             --notes-file changelog.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-          - name: Notify Telegram of New Release
-          env:
+
+      - name: Notify Telegram of New Release
+        env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID:         ${{ secrets.CHAT_ID }}
           THREAD_ID:       ${{ secrets.RELEASE_THREAD_ID }}
