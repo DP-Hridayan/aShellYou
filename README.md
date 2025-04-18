@@ -144,6 +144,12 @@
 
   </br>
 
+  ## Translation Progress
+
+![Crowdin Translation Status](https://raw.githubusercontent.com/DP-Hridayan/ashellyou/master/translations.svg)
+
+</br>
+
 <h2 align="center">Task list</h2>
 
 <table align="center" style="border-collapse: collapse; margin-top: 20px;">
