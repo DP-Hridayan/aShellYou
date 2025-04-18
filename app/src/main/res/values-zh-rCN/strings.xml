@@ -306,4 +306,40 @@
     <string name="wireless_debugging_guide_2">在aShell You发送的通知中输入配对码</string>
     <string name="wireless_debugging_guide_3">返回aShell You的主页点击无线ADB板块的“开始”即可</string>
     <string name="wifi_adb_devices_information">请选择目标设备</string>
+    
+     <string name="changelog_v4_4_0">\n\n• 添加震动交互反馈功能\n\n• 允许为本应用独立设置语言 (仅支持安卓13以上支持该功能的设备)\n\n• 修复部分崩溃问题并且改进反馈功能\n\n• 小幅调整UI</string>
+    <string name="changelog_v4_3_1">\n\n• 现在aShell You可以自行捕获异常并在用户操作下通过电子邮件发送报告的功能</string>
+    <string name="changelog_v4_3_0">\n\n• 允许用户直接打开之前保存到命令输出\n\n• 允许用户选择保存所有输出还是最近一次命令输出\n\n• 修复部分Force Close(FC)问题</string>
+    <string name="changelog_v4_2_1">\n\n• 修复传递文本至aShell You时文本未出现的问题\n\n• 修复部分UI问题</string>
+    <string name="changelog_v4_2_0">\n\n• 正式发布OTG模式\n\n• 为OTG模式添加保存、共享、命令输出以及快速滚动按钮功能\n\n• 添加Tips卡片\n\n• 添加应用内更新检查以及自动检查更新功能\n\n• 小幅UI调整</string>
+    <string name="changelog_v4_1_0">\n\n• 修复OTG模式下部分BUG\n\n• 更新翻译</string>
+    <string name="changelog_v4_0_3">\n\n• 更新依赖\n\n• 添加更多命令示例</string>
+    <string name="changelog_v4_0_2">\n\n• 修复了安卓11及以下版本AMOLED纯黑主题不生效的问题</string>
+    <string name="changelog_v4_0_1">\n\n• 你现在可以置顶命令实现快速访问\n\n • 修复问题以及很多的优化</string>
+    <string name="changelog_v4_0_0">\n\n• 现在你可以直接使用命令板块的命令，省去了复制粘贴的麻烦\n\n • 添加删除所有书签的选项\n\n• 对于搜索功能 : 在点击提示条后你可以对于命令的介绍内容进行搜索\n\n• 对于命令示例板块添加搜素功能\n\n• 允许对于命令板块的命令直接加书签\n\n• 单击本地ADB下的模式指示条会显示连接的设备\n\n• 修复在安卓11及以下版本设备的崩溃问题\n\n• 添加土耳其翻译\n\n• 小幅改动UI\n\n• 修复大量BUGs</string>
+    <string name="changelog_v3_9_1">\n\n• 继续上调总书签数量\n\n• 部分BUG修复</string>
+    <string name="changelog_v3_9_0">\n\n• 为命令区域添加搜索功能\n\n• 添加默认工作模式的设置\n\n• 动画优化\n\n• 重写书签功能与排序选项\n\n• 书签数量上限增加至25\n\n• 将ADB终端启动器快捷方式替换为ADB命令快捷方式\n\n• 修复底部导航栏按钮的问题\n\n• 修正了部分按钮的形状问题</string>
+    <string name="changelog_v3_8_2">\n\n• 为Material You主题换用更让人眼前一亮的调色板\n\n• BUG修复</string>
+    <string name="changelog_v3_8_1">\n• 修复了v3.8.0版本会发生的崩溃</string>
+    <string name="changelog_v3_8_0">\n\n• 添加AMOLED纯黑主题\n\n• 为粘贴功能添加了撤销选项\n\n• 添加了关闭软键盘的选项\n\n• 修复了在部分分辨率下的按钮显示问题\n\n• 修复了启动软件后书签不显示的问题\n\n• 重命名了命令示例部分\n\n• 修复了命令示例的复制选项不出现的问题\n\n• 现在aShell会显示系统字体了\n\n• 优化UI流畅度\n\n• 更新翻译</string>
+    <string name="changelog_v3_7_0">\n\n• 现在你可以通过向aShell You分享文本的方式从任何地方直接运行命令\n\n• 现在你可以不另外保存的情况下直接分享终端输出！\n\n• 一堆的优化和UI调整\n\n• 某人把它给汉化了\n\n• 更新翻译\n</string>
+    <string name="changelog_v3_6_0">\n\n• 加入了在终端报错之后清空命令输入框的选项\n\n• 修复了特定情况下从剪贴板粘贴内容导致软件崩溃的BUG\n\n• 代码优化</string>
+    <string name="changelog_v3_5_1">\n\n• 修复了部分导航按钮的问题</string>
+    <string name="changelog_v3_5_0">\n\n• 改进了应用程序的“关于”部分\n\n• 添加桌面快捷方式\n\n• 修复了导航栏在按键导航下不显示的问题\n\n• 改进了在滚动屏幕时的按键导航栏可见性\n\n• 为aShell You添加多语言支持（翻译还未完成）\n\n• 很多的代码优化</string>
+    <string name="changelog_v3_4_0">\n\n• 添加了一个用于快捷粘贴命令的按钮\n\n• 在命令输入框加入了错误指示器\n\n• 改进了导航栏可见性逻辑\n\n• 修复某些开关在特定情况下的异常行为\n\n• 修复了在各种对比度级别下添加书签图标可见性的问题\n\n• 一堆代码优化，现在软件启动速度会快不少\n\n• 软件现在可以在后台运行，并且不会在每次按下返回键退出或者通过手势最小化之后掉后台</string>
+    <string name="changelog_v3_3_0">\n\n• 添加书签和历史功能，并且为OTG设备提供命令建议\n\n• 添加书签数量上限\n\n• 允许接触书签数量限制\n\n• 修复了很多BUG\n\n• 改进了一些UI上的处理\n\n• 很多的代码优化</string>
+    <string name="changelog_v3_2_0">\n\n• 非常多针对UI的改善\n\n• 添加了指示当前 ADB 工作模式的芯片\n\n• 很多的代码优化</string>
+    <string name="changelog_v3_1_0">\n\n• 在首次启用后对ADB OTG功能精进行改善\n\n• 一些 UI 和逻辑调整以适应新的 otg 功能</string>
+    <string name="changelog_v3_0_0">\n\n• 添加对连接的OTG设备使用ADB的功能\n\n *** 你现在可以在aShell You中对使用OTG线连接的设备执行ADB命令 ***</string>
+    <string name="changelog_v2_0_2">\n\n• 移除无用代码和资源\n\n• 界面UI小幅调整</string>
+    <string name="changelog_v2_0_1">\n\n• 移除无用代码和资源\n\n• 界面UI小幅调整</string>
+    <string name="changelog_v2_0_0">\n\n• 更改应用名为aShell You\n\n• 为支持设备添加了预测性返回动画\n\n• 添加清屏前确认弹窗\n\n• 修复了在亮色模式下状态栏元素不能正确显示的问题\n\n• 现在软件会更加丝滑\n ~ 减少软件体积并优化代码\n\n• 为支持该功能的桌面添加主题化图标功能\n\n• 界面UI小幅调整</string>
+    <string name="changelog_v1_3_0">\n\n• 改进设置面板\n\n• 添加通过在终端输出界面双击实现快速来到顶部/来到底部\n\n• 小幅UI调整</string>
+    <string name="changelog_v1_2_0">\n\n• 添加设置面板\n\n• 允许关闭终端界面的平滑滚动功能\n\n• 重大BUG修复\n\n  ~  更改设备主题时崩溃\n\n  ~  存储文本量较大的终端输出时崩溃。 比如说\'pm\'命令的输出</string>
+    <string name="changelog_v1_1_1">\n\n• 替换一些已经被弃用的API\n\n• 界面UI小幅调整</string>
+    <string name="changelog_v1_1_0">\n\n• 添加了“回到顶部”和“回到底部”按钮\n\n• 允许使用键盘的回车键执行命令\n\n• 添加一些命令\n\n• 更新部分依赖以使用最新的Material You库\n\n• 界面UI小幅更改</string>
+    <string name="changelog_v1_0_0">\n\n• 添加了更多的示例命令\n\n• 小幅调整UI\n\n• 更改包名避免与原aShell冲突</string>
+    <string name="changelog_v0_9_1">\n\n• 在软件中添加更新日志\n\n• 终端输出内容高亮\n\n• 界面UI小幅调整</string>
+    <string name="changelog_v0_9_0">\n\n• 添加动态主题支持\n\n• 界面UI焕然一新</string>
+
 </resources>

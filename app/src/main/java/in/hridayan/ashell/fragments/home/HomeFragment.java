@@ -2,6 +2,7 @@ package in.hridayan.ashell.fragments.home;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +71,10 @@ public class HomeFragment extends Fragment
     otgAdbCardOnClickListener();
 
     instructionsOtgButtonOnClickListener();
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+      binding.wirelessAdbCard.setVisibility(View.VISIBLE);
+    }
 
     wirelessAdbCardOnClickListener();
 
