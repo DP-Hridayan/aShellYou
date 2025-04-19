@@ -114,20 +114,9 @@
 
 <h2 align="center">Instructions</h2>
 
-⚙️ **How to Setup Shizuku**  
-> [Follow this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/Shizuku.md) to configure Shizuku on your device.
+> **Please visit our [Wiki](https://github.com/DP-Hridayan/aShellYou/wiki/aShell-You-Wiki) for instructions/setup-guides**
 
-<br/>
-
-🔌 **How to Use OTG**  
-> Learn to connect and control another Android device via OTG [using this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md).
-
-<br/>
-
-🛜 **How to Use Wireless ADB**  
-> Enable and use ADB wirelessly to run commands on other devices [with this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md).
-
-<br/>
+</br>
 
 <h2 align="center">Resources & Links</h2>
 
