@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_tagline">ADB у вас под рукой</string>
     <string name="abort_command">Сначала отмените команду</string>
     <string name="access_denied">Доступ запрещен</string>
@@ -8,6 +8,9 @@
     <string name="adb_device_not_connected">ADB устройство не подключено.</string>
     <string name="adb_device_waiting">Ожидание устройства ADB</string>
     <string name="adb_shell">ADB shell</string>
+    <string name="adb_through_otg">ADB через OTG</string>
+    <string name="adb_through_otg_summary">Используйте кабель OTG и отладку по USB для выполнения команд ADB на другом устройстве Android. Вам нужно включить отладку по USB в настройках разработчика целевого устройства.</string>
+    <string name="adb_via_wireless_debugging">ADB через беспроводную отладку</string>
     <string name="adb_via_wireless_debugging_summary">Подключайте устройства (Android 11+) по Wi-Fi с помощью беспроводной отладки и выполняйте команды ADB удалённо.</string>
     <string name="add_bookmark">Добавить закладку</string>
     <string name="additional_settings">Дополнительные настройки</string>
@@ -62,8 +65,10 @@
     <string name="connected_devices">Подключенные устройства</string>
     <string name="connecting">соединение\\u2026</string>
     <string name="connecting_hint">подтвердите авторизацию на целевом устройстве</string>
+    <string name="connection_failed">Ошибка подключения</string>
+    <string name="connect_this_device">Подключить это устройство</string>
     <string name="connect_other_device">Подключить другое устройство</string>
-    <string name="copy">Копировать</string>
+    <string name="copy" tools:override="true">Копировать</string>
     <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="crash_report">Отчет о сбое</string>
     <string name="current">Текущий</string>
@@ -73,8 +78,18 @@
     <string name="denied">Запрещено</string>
     <string name="default_language">Язык по умолчанию</string>
     <string name="des_default_language">Выберите язык по умолчанию для приложения</string>
+    <string name="developer_options">Параметры разработчика</string>
     <string name="developer_options_not_available">Параметра разработчика недоступны!</string>
     <string name="device_not_connected">Устройство не подключено</string>
+    <string name="disclaimer">Предупреждение</string>
+    <string name="des_disclaimer">Это приложение позволяет выполнять команды ADB (Android Debug Bridge) непосредственно на вашем устройстве без использования ПК. Пожалуйста, внимательно прочтите следующее перед использованием приложения:</string>
+    <string name="disclaimer_2_description">Хотя root-доступ не является обязательным, для выполнения некоторых команд могут потребоваться повышенные разрешения. Неправильное использование команд ADB может привести к потере данных, сбоям приложений или неожиданному поведению системы.</string>
+    <string name="disclaimer_3_title">Мы не несём ответственности</string>
+    <string name="disclaimer_4_title">Предназначен для продвинутых пользователей</string>
+    <string name="disclaimer_4_description">Это приложение предназначено для пользователей, которые имеют базовое представление о командах ADB. Если вы не уверены в действии команды, изучите её перед выполнением.</string>
+    <string name="disclaimer_5_title">Разрешения и безопасность</string>
+    <string name="disclaimer_5_description">Для корректной работы этого приложения могут потребоваться специальные разрешения. Оно не собирает и не передаёт персональные данные, но пользователи должны знать о последствиях предоставления разрешений, связанных с ADB.</string>
+    <string name="disclaimer_end">Используя это приложение, вы подтверждаете и соглашаетесь с этими условиями. Если вы не принимаете эти условия, пожалуйста, воздержитесь от использования приложения.</string>
     <string name="disconnected">Не подключен</string>
     <string name="discord">Discord</string>
     <string name="des_discord">Присоединяйтесь к сообществу discord</string>
@@ -84,6 +99,8 @@
     <string name="download">Скачать</string>
     <string name="dynamic_colors">Динамические цвета</string>
     <string name="des_dynamic_colors">Автоматическая установка темы приложения в соответствии с обоями устройства</string>
+    <string name="enable_wifi">Включить Wi-Fi</string>
+    <string name="enter_pairing_code">Введите код сопряжения</string>
     <string name="enter_six_digit_pairing_code">Введите шестизначный код сопряжения</string>
     <string name="error">Ошибка</string>
     <string name="example">Пример</string>
@@ -91,6 +108,7 @@
     <string name="failed">Не удалось</string>
     <string name="file_not_found">Файл не найден</string>
     <string name="generate_key_failed">Не удалось сгенерировать и сохранить пару ключей</string>
+    <string name="github_download_warning">Вы собираетесь загрузить обновления напрямую с GitHub. В отличие от обновлений из магазинов приложений, они не проходят проверку на безопасность. Вы хотите продолжить?</string>
     <string name="granted">Предоставлено</string>
     <string name="grant_permission">Разрешения</string>
     <string name="grant_permission_manually">Если диалог разрешения не появляется, предоставьте права root вручную через приложение суперпользователя</string>
@@ -123,6 +141,8 @@
     <string name="not_available">Недоступно</string>
     <string name="nothing_to_clear">Нечего очищать</string>
     <string name="nothing_to_search">Нечего искать</string>
+    <string name="notification_access_not_granted">Чтобы завершить процесс сопряжения, вам нужно будет взаимодействовать с уведомлением от aShell You. Пожалуйста, разрешите доступ к уведомлениям для aShell You.</string>
+    <string name="notification_settings">Настройки уведомлений</string>
     <string name="notification_style_error">Если вы не можете ввести код сопряжения из уведомления, возможно, вам нужно изменить панель уведомлений на Android. Перейдите в «Настройки уведомлений» ~ «Стиль уведомлений», чтобы изменить стиль уведомлений. В противном случае вы не сможете ввести код сопряжения из уведомления.</string>
     <string name="off">Выкл.</string>
     <string name="ok">OK</string>
@@ -134,6 +154,12 @@
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Правильно подключите устройство через OTG и повторите попытку.</string>
     <string name="paste">Вставить</string>
+    <string name="pair">Сопряжение</string>
+    <string name="paired">Сопряжено</string>
+    <string name="pairing">Сопряжение</string>
+    <string name="pairing_notification_hint">Вы получите уведомление от aShell, которое поможет вам с сопряжением</string>
+    <string name="pairing_port">Порт сопряжения</string>
+    <string name="pairing_code">Код сопряжения</string>
     <string name="permission_optional">Предоставление этих разрешений необязательно!</string>
     <string name="pin">Закрепление</string>
     <string name="pinned_message">\'%s\' был прикреплен</string>
@@ -146,6 +172,7 @@
     <string name="remember_working_mode">Запоминать последний рабочий режим</string>
     <string name="request_permission">Запрос разрешения</string>
     <string name="report">Отчет</string>
+    <string name="resume">Продолжить</string>
     <string name="root_access">Root доступ</string>
     <string name="root_access_denied_message">В настоящее время корневой доступ для aShell запрещен.</string>
     <string name="root_provider">Провайдер Root</string>
@@ -158,9 +185,12 @@
     <string name="search_output">Поиск</string>
     <string name="selected">Выбранные</string>
     <string name="select_all">Выбрать все</string>
+    <string name="sensitive_packages_warning1">Вы собираетесь выполнить команды ADB, связанные с критически важными системными пакетами. Изменение, отключение или удаление этих пакетов может привести к серьёзным проблемам, в том числе:</string>
+    <string name="sensitive_packages_warning2">⚠️ Сбои системы или циклическая загрузка ⚠️ Потеря важных функций (например, пользовательского интерфейса, сети, безопасности) ⚠️ Необратимые повреждения, требующие сброса к заводским настройкам или переустановки прошивки</string>
     <string name="sensitive_packages_warning3">Если вы не уверены в последствиях, НЕ ПРОДОЛЖАЙТЕ, пока не создадите полную резервную копию и не узнаете, как восстановить устройство.</string>
     <string name="search_summary">Искать в сводках команд?</string>
     <string name="settings">Настройки</string>
+    <string name="set_adb_interface_fail">setAdbInterface(device, intf) fail</string>
     <string name="share_and_run">Автоматическое выполнение общих команд</string>
     <string name="des_share_and_run">Если эта опция включена, то при передаче любого текста в оболочку вы автоматически запускаете оболочку с общим текстом в качестве входных данных</string>
     <string name="shell_output_not_saved_message">Вывод последней команды не сохраняется</string>
@@ -198,9 +228,15 @@
     <string name="des_vibration">Тактильный отклик для сенсорной обратной связи</string>
     <string name="waiting_device">Ожидание устройства</string>
     <string name="warning">Внимание</string>
+    <string name="warning_v2">⚠ ПРЕДУПРЕЖДЕНИЕ: Действуйте осторожно! ⚠</string>
+    <string name="wireless_debugging">Беспроводная отладка</string>
+    <string name="wireless_debugging_guide_1">Перейдите в раздел Параметры разработчика &gt; Беспроводная отладка. Нажмите на Сопряжение устройства с помощью кода сопряжения.</string>
+    <string name="wireless_debugging_guide_3">Вернитесь в приложение и нажмите кнопку «Пуск» на главном экране.</string>
     <string name="wireless_debugging_important_notice">Обратите внимание, что левая часть опции «Беспроводная отладка» является кликабельной. При нажатии на неё откроется меню сопряжения для беспроводной отладки.</string>
     <string name="whats_new">Что нового!</string>
     <string name="whole_output">Общий вывод</string>
+    <string name="wifi_adb">Wifi ADB</string>
+    <string name="wifi_adb_devices_information">Выберите целевое устройство для продолжения</string>
     <string name="wifi_connection_required">Чтобы использовать функцию беспроводной отладки, ваше устройство должно быть подключено к сети Wi-Fi. Если у вас нет доступа в Интернет через Wi-Fi, отключите мобильные данные для стабильного подключения к Wi-Fi.</string>
     <string name="yes">Да</string>
     <string name="local_adb_mode">Выберите локальный режим работы adb</string>
@@ -260,50 +296,14 @@
     <string name="des_configure_save_directory">Выберите каталог для сохранения вывода оболочки</string>
     <string name="grid">Таблица</string>
     <string name="list">Список</string>
-    <string name="connection_failed">Ошибка подключения</string>
-    <string name="connect_this_device">Подключить это устройство</string>
-    <string name="adb_through_otg_summary">Используйте кабель OTG и отладку по USB для выполнения команд ADB на другом устройстве Android. Вам нужно включить отладку по USB в настройках разработчика целевого устройства.</string>
-    <string name="adb_via_wireless_debugging">ADB через беспроводную отладку</string>
-    <string name="adb_through_otg">ADB через OTG</string>
-    <string name="developer_options">Параметры разработчика</string>
-    <string name="disclaimer">Предупреждение</string>
-    <string name="des_disclaimer">Это приложение позволяет выполнять команды ADB (Android Debug Bridge) непосредственно на вашем устройстве без использования ПК. Пожалуйста, внимательно прочтите следующее перед использованием приложения:</string>
     <string name="pairing_failed">Не удалось выполнить сопряжение</string>
     <string name="disclaimer_1_title">Используйте на свой страх и риск</string>
     <string name="disclaimer_1_description">Выполнение команд ADB может изменять системные настройки, управлять файлами и выполнять операции, которые могут повлиять на стабильность работы вашего устройства. Вы несёте полную ответственность за любые изменения, внесённые с помощью этого приложения.</string>
     <string name="disclaimer_2_title">Root не является обязательным, но необходима осторожность</string>
-    <string name="disclaimer_2_description">Хотя root-доступ не является обязательным, для выполнения некоторых команд могут потребоваться повышенные разрешения. Неправильное использование команд ADB может привести к потере данных, сбоям приложений или неожиданному поведению системы.</string>
-    <string name="disclaimer_3_title">Мы не несём ответственности</string>
     <string name="disclaimer_3_description">Разработчик (разработчики) этого приложения не несёт ответственности за любой ущерб, потерю данных или непредвиденные последствия, возникшие в результате использования этого приложения. Будьте осторожны и убедитесь, что вы понимаете выполняемые вами команды.</string>
-    <string name="disclaimer_4_title">Предназначен для продвинутых пользователей</string>
-    <string name="wifi_adb">Wifi ADB</string>
-    <string name="disclaimer_4_description">Это приложение предназначено для пользователей, которые имеют базовое представление о командах ADB. Если вы не уверены в действии команды, изучите её перед выполнением.</string>
-    <string name="disclaimer_5_title">Разрешения и безопасность</string>
-    <string name="disclaimer_5_description">Для корректной работы этого приложения могут потребоваться специальные разрешения. Оно не собирает и не передаёт персональные данные, но пользователи должны знать о последствиях предоставления разрешений, связанных с ADB.</string>
-    <string name="disclaimer_end">Используя это приложение, вы подтверждаете и соглашаетесь с этими условиями. Если вы не принимаете эти условия, пожалуйста, воздержитесь от использования приложения.</string>
-    <string name="enable_wifi">Включить Wi-Fi</string>
-    <string name="enter_pairing_code">Введите код сопряжения</string>
-    <string name="github_download_warning">Вы собираетесь загрузить обновления напрямую с GitHub. В отличие от обновлений из магазинов приложений, они не проходят проверку на безопасность. Вы хотите продолжить?</string>
-    <string name="notification_access_not_granted">Чтобы завершить процесс сопряжения, вам нужно будет взаимодействовать с уведомлением от aShell You. Пожалуйста, разрешите доступ к уведомлениям для aShell You.</string>
-    <string name="notification_settings">Настройки уведомлений</string>
-    <string name="pair">Сопряжение</string>
-    <string name="paired">Сопряжено</string>
-    <string name="pairing">Сопряжение</string>
-    <string name="pairing_notification_hint">Вы получите уведомление от aShell, которое поможет вам с сопряжением</string>
-    <string name="pairing_port">Порт сопряжения</string>
-    <string name="pairing_code">Код сопряжения</string>
-    <string name="resume">Продолжить</string>
-    <string name="sensitive_packages_warning1">Вы собираетесь выполнить команды ADB, связанные с критически важными системными пакетами. Изменение, отключение или удаление этих пакетов может привести к серьёзным проблемам, в том числе:</string>
-    <string name="sensitive_packages_warning2">⚠️ Сбои системы или циклическая загрузка ⚠️ Потеря важных функций (например, пользовательского интерфейса, сети, безопасности) ⚠️ Необратимые повреждения, требующие сброса к заводским настройкам или переустановки прошивки</string>
-    <string name="warning_v2">⚠ ПРЕДУПРЕЖДЕНИЕ: Действуйте осторожно! ⚠</string>
-    <string name="wireless_debugging">Беспроводная отладка</string>
-    <string name="wireless_debugging_guide_1">Перейдите в раздел Параметры разработчика > Беспроводная отладка. Нажмите на Сопряжение устройства с помощью кода сопряжения.</string>
     <string name="wireless_debugging_guide_2">Введите шестизначный код сопряжения в уведомление, отправленное aShell You.</string>
-    <string name="wireless_debugging_guide_3">Вернитесь в приложение и нажмите кнопку «Пуск» на главном экране.</string>
-    <string name="wifi_adb_devices_information">Выберите целевое устройство для продолжения</string>
-    
-    //Changelogs
-     <string name="changelog_v6_0_2">\n\n• Адаптированы действия на Github для релизных сборок\n\n• Что это значит для вас?\n• Все последующие сборки, включая эту, будут более безопасными!</string>
+    <string name="changelog_v6_0_3">\n\n• Fixed the issue which caused per app translations to be broken for aShell You</string>
+    <string name="changelog_v6_0_2">\n\n• Адаптированы действия на Github для релизных сборок\n\n• Что это значит для вас?\n• Все последующие сборки, включая эту, будут более безопасными!</string>
     <string name="changelog_v6_0_1">\n\n• Техническое обновление</string>
     <string name="changelog_v6_0_0">\n\n• Добавлен режим беспроводной отладки для выполнения команд ADB как на своем, так и на другом устройстве\n\n• Переработанна домашняя страница с минимальной навигацией и менее загроможденным полем ввода\n\n• Добавлено предупреждение при выполнении команд, включающих критические системные пакеты\n\n• Добавлен встроенный центр обновлений Теперь вы можете напрямую скачать последнюю версию пакета, не открывая репозиторий Github\n\n• Исправлено много ошибок</string>
     <string name="changelog_v5_2_1">\n\n• Техническое обновление</string>
@@ -325,42 +325,23 @@
     <string name="changelog_v3_8_2">\n\n• Более свежая цветовая палитра для темы Material You\n\n• Исправлены небольшие ошибки</string>
     <string name="changelog_v3_8_1">\n\n• Исправлены некоторые сбои, появившиеся в версии 380</string>
     <string name="changelog_v3_8_0">\n\n• Добавлена чёрная (AMOLED) тема\n\n• Добавлена кнопка отмены вставки\n\n• Добавлена опция для отключения встроенной клавиатуры\n\n• Исправлено растягивание кнопок при некоторых размерах экрана\n\n• Исправлена кнопка закладок, не появляющаяся после открытия приложения\n\n• Переименован раздел Примеры в Команды\n\n• Исправлена опция копирования команды, которая не отображалась для каждого шаблона команды\n\n• Теперь приложение везде использует системный шрифт\n\n• Улучшена работа с интерфейсом\n\n• Обновлены переводы</string>
-
-    <string name="changelog_v3_7_0">\n\n• Теперь вы можете передавать тексты с любого устройства в aShell You и выполнять команды напрямую\n\n• Теперь вы можете делиться результатами работы команд напрямую, без необходимости сохранять их!\n\n• Много оптимизации и улучшения интерфейса\n\n• Добавлен перевод на китайский\n\n• Обновлены переводы
-</string>
-
+    <string name="changelog_v3_7_0">\n\n• Теперь вы можете передавать тексты с любого устройства в aShell You и выполнять команды напрямую\n\n• Теперь вы можете делиться результатами работы команд напрямую, без необходимости сохранять их!\n\n• Много оптимизации и улучшения интерфейса\n\n• Добавлен перевод на китайский\n\n• Обновлены переводы</string>
     <string name="changelog_v3_6_0">\n\n• Добавлена возможность очистить поле ввода команды после ошибки\n\n• Исправлена ошибка, из-за которой при определенных условиях происходил сбой в приложении при вставке из буфера обмена\n\n• Оптимизация кода</string>
     <string name="changelog_v3_5_1">\n\n•  Исправлены некоторые проблемы с нижней навигацией</string>
-
     <string name="changelog_v3_5_0">\n\n• Переработан раздел О приложении\n\n• Добавлены ярлыки рабочего стола\n\n• Исправлено меню навигации которое не отображалось при навигации кнопками\n\n• Улучшена видимость нижнего меню навигации при прокрутке\n\n• Добавлена поддержка разных языков для aShell You (переводы еще не завершены)\n\n• Много оптимизации кода</string>
-
     <string name="changelog_v3_4_0">\n\n• Добавлена кнопка Вставить, чтобы вы могли быстро копировать и вставлять команды\n\n• Добавлены индикаторы ошибок в поле ввода текста\n\n• Улучшена логика видимости панели навигации\n\n• Исправлена проблема, из-за которой переключатели не работали в определенных ситуациях\n\n• Исправлена видимость значка закладки при различных уровнях контрастности\n\n• Много оптимизации кода. Приложение теперь открывается быстрее чем раньше\n\n• Приложение будет оставаться в фоновом режиме и не будет перезапускаться каждый раз, когда вы закрываете приложение простым нажатием кнопки назад или жестом</string>
-
     <string name="changelog_v3_3_0">\n\n• Добавлены закладки , история и подсказки команд в OTG\n\n• Добавлен максимальный лимит закладок\n\n• Добавлена опция для выключения максимального лимита закладок\n\n• Исправлено много ошибок\n\n• Улучшена работа с некоторыми элементами интерфейса\n\n• Много оптимизации кода</string>
-
     <string name="changelog_v3_2_0">\n\n• Много улучшений, связанных с интерфейсом\n\n• Добавлены фишки, указывающие на текущий режим работы ADB\n\n• Много оптимизации кода</string>
-
     <string name="changelog_v3_1_0">\n\n• Улучшения в ADB через OTG после первоначального выпуска\n\n• Некоторые изменения в интерфейсе и логике, чтобы приспособить его к новой функции OTG</string>
-
     <string name="changelog_v3_0_0">\n\n• Добавлена поддержка ADB через OTG\n\n *** Вы сможете выполнять команды ADB на других устройствах с помощью aShellYou, подключив другое устройство с помощью OTG-кабеля ***</string>
-
     <string name="changelog_v2_0_2">\n\n• Удалены ненужный код и ресурсы\n\n• Небольшие изменения интерфейса</string>
-
     <string name="changelog_v2_0_1">\n\n• Удалены ненужный код и ресурсы\n\n• Небольшие изменения интерфейса</string>
-
     <string name="changelog_v2_0_0">\n\n• Изменено название приложения на aShell You\n\n• Добавлены анимации возврата для поддерживаемых устройств\n\n• Добавлено подтверждение очистики вывода команд\n\n• Исправлены элементы строки состояния которые не корректно отображались при светлой теме\n\n• Теперь приложение более плавное\n ~ Уменьшен размер приложения и оптимизирован код\n\n• Добавлены тематические иконки для рабочих столов которые их поддерживают\n\n• Небольшие изменения интерфейса</string>
-
     <string name="changelog_v1_3_0">\n\n• Переработана панель настроек\n\n• Добавлено двойное нажатие для мгновенной прокрутки к верхней или нижней позиции\n\n• Небольшие исправления интерфейса</string>
-
     <string name="changelog_v1_2_0">\n\n• Добавлена панель настроек\n\n• Добавлена опция выключения плавной прокрутки\n\n• Исправлены основные ошибки:\n\n  ~  Сбой при смене темы устройства\n\n  ~  Сбой при попытке сохранить большой вывод команд . например : вывод команды \'pm\'</string>
-
     <string name="changelog_v1_1_1">\n\n• Заменены некоторые устаревшие API\n\n• Небольшие изменения интерфейса</string>
-
     <string name="changelog_v1_1_0">\n\n• Добавлены кнопки для прокрутки вниз и вверх\n\n• Добавлена кнопка ввода с клавиатуры для команды отправки\n\n• Добавлены некоторые команды\n\n• Обновлены зависимости для использования последней версии библиотеки Material You\n\n• Небольшие изменения интерфейса</string>
-
     <string name="changelog_v1_0_0">\n\n• Добавлено больше примеров команд\n\n• Небольшие изменения интерфейса\n\n• Изменено название пакета, чтобы избежать путаницы с оригинальным приложением</string>
-
     <string name="changelog_v0_9_1">\n\n• Добавлен список изменений в приложение\n\n• Добавлено форматирование вывода команд\n\n• Небольшие изменения интерфейса</string>
-
     <string name="changelog_v0_9_0">\n\n• Добавлена динамическая тема Material\n\n• Переработан весь интерфейс, чтобы придать ему свежий вид</string>
 </resources>

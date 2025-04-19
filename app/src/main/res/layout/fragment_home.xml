@@ -215,6 +215,7 @@
             android:layout_marginVertical="13dp"
             android:background="?selectableItemBackground"
             android:clickable="true"
+            android:visibility="gone"
             app:cardBackgroundColor="?attr/colorSurfaceContainer"
             app:cardCornerRadius="25dp"
             app:strokeColor="?attr/colorSurfaceContainerHighest">

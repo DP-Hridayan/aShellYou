@@ -119,3 +119,26 @@ jobs:
             --notes-file changelog.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify Telegram of New Release
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID:         ${{ secrets.CHAT_ID }}
+          THREAD_ID:       ${{ secrets.RELEASE_THREAD_ID }}
+        run: |
+          TAG=${{ github.ref_name }}
+          URL="https://github.com/${{ github.repository }}/releases/tag/${TAG}"
+
+          # Escape underscores for MarkdownV2
+          ESC_TAG=${TAG//_/\\_}
+
+          TEXT="🚀 *New Release Published*\n• *${ESC_TAG}*\n🔗 [View Release](${URL})"
+
+          REPLY='{"inline_keyboard":[[{"text":"View Release","url":"'"$URL"'"}]]}'
+
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+            -d chat_id="$CHAT_ID" \
+            -d parse_mode="MarkdownV2" \
+            -d text="$TEXT" \
+            -d reply_markup="$REPLY" \
+            -d message_thread_id="$THREAD_ID"
