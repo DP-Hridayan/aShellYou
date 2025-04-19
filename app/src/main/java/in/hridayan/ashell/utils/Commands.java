@@ -53,7 +53,7 @@ public class Commands {
   public static List<CommandItems> getCommand(String command, Context context) {
     List<CommandItems> mCommands = new ArrayList<>();
     for (CommandItems commands : commandList(context)) {
-      if (commands.getTitle().startsWith(command)) {
+      if (commands.getTitle().contains(command)) {
         mCommands.add(commands);
       }
     }
@@ -64,7 +64,7 @@ public class Commands {
     loadPackageInfo(context);
     List<CommandItems> mCommands = new ArrayList<>();
     for (CommandItems packages : mPackages) {
-      if (packages.getTitle().startsWith(command)) {
+      if (packages.getTitle().contains(command)) {
         mCommands.add(packages);
       }
     }
