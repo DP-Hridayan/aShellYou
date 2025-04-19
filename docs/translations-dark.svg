@@ -10,8 +10,8 @@
 <text x="460" y="55" text-anchor="start">0%</text>
 <text x="140" y="85" text-anchor="end"><![CDATA[French]]></text>
 <rect x="150" y="71" width="300" height="14" fill="#2C2F33" rx="8" ry="8" />
-<rect x="150" y="71" width="168" height="14" fill="#c8d0a3" rx="8" ry="8" />
-<text x="460" y="85" text-anchor="start">56%</text>
+<rect x="150" y="71" width="180" height="14" fill="#c4d2a2" rx="8" ry="8" />
+<text x="460" y="85" text-anchor="start">60%</text>
 <text x="140" y="115" text-anchor="end"><![CDATA[Hindi]]></text>
 <rect x="150" y="101" width="300" height="14" fill="#2C2F33" rx="8" ry="8" />
 <rect x="150" y="101" width="57" height="14" fill="#ecbda8" rx="8" ry="8" />
