@@ -478,7 +478,7 @@ public class AshellFragment extends Fragment {
         Transitions.materialContainerTransformViewToView(binding.search, binding.searchButton);
         binding.searchButton.setIcon(Utils.getDrawable(R.drawable.ic_search, context));
         if (!binding.commandEditText.isFocused()) binding.commandEditText.requestFocus();
-        new Handler()
+        new Handler(Looper.getMainLooper())
                 .postDelayed(
                         () -> {
                             binding.bookmarksButton.setVisibility(View.VISIBLE);
