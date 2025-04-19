@@ -177,8 +177,8 @@
     <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Redesigning Homepage</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
+    <td style="padding: 8px; border: 1px solid #ddd;">Migrate to kotlin</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: green;">⏺️ In progress</td>
   </tr>
   <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Proper localization</td>
