@@ -41,29 +41,7 @@ body:
       label: Screenshots
       description: If applicable, add screenshots to help explain your problem.
       placeholder: You can drag and drop images into this issue.
-
-  - type: markdown
-    attributes:
-      value: "**Desktop (please complete the following information):**"
-
-  - type: input
-    id: desktop-os
-    attributes:
-      label: OS
-      placeholder: e.g. Windows, macOS, Linux
-
-  - type: input
-    id: desktop-browser
-    attributes:
-      label: Browser
-      placeholder: e.g. Chrome, Firefox, Safari
-
-  - type: input
-    id: desktop-version
-    attributes:
-      label: Browser Version
-      placeholder: e.g. 119.0.6045.159
-
+  
   - type: markdown
     attributes:
       value: "**Smartphone (please complete the following information):**"
