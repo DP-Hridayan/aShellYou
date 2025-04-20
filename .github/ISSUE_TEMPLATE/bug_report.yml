@@ -50,25 +50,13 @@ body:
     id: smartphone-device
     attributes:
       label: Device
-      placeholder: e.g. iPhone 15, Samsung Galaxy S23
+      placeholder: e.g. Samsung Galaxy S23
 
   - type: input
     id: smartphone-os
     attributes:
       label: OS
-      placeholder: e.g. iOS 17, Android 14
-
-  - type: input
-    id: smartphone-browser
-    attributes:
-      label: Browser
-      placeholder: e.g. Chrome, Safari
-
-  - type: input
-    id: smartphone-version
-    attributes:
-      label: Browser Version
-      placeholder: e.g. 119.0.6045.159
+      placeholder: e.g. Android 14
 
   - type: textarea
     id: additional-context
