@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Only the latest version of Ashell You is actively supported with security updates.
+Only the [latest version](https://github.com/DP-Hridayan/ashellyou/releases/latest) of Ashell You is actively supported with security updates.
 
 ## Reporting a Vulnerability
 
@@ -12,7 +12,9 @@ If you discover a security vulnerability in Ashell You, please do the following:
 2. Instead, email me directly at: **hridayanofficial@gmail.com**
 3. Include as much detail as possible (e.g., steps to reproduce, logs, screenshots, etc.).
 
-I will investigate and respond as soon as possible. Responsible disclosure is appreciated, and you will be credited in the changelog if the issue is confirmed and fixed.
+>I will investigate and respond as soon as possible. Responsible disclosure is appreciated, and you will be credited in the changelog if the issue is confirmed and fixed.
+
+<br/>
 
 >[!IMPORTANT]
 >
