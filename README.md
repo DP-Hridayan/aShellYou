@@ -120,7 +120,7 @@
 
 >[!TIP]
 >
-> Please visit our **[Wiki](https://github.com/DP-Hridayan/aShellYou/wiki/aShell-You-Wiki)** for instructions/setup-guides
+> Please visit our **[Wiki](https://github.com/DP-Hridayan/aShellYou/wiki)** for instructions/setup-guides
 
 </br>
 
