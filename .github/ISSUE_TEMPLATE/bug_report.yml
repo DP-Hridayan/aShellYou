@@ -25,8 +25,6 @@ body:
         2. Click on '....'
         3. Scroll down to '....'
         4. See error
-    validations:
-      required: true
 
   - type: textarea
     id: expected-behavior
@@ -68,3 +66,17 @@ body:
       label: Additional context
       description: Add any other context about the problem here.
       placeholder: Any other details that might be helpful?
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: |
+        Carefully read and work through this check list
+      options:
+        - label: I've verified that I'm running the latest [**stable version**](https://github.com/DP-Hridayan/aShellYou/releases/latest/) of aShell You or any later [**preview versions**](https://github.com/DP-Hridayan/aShellYou/releases).
+          required: true
+        - label: I've read the [**Contributing guidelines**](https://github.com/DP-Hridayan/aShellYou/blob/master/CONTRIBUTING.md) and [**Code Of Conduct.**](https://github.com/DP-Hridayan/aShellYou/blob/master/CODE_OF_CONDUCT.md)
+          required: true
+        - label: I understand that the issue will be (ignored/closed) if I intentionally remove or skip any mandatory field.
+          required: true
