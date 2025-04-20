@@ -43,7 +43,7 @@
 
 </br>
 
-## Screenshots
+<h2 align="center">Screenshots</h2>
   <div align="center">
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="25%" style="margin:10px" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="25%" style="margin:10px" />
@@ -126,7 +126,7 @@
 
 ## Resources & Links
 
-<p align="center">  <!-- Download buttons -->  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
+<p align="start">  <!-- Download buttons -->  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
     <img src="assets/github.png" width="130" alt="GitHub" />
   </a>
   &nbsp;&nbsp;
