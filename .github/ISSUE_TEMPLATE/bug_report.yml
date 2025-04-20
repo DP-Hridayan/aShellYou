@@ -51,12 +51,18 @@ body:
     attributes:
       label: Device
       placeholder: e.g. Samsung Galaxy S23
+  validations:
+      required: true
 
   - type: input
     id: smartphone-os
     attributes:
       label: OS
       placeholder: e.g. Android 14
+  validations:
+      required: true
+
+
 
   - type: textarea
     id: additional-context
