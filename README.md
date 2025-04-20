@@ -211,11 +211,9 @@
 Designed and developed by DP Hridayan @2024
 This project is licensed under the GNU General Public License v3.0
 ```
-[Full License copy here](LICENSE.md)
-
-</br>
-
-<h2 align="center">Summary</h2>
+>[!NOTE]
+>
+>Full license copy [here](LICENSE.md)
 
 | Permitted 🚀                         | Not Permitted 🚫                     |
 |--------------------------------------|--------------------------------------|
