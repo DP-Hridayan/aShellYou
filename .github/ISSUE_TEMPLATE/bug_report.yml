@@ -1,0 +1,100 @@
+---
+name: Bug Report
+description: Create a report to help us improve
+title: "[Bug] "
+labels: [bug]
+assignees: []
+
+body:
+  - type: textarea
+    id: describe-bug
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: What's the issue you're experiencing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+      placeholder: What did you expect to happen instead?
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+      placeholder: You can drag and drop images into this issue.
+
+  - type: markdown
+    attributes:
+      value: "**Desktop (please complete the following information):**"
+
+  - type: input
+    id: desktop-os
+    attributes:
+      label: OS
+      placeholder: e.g. Windows, macOS, Linux
+
+  - type: input
+    id: desktop-browser
+    attributes:
+      label: Browser
+      placeholder: e.g. Chrome, Firefox, Safari
+
+  - type: input
+    id: desktop-version
+    attributes:
+      label: Browser Version
+      placeholder: e.g. 119.0.6045.159
+
+  - type: markdown
+    attributes:
+      value: "**Smartphone (please complete the following information):**"
+
+  - type: input
+    id: smartphone-device
+    attributes:
+      label: Device
+      placeholder: e.g. iPhone 15, Samsung Galaxy S23
+
+  - type: input
+    id: smartphone-os
+    attributes:
+      label: OS
+      placeholder: e.g. iOS 17, Android 14
+
+  - type: input
+    id: smartphone-browser
+    attributes:
+      label: Browser
+      placeholder: e.g. Chrome, Safari
+
+  - type: input
+    id: smartphone-version
+    attributes:
+      label: Browser Version
+      placeholder: e.g. 119.0.6045.159
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
+      placeholder: Any other details that might be helpful?
