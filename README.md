@@ -126,7 +126,8 @@
 
 ## Resources & Links
 
-<p align="start">  <!-- Download buttons -->  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
+<p align="start">
+  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
     <img src="assets/github.png" width="130" alt="GitHub" />
   </a>
   &nbsp;&nbsp;
