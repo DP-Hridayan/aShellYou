@@ -57,7 +57,7 @@
 
 </br>
 
-<h2 align="center">Features</h2>
+## Features
 
 🎨 **Modern Material Design 3 UI**  
 > Experience a clean, smooth, and responsive user interface built with Material You, adapting to your device's wallpaper and theme settings.
@@ -104,23 +104,29 @@
 
 </br>
 
-<h2 align="center">Requirements</h2>
+## Requirements
 
 > * A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
 > * Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
-> * Basic knowledge of **ADB/Linux commands** is recommended
 
 <br/>
 
-<h2 align="center">Instructions</h2>
+>[!CAUTION]
+>
+> Using **aShell You** requires basic knowledge of `ADB/Linux commands`.
+>**aShell You** is **not responsible** for any harm caused to your device by improper use of ADB commands
 
-> **Please visit our [Wiki](https://github.com/DP-Hridayan/aShellYou/wiki/aShell-You-Wiki) for instructions/setup-guides**
+<br/>
+
+>[!TIP]
+>
+> Please visit our **[Wiki](https://github.com/DP-Hridayan/aShellYou/wiki/aShell-You-Wiki)** for instructions/setup-guides
 
 </br>
 
-<h2 align="center">Resources & Links</h2>
+## Resources & Links
 
-<p align="center">  <!-- Download buttons -->  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
+<p align="start">  <!-- Download buttons -->  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
     <img src="assets/github.png" width="130" alt="GitHub" />
   </a>
   &nbsp;&nbsp;
@@ -136,9 +142,9 @@
 
   </br>
 
-<h2 align="center">Translations</h2>
+## Translations
 
-<p align="center">
+<p align="start">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/translations-dark.svg?ts=1745110811">
     <source media="(prefers-color-scheme: light)" srcset="docs/translations-light.svg?ts=1745110811">
@@ -146,13 +152,15 @@
   </picture>
 </p>
 
+>[!NOTE]
+>
 > Help us make this project accessible to more people by contributing translations on **[Crowdin](https://crowdin.com/project/ashellyou)**
 
 </br>
 
-<h2 align="center">Task list</h2>
+## Task list
 
-<table align="center" style="border-collapse: collapse; margin-top: 20px;">
+<table align="start" style="border-collapse: collapse; margin-top: 20px;">
   <tr>
     <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Task</th>
     <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Status</th>
@@ -185,7 +193,7 @@
 
 <br/>
 
-<h2 align="center">Star history</h2>
+## Star history
 
 <a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
  <picture>
@@ -197,17 +205,15 @@
 
 </br>
 
-<h2 align="center">License</h2>
+## License
 
 ```
 Designed and developed by DP Hridayan @2024
 This project is licensed under the GNU General Public License v3.0
 ```
-[Full License copy here](LICENSE.md)
-
-</br>
-
-<h2 align="center">Summary</h2>
+>[!NOTE]
+>
+>Full license copy [here](LICENSE.md)
 
 | Permitted 🚀                         | Not Permitted 🚫                     |
 |--------------------------------------|--------------------------------------|
@@ -219,7 +225,7 @@ This project is licensed under the GNU General Public License v3.0
 
 </br>
 
-<h2 align="center">Contributors</h2>
+## Contributors
 <a href="https://github.com/dp-hridayan/ashellyou/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=dp-hridayan/ashellyou" />
 </a>
