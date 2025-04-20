@@ -108,13 +108,19 @@
 
 > * A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
 > * Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
-> * Basic knowledge of **ADB/Linux commands** is recommended
 
 <br/>
 
-<h2 align="center">Instructions</h2>
+>[!CAUTION]
+>
+> Using **aShell You** requires basic knowledge of `ADB/Linux commands`.
+>**aShell You** is **not responsible** for any harm caused to your device by improper use of ADB commands
 
-> **Please visit our [Wiki](https://github.com/DP-Hridayan/aShellYou/wiki/aShell-You-Wiki) for instructions/setup-guides**
+<br/>
+
+>[!TIP]
+>
+> Please visit our **[Wiki](https://github.com/DP-Hridayan/aShellYou/wiki/aShell-You-Wiki)** for instructions/setup-guides
 
 </br>
 
@@ -146,6 +152,8 @@
   </picture>
 </p>
 
+>[!NOTE]
+>
 > Help us make this project accessible to more people by contributing translations on **[Crowdin](https://crowdin.com/project/ashellyou)**
 
 </br>
