@@ -43,7 +43,7 @@
 
 </br>
 
-<h2 align="center">Screenshots</h2>
+## Screenshots
   <div align="center">
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="25%" style="margin:10px" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="25%" style="margin:10px" />
@@ -57,7 +57,7 @@
 
 </br>
 
-<h2 align="center">Features</h2>
+## Features
 
 🎨 **Modern Material Design 3 UI**  
 > Experience a clean, smooth, and responsive user interface built with Material You, adapting to your device's wallpaper and theme settings.
@@ -104,7 +104,7 @@
 
 </br>
 
-<h2 align="center">Requirements</h2>
+## Requirements
 
 > * A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
 > * Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
@@ -124,7 +124,7 @@
 
 </br>
 
-<h2 align="center">Resources & Links</h2>
+## Resources & Links
 
 <p align="center">  <!-- Download buttons -->  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
     <img src="assets/github.png" width="130" alt="GitHub" />
@@ -142,9 +142,9 @@
 
   </br>
 
-<h2 align="center">Translations</h2>
+## Translations
 
-<p align="center">
+<p align="start">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/translations-dark.svg?ts=1745110811">
     <source media="(prefers-color-scheme: light)" srcset="docs/translations-light.svg?ts=1745110811">
@@ -158,9 +158,9 @@
 
 </br>
 
-<h2 align="center">Task list</h2>
+## Task list
 
-<table align="center" style="border-collapse: collapse; margin-top: 20px;">
+<table align="start" style="border-collapse: collapse; margin-top: 20px;">
   <tr>
     <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Task</th>
     <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Status</th>
@@ -193,7 +193,7 @@
 
 <br/>
 
-<h2 align="center">Star history</h2>
+## Star history
 
 <a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
  <picture>
@@ -205,7 +205,7 @@
 
 </br>
 
-<h2 align="center">License</h2>
+## License
 
 ```
 Designed and developed by DP Hridayan @2024
