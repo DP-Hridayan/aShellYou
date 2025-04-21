@@ -1,0 +1,7 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_stop_v2">
+
+    <target
+        android:name="spinning_group"
+        android:animation="@animator/rotate_anim_loop" />
+</animated-vector>

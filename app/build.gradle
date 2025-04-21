@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    compileSdk 35
+    compileSdk 34
     namespace 'in.hridayan.ashell'
 
     defaultConfig {
         applicationId "in.hridayan.ashell"
         minSdk 26
-        targetSdk 35
+        targetSdk 34
         versionCode 54
         versionName "v6.1.0"
 

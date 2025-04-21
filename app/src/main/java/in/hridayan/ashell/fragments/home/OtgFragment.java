@@ -1,5 +1,6 @@
 package in.hridayan.ashell.fragments.home;
 
+import android.graphics.drawable.AnimatedVectorDrawable;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.CONNECTING;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_FOUND;
 import static in.hridayan.ashell.utils.OtgUtils.MessageOtg.DEVICE_NOT_FOUND;

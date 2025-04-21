@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -208,7 +209,6 @@ public class WifiAdbFragment extends Fragment {
               binding.rvCommands.setVisibility(View.GONE);
               binding.sendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-              binding.sendButton.clearColorFilter();
             } else {
               binding.sendButton.setImageDrawable(
                   Utils.getDrawable(R.drawable.ic_send, requireActivity()));
@@ -910,11 +910,7 @@ public class WifiAdbFragment extends Fragment {
     // Hide buttons and update send button
     binding.saveButton.hide();
     binding.shareButton.hide();
-    binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_stop, requireActivity()));
-    binding.sendButton.setColorFilter(
-        DeviceUtils.androidVersion() >= Build.VERSION_CODES.S
-            ? ThemeUtils.colorError(context)
-            : ThemeUtils.getColor(R.color.red, context));
+    setStopDrawable();
 
     // Create mTitleText and add it to mResult
     if (mResult == null) mResult = new ArrayList<>();
@@ -956,11 +952,9 @@ public class WifiAdbFragment extends Fragment {
                     if (!hasTextInEditText()) {
                       binding.sendButton.setImageDrawable(
                           Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-                      binding.sendButton.clearColorFilter();
                     } else {
                       binding.sendButton.setImageDrawable(
                           Utils.getDrawable(R.drawable.ic_send, requireActivity()));
-                      binding.sendButton.clearColorFilter();
                     }
 
                     // Unlock the screen orientation
@@ -1031,7 +1025,6 @@ public class WifiAdbFragment extends Fragment {
   public void abortWifiAdbShell() {
     WifiAdbShell.destroy();
     binding.sendButton.setImageDrawable(Utils.getDrawable(R.drawable.ic_help, requireActivity()));
-    binding.sendButton.clearColorFilter();
   }
 
   // error handling when root is unavailable
@@ -1123,5 +1116,13 @@ public class WifiAdbFragment extends Fragment {
                 }
               }
             });
+  }
+
+  private void setStopDrawable() {
+    binding.sendButton.setImageDrawable(
+        Utils.getDrawable(R.drawable.ic_stop_animated, requireActivity()));
+    AnimatedVectorDrawable animatedDrawable =
+        (AnimatedVectorDrawable) binding.sendButton.getDrawable();
+    animatedDrawable.start();
   }
 }
