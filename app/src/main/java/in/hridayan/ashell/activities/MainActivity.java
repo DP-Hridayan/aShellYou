@@ -133,7 +133,6 @@ public class MainActivity extends AppCompatActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    // Catch exceptions
     Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(this));
 
     initialFragment();

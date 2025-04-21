@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.databinding.FragmentPairingBinding;
+import in.hridayan.ashell.ui.dialogs.ErrorDialogs;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.PermissionUtils;
 import in.hridayan.ashell.utils.Utils;
@@ -90,8 +91,11 @@ public class PairingFragment extends Fragment {
 
   private void openDeveloperOptions() {
     Intent intent = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     try {
-      startActivity(intent);
+      if (!PermissionUtils.hasNotificationPermission(context))
+        ErrorDialogs.grantNotificationPermDialog(context);
+      else startActivity(intent);
     } catch (ActivityNotFoundException e) {
       Toast.makeText(
               context, getString(R.string.developer_options_not_available), Toast.LENGTH_SHORT)
@@ -101,7 +105,7 @@ public class PairingFragment extends Fragment {
 
   private void pairThisDevice() {
     // We start the pairing from the activity to avoid destroying when fragment destroys
-      ((MainActivity) requireActivity()).pairThisDevice();
+    ((MainActivity) requireActivity()).pairThisDevice();
   }
 
   private void backPressDispatcher() {

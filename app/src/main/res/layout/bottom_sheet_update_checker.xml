@@ -57,10 +57,14 @@
             android:id="@+id/download_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminate="true"
+            android:indeterminate="false"
             android:layout_gravity="center"
             android:max="100"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:trackThickness="3dp"
+            app:waveSpeed="6dp"
+            app:waveAmplitude="2dp"
+            app:wavelength="22dp" />
 
     </FrameLayout>
 

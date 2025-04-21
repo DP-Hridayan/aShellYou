@@ -27,7 +27,9 @@ public class CrashReportActivity extends AppCompatActivity {
 
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_crash_report);
+    binding = ActivityCrashReportBinding.inflate(getLayoutInflater());
+
+    setContentView(binding.getRoot());
 
     new FabExtendingOnScrollViewListener(binding.scrollView, binding.reportButton);
 

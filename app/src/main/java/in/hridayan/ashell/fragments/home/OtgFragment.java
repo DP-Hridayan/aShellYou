@@ -432,6 +432,9 @@ public class OtgFragment extends Fragment
             switch (msg.what) {
               case DEVICE_FOUND:
                 initCommand();
+                if (mWaitingDialog != null && mWaitingDialog.isShowing()) {
+                  mWaitingDialog.dismiss();
+                }
                 Toast.makeText(context, getString(R.string.connected), Toast.LENGTH_SHORT).show();
                 break;
 

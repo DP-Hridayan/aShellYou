@@ -98,7 +98,9 @@
     <string name="disclaimer_5_description">This app may require special permissions to function properly. It does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
     <string name="disclaimer_end">By using this app, you acknowledge and agree to these terms. If you do not accept these conditions, please refrain from using the app.</string>
     <string name="disconnected">Disconnected</string>
-    <string name="discord">Discord</string>
+    <string
+            name="discord"
+        translatable="false">Discord</string>
     <string name="des_discord">Join the discord community</string>
     <string name="dismiss">Dismiss</string>
     <string name="disabled">Disabled</string>
@@ -159,6 +161,7 @@
     <string name="only_last_command_output">Only last command output</string>
     <string name="open">Open</string>
     <string name="open_adb">Open ADB shell</string>
+    <string name="open_shizuku">Open Shizuku</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Connect the device properly through OTG and try again</string>
     <string name="paste">Paste</string>
@@ -169,6 +172,7 @@
     <string name="pairing_port">Pairing port</string>
     <string name="pairing_code">Pairing code</string>
     <string name="permission_optional">Granting these permissions is optional!</string>
+    <string name="pick_script">Pick script</string>
     <string name="pin">Pin</string>
     <string name="pinned_message">\'%s\' has been pinned</string>
     <string name="port">Port</string>
@@ -204,6 +208,8 @@
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) fail</string>
     <string name="share_and_run">Auto run shared commands</string>
     <string name="des_share_and_run">If enabled then sharing any text to aShell You automatically runs the shell with the shared text as input</string>
+    <string name="shell_script_executor">Shell script executor</string>
+    <string name="shell_script_executor_summary">Run bash/shell scripts directly in the app with live output</string>
     <string name="shell_output_not_saved_message">The output of last command is not saved</string>
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\' folder</string>
     <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\' folder</string>
@@ -290,9 +296,13 @@
     <string name="des_report_issue">Report any issue you have faced while using the app</string>
     <string name="feature_request">Feature request</string>
     <string name="des_feature_request">If you have any ideas or suggestions in your mind , let us know</string>
-    <string name="github">Github</string>
+    <string
+            name="github"
+        translatable="false">Github</string>
     <string name="des_github">Visit the github repository of aShell You</string>
-    <string name="telegram">Telegram</string>
+    <string
+            name="telegram"
+        translatable="false">Telegram</string>
     <string name="telegram_channel">Telegram channel</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     <string name="license">License</string>
@@ -316,7 +326,6 @@
     <string name="disclaimer_2_title">Root is not Mandatory, but Caution Needed</string>
     <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app. Proceed with caution and ensure you understand the commands you execute.</string>
     <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
-    
     // Changelogs
      //Created by DP-Hridayan
     Absolutely necessary to follow this string name format

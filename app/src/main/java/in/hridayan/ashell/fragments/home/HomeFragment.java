@@ -78,6 +78,8 @@ public class HomeFragment extends Fragment
 
     wirelessAdbCardOnClickListener();
 
+    scriptCardOnClickListener();
+
     instructionsButtonWifiAdb();
 
     startButtonOnClickListener();
@@ -179,7 +181,7 @@ public class HomeFragment extends Fragment
   }
 
   private void requestShizukuPermission() {
-    if (!Shizuku.pingBinder()) ErrorDialogs.shizukuUnavailableDialog(requireContext());
+    if (!Shizuku.pingBinder()) ErrorDialogs.shizukuUnavailableDialog(requireActivity());
     else if (!ShizukuShell.hasPermission()) PermissionDialogs.shizukuPermissionDialog(context);
   }
 
@@ -305,6 +307,25 @@ public class HomeFragment extends Fragment
               mainViewModel,
               this);
         });
+  }
+
+  private void scriptCardOnClickListener() {
+    binding.scriptCard.setOnClickListener(
+        v -> {
+          goToScriptExecutorFragment();
+        });
+  }
+
+  private void goToScriptExecutorFragment() {
+    setExitTransition(new Hold());
+    ScriptExecutorFragment fragment = new ScriptExecutorFragment();
+    requireActivity()
+        .getSupportFragmentManager()
+        .beginTransaction()
+        .addSharedElement(binding.scriptCard, Const.FRAGMENT_SCRIPT_EXECUTOR)
+        .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+        .addToBackStack(fragment.getClass().getSimpleName())
+        .commit();
   }
 
   private void fetchAndUpdateDeviceList() {

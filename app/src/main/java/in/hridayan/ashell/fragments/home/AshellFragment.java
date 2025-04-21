@@ -1508,7 +1508,7 @@ public class AshellFragment extends Fragment {
             binding.commandInputLayout.setErrorIconOnClickListener(
                     t -> binding.commandEditText.setText(null));
         }
-        ErrorDialogs.shizukuUnavailableDialog(context);
+        ErrorDialogs.shizukuUnavailableDialog(requireActivity());
     }
 
     // error handling when root is unavailable

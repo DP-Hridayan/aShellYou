@@ -546,4 +546,29 @@ public class Utils {
       }
     }
   }
+
+  public static boolean isAppInstalled(Context context, String packageName) {
+    PackageManager pm = context.getPackageManager();
+    try {
+      pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+      return true;
+    } catch (PackageManager.NameNotFoundException e) {
+      return false;
+    }
+  }
+
+  public static void launchApp(Activity activity, String packageName) {
+    PackageManager pm = activity.getPackageManager();
+    Intent launchIntent = pm.getLaunchIntentForPackage(packageName);
+
+    if (launchIntent != null) {
+      activity.startActivity(launchIntent);
+    } else {
+      Toast.makeText(activity, "App is not installed", Toast.LENGTH_SHORT).show();
+      // Optionally redirect to Play Store or GitHub
+      // Intent playStoreIntent = new Intent(Intent.ACTION_VIEW,
+      //         Uri.parse("https://play.google.com/store/apps/details?id=" + packageName));
+      // startActivity(playStoreIntent);
+    }
+  }
 }

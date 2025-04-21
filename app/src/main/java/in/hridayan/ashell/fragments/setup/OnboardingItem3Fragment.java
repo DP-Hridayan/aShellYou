@@ -116,7 +116,7 @@ public class OnboardingItem3Fragment extends Fragment
   private void handleShizukuUnavailability() {
     binding.shizuku.setSelected(false);
     // Show dialog that shizuku is unavailable
-    ErrorDialogs.shizukuUnavailableDialog(requireContext());
+    ErrorDialogs.shizukuUnavailableDialog(requireActivity());
   }
 
   private void permGrantedToast() {

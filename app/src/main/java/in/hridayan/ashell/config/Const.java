@@ -68,6 +68,7 @@ public interface Const {
   String FRAGMENT_LOCAL_SHELL = "fragmentLocalShell";
   String FRAGMENT_OTG_SHELL = "fragmentOtgShell";
   String FRAGMENT_WIFI_ADB_SHELL = "fragmentWifiAdbShell";
+  String FRAGMENT_SCRIPT_EXECUTOR = "fragmentScriptExecutor";
 
   /* <--------U R L s -------> */
   String URL_DEV_GITHUB = "https://github.com/DP-Hridayan";
@@ -76,10 +77,9 @@ public interface Const {
   // url for the build.gradle file of the app
   String URL_BUILD_GRADLE =
       "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/master/app/build.gradle";
-  String URL_OTG_INSTRUCTIONS =
-      "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md";
+  String URL_OTG_INSTRUCTIONS = "https://github.com/DP-Hridayan/aShellYou/wiki/OTG-ADB-Setup-Guide";
   String URL_WIRELESS_DEBUGGING_INSTRUCTIONS =
-      "https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md";
+      "https://github.com/DP-Hridayan/aShellYou/wiki/Wireless-Debugging-Setup";
   String GITHUB_OWNER = "dp-hridayan";
   String GITHUB_REPOSITORY = "ashellyou";
   String URL_GITHUB_REPOSITORY = "https://github.com/DP-Hridayan/aShellYou";
@@ -93,6 +93,8 @@ public interface Const {
   String TAG = "flashbot";
 
   String CURRENT_FRAGMENT = "current_fragment";
+
+  String SHIZUKU_PACKAGE_NAME = "moe.shizuku.privileged.api";
 
   // integers
   int SORT_A_TO_Z = 0;
