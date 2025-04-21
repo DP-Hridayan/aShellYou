@@ -23,10 +23,14 @@ android {
     signingConfigs {
         release {
             if (System.getenv("CI") == "true") {
-                storeFile file(System.getenv("KEYSTORE_PATH"))
+                def keystorePath = System.getenv("KEYSTORE_PATH")
+                if (keystorePath?.isNotEmpty())
+                {
+                storeFile file(keystorePath)
                 storePassword System.getenv("KEYSTORE_PASSWORD")
                 keyAlias System.getenv("KEY_ALIAS")
                 keyPassword System.getenv("KEY_PASSWORD")
+                }
             }
         }
     }
