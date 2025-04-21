@@ -7,7 +7,7 @@
     <string name="adb_device_connected">ADB устройство подключено.</string>
     <string name="adb_device_not_connected">ADB устройство не подключено.</string>
     <string name="adb_device_waiting">Ожидание устройства ADB</string>
-    <string name="adb_shell">ADB shell</string>
+    <string name="adb_shell">Оболочка ADB</string>
     <string name="adb_through_otg">ADB через OTG</string>
     <string name="adb_through_otg_summary">Используйте кабель OTG и отладку по USB для выполнения команд ADB на другом устройстве Android. Вам нужно включить отладку по USB в настройках разработчика целевого устройства.</string>
     <string name="adb_via_wireless_debugging">ADB через беспроводную отладку</string>
@@ -24,7 +24,7 @@
     <string name="app_updated_message">Приложение обновлено, хотите ознакомиться с информацией об изменениях?</string>
     <string name="app_working_message">aShell You все еще работает. Пожалуйста, дождитесь ее завершения или остановите вручную (нажав кнопку \"Стоп\"), чтобы запустить новую команду</string>
     <string name="are_you_sure">Вы уверены, что хотите продолжить?</string>
-    <string name="basic_shell">Basic shell</string>
+    <string name="basic_shell">Обычная оболочка</string>
     <string name="beta_warning">В настоящее время эта функция находится в экспериментальной стадии. Если у вас возникнут какие-либо проблемы, пожалуйста, сообщите нам об этом.</string>
     <string name="behavior">Поведение</string>
     <string name="bookmarks">Закладки</string>
@@ -91,7 +91,6 @@
     <string name="disclaimer_5_description">Для корректной работы этого приложения могут потребоваться специальные разрешения. Оно не собирает и не передаёт персональные данные, но пользователи должны знать о последствиях предоставления разрешений, связанных с ADB.</string>
     <string name="disclaimer_end">Используя это приложение, вы подтверждаете и соглашаетесь с этими условиями. Если вы не принимаете эти условия, пожалуйста, воздержитесь от использования приложения.</string>
     <string name="disconnected">Не подключен</string>
-    <string name="discord">Discord</string>
     <string name="des_discord">Присоединяйтесь к сообществу discord</string>
     <string name="dismiss">Отклонить</string>
     <string name="disabled">Отключено</string>
@@ -121,7 +120,7 @@
     <string name="ip_address">IP адрес</string>
     <string name="latest">Последние</string>
     <string name="least_used">Редко используемые</string>
-    <string name="local_adb">Local ADB</string>
+    <string name="local_adb">Локальный ADB</string>
     <string name="local_adb_summary">Выполняйте команды ADB непосредственно на своём устройстве с помощью Shizuku или root. Управляйте приложениями, контролируйте системные настройки и выполняйте расширенную отладку — и всё это без использования ПК.</string>
     <string name="look_and_feel">Оформление</string>
     <string name="des_look_and_feel">Динамические цвета, Темная тема, Язык</string>
@@ -145,12 +144,13 @@
     <string name="notification_settings">Настройки уведомлений</string>
     <string name="notification_style_error">Если вы не можете ввести код сопряжения из уведомления, возможно, вам нужно изменить панель уведомлений на Android. Перейдите в «Настройки уведомлений» ~ «Стиль уведомлений», чтобы изменить стиль уведомлений. В противном случае вы не сможете ввести код сопряжения из уведомления.</string>
     <string name="off">Выкл.</string>
-    <string name="ok">OK</string>
+    <string name="ok">ОК</string>
     <string name="ok_countdown">OK (10с)</string>
     <string name="on">Вкл.</string>
     <string name="only_last_command_output">Вывод только последней команды</string>
     <string name="open">Открыть</string>
     <string name="open_adb">Открыть ADB shell</string>
+    <string name="open_shizuku">Открыть Shizuku</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Правильно подключите устройство через OTG и повторите попытку.</string>
     <string name="paste">Вставить</string>
@@ -161,6 +161,7 @@
     <string name="pairing_port">Порт сопряжения</string>
     <string name="pairing_code">Код сопряжения</string>
     <string name="permission_optional">Предоставление этих разрешений необязательно!</string>
+    <string name="pick_script">Выбрать скрипт</string>
     <string name="pin">Закрепление</string>
     <string name="pinned_message">\'%s\' был прикреплен</string>
     <string name="port">Порт</string>
@@ -193,6 +194,8 @@
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) fail</string>
     <string name="share_and_run">Автоматическое выполнение общих команд</string>
     <string name="des_share_and_run">Если эта опция включена, то при передаче любого текста в оболочку вы автоматически запускаете оболочку с общим текстом в качестве входных данных</string>
+    <string name="shell_script_executor">Shell script executor</string>
+    <string name="shell_script_executor_summary">Run bash/shell scripts directly in the app with live output</string>
     <string name="shell_output_not_saved_message">Вывод последней команды не сохраняется</string>
     <string name="shell_output_saved_message">Вывод последней команды экспортируется в папку \'%s\'</string>
     <string name="shell_output_saved_whole_message">Вывод оболочки экспортируется в папку \'%s\'</string>
@@ -203,8 +206,8 @@
     <string name="shizuku_unavailable">Shizuku недоступен</string>
     <string name="shizuku_unavailable_message">Shizuku не установлен или не настроен должным образом на вашем устройстве</string>
     <string name="sort">Сортировать</string>
-    <string name="sort_A_Z">A → Z</string>
-    <string name="sort_Z_A">Z → A</string>
+    <string name="sort_A_Z">А → Я</string>
+    <string name="sort_Z_A">Я → А</string>
     <string name="sort_newest">Сначала новые</string>
     <string name="sort_oldest">Сначала старые</string>
     <string name="start">Запустить</string>
@@ -235,7 +238,7 @@
     <string name="wireless_debugging_important_notice">Обратите внимание, что левая часть опции «Беспроводная отладка» является кликабельной. При нажатии на неё откроется меню сопряжения для беспроводной отладки.</string>
     <string name="whats_new">Что нового!</string>
     <string name="whole_output">Общий вывод</string>
-    <string name="wifi_adb">Wifi ADB</string>
+    <string name="wifi_adb">ADB по Wi-Fi</string>
     <string name="wifi_adb_devices_information">Выберите целевое устройство для продолжения</string>
     <string name="wifi_connection_required">Чтобы использовать функцию беспроводной отладки, ваше устройство должно быть подключено к сети Wi-Fi. Если у вас нет доступа в Интернет через Wi-Fi, отключите мобильные данные для стабильного подключения к Wi-Fi.</string>
     <string name="yes">Да</string>
@@ -276,9 +279,7 @@
     <string name="des_report_issue">Сообщите о любой проблеме, с которой вы столкнулись при использовании приложения</string>
     <string name="feature_request">Запрос функции</string>
     <string name="des_feature_request">Если у вас есть какие-либо идеи или предложения, дайте нам знать.</string>
-    <string name="github">Github</string>
     <string name="des_github">Посетите github-репозиторий aShell You</string>
-    <string name="telegram">Telegram</string>
     <string name="telegram_channel">Telegram-канал</string>
     <string name="des_telegram_channel">Присоединяйтесь к телеграм-каналу для обсуждения</string>
     <string name="license">Лицензия</string>
@@ -302,7 +303,7 @@
     <string name="disclaimer_2_title">Root не является обязательным, но необходима осторожность</string>
     <string name="disclaimer_3_description">Разработчик (разработчики) этого приложения не несёт ответственности за любой ущерб, потерю данных или непредвиденные последствия, возникшие в результате использования этого приложения. Будьте осторожны и убедитесь, что вы понимаете выполняемые вами команды.</string>
     <string name="wireless_debugging_guide_2">Введите шестизначный код сопряжения в уведомление, отправленное aShell You.</string>
-    <string name="changelog_v6_0_3">\n\n• Fixed the issue which caused per app translations to be broken for aShell You</string>
+    <string name="changelog_v6_0_3">\n\n• Исправлена проблема, из-за которой переводы для приложений были нерабочими для aShell You</string>
     <string name="changelog_v6_0_2">\n\n• Адаптированы действия на Github для релизных сборок\n\n• Что это значит для вас?\n• Все последующие сборки, включая эту, будут более безопасными!</string>
     <string name="changelog_v6_0_1">\n\n• Техническое обновление</string>
     <string name="changelog_v6_0_0">\n\n• Добавлен режим беспроводной отладки для выполнения команд ADB как на своем, так и на другом устройстве\n\n• Переработанна домашняя страница с минимальной навигацией и менее загроможденным полем ввода\n\n• Добавлено предупреждение при выполнении команд, включающих критические системные пакеты\n\n• Добавлен встроенный центр обновлений Теперь вы можете напрямую скачать последнюю версию пакета, не открывая репозиторий Github\n\n• Исправлено много ошибок</string>

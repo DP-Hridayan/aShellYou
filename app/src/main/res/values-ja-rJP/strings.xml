@@ -91,7 +91,6 @@
     <string name="disclaimer_5_description">This app may require special permissions to function properly. It does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
     <string name="disclaimer_end">By using this app, you acknowledge and agree to these terms. If you do not accept these conditions, please refrain from using the app.</string>
     <string name="disconnected">Disconnected</string>
-    <string name="discord">「Discord」</string>
     <string name="des_discord">「Discord」コミュニティに参加する</string>
     <string name="dismiss">キャンセル</string>
     <string name="disabled">オフ</string>
@@ -151,6 +150,7 @@
     <string name="only_last_command_output">最後のコマンドのみ出力する</string>
     <string name="open">オープン</string>
     <string name="open_adb">ADBシェルを開く</string>
+    <string name="open_shizuku">Open Shizuku</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">デバイスが正しく接続されていません。OTGでデバイスを正しく接続し、再度お試しください</string>
     <string name="paste">貼付</string>
@@ -161,6 +161,7 @@
     <string name="pairing_port">Pairing port</string>
     <string name="pairing_code">Pairing code</string>
     <string name="permission_optional">Granting these permissions is optional!</string>
+    <string name="pick_script">Pick script</string>
     <string name="pin">トップ</string>
     <string name="pinned_message">\'%s\' がトップ</string>
     <string name="port">Port</string>
@@ -193,6 +194,8 @@
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) 失敗</string>
     <string name="share_and_run">自動実行</string>
     <string name="des_share_and_run">シェアを使って「aShell」にテキストを送信すると、自動実行されます</string>
+    <string name="shell_script_executor">Shell script executor</string>
+    <string name="shell_script_executor_summary">Run bash/shell scripts directly in the app with live output</string>
     <string name="shell_output_not_saved_message">最後のコマンドの出力が保存されていない</string>
     <string name="shell_output_saved_message">最後のコマンドの出力は \'%s\' フォルダにエクスポートされます</string>
     <string name="shell_output_saved_whole_message">シェル出力は \'%s\' フォルダにエクスポートされます</string>
@@ -276,9 +279,7 @@
     <string name="des_report_issue">アプリの使用中に直面した問題を報告する</string>
     <string name="feature_request">機能リクエスト</string>
     <string name="des_feature_request">何かアイデアやご提案があれば、ぜひお聞かせください</string>
-    <string name="github">「Github」</string>
     <string name="des_github">「aShellYou」リポジトリへのアクセス</string>
-    <string name="telegram">Telegram</string>
     <string name="telegram_channel">「Telegram」チャンネル</string>
     <string name="des_telegram_channel">チャンネルに参加してディスカッションに参加する</string>
     <string name="license">ライセンス</string>
