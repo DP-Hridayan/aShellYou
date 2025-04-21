@@ -32,11 +32,6 @@ public class ErrorDialogs {
 
     boolean isShizukuInstalled = Utils.isAppInstalled(activity, Const.SHIZUKU_PACKAGE_NAME);
 
-    action.setText(
-        isShizukuInstalled
-            ? activity.getString(R.string.open_shizuku)
-            : activity.getString(R.string.shizuku));
-
     action.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
