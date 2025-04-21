@@ -91,7 +91,6 @@
     <string name="disclaimer_5_description">قد يتطلب هذا التطبيق أذونات خاصة للعمل بشكل صحيح. لا يقوم بجمع أو مشاركة البيانات الشخصية، ولكن يجب على المستخدمين أن يكونوا على دراية بتبعات منح أذونات متعلقة بـ ADB.</string>
     <string name="disclaimer_end">باستخدام هذا التطبيق، فإنك تقر وتوافق على هذه الشروط. إذا لم تقبل هذه الشروط، يرجى الامتناع عن استخدام التطبيق.</string>
     <string name="disconnected">غير متصل</string>
-    <string name="discord">Discord</string>
     <string name="des_discord">انضم إلى مجتمع Discord</string>
     <string name="dismiss">تجاهل</string>
     <string name="disabled">معطل</string>
@@ -151,6 +150,7 @@
     <string name="only_last_command_output">فقط ناتج الأمر الأخير</string>
     <string name="open">فتح</string>
     <string name="open_adb">فتح قشرة ADB</string>
+    <string name="open_shizuku">Open Shizuku</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">قم بتوصيل الجهاز بشكل صحيح عبر OTG وحاول مرة أخرى</string>
     <string name="paste">لصق</string>
@@ -161,6 +161,7 @@
     <string name="pairing_port">منفذ الاقتران</string>
     <string name="pairing_code">رمز الاقتران</string>
     <string name="permission_optional">منح هذه الأذونات اختياري!</string>
+    <string name="pick_script">Pick script</string>
     <string name="pin">تثبيت</string>
     <string name="pinned_message">\'%s\' تم تثبيته</string>
     <string name="port">المنفذ</string>
@@ -193,6 +194,8 @@
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) فشل</string>
     <string name="share_and_run">تشغيل الأوامر المشتركة تلقائيًا</string>
     <string name="des_share_and_run">إذا تم تمكينه، فإن مشاركة أي نص إلى aShell You ستقوم تلقائيًا بتشغيل القشرة بالنص المشترك كمدخل</string>
+    <string name="shell_script_executor">Shell script executor</string>
+    <string name="shell_script_executor_summary">Run bash/shell scripts directly in the app with live output</string>
     <string name="shell_output_not_saved_message">لم يتم حفظ ناتج الأمر الأخير</string>
     <string name="shell_output_saved_message">تم تصدير ناتج الأمر الأخير إلى مجلد \'%s\'</string>
     <string name="shell_output_saved_whole_message">تم تصدير ناتج القشرة إلى مجلد \'%s\'</string>
@@ -276,9 +279,7 @@
     <string name="des_report_issue">الإبلاغ عن أي مشكلة واجهتها أثناء استخدام التطبيق</string>
     <string name="feature_request">طلب ميزة</string>
     <string name="des_feature_request">إذا كانت لديك أي أفكار أو اقتراحات في ذهنك، فأخبرنا</string>
-    <string name="github">GitHub</string>
     <string name="des_github">زيارة مستودع GitHub لتطبيق aShell You</string>
-    <string name="telegram">Telegram</string>
     <string name="telegram_channel">قناة Telegram</string>
     <string name="des_telegram_channel">انضم إلى قناة Telegram للمناقشة</string>
     <string name="license">رخصة</string>

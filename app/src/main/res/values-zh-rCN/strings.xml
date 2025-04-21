@@ -91,7 +91,6 @@
     <string name="disclaimer_5_description">这个软件会请求部分特殊权限以正常运行。本软件并不会收集用户数据，但你应当知晓授予ADB相关权限的影响</string>
     <string name="disclaimer_end">使用此软件即视为同意以上条款。否则，请删除此软件</string>
     <string name="disconnected">已断开</string>
-    <string name="discord">Discord</string>
     <string name="des_discord">加入 Discord</string>
     <string name="dismiss">取消</string>
     <string name="disabled">关闭</string>
@@ -151,6 +150,7 @@
     <string name="only_last_command_output">仅输出最近一次的命令输出</string>
     <string name="open">打开</string>
     <string name="open_adb">打开ADB Shell</string>
+    <string name="open_shizuku">Open Shizuku</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">设备连接异常。请使用OTG重新连接设备，然后重试</string>
     <string name="paste">粘贴</string>
@@ -161,6 +161,7 @@
     <string name="pairing_port">配对端口</string>
     <string name="pairing_code">配对码</string>
     <string name="permission_optional">这些权限的授予是可选的！按需授权</string>
+    <string name="pick_script">Pick script</string>
     <string name="pin">置顶</string>
     <string name="pinned_message">\'%s\' 已被置顶</string>
     <string name="port">端口</string>
@@ -193,6 +194,8 @@
     <string name="set_adb_interface_fail">函数 setAdbInterface(device, intf) 失败</string>
     <string name="share_and_run">自动运行</string>
     <string name="des_share_and_run">使用分享发送文本到 aShell 时，将自动执行</string>
+    <string name="shell_script_executor">Shell script executor</string>
+    <string name="shell_script_executor_summary">Run bash/shell scripts directly in the app with live output</string>
     <string name="shell_output_not_saved_message">上个命令的输出未保存</string>
     <string name="shell_output_saved_message">上个命令的输出已导出到 \'%s\' 。</string>
     <string name="shell_output_saved_whole_message">终端输出已被保存至\'%s\'文件夹</string>
@@ -276,9 +279,7 @@
     <string name="des_report_issue">报告使用 App 时遇到的任何问题</string>
     <string name="feature_request">功能建议</string>
     <string name="des_feature_request">如果有任何想法或建议，欢迎在下面的渠道中提出</string>
-    <string name="github">Github</string>
     <string name="des_github">访问 aShellYou 仓库</string>
-    <string name="telegram">Telegram</string>
     <string name="telegram_channel">Telegram 频道</string>
     <string name="des_telegram_channel">加入频道参与讨论</string>
     <string name="license">开源协议</string>

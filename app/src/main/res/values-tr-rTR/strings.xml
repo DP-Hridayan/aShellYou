@@ -91,7 +91,6 @@
     <string name="disclaimer_5_description">Bu uygulamanın düzgün çalışması için özel izinler gerekebilir. Kişisel verileri toplamaz veya paylaşmaz, ancak kullanıcılar ADB ile ilgili izinlerin etkilerinin farkında olmalıdır.</string>
     <string name="disclaimer_end">Bu uygulamayı kullanarak bu şartları kabul etmiş ve onaylamış olursunuz. Bu koşulları kabul etmiyorsanız, lütfen uygulamayı kullanmaktan kaçının.</string>
     <string name="disconnected">Bağlantı kesildi</string>
-    <string name="discord">Discord</string>
     <string name="des_discord">Discord topluluğuna katılın</string>
     <string name="dismiss">Kapat</string>
     <string name="disabled">Devre dışı</string>
@@ -151,6 +150,7 @@
     <string name="only_last_command_output">Yalnızca son komut çıktısı</string>
     <string name="open">Aç</string>
     <string name="open_adb">ADB kabuğunu aç</string>
+    <string name="open_shizuku">Open Shizuku</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Cihazı OTG üzerinden düzgün bağlayın ve tekrar deneyin</string>
     <string name="paste">Yapıştır</string>
@@ -161,6 +161,7 @@
     <string name="pairing_port">Eşleştirme portu</string>
     <string name="pairing_code">Eşleştirme kodu</string>
     <string name="permission_optional">Bu izinleri vermek isteğe bağlıdır!</string>
+    <string name="pick_script">Pick script</string>
     <string name="pin">Sabitle</string>
     <string name="pinned_message">\'%s\' sabitlendi</string>
     <string name="port">Port</string>
@@ -193,6 +194,8 @@
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) başarısız</string>
     <string name="share_and_run">Paylaşılan komutları otomatik çalıştır</string>
     <string name="des_share_and_run">Etkinleştirilirse, aShell You’ya herhangi bir metin paylaşmak kabuğu otomatik olarak paylaşılan metni giriş olarak çalıştırır</string>
+    <string name="shell_script_executor">Shell script executor</string>
+    <string name="shell_script_executor_summary">Run bash/shell scripts directly in the app with live output</string>
     <string name="shell_output_not_saved_message">Son komutun çıktısı kaydedilmedi</string>
     <string name="shell_output_saved_message">Son komutun çıktısı \'%s\' klasörüne dışa aktarıldı</string>
     <string name="shell_output_saved_whole_message">Kabuk çıktısı \'%s\' klasörüne dışa aktarıldı</string>
@@ -276,9 +279,7 @@
     <string name="des_report_issue">Uygulamayı kullanırken karşılaştığınız herhangi bir sorunu bildirin</string>
     <string name="feature_request">Özellik talebi</string>
     <string name="des_feature_request">Aklınızda herhangi bir fikir veya öneri varsa, bize bildirin</string>
-    <string name="github">Github</string>
     <string name="des_github">aShell You’nun Github deposunu ziyaret edin</string>
-    <string name="telegram">Telegram</string>
     <string name="telegram_channel">Telegram kanalı</string>
     <string name="des_telegram_channel">Tartışma için Telegram kanalına katılın</string>
     <string name="license">Lisans</string>
