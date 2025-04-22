@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
 }
 
+apply from: '../ci-signing.gradle'
+
 android {
     compileSdk 35
     namespace 'in.hridayan.ashell'
@@ -18,21 +20,6 @@ android {
 
     lint {
         baseline = file("lint-baseline.xml")
-    }
-
-    signingConfigs {
-        release {
-            if (System.getenv("CI") == "true") {
-                def keystorePath = System.getenv("KEYSTORE_PATH")
-                if (keystorePath?.isNotEmpty())
-                {
-                storeFile file(keystorePath)
-                storePassword System.getenv("KEYSTORE_PASSWORD")
-                keyAlias System.getenv("KEY_ALIAS")
-                keyPassword System.getenv("KEY_PASSWORD")
-                }
-            }
-        }
     }
 
     buildTypes {
