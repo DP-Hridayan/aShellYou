@@ -218,14 +218,6 @@ This project is licensed under the GNU General Public License v3.0
 >
 >Full license copy [here](LICENSE.md)
 
-| Permitted 🚀                         | Not Permitted 🚫                     |
-|--------------------------------------|--------------------------------------|
-| ✔️ Use for commercial purposes       | ❌ Sub-licensing                     |
-| ✔️ Modify and distribute             | ❌ Proprietary use without source    |
-| ✔️ Private use                       | ❌ Distribution without same license |
-| ✔️ Access to the source code         | ❌ Restricting other users' freedoms |
-| ✔️ Distribution with original terms  |                                      |
-
 </br>
 
 ## Contributors
