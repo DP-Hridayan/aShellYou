@@ -19,6 +19,22 @@ jobs:
         distribution: 'zulu'
         java-version: '17'
 
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Decode Keystore
+      env:
+        DEBUG_KEYSTORE_BASE64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
+      run: |
+        echo "$DEBUG_KEYSTORE_BASE64" | base64 --decode > keystore.jks
+
+    - name: Set Environment Variables
+      run: |
+        echo "DEBUG_KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
+        echo "DEBUG_KEYSTORE_PASSWORD=${{ secrets.DEBUG_KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
+        echo "DEBUG_KEY_ALIAS=${{ secrets.DEBUG_KEY_ALIAS }}" >> $GITHUB_ENV
+        echo "DEBUG_KEY_PASSWORD=${{ secrets.DEBUG_KEY_PASSWORD }}" >> $GITHUB_ENV
+
     - name: Give gradlew execute permission
       run: chmod +x ./gradlew
 
@@ -30,3 +46,32 @@ jobs:
       with:
         name: debug-apk
         path: app/build/outputs/apk/debug/*.apk
+
+    - name: Send Telegram Message
+      env:
+        TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+      run: |
+        API_URL="https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"
+        
+        escape_markdown() { 
+          echo "$1" | sed -e 's/[*]/\\&/g' \
+                          -e 's/_/\\_/g' \
+                          -e 's/(/\/g' \
+                          -e 's/)/\/g' \
+                          -e 's/`/\\`/g'
+        }
+
+        send_message() {
+          REPLY='{"inline_keyboard": [[{"text": "Download APK", "url": "'"${{ steps.upload-artifact.outputs.artifact_url }}"'"}]]}'
+          MESSAGE="Auto generated latest debug APK"
+          send_message "$MESSAGE" "$REPLY"
+        }
+
+        send_message() {
+          curl -s -X POST $API_URL \
+            -d chat_id="$CHAT_ID" \
+            -d text="$(echo -e "$1")" \
+            -d parse_mode=Markdown \
+            -d reply_markup="$2"
+        }
