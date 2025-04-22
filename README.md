@@ -34,8 +34,8 @@
     <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
   <img alt="Language" src="https://img.shields.io/badge/Language-Java-007396?style=for-the-badge&logo=java&logoColor=white" />
   <img alt="UI" src="https://img.shields.io/badge/UI-XML-E44D26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-21-yellow?style=for-the-badge" />
-  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-34-blue?style=for-the-badge" />
+  <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-26-yellow?style=for-the-badge" />
+  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-35-blue?style=for-the-badge" />
   <a href="https://crowdin.com/project/ashellyou">
     <img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white"/>
 </a>
@@ -156,6 +156,8 @@
 >[!NOTE]
 >
 > Help us make this project accessible to more people by contributing translations on **[Crowdin](https://crowdin.com/project/ashellyou)**
+>
+> Thanks to our Crowdin [translators](docs/translators.md)
 
 </br>
 
@@ -215,14 +217,6 @@ This project is licensed under the GNU General Public License v3.0
 >[!NOTE]
 >
 >Full license copy [here](LICENSE.md)
-
-| Permitted 🚀                         | Not Permitted 🚫                     |
-|--------------------------------------|--------------------------------------|
-| ✔️ Use for commercial purposes       | ❌ Sub-licensing                     |
-| ✔️ Modify and distribute             | ❌ Proprietary use without source    |
-| ✔️ Private use                       | ❌ Distribution without same license |
-| ✔️ Access to the source code         | ❌ Restricting other users' freedoms |
-| ✔️ Distribution with original terms  |                                      |
 
 </br>
 
