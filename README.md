@@ -156,6 +156,8 @@
 >[!NOTE]
 >
 > Help us make this project accessible to more people by contributing translations on **[Crowdin](https://crowdin.com/project/ashellyou)**
+>
+> Thanks to our Crowdin [translators](docs/translators.md)
 
 </br>
 
