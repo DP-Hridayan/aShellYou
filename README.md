@@ -134,10 +134,12 @@
   <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell">
     <img src="assets/izzy.png" width="130" alt="F-Droid" />
   </a>
-  <br/><br/>  <!-- Telegram button -->  <a href="https://t.me/aShellYou">
+  <br/><br/>
+  <a href="https://t.me/aShellYou">
     <img src="assets/telegram.png" width="180" alt="Join Telegram" />
   </a>
-  <br/><br/>  <!-- Buy Me a Coffee -->  <a href="https://www.buymeacoffee.com/Hridayan">
+  <br/><br/>
+  <a href="https://www.buymeacoffee.com/Hridayan">
     <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="200" alt="Buy Me a Coffee" />
   </a></p>
 
