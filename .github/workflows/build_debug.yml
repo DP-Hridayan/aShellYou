@@ -22,6 +22,11 @@ jobs:
     - name: Give gradlew execute permission
       run: chmod +x ./gradlew
 
+    - name: Inject custom debug keystore
+      run: |
+        mkdir -p ~/.android
+        echo "${{ secrets.DEBUG_KEYSTORE_BASE64 }}" | base64 -d > ~/.android/debug.keystore
+
     - name: Build Debug APK
       run: ./gradlew assembleDebug
 
