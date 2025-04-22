@@ -14,8 +14,8 @@
 <text x="460" y="85" text-anchor="start">60%</text>
 <text x="140" y="115" text-anchor="end"><![CDATA[Hindi]]></text>
 <rect x="150" y="101" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="101" width="141" height="14" fill="#654616" rx="8" ry="8" />
-<text x="460" y="115" text-anchor="start">47%</text>
+<rect x="150" y="101" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="115" text-anchor="start">100%</text>
 <text x="140" y="145" text-anchor="end"><![CDATA[Japanese]]></text>
 <rect x="150" y="131" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
 <rect x="150" y="131" width="201" height="14" fill="#455413" rx="8" ry="8" />

@@ -6,27 +6,43 @@ on:
 
 jobs:
   build:
-    name: Build APK
+    name: Build Debug APK
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Java
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'zulu'
-        java-version: '17'
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
 
-    - name: Give gradlew execute permission
-      run: chmod +x ./gradlew
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
+      - name: Decode Keystore
+        env:
+          DEBUG_KEYSTORE_BASE64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
+        run: |
+          echo "$DEBUG_KEYSTORE_BASE64" | base64 --decode > debugkeystore.jks
 
-    - name: Upload Debug APK Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: debug-apk
-        path: app/build/outputs/apk/debug/*.apk
+      - name: Set Environment Variables
+        run: |
+          echo "DEBUG_KEYSTORE_PATH=$PWD/debugkeystore.jks" >> $GITHUB_ENV
+          echo "DEBUG_KEYSTORE_PASSWORD=${{ secrets.DEBUG_KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
+          echo "DEBUG_KEY_ALIAS=${{ secrets.DEBUG_KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "DEBUG_KEY_PASSWORD=${{ secrets.DEBUG_KEY_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Grant execute permission to Gradle
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload Debug APK to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: debug-apk
+          path: app/build/outputs/apk/debug/*.apk
