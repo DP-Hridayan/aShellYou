@@ -91,7 +91,6 @@
     <string name="disclaimer_5_description">This app may require special permissions to function properly. It does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
     <string name="disclaimer_end">By using this app, you acknowledge and agree to these terms. If you do not accept these conditions, please refrain from using the app.</string>
     <string name="disconnected">Disconnected</string>
-    <string name="discord">Discord</string>
     <string name="des_discord">Junte-se à comunidade do discord</string>
     <string name="dismiss">Descartar</string>
     <string name="disabled">Desabilitado</string>
@@ -151,6 +150,7 @@
     <string name="only_last_command_output">Somente a última saída do comando</string>
     <string name="open">Abrir</string>
     <string name="open_adb">Abrir shell do ADB</string>
+    <string name="open_shizuku">Open Shizuku</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Conecte o dispositivo corretamente através do OTG e tente novamente</string>
     <string name="paste">Colar</string>
@@ -161,6 +161,7 @@
     <string name="pairing_port">Pairing port</string>
     <string name="pairing_code">Pairing code</string>
     <string name="permission_optional">Granting these permissions is optional!</string>
+    <string name="pick_script">Pick script</string>
     <string name="pin">PIN</string>
     <string name="pinned_message">\'%s\' foi fixado</string>
     <string name="port">Port</string>
@@ -193,6 +194,8 @@
     <string name="set_adb_interface_fail">setAdbInterface(dispositivo, intf) falhou</string>
     <string name="share_and_run">Executar comandos compartilhados automaticamente</string>
     <string name="des_share_and_run">Se ativado, então o compartilhamento de qualquer texto para aShell You executa automaticamente o shell com o texto compartilhado como entrada</string>
+    <string name="shell_script_executor">Shell script executor</string>
+    <string name="shell_script_executor_summary">Run bash/shell scripts directly in the app with live output</string>
     <string name="shell_output_not_saved_message">A saída do último comando não foi salva</string>
     <string name="shell_output_saved_message">A saída do último comando foi exportada para a pasta \'%s\'</string>
     <string name="shell_output_saved_whole_message">A saída do shell será exportada para a pasta \'%s\'</string>
@@ -276,9 +279,7 @@
     <string name="des_report_issue">Reporte qualquer problema que você tenha encontrado ao usar o app</string>
     <string name="feature_request">Solicitação de recurso</string>
     <string name="des_feature_request">Se você tiver alguma ideia ou sugestão em mente, nos conte</string>
-    <string name="github">Github</string>
     <string name="des_github">Visite o repositório github do aShell Você</string>
-    <string name="telegram">Telegram</string>
     <string name="telegram_channel">Canal do Telegram</string>
     <string name="des_telegram_channel">Entre no canal de telegrama para discussão</string>
     <string name="license">Licença</string>
