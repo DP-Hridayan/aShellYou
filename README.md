@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=aShell%20You&animation=fadeIn&desc=Just%20for%20your%20ADB%20needs&descAlign=50&descAlignY=55&fontAlignY=35" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=aShell%20You&animation=fadeIn&desc=ADB%20at%20your%20fingertips&descAlign=50&descAlignY=55&fontAlignY=35" />
 </p>
 
-> aShell You is a fully-featured Android shell utility with **Material Design 3 UI**, letting you run ADB, root, and shell commands on this device or others via OTG/wireless, packed in a beautiful and smart interface.
+> **aShell You** is a fully-featured Android shell utility app with **Material Design 3 UI**, letting you run **ADB**, **root** and **shell** commands on your  device or others via OTG/wireless, packed in a beautiful and smart interface
 
 </br>
 
@@ -32,10 +32,13 @@
 
 <p align="center"> 
     <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
-   <img alt="Language" src="https://img.shields.io/badge/Language-Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" />
-  <img alt="UI" src="https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white" />
-  <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-21-yellow?style=for-the-badge" />
-  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-34-blue?style=for-the-badge" />
+  <img alt="Language" src="https://img.shields.io/badge/Language-Java-007396?style=for-the-badge&logo=java&logoColor=white" />
+  <img alt="UI" src="https://img.shields.io/badge/UI-XML-E44D26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-26-yellow?style=for-the-badge" />
+  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-35-blue?style=for-the-badge" />
+  <a href="https://crowdin.com/project/ashellyou">
+    <img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white"/>
+</a>
 </p>
 
 </br>
@@ -54,7 +57,7 @@
 
 </br>
 
-<h2 align="center">Features</h2>
+## Features
 
 🎨 **Modern Material Design 3 UI**  
 > Experience a clean, smooth, and responsive user interface built with Material You, adapting to your device's wallpaper and theme settings.
@@ -101,52 +104,68 @@
 
 </br>
 
-<h2 align="center">Requirements</h2>
+## Requirements
 
 > * A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
 > * Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
-> * Basic knowledge of **ADB/Linux commands** is recommended
 
 <br/>
 
-<h2 align="center">Instructions</h2>
-
-⚙️ **How to Setup Shizuku**  
-> [Follow this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/Shizuku.md) to configure Shizuku on your device.
-
-<br/>
-
-🔌 **How to Use OTG**  
-> Learn to connect and control another Android device via OTG [using this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/OTG.md).
+>[!CAUTION]
+>
+> Using **aShell You** requires basic knowledge of `ADB/Linux commands`.
+>**aShell You** is **not responsible** for any harm caused to your device by improper use of ADB commands
 
 <br/>
 
-🛜 **How to Use Wireless ADB**  
-> Enable and use ADB wirelessly to run commands on other devices [with this guide](https://github.com/DP-Hridayan/aShellYou/blob/master/instructions/wirelessDebugging.md).
+>[!TIP]
+>
+> Please visit our **[Wiki](https://github.com/DP-Hridayan/aShellYou/wiki)** for instructions/setup-guides
 
-<br/>
+</br>
 
-<h2 align="center">Resources & Links</h2>
+## Resources & Links
 
-<p align="center">  <!-- Download buttons -->  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
+<p align="start">
+  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
     <img src="assets/github.png" width="130" alt="GitHub" />
   </a>
   &nbsp;&nbsp;
   <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell">
     <img src="assets/izzy.png" width="130" alt="F-Droid" />
   </a>
-  <br/><br/>  <!-- Telegram button -->  <a href="https://t.me/aShellYou">
+  <br/><br/>
+  <a href="https://t.me/aShellYou">
     <img src="assets/telegram.png" width="180" alt="Join Telegram" />
   </a>
-  <br/><br/>  <!-- Buy Me a Coffee -->  <a href="https://www.buymeacoffee.com/Hridayan">
+  <br/><br/>
+  <a href="https://www.buymeacoffee.com/Hridayan">
     <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="200" alt="Buy Me a Coffee" />
   </a></p>
 
   </br>
 
-<h2 align="center">Task list</h2>
+## Translations
 
-<table align="center" style="border-collapse: collapse; margin-top: 20px;">
+<p align="start">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/translations-dark.svg?ts=1745369797">
+    <source media="(prefers-color-scheme: light)" srcset="docs/translations-light.svg?ts=1745369797">
+    <img src="translations-light.svg" alt="Translation Progress" />
+  </picture>
+</p>
+
+>[!NOTE]
+>
+> Help us make this project accessible to more people by contributing translations on **[Crowdin](https://crowdin.com/project/ashellyou)**
+>
+> Thanks to our Crowdin [translators](docs/translators.md)
+
+</br>
+
+## Task list
+
+<table align="start" style="border-collapse: collapse; margin-top: 20px;">
   <tr>
     <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Task</th>
     <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Status</th>
@@ -160,8 +179,8 @@
     <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Redesigning Homepage</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
+    <td style="padding: 8px; border: 1px solid #ddd;">Migrate to kotlin</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: green;">⏺️ In progress</td>
   </tr>
   <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Proper localization</td>
@@ -179,7 +198,7 @@
 
 <br/>
 
-<h2 align="center">Star history</h2>
+## Star history
 
 <a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
  <picture>
@@ -189,31 +208,21 @@
  </picture>
 </a>
 
-</br>
+<br></br>
 
-<h2 align="center">License</h2>
+## License
 
 ```
-Designed and developed by Hridayan @2024
+Designed and developed by DP Hridayan @2024
 This project is licensed under the GNU General Public License v3.0
 ```
-[Full License copy here](LICENSE.md)
+>[!NOTE]
+>
+>Full license copy [here](LICENSE.md)
 
 </br>
 
-<h2 align="center">Summary</h2>
-
-| Permitted 🚀                         | Not Permitted 🚫                     |
-|--------------------------------------|--------------------------------------|
-| ✔️ Use for commercial purposes       | ❌ Sub-licensing                     |
-| ✔️ Modify and distribute             | ❌ Proprietary use without source    |
-| ✔️ Private use                       | ❌ Distribution without same license |
-| ✔️ Access to the source code         | ❌ Restricting other users' freedoms |
-| ✔️ Distribution with original terms  |                                      |
-
-</br>
-
-<h2 align="center">Contributors</h2>
+## Contributors
 <a href="https://github.com/dp-hridayan/ashellyou/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=dp-hridayan/ashellyou" />
 </a>
