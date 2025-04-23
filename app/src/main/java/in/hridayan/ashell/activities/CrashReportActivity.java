@@ -54,12 +54,16 @@ public class CrashReportActivity extends AppCompatActivity {
     binding.copyIcon.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
+          binding.copyIcon.setImageDrawable(Utils.getDrawable(R.drawable.ic_check, this));
+          binding.copyText.setText(R.string.copied);
           Utils.copyToClipboard(reportContent(stackTrace, message), this);
         });
 
     binding.shareButton.setOnClickListener(
         v -> {
           HapticUtils.weakVibrate(v);
+          binding.copyIcon.setImageDrawable(Utils.getDrawable(R.drawable.ic_check, this));
+          binding.copyText.setText(R.string.copied);
           Utils.shareOutput(this, this, "crash_report.txt", reportContent(stackTrace, message));
         });
   }
