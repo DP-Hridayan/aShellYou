@@ -131,7 +131,7 @@ jobs:
           URL="https://github.com/${{ github.repository }}/releases/tag/${TAG}"
 
           # Escape underscores for MarkdownV2
-          ESC_TAG=$(echo "$TAG" | sed -e 's/\./\\./g' -e 's/_/\\_/g' -e 's/\*/\\*/g' -e 's/\-/\\-/g)
+          ESC_TAG=$(echo "$TAG" | sed -e 's/\./\\./g' -e 's/_/\\_/g' -e 's/\*/\\*/g' -e 's/\-/\\-/g')
 
           TEXT="🚀 *New Release Published*\n• *${ESC_TAG}*\n🔗 [View Release](${URL})"
 
