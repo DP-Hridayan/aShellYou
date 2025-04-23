@@ -1,3 +1,9 @@
+# Kotlin migration is in progress...
+>[!WARNING]
+>
+>This branch is currently incomplete. Features of aShell You are being implemented gradually. 
+<br/>
+
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=aShell%20You&animation=fadeIn&desc=ADB%20at%20your%20fingertips&descAlign=50&descAlignY=55&fontAlignY=35" />
 </p>
