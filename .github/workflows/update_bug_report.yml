@@ -17,6 +17,7 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
           fetch-depth: 0
+          ref: master
 
       - name: Set up environment
         run: |
@@ -47,6 +48,7 @@ jobs:
 
       - name: Commit and Push
         run: |
+          git pull origin master --rebase
           git add .github/ISSUE_TEMPLATE/bug_report.yml
           git commit -m "Sync version dropdown: $VERSION" || echo "No changes to commit"
           git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} HEAD:master
