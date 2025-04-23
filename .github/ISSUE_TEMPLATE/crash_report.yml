@@ -9,9 +9,13 @@ body:
     id: crash-log
     attributes:
       label: Paste crash log
-      description: Paste the crash log here. You can copy the crash log from in-app crash reporter, or using any other crash logger apps
-      placeholder: Paste here
-    validations:
+      description: Paste your crash log **inside triple backticks (```log here```)** so it shows up properly formatted.
+      placeholder: |
+         ```
+       java.lang.RuntimeException: Example crash
+          at com.example.MyClass.myMethod(MyClass.java:123)
+         ```
+       validations:
       required: true
 
   - type: textarea
