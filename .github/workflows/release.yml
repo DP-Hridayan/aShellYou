@@ -96,7 +96,7 @@ jobs:
         run: |
           VERSION_TAG="${{ github.ref_name }}"       # Example: v6.0.1
           VERSION_TAG_XML=$(echo $VERSION_TAG | tr '.' '_' | tr -d 'v')  # Convert v6.0.1 → 6_0_1
-          CHANGELOG=$(xmllint --xpath "string(//string[@name='changelog_v${VERSION_TAG_XML}']/text())" changelogs/src/main/res/values/strings.xml || echo "No changelog found for $VERSION_TAG")
+          CHANGELOG=$(xmllint --xpath "string(//string[@name='changelog_v${VERSION_TAG_XML}']/text())" app/src/main/res/values/strings.xml || echo "No changelog found for $VERSION_TAG")
 
           if [[ -z "$CHANGELOG" ]]; then
             echo "#### Refer to full changelogs $VERSION_TAG"
