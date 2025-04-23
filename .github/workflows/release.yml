@@ -3,8 +3,9 @@ name: Build and Release APK
 on:
   push:
     tags:
-      - "v*"  # Runs when a tag like "v6.0.1" is pushed
-
+      - "v*" # Runs when a tag like "v6.0.1" is pushed
+  workflow_dispatch:
+  
 jobs:
   build:
     name: Build and Sign APK
@@ -130,7 +131,7 @@ jobs:
           URL="https://github.com/${{ github.repository }}/releases/tag/${TAG}"
 
           # Escape underscores for MarkdownV2
-          ESC_TAG=${TAG//_/\\_}
+          ESC_TAG=$(echo "$TAG" | sed -e 's/\./\\./g' -e 's/_/\\_/g' -e 's/\*/\\*/g' -e 's/\-/\\-/g)
 
           TEXT="🚀 *New Release Published*\n• *${ESC_TAG}*\n🔗 [View Release](${URL})"
 
