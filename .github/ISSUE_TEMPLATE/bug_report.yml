@@ -60,6 +60,17 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of aShell You are you running?
+      options:
+      - v0.9.0 (Default)
+      default: 0
+    validations:
+      required: true
+
   - type: textarea
     id: additional-context
     attributes:
