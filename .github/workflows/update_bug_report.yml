@@ -1,0 +1,67 @@
+name: Update bug report yml
+
+on:
+  push:
+    tags:
+      - 'v*'
+  delete:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Tag to sync (e.g., v1.0.0)'
+        required: false
+        default: ''
+
+jobs:
+  sync_dropdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up environment
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            RAW_REF="${{ github.ref }}"
+            VERSION="${RAW_REF##*/}"
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "EVENT=${{ github.event_name }}" >> $GITHUB_ENV
+
+      - name: Modify issue form
+        run: |
+          FORM_PATH=".github/ISSUE_TEMPLATE/bug_report.yml"
+
+          if [ "$EVENT" = "delete" ]; then
+            grep -vF "$VERSION" "$FORM_PATH" > temp && mv temp "$FORM_PATH"
+          else
+            TAGS=$(git tag --sort=-v:refname)
+            LATEST=$(echo "$TAGS" | head -n 1)
+            sed -i 's/ (Latest)//' "$FORM_PATH"
+            VERSION_LINE="        - $VERSION (Latest)"
+            if grep -qE "^[[:space:]]*-[[:space:]]*$VERSION(.*)" "$FORM_PATH"; then
+              sed -i "s/^[[:space:]]*-[[:space:]]*$VERSION.*/$VERSION_LINE/" "$FORM_PATH"
+            else
+              awk -v newline="$VERSION_LINE" '
+                BEGIN {inserted=0}
+                /options:/ {
+                  print
+                  print newline
+                  inserted=1
+                  next
+                }
+                {print}
+              ' "$FORM_PATH" > temp && mv temp "$FORM_PATH"
+            fi
+          fi
+
+      - name: Commit and Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .github/ISSUE_TEMPLATE/bug_report.yml
+          git commit -m "Sync version dropdown: $VERSION"
+          git push
