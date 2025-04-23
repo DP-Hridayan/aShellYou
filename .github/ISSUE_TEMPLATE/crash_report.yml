@@ -9,13 +9,13 @@ body:
     id: crash-log
     attributes:
       label: Paste crash log
-      description: Paste your crash log **inside triple backticks (```log here```)** so it shows up properly formatted.
+      description: Paste your crash log **inside triple backticks (```)** so it shows up properly formatted.
       placeholder: |
-         ```
-       java.lang.RuntimeException: Example crash
-          at com.example.MyClass.myMethod(MyClass.java:123)
-         ```
-       validations:
+        ```
+        java.lang.RuntimeException: Example crash
+            at com.example.MyClass.myMethod(MyClass.java:123)
+        ```
+    validations:
       required: true
 
   - type: textarea
