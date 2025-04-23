@@ -13,6 +13,16 @@ body:
     placeholder: Paste here
   validations:
     required: true
+
+- type: textarea
+  id: additional-context
+  attributes:
+    label: Additional context
+    description: You can write additional context here , e.g: what action did exactly caused the crash
+    placeholder: What caused the crash?
+       In which screen the app crashed?
+  validations:
+    required: false
     
 - type: markdown
   attributes:
