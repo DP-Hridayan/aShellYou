@@ -99,7 +99,7 @@
     <string name="disclaimer_end">By using this app, you acknowledge and agree to these terms. If you do not accept these conditions, please refrain from using the app.</string>
     <string name="disconnected">Disconnected</string>
     <string
-            name="discord"
+        name="discord"
         translatable="false">Discord</string>
     <string name="des_discord">Join the discord community</string>
     <string name="dismiss">Dismiss</string>
@@ -108,6 +108,7 @@
     <string name="download">Download</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="des_dynamic_colors">Automatically set the app theme according to the device wallpaper</string>
+    <string name="email">E-mail</string>
     <string name="enable_wifi">Enable wifi</string>
     <string name="enter_pairing_code">Enter Pairing Code</string>
     <string name="enter_six_digit_pairing_code">Enter six digit pairing code</string>
@@ -118,6 +119,7 @@
     <string name="file_not_found">File not found</string>
     <string name="generate_key_failed">Failed to generate and save key pair</string>
     <string name="github_download_warning">You\'re about to download updates directly from GitHub. Unlike updates from app stores, these are not reviewed for security. Do you want to continue?</string>
+    <string name="github_issue">Github issue</string>
     <string name="granted">Granted</string>
     <string name="grant_permission">Grant permission</string>
     <string name="grant_permission_manually">If the permission dialog doesn\'t appear, please grant root permission manually via the superuser application</string>
@@ -297,11 +299,11 @@
     <string name="feature_request">Feature request</string>
     <string name="des_feature_request">If you have any ideas or suggestions in your mind , let us know</string>
     <string
-            name="github"
+        name="github"
         translatable="false">Github</string>
     <string name="des_github">Visit the github repository of aShell You</string>
     <string
-            name="telegram"
+        name="telegram"
         translatable="false">Telegram</string>
     <string name="telegram_channel">Telegram channel</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
@@ -329,6 +331,7 @@
     // Changelogs
      //Created by DP-Hridayan
     Absolutely necessary to follow this string name format
+    <string name="changelog_v6_1_0">\n\n• Now command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\n\n• Option to open Shizuku app directly when Shizuku is installed but not running.\n\n• Fixed the broken in app crash reporter.</string>
     <string name="changelog_v6_0_3">\n\n• Fixed the issue which caused per app translations to be broken for aShell You</string>
     <string name="changelog_v6_0_2">\n\n• Adapted Github Actions for release builds.\n\n• What this means for you?\n• All subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\n\n• Maintenance update</string>

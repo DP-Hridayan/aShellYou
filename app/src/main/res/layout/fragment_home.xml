@@ -370,6 +370,7 @@
             android:background="?selectableItemBackground"
             android:clickable="true"
             android:transitionName="fragmentScriptExecutor"
+            android:visibility="gone"
             app:cardBackgroundColor="?attr/colorSurfaceContainer"
             app:cardCornerRadius="25dp"
             app:strokeColor="?attr/colorSurfaceContainerHighest">

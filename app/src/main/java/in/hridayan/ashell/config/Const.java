@@ -61,6 +61,8 @@ public interface Const {
   String ID_TELEGRAM = "id_telegram";
   String ID_DISCORD = "id_discord";
   String ID_LICENSE = "id_license";
+  String FEEDBACK_MODE_BUG = "bug";
+  String FEEDBACK_MODE_FEATURE = "feature";
 
   /* <--------Transition Names-------> */
   String SEND_TO_EXAMPLES = "sendButtonToExamples";
@@ -85,9 +87,16 @@ public interface Const {
   String URL_GITHUB_REPOSITORY = "https://github.com/DP-Hridayan/aShellYou";
   // url for github release
   String URL_GITHUB_RELEASE = "https://github.com/DP-Hridayan/aShellYou/releases/latest";
+  String URL_GITHUB_ISSUE_BUG =
+      "https://github.com/DP-Hridayan/aShellYou/issues/new?template=bug_report.yml";
+  String URL_GITHUB_ISSUE_FEATURE =
+      "https://github.com/DP-Hridayan/aShellYou/issues/new?template=feature_request.yml";
   String URL_SHIZUKU_SITE = "https://shizuku.rikka.app/";
   String URL_APP_LICENSE = "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md";
   String URL_TELEGRAM = "https://t.me/aShellYou";
+
+  String URL_EMAIL_BUG = "mailto:hridayanofficial@gmail.com?subject=Bug%20Report";
+  String URL_EMAIL_FEATURE = "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion";
 
   // used in OTG utils
   String TAG = "flashbot";

@@ -17,11 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import in.hridayan.ashell.AshellYou;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.ui.CategoryAbout;
 import in.hridayan.ashell.activities.MainActivity;
 import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.fragments.ChangelogFragment;
+import in.hridayan.ashell.ui.dialogs.ActionDialogs;
 import in.hridayan.ashell.utils.DeviceUtils;
 import in.hridayan.ashell.utils.HapticUtils;
 import in.hridayan.ashell.utils.Utils;
@@ -257,6 +259,13 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
+      if (item.getId().equals(Const.ID_VERSION)) {
+        button.setVisibility(View.VISIBLE);
+      } else {
+        button.setVisibility(View.GONE);
+        loadingDots.setVisibility(View.GONE);
+      }
+
       View.OnClickListener clickListener =
           v -> {
             HapticUtils.weakVibrate(v);
@@ -264,7 +273,15 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             String url = getAppIdUrlMap().get(item.getId());
             if (url != null) Utils.openUrl(itemView.getContext(), url);
 
-            if (Const.ID_CHANGELOGS.equals(item.getId())) {
+            if (item.getId().equals(Const.ID_VERSION)) {
+              button.setOnClickListener(
+                  view -> {
+                    HapticUtils.weakVibrate(view);
+                    if (mListener != null) mListener.onCheckUpdate(button, loadingDots);
+                  });
+            }
+
+            if (item.getId().equals(Const.ID_CHANGELOGS)) {
               ChangelogFragment fragment = new ChangelogFragment();
               ((MainActivity) activity)
                   .getSupportFragmentManager()
@@ -280,19 +297,21 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
           };
 
-      if (Const.ID_VERSION.equals(item.getId())) {
-        button.setVisibility(View.VISIBLE);
-        button.setOnClickListener(
+      if (item.getId().equals(Const.ID_REPORT)) {
+        categoryAppLayout.setOnClickListener(
             v -> {
               HapticUtils.weakVibrate(v);
-              if (mListener != null) mListener.onCheckUpdate(button, loadingDots);
+              ActionDialogs.chooseFeedbackModeDialog(activity, Const.FEEDBACK_MODE_BUG);
+            });
+      } else if (item.getId().equals(Const.ID_FEATURE)) {
+        categoryAppLayout.setOnClickListener(
+            v -> {
+              HapticUtils.weakVibrate(v);
+              ActionDialogs.chooseFeedbackModeDialog(activity, Const.FEEDBACK_MODE_FEATURE);
             });
       } else {
-        button.setVisibility(View.GONE);
-        loadingDots.setVisibility(View.GONE);
+        categoryAppLayout.setOnClickListener(clickListener);
       }
-
-      categoryAppLayout.setOnClickListener(clickListener);
 
       int paddingInPixels = (int) (Utils.convertDpToPixel(30, itemView.getContext()));
       ViewGroup.MarginLayoutParams layoutParams =
@@ -304,9 +323,6 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
   private static Map<String, String> getAppIdUrlMap() {
     Map<String, String> idUrlMap = new HashMap<>();
-    idUrlMap.put(Const.ID_REPORT, "mailto:hridayanofficial@gmail.com?subject=Bug%20Report");
-    idUrlMap.put(
-        Const.ID_FEATURE, "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion");
     idUrlMap.put(Const.ID_GITHUB, Const.URL_GITHUB_REPOSITORY);
     idUrlMap.put(Const.ID_TELEGRAM, Const.URL_TELEGRAM);
     idUrlMap.put(Const.ID_DISCORD, "https://discord.gg/cq5R2fF8sZ");

@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import in.hridayan.ashell.R;
 import in.hridayan.ashell.adapters.WifiAdbDevicesAdapter;
+import in.hridayan.ashell.config.Const;
 import in.hridayan.ashell.config.Preferences;
 import in.hridayan.ashell.items.WifiAdbDevicesItem;
 import in.hridayan.ashell.shell.wifiadb.WifiAdbConnectedDevices;
@@ -135,6 +136,36 @@ public class ActionDialogs {
     }
   }
 
+  public static void chooseFeedbackModeDialog(Context context, String issueType) {
+    View dialogView = DialogUtils.inflateDialogView(context, R.layout.dialog_choose_feedback_mode);
+
+    MaterialCardView emailCard = dialogView.findViewById(R.id.cardEmail);
+
+    MaterialCardView githubIssueCard = dialogView.findViewById(R.id.cardGithubIssue);
+
+    emailCard.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          if (issueType.equals(Const.FEEDBACK_MODE_BUG)) {
+            Utils.openUrl(context, Const.URL_EMAIL_BUG);
+          } else if (issueType.equals(Const.FEEDBACK_MODE_FEATURE)) {
+            Utils.openUrl(context, Const.URL_EMAIL_FEATURE);
+          }
+        });
+
+    githubIssueCard.setOnClickListener(
+        v -> {
+          HapticUtils.weakVibrate(v);
+          if (issueType.equals(Const.FEEDBACK_MODE_BUG)) {
+            Utils.openUrl(context, Const.URL_GITHUB_ISSUE_BUG);
+          } else if (issueType.equals(Const.FEEDBACK_MODE_FEATURE)) {
+            Utils.openUrl(context, Const.URL_GITHUB_ISSUE_FEATURE);
+          }
+        });
+
+    new MaterialAlertDialogBuilder(context).setView(dialogView).setCancelable(true).show();
+  }
+
   public static void wifiAdbDevicesDialog(
       Context context,
       AppCompatActivity activity,
@@ -183,7 +214,7 @@ public class ActionDialogs {
           @Override
           public void onFailure(String errorMessage) {
             updateInfoCard(deviceList, cardNoDevicesWarning, cardDevicesHint);
-                    
+
             recyclerView.post(
                 () ->
                     DialogAnimation.showDialogWithTransition(
