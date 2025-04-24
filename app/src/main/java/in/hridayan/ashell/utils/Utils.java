@@ -553,13 +553,8 @@ public class Utils {
   }
 
   public static boolean isAppInstalled(Context context, String packageName) {
-    PackageManager pm = context.getPackageManager();
-    try {
-      pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-      return true;
-    } catch (PackageManager.NameNotFoundException e) {
-      return false;
-    }
+   Intent pm = context.getPackageManager().getLaunchIntentForPackage(packageName);
+   return pm != null;
   }
 
   public static void launchApp(Activity activity, String packageName) {
