@@ -10,16 +10,16 @@
 <text x="460" y="55" text-anchor="start">0%</text>
 <text x="140" y="85" text-anchor="end"><![CDATA[French]]></text>
 <rect x="150" y="71" width="300" height="14" fill="#2C2F33" rx="8" ry="8" />
-<rect x="150" y="71" width="180" height="14" fill="#c4d2a2" rx="8" ry="8" />
-<text x="460" y="85" text-anchor="start">60%</text>
+<rect x="150" y="71" width="177" height="14" fill="#c5d1a2" rx="8" ry="8" />
+<text x="460" y="85" text-anchor="start">59%</text>
 <text x="140" y="115" text-anchor="end"><![CDATA[Hindi]]></text>
 <rect x="150" y="101" width="300" height="14" fill="#2C2F33" rx="8" ry="8" />
-<rect x="150" y="101" width="300" height="14" fill="#9ee69d" rx="8" ry="8" />
-<text x="460" y="115" text-anchor="start">100%</text>
+<rect x="150" y="101" width="294" height="14" fill="#9fe59d" rx="8" ry="8" />
+<text x="460" y="115" text-anchor="start">98%</text>
 <text x="140" y="145" text-anchor="end"><![CDATA[Japanese]]></text>
 <rect x="150" y="131" width="300" height="14" fill="#2C2F33" rx="8" ry="8" />
-<rect x="150" y="131" width="201" height="14" fill="#bed5a1" rx="8" ry="8" />
-<text x="460" y="145" text-anchor="start">67%</text>
+<rect x="150" y="131" width="198" height="14" fill="#bed5a1" rx="8" ry="8" />
+<text x="460" y="145" text-anchor="start">66%</text>
 <text x="140" y="175" text-anchor="end"><![CDATA[Portuguese]]></text>
 <rect x="150" y="161" width="300" height="14" fill="#2C2F33" rx="8" ry="8" />
 <rect x="150" y="161" width="170" height="14" fill="#c7d0a3" rx="8" ry="8" />
@@ -30,8 +30,8 @@
 <text x="460" y="205" text-anchor="start">99%</text>
 <text x="140" y="235" text-anchor="end"><![CDATA[Turkish]]></text>
 <rect x="150" y="221" width="300" height="14" fill="#2C2F33" rx="8" ry="8" />
-<rect x="150" y="221" width="291" height="14" fill="#a0e49d" rx="8" ry="8" />
-<text x="460" y="235" text-anchor="start">97%</text>
+<rect x="150" y="221" width="285" height="14" fill="#a2e39d" rx="8" ry="8" />
+<text x="460" y="235" text-anchor="start">95%</text>
 <text x="140" y="265" text-anchor="end"><![CDATA[Chinese Simplified]]></text>
 <rect x="150" y="251" width="300" height="14" fill="#2C2F33" rx="8" ry="8" />
 <rect x="150" y="251" width="279" height="14" fill="#a4e29d" rx="8" ry="8" />
