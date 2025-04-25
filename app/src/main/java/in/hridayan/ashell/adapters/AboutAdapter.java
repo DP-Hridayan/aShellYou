@@ -259,27 +259,12 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       titleTextView.setText(item.getTitle());
       descriptionTextView.setText(item.getDescription());
 
-      if (item.getId().equals(Const.ID_VERSION)) {
-        button.setVisibility(View.VISIBLE);
-      } else {
-        button.setVisibility(View.GONE);
-        loadingDots.setVisibility(View.GONE);
-      }
-
       View.OnClickListener clickListener =
           v -> {
             HapticUtils.weakVibrate(v);
 
             String url = getAppIdUrlMap().get(item.getId());
             if (url != null) Utils.openUrl(itemView.getContext(), url);
-
-            if (item.getId().equals(Const.ID_VERSION)) {
-              button.setOnClickListener(
-                  view -> {
-                    HapticUtils.weakVibrate(view);
-                    if (mListener != null) mListener.onCheckUpdate(button, loadingDots);
-                  });
-            }
 
             if (item.getId().equals(Const.ID_CHANGELOGS)) {
               ChangelogFragment fragment = new ChangelogFragment();
@@ -295,23 +280,29 @@ public class AboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                   .addToBackStack(fragment.getClass().getSimpleName())
                   .commit();
             }
+
+            if (item.getId().equals(Const.ID_REPORT)) {
+              ActionDialogs.chooseFeedbackModeDialog(activity, Const.FEEDBACK_MODE_BUG);
+            }
+
+            if (item.getId().equals(Const.ID_FEATURE)) {
+              ActionDialogs.chooseFeedbackModeDialog(activity, Const.FEEDBACK_MODE_FEATURE);
+            }
           };
 
-      if (item.getId().equals(Const.ID_REPORT)) {
-        categoryAppLayout.setOnClickListener(
+      if (item.getId().equals(Const.ID_VERSION)) {
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
             v -> {
               HapticUtils.weakVibrate(v);
-              ActionDialogs.chooseFeedbackModeDialog(activity, Const.FEEDBACK_MODE_BUG);
-            });
-      } else if (item.getId().equals(Const.ID_FEATURE)) {
-        categoryAppLayout.setOnClickListener(
-            v -> {
-              HapticUtils.weakVibrate(v);
-              ActionDialogs.chooseFeedbackModeDialog(activity, Const.FEEDBACK_MODE_FEATURE);
+              if (mListener != null) mListener.onCheckUpdate(button, loadingDots);
             });
       } else {
-        categoryAppLayout.setOnClickListener(clickListener);
+        button.setVisibility(View.GONE);
+        loadingDots.setVisibility(View.GONE);
       }
+
+      categoryAppLayout.setOnClickListener(clickListener);
 
       int paddingInPixels = (int) (Utils.convertDpToPixel(30, itemView.getContext()));
       ViewGroup.MarginLayoutParams layoutParams =
