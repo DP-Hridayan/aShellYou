@@ -202,9 +202,9 @@
 
 <a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=DP-Hridayan/aShellYou&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=DP-Hridayan/aShellYou&type=Timeline&theme=dark" />
    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=DP-Hridayan/aShellYou&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=DP-Hridayan/aShellYou&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=DP-Hridayan/aShellYou&type=Timeline" />
  </picture>
 </a>
 
