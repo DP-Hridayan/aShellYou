@@ -26,8 +26,8 @@
 <text x="460" y="175" text-anchor="start">57%</text>
 <text x="140" y="205" text-anchor="end"><![CDATA[Russian]]></text>
 <rect x="150" y="191" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="191" width="297" height="14" fill="#106a0f" rx="8" ry="8" />
-<text x="460" y="205" text-anchor="start">99%</text>
+<rect x="150" y="191" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="205" text-anchor="start">100%</text>
 <text x="140" y="235" text-anchor="end"><![CDATA[Turkish]]></text>
 <rect x="150" y="221" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
 <rect x="150" y="221" width="285" height="14" fill="#17670f" rx="8" ry="8" />
