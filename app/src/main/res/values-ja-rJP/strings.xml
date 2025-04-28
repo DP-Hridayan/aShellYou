@@ -69,6 +69,7 @@
     <string name="connect_this_device">Connect this device</string>
     <string name="connect_other_device">Connect other device</string>
     <string name="copy" tools:override="true">コピー</string>
+    <string name="copied">コピーしました</string>
     <string name="copied_to_clipboard">コピー済み</string>
     <string name="crash_report">クラッシュレポート</string>
     <string name="current">現在</string>
@@ -98,6 +99,7 @@
     <string name="download">ダウンロード</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="des_dynamic_colors">Automatically set the app theme according to the device wallpaper</string>
+    <string name="email">電子メール</string>
     <string name="enable_wifi">Enable wifi</string>
     <string name="enter_pairing_code">Enter Pairing Code</string>
     <string name="enter_six_digit_pairing_code">Enter six digit pairing code</string>
@@ -108,6 +110,7 @@
     <string name="file_not_found">ファイルが見つからない</string>
     <string name="generate_key_failed">鍵ペアの生成と保存に失敗しました</string>
     <string name="github_download_warning">You\'re about to download updates directly from GitHub. Unlike updates from app stores, these are not reviewed for security. Do you want to continue?</string>
+    <string name="github_issue">Github issue</string>
     <string name="granted">Granted</string>
     <string name="grant_permission">Grant permission</string>
     <string name="grant_permission_manually">認証ウィンドウがポップアップしない場合は、SU管理者プログラムを使って手動でRoot権限を付与してください</string>
@@ -303,6 +306,7 @@
     <string name="disclaimer_2_title">Root is not Mandatory, but Caution Needed</string>
     <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app. Proceed with caution and ensure you understand the commands you execute.</string>
     <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
+    <string name="changelog_v6_1_0">\n\n• Now command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\n\n• Option to open Shizuku app directly when Shizuku is installed but not running.\n\n• Fixed the broken in app crash reporter.</string>
     <string name="changelog_v6_0_3">\n\n• Fixed the issue which caused per app translations to be broken for aShell You</string>
     <string name="changelog_v6_0_2">\n\n• Adapted Github Actions for release builds.\n\n• What this means for you?\n• All subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\n\n• Maintenance update</string>

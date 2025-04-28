@@ -69,6 +69,7 @@
     <string name="connect_this_device">Bu cihazı bağla</string>
     <string name="connect_other_device">Başka bir cihaz bağla</string>
     <string name="copy" tools:override="true">Kopyala</string>
+    <string name="copied">Copied</string>
     <string name="copied_to_clipboard">Panoya kopyalandı</string>
     <string name="crash_report">Çökme raporu</string>
     <string name="current">Mevcut</string>
@@ -98,6 +99,7 @@
     <string name="download">İndir</string>
     <string name="dynamic_colors">Dinamik renkler</string>
     <string name="des_dynamic_colors">Uygulama temasını cihaz duvar kağıdına göre otomatik olarak ayarlar</string>
+    <string name="email">E-mail</string>
     <string name="enable_wifi">Wi-Fi’yi etkinleştir</string>
     <string name="enter_pairing_code">Eşleştirme Kodunu Gir</string>
     <string name="enter_six_digit_pairing_code">Altı haneli eşleştirme kodunu girin</string>
@@ -108,6 +110,7 @@
     <string name="file_not_found">Dosya bulunamadı</string>
     <string name="generate_key_failed">Anahtar çifti oluşturma ve kaydetme başarısız</string>
     <string name="github_download_warning">You\'re about to download updates directly from GitHub. Unlike updates from app stores, these are not reviewed for security. Do you want to continue?</string>
+    <string name="github_issue">Github issue</string>
     <string name="granted">Verildi</string>
     <string name="grant_permission">İzin ver</string>
     <string name="grant_permission_manually">İzin iletişim kutusu görünmezse, lütfen süper kullanıcı uygulamasından root iznini manuel olarak verin</string>
@@ -303,6 +306,7 @@
     <string name="disclaimer_2_title">Root Zorunlu Değil, Ancak Dikkat Gerekli</string>
     <string name="disclaimer_3_description">Bu uygulamanın geliştiricileri, uygulamanın kullanımından kaynaklanan herhangi bir zarar, veri kaybı veya istenmeyen sonuçlardan sorumlu değildir. Dikkatli ilerleyin ve çalıştırdığınız komutları anladığınızdan emin olun.</string>
     <string name="wireless_debugging_guide_2">aShell You’dan gelen bildirime altı haneli Eşleştirme Kodunu girin.</string>
+    <string name="changelog_v6_1_0">\n\n• Now command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\n\n• Option to open Shizuku app directly when Shizuku is installed but not running.\n\n• Fixed the broken in app crash reporter.</string>
     <string name="changelog_v6_0_3">\n\n• Fixed the issue which caused per app translations to be broken for aShell You</string>
     <string name="changelog_v6_0_2">\n\n• Adapted Github Actions for release builds.\n\n• What this means for you?\n• All subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\n\n• Bakım güncellemesi</string>
