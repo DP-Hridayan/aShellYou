@@ -69,6 +69,7 @@
     <string name="connect_this_device">连接本机</string>
     <string name="connect_other_device">连接其它设备</string>
     <string name="copy" tools:override="true">复制</string>
+    <string name="copied">已复制</string>
     <string name="copied_to_clipboard">已复制</string>
     <string name="crash_report">崩溃报告</string>
     <string name="current">当前</string>
@@ -98,6 +99,7 @@
     <string name="download">下载</string>
     <string name="dynamic_colors">莫奈取色</string>
     <string name="des_dynamic_colors">根据壁纸自动取主题色</string>
+    <string name="email">电子邮箱</string>
     <string name="enable_wifi">启用WiFi</string>
     <string name="enter_pairing_code">输入配对码</string>
     <string name="enter_six_digit_pairing_code">输入6位数字</string>
@@ -108,6 +110,7 @@
     <string name="file_not_found">文件未找到</string>
     <string name="generate_key_failed">生成并保存密钥对失败</string>
     <string name="github_download_warning">您即将直接从 GitHub 下载更新。与应用商店的更新不同，这些更新未经过安全审核。您确定要继续吗？</string>
+    <string name="github_issue">Github 问题</string>
     <string name="granted">已授权</string>
     <string name="grant_permission">获取权限</string>
     <string name="grant_permission_manually">若授权窗口未弹出，请通过你的SU管理程序手动授予root权限</string>
@@ -303,6 +306,7 @@
     <string name="disclaimer_2_title">记住：小心驶得万年船</string>
     <string name="disclaimer_3_description">开发者不为用户使用本软件时过失行为造成的损失担责。小心使用本软件仅在你知道这个命令的作用时使用它</string>
     <string name="wireless_debugging_guide_2">在aShell You发送的通知中输入配对码</string>
+    <string name="changelog_v6_1_0">\n\n• 现在命令搜索可以搜索包含您输入的单词的命令，而之前的版本则只搜索以输入单词开头的命令。\n\n• 在Shizuku安装但未运行时直接打开 Shizuku应用的选项。\n\n• 修复了应用程序崩溃报告中的故障。</string>
     <string name="changelog_v6_0_3">\n\n• Fixed the issue which caused per app translations to be broken for aShell You</string>
     <string name="changelog_v6_0_2">\n\n• Adapted Github Actions for release builds.\n\n• What this means for you?\n• All subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\n\n• Maintenance update</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_tagline">ADB у вас под рукой</string>
-    <string name="abort_command">Сначала отмените команду</string>
+    <string name="abort_command">Сначала остановите команду</string>
     <string name="access_denied">Доступ запрещен</string>
     <string name="accept_device_prompt">Вам может потребоваться принять приглашение на другом устройстве, если вы пытаетесь подключиться к нему впервые с этого устройства.</string>
     <string name="adb_device_connected">ADB устройство подключено.</string>
@@ -19,12 +19,12 @@
     <string name="already_latest_version">Вы используете последнюю версию</string>
     <string name="amoled_theme">Тёмная тема</string>
     <string name="des_amoled_theme">Чёрная тема для устройств с OLED-дисплеем</string>
-    <string name="app_crashed">Приложение аварийно завершено</string>
+    <string name="app_crashed">В приложении произошёл сбой</string>
     <string name="app_summary">aShell You создан для решения всех ваших задач, связанных с ADB</string>
     <string name="app_updated_message">Приложение обновлено, хотите ознакомиться с информацией об изменениях?</string>
     <string name="app_working_message">aShell You все еще работает. Пожалуйста, дождитесь ее завершения или остановите вручную (нажав кнопку \"Стоп\"), чтобы запустить новую команду</string>
     <string name="are_you_sure">Вы уверены, что хотите продолжить?</string>
-    <string name="basic_shell">Обычная оболочка</string>
+    <string name="basic_shell">Базовая оболочка</string>
     <string name="beta_warning">В настоящее время эта функция находится в экспериментальной стадии. Если у вас возникнут какие-либо проблемы, пожалуйста, сообщите нам об этом.</string>
     <string name="behavior">Поведение</string>
     <string name="bookmarks">Закладки</string>
@@ -69,6 +69,7 @@
     <string name="connect_this_device">Подключить это устройство</string>
     <string name="connect_other_device">Подключить другое устройство</string>
     <string name="copy" tools:override="true">Копировать</string>
+    <string name="copied">Скопировано</string>
     <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="crash_report">Отчет о сбое</string>
     <string name="current">Текущий</string>
@@ -98,6 +99,7 @@
     <string name="download">Скачать</string>
     <string name="dynamic_colors">Динамические цвета</string>
     <string name="des_dynamic_colors">Автоматическая установка темы приложения в соответствии с обоями устройства</string>
+    <string name="email">Эл. почта</string>
     <string name="enable_wifi">Включить Wi-Fi</string>
     <string name="enter_pairing_code">Введите код сопряжения</string>
     <string name="enter_six_digit_pairing_code">Введите шестизначный код сопряжения</string>
@@ -108,6 +110,7 @@
     <string name="file_not_found">Файл не найден</string>
     <string name="generate_key_failed">Не удалось сгенерировать и сохранить пару ключей</string>
     <string name="github_download_warning">Вы собираетесь загрузить обновления напрямую с GitHub. В отличие от обновлений из магазинов приложений, они не проходят проверку на безопасность. Вы хотите продолжить?</string>
+    <string name="github_issue">Проблема с Github</string>
     <string name="granted">Предоставлено</string>
     <string name="grant_permission">Разрешения</string>
     <string name="grant_permission_manually">Если диалог разрешения не появляется, предоставьте права root вручную через приложение суперпользователя</string>
@@ -194,8 +197,8 @@
     <string name="set_adb_interface_fail">setAdbInterface(device, intf) fail</string>
     <string name="share_and_run">Автоматическое выполнение общих команд</string>
     <string name="des_share_and_run">Если эта опция включена, то при передаче любого текста в оболочку вы автоматически запускаете оболочку с общим текстом в качестве входных данных</string>
-    <string name="shell_script_executor">Shell script executor</string>
-    <string name="shell_script_executor_summary">Run bash/shell scripts directly in the app with live output</string>
+    <string name="shell_script_executor">Выполнение shell скриптов</string>
+    <string name="shell_script_executor_summary">Выполняйте скрипты bash/shell прямо в приложении с выводом информации в реальном времени</string>
     <string name="shell_output_not_saved_message">Вывод последней команды не сохраняется</string>
     <string name="shell_output_saved_message">Вывод последней команды экспортируется в папку \'%s\'</string>
     <string name="shell_output_saved_whole_message">Вывод оболочки экспортируется в папку \'%s\'</string>
@@ -303,6 +306,7 @@
     <string name="disclaimer_2_title">Root не является обязательным, но необходима осторожность</string>
     <string name="disclaimer_3_description">Разработчик (разработчики) этого приложения не несёт ответственности за любой ущерб, потерю данных или непредвиденные последствия, возникшие в результате использования этого приложения. Будьте осторожны и убедитесь, что вы понимаете выполняемые вами команды.</string>
     <string name="wireless_debugging_guide_2">Введите шестизначный код сопряжения в уведомление, отправленное aShell You.</string>
+    <string name="changelog_v6_1_0">\n\n• Теперь поиск по командам позволяет искать команды, содержащие введенное слово, по сравнению с предыдущими версиями, где поиск выполняется только командами, начинающимися с введенного слова.\n\n• Возможность открыть приложение Shizuku сразу после установки, но не запущена.\n\n• Исправлена ошибка в отчете о сбоях приложения.</string>
     <string name="changelog_v6_0_3">\n\n• Исправлена проблема, из-за которой переводы для приложений были нерабочими для aShell You</string>
     <string name="changelog_v6_0_2">\n\n• Адаптированы действия на Github для релизных сборок\n\n• Что это значит для вас?\n• Все последующие сборки, включая эту, будут более безопасными!</string>
     <string name="changelog_v6_0_1">\n\n• Техническое обновление</string>

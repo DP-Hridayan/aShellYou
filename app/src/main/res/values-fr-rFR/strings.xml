@@ -69,6 +69,7 @@
     <string name="connect_this_device">Connecter cet appareil</string>
     <string name="connect_other_device">Connecter un autre appareil</string>
     <string name="copy" tools:override="true">Copier</string>
+    <string name="copied">Copié</string>
     <string name="copied_to_clipboard">Copié dans le presse-papiers</string>
     <string name="crash_report">Rapport de plantage</string>
     <string name="current">Actuel</string>
@@ -98,6 +99,7 @@
     <string name="download">Télécharger</string>
     <string name="dynamic_colors">Couleurs dynamiques</string>
     <string name="des_dynamic_colors">Définir automatiquement le thème de l\'application en fonction du fond d\'écran de l\'appareil</string>
+    <string name="email">Courriel</string>
     <string name="enable_wifi">Activer le wifi</string>
     <string name="enter_pairing_code">Entrer le code de couplage</string>
     <string name="enter_six_digit_pairing_code">Entrer le code de couplage à six chiffres</string>
@@ -108,6 +110,7 @@
     <string name="file_not_found">Fichier introuvable</string>
     <string name="generate_key_failed">Échec de la génération et de la sauvegarde de la paire de clés</string>
     <string name="github_download_warning">Vous êtes sur le point de télécharger des mises à jour directement depuis GitHub. Contrairement aux mises à jour des magasins d\'applications, celles-ci ne sont pas vérifiées pour la sécurité. Voulez-vous continuer ?</string>
+    <string name="github_issue">Problème Github</string>
     <string name="granted">Accordé</string>
     <string name="grant_permission">Accorder l\'autorisation</string>
     <string name="grant_permission_manually">Si la boîte de dialogue d\'autorisation ne s\'affiche pas, veuillez accorder l\'autorisation root manuellement via l\'application superutilisateur</string>
@@ -303,6 +306,7 @@
     <string name="disclaimer_2_title">Le root n\'est pas obligatoire, mais la prudence est nécessaire</string>
     <string name="disclaimer_3_description">Le(s) développeur(s) de cette application ne sont pas responsables des dommages, pertes de données ou conséquences imprévues résultant de l\'utilisation de cette application. Procédez avec précaution et assurez-vous de comprendre les commandes que vous exécutez.</string>
     <string name="wireless_debugging_guide_2">Entrez le code de couplage à six chiffres dans la notification envoyée par aShell You.</string>
+    <string name="changelog_v6_1_0">\n\n• Now command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\n\n• Option to open Shizuku app directly when Shizuku is installed but not running.\n\n• Fixed the broken in app crash reporter.</string>
     <string name="changelog_v6_0_3">\n\n• Correction du problème qui faisait que les traductions par application étaient cassées pour aShell You</string>
     <string name="changelog_v6_0_2">\n\n• Adapted Github Actions for release builds.\n\n• What this means for you?\n• All subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\n\n• Mise à jour de maintenance</string>

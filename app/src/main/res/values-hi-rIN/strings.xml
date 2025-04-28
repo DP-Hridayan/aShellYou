@@ -69,6 +69,7 @@
     <string name="connect_this_device">इस डिवाइस को कनेक्ट करें</string>
     <string name="connect_other_device">अन्य डिवाइस कनेक्ट करें</string>
     <string name="copy" tools:override="true">कॉपी</string>
+    <string name="copied">Copied</string>
     <string name="copied_to_clipboard">क्लिपबोर्ड में कॉपी किया गया</string>
     <string name="crash_report">क्रेश रिपोर्ट</string>
     <string name="current">वर्तमान</string>
@@ -98,6 +99,7 @@
     <string name="download">डाउनलोड करें</string>
     <string name="dynamic_colors">डायनैमिक रंग</string>
     <string name="des_dynamic_colors">डिवाइस वॉलपेपर के अनुसार ऐप थीम को स्वचालित रूप से सेट करें</string>
+    <string name="email">E-mail</string>
     <string name="enable_wifi">वाई-फाई चालू करें</string>
     <string name="enter_pairing_code">पेयरिंग कोड दर्ज करें</string>
     <string name="enter_six_digit_pairing_code">छह अंकों का पेयरिंग कोड दर्ज करें</string>
@@ -108,6 +110,7 @@
     <string name="file_not_found">फ़ाइल नहीं मिली</string>
     <string name="generate_key_failed">कुंजी का निर्माण और सहेजने में विफल</string>
     <string name="github_download_warning">आप GitHub से सीधे अपडेट डाउनलोड करने वाले हैं। ऐप स्टोर से अपडेट के विपरीत, इनकी सुरक्षा के लिए समीक्षा नहीं की जाती है। क्या आप जारी रखना चाहते हैं?</string>
+    <string name="github_issue">Github issue</string>
     <string name="granted">स्वीकृत</string>
     <string name="grant_permission">अनुमति दें</string>
     <string name="grant_permission_manually">यदि अनुमति संवाद प्रकट नहीं होता है, तो कृपया सुपरयूज़र एप्लिकेशन के माध्यम से मैन्युअल रूप से रूट अनुमति प्रदान करें</string>
@@ -303,6 +306,7 @@
     <string name="disclaimer_2_title">Root अनिवार्य नहीं है, लेकिन सावधानी जरूरी है</string>
     <string name="disclaimer_3_description">इस ऐप के डेवलपर इस ऐप के इस्तेमाल से होने वाली किसी भी क्षति, डेटा हानि या अनपेक्षित परिणामों के लिए ज़िम्मेदार नहीं हैं। सावधानी से आगे बढ़ें और सुनिश्चित करें कि आप अपने द्वारा निष्पादित किए जाने वाले आदेशों को समझते हैं।</string>
     <string name="wireless_debugging_guide_2">aShell द्वारा भेजी गई सूचना में छह अंकों का युग्मन कोड दर्ज करें।</string>
+    <string name="changelog_v6_1_0">\n\n• Now command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\n\n• Option to open Shizuku app directly when Shizuku is installed but not running.\n\n• Fixed the broken in app crash reporter.</string>
     <string name="changelog_v6_0_3">\n\n• aShell You के लिए प्रति ऐप अनुवाद में व्यवधान उत्पन्न करने वाली समस्या को ठीक किया गया</string>
     <string name="changelog_v6_0_2">\n\n• रिलीज़ बिल्ड के लिए अनुकूलित Github क्रियाएँ।\n\n• आपके लिए इसका क्या मतलब है?\n• इसके बाद के सभी बिल्ड अधिक सुरक्षित होंगे!</string>
     <string name="changelog_v6_0_1">\n\n• रखरखाव अद्यतन</string>

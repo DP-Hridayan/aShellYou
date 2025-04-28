@@ -69,6 +69,7 @@
     <string name="connect_this_device">اتصال بهذا الجهاز</string>
     <string name="connect_other_device">اتصال بجهاز آخر</string>
     <string name="copy" tools:override="true">نسخ</string>
+    <string name="copied">منسوخ</string>
     <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
     <string name="crash_report">تقرير العطل</string>
     <string name="current">الحالي</string>
@@ -98,6 +99,7 @@
     <string name="download">تنزيل</string>
     <string name="dynamic_colors">الألوان الديناميكية</string>
     <string name="des_dynamic_colors">اضبط ثيم التطبيق تلقائيًا وفقًا لخلفية الجهاز</string>
+    <string name="email">البريد الإلكتروني</string>
     <string name="enable_wifi">تمكين Wi-Fi</string>
     <string name="enter_pairing_code">أدخل رمز الاقتران</string>
     <string name="enter_six_digit_pairing_code">أدخل رمز الاقتران المكون من ستة أرقام</string>
@@ -108,6 +110,7 @@
     <string name="file_not_found">الملف غير موجود</string>
     <string name="generate_key_failed">فشل في توليد وحفظ الزوج المفاتيح</string>
     <string name="github_download_warning">أنت على وشك تنزيل التحديثات مباشرة من GitHub. على عكس التحديثات من متاجر التطبيقات، لم يتم مراجعتها من أجل الأمان. هل تريد المتابعة؟</string>
+    <string name="github_issue">قضية Github</string>
     <string name="granted">ممنوح</string>
     <string name="grant_permission">منح الإذن</string>
     <string name="grant_permission_manually">إذا لم تظهر نافذة إذن، يرجى منح إذن الجذر يدويًا عبر تطبيق المشرف الفائق</string>
@@ -161,7 +164,7 @@
     <string name="pairing_port">منفذ الاقتران</string>
     <string name="pairing_code">رمز الاقتران</string>
     <string name="permission_optional">منح هذه الأذونات اختياري!</string>
-    <string name="pick_script">Pick script</string>
+    <string name="pick_script">اختر البرنامج النصي</string>
     <string name="pin">تثبيت</string>
     <string name="pinned_message">\'%s\' تم تثبيته</string>
     <string name="port">المنفذ</string>
@@ -303,6 +306,7 @@
     <string name="disclaimer_2_title">الجذر ليس إجباريًا، ولكن الحذر مطلوب</string>
     <string name="disclaimer_3_description">المطورون (المطور) لهذا التطبيق غير مسؤولين عن أي أضرار، فقدان بيانات، أو عواقب غير مقصودة ناتجة عن استخدام هذا التطبيق. تابع بحذر وتأكد من فهمك للأوامر التي تنفذها.</string>
     <string name="wireless_debugging_guide_2">أدخل رمز الاقتران المكون من ستة أرقام في الإشعار المرسل من aShell You.</string>
+    <string name="changelog_v6_1_0">\n\n• يمكن للبحث عن الأوامر الآن البحث عن الأوامر التي تحتوي على الكلمة التي كتبتها بالمقارنة مع الإصدارات السابقة حيث تبحث فقط عن الأوامر التي تبدأ بكلمة مكتوبة.\n\n• خيار لفتح تطبيق Shizuku مباشرة عند تثبيت Shizuku ولكن ليس تشغيله.\n\n• أصلحت المكسورة في مراسل تعطل التطبيق.</string>
     <string name="changelog_v6_0_3">\n\n• Fixed the issue which caused per app translations to be broken for aShell You</string>
     <string name="changelog_v6_0_2">\n\n• Adapted Github Actions for release builds.\n\n• What this means for you?\n• All subsequent builds including this will be more secure!</string>
     <string name="changelog_v6_0_1">\n\n• Maintenance update</string>

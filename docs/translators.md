@@ -11,7 +11,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>Hridayan (DP-Hridayan)</b></sub></a>
         <br />
-        <sub><b>32534 words</b></sub>
+        <sub><b>32537 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/R9TRH"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16623243/medium/87137f31b65ee3f2e1a137eafcf9729d.jpeg" />
@@ -25,7 +25,14 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>АЛЕКСЕЙ ИВАНКОВСКИЙ (alex211952i)</b></sub></a>
         <br />
-        <sub><b>33 words</b></sub>
+        <sub><b>59 words</b></sub>
+      </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/Camellan"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/13410766/medium/b4019516b3323e817b7e77712961de69_default.png" />
+          <br />
+          <sub><b>Camellan</b></sub></a>
+        <br />
+        <sub><b>3 words</b></sub>
       </td>
     </tr>
   </tbody>
