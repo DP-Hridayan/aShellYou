@@ -92,6 +92,7 @@ public class PairingFragment extends Fragment {
   private void openDeveloperOptions() {
     Intent intent = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.putExtra(":settings:fragment_args_key", "toggle_adb_wireless");
     try {
       if (!PermissionUtils.hasNotificationPermission(context))
         ErrorDialogs.grantNotificationPermDialog(context);
