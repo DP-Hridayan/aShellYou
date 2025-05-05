@@ -22,19 +22,6 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Decode Keystore
-        env:
-          DEBUG_KEYSTORE_BASE64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
-        run: |
-          echo "$DEBUG_KEYSTORE_BASE64" | base64 --decode > debugkeystore.jks
-
-      - name: Set Environment Variables
-        run: |
-          echo "DEBUG_KEYSTORE_PATH=$PWD/debugkeystore.jks" >> $GITHUB_ENV
-          echo "DEBUG_KEYSTORE_PASSWORD=${{ secrets.DEBUG_KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
-          echo "DEBUG_KEY_ALIAS=${{ secrets.DEBUG_KEY_ALIAS }}" >> $GITHUB_ENV
-          echo "DEBUG_KEY_PASSWORD=${{ secrets.DEBUG_KEY_PASSWORD }}" >> $GITHUB_ENV
-
       - name: Grant execute permission to Gradle
         run: chmod +x ./gradlew
 
