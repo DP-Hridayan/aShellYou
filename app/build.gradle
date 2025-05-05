@@ -33,19 +33,6 @@ android {
                 }
             }
         }
-
-        debug {
-            if (System.getenv("CI") == "true") {
-                def debugKeystorePath = System.getenv("DEBUG_KEYSTORE_PATH")
-                if (debugKeystorePath != null)
-                {
-                storeFile file(debugKeystorePath)
-                storePassword System.getenv("DEBUG_KEYSTORE_PASSWORD")
-                keyAlias System.getenv("DEBUG_KEY_ALIAS")
-                keyPassword System.getenv("DEBUG_KEY_PASSWORD")
-                }
-            }
-        }
     }
     
     buildTypes {
