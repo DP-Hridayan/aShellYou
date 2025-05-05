@@ -114,7 +114,7 @@ public class OtgUtils {
 
       String sendId = "SEND";
 
-      String mode = ",33206";
+      String mode = ",0644";
 
       int length = (remotePath + mode).length();
 
@@ -124,7 +124,7 @@ public class OtgUtils {
 
       stream.write(mode.getBytes());
 
-      byte[] buff = new byte[adbConnection.getMaxData()];
+      byte[] buff = new byte[adbConnection.getMaxData()-1];
       InputStream is = new FileInputStream(local);
 
       long sent = 0;
