@@ -24,6 +24,10 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.nio.charset.Charset;
+import java.io.FileOutputStream;
+import java.util.Arrays;
+import java.io.OutputStream;
 
 public class OtgUtils {
 
@@ -196,7 +200,7 @@ public static class Pull {
                     i++;
                     byte[] bArr = null;
                     byte[] b=stream.read();
-                    log.a(b.length + "islength");
+                    //log.a(b.length + "islength");
                     sent += b.length;
                         bArr = Arrays.copyOfRange(b, 0, b.length);
                     if (bArr != null) {
