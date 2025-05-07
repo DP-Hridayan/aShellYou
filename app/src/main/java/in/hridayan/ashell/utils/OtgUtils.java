@@ -24,6 +24,10 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.nio.charset.Charset;
+import java.io.FileOutputStream;
+import java.util.Arrays;
+import java.io.OutputStream;
 
 public class OtgUtils {
 
@@ -168,7 +172,82 @@ public class OtgUtils {
       stream.write(ByteUtils.concat("QUIT".getBytes(), ByteUtils.intToByteArray(0)));
     }
   }
+public static class Pull {
 
+        private AdbConnection adbConnection;
+        private File local;
+        private String remotePath;
+        AdbStream stream;
+
+        public Pull(AdbConnection adbConnection, File local, String remotePath) {
+            this.adbConnection = adbConnection;
+            this.local = local;
+            this.remotePath = remotePath;
+        }
+
+        public void execute(Handler handler)  {
+            try {
+                stream = adbConnection.open("sync:");
+                String s=remotePath;
+                OutputStream instance=new FileOutputStream(local);
+                String sendId = "RECV";
+                stream.write(ByteUtils.concat(sendId.getBytes(), ByteUtils.intToByteArray(remotePath.length())));
+                stream.write(remotePath.getBytes());
+                int i=0;
+                long sent = 0;
+                while (true) {
+                    //log.a("loop=" + i);
+                    i++;
+                    byte[] bArr = null;
+                    byte[] b=stream.read();
+                    //log.a(b.length + "islength");
+                    sent += b.length;
+                        bArr = Arrays.copyOfRange(b, 0, b.length);
+                    if (bArr != null) {
+                        if (bArr.length == -1) {
+                            break;
+                        }
+                    }
+                    try {
+                        byte[] bArr2=null;
+                        if (bArr != null) {
+                            if (bArr.length > 8) {
+                                bArr2 = Arrays.copyOfRange(bArr, bArr.length - 8, bArr.length - 4);
+                            }
+                        }
+                        String decodeToString=new String(bArr2, Charset.forName("UTF-8"));
+                        //log.a(decodeToString);
+                        if (decodeToString.equals("DONE")) {
+                            if (bArr != null) {
+                                if (bArr.length > 8) {
+                                    instance.write(bArr, 0, bArr.length - 8);
+                                    break;
+                                }
+                            }
+                        } else {
+                            if (bArr != null) {
+                                instance.write(bArr, 0, bArr.length);
+                            }
+                        }
+                    } catch (Exception e) {
+                        //log.a(e);
+                    }
+                    //log.a("pulled" + i);
+                }
+                //log.a("done");
+            } catch (Exception e) {
+                //log.a(e);
+            } finally {
+              
+                    try {
+                        stream.close();
+                    } catch (Exception e) {
+                        //log.a(e);
+                    }
+                    //log.a("cloce stream");
+            }
+        }
+	}
   public static class ExternalCmdStore {
     private static SharedPreferences sharedPreferences;
     private static String CMD_KEY = "cmd_key";
