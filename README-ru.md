@@ -147,7 +147,7 @@
 
   </br>
 
-## Translations
+## Переводы
 
 <p align="start">
   <picture>
