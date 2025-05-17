@@ -10,34 +10,34 @@
 
 <p align="center"> 
 <a href="https://github.com/DP-Hridayan/aShellYou/stargazers">
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Stars" />
+    <img alt="GitHub звёзды" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Stars" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/forks">
-    <img alt="GitHub forks" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Forks" />
+    <img alt="GitHub форки" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Forks" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/issues">
-    <img alt="GitHub issues" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Issues" />
+    <img alt="GitHub проблемы" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Issues" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/releases">
-    <img alt="GitHub release" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Release" />
+    <img alt="GitHub релизы" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Release" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/releases">
-    <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?style=for-the-badge&logo=download&label=Downloads" />
+    <img alt="GitHub Все релизы" src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?style=for-the-badge&logo=download&label=Downloads" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/graphs/contributors">
-    <img alt="Contributors" src="https://img.shields.io/github/contributors/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Contributors" />
+    <img alt="Контрибуторы" src="https://img.shields.io/github/contributors/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Contributors" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/blob/main/LICENSE">
-    <img alt="License" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&logo=open-source-initiative&label=License" />
+    <img alt="Лицензия" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&logo=open-source-initiative&label=License" />
   </a>
 </p>
 
 <p align="center"> 
-    <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+    <img alt="Платформа" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
   <img alt="Language" src="https://img.shields.io/badge/Language-Java-007396?style=for-the-badge&logo=java&logoColor=white" />
   <img alt="UI" src="https://img.shields.io/badge/UI-XML-E44D26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-26-yellow?style=for-the-badge" />
-  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-35-blue?style=for-the-badge" />
+  <img alt="Минимальный SDK" src="https://img.shields.io/badge/MinSDK-26-yellow?style=for-the-badge" />
+  <img alt="Целевой SDK" src="https://img.shields.io/badge/TargetSDK-35-blue?style=for-the-badge" />
   <a href="https://crowdin.com/project/ashellyou">
     <img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white"/>
 </a>
