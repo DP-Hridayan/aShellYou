@@ -190,11 +190,11 @@
   </tr>
   <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Исправить выполнение скриптов</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ Нужно сделать</td>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Add Fastboot</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
+    <td style="padding: 8px; border: 1px solid #ddd;">Добавить Fastboot</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ Нужно сделать</td>
   </tr>
 </table>
 
