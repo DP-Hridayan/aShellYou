@@ -165,31 +165,31 @@
 
 </br>
 
-## Task list
+## Список задач
 
 <table align="start" style="border-collapse: collapse; margin-top: 20px;">
   <tr>
-    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Task</th>
-    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Status</th>
+    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Задача</th>
+    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Статус</th>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Wifi ADB Feature</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
+    <td style="padding: 8px; border: 1px solid #ddd;">Функция Wifi ADB</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅Сделано</td>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Implement root shell</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
+    <td style="padding: 8px; border: 1px solid #ddd;">Root оболочка</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅Сделано</td>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Migrate to kotlin</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: green;">⏺️ In progress</td>
+    <td style="padding: 8px; border: 1px solid #ddd;">Перенос на kotlin</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: green;">⏺️ В процессе</td>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Proper localization</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
+    <td style="padding: 8px; border: 1px solid #ddd;">Правильная локализация</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ Нужно сделать</td>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Fix scripts execution</td>
+    <td style="padding: 8px; border: 1px solid #ddd;">Исправить выполнение скриптов</td>
     <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
   </tr>
   <tr>
