@@ -19,10 +19,10 @@
     <img alt="GitHub проблемы" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/releases">
-    <img alt="GitHub релизы" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Release" />
+    <img alt="GitHub релизы" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=%D0%A0%D0%B5%D0%BB%D0%B8%D0%B7" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/releases">
-    <img alt="GitHub Все релизы" src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?style=for-the-badge&logo=download&label=Downloads" />
+    <img alt="GitHub Все релизы" src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?style=for-the-badge&logo=download&label=%D0%97%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/graphs/contributors">
     <img alt="Контрибуторы" src="https://img.shields.io/github/contributors/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Contributors" />
