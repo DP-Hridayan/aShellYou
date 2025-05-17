@@ -16,7 +16,7 @@
     <img alt="GitHub форки" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Forks" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/issues">
-    <img alt="GitHub проблемы" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Issues" />
+    <img alt="GitHub проблемы" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/releases">
     <img alt="GitHub релизы" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Release" />
