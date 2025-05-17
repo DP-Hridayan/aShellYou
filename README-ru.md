@@ -153,7 +153,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/translations-dark.svg?ts=1747484413">
     <source media="(prefers-color-scheme: light)" srcset="docs/translations-light.svg?ts=1747484413">
-    <img src="translations-light.svg" alt="Translation Progress" />
+    <img src="translations-light.svg" alt="Прогресс переводов" />
   </picture>
 </p>
 
@@ -161,7 +161,7 @@
 >
 > Помогите нам сделать этот проект доступным для большего количества людей, предоставив переводы на **[Crowdin](https://crowdin.com/project/ashellyou)**
 >
-> Спасибо нашим Crowdin [переводчикам](docs/translators.md)
+> Спасибо нашим Crowdin [переводчикам](docs/translators-ru.md)
 
 </br>
 
