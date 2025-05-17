@@ -10,7 +10,7 @@
 
 <p align="center"> 
 <a href="https://github.com/DP-Hridayan/aShellYou/stargazers">
-    <img alt="GitHub звёзды" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Stars" />
+    <img alt="GitHub звёзды" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=%D0%97%D0%B2%D1%91%D0%B7%D0%B4%D1%8B" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/forks">
     <img alt="GitHub форки" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Forks" />
