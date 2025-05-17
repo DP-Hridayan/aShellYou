@@ -108,15 +108,15 @@
 
 ## Требования
 
-> * A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
-> * Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
+> * Рабочий **[Shizuku](https://shizuku.rikka.app/)** или **root доступ**.
+> * Shizuku/Root **не требуется** при выполнении команд ADB на **других устройствах** с помощью **OTG** или **Беспроводной Отладки**.
 
 <br/>
 
 >[!CAUTION]
 >
 >Использование **aShell You** требует базовых знаний `ADB/Linux команд`.
->**aShell You** не несет **ответственности** за любой вред, причиненный вашему устройству в результате неправильного использования команд ADB.
+>**aShell You** не несет **ответственности** за любой вред, причиненный вашему устройству в результате неправильного использования команд ADB
 
 <br/>
 
