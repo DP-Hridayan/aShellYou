@@ -1,3 +1,5 @@
+English | [Русский](/docs/translators-ru.md)
+
 ### Translators
 
 Thanks to these translators and proofreaders, this project exists:
