@@ -45,7 +45,7 @@
 
 </br>
 
-<h2 align="center">Screenshots</h2>
+<h2 align="center">Скриншоты</h2>
   <div align="center">
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="25%" style="margin:10px" />
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="25%" style="margin:10px" />
@@ -59,7 +59,7 @@
 
 </br>
 
-## Features
+## Функции
 
 🎨 **Modern Material Design 3 UI**  
 > Experience a clean, smooth, and responsive user interface built with Material You, adapting to your device's wallpaper and theme settings.
@@ -106,7 +106,7 @@
 
 </br>
 
-## Requirements
+## Требования
 
 > * A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
 > * Shizuku/Root is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
@@ -126,7 +126,7 @@
 
 </br>
 
-## Resources & Links
+## Ресурсы и ссылки
 
 <p align="start">
   <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
@@ -159,9 +159,9 @@
 
 >[!NOTE]
 >
-> Help us make this project accessible to more people by contributing translations on **[Crowdin](https://crowdin.com/project/ashellyou)**
+> Помогите нам сделать этот проект доступным для большего количества людей, предоставив переводы на **[Crowdin](https://crowdin.com/project/ashellyou)**
 >
-> Thanks to our Crowdin [translators](docs/translators.md)
+> Спасибо нашим Crowdin [переводчикам](docs/translators.md)
 
 </br>
 
