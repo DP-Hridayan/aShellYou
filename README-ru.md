@@ -4,7 +4,7 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=aShell%20You&animation=fadeIn&desc=ADB%20at%20your%20fingertips&descAlign=50&descAlignY=55&fontAlignY=35" />
 </p>
 
-> **aShell You** - это полнофункциональная утилита для Android с дизайном **Material Design 3**, позволяющая запускать команды **ADB**, **root** и **shell** на вашем устройстве или других устройствах через OTG/беспроводную отладку,с красивым и понятным интерфейсом.
+> **aShell You** - это многофункциональная утилита для Android с дизайном **Material Design 3**, позволяющая запускать команды **ADB**, **root** и **shell** на вашем устройстве или других устройствах через OTG/беспроводную отладку,с красивым и понятным интерфейсом.
 
 </br>
 
