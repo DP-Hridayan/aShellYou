@@ -200,7 +200,7 @@
 
 <br/>
 
-## Star history
+## История звёзд
 
 <a href="https://star-history.com/#DP-Hridayan/aShellYou&Date">
  <picture>
@@ -212,19 +212,19 @@
 
 <br></br>
 
-## License
+## Лицензия
 
 ```
-Designed and developed by DP Hridayan @2024
-This project is licensed under the GNU General Public License v3.0
+Стилизовано и разработано DP Hridayan @2024
+Этот проект лицензирован GNU General Public License v3.0
 ```
->[!NOTE]
+>[!ЗАМЕТКА]
 >
->Full license copy [here](LICENSE.md)
+>Полная копия лицензии [здесь](LICENSE.md)
 
 </br>
 
-## Contributors
+## Контрибуторы
 <a href="https://github.com/dp-hridayan/ashellyou/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=dp-hridayan/ashellyou" />
 </a>
