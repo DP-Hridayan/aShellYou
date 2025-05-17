@@ -13,7 +13,7 @@
     <img alt="GitHub звёзды" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=%D0%97%D0%B2%D1%91%D0%B7%D0%B4%D1%8B" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/forks">
-    <img alt="GitHub форки" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Forks" />
+    <img alt="GitHub форки" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=%D0%A4%D0%BE%D1%80%D0%BA%D0%B8" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/issues">
     <img alt="GitHub проблемы" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B" />
