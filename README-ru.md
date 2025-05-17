@@ -25,21 +25,21 @@
     <img alt="GitHub Все релизы" src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?style=for-the-badge&logo=download&label=%D0%97%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/graphs/contributors">
-    <img alt="Контрибуторы" src="https://img.shields.io/github/contributors/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Contributors" />
+    <img alt="Контрибуторы" src="https://img.shields.io/github/contributors/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B8%D0%B1%D1%83%D1%82%D0%BE%D1%80%D1%8B" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/blob/main/LICENSE">
-    <img alt="Лицензия" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&logo=open-source-initiative&label=License" />
+    <img alt="Лицензия" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&logo=open-source-initiative&label=%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F" />
   </a>
 </p>
 
 <p align="center"> 
-    <img alt="Платформа" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
-  <img alt="Language" src="https://img.shields.io/badge/Language-Java-007396?style=for-the-badge&logo=java&logoColor=white" />
-  <img alt="UI" src="https://img.shields.io/badge/UI-XML-E44D26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img alt="Минимальный SDK" src="https://img.shields.io/badge/MinSDK-26-yellow?style=for-the-badge" />
-  <img alt="Целевой SDK" src="https://img.shields.io/badge/TargetSDK-35-blue?style=for-the-badge" />
+    <img alt="Платформа" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white&label=%D0%9F%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0" />
+  <img alt="Язык" src="https://img.shields.io/badge/Language-Java-007396?style=for-the-badge&logo=java&logoColor=white&label=%D0%AF%D0%B7%D1%8B%D0%BA" />
+  <img alt="Интерфейс" src="https://img.shields.io/badge/UI-XML-E44D26?style=for-the-badge&logo=html5&logoColor=white&label=%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81" />
+  <img alt="Минимальный SDK" src="https://img.shields.io/badge/%D0%9C%D0%B8%D0%BD%20SDK-26-yellow?style=for-the-badge" />
+  <img alt="Целевой SDK" src="https://img.shields.io/badge/%D0%A6%D0%B5%D0%BB%D0%B5%D0%B2%D0%BE%D0%B9%20SDK-35-blue?style=for-the-badge" />
   <a href="https://crowdin.com/project/ashellyou">
-    <img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white"/>
+    <img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white&label=%D0%9F%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4"/>
 </a>
 </p>
 
