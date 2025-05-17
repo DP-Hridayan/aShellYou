@@ -115,14 +115,14 @@
 
 >[!CAUTION]
 >
-> Using **aShell You** requires basic knowledge of `ADB/Linux commands`.
->**aShell You** is **not responsible** for any harm caused to your device by improper use of ADB commands
+>Использование **aShell You** требует базовых знаний `ADB/Linux команд`.
+>**aShell You** не несет **ответственности** за любой вред, причиненный вашему устройству в результате неправильного использования команд ADB.
 
 <br/>
 
 >[!TIP]
 >
-> Please visit our **[Wiki](https://github.com/DP-Hridayan/aShellYou/wiki)** for instructions/setup-guides
+> Пожалуйста посетите наш **[Вики](https://github.com/DP-Hridayan/aShellYou/wiki)** для инструкций/гайдов по настройке
 
 </br>
 
@@ -138,7 +138,7 @@
   </a>
   <br/><br/>
   <a href="https://t.me/aShellYou">
-    <img src="assets/telegram.png" width="180" alt="Join Telegram" />
+    <img src="assets/telegram.png" width="180" alt="Присоединиться к Telegram" />
   </a>
   <br/><br/>
   <a href="https://www.buymeacoffee.com/Hridayan">
