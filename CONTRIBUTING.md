@@ -1,3 +1,5 @@
+English | [Русский](/CONTRIBUTING-ru.md)
+
 # Contributing to aShell You
 
 Thank you for your interest in contributing to aShell You! We appreciate your time and effort in helping us improve this project. This guide will help you get started with contributing.
