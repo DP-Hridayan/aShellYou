@@ -3,8 +3,8 @@ package `in`.hridayan.ashell.home.presentation.screens
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.overscroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -42,9 +41,6 @@ import `in`.hridayan.ashell.core.presentation.ui.component.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.ui.component.card.TopCornerRoundedCard
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
-import `in`.hridayan.ashell.navigation.CommandExamplesScreen
-import `in`.hridayan.ashell.navigation.LookAndFeel
-import `in`.hridayan.ashell.navigation.navigateTo
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -59,8 +55,17 @@ fun HomeScreen(
                 .padding(it)
                 .padding(Dimens.paddingExtraLarge),
         ) {
-            SettingsButton()
-            AppNameText()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 45.dp, bottom = 25.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(25.dp)
+            ) {
+                AppNameText(modifier = Modifier.weight(1f))
+                SettingsButton()
+            }
+
             LocalAdbCard()
             WirelessDebuggingCard()
             OtgAdbCard()
@@ -77,12 +82,10 @@ fun SettingsButton(modifier: Modifier = Modifier) {
             MaterialTheme.colorScheme.onSurfaceVariant
         ),
         modifier = modifier
-            .padding(bottom = 45.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
                 onClick = {
-                    navigateTo(LookAndFeel)
                 })
     )
 }
@@ -93,7 +96,6 @@ fun AppNameText(modifier: Modifier = Modifier) {
         text = stringResource(id = R.string.app_name),
         style = MaterialTheme.typography.headlineLarge,
         modifier = modifier
-            .padding(bottom = 20.dp)
             .alpha(0.9f)
     )
 }
@@ -242,7 +244,6 @@ fun WirelessDebuggingStartButton(modifier: Modifier = Modifier) {
         contentDescription = null,
         modifier = modifier,
         onClick = {
-            navigateTo(CommandExamplesScreen)
         })
 }
 

@@ -3,39 +3,41 @@ androidApplication = "8.10.0"
 kotlin = "2.1.10"
 ksp = "2.1.10-1.0.31"
 hilt = "2.56.1"
-material = "1.13.0-alpha12"
-serialization = "1.6.3"
+material3 = "1.4.0-alpha15"
+material = "1.13.0-alpha13"
+serialization = "1.7.3"
 gson = "2.12.1"
-lifecycle = "2.8.7"
+lifecycle = "2.9.0"
 activityCompose = "1.10.1"
-composeBom = "2025.03.01"
-navigation = "2.8.9"
-room = "2.6.1"
+composeBom = "2025.05.01"
+navigation = "2.9.0"
+room = "2.7.1"
 hiltExt = "1.2.0"
 junit = "4.13.2"
 androidxJunit = "1.2.1"
 espresso = "3.6.1"
 materialIconsExtended = "1.7.8"
-datastore = "1.1.4"
+datastore = "1.1.7"
+coreKtx = "1.16.0"
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "androidApplication"}
+android-application = { id = "com.android.application", version.ref = "androidApplication" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 [libraries]
-core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.15.0" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-material3 = { group = "androidx.compose.material3", name = "material3" }
+material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }

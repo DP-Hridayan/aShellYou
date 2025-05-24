@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.navigation.NavControllerHolder
+import `in`.hridayan.ashell.navigation.LocalNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -21,30 +21,31 @@ fun TopAppBarLarge(
     scrollBehavior: TopAppBarScrollBehavior,
     actions: @Composable () -> Unit = {},
 ) {
+    val navController = LocalNavController.current
+
     LargeTopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
-        containerColor = MaterialTheme.colorScheme.surface,
-        titleContentColor = MaterialTheme.colorScheme.onSurface,
-    ),
+            containerColor = MaterialTheme.colorScheme.surface,
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+        ),
         title = {
-        Text(
-            text = title,
-            maxLines = 1,
-            overflow = TextOverflow.Companion.Ellipsis,
-        )
-    },
-        navigationIcon = {
-        val navController = NavControllerHolder.navController
-        IconButton(onClick = {
-            navController?.popBackStack()
-        }) {
-            Icon(
-                painter = painterResource(id = R.drawable.arrow_back),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface
+            Text(
+                text = title,
+                maxLines = 1,
+                overflow = TextOverflow.Companion.Ellipsis,
             )
-        }
-    },
+        },
+        navigationIcon = {
+            IconButton(onClick = {
+                navController.popBackStack()
+            }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.arrow_back),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        },
         actions = { actions },
         scrollBehavior = scrollBehavior
     )

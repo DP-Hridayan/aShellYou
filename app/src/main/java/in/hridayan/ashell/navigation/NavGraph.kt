@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,19 +13,34 @@ import kotlinx.serialization.Serializable
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavControllerHolder.navController = navController
+    CompositionLocalProvider(LocalNavController provides navController) {
+        NavHost(
+            navController = navController, startDestination = HomeScreen
+        ) {
+            composable<HomeScreen>(
+                exitTransition = { slideFadeOutToLeft() },
+                popEnterTransition = { slideFadeInFromLeft() }
+            ) {
+                HomeScreen()
+            }
 
-    NavHost(
-        navController = navController, startDestination = HomeScreen
-    ) {
-        composable<HomeScreen> {
-            HomeScreen()
-        }
-        composable<CommandExamplesScreen> {
-            CommandExamplesScreen()
-        }
-        composable<LookAndFeel>{
-            LookAndFeel()
+            composable<CommandExamplesScreen>(
+                enterTransition = { slideFadeInFromRight() },
+                exitTransition = { slideFadeOutToLeft() },
+                popEnterTransition = { slideFadeInFromLeft() },
+                popExitTransition = { slideFadeOutToRight() }
+            ) {
+                CommandExamplesScreen()
+            }
+
+            composable<LookAndFeel> (
+                enterTransition = { slideFadeInFromRight() },
+                exitTransition = { slideFadeOutToLeft() },
+                popEnterTransition = { slideFadeInFromLeft() },
+                popExitTransition = { slideFadeOutToRight() }
+            ){
+                LookAndFeel()
+            }
         }
     }
 }
