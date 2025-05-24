@@ -1,15 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.2.1)" variant="all" version="8.2.1">
+<issues format="6" by="lint 8.9.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.9.1)" variant="all" version="8.9.1">
 
     <issue
-        id="OldTargetApi"
-        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details."
-        errorLine1="        targetSdkVersion 34"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~">
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel than 2.7.0 is available: 2.9.0"
+        errorLine1="lifecycle = &quot;2.7.0&quot;"
+        errorLine2="            ~~~~~~~">
         <location
-            file="build.gradle"
-            line="8"
-            column="9"/>
+            file="$HOME/StudioProjects/ashellyou/gradle/libs.versions.toml"
+            line="2"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel than 2.7.0 is available: 2.9.0"
+        errorLine1="lifecycle = &quot;2.7.0&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/ashellyou/gradle/libs.versions.toml"
+            line="2"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel than 2.7.0 is available: 2.9.0"
+        errorLine1="lifecycle = &quot;2.7.0&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/ashellyou/gradle/libs.versions.toml"
+            line="2"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.material:material than 1.13.0-alpha11 is available: 1.13.0-alpha13"
+        errorLine1="material = &quot;1.13.0-alpha11&quot;"
+        errorLine2="           ~~~~~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/ashellyou/gradle/libs.versions.toml"
+            line="3"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.material:material than 1.13.0-alpha11 is available: 1.13.0-alpha13"
+        errorLine1="material = &quot;1.13.0-alpha11&quot;"
+        errorLine2="           ~~~~~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/ashellyou/gradle/libs.versions.toml"
+            line="3"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.material:material than 1.13.0-alpha11 is available: 1.13.0-alpha13"
+        errorLine1="material = &quot;1.13.0-alpha11&quot;"
+        errorLine2="           ~~~~~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/ashellyou/gradle/libs.versions.toml"
+            line="3"
+            column="12"/>
     </issue>
 
     <issue
@@ -21,6 +76,17 @@
             file="src/main/java/com/cgutman/adblib/AdbCrypto.java"
             line="189"
             column="48"/>
+    </issue>
+
+    <issue
+        id="UseTomlInstead"
+        message="Use the existing version catalog reference (`libs.junit`) instead"
+        errorLine1="    testImplementation &apos;junit:junit:4.13.2&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="31"
+            column="24"/>
     </issue>
 
 </issues>

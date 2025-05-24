@@ -24,17 +24,16 @@ android {
         release {
             if (System.getenv("CI") == "true") {
                 def keystorePath = System.getenv("KEYSTORE_PATH")
-                if (keystorePath != null)
-                {
-                storeFile file(keystorePath)
-                storePassword System.getenv("KEYSTORE_PASSWORD")
-                keyAlias System.getenv("KEY_ALIAS")
-                keyPassword System.getenv("KEY_PASSWORD")
+                if (keystorePath != null) {
+                    storeFile file(keystorePath)
+                    storePassword System.getenv("KEYSTORE_PASSWORD")
+                    keyAlias System.getenv("KEY_ALIAS")
+                    keyPassword System.getenv("KEY_PASSWORD")
                 }
             }
         }
     }
-    
+
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
@@ -42,7 +41,8 @@ android {
         }
 
         release {
-            signingConfig signingConfigs.findByName("release")
+            def config = System.getenv("CI") ? "release" : "debug"
+            signingConfig signingConfigs.findByName(config)
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

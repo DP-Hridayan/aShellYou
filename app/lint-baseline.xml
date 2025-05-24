@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.2.1)" variant="all" version="8.2.1">
+<issues format="6" by="lint 8.9.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.9.1)" variant="all" version="8.9.1">
 
     <issue
         id="MissingPermission"
@@ -15,23 +15,23 @@
     <issue
         id="WrongViewCast"
         message="Unexpected implicit cast to `MaterialButton`: layout tag was `Button`"
-        errorLine1="        downloadButton = bottomSheetView.findViewById(R.id.download_button);"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    downloadButton = bottomSheetView.findViewById(R.id.download_button);"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/ui/bottomsheets/UpdateCheckerBottomSheet.java"
             line="62"
-            column="9"/>
+            column="5"/>
     </issue>
 
     <issue
         id="WrongViewCast"
         message="Unexpected implicit cast to `MaterialButton`: layout tag was `Button`"
-        errorLine1="        cancelButton = bottomSheetView.findViewById(R.id.cancel_button);"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    cancelButton = bottomSheetView.findViewById(R.id.cancel_button);"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/ui/bottomsheets/UpdateCheckerBottomSheet.java"
             line="63"
-            column="9"/>
+            column="5"/>
     </issue>
 
     <issue
@@ -48,6 +48,17 @@
     <issue
         id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="    return fileName != null &amp;&amp; fileName.toLowerCase().endsWith(&quot;.sh&quot;);"
+        errorLine2="                                        ~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/home/ScriptExecutorFragment.java"
+            line="77"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
         errorLine1="            + context.getString(R.string.mode).toLowerCase(),"
         errorLine2="                                               ~~~~~~~~~~~">
         <location
@@ -57,13 +68,25 @@
     </issue>
 
     <issue
+        id="InconsistentLayout"
+        message="The id &quot;rightScreen&quot; in layout &quot;fragment_ashell&quot; is missing from the following layout configurations: layout (present in layout-land)"
+        errorLine1="        android:id=&quot;@+id/rightScreen&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout-land/fragment_ashell.xml"
+            line="287"
+            column="9"
+            message="Occurrence in layout-land"/>
+    </issue>
+
+    <issue
         id="InlinedApi"
         message="Field requires API level 31 (current min is 26): `android.R.color#system_accent1_500`"
         errorLine1="                    ? android.R.color.system_accent1_500"
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="1309"
+            line="1305"
             column="23"/>
     </issue>
 
@@ -74,7 +97,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="1318"
+            line="1314"
             column="23"/>
     </issue>
 
@@ -107,7 +130,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/home/WifiAdbFragment.java"
-            line="926"
+            line="922"
             column="23"/>
     </issue>
 
@@ -118,7 +141,7 @@
         errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/home/WifiAdbFragment.java"
-            line="935"
+            line="931"
             column="23"/>
     </issue>
 
@@ -184,7 +207,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/CrashReportActivity.java"
-            line="121"
+            line="111"
             column="20"/>
     </issue>
 
@@ -224,12 +247,12 @@
     <issue
         id="InflateParams"
         message="Avoid passing `null` as the view root (needed to resolve layout parameters on the inflated layout&apos;s root element)"
-        errorLine1="        bottomSheetView = LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_update_checker, null);"
-        errorLine2="                                                                                                      ~~~~">
+        errorLine1="        LayoutInflater.from(activity).inflate(R.layout.bottom_sheet_update_checker, null);"
+        errorLine2="                                                                                    ~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/ui/bottomsheets/UpdateCheckerBottomSheet.java"
             line="54"
-            column="103"/>
+            column="85"/>
     </issue>
 
     <issue
@@ -279,56 +302,56 @@
     <issue
         id="NonConstantResourceId"
         message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
-        errorLine1="            case R.id.sort:"
-        errorLine2="                 ~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-            line="150"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="NonConstantResourceId"
-        message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
-        errorLine1="            case R.id.select_all:"
-        errorLine2="                 ~~~~~~~~~~~~~~~">
+        errorLine1="                        case R.id.sort:"
+        errorLine2="                             ~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
             line="154"
-            column="18"/>
+            column="30"/>
     </issue>
 
     <issue
         id="NonConstantResourceId"
         message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
-        errorLine1="            case R.id.deselect_all:"
-        errorLine2="                 ~~~~~~~~~~~~~~~~~">
+        errorLine1="                        case R.id.select_all:"
+        errorLine2="                             ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-            line="159"
-            column="18"/>
+            line="158"
+            column="30"/>
     </issue>
 
     <issue
         id="NonConstantResourceId"
         message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
-        errorLine1="            case R.id.add_bookmark:"
-        errorLine2="                 ~~~~~~~~~~~~~~~~~">
+        errorLine1="                        case R.id.deselect_all:"
+        errorLine2="                             ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-            line="164"
-            column="18"/>
+            line="163"
+            column="30"/>
     </issue>
 
     <issue
         id="NonConstantResourceId"
         message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
-        errorLine1="            case R.id.pin:"
-        errorLine2="                 ~~~~~~~~">
+        errorLine1="                        case R.id.add_bookmark:"
+        errorLine2="                             ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
             line="168"
-            column="18"/>
+            column="30"/>
+    </issue>
+
+    <issue
+        id="NonConstantResourceId"
+        message="Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, avoid using them in switch case statements"
+        errorLine1="                        case R.id.pin:"
+        errorLine2="                             ~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
+            line="172"
+            column="30"/>
     </issue>
 
     <issue
@@ -382,8 +405,30 @@
         errorLine2="                  ~~~~">
         <location
             file="src/main/res/values-ru/strings.xml"
-            line="60"
+            line="66"
             column="19"/>
+    </issue>
+
+    <issue
+        id="DiscouragedApi"
+        message="Use of `scheduleAtFixedRate` is strongly discouraged because it can lead to unexpected behavior when Android processes become cached (tasks may unexpectedly execute hundreds or thousands of times in quick succession when a process changes from cached to uncached); prefer using `scheduleWithFixedDelay`"
+        errorLine1="    scheduler.scheduleAtFixedRate("
+        errorLine2="    ^">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/localadb/RootShell.java"
+            line="259"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="DiscouragedApi"
+        message="Use of `scheduleAtFixedRate` is strongly discouraged because it can lead to unexpected behavior when Android processes become cached (tasks may unexpectedly execute hundreds or thousands of times in quick succession when a process changes from cached to uncached); prefer using `scheduleWithFixedDelay`"
+        errorLine1="    scheduler.scheduleAtFixedRate("
+        errorLine2="    ^">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/localadb/ShizukuShell.java"
+            line="104"
+            column="5"/>
     </issue>
 
     <issue
@@ -393,19 +438,30 @@
         errorLine2="             ~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/utils/Utils.java"
-            line="469"
+            line="474"
             column="14"/>
+    </issue>
+
+    <issue
+        id="UseRequiresApi"
+        message="Use `@RequiresApi(Build.VERSION_CODES.R) instead of `@TargetApi` to propagate the requirement to callers of `getVolumePathForAndroid11AndAbove`"
+        errorLine1="    @TargetApi(Build.VERSION_CODES.R)"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/utils/DocumentTreeUtil.java"
+            line="81"
+            column="5"/>
     </issue>
 
     <issue
         id="StringFormatInvalid"
         message="Format string &apos;`confirm_batch_remove_bookmark`&apos; is not a valid format string so it should not be passed to `String.format`"
-        errorLine1="            ? getString(R.string.confirm_batch_remove_bookmark, selectedCount)"
-        errorLine2="              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="                        ? getString(R.string.confirm_batch_remove_bookmark, selectedCount)"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/ExamplesFragment.java"
-            line="373"
-            column="15"/>
+            line="376"
+            column="27"/>
         <location
             file="src/main/res/values-ja/strings.xml"
             line="45"
@@ -420,40 +476,326 @@
         errorLine2="                                                ^">
         <location
             file="src/main/res/values/strings.xml"
-            line="311"
+            line="319"
             column="49"/>
     </issue>
 
     <issue
-        id="Untranslatable"
-        message="The resource string &quot;app_name&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ru&quot; (Russian) here"
-        errorLine1="    &lt;string name=&quot;app_name&quot;>aShell You&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~">
+        id="Typos"
+        message="&quot;accomodate&quot; is a common misspelling; did you mean &quot;accommodate&quot;?"
+        errorLine1="    &lt;string name=&quot;changelog_v3_1_0&quot;>\n\n• Improvements to ADB OTG after initial release.\n\n• Some UI and logic adjustments to accomodate the new otg feature.&lt;/string>"
+        errorLine2="                                                                                                                               ^">
         <location
-            file="src/main/res/values-ru/strings.xml"
-            line="3"
+            file="src/main/res/values/strings.xml"
+            line="374"
+            column="128"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;app_name&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;tr&quot; (Turkish) here"
+        errorLine1="    &lt;string name=&quot;app_name&quot; translatable=&quot;false&quot;>aShell You&lt;/string>"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="6"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;app_name&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;ar&quot; (Arabic) here"
+        errorLine1="        translatable=&quot;false&quot;>aShell You&lt;/string>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar/strings.xml"
+            line="7"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;app_name&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fr&quot; (French) here"
+        errorLine1="        translatable=&quot;false&quot;>aShell You&lt;/string>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="7"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;discord&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;hi&quot; (Hindi) here"
+        errorLine1="    &lt;string name=&quot;discord&quot;>डिस्कॉर्ड&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-hi/strings.xml"
+            line="42"
             column="13"/>
     </issue>
 
     <issue
         id="Untranslatable"
-        message="The resource string &quot;root&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ru&quot; (Russian) here"
-        errorLine1="    &lt;string name=&quot;root&quot;>Root&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~">
+        message="The resource string &quot;discord&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;pt&quot; (Portuguese) here"
+        errorLine1="    &lt;string name=&quot;discord&quot;>Discord&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-ru/strings.xml"
-            line="129"
+            file="src/main/res/values-pt/strings.xml"
+            line="66"
             column="13"/>
     </issue>
 
     <issue
         id="Untranslatable"
-        message="The resource string &quot;shizuku&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ru&quot; (Russian) here"
-        errorLine1="    &lt;string name=&quot;shizuku&quot;>Shizuku&lt;/string>"
+        message="The resource string &quot;discord&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ja&quot; (Japanese) here"
+        errorLine1="    &lt;string name=&quot;discord&quot;>「Discord」&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ja/strings.xml"
+            line="68"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;discord&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;discord&quot;>Discord&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ru/strings.xml"
-            line="148"
+            line="79"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;discord&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ar&quot; (Arabic) here"
+        errorLine1="    &lt;string name=&quot;discord&quot;>Discord&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar/strings.xml"
+            line="101"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;discord&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;fr&quot; (French) here"
+        errorLine1="    &lt;string name=&quot;discord&quot;>Discord&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="101"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;discord&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;tr&quot; (Turkish) here"
+        errorLine1="    &lt;string name=&quot;discord&quot;>Discord&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="102"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;github&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;hi&quot; (Hindi) here"
+        errorLine1="    &lt;string name=&quot;github&quot;>गिटहब&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-hi/strings.xml"
+            line="125"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;root&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;tr&quot; (Turkish) here"
+        errorLine1="    &lt;string name=&quot;root&quot; translatable=&quot;false&quot;>Root&lt;/string>"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="184"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;root&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;ar&quot; (Arabic) here"
+        errorLine1="        translatable=&quot;false&quot;>Root&lt;/string>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar/strings.xml"
+            line="185"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;root&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fr&quot; (French) here"
+        errorLine1="        translatable=&quot;false&quot;>Root&lt;/string>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="185"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;github&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ja&quot; (Japanese) here"
+        errorLine1="    &lt;string name=&quot;github&quot;>「Github」&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ja/strings.xml"
+            line="201"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;github&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;pt&quot; (Portuguese) here"
+        errorLine1="    &lt;string name=&quot;github&quot;>Github&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt/strings.xml"
+            line="204"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;telegram&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;pt&quot; (Portuguese) here"
+        errorLine1="    &lt;string name=&quot;telegram&quot;>Telegram&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt/strings.xml"
+            line="206"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;shizuku&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;tr&quot; (Turkish) here"
+        errorLine1="    &lt;string name=&quot;shizuku&quot; translatable=&quot;false&quot;>Shizuku&lt;/string>"
+        errorLine2="                           ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="209"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;shizuku&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;ar&quot; (Arabic) here"
+        errorLine1="        translatable=&quot;false&quot;>Shizuku&lt;/string>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar/strings.xml"
+            line="212"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;shizuku&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;fr&quot; (French) here"
+        errorLine1="        translatable=&quot;false&quot;>Shizuku&lt;/string>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="212"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;github&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;github&quot;>Github&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="243"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;telegram&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ru&quot; (Russian) here"
+        errorLine1="    &lt;string name=&quot;telegram&quot;>Telegram&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="245"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;github&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;tr&quot; (Turkish) here"
+        errorLine1="    &lt;string name=&quot;github&quot;>Github&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="290"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;github&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ar&quot; (Arabic) here"
+        errorLine1="    &lt;string name=&quot;github&quot;>GitHub&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar/strings.xml"
+            line="292"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;github&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;fr&quot; (French) here"
+        errorLine1="    &lt;string name=&quot;github&quot;>GitHub&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="292"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;telegram&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;tr&quot; (Turkish) here"
+        errorLine1="    &lt;string name=&quot;telegram&quot;>Telegram&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-tr/strings.xml"
+            line="292"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;telegram&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;ar&quot; (Arabic) here"
+        errorLine1="    &lt;string name=&quot;telegram&quot;>Telegram&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar/strings.xml"
+            line="294"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        message="The resource string &quot;telegram&quot; has been marked as translatable=&quot;false&quot; elsewhere (usually in the `values` folder), but is translated to &quot;fr&quot; (French) here"
+        errorLine1="    &lt;string name=&quot;telegram&quot;>Telegram&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="294"
             column="13"/>
     </issue>
 
@@ -464,7 +806,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="38"
+            line="37"
             column="5"/>
     </issue>
 
@@ -475,7 +817,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="41"
+            line="40"
             column="5"/>
     </issue>
 
@@ -486,7 +828,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="42"
+            line="41"
             column="5"/>
     </issue>
 
@@ -497,7 +839,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="43"
+            line="42"
             column="5"/>
     </issue>
 
@@ -508,7 +850,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="58"
+            line="57"
             column="5"/>
     </issue>
 
@@ -519,24 +861,40 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="59"
+            line="58"
             column="5"/>
     </issue>
 
     <issue
         id="StringFormatCount"
-        message="Inconsistent number of arguments in formatting string `confirm_batch_remove_bookmark`; found both 1 here and 0 in values-ja/strings.xml"
-        errorLine1="    &lt;string name=&quot;confirm_batch_remove_bookmark&quot;>Selected %d items will be removed from bookmarks&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="59"
-            column="5"/>
+        message="Inconsistent number of arguments in formatting string `confirm_batch_remove_bookmark`; found both 0 here and 1 in values/strings.xml"
+        errorLine1="    &lt;string name=&quot;confirm_batch_remove_bookmark&quot;>選択された3つのアイテムがブックマークから削除されます&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-ja/strings.xml"
             line="45"
+            column="5"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="58"
             column="5"
-            message="Conflicting number of arguments (0) here"/>
+            message="Conflicting number of arguments (1) here"/>
+    </issue>
+
+    <issue
+        id="StringFormatCount"
+        message="Inconsistent number of arguments in formatting string `confirm_batch_remove_bookmark`; found both 0 here and 1 in values/strings.xml"
+        errorLine1="    &lt;string name=&quot;confirm_batch_remove_bookmark&quot;>選択された3つのアイテムがブックマークから削除されます&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ja-rJP/strings.xml"
+            line="53"
+            column="5"/>
+        <location
+            file="src/main/res/values/strings.xml"
+            line="58"
+            column="5"
+            message="Conflicting number of arguments (1) here"/>
     </issue>
 
     <issue
@@ -590,7 +948,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/home/HomeFragment.java"
-            line="329"
+            line="355"
             column="5"/>
     </issue>
 
@@ -618,7 +976,7 @@
 
     <issue
         id="ObsoleteSdkInt"
-        message="Unnecessary; SDK_INT is always >= 26"
+        message="Unnecessary; `SDK_INT` is always >= 26"
         errorLine1="    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -629,7 +987,7 @@
 
     <issue
         id="ObsoleteSdkInt"
-        message="Unnecessary; SDK_INT is always >= 26"
+        message="Unnecessary; `SDK_INT` is always >= 26"
         errorLine1="    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -640,23 +998,23 @@
 
     <issue
         id="ObsoleteSdkInt"
-        message="Unnecessary; SDK_INT is always >= 26"
+        message="Unnecessary; `SDK_INT` is always >= 26"
         errorLine1="    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/utils/AppUpdater.java"
-            line="227"
+            file="src/main/java/in/hridayan/ashell/utils/app/updater/ApkInstaller.java"
+            line="31"
             column="9"/>
     </issue>
 
     <issue
         id="ObsoleteSdkInt"
-        message="Unnecessary; SDK_INT is always >= 26"
+        message="Unnecessary; `SDK_INT` is always >= 26"
         errorLine1="      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O"
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.java"
-            line="88"
+            line="89"
             column="11"/>
     </issue>
 
@@ -674,7 +1032,7 @@
         errorLine2="          ~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/ui/dialogs/ActionDialogs.java"
-            line="35"
+            line="36"
             column="11"/>
     </issue>
 
@@ -685,7 +1043,7 @@
         errorLine2="          ~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/ui/dialogs/ActionDialogs.java"
-            line="36"
+            line="37"
             column="11"/>
     </issue>
 
@@ -696,7 +1054,7 @@
         errorLine2="          ~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/ui/dialogs/ActionDialogs.java"
-            line="37"
+            line="38"
             column="11"/>
     </issue>
 
@@ -707,7 +1065,7 @@
         errorLine2="          ~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/ui/dialogs/ActionDialogs.java"
-            line="38"
+            line="39"
             column="11"/>
     </issue>
 
@@ -718,19 +1076,8 @@
         errorLine2="          ~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/ui/dialogs/ActionDialogs.java"
-            line="39"
+            line="40"
             column="11"/>
-    </issue>
-
-    <issue
-        id="StaticFieldLeak"
-        message="This field leaks a context object"
-        errorLine1="  private Context context;"
-        errorLine2="  ~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/utils/FetchLatestVersionCode.java"
-            line="14"
-            column="3"/>
     </issue>
 
     <issue
@@ -895,6 +1242,17 @@
         <location
             file="src/main/res/drawable/ic_help.xml"
             line="23"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (800 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;M200,880Q167,880 143.5,856.5Q120,833 120,800L120,349Q102,338 91,320.5Q80,303 80,280L80,160Q80,127 103.5,103.5Q127,80 160,80L800,80Q833,80 856.5,103.5Q880,127 880,160L880,280Q880,303 869,320.5Q858,338 840,349L840,800Q840,833 816.5,856.5Q793,880 760,880L200,880ZM200,360L200,800Q200,800 200,800Q200,800 200,800L760,800Q760,800 760,800Q760,800 760,800L760,360L200,360ZM160,280L800,280Q800,280 800,280Q800,280 800,280L800,160Q800,160 800,160Q800,160 800,160L160,160Q160,160 160,160Q160,160 160,160L160,280Q160,280 160,280Q160,280 160,280ZM400,560L560,560Q577,560 588.5,548.5Q600,537 600,520Q600,503 588.5,491.5Q577,480 560,480L400,480Q383,480 371.5,491.5Q360,503 360,520Q360,537 371.5,548.5Q383,560 400,560ZM480,580L480,580L480,580Q480,580 480,580Q480,580 480,580L480,580Q480,580 480,580Q480,580 480,580Z&quot; />"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_inventory.xml"
+            line="10"
             column="27"/>
     </issue>
 
@@ -1275,6 +1633,17 @@
     <issue
         id="InefficientWeight"
         message="Use a `layout_width` of `0dp` instead of `wrap_content` for better performance"
+        errorLine1="                    android:layout_width=&quot;wrap_content&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout-land/fragment_ashell.xml"
+            line="115"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="InefficientWeight"
+        message="Use a `layout_width` of `0dp` instead of `wrap_content` for better performance"
         errorLine1="                android:layout_width=&quot;wrap_content&quot;"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1312,7 +1681,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_main.xml"
-            line="9"
+            line="8"
             column="5"/>
     </issue>
 
@@ -1366,6 +1735,17 @@
         errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
+            file="src/main/res/layout-land/fragment_ashell.xml"
+            line="7"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
+        errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
             file="src/main/res/layout/fragment_ashell.xml"
             line="8"
             column="5"/>
@@ -1380,6 +1760,17 @@
             file="src/main/res/layout/fragment_changelog.xml"
             line="10"
             column="9"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
+        errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout-land/fragment_examples.xml"
+            line="9"
+            column="5"/>
     </issue>
 
     <issue
@@ -1412,6 +1803,17 @@
         <location
             file="src/main/res/layout/fragment_pairing.xml"
             line="10"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `?attr/colorSurface` with a theme that also paints a background (inferred theme is `@style/aShellYou.AppTheme`)"
+        errorLine1="    android:background=&quot;?attr/colorSurface&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_script_executor.xml"
+            line="8"
             column="5"/>
     </issue>
 
@@ -1472,12 +1874,12 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.color.transparent` appears to be unused"
-        errorLine1="    &lt;color name=&quot;transparent&quot;>#00000000&lt;/color>"
-        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        message="The resource `R.color.red` appears to be unused"
+        errorLine1="    &lt;color name=&quot;red&quot;>#FF0000&lt;/color>"
+        errorLine2="           ~~~~~~~~~~">
         <location
             file="src/main/res/values/colors.xml"
-            line="7"
+            line="2"
             column="12"/>
     </issue>
 
@@ -1632,7 +2034,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="13"
+            line="12"
             column="13"/>
     </issue>
 
@@ -1643,7 +2045,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="14"
+            line="13"
             column="13"/>
     </issue>
 
@@ -1654,7 +2056,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="15"
+            line="14"
             column="13"/>
     </issue>
 
@@ -1665,7 +2067,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="16"
+            line="15"
             column="13"/>
     </issue>
 
@@ -1676,7 +2078,7 @@
         errorLine2="            ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="24"
+            line="23"
             column="13"/>
     </issue>
 
@@ -1687,7 +2089,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="26"
+            line="25"
             column="13"/>
     </issue>
 
@@ -1698,7 +2100,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="29"
+            line="28"
             column="13"/>
     </issue>
 
@@ -1709,7 +2111,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="30"
+            line="29"
             column="13"/>
     </issue>
 
@@ -1720,7 +2122,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="34"
+            line="33"
             column="13"/>
     </issue>
 
@@ -1731,7 +2133,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="35"
+            line="34"
             column="13"/>
     </issue>
 
@@ -1742,7 +2144,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="72"
+            line="71"
             column="13"/>
     </issue>
 
@@ -1753,7 +2155,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="73"
+            line="72"
             column="13"/>
     </issue>
 
@@ -1764,19 +2166,19 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="104"
+            line="100"
             column="13"/>
     </issue>
 
     <issue
         id="UnusedResources"
         message="The resource `R.string.discord` appears to be unused"
-        errorLine1="    &lt;string name=&quot;discord&quot;>Discord&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~">
+        errorLine1="        name=&quot;discord&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="106"
-            column="13"/>
+            line="103"
+            column="9"/>
     </issue>
 
     <issue
@@ -1786,7 +2188,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="107"
+            line="105"
             column="13"/>
     </issue>
 
@@ -1797,7 +2199,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="109"
+            line="107"
             column="13"/>
     </issue>
 
@@ -1808,7 +2210,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="110"
+            line="108"
             column="13"/>
     </issue>
 
@@ -1819,7 +2221,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="119"
+            line="118"
             column="13"/>
     </issue>
 
@@ -1830,7 +2232,7 @@
         errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="128"
+            line="129"
             column="13"/>
     </issue>
 
@@ -1841,7 +2243,7 @@
         errorLine2="            ~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="140"
+            line="141"
             column="13"/>
     </issue>
 
@@ -1852,7 +2254,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="153"
+            line="154"
             column="13"/>
     </issue>
 
@@ -1863,7 +2265,18 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="165"
+            line="166"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.open_shizuku` appears to be unused"
+        errorLine1="    &lt;string name=&quot;open_shizuku&quot;>Open Shizuku&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="167"
             column="13"/>
     </issue>
 
@@ -1874,7 +2287,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="173"
+            line="175"
             column="13"/>
     </issue>
 
@@ -1885,7 +2298,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="179"
+            line="182"
             column="13"/>
     </issue>
 
@@ -1896,7 +2309,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="180"
+            line="183"
             column="13"/>
     </issue>
 
@@ -1907,7 +2320,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="184"
+            line="187"
             column="13"/>
     </issue>
 
@@ -1918,7 +2331,7 @@
         errorLine2="            ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="187"
+            line="190"
             column="13"/>
     </issue>
 
@@ -1929,7 +2342,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="209"
+            line="212"
             column="13"/>
     </issue>
 
@@ -1940,7 +2353,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="210"
+            line="213"
             column="13"/>
     </issue>
 
@@ -1951,7 +2364,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="218"
+            line="223"
             column="13"/>
     </issue>
 
@@ -1962,7 +2375,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="238"
+            line="243"
             column="13"/>
     </issue>
 
@@ -1973,7 +2386,7 @@
         errorLine2="            ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="239"
+            line="244"
             column="13"/>
     </issue>
 
@@ -1984,7 +2397,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="242"
+            line="247"
             column="13"/>
     </issue>
 
@@ -1993,17 +2406,6 @@
         message="The resource `R.string.usb_warning_summary` appears to be unused"
         errorLine1="    &lt;string name=&quot;usb_warning_summary&quot;>You need to turn on USB Debugging in the developer settings of the target device&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="243"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.warning` appears to be unused"
-        errorLine1="    &lt;string name=&quot;warning&quot;>Warning&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
             line="248"
@@ -2017,7 +2419,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="276"
+            line="280"
             column="13"/>
     </issue>
 
@@ -2028,7 +2430,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="277"
+            line="281"
             column="13"/>
     </issue>
 
@@ -2039,7 +2441,480 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="311"
+            line="319"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v6_1_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v6_1_0&quot;>\n\n• Now command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\n\n• Option to open Shizuku app directly when Shizuku is installed but not running.\n\n• Fixed the broken in app crash reporter.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="335"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v6_0_3` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v6_0_3&quot;>\n\n• Fixed the issue which caused per app translations to be broken for aShell You&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="336"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v6_0_2` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v6_0_2&quot;>\n\n• Adapted Github Actions for release builds.\n\n• What this means for you?\n• All subsequent builds including this will be more secure!&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="337"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v6_0_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v6_0_1&quot;>\n\n• Maintenance update&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="338"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v6_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v6_0_0&quot;>\n\n• Added WIRELESS DEBUGGING mode for running ADB commands on both own or other device\n\n• Redesigned homepage for minimal navigation and less cluttery input field screen\n\n• Added Warning feedback when executing commands involving critical system packages\n\n• Added in-app updater. Now you can directly download the latest package without visiting Github repository\n\n• Fixed a lot of bugs&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="339"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v5_2_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v5_2_1&quot;>\n\n• Maintenance update&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="340"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v5_2_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v5_2_0&quot;>\n\n• UI improvements\n\n• Fixed some bugs&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="341"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v5_1_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v5_1_0&quot;>\n\n• Small UI improvements&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="342"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v5_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v5_0_0&quot;>\n\n• Huge UI and UX improvements across all sections of the app\n\n• Added ROOT and BASIC shell in addition to Shizuku shell for running commands\n\n• Added option to save output in custom directory\n\n• Fixed a lot of bugs and issues\n\n• Optimised app\&apos;s code for better performance and stability&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="343"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_4_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_4_0&quot;>\n\n• Added vibration for haptic feedback\n\n• Added option to change app language from within the app (for devices running Android 13 and above only and excluding unsupported devices)\n\n• Fixed some crashes and improved crash reporting\n\n• Minor UI improvements&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="344"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_3_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_3_1&quot;>\n\n• Now app catches any crashes and provides the option to report them via email&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="345"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_3_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_3_0&quot;>\n\n• Added option to open saved output directly\n\n• Added option to save whole output or the last command output only\n\n• Fixed crashes&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="346"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_2_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_2_1&quot;>\n\n• Fixed an issue with Sharing text to aShell You where the text did not appear when app was starting fresh\n\n• Fixed minor UI issues&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="347"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_2_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_2_0&quot;>\n\n• Stable release of OTG mode\n\n• Added features like save, share, quick scroll buttons to the OTG mode\n\n• Added info cards for quick information\n\n• Added in app update checker along with the option to auto check for updates\n\n• Minor UI improvements&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="348"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_1_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_1_0&quot;>\n\n• Fixed some issues in OTG adb support\n\n• Updated translations&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="349"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_0_3` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_0_3&quot;>\n\n• Updated dependencies\n\n• Added more command examples&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="350"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_0_2` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_0_2&quot;>\n\n• Fixed AMOLED theme not working on devices running Android 11 or below&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="351"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_0_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_0_1&quot;>\n\n• Now you can Pin commands for quick access\n\n • Bug fixes and lot of code optimisations&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="352"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_0_0&quot;>\n\n• Now you can directly use commands from the Commands section instead of the need to copy them every time\n\n • Added option to delete all bookmarks\n\n• In search : You can now search in commands summary by clicking a prompt chip\n\n• Added sorting options in Commands templates\n\n• Added option to directly bookmark selected items in Commands section\n\n• Chip Indicator shows connected device(currently only in local ADB mode)\n\n• Fixed bugs causing crashes in devices running Android 11 or below\n\n• Added Turkish translation\n\n• Minor UI improvements\n\n• Lot of other bug fixes&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="353"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_9_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_9_1&quot;>\n\n• Added total bookmarks count\n\n• Fixed some bugs&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="354"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_9_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_9_0&quot;>\n\n• Added Search in commands section\n\n• Added option to set default working mode\n\n• Improved animations\n\n• Reworked bookmarks section and added sorting options\n\n• Increased bookmarks limit to 25\n\n• Removed ADB shell launcher shortcut and added Commands launcher shortcut\n\n• Fixed padding issues in button navigation\n\n• Fixed some buttons shape&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="355"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_8_2` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_8_2&quot;>\n\n• App uses a more refreshed color palette for material you themeing\n\n• Fixed minor bugs&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="356"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_8_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_8_1&quot;>\n\n• Fixed some crashes that were introduced in v3.8.0&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="357"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_8_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_8_0&quot;>\n\n• Added black (amoled) theme\n\n• Added undo button to undo paste\n\n• Added option to disable soft keyboard\n\n• Fixed buttons stretched in some screen sizes\n\n• Fixed bookmarks button not appearing after opening the app\n\n• Renamed Examples section to Commands\n\n• Fixed copy command option not appearing for every command template\n\n• App now uses system font everywhere\n\n• Improved UI handling\n\n• Updated translations&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="358"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_7_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_7_0&quot;>\n\n• Now you can share texts from anywhere on your device to aShell You and run commands directly.\n\n• Now you can share shell output directly without needing to save it !\n\n• A lot of optimisations and UI handling.\n\n• Added Chinese translations.\n\n• Updated translations."
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="360"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_6_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_6_0&quot;>\n\n• Added option to clear the command input field after an error\n\n• Fixed a bug which caused the app to crash upon pasting from clipboard under certain conditions\n\n• Code optimisations&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="363"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_5_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_5_1&quot;>\n\n• Fixed some issues with bottom navigation.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="364"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_5_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_5_0&quot;>\n\n• Revamped About section of the app.\n\n• Added launcher shortcuts.\n\n• Fixed navigation menu not showing in button navigation.\n\n• Improved bottom navigation menu visibility on scrolling.\n\n• Added per app language support for aShell You (translations aren\&apos;t completed yet).\n\n• A lot of code optimisations.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="366"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_4_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_4_0&quot;>\n\n• Added a Paste button so that you can copy and paste commands quickly.\n\n• Added Error indicators in the text input field.\n\n• Improved Navigation Bar visibility logic.\n\n• Fixed an issue where switches misbehaves under certain situations.\n\n• Fixed add bookmark icon visibility in various contrast levels.\n\n• A lot of code optimisation. App now opens a lot faster than before.\n\n• App will stay in background and won\&apos;t restart every time you close the app by just pressing the back button or gesture.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="368"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_3_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_3_0&quot;>\n\n• Added bookmarks , history and command suggestions to OTG\n\n• Added maximum bookmarks limit.\n\n• Added option to override maximum bookmarks limit.\n\n• A lot of bug fixes.\n\n• Improved some UI handling.\n\n• A lot of code optimisation.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_2_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_2_0&quot;>\n\n• A lot of UI related improvements.\n\n• Added chips that indicate current ADB working mode.\n\n• A lot of code optimisation.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="372"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_1_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_1_0&quot;>\n\n• Improvements to ADB OTG after initial release.\n\n• Some UI and logic adjustments to accomodate the new otg feature.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="374"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_0_0&quot;>\n\n• Added ADB THROUGH OTG support.\n\n *** You will be able to run ADB commands on other devices using aShellYou by connecting the other device using an OTG cable ***&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="376"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v2_0_2` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v2_0_2&quot;>\n\n• Removed unnecessary code and resources.\n\n• Minor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="378"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v2_0_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v2_0_1&quot;>\n\n• Removed unnecessary code and resources.\n\n• Minor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="380"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v2_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v2_0_0&quot;>\n\n• Changed app name to aShell You.\n\n• Added predictive back animations for supporting devices.\n\n• Added confirmation dialog popup before clearing screen.\n\n• Fixed StatusBar elements not properly visible in Light mode.\n\n• App is much more smooth now.\n ~ Reduced app size and optimised code.\n\n• Added themed icon for launchers that support themed icons.\n\n• Minor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="382"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_3_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_3_0&quot;>\n\n• Revamped Settings panel.\n\n• Added Double Tap to instant scroll to top and bottom positions in shell output view.\n\n• Minor UI fixes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="384"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_2_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_2_0&quot;>\n\n• Added Settings panel.\n\n• Added option to disable smooth scroll in shell output.\n\n• Fixed major bugs:\n\n  ~  Crash while changing device theme.\n\n  ~  Crash while trying to save large shell output . eg : output of \&apos;pm\&apos; command.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="386"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_1_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_1_1&quot;>\n\n• Replaced some deprecated api.\n\n• Minor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="388"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_1_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_1_0&quot;>\n\n• Added Scroll To Top and Scroll To Bottom buttons.\n\n• Added Click keyboard Enter key to Send command.\n\n• Added some commands.\n\n• Updated dependencies to include latest material you library.\n\n• Minor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="390"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_0_0&quot;>\n\n• Added some more command examples.\n\n• Minor UI changes.\n\n• Changed package name to avoid version confusion with original app.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="392"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v0_9_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v0_9_1&quot;>\n\n• Added changelogs into the app.\n\n• Added highlighted shell output.\n\n• Minor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="394"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v0_9_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v0_9_0&quot;>\n\n• Added dynamic material theming.\n\n• Revamped whole UI to give a fresh look.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="396"
             column="13"/>
     </issue>
 
@@ -2082,8 +2957,8 @@
         errorLine1="        name=&quot;BottomNavigation&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-night-v31/themes.xml"
-            line="83"
+            file="src/main/res/values-v31/themes.xml"
+            line="37"
             column="9"/>
     </issue>
 
@@ -2460,18 +3335,84 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_ashell.xml"
-            line="151"
+            line="173"
             column="14"/>
     </issue>
 
     <issue
         id="ContentDescription"
         message="Missing `contentDescription` attribute on image"
+        errorLine1="                &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout-land/fragment_ashell.xml"
+            line="180"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout-land/fragment_ashell.xml"
+            line="200"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout-land/fragment_ashell.xml"
+            line="213"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout-land/fragment_ashell.xml"
+            line="227"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
         errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_ashell.xml"
-            line="220"
+            line="228"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout-land/fragment_ashell.xml"
+            line="240"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_ashell.xml"
+            line="242"
             column="6"/>
     </issue>
 
@@ -2482,7 +3423,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_ashell.xml"
-            line="234"
+            line="257"
             column="6"/>
     </issue>
 
@@ -2493,18 +3434,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_ashell.xml"
-            line="249"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="ContentDescription"
-        message="Missing `contentDescription` attribute on image"
-        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
-        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/fragment_ashell.xml"
-            line="264"
+            line="272"
             column="6"/>
     </issue>
 
@@ -2516,6 +3446,17 @@
         <location
             file="src/main/res/layout/fragment_changelog.xml"
             line="37"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                &lt;ImageView"
+        errorLine2="                 ~~~~~~~~~">
+        <location
+            file="src/main/res/layout-land/fragment_examples.xml"
+            line="38"
             column="18"/>
     </issue>
 
@@ -2592,7 +3533,7 @@
         errorLine2="                     ~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_home.xml"
-            line="234"
+            line="235"
             column="22"/>
     </issue>
 
@@ -2603,7 +3544,7 @@
         errorLine2="                     ~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_home.xml"
-            line="252"
+            line="253"
             column="22"/>
     </issue>
 
@@ -2614,7 +3555,7 @@
         errorLine2="                     ~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_home.xml"
-            line="315"
+            line="316"
             column="22"/>
     </issue>
 
@@ -2625,7 +3566,29 @@
         errorLine2="                     ~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_home.xml"
-            line="333"
+            line="334"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="390"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="                    &lt;ImageView"
+        errorLine2="                     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_home.xml"
+            line="408"
             column="22"/>
     </issue>
 
@@ -2636,7 +3599,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="126"
+            line="148"
             column="14"/>
     </issue>
 
@@ -2647,7 +3610,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="210"
+            line="216"
             column="6"/>
     </issue>
 
@@ -2658,7 +3621,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="224"
+            line="230"
             column="6"/>
     </issue>
 
@@ -2669,7 +3632,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="239"
+            line="245"
             column="6"/>
     </issue>
 
@@ -2680,7 +3643,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_otg.xml"
-            line="254"
+            line="260"
             column="6"/>
     </issue>
 
@@ -2746,7 +3709,7 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_pairing.xml"
-            line="255"
+            line="256"
             column="18"/>
     </issue>
 
@@ -2757,7 +3720,7 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_pairing.xml"
-            line="303"
+            line="305"
             column="18"/>
     </issue>
 
@@ -2768,7 +3731,7 @@
         errorLine2="                 ~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_pairing.xml"
-            line="325"
+            line="328"
             column="18"/>
     </issue>
 
@@ -2790,7 +3753,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_wifi_adb.xml"
-            line="152"
+            line="174"
             column="14"/>
     </issue>
 
@@ -2801,7 +3764,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_wifi_adb.xml"
-            line="220"
+            line="229"
             column="6"/>
     </issue>
 
@@ -2812,7 +3775,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_wifi_adb.xml"
-            line="234"
+            line="243"
             column="6"/>
     </issue>
 
@@ -2823,7 +3786,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_wifi_adb.xml"
-            line="249"
+            line="258"
             column="6"/>
     </issue>
 
@@ -2834,7 +3797,7 @@
         errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_wifi_adb.xml"
-            line="264"
+            line="273"
             column="6"/>
     </issue>
 
@@ -2961,46 +3924,13 @@
 
     <issue
         id="SetTextI18n"
-        message="String literal in `setText` can not be translated. Use Android resources instead."
-        errorLine1="      binding.modeButton.setText(&quot;Basic shell&quot;);"
-        errorLine2="                                 ~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="1568"
-            column="34"/>
-    </issue>
-
-    <issue
-        id="SetTextI18n"
-        message="String literal in `setText` can not be translated. Use Android resources instead."
-        errorLine1="      binding.modeButton.setText(&quot;Shizuku&quot;);"
-        errorLine2="                                 ~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="1571"
-            column="34"/>
-    </issue>
-
-    <issue
-        id="SetTextI18n"
-        message="String literal in `setText` can not be translated. Use Android resources instead."
-        errorLine1="      binding.modeButton.setText(&quot;Root&quot;);"
-        errorLine2="                                 ~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/fragments/home/AshellFragment.java"
-            line="1574"
-            column="34"/>
-    </issue>
-
-    <issue
-        id="SetTextI18n"
         message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
-        errorLine1="    crashInfo.setText(stackTrace + &quot;\n\n&quot; + message);"
-        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    binding.crashLogTextView.setText(stackTrace + &quot;\n\n&quot; + message);"
+        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/CrashReportActivity.java"
-            line="53"
-            column="23"/>
+            line="40"
+            column="38"/>
     </issue>
 
     <issue
@@ -3010,7 +3940,7 @@
         errorLine2="        ^">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/home/HomeFragment.java"
-            line="206"
+            line="213"
             column="9"/>
     </issue>
 
@@ -3021,7 +3951,7 @@
         errorLine2="        ^">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/home/HomeFragment.java"
-            line="210"
+            line="217"
             column="9"/>
     </issue>
 
@@ -3032,7 +3962,7 @@
         errorLine2="        ^">
         <location
             file="src/main/java/in/hridayan/ashell/fragments/home/HomeFragment.java"
-            line="214"
+            line="221"
             column="9"/>
     </issue>
 
@@ -3100,6 +4030,39 @@
             file="src/main/res/layout/settings_look_and_feel.xml"
             line="160"
             column="22"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
+        errorLine1="                android:paddingStart=&quot;20dp&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="253"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
+        errorLine1="                android:paddingStart=&quot;20dp&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="302"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
+        errorLine1="                android:paddingStart=&quot;20dp&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_pairing.xml"
+            line="325"
+            column="17"/>
     </issue>
 
 </issues>
