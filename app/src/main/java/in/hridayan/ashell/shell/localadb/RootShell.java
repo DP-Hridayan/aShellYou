@@ -256,7 +256,7 @@ public class RootShell {
       scheduler = Executors.newScheduledThreadPool(1);
     }
 
-    scheduler.scheduleAtFixedRate(
+    scheduler.scheduleWithFixedDelay(
         new Runnable() {
           @Override
           public void run() {

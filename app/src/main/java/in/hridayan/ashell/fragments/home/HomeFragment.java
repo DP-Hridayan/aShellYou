@@ -1,5 +1,6 @@
 package in.hridayan.ashell.fragments.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -207,6 +208,7 @@ public class HomeFragment extends Fragment
   }
 
   // Update root access status
+  @SuppressLint("SetTextI18n")
   private void updateRootStatus() {
     boolean isRooted = viewModel.isDeviceRooted();
     binding.rootAccessText.setText(
