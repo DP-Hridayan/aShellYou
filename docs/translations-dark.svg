@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="290" style="background:#000000">
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="290" style="background:#00000000">
 <style>text { font-family: sans-serif; font-size: 14px; fill: #ffffff; }</style>
 <text x="140" y="25" text-anchor="end"><![CDATA[Arabic]]></text>
 <rect x="150" y="11" width="300" height="14" fill="#2C2F33" rx="8" ry="8" />
