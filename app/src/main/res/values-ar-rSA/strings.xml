@@ -291,7 +291,7 @@
     <string name="back">رجوع</string>
     <string name="mode_one_title">جذر</string>
     <string name="mode_one_desc">استخدام وصول الجذر لتشغيل الأوامر. يمكن تنفيذ الأوامر المتجذرة.</string>
-    <string name="mode_two_title">Shizuku</string>
+    <string name="mode_two_title">شيزوكو</string>
     <string name="mode_two_desc">استخدام Shizuku لتشغيل الأوامر. لن يتم تنفيذ الأوامر التي تتطلب جذر.</string>
     <string name="confirm_basic_mode">لم يتم منح أي امتياز أعلى. التطبيق سينفذ الأوامر الأساسية فقط. يمكنك تغيير وضع العمل لاحقًا في الإعدادات</string>
     <string name="examples_layout_style">أسلوب تخطيط الأمثلة</string>

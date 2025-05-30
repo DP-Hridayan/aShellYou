@@ -69,7 +69,7 @@
     <string name="connect_this_device">इस डिवाइस को कनेक्ट करें</string>
     <string name="connect_other_device">अन्य डिवाइस कनेक्ट करें</string>
     <string name="copy" tools:override="true">कॉपी</string>
-    <string name="copied">Copied</string>
+    <string name="copied">कॉपी किया गया</string>
     <string name="copied_to_clipboard">क्लिपबोर्ड में कॉपी किया गया</string>
     <string name="crash_report">क्रेश रिपोर्ट</string>
     <string name="current">वर्तमान</string>
@@ -99,7 +99,7 @@
     <string name="download">डाउनलोड करें</string>
     <string name="dynamic_colors">डायनैमिक रंग</string>
     <string name="des_dynamic_colors">डिवाइस वॉलपेपर के अनुसार ऐप थीम को स्वचालित रूप से सेट करें</string>
-    <string name="email">E-mail</string>
+    <string name="email">ई-मेल</string>
     <string name="enable_wifi">वाई-फाई चालू करें</string>
     <string name="enter_pairing_code">पेयरिंग कोड दर्ज करें</string>
     <string name="enter_six_digit_pairing_code">छह अंकों का पेयरिंग कोड दर्ज करें</string>
