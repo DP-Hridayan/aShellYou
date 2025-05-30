@@ -11,7 +11,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>Hridayan (DP-Hridayan)</b></sub></a>
         <br />
-        <sub><b>32537 words</b></sub>
+        <sub><b>32539 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/R9TRH"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16623243/medium/87137f31b65ee3f2e1a137eafcf9729d.jpeg" />
@@ -21,9 +21,16 @@ Thanks to these translators and proofreaders, this project exists:
         <sub><b>110 words</b></sub>
       </td>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/jimietianxia"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17101716/medium/fd01e9074549bdf41d672bd55d739d5f_default.png" />
+          <br />
+          <sub><b>jimietianxia</b></sub></a>
+        <br />
+        <sub><b>90 words</b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/alex211952i"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16749463/medium/a5c4e3624bfd368750b8b82116a2dafb.png" />
           <br />
-          <sub><b>АЛЕКСЕЙ ИВАНКОВСКИЙ (alex211952i)</b></sub></a>
+          <sub><b>AlexeiCrystal (alex211952i)</b></sub></a>
         <br />
         <sub><b>59 words</b></sub>
       </td>
@@ -33,6 +40,13 @@ Thanks to these translators and proofreaders, this project exists:
           <sub><b>Camellan</b></sub></a>
         <br />
         <sub><b>3 words</b></sub>
+      </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/krishnassh"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16914423/medium/ffc48179d9e2aff7be3ece42771e55ed.png" />
+          <br />
+          <sub><b>Krishna Gopal (krishnassh)</b></sub></a>
+        <br />
+        <sub><b>1 words</b></sub>
       </td>
     </tr>
   </tbody>
