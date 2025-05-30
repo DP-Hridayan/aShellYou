@@ -12,14 +12,14 @@ data = response.json()["data"]
 
 themes = {
     "light": {
-        "bg": "#ffffff",
+        "bg": "#00000000",
         "text": "#1C1B1F",
         "bar_bg": "#E0E0E0",
         "red": "#B3261E",
         "green": "#0F6B0F"
     },
     "dark": {
-        "bg": "#000000",
+        "bg": "#00000000",
         "text": "#ffffff",
         "bar_bg": "#2C2F33",
         "red": "#FFB4AB",
