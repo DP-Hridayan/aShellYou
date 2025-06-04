@@ -75,12 +75,12 @@ fun BackupAndRestoreScreen(
     ) { uri ->
         uri?.let {
             val fileName = getFileNameFromUri(context, it)
-            if (fileName?.endsWith(".driftly") == true) {
+            if (fileName?.endsWith(".ashellyou") == true) {
                 restoreFileUri = it
                 backupAndRestoreViewModel.loadBackupTime(it)
                 showRestoreBackupDialog = true
             } else {
-                showToast(context, context.getString(R.string.pick_driftly_extension))
+                showToast(context, context.getString(R.string.pick_ashellyou_extension))
             }
         }
     }
@@ -94,7 +94,7 @@ fun BackupAndRestoreScreen(
 
                 is SettingsUiEvent.RequestDocumentUriForBackup -> {
                     backupAndRestoreViewModel.initiateBackup(event.backupOption)
-                    launcherBackup.launch("backup_${System.currentTimeMillis()}.driftly")
+                    launcherBackup.launch("backup_${System.currentTimeMillis()}.ashellyou")
                 }
 
                 is SettingsUiEvent.RequestDocumentUriForRestore -> {
