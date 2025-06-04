@@ -9,7 +9,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.constants.SeedColors
@@ -37,8 +36,6 @@ fun CompositionLocals(
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
-
-    val context = LocalContext.current
 
     val autoUpdate by settingsViewModel.booleanState(SettingsKeys.AUTO_UPDATE)
 

@@ -13,12 +13,10 @@ import `in`.hridayan.ashell.settings.data.remote.api.GitHubApi
 import `in`.hridayan.ashell.settings.data.remote.repository.UpdateRepositoryImpl
 import `in`.hridayan.ashell.settings.domain.repository.UpdateRepository
 import io.ktor.client.HttpClient
-import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonBuilder
 import javax.inject.Singleton
 
 
@@ -31,8 +29,8 @@ object NetworkModule {
     @ApiHttpClient
     fun provideApiHttpClient(): HttpClient {
         return HttpClient(CIO) {
-            HttpClientConfig.install(ContentNegotiation) {
-                json(Json { JsonBuilder.ignoreUnknownKeys = true })
+            install(ContentNegotiation) {
+                json(Json { ignoreUnknownKeys = true })
             }
         }
     }

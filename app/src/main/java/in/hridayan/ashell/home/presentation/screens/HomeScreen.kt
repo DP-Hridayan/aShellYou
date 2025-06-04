@@ -32,21 +32,27 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.config.URL_OTG_INSTRUCTIONS
 import `in`.hridayan.ashell.core.common.config.URL_WIRELESS_DEBUGGING_INSTRUCTIONS
-import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.presentation.ui.component.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.ui.component.card.BottomCornerRoundedCard
 import `in`.hridayan.ashell.core.presentation.ui.component.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.ui.component.card.TopCornerRoundedCard
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
+import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.SettingsScreen
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val weakHaptic = LocalWeakHaptic.current
+    val navController = LocalNavController.current
+
     Scaffold(contentWindowInsets = WindowInsets.safeDrawing) {
         Column(
             modifier = Modifier.Companion
@@ -58,12 +64,15 @@ fun HomeScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 45.dp, bottom = 25.dp),
+                    .padding(top = 35.dp, bottom = 25.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(25.dp)
             ) {
                 AppNameText(modifier = Modifier.weight(1f))
-                SettingsButton()
+                SettingsButton(onClick = {
+                    weakHaptic()
+                    navController.navigate(SettingsScreen)
+                })
             }
 
             LocalAdbCard()
@@ -74,7 +83,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun SettingsButton(modifier: Modifier = Modifier) {
+fun SettingsButton(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     Image(
         painter = painterResource(id = R.drawable.ic_settings),
         contentDescription = null,
@@ -85,8 +94,8 @@ fun SettingsButton(modifier: Modifier = Modifier) {
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
-                onClick = {
-                })
+                onClick = onClick
+            )
     )
 }
 

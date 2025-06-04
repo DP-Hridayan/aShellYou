@@ -11,7 +11,6 @@ import `in`.hridayan.ashell.settings.data.local.repository.SettingsRepositoryImp
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonBuilder
 import javax.inject.Singleton
 
 @Module
@@ -33,8 +32,8 @@ object SettingsModule {
     @Provides
     @Singleton
     fun provideJson(): Json = Json {
-        JsonBuilder.prettyPrint = true
-        JsonBuilder.isLenient = true
-        JsonBuilder.ignoreUnknownKeys = true
+        prettyPrint = true
+        isLenient = true
+        ignoreUnknownKeys = true
     }
 }

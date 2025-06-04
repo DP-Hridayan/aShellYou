@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.commandexamples.data.local.repository.CommandRepositoryImpl
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
+import `in`.hridayan.ashell.settings.data.local.repository.BackupAndRestoreRepositoryImpl
+import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import javax.inject.Singleton
 
 @Module
