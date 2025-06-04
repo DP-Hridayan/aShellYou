@@ -16,7 +16,7 @@ class GetAllChangelogsUseCase(
         val pkg = context.packageName
 
         return versions.map { version ->
-            val resourceName = "changelogs_" + version.replace('.', '_')
+            val resourceName = "changelog_" + version.replace('.', '_')
 
             val resId = res.getIdentifier(resourceName, "string", pkg)
 

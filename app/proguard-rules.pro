@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class androidx.datastore.preferences.PreferencesProto$* { *; }
+-keepclassmembers class androidx.datastore.preferences.PreferencesProto$* { *; }
+-keep class org.slf4j.** { *; }
+-dontwarn org.slf4j.**
