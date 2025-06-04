@@ -291,7 +291,7 @@
     <string name="request_timeout">Request timeout</string>
     <string name="enable_direct_download">Enable direct apk download</string>
     <string name="des_enable_direct_download">When turned on, updates will be downloaded directly from Github inside the app. Turn off to visit the Github releases page for manual download instead.</string>
-    <string name="visit_repo_to_download">Click on the download button to get the latest version of Driftly from the github repository.</string>
+    <string name="visit_repo_to_download">Click on the download button to get the latest version of aShellYou from the github repository.</string>
     <string name="pre_release">Pre-release</string>
     <string name="pre_release_warning">Pre-release builds may be unstable</string>
 
@@ -368,12 +368,12 @@
     <string name="des_notify_missed_attendance">Receive notifications when an attendance is missed</string>
     <string name="start_week_on_monday">Start week on Monday</string>
     <string name="notify_update_available">Notify when update available</string>
-    <string name="des_notify_update_available">Receive notifications when a newer version of Driftly is released</string>
-    <string name="des_update_available">A newer version of Driftly has been released!</string>
+    <string name="des_notify_update_available">Receive notifications when a newer version of aShellYou is released</string>
+    <string name="des_update_available">A newer version of aShellYou has been released!</string>
 
     <string name="des_grant_notification_permission">Do you want to get alerts when you forget to mark your attendance?\n\nGrant notification access!</string>
     <string name="des_start_week_on_monday">Prefer seeing your week begin with Monday instead of Sunday? Enable this to shift the calendar layout so Monday becomes the first day of the week.</string>
-    <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve Driftly before the stable release.\nThanks for helping us build better!</string>
+    <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
 
 
     <string name="success">Success</string>

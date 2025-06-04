@@ -249,7 +249,7 @@ fun UpdateBottomSheet(
                         } else {
                             openUrl(
                                 context = context,
-                                url = "https://github.com/dp-hridayan/driftly/releases/tag/$latestVersion"
+                                url = "https://github.com/dp-hridayan/ashellyou/releases/tag/$latestVersion"
                             )
                         }
                         weakHaptic()

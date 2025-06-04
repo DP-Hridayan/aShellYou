@@ -82,7 +82,7 @@ class DownloadRepositoryImpl @Inject constructor(
     private fun createRequest(url: String, file: File): DownloadManager.Request {
         return DownloadManager.Request(url.toUri()).apply {
             setTitle("Downloading update")
-            setDescription("Driftly update is downloading...")
+            setDescription("aShellYou update is downloading...")
             setDestinationUri(Uri.fromFile(file))
             setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
             setAllowedOverMetered(true)
