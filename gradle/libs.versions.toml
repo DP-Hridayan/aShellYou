@@ -1,15 +1,15 @@
 [versions]
-androidApplication = "8.10.0"
+androidApplication = "8.10.1"
 kotlin = "2.1.10"
 ksp = "2.1.10-1.0.31"
 hilt = "2.56.1"
 material3 = "1.4.0-alpha15"
-material = "1.13.0-alpha13"
+material = "1.13.0-alpha14"
 serialization = "1.7.3"
 gson = "2.12.1"
-lifecycle = "2.9.0"
+lifecycle = "2.9.1"
 activityCompose = "1.10.1"
-composeBom = "2025.05.01"
+composeBom = "2025.06.00"
 navigation = "2.9.0"
 room = "2.7.1"
 hiltExt = "1.2.0"
@@ -19,6 +19,12 @@ espresso = "3.6.1"
 materialIconsExtended = "1.7.8"
 datastore = "1.1.7"
 coreKtx = "1.16.0"
+composeAnimation = "1.8.2"
+splashscreen = "1.0.1"
+ktor = "2.3.8"
+slf4j = "1.7.36"
+securityCrypto = "1.1.0-beta01"
+work = "2.10.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplication" }
@@ -59,7 +65,16 @@ compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIconsExtended" }
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
-
+core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
+androidx-compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "composeAnimation" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+slf4j-android = { group = "org.slf4j", name = "slf4j-android", version.ref = "slf4j" }
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltExt" }
 
 
 

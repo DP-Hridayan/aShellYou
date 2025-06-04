@@ -16,4 +16,10 @@ abstract class RepositoryModule {
     abstract fun bindCommandRepository(
         commandRepositoryImpl: CommandRepositoryImpl
     ): CommandRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindBackupAndRestoreRepository(
+        backupAndRestoreRepositoryImpl: BackupAndRestoreRepositoryImpl
+    ): BackupAndRestoreRepository
 }

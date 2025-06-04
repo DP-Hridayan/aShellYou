@@ -34,7 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.config.URL_OTG_INSTRUCTIONS
 import `in`.hridayan.ashell.core.common.config.URL_WIRELESS_DEBUGGING_INSTRUCTIONS
-import `in`.hridayan.ashell.core.common.utils.UrlUtils
+import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.presentation.ui.component.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.ui.component.card.BottomCornerRoundedCard
 import `in`.hridayan.ashell.core.presentation.ui.component.card.NavigationCard
@@ -78,7 +78,7 @@ fun SettingsButton(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(id = R.drawable.ic_settings),
         contentDescription = null,
-        colorFilter = ColorFilter.Companion.tint(
+        colorFilter = ColorFilter.tint(
             MaterialTheme.colorScheme.onSurfaceVariant
         ),
         modifier = modifier

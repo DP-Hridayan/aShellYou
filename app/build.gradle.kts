@@ -22,6 +22,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
     ksp {
         arg("room.schemaLocation", "$projectDir/schemas")
     }
@@ -38,6 +42,12 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+
+    androidResources {
+        @Suppress("UnstableApiUsage")
+        generateLocaleConfig = true
     }
 
     compileOptions {
@@ -76,13 +86,29 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
+    implementation(libs.serialization.json)
+    implementation(libs.gson)
+
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.core.splashscreen)
+    implementation(libs.androidx.compose.animation)
+
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.android.compiler)
     kapt(libs.hilt.compiler)
+    implementation(libs.hilt.work)
 
-    implementation(libs.serialization.json)
-    implementation(libs.gson)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.slf4j.android)
+
+    implementation(libs.androidx.security.crypto)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
