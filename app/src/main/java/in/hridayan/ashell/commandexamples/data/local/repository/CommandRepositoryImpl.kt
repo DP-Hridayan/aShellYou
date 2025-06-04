@@ -14,12 +14,24 @@ class CommandRepositoryImpl @Inject constructor(
         commandDao.insertCommand(command)
     }
 
+    override suspend fun insertAllCommands(commands: List<CommandEntity>) {
+        commandDao.insertAllCommands(commands)
+    }
+
     override suspend fun updateCommand(command: CommandEntity) {
         commandDao.updateCommand(command)
     }
 
     override suspend fun deleteCommand(id: Int) {
         commandDao.deleteCommand(id)
+    }
+
+    override suspend fun deleteAllCommands() {
+        commandDao.deleteAllCommands()
+    }
+
+    override suspend fun getAllCommandsOnce(): List<CommandEntity> {
+        return commandDao.getAllCommandsOnce()
     }
 
     override fun getCommandCount(): Int {

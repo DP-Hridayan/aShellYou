@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.settings.data.local.repository
 import android.content.Context
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.utils.EncryptionHelper
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.BackupData
@@ -17,8 +18,7 @@ import javax.inject.Inject
 
 class BackupAndRestoreRepositoryImpl @Inject constructor(
     private val json: Json,
-    private val attendanceRepository: AttendanceRepository,
-    private val subjectRepository: SubjectRepository,
+    private val commandRepository: CommandRepository,
     private val settingsRepository: SettingsRepository,
     @ApplicationContext private val context: Context
 ) : BackupAndRestoreRepository {
@@ -65,19 +65,15 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
             if (option == BackupOption.SETTINGS_ONLY || option == BackupOption.SETTINGS_AND_DATABASE)
                 getSettingsMap() else null
 
-        val attendance =
+        val commands =
             if (option == BackupOption.DATABASE_ONLY || option == BackupOption.SETTINGS_AND_DATABASE)
-                attendanceRepository.getAllAttendancesOnce() else null
-
-        val subjects =
-            if (option == BackupOption.DATABASE_ONLY || option == BackupOption.SETTINGS_AND_DATABASE)
-                subjectRepository.getAllSubjectsOnce() else null
+                commandRepository.getAllCommandsOnce() else null
 
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
 
         val backupTime = java.time.LocalDateTime.now().format(formatter)
 
-        return BackupData(settings, attendance, subjects, backupTime)
+        return BackupData(settings = settings, commands = commands, backupTime = backupTime)
     }
 
     override suspend fun getBackupTimeFromFile(uri: Uri): String? = withContext(Dispatchers.IO) {
@@ -101,13 +97,9 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
     }
 
     private suspend fun saveRestoredData(data: BackupData) {
-        data.attendance?.let {
-            attendanceRepository.deleteAllAttendances()
-            attendanceRepository.insertAllAttendances(it)
-        }
-        data.subjects?.let {
-            subjectRepository.deleteAllSubjects()
-            subjectRepository.insertAllSubjects(it)
+        data.commands?.let {
+            commandRepository.deleteAllCommands()
+            commandRepository.insertAllCommands(it)
         }
         data.settings?.let { restoreSettings(it) }
     }

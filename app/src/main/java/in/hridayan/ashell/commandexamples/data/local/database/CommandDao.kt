@@ -14,14 +14,23 @@ interface CommandDao {
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insertCommand(command: CommandEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllCommands(commands: List<CommandEntity>)
+
     @Update
     suspend fun updateCommand(command: CommandEntity)
 
     @Query("DELETE FROM commands WHERE id = :commandId")
     suspend fun deleteCommand(commandId: Int)
 
+    @Query("DELETE FROM commands")
+    suspend fun deleteAllCommands()
+
     @Query("SELECT COUNT(*) FROM commands")
     fun getCommandCount(): Int
+
+    @Query("SELECT * FROM commands")
+    suspend fun getAllCommandsOnce(): List<CommandEntity>
 
     @Query("SELECT * FROM commands WHERE id = :commandId")
     suspend fun getCommandById(commandId: Int): CommandEntity?

@@ -55,10 +55,6 @@ class SettingsRepositoryImpl(
         return SettingsProvider.backupPageList
     }
 
-    override suspend fun getNotificationsPageList(): List<PreferenceGroup> {
-        return SettingsProvider.notificationsPageList
-    }
-
     override fun getAllDefaultSettings(): Map<String, Any?> {
         return dataStore.getAllDefaultSettings()
     }

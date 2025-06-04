@@ -2,7 +2,9 @@ package `in`.hridayan.ashell.commandexamples.data.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "commands")
 data class CommandEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
