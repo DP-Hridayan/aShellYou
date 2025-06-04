@@ -64,7 +64,7 @@ fun HomeScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 35.dp, bottom = 25.dp),
+                    .padding(vertical = 25.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(25.dp)
             ) {
