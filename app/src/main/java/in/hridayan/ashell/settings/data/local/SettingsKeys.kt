@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.settings.data.local
 
+import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
 import `in`.hridayan.ashell.core.common.SeedColorProvider
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
@@ -34,11 +35,16 @@ enum class SettingsKeys(val default: Any?) {
     RESET_APP_SETTINGS(null),
     LAST_BACKUP_TIME(""),
     CLEAR_OUTPUT_CONFIRMATION(true),
-    OUTPUT_SAVE_DIRECTORY(""),
+    OUTPUT_SAVE_DIRECTORY(
+        Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_DOWNLOADS
+        ).absolutePath
+    ),
     LOCAL_ADB_WORKING_MODE(LocalAdbWorkingMode.BASIC),
     DISABLE_SOFT_KEYBOARD(false),
     OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT(false),
     SAVE_WHOLE_OUTPUT(true),
     SMOOTH_SCROLLING(true),
-    COMMANDS(null)
+    COMMANDS(null),
+    TELEGRAM(null)
 }

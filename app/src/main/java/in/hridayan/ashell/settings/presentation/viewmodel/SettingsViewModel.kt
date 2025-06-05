@@ -176,6 +176,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_REPO)
                 )
 
+                SettingsKeys.TELEGRAM -> _uiEvent.emit(
+                    SettingsUiEvent.OpenUrl(UrlConst.URL_TELEGRAM_CHANNEL)
+                )
+
                 SettingsKeys.LANGUAGE -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     _uiEvent.emit(
                         SettingsUiEvent.LaunchIntent(
@@ -210,6 +214,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.RequestDocumentUriForRestore
                 )
 
+                SettingsKeys.OUTPUT_SAVE_DIRECTORY -> _uiEvent.emit(
+                    SettingsUiEvent.ShowDialog(SettingsKeys.OUTPUT_SAVE_DIRECTORY)
+                )
+
                 else -> {}
             }
         }
@@ -220,7 +228,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun isItemEnabled(key: SettingsKeys): Flow<Boolean> {
-       return flowOf(true)
+        return flowOf(true)
     }
 
     fun onBooleanItemClicked(key: SettingsKeys) {

@@ -9,6 +9,7 @@ object UrlConst {
     const val URL_GITHUB_REPO_LICENSE =
         "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md"
     const val URL_DEV_TELEGRAM = "https://t.me/hridayan"
+    const val URL_TELEGRAM_CHANNEL = "https://t.me/ashellyou"
     const val URL_DEV_GITHUB = "https://github.com/DP-Hridayan"
     const val URL_DEV_EMAIL = "mailto:hridayanofficial@gmail.com"
     const val URL_DEV_BM_COFFEE = "https://www.buymeacoffee.com/hridayan"

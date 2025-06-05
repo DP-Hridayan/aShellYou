@@ -195,6 +195,12 @@ object SettingsProvider {
                 iconResId = R.drawable.ic_github,
             ),
             nullPreferenceItem(
+                key = SettingsKeys.TELEGRAM,
+                titleResId = R.string.telegram_channel,
+                descriptionResId = R.string.des_telegram_channel,
+                iconResId = R.drawable.ic_telegram,
+            ),
+            nullPreferenceItem(
                 key = SettingsKeys.LICENSE,
                 titleResId = R.string.license,
                 descriptionResId = R.string.des_license,

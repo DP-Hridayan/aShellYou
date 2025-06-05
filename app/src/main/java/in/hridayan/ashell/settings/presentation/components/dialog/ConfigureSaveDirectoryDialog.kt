@@ -1,0 +1,191 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
+package `in`.hridayan.ashell.settings.presentation.components.dialog
+
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.FolderOpen
+import androidx.compose.material.icons.rounded.Sync
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.hilt.navigation.compose.hiltViewModel
+import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+
+@Composable
+fun ConfigureSaveDirectoryDialog(
+    modifier: Modifier = Modifier,
+    onDismiss: () -> Unit,
+    settingsViewModel: SettingsViewModel = hiltViewModel()
+) {
+    val weakHaptic = LocalWeakHaptic.current
+
+    val outputSaveDirectory =
+        settingsViewModel.getString(SettingsKeys.OUTPUT_SAVE_DIRECTORY).collectAsState(
+            initial = SettingsKeys.OUTPUT_SAVE_DIRECTORY.default as String
+        )
+
+    var rotationAngle by rememberSaveable { mutableFloatStateOf(0f) }
+
+    val animatedRotation by animateFloatAsState(
+        targetValue = rotationAngle,
+        animationSpec = tween(
+            durationMillis = 1000,
+            easing = FastOutSlowInEasing
+        ),
+        label = "Spin"
+    )
+
+    val onResetDirectory: () -> Unit = {
+        weakHaptic()
+        settingsViewModel.setString(
+            SettingsKeys.OUTPUT_SAVE_DIRECTORY,
+            SettingsKeys.OUTPUT_SAVE_DIRECTORY.default
+        )
+        rotationAngle -= 360f
+    }
+
+    val onPickFolder: () -> Unit = {
+        weakHaptic()
+    }
+
+    Dialog(
+        onDismissRequest = { onDismiss() },
+        properties = DialogProperties(dismissOnClickOutside = true)
+    ) {
+        Surface(
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = 8.dp,
+            color = MaterialTheme.colorScheme.surfaceContainer
+        ) {
+            Column(
+                modifier = modifier
+                    .padding(24.dp)
+                    .widthIn(min = 280.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.FolderOpen,
+                    tint = MaterialTheme.colorScheme.primary,
+                    contentDescription = null
+                )
+
+                AutoResizeableText(
+                    text = stringResource(R.string.configure_save_directory),
+                    maxLines = 2,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+
+                Text(
+                    text = stringResource(R.string.des_configure_save_directory),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(MaterialTheme.shapes.largeIncreased)
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = MaterialTheme.shapes.largeIncreased
+                        )
+                        .clickable(enabled = true, onClick = weakHaptic),
+                    shape = MaterialTheme.shapes.largeIncreased,
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.75f),
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                ) {
+                    Text(
+                        text = outputSaveDirectory.value,
+                        style = MaterialTheme.typography.titleSmallEmphasized,
+                        maxLines = 1,
+                        modifier = Modifier
+                            .padding(15.dp)
+                            .basicMarquee()
+                    )
+                }
+
+                OutlinedButton(
+                    onClick = onResetDirectory,
+                    shapes = ButtonDefaults.shapes()
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Sync,
+                        tint = MaterialTheme.colorScheme.primary,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(16.dp)
+                            .rotate(animatedRotation)
+                    )
+
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                    AutoResizeableText(
+                        text = stringResource(R.string.default_folder),
+                        style = MaterialTheme.typography.labelSmallEmphasized
+                    )
+                }
+
+                Button(
+                    onClick = onPickFolder,
+                    shapes = ButtonDefaults.shapes(),
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.FolderOpen,
+                        contentDescription = null
+                    )
+
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                    AutoResizeableText(
+                        text = stringResource(R.string.folder_picker),
+                        style = MaterialTheme.typography.labelLarge
+                    )
+                }
+            }
+        }
+    }
+}
