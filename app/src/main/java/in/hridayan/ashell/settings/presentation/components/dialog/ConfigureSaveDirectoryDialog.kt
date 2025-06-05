@@ -2,6 +2,9 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -39,14 +42,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.utils.getFullPathFromTreeUri
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
@@ -56,12 +62,20 @@ fun ConfigureSaveDirectoryDialog(
     onDismiss: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     val weakHaptic = LocalWeakHaptic.current
 
-    val outputSaveDirectory =
-        settingsViewModel.getString(SettingsKeys.OUTPUT_SAVE_DIRECTORY).collectAsState(
-            initial = SettingsKeys.OUTPUT_SAVE_DIRECTORY.default as String
-        )
+    val uriString = settingsViewModel.getString(SettingsKeys.OUTPUT_SAVE_DIRECTORY)
+        .collectAsState(initial = SettingsKeys.OUTPUT_SAVE_DIRECTORY.default as String)
+
+    val pathToDisplay =
+        if (uriString.value != SettingsKeys.OUTPUT_SAVE_DIRECTORY.default) {
+            getFullPathFromTreeUri(
+                uriString.value.toUri(),
+                context
+            ) ?: uriString.value
+        } else uriString.value
 
     var rotationAngle by rememberSaveable { mutableFloatStateOf(0f) }
 
@@ -74,6 +88,19 @@ fun ConfigureSaveDirectoryDialog(
         label = "Spin"
     )
 
+    val folderPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocumentTree()
+    ) { uri ->
+        uri?.let {
+            context.contentResolver.takePersistableUriPermission(
+                it,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            )
+
+            settingsViewModel.setString(SettingsKeys.OUTPUT_SAVE_DIRECTORY, it.toString())
+        }
+    }
+
     val onResetDirectory: () -> Unit = {
         weakHaptic()
         settingsViewModel.setString(
@@ -85,6 +112,7 @@ fun ConfigureSaveDirectoryDialog(
 
     val onPickFolder: () -> Unit = {
         weakHaptic()
+        folderPickerLauncher.launch(null)
     }
 
     Dialog(
@@ -139,12 +167,12 @@ fun ConfigureSaveDirectoryDialog(
                     )
                 ) {
                     Text(
-                        text = outputSaveDirectory.value,
+                        text = pathToDisplay,
                         style = MaterialTheme.typography.titleSmallEmphasized,
                         maxLines = 1,
                         modifier = Modifier
                             .padding(15.dp)
-                            .basicMarquee()
+                            .basicMarquee(),
                     )
                 }
 
