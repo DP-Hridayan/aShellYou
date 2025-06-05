@@ -120,7 +120,7 @@ fun AutoUpdateScreen(
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
                                 .animateItem()
-                                .padding(horizontal = 20.dp, vertical = 25.dp)
+                                .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 20.dp)
                         )
                         group.items.forEach { item ->
                             PreferenceItemView(item = item, modifier = modifier.animateItem())

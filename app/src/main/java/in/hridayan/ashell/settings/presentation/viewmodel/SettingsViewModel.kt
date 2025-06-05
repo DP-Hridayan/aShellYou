@@ -18,6 +18,7 @@ import `in`.hridayan.ashell.navigation.AutoUpdateScreen
 import `in`.hridayan.ashell.navigation.BackupAndRestoreScreen
 import `in`.hridayan.ashell.navigation.BehaviorScreen
 import `in`.hridayan.ashell.navigation.ChangelogScreen
+import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.DarkThemeScreen
 import `in`.hridayan.ashell.navigation.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
@@ -145,6 +146,10 @@ class SettingsViewModel @Inject constructor(
 
                 SettingsKeys.BACKUP_AND_RESTORE -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(BackupAndRestoreScreen)
+                )
+
+                SettingsKeys.COMMANDS -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(CommandExamplesScreen)
                 )
 
                 SettingsKeys.ABOUT -> _uiEvent.emit(

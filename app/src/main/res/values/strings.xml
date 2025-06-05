@@ -158,7 +158,6 @@
     <string name="ok">OK</string>
     <string name="ok_countdown">OK (10s)</string>
     <string name="on">On</string>
-    <string name="only_last_command_output">Only last command output</string>
     <string name="open">Open</string>
     <string name="open_adb">Open ADB shell</string>
     <string name="otg">OTG</string>
@@ -221,7 +220,7 @@
     <string name="sort_oldest">Oldest</string>
     <string name="start">Start</string>
     <string name="submit">Submit</string>
-
+    <string name="local_adb_shell">Local ADB shell</string>
 
     <string name="field_blank_error">Field cannot be blank</string>
     <string name="subject_already_exists">Subject already exists</string>
@@ -231,7 +230,8 @@
 
     <string name="delete_subject">Delete Subject</string>
     <string name="delete_confirmation">Are you sure you want to delete this?</string>
-
+    <string name="save_whole_output">Save whole output</string>
+    <string name="des_save_whole_output">Enable this option to save the whole output of the command.\nIf disabled only the last command output will be saved.</string>
     <string name="present">Present</string>
     <string name="absent">Absent</string>
     <string name="total">Total</string>
@@ -283,7 +283,9 @@
     <string name="update_available">Update available !</string>
     <string name="latest_version">Latest version</string>
     <string name="current_version">Current version</string>
-
+    <string name="clear_output_confirmation">Clear output confirmation</string>
+    <string name="des_clear_output_confirmation">Ask for confirmation before clearing the shell output</string>
+    <string name="file_actions">File actions</string>
     <string name="download_failed">Download failed</string>
     <string name="stable">Stable</string>
     <string name="whats_new">What\'s new!</string>
@@ -294,11 +296,7 @@
     <string name="visit_repo_to_download">Click on the download button to get the latest version of aShellYou from the github repository.</string>
     <string name="pre_release">Pre-release</string>
     <string name="pre_release_warning">Pre-release builds may be unstable</string>
-
-    <string name="remember_month_year">Remember calendar month and year</string>
-    <string name="des_remember_month_year">Turn on this option to remember the last viewed month for every subject</string>
-    <string name="show_attendance_steaks">Show attendance streaks</string>
-    <string name="des_show_attendance_streaks">If enabled, attendance streaks will be shown on the calendar</string>
+    <string name="terminal">Terminal</string>
     <string name="des_behavior">Modify certain behavior of the app</string>
     <string name="reset_to_current_month">Reset to current month</string>
     <string name="previous_month">Previous month</string>
@@ -338,7 +336,7 @@
     <string name="backup">Backup</string>
     <string name="restore">Restore</string>
     <string name="backup_app_database">Backup app database</string>
-    <string name="des_backup_app_database">Backup app database which includes the subjects data including their attendance records</string>
+    <string name="des_backup_app_database">Backup app database which includes the command examples</string>
     <string name="backup_all_data">Backup all data</string>
     <string name="des_backup_all_data">Backup all data of the app</string>
     <string name="restore_app_data">Restore app data</string>
@@ -411,8 +409,6 @@
     <string name="des_save_preference">Choose what portion of the shell output should be saved</string>
     <string name="smooth_scrolling">Smooth scrolling</string>
     <string name="des_smooth_scroll">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
-    <string name="ask_to_clean">Ask before clearing shell output</string>
-    <string name="des_ask_to_clean">If enabled a confirmation popup will show after you click the Clear screen button</string>
     <string name="auto_update_check">Auto update check</string>
     <string name="des_auto_update_check">Automatically checks for available newer versions when the app launches</string>
     <string name="override_bookmarks_limit">Override maximum bookmarks limit</string>

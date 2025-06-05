@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.settings.data.local
 import androidx.appcompat.app.AppCompatDelegate
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
+import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
 import `in`.hridayan.ashell.settings.data.local.model.RadioButtonOptions
 
 class RadioGroupOptionsProvider {
@@ -31,6 +32,21 @@ class RadioGroupOptionsProvider {
                 value = GithubReleaseType.PRE_RELEASE,
                 labelResId = R.string.pre_release
             ),
+        )
+
+        val localAdbShellModeOptions: List<RadioButtonOptions> = listOf(
+            RadioButtonOptions(
+                value = LocalAdbWorkingMode.BASIC,
+                labelResId = R.string.basic_shell
+            ),
+            RadioButtonOptions(
+                value = LocalAdbWorkingMode.SHIZUKU,
+                labelResId = R.string.shizuku
+            ),
+            RadioButtonOptions(
+                value = LocalAdbWorkingMode.ROOT,
+                labelResId = R.string.root
+            )
         )
     }
 }

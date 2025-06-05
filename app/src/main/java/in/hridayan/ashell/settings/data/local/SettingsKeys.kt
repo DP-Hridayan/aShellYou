@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.settings.data.local
 import androidx.appcompat.app.AppCompatDelegate
 import `in`.hridayan.ashell.core.common.SeedColorProvider
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
+import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
 
 enum class SettingsKeys(val default: Any?) {
     LOOK_AND_FEEL(null),
@@ -32,4 +33,12 @@ enum class SettingsKeys(val default: Any?) {
     RESTORE_APP_DATA(null),
     RESET_APP_SETTINGS(null),
     LAST_BACKUP_TIME(""),
+    CLEAR_OUTPUT_CONFIRMATION(true),
+    OUTPUT_SAVE_DIRECTORY(""),
+    LOCAL_ADB_WORKING_MODE(LocalAdbWorkingMode.BASIC),
+    DISABLE_SOFT_KEYBOARD(false),
+    OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT(false),
+    SAVE_WHOLE_OUTPUT(true),
+    SMOOTH_SCROLLING(true),
+    COMMANDS(null)
 }
