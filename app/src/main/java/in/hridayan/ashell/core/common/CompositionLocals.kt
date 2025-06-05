@@ -55,6 +55,20 @@ fun CompositionLocals(
 
     val enableDirectDownload by settingsViewModel.booleanState(SettingsKeys.ENABLE_DIRECT_DOWNLOAD)
 
+    val smoothScrolling by settingsViewModel.booleanState(SettingsKeys.SMOOTH_SCROLLING)
+
+    val clearOutputConfirmation by settingsViewModel.booleanState(SettingsKeys.CLEAR_OUTPUT_CONFIRMATION)
+
+    val overrideBookmarksLimit by settingsViewModel.booleanState(SettingsKeys.OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT)
+
+    val disableSoftKeyboard by settingsViewModel.booleanState(SettingsKeys.DISABLE_SOFT_KEYBOARD)
+
+    val localAdbMode by settingsViewModel.intState(SettingsKeys.LOCAL_ADB_WORKING_MODE)
+
+    val outputSaveDirectory by settingsViewModel.stringState(SettingsKeys.OUTPUT_SAVE_DIRECTORY)
+
+    val saveWholeOutput by settingsViewModel.booleanState(SettingsKeys.SAVE_WHOLE_OUTPUT)
+
     val state =
         remember(
             autoUpdate,
@@ -66,6 +80,13 @@ fun CompositionLocals(
             githubReleaseType,
             savedVersionCode,
             enableDirectDownload,
+            localAdbMode,
+            smoothScrolling,
+            clearOutputConfirmation,
+            overrideBookmarksLimit,
+            disableSoftKeyboard,
+            outputSaveDirectory,
+            saveWholeOutput
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
@@ -77,6 +98,13 @@ fun CompositionLocals(
                 githubReleaseType = githubReleaseType,
                 savedVersionCode = savedVersionCode,
                 enableDirectDownload = enableDirectDownload,
+                localAdbMode = localAdbMode,
+                smoothScrolling = smoothScrolling,
+                clearOutputConfirmation = clearOutputConfirmation,
+                overrideBookmarksLimit = overrideBookmarksLimit,
+                disableSoftKeyboard = disableSoftKeyboard,
+                outputSaveDirectory = outputSaveDirectory,
+                saveWholeOutput = saveWholeOutput
             )
         }
 
@@ -139,5 +167,10 @@ private fun SettingsViewModel.intState(key: SettingsKeys): State<Int> {
 @Composable
 private fun SettingsViewModel.floatState(key: SettingsKeys): State<Float> {
     return getFloat(key).collectAsState(initial = key.default as Float)
+}
+
+@Composable
+private fun SettingsViewModel.stringState(key: SettingsKeys): State<String> {
+    return getString(key).collectAsState(initial = key.default as String)
 }
 
