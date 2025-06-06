@@ -51,7 +51,7 @@ val Typography = Typography(
         fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Normal,
         fontSize = 28.sp,
-        letterSpacing = 0.1.em
+        letterSpacing = 0.05.em
     ),
 
     headlineSmall = TextStyle(
