@@ -241,8 +241,7 @@
     <string name="enter_subject_name">Enter subject name</string>
     <string name="select_month_and_year">Select Month &amp; Year</string>
     <string name="enter_new_name">Enter new name</string>
-    <string name="no_attendance_yet">No attendance yet. Add some to view progress</string>
-    <string name="no_subject_yet">Click on the + button to add a subject</string>"
+    <string name="no_subject_yet">Click on the + button to add a subject</string>
 
     <string name="auto_update">Auto update</string>
     <string name="des_auto_update">Check for updates automatically</string>
@@ -350,30 +349,17 @@
     <string name="restore_successful">Restore successful</string>
     <string name="restore_failed">Restore failed</string>
     <string name="updates">Updates</string>
-    <string name="reminder_to_mark_attendance">Reminder to mark attendance</string>
-    <string name="des_reminder_to_mark_attendance">Receive a daily notification to remind you to mark your attendance</string>
-    <string name="des_attendance_missed">You might have forgot to mark your attendance today!</string>
-    <string name="attendance">Attendance</string>
-    <string name="daily_reminder_to_mark_attendance">Daily reminder to mark attendance</string>
-    <string name="mark_your_attendance">Mark your attendance</string>
-    <string name="des_mark_your_attendance">Don\'t forget to mark your attendance today!</string>
     <string name="reset_settings_successful">Reset settings successful</string>
     <string name="reset_settings_failed">Reset settings failed</string>
     <string name="notifications">Notifications</string>
     <string name="des_notifications">Customise notification settings of the app</string>
     <string name="enable_notifications">Enable notifications</string>
-    <string name="notify_missed_attendance">Notify missed attendance</string>
-    <string name="des_notify_missed_attendance">Receive notifications when an attendance is missed</string>
     <string name="start_week_on_monday">Start week on Monday</string>
     <string name="notify_update_available">Notify when update available</string>
     <string name="des_notify_update_available">Receive notifications when a newer version of aShellYou is released</string>
     <string name="des_update_available">A newer version of aShellYou has been released!</string>
-
-    <string name="des_grant_notification_permission">Do you want to get alerts when you forget to mark your attendance?\n\nGrant notification access!</string>
     <string name="des_start_week_on_monday">Prefer seeing your week begin with Monday instead of Sunday? Enable this to shift the calendar layout so Monday becomes the first day of the week.</string>
     <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
-
-
     <string name="success">Success</string>
     <string name="support_message">Like what I do?\nConsider buying me a coffee !</string>
     <string name="su_warning_message">This mode doesn\'t support root related commands. Please switch to root mode</string>
