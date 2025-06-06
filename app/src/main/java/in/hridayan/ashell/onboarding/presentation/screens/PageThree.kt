@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -58,7 +59,7 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawSelec
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
-fun PageThree(modifier: Modifier = Modifier) {
+fun PageThree(modifier: Modifier = Modifier, pagerState: PagerState) {
     val weakHaptic = LocalWeakHaptic.current
 
     var scale = remember { Animatable(0f) }
@@ -69,7 +70,7 @@ fun PageThree(modifier: Modifier = Modifier) {
 
     var shizukuCardChecked by rememberSaveable { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(pagerState.currentPage) {
         scale.animateTo(
             targetValue = 1f,
             animationSpec = tween(
@@ -79,7 +80,7 @@ fun PageThree(modifier: Modifier = Modifier) {
         )
     }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(pagerState.currentPage) {
         scaleMainShape.animateTo(
             targetValue = 1f,
             animationSpec = tween(

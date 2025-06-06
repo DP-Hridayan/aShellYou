@@ -127,7 +127,8 @@ class SettingsDataStore @Inject constructor(
     suspend fun resetAndRestoreDefaults(): Boolean {
         val preserveKeys = setOf(
             SettingsKeys.LAST_BACKUP_TIME.name,
-            SettingsKeys.SAVED_VERSION_CODE.name
+            SettingsKeys.SAVED_VERSION_CODE.name,
+            SettingsKeys.FIRST_LAUNCH.name
         )
 
         val currentPrefs = ds.data.first()
