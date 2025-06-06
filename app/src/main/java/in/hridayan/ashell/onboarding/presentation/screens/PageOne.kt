@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -36,7 +37,7 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawPhone
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
-fun PageOne() {
+fun PageOne(modifier: Modifier = Modifier) {
     var scale = remember { Animatable(0f) }
 
     var scaleMainShape = remember { Animatable(0.75f) }
@@ -62,7 +63,7 @@ fun PageOne() {
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     ) {
         Box(
             modifier = Modifier
@@ -144,7 +145,7 @@ fun PageOne() {
 
         Box(
             modifier = Modifier
-                .padding(top = 75.dp)
+                .padding(top = 65.dp)
                 .align(Alignment.TopCenter)
                 .scale(scaleMainShape.value)
                 .clip(MaterialShapes.Oval.toShape())

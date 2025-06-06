@@ -40,7 +40,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
-fun PageTwo() {
+fun PageTwo(modifier: Modifier = Modifier) {
     var scale = remember { Animatable(0f) }
 
     var scaleMainShape = remember { Animatable(0.75f) }
@@ -66,7 +66,7 @@ fun PageTwo() {
     }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         Box(
             modifier = Modifier
@@ -138,12 +138,13 @@ fun PageTwo() {
                 .fillMaxWidth()
                 .padding(start = 20.dp, end = 20.dp, bottom = 80.dp)
                 .background(Color.Transparent)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(25.dp)
+                .verticalScroll(rememberScrollState())
+              ,
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Box(
                 modifier = Modifier
-                    .padding(top = 75.dp)
+                    .padding(top = 65.dp, start = 20.dp, end = 20.dp)
                     .align(Alignment.CenterHorizontally)
                     .scale(scaleMainShape.value)
                     .clip(MaterialShapes.ClamShell.toShape())
