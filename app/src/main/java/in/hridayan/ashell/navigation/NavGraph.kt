@@ -6,7 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import `in`.hridayan.ashell.commandexamples.presentation.screens.CommandExamplesScreen
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
+import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
 import `in`.hridayan.ashell.settings.presentation.page.about.screens.AboutScreen
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens.AutoUpdateScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupAndRestoreScreen
@@ -21,9 +23,18 @@ import kotlinx.serialization.Serializable
 fun Navigation() {
     val navController = rememberNavController()
     CompositionLocalProvider(LocalNavController provides navController) {
+        val isFirstLaunch = LocalSettings.current.isFirstLaunch
         NavHost(
-            navController = navController, startDestination = HomeScreen
+            navController = navController,
+            startDestination = if (isFirstLaunch) OnboardingScreen else HomeScreen
         ) {
+            composable<OnboardingScreen>(
+                enterTransition = { slideFadeInFromRight() },
+                popExitTransition = { slideFadeOutToRight() }
+            ) {
+                OnboardingScreen()
+            }
+
             composable<HomeScreen>(
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() }
@@ -138,3 +149,6 @@ object CommandExamplesScreen
 
 @Serializable
 object BackupAndRestoreScreen
+
+@Serializable
+object OnboardingScreen

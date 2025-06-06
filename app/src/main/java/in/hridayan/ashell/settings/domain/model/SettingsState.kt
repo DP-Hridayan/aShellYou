@@ -17,4 +17,5 @@ data class SettingsState(
     val disableSoftKeyboard : Boolean,
     val outputSaveDirectory : String,
     val saveWholeOutput : Boolean,
+    val isFirstLaunch : Boolean
 )

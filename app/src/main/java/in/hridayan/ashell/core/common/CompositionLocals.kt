@@ -69,6 +69,8 @@ fun CompositionLocals(
 
     val saveWholeOutput by settingsViewModel.booleanState(SettingsKeys.SAVE_WHOLE_OUTPUT)
 
+    val isFirstLaunch by settingsViewModel.booleanState(SettingsKeys.FIRST_LAUNCH)
+
     val state =
         remember(
             autoUpdate,
@@ -86,7 +88,8 @@ fun CompositionLocals(
             overrideBookmarksLimit,
             disableSoftKeyboard,
             outputSaveDirectory,
-            saveWholeOutput
+            saveWholeOutput,
+            isFirstLaunch
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
@@ -104,7 +107,8 @@ fun CompositionLocals(
                 overrideBookmarksLimit = overrideBookmarksLimit,
                 disableSoftKeyboard = disableSoftKeyboard,
                 outputSaveDirectory = outputSaveDirectory,
-                saveWholeOutput = saveWholeOutput
+                saveWholeOutput = saveWholeOutput,
+                isFirstLaunch = isFirstLaunch
             )
         }
 

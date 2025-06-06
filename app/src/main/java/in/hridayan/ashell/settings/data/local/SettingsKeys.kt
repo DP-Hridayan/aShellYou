@@ -46,5 +46,6 @@ enum class SettingsKeys(val default: Any?) {
     SAVE_WHOLE_OUTPUT(true),
     SMOOTH_SCROLLING(true),
     COMMANDS(null),
-    TELEGRAM(null)
+    TELEGRAM(null),
+    FIRST_LAUNCH(true)
 }
