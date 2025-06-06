@@ -453,7 +453,7 @@ fun DynamicColorImageVectors.undrawPhoneLady(): ImageVector {
                 "M1.18,632.91l616.36,0.31a1.19,1.19 0,0 0,0 -2.38l-616.36,-0.31a1.19,1.19 0,0 0,0 2.38Z"
             )
                 .toNodes(),
-            fill = SolidColor(MaterialTheme.colorScheme.secondaryContainer),
+            fill = SolidColor(MaterialTheme.colorScheme.onSurface),
         )
         addPath(
             pathData = PathParser().parsePathString(

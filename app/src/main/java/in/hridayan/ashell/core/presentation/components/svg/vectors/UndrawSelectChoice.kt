@@ -30,7 +30,7 @@ fun DynamicColorImageVectors.undrawSelectChoice(): ImageVector {
 
                 )
                     .toNodes(),
-                fill = SolidColor(MaterialTheme.colorScheme.primary),
+                fill = SolidColor(MaterialTheme.colorScheme.primaryContainer),
             )
         }
         group(translationX = -320.4128f, translationY = -158.75f) {
@@ -40,7 +40,7 @@ fun DynamicColorImageVectors.undrawSelectChoice(): ImageVector {
 
                 )
                     .toNodes(),
-                fill = SolidColor(MaterialTheme.colorScheme.primaryContainer),
+                fill = SolidColor(MaterialTheme.colorScheme.primary),
             )
         }
         group(translationX = -320.4128f, translationY = -158.75f) {
@@ -50,7 +50,7 @@ fun DynamicColorImageVectors.undrawSelectChoice(): ImageVector {
 
                 )
                     .toNodes(),
-                fill = SolidColor(MaterialTheme.colorScheme.primaryContainer),
+                fill = SolidColor(MaterialTheme.colorScheme.primary),
             )
         }
         group(translationX = -320.4128f, translationY = -158.75f) {
@@ -60,7 +60,7 @@ fun DynamicColorImageVectors.undrawSelectChoice(): ImageVector {
 
                 )
                     .toNodes(),
-                fill = SolidColor(MaterialTheme.colorScheme.primaryContainer),
+                fill = SolidColor(MaterialTheme.colorScheme.primary),
             )
         }
         group(translationX = -320.4128f, translationY = -158.75f) {
@@ -70,7 +70,7 @@ fun DynamicColorImageVectors.undrawSelectChoice(): ImageVector {
 
                 )
                     .toNodes(),
-                fill = SolidColor(MaterialTheme.colorScheme.primaryContainer),
+                fill = SolidColor(MaterialTheme.colorScheme.primary),
             )
         }
         group(translationX = -320.4128f, translationY = -158.75f) {
