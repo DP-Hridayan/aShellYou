@@ -61,14 +61,14 @@ fun DynamicColorImageVectors.undrawPhoneLady(): ImageVector {
                 "M169.49,352.65l6.74,22.45 13.98,29.44L219.75,574.6l-4.52,23.52 -43.8,-1.84L151.93,450.47l-0.31,20.13 -0.15,9.74s7.11,63.37 -1.18,75.67 -0.17,10.85 -0.17,10.85l-0.4,25.37 -51.89,0.37 11.45,-73.04s5.81,-4.59 2.7,-9.2 3.01,-10.26 3.01,-10.26l-2.75,-57.02s3.04,-9.85 -0.54,-11.13 -0.47,-9.75 -0.47,-9.75l-0.53,-11.04 11.77,-44.51Z"
             )
                 .toNodes(),
-            fill = SolidColor(MaterialTheme.colorScheme.onSecondaryContainer),
+            fill = SolidColor(MaterialTheme.colorScheme.primary),
         )
         addPath(
             pathData = PathParser().parsePathString(
                 "M120.65,338.66l-5.15,-15.46 -3.68,-5.15 -1.47,-14.72c0,-39.75 8.87,-33.13 8.87,-33.13l11.56,-13.98 13.16,-0.41 10.4,-0.32 8.64,14.35 12.51,4.42 4.9,25.46 -8.95,27.17 0.39,-2.02c4.21,7.78 3.14,8.95 -0.35,14.78l-0.17,2.11c-0.41,4.98 3.06,5.84 -1.83,6.89 -42,9 -46,27 -51,20 -1.11,-1.56 3.61,-20.16 2,-20C116.07,349.09 120.65,338.66 120.65,338.66Z"
             )
                 .toNodes(),
-            fill = SolidColor(MaterialTheme.colorScheme.primary),
+            fill = SolidColor(MaterialTheme.colorScheme.tertiary),
         )
         addPath(
             pathData = PathParser().parsePathString(
@@ -89,7 +89,7 @@ fun DynamicColorImageVectors.undrawPhoneLady(): ImageVector {
                 "M118.95,269.8l-1.69,0.53a22.32,22.32 0,0 0,-15.6 21.29l-3.19,14.59c4.62,7.92 11.44,11.84 20.93,10.92Z"
             )
                 .toNodes(),
-            fill = SolidColor(MaterialTheme.colorScheme.primary),
+            fill = SolidColor(MaterialTheme.colorScheme.tertiary),
         )
         addPath(
             pathData = PathParser().parsePathString(
@@ -103,14 +103,14 @@ fun DynamicColorImageVectors.undrawPhoneLady(): ImageVector {
                 "M172.91,273.42l1.62,0.51a21.35,21.35 0,0 1,14.92 20.36l3.05,13.95c-4.41,7.57 -10.94,11.33 -20.03,10.45Z"
             )
                 .toNodes(),
-            fill = SolidColor(MaterialTheme.colorScheme.primary),
+            fill = SolidColor(MaterialTheme.colorScheme.tertiary),
         )
         addPath(
             pathData = PathParser().parsePathString(
                 "M118.36,233.59c1.22,-4.64 1.68,-9.5 3.44,-13.96a25.34,25.34 0,0 1,45.51 -3.39,17.26 17.26,0 0,1 2.5,11.23c-0.69,4.26 -3.52,8.31 -2.63,12.54 0.59,2.83 2.73,5.02 4.42,7.36s3.03,5.43 1.81,8.05c-1.33,2.84 -5.01,3.68 -8.14,3.42 -3.13,-0.27 -6.26,-1.28 -9.34,-0.71l1.47,-5.76q-5.49,5.28 -10.97,10.56c0.4,-3.66 -1.3,-7.18 -2.47,-10.67s-1.72,-7.71 0.6,-10.56c1.39,-1.71 3.53,-2.57 5.45,-3.67s3.81,-2.74 4.01,-4.93c0.24,-2.72 -2.19,-4.89 -4.58,-6.21 -2.39,-1.31 -5.14,-2.41 -6.48,-4.79q1.44,3.1 2.89,6.2a18.24,18.24 0,0 1,-15.13 -10.25l-1.32,0.86c-10.96,12.3 3.08,30.72 -5.15,37.17C127.86,249.63 116.49,240.73 118.36,233.59Z"
             )
                 .toNodes(),
-            fill = SolidColor(MaterialTheme.colorScheme.onTertiaryContainer),
+            fill = SolidColor(Color.Black),
         )
         addPath(
             pathData = PathParser().parsePathString(
