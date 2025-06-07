@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun DialogTitle(text : String,modifier: Modifier = Modifier) {
-    Text(
+    AutoResizeableText(
         modifier = modifier,
         text = text,
         style = MaterialTheme.typography.headlineSmall,

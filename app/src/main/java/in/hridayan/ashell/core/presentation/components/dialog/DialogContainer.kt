@@ -14,7 +14,11 @@ import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.core.presentation.ui.theme.Shape
 
 @Composable
-fun CustomDialog(onDismiss: () -> Unit, content: @Composable () -> Unit) {
+fun CustomDialog(
+    modifier: Modifier = Modifier,
+    onDismiss: () -> Unit,
+    content: @Composable () -> Unit
+) {
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(
@@ -23,7 +27,7 @@ fun CustomDialog(onDismiss: () -> Unit, content: @Composable () -> Unit) {
         )
     ) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .clip((Shape.cardCornerLarge))
                 .background(MaterialTheme.colorScheme.surfaceContainer)

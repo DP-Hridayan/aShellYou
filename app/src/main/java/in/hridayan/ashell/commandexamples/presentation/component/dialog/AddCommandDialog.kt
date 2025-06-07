@@ -1,11 +1,15 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonGroup
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -13,23 +17,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.commandexamples.presentation.component.inputfield.OutlinedInputField
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
+import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.dialog.CustomDialog
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.DialogTitle
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 @Composable
 fun AddCommandDialog(
-    modifier: Modifier = Modifier.Companion,
+    modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     viewModel: CommandViewModel = hiltViewModel()
 ) {
+    val weakHaptic = LocalWeakHaptic.current
+    val interactionSources = remember { List(2) { MutableInteractionSource() } }
 
     val command by viewModel.command.collectAsState()
     val description by viewModel.description.collectAsState()
@@ -39,48 +47,73 @@ fun AddCommandDialog(
     val descriptionError by viewModel.descriptionError.collectAsState()
 
     CustomDialog(
+        modifier = modifier,
         onDismiss = onDismiss, content = {
             Column(
-                modifier = Modifier.Companion.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             ) {
                 DialogTitle(
                     text = stringResource(R.string.add_command),
-                    modifier = Modifier.Companion
-                        .padding(vertical = Dimens.paddingLarge)
-                        .align(Alignment.Companion.CenterHorizontally)
+                    modifier = Modifier
+                        .padding(bottom = Dimens.paddingLarge)
+                        .align(Alignment.CenterHorizontally)
                 )
 
                 CommandInputField(
-                    command, viewModel::onCommandChange, commandError, modifier = Modifier.Companion
+                    command, viewModel::onCommandChange, commandError, modifier = Modifier
                 )
 
                 DescriptionInputField(
                     description,
                     viewModel::onDescriptionChange,
                     descriptionError,
-                    modifier = Modifier.Companion
+                    modifier = Modifier
                 )
 
                 LabelInputField(
-                    label, viewModel::onLabelChange, modifier = Modifier.Companion
+                    label, viewModel::onLabelChange, modifier = Modifier
                 )
 
-                Row(
-                    modifier = Modifier.Companion.padding(
-                        top = Dimens.paddingLarge,
-                        start = Dimens.paddingLarge,
-                        end = Dimens.paddingLarge
-                    ), horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
+                @Suppress("DEPRECATION")
+                ButtonGroup(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = Dimens.paddingLarge)
                 ) {
-                    CancelButton(
-                        onClick = onDismiss, modifier = Modifier.Companion.weight(1f)
-                    )
+                    OutlinedButton(
+                        onClick = {
+                            weakHaptic()
+                            onDismiss()
+                        },
+                        shapes = ButtonDefaults.shapes(),
+                        modifier = Modifier
+                            .weight(1f)
+                            .animateWidth(interactionSources[0]),
+                        interactionSource = interactionSources[0],
+                    ) {
+                        AutoResizeableText(
+                            text = stringResource(R.string.cancel),
+                            style = MaterialTheme.typography.labelLarge
+                        )
+                    }
 
-                    AddButton(
-                        viewModel = viewModel,
-                        onSuccess = onDismiss,
-                        modifier = Modifier.Companion.weight(1f)
-                    )
+                    Button(
+                        onClick = {
+                            weakHaptic()
+                            viewModel.addCommand {
+                                onDismiss()
+                            }
+                        },
+                        modifier = Modifier
+                            .weight(1f)
+                            .animateWidth(interactionSources[1]),
+                        interactionSource = interactionSources[1],
+                        shapes = ButtonDefaults.shapes(),
+                    ) {
+                        AutoResizeableText(
+                            text = stringResource(R.string.add),
+                        )
+                    }
                 }
             }
         })
@@ -90,12 +123,15 @@ fun AddCommandDialog(
 private fun CommandInputField(
     value: String, onValueChange: (String) -> Unit, isError: Boolean, modifier: Modifier
 ) {
-    OutlinedInputField(
-        hint = stringResource(R.string.command),
+    val label =
+        if (isError) stringResource(R.string.field_cannot_be_blank) else stringResource(R.string.command)
+
+    OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
+        label = { Text(label) },
         isError = isError,
-        modifier = modifier
+        modifier = modifier.fillMaxWidth()
     )
 }
 
@@ -107,9 +143,7 @@ private fun DescriptionInputField(
         if (isError) stringResource(R.string.field_cannot_be_blank) else stringResource(R.string.description)
 
     OutlinedTextField(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = Dimens.paddingLarge),
+        modifier = modifier.fillMaxWidth(),
         value = value,
         onValueChange = onValueChange,
         label = { Text(label) },
@@ -122,40 +156,9 @@ private fun LabelInputField(value: String, onValueChange: (String) -> Unit, modi
     val label = stringResource(R.string.label)
 
     OutlinedTextField(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = Dimens.paddingLarge),
+        modifier = modifier.fillMaxWidth(),
         value = value,
         onValueChange = onValueChange,
         label = { Text(label) }
     )
-}
-
-@Composable
-private fun AddButton(
-    viewModel: CommandViewModel,
-    onSuccess: () -> Unit,
-    modifier: Modifier = Modifier.Companion
-) {
-    Button(
-        modifier = modifier, onClick = {
-            viewModel.addCommand {
-                onSuccess()
-            }
-        }) {
-        Text(
-            text = stringResource(R.string.add), style = MaterialTheme.typography.labelLarge
-        )
-    }
-}
-
-@Composable
-private fun CancelButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    OutlinedButton(
-        modifier = modifier, onClick = onClick
-    ) {
-        Text(
-            text = stringResource(R.string.cancel), style = MaterialTheme.typography.labelLarge
-        )
-    }
 }

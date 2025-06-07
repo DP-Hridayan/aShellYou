@@ -64,7 +64,7 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
                     isDialogOpen = true
                 }
             ) {
-                val rotateAngle by animateFloatAsState(if (isDialogOpen) 45f else 0f)
+                val rotateAngle by animateFloatAsState(if (isDialogOpen) -45f else 0f)
                 Icon(
                     painter = painterResource(id = R.drawable.ic_add),
                     contentDescription = null,
