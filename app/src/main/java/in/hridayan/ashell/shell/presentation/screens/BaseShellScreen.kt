@@ -2,6 +2,10 @@
 
 package `in`.hridayan.ashell.shell.presentation.screens
 
+import android.annotation.SuppressLint
+import android.graphics.PorterDuff
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.widget.ImageView
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +19,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ButtonDefaults
@@ -41,20 +46,24 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
+import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.SettingsScreen
-import `in`.hridayan.ashell.shell.data.model.CommandResult
+import `in`.hridayan.ashell.shell.domain.model.CommandResult
+import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
 
@@ -68,6 +77,44 @@ fun BaseShellScreen(
     val navController = LocalNavController.current
     val commandResults by shellViewModel.commandResults.collectAsState()
     val coroutineScope = rememberCoroutineScope()
+    val command by shellViewModel.command.collectAsState()
+    val commandError by shellViewModel.commandError.collectAsState()
+    val shellState by shellViewModel.shellState.collectAsState()
+
+    val actionFabIcon: @Composable () -> Unit = {
+        when (shellState) {
+            is ShellState.Busy -> AnimatedStopIcon()
+            is ShellState.Free -> Icon(
+                painter = painterResource(R.drawable.ic_help),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+            else -> Icon(
+                imageVector = Icons.AutoMirrored.Rounded.Send,
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+        }
+    }
+
+
+    val actionFabOnClick: () -> Unit = {
+        when (shellState) {
+            is ShellState.InputQuery -> {
+                coroutineScope.launch {
+                    shellViewModel.runCommand()
+                }
+            }
+
+            is ShellState.Busy -> {
+                shellViewModel.stopCommand()
+            }
+
+            is ShellState.Free -> {
+                navController.navigate(CommandExamplesScreen)
+            }
+        }
+    }
 
     Scaffold(modifier = modifier) { innerPadding ->
         Column(
@@ -154,6 +201,7 @@ fun BaseShellScreen(
                 IconButton(
                     onClick = {
                         weakHaptic()
+                        shellViewModel.clearOutput()
                     },
                     shapes = IconButtonDefaults.shapes(),
                     colors = IconButtonDefaults.iconButtonColors(
@@ -236,22 +284,22 @@ fun BaseShellScreen(
                     .fillMaxWidth()
                     .padding(20.dp)
             ) {
+                val label =
+                    if (commandError) stringResource(R.string.field_cannot_be_blank) else stringResource(
+                        R.string.command_title
+                    )
+
                 OutlinedTextField(
                     modifier = Modifier.weight(1f),
-                    value = stringResource(R.string.command_title),
-                    onValueChange = {})
+                    label = { Text(label) },
+                    value = command,
+                    onValueChange = { shellViewModel.onCommandChange(it) })
 
-                FloatingActionButton(onClick = {
-                    coroutineScope.launch {
-                        shellViewModel.runCommand("ls")
-                    }
-                }) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_send),
-                        contentDescription = null,
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
+                FloatingActionButton(
+                    onClick = actionFabOnClick,
+                    modifier = Modifier.padding(top = 6.dp),
+                    content = actionFabIcon
+                )
             }
 
             CommandCard(commandResults = commandResults)
@@ -289,13 +337,14 @@ fun CommandCard(commandResults: List<CommandResult>) {
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             commandResults.forEach { result ->
-                val output by result.outputFlow.collectAsState()
+                val outputLines by result.outputFlow.collectAsState()
 
                 SelectionContainer(modifier = Modifier.fillMaxWidth()) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         Text(
                             text = "$ ${result.command}",
@@ -306,14 +355,35 @@ fun CommandCard(commandResults: List<CommandResult>) {
                             color = MaterialTheme.colorScheme.primary,
                         )
 
-                        Text(
-                            text = if (output.isBlank()) "⏳ Running..." else output,
-                            style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
-                            color = MaterialTheme.colorScheme.onSurface,
-                        )
+                        outputLines.forEach { line ->
+                            Text(
+                                text = line.text,
+                                style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
+                                color = if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
+                            )
+                        }
                     }
                 }
             }
         }
     }
+}
+
+@SuppressLint("UseCompatLoadingForDrawables")
+@Composable
+fun AnimatedStopIcon(modifier: Modifier = Modifier) {
+    val tintColor = MaterialTheme.colorScheme.onPrimaryContainer
+
+    AndroidView(
+        factory = { context ->
+            ImageView(context).apply {
+                val avd =
+                    context.getDrawable(R.drawable.ic_stop_animated) as? AnimatedVectorDrawable
+                setImageDrawable(avd)
+                setColorFilter(tintColor.toArgb(), PorterDuff.Mode.SRC_IN)
+                avd?.start()
+            }
+        },
+        modifier = modifier.size(24.dp)
+    )
 }
