@@ -1,0 +1,46 @@
+name: Update Translation Progress SVG
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */12 * * *"
+
+jobs:
+  generate-svg:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Generate translation SVG
+        run: python .github/scripts/generate_crowdin_svg.py
+        env:
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+
+      - name: Update README timestamp
+        run: |
+          TS=$(date +%s)
+          sed -i "s/ts=[0-9]*/ts=$TS/g" README.md
+
+      - name: Configure Git
+        run: |
+          git config user.name "Translation Bot"
+          git config user.email "translation-bot@example.com"
+
+      - name: Commit and Push
+        run: |
+          git add docs/translations-light.svg docs/translations-dark.svg README.md
+          git commit -m "Update translation progress SVG and README cache-busting timestamp" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} HEAD:master

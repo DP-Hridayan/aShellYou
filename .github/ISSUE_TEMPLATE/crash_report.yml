@@ -1,0 +1,116 @@
+name: Crash Report
+description: Submit crash logs to help us fix issues
+title: '[Crash] '
+labels:
+  - crash
+assignees: []
+body:
+  - type: textarea
+    id: crash-log
+    attributes:
+      label: Paste crash log
+      description: Paste your crash log **inside triple backticks (```)** so it shows up properly formatted.
+      placeholder: |
+        ```
+        java.lang.RuntimeException: Example crash
+            at com.example.MyClass.myMethod(MyClass.java:123)
+            
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: You can write additional context here, e.g. what action exactly caused the crash
+      placeholder: |
+        What caused the crash?
+        In which screen did the app crash?
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: '**These fields are needed in case you used other crash reporting apps for logs:**'
+
+  - type: input
+    id: smartphone-device
+    attributes:
+      label: Device
+      placeholder: e.g. Samsung Galaxy S23
+    validations:
+      required: true
+
+  - type: input
+    id: smartphone-os
+    attributes:
+      label: OS
+      placeholder: e.g. Android 14
+    validations:
+      required: true
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of aShellYou are you running?
+      options:
+        - v6.1.0 (Latest)
+        - v6.0.3
+        - v6.0.2
+        - v6.0.1
+        - v6.0.0
+        - v5.2.1
+        - v5.2.0
+        - v5.1.0
+        - v5.0.0
+        - v4.4.0
+        - v4.3.1
+        - v4.3.0
+        - v4.2.1
+        - v4.2.0
+        - v4.1.0
+        - v4.0.3
+        - v4.0.2
+        - v4.0.1
+        - v4.0.0
+        - v3.9.1
+        - v3.9.0
+        - v3.8.2
+        - v3.8.1
+        - v3.8.0
+        - v3.7.0
+        - v3.6.0
+        - v3.5.1
+        - v3.5.0
+        - v3.4.0
+        - v3.3.0
+        - v3.2.0
+        - v3.1.0
+        - v3.0.0
+        - v2.0.2.alpha
+        - v2.0.2
+        - v2.0.1
+        - v2.0.0
+        - v1.3.0
+        - v1.2.0
+        - v1.1.1
+        - v1.1.0
+        - v1.0.0
+        - v0.9.1
+        - v0.9
+      default: 0
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Carefully read and work through this checklist
+      options:
+        - label: I've read the [**Contributing guidelines**](https://github.com/DP-Hridayan/aShellYou/blob/master/CONTRIBUTING.md) and [**Code Of Conduct**](https://github.com/DP-Hridayan/aShellYou/blob/master/CODE_OF_CONDUCT.md)
+          required: true
+        - label: I understand that the issue will be (ignored/closed) if I intentionally remove or skip any mandatory field.
+          required: true

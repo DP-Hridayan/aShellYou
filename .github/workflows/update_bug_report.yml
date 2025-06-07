@@ -1,0 +1,57 @@
+name: Update bug report yml
+
+on:
+  push:
+    tags:
+      - 'v*'
+  delete:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  sync_dropdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up environment
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION=$(git tag --sort=-v:refname | grep '^v' | head -n 1)
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            RAW_REF="${{ github.ref }}"
+            VERSION="${RAW_REF##*/}"
+          elif [ "${{ github.event_name }}" = "delete" ]; then
+            VERSION="${GITHUB_REF##*/}"
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "EVENT=${{ github.event_name }}" >> $GITHUB_ENV
+
+      - name: Configure Git
+        run: |
+          git config user.name "DP-Hridayan"
+          git config user.email "hridayanofficial@gmail.com"
+
+      - name: Fetch and check out master as branch
+        run: |
+          git fetch origin master
+          git checkout -b master origin/master
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Modify bug report template using Python
+        run: |
+          python3 .github/scripts/update_bug_report_template.py
+
+      - name: Commit and Push
+        run: |
+          git add .github/ISSUE_TEMPLATE/bug_report.yml
+          git commit -m "Sync version dropdown: $VERSION" || echo "No changes to commit"
+          git push origin master
