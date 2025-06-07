@@ -28,8 +28,8 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.chip.LabelChip
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
-import `in`.hridayan.ashell.core.presentation.ui.component.button.FavouriteIconButton
-import `in`.hridayan.ashell.core.presentation.ui.component.card.CollapsibleCard
+import `in`.hridayan.ashell.core.presentation.components.button.FavouriteIconButton
+import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import kotlinx.coroutines.launch
 

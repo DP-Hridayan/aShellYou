@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.ui.component.text
+package `in`.hridayan.ashell.core.presentation.components.text
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

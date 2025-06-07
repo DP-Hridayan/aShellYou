@@ -131,7 +131,7 @@
     <string name="latest">Latest</string>
     <string name="least_used">Least used</string>
     <string name="local_adb">Local ADB</string>
-    <string name="local_adb_summary">Execute ADB commands directly on your device using Shizuku or root. Manage apps, control system settings, and perform advanced debugging—all without needing a PC.</string>
+    <string name="local_adb_summary">Execute ADB commands directly on your device using Shizuku or root.</string>
     <string name="look_and_feel">Look &amp; Feel</string>
     <string name="des_look_and_feel">Dynamic colors, Dark theme, Language</string>
     <string name="mail">E-mail</string>

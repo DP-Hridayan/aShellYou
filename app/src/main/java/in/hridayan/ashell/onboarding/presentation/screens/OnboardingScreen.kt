@@ -75,9 +75,9 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                     contentAlignment = Alignment.Center
                 ) {
                     when (page) {
-                        0 -> PageOne()
-                        1 -> PageTwo()
-                        2 -> PageThree()
+                        0 -> PageOne(pagerState = pagerState)
+                        1 -> PageTwo(pagerState = pagerState)
+                        2 -> PageThree(pagerState = pagerState)
                         else -> {}
                     }
                 }

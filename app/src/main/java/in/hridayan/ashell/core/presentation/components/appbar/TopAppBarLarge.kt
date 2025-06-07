@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.ui.component.appbar
+package `in`.hridayan.ashell.core.presentation.components.appbar
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon

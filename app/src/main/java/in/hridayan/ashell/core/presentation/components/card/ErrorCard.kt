@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.ui.component.card
+package `in`.hridayan.ashell.core.presentation.components.card
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.ColumnScope

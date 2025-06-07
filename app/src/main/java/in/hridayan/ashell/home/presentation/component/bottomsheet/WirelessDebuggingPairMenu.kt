@@ -23,9 +23,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.presentation.ui.component.button.IconWithTextButton
-import `in`.hridayan.ashell.core.presentation.ui.component.card.ErrorCard
-import `in`.hridayan.ashell.core.presentation.ui.component.text.LabelText
+import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
+import `in`.hridayan.ashell.core.presentation.components.card.ErrorCard
+import `in`.hridayan.ashell.core.presentation.components.text.LabelText
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 @OptIn(ExperimentalMaterial3Api::class)

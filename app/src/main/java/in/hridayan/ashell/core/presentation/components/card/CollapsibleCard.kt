@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.ui.component.card
+package `in`.hridayan.ashell.core.presentation.components.card
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring

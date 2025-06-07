@@ -35,6 +35,7 @@ fun Navigation(isFirstLaunch: Boolean = false) {
             }
 
             composable<HomeScreen>(
+                enterTransition = { slideFadeInFromRight() },
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() }
             ) {

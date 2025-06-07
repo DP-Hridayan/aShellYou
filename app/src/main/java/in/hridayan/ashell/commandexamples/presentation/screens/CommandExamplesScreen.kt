@@ -31,7 +31,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandItem
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
-import `in`.hridayan.ashell.core.presentation.ui.component.appbar.TopAppBarLarge
+import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 

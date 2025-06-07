@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.home.presentation.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -12,11 +14,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -35,10 +36,9 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.config.URL_OTG_INSTRUCTIONS
 import `in`.hridayan.ashell.core.common.config.URL_WIRELESS_DEBUGGING_INSTRUCTIONS
-import `in`.hridayan.ashell.core.presentation.ui.component.button.IconWithTextButton
-import `in`.hridayan.ashell.core.presentation.ui.component.card.BottomCornerRoundedCard
-import `in`.hridayan.ashell.core.presentation.ui.component.card.NavigationCard
-import `in`.hridayan.ashell.core.presentation.ui.component.card.TopCornerRoundedCard
+import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
+import `in`.hridayan.ashell.core.presentation.components.button.OutlinedIconButtonWithText
+import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
@@ -75,7 +75,7 @@ fun HomeScreen(
                 })
             }
 
-            LocalAdbCard()
+            LocalAdbCard(modifier = Modifier.padding(top = 10.dp, bottom = 15.dp))
             WirelessDebuggingCard()
             OtgAdbCard()
         }
@@ -115,12 +115,9 @@ fun LocalAdbCard(modifier: Modifier = Modifier) {
         title = stringResource(R.string.local_adb),
         description = stringResource(R.string.local_adb_summary),
         icon = painterResource(R.drawable.ic_adb2),
-        modifier = modifier.padding(bottom = 13.dp),
+        modifier = modifier,
         onClick = { },
-        content = {
-            ShizukuAccessCard(modifier)
-            RootAccessCard(modifier)
-        })
+    )
 }
 
 @Composable
@@ -134,7 +131,7 @@ fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
         content = {
             WirelessDebuggingInstructionButton(
                 Modifier.Companion.padding(
-                    top = 10.dp,
+                    top = 35.dp,
                     bottom = 5.dp
                 )
             )
@@ -151,95 +148,23 @@ fun OtgAdbCard(modifier: Modifier = Modifier) {
         modifier = modifier,
         onClick = { },
         content = {
-            OtgInstructionButton(Modifier.Companion.padding(top = 10.dp))
+            OtgInstructionButton(Modifier.Companion.padding(top = 35.dp))
         })
 }
 
-@Composable
-fun ShizukuAccessCard(modifier: Modifier) {
-    TopCornerRoundedCard(
-        modifier = modifier.padding(bottom = 5.dp),
-        onClick = {},
-        content = {
-            Row(
-                modifier = Modifier.Companion.padding(horizontal = 15.dp, vertical = 10.dp)
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_error),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                    modifier = Modifier.Companion
-                        .align(Alignment.Companion.CenterVertically)
-                        .size(20.dp)
-                )
-                Column(modifier = Modifier.Companion.padding(start = 15.dp)) {
-                    Text(
-                        text = stringResource(R.string.shizuku_access),
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.Companion.alpha(0.95f)
-                    )
-
-                    Text(
-                        text = stringResource(R.string.version),
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.Companion.alpha(0.95f)
-                    )
-                }
-            }
-        })
-}
-
-@Composable
-fun RootAccessCard(modifier: Modifier) {
-    BottomCornerRoundedCard(modifier = modifier, onClick = {}, content = {
-        Row(
-            modifier = Modifier.Companion
-                .padding(horizontal = 15.dp, vertical = 10.dp)
-                .fillMaxWidth()
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_error),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                modifier = Modifier.Companion
-                    .align(Alignment.Companion.CenterVertically)
-                    .size(20.dp)
-            )
-            Column(modifier = Modifier.Companion.padding(start = 15.dp)) {
-                Text(
-                    text = stringResource(R.string.root_access),
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.Companion.alpha(0.95f),
-                )
-
-                Text(
-                    text = stringResource(R.string.root_provider),
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.Companion.alpha(0.95f),
-                )
-
-                Text(
-                    text = stringResource(R.string.version),
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.Companion.alpha(0.95f),
-                )
-            }
-        }
-    })
-}
 
 @Composable
 fun WirelessDebuggingInstructionButton(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    IconWithTextButton(
-        icon = painterResource(R.drawable.ic_open_in_new),
-        text = stringResource(R.string.instructions),
-        contentDescription = null,
+
+    OutlinedIconButtonWithText(
         modifier = modifier,
+        text = stringResource(R.string.instructions),
+        painter = painterResource(R.drawable.ic_open_in_new),
         onClick = {
-            UrlUtils.Companion.openUrl(
+            UrlUtils.openUrl(
                 url = URL_WIRELESS_DEBUGGING_INSTRUCTIONS,
-                context
+                context = context
             )
         })
 }
@@ -259,15 +184,15 @@ fun WirelessDebuggingStartButton(modifier: Modifier = Modifier) {
 @Composable
 fun OtgInstructionButton(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    IconWithTextButton(
-        icon = painterResource(R.drawable.ic_open_in_new),
-        text = stringResource(R.string.instructions),
-        contentDescription = null,
+
+    OutlinedIconButtonWithText(
         modifier = modifier,
+        text = stringResource(R.string.instructions),
+        painter = painterResource(R.drawable.ic_open_in_new),
         onClick = {
-            UrlUtils.Companion.openUrl(
+            UrlUtils.openUrl(
                 url = URL_OTG_INSTRUCTIONS,
-                context
+                context = context
             )
         })
 }

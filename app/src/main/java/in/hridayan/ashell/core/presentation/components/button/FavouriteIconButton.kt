@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.ui.component.button
+package `in`.hridayan.ashell.core.presentation.components.button
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState

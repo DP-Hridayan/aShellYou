@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.ui.component.dialog
+package `in`.hridayan.ashell.core.presentation.components.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

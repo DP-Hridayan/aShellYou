@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.ui.component.card
+package `in`.hridayan.ashell.core.presentation.components.card
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,17 +12,17 @@ import androidx.compose.ui.draw.clip
 import `in`.hridayan.ashell.core.presentation.ui.theme.Shape
 
 @Composable
-fun BottomCornerRoundedCard(
+fun TopCornerRoundedCard(
     modifier: Modifier = Modifier, onClick: () -> Unit = {}, content: @Composable () -> Unit
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .clip(Shape.cardBottomCornersRounded)
+            .clip(Shape.cardTopCornersRounded)
             .background(MaterialTheme.colorScheme.secondaryContainer)
             .clickable { onClick() },
-        shape = Shape.cardBottomCornersRounded
+        shape = Shape.cardTopCornersRounded
     ) {
         content()
     }

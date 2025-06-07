@@ -20,8 +20,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.inputfield.OutlinedInputField
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
-import `in`.hridayan.ashell.core.presentation.ui.component.dialog.CustomDialog
-import `in`.hridayan.ashell.core.presentation.ui.component.text.DialogTitle
+import `in`.hridayan.ashell.core.presentation.components.dialog.CustomDialog
+import `in`.hridayan.ashell.core.presentation.components.text.DialogTitle
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 @Composable
