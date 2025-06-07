@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.core.domain.repository.DownloadRepository
 import `in`.hridayan.ashell.core.domain.usecase.DownloadApkUseCase
+import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.GetAllChangelogsUseCase
 import `in`.hridayan.ashell.shell.domain.usecase.ShellCommandExecutor
 
@@ -24,5 +25,5 @@ object UseCaseModule {
         DownloadApkUseCase(repo)
 
     @Provides
-    fun provideShellCommandExecutor(): ShellCommandExecutor = ShellCommandExecutor()
+    fun provideShellCommandExecutor(repo: SettingsRepository): ShellCommandExecutor = ShellCommandExecutor(repo)
 }

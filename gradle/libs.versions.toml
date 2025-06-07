@@ -25,6 +25,8 @@ ktor = "2.3.8"
 slf4j = "1.7.36"
 securityCrypto = "1.1.0-beta01"
 work = "2.10.1"
+shizuku = "13.1.0"
+libsu = "6.0.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplication" }
@@ -75,6 +77,8 @@ slf4j-android = { group = "org.slf4j", name = "slf4j-android", version.ref = "sl
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
 hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltExt" }
-
+shizuku-api = { module = "dev.rikka.shizuku:api", version.ref = "shizuku" }
+shizuku-provider = { module = "dev.rikka.shizuku:provider", version.ref = "shizuku" }
+libsu-core = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
 
 
