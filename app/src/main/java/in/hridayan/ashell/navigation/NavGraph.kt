@@ -16,6 +16,7 @@ import `in`.hridayan.ashell.settings.presentation.page.changelog.screens.Changel
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
+import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -116,6 +117,15 @@ fun Navigation(isFirstLaunch: Boolean = false) {
             ) {
                 BackupAndRestoreScreen()
             }
+
+            composable<LocalAdbScreen>(
+                enterTransition = { slideFadeInFromRight() },
+                exitTransition = { slideFadeOutToLeft() },
+                popEnterTransition = { slideFadeInFromLeft() },
+                popExitTransition = { slideFadeOutToRight() }
+            ) {
+                LocalAdbScreen()
+            }
         }
     }
 }
@@ -152,3 +162,6 @@ object BackupAndRestoreScreen
 
 @Serializable
 object OnboardingScreen
+
+@Serializable
+object LocalAdbScreen

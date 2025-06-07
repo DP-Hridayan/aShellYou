@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 @Composable
@@ -40,12 +41,17 @@ fun NavigationCard(
     onClick: () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
+    val weakHaptic = LocalWeakHaptic.current
+
     Card(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .clip(MaterialTheme.shapes.largeIncreased)
-            .clickable { onClick() }
+            .clickable {
+                weakHaptic()
+                onClick()
+            }
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
@@ -57,14 +63,14 @@ fun NavigationCard(
             contentColor = MaterialTheme.colorScheme.onSurfaceVariant
         ),
     ) {
-        Column(modifier = Modifier.Companion.padding(Dimens.paddingExtraLarge)) {
+        Column(modifier = Modifier.padding(Dimens.paddingExtraLarge)) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier.Companion
+                    modifier = Modifier
                         .size(40.dp)
                         .background(
                             color = MaterialTheme.colorScheme.primary,
@@ -75,7 +81,7 @@ fun NavigationCard(
                         painter = icon,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.Companion.size(24.dp)
+                        modifier = Modifier.size(24.dp)
                     )
                 }
 

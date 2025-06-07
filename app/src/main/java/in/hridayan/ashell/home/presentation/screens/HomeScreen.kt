@@ -42,6 +42,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
+import `in`.hridayan.ashell.navigation.LocalAdbScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.SettingsScreen
 
@@ -55,7 +56,7 @@ fun HomeScreen(
 
     Scaffold(contentWindowInsets = WindowInsets.safeDrawing) {
         Column(
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(it)
@@ -75,7 +76,12 @@ fun HomeScreen(
                 })
             }
 
-            LocalAdbCard(modifier = Modifier.padding(top = 10.dp, bottom = 15.dp))
+            LocalAdbCard(
+                modifier = Modifier.padding(top = 10.dp, bottom = 15.dp),
+                onClick = {
+                    navController.navigate(LocalAdbScreen)
+                }
+            )
             WirelessDebuggingCard()
             OtgAdbCard()
         }
@@ -110,13 +116,13 @@ fun AppNameText(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LocalAdbCard(modifier: Modifier = Modifier) {
+fun LocalAdbCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
     NavigationCard(
         title = stringResource(R.string.local_adb),
         description = stringResource(R.string.local_adb_summary),
         icon = painterResource(R.drawable.ic_adb2),
         modifier = modifier,
-        onClick = { },
+        onClick = onClick,
     )
 }
 
@@ -130,7 +136,7 @@ fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
         onClick = { },
         content = {
             WirelessDebuggingInstructionButton(
-                Modifier.Companion.padding(
+                Modifier.padding(
                     top = 35.dp,
                     bottom = 5.dp
                 )
@@ -148,7 +154,7 @@ fun OtgAdbCard(modifier: Modifier = Modifier) {
         modifier = modifier,
         onClick = { },
         content = {
-            OtgInstructionButton(Modifier.Companion.padding(top = 35.dp))
+            OtgInstructionButton(Modifier.padding(top = 35.dp))
         })
 }
 

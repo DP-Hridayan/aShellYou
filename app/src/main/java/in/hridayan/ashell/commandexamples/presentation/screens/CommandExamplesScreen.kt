@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -24,7 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
@@ -45,11 +46,11 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
-        modifier = Modifier.Companion.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
             TopAppBarLarge(
-                title = stringResource(id = R.string.commands),
+                topBarTitle = stringResource(id = R.string.commands),
                 scrollBehavior = scrollBehavior
             )
         },
@@ -66,7 +67,7 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
             ) {
                 val rotateAngle by animateFloatAsState(if (isDialogOpen) -45f else 0f)
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_add),
+                    imageVector = Icons.Rounded.Add,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.rotate(rotateAngle)
@@ -77,7 +78,7 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
         val commands by viewModel.allCommands.collectAsState(initial = emptyList())
 
         LazyColumn(
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(it)
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -86,7 +87,7 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
         ) {
             items(commands.size, key = { index -> commands[index].id }) { index ->
                 CommandItem(
-                    modifier = Modifier.Companion.animateItem(),
+                    modifier = Modifier.animateItem(),
                     id = commands[index].id,
                     command = commands[index].command,
                     description = commands[index].description,
@@ -99,6 +100,6 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
 
     if (isDialogOpen) AddCommandDialog(
         onDismiss = { isDialogOpen = false },
-        modifier = Modifier.Companion
+        modifier = Modifier
     )
 }

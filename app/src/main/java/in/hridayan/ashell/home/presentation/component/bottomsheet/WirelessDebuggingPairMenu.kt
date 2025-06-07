@@ -31,7 +31,7 @@ import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WirelessDebuggingPairingMenu(
-    modifier: Modifier = Modifier.Companion,
+    modifier: Modifier = Modifier,
     sheetState: SheetState,
     onDismissRequest: () -> Unit = {}
 ) {
@@ -42,7 +42,7 @@ fun WirelessDebuggingPairingMenu(
         onDismissRequest = onDismissRequest
     ) {
         Text(
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .align(Alignment.Companion.CenterHorizontally)
                 .padding(Dimens.paddingExtraLarge),
             text = stringResource(R.string.wireless_debugging),
@@ -51,14 +51,14 @@ fun WirelessDebuggingPairingMenu(
         )
 
         ErrorCard(
-            modifier = Modifier.Companion.padding(horizontal = Dimens.paddingLarge),
+            modifier = Modifier.padding(horizontal = Dimens.paddingLarge),
             text = stringResource(R.string.turn_off_mobile_data),
             icon = painterResource(R.drawable.ic_warning)
         )
 
         LabelText(
             stringResource(R.string.pair),
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .padding(Dimens.paddingLarge)
                 .align(Alignment.Companion.Start)
         )
@@ -66,13 +66,13 @@ fun WirelessDebuggingPairingMenu(
         IpAddressInputField()
 
         Row(
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(Dimens.paddingLarge),
             horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
         ) {
-            PairingPortInputField(modifier = Modifier.Companion.weight(1f))
-            PairingCodeInputField(modifier = Modifier.Companion.weight(1f))
+            PairingPortInputField(modifier = Modifier.weight(1f))
+            PairingCodeInputField(modifier = Modifier.weight(1f))
         }
 
         var context = LocalContext.current
@@ -81,11 +81,11 @@ fun WirelessDebuggingPairingMenu(
             icon = painterResource(R.drawable.ic_pair),
             text = text,
             contentDescription = null,
-            modifier = Modifier.Companion.align(Alignment.Companion.CenterHorizontally),
+            modifier = Modifier.align(Alignment.Companion.CenterHorizontally),
             onClick = { })
 
         LabelText(
-            stringResource(R.string.connect), modifier = Modifier.Companion
+            stringResource(R.string.connect), modifier = Modifier
                 .padding(
                     start = Dimens.paddingLarge,
                     end = Dimens.paddingLarge,
@@ -95,16 +95,16 @@ fun WirelessDebuggingPairingMenu(
         )
 
         Row(
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(Dimens.paddingLarge),
             horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
         ) {
-            ConnectPortInputField(modifier = Modifier.Companion.weight(1f))
+            ConnectPortInputField(modifier = Modifier.weight(1f))
             IconWithTextButton(
                 icon = painterResource(R.drawable.ic_wireless),
                 text = stringResource(R.string.connect),
-                modifier = Modifier.Companion
+                modifier = Modifier
                     .weight(1f)
                     .align(Alignment.Companion.CenterVertically)
 
@@ -114,7 +114,7 @@ fun WirelessDebuggingPairingMenu(
 }
 
 @Composable
-fun IpAddressInputField(modifier: Modifier = Modifier.Companion) {
+fun IpAddressInputField(modifier: Modifier = Modifier) {
     var ipAddress by rememberSaveable { mutableStateOf("") }
     OutlinedTextField(
         modifier = modifier
@@ -128,7 +128,7 @@ fun IpAddressInputField(modifier: Modifier = Modifier.Companion) {
 }
 
 @Composable
-fun PairingPortInputField(modifier: Modifier = Modifier.Companion) {
+fun PairingPortInputField(modifier: Modifier = Modifier) {
     var pairingPort by rememberSaveable { mutableStateOf("") }
     OutlinedTextField(
         modifier = modifier,
@@ -140,7 +140,7 @@ fun PairingPortInputField(modifier: Modifier = Modifier.Companion) {
 }
 
 @Composable
-fun PairingCodeInputField(modifier: Modifier = Modifier.Companion) {
+fun PairingCodeInputField(modifier: Modifier = Modifier) {
     var pairingCode by rememberSaveable { mutableStateOf("") }
     OutlinedTextField(
         modifier = modifier,
@@ -152,7 +152,7 @@ fun PairingCodeInputField(modifier: Modifier = Modifier.Companion) {
 }
 
 @Composable
-fun ConnectPortInputField(modifier: Modifier = Modifier.Companion) {
+fun ConnectPortInputField(modifier: Modifier = Modifier) {
     var connectPort by rememberSaveable { mutableStateOf("") }
     OutlinedTextField(
         modifier = modifier,

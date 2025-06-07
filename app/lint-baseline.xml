@@ -81,7 +81,7 @@
     <issue
         id="ModifierParameter"
         message="Optional Modifier parameter should have a default value of `Modifier`"
-        errorLine1="    modifier: Modifier = Modifier.Companion,"
+        errorLine1="    modifier: Modifier = Modifier,"
         errorLine2="    ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/dialog/AddCommandDialog.kt"
@@ -92,7 +92,7 @@
     <issue
         id="ModifierParameter"
         message="Optional Modifier parameter should have a default value of `Modifier`"
-        errorLine1="    modifier: Modifier = Modifier.Companion"
+        errorLine1="    modifier: Modifier = Modifier"
         errorLine2="    ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/dialog/AddCommandDialog.kt"
@@ -103,7 +103,7 @@
     <issue
         id="ModifierParameter"
         message="Optional Modifier parameter should have a default value of `Modifier`"
-        errorLine1="    modifier: Modifier = Modifier.Companion,"
+        errorLine1="    modifier: Modifier = Modifier,"
         errorLine2="    ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/dialog/EditCommandDialog.kt"
@@ -114,7 +114,7 @@
     <issue
         id="ModifierParameter"
         message="Optional Modifier parameter should have a default value of `Modifier`"
-        errorLine1="    modifier: Modifier = Modifier.Companion"
+        errorLine1="    modifier: Modifier = Modifier"
         errorLine2="    ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/dialog/EditCommandDialog.kt"
@@ -125,7 +125,7 @@
     <issue
         id="ModifierParameter"
         message="Optional Modifier parameter should have a default value of `Modifier`"
-        errorLine1="    modifier: Modifier = Modifier.Companion,"
+        errorLine1="    modifier: Modifier = Modifier,"
         errorLine2="    ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/home/presentation/component/bottomsheet/WirelessDebuggingPairMenu.kt"
@@ -136,7 +136,7 @@
     <issue
         id="ModifierParameter"
         message="Optional Modifier parameter should have a default value of `Modifier`"
-        errorLine1="fun IpAddressInputField(modifier: Modifier = Modifier.Companion) {"
+        errorLine1="fun IpAddressInputField(modifier: Modifier = Modifier) {"
         errorLine2="                        ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/home/presentation/component/bottomsheet/WirelessDebuggingPairMenu.kt"
@@ -147,7 +147,7 @@
     <issue
         id="ModifierParameter"
         message="Optional Modifier parameter should have a default value of `Modifier`"
-        errorLine1="fun PairingPortInputField(modifier: Modifier = Modifier.Companion) {"
+        errorLine1="fun PairingPortInputField(modifier: Modifier = Modifier) {"
         errorLine2="                          ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/home/presentation/component/bottomsheet/WirelessDebuggingPairMenu.kt"
@@ -158,7 +158,7 @@
     <issue
         id="ModifierParameter"
         message="Optional Modifier parameter should have a default value of `Modifier`"
-        errorLine1="fun PairingCodeInputField(modifier: Modifier = Modifier.Companion) {"
+        errorLine1="fun PairingCodeInputField(modifier: Modifier = Modifier) {"
         errorLine2="                          ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/home/presentation/component/bottomsheet/WirelessDebuggingPairMenu.kt"
@@ -169,7 +169,7 @@
     <issue
         id="ModifierParameter"
         message="Optional Modifier parameter should have a default value of `Modifier`"
-        errorLine1="fun ConnectPortInputField(modifier: Modifier = Modifier.Companion) {"
+        errorLine1="fun ConnectPortInputField(modifier: Modifier = Modifier) {"
         errorLine2="                          ~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/home/presentation/component/bottomsheet/WirelessDebuggingPairMenu.kt"

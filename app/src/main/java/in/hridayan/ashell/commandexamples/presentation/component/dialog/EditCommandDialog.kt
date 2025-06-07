@@ -25,7 +25,7 @@ import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 @Composable
 fun EditCommandDialog(
-    modifier: Modifier = Modifier.Companion,
+    modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     id : Int,
     viewModel: CommandViewModel = hiltViewModel()
@@ -41,46 +41,46 @@ fun EditCommandDialog(
     CustomDialog(
         onDismiss = onDismiss, content = {
             Column(
-                modifier = Modifier.Companion.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             ) {
                 DialogTitle(
                     text = stringResource(R.string.add_command),
-                    modifier = Modifier.Companion
+                    modifier = Modifier
                         .padding(vertical = Dimens.paddingLarge)
                         .align(Alignment.Companion.CenterHorizontally)
                 )
 
                 CommandInputField(
-                    command, viewModel::onCommandChange, commandError, modifier = Modifier.Companion
+                    command, viewModel::onCommandChange, commandError, modifier = Modifier
                 )
 
                 DescriptionInputField(
                     description,
                     viewModel::onDescriptionChange,
                     descriptionError,
-                    modifier = Modifier.Companion
+                    modifier = Modifier
                 )
 
                 LabelInputField(
-                    label, viewModel::onLabelChange, modifier = Modifier.Companion
+                    label, viewModel::onLabelChange, modifier = Modifier
                 )
 
                 Row(
-                    modifier = Modifier.Companion.padding(
+                    modifier = Modifier.padding(
                         top = Dimens.paddingLarge,
                         start = Dimens.paddingLarge,
                         end = Dimens.paddingLarge
                     ), horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
                 ) {
                     CancelButton(
-                        onClick = onDismiss, modifier = Modifier.Companion.weight(1f)
+                        onClick = onDismiss, modifier = Modifier.weight(1f)
                     )
 
                     UpdateButton(
                         id = id,
                         viewModel = viewModel,
                         onSuccess = onDismiss,
-                        modifier = Modifier.Companion.weight(1f)
+                        modifier = Modifier.weight(1f)
                     )
                 }
             }
@@ -143,7 +143,7 @@ fun UpdateButton(
     id:Int,
     viewModel: CommandViewModel,
     onSuccess: () -> Unit,
-    modifier: Modifier = Modifier.Companion
+    modifier: Modifier = Modifier
 ) {
     Button(
         modifier = modifier, onClick = {

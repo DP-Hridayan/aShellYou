@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.commandexamples.presentation.component.card
 
 import androidx.compose.foundation.Image
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -48,18 +51,17 @@ fun CommandItem(
 
     CollapsibleCard(
         modifier = modifier.padding(horizontal = Dimens.paddingLarge),
+        enableBorder = !isFavourite,
+        cardColor = if (isFavourite) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceVariant,
         collapsedContent = { modifier ->
             Column(
                 modifier = modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(Dimens.paddingMedium)
             ) {
-                Row(horizontalArrangement = Arrangement.spacedBy(Dimens.paddingMedium)) {
-                    if (labels.isNotEmpty()) Labels(modifier = Modifier.weight(1f), labels = labels)
-                    FavouriteButton(id = id, isFavourite = isFavourite, viewModel = viewModel)
-                }
+                if (labels.isNotEmpty()) Labels(modifier = Modifier.fillMaxWidth(), labels = labels)
 
                 Text(
-                    text = command, style = MaterialTheme.typography.titleLarge
+                    text = command, style = MaterialTheme.typography.titleLargeEmphasized
                 )
             }
         },
