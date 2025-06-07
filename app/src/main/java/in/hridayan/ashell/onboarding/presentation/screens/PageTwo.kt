@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -41,12 +40,12 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
-fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
+fun PageTwo(modifier: Modifier = Modifier) {
     var scale = remember { Animatable(0f) }
 
     var scaleMainShape = remember { Animatable(0.75f) }
 
-    LaunchedEffect(pagerState.currentPage) {
+    LaunchedEffect(Unit) {
         scale.animateTo(
             targetValue = 1f,
             animationSpec = tween(
@@ -56,7 +55,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
         )
     }
 
-    LaunchedEffect(pagerState.currentPage) {
+    LaunchedEffect(Unit) {
         scaleMainShape.animateTo(
             targetValue = 1f,
             animationSpec = tween(

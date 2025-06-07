@@ -39,6 +39,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.navigation.HomeScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.OnboardingScreen
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import kotlinx.coroutines.launch
@@ -74,9 +75,9 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                     contentAlignment = Alignment.Center
                 ) {
                     when (page) {
-                        0 -> PageOne(pagerState = pagerState)
-                        1 -> PageTwo(pagerState = pagerState)
-                        2 -> PageThree(pagerState = pagerState)
+                        0 -> PageOne()
+                        1 -> PageTwo()
+                        2 -> PageThree()
                         else -> {}
                     }
                 }
@@ -130,7 +131,9 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                             if (pagerState.currentPage < pageCount - 1) {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             } else {
-                                navController.navigate(HomeScreen)
+                                navController.navigate(HomeScreen) {
+                                    popUpTo(OnboardingScreen) { inclusive = true }
+                                }
                                 settingsViewModel.setBoolean(SettingsKeys.FIRST_LAUNCH, false)
                             }
                         }

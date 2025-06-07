@@ -33,7 +33,7 @@ fun AppEntry(
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
     var apkUrl by rememberSaveable { mutableStateOf("") }
     val savedVersionCode = LocalSettings.current.savedVersionCode
-
+    val firstLaunchFlow = LocalSettings.current.isFirstLaunch
 
     LaunchedEffect(Unit) {
         autoUpdateViewModel.updateEvents.collectLatest { result ->
@@ -46,8 +46,8 @@ fun AppEntry(
         }
     }
 
-    LaunchedEffect(savedVersionCode) {
-        showChangelogSheet = savedVersionCode < BuildConfig.VERSION_CODE
+    LaunchedEffect(savedVersionCode, firstLaunchFlow) {
+        showChangelogSheet = savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow
     }
 
     Surface {
