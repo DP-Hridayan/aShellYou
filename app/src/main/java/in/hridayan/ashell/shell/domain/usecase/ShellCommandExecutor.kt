@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.shell.domain.usecase
 
 import android.content.pm.PackageManager
 import com.topjohnwu.superuser.Shell
+import com.topjohnwu.superuser.Shell.FLAG_MOUNT_MASTER
 import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
@@ -16,7 +17,6 @@ import rikka.shizuku.Shizuku
 import rikka.shizuku.ShizukuRemoteProcess
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.io.InterruptedIOException
 
 class ShellCommandExecutor(
     private val settingsRepository: SettingsRepository
@@ -24,6 +24,7 @@ class ShellCommandExecutor(
     private var currentProcess: Process? = null
     private var currentAdbMode: Int = DEFAULT_MODE
     private var rootShell: Shell? = null
+    private var rootJob: Shell.Job? = null
     private var shizukuShell: ShizukuRemoteProcess? = null
     private var currentDir = "/"
 
@@ -68,32 +69,23 @@ class ShellCommandExecutor(
         commandText: String,
         outputFlow: MutableStateFlow<List<OutputLine>>
     ) {
-        withContext(Dispatchers.IO) {
-            try {
-                if (rootShell == null || rootShell?.isAlive != true) {
-                    rootShell = Shell.Builder.create().apply {
-                        setFlags(Shell.FLAG_MOUNT_MASTER)
-                    }.build()
-                }
-
-                if (rootShell?.isRoot == false) {
-                    return@withContext
-                }
-
-                val job = rootShell?.newJob()
-                val result = job?.add(commandText)?.exec()
-
-                result?.out?.forEach { line ->
-                    outputFlow.update { it + OutputLine(line, isError = false) }
-                }
-
-                result?.err?.forEach { line ->
-                    outputFlow.update { it + OutputLine(line, isError = true) }
-                }
-
-            } catch (e: Exception) {
-                outputFlow.update { it + OutputLine("Root shell error: ${e.message}", true) }
+        try {
+            if (rootShell == null || rootShell?.isAlive != true) {
+                rootShell = Shell.Builder.create().apply {
+                    setFlags(FLAG_MOUNT_MASTER)
+                }.build()
             }
+
+            if (rootShell?.isRoot == false) {
+                return
+            }
+
+            runGenericProcess(
+                Runtime.getRuntime().exec(arrayOf("su", "-c", commandText)), outputFlow
+            )
+
+        } catch (e: Exception) {
+            outputFlow.update { it + OutputLine("Root shell error: ${e.message}", true) }
         }
     }
 
@@ -104,21 +96,13 @@ class ShellCommandExecutor(
     ) {
         withContext(Dispatchers.IO) {
             try {
-                val process = Shizuku.newProcess(arrayOf("sh", "-c", commandText), null, currentDir)
-                val stdout = BufferedReader(InputStreamReader(process.inputStream))
-                val stderr = BufferedReader(InputStreamReader(process.errorStream))
-
-                var line: String?
-
-                while (stdout.readLine().also { line = it } != null) {
-                    outputFlow.update { it + OutputLine(line ?: "", isError = false) }
-                }
-
-                while (stderr.readLine().also { line = it } != null) {
-                    outputFlow.update { it + OutputLine(line ?: "", isError = true) }
-                }
-
-                process.waitFor()
+                runGenericProcess(
+                    Shizuku.newProcess(
+                        arrayOf("sh", "-c", commandText),
+                        null,
+                        currentDir
+                    ), outputFlow
+                )
 
                 if (commandText.startsWith("cd ") && !outputFlow.value.last().isError) {
                     val parts = commandText.trim().split("\\s+".toRegex())
@@ -146,38 +130,50 @@ class ShellCommandExecutor(
         process: Process,
         outputFlow: MutableStateFlow<List<OutputLine>>
     ) {
-        currentProcess = process
-
-        val reader = process.inputStream.bufferedReader()
-        val errReader = process.errorStream.bufferedReader()
-
-        val stdJob = CoroutineScope(Dispatchers.IO).launch {
+        withContext(Dispatchers.IO) {
             try {
-                reader.forEachLine { line ->
-                    outputFlow.update { it + OutputLine(line, false) }
+                currentProcess = process
+
+                val inputReader = BufferedReader(InputStreamReader(process.inputStream))
+                val errorReader = BufferedReader(InputStreamReader(process.errorStream))
+
+                val stdoutJob = launch {
+                    var line: String?
+                    while (inputReader.readLine().also { line = it } != null) {
+                        line?.let {
+                            outputFlow.update { currentList ->
+                                currentList + OutputLine(it, isError = false)
+                            }
+                        }
+                    }
                 }
-            } catch (_: InterruptedIOException) {
+
+                val stderrJob = launch {
+                    var line: String?
+                    while (errorReader.readLine().also { line = it } != null) {
+                        line?.let {
+                            outputFlow.update { currentList ->
+                                currentList + OutputLine(it, isError = true)
+                            }
+                        }
+                    }
+                }
+
+                stdoutJob.join()
+                stderrJob.join()
+                currentProcess?.waitFor()
+
             } catch (e: Exception) {
-                outputFlow.update { it + OutputLine("Std stream error: ${e.message}", true) }
+                outputFlow.update { currentList ->
+                    currentList + OutputLine(
+                        "Error executing command: ${e.message}",
+                        isError = true
+                    )
+                }
             }
         }
-
-        val errJob = CoroutineScope(Dispatchers.IO).launch {
-            try {
-                errReader.forEachLine { line ->
-                    outputFlow.update { it + OutputLine(line, true) }
-                }
-            } catch (_: InterruptedIOException) {
-            } catch (e: Exception) {
-                outputFlow.update { it + OutputLine("Err stream error: ${e.message}", true) }
-            }
-        }
-
-        stdJob.join()
-        errJob.join()
-        process.waitFor()
-        currentProcess = null
     }
+
 
     fun stop() {
         currentProcess?.destroy()
