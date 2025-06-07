@@ -25,11 +25,15 @@ fun AppEntry(
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val isFirstLaunch = settingsViewModel.isFirstLaunch
+    if (isFirstLaunch == null) return
+
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var showChangelogSheet by rememberSaveable { mutableStateOf(false) }
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
     var apkUrl by rememberSaveable { mutableStateOf("") }
     val savedVersionCode = LocalSettings.current.savedVersionCode
+
 
     LaunchedEffect(Unit) {
         autoUpdateViewModel.updateEvents.collectLatest { result ->
@@ -47,7 +51,7 @@ fun AppEntry(
     }
 
     Surface {
-        Navigation()
+        Navigation(isFirstLaunch)
 
         if (showUpdateSheet) {
             UpdateBottomSheet(

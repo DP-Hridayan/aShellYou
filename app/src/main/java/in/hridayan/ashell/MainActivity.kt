@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import `in`.hridayan.ashell.core.common.CompositionLocals
@@ -29,6 +30,10 @@ class MainActivity : ComponentActivity() {
     private val autoUpdateViewModel: AutoUpdateViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen().setKeepOnScreenCondition {
+            settingsViewModel.isFirstLaunch == null
+        }
+
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {

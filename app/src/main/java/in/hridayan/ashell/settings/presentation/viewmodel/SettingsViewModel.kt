@@ -30,6 +30,7 @@ import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,6 +41,9 @@ class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val toggleSettingUseCase: ToggleSettingUseCase,
 ) : ViewModel() {
+    var isFirstLaunch by mutableStateOf<Boolean?>(null)
+        private set
+
     var settingsPageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
         private set
 
@@ -87,6 +91,7 @@ class SettingsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             loadSettings()
+            isFirstLaunch = getBoolean(SettingsKeys.FIRST_LAUNCH).first()
         }
     }
 
