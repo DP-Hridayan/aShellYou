@@ -9,7 +9,9 @@ import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -38,10 +40,9 @@ class ShellCommandExecutor(
         }
     }
 
-    suspend fun executeCommand(
+     fun executeCommand(
         commandText: String,
-        outputFlow: MutableStateFlow<List<OutputLine>>
-    ) {
+    ) : Flow<OutputLine> = flow {
         withContext(Dispatchers.IO) {
             try {
                 when (currentAdbMode) {
@@ -62,30 +63,36 @@ class ShellCommandExecutor(
         commandText: String,
         outputFlow: MutableStateFlow<List<OutputLine>>
     ) {
-        runGenericProcess(Runtime.getRuntime().exec(arrayOf("sh", "-c", commandText)), outputFlow)
+        withContext(Dispatchers.IO) {
+            runGenericProcess(
+                Runtime.getRuntime().exec(arrayOf("sh", "-c", commandText)), outputFlow
+            )
+        }
     }
 
     private suspend fun runRoot(
         commandText: String,
         outputFlow: MutableStateFlow<List<OutputLine>>
     ) {
-        try {
-            if (rootShell == null || rootShell?.isAlive != true) {
-                rootShell = Shell.Builder.create().apply {
-                    setFlags(FLAG_MOUNT_MASTER)
-                }.build()
+        withContext(Dispatchers.IO) {
+            try {
+                if (rootShell == null || rootShell?.isAlive != true) {
+                    rootShell = Shell.Builder.create().apply {
+                        setFlags(FLAG_MOUNT_MASTER)
+                    }.build()
+                }
+
+                if (rootShell?.isRoot == false) {
+                    return@withContext
+                }
+
+                runGenericProcess(
+                    Runtime.getRuntime().exec(arrayOf("su", "-c", commandText)), outputFlow
+                )
+
+            } catch (e: Exception) {
+                outputFlow.update { it + OutputLine("Root shell error: ${e.message}", true) }
             }
-
-            if (rootShell?.isRoot == false) {
-                return
-            }
-
-            runGenericProcess(
-                Runtime.getRuntime().exec(arrayOf("su", "-c", commandText)), outputFlow
-            )
-
-        } catch (e: Exception) {
-            outputFlow.update { it + OutputLine("Root shell error: ${e.message}", true) }
         }
     }
 
@@ -126,51 +133,30 @@ class ShellCommandExecutor(
         return Shizuku.pingBinder() && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED;
     }
 
-    private suspend fun runGenericProcess(
+    suspend fun runGenericProcess(
         process: Process,
         outputFlow: MutableStateFlow<List<OutputLine>>
-    ) {
-        withContext(Dispatchers.IO) {
-            try {
-                currentProcess = process
+    ) = withContext(Dispatchers.IO) {
+        val reader = BufferedReader(InputStreamReader(process.inputStream))
+        val errorReader = BufferedReader(InputStreamReader(process.errorStream))
 
-                val inputReader = BufferedReader(InputStreamReader(process.inputStream))
-                val errorReader = BufferedReader(InputStreamReader(process.errorStream))
-
-                val stdoutJob = launch {
-                    var line: String?
-                    while (inputReader.readLine().also { line = it } != null) {
-                        line?.let {
-                            outputFlow.update { currentList ->
-                                currentList + OutputLine(it, isError = false)
-                            }
-                        }
-                    }
-                }
-
-                val stderrJob = launch {
-                    var line: String?
-                    while (errorReader.readLine().also { line = it } != null) {
-                        line?.let {
-                            outputFlow.update { currentList ->
-                                currentList + OutputLine(it, isError = true)
-                            }
-                        }
-                    }
-                }
-
-                stdoutJob.join()
-                stderrJob.join()
-                currentProcess?.waitFor()
-
-            } catch (e: Exception) {
-                outputFlow.update { currentList ->
-                    currentList + OutputLine(
-                        "Error executing command: ${e.message}",
-                        isError = true
-                    )
+        try {
+            var line: String?
+            while (reader.readLine().also { line = it } != null) {
+                line?.let {line->
+                    outputFlow.update { it + OutputLine(line, false) }
                 }
             }
+
+            while (errorReader.readLine().also { line = it } != null) {
+                line?.let {line->
+                    outputFlow.update { it + OutputLine(line, true) }
+                }
+            }
+
+            process.waitFor()
+        } catch (e: Exception) {
+            outputFlow.update { it + OutputLine("Error executing command: ${e.message}", true) }
         }
     }
 

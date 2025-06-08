@@ -11,14 +11,16 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.material.icons.rounded.History
@@ -40,13 +42,13 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -65,6 +67,8 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
+import `in`.hridayan.ashell.core.utils.hideKeyboard
+import `in`.hridayan.ashell.core.utils.isKeyboardVisible
 import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.SettingsScreen
@@ -72,6 +76,7 @@ import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
+import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch
 
 @Composable
@@ -90,6 +95,7 @@ fun BaseShellScreen(
     val shellState by shellViewModel.shellState.collectAsState()
     var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
     val askToClean = LocalSettings.current.clearOutputConfirmation
+    val isKeyboardVisible = isKeyboardVisible().value
 
     val actionFabIcon: @Composable () -> Unit = {
         when (shellState) {
@@ -112,6 +118,8 @@ fun BaseShellScreen(
         when (shellState) {
             is ShellState.InputQuery -> {
                 coroutineScope.launch {
+                    if (isKeyboardVisible) hideKeyboard(context)
+                    awaitFrame()
                     shellViewModel.runCommand()
                 }
             }
@@ -322,7 +330,7 @@ fun BaseShellScreen(
                 )
             }
 
-            CommandCard(commandResults = commandResults)
+            OutputCard()
         }
     }
 
@@ -334,66 +342,35 @@ fun BaseShellScreen(
 }
 
 @Composable
-fun CommandCard(commandResults: List<CommandResult>) {
-    val isDarkMode = LocalDarkMode.current
-    val scrollState = rememberScrollState()
+fun OutputCard(viewModel: ShellViewModel = hiltViewModel()) {
+    val lines by viewModel.outputLines.collectAsState()
 
-    LaunchedEffect(commandResults.map { it.outputFlow }.map { it.collectAsState().value }) {
-        snapshotFlow { scrollState.maxValue }.collect { max ->
-            scrollState.animateScrollTo(max)
-        }
-    }
-
-    Card(
+    LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .clip(MaterialTheme.shapes.large),
-        shape = MaterialTheme.shapes.large,
-        colors = CardDefaults.cardColors(
-            containerColor = if (isDarkMode) MaterialTheme.colorScheme.surfaceContainerLowest else MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        )
+            .padding(16.dp),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .verticalScroll(scrollState),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-            commandResults.forEach { result ->
-                val outputLines by result.outputFlow.collectAsState()
+        item {
+            Text(
+                text = "$ your-command",
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontFamily = FontFamily.Monospace,
+                    fontWeight = FontWeight.Bold
+                ),
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
 
-                SelectionContainer(modifier = Modifier.fillMaxWidth()) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        Text(
-                            text = "$ ${result.command}",
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontFamily = FontFamily.Monospace,
-                                fontWeight = FontWeight.Bold
-                            ),
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-
-                        outputLines.forEach { line ->
-                            Text(
-                                text = line.text,
-                                style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
-                                color = if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-                    }
-                }
-            }
+        itemsIndexed(lines) { index, line ->
+            Text(
+                text = line.text,
+                style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
+                color = if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
+            )
         }
     }
 }
+
 
 @SuppressLint("UseCompatLoadingForDrawables")
 @Composable

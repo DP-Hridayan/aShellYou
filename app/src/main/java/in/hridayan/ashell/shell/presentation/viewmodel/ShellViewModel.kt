@@ -7,10 +7,18 @@ import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.domain.usecase.ShellCommandExecutor
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,7 +51,7 @@ class ShellViewModel @Inject constructor(
         _commandResults.value = emptyList()
     }
 
-    fun runCommand() {
+  /*  fun runCommand() {
         if (_shellState.value is ShellState.Busy) return
 
         val commandText = _command.value.trim()
@@ -54,11 +62,45 @@ class ShellViewModel @Inject constructor(
         _command.value = ""
         _shellState.value = ShellState.Busy
 
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             executor.executeCommand(commandText, outputFlow)
-            _shellState.value = ShellState.Free
+
+            withContext(Dispatchers.Main) {
+                _shellState.value = ShellState.Free
+            }
         }
     }
+*/
+
+    private val _outputLines = MutableStateFlow<List<OutputLine>>(emptyList())
+    val outputLines: StateFlow<List<OutputLine>> = _outputLines
+
+    fun runCommand() {
+        viewModelScope.launch {
+            executeCommand(_command.value.trim()).collect { line ->
+                _outputLines.update { it + line }
+            }
+        }
+    }
+
+    fun executeCommand(command: String): Flow<OutputLine> = flow {
+        val process = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
+        val reader = BufferedReader(InputStreamReader(process.inputStream))
+        val errorReader = BufferedReader(InputStreamReader(process.errorStream))
+
+        while (true) {
+            val line = reader.readLine() ?: break
+            emit(OutputLine(line, isError = false))
+        }
+
+        while (true) {
+            val errorLine = errorReader.readLine() ?: break
+            emit(OutputLine(errorLine, isError = true))
+        }
+
+        process.waitFor()
+    }.flowOn(Dispatchers.IO)
+
 
     fun executeSimpleCommand(command: String) {
         viewModelScope.launch {
