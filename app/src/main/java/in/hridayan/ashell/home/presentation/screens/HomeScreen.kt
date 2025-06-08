@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.rememberScrollState
@@ -22,7 +23,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -41,6 +46,10 @@ import `in`.hridayan.ashell.core.presentation.components.button.OutlinedIconButt
 import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.core.utils.UrlUtils
+import `in`.hridayan.ashell.home.presentation.component.card.DeviceInfoCard
+import `in`.hridayan.ashell.home.presentation.component.card.RebootOptionsCard
+import `in`.hridayan.ashell.home.presentation.component.card.SystemSettings
+import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.navigation.LocalAdbScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -53,6 +62,7 @@ fun HomeScreen(
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
+    var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(contentWindowInsets = WindowInsets.safeDrawing) {
         Column(
@@ -61,6 +71,7 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(it)
                 .padding(Dimens.paddingExtraLarge),
+            verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -77,14 +88,20 @@ fun HomeScreen(
             }
 
             LocalAdbCard(
-                modifier = Modifier.padding(top = 10.dp, bottom = 15.dp),
+                modifier = Modifier.padding(top = 10.dp),
                 onClick = {
                     navController.navigate(LocalAdbScreen)
                 }
             )
+
             WirelessDebuggingCard()
             OtgAdbCard()
+            QuickToolsCard(onClickRebootOptions = { showRebootOptionsDialog = true })
         }
+    }
+
+    if (showRebootOptionsDialog) {
+        RebootOptionsDialog(onDismiss = { showRebootOptionsDialog = false })
     }
 }
 
@@ -116,6 +133,58 @@ fun AppNameText(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun QuickToolsCard(
+    modifier: Modifier = Modifier,
+    onClickDeviceInfo: () -> Unit = {},
+    onClickSystemSettings: () -> Unit = {},
+    onClickRebootOptions: () -> Unit = {}
+) {
+    NavigationCard(
+        icon = painterResource(R.drawable.ic_handyman),
+        title = stringResource(R.string.quick_tools),
+        showNavigationArrowIcon = false,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(300.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 20.dp),
+            horizontalArrangement = Arrangement.spacedBy(20.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            DeviceInfoCard(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxSize()
+            )
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                RebootOptionsCard(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxSize(),
+                    onClick = onClickRebootOptions
+                )
+
+                SystemSettings(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxSize()
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun LocalAdbCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
     NavigationCard(
         title = stringResource(R.string.local_adb),
@@ -132,7 +201,7 @@ fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
         title = stringResource(R.string.adb_via_wireless_debugging),
         description = stringResource(R.string.adb_via_wireless_debugging_summary),
         icon = painterResource(R.drawable.ic_wireless),
-        modifier = modifier.padding(bottom = 13.dp),
+        modifier = modifier,
         onClick = { },
         content = {
             WirelessDebuggingInstructionButton(

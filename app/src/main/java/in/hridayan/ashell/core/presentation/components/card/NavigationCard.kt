@@ -35,11 +35,12 @@ import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 @Composable
 fun NavigationCard(
     title: String,
-    description: String,
+    description: String? = null,
     icon: Painter,
+    showNavigationArrowIcon: Boolean = true,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    content: @Composable ColumnScope.() -> Unit = {}
+    content: @Composable ColumnScope.() -> Unit = {},
 ) {
     val weakHaptic = LocalWeakHaptic.current
 
@@ -94,20 +95,24 @@ fun NavigationCard(
                         .alpha(0.95f)
                 )
 
-                Icon(
-                    painter = painterResource(R.drawable.ic_arrow_right),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                if (showNavigationArrowIcon) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_arrow_right),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
 
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .padding(top = Dimens.paddingExtraLarge)
-                    .alpha(0.95f)
-            )
+            description?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier
+                        .padding(top = Dimens.paddingExtraLarge)
+                        .alpha(0.95f)
+                )
+            }
 
             content()
         }

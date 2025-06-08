@@ -140,7 +140,10 @@
     <string name="most_used">Most used</string>
     <string name="must_fill">Must fill</string>
     <string name="none">None</string>
-
+    <string name="quick_tools">Quick tools</string>
+    <string name="device_info">Device info</string>
+    <string name="reboot_options">Reboot options</string>
+    <string name="system_settings">System settings</string>
     <string name="no_application_found">No application found to perform the task</string>
     <string name="no_bookmarks">No bookmarks found</string>
     <string name="no_changelog">No changelog</string>

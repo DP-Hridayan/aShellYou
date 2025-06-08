@@ -60,6 +60,12 @@ class ShellViewModel @Inject constructor(
         }
     }
 
+    fun executeSimpleCommand(command: String) {
+        viewModelScope.launch {
+            Runtime.getRuntime().exec(command)
+        }
+    }
+
     fun stopCommand() {
         executor.stop()
         _shellState.value = ShellState.Free
