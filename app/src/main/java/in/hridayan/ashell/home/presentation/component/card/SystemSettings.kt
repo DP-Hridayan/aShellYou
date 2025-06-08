@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
@@ -60,7 +59,6 @@ fun SystemSettings(modifier: Modifier = Modifier) {
                 color = MaterialTheme.colorScheme.onTertiaryContainer,
                 maxLines = 2,
                 modifier = Modifier.weight(1f),
-                textAlign = TextAlign.Center
             )
         }
     }
