@@ -41,6 +41,7 @@ fun RebootOptionsDialog(
     val interactionSources1 = remember { List(2) { MutableInteractionSource() } }
     val interactionSources2 = remember { List(2) { MutableInteractionSource() } }
     val buttonSize = 110.dp
+    val iconSize = 36.dp
     val weakHaptic = LocalWeakHaptic.current
 
     Dialog(
@@ -81,7 +82,7 @@ fun RebootOptionsDialog(
                         Icon(
                             imageVector = Icons.Rounded.RestartAlt,
                             contentDescription = null,
-                            modifier = Modifier.size(24.dp),
+                            modifier = Modifier.size(iconSize),
                             tint = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     }
@@ -103,7 +104,7 @@ fun RebootOptionsDialog(
                         Icon(
                             imageVector = Icons.Rounded.RestartAlt,
                             contentDescription = null,
-                            modifier = Modifier.size(24.dp),
+                            modifier = Modifier.size(iconSize),
                             tint = MaterialTheme.colorScheme.onTertiaryContainer
                         )
                     }
@@ -149,7 +150,7 @@ fun RebootOptionsDialog(
                         Icon(
                             imageVector = Icons.Rounded.RestartAlt,
                             contentDescription = null,
-                            modifier = Modifier.size(24.dp),
+                            modifier = Modifier.size(iconSize),
                             tint = MaterialTheme.colorScheme.onErrorContainer
                         )
                     }
@@ -171,7 +172,7 @@ fun RebootOptionsDialog(
                         Icon(
                             imageVector = Icons.Rounded.RestartAlt,
                             contentDescription = null,
-                            modifier = Modifier.size(24.dp),
+                            modifier = Modifier.size(iconSize),
                             tint = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     }

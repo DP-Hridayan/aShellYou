@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -40,13 +41,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -56,6 +61,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
@@ -64,6 +70,7 @@ import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.SettingsScreen
 import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.ShellState
+import `in`.hridayan.ashell.shell.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
 
@@ -72,6 +79,7 @@ fun BaseShellScreen(
     modifier: Modifier = Modifier,
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
     val interactionSources = remember { List(5) { MutableInteractionSource() } }
     val navController = LocalNavController.current
@@ -80,6 +88,8 @@ fun BaseShellScreen(
     val command by shellViewModel.command.collectAsState()
     val commandError by shellViewModel.commandError.collectAsState()
     val shellState by shellViewModel.shellState.collectAsState()
+    var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
+    val askToClean = LocalSettings.current.clearOutputConfirmation
 
     val actionFabIcon: @Composable () -> Unit = {
         when (shellState) {
@@ -89,6 +99,7 @@ fun BaseShellScreen(
                 contentDescription = null,
                 modifier = Modifier.size(24.dp)
             )
+
             else -> Icon(
                 imageVector = Icons.AutoMirrored.Rounded.Send,
                 contentDescription = null,
@@ -96,7 +107,6 @@ fun BaseShellScreen(
             )
         }
     }
-
 
     val actionFabOnClick: () -> Unit = {
         when (shellState) {
@@ -201,7 +211,17 @@ fun BaseShellScreen(
                 IconButton(
                     onClick = {
                         weakHaptic()
-                        shellViewModel.clearOutput()
+
+                        if (shellViewModel.commandResults.value.isEmpty()) {
+                            Toast.makeText(
+                                context, context.getString(R.string.nothing_to_clear),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            return@IconButton
+                        }
+
+                        if (askToClean) showClearOutputDialog = true
+                        else shellViewModel.clearOutput()
                     },
                     shapes = IconButtonDefaults.shapes(),
                     colors = IconButtonDefaults.iconButtonColors(
@@ -304,6 +324,12 @@ fun BaseShellScreen(
 
             CommandCard(commandResults = commandResults)
         }
+    }
+
+    if (showClearOutputDialog) {
+        ClearOutputConfirmationDialog(
+            onDismiss = { showClearOutputDialog = false },
+            onConfirm = { shellViewModel.clearOutput() })
     }
 }
 
