@@ -12,13 +12,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import rikka.shizuku.Shizuku
 import rikka.shizuku.ShizukuRemoteProcess
 import java.io.BufferedReader
+import java.io.IOException
 import java.io.InputStreamReader
+import java.io.InterruptedIOException
 
 class ShellCommandExecutor(
     private val settingsRepository: SettingsRepository
@@ -40,24 +43,34 @@ class ShellCommandExecutor(
         }
     }
 
-     fun executeCommand(
-        commandText: String,
-    ) : Flow<OutputLine> = flow {
-        withContext(Dispatchers.IO) {
-            try {
-                when (currentAdbMode) {
-                    MODE_BASIC -> runBasic(commandText, outputFlow)
-                    MODE_ROOT -> runRoot(commandText, outputFlow)
-                    MODE_SHIZUKU -> runShizuku(commandText, outputFlow)
-                    else -> {
-                        outputFlow.update { it + OutputLine("Unknown ADB mode", true) }
-                    }
-                }
-            } catch (e: Exception) {
-                outputFlow.update { it + OutputLine("Executor error: ${e.message}", true) }
+    fun executeCommand(command: String): Flow<OutputLine> = flow {
+        currentProcess = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
+        val reader = BufferedReader(InputStreamReader(currentProcess?.inputStream))
+        val errorReader = BufferedReader(InputStreamReader(currentProcess?.errorStream))
+
+        try {
+            while (true) {
+                val line = reader.readLine() ?: break
+                emit(OutputLine(line, isError = false))
             }
+
+            while (true) {
+                val errorLine = errorReader.readLine() ?: break
+                emit(OutputLine(errorLine, isError = true))
+            }
+
+            currentProcess?.waitFor()
+        } catch (e: InterruptedIOException) {
+            // ignored
+        } catch (e: IOException) {
+            emit(OutputLine("Error reading process output: ${e.message}", isError = true))
+        } finally {
+            reader.close()
+            errorReader.close()
+            currentProcess?.destroy()
+            currentProcess = null
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     private suspend fun runBasic(
         commandText: String,
@@ -143,13 +156,13 @@ class ShellCommandExecutor(
         try {
             var line: String?
             while (reader.readLine().also { line = it } != null) {
-                line?.let {line->
+                line?.let { line ->
                     outputFlow.update { it + OutputLine(line, false) }
                 }
             }
 
             while (errorReader.readLine().also { line = it } != null) {
-                line?.let {line->
+                line?.let { line ->
                     outputFlow.update { it + OutputLine(line, true) }
                 }
             }

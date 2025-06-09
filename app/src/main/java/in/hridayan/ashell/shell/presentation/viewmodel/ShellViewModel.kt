@@ -51,10 +51,15 @@ class ShellViewModel @Inject constructor(
         _commandResults.value = emptyList()
     }
 
-  /*  fun runCommand() {
+    fun runCommand() {
         if (_shellState.value is ShellState.Busy) return
 
         val commandText = _command.value.trim()
+        if (commandText.isBlank()) {
+            _commandError.value = true
+            return
+        }
+
         val outputFlow = MutableStateFlow<List<OutputLine>>(emptyList())
         val newResult = CommandResult(commandText, outputFlow)
 
@@ -62,44 +67,15 @@ class ShellViewModel @Inject constructor(
         _command.value = ""
         _shellState.value = ShellState.Busy
 
-        CoroutineScope(Dispatchers.IO).launch {
-            executor.executeCommand(commandText, outputFlow)
-
-            withContext(Dispatchers.Main) {
-                _shellState.value = ShellState.Free
-            }
-        }
-    }
-*/
-
-    private val _outputLines = MutableStateFlow<List<OutputLine>>(emptyList())
-    val outputLines: StateFlow<List<OutputLine>> = _outputLines
-
-    fun runCommand() {
         viewModelScope.launch {
-            executeCommand(_command.value.trim()).collect { line ->
-                _outputLines.update { it + line }
-            }
+            executor.executeCommand(commandText)
+                .collect { line ->
+                    outputFlow.update { it + line }
+                }
+
+            _shellState.value = ShellState.Free
         }
     }
-
-    fun executeCommand(command: String): Flow<OutputLine> = flow {
-        val process = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
-        val reader = BufferedReader(InputStreamReader(process.inputStream))
-        val errorReader = BufferedReader(InputStreamReader(process.errorStream))
-
-        while (true) {
-            val line = reader.readLine() ?: break
-            emit(OutputLine(line, isError = false))
-        }
-
-        while (true) {
-            val errorLine = errorReader.readLine() ?: break
-            emit(OutputLine(errorLine, isError = true))
-        }
-
-        process.waitFor()
-    }.flowOn(Dispatchers.IO)
 
 
     fun executeSimpleCommand(command: String) {

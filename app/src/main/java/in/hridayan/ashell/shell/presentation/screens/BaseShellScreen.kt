@@ -11,7 +11,6 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -73,6 +72,7 @@ import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.SettingsScreen
 import `in`.hridayan.ashell.shell.domain.model.CommandResult
+import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
@@ -330,7 +330,7 @@ fun BaseShellScreen(
                 )
             }
 
-            OutputCard()
+            OutputCard(results = commandResults)
         }
     }
 
@@ -342,35 +342,83 @@ fun BaseShellScreen(
 }
 
 @Composable
-fun OutputCard(viewModel: ShellViewModel = hiltViewModel()) {
-    val lines by viewModel.outputLines.collectAsState()
+fun OutputCard(results: List<CommandResult>) {
+    val listState = rememberLazyListState()
+    val isDarkMode = LocalDarkMode.current
 
-    LazyColumn(
+    val allOutputs = results.map { commandResult ->
+        commandResult.outputFlow.collectAsState()
+    }
+
+    val combinedOutput = remember(allOutputs) {
+        derivedStateOf {
+            allOutputs.flatMapIndexed { index, outputState ->
+                val command = results[index].command
+                listOf(OutputLine("$ $command", isError = false)) + outputState.value
+            }
+        }
+    }
+
+    if (combinedOutput.value.isEmpty()) return
+
+    LaunchedEffect(combinedOutput.value.size) {
+        if (combinedOutput.value.isNotEmpty()) {
+            listState.scrollToItem(combinedOutput.value.lastIndex)
+        }
+    }
+
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clip(MaterialTheme.shapes.large),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isDarkMode)
+                MaterialTheme.colorScheme.surfaceContainerLowest
+            else MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        )
     ) {
-        item {
-            Text(
-                text = "$ your-command",
-                style = MaterialTheme.typography.titleMedium.copy(
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.Bold
-                ),
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
+        SelectionContainer {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                itemsIndexed(combinedOutput.value) { _, line ->
+                    val text = line.text
 
-        itemsIndexed(lines) { index, line ->
-            Text(
-                text = line.text,
-                style = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace),
-                color = if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
-            )
+                    val isCommandLine = text.startsWith("$ ")
+
+                    val lineColor =
+                        if (isCommandLine) MaterialTheme.colorScheme.primary else {
+                            if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
+                        }
+
+                    val textStyle = if (isCommandLine) MaterialTheme.typography.titleMedium.copy(
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold
+                    )
+                    else MaterialTheme.typography.bodySmallEmphasized.copy(fontFamily = FontFamily.Monospace)
+
+                    Text(
+                        text = text,
+                        style = textStyle,
+                        color = lineColor,
+                        modifier = Modifier.then(
+                            if (isCommandLine) Modifier.padding(
+                                top = 20.dp,
+                                bottom = 10.dp
+                            ) else Modifier
+                        )
+                    )
+                }
+            }
         }
     }
 }
-
 
 @SuppressLint("UseCompatLoadingForDrawables")
 @Composable
