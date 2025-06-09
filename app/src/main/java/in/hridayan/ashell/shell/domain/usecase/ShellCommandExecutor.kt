@@ -43,8 +43,22 @@ class ShellCommandExecutor(
         }
     }
 
-    fun executeCommand(command: String): Flow<OutputLine> = flow {
-        currentProcess = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
+    fun executeCommand(commandText: String): Flow<OutputLine> = when (currentAdbMode) {
+        MODE_BASIC -> runBasic(commandText)
+        MODE_ROOT -> runRoot(commandText)
+        else -> flow {}
+    }.flowOn(Dispatchers.IO)
+
+    fun runBasic(commandText: String): Flow<OutputLine> {
+        return exec(Runtime.getRuntime().exec(arrayOf("sh", "-c", commandText)))
+    }
+
+    fun runRoot(commandText: String): Flow<OutputLine> {
+        return exec(Runtime.getRuntime().exec(arrayOf("su", "-c", commandText)))
+    }
+
+    fun exec(process: Process): Flow<OutputLine> = flow {
+        currentProcess = process
         val reader = BufferedReader(InputStreamReader(currentProcess?.inputStream))
         val errorReader = BufferedReader(InputStreamReader(currentProcess?.errorStream))
 
@@ -61,29 +75,20 @@ class ShellCommandExecutor(
 
             currentProcess?.waitFor()
         } catch (e: InterruptedIOException) {
-            // ignored
         } catch (e: IOException) {
             emit(OutputLine("Error reading process output: ${e.message}", isError = true))
         } finally {
-            reader.close()
-            errorReader.close()
+            try {
+                reader.close()
+                errorReader.close()
+            } catch (_: IOException) {}
+
             currentProcess?.destroy()
             currentProcess = null
         }
-    }.flowOn(Dispatchers.IO)
-
-    private suspend fun runBasic(
-        commandText: String,
-        outputFlow: MutableStateFlow<List<OutputLine>>
-    ) {
-        withContext(Dispatchers.IO) {
-            runGenericProcess(
-                Runtime.getRuntime().exec(arrayOf("sh", "-c", commandText)), outputFlow
-            )
-        }
     }
 
-    private suspend fun runRoot(
+ /*  private suspend fun runRoot(
         commandText: String,
         outputFlow: MutableStateFlow<List<OutputLine>>
     ) {
@@ -108,7 +113,7 @@ class ShellCommandExecutor(
             }
         }
     }
-
+*/
     @Suppress("DEPRECATION")
     private suspend fun runShizuku(
         commandText: String,
