@@ -35,6 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,14 +53,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawSelectChoice
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 
 @Composable
-fun PageThree(modifier: Modifier = Modifier, pagerState: PagerState) {
+fun PageThree(
+    modifier: Modifier = Modifier, pagerState: PagerState,
+    shellViewModel: ShellViewModel = hiltViewModel()
+) {
     val weakHaptic = LocalWeakHaptic.current
 
     var scale = remember { Animatable(0f) }
@@ -68,7 +74,8 @@ fun PageThree(modifier: Modifier = Modifier, pagerState: PagerState) {
 
     var rootCardChecked by rememberSaveable { mutableStateOf(false) }
 
-    var shizukuCardChecked by rememberSaveable { mutableStateOf(false) }
+    val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
+    val isShizukuInstalled = remember { shellViewModel.isShizukuInstalled() }
 
     LaunchedEffect(pagerState.currentPage == 2) {
         scale.animateTo(
@@ -213,12 +220,17 @@ fun PageThree(modifier: Modifier = Modifier, pagerState: PagerState) {
             )
 
             PermissionCard(
-                isChecked = shizukuCardChecked,
+                isChecked = hasShizukuPermission,
                 title = stringResource(R.string.shizuku),
                 description = stringResource(R.string.mode_two_desc),
                 onClick = {
                     weakHaptic()
-                    shizukuCardChecked = !shizukuCardChecked
+                    if (!isShizukuInstalled) {
+                        return@PermissionCard
+                    }
+                    if (!hasShizukuPermission){
+                        shellViewModel.requestShizukuPermission()
+                    }
                 }
             )
         }

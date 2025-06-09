@@ -88,7 +88,7 @@ class ShellViewModel @Inject constructor(
     }
 
     fun requestShizukuPermission() {
-        shellRepository.refreshShizukuPermission()
+        shellRepository.requestShizukuPermission()
     }
 
     fun refreshShizukuPermission() {
