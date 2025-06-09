@@ -1,0 +1,40 @@
+name: Nightly Build (Kotlin Branch)
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # Runs daily at 2AM UTC
+  workflow_dispatch: # Allow manual triggering too
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/kotlin'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Grant Execute Permission to Gradle
+        run: chmod +x ./gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload to GitHub Release (Replace)
+        uses: ncipollo/release-action@v1
+        with:
+          tag: nightly-kotlin
+          name: "Nightly Build (Kotlin)"
+          artifacts: app/build/outputs/apk/debug/app-debug.apk
+          body: |
+            🌙 Nightly build from `kotlin` branch.
+            🔁 Auto-updated from latest commit: `${{ github.sha }}`
+          prerelease: true
+          replace: true
