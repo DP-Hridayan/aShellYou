@@ -8,11 +8,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
@@ -22,39 +25,47 @@ fun LocalAdbScreen(
     modifier: Modifier = Modifier,
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val hasPermission by shellViewModel.shizukuPermissionState.collectAsState()
     val isShizukuInstalled = remember { shellViewModel.isShizukuInstalled() }
 
     val localAdbMode = LocalSettings.current.localAdbMode
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
 
-    val runCommandIfPermissionGranted: () -> Unit = remember {
-        {
-            when (localAdbMode) {
-                LocalAdbWorkingMode.BASIC -> shellViewModel.runBasicCommand()
+    val shellState = shellViewModel.shellState.collectAsState()
 
-                LocalAdbWorkingMode.SHIZUKU -> {
-                    if (!isShizukuInstalled) {
-                        //show shizuku dialog
-                        return@remember
-                    }
-                    if (!hasPermission) {
-                        shellViewModel.requestShizukuPermission()
-                    } else {
-                        shellViewModel.runShizukuCommand()
-                    }
-                }
+    val runCommandIfPermissionGranted: () -> Unit =
+        remember(localAdbMode, hasPermission, isShizukuInstalled) {
+            {
+                when (localAdbMode) {
+                    LocalAdbWorkingMode.BASIC -> shellViewModel.runBasicCommand()
 
-                LocalAdbWorkingMode.ROOT -> {
-                    shellViewModel.runRootCommand()
+                    LocalAdbWorkingMode.SHIZUKU -> {
+                        if (!isShizukuInstalled) {
+                            //show shizuku dialog
+                            return@remember
+                        }
+                        if (!hasPermission) {
+                            shellViewModel.requestShizukuPermission()
+                        } else {
+                            shellViewModel.runShizukuCommand()
+                        }
+                    }
+
+                    LocalAdbWorkingMode.ROOT -> {
+                        shellViewModel.runRootCommand()
+                    }
                 }
             }
         }
-    }
 
-    val modeButtonOnClick: () -> Unit = remember {
+    val modeButtonOnClick: () -> Unit = remember(shellState.value) {
         {
-            showConnectedDeviceDialog = true
+            if (shellState.value == ShellState.Busy) {
+                showToast(context, context.getString(R.string.abort_command))
+            } else {
+                showConnectedDeviceDialog = true
+            }
         }
     }
 
@@ -73,7 +84,7 @@ fun LocalAdbScreen(
         modeButtonOnClick = modeButtonOnClick,
         modeButtonText = modeButtonText,
         extraContent = {
-            if(showConnectedDeviceDialog){
+            if (showConnectedDeviceDialog) {
                 ConnectedDeviceDialog(
                     onDismiss = {
                         showConnectedDeviceDialog = false

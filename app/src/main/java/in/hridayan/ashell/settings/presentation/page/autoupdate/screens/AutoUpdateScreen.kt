@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,6 +44,7 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.progress.LoadingSpinner
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.data.local.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
@@ -87,15 +87,15 @@ fun AutoUpdateScreen(
                 }
 
                 UpdateResult.NetworkError -> {
-                    Toast.makeText(context, networkError, Toast.LENGTH_SHORT).show()
+                    showToast(context, networkError)
                 }
 
                 UpdateResult.Timeout -> {
-                    Toast.makeText(context, requestTimeout, Toast.LENGTH_SHORT).show()
+                    showToast(context, requestTimeout)
                 }
 
                 UpdateResult.UnknownError -> {
-                    Toast.makeText(context, unKnownError, Toast.LENGTH_SHORT).show()
+                    showToast(context, unKnownError)
                 }
             }
         }

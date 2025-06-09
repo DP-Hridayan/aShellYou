@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -68,6 +67,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
 import `in`.hridayan.ashell.core.utils.hideKeyboard
 import `in`.hridayan.ashell.core.utils.isKeyboardVisible
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.SettingsScreen
@@ -225,10 +225,12 @@ fun BaseShellScreen(
                         weakHaptic()
 
                         if (shellViewModel.commandResults.value.isEmpty()) {
-                            Toast.makeText(
-                                context, context.getString(R.string.nothing_to_clear),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            showToast(context, context.getString(R.string.nothing_to_clear))
+                            return@IconButton
+                        }
+
+                        if (shellState == ShellState.Busy) {
+                            showToast(context, context.getString(R.string.abort_command))
                             return@IconButton
                         }
 

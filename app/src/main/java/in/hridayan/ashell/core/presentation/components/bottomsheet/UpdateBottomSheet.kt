@@ -5,7 +5,6 @@ package `in`.hridayan.ashell.core.presentation.components.bottomsheet
 import android.app.Activity
 import android.content.Intent
 import android.provider.Settings
-import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
@@ -50,6 +49,7 @@ import `in`.hridayan.ashell.core.domain.model.DownloadState
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.installApk
 import `in`.hridayan.ashell.core.utils.openUrl
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import java.io.File
 
@@ -106,13 +106,11 @@ fun UpdateBottomSheet(
                     )
                     settingsLauncher.launch(intent)
                 } else {
-                    Toast.makeText(
+                    showToast(
                         context,
                         context.getString(R.string.unknown_sources_install_permission_not_granted),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    )
                 }
-
             }
 
             is DownloadState.Started -> {
@@ -129,8 +127,7 @@ fun UpdateBottomSheet(
 
             is DownloadState.Error -> {
                 showDownloadButton = true
-                Toast.makeText(context, state.message, Toast.LENGTH_SHORT)
-                    .show()
+                showToast(context, state.message)
             }
 
             else -> Unit
