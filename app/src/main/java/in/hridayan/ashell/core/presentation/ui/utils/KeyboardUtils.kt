@@ -7,24 +7,12 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.text.input.ImeAction
-import kotlinx.coroutines.delay
 
 /**
  * Detects whether the keyboard is visible on screen in Compose.
@@ -60,14 +48,6 @@ fun hideKeyboard(context: Context) {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     val view = (context as? Activity)?.currentFocus ?: View(context)
     imm?.hideSoftInputFromWindow(view.windowToken, 0)
-}
-
-/**
- * Shows the soft keyboard on screen manually.
- */
-fun showKeyboard(context: Context) {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-    imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
 }
 
 /**
