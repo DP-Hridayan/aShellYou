@@ -11,6 +11,7 @@ import `in`.hridayan.ashell.core.domain.usecase.DownloadApkUseCase
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.GetAllChangelogsUseCase
 import `in`.hridayan.ashell.shell.domain.usecase.ShellCommandExecutor
+import `in`.hridayan.ashell.shell.domain.usecase.ShizukuPermissionHandler
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -26,4 +27,7 @@ object UseCaseModule {
 
     @Provides
     fun provideShellCommandExecutor(repo: SettingsRepository): ShellCommandExecutor = ShellCommandExecutor(repo)
+
+    @Provides
+    fun provideShizukuPermissionHandler() : ShizukuPermissionHandler = ShizukuPermissionHandler()
 }

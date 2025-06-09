@@ -7,6 +7,7 @@ import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.domain.usecase.ShellCommandExecutor
+import `in`.hridayan.ashell.shell.domain.usecase.ShizukuPermissionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +24,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShellViewModel @Inject constructor(
-    private val executor: ShellCommandExecutor
+    private val executor: ShellCommandExecutor,
+    private val shizukuHandler : ShizukuPermissionHandler
 ) : ViewModel() {
     private val _command = MutableStateFlow("")
     val command: StateFlow<String> = _command
@@ -36,6 +38,8 @@ class ShellViewModel @Inject constructor(
 
     private val _shellState = MutableStateFlow<ShellState>(ShellState.Free)
     val shellState: StateFlow<ShellState> = _shellState
+
+    val shizukuPermissionState: StateFlow<Boolean> = shizukuHandler.permissionGranted
 
     fun onCommandChange(newValue: String) {
         _command.value = newValue
@@ -87,5 +91,21 @@ class ShellViewModel @Inject constructor(
     fun stopCommand() {
         executor.stop()
         _shellState.value = ShellState.Free
+    }
+
+    fun requestShizukuPermission() {
+        shizukuHandler.requestPermission()
+    }
+
+    fun refreshShizukuPermission() {
+        shizukuHandler.refreshPermissionState()
+    }
+
+    fun isShizukuInstalled(): Boolean {
+        return shizukuHandler.isShizukuInstalled()
+    }
+
+    fun hasShizukuPermission(): Boolean {
+        return shizukuHandler.hasPermission()
     }
 }

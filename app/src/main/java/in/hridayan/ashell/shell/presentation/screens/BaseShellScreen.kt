@@ -82,6 +82,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun BaseShellScreen(
     modifier: Modifier = Modifier,
+    runCommandIfPermissionGranted: () -> Unit = {},
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -120,7 +121,7 @@ fun BaseShellScreen(
                 coroutineScope.launch {
                     if (isKeyboardVisible) hideKeyboard(context)
                     awaitFrame()
-                    shellViewModel.runCommand()
+                    runCommandIfPermissionGranted()
                 }
             }
 
