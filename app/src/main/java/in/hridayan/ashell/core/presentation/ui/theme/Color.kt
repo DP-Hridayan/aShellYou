@@ -16,11 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.graphics.ColorUtils
-import `in`.hridayan.ashell.core.utils.a1
-import `in`.hridayan.ashell.core.utils.a2
-import `in`.hridayan.ashell.core.utils.a3
-import `in`.hridayan.ashell.core.utils.n1
-import `in`.hridayan.ashell.core.utils.n2
+import `in`.hridayan.ashell.core.presentation.ui.utils.a1
+import `in`.hridayan.ashell.core.presentation.ui.utils.a2
+import `in`.hridayan.ashell.core.presentation.ui.utils.a3
+import `in`.hridayan.ashell.core.presentation.ui.utils.n1
+import `in`.hridayan.ashell.core.presentation.ui.utils.n2
 
 fun lightColorSchemeFromSeed(): ColorScheme {
     return expressiveLightColorScheme().copy(

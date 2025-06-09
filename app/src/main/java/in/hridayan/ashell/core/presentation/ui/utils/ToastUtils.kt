@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.utils
+package `in`.hridayan.ashell.core.presentation.ui.utils
 
 import android.content.Context
 import android.widget.Toast

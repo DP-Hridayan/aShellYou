@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.core.net.toUri
+import `in`.hridayan.ashell.core.presentation.ui.utils.ToastUtils
 
 fun openUrl(url: String, context: Context) {
     try {

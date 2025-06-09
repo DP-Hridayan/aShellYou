@@ -1,9 +1,7 @@
-package `in`.hridayan.ashell.core.utils
+package `in`.hridayan.ashell.core.presentation.ui.utils
 
 import android.view.HapticFeedbackConstants
 import android.view.View
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalView
 
 object HapticUtils {
 

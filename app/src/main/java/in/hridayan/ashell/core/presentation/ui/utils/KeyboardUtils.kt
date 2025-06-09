@@ -1,10 +1,11 @@
-package `in`.hridayan.ashell.core.utils
+package `in`.hridayan.ashell.core.presentation.ui.utils
 
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -16,6 +17,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
@@ -69,40 +71,21 @@ fun showKeyboard(context: Context) {
 }
 
 /**
- * A ready-to-use TextField that auto-focuses and shows the keyboard.
+ * Disables soft keyboard input based on user preference.
  */
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-fun FocusableTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    imeAction: ImeAction = ImeAction.Done,
-    onImeAction: () -> Unit = {}
-) {
-    val focusRequester = remember { FocusRequester() }
-    val context = LocalContext.current
+fun disableKeyboard(context: Context, disableSoftKey: Boolean ) {
+    val activity = context as? Activity ?: return
+    val view = activity.currentFocus ?: View(context)
 
-    // Auto focus and show keyboard
-    LaunchedEffect(Unit) {
-        delay(100)
-        focusRequester.requestFocus()
-        showKeyboard(context)
-    }
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
 
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        modifier = androidx.compose.ui.Modifier
-            .focusRequester(focusRequester)
-            .onFocusChanged {
-                if (it.isFocused) showKeyboard(context)
-            },
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = imeAction),
-        keyboardActions = KeyboardActions(
-            onDone = {
-                onImeAction()
-                hideKeyboard(context)
-            }
+    if (disableSoftKey) {
+        imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        activity.window.setFlags(
+            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
         )
-    )
+    } else {
+        activity.window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
+    }
 }

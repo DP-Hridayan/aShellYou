@@ -12,8 +12,8 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalView
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.constants.SeedColors
-import `in`.hridayan.ashell.core.utils.HapticUtils.strongHaptic
-import `in`.hridayan.ashell.core.utils.HapticUtils.weakHaptic
+import `in`.hridayan.ashell.core.presentation.ui.utils.HapticUtils.strongHaptic
+import `in`.hridayan.ashell.core.presentation.ui.utils.HapticUtils.weakHaptic
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.SettingsState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel

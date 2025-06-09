@@ -65,8 +65,9 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
-import `in`.hridayan.ashell.core.utils.hideKeyboard
-import `in`.hridayan.ashell.core.utils.isKeyboardVisible
+import `in`.hridayan.ashell.core.presentation.ui.utils.disableKeyboard
+import `in`.hridayan.ashell.core.presentation.ui.utils.hideKeyboard
+import `in`.hridayan.ashell.core.presentation.ui.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -100,6 +101,11 @@ fun BaseShellScreen(
     var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
     val askToClean = LocalSettings.current.clearOutputConfirmation
     val isKeyboardVisible = isKeyboardVisible().value
+    val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
+
+    LaunchedEffect(disableSoftKeyboard) {
+        disableKeyboard(context, disableSoftKeyboard)
+    }
 
     val actionFabIcon: @Composable () -> Unit = {
         when (shellState) {
