@@ -24,7 +24,7 @@ fun LocalAdbScreen(
     val runCommandIfPermissionGranted: () -> Unit = remember {
         {
             when (localAdbMode) {
-                LocalAdbWorkingMode.BASIC -> shellViewModel.runCommand()
+                LocalAdbWorkingMode.BASIC -> shellViewModel.runBasicCommand()
 
                 LocalAdbWorkingMode.SHIZUKU -> {
                     if (!isShizukuInstalled) {
@@ -34,12 +34,12 @@ fun LocalAdbScreen(
                     if (!hasPermission) {
                         shellViewModel.requestShizukuPermission()
                     } else {
-                        shellViewModel.runCommand()
+                        shellViewModel.runShizukuCommand()
                     }
                 }
 
                 LocalAdbWorkingMode.ROOT -> {
-                    shellViewModel.runCommand()
+                    shellViewModel.runRootCommand()
                 }
             }
         }

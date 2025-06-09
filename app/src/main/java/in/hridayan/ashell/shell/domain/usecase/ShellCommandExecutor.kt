@@ -1,15 +1,11 @@
 package `in`.hridayan.ashell.shell.domain.usecase
 
-import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
 import rikka.shizuku.Shizuku
 import rikka.shizuku.ShizukuRemoteProcess
 import java.io.BufferedReader
@@ -17,38 +13,21 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.io.InterruptedIOException
 
-class ShellCommandExecutor(
-    private val settingsRepository: SettingsRepository
-) {
+class ShellCommandExecutor {
     private var currentProcess: Process? = null
-    private var currentAdbMode: Int = DEFAULT_MODE
     private var shizukuProcess: ShizukuRemoteProcess? = null
     private var currentDir = "/"
 
-    init {
-        CoroutineScope(Dispatchers.IO).launch {
-            settingsRepository
-                .getInt(SettingsKeys.LOCAL_ADB_WORKING_MODE)
-                .collect { mode ->
-                    currentAdbMode = mode
-                }
-        }
-    }
-
-    fun executeCommand(commandText: String): Flow<OutputLine> = when (currentAdbMode) {
-        MODE_BASIC -> runBasic(commandText)
-        MODE_ROOT -> runRoot(commandText)
-        MODE_SHIZUKU -> runShizuku(commandText)
-        else -> flow { }
+    fun runBasic(commandText: String): Flow<OutputLine> = flow {
+        val process = Runtime.getRuntime().exec(arrayOf("sh", "-c", commandText))
+        emitAll(exec(process))
     }.flowOn(Dispatchers.IO)
 
-    fun runBasic(commandText: String): Flow<OutputLine> {
-        return exec(Runtime.getRuntime().exec(arrayOf("sh", "-c", commandText)))
-    }
+    fun runRoot(commandText: String): Flow<OutputLine> = flow {
+        val process = Runtime.getRuntime().exec(arrayOf("su", "-c", commandText))
+        emitAll(exec(process))
+    }.flowOn(Dispatchers.IO)
 
-    fun runRoot(commandText: String): Flow<OutputLine> {
-        return exec(Runtime.getRuntime().exec(arrayOf("su", "-c", commandText)))
-    }
 
     @Suppress("DEPRECATION")
     fun runShizuku(commandText: String): Flow<OutputLine> = flow {
@@ -70,6 +49,12 @@ class ShellCommandExecutor(
             currentDir
         )
 
+        shizukuProcess?.let {
+            emitAll(execShizukuProcess())
+        }
+    }.flowOn(Dispatchers.IO)
+
+    fun execShizukuProcess(): Flow<OutputLine> = flow {
         val reader = BufferedReader(InputStreamReader(shizukuProcess?.inputStream))
         val errorReader = BufferedReader(InputStreamReader(shizukuProcess?.errorStream))
 
@@ -137,12 +122,5 @@ class ShellCommandExecutor(
         currentProcess = null
         shizukuProcess?.destroy()
         shizukuProcess = null
-    }
-
-    companion object {
-        const val MODE_BASIC = LocalAdbWorkingMode.BASIC
-        const val MODE_ROOT = LocalAdbWorkingMode.ROOT
-        const val MODE_SHIZUKU = LocalAdbWorkingMode.SHIZUKU
-        const val DEFAULT_MODE = MODE_BASIC
     }
 }

@@ -26,7 +26,7 @@ object UseCaseModule {
         DownloadApkUseCase(repo)
 
     @Provides
-    fun provideShellCommandExecutor(repo: SettingsRepository): ShellCommandExecutor = ShellCommandExecutor(repo)
+    fun provideShellCommandExecutor(): ShellCommandExecutor = ShellCommandExecutor()
 
     @Provides
     fun provideShizukuPermissionHandler() : ShizukuPermissionHandler = ShizukuPermissionHandler()
