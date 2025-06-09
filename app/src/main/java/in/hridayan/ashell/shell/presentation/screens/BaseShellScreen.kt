@@ -9,6 +9,7 @@ import android.widget.ImageView
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -91,7 +92,6 @@ fun BaseShellScreen(
 ) {
     val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
-    val interactionSources = remember { List(5) { MutableInteractionSource() } }
     val navController = LocalNavController.current
     val commandResults by shellViewModel.commandResults.collectAsState()
     val coroutineScope = rememberCoroutineScope()
@@ -99,7 +99,6 @@ fun BaseShellScreen(
     val commandError by shellViewModel.commandError.collectAsState()
     val shellState by shellViewModel.shellState.collectAsState()
     var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
-    val askToClean = LocalSettings.current.clearOutputConfirmation
     val isKeyboardVisible = isKeyboardVisible().value
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
 
@@ -145,221 +144,86 @@ fun BaseShellScreen(
     }
 
     Scaffold(modifier = modifier) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            @Suppress("DEPRECATION")
-            ButtonGroup(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 30.dp, bottom = 25.dp, start = 20.dp, end = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+        Box(modifier = Modifier.padding(innerPadding)) {
+            Column(
+                modifier = Modifier.fillMaxSize()
             ) {
-                IconButton(
-                    onClick = {
-                        weakHaptic()
-                    },
-                    shapes = IconButtonDefaults.shapes(),
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
+                UtilityButtonsRow(showClearOutputDialog = { showClearOutputDialog = true })
+
+                Row(
                     modifier = Modifier
-                        .size(40.dp)
-                        .animateWidth(interactionSources[0]),
-                    interactionSource = interactionSources[0],
-                ) {
-                    TooltipContent(text = stringResource(R.string.search)) {
-                        Icon(
-                            imageVector = Icons.Rounded.Search,
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
-
-                IconButton(
-                    onClick = {
-                        weakHaptic()
-                    },
-                    shapes = IconButtonDefaults.shapes(),
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                    modifier = Modifier
-                        .size(40.dp)
-                        .animateWidth(interactionSources[1]),
-                    interactionSource = interactionSources[1],
-                ) {
-                    TooltipContent(text = stringResource(R.string.bookmarks)) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_bookmarks),
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
-
-                IconButton(
-                    onClick = {
-                        weakHaptic()
-                    },
-                    shapes = IconButtonDefaults.shapes(),
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                    modifier = Modifier
-                        .size(40.dp)
-                        .animateWidth(interactionSources[2]),
-                    interactionSource = interactionSources[2],
-                ) {
-                    TooltipContent(text = stringResource(R.string.history)) {
-                        Icon(
-                            imageVector = Icons.Rounded.History,
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
-
-                IconButton(
-                    onClick = {
-                        weakHaptic()
-
-                        if (shellViewModel.commandResults.value.isEmpty()) {
-                            showToast(context, context.getString(R.string.nothing_to_clear))
-                            return@IconButton
-                        }
-
-                        if (shellState == ShellState.Busy) {
-                            showToast(context, context.getString(R.string.abort_command))
-                            return@IconButton
-                        }
-
-                        if (askToClean) showClearOutputDialog = true
-                        else shellViewModel.clearOutput()
-                    },
-                    shapes = IconButtonDefaults.shapes(),
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                    modifier = Modifier
-                        .size(40.dp)
-                        .animateWidth(interactionSources[3]),
-                    interactionSource = interactionSources[3],
-                ) {
-                    TooltipContent(text = stringResource(R.string.clear)) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_clear),
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
-
-                IconButton(
-                    onClick = {
-                        weakHaptic()
-                        navController.navigate(SettingsScreen)
-                    },
-                    shapes = IconButtonDefaults.shapes(),
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                    modifier = Modifier
-                        .size(40.dp)
-                        .animateWidth(interactionSources[4]),
-                    interactionSource = interactionSources[4],
-                ) {
-                    TooltipContent(text = stringResource(R.string.settings)) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_settings),
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
-            }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(25.dp)
-            ) {
-                AutoResizeableText(
-                    text = stringResource(R.string.app_name),
-                    style = MaterialTheme.typography.headlineLarge,
-                    modifier = Modifier.weight(1f)
-                )
-
-                TextButton(
-                    onClick = {
-                        weakHaptic()
-                        modeButtonOnClick()
-                    },
-                    shapes = ButtonDefaults.shapes(),
-                    modifier = Modifier.animateContentSize(),
-                    colors = ButtonDefaults.textButtonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(25.dp)
                 ) {
                     AutoResizeableText(
-                        text = modeButtonText,
-                        style = MaterialTheme.typography.labelLarge,
-                        modifier = Modifier.padding(horizontal = 5.dp)
+                        text = stringResource(R.string.app_name),
+                        style = MaterialTheme.typography.headlineLarge,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    TextButton(
+                        onClick = {
+                            weakHaptic()
+                            modeButtonOnClick()
+                        },
+                        shapes = ButtonDefaults.shapes(),
+                        modifier = Modifier.animateContentSize(),
+                        colors = ButtonDefaults.textButtonColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    ) {
+                        AutoResizeableText(
+                            text = modeButtonText,
+                            style = MaterialTheme.typography.labelLarge,
+                            modifier = Modifier.padding(horizontal = 5.dp)
+                        )
+                    }
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp)
+                ) {
+                    val label =
+                        if (commandError) stringResource(R.string.field_cannot_be_blank) else stringResource(
+                            R.string.command_title
+                        )
+
+                    OutlinedTextField(
+                        modifier = Modifier.weight(1f),
+                        label = { Text(label) },
+                        value = command,
+                        onValueChange = { shellViewModel.onCommandChange(it) })
+
+                    FloatingActionButton(
+                        onClick = actionFabOnClick,
+                        modifier = Modifier.padding(top = 6.dp),
+                        content = actionFabIcon
                     )
                 }
+
+                OutputCard(results = commandResults)
             }
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(20.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp)
-            ) {
-                val label =
-                    if (commandError) stringResource(R.string.field_cannot_be_blank) else stringResource(
-                        R.string.command_title
-                    )
-
-                OutlinedTextField(
-                    modifier = Modifier.weight(1f),
-                    label = { Text(label) },
-                    value = command,
-                    onValueChange = { shellViewModel.onCommandChange(it) })
-
-                FloatingActionButton(
-                    onClick = actionFabOnClick,
-                    modifier = Modifier.padding(top = 6.dp),
-                    content = actionFabIcon
-                )
-            }
-
-            OutputCard(results = commandResults)
         }
-    }
 
-    if (showClearOutputDialog) {
-        ClearOutputConfirmationDialog(
-            onDismiss = { showClearOutputDialog = false },
-            onConfirm = { shellViewModel.clearOutput() })
-    }
+        if (showClearOutputDialog) {
+            ClearOutputConfirmationDialog(
+                onDismiss = { showClearOutputDialog = false },
+                onConfirm = { shellViewModel.clearOutput() })
+        }
 
-    extraContent()
+        extraContent()
+    }
 }
 
 @Composable
-fun OutputCard(results: List<CommandResult>) {
+private fun OutputCard(results: List<CommandResult>) {
     val listState = rememberLazyListState()
     val isDarkMode = LocalDarkMode.current
 
@@ -414,9 +278,9 @@ fun OutputCard(results: List<CommandResult>) {
                             if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
                         }
 
-                    val textStyle = if (isCommandLine) MaterialTheme.typography.titleMedium.copy(
+                    val textStyle = if (isCommandLine) MaterialTheme.typography.titleSmallEmphasized.copy(
                         fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.SemiBold
                     )
                     else MaterialTheme.typography.bodySmallEmphasized.copy(fontFamily = FontFamily.Monospace)
 
@@ -439,7 +303,7 @@ fun OutputCard(results: List<CommandResult>) {
 
 @SuppressLint("UseCompatLoadingForDrawables")
 @Composable
-fun AnimatedStopIcon(modifier: Modifier = Modifier) {
+private fun AnimatedStopIcon(modifier: Modifier = Modifier) {
     val tintColor = MaterialTheme.colorScheme.onPrimaryContainer
 
     AndroidView(
@@ -454,4 +318,155 @@ fun AnimatedStopIcon(modifier: Modifier = Modifier) {
         },
         modifier = modifier.size(24.dp)
     )
+}
+
+@Composable
+fun UtilityButtonsRow(
+    modifier: Modifier = Modifier,
+    shellViewModel: ShellViewModel = hiltViewModel(),
+    showClearOutputDialog: () -> Unit = {}
+) {
+    val context = LocalContext.current
+    val weakHaptic = LocalWeakHaptic.current
+    val navController = LocalNavController.current
+    val interactionSources = remember { List(5) { MutableInteractionSource() } }
+    val askToClean = LocalSettings.current.clearOutputConfirmation
+    val shellState by shellViewModel.shellState.collectAsState()
+
+    @Suppress("DEPRECATION")
+    ButtonGroup(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 30.dp, bottom = 25.dp, start = 20.dp, end = 20.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        IconButton(
+            onClick = {
+                weakHaptic()
+            },
+            shapes = IconButtonDefaults.shapes(),
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ),
+            modifier = Modifier
+                .size(40.dp)
+                .animateWidth(interactionSources[0]),
+            interactionSource = interactionSources[0],
+        ) {
+            TooltipContent(text = stringResource(R.string.search)) {
+                Icon(
+                    imageVector = Icons.Rounded.Search,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+
+        IconButton(
+            onClick = {
+                weakHaptic()
+            },
+            shapes = IconButtonDefaults.shapes(),
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ),
+            modifier = Modifier
+                .size(40.dp)
+                .animateWidth(interactionSources[1]),
+            interactionSource = interactionSources[1],
+        ) {
+            TooltipContent(text = stringResource(R.string.bookmarks)) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_bookmarks),
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+
+        IconButton(
+            onClick = {
+                weakHaptic()
+            },
+            shapes = IconButtonDefaults.shapes(),
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ),
+            modifier = Modifier
+                .size(40.dp)
+                .animateWidth(interactionSources[2]),
+            interactionSource = interactionSources[2],
+        ) {
+            TooltipContent(text = stringResource(R.string.history)) {
+                Icon(
+                    imageVector = Icons.Rounded.History,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+
+        IconButton(
+            onClick = {
+                weakHaptic()
+
+                if (shellViewModel.commandResults.value.isEmpty()) {
+                    showToast(context, context.getString(R.string.nothing_to_clear))
+                    return@IconButton
+                }
+
+                if (shellState == ShellState.Busy) {
+                    showToast(context, context.getString(R.string.abort_command))
+                    return@IconButton
+                }
+
+                if (askToClean) showClearOutputDialog()
+                else shellViewModel.clearOutput()
+            },
+            shapes = IconButtonDefaults.shapes(),
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ),
+            modifier = Modifier
+                .size(40.dp)
+                .animateWidth(interactionSources[3]),
+            interactionSource = interactionSources[3],
+        ) {
+            TooltipContent(text = stringResource(R.string.clear)) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_clear),
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+
+        IconButton(
+            onClick = {
+                weakHaptic()
+                navController.navigate(SettingsScreen)
+            },
+            shapes = IconButtonDefaults.shapes(),
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ),
+            modifier = Modifier
+                .size(40.dp)
+                .animateWidth(interactionSources[4]),
+            interactionSource = interactionSources[4],
+        ) {
+            TooltipContent(text = stringResource(R.string.settings)) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_settings),
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+    }
 }
