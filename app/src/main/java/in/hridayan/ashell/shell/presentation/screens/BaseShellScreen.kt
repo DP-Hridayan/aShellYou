@@ -83,7 +83,10 @@ import kotlinx.coroutines.launch
 fun BaseShellScreen(
     modifier: Modifier = Modifier,
     runCommandIfPermissionGranted: () -> Unit = {},
-    shellViewModel: ShellViewModel = hiltViewModel()
+    modeButtonOnClick: () -> Unit = {},
+    modeButtonText: String = stringResource(R.string.mode),
+    shellViewModel: ShellViewModel = hiltViewModel(),
+    extraContent: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
@@ -290,7 +293,10 @@ fun BaseShellScreen(
                 )
 
                 TextButton(
-                    onClick = {},
+                    onClick = {
+                        weakHaptic()
+                        modeButtonOnClick()
+                    },
                     shapes = ButtonDefaults.shapes(),
                     modifier = Modifier.animateContentSize(),
                     colors = ButtonDefaults.textButtonColors(
@@ -299,7 +305,7 @@ fun BaseShellScreen(
                     )
                 ) {
                     AutoResizeableText(
-                        text = stringResource(R.string.basic_shell),
+                        text = modeButtonText,
                         style = MaterialTheme.typography.labelLarge,
                         modifier = Modifier.padding(horizontal = 5.dp)
                     )
@@ -340,6 +346,8 @@ fun BaseShellScreen(
             onDismiss = { showClearOutputDialog = false },
             onConfirm = { shellViewModel.clearOutput() })
     }
+
+    extraContent()
 }
 
 @Composable
