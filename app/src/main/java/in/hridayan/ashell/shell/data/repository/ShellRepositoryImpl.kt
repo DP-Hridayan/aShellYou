@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.data.repository
 
+import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.domain.usecase.ShellCommandExecutor
@@ -10,7 +12,8 @@ import javax.inject.Inject
 
 class ShellRepositoryImpl @Inject constructor(
     private val shellCommandExecutor: ShellCommandExecutor,
-    private val shizukuPermissionHandler: ShizukuPermissionHandler
+    private val shizukuPermissionHandler: ShizukuPermissionHandler,
+    @ApplicationContext private val context: Context
 ): ShellRepository{
     override fun isShizukuInstalled() : Boolean {
         return shizukuPermissionHandler.isShizukuInstalled()
@@ -33,7 +36,7 @@ class ShellRepositoryImpl @Inject constructor(
     }
 
     override suspend fun executeBasicCommand(command: String): Flow<OutputLine> {
-        return shellCommandExecutor.runBasic(command)
+        return shellCommandExecutor.runBasic(command, context)
     }
 
     override suspend fun executeRootCommand(command: String): Flow<OutputLine> {

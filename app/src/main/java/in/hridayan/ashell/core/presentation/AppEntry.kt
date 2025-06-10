@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.LocalSettings
@@ -19,12 +20,14 @@ import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import kotlinx.coroutines.flow.collectLatest
+import java.io.File
 
 @Composable
 fun AppEntry(
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val isFirstLaunch = settingsViewModel.isFirstLaunch
     if (isFirstLaunch == null) return
 
@@ -43,6 +46,19 @@ fun AppEntry(
                 Log.d("AppEntry", result.release.apkUrl.toString())
                 showUpdateSheet = true
             }
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        val busyboxFile = File(context.filesDir, "busybox")
+        if (!busyboxFile.exists()) {
+            context.assets.open("busybox").use { input ->
+                busyboxFile.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            // Make it executable
+            busyboxFile.setExecutable(true)
         }
     }
 
