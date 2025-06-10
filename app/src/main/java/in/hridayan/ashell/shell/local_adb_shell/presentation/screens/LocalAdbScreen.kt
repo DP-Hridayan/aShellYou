@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.utils.DeviceUtils
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ConnectedDeviceDialog
@@ -26,7 +27,7 @@ fun LocalAdbScreen(
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val hasPermission by shellViewModel.shizukuPermissionState.collectAsState()
+    val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
     val isShizukuInstalled = remember { shellViewModel.isShizukuInstalled() }
 
     val localAdbMode = LocalSettings.current.localAdbMode
@@ -35,7 +36,7 @@ fun LocalAdbScreen(
     val shellState = shellViewModel.shellState.collectAsState()
 
     val runCommandIfPermissionGranted: () -> Unit =
-        remember(localAdbMode, hasPermission, isShizukuInstalled) {
+        remember(localAdbMode, hasShizukuPermission, isShizukuInstalled) {
             {
                 when (localAdbMode) {
                     LocalAdbWorkingMode.BASIC -> shellViewModel.runBasicCommand()
@@ -45,7 +46,7 @@ fun LocalAdbScreen(
                             //show shizuku dialog
                             return@remember
                         }
-                        if (!hasPermission) {
+                        if (!hasShizukuPermission) {
                             shellViewModel.requestShizukuPermission()
                         } else {
                             shellViewModel.runShizukuCommand()
@@ -88,7 +89,8 @@ fun LocalAdbScreen(
                 ConnectedDeviceDialog(
                     onDismiss = {
                         showConnectedDeviceDialog = false
-                    }
+                    },
+                    connectedDevice = DeviceUtils.DEVICE_MODEL
                 )
             }
         }

@@ -64,7 +64,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 @Composable
 fun ConnectedDeviceDialog(
     modifier: Modifier = Modifier,
-    connectedDevice: String = stringResource(R.string.none),
+    connectedDevice: String?,
     onDismiss: () -> Unit
 ) {
     val weakHaptic = LocalWeakHaptic.current
@@ -150,7 +150,7 @@ fun ConnectedDeviceDialog(
 }
 
 @Composable
-private fun ConnectedDeviceCard(modifier: Modifier = Modifier, connectedDevice: String) {
+private fun ConnectedDeviceCard(modifier: Modifier = Modifier, connectedDevice: String?) {
     val weakHaptic = LocalWeakHaptic.current
 
     Card(
@@ -170,7 +170,7 @@ private fun ConnectedDeviceCard(modifier: Modifier = Modifier, connectedDevice: 
         )
     ) {
         Text(
-            text = connectedDevice,
+            text = connectedDevice ?: stringResource(R.string.none),
             style = MaterialTheme.typography.titleSmallEmphasized,
             maxLines = 1,
             modifier = Modifier

@@ -260,7 +260,6 @@ private fun OutputCard(results: List<CommandResult>) {
             contentColor = MaterialTheme.colorScheme.onSurface
         )
     ) {
-        SelectionContainer {
             LazyColumn(
                 state = listState,
                 modifier = Modifier
@@ -284,21 +283,22 @@ private fun OutputCard(results: List<CommandResult>) {
                     )
                     else MaterialTheme.typography.bodySmallEmphasized.copy(fontFamily = FontFamily.Monospace)
 
-                    Text(
-                        text = text,
-                        style = textStyle,
-                        color = lineColor,
-                        modifier = Modifier.then(
-                            if (isCommandLine) Modifier.padding(
-                                top = 20.dp,
-                                bottom = 10.dp
-                            ) else Modifier
+                    SelectionContainer {
+                        Text(
+                            text = text,
+                            style = textStyle,
+                            color = lineColor,
+                            modifier = Modifier.then(
+                                if (isCommandLine) Modifier.padding(
+                                    top = 20.dp,
+                                    bottom = 10.dp
+                                ) else Modifier
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
-    }
 }
 
 @SuppressLint("UseCompatLoadingForDrawables")
