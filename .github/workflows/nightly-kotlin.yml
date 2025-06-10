@@ -2,8 +2,8 @@ name: Nightly Build (Kotlin Branch)
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # daily 2 AM UTC
-  workflow_dispatch:      # manual trigger from Actions tab
+    - cron: '0 2 * * *'  # runs daily at 2 AM UTC
+  workflow_dispatch:       # allows manual run
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout kotlin branch
         uses: actions/checkout@v3
         with:
-          ref: kotlin   # IMPORTANT: checkout kotlin branch explicitly
+          ref: kotlin
 
       - name: Set Up JDK
         uses: actions/setup-java@v3
@@ -26,6 +26,13 @@ jobs:
 
       - name: Build APK
         run: ./gradlew assembleDebug
+
+      - name: Delete existing nightly release if it exists
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        with:
+          tag_name: nightly-kotlin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Nightly APK
         uses: ncipollo/release-action@v1
