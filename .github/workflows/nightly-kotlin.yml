@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Delete existing nightly release if it exists
-        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        uses: dev-drprasad/delete-tag-and-release@v1.1
         with:
           tag_name: nightly-kotlin
         env:
