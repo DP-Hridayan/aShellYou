@@ -251,7 +251,7 @@
     <string name="des_save_preference">选择终端输出需要保存的部分</string>
     <string name="smooth_scrolling">平滑滚动</string>
     <string name="des_smooth_scroll">当点击回到 顶部 或 底部 方向的箭头时，使用平滑效果</string>
-    <string name="ask_to_clean">清除 Sell 输出前询问</string>
+    <string name="ask_to_clean">清除 Shell 输出前询问</string>
     <string name="des_ask_to_clean">启用后，将弹出确认框，需二次确认</string>
     <string name="auto_update_check">自动检查更新</string>
     <string name="des_auto_update_check">软件启动时自动检查新版本</string>
