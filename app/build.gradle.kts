@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "in.hridayan.ashell"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "in.hridayan.ashell"
@@ -88,6 +88,11 @@ android {
     androidResources {
         @Suppress("UnstableApiUsage")
         generateLocaleConfig = true
+    }
+
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
     }
 }
 
