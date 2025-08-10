@@ -2,8 +2,8 @@
 <style>text { font-family: sans-serif; font-size: 14px; fill: #1C1B1F; }</style>
 <text x="140" y="25" text-anchor="end"><![CDATA[Arabic]]></text>
 <rect x="150" y="11" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="11" width="170" height="14" fill="#554d15" rx="8" ry="8" />
-<text x="460" y="25" text-anchor="start">57%</text>
+<rect x="150" y="11" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="25" text-anchor="start">100%</text>
 <text x="140" y="55" text-anchor="end"><![CDATA[German]]></text>
 <rect x="150" y="41" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
 <rect x="150" y="41" width="81" height="14" fill="#863819" rx="8" ry="8" />
