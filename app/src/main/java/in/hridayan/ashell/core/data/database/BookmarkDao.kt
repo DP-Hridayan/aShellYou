@@ -19,24 +19,21 @@ interface BookmarkDao {
     @Query("DELETE FROM bookmarks")
     suspend fun deleteAllBookmarks()
 
-    @Query("SELECT * FROM bookmarks")
-    fun getAllBookmarks(): Flow<List<BookmarkEntity>>
-
     @Query("SELECT EXISTS(SELECT 1 FROM bookmarks WHERE command = :command)")
-     fun isBookmarked(command: String): Flow<Boolean>
+    fun isBookmarked(command: String): Flow<Boolean>
 
     @Query("SELECT COUNT(*) FROM bookmarks")
     fun getBookmarkCount(): Flow<Int>
 
     @Query("SELECT * FROM bookmarks ORDER BY command ASC")
-    fun getBookmarksSortedAZ(): Flow<List<BookmarkEntity>>
+    suspend fun getBookmarksSortedAZ(): List<BookmarkEntity>
 
     @Query("SELECT * FROM bookmarks ORDER BY command DESC")
-    fun getBookmarksSortedZA(): Flow<List<BookmarkEntity>>
+    suspend fun getBookmarksSortedZA(): List<BookmarkEntity>
 
     @Query("SELECT * FROM bookmarks ORDER BY id DESC")
-    fun getBookmarksSortedNewest(): Flow<List<BookmarkEntity>>
+    suspend fun getBookmarksSortedNewest(): List<BookmarkEntity>
 
     @Query("SELECT * FROM bookmarks ORDER BY id ASC")
-    fun getBookmarksSortedOldest(): Flow<List<BookmarkEntity>>
+    suspend fun getBookmarksSortedOldest(): List<BookmarkEntity>
 }

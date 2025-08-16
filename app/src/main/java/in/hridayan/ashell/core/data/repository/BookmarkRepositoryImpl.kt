@@ -23,10 +23,6 @@ class BookmarkRepositoryImpl @Inject constructor(
         dao.deleteAllBookmarks()
     }
 
-    override fun getAllBookmarks(): Flow<List<BookmarkEntity>> {
-        return dao.getAllBookmarks()
-    }
-
     override fun isBookmarked(command: String): Flow<Boolean> {
         return dao.isBookmarked(command)
     }
@@ -35,7 +31,7 @@ class BookmarkRepositoryImpl @Inject constructor(
         return dao.getBookmarkCount()
     }
 
-    override fun getBookmarksSorted(sortType: SortType): Flow<List<BookmarkEntity>> {
+    override suspend fun getBookmarksSorted(sortType: SortType): List<BookmarkEntity> {
         return when (sortType) {
             SortType.AZ -> dao.getBookmarksSortedAZ()
             SortType.ZA -> dao.getBookmarksSortedZA()

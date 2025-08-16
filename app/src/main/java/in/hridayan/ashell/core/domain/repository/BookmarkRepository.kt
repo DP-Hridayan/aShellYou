@@ -8,8 +8,7 @@ interface BookmarkRepository {
     suspend fun addBookmark(command: String)
     suspend fun deleteBookmarkByCommand(command: String)
     suspend fun deleteAllBookmarks()
-    fun getAllBookmarks(): Flow<List<BookmarkEntity>>
-     fun isBookmarked(command: String): Flow<Boolean>
+    suspend fun getBookmarksSorted(sortType: SortType): List<BookmarkEntity>
+    fun isBookmarked(command: String): Flow<Boolean>
     fun getBookmarkCount(): Flow<Int>
-    fun getBookmarksSorted(sortType: SortType): Flow<List<BookmarkEntity>>
 }

@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,6 +18,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
 
@@ -29,7 +30,7 @@ fun BookmarkDialog(
     onDismiss: () -> Unit,
     bookmarkViewModel: BookmarkViewModel = hiltViewModel()
 ) {
-    val bookmarks by bookmarkViewModel.bookmarks.collectAsState(initial = emptyList())
+    val bookmarks = bookmarkViewModel.getAllBookmarks(SortType.AZ).value
     val bookmarkCount by bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
 
     Dialog(
@@ -57,8 +58,9 @@ fun BookmarkDialog(
                         .padding(top = 16.dp)
                         .heightIn(max = 300.dp)
                 ) {
-                    items(bookmarks) { bookmark ->
-                        AutoResizeableText(
+                    items(bookmarks.size) { index ->
+                        val bookmark = bookmarks[index]
+                        Text(
                             text = bookmark.command,
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurface,
