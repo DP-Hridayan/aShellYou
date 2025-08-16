@@ -7,6 +7,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.widget.ImageView
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -69,6 +70,7 @@ import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
 import `in`.hridayan.ashell.core.presentation.ui.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.ui.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.ui.utils.isKeyboardVisible
+import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -76,6 +78,7 @@ import `in`.hridayan.ashell.navigation.SettingsScreen
 import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
+import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarkDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.android.awaitFrame
@@ -88,6 +91,7 @@ fun BaseShellScreen(
     modeButtonOnClick: () -> Unit = {},
     modeButtonText: String = stringResource(R.string.mode),
     shellViewModel: ShellViewModel = hiltViewModel(),
+    bookmarkViewModel: BookmarkViewModel = hiltViewModel(),
     extraContent: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -101,6 +105,8 @@ fun BaseShellScreen(
     var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
     val isKeyboardVisible = isKeyboardVisible().value
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
+    var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
+    val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
 
     LaunchedEffect(disableSoftKeyboard) {
         disableKeyboard(context, disableSoftKeyboard)
@@ -143,12 +149,23 @@ fun BaseShellScreen(
         }
     }
 
+    val handleBookmarkButtonClick: () -> Unit = {
+        if (bookmarkCount.value == 0) showToast(
+            context,
+            context.getString(R.string.no_bookmarks)
+        ) else showBookmarkDialog = true
+    }
+
     Scaffold(modifier = modifier) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                UtilityButtonsRow(showClearOutputDialog = { showClearOutputDialog = true })
+                UtilityButtonsRow(
+                    showClearOutputDialog = { showClearOutputDialog = true },
+                    showBookmarkDialog = {
+                        handleBookmarkButtonClick()
+                    })
 
                 Row(
                     modifier = Modifier
@@ -195,11 +212,35 @@ fun BaseShellScreen(
                             R.string.command_title
                         )
 
+                    val textInField = shellViewModel.command.collectAsState(initial = "")
+                    val isBookmarked = bookmarkViewModel.isBookmarked(textInField.value)
+                        .collectAsState(initial = false)
+                    val trailingIcon =
+                        if (isBookmarked.value) painterResource(R.drawable.ic_bookmark_added) else painterResource(
+                            R.drawable.ic_add_bookmark
+                        )
+
                     OutlinedTextField(
                         modifier = Modifier.weight(1f),
                         label = { Text(label) },
                         value = command,
-                        onValueChange = { shellViewModel.onCommandChange(it) })
+                        onValueChange = { shellViewModel.onCommandChange(it) },
+                        trailingIcon = {
+                            if (textInField.value.isNotEmpty())
+                                Icon(
+                                    painter = trailingIcon,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.clickable(
+                                        enabled = true,
+                                        onClick = {
+                                            if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
+                                                textInField.value
+                                            )
+                                            else bookmarkViewModel.addBookmark(textInField.value)
+                                        })
+                                )
+                        })
 
                     FloatingActionButton(
                         onClick = actionFabOnClick,
@@ -216,6 +257,14 @@ fun BaseShellScreen(
             ClearOutputConfirmationDialog(
                 onDismiss = { showClearOutputDialog = false },
                 onConfirm = { shellViewModel.clearOutput() })
+        }
+
+        if (showBookmarkDialog) {
+            BookmarkDialog(
+                onDelete = {},
+                onSort = {},
+                onDismiss = { showBookmarkDialog = false }
+            )
         }
 
         extraContent()
@@ -260,6 +309,7 @@ private fun OutputCard(results: List<CommandResult>) {
             contentColor = MaterialTheme.colorScheme.onSurface
         )
     ) {
+        SelectionContainer {
             LazyColumn(
                 state = listState,
                 modifier = Modifier
@@ -277,28 +327,28 @@ private fun OutputCard(results: List<CommandResult>) {
                             if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
                         }
 
-                    val textStyle = if (isCommandLine) MaterialTheme.typography.titleSmallEmphasized.copy(
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    else MaterialTheme.typography.bodySmallEmphasized.copy(fontFamily = FontFamily.Monospace)
-
-                    SelectionContainer {
-                        Text(
-                            text = text,
-                            style = textStyle,
-                            color = lineColor,
-                            modifier = Modifier.then(
-                                if (isCommandLine) Modifier.padding(
-                                    top = 20.dp,
-                                    bottom = 10.dp
-                                ) else Modifier
-                            )
+                    val textStyle =
+                        if (isCommandLine) MaterialTheme.typography.titleSmallEmphasized.copy(
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.SemiBold
                         )
-                    }
+                        else MaterialTheme.typography.bodySmallEmphasized.copy(fontFamily = FontFamily.Monospace)
+
+                    Text(
+                        text = text,
+                        style = textStyle,
+                        color = lineColor,
+                        modifier = Modifier.then(
+                            if (isCommandLine) Modifier.padding(
+                                top = 20.dp,
+                                bottom = 10.dp
+                            ) else Modifier
+                        )
+                    )
                 }
             }
         }
+    }
 }
 
 @SuppressLint("UseCompatLoadingForDrawables")
@@ -324,7 +374,8 @@ private fun AnimatedStopIcon(modifier: Modifier = Modifier) {
 fun UtilityButtonsRow(
     modifier: Modifier = Modifier,
     shellViewModel: ShellViewModel = hiltViewModel(),
-    showClearOutputDialog: () -> Unit = {}
+    showClearOutputDialog: () -> Unit = {},
+    showBookmarkDialog: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
@@ -366,6 +417,7 @@ fun UtilityButtonsRow(
         IconButton(
             onClick = {
                 weakHaptic()
+                showBookmarkDialog()
             },
             shapes = IconButtonDefaults.shapes(),
             colors = IconButtonDefaults.iconButtonColors(
