@@ -83,6 +83,7 @@ import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarkDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.ClearOutputConfirmationDialog
+import `in`.hridayan.ashell.shell.presentation.components.dialog.DeleteBookmarksDialog
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch
@@ -105,12 +106,13 @@ fun BaseShellScreen(
     val command by shellViewModel.command.collectAsState()
     val commandError by shellViewModel.commandError.collectAsState()
     val shellState by shellViewModel.shellState.collectAsState()
-    var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
     val isKeyboardVisible = isKeyboardVisible().value
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
-    var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val textFieldFocusRequester = remember { FocusRequester() }
+    var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
+    var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
+    var showDeleteConfirmationDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(disableSoftKeyboard) {
         disableKeyboard(context, disableSoftKeyboard)
@@ -273,9 +275,26 @@ fun BaseShellScreen(
                     showBookmarkDialog = false
                     textFieldFocusRequester.requestFocus()
                 },
-                onDelete = {},
+                onDelete = {
+                    showDeleteConfirmationDialog = true
+                    showBookmarkDialog = false
+                },
                 onSort = {},
                 onDismiss = { showBookmarkDialog = false }
+            )
+        }
+
+        if (showDeleteConfirmationDialog) {
+            DeleteBookmarksDialog(
+                onDismiss = {
+                    showDeleteConfirmationDialog = false
+                    showBookmarkDialog = true
+                },
+                onDelete = {
+                    showBookmarkDialog = false
+                    showDeleteConfirmationDialog = false
+                    bookmarkViewModel.deleteAllBookmark()
+                }
             )
         }
 

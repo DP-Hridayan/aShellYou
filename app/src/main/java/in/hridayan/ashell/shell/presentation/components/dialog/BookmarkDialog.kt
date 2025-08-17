@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -41,7 +40,7 @@ import `in`.hridayan.ashell.settings.presentation.components.shape.getRoundedSha
 @Composable
 fun BookmarkDialog(
     modifier: Modifier = Modifier,
-    onBookmarkClicked: (command : String) -> Unit,
+    onBookmarkClicked: (command: String) -> Unit,
     onDelete: () -> Unit,
     onSort: () -> Unit,
     onDismiss: () -> Unit,
@@ -76,7 +75,7 @@ fun BookmarkDialog(
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(24.dp)
                         .heightIn(max = 300.dp)
                         .clip(RoundedCornerShape(16.dp))
                 ) {
@@ -120,7 +119,10 @@ fun BookmarkDialog(
                         },
                         shapes = ButtonDefaults.shapes()
                     ) {
-                        AutoResizeableText(text = stringResource(R.string.delete_all))
+                        AutoResizeableText(
+                            text = stringResource(R.string.delete_all),
+                            color = MaterialTheme.colorScheme.error
+                        )
                     }
 
                     TextButton(
