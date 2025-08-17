@@ -20,6 +20,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.settings.data.local.model.PreferenceItem
 import `in`.hridayan.ashell.settings.domain.model.SettingsType
+import `in`.hridayan.ashell.settings.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.settings.presentation.components.shape.getRoundedShape
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
@@ -43,32 +45,40 @@ fun IntPreferenceItemView(
 
     if (item.type == SettingsType.RadioGroup) {
         Column(modifier = modifier) {
-            intItems.radioOptions.forEach { option ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            onSelectedChange(option.value)
-                            weakHaptic()
-                        }
-                        .padding(vertical = 8.dp, horizontal = 20.dp)
-                ) {
-                    Text(
-                        text = stringResource(option.labelResId),
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontWeight = FontWeight.Bold
-                    )
+            intItems.radioOptions.forEachIndexed { index, option ->
+                val shape = getRoundedShape(index, intItems.radioOptions.size)
 
-                    Spacer(Modifier.weight(1f))
+                RoundedCornerCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    roundedShape = shape
+                )
+                {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                onSelectedChange(option.value)
+                                weakHaptic()
+                            }
+                            .padding(vertical = 8.dp, horizontal = 20.dp)
+                    ) {
+                        Text(
+                            text = stringResource(option.labelResId),
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.Bold
+                        )
 
-                    RadioButton(
-                        selected = (option.value == selected.value),
-                        onClick = {
-                            onSelectedChange(option.value)
-                            weakHaptic()
-                        }
-                    )
+                        Spacer(Modifier.weight(1f))
+
+                        RadioButton(
+                            selected = (option.value == selected.value),
+                            onClick = {
+                                onSelectedChange(option.value)
+                                weakHaptic()
+                            }
+                        )
+                    }
                 }
             }
         }

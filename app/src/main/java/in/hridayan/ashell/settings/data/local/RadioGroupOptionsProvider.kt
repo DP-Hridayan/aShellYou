@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
 import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.settings.data.local.model.RadioButtonOptions
 
 class RadioGroupOptionsProvider {
@@ -46,6 +47,24 @@ class RadioGroupOptionsProvider {
             RadioButtonOptions(
                 value = LocalAdbWorkingMode.ROOT,
                 labelResId = R.string.root
+            )
+        )
+
+        val bookmarkSortOptions: List<RadioButtonOptions> = listOf(
+            RadioButtonOptions(
+                value = SortType.AZ,
+                labelResId = R.string.sort_A_Z
+            ), RadioButtonOptions(
+                value = SortType.ZA,
+                labelResId = R.string.sort_Z_A
+            ),
+            RadioButtonOptions(
+                value = SortType.NEWEST,
+                labelResId = R.string.sort_newest
+            ),
+            RadioButtonOptions(
+                value = SortType.OLDEST,
+                labelResId = R.string.sort_oldest
             )
         )
     }

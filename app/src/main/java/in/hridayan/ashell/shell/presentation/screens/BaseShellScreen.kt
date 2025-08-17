@@ -37,6 +37,10 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -54,6 +58,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -82,6 +87,7 @@ import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarkDialog
+import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarksSortDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.DeleteBookmarksDialog
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
@@ -103,6 +109,7 @@ fun BaseShellScreen(
     val navController = LocalNavController.current
     val commandResults by shellViewModel.commandResults.collectAsState()
     val coroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
     val command by shellViewModel.command.collectAsState()
     val commandError by shellViewModel.commandError.collectAsState()
     val shellState by shellViewModel.shellState.collectAsState()
@@ -113,6 +120,7 @@ fun BaseShellScreen(
     var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
     var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
     var showDeleteConfirmationDialog by rememberSaveable { mutableStateOf(false) }
+    var showBookmarkSortDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(disableSoftKeyboard) {
         disableKeyboard(context, disableSoftKeyboard)
@@ -162,7 +170,10 @@ fun BaseShellScreen(
         ) else showBookmarkDialog = true
     }
 
-    Scaffold(modifier = modifier) { innerPadding ->
+    Scaffold(
+        modifier = modifier,
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) })
+    { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Column(
                 modifier = Modifier.fillMaxSize()
@@ -226,6 +237,7 @@ fun BaseShellScreen(
                         if (isBookmarked.value) painterResource(R.drawable.ic_bookmark_added) else painterResource(
                             R.drawable.ic_add_bookmark
                         )
+                    val overrideBookmarksLimit = LocalSettings.current.overrideBookmarksLimit
 
                     OutlinedTextField(
                         modifier = Modifier
@@ -235,20 +247,33 @@ fun BaseShellScreen(
                         value = command,
                         onValueChange = { shellViewModel.onCommandChange(it) },
                         trailingIcon = {
-                            if (textInField.value.text.isNotEmpty())
-                                Icon(
-                                    painter = trailingIcon,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.clickable(
-                                        enabled = true,
-                                        onClick = {
-                                            if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
-                                                textInField.value.text
-                                            )
-                                            else bookmarkViewModel.addBookmark(textInField.value.text)
-                                        })
-                                )
+                            if (textInField.value.text.trim().isNotEmpty())
+                                IconButton(
+                                    colors = IconButtonDefaults.iconButtonColors(
+                                        containerColor = Color.Transparent,
+                                        contentColor = MaterialTheme.colorScheme.primary
+                                    ),
+                                    onClick = {
+                                        weakHaptic()
+                                        if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
+                                            textInField.value.text
+                                        )
+                                        else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
+                                            hideKeyboard(context)
+                                            coroutineScope.launch {
+                                                snackbarHostState.showSnackbar(
+                                                    message = context.getString(R.string.bookmark_limit_reached),
+                                                    duration = SnackbarDuration.Short
+                                                )
+                                            }
+                                        } else bookmarkViewModel.addBookmark(textInField.value.text)
+                                    }) {
+                                    Icon(
+                                        painter = trailingIcon,
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                    )
+                                }
                         })
 
                     FloatingActionButton(
@@ -279,7 +304,10 @@ fun BaseShellScreen(
                     showDeleteConfirmationDialog = true
                     showBookmarkDialog = false
                 },
-                onSort = {},
+                onSort = {
+                    showBookmarkSortDialog = true
+                    showBookmarkDialog = false
+                },
                 onDismiss = { showBookmarkDialog = false }
             )
         }
@@ -294,6 +322,15 @@ fun BaseShellScreen(
                     showBookmarkDialog = false
                     showDeleteConfirmationDialog = false
                     bookmarkViewModel.deleteAllBookmark()
+                }
+            )
+        }
+
+        if (showBookmarkSortDialog) {
+            BookmarksSortDialog(
+                onDismiss = {
+                    showBookmarkDialog = true
+                    showBookmarkSortDialog = false
                 }
             )
         }

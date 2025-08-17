@@ -31,11 +31,11 @@ class BookmarkViewModel @Inject constructor(
     }
 
     fun addBookmark(command: String) = viewModelScope.launch {
-        repository.addBookmark(command)
+        repository.addBookmark(command.trim())
     }
 
     fun deleteBookmark(command: String) = viewModelScope.launch {
-        repository.deleteBookmarkByCommand(command)
+        repository.deleteBookmarkByCommand(command.trim())
     }
 
     fun deleteAllBookmark() = viewModelScope.launch {
@@ -43,7 +43,7 @@ class BookmarkViewModel @Inject constructor(
     }
 
     fun isBookmarked(command: String): Flow<Boolean> {
-        return repository.isBookmarked(command)
+        return repository.isBookmarked(command.trim())
     }
 
     val getBookmarkCount = repository.getBookmarkCount()
