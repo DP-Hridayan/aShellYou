@@ -52,12 +52,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -107,6 +110,7 @@ fun BaseShellScreen(
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
     var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
+    val textFieldFocusRequester = remember { FocusRequester() }
 
     LaunchedEffect(disableSoftKeyboard) {
         disableKeyboard(context, disableSoftKeyboard)
@@ -212,8 +216,9 @@ fun BaseShellScreen(
                             R.string.command_title
                         )
 
-                    val textInField = shellViewModel.command.collectAsState(initial = "")
-                    val isBookmarked = bookmarkViewModel.isBookmarked(textInField.value)
+                    val textInField =
+                        shellViewModel.command.collectAsState(initial = TextFieldValue(""))
+                    val isBookmarked = bookmarkViewModel.isBookmarked(textInField.value.text)
                         .collectAsState(initial = false)
                     val trailingIcon =
                         if (isBookmarked.value) painterResource(R.drawable.ic_bookmark_added) else painterResource(
@@ -221,12 +226,14 @@ fun BaseShellScreen(
                         )
 
                     OutlinedTextField(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier
+                            .weight(1f)
+                            .focusRequester(textFieldFocusRequester),
                         label = { Text(label) },
                         value = command,
                         onValueChange = { shellViewModel.onCommandChange(it) },
                         trailingIcon = {
-                            if (textInField.value.isNotEmpty())
+                            if (textInField.value.text.isNotEmpty())
                                 Icon(
                                     painter = trailingIcon,
                                     contentDescription = null,
@@ -235,9 +242,9 @@ fun BaseShellScreen(
                                         enabled = true,
                                         onClick = {
                                             if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
-                                                textInField.value
+                                                textInField.value.text
                                             )
-                                            else bookmarkViewModel.addBookmark(textInField.value)
+                                            else bookmarkViewModel.addBookmark(textInField.value.text)
                                         })
                                 )
                         })
@@ -261,6 +268,11 @@ fun BaseShellScreen(
 
         if (showBookmarkDialog) {
             BookmarkDialog(
+                onBookmarkClicked = { command ->
+                    shellViewModel.onCommandChange(TextFieldValue(command))
+                    showBookmarkDialog = false
+                    textFieldFocusRequester.requestFocus()
+                },
                 onDelete = {},
                 onSort = {},
                 onDismiss = { showBookmarkDialog = false }

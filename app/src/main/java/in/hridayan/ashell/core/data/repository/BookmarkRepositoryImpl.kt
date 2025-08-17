@@ -31,12 +31,13 @@ class BookmarkRepositoryImpl @Inject constructor(
         return dao.getBookmarkCount()
     }
 
-    override suspend fun getBookmarksSorted(sortType: SortType): List<BookmarkEntity> {
+    override suspend fun getBookmarksSorted(sortType: Int): List<BookmarkEntity> {
         return when (sortType) {
             SortType.AZ -> dao.getBookmarksSortedAZ()
             SortType.ZA -> dao.getBookmarksSortedZA()
             SortType.NEWEST -> dao.getBookmarksSortedNewest()
             SortType.OLDEST -> dao.getBookmarksSortedOldest()
+            else -> dao.getBookmarksSortedAZ()
         }
     }
 }

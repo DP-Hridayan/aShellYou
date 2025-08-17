@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import `in`.hridayan.ashell.core.common.SeedColorProvider
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
 import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.domain.model.SortType
 
 enum class SettingsKeys(val default: Any?) {
     LOOK_AND_FEEL(null),
@@ -47,5 +48,6 @@ enum class SettingsKeys(val default: Any?) {
     SMOOTH_SCROLLING(true),
     COMMANDS(null),
     TELEGRAM(null),
-    FIRST_LAUNCH(true)
+    FIRST_LAUNCH(true),
+    BOOKMARK_SORT_TYPE(SortType.AZ)
 }

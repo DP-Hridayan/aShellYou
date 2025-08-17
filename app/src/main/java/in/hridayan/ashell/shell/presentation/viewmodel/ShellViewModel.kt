@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.presentation.viewmodel
 
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +20,8 @@ import javax.inject.Inject
 class ShellViewModel @Inject constructor(
     private val shellRepository: ShellRepository,
 ) : ViewModel() {
-    private val _command = MutableStateFlow("")
-    val command: StateFlow<String> = _command
+    private val _command = MutableStateFlow(TextFieldValue(""))
+    val command: StateFlow<TextFieldValue> = _command
 
     private val _commandError = MutableStateFlow(false)
     val commandError: StateFlow<Boolean> = _commandError
@@ -32,13 +34,17 @@ class ShellViewModel @Inject constructor(
 
     val shizukuPermissionState: StateFlow<Boolean> = shellRepository.shizukuPermissionState()
 
-    fun onCommandChange(newValue: String) {
-        _command.value = newValue
+    fun onCommandChange(newValue: TextFieldValue) {
+        val updatedValue = newValue.copy(
+            selection = TextRange(newValue.text.length)
+        )
+
+        _command.value = updatedValue
         _commandError.value = false
 
         _shellState.value = when {
-            newValue.isBlank() -> ShellState.Free
-            else -> ShellState.InputQuery(newValue)
+            newValue.text.isBlank() -> ShellState.Free
+            else -> ShellState.InputQuery(newValue.text)
         }
     }
 
@@ -55,7 +61,7 @@ class ShellViewModel @Inject constructor(
     private fun runCommand(executor: suspend (String) -> Flow<OutputLine>) {
         if (_shellState.value is ShellState.Busy) return
 
-        val commandText = _command.value.trim()
+        val commandText = _command.value.text.trim()
         if (commandText.isBlank()) {
             _commandError.value = true
             return
@@ -65,7 +71,7 @@ class ShellViewModel @Inject constructor(
         val newResult = CommandResult(commandText, outputFlow)
 
         _commandResults.update { it + newResult }
-        _command.value = ""
+        _command.value = TextFieldValue("")
         _shellState.value = ShellState.Busy
 
         viewModelScope.launch {

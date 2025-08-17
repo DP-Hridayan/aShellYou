@@ -71,6 +71,8 @@ fun CompositionLocals(
 
     val isFirstLaunch by settingsViewModel.booleanState(SettingsKeys.FIRST_LAUNCH)
 
+    val bookmarkSortType by settingsViewModel.intState(SettingsKeys.BOOKMARK_SORT_TYPE)
+
     val state =
         remember(
             autoUpdate,
@@ -89,7 +91,8 @@ fun CompositionLocals(
             disableSoftKeyboard,
             outputSaveDirectory,
             saveWholeOutput,
-            isFirstLaunch
+            isFirstLaunch,
+            bookmarkSortType
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
@@ -108,7 +111,8 @@ fun CompositionLocals(
                 disableSoftKeyboard = disableSoftKeyboard,
                 outputSaveDirectory = outputSaveDirectory,
                 saveWholeOutput = saveWholeOutput,
-                isFirstLaunch = isFirstLaunch
+                isFirstLaunch = isFirstLaunch,
+                bookmarkSortType = bookmarkSortType
             )
         }
 

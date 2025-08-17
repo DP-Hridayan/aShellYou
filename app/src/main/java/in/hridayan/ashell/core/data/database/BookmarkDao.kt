@@ -3,13 +3,11 @@ package `in`.hridayan.ashell.core.data.database
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Delete
 import `in`.hridayan.ashell.core.data.model.BookmarkEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookmarkDao {
-
     @Insert
     suspend fun addBookmark(bookmark: BookmarkEntity)
 

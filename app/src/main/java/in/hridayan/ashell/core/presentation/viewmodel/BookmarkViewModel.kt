@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.core.data.model.BookmarkEntity
-import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.domain.repository.BookmarkRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -20,12 +19,12 @@ class BookmarkViewModel @Inject constructor(
     private val _bookmarks = mutableStateOf<List<BookmarkEntity>>(emptyList())
     val bookmarks: State<List<BookmarkEntity>> = _bookmarks
 
-    fun getAllBookmarks(sortType: SortType) : State<List<BookmarkEntity>>{
+    fun getAllBookmarks(sortType: Int): State<List<BookmarkEntity>> {
         preloadBookmarks(sortType)
         return _bookmarks
     }
 
-    private fun preloadBookmarks(sortType: SortType) {
+    private fun preloadBookmarks(sortType: Int) {
         viewModelScope.launch {
             _bookmarks.value = repository.getBookmarksSorted(sortType)
         }
