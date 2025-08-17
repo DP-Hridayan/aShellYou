@@ -3,7 +3,6 @@
 package `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,13 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Update
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -44,12 +42,14 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.progress.LoadingSpinner
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.data.local.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.settings.presentation.components.shape.getRoundedShape
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
@@ -101,102 +101,119 @@ fun AutoUpdateScreen(
         }
     }
 
+    val listState = rememberLazyListState()
+
     SettingsScaffold(
         modifier = modifier,
-        topBarTitle = stringResource(R.string.auto_update)
-    ) { innerPadding, topBarScrollBehavior ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
-            contentPadding = innerPadding
-        ) {
-            itemsIndexed(settings) { index, group ->
-                when (group) {
-                    is PreferenceGroup.Category -> {
-                        Text(
-                            text = stringResource(group.categoryNameResId),
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier
-                                .animateItem()
-                                .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 20.dp)
-                        )
-                        group.items.forEach { item ->
-                            PreferenceItemView(item = item, modifier = modifier.animateItem())
-                        }
-                    }
-
-                    is PreferenceGroup.Items -> {
-                        group.items.forEach { item ->
-                            PreferenceItemView(item = item, modifier = modifier.animateItem())
-                        }
-                    }
-
-                    is PreferenceGroup.CustomComposable -> {
-                        if (group.label == "check_update_button") {
-                            CheckUpdateButton(
-                                showLoading = showLoading,
-                                onClick = {
-                                    weakHaptic()
-                                    autoUpdateViewModel.checkForUpdates(
-                                        includePrerelease = includePrerelease
+        listState = listState,
+        topBarTitle = stringResource(R.string.auto_update),
+        content = { innerPadding, topBarScrollBehavior ->
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                state = listState,
+                contentPadding = innerPadding
+            ) {
+                itemsIndexed(settings) { index, group ->
+                    when (group) {
+                        is PreferenceGroup.Category -> {
+                            Text(
+                                text = stringResource(group.categoryNameResId),
+                                style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier
+                                    .animateItem()
+                                    .padding(
+                                        start = 20.dp,
+                                        end = 20.dp,
+                                        top = 30.dp,
+                                        bottom = 10.dp
                                     )
-                                    showLoading = true
-                                },
-                                modifier = Modifier.fillMaxWidth()
+                            )
+                            val visibleItems = group.items.filter { it.isLayoutVisible }
+
+                            visibleItems.forEachIndexed { i, item ->
+                                val shape = getRoundedShape(i, visibleItems.size)
+
+                                PreferenceItemView(
+                                    item = item,
+                                    modifier = Modifier.animateItem(),
+                                    roundedShape = shape
+                                )
+                            }
+                        }
+
+                        is PreferenceGroup.Items -> {
+                            val visibleItems = group.items.filter { it.isLayoutVisible }
+
+                            visibleItems.forEachIndexed { i, item ->
+                                val shape = getRoundedShape(i, visibleItems.size)
+
+                                PreferenceItemView(
+                                    item = item,
+                                    modifier = Modifier.animateItem(),
+                                    roundedShape = shape
+                                )
+                            }
+                        }
+
+                        else -> {}
+                    }
+                }
+
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 25.dp, end = 25.dp, top = 25.dp, bottom = 75.dp),
+                        verticalArrangement = Arrangement.spacedBy(15.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(20.dp)
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_info),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.error,
+                            )
+
+                            Text(
+                                text = stringResource(R.string.pre_release_warning),
+                                style = MaterialTheme.typography.titleSmall,
+                                color = MaterialTheme.colorScheme.error
                             )
                         }
-                    }
-
-                    is PreferenceGroup.HorizontalDivider -> {
-                        HorizontalDivider(
-                            modifier = modifier.fillMaxWidth(),
-                            thickness = 1.dp
+                        Text(
+                            text = stringResource(R.string.pre_release_warning_description),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error
                         )
                     }
                 }
-            }
 
-            item {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(25.dp),
-                    verticalArrangement = Arrangement.spacedBy(15.dp)
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(20.dp)
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_info),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
-
-                        Text(
-                            text = stringResource(R.string.pre_release_warning),
-                            style = MaterialTheme.typography.titleSmall
-                        )
-                    }
-                    Text(
-                        text = stringResource(R.string.pre_release_warning_description),
-                        style = MaterialTheme.typography.bodySmall
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
                     )
                 }
             }
-
-            item {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(25.dp)
-                )
-            }
-        }
-    }
+        }, fabContent = { expanded ->
+            CheckUpdateButton(
+                showLoading = showLoading,
+                expanded = expanded,
+                onClick = {
+                    weakHaptic()
+                    autoUpdateViewModel.checkForUpdates(
+                        includePrerelease = includePrerelease
+                    )
+                    showLoading = true
+                })
+        })
 
     if (showUpdateSheet) {
         UpdateBottomSheet(
@@ -215,38 +232,27 @@ fun AutoUpdateScreen(
 private fun CheckUpdateButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    expanded: Boolean = true,
     showLoading: Boolean
 ) {
-    Box(modifier = modifier) {
-        Button(
-            modifier = Modifier
-                .padding(end = 25.dp, bottom = 25.dp, top = 15.dp)
-                .align(Alignment.CenterEnd),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
-            shapes = ButtonDefaults.shapes(),
-            onClick = onClick
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (showLoading)
-                    LoadingSpinner(modifier = Modifier.size(20.dp))
-                else
-                    Icon(
-                        modifier = Modifier.size(20.dp),
-                        imageVector = Icons.Rounded.Update,
-                        contentDescription = null,
-                    )
-
-                Text(
-                    text = stringResource(R.string.check_for_updates),
-                    style = MaterialTheme.typography.labelLarge,
+    ExtendedFloatingActionButton(
+        modifier = modifier.padding(bottom = 10.dp),
+        onClick = onClick,
+        expanded = expanded,
+        icon = {
+            if (showLoading)
+                LoadingSpinner(modifier = Modifier.size(24.dp))
+            else
+                Icon(
+                    imageVector = Icons.Rounded.Update,
+                    contentDescription = null,
                 )
-            }
+        },
+        text = {
+            AutoResizeableText(
+                text = stringResource(R.string.check_updates),
+                style = MaterialTheme.typography.labelLarge,
+            )
         }
-    }
+    )
 }

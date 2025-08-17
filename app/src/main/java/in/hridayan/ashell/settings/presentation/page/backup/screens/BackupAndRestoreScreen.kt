@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,6 +45,7 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.ResetSetting
 import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreBackupDialog
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.settings.presentation.components.shape.getRoundedShape
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -115,54 +117,81 @@ fun BackupAndRestoreScreen(
         }
     }
 
+    val listState = rememberLazyListState()
+
     SettingsScaffold(
-        modifier = modifier, topBarTitle = stringResource(R.string.backup_and_restore)
-    ) { innerPadding, topBarScrollBehavior ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
-            contentPadding = innerPadding
-        ) {
-            itemsIndexed(settings) { index, group ->
-                when (group) {
-                    is PreferenceGroup.Category -> {
-                        Text(
-                            text = stringResource(group.categoryNameResId),
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier
-                                .animateItem()
-                                .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 20.dp)
-                        )
-                        group.items.forEach { item ->
-                            PreferenceItemView(item = item, modifier = modifier.animateItem())
+        modifier = modifier,
+        listState = listState,
+        topBarTitle = stringResource(R.string.backup_and_restore),
+        content = { innerPadding, topBarScrollBehavior ->
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                contentPadding = innerPadding
+            ) {
+                itemsIndexed(settings) { index, group ->
+                    when (group) {
+                        is PreferenceGroup.Category -> {
+                            Text(
+                                text = stringResource(group.categoryNameResId),
+                                style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier
+                                    .animateItem()
+                                    .padding(
+                                        start = 20.dp,
+                                        end = 20.dp,
+                                        top = 30.dp,
+                                        bottom = 10.dp
+                                    )
+                            )
+                            val visibleItems = group.items.filter { it.isLayoutVisible }
+
+                            visibleItems.forEachIndexed { i, item ->
+                                val shape = getRoundedShape(i, visibleItems.size)
+
+                                PreferenceItemView(
+                                    item = item,
+                                    modifier = Modifier.animateItem(),
+                                    roundedShape = shape
+                                )
+                            }
                         }
-                    }
 
-                    is PreferenceGroup.Items -> {
-                        group.items.forEach { item ->
-                            PreferenceItemView(item = item, modifier = modifier.animateItem())
+                        is PreferenceGroup.Items -> {
+                            val visibleItems = group.items.filter { it.isLayoutVisible }
+
+                            visibleItems.forEachIndexed { i, item ->
+                                val shape = getRoundedShape(i, visibleItems.size)
+
+                                PreferenceItemView(
+                                    item = item,
+                                    modifier = Modifier.animateItem(),
+                                    roundedShape = shape
+                                )
+                            }
                         }
-                    }
 
-                    is PreferenceGroup.CustomComposable -> {
-                        LastBackupTimeCard(lastBackupTime = lastBackupTime)
-                    }
+                        is PreferenceGroup.CustomComposable -> {
+                            LastBackupTimeCard(
+                                lastBackupTime = lastBackupTime
+                            )
+                        }
 
-                    else -> {}
+                        else -> {}
+                    }
+                }
+
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
+                    )
                 }
             }
-
-            item {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(25.dp)
-                )
-            }
-        }
-    }
+        })
 
     if (showResetDialog) {
         ResetSettingsDialog(

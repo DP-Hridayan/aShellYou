@@ -27,6 +27,7 @@ securityCrypto = "1.1.0"
 work = "2.10.3"
 shizuku = "13.1.0"
 libsu = "6.0.0"
+lottie = "6.6.7"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplication" }
@@ -80,5 +81,6 @@ hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltExt" }
 shizuku-api = { module = "dev.rikka.shizuku:api", version.ref = "shizuku" }
 shizuku-provider = { module = "dev.rikka.shizuku:provider", version.ref = "shizuku" }
 libsu-core = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
 

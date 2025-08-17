@@ -145,11 +145,9 @@ object SettingsProvider {
                 radioOptions = RadioGroupOptionsProvider.updateChannelOptions
             )
         ),
-        customComposable(label = "check_update_button"),
 
-        horizontalDivider(),
-
-        uncategorizedItems(
+        categorizedItems(
+            categoryNameResId = R.string.additional_settings,
             boolPreferenceItem(
                 key = SettingsKeys.ENABLE_DIRECT_DOWNLOAD,
                 titleResId = R.string.enable_direct_download,
@@ -157,8 +155,6 @@ object SettingsProvider {
                 iconVector = Icons.Rounded.Downloading
             )
         ),
-
-        horizontalDivider()
     )
 
     val aboutPageList: List<PreferenceGroup> = listOf(

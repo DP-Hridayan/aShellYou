@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -27,6 +28,7 @@ import `in`.hridayan.ashell.settings.domain.model.SettingsType
 import `in`.hridayan.ashell.settings.domain.model.getResolvedDescription
 import `in`.hridayan.ashell.settings.domain.model.getResolvedIcon
 import `in`.hridayan.ashell.settings.domain.model.getResolvedTitle
+import `in`.hridayan.ashell.settings.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.settings.presentation.components.switch.SettingsSwitch
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
@@ -34,6 +36,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 fun BooleanPreferenceItemView(
     modifier: Modifier = Modifier,
     item: PreferenceItem,
+    roundedShape: RoundedCornerShape,
     contentDescription: String = "",
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -61,7 +64,7 @@ fun BooleanPreferenceItemView(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 25.dp)
+                .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 0.dp)
                 .clip(MaterialTheme.shapes.extraLarge)
                 .clickable(enabled = enabled, onClick = onClick),
             shape = MaterialTheme.shapes.extraLarge,
@@ -92,53 +95,59 @@ fun BooleanPreferenceItemView(
     }
 
     if (item.type == SettingsType.Switch) {
-        Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .clickable(
-                    enabled = enabled,
-                    onClick = onClick
-                )
-                .padding(horizontal = 20.dp, vertical = 17.dp)
-                .alpha(if (enabled) 1f else 0.5f),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(15.dp)
-        ) {
-            icon?.let {
-                Icon(
-                    imageVector = it,
-                    contentDescription = contentDescription,
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
-
-            Column(
-                modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)
+        RoundedCornerCard(
+            modifier = Modifier.fillMaxWidth(),
+            roundedShape = roundedShape
+        )
+        {
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .clickable(
+                        enabled = enabled,
+                        onClick = onClick
+                    )
+                    .padding(horizontal = 20.dp, vertical = 17.dp)
+                    .alpha(if (enabled) 1f else 0.5f),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(15.dp)
             ) {
-                if (titleText.isNotEmpty()) {
-                    Text(
-                        text = titleText,
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.alpha(0.95f)
+                icon?.let {
+                    Icon(
+                        imageVector = it,
+                        contentDescription = contentDescription,
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
 
-                if (descriptionText.isNotEmpty()) {
-                    Text(
-                        text = descriptionText,
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.alpha(0.90f)
-                    )
+                Column(
+                    modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)
+                ) {
+                    if (titleText.isNotEmpty()) {
+                        Text(
+                            text = titleText,
+                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.alpha(0.95f)
+                        )
+                    }
+
+                    if (descriptionText.isNotEmpty()) {
+                        Text(
+                            text = descriptionText,
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.alpha(0.90f)
+                        )
+                    }
                 }
+
+                SettingsSwitch(
+                    checked = checked,
+                    enabled = enabled,
+                    onCheckedChange = {
+                        onClick()
+                    })
             }
-
-            SettingsSwitch(
-                checked = checked,
-                enabled = enabled,
-                onCheckedChange = {
-                    onClick()
-                })
         }
     }
 }

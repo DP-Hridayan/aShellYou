@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId = "in.hridayan.ashell"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 56
         versionName = "v7.0.0"
 
@@ -142,6 +142,8 @@ dependencies {
     implementation(libs.shizuku.api)
     implementation(libs.shizuku.provider)
     implementation(libs.libsu.core)
+
+    implementation(libs.lottie.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

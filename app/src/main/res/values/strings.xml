@@ -444,4 +444,5 @@
     <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app. Proceed with caution and ensure you understand the commands you execute.</string>
     <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
     <string name="system">System</string>
+    <string name="tweak_your_experience">Tweak your experience</string>
 </resources>

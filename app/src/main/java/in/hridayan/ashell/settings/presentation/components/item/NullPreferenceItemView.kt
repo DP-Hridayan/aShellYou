@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,12 +22,14 @@ import `in`.hridayan.ashell.settings.data.local.model.PreferenceItem
 import `in`.hridayan.ashell.settings.domain.model.getResolvedDescription
 import `in`.hridayan.ashell.settings.domain.model.getResolvedIcon
 import `in`.hridayan.ashell.settings.domain.model.getResolvedTitle
+import `in`.hridayan.ashell.settings.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
 fun NullPreferenceItemView(
     modifier: Modifier = Modifier,
     item: PreferenceItem,
+    roundedShape: RoundedCornerShape,
     contentDescription: String = "",
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -38,44 +41,50 @@ fun NullPreferenceItemView(
     val titleText = item.getResolvedTitle()
     val descriptionText = item.getResolvedDescription()
 
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable(
-                enabled = true, onClick = {
-                    weakHaptic()
-                    settingsViewModel.onItemClicked(item.key)
-                })
-            .padding(horizontal = 20.dp, vertical = 17.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(15.dp)
-    ) {
-        icon?.let {
-            Icon(
-                imageVector = it,
-                contentDescription = contentDescription,
-                tint = MaterialTheme.colorScheme.primary
-            )
-        }
-
-        Column(
-            modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)
+    RoundedCornerCard(
+        modifier = Modifier.fillMaxWidth(),
+        roundedShape = roundedShape
+    )
+    {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .clickable(
+                    enabled = true, onClick = {
+                        weakHaptic()
+                        settingsViewModel.onItemClicked(item.key)
+                    })
+                .padding(horizontal = 20.dp, vertical = 17.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            if (titleText.isNotEmpty()) {
-                Text(
-                    text = titleText,
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.alpha(0.95f)
+            icon?.let {
+                Icon(
+                    imageVector = it,
+                    contentDescription = contentDescription,
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
 
-            if (descriptionText.isNotEmpty()) {
-                Text(
-                    text = descriptionText,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.alpha(0.90f)
-                )
+            Column(
+                modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)
+            ) {
+                if (titleText.isNotEmpty()) {
+                    Text(
+                        text = titleText,
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.alpha(0.95f)
+                    )
+                }
+
+                if (descriptionText.isNotEmpty()) {
+                    Text(
+                        text = descriptionText,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.alpha(0.90f)
+                    )
+                }
             }
         }
     }
