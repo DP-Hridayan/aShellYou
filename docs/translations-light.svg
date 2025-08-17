@@ -38,6 +38,6 @@
 <text x="460" y="265" text-anchor="start">100%</text>
 <text x="140" y="295" text-anchor="end"><![CDATA[Chinese Simplified]]></text>
 <rect x="150" y="281" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="281" width="279" height="14" fill="#1a6610" rx="8" ry="8" />
-<text x="460" y="295" text-anchor="start">93%</text>
+<rect x="150" y="281" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="295" text-anchor="start">100%</text>
 </svg>
