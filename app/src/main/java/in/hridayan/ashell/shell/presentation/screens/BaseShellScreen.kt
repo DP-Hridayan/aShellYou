@@ -7,7 +7,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.widget.ImageView
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +29,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -37,7 +39,6 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -48,6 +49,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -117,6 +119,8 @@ fun BaseShellScreen(
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val textFieldFocusRequester = remember { FocusRequester() }
+    val history = rememberSaveable { mutableStateListOf<String>() }
+    var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
     var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
     var showDeleteConfirmationDialog by rememberSaveable { mutableStateOf(false) }
@@ -150,6 +154,7 @@ fun BaseShellScreen(
                     if (isKeyboardVisible) hideKeyboard(context)
                     awaitFrame()
                     runCommandIfPermissionGranted()
+                    history.add(command.text)
                 }
             }
 
@@ -170,6 +175,13 @@ fun BaseShellScreen(
         ) else showBookmarkDialog = true
     }
 
+    val handleHistoryButtonClick: () -> Unit = {
+        if (history.isEmpty()) showToast(
+            context,
+            context.getString(R.string.no_history)
+        ) else historyMenuExpanded = true
+    }
+
     Scaffold(
         modifier = modifier,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) })
@@ -182,7 +194,8 @@ fun BaseShellScreen(
                     showClearOutputDialog = { showClearOutputDialog = true },
                     showBookmarkDialog = {
                         handleBookmarkButtonClick()
-                    })
+                    },
+                    showHistoryMenu = { handleHistoryButtonClick() })
 
                 Row(
                     modifier = Modifier
@@ -229,9 +242,7 @@ fun BaseShellScreen(
                             R.string.command_title
                         )
 
-                    val textInField =
-                        shellViewModel.command.collectAsState(initial = TextFieldValue(""))
-                    val isBookmarked = bookmarkViewModel.isBookmarked(textInField.value.text)
+                    val isBookmarked = bookmarkViewModel.isBookmarked(command.text)
                         .collectAsState(initial = false)
                     val trailingIcon =
                         if (isBookmarked.value) painterResource(R.drawable.ic_bookmark_added) else painterResource(
@@ -239,42 +250,67 @@ fun BaseShellScreen(
                         )
                     val overrideBookmarksLimit = LocalSettings.current.overrideBookmarksLimit
 
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .weight(1f)
-                            .focusRequester(textFieldFocusRequester),
-                        label = { Text(label) },
-                        value = command,
-                        onValueChange = { shellViewModel.onCommandChange(it) },
-                        trailingIcon = {
-                            if (textInField.value.text.trim().isNotEmpty())
-                                IconButton(
-                                    colors = IconButtonDefaults.iconButtonColors(
-                                        containerColor = Color.Transparent,
-                                        contentColor = MaterialTheme.colorScheme.primary
-                                    ),
-                                    onClick = {
-                                        weakHaptic()
-                                        if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
-                                            textInField.value.text
+                    Box(modifier = Modifier.weight(1f)) {
+                        OutlinedTextField(
+                            modifier = Modifier
+                                .focusRequester(textFieldFocusRequester),
+                            label = { Text(label) },
+                            value = command,
+                            onValueChange = { shellViewModel.onCommandChange(it) },
+                            trailingIcon = {
+                                if (command.text.trim().isNotEmpty())
+                                    IconButton(
+                                        colors = IconButtonDefaults.iconButtonColors(
+                                            containerColor = Color.Transparent,
+                                            contentColor = MaterialTheme.colorScheme.primary
+                                        ),
+                                        onClick = {
+                                            weakHaptic()
+                                            if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
+                                                command.text
+                                            )
+                                            else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
+                                                hideKeyboard(context)
+                                                coroutineScope.launch {
+                                                    snackbarHostState.showSnackbar(
+                                                        message = context.getString(R.string.bookmark_limit_reached),
+                                                        duration = SnackbarDuration.Short
+                                                    )
+                                                }
+                                            } else bookmarkViewModel.addBookmark(command.text)
+                                        }) {
+                                        Icon(
+                                            painter = trailingIcon,
+                                            contentDescription = null,
+                                            modifier = Modifier
                                         )
-                                        else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
-                                            hideKeyboard(context)
-                                            coroutineScope.launch {
-                                                snackbarHostState.showSnackbar(
-                                                    message = context.getString(R.string.bookmark_limit_reached),
-                                                    duration = SnackbarDuration.Short
-                                                )
-                                            }
-                                        } else bookmarkViewModel.addBookmark(textInField.value.text)
-                                    }) {
-                                    Icon(
-                                        painter = trailingIcon,
-                                        contentDescription = null,
-                                        modifier = Modifier
-                                    )
-                                }
-                        })
+                                    }
+                            })
+
+                        DropdownMenu(
+                            expanded = historyMenuExpanded,
+                            onDismissRequest = { historyMenuExpanded = false }
+                        ) {
+                            if (history.isEmpty()) return@DropdownMenu
+
+                            history.reversed().forEach { command ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(
+                                            text = command,
+                                            maxLines = 1,
+                                            modifier = Modifier.basicMarquee()
+                                        )
+                                    },
+                                    onClick = {
+                                        shellViewModel.onCommandChange(TextFieldValue(command))
+                                        historyMenuExpanded = false
+                                        textFieldFocusRequester.requestFocus()
+                                    }
+                                )
+                            }
+                        }
+                    }
 
                     FloatingActionButton(
                         onClick = actionFabOnClick,
@@ -443,7 +479,8 @@ fun UtilityButtonsRow(
     modifier: Modifier = Modifier,
     shellViewModel: ShellViewModel = hiltViewModel(),
     showClearOutputDialog: () -> Unit = {},
-    showBookmarkDialog: () -> Unit = {}
+    showBookmarkDialog: () -> Unit = {},
+    showHistoryMenu: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
@@ -509,6 +546,7 @@ fun UtilityButtonsRow(
         IconButton(
             onClick = {
                 weakHaptic()
+                showHistoryMenu()
             },
             shapes = IconButtonDefaults.shapes(),
             colors = IconButtonDefaults.iconButtonColors(
