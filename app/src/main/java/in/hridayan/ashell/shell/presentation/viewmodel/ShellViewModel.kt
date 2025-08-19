@@ -34,6 +34,20 @@ class ShellViewModel @Inject constructor(
 
     val shizukuPermissionState: StateFlow<Boolean> = shellRepository.shizukuPermissionState()
 
+    private val _isSearchBarVisible = MutableStateFlow(false)
+    val isSearchBarVisible: StateFlow<Boolean> = _isSearchBarVisible
+
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery
+
+    fun toggleSearchBar() {
+        _isSearchBarVisible.value = !_isSearchBarVisible.value
+    }
+
+    fun updateSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
+
     fun onCommandChange(newValue: TextFieldValue) {
         val updatedValue = newValue.copy(
             selection = TextRange(newValue.text.length)

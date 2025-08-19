@@ -22,7 +22,7 @@ import javax.inject.Inject
 class BackupAndRestoreViewModel @Inject constructor(
     private val backupAndRestoreRepository: BackupAndRestoreRepository,
     private val settingsRepository: SettingsRepository,
-    @ApplicationContext private val context: Context
+    @param:ApplicationContext private val context: Context
 ) : ViewModel() {
     private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()

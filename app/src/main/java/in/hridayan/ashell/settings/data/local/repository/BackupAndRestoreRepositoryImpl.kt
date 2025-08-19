@@ -20,7 +20,7 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
     private val json: Json,
     private val commandRepository: CommandRepository,
     private val settingsRepository: SettingsRepository,
-    @ApplicationContext private val context: Context
+    @param:ApplicationContext private val context: Context
 ) : BackupAndRestoreRepository {
 
     override suspend fun backupDataToFile(uri: Uri, option: BackupOption): Boolean =

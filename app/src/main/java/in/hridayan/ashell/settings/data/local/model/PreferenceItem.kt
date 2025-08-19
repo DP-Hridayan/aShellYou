@@ -10,10 +10,10 @@ sealed class PreferenceItem(
     open val key: SettingsKeys,
     open val isLayoutVisible: Boolean = true,
     open val titleString: String = "",
-    @StringRes open val titleResId: Int? = null,
+    @param:StringRes open val titleResId: Int? = null,
     open val descriptionString: String = "",
-    @StringRes open val descriptionResId: Int? = null,
-    @DrawableRes open val iconResId: Int? = null,
+    @param:StringRes open val descriptionResId: Int? = null,
+    @param:DrawableRes open val iconResId: Int? = null,
     open val iconVector: ImageVector? = null,
     open val type: SettingsType = SettingsType.None,
 ) {
@@ -22,10 +22,10 @@ sealed class PreferenceItem(
         override val key: SettingsKeys,
         override val isLayoutVisible: Boolean,
         override val titleString: String,
-        @StringRes override val titleResId: Int?,
+        @param:StringRes override val titleResId: Int?,
         override val descriptionString: String,
-        @StringRes override val descriptionResId: Int?,
-        @DrawableRes override val iconResId: Int?,
+        @param:StringRes override val descriptionResId: Int?,
+        @param:DrawableRes override val iconResId: Int?,
         override val iconVector: ImageVector?,
         override val type: SettingsType
     ) : PreferenceItem(key)
@@ -34,10 +34,10 @@ sealed class PreferenceItem(
         override val key: SettingsKeys,
         override val isLayoutVisible: Boolean,
         override val titleString: String,
-        @StringRes override val titleResId: Int?,
+        @param:StringRes override val titleResId: Int?,
         override val descriptionString: String,
-        @StringRes override val descriptionResId: Int?,
-        @DrawableRes override val iconResId: Int?,
+        @param:StringRes override val descriptionResId: Int?,
+        @param:DrawableRes override val iconResId: Int?,
         override val iconVector: ImageVector?,
         override val type: SettingsType
     ) : PreferenceItem(key)
@@ -46,10 +46,10 @@ sealed class PreferenceItem(
         override val key: SettingsKeys,
         override val isLayoutVisible: Boolean,
         override val titleString: String,
-        @StringRes override val titleResId: Int?,
+        @param:StringRes override val titleResId: Int?,
         override val descriptionString: String,
-        @StringRes override val descriptionResId: Int?,
-        @DrawableRes override val iconResId: Int?,
+        @param:StringRes override val descriptionResId: Int?,
+        @param:DrawableRes override val iconResId: Int?,
         override val iconVector: ImageVector?,
         override val type: SettingsType
     ) : PreferenceItem(key)
@@ -58,10 +58,10 @@ sealed class PreferenceItem(
         override val key: SettingsKeys,
         override val isLayoutVisible: Boolean,
         override val titleString: String,
-        @StringRes override val titleResId: Int?,
+        @param:StringRes override val titleResId: Int?,
         override val descriptionString: String,
-        @StringRes override val descriptionResId: Int?,
-        @DrawableRes override val iconResId: Int?,
+        @param:StringRes override val descriptionResId: Int?,
+        @param:DrawableRes override val iconResId: Int?,
         override val iconVector: ImageVector?,
         override val type: SettingsType
     ) : PreferenceItem(key)
@@ -70,10 +70,10 @@ sealed class PreferenceItem(
         override val key: SettingsKeys,
         override val isLayoutVisible: Boolean,
         override val titleString: String,
-        @StringRes override val titleResId: Int?,
+        @param:StringRes override val titleResId: Int?,
         override val descriptionString: String,
-        @StringRes override val descriptionResId: Int?,
-        @DrawableRes override val iconResId: Int?,
+        @param:StringRes override val descriptionResId: Int?,
+        @param:DrawableRes override val iconResId: Int?,
         override val iconVector: ImageVector?,
         override val type: SettingsType
     ) : PreferenceItem(key)

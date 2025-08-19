@@ -2,13 +2,8 @@
 
 package `in`.hridayan.ashell.shell.presentation.screens
 
-import android.annotation.SuppressLint
-import android.graphics.PorterDuff
-import android.graphics.drawable.AnimatedVectorDrawable
-import android.widget.ImageView
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +14,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
@@ -26,16 +22,14 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Send
-import androidx.compose.material.icons.rounded.History
-import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -65,7 +59,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -73,29 +66,29 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
 import `in`.hridayan.ashell.core.presentation.ui.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.ui.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.ui.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
+import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.navigation.SettingsScreen
 import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
+import `in`.hridayan.ashell.shell.presentation.components.button.UtilityButtonGroup
 import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarkDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarksSortDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.DeleteBookmarksDialog
+import `in`.hridayan.ashell.shell.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch
@@ -125,7 +118,6 @@ fun BaseShellScreen(
     val textFieldFocusRequester = remember { FocusRequester() }
     val history = rememberSaveable { mutableStateListOf<String>() }
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
-    var showSearchBar by rememberSaveable { mutableStateOf(false) }
     var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
     var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
     var showDeleteConfirmationDialog by rememberSaveable { mutableStateOf(false) }
@@ -191,18 +183,22 @@ fun BaseShellScreen(
         if (commandResults.isEmpty()) showToast(
             context,
             context.getString(R.string.nothing_to_search)
-        ) else showSearchBar = true
+        )
     }
+
+    val listState = rememberLazyListState()
 
     Scaffold(
         modifier = modifier,
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) })
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        floatingActionButton = { BottomExtendedFAB(listState = listState) })
     { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                UtilityButtonsRow(
+                UtilityButtonGroup(
+                    isOutputEmpty = commandResults.isEmpty(),
                     showClearOutputDialog = { showClearOutputDialog = true },
                     showBookmarkDialog = {
                         handleBookmarkButtonClick()
@@ -338,7 +334,7 @@ fun BaseShellScreen(
                     )
                 }
 
-                OutputCard(results = commandResults)
+                OutputCard(results = commandResults, listState = listState)
             }
         }
 
@@ -395,10 +391,14 @@ fun BaseShellScreen(
 }
 
 @Composable
-private fun OutputCard(results: List<CommandResult>) {
-    val listState = rememberLazyListState()
+private fun OutputCard(
+    results: List<CommandResult>,
+    listState: LazyListState,
+    shellViewModel: ShellViewModel = hiltViewModel()
+) {
     val isDarkMode = LocalDarkMode.current
-
+    val isSearchVisible = shellViewModel.isSearchBarVisible.collectAsState()
+    val searchQuery = shellViewModel.searchQuery.collectAsState()
     val allOutputs = results.map { commandResult ->
         commandResult.outputFlow.collectAsState()
     }
@@ -440,210 +440,86 @@ private fun OutputCard(results: List<CommandResult>) {
                     .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                itemsIndexed(combinedOutput.value) { _, line ->
-                    val text = line.text
+                itemsIndexed(combinedOutput.value) { index, line ->
+                    val text = if (!isSearchVisible.value) line.text else line.text.takeIf {
+                        line.text.contains(
+                            searchQuery.value,
+                            ignoreCase = true
+                        )
+                    }
 
-                    val isCommandLine = text.startsWith("$ ")
+                    val isCommandLine = text?.startsWith("$ ")
 
                     val lineColor =
-                        if (isCommandLine) MaterialTheme.colorScheme.primary else {
+                        if (isCommandLine == true) MaterialTheme.colorScheme.primary else {
                             if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
                         }
 
                     val textStyle =
-                        if (isCommandLine) MaterialTheme.typography.titleSmallEmphasized.copy(
+                        if (isCommandLine == true) MaterialTheme.typography.titleSmallEmphasized.copy(
                             fontFamily = FontFamily.Monospace,
                             fontWeight = FontWeight.SemiBold
                         )
                         else MaterialTheme.typography.bodySmallEmphasized.copy(fontFamily = FontFamily.Monospace)
 
-                    Text(
-                        text = text,
-                        style = textStyle,
-                        color = lineColor,
-                        modifier = Modifier.then(
-                            if (isCommandLine) Modifier.padding(
-                                top = 20.dp,
-                                bottom = 10.dp
-                            ) else Modifier
-                        )
-                    )
+                    text?.let {
+                        runCatching {
+                            Text(
+                                text = text,
+                                style = textStyle,
+                                color = lineColor,
+                                modifier = Modifier.then(
+                                    if (isCommandLine == true) Modifier.padding(
+                                        top = 20.dp,
+                                        bottom = 10.dp
+                                    ) else Modifier
+                                )
+                            )
+                        }.getOrElse { "" }
+                    }
                 }
             }
         }
     }
 }
 
-@SuppressLint("UseCompatLoadingForDrawables")
 @Composable
-private fun AnimatedStopIcon(modifier: Modifier = Modifier) {
-    val tintColor = MaterialTheme.colorScheme.onPrimaryContainer
-
-    AndroidView(
-        factory = { context ->
-            ImageView(context).apply {
-                val avd =
-                    context.getDrawable(R.drawable.ic_stop_animated) as? AnimatedVectorDrawable
-                setImageDrawable(avd)
-                setColorFilter(tintColor.toArgb(), PorterDuff.Mode.SRC_IN)
-                avd?.start()
-            }
-        },
-        modifier = modifier.size(24.dp)
-    )
-}
-
-@Composable
-fun UtilityButtonsRow(
+fun BottomExtendedFAB(
     modifier: Modifier = Modifier,
-    shellViewModel: ShellViewModel = hiltViewModel(),
-    showClearOutputDialog: () -> Unit = {},
-    showBookmarkDialog: () -> Unit = {},
-    showHistoryMenu: () -> Unit = {}
+    listState: LazyListState,
+    shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val weakHaptic = LocalWeakHaptic.current
-    val navController = LocalNavController.current
-    val interactionSources = remember { List(5) { MutableInteractionSource() } }
-    val askToClean = LocalSettings.current.clearOutputConfirmation
-    val shellState by shellViewModel.shellState.collectAsState()
+    val textInField = shellViewModel.command.collectAsState()
 
-    @Suppress("DEPRECATION")
-    ButtonGroup(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp, bottom = 25.dp, start = 20.dp, end = 20.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        IconButton(
-            onClick = {
-                weakHaptic()
-            },
-            shapes = IconButtonDefaults.shapes(),
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
-            modifier = Modifier
-                .size(40.dp)
-                .animateWidth(interactionSources[0]),
-            interactionSource = interactionSources[0],
-        ) {
-            TooltipContent(text = stringResource(R.string.search)) {
-                Icon(
-                    imageVector = Icons.Rounded.Search,
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-        }
-
-        IconButton(
-            onClick = {
-                weakHaptic()
-                showBookmarkDialog()
-            },
-            shapes = IconButtonDefaults.shapes(),
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
-            modifier = Modifier
-                .size(40.dp)
-                .animateWidth(interactionSources[1]),
-            interactionSource = interactionSources[1],
-        ) {
-            TooltipContent(text = stringResource(R.string.bookmarks)) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_bookmarks),
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-        }
-
-        IconButton(
-            onClick = {
-                weakHaptic()
-                showHistoryMenu()
-            },
-            shapes = IconButtonDefaults.shapes(),
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
-            modifier = Modifier
-                .size(40.dp)
-                .animateWidth(interactionSources[2]),
-            interactionSource = interactionSources[2],
-        ) {
-            TooltipContent(text = stringResource(R.string.history)) {
-                Icon(
-                    imageVector = Icons.Rounded.History,
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-        }
-
-        IconButton(
-            onClick = {
-                weakHaptic()
-
-                if (shellViewModel.commandResults.value.isEmpty()) {
-                    showToast(context, context.getString(R.string.nothing_to_clear))
-                    return@IconButton
-                }
-
-                if (shellState == ShellState.Busy) {
-                    showToast(context, context.getString(R.string.abort_command))
-                    return@IconButton
-                }
-
-                if (askToClean) showClearOutputDialog()
-                else shellViewModel.clearOutput()
-            },
-            shapes = IconButtonDefaults.shapes(),
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
-            modifier = Modifier
-                .size(40.dp)
-                .animateWidth(interactionSources[3]),
-            interactionSource = interactionSources[3],
-        ) {
-            TooltipContent(text = stringResource(R.string.clear)) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_clear),
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-        }
-
-        IconButton(
-            onClick = {
-                weakHaptic()
-                navController.navigate(SettingsScreen)
-            },
-            shapes = IconButtonDefaults.shapes(),
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
-            modifier = Modifier
-                .size(40.dp)
-                .animateWidth(interactionSources[4]),
-            interactionSource = interactionSources[4],
-        ) {
-            TooltipContent(text = stringResource(R.string.settings)) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_settings),
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
+    val expanded by remember {
+        derivedStateOf {
+            listState.firstVisibleItemIndex == 0 &&
+                    listState.firstVisibleItemScrollOffset < 10
         }
     }
+
+    val pasteAction: () -> Unit = {
+        val textInClipboard = ClipboardUtils.readFromClipboard(context) ?: ""
+        if (textInClipboard.trim().isEmpty()) showToast(
+            context,
+            context.getString(R.string.clipboard_empty)
+        ) else
+            shellViewModel.onCommandChange(TextFieldValue(textInClipboard))
+    }
+
+    ExtendedFloatingActionButton(
+        modifier = modifier,
+        onClick = { pasteAction() },
+        expanded = expanded,
+        icon = {
+            Icon(
+                painter = painterResource(R.drawable.ic_paste),
+                contentDescription = null
+            )
+        },
+        text = {
+            AutoResizeableText(stringResource(R.string.paste))
+        }
+    )
 }

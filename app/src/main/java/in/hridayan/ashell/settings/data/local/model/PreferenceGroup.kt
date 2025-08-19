@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 
 sealed class PreferenceGroup {
     data class Category(
-        @StringRes val categoryNameResId: Int,
+        @param:StringRes val categoryNameResId: Int,
         val items: List<PreferenceItem>
     ) : PreferenceGroup()
 

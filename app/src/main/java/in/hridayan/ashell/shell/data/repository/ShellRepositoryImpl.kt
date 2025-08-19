@@ -13,7 +13,7 @@ import javax.inject.Inject
 class ShellRepositoryImpl @Inject constructor(
     private val shellCommandExecutor: ShellCommandExecutor,
     private val shizukuPermissionHandler: ShizukuPermissionHandler,
-    @ApplicationContext private val context: Context
+    @param:ApplicationContext private val context: Context
 ): ShellRepository{
     override fun isShizukuInstalled() : Boolean {
         return shizukuPermissionHandler.isShizukuInstalled()
