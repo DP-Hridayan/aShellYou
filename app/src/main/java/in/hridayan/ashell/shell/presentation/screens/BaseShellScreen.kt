@@ -47,7 +47,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -116,7 +115,7 @@ fun BaseShellScreen(
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val textFieldFocusRequester = remember { FocusRequester() }
-    val history = rememberSaveable { mutableStateListOf<String>() }
+    val history = shellViewModel.history.collectAsState(initial = emptyList())
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
     var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
@@ -151,7 +150,6 @@ fun BaseShellScreen(
                     if (isKeyboardVisible) hideKeyboard(context)
                     awaitFrame()
                     runCommandIfPermissionGranted()
-                    history.add(command.text)
                 }
             }
 
@@ -173,7 +171,7 @@ fun BaseShellScreen(
     }
 
     val handleHistoryButtonClick: () -> Unit = {
-        if (history.isEmpty()) showToast(
+        if (history.value.isEmpty()) showToast(
             context,
             context.getString(R.string.no_history)
         ) else historyMenuExpanded = true
@@ -306,9 +304,9 @@ fun BaseShellScreen(
                                 .heightIn(max = 400.dp)
                                 .verticalScroll(rememberScrollState())
                         ) {
-                            if (history.isEmpty()) return@ExposedDropdownMenu
+                            if (history.value.isEmpty()) return@ExposedDropdownMenu
 
-                            history.reversed().forEach { command ->
+                            history.value.reversed().forEach { command ->
                                 DropdownMenuItem(
                                     text = {
                                         Text(
@@ -490,7 +488,6 @@ fun BottomExtendedFAB(
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val textInField = shellViewModel.command.collectAsState()
 
     val expanded by remember {
         derivedStateOf {

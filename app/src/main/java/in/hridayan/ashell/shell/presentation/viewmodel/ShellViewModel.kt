@@ -32,6 +32,9 @@ class ShellViewModel @Inject constructor(
     private val _shellState = MutableStateFlow<ShellState>(ShellState.Free)
     val shellState: StateFlow<ShellState> = _shellState
 
+    private val _history = MutableStateFlow<List<String>>(emptyList())
+    val history: StateFlow<List<String>> = _history
+
     val shizukuPermissionState: StateFlow<Boolean> = shellRepository.shizukuPermissionState()
 
     private val _isSearchBarVisible = MutableStateFlow(false)
@@ -84,6 +87,10 @@ class ShellViewModel @Inject constructor(
         val outputFlow = MutableStateFlow<List<OutputLine>>(emptyList())
         val newResult = CommandResult(commandText, outputFlow)
 
+        _history.update { history ->
+            if (history.lastOrNull() == commandText) history
+            else history + commandText
+        }
         _commandResults.update { it + newResult }
         _command.value = TextFieldValue("")
         _shellState.value = ShellState.Busy
