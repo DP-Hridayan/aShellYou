@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.core.utils
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -32,5 +33,12 @@ fun isNetworkAvailable(context: Context): Boolean {
 fun showToast(context: Context, message: String) {
     ToastUtils.makeToast(context, message)
 }
+
+fun Context.findActivity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.findActivity()
+    else -> null
+}
+
 
 

@@ -117,6 +117,7 @@ dependencies {
     implementation(libs.navigation.compose)
 
     implementation(libs.room.ktx)
+    implementation(libs.androidx.documentfile)
     ksp(libs.room.compiler)
 
     implementation(libs.serialization.json)

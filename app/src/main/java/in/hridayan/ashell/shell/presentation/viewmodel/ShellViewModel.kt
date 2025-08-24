@@ -20,7 +20,7 @@ import javax.inject.Inject
 class ShellViewModel @Inject constructor(
     private val shellRepository: ShellRepository,
 ) : ViewModel() {
-    private val _command = MutableStateFlow(TextFieldValue(""))
+    private val _command = MutableStateFlow(TextFieldValue(text = "", selection = TextRange(0)))
     val command: StateFlow<TextFieldValue> = _command
 
     private val _commandError = MutableStateFlow(false)
@@ -66,7 +66,7 @@ class ShellViewModel @Inject constructor(
     }
 
     fun clearOutput() {
-        _commandResults.value = emptyList()
+        if (_commandResults.value.isNotEmpty()) _commandResults.value = emptyList()
     }
 
     fun runBasicCommand() = runCommand { shellRepository.executeBasicCommand(it) }

@@ -65,6 +65,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
@@ -76,10 +77,11 @@ import `in`.hridayan.ashell.core.presentation.ui.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.ui.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
+import `in`.hridayan.ashell.core.utils.findActivity
+import `in`.hridayan.ashell.core.utils.saveToFileFlow
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.components.button.UtilityButtonGroup
@@ -327,12 +329,12 @@ fun BaseShellScreen(
 
                     FloatingActionButton(
                         onClick = actionFabOnClick,
-                        modifier = Modifier.padding(top = 6.dp),
+                        modifier = Modifier.padding(top = 10.dp),
                         content = actionFabIcon
                     )
                 }
 
-                OutputCard(results = commandResults, listState = listState)
+                OutputCard(listState = listState)
             }
         }
 
@@ -390,22 +392,27 @@ fun BaseShellScreen(
 
 @Composable
 private fun OutputCard(
-    results: List<CommandResult>,
     listState: LazyListState,
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val isDarkMode = LocalDarkMode.current
     val isSearchVisible = shellViewModel.isSearchBarVisible.collectAsState()
     val searchQuery = shellViewModel.searchQuery.collectAsState()
+    val results by shellViewModel.commandResults.collectAsState()
+
     val allOutputs = results.map { commandResult ->
         commandResult.outputFlow.collectAsState()
     }
 
-    val combinedOutput = remember(allOutputs) {
+    val combinedOutput = remember(results, allOutputs) {
         derivedStateOf {
-            allOutputs.flatMapIndexed { index, outputState ->
-                val command = results[index].command
-                listOf(OutputLine("$ $command", isError = false)) + outputState.value
+            if (results.isEmpty() || allOutputs.isEmpty()) {
+                emptyList()
+            } else {
+                allOutputs.flatMapIndexed { index, outputState ->
+                    val command = results.getOrNull(index)?.command ?: return@flatMapIndexed emptyList()
+                    listOf(OutputLine("$ $command", isError = false)) + outputState.value
+                }
             }
         }
     }
@@ -488,6 +495,10 @@ fun BottomExtendedFAB(
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val activity = context.findActivity()
+    val coroutineScope = rememberCoroutineScope()
+    val results by shellViewModel.commandResults.collectAsState()
+    val savePath = LocalSettings.current.outputSaveDirectory.toUri()
 
     val expanded by remember {
         derivedStateOf {
@@ -496,27 +507,67 @@ fun BottomExtendedFAB(
         }
     }
 
+    val icon =
+        if (results.isEmpty()) painterResource(R.drawable.ic_paste) else painterResource(R.drawable.ic_save)
+
+    val buttonText =
+        if (results.isEmpty()) stringResource(R.string.paste) else stringResource(R.string.save)
+
+    val saveAction: () -> Unit = {
+
+        val allOutputText = buildString {
+            results.forEachIndexed { index, commandResult ->
+                appendLine("$ ${commandResult.command}")
+                val lines = commandResult.outputFlow.value
+                lines.forEach { line ->
+                    appendLine(line.text)
+                }
+                appendLine()
+            }
+        }
+
+        activity?.let {
+            coroutineScope.launch {
+                saveToFileFlow(
+                    sb = allOutputText,
+                    activity = it,
+                    fileName = "ashell_output.txt",
+                    savePathUri = savePath
+                ).collect { success ->
+                    val message =
+                        if (success) context.getString(R.string.shell_output_saved_message)
+                        else context.getString(R.string.shell_output_not_saved_message)
+
+                    showToast(context, message)
+                }
+            }
+        }
+    }
+
+
     val pasteAction: () -> Unit = {
         val textInClipboard = ClipboardUtils.readFromClipboard(context) ?: ""
-        if (textInClipboard.trim().isEmpty()) showToast(
-            context,
-            context.getString(R.string.clipboard_empty)
-        ) else
+        if (textInClipboard.trim().isEmpty()) {
+            showToast(context, context.getString(R.string.clipboard_empty))
+        } else {
             shellViewModel.onCommandChange(TextFieldValue(textInClipboard))
+        }
     }
 
     ExtendedFloatingActionButton(
         modifier = modifier,
-        onClick = { pasteAction() },
+        onClick = {
+            if (results.isEmpty()) pasteAction() else saveAction()
+        },
         expanded = expanded,
         icon = {
             Icon(
-                painter = painterResource(R.drawable.ic_paste),
+                painter = icon,
                 contentDescription = null
             )
         },
         text = {
-            AutoResizeableText(stringResource(R.string.paste))
+            AutoResizeableText(buttonText)
         }
     )
 }

@@ -28,6 +28,7 @@ work = "2.10.3"
 shizuku = "13.1.0"
 libsu = "6.0.0"
 lottie = "6.6.7"
+documentfile = "1.1.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidApplication" }
@@ -82,5 +83,6 @@ shizuku-api = { module = "dev.rikka.shizuku:api", version.ref = "shizuku" }
 shizuku-provider = { module = "dev.rikka.shizuku:provider", version.ref = "shizuku" }
 libsu-core = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+androidx-documentfile = { group = "androidx.documentfile", name = "documentfile", version.ref = "documentfile" }
 
 
