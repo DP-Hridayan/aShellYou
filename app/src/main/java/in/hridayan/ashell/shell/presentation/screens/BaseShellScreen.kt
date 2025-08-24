@@ -72,6 +72,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
@@ -104,6 +105,7 @@ import `in`.hridayan.ashell.shell.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch
+import java.io.File
 
 @Composable
 fun BaseShellScreen(
@@ -571,23 +573,61 @@ private fun SmallFAB(
     listState: LazyListState,
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val activity = context.findActivity()
+    val weakHaptic = LocalWeakHaptic.current
     val results by shellViewModel.commandResults.collectAsState()
     if (results.isEmpty()) return
 
     val icon = Icons.Rounded.Share
 
-    val onShare: () -> Unit = {
+    val shareAction: () -> Unit = {
+        val outputText = buildString {
+            results.forEachIndexed { index, commandResult ->
+                appendLine("$ ${commandResult.command}")
+                val lines = commandResult.outputFlow.value
+                lines.forEach { line ->
+                    appendLine(line.text)
+                }
+                appendLine()
+            }
+        }
 
+        activity?.let { act ->
+            try {
+                val fileName = shellViewModel.getSaveOutputFileName(true)
+                val tempFile = File(act.cacheDir, fileName)
+                tempFile.writeText(outputText)
+
+                val uri = FileProvider.getUriForFile(
+                    act,
+                    "${act.packageName}.fileprovider",
+                    tempFile
+                )
+
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_STREAM, uri)
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+                act.startActivity(Intent.createChooser(shareIntent, "Share command output"))
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showToast(context, context.getString(R.string.failed))
+            }
+        }
     }
 
     SmallFloatingActionButton(
         onClick = {
+            weakHaptic()
+            shareAction()
         }, containerColor = MaterialTheme.colorScheme.tertiaryContainer,
         contentColor = MaterialTheme.colorScheme.onTertiaryContainer
     ) {
         Icon(imageVector = icon, contentDescription = null)
     }
-
 }
 
 @Composable
@@ -600,6 +640,7 @@ private fun BottomExtendedFAB(
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
+    val weakHaptic = LocalWeakHaptic.current
     val coroutineScope = rememberCoroutineScope()
     val results by shellViewModel.commandResults.collectAsState()
     val savePath = LocalSettings.current.outputSaveDirectory.toUri()
@@ -672,6 +713,7 @@ private fun BottomExtendedFAB(
     ExtendedFloatingActionButton(
         modifier = modifier,
         onClick = {
+            weakHaptic()
             if (results.isEmpty()) pasteAction() else saveAction()
         },
         expanded = expanded,
