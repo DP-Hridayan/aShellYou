@@ -9,6 +9,8 @@ import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
+import `in`.hridayan.ashell.shell.domain.usecase.ExtractLastCommandOutputUseCase
+import `in`.hridayan.ashell.shell.domain.usecase.GetSaveOutputFileNameUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ShellViewModel @Inject constructor(
     private val shellRepository: ShellRepository,
+    private val extractLastCommandOutputUseCase: ExtractLastCommandOutputUseCase,
+    private val getSaveOutputFileNameUseCase: GetSaveOutputFileNameUseCase
 ) : ViewModel() {
     private val _command = MutableStateFlow(TextFieldValue(text = "", selection = TextRange(0)))
     val command: StateFlow<TextFieldValue> = _command
@@ -67,6 +71,15 @@ class ShellViewModel @Inject constructor(
 
     fun clearOutput() {
         if (_commandResults.value.isNotEmpty()) _commandResults.value = emptyList()
+    }
+
+    fun getLastCommandOutput(rawOutput: String): String {
+        return extractLastCommandOutputUseCase(rawOutput)
+    }
+
+    fun getSaveOutputFileName(saveWholeOutput: Boolean): String {
+        val lastCommand = _history.value.lastOrNull()
+        return getSaveOutputFileNameUseCase(saveWholeOutput, lastCommand)
     }
 
     fun runBasicCommand() = runCommand { shellRepository.executeBasicCommand(it) }

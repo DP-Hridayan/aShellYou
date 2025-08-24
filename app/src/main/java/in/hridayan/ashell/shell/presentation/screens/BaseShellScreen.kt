@@ -410,7 +410,8 @@ private fun OutputCard(
                 emptyList()
             } else {
                 allOutputs.flatMapIndexed { index, outputState ->
-                    val command = results.getOrNull(index)?.command ?: return@flatMapIndexed emptyList()
+                    val command =
+                        results.getOrNull(index)?.command ?: return@flatMapIndexed emptyList()
                     listOf(OutputLine("$ $command", isError = false)) + outputState.value
                 }
             }
@@ -499,6 +500,7 @@ fun BottomExtendedFAB(
     val coroutineScope = rememberCoroutineScope()
     val results by shellViewModel.commandResults.collectAsState()
     val savePath = LocalSettings.current.outputSaveDirectory.toUri()
+    val saveWholeOutput = LocalSettings.current.saveWholeOutput
 
     val expanded by remember {
         derivedStateOf {
@@ -514,7 +516,6 @@ fun BottomExtendedFAB(
         if (results.isEmpty()) stringResource(R.string.paste) else stringResource(R.string.save)
 
     val saveAction: () -> Unit = {
-
         val allOutputText = buildString {
             results.forEachIndexed { index, commandResult ->
                 appendLine("$ ${commandResult.command}")
@@ -526,12 +527,18 @@ fun BottomExtendedFAB(
             }
         }
 
+        val lastOutputText = shellViewModel.getLastCommandOutput(allOutputText)
+
+        val fileName = shellViewModel.getSaveOutputFileName(saveWholeOutput)
+
+        val textToSave = if (saveWholeOutput) allOutputText else lastOutputText
+
         activity?.let {
             coroutineScope.launch {
                 saveToFileFlow(
-                    sb = allOutputText,
+                    sb = textToSave,
                     activity = it,
-                    fileName = "ashell_output.txt",
+                    fileName = fileName,
                     savePathUri = savePath
                 ).collect { success ->
                     val message =

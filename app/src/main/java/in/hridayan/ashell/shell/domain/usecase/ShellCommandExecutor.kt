@@ -22,6 +22,7 @@ class ShellCommandExecutor {
 
     fun runBasic(commandText: String, context: Context): Flow<OutputLine> = flow {
         val busyboxFile = File(context.filesDir, "busybox")
+
         val process =
             Runtime.getRuntime().exec(arrayOf(busyboxFile.absolutePath, "sh", "-c", commandText))
         emitAll(exec(process))
