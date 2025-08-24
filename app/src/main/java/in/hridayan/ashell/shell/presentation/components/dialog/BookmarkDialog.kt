@@ -101,7 +101,7 @@ fun BookmarkDialog(
                             Text(
                                 text = bookmark.command,
                                 style = MaterialTheme.typography.bodyLarge,
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
                             )
                         }
                     }

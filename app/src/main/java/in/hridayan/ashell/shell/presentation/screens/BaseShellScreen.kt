@@ -3,28 +3,29 @@
 package `in`.hridayan.ashell.shell.presentation.screens
 
 import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Send
+import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -40,6 +41,7 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -50,6 +52,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -62,19 +65,20 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.ui.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.ui.utils.hideKeyboard
@@ -84,7 +88,6 @@ import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.core.utils.saveToFileFlow
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.home.presentation.screens.SettingsButton
 import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
@@ -101,7 +104,6 @@ import `in`.hridayan.ashell.shell.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch
-import java.io.File
 
 @Composable
 fun BaseShellScreen(
@@ -127,6 +129,7 @@ fun BaseShellScreen(
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val lastSavedFileUri = LocalSettings.current.lastSavedFileUri
     val textFieldFocusRequester = remember { FocusRequester() }
+    val focusManager = LocalFocusManager.current
     val history = shellViewModel.history.collectAsState(initial = emptyList())
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
@@ -190,6 +193,11 @@ fun BaseShellScreen(
         ) else historyMenuExpanded = true
     }
 
+    val handleClearOutput: () -> Unit = {
+        shellViewModel.clearOutput()
+        focusManager.clearFocus()
+    }
+
     val handleSearchButtonClick: () -> Unit = {
         if (commandResults.isEmpty()) showToast(
             context,
@@ -224,9 +232,17 @@ fun BaseShellScreen(
         modifier = modifier,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         floatingActionButton = {
-            BottomExtendedFAB(listState = listState, onClickSave = { success ->
-                handleSaveButtonClick(success)
-            })
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.spacedBy(15.dp),
+                modifier = Modifier.padding(bottom = 10.dp)
+            ) {
+                SmallFAB(listState = listState)
+
+                BottomExtendedFAB(listState = listState, onClickSave = { success ->
+                    handleSaveButtonClick(success)
+                })
+            }
         })
     { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
@@ -236,6 +252,7 @@ fun BaseShellScreen(
                 UtilityButtonGroup(
                     isOutputEmpty = commandResults.isEmpty(),
                     showClearOutputDialog = { showClearOutputDialog = true },
+                    handleClearOutput = { handleClearOutput() },
                     showBookmarkDialog = {
                         handleBookmarkButtonClick()
                     },
@@ -377,7 +394,7 @@ fun BaseShellScreen(
         if (showClearOutputDialog) {
             ClearOutputConfirmationDialog(
                 onDismiss = { showClearOutputDialog = false },
-                onConfirm = { shellViewModel.clearOutput() })
+                onConfirm = { handleClearOutput() })
         }
 
         if (showBookmarkDialog) {
@@ -483,7 +500,11 @@ private fun OutputCard(
             contentColor = MaterialTheme.colorScheme.onSurface
         )
     ) {
-        SelectionContainer {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+        ) {
             LazyColumn(
                 state = listState,
                 modifier = Modifier
@@ -511,31 +532,66 @@ private fun OutputCard(
                             fontFamily = FontFamily.Monospace,
                             fontWeight = FontWeight.SemiBold
                         )
-                        else MaterialTheme.typography.bodySmallEmphasized.copy(fontFamily = FontFamily.Monospace)
+                        else MaterialTheme.typography.bodySmallEmphasized.copy(
+                            fontFamily = FontFamily.Monospace
+                        )
 
                     text?.let {
-                        runCatching {
-                            Text(
-                                text = text,
-                                style = textStyle,
-                                color = lineColor,
-                                modifier = Modifier.then(
+                        Text(
+                            text = text,
+                            style = textStyle,
+                            color = lineColor,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .then(
                                     if (isCommandLine == true) Modifier.padding(
                                         top = 20.dp,
                                         bottom = 10.dp
                                     ) else Modifier
                                 )
-                            )
-                        }.getOrElse { "" }
+                        )
                     }
                 }
             }
+
+            VerticalScrollbar(
+                listState = listState,
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .fillMaxHeight()
+                    .width(4.dp)
+            )
         }
     }
 }
 
 @Composable
-fun BottomExtendedFAB(
+private fun SmallFAB(
+    modifier: Modifier = Modifier,
+    listState: LazyListState,
+    shellViewModel: ShellViewModel = hiltViewModel()
+) {
+    val results by shellViewModel.commandResults.collectAsState()
+    if (results.isEmpty()) return
+
+    val icon = Icons.Rounded.Share
+
+    val onShare: () -> Unit = {
+
+    }
+
+    SmallFloatingActionButton(
+        onClick = {
+        }, containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+    ) {
+        Icon(imageVector = icon, contentDescription = null)
+    }
+
+}
+
+@Composable
+private fun BottomExtendedFAB(
     modifier: Modifier = Modifier,
     listState: LazyListState,
     onClickSave: (success: Boolean) -> Unit,
@@ -549,10 +605,15 @@ fun BottomExtendedFAB(
     val savePath = LocalSettings.current.outputSaveDirectory.toUri()
     val saveWholeOutput = LocalSettings.current.saveWholeOutput
 
+    var lastScrollOffset by remember { mutableIntStateOf(0) }
+
     val expanded by remember {
         derivedStateOf {
-            listState.firstVisibleItemIndex == 0 &&
-                    listState.firstVisibleItemScrollOffset < 10
+            val currentOffset =
+                listState.firstVisibleItemIndex * 1000 + listState.firstVisibleItemScrollOffset
+            val isScrollingUp = currentOffset < lastScrollOffset
+            lastScrollOffset = currentOffset
+            isScrollingUp || results.isEmpty()
         }
     }
 

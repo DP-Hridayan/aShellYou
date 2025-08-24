@@ -48,6 +48,7 @@ fun UtilityButtonGroup(
     shellViewModel: ShellViewModel = hiltViewModel(),
     isOutputEmpty: Boolean,
     showClearOutputDialog: () -> Unit = {},
+    handleClearOutput: () -> Unit = {},
     showBookmarkDialog: () -> Unit = {},
     showHistoryMenu: () -> Unit = {},
 ) {
@@ -173,7 +174,7 @@ fun UtilityButtonGroup(
                     }
 
                     if (askToClean) showClearOutputDialog()
-                    else shellViewModel.clearOutput()
+                    else handleClearOutput()
                 },
                 shapes = IconButtonDefaults.shapes(),
                 colors = IconButtonDefaults.iconButtonColors(
