@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.core.utils
 
+import android.Manifest
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
@@ -9,12 +10,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
+import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.core.domain.model.OutputSaveResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.io.IOException
@@ -91,7 +93,7 @@ fun saveToFileFlow(
     activity: Activity,
     fileName: String,
     savePathUri: Uri
-): Flow<Boolean> = flow {
+): Flow<OutputSaveResult> = flow {
     val result = when {
         savePathUri.scheme == "content" -> saveToCustomDirectory(
             sb,
@@ -111,23 +113,24 @@ fun saveToFileFlow(
     emit(result)
 }
 
+
 private fun saveToCustomDirectory(
     sb: String,
     activity: Activity,
     fileName: String,
     treeUri: Uri
-): Boolean {
-    val documentFile = DocumentFile.fromTreeUri(activity, treeUri) ?: return false
-    val file = documentFile.createFile("text/plain", fileName) ?: return false
+): OutputSaveResult {
+    val documentFile = DocumentFile.fromTreeUri(activity, treeUri) ?: return OutputSaveResult(false)
+    val file = documentFile.createFile("text/plain", fileName) ?: return OutputSaveResult(false)
 
     return try {
         activity.contentResolver.openOutputStream(file.uri)?.use { outputStream ->
             outputStream.write(sb.toByteArray())
-            true
-        } ?: false
+        }
+        OutputSaveResult(true, file.uri)
     } catch (e: IOException) {
         Log.e("FileUtils", "Error writing file", e)
-        false
+        OutputSaveResult(false)
     }
 }
 
@@ -135,45 +138,45 @@ private fun saveToFileApi29AndAbove(
     sb: String,
     activity: Activity,
     fileName: String
-): Boolean = try {
+): OutputSaveResult = try {
     val values = ContentValues().apply {
-        put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, fileName)
-        put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "text/plain")
-        put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+        put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+        put(MediaStore.MediaColumns.MIME_TYPE, "text/plain")
+        put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
     }
 
     val uri = activity.contentResolver.insert(
-        android.provider.MediaStore.Files.getContentUri("external"),
+        MediaStore.Files.getContentUri("external"),
         values
     )
 
     uri?.let {
         activity.contentResolver.openOutputStream(it)?.use { outputStream ->
             outputStream.write(sb.toByteArray())
-            true
         }
-    } ?: false
+        OutputSaveResult(true, it)
+    } ?: OutputSaveResult(false, null)
 } catch (e: Exception) {
     Log.e("FileUtils", "Error saving file API29+", e)
-    false
+    OutputSaveResult(false, null)
 }
 
 private fun saveToFileBelowApi29(
     sb: String,
     activity: Activity,
     fileName: String
-): Boolean {
+): OutputSaveResult {
     if (ActivityCompat.checkSelfPermission(
             activity,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) != PackageManager.PERMISSION_GRANTED
     ) {
         ActivityCompat.requestPermissions(
             activity,
-            arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
             0
         )
-        return false
+        return OutputSaveResult(false)
     }
 
     return try {
@@ -182,9 +185,16 @@ private fun saveToFileBelowApi29(
             fileName
         )
         file.writeText(sb)
-        true
+
+        val uri = FileProvider.getUriForFile(
+            activity,
+            "${activity.packageName}.provider",
+            file
+        )
+
+        OutputSaveResult(true, uri)
     } catch (e: Exception) {
         Log.e("FileUtils", "Error saving file below API29", e)
-        false
+        OutputSaveResult(false)
     }
 }

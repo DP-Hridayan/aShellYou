@@ -41,6 +41,7 @@ enum class SettingsKeys(val default: Any?) {
             Environment.DIRECTORY_DOWNLOADS
         ).absolutePath
     ),
+    LAST_SAVED_FILE_URI(""),
     LOCAL_ADB_WORKING_MODE(LocalAdbWorkingMode.BASIC),
     DISABLE_SOFT_KEYBOARD(false),
     OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT(false),

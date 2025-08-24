@@ -69,6 +69,8 @@ fun CompositionLocals(
 
     val saveWholeOutput by settingsViewModel.booleanState(SettingsKeys.SAVE_WHOLE_OUTPUT)
 
+    val lastSavedFileUri by settingsViewModel.stringState(SettingsKeys.LAST_SAVED_FILE_URI)
+
     val isFirstLaunch by settingsViewModel.booleanState(SettingsKeys.FIRST_LAUNCH)
 
     val bookmarkSortType by settingsViewModel.intState(SettingsKeys.BOOKMARK_SORT_TYPE)
@@ -91,6 +93,7 @@ fun CompositionLocals(
             disableSoftKeyboard,
             outputSaveDirectory,
             saveWholeOutput,
+            lastSavedFileUri,
             isFirstLaunch,
             bookmarkSortType
         ) {
@@ -111,6 +114,7 @@ fun CompositionLocals(
                 disableSoftKeyboard = disableSoftKeyboard,
                 outputSaveDirectory = outputSaveDirectory,
                 saveWholeOutput = saveWholeOutput,
+                lastSavedFileUri = lastSavedFileUri,
                 isFirstLaunch = isFirstLaunch,
                 bookmarkSortType = bookmarkSortType
             )

@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.domain.usecase
 
 import android.content.Context
+import android.util.Log
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -21,10 +22,8 @@ class ShellCommandExecutor {
     private var currentDir = "/"
 
     fun runBasic(commandText: String, context: Context): Flow<OutputLine> = flow {
-        val busyboxFile = File(context.filesDir, "busybox")
+        val process = Runtime.getRuntime().exec(arrayOf("sh", "-c", commandText))
 
-        val process =
-            Runtime.getRuntime().exec(arrayOf(busyboxFile.absolutePath, "sh", "-c", commandText))
         emitAll(exec(process))
     }.flowOn(Dispatchers.IO)
 

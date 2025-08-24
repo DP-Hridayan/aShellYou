@@ -33,7 +33,6 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -50,6 +49,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.getFullPathFromTreeUri
@@ -66,16 +66,15 @@ fun ConfigureSaveDirectoryDialog(
 
     val weakHaptic = LocalWeakHaptic.current
 
-    val uriString = settingsViewModel.getString(SettingsKeys.OUTPUT_SAVE_DIRECTORY)
-        .collectAsState(initial = SettingsKeys.OUTPUT_SAVE_DIRECTORY.default as String)
+    val uriString = LocalSettings.current.outputSaveDirectory
 
     val pathToDisplay =
-        if (uriString.value != SettingsKeys.OUTPUT_SAVE_DIRECTORY.default) {
+        if (uriString != SettingsKeys.OUTPUT_SAVE_DIRECTORY.default) {
             getFullPathFromTreeUri(
-                uriString.value.toUri(),
+                uriString.toUri(),
                 context
-            ) ?: uriString.value
-        } else uriString.value
+            ) ?: uriString
+        } else uriString
 
     var rotationAngle by rememberSaveable { mutableFloatStateOf(0f) }
 
@@ -105,7 +104,7 @@ fun ConfigureSaveDirectoryDialog(
         weakHaptic()
         settingsViewModel.setString(
             SettingsKeys.OUTPUT_SAVE_DIRECTORY,
-            SettingsKeys.OUTPUT_SAVE_DIRECTORY.default
+            SettingsKeys.OUTPUT_SAVE_DIRECTORY.default as String
         )
         rotationAngle -= 360f
     }

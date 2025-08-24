@@ -2,6 +2,9 @@
 
 package `in`.hridayan.ashell.shell.presentation.screens
 
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
@@ -65,6 +68,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
@@ -80,8 +84,11 @@ import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.core.utils.saveToFileFlow
 import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.home.presentation.screens.SettingsButton
 import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.components.button.UtilityButtonGroup
@@ -89,10 +96,12 @@ import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarkDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarksSortDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.DeleteBookmarksDialog
+import `in`.hridayan.ashell.shell.presentation.components.dialog.FileSavedDialog
 import `in`.hridayan.ashell.shell.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch
+import java.io.File
 
 @Composable
 fun BaseShellScreen(
@@ -116,6 +125,7 @@ fun BaseShellScreen(
     val isKeyboardVisible = isKeyboardVisible().value
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
+    val lastSavedFileUri = LocalSettings.current.lastSavedFileUri
     val textFieldFocusRequester = remember { FocusRequester() }
     val history = shellViewModel.history.collectAsState(initial = emptyList())
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
@@ -123,6 +133,7 @@ fun BaseShellScreen(
     var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
     var showDeleteConfirmationDialog by rememberSaveable { mutableStateOf(false) }
     var showBookmarkSortDialog by rememberSaveable { mutableStateOf(false) }
+    var showFileSavedDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(disableSoftKeyboard) {
         disableKeyboard(context, disableSoftKeyboard)
@@ -186,12 +197,37 @@ fun BaseShellScreen(
         )
     }
 
+    val handleSaveButtonClick: (success: Boolean) -> Unit = { success ->
+        showFileSavedDialog = success
+    }
+
+    val handleSavedFileOpen: () -> Unit = {
+        try {
+            val uri = lastSavedFileUri.toUri()
+
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, "text/plain")
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+
+            context.startActivity(
+                Intent.createChooser(intent, "Open text file")
+            )
+        } catch (e: Exception) {
+            showToast(context, context.getString(R.string.file_not_found))
+        }
+    }
+
     val listState = rememberLazyListState()
 
     Scaffold(
         modifier = modifier,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        floatingActionButton = { BottomExtendedFAB(listState = listState) })
+        floatingActionButton = {
+            BottomExtendedFAB(listState = listState, onClickSave = { success ->
+                handleSaveButtonClick(success)
+            })
+        })
     { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Column(
@@ -386,6 +422,15 @@ fun BaseShellScreen(
             )
         }
 
+        if (showFileSavedDialog) {
+            FileSavedDialog(
+                onDismiss = {
+                    showFileSavedDialog = false
+                },
+                onOpenFile = { handleSavedFileOpen() },
+            )
+        }
+
         extraContent()
     }
 }
@@ -493,7 +538,9 @@ private fun OutputCard(
 fun BottomExtendedFAB(
     modifier: Modifier = Modifier,
     listState: LazyListState,
-    shellViewModel: ShellViewModel = hiltViewModel()
+    onClickSave: (success: Boolean) -> Unit,
+    shellViewModel: ShellViewModel = hiltViewModel(),
+    settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
@@ -540,12 +587,12 @@ fun BottomExtendedFAB(
                     activity = it,
                     fileName = fileName,
                     savePathUri = savePath
-                ).collect { success ->
-                    val message =
-                        if (success) context.getString(R.string.shell_output_saved_message)
-                        else context.getString(R.string.shell_output_not_saved_message)
-
-                    showToast(context, message)
+                ).collect { result ->
+                    onClickSave(result.success)
+                    if (result.success) settingsViewModel.setString(
+                        key = SettingsKeys.LAST_SAVED_FILE_URI,
+                        value = result.uri.toString()
+                    )
                 }
             }
         }

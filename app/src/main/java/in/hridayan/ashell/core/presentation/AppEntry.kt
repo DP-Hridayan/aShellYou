@@ -49,6 +49,7 @@ fun AppEntry(
         }
     }
 
+    /*
     LaunchedEffect(Unit) {
         val busyboxFile = File(context.filesDir, "busybox")
         if (!busyboxFile.exists()) {
@@ -60,7 +61,7 @@ fun AppEntry(
             // Make it executable
             busyboxFile.setExecutable(true)
         }
-    }
+    } */
 
     LaunchedEffect(savedVersionCode, firstLaunchFlow) {
         showChangelogSheet = savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow

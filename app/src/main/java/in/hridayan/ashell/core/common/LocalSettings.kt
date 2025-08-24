@@ -27,6 +27,7 @@ val LocalSettings = compositionLocalOf<SettingsState> {
         disableSoftKeyboard = false,
         outputSaveDirectory = SettingsKeys.OUTPUT_SAVE_DIRECTORY.default as String,
         saveWholeOutput = true,
+        lastSavedFileUri = "",
         isFirstLaunch = true,
         bookmarkSortType = SortType.AZ
     )
