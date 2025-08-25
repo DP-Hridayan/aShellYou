@@ -93,6 +93,7 @@ import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.components.button.UtilityButtonGroup
@@ -123,6 +124,7 @@ fun BaseShellScreen(
     val commandResults by shellViewModel.commandResults.collectAsState()
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+    val listState = rememberLazyListState()
     val command by shellViewModel.command.collectAsState()
     val commandError by shellViewModel.commandError.collectAsState()
     val shellState by shellViewModel.shellState.collectAsState()
@@ -228,8 +230,6 @@ fun BaseShellScreen(
         }
     }
 
-    val listState = rememberLazyListState()
-
     Scaffold(
         modifier = modifier,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
@@ -237,13 +237,15 @@ fun BaseShellScreen(
             Column(
                 horizontalAlignment = Alignment.End,
                 verticalArrangement = Arrangement.spacedBy(15.dp),
-                modifier = Modifier.padding(bottom = 10.dp)
+                modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)
             ) {
                 SmallFAB(listState = listState)
 
-                BottomExtendedFAB(listState = listState, onClickSave = { success ->
-                    handleSaveButtonClick(success)
-                })
+                BottomExtendedFAB(
+                    listState = listState,
+                    onClickSave = { success ->
+                        handleSaveButtonClick(success)
+                    })
             }
         })
     { innerPadding ->
@@ -624,7 +626,8 @@ private fun SmallFAB(
             weakHaptic()
             shareAction()
         }, containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+        modifier = modifier
     ) {
         Icon(imageVector = icon, contentDescription = null)
     }
@@ -650,11 +653,9 @@ private fun BottomExtendedFAB(
 
     val expanded by remember {
         derivedStateOf {
-            val currentOffset =
-                listState.firstVisibleItemIndex * 1000 + listState.firstVisibleItemScrollOffset
-            val isScrollingUp = currentOffset < lastScrollOffset
-            lastScrollOffset = currentOffset
-            isScrollingUp || results.isEmpty()
+            listState.shouldFabExpand(results, lastScrollOffset) {
+                lastScrollOffset = it
+            }
         }
     }
 
@@ -724,7 +725,39 @@ private fun BottomExtendedFAB(
             )
         },
         text = {
-            AutoResizeableText(buttonText)
+            AutoResizeableText(text = buttonText)
         }
     )
 }
+
+private fun LazyListState.shouldFabExpand(
+    results: List<CommandResult>,
+    lastScrollOffset: Int,
+    onScrollOffsetChanged: (Int) -> Unit
+): Boolean {
+    val currentOffset = firstVisibleItemIndex * 1000 + firstVisibleItemScrollOffset
+    val isScrollingUp = currentOffset < lastScrollOffset
+    val isScrollingDown = currentOffset > lastScrollOffset
+    onScrollOffsetChanged(currentOffset)
+
+    val info = layoutInfo
+    val visible = info.visibleItemsInfo
+    val lastVisible = visible.lastOrNull()
+
+    val fitsOnScreen = if (info.totalItemsCount == 0 || lastVisible == null) {
+        true
+    } else {
+        val allItemsVisible = info.totalItemsCount == visible.size
+        val lastBottom = lastVisible.offset + lastVisible.size
+        allItemsVisible && lastBottom <= info.viewportEndOffset
+    }
+
+    return when {
+        results.isEmpty() -> true
+        fitsOnScreen -> true
+        isScrollingUp -> true
+        isScrollingDown -> false
+        else -> false
+    }
+}
+
