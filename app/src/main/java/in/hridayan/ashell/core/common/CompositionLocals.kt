@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalView
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.constants.SeedColors
 import `in`.hridayan.ashell.core.presentation.ui.utils.HapticUtils.strongHaptic
 import `in`.hridayan.ashell.core.presentation.ui.utils.HapticUtils.weakHaptic
