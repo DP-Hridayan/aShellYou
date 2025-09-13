@@ -1,6 +1,6 @@
 [versions]
 lifecycle = "2.7.0"
-material = "1.13.0-alpha11"
+material = "1.14.0-alpha04"
 preference = "1.2.1"
 shizuku = "13.1.0"
 libsu = "6.0.0"
