@@ -23,6 +23,10 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           THREAD_ID: ${{ secrets.THREAD_ID }}
+          COMMIT_MSG_RAW: ${{ github.event.head_commit.message }}
+          ISSUE_TITLE_RAW: ${{ github.event.issue.title }}
+          PR_TITLE_RAW: ${{ github.event.pull_request.title }}
+
         run: |
           EVENT_NAME="${{ github.event_name }}"
           ACTOR="${{ github.actor }}"
@@ -55,8 +59,7 @@ jobs:
             fi
           }
 
-          if [[ "$EVENT_NAME" == "push" ]]; then
-            COMMIT_MSG_RAW="${{ github.event.head_commit.message }}"
+          if [[ "$EVENT_NAME" == "push" ]]; then 
             COMMIT_URL="${{ github.event.head_commit.url }}"
             COMMIT_MSG=$(escape_markdown "$COMMIT_MSG_RAW")
             REPLY='{"inline_keyboard": [[{"text": "View Commit", "url": "'"$COMMIT_URL"'"}]]}'
@@ -67,7 +70,6 @@ jobs:
 
           elif [[ "$EVENT_NAME" == "issues" ]]; then
             ISSUE_ACTION="${{ github.event.action }}"
-            ISSUE_TITLE_RAW="${{ github.event.issue.title }}"
             ISSUE_URL="${{ github.event.issue.html_url }}"
             ISSUE_TITLE=$(escape_markdown "$ISSUE_TITLE_RAW")
             if [[ "$ISSUE_ACTION" == "closed" ]]; then
@@ -81,7 +83,6 @@ jobs:
 
           elif [[ "$EVENT_NAME" == "pull_request" ]]; then
           PR_ACTION="${{ github.event.action }}"
-          PR_TITLE_RAW="${{ github.event.pull_request.title }}"
           PR_URL="${{ github.event.pull_request.html_url }}"
           PR_TITLE=$(escape_markdown "$PR_TITLE_RAW")
           PR_MERGED="${{ github.event.pull_request.merged }}"
