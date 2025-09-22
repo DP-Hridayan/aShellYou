@@ -1,5 +1,5 @@
 [versions]
-lifecycle = "2.7.0"
+lifecycle = "2.9.4"
 material = "1.13.0-alpha11"
 preference = "1.2.1"
 shizuku = "13.1.0"
