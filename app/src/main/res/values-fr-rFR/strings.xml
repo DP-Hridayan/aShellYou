@@ -153,7 +153,7 @@
     <string name="only_last_command_output">Seulement la sortie de la dernière commande</string>
     <string name="open">Ouvrir</string>
     <string name="open_adb">Ouvrir le shell ADB</string>
-    <string name="open_shizuku">Open Shizuku</string>
+    <string name="open_shizuku">Ouvrir Shizuku</string>
     <string name="otg">OTG</string>
     <string name="otg_not_connected">Connectez correctement l\'appareil via OTG et réessayez</string>
     <string name="paste">Coller</string>
