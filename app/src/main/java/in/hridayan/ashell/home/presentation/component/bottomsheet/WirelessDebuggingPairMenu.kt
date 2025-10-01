@@ -11,6 +11,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,9 +33,10 @@ import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 @Composable
 fun WirelessDebuggingPairingMenu(
     modifier: Modifier = Modifier,
-    sheetState: SheetState,
     onDismissRequest: () -> Unit = {}
 ) {
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
     ModalBottomSheet(
         modifier = modifier,
         sheetState = sheetState,

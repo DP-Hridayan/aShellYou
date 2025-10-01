@@ -45,7 +45,7 @@ fun lightColorSchemeFromSeed(): ColorScheme {
 
         surface = 98.n1,
         onSurface = 10.n1,
-        surfaceVariant = 97.n2,
+        surfaceVariant = 90.n2,
         onSurfaceVariant = 30.n2,
         surfaceDim = 87.n1,
         surfaceBright = 98.n1,
@@ -85,7 +85,7 @@ fun darkColorSchemeFromSeed(): ColorScheme {
 
         surface = 6.n1,
         onSurface = 90.n1,
-        surfaceVariant = 13.n2,
+        surfaceVariant = 30.n2,
         onSurfaceVariant = 80.n2,
         surfaceDim = 6.n1,
         surfaceBright = 24.n1,

@@ -46,6 +46,7 @@ import `in`.hridayan.ashell.core.presentation.components.button.OutlinedIconButt
 import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.core.utils.UrlUtils
+import `in`.hridayan.ashell.home.presentation.component.bottomsheet.WirelessDebuggingPairingMenu
 import `in`.hridayan.ashell.home.presentation.component.card.DeviceInfoCard
 import `in`.hridayan.ashell.home.presentation.component.card.RebootOptionsCard
 import `in`.hridayan.ashell.home.presentation.component.card.SystemSettings
@@ -54,6 +55,7 @@ import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.navigation.LocalAdbScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.SettingsScreen
+import `in`.hridayan.ashell.navigation.WifiAdbPairingScreen
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -63,6 +65,12 @@ fun HomeScreen(
     val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
     var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
+    var showWifiAdbPairingMenu by rememberSaveable { mutableStateOf(false) }
+
+    val onClickWifiAdbStartButton: () -> Unit = {
+        weakHaptic()
+        showWifiAdbPairingMenu = true
+    }
 
     Scaffold(contentWindowInsets = WindowInsets.safeDrawing) {
         Column(
@@ -94,14 +102,19 @@ fun HomeScreen(
                 }
             )
 
-            WirelessDebuggingCard()
+            WirelessDebuggingCard(onClickStart = onClickWifiAdbStartButton)
             OtgAdbCard()
             QuickToolsCard(onClickRebootOptions = { showRebootOptionsDialog = true })
         }
     }
 
+
     if (showRebootOptionsDialog) {
         RebootOptionsDialog(onDismiss = { showRebootOptionsDialog = false })
+    }
+
+    if (showWifiAdbPairingMenu) {
+        WirelessDebuggingPairingMenu(onDismissRequest = { showWifiAdbPairingMenu = false })
     }
 }
 
@@ -196,7 +209,10 @@ fun LocalAdbCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
-fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
+fun WirelessDebuggingCard(
+    modifier: Modifier = Modifier,
+    onClickStart: () -> Unit = {}
+) {
     NavigationCard(
         title = stringResource(R.string.adb_via_wireless_debugging),
         description = stringResource(R.string.adb_via_wireless_debugging_summary),
@@ -204,13 +220,37 @@ fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
         modifier = modifier,
         onClick = { },
         content = {
-            WirelessDebuggingInstructionButton(
-                Modifier.padding(
-                    top = 35.dp,
-                    bottom = 5.dp
-                )
-            )
-            WirelessDebuggingStartButton()
+            val context = LocalContext.current
+            val navController = LocalNavController.current
+
+            OutlinedIconButtonWithText(
+                modifier = Modifier.padding(top = 35.dp),
+                text = stringResource(R.string.instructions),
+                painter = painterResource(R.drawable.ic_open_in_new),
+                onClick = {
+                    UrlUtils.openUrl(
+                        url = URL_WIRELESS_DEBUGGING_INSTRUCTIONS,
+                        context = context
+                    )
+                })
+
+
+            IconWithTextButton(
+                icon = painterResource(R.drawable.ic_pair),
+                text = stringResource(R.string.pair),
+                contentDescription = null,
+                modifier = Modifier.padding(vertical = 5.dp),
+                onClick = {
+                    navController.navigate(WifiAdbPairingScreen)
+                })
+
+            IconWithTextButton(
+                icon = painterResource(R.drawable.ic_play),
+                text = stringResource(R.string.start),
+                contentDescription = null,
+                onClick = {
+                    onClickStart()
+                })
         })
 }
 
@@ -230,30 +270,7 @@ fun OtgAdbCard(modifier: Modifier = Modifier) {
 
 @Composable
 fun WirelessDebuggingInstructionButton(modifier: Modifier = Modifier) {
-    val context = LocalContext.current
 
-    OutlinedIconButtonWithText(
-        modifier = modifier,
-        text = stringResource(R.string.instructions),
-        painter = painterResource(R.drawable.ic_open_in_new),
-        onClick = {
-            UrlUtils.openUrl(
-                url = URL_WIRELESS_DEBUGGING_INSTRUCTIONS,
-                context = context
-            )
-        })
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun WirelessDebuggingStartButton(modifier: Modifier = Modifier) {
-    IconWithTextButton(
-        icon = painterResource(R.drawable.ic_play),
-        text = stringResource(R.string.start),
-        contentDescription = null,
-        modifier = modifier,
-        onClick = {
-        })
 }
 
 @Composable

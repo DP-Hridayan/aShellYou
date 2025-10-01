@@ -55,13 +55,13 @@ fun NavigationCard(
             }
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                 shape = MaterialTheme.shapes.largeIncreased
             ),
         shape = MaterialTheme.shapes.largeIncreased,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = MaterialTheme.colorScheme.onSurface
         ),
     ) {
         Column(modifier = Modifier.padding(Dimens.paddingExtraLarge)) {

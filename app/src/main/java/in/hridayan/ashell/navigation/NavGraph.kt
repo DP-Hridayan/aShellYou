@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import `in`.hridayan.ashell.commandexamples.presentation.screens.CommandExamplesScreen
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
+import `in`.hridayan.ashell.pairing.presentation.screens.WifiAdbPairingScreen
 import `in`.hridayan.ashell.settings.presentation.page.about.screens.AboutScreen
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens.AutoUpdateScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupAndRestoreScreen
@@ -126,6 +127,15 @@ fun Navigation(isFirstLaunch: Boolean = false) {
             ) {
                 LocalAdbScreen()
             }
+
+            composable<WifiAdbPairingScreen>(
+                enterTransition = { slideFadeInFromRight() },
+                exitTransition = { slideFadeOutToLeft() },
+                popEnterTransition = { slideFadeInFromLeft() },
+                popExitTransition = { slideFadeOutToRight() }
+            ) {
+                WifiAdbPairingScreen()
+            }
         }
     }
 }
@@ -165,3 +175,6 @@ object OnboardingScreen
 
 @Serializable
 object LocalAdbScreen
+
+@Serializable
+object WifiAdbPairingScreen
