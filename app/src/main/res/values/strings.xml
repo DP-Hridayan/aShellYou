@@ -208,6 +208,7 @@
     <string name="des_share_and_run">If enabled then sharing any text to aShell You automatically runs the shell with the shared text as input</string>
     <string name="shell_output_not_saved_message">The output of last command is not saved</string>
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\'</string>
+    <string name="grant">Grant</string>
     <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\'</string>
     <string name="shell_working">Shell is working</string>
     <string name="shizuku" translatable="false">Shizuku</string>

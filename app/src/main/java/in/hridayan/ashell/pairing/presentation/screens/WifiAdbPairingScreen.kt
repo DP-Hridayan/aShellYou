@@ -32,6 +32,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,10 +55,12 @@ import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButt
 import `in`.hridayan.ashell.core.presentation.components.card.ErrorCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
+import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.openDeveloperOptions
+import `in`.hridayan.ashell.pairing.component.dialog.GrantNotificationAccessDialog
 
 @Composable
 fun WifiAdbPairingScreen(modifier: Modifier = Modifier) {
@@ -67,14 +70,16 @@ fun WifiAdbPairingScreen(modifier: Modifier = Modifier) {
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
-    val isWifiConnected = context.isConnectedToWifi()
+    var isWifiConnected by remember { mutableStateOf(context.isConnectedToWifi()) }
     var hasNotificationAccess by remember { mutableStateOf(isNotificationPermissionGranted(context)) }
+    var showNotificationEnableDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(lifecycleOwner) {
         lifecycleOwner.lifecycle.addObserver(
             LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_RESUME) {
                     hasNotificationAccess = isNotificationPermissionGranted(context)
+                    isWifiConnected = context.isConnectedToWifi()
                 }
             }
         )
@@ -83,11 +88,19 @@ fun WifiAdbPairingScreen(modifier: Modifier = Modifier) {
     val notificationSettingsIntent = createAppNotificationSettingsIntent(context)
 
     val onClickNotificationButton: () -> Unit = {
+        weakHaptic()
         context.startActivity(notificationSettingsIntent)
     }
 
+    val onClickWifiEnableButton: () -> Unit = {
+        weakHaptic()
+        context.askUserToEnableWifi()
+    }
+
     val onClickDeveloperOptionsButton: () -> Unit = {
-        openDeveloperOptions(context)
+        weakHaptic()
+        if (hasNotificationAccess) openDeveloperOptions(context)
+        else showNotificationEnableDialog = true
     }
 
     Scaffold(
@@ -128,7 +141,7 @@ fun WifiAdbPairingScreen(modifier: Modifier = Modifier) {
                 )
             }
             item { NotificationStyleErrorCard() }
-            item { WifiEnableCard() }
+            if (!isWifiConnected) item { WifiEnableCard(onClickButton = onClickWifiEnableButton) }
             item {
                 Instructions(
                     modifier = Modifier.padding(top = 20.dp),
@@ -136,6 +149,12 @@ fun WifiAdbPairingScreen(modifier: Modifier = Modifier) {
                 )
             }
         }
+    }
+
+    if (showNotificationEnableDialog) {
+        GrantNotificationAccessDialog(
+            onDismiss = { showNotificationEnableDialog = false },
+            onConfirm = { onClickNotificationButton() })
     }
 }
 
@@ -181,7 +200,7 @@ fun NotificationStyleErrorCard(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun WifiEnableCard(modifier: Modifier = Modifier) {
+fun WifiEnableCard(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
     ErrorCard(
         modifier = modifier,
         icon = painterResource(R.drawable.ic_no_wifi),
@@ -193,7 +212,7 @@ fun WifiEnableCard(modifier: Modifier = Modifier) {
                     containerColor = MaterialTheme.colorScheme.onErrorContainer,
                     contentColor = MaterialTheme.colorScheme.errorContainer
                 ),
-                onClick = { }
+                onClick = { onClickButton() }
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_wifi_settings),
