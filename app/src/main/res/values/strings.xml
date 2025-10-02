@@ -252,6 +252,7 @@
     <string name="app">App</string>
     <string name="version">Version</string>
     <string name="update">Update</string>
+    <string name="shizuku_not_installed">Shizuku is not installed</string>
 
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="no_changelog_found">No changelog found for this version</string>

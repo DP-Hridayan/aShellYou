@@ -37,9 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.navigation.HomeScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.navigation.OnboardingScreen
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import kotlinx.coroutines.launch
@@ -131,8 +130,8 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                             if (pagerState.currentPage < pageCount - 1) {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             } else {
-                                navController.navigate(HomeScreen) {
-                                    popUpTo(OnboardingScreen) { inclusive = true }
+                                navController.navigate(NavRoutes.HomeScreen) {
+                                    popUpTo(NavRoutes.OnboardingScreen) { inclusive = true }
                                 }
                                 settingsViewModel.setBoolean(SettingsKeys.FIRST_LAUNCH, false)
                             }

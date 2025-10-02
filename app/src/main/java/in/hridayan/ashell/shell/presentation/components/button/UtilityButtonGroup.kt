@@ -38,7 +38,7 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.navigation.SettingsScreen
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 
@@ -198,7 +198,7 @@ fun UtilityButtonGroup(
             IconButton(
                 onClick = {
                     weakHaptic()
-                    navController.navigate(SettingsScreen)
+                    navController.navigate(NavRoutes.SettingsScreen)
                 },
                 shapes = IconButtonDefaults.shapes(),
                 colors = IconButtonDefaults.iconButtonColors(

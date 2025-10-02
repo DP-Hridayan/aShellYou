@@ -89,8 +89,8 @@ import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.core.utils.saveToFileFlow
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.navigation.CommandExamplesScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.domain.model.CommandResult
@@ -178,7 +178,7 @@ fun BaseShellScreen(
             }
 
             is ShellState.Free -> {
-                navController.navigate(CommandExamplesScreen)
+                navController.navigate(NavRoutes.CommandExamplesScreen)
             }
         }
     }

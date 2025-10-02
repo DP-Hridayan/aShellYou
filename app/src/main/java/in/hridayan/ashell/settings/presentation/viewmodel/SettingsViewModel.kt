@@ -13,14 +13,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.constants.UrlConst
-import `in`.hridayan.ashell.navigation.AboutScreen
-import `in`.hridayan.ashell.navigation.AutoUpdateScreen
-import `in`.hridayan.ashell.navigation.BackupAndRestoreScreen
-import `in`.hridayan.ashell.navigation.BehaviorScreen
-import `in`.hridayan.ashell.navigation.ChangelogScreen
-import `in`.hridayan.ashell.navigation.CommandExamplesScreen
-import `in`.hridayan.ashell.navigation.DarkThemeScreen
-import `in`.hridayan.ashell.navigation.LookAndFeelScreen
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.data.local.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.domain.model.BackupOption
@@ -138,31 +131,31 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             when (key) {
                 SettingsKeys.LOOK_AND_FEEL -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(LookAndFeelScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.LookAndFeelScreen)
                 )
 
                 SettingsKeys.AUTO_UPDATE -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(AutoUpdateScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.AutoUpdateScreen)
                 )
 
                 SettingsKeys.BEHAVIOR -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(BehaviorScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.BehaviorScreen)
                 )
 
                 SettingsKeys.BACKUP_AND_RESTORE -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(BackupAndRestoreScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.BackupAndRestoreScreen)
                 )
 
                 SettingsKeys.COMMANDS -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(CommandExamplesScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.CommandExamplesScreen)
                 )
 
                 SettingsKeys.ABOUT -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(AboutScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.AboutScreen)
                 )
 
                 SettingsKeys.CHANGELOGS -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(ChangelogScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.ChangelogScreen)
                 )
 
                 SettingsKeys.REPORT -> _uiEvent.emit(
@@ -196,7 +189,7 @@ class SettingsViewModel @Inject constructor(
                 }
 
                 SettingsKeys.DARK_THEME -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(DarkThemeScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen)
                 )
 
                 SettingsKeys.RESET_APP_SETTINGS -> _uiEvent.emit(

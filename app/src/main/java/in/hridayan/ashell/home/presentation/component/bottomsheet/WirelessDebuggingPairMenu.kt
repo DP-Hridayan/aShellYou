@@ -1,15 +1,17 @@
 package `in`.hridayan.ashell.home.presentation.component.bottomsheet
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -23,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.ErrorCard
@@ -35,7 +38,9 @@ fun WirelessDebuggingPairingMenu(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit = {}
 ) {
+    val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val scrollState = rememberScrollState() // <-- scroll state
 
     ModalBottomSheet(
         modifier = modifier,
@@ -43,77 +48,84 @@ fun WirelessDebuggingPairingMenu(
         dragHandle = null,
         onDismissRequest = onDismissRequest
     ) {
-        Text(
-            modifier = Modifier
-                .align(Alignment.Companion.CenterHorizontally)
-                .padding(Dimens.paddingExtraLarge),
-            text = stringResource(R.string.wireless_debugging),
-            maxLines = 1,
-            style = MaterialTheme.typography.headlineSmall
-        )
-
-        ErrorCard(
-            modifier = Modifier.padding(horizontal = Dimens.paddingLarge),
-            text = stringResource(R.string.turn_off_mobile_data),
-            icon = painterResource(R.drawable.ic_warning)
-        )
-
-        LabelText(
-            stringResource(R.string.pair),
-            modifier = Modifier
-                .padding(Dimens.paddingLarge)
-                .align(Alignment.Companion.Start)
-        )
-
-        IpAddressInputField()
-
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(Dimens.paddingLarge),
-            horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
+                .verticalScroll(scrollState)
+                .padding(bottom = 16.dp)
         ) {
-            PairingPortInputField(modifier = Modifier.weight(1f))
-            PairingCodeInputField(modifier = Modifier.weight(1f))
-        }
-
-        var context = LocalContext.current
-        var text by rememberSaveable { mutableStateOf(context.getString(R.string.pair)) }
-        IconWithTextButton(
-            icon = painterResource(R.drawable.ic_pair),
-            text = text,
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.Companion.CenterHorizontally),
-            onClick = { })
-
-        LabelText(
-            stringResource(R.string.connect), modifier = Modifier
-                .padding(
-                    start = Dimens.paddingLarge,
-                    end = Dimens.paddingLarge,
-                    top = Dimens.paddingLarge
-                )
-                .align(Alignment.Companion.Start)
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Dimens.paddingLarge),
-            horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
-        ) {
-            ConnectPortInputField(modifier = Modifier.weight(1f))
-            IconWithTextButton(
-                icon = painterResource(R.drawable.ic_wireless),
-                text = stringResource(R.string.connect),
+            Text(
                 modifier = Modifier
-                    .weight(1f)
-                    .align(Alignment.Companion.CenterVertically)
-
+                    .align(Alignment.CenterHorizontally)
+                    .padding(Dimens.paddingExtraLarge),
+                text = stringResource(R.string.wireless_debugging),
+                maxLines = 1,
+                style = MaterialTheme.typography.headlineSmall
             )
+
+            ErrorCard(
+                modifier = Modifier.padding(horizontal = Dimens.paddingLarge),
+                text = stringResource(R.string.turn_off_mobile_data),
+                icon = painterResource(R.drawable.ic_warning)
+            )
+
+            LabelText(
+                stringResource(R.string.pair),
+                modifier = Modifier
+                    .padding(Dimens.paddingLarge)
+                    .align(Alignment.Start)
+            )
+
+            IpAddressInputField()
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Dimens.paddingLarge),
+                horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
+            ) {
+                PairingPortInputField(modifier = Modifier.weight(1f))
+                PairingCodeInputField(modifier = Modifier.weight(1f))
+            }
+
+            var pairButtonText by rememberSaveable { mutableStateOf(context.getString(R.string.pair)) }
+
+            IconWithTextButton(
+                icon = painterResource(R.drawable.ic_pair),
+                text = pairButtonText,
+                contentDescription = null,
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                onClick = { })
+
+            LabelText(
+                stringResource(R.string.connect), modifier = Modifier
+                    .padding(
+                        start = Dimens.paddingLarge,
+                        end = Dimens.paddingLarge,
+                        top = Dimens.paddingLarge
+                    )
+                    .align(Alignment.Start)
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(Dimens.paddingLarge),
+                horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
+            ) {
+                ConnectPortInputField(modifier = Modifier.weight(1f))
+                IconWithTextButton(
+                    icon = painterResource(R.drawable.ic_wireless),
+                    text = stringResource(R.string.connect),
+                    modifier = Modifier
+                        .weight(1f)
+                        .align(Alignment.CenterVertically)
+                )
+            }
         }
     }
 }
+
 
 @Composable
 fun IpAddressInputField(modifier: Modifier = Modifier) {

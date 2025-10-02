@@ -15,4 +15,9 @@ object UrlConst {
     const val URL_DEV_BM_COFFEE = "https://www.buymeacoffee.com/hridayan"
     const val URL_EMAIL_BUG = "mailto:hridayanofficial@gmail.com?subject=Bug%20Report"
     const val URL_EMAIL_FEATURE = "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion"
+    const val URL_WIRELESS_DEBUGGING_INSTRUCTIONS =
+        "https://github.com/DP-Hridayan/aShellYou/wiki/Wireless-Debugging-Setup"
+    const val URL_OTG_INSTRUCTIONS =
+        "https://github.com/DP-Hridayan/aShellYou/wiki/OTG-ADB-Setup-Guide"
+    const val URL_SHIZUKU_SITE = "https://shizuku.rikka.app"
 }

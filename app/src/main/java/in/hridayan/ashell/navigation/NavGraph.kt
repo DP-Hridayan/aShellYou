@@ -18,7 +18,6 @@ import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkT
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
-import kotlinx.serialization.Serializable
 
 @Composable
 fun Navigation(isFirstLaunch: Boolean = false) {
@@ -27,16 +26,16 @@ fun Navigation(isFirstLaunch: Boolean = false) {
 
         NavHost(
             navController = navController,
-            startDestination = if (isFirstLaunch) OnboardingScreen else HomeScreen
+            startDestination = if (isFirstLaunch) NavRoutes.OnboardingScreen else NavRoutes.HomeScreen
         ) {
-            composable<OnboardingScreen>(
+            composable<NavRoutes.OnboardingScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 popExitTransition = { slideFadeOutToRight() }
             ) {
                 OnboardingScreen()
             }
 
-            composable<HomeScreen>(
+            composable<NavRoutes.HomeScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() }
@@ -44,7 +43,7 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 HomeScreen()
             }
 
-            composable<SettingsScreen>(
+            composable<NavRoutes.SettingsScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() },
@@ -53,7 +52,7 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 SettingsScreen()
             }
 
-            composable<LookAndFeelScreen>(
+            composable<NavRoutes.LookAndFeelScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() },
@@ -62,14 +61,14 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 LookAndFeelScreen()
             }
 
-            composable<DarkThemeScreen>(
+            composable<NavRoutes.DarkThemeScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 popExitTransition = { slideFadeOutToRight() }
             ) {
                 DarkThemeScreen()
             }
 
-            composable<BehaviorScreen>(
+            composable<NavRoutes.BehaviorScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() },
@@ -78,7 +77,7 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 BehaviorScreen()
             }
 
-            composable<AboutScreen>(
+            composable<NavRoutes.AboutScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() },
@@ -87,7 +86,7 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 AboutScreen()
             }
 
-            composable<CommandExamplesScreen>(
+            composable<NavRoutes.CommandExamplesScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() },
@@ -97,7 +96,7 @@ fun Navigation(isFirstLaunch: Boolean = false) {
             }
 
 
-            composable<ChangelogScreen>(
+            composable<NavRoutes.ChangelogScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 popExitTransition = { slideFadeOutToRight() }
             ) {
@@ -105,21 +104,21 @@ fun Navigation(isFirstLaunch: Boolean = false) {
             }
 
 
-            composable<AutoUpdateScreen>(
+            composable<NavRoutes.AutoUpdateScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 popExitTransition = { slideFadeOutToRight() }
             ) {
                 AutoUpdateScreen()
             }
 
-            composable<BackupAndRestoreScreen>(
+            composable<NavRoutes.BackupAndRestoreScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 popExitTransition = { slideFadeOutToRight() }
             ) {
                 BackupAndRestoreScreen()
             }
 
-            composable<LocalAdbScreen>(
+            composable<NavRoutes.LocalAdbScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() },
@@ -128,7 +127,7 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 LocalAdbScreen()
             }
 
-            composable<WifiAdbPairingScreen>(
+            composable<NavRoutes.WifiAdbPairingScreen>(
                 enterTransition = { slideFadeInFromRight() },
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() },
@@ -139,42 +138,3 @@ fun Navigation(isFirstLaunch: Boolean = false) {
         }
     }
 }
-
-@Serializable
-object SettingsScreen
-
-@Serializable
-object LookAndFeelScreen
-
-@Serializable
-object DarkThemeScreen
-
-@Serializable
-object AboutScreen
-
-@Serializable
-object AutoUpdateScreen
-
-@Serializable
-object ChangelogScreen
-
-@Serializable
-object BehaviorScreen
-
-@Serializable
-object HomeScreen
-
-@Serializable
-object CommandExamplesScreen
-
-@Serializable
-object BackupAndRestoreScreen
-
-@Serializable
-object OnboardingScreen
-
-@Serializable
-object LocalAdbScreen
-
-@Serializable
-object WifiAdbPairingScreen

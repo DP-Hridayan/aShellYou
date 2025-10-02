@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -40,8 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.common.config.URL_OTG_INSTRUCTIONS
-import `in`.hridayan.ashell.core.common.config.URL_WIRELESS_DEBUGGING_INSTRUCTIONS
+import `in`.hridayan.ashell.core.common.constants.UrlConst.URL_OTG_INSTRUCTIONS
+import `in`.hridayan.ashell.core.common.constants.UrlConst.URL_WIRELESS_DEBUGGING_INSTRUCTIONS
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.button.OutlinedIconButtonWithText
 import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
@@ -53,10 +52,8 @@ import `in`.hridayan.ashell.home.presentation.component.card.RebootOptionsCard
 import `in`.hridayan.ashell.home.presentation.component.card.SystemSettings
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
-import `in`.hridayan.ashell.navigation.LocalAdbScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.navigation.SettingsScreen
-import `in`.hridayan.ashell.navigation.WifiAdbPairingScreen
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.pairing.component.dialog.PairModeChooseDialog
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -95,14 +92,14 @@ fun HomeScreen(
                 AppNameText(modifier = Modifier.weight(1f))
                 SettingsButton(onClick = {
                     weakHaptic()
-                    navController.navigate(SettingsScreen)
+                    navController.navigate(NavRoutes.SettingsScreen)
                 })
             }
 
             LocalAdbCard(
                 modifier = Modifier.padding(top = 10.dp),
                 onClick = {
-                    navController.navigate(LocalAdbScreen)
+                    navController.navigate(NavRoutes.LocalAdbScreen)
                 }
             )
 
@@ -129,7 +126,7 @@ fun HomeScreen(
             onDismiss = { showPairModeChooseDialog = false },
             onClickPairSelf = {
                 showPairModeChooseDialog = false
-                navController.navigate(WifiAdbPairingScreen)
+                navController.navigate(NavRoutes.WifiAdbPairingScreen)
             },
             onClickPairAnother = {
                 showPairModeChooseDialog = false

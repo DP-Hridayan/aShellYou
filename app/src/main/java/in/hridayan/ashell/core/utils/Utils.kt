@@ -80,6 +80,23 @@ fun Context.isAppInstalled(packageName: String): Boolean {
     return packageManager.getLaunchIntentForPackage(packageName) != null
 }
 
+fun Context.launchApp(packageName: String) {
+    val pm = this.packageManager
+    val launchIntent = pm.getLaunchIntentForPackage(packageName)
+
+    if (launchIntent != null) {
+        startActivity(launchIntent)
+    } else {
+        showToast(this, this.getString(R.string.shizuku_not_installed))
+        // Optionally redirect to Play Store or GitHub
+        // val playStoreIntent = Intent(
+        //     Intent.ACTION_VIEW,
+        //     Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+        // )
+        // activity.startActivity(playStoreIntent)
+    }
+}
+
 fun openDeveloperOptions(context: Context) {
     val intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK
