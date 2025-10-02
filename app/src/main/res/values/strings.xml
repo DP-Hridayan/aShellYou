@@ -225,28 +225,17 @@
     <string name="start">Start</string>
     <string name="submit">Submit</string>
     <string name="local_adb_shell">Local ADB shell</string>
-
     <string name="field_blank_error">Field cannot be blank</string>
-    <string name="subject_already_exists">Subject already exists</string>
     <string name="unknown_error">Unknown error occurred</string>
-
-    <string name="add_subject">Add Subject</string>
-
-    <string name="delete_subject">Delete Subject</string>
     <string name="delete_confirmation">Are you sure you want to delete this?</string>
     <string name="save_whole_output">Save whole output</string>
     <string name="des_save_whole_output">Enable this option to save the whole output of the command.\nIf disabled only the last command output will be saved.</string>
-    <string name="present">Present</string>
-    <string name="absent">Absent</string>
-    <string name="total">Total</string>
     <string name="clear">Clear</string>
-    <string name="update">Update</string>
-    <string name="update_subject">Update Subject</string>
-    <string name="enter_subject_name">Enter subject name</string>
-    <string name="select_month_and_year">Select Month &amp; Year</string>
-    <string name="enter_new_name">Enter new name</string>
-    <string name="no_subject_yet">Click on the + button to add a subject</string>
-
+    <string name="which_device_to_pair">Which device would you like to pair?</string>
+    <string name="pair_this_device">Pair this device</string>
+    <string name="pair_another_device">Pair another device</string>
+    <string name="des_pair_another_device">Pair another target device</string>
+    <string name="self">Self</string>
     <string name="auto_update">Auto update</string>
     <string name="des_auto_update">Check for updates automatically</string>
 
@@ -262,6 +251,7 @@
     <string name="support_bmc">Like what I do?\nConsider buying me a coffee</string>
     <string name="app">App</string>
     <string name="version">Version</string>
+    <string name="update">Update</string>
 
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="no_changelog_found">No changelog found for this version</string>
@@ -301,12 +291,7 @@
     <string name="pre_release_warning">Pre-release builds may be unstable</string>
     <string name="terminal">Terminal</string>
     <string name="des_behavior">Modify certain behavior of the app</string>
-    <string name="reset_to_current_month">Reset to current month</string>
-    <string name="previous_month">Previous month</string>
-    <string name="next_month">Next month</string>
     <string name="back_button">Back button</string>
-    <string name="this_month_data">This month data</string>
-    <string name="all_months_data">All months data</string>
     <string name="last_backup_time">Last backup time</string>
     <string name="last_backup_date">Last backup date</string>
     <string name="pick_ashellyou_extension">Please pick a file with .ashellyou extension</string>
@@ -314,24 +299,8 @@
     <string name="restore_dialog_message">The data in the saved file will override the current data.</string>
     <string name="backup_date">Backup date</string>
     <string name="backup_time">Backup time</string>
-
     <string name="month">Month</string>
     <string name="year">Year</string>
-    <string-array name="month_names">
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </string-array>
-    <string name="calendar">Calendar</string>
     <string name="backup_and_restore">Backup &amp; restore</string>
     <string name="des_backup_and_restore">Backup and restore app settings and other data</string>
     <string name="backup_settings">Backup app settings</string>
@@ -358,11 +327,9 @@
     <string name="notifications">Notifications</string>
     <string name="des_notifications">Customise notification settings of the app</string>
     <string name="enable_notifications">Enable notifications</string>
-    <string name="start_week_on_monday">Start week on Monday</string>
     <string name="notify_update_available">Notify when update available</string>
     <string name="des_notify_update_available">Receive notifications when a newer version of aShellYou is released</string>
     <string name="des_update_available">A newer version of aShellYou has been released!</string>
-    <string name="des_start_week_on_monday">Prefer seeing your week begin with Monday instead of Sunday? Enable this to shift the calendar layout so Monday becomes the first day of the week.</string>
     <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
     <string name="success">Success</string>
     <string name="support_message">Like what I do?\nConsider buying me a coffee !</string>

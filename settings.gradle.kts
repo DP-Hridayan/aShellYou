@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "aShell You"
 
-include(":app")
+include(":app", ":libadb")

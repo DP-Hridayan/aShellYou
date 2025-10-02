@@ -2,8 +2,6 @@
 
 package `in`.hridayan.ashell.pairing.presentation.screens
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -80,6 +78,7 @@ fun WifiAdbPairingScreen(modifier: Modifier = Modifier) {
                 if (event == Lifecycle.Event.ON_RESUME) {
                     hasNotificationAccess = isNotificationPermissionGranted(context)
                     isWifiConnected = context.isConnectedToWifi()
+                    showNotificationEnableDialog = false
                 }
             }
         )

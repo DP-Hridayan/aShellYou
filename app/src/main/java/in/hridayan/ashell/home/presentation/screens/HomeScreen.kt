@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
@@ -56,6 +57,7 @@ import `in`.hridayan.ashell.navigation.LocalAdbScreen
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.SettingsScreen
 import `in`.hridayan.ashell.navigation.WifiAdbPairingScreen
+import `in`.hridayan.ashell.pairing.component.dialog.PairModeChooseDialog
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -66,10 +68,12 @@ fun HomeScreen(
     val navController = LocalNavController.current
     var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
     var showWifiAdbPairingMenu by rememberSaveable { mutableStateOf(false) }
+    var showPairModeChooseDialog by rememberSaveable { mutableStateOf(false) }
 
+    val onClickWifiAdbPairButton: () -> Unit = {
+        showPairModeChooseDialog = true
+    }
     val onClickWifiAdbStartButton: () -> Unit = {
-        weakHaptic()
-        showWifiAdbPairingMenu = true
     }
 
     Scaffold(contentWindowInsets = WindowInsets.safeDrawing) {
@@ -102,7 +106,10 @@ fun HomeScreen(
                 }
             )
 
-            WirelessDebuggingCard(onClickStart = onClickWifiAdbStartButton)
+            WirelessDebuggingCard(
+                onClickStart = onClickWifiAdbStartButton,
+                onClickPair = onClickWifiAdbPairButton
+            )
             OtgAdbCard()
             QuickToolsCard(onClickRebootOptions = { showRebootOptionsDialog = true })
         }
@@ -115,6 +122,19 @@ fun HomeScreen(
 
     if (showWifiAdbPairingMenu) {
         WirelessDebuggingPairingMenu(onDismissRequest = { showWifiAdbPairingMenu = false })
+    }
+
+    if (showPairModeChooseDialog) {
+        PairModeChooseDialog(
+            onDismiss = { showPairModeChooseDialog = false },
+            onClickPairSelf = {
+                showPairModeChooseDialog = false
+                navController.navigate(WifiAdbPairingScreen)
+            },
+            onClickPairAnother = {
+                showPairModeChooseDialog = false
+                showWifiAdbPairingMenu = true
+            })
     }
 }
 
@@ -211,8 +231,11 @@ fun LocalAdbCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
 @Composable
 fun WirelessDebuggingCard(
     modifier: Modifier = Modifier,
+    onClickPair: () -> Unit = {},
     onClickStart: () -> Unit = {}
 ) {
+    val weakHaptic = LocalWeakHaptic.current
+
     NavigationCard(
         title = stringResource(R.string.adb_via_wireless_debugging),
         description = stringResource(R.string.adb_via_wireless_debugging_summary),
@@ -228,6 +251,7 @@ fun WirelessDebuggingCard(
                 text = stringResource(R.string.instructions),
                 painter = painterResource(R.drawable.ic_open_in_new),
                 onClick = {
+                    weakHaptic()
                     UrlUtils.openUrl(
                         url = URL_WIRELESS_DEBUGGING_INSTRUCTIONS,
                         context = context
@@ -238,10 +262,15 @@ fun WirelessDebuggingCard(
             IconWithTextButton(
                 icon = painterResource(R.drawable.ic_pair),
                 text = stringResource(R.string.pair),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                ),
                 contentDescription = null,
                 modifier = Modifier.padding(vertical = 5.dp),
                 onClick = {
-                    navController.navigate(WifiAdbPairingScreen)
+                    weakHaptic()
+                    onClickPair()
                 })
 
             IconWithTextButton(
@@ -249,6 +278,7 @@ fun WirelessDebuggingCard(
                 text = stringResource(R.string.start),
                 contentDescription = null,
                 onClick = {
+                    weakHaptic()
                     onClickStart()
                 })
         })
