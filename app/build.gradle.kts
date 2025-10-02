@@ -156,6 +156,7 @@ dependencies {
     implementation(libs.libsu.core)
 
     implementation(libs.lottie.compose)
+    implementation(libs.nayuki.qrcode)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -24,6 +24,7 @@ material = "1.13.0"
 material3 = "1.5.0-alpha04"
 materialIconsExtended = "1.7.8"
 navigation = "2.9.5"
+nayukiQR = "1.8.0"
 room = "2.8.1"
 securityCrypto = "1.1.0"
 serialization = "1.9.0"
@@ -89,6 +90,6 @@ shizuku-api = { module = "dev.rikka.shizuku:api", version.ref = "shizuku" }
 shizuku-provider = { module = "dev.rikka.shizuku:provider", version.ref = "shizuku" }
 slf4j-android = { group = "org.slf4j", name = "slf4j-android", version.ref = "slf4j" }
 spake2-android = { module = "com.github.Mahmud0808.spake2-java:spake2-android", version.ref = "spake2Android" }
-
+nayuki-qrcode = { group = "io.nayuki", name = "qrcodegen", version.ref = "nayukiQR" }
 
 

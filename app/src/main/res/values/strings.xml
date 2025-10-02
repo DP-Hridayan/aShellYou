@@ -252,8 +252,12 @@
     <string name="app">App</string>
     <string name="version">Version</string>
     <string name="update">Update</string>
+    <string name="or">OR</string>
+    <string name="pair_manually">Pair manually</string>
+    <string name="pair_using_qr">Pair using QR</string>
     <string name="shizuku_not_installed">Shizuku is not installed</string>
-
+    <string name="qr_pair_hint">To pair an Android 11+ device, scan this QR from the target device</string>
+<string name="qr_scanner_location_hint">QR scanner available at:\nDeveloper Options > Wireless Debugging > Pair using QR Code</string>
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="no_changelog_found">No changelog found for this version</string>
     <string name="feature_request">Feature request</string>

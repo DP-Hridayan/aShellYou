@@ -46,7 +46,7 @@ import `in`.hridayan.ashell.core.presentation.components.button.OutlinedIconButt
 import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.core.utils.UrlUtils
-import `in`.hridayan.ashell.home.presentation.component.bottomsheet.WirelessDebuggingPairingMenu
+import `in`.hridayan.ashell.pairing.component.bottomsheet.WirelessDebuggingPairingMenu
 import `in`.hridayan.ashell.home.presentation.component.card.DeviceInfoCard
 import `in`.hridayan.ashell.home.presentation.component.card.RebootOptionsCard
 import `in`.hridayan.ashell.home.presentation.component.card.SystemSettings

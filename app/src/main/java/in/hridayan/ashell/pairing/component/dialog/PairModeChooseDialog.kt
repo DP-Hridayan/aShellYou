@@ -87,7 +87,7 @@ fun PairModeChooseDialog(
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                             AutoResizeableText(
                                 text = stringResource(R.string.pair_this_device),
-                                style = MaterialTheme.typography.bodyLargeEmphasized
+                                style = MaterialTheme.typography.titleMediumEmphasized
                             )
                             Text(
                                 text = stringResource(R.string.self),
@@ -120,7 +120,7 @@ fun PairModeChooseDialog(
                         Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                             AutoResizeableText(
                                 text = stringResource(R.string.pair_another_device),
-                                style = MaterialTheme.typography.bodyLargeEmphasized
+                                style = MaterialTheme.typography.titleMediumEmphasized
                             )
                             Text(
                                 text = stringResource(R.string.des_pair_another_device),
