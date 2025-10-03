@@ -20,10 +20,9 @@ import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import kotlinx.coroutines.flow.collectLatest
-import java.io.File
 
 @Composable
-fun AppEntry(
+fun AppUiEntry(
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -48,20 +47,6 @@ fun AppEntry(
             }
         }
     }
-
-    /*
-    LaunchedEffect(Unit) {
-        val busyboxFile = File(context.filesDir, "busybox")
-        if (!busyboxFile.exists()) {
-            context.assets.open("busybox").use { input ->
-                busyboxFile.outputStream().use { output ->
-                    input.copyTo(output)
-                }
-            }
-            // Make it executable
-            busyboxFile.setExecutable(true)
-        }
-    } */
 
     LaunchedEffect(savedVersionCode, firstLaunchFlow) {
         showChangelogSheet = savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow

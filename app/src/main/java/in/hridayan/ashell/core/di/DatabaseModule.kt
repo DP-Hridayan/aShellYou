@@ -12,6 +12,8 @@ import `in`.hridayan.ashell.commandexamples.data.local.database.CommandDatabase
 import `in`.hridayan.ashell.core.common.converters.StringListConverter
 import `in`.hridayan.ashell.core.data.database.BookmarkDao
 import `in`.hridayan.ashell.core.data.database.BookmarkDatabase
+import `in`.hridayan.ashell.crashreporter.data.database.CrashDatabase
+import `in`.hridayan.ashell.crashreporter.data.database.CrashLogDao
 import javax.inject.Singleton
 
 @Module
@@ -49,5 +51,23 @@ object DatabaseModule {
     @Provides
     fun provideBookmarkDao(database: BookmarkDatabase): BookmarkDao {
         return database.bookmarkDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCrashDatabase(
+        @ApplicationContext context: Context
+    ): CrashDatabase {
+        return Room.databaseBuilder(
+            context,
+            CrashDatabase::class.java,
+            "crash_database"
+        ).fallbackToDestructiveMigration(dropAllTables = false)
+            .build()
+    }
+
+    @Provides
+    fun provideCrashLogDao(db: CrashDatabase): CrashLogDao {
+        return db.crashLogDao()
     }
 }

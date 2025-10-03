@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell
+package `in`.hridayan.ashell.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,7 +16,7 @@ import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.SeedColorProvider
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
-import `in`.hridayan.ashell.core.presentation.AppEntry
+import `in`.hridayan.ashell.core.presentation.AppUiEntry
 import `in`.hridayan.ashell.core.presentation.ui.theme.AshellYouTheme
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
@@ -56,10 +56,10 @@ class MainActivity : ComponentActivity() {
 
                 AshellYouTheme {
                     Surface(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier.Companion.fillMaxSize(),
                         color = MaterialTheme.colorScheme.surface
                     ) {
-                        AppEntry()
+                        AppUiEntry()
                     }
                 }
             }

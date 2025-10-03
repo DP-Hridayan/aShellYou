@@ -5,7 +5,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
 import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.settings.data.local.model.RadioButtonOptions
+import `in`.hridayan.ashell.settings.domain.model.RadioButtonOptions
 
 class RadioGroupOptionsProvider {
     companion object {

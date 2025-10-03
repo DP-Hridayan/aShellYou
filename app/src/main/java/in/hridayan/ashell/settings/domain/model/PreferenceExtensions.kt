@@ -14,7 +14,7 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.data.local.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.data.local.model.PreferenceItem
-import `in`.hridayan.ashell.settings.data.local.model.RadioButtonOptions
+import `in`.hridayan.ashell.settings.domain.model.RadioButtonOptions
 
 fun categorizedItems(
     categoryNameResId: Int,

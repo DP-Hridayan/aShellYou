@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.data.local.model
+package `in`.hridayan.ashell.settings.domain.model
 
 data class ChangelogItem(
     val versionName: String,

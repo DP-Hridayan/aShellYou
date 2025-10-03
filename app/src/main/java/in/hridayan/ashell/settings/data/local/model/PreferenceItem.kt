@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.domain.model.RadioButtonOptions
 import `in`.hridayan.ashell.settings.domain.model.SettingsType
 
 sealed class PreferenceItem(

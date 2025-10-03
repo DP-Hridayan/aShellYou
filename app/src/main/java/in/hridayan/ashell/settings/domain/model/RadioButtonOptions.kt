@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.data.local.model
+package `in`.hridayan.ashell.settings.domain.model
 
 data class RadioButtonOptions(
     val value: Int,

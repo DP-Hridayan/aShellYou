@@ -3,8 +3,8 @@ package `in`.hridayan.ashell.settings.domain.usecase
 import android.annotation.SuppressLint
 import android.content.Context
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.settings.data.local.model.ChangelogItem
-import `in`.hridayan.ashell.settings.data.local.model.versionList
+import `in`.hridayan.ashell.settings.domain.model.ChangelogItem
+import `in`.hridayan.ashell.settings.domain.model.versionList
 
 class GetAllChangelogsUseCase(
     private val context: Context,

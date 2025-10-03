@@ -863,32 +863,49 @@ fun rememberScrollDirection(
 
     LaunchedEffect(listState) {
         snapshotFlow {
-            listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
-        }.collect { (index, offset) ->
-            val currentOffset = index * 1000 + offset
-            val dy = currentOffset - lastOffset
+            val layoutInfo = listState.layoutInfo
+            val isScrollable = layoutInfo.totalItemsCount > 0 &&
+                    layoutInfo.visibleItemsInfo.sumOf { it.size } < layoutInfo.viewportEndOffset
 
-            when {
-                dy < -fastThreshold -> {
-                    job?.cancel()
-                    direction = ScrollDirection.UP
-                }
+            val atBottom = layoutInfo.visibleItemsInfo.lastOrNull()?.let { lastItem ->
+                lastItem.index == layoutInfo.totalItemsCount - 1 &&
+                        lastItem.offset + lastItem.size <= layoutInfo.viewportEndOffset
+            } ?: false
 
-                dy > fastThreshold -> {
-                    job?.cancel()
-                    direction = ScrollDirection.DOWN
-                }
+            if (!isScrollable || atBottom) null
+            else listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
+        }.collect { value ->
+            if (value == null) {
+                direction = ScrollDirection.NONE
+                job?.cancel()
+                job = null
+            } else {
+                val (index, offset) = value
+                val currentOffset = index * 1000 + offset
+                val dy = currentOffset - lastOffset
 
-                else -> {
-                    job?.cancel()
-                    job = launch {
-                        delay(idleDelayMillis)
-                        direction = ScrollDirection.NONE
+                when {
+                    dy < -fastThreshold -> {
+                        job?.cancel()
+                        direction = ScrollDirection.UP
+                        job = null
+                    }
+                    dy > fastThreshold -> {
+                        job?.cancel()
+                        direction = ScrollDirection.DOWN
+                        job = null
+                    }
+                    else -> {
+                        job?.cancel()
+                        job = launch {
+                            delay(idleDelayMillis)
+                            direction = ScrollDirection.NONE
+                        }
                     }
                 }
-            }
 
-            lastOffset = currentOffset
+                lastOffset = currentOffset
+            }
         }
     }
 
