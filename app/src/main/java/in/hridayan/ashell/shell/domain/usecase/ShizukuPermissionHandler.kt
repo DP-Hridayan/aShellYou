@@ -25,8 +25,6 @@ class ShizukuPermissionHandler {
         return Shizuku.pingBinder() && Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
     }
 
-    fun isShizukuInstalled(): Boolean = Shizuku.pingBinder()
-
     fun hasPermission(): Boolean = getInitialPermissionState()
 
     fun requestPermission() {

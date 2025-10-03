@@ -15,9 +15,6 @@ class ShellRepositoryImpl @Inject constructor(
     private val shizukuPermissionHandler: ShizukuPermissionHandler,
     @param:ApplicationContext private val context: Context
 ): ShellRepository{
-    override fun isShizukuInstalled() : Boolean {
-        return shizukuPermissionHandler.isShizukuInstalled()
-    }
 
     override fun hasShizukuPermission(): Boolean {
         return shizukuPermissionHandler.hasPermission()

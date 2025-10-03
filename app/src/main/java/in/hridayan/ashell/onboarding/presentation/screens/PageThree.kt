@@ -49,33 +49,43 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
+import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawSelectChoice
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.utils.UrlUtils
+import `in`.hridayan.ashell.core.utils.isAppInstalled
+import `in`.hridayan.ashell.core.utils.launchApp
+import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
+import rikka.shizuku.Shizuku
 
 @Composable
 fun PageThree(
     modifier: Modifier = Modifier, pagerState: PagerState,
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     val weakHaptic = LocalWeakHaptic.current
-
-    var scale = remember { Animatable(0f) }
-
-    var scaleMainShape = remember { Animatable(0.75f) }
-
+    var scale by remember { mutableStateOf(Animatable(0f)) }
+    var scaleMainShape by remember { mutableStateOf(Animatable(0.75f) )}
     var rootCardChecked by rememberSaveable { mutableStateOf(false) }
-
     val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
-    val isShizukuInstalled = remember { shellViewModel.isShizukuInstalled() }
+    var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
+    var isShizukuInstalled by rememberSaveable {mutableStateOf( context.isAppInstalled(SHIZUKU_PACKAGE_NAME)) }
 
     LaunchedEffect(pagerState.currentPage == 2) {
         scale.animateTo(
@@ -94,6 +104,17 @@ fun PageThree(
                 durationMillis = 1500,
                 easing = FastOutSlowInEasing
             )
+        )
+    }
+
+    LaunchedEffect(lifecycleOwner) {
+        lifecycleOwner.lifecycle.addObserver(
+            LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_RESUME) {
+                    isShizukuInstalled = context.isAppInstalled(SHIZUKU_PACKAGE_NAME)
+                    showShizukuUnavailableDialog = false
+                }
+            }
         )
     }
 
@@ -225,10 +246,11 @@ fun PageThree(
                 description = stringResource(R.string.mode_two_desc),
                 onClick = {
                     weakHaptic()
-                    if (!isShizukuInstalled) {
+                    if (!Shizuku.pingBinder()) {
+                        showShizukuUnavailableDialog = true
                         return@PermissionCard
                     }
-                    if (!hasShizukuPermission){
+                    if (!hasShizukuPermission) {
                         shellViewModel.requestShizukuPermission()
                     }
                 }
@@ -250,6 +272,18 @@ fun PageThree(
                     )
                 )
         )
+    }
+
+    if (showShizukuUnavailableDialog) {
+        ShizukuUnavailableDialog(
+            onDismiss = { showShizukuUnavailableDialog = false },
+            onConfirm = {
+                if (isShizukuInstalled) context.launchApp(SHIZUKU_PACKAGE_NAME)
+                else UrlUtils.openUrl(
+                    url = UrlConst.URL_SHIZUKU_SITE,
+                    context = context
+                )
+            })
     }
 }
 

@@ -2,17 +2,12 @@
 
 package `in`.hridayan.ashell.pairing.component.bottomsheet
 
-import android.graphics.Bitmap
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -32,8 +27,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -48,6 +41,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.ErrorCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.LabelText
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
+import `in`.hridayan.ashell.pairing.component.image.QRImage
 import `in`.hridayan.ashell.pairing.helper.PairUsingQR
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -258,30 +252,6 @@ fun PairManually(
         }
     }
 }
-
-@Composable
-fun QRImage(
-    modifier: Modifier = Modifier,
-    qrBitmap: Bitmap
-) {
-    val qrImage = qrBitmap.asImageBitmap()
-
-    Box(
-        modifier = modifier
-            .background(Color.White)
-            .border(width = 2.dp, color = MaterialTheme.colorScheme.primary),
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            bitmap = qrImage,
-            contentDescription = "QR Code",
-            modifier = Modifier
-                .size(200.dp)
-                .padding(25.dp)
-        )
-    }
-}
-
 
 @Composable
 fun IpAddressInputField(modifier: Modifier = Modifier) {

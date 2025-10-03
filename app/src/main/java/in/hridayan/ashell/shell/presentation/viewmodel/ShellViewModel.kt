@@ -135,10 +135,6 @@ class ShellViewModel @Inject constructor(
         shellRepository.refreshShizukuPermission()
     }
 
-    fun isShizukuInstalled(): Boolean {
-        return shellRepository.isShizukuInstalled()
-    }
-
     fun hasShizukuPermission(): Boolean {
         return shellRepository.hasShizukuPermission()
     }

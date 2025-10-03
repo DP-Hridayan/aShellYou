@@ -1,9 +1,19 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
+@file:OptIn(
+    ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class,
+    ExperimentalAnimationApi::class
+)
 
 package `in`.hridayan.ashell.shell.presentation.screens
 
 import android.content.Intent
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,6 +35,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Send
+import androidx.compose.material.icons.rounded.KeyboardDoubleArrowDown
+import androidx.compose.material.icons.rounded.KeyboardDoubleArrowUp
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -58,6 +70,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -79,6 +92,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.common.constants.ScrollDirection
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.ui.utils.disableKeyboard
@@ -104,7 +118,9 @@ import `in`.hridayan.ashell.shell.presentation.components.dialog.DeleteBookmarks
 import `in`.hridayan.ashell.shell.presentation.components.dialog.FileSavedDialog
 import `in`.hridayan.ashell.shell.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.android.awaitFrame
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -125,6 +141,7 @@ fun BaseShellScreen(
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val listState = rememberLazyListState()
+    val scrollDirection = rememberScrollDirection(listState)
     val command by shellViewModel.command.collectAsState()
     val commandError by shellViewModel.commandError.collectAsState()
     val shellState by shellViewModel.shellState.collectAsState()
@@ -239,7 +256,35 @@ fun BaseShellScreen(
                 verticalArrangement = Arrangement.spacedBy(15.dp),
                 modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)
             ) {
-                SmallFAB(listState = listState)
+                AnimatedContent(
+                    targetState = scrollDirection != ScrollDirection.NONE,
+                    transitionSpec = {
+                        scaleIn(
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioMediumBouncy,
+                                stiffness = Spring.StiffnessLow
+                            )
+                        ).togetherWith(
+                            scaleOut(
+                                animationSpec = spring(
+                                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                                    stiffness = Spring.StiffnessLow
+                                )
+                            )
+                        )
+                    }
+                ) { isScrolling ->
+                    if (isScrolling) {
+                        ScrollFAB(
+                            modifier = Modifier,
+                            listState = listState,
+                            scrollDirection = scrollDirection
+                        )
+                    } else {
+                        ShareFAB()
+                    }
+                }
+
 
                 BottomExtendedFAB(
                     listState = listState,
@@ -570,9 +615,54 @@ private fun OutputCard(
 }
 
 @Composable
-private fun SmallFAB(
+private fun ScrollFAB(
     modifier: Modifier = Modifier,
     listState: LazyListState,
+    scrollDirection: ScrollDirection,
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val smoothScroll = LocalSettings.current.smoothScrolling
+
+    val icon = when (scrollDirection) {
+        ScrollDirection.UP -> Icons.Rounded.KeyboardDoubleArrowUp
+        ScrollDirection.DOWN -> Icons.Rounded.KeyboardDoubleArrowDown
+        else -> null
+    }
+
+    icon?.let {
+        IconButton(
+            modifier = modifier,
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+            ),
+            onClick = {
+                coroutineScope.launch {
+                    val targetIndex = when (scrollDirection) {
+                        ScrollDirection.UP -> 0
+                        ScrollDirection.DOWN -> listState.layoutInfo.totalItemsCount - 1
+                        else -> return@launch
+                    }
+
+                    if (targetIndex < 0) return@launch
+
+                    if (smoothScroll) listState.animateScrollToItem(targetIndex)
+                    else listState.scrollToItem(targetIndex)
+                }
+
+            }
+        ) {
+            Icon(
+                imageVector = it,
+                contentDescription = null
+            )
+        }
+    }
+}
+
+@Composable
+private fun ShareFAB(
+    modifier: Modifier = Modifier,
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -761,3 +851,46 @@ private fun LazyListState.shouldFabExpand(
     }
 }
 
+@Composable
+fun rememberScrollDirection(
+    listState: LazyListState,
+    fastThreshold: Int = 150,
+    idleDelayMillis: Long = 2000
+): ScrollDirection {
+    var lastOffset by remember { mutableIntStateOf(0) }
+    var direction by remember { mutableStateOf(ScrollDirection.NONE) }
+    var job by remember { mutableStateOf<Job?>(null) }
+
+    LaunchedEffect(listState) {
+        snapshotFlow {
+            listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
+        }.collect { (index, offset) ->
+            val currentOffset = index * 1000 + offset
+            val dy = currentOffset - lastOffset
+
+            when {
+                dy < -fastThreshold -> {
+                    job?.cancel()
+                    direction = ScrollDirection.UP
+                }
+
+                dy > fastThreshold -> {
+                    job?.cancel()
+                    direction = ScrollDirection.DOWN
+                }
+
+                else -> {
+                    job?.cancel()
+                    job = launch {
+                        delay(idleDelayMillis)
+                        direction = ScrollDirection.NONE
+                    }
+                }
+            }
+
+            lastOffset = currentOffset
+        }
+    }
+
+    return direction
+}

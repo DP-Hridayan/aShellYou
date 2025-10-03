@@ -46,7 +46,6 @@ import `in`.hridayan.ashell.core.presentation.components.button.OutlinedIconButt
 import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.core.utils.UrlUtils
-import `in`.hridayan.ashell.pairing.component.bottomsheet.WirelessDebuggingPairingMenu
 import `in`.hridayan.ashell.home.presentation.component.card.DeviceInfoCard
 import `in`.hridayan.ashell.home.presentation.component.card.RebootOptionsCard
 import `in`.hridayan.ashell.home.presentation.component.card.SystemSettings
@@ -54,6 +53,7 @@ import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDial
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
+import `in`.hridayan.ashell.pairing.component.bottomsheet.WirelessDebuggingPairingMenu
 import `in`.hridayan.ashell.pairing.component.dialog.PairModeChooseDialog
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -231,54 +231,52 @@ fun WirelessDebuggingCard(
     onClickPair: () -> Unit = {},
     onClickStart: () -> Unit = {}
 ) {
+    val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
 
     NavigationCard(
         title = stringResource(R.string.adb_via_wireless_debugging),
         description = stringResource(R.string.adb_via_wireless_debugging_summary),
         icon = painterResource(R.drawable.ic_wireless),
-        modifier = modifier,
-        onClick = { },
-        content = {
-            val context = LocalContext.current
-            val navController = LocalNavController.current
-
-            OutlinedIconButtonWithText(
-                modifier = Modifier.padding(top = 35.dp),
-                text = stringResource(R.string.instructions),
-                painter = painterResource(R.drawable.ic_open_in_new),
-                onClick = {
-                    weakHaptic()
-                    UrlUtils.openUrl(
-                        url = URL_WIRELESS_DEBUGGING_INSTRUCTIONS,
-                        context = context
-                    )
-                })
+        showNavigationArrowIcon = false,
+        modifier = modifier
+    ) {
+        OutlinedIconButtonWithText(
+            modifier = Modifier.padding(top = 35.dp),
+            text = stringResource(R.string.instructions),
+            painter = painterResource(R.drawable.ic_open_in_new),
+            onClick = {
+                weakHaptic()
+                UrlUtils.openUrl(
+                    url = URL_WIRELESS_DEBUGGING_INSTRUCTIONS,
+                    context = context
+                )
+            })
 
 
-            IconWithTextButton(
-                icon = painterResource(R.drawable.ic_pair),
-                text = stringResource(R.string.pair),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                ),
-                contentDescription = null,
-                modifier = Modifier.padding(vertical = 5.dp),
-                onClick = {
-                    weakHaptic()
-                    onClickPair()
-                })
+        IconWithTextButton(
+            icon = painterResource(R.drawable.ic_pair),
+            text = stringResource(R.string.pair),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+            ),
+            contentDescription = null,
+            modifier = Modifier.padding(vertical = 5.dp),
+            onClick = {
+                weakHaptic()
+                onClickPair()
+            })
 
-            IconWithTextButton(
-                icon = painterResource(R.drawable.ic_play),
-                text = stringResource(R.string.start),
-                contentDescription = null,
-                onClick = {
-                    weakHaptic()
-                    onClickStart()
-                })
-        })
+        IconWithTextButton(
+            icon = painterResource(R.drawable.ic_play),
+            text = stringResource(R.string.start),
+            contentDescription = null,
+            onClick = {
+                weakHaptic()
+                onClickStart()
+            })
+    }
 }
 
 @Composable
