@@ -1,5 +1,9 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package `in`.hridayan.ashell.navigation
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.compose.NavHost
@@ -22,10 +26,10 @@ import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.Setting
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
 
 @Composable
-fun Navigation(isFirstLaunch: Boolean = false) {
+fun SharedTransitionScope.Navigation(isFirstLaunch: Boolean = false) {
     val navController = rememberNavController()
-    CompositionLocalProvider(LocalNavController provides navController) {
 
+    CompositionLocalProvider(LocalNavController provides navController) {
         NavHost(
             navController = navController,
             startDestination = if (isFirstLaunch) NavRoutes.OnboardingScreen else NavRoutes.HomeScreen
@@ -109,14 +113,12 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 enterTransition = { slideFadeInFromRight() },
                 popExitTransition = { slideFadeOutToRight() }
             ) {
-                CrashHistoryScreen()
+                CrashHistoryScreen(animatedVisibilityScope = this)
             }
 
             composable<NavRoutes.CrashDetailsScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                popExitTransition = { slideFadeOutToRight() }
             ) {
-               CrashDetailsScreen()
+                CrashDetailsScreen(animatedVisibilityScope = this)
             }
 
             composable<NavRoutes.AutoUpdateScreen>(

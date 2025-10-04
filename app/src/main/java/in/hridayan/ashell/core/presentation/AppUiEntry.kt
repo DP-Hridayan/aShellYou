@@ -1,6 +1,10 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package `in`.hridayan.ashell.core.presentation
 
 import android.util.Log
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -53,7 +57,9 @@ fun AppUiEntry(
     }
 
     Surface {
-        Navigation(isFirstLaunch)
+        SharedTransitionLayout {
+            Navigation(isFirstLaunch = isFirstLaunch)
+        }
 
         if (showUpdateSheet) {
             UpdateBottomSheet(

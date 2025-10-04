@@ -1,8 +1,15 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class,
+    ExperimentalSharedTransitionApi::class
+)
 
 package `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,8 +47,9 @@ import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsSc
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
-fun CrashDetailsScreen(
+fun SharedTransitionScope.CrashDetailsScreen(
     modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     val listState = rememberLazyListState()
     val navController = LocalNavController.current
@@ -54,14 +62,17 @@ fun CrashDetailsScreen(
     val deviceName = crash?.deviceName
     val manufacturer = crash?.manufacturer
     val androidVersion = crash?.osVersion
+    val sharedElementKey = crashViewModel.sharedElementKey.value
 
     SettingsScaffold(
         modifier = modifier,
         listState = listState,
         topBarTitle = stringResource(R.string.crash_details),
         fabContent = {
-            ExtendedFloatingActionButton(onClick = {},
-                modifier = Modifier.padding(bottom = 10.dp)) {
+            ExtendedFloatingActionButton(
+                onClick = {},
+                modifier = Modifier.padding(bottom = 10.dp)
+            ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_report),
                     contentDescription = null,
@@ -88,7 +99,11 @@ fun CrashDetailsScreen(
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(15.dp),
+                            .padding(15.dp)
+                            .sharedElement(
+                                sharedContentState = rememberSharedContentState(sharedElementKey),
+                                animatedVisibilityScope = animatedVisibilityScope
+                            ),
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.primaryContainer,
                             contentColor = MaterialTheme.colorScheme.onPrimaryContainer

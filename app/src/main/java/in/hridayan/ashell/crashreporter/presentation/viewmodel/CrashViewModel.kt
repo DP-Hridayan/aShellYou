@@ -22,12 +22,19 @@ class CrashViewModel @Inject constructor(
     private val _crash = mutableStateOf<CrashReport?>(null)
     val crash: State<CrashReport?> = _crash
 
+    private val _sharedElementKey = mutableStateOf<String>("")
+    val sharedElementKey: State<String> = _sharedElementKey
+
     init {
         loadLatestCrash()
     }
 
     fun setViewingCrash(crashReport: CrashReport) {
         _crash.value = crashReport
+    }
+
+    fun setSharedElementKey(key: String) {
+        _sharedElementKey.value = key
     }
 
     fun addCrash(crash: CrashReport) {
