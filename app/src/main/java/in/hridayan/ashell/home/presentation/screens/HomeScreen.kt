@@ -73,7 +73,7 @@ fun HomeScreen(
     val onClickWifiAdbStartButton: () -> Unit = {
     }
 
-    throw RuntimeException("Test crash! 🚨")
+//    throw RuntimeException("Test crash! 🚨")
 
     Scaffold(contentWindowInsets = WindowInsets.safeDrawing) {
         Column(

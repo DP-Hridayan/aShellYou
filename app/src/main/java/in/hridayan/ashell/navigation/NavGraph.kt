@@ -14,6 +14,7 @@ import `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens.AutoUp
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupAndRestoreScreen
 import `in`.hridayan.ashell.settings.presentation.page.behavior.screens.BehaviorScreen
 import `in`.hridayan.ashell.settings.presentation.page.changelog.screens.ChangelogScreen
+import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.CrashHistoryScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
@@ -103,6 +104,12 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 ChangelogScreen()
             }
 
+            composable<NavRoutes.CrashHistoryScreen>(
+                enterTransition = { slideFadeInFromRight() },
+                popExitTransition = { slideFadeOutToRight() }
+            ) {
+                CrashHistoryScreen()
+            }
 
             composable<NavRoutes.AutoUpdateScreen>(
                 enterTransition = { slideFadeInFromRight() },

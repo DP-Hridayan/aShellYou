@@ -630,12 +630,10 @@ private fun ScrollFAB(
     }
 
     icon?.let {
-        IconButton(
+        SmallFloatingActionButton(
             modifier = modifier,
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-            ),
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
             onClick = {
                 coroutineScope.launch {
                     val targetIndex = when (scrollDirection) {
@@ -890,11 +888,13 @@ fun rememberScrollDirection(
                         direction = ScrollDirection.UP
                         job = null
                     }
+
                     dy > fastThreshold -> {
                         job?.cancel()
                         direction = ScrollDirection.DOWN
                         job = null
                     }
+
                     else -> {
                         job?.cancel()
                         job = launch {

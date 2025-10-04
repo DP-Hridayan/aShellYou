@@ -173,6 +173,12 @@ object SettingsProvider {
                 iconVector = Icons.Rounded.ChangeHistory,
             ),
             nullPreferenceItem(
+                key = SettingsKeys.CRASH_HISTORY,
+                titleResId = R.string.crash_history,
+                descriptionResId = R.string.des_crash_history,
+                iconResId = R.drawable.ic_bug
+            ),
+            nullPreferenceItem(
                 key = SettingsKeys.REPORT,
                 titleResId = R.string.report_issue,
                 descriptionResId = R.string.des_report_issue,

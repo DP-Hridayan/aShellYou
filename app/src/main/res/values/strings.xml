@@ -396,7 +396,8 @@
     <string name="telegram">Telegram</string>
     <string name="telegram_channel">Telegram channel</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
-
+<string name="crash_history">Crash history</string>
+    <string name="des_crash_history">View all crashes that have occurred in the app</string>
     <string name="btn_continue">Continue</string>
     <string name="back">Back</string>
     <string name="mode_one_title">Root</string>

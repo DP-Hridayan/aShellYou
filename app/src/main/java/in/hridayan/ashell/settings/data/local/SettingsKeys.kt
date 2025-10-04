@@ -21,6 +21,7 @@ enum class SettingsKeys(val default: Any?) {
     HAPTICS_AND_VIBRATION(true),
     VERSION(null),
     CHANGELOGS(null),
+    CRASH_HISTORY(null),
     REPORT(null),
     FEATURE_REQUEST(null),
     GITHUB(null),
