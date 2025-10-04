@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import `in`.hridayan.ashell.crashreporter.data.model.CrashLogEntity
 import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CrashLogDao {
@@ -15,7 +16,7 @@ interface CrashLogDao {
     suspend fun getLatestCrash(): CrashReport?
 
     @Query("SELECT * FROM crash_logs ORDER BY timestamp DESC")
-    suspend fun getAllCrashes(): List<CrashLogEntity>
+    fun getAllCrashes(): Flow<List<CrashLogEntity>>
 
     @Query("DELETE FROM crash_logs")
     suspend fun clearAllCrashes()

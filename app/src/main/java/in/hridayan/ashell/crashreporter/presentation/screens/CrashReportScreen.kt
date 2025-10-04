@@ -16,6 +16,6 @@ fun CrashReportScreen(
     val latestCrash by crashViewModel.latestCrash
 
     Surface {
-        Text("${latestCrash?.timestamp} \n${latestCrash?.crashLog}")
+        Text("${latestCrash?.timestamp} \n${latestCrash?.stackTrace}")
     }
 }

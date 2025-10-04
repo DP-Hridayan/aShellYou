@@ -158,6 +158,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.ChangelogScreen)
                 )
 
+                SettingsKeys.CRASH_HISTORY -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.CrashHistoryScreen)
+                )
+
                 SettingsKeys.REPORT -> _uiEvent.emit(
                     SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_ISSUE_REPORT)
                 )

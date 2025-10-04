@@ -22,7 +22,10 @@ sealed class NavRoutes {
     object CommandExamplesScreen : NavRoutes()
 
     @Serializable
-    object CrashHistoryScreen: NavRoutes()
+    object CrashHistoryScreen : NavRoutes()
+
+    @Serializable
+    object CrashDetailsScreen : NavRoutes()
 
     @Serializable
     object DarkThemeScreen : NavRoutes()

@@ -14,34 +14,25 @@ import kotlinx.coroutines.launch
 class CrashViewModel @Inject constructor(
     private val crashRepository: CrashRepository
 ) : ViewModel() {
-
-    private val _crashLogs = mutableStateOf<List<CrashReport>>(emptyList())
-    val crashLogs: State<List<CrashReport>> = _crashLogs
+    val crashLogs = crashRepository.getAllCrashes()
 
     private val _latestCrash = mutableStateOf<CrashReport?>(null)
     val latestCrash: State<CrashReport?> = _latestCrash
 
+    private val _crash = mutableStateOf<CrashReport?>(null)
+    val crash: State<CrashReport?> = _crash
+
     init {
-        loadCrashes()
         loadLatestCrash()
     }
 
-    fun loadCrashes() {
-        viewModelScope.launch {
-            _crashLogs.value = crashRepository.getAllCrashes()
-        }
-    }
-
-    fun loadLatestCrash() {
-        viewModelScope.launch {
-            _latestCrash.value = crashRepository.getLatestCrash()
-        }
+    fun setViewingCrash(crashReport: CrashReport) {
+        _crash.value = crashReport
     }
 
     fun addCrash(crash: CrashReport) {
         viewModelScope.launch {
             crashRepository.addCrash(crash)
-            loadCrashes()
             loadLatestCrash()
         }
     }
@@ -49,8 +40,13 @@ class CrashViewModel @Inject constructor(
     fun clearCrashes() {
         viewModelScope.launch {
             crashRepository.clearAllCrashes()
-            loadCrashes()
             _latestCrash.value = null
+        }
+    }
+
+    private fun loadLatestCrash() {
+        viewModelScope.launch {
+            _latestCrash.value = crashRepository.getLatestCrash()
         }
     }
 }

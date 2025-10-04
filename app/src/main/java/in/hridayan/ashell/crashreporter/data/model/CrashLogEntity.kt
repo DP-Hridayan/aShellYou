@@ -10,5 +10,5 @@ data class CrashLogEntity(
     val deviceName: String,
     val manufacturer: String,
     val osVersion: String,
-    val crashLog: String
+    val stackTrace: String
 )

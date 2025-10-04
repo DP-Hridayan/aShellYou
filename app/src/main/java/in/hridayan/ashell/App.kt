@@ -39,14 +39,14 @@ class App : Application() {
         val deviceName = android.os.Build.MODEL ?: "Unknown"
         val manufacturer = android.os.Build.MANUFACTURER ?: "Unknown"
         val osVersion = android.os.Build.VERSION.RELEASE ?: "Unknown"
-        val crashLog = throwable.stackTraceToString()
+        val stackTrace = throwable.stackTraceToString()
 
         val crashReport = CrashReport(
             timestamp = timestamp,
             deviceName = deviceName,
             manufacturer = manufacturer,
             osVersion = osVersion,
-            crashLog = crashLog
+            stackTrace = stackTrace
         )
 
         val scope = CoroutineScope(Dispatchers.IO)

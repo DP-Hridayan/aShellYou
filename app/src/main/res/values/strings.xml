@@ -22,6 +22,7 @@
     <string name="about">About</string>
     <string name="accept">Accept</string>
     <string name="already_latest_version">You are using the latest version</string>
+    <string name="android_version">Android version</string>
     <string name="amoled_theme">Amoled dark theme</string>
     <string name="des_amoled_theme">Pure black theme for devices with OLED panel</string>
     <string name="app_crashed">App has crashed</string>
@@ -87,6 +88,7 @@
     <string name="des_default_language">Choose the default language for the app</string>
     <string name="developer_options">Developer options</string>
     <string name="developer_options_not_available">Developer options not available!</string>
+    <string name="device_name">Device name</string>
     <string name="device_not_connected">Device not connected</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="des_disclaimer">This app allows you to execute ADB (Android Debug Bridge) commands directly on your device without needing a PC. Please read the following carefully before using the app:</string>
@@ -119,6 +121,8 @@
     <string name="granted">Granted</string>
     <string name="grant_permission">Grant permission</string>
     <string name="grant_permission_manually">If the permission dialog doesn\'t appear, please grant root permission manually via the superuser application</string>
+    <string name="great_news">Great news!</string>
+    <string name="no_crashes">No crashes have been reported. aShell You is running smoothly.</string>
     <string name="field_cannot_be_blank">Field cannot be blank</string>
     <string name="flashing">Flashing</string>
     <string name="folder_picker">Folder picker</string>
@@ -135,6 +139,7 @@
     <string name="look_and_feel">Look &amp; Feel</string>
     <string name="des_look_and_feel">Dynamic colors, Dark theme, Language</string>
     <string name="mail">E-mail</string>
+    <string name="manufacturer">Manufacturer</string>
     <string name="menu">Menu</string>
     <string name="mode">Mode</string>
     <string name="most_used">Most used</string>
@@ -257,7 +262,7 @@
     <string name="pair_using_qr">Pair using QR</string>
     <string name="shizuku_not_installed">Shizuku is not installed</string>
     <string name="qr_pair_hint">To pair an Android 11+ device, scan this QR from the target device</string>
-<string name="qr_scanner_location_hint">QR scanner available at:\nDeveloper Options > Wireless Debugging > Pair using QR Code</string>
+    <string name="qr_scanner_location_hint">QR scanner available at:\nDeveloper Options > Wireless Debugging > Pair using QR Code</string>
     <string name="des_changelogs">History of all the changes made to the app</string>
     <string name="no_changelog_found">No changelog found for this version</string>
     <string name="feature_request">Feature request</string>
@@ -396,8 +401,10 @@
     <string name="telegram">Telegram</string>
     <string name="telegram_channel">Telegram channel</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
-<string name="crash_history">Crash history</string>
+    <string name="crash_history">Crash history</string>
     <string name="des_crash_history">View all crashes that have occurred in the app</string>
+    <string name="crash_details">Crash details</string>
+    <string name="stack_trace">Stack trace</string>
     <string name="btn_continue">Continue</string>
     <string name="back">Back</string>
     <string name="mode_one_title">Root</string>
