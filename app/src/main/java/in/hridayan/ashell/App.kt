@@ -2,6 +2,7 @@ package `in`.hridayan.ashell
 
 import android.app.Application
 import android.content.Intent
+import android.os.Build
 import android.os.Process.killProcess
 import android.os.Process.myPid
 import dagger.hilt.android.EntryPointAccessors
@@ -36,16 +37,33 @@ class App : Application() {
         crashRepo: CrashRepository
     ) {
         val timestamp = System.currentTimeMillis()
-        val deviceName = android.os.Build.MODEL ?: "Unknown"
-        val manufacturer = android.os.Build.MANUFACTURER ?: "Unknown"
-        val osVersion = android.os.Build.VERSION.RELEASE ?: "Unknown"
+        val deviceBrand = Build.BRAND ?: "Unknown"
+        val deviceModel = Build.MODEL
+        val manufacturer = Build.MANUFACTURER ?: "Unknown"
+        val osVersion = Build.VERSION.RELEASE ?: "Unknown"
+        val socManufacturer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            Build.SOC_MANUFACTURER
+        } else {
+            "Unknown"
+        }
+
+        val cpuAbi = Build.SUPPORTED_ABIS.joinToString()
+        val appPackageName = BuildConfig.APPLICATION_ID
+        val appVersionName = BuildConfig.VERSION_NAME
+        val appVersionCode = BuildConfig.VERSION_CODE.toString()
         val stackTrace = throwable.stackTraceToString()
 
         val crashReport = CrashReport(
             timestamp = timestamp,
-            deviceName = deviceName,
+            deviceBrand = deviceBrand,
+            deviceModel = deviceModel,
             manufacturer = manufacturer,
             osVersion = osVersion,
+            socManufacturer = socManufacturer,
+            cpuAbi = cpuAbi,
+            appPackageName = appPackageName,
+            appVersionName = appVersionName,
+            appVersionCode = appVersionCode,
             stackTrace = stackTrace
         )
 

@@ -7,8 +7,14 @@ import androidx.room.PrimaryKey
 data class CrashLogEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val timestamp: Long,
-    val deviceName: String,
+    val deviceBrand: String,
+    val deviceModel: String,
     val manufacturer: String,
     val osVersion: String,
+    val cpuAbi: String,
+    val socManufacturer: String,
+    val appPackageName: String,
+    val appVersionName: String,
+    val appVersionCode: String,
     val stackTrace: String
 )

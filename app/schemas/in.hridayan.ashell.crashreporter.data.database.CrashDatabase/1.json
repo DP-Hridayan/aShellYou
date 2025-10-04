@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "dc57c47fb5c4e29ccc5faac360796f5a",
+    "identityHash": "84557be6089400818c95902474e7c2f5",
     "entities": [
       {
         "tableName": "crash_logs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `timestamp` INTEGER NOT NULL, `deviceName` TEXT NOT NULL, `manufacturer` TEXT NOT NULL, `osVersion` TEXT NOT NULL, `stackTrace` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `timestamp` INTEGER NOT NULL, `deviceBrand` TEXT NOT NULL, `deviceModel` TEXT NOT NULL, `manufacturer` TEXT NOT NULL, `osVersion` TEXT NOT NULL, `cpuAbi` TEXT NOT NULL, `socManufacturer` TEXT NOT NULL, `appPackageName` TEXT NOT NULL, `appVersionName` TEXT NOT NULL, `appVersionCode` TEXT NOT NULL, `stackTrace` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,8 +21,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "deviceName",
-            "columnName": "deviceName",
+            "fieldPath": "deviceBrand",
+            "columnName": "deviceBrand",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceModel",
+            "columnName": "deviceModel",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -35,6 +41,36 @@
           {
             "fieldPath": "osVersion",
             "columnName": "osVersion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cpuAbi",
+            "columnName": "cpuAbi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "socManufacturer",
+            "columnName": "socManufacturer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appPackageName",
+            "columnName": "appPackageName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appVersionName",
+            "columnName": "appVersionName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appVersionCode",
+            "columnName": "appVersionCode",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -55,7 +91,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dc57c47fb5c4e29ccc5faac360796f5a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '84557be6089400818c95902474e7c2f5')"
     ]
   }
 }

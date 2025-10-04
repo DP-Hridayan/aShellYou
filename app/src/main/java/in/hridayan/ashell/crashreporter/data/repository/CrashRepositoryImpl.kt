@@ -13,9 +13,15 @@ class CrashRepositoryImpl @Inject constructor(private val dao: CrashLogDao) : Cr
         dao.insertCrash(
             CrashLogEntity(
                 timestamp = crash.timestamp,
-                deviceName = crash.deviceName,
+                deviceBrand = crash.deviceBrand,
+                deviceModel = crash.deviceModel,
                 manufacturer = crash.manufacturer,
                 osVersion = crash.osVersion,
+                socManufacturer = crash.socManufacturer,
+                cpuAbi = crash.cpuAbi,
+                appPackageName = crash.appPackageName,
+                appVersionName = crash.appVersionName,
+                appVersionCode = crash.appVersionCode,
                 stackTrace = crash.stackTrace
             )
         )
@@ -27,13 +33,19 @@ class CrashRepositoryImpl @Inject constructor(private val dao: CrashLogDao) : Cr
 
     override fun getAllCrashes(): Flow<List<CrashReport>> {
         return dao.getAllCrashes().map { list ->
-            list.map { entity ->
+            list.map { crash ->
                 CrashReport(
-                    timestamp = entity.timestamp,
-                    deviceName = entity.deviceName,
-                    manufacturer = entity.manufacturer,
-                    osVersion = entity.osVersion,
-                    stackTrace = entity.stackTrace
+                    timestamp = crash.timestamp,
+                    deviceBrand = crash.deviceBrand,
+                    deviceModel = crash.deviceModel,
+                    manufacturer = crash.manufacturer,
+                    osVersion = crash.osVersion,
+                    socManufacturer = crash.socManufacturer,
+                    cpuAbi = crash.cpuAbi,
+                    appPackageName = crash.appPackageName,
+                    appVersionName = crash.appVersionName,
+                    appVersionCode = crash.appVersionCode,
+                    stackTrace = crash.stackTrace
                 )
             }
         }
