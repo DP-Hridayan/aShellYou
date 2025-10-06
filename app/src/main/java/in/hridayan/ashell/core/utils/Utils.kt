@@ -29,50 +29,6 @@ fun openUrl(url: String, context: Context) {
     } catch (ignored: ActivityNotFoundException) {
     }
 }
-
-fun isNetworkAvailable(context: Context): Boolean {
-    val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val network = cm.activeNetwork ?: return false
-    val actNw = cm.getNetworkCapabilities(network) ?: return false
-    return actNw.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-}
-
-/**
- * Check if device is connected to Wi-Fi (even if no internet).
- */
-fun Context.isConnectedToWifi(): Boolean {
-    val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as? WifiManager
-    val wifiInfo = wifiManager?.connectionInfo
-
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        val connectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager ?: return false
-
-        val activeNetwork = connectivityManager.activeNetwork ?: return false
-        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
-        capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true
-    } else {
-        wifiInfo != null && wifiInfo.networkId != -1
-    }
-}
-
-/**
- * Ask user to enable Wi-Fi.
- * - Android 10+ shows system panel
- * - Below Android 10 tries enabling directly (needs CHANGE_WIFI_STATE permission).
- */
-fun Context.askUserToEnableWifi() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        val panelIntent = Intent(Settings.Panel.ACTION_WIFI)
-        startActivity(panelIntent)
-    } else {
-        val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as? WifiManager
-        if (wifiManager != null && !wifiManager.isWifiEnabled) {
-            wifiManager.isWifiEnabled = true
-        }
-    }
-}
-
 /**
  * Check if an app is installed by package name.
  */

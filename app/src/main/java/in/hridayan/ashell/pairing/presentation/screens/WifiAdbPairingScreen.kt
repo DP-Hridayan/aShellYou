@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -58,6 +59,8 @@ import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.openDeveloperOptions
+import `in`.hridayan.ashell.core.utils.registerNetworkCallback
+import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.pairing.component.dialog.GrantNotificationAccessDialog
 
 @Composable
@@ -71,6 +74,16 @@ fun WifiAdbPairingScreen(modifier: Modifier = Modifier) {
     var isWifiConnected by remember { mutableStateOf(context.isConnectedToWifi()) }
     var hasNotificationAccess by remember { mutableStateOf(isNotificationPermissionGranted(context)) }
     var showNotificationEnableDialog by rememberSaveable { mutableStateOf(false) }
+
+    DisposableEffect(Unit) {
+        val callback = registerNetworkCallback(context) { isConnected ->
+            isWifiConnected = isConnected
+        }
+
+        onDispose {
+            unregisterNetworkCallback(context, callback)
+        }
+    }
 
     LaunchedEffect(lifecycleOwner) {
         lifecycleOwner.lifecycle.addObserver(
