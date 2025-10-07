@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "in.hridayan.ashell"
-        minSdk = 26
+        minSdk = 28
         targetSdk = 36
         versionCode = 56
         versionName = "v7.0.0"
@@ -157,6 +157,8 @@ dependencies {
 
     implementation(libs.lottie.compose)
     implementation(libs.nayuki.qrcode)
+    implementation(libs.sun.security.android)
+    implementation(libs.lsposed.hiddenapibypass)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

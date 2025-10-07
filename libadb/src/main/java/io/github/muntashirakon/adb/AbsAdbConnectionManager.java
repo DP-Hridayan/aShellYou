@@ -234,7 +234,7 @@ public abstract class AbsAdbConnectionManager implements Closeable {
             AtomicReference<String> atomicHostAddress = new AtomicReference<>(null);
             CountDownLatch resolveHostAndPort = new CountDownLatch(1);
 
-            AdbMdns adbMdnsTcp = new AdbMdns(context, AdbMdns.SERVICE_TYPE_ADB, (hostAddress, port) -> {
+            AdbMdns adbMdnsTcp = new AdbMdns(context, AdbMdns.SERVICE_TYPE_ADB, (hostAddress, port, serviceName) -> {
                 if (hostAddress != null) {
                     atomicHostAddress.set(hostAddress.getHostAddress());
                     atomicPort.set(port);
@@ -243,7 +243,7 @@ public abstract class AbsAdbConnectionManager implements Closeable {
             });
             adbMdnsTcp.start();
 
-            AdbMdns adbMdnsTls = new AdbMdns(context, AdbMdns.SERVICE_TYPE_TLS_CONNECT, (hostAddress, port) -> {
+            AdbMdns adbMdnsTls = new AdbMdns(context, AdbMdns.SERVICE_TYPE_TLS_CONNECT, (hostAddress, port, serviceName) -> {
                 if (hostAddress != null) {
                     atomicHostAddress.set(hostAddress.getHostAddress());
                     atomicPort.set(port);
@@ -287,7 +287,7 @@ public abstract class AbsAdbConnectionManager implements Closeable {
             AtomicReference<String> atomicHostAddress = new AtomicReference<>(null);
             CountDownLatch resolveHostAndPort = new CountDownLatch(1);
 
-            AdbMdns adbMdns = new AdbMdns(context, serviceType, (hostAddress, port) -> {
+            AdbMdns adbMdns = new AdbMdns(context, serviceType, (hostAddress, port, serviceName) -> {
                 if (hostAddress != null) {
                     atomicHostAddress.set(hostAddress.getHostAddress());
                     atomicPort.set(port);

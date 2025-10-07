@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.pairing.presentation.screens
+package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.screens
 
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -40,6 +41,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.lerp
@@ -51,7 +53,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
-import `in`.hridayan.ashell.core.presentation.components.card.ErrorCard
+import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
@@ -61,10 +63,10 @@ import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
-import `in`.hridayan.ashell.pairing.component.dialog.GrantNotificationAccessDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.dialog.GrantNotificationAccessDialog
 
 @Composable
-fun WifiAdbPairingScreen(modifier: Modifier = Modifier) {
+fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val weakHaptic = LocalWeakHaptic.current
@@ -151,9 +153,15 @@ fun WifiAdbPairingScreen(modifier: Modifier = Modifier) {
                 NotificationAccessRequestCard(
                     onClickButton = onClickNotificationButton
                 )
-            }
-            item { NotificationStyleErrorCard() }
+            } else
+                item {
+                    NotificationPairingHintCard()
+                }
+
+            item { NotificationStyleIconWithTextCard() }
+
             if (!isWifiConnected) item { WifiEnableCard(onClickButton = onClickWifiEnableButton) }
+
             item {
                 Instructions(
                     modifier = Modifier.padding(top = 20.dp),
@@ -175,7 +183,7 @@ fun NotificationAccessRequestCard(
     modifier: Modifier = Modifier,
     onClickButton: () -> Unit = {}
 ) {
-    ErrorCard(
+    IconWithTextCard(
         modifier = modifier,
         icon = painterResource(R.drawable.ic_notification_error),
         text = stringResource(R.string.notification_access_not_granted),
@@ -203,8 +211,21 @@ fun NotificationAccessRequestCard(
 }
 
 @Composable
-fun NotificationStyleErrorCard(modifier: Modifier = Modifier) {
-    ErrorCard(
+fun NotificationPairingHintCard(modifier: Modifier = Modifier) {
+    IconWithTextCard(
+        modifier = modifier,
+        icon = painterResource(R.drawable.ic_notification),
+        text = stringResource(R.string.pairing_notification_hint),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        ),
+        content = {})
+}
+
+@Composable
+fun NotificationStyleIconWithTextCard(modifier: Modifier = Modifier) {
+    IconWithTextCard(
         modifier = modifier,
         icon = painterResource(R.drawable.ic_warning),
         text = stringResource(R.string.notification_style_error)
@@ -213,7 +234,7 @@ fun NotificationStyleErrorCard(modifier: Modifier = Modifier) {
 
 @Composable
 fun WifiEnableCard(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
-    ErrorCard(
+    IconWithTextCard(
         modifier = modifier,
         icon = painterResource(R.drawable.ic_no_wifi),
         text = stringResource(R.string.wifi_connection_required),
@@ -263,7 +284,8 @@ fun Instructions(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
                 Text(
                     stringResource(R.string.wireless_debugging_important_notice),
                     color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontStyle = FontStyle.Italic
                 )
                 IconWithTextButton(
                     icon = painterResource(R.drawable.ic_open_in_new),

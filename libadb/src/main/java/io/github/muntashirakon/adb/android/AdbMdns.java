@@ -45,7 +45,7 @@ public class AdbMdns {
     }
 
     public interface OnAdbDaemonDiscoveredListener {
-        void onPortChanged(@Nullable InetAddress hostAddress, int port);
+        void onPortChanged(@Nullable InetAddress hostAddress, int port, @Nullable String serviceName);
     }
 
     @NonNull
@@ -105,7 +105,7 @@ public class AdbMdns {
 
     private void onServiceLost(NsdServiceInfo serviceInfo) {
         if (mServiceName != null && mServiceName.equals(serviceInfo.getServiceName())) {
-            mAdbDaemonDiscoveredListener.onPortChanged(serviceInfo.getHost(), -1);
+            mAdbDaemonDiscoveredListener.onPortChanged(serviceInfo.getHost(), -1, mServiceName);
         }
     }
 
@@ -118,7 +118,7 @@ public class AdbMdns {
                     if (Objects.equals(inetHost, serviceInfo.getHost().getHostAddress())
                             && isPortAvailable(serviceInfo.getPort())) {
                         mServiceName = serviceInfo.getServiceName();
-                        mAdbDaemonDiscoveredListener.onPortChanged(serviceInfo.getHost(), serviceInfo.getPort());
+                        mAdbDaemonDiscoveredListener.onPortChanged(serviceInfo.getHost(), serviceInfo.getPort(), mServiceName);
                     }
                 }
             }

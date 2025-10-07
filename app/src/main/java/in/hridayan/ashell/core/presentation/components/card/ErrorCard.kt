@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -27,11 +28,15 @@ import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.core.presentation.ui.theme.Shape
 
 @Composable
-fun ErrorCard(
+fun IconWithTextCard(
     text: String,
     icon: Painter,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
+    colors: CardColors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.errorContainer,
+        contentColor = MaterialTheme.colorScheme.onErrorContainer
+    ),
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
     Card(
@@ -40,12 +45,10 @@ fun ErrorCard(
             .wrapContentHeight()
             .clip(Shape.cardCornerLarge)
             .clickable { onClick() },
+        colors = colors,
         shape = Shape.cardCornerLarge,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.errorContainer,
-            contentColor = MaterialTheme.colorScheme.onErrorContainer
-        )
-    ) {
+
+        ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -55,7 +58,6 @@ fun ErrorCard(
             Icon(
                 painter = icon,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onErrorContainer,
                 modifier = Modifier
                     .padding(end = Dimens.paddingLarge)
                     .size(Dimens.iconSizeLarge)

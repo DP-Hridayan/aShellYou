@@ -143,6 +143,7 @@
     <string name="menu">Menu</string>
     <string name="mode">Mode</string>
     <string name="most_used">Most used</string>
+    <string name="successful_connection_message">Device is connected successfully. You can now start running commands on the target device.</string>
     <string name="must_fill">Must fill</string>
     <string name="none">None</string>
     <string name="quick_tools">Quick tools</string>

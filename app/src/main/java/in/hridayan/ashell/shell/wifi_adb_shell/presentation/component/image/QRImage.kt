@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.pairing.component.image
+package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image

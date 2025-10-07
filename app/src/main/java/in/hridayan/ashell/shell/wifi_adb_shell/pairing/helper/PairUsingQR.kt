@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.pairing.helper
+package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.helper
 
 import android.graphics.Bitmap
 import android.graphics.Color

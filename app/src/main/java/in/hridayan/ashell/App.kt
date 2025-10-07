@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell
 
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Process.killProcess
@@ -10,9 +11,12 @@ import dagger.hilt.android.HiltAndroidApp
 import `in`.hridayan.ashell.activities.CrashReportActivity
 import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
 import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
+import io.github.muntashirakon.adb.PRNGFixes
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.lsposed.hiddenapibypass.HiddenApiBypass
+import java.lang.ref.WeakReference
 import kotlin.system.exitProcess
 
 @HiltAndroidApp
@@ -20,6 +24,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
+        contextReference = WeakReference(applicationContext)
+        PRNGFixes.apply()
 
         val crashRepo = EntryPointAccessors.fromApplication(
             this,
@@ -80,5 +87,33 @@ class App : Application() {
         Thread.sleep(500)
         killProcess(myPid())
         exitProcess(2)
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        HiddenApiBypass.addHiddenApiExemptions("L")
+    }
+
+
+    companion object {
+        private lateinit var instance: App
+        private lateinit var contextReference: WeakReference<Context>
+
+        val appContext: Context
+            get() {
+                if (!this::contextReference.isInitialized || contextReference.get() == null) {
+                    contextReference = WeakReference(
+                        getInstance().applicationContext
+                    )
+                }
+                return contextReference.get()!!
+            }
+
+        private fun getInstance(): App {
+            if (!this::instance.isInitialized) {
+                instance = App()
+            }
+            return instance
+        }
     }
 }

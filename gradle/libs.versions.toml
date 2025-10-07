@@ -11,6 +11,7 @@ datastore = "1.1.7"
 documentfile = "1.1.0"
 espresso = "3.7.0"
 gson = "2.13.2"
+hiddenapibypassVersion = "6.1"
 hilt = "2.57.2"
 hiltExt = "1.3.0"
 junit = "4.13.2"
@@ -19,7 +20,7 @@ ksp = "2.2.20-2.0.3"
 ktor = "3.3.0"
 libsu = "6.0.0"
 lifecycle = "2.9.4"
-lottie = "6.6.9"
+lottie = "6.6.10"
 material = "1.13.0"
 material3 = "1.5.0-alpha04"
 materialIconsExtended = "1.7.8"
@@ -32,6 +33,7 @@ shizuku = "13.1.0"
 slf4j = "1.7.36"
 spake2Android = "-SNAPSHOT"
 splashscreen = "1.0.1"
+sunSecurityAndroid = "1.1"
 work = "2.10.5"
 
 [plugins]
@@ -79,9 +81,11 @@ lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtim
 lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+lsposed-hiddenapibypass = { module = "org.lsposed.hiddenapibypass:hiddenapibypass", version.ref = "hiddenapibypassVersion" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIconsExtended" }
 material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+nayuki-qrcode = { group = "io.nayuki", name = "qrcodegen", version.ref = "nayukiQR" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
@@ -90,6 +94,5 @@ shizuku-api = { module = "dev.rikka.shizuku:api", version.ref = "shizuku" }
 shizuku-provider = { module = "dev.rikka.shizuku:provider", version.ref = "shizuku" }
 slf4j-android = { group = "org.slf4j", name = "slf4j-android", version.ref = "slf4j" }
 spake2-android = { module = "com.github.Mahmud0808.spake2-java:spake2-android", version.ref = "spake2Android" }
-nayuki-qrcode = { group = "io.nayuki", name = "qrcodegen", version.ref = "nayukiQR" }
-
+sun-security-android = { module = "com.github.MuntashirAkon:sun-security-android", version.ref = "sunSecurityAndroid" }
 

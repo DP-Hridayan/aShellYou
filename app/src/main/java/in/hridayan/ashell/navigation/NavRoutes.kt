@@ -43,8 +43,12 @@ sealed class NavRoutes {
     object OnboardingScreen : NavRoutes()
 
     @Serializable
-    object SettingsScreen : NavRoutes()
+    object PairingOtherDeviceScreen : NavRoutes()
 
     @Serializable
-    object WifiAdbPairingScreen : NavRoutes()
+    object PairingOwnDeviceScreen : NavRoutes()
+
+    @Serializable
+    object SettingsScreen : NavRoutes()
+
 }

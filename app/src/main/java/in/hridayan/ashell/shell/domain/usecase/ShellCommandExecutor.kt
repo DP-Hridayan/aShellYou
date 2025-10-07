@@ -1,7 +1,6 @@
 package `in`.hridayan.ashell.shell.domain.usecase
 
 import android.content.Context
-import android.util.Log
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.flowOn
 import rikka.shizuku.Shizuku
 import rikka.shizuku.ShizukuRemoteProcess
 import java.io.BufferedReader
-import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.InterruptedIOException
@@ -31,7 +29,6 @@ class ShellCommandExecutor {
         val process = Runtime.getRuntime().exec(arrayOf("su", "-c", commandText))
         emitAll(exec(process))
     }.flowOn(Dispatchers.IO)
-
 
     @Suppress("DEPRECATION")
     fun runShizuku(commandText: String): Flow<OutputLine> = flow {

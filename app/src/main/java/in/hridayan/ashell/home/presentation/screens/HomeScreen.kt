@@ -53,8 +53,7 @@ import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDial
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.pairing.component.bottomsheet.WirelessDebuggingPairingMenu
-import `in`.hridayan.ashell.pairing.component.dialog.PairModeChooseDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.dialog.PairModeChooseDialog
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -64,7 +63,6 @@ fun HomeScreen(
     val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
     var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
-    var showWifiAdbPairingMenu by rememberSaveable { mutableStateOf(false) }
     var showPairModeChooseDialog by rememberSaveable { mutableStateOf(false) }
 
     val onClickWifiAdbPairButton: () -> Unit = {
@@ -117,20 +115,16 @@ fun HomeScreen(
         RebootOptionsDialog(onDismiss = { showRebootOptionsDialog = false })
     }
 
-    if (showWifiAdbPairingMenu) {
-        WirelessDebuggingPairingMenu(onDismissRequest = { showWifiAdbPairingMenu = false })
-    }
-
     if (showPairModeChooseDialog) {
         PairModeChooseDialog(
             onDismiss = { showPairModeChooseDialog = false },
             onClickPairSelf = {
                 showPairModeChooseDialog = false
-                navController.navigate(NavRoutes.WifiAdbPairingScreen)
+                navController.navigate(NavRoutes.PairingOwnDeviceScreen)
             },
             onClickPairAnother = {
                 showPairModeChooseDialog = false
-                showWifiAdbPairingMenu = true
+                navController.navigate(NavRoutes.PairingOtherDeviceScreen)
             })
     }
 }
