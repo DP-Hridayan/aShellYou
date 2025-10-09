@@ -146,7 +146,7 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
                 .padding(innerPadding),
-            contentPadding = PaddingValues(Dimens.paddingExtraLarge),
+            contentPadding = PaddingValues(Dimens.paddingLarge),
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             if (!hasNotificationAccess) item {
