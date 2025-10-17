@@ -7,6 +7,7 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.ChangelogBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.navigation.Navigation
@@ -58,7 +60,11 @@ fun AppUiEntry(
 
     Surface {
         SharedTransitionLayout {
-            Navigation(isFirstLaunch = isFirstLaunch)
+            CompositionLocalProvider(LocalSharedTransitionScope provides this) {
+                Navigation(
+                    isFirstLaunch = isFirstLaunch
+                )
+            }
         }
 
         if (showUpdateSheet) {

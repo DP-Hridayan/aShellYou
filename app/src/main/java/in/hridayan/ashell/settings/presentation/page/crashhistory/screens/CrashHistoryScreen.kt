@@ -29,12 +29,13 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -47,6 +48,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
+import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
@@ -61,13 +64,14 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 @Composable
-fun SharedTransitionScope.CrashHistoryScreen(
+fun CrashHistoryScreen(
     modifier: Modifier = Modifier,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     crashViewModel: CrashViewModel = hiltViewModel()
 ) {
     val listState = rememberLazyListState()
     val crashLogs by crashViewModel.crashLogs.collectAsState(initial = emptyList())
+    val animatedContentScope = LocalAnimatedContentScope.current
+    val sharedTransitionScope = LocalSharedTransitionScope.current
 
     SettingsScaffold(
         modifier = modifier,
@@ -100,15 +104,17 @@ fun SharedTransitionScope.CrashHistoryScreen(
                     itemsIndexed(crashLogs) { index, crash ->
                         val shape = getRoundedShape(index, crashLogs.size)
 
-                        CrashCard(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 15.dp, vertical = 1.dp),
-                            crashReport = crash,
-                            roundedShape = shape,
-                            index = index,
-                            animatedVisibilityScope = animatedVisibilityScope
-                        )
+                        with(sharedTransitionScope) {
+                            CrashCard(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 15.dp, vertical = 1.dp),
+                                crashReport = crash,
+                                roundedShape = shape,
+                                index = index,
+                                animatedVisibilityScope = animatedContentScope
+                            )
+                        }
                     }
 
                     item {
@@ -134,7 +140,7 @@ fun NoCrashLogsUi(modifier: Modifier = Modifier) {
         Box(
             modifier = Modifier
                 .size(160.dp)
-                .clip(CircleShape)
+                .clip(MaterialShapes.Cookie9Sided.toShape())
                 .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)),
             contentAlignment = Alignment.Center
         ) {

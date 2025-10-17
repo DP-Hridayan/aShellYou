@@ -1,6 +1,11 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package `in`.hridayan.ashell.core.common
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -28,6 +33,14 @@ val LocalSeedColor = staticCompositionLocalOf<Int> {
 }
 val LocalTonalPalette = staticCompositionLocalOf<List<SeedColors>> {
     error("No tonal palette provided")
+}
+
+val LocalSharedTransitionScope = staticCompositionLocalOf<SharedTransitionScope> {
+    error("No shared transition scope provided")
+}
+
+val LocalAnimatedContentScope = staticCompositionLocalOf<AnimatedContentScope> {
+    error("No AnimatedContentScope provided")
 }
 
 @Composable

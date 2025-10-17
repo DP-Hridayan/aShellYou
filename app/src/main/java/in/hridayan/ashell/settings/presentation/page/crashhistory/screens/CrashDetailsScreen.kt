@@ -9,9 +9,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -46,6 +44,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
+import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -57,9 +57,8 @@ import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsSc
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
-fun SharedTransitionScope.CrashDetailsScreen(
+fun CrashDetailsScreen(
     modifier: Modifier = Modifier,
-    animatedVisibilityScope: AnimatedVisibilityScope
 ) {
     val context = LocalContext.current
     val listState = rememberLazyListState()
@@ -81,6 +80,8 @@ fun SharedTransitionScope.CrashDetailsScreen(
     val versionName = crash?.appVersionName
     val versionCode = crash?.appVersionCode
     val sharedElementKey = crashViewModel.sharedElementKey.value
+    val animatedContentScope = LocalAnimatedContentScope.current
+    val sharedTransitionScope = LocalSharedTransitionScope.current
 
     val deviceInfo =
         "Brand: $deviceBrand\nModel: $deviceModel\nManufacturer: $manufacturer\nAndroid version: $androidVersion\nSOC manufacturer: $socManufacturer\nCPU abi: $cpuAbi"
@@ -122,41 +123,43 @@ fun SharedTransitionScope.CrashDetailsScreen(
                         modifier = Modifier.padding(15.dp)
                     )
 
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 15.dp)
-                            .sharedElement(
-                                sharedContentState = rememberSharedContentState(sharedElementKey),
-                                animatedVisibilityScope = animatedVisibilityScope
-                            ),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                    ) {
-                        Row(
+                    with(sharedTransitionScope) {
+                        Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 20.dp, vertical = 10.dp),
-                            horizontalArrangement = Arrangement.spacedBy(20.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_mobile_info),
-                                contentDescription = null
+                                .padding(horizontal = 15.dp)
+                                .sharedElement(
+                                    sharedContentState = rememberSharedContentState(sharedElementKey),
+                                    animatedVisibilityScope = animatedContentScope
+                                ),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                             )
-
-                            Column(
-                                modifier = Modifier.fillMaxWidth(),
-                                verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 20.dp, vertical = 10.dp),
+                                horizontalArrangement = Arrangement.spacedBy(20.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(
-                                    text = deviceInfo,
-                                    style = MaterialTheme.typography.bodySmallEmphasized
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_mobile_info),
+                                    contentDescription = null
                                 )
-                            }
 
+                                Column(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                                ) {
+                                    Text(
+                                        text = deviceInfo,
+                                        style = MaterialTheme.typography.bodySmallEmphasized
+                                    )
+                                }
+
+                            }
                         }
                     }
 

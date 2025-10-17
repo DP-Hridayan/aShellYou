@@ -33,6 +33,8 @@ fun ChangelogScreen(
 
     val listState = rememberLazyListState()
 
+    throw RuntimeException("")
+
     SettingsScaffold(
         modifier = modifier,
         listState = listState,
