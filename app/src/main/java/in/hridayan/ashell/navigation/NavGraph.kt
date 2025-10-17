@@ -2,9 +2,18 @@
 
 package `in`.hridayan.ashell.navigation
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SizeTransform
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDeepLink
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -26,6 +35,7 @@ import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.Setting
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.screens.PairingOtherDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.screens.PairingOwnDeviceScreen
+import kotlin.reflect.KType
 
 @Composable
 fun Navigation(isFirstLaunch: Boolean = false) {
@@ -115,26 +125,16 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                     ChangelogScreen()
                 }
 
-                composable<NavRoutes.CrashHistoryScreen>(
+                animatedComposable<NavRoutes.CrashHistoryScreen>(
                     enterTransition = { slideFadeInFromRight() },
                     popExitTransition = { slideFadeOutToRight() }
                 ) {
-                    val animatedScope = this
-                    CompositionLocalProvider(
-                        LocalAnimatedContentScope provides animatedScope
-                    ) {
-                        CrashHistoryScreen()
-                    }
+                    CrashHistoryScreen()
                 }
 
-                composable<NavRoutes.CrashDetailsScreen>(
+                animatedComposable<NavRoutes.CrashDetailsScreen>(
                 ) {
-                    val animatedScope = this
-                    CompositionLocalProvider(
-                        LocalAnimatedContentScope provides animatedScope
-                    ) {
-                        CrashDetailsScreen()
-                    }
+                    CrashDetailsScreen()
                 }
 
                 composable<NavRoutes.AutoUpdateScreen>(
@@ -178,6 +178,35 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                     PairingOtherDeviceScreen()
                 }
             }
+        }
+    }
+}
+
+inline fun <reified T : Any> NavGraphBuilder.animatedComposable(
+    typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
+    deepLinks: List<NavDeepLink> = emptyList(),
+    noinline enterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards EnterTransition?)? = null,
+    noinline exitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards ExitTransition?)? = null,
+    noinline popEnterTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards EnterTransition?)? = enterTransition,
+    noinline popExitTransition: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards ExitTransition?)? = exitTransition,
+    noinline sizeTransform: (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards SizeTransform?)? = null,
+    noinline content: @Composable (AnimatedContentScope.(NavBackStackEntry) -> Unit)
+) {
+    composable<T>(
+        typeMap = typeMap,
+        deepLinks = deepLinks,
+        enterTransition = enterTransition,
+        exitTransition = exitTransition,
+        popEnterTransition = popEnterTransition,
+        popExitTransition = popExitTransition,
+        sizeTransform = sizeTransform
+    ) { backStackEntry ->
+        val animatedContentScope = this
+
+        CompositionLocalProvider(
+            LocalAnimatedContentScope provides animatedContentScope
+        ) {
+            content(backStackEntry)
         }
     }
 }
