@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.LocalSettings
@@ -32,7 +31,6 @@ fun AppUiEntry(
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
     val isFirstLaunch = settingsViewModel.isFirstLaunch
     if (isFirstLaunch == null) return
 
