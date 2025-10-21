@@ -44,7 +44,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -125,8 +124,8 @@ fun CrashDetailsScreen(
                 item {
                     AutoResizeableText(
                         text = stringResource(R.string.device_info),
-                        style = MaterialTheme.typography.titleLargeEmphasized,
-                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.padding(15.dp)
                     )
 
@@ -209,11 +208,10 @@ fun CrashDetailsScreen(
                         }
                     }
 
-
                     AutoResizeableText(
                         text = stringResource(R.string.stack_trace),
-                        style = MaterialTheme.typography.titleLargeEmphasized,
-                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.padding(
                             start = 20.dp,
                             end = 20.dp,
