@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
@@ -39,7 +40,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -173,9 +176,11 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
             }
 
             item {
-                Spacer(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(20.dp))
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(20.dp)
+                )
             }
         }
     }
@@ -221,8 +226,14 @@ fun NotificationAccessRequestCard(
 
 @Composable
 fun NotificationPairingHintCard(modifier: Modifier = Modifier) {
+    var cardHeight by remember { mutableStateOf(0.dp) }
+    val screenDensity = LocalDensity.current
+
     IconWithTextCard(
-        modifier = modifier,
+        modifier = modifier.onGloballyPositioned { coordinates ->
+            cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
+        },
+        shape = RoundedCornerShape(cardHeight / 2),
         icon = painterResource(R.drawable.ic_notification),
         text = stringResource(R.string.pairing_notification_hint),
         colors = CardDefaults.cardColors(
