@@ -210,7 +210,6 @@ fun CrashReportScreen(
                     }
                 }
 
-
                 AutoResizeableText(
                     text = stringResource(R.string.stack_trace),
                     style = MaterialTheme.typography.titleLargeEmphasized,

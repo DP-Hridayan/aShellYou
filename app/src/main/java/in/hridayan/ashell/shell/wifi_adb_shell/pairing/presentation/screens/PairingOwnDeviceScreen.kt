@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
@@ -63,6 +65,8 @@ import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
+import `in`.hridayan.ashell.settings.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.settings.presentation.components.shape.getRoundedShape
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.dialog.GrantNotificationAccessDialog
 
 @Composable
@@ -164,9 +168,14 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
 
             item {
                 Instructions(
-                    modifier = Modifier.padding(top = 20.dp),
                     onClickButton = onClickDeveloperOptionsButton
                 )
+            }
+
+            item {
+                Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp))
             }
         }
     }
@@ -265,65 +274,86 @@ fun WifiEnableCard(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
 fun Instructions(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
+        AutoResizeableText(
+            modifier = Modifier.padding(vertical = 15.dp, horizontal = 5.dp),
+            text = stringResource(R.string.instructions),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
+
+        RoundedCornerCard(
+            roundedShape = getRoundedShape(index = 0, size = 3),
+            paddingValues = PaddingValues(horizontal = 0.dp, vertical = 1.dp)
         ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_counter_one),
-                modifier = Modifier.padding(start = 20.dp),
-                contentDescription = null
-            )
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(
+                modifier = Modifier.padding(15.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_counter_one),
+                    contentDescription = null
+                )
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text(
+                        stringResource(R.string.wireless_debugging_guide_1),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        stringResource(R.string.wireless_debugging_important_notice),
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontFamily = FontFamily.Monospace
+                    )
+                    IconWithTextButton(
+                        modifier = Modifier.padding(top = 5.dp),
+                        icon = painterResource(R.drawable.ic_open_in_new),
+                        text = stringResource(R.string.developer_options),
+                        onClick = { onClickButton() }
+                    )
+                }
+            }
+        }
+
+        RoundedCornerCard(
+            roundedShape = getRoundedShape(index = 1, size = 3),
+            paddingValues = PaddingValues(horizontal = 0.dp, vertical = 1.dp)
+        ) {
+            Row(
+                modifier = Modifier.padding(15.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_counter_two),
+                    contentDescription = null
+                )
                 Text(
-                    stringResource(R.string.wireless_debugging_guide_1),
+                    text = stringResource(R.string.wireless_debugging_guide_2),
                     style = MaterialTheme.typography.bodyMedium
-                )
-                Text(
-                    stringResource(R.string.wireless_debugging_important_notice),
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontStyle = FontStyle.Italic
-                )
-                IconWithTextButton(
-                    icon = painterResource(R.drawable.ic_open_in_new),
-                    text = stringResource(R.string.developer_options),
-                    onClick = { onClickButton() }
                 )
             }
         }
 
-        Row(
-            verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
+        RoundedCornerCard(
+            roundedShape = getRoundedShape(index = 2, size = 3),
+            paddingValues = PaddingValues(horizontal = 0.dp, vertical = 1.dp)
         ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_counter_two),
-                modifier = Modifier.padding(start = 20.dp),
-                contentDescription = null
-            )
-            Text(
-                text = stringResource(R.string.wireless_debugging_guide_2),
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-
-
-        Row(
-            verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_counter_three),
-                modifier = Modifier.padding(start = 20.dp),
-                contentDescription = null
-            )
-            Text(
-                text = stringResource(R.string.wireless_debugging_guide_3),
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Row(
+                modifier = Modifier.padding(15.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_counter_three),
+                    contentDescription = null
+                )
+                Text(
+                    text = stringResource(R.string.wireless_debugging_guide_3),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     }
 }
