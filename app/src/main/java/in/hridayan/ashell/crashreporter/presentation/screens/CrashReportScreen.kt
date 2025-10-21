@@ -28,11 +28,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -59,7 +65,8 @@ fun CrashReportScreen(
     val context = LocalContext.current
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-
+    var cardHeight by remember { mutableStateOf(0.dp) }
+    val screenDensity = LocalDensity.current
     val crash = crashViewModel.latestCrash.value
     val stacktrace = crash?.stackTrace
     val deviceBrand = crash?.deviceBrand
@@ -167,8 +174,11 @@ fun CrashReportScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 15.dp)
-                        .clip(RoundedCornerShape(24.dp)),
-                    shape = RoundedCornerShape(36.dp),
+                        .onGloballyPositioned { coordinates ->
+                            cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
+                        }
+                        .clip(RoundedCornerShape(cardHeight / 2)),
+                    shape = RoundedCornerShape(cardHeight / 2),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                         contentColor = MaterialTheme.colorScheme.onTertiaryContainer

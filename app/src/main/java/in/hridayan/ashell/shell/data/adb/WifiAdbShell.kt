@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.data.adb
 
+import android.content.Context
+import android.net.wifi.WifiManager
 import android.util.Log
 import `in`.hridayan.ashell.App.Companion.appContext
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
@@ -28,7 +30,6 @@ class WifiAdbShell {
 
     private var pairingMdns: AdbMdns? = null
     private var connectMdns: AdbMdns? = null
-
 
 
     /**
@@ -79,6 +80,11 @@ class WifiAdbShell {
                         })
                     }
                 }
+
+                val wifiManager = appContext.getSystemService(Context.WIFI_SERVICE) as? WifiManager
+                val multicastLock = wifiManager?.createMulticastLock("adbMdnsLock")
+                multicastLock?.setReferenceCounted(true)
+                multicastLock?.acquire()
 
                 pairingMdns = AdbMdns(
                     appContext,
