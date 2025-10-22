@@ -106,6 +106,9 @@
     <string name="disabled">Disabled</string>
     <string name="donot_show_again">Don\'t show again</string>
     <string name="download">Download</string>
+    <string name="fastboot">Fastboot</string>
+    <string name="bootloader">Bootloader</string>
+    <string name="recovery">Recovery</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="des_dynamic_colors">Automatically set the app theme according to the device wallpaper</string>
     <string name="enable_wifi">Enable wifi</string>

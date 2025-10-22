@@ -116,9 +116,9 @@ class ShellViewModel @Inject constructor(
         }
     }
 
-    fun executeSimpleCommand(command: String) {
+    fun executeSimpleCommand(cmdArray: Array<String>) {
         viewModelScope.launch {
-            Runtime.getRuntime().exec(command)
+            Runtime.getRuntime().exec(cmdArray)
         }
     }
 

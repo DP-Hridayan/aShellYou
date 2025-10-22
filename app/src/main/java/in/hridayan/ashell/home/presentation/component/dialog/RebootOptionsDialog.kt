@@ -23,11 +23,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
@@ -68,7 +71,7 @@ fun RebootOptionsDialog(
                     IconButton(
                         onClick = {
                             weakHaptic()
-                            shellViewModel.executeSimpleCommand("reboot")
+                            shellViewModel.executeSimpleCommand(arrayOf("su", "-c", "reboot"))
                         },
                         modifier = Modifier
                             .size(buttonSize)
@@ -90,7 +93,13 @@ fun RebootOptionsDialog(
                     IconButton(
                         onClick = {
                             weakHaptic()
-                            shellViewModel.executeSimpleCommand("reboot recovery")
+                            shellViewModel.executeSimpleCommand(
+                                arrayOf(
+                                    "su",
+                                    "-c",
+                                    "reboot recovery"
+                                )
+                            )
                         },
                         modifier = Modifier
                             .size(buttonSize)
@@ -102,7 +111,7 @@ fun RebootOptionsDialog(
                         )
                     ) {
                         Icon(
-                            imageVector = Icons.Rounded.RestartAlt,
+                            painter = painterResource(R.drawable.ic_restart_recovery),
                             contentDescription = null,
                             modifier = Modifier.size(iconSize),
                             tint = MaterialTheme.colorScheme.onTertiaryContainer
@@ -116,13 +125,13 @@ fun RebootOptionsDialog(
                         .padding(bottom = 10.dp)
                 ) {
                     AutoResizeableText(
-                        text = "System",
+                        text = stringResource(R.string.system),
                         style = MaterialTheme.typography.labelLargeEmphasized,
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Center
                     )
                     AutoResizeableText(
-                        text = "Recovery",
+                        text = stringResource(R.string.recovery),
                         style = MaterialTheme.typography.labelLargeEmphasized,
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Center
@@ -136,7 +145,13 @@ fun RebootOptionsDialog(
                     IconButton(
                         onClick = {
                             weakHaptic()
-                            shellViewModel.executeSimpleCommand("reboot bootloader")
+                            shellViewModel.executeSimpleCommand(
+                                arrayOf(
+                                    "su",
+                                    "-c",
+                                    "reboot bootloader"
+                                )
+                            )
                         },
                         modifier = Modifier
                             .size(buttonSize)
@@ -148,7 +163,7 @@ fun RebootOptionsDialog(
                         )
                     ) {
                         Icon(
-                            imageVector = Icons.Rounded.RestartAlt,
+                            painter = painterResource(R.drawable.ic_restart_bootloader),
                             contentDescription = null,
                             modifier = Modifier.size(iconSize),
                             tint = MaterialTheme.colorScheme.onErrorContainer
@@ -158,7 +173,13 @@ fun RebootOptionsDialog(
                     IconButton(
                         onClick = {
                             weakHaptic()
-                            shellViewModel.executeSimpleCommand("am force-stop com.android.systemui")
+                            shellViewModel.executeSimpleCommand(
+                                arrayOf(
+                                    "su",
+                                    "-c",
+                                    "reboot fastboot"
+                                )
+                            )
                         },
                         modifier = Modifier
                             .size(buttonSize)
@@ -170,7 +191,7 @@ fun RebootOptionsDialog(
                         )
                     ) {
                         Icon(
-                            imageVector = Icons.Rounded.RestartAlt,
+                            painter = painterResource(R.drawable.ic_restart_fastboot),
                             contentDescription = null,
                             modifier = Modifier.size(iconSize),
                             tint = MaterialTheme.colorScheme.onSecondaryContainer
@@ -184,13 +205,13 @@ fun RebootOptionsDialog(
                         .padding(bottom = 10.dp)
                 ) {
                     AutoResizeableText(
-                        text = "Bootloader",
+                        text = stringResource(R.string.bootloader),
                         style = MaterialTheme.typography.labelLargeEmphasized,
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Center
                     )
                     AutoResizeableText(
-                        text = "System UI",
+                        text = stringResource(R.string.fastboot),
                         style = MaterialTheme.typography.labelLargeEmphasized,
                         modifier = Modifier.weight(1f),
                         textAlign = TextAlign.Center

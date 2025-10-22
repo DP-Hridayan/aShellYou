@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.home.presentation.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -26,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -54,13 +56,16 @@ import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.dialog.PairModeChooseDialog
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
-) {
+fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     val weakHaptic = LocalWeakHaptic.current
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     val navController = LocalNavController.current
     var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
     var showPairModeChooseDialog by rememberSaveable { mutableStateOf(false) }
@@ -69,6 +74,21 @@ fun HomeScreen(
         showPairModeChooseDialog = true
     }
     val onClickWifiAdbStartButton: () -> Unit = {
+    }
+
+    val onClickRebootOptions: () -> Unit = {
+        scope.launch {
+            val hasRoot = withContext(Dispatchers.IO) {
+                viewModel.requestRootAccess()
+            }
+
+            if (!hasRoot) {
+                Toast.makeText(context, "No root access!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Root access granted!", Toast.LENGTH_SHORT).show()
+                showRebootOptionsDialog = true
+            }
+        }
     }
 
     Scaffold(contentWindowInsets = WindowInsets.safeDrawing) {
@@ -106,7 +126,7 @@ fun HomeScreen(
                 onClickPair = onClickWifiAdbPairButton
             )
             OtgAdbCard()
-            QuickToolsCard(onClickRebootOptions = { showRebootOptionsDialog = true })
+            QuickToolsCard(onClickRebootOptions = onClickRebootOptions)
         }
     }
 
