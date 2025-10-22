@@ -43,7 +43,12 @@ jobs:
           prerelease: true
           replace: true
           body: |
-            * ### This is a **Work-In-Progress** build. Donot expect completed features!
-            *  ### Features might be broken, crash or not work at all.
+            >[!CAUTION]
+            >
+            > * This is a **Work-In-Progress** build. Donot expect completed features!
+            >
+            > * Features might be broken, crash or not work at all.
+            >
             🤖 Latest nightly build from `kotlin` branch.
+
             🔁 Commit: ${{ github.sha }}
