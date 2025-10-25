@@ -2,8 +2,6 @@ name: Update Translation Progress SVG
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 */12 * * *"
 
 jobs:
   generate-svg:
