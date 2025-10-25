@@ -24,14 +24,17 @@ class CommandViewModel @Inject constructor(
     private val _description = MutableStateFlow("")
     val description: StateFlow<String> = _description
 
-    private val _label = MutableStateFlow("")
-    val label: StateFlow<String> = _label
+    private val _labels = MutableStateFlow<List<String>>(emptyList())
+    val labels: StateFlow<List<String>> = _labels
 
     private val _commandError = MutableStateFlow(false)
     val commandError: StateFlow<Boolean> = _commandError
 
     private val _descriptionError = MutableStateFlow(false)
     val descriptionError: StateFlow<Boolean> = _descriptionError
+
+    private val _labelError = MutableStateFlow(false)
+    val labelError: StateFlow<Boolean> = _labelError
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -54,8 +57,24 @@ class CommandViewModel @Inject constructor(
         _descriptionError.value = false
     }
 
-    fun onLabelChange(newValue: String) {
-        _label.value = newValue
+    fun onLabelAdd(label: String) {
+        val trimmedLabel = label.trim()
+        if (trimmedLabel.isEmpty()) {
+            _labelError.value = true
+            return
+        }
+
+        if (trimmedLabel !in _labels.value) {
+            _labels.value = _labels.value + trimmedLabel
+        }
+    }
+
+    fun onLabelRemove(label: String) {
+        _labels.value = _labels.value.filterNot { it == label }
+    }
+
+    fun clearLabelError() {
+        _labelError.value = false
     }
 
     fun getCommandCount(): Int {
@@ -79,12 +98,12 @@ class CommandViewModel @Inject constructor(
                     CommandEntity(
                         command = _command.value.trim(),
                         description = _description.value.trim(),
-                        labels = listOf(_label.value.trim())
+                        labels = _labels.value
                     )
                 )
                 _command.value = ""
                 _description.value = ""
-                _label.value = ""
+                _labels.value = emptyList()
                 onSuccess()
             }
         }
@@ -101,7 +120,13 @@ class CommandViewModel @Inject constructor(
         val commandById = commandRepository.getCommandById(id)
         _command.value = commandById?.command ?: ""
         _description.value = commandById?.description ?: ""
-        _label.value = commandById?.labels?.firstOrNull() ?: ""
+        _labels.value = commandById?.labels ?: emptyList()
+    }
+
+    fun clearInputFields() {
+        _command.value = ""
+        _description.value = ""
+        _labels.value = emptyList()
     }
 
     fun editCommand(id: Int, onSuccess: () -> Unit) {
@@ -118,12 +143,12 @@ class CommandViewModel @Inject constructor(
                         id = id,
                         command = _command.value.trim(),
                         description = _description.value.trim(),
-                        labels = listOf(_label.value.trim())
+                        labels = _labels.value
                     )
                 )
                 _command.value = ""
                 _description.value = ""
-                _label.value = ""
+                _labels.value = emptyList()
                 onSuccess()
             }
         }

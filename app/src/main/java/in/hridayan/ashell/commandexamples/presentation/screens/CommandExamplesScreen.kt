@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.commandexamples.presentation.screens
 
+import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,6 +30,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.commandexamples.data.local.preloadedCommands
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandItem
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
@@ -44,6 +46,8 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
 
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+
+    Log.d("test", preloadedCommands.size.toString())
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -62,6 +66,7 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
                 onClick = {
+                    viewModel.clearInputFields()
                     isDialogOpen = true
                 }
             ) {

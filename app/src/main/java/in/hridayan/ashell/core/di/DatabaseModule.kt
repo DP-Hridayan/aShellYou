@@ -2,6 +2,8 @@ package `in`.hridayan.ashell.core.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,11 +11,15 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.commandexamples.data.local.database.CommandDao
 import `in`.hridayan.ashell.commandexamples.data.local.database.CommandDatabase
+import `in`.hridayan.ashell.commandexamples.data.local.preloadedCommands
 import `in`.hridayan.ashell.core.common.converters.StringListConverter
 import `in`.hridayan.ashell.core.data.database.BookmarkDao
 import `in`.hridayan.ashell.core.data.database.BookmarkDatabase
 import `in`.hridayan.ashell.crashreporter.data.database.CrashDatabase
 import `in`.hridayan.ashell.crashreporter.data.database.CrashLogDao
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Singleton
 
 @Module
@@ -24,12 +30,31 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): CommandDatabase {
         return Room.databaseBuilder(
-            context, CommandDatabase::class.java, "command_database"
+            context,
+            CommandDatabase::class.java,
+            "command_database"
         )
             .addTypeConverter(StringListConverter())
+            .addCallback(object : RoomDatabase.Callback() {
+                override fun onCreate(db: SupportSQLiteDatabase) {
+                    super.onCreate(db)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val database = Room.databaseBuilder(
+                            context,
+                            CommandDatabase::class.java,
+                            "command_database"
+                        )
+                            .addTypeConverter(StringListConverter())
+                            .build()
+
+                        database.commandDao().insertAllCommands(preloadedCommands)
+                    }
+                }
+            })
             .fallbackToDestructiveMigration(false)
             .build()
     }
+
 
     @Provides
     fun provideCommandDao(database: CommandDatabase): CommandDao {
