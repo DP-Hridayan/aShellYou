@@ -5,6 +5,9 @@ on:
     - cron: '0 2 * * *'  # runs daily at 2 AM UTC
   workflow_dispatch:       # allows manual run
 
+permissions:
+  contents: write 
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -50,5 +53,3 @@ jobs:
             > * Features might be broken, crash or not work at all.
             >
             🤖 Latest nightly build from `kotlin` branch.
-
-            🔁 Commit: ${{ github.sha }}
