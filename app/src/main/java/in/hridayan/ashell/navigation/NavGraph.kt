@@ -33,6 +33,7 @@ import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkT
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
+import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.screens.PairingOtherDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.screens.PairingOwnDeviceScreen
 import kotlin.reflect.KType
@@ -158,6 +159,15 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                     popExitTransition = { slideFadeOutToRight() }
                 ) {
                     LocalAdbScreen()
+                }
+
+                composable<NavRoutes.OtgAdbScreen>(
+                    enterTransition = { slideFadeInFromRight() },
+                    exitTransition = { slideFadeOutToLeft() },
+                    popEnterTransition = { slideFadeInFromLeft() },
+                    popExitTransition = { slideFadeOutToRight() }
+                ) {
+                    OtgAdbScreen()
                 }
 
                 composable<NavRoutes.PairingOwnDeviceScreen>(

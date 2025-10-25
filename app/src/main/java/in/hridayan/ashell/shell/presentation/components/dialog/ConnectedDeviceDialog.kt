@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog
+package `in`.hridayan.ashell.shell.presentation.components.dialog
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -65,6 +65,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 fun ConnectedDeviceDialog(
     modifier: Modifier = Modifier,
     connectedDevice: String?,
+    showModeSwitchButton: Boolean = true,
     onDismiss: () -> Unit
 ) {
     val weakHaptic = LocalWeakHaptic.current
@@ -111,6 +112,8 @@ fun ConnectedDeviceDialog(
                 )
 
                 ConnectedDeviceCard(connectedDevice = connectedDevice)
+
+                if (!showModeSwitchButton) return@Column
 
                 Button(
                     onClick = {
@@ -189,7 +192,8 @@ private fun ExpandedLayoutView(
     val weakHaptic = LocalWeakHaptic.current
     val key = SettingsKeys.LOCAL_ADB_WORKING_MODE
 
-    val initialSelected = settingsViewModel.getInt(key = key).collectAsState(initial = key.default as Int)
+    val initialSelected =
+        settingsViewModel.getInt(key = key).collectAsState(initial = key.default as Int)
     var selected by rememberSaveable { mutableIntStateOf(initialSelected.value) }
 
     LaunchedEffect(initialSelected.value) {

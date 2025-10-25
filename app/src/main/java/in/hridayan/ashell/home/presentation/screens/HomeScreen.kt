@@ -24,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -55,6 +56,9 @@ import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDial
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
+import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
+import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
+import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.dialog.PairModeChooseDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -62,18 +66,34 @@ import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel(),
+    otgViewModel: OtgViewModel = hiltViewModel()
+) {
     val weakHaptic = LocalWeakHaptic.current
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val navController = LocalNavController.current
     var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
     var showPairModeChooseDialog by rememberSaveable { mutableStateOf(false) }
+    var showOtgDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
+    val otgState by otgViewModel.state.collectAsState()
 
     val onClickWifiAdbPairButton: () -> Unit = {
         showPairModeChooseDialog = true
     }
+
     val onClickWifiAdbStartButton: () -> Unit = {
+    }
+
+    val onClickOtgAdbCard: () -> Unit = {
+        otgViewModel.startScan()
+
+        if (otgState is OtgState.Connected) {
+            navController.navigate(NavRoutes.OtgAdbScreen)
+        } else {
+            showOtgDeviceWaitingDialog = true
+        }
     }
 
     val onClickRebootOptions: () -> Unit = {
@@ -125,7 +145,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                 onClickStart = onClickWifiAdbStartButton,
                 onClickPair = onClickWifiAdbPairButton
             )
-            OtgAdbCard()
+            OtgAdbCard(onClickOtgAdbCard = onClickOtgAdbCard)
             QuickToolsCard(onClickRebootOptions = onClickRebootOptions)
         }
     }
@@ -146,6 +166,16 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                 showPairModeChooseDialog = false
                 navController.navigate(NavRoutes.PairingOtherDeviceScreen)
             })
+    }
+
+    if (showOtgDeviceWaitingDialog) {
+        OtgDeviceWaitingDialog(
+            onDismiss = { showOtgDeviceWaitingDialog = false },
+            onConfirm = {
+                navController.navigate(NavRoutes.OtgAdbScreen)
+                showOtgDeviceWaitingDialog = false
+            }
+        )
     }
 }
 
@@ -294,22 +324,21 @@ fun WirelessDebuggingCard(
 }
 
 @Composable
-fun OtgAdbCard(modifier: Modifier = Modifier) {
+fun OtgAdbCard(modifier: Modifier = Modifier, onClickOtgAdbCard: () -> Unit = {}) {
+    val weakHaptic = LocalWeakHaptic.current
+
     NavigationCard(
         title = stringResource(R.string.adb_through_otg),
         description = stringResource(R.string.adb_through_otg_summary),
         icon = painterResource(R.drawable.ic_otg),
         modifier = modifier,
-        onClick = { },
+        onClick = {
+            weakHaptic()
+            onClickOtgAdbCard()
+        },
         content = {
             OtgInstructionButton(Modifier.padding(top = 35.dp))
         })
-}
-
-
-@Composable
-fun WirelessDebuggingInstructionButton(modifier: Modifier = Modifier) {
-
 }
 
 @Composable

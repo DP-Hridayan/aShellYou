@@ -26,7 +26,7 @@ import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.domain.model.ShellState
-import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ConnectedDeviceDialog
+import `in`.hridayan.ashell.shell.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.shell.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
@@ -41,7 +41,13 @@ fun LocalAdbScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
-    var isShizukuInstalled by rememberSaveable {mutableStateOf( context.isAppInstalled(SHIZUKU_PACKAGE_NAME)) }
+    var isShizukuInstalled by rememberSaveable {
+        mutableStateOf(
+            context.isAppInstalled(
+                SHIZUKU_PACKAGE_NAME
+            )
+        )
+    }
 
     val localAdbMode = LocalSettings.current.localAdbMode
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
@@ -107,27 +113,26 @@ fun LocalAdbScreen(
         runCommandIfPermissionGranted = runCommandIfPermissionGranted,
         modeButtonOnClick = modeButtonOnClick,
         modeButtonText = modeButtonText,
-        extraContent = {
-            if (showConnectedDeviceDialog) {
-                ConnectedDeviceDialog(
-                    onDismiss = {
-                        showConnectedDeviceDialog = false
-                    },
-                    connectedDevice = DeviceUtils.DEVICE_MODEL
-                )
-            }
-
-            if (showShizukuUnavailableDialog) {
-                ShizukuUnavailableDialog(
-                    onDismiss = { showShizukuUnavailableDialog = false },
-                    onConfirm = {
-                        if (isShizukuInstalled) context.launchApp(SHIZUKU_PACKAGE_NAME)
-                        else UrlUtils.openUrl(
-                            url = UrlConst.URL_SHIZUKU_SITE,
-                            context = context
-                        )
-                    })
-            }
-        }
     )
+
+    if (showConnectedDeviceDialog) {
+        ConnectedDeviceDialog(
+            onDismiss = {
+                showConnectedDeviceDialog = false
+            },
+            connectedDevice = DeviceUtils.DEVICE_MODEL
+        )
+    }
+
+    if (showShizukuUnavailableDialog) {
+        ShizukuUnavailableDialog(
+            onDismiss = { showShizukuUnavailableDialog = false },
+            onConfirm = {
+                if (isShizukuInstalled) context.launchApp(SHIZUKU_PACKAGE_NAME)
+                else UrlUtils.openUrl(
+                    url = UrlConst.URL_SHIZUKU_SITE,
+                    context = context
+                )
+            })
+    }
 }

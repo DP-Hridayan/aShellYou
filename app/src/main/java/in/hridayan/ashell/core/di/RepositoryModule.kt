@@ -4,9 +4,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import `in`.hridayan.ashell.core.data.repository.BookmarkRepositoryImpl
 import `in`.hridayan.ashell.commandexamples.data.local.repository.CommandRepositoryImpl
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.data.repository.BookmarkRepositoryImpl
 import `in`.hridayan.ashell.core.domain.repository.BookmarkRepository
 import `in`.hridayan.ashell.crashreporter.data.repository.CrashRepositoryImpl
 import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
@@ -40,4 +40,5 @@ abstract class RepositoryModule {
     abstract fun bindCrashRepository(
         crashRepositoryImpl: CrashRepositoryImpl
     ): CrashRepository
+
 }

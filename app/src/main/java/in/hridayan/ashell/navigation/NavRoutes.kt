@@ -43,6 +43,9 @@ sealed class NavRoutes {
     object OnboardingScreen : NavRoutes()
 
     @Serializable
+    object OtgAdbScreen : NavRoutes()
+
+    @Serializable
     object PairingOtherDeviceScreen : NavRoutes()
 
     @Serializable
