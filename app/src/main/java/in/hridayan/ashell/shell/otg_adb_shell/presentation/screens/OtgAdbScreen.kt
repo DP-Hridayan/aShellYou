@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,15 +32,22 @@ fun OtgAdbScreen(
 
     val otgState by otgViewModel.state.collectAsState()
     val modeButtonText = stringResource(R.string.otg)
+
     val modeButtonOnClick: () -> Unit = {
-        if (otgState is OtgState.Connected) {
-            connectedDevice = (otgState as OtgState.Connected).deviceName
+        if (otgState is OtgState.Connected || otgState is OtgState.DeviceFound) {
             showConnectedDeviceDialog = true
         } else {
             showOtgDeviceWaitingDialog = true
         }
     }
 
+    LaunchedEffect(otgState) {
+        connectedDevice = when (otgState) {
+            is OtgState.DeviceFound -> (otgState as OtgState.DeviceFound).deviceName
+            is OtgState.Connected -> (otgState as OtgState.Connected).deviceName
+            else -> context.getString(R.string.none)
+        }
+    }
 
     BaseShellScreen(
         modeButtonText = modeButtonText,
