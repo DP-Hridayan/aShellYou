@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.core.presentation.components.card
 
 import androidx.compose.animation.animateContentSize
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -25,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
@@ -37,7 +39,6 @@ fun CollapsibleCard(
     collapsedContent: @Composable (modifier: Modifier) -> Unit,
     expandedContent: @Composable () -> Unit,
     onStateChanged: ((Boolean) -> Unit)? = null,
-    cardColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     enableBorder: Boolean = true
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
@@ -45,32 +46,26 @@ fun CollapsibleCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clip(MaterialTheme.shapes.large)
+            .clip(MaterialTheme.shapes.largeIncreased)
             .clickable(enabled = true) {
                 expanded = !expanded
                 onStateChanged?.invoke(expanded)
             }
-            .then(
-                if (enableBorder) Modifier.border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(0.5f),
-                    shape = MaterialTheme.shapes.large
-                ) else Modifier
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                shape = MaterialTheme.shapes.largeIncreased
             ),
         colors = CardDefaults.cardColors(
-            containerColor = cardColor,
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = MaterialTheme.colorScheme.onSurface
         ),
-        shape = MaterialTheme.shapes.large
+        shape = MaterialTheme.shapes.largeIncreased
     ) {
         Column(
             Modifier
                 .padding(Dimens.paddingMedium)
-                .animateContentSize(
-                    spring(
-                        stiffness = Spring.StiffnessLow,
-                        dampingRatio = Spring.DampingRatioMediumBouncy
-                    )
-                )
+                .animateContentSize(spring(stiffness = Spring.StiffnessMedium))
         ) {
             Row(
                 modifier = Modifier

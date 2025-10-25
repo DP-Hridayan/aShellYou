@@ -34,11 +34,11 @@ import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 @Composable
 fun NavigationCard(
+    modifier: Modifier = Modifier,
     title: String,
     description: String? = null,
     icon: Painter,
     showNavigationArrowIcon: Boolean = true,
-    modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit = {},
 ) {

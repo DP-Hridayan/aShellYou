@@ -141,6 +141,7 @@
     <string name="lead_developer">Lead developer</string>
     <string name="license">License</string>
     <string name="local_adb">Local ADB</string>
+    <string name="use">Use</string>
     <string name="local_adb_shell">Local ADB shell</string>
     <string name="local_adb_summary">Execute ADB commands directly on your device using Shizuku or root.</string>
     <string name="look_and_feel">Look &amp; Feel</string>

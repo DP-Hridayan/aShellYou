@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
+import `in`.hridayan.ashell.shell.domain.model.SharedInputFieldText
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.domain.usecase.ExtractLastCommandOutputUseCase
@@ -24,7 +25,7 @@ class ShellViewModel @Inject constructor(
     private val extractLastCommandOutputUseCase: ExtractLastCommandOutputUseCase,
     private val getSaveOutputFileNameUseCase: GetSaveOutputFileNameUseCase
 ) : ViewModel() {
-    private val _command = MutableStateFlow(TextFieldValue(text = "", selection = TextRange(0)))
+    private val _command = SharedInputFieldText.commandText
     val command: StateFlow<TextFieldValue> = _command
 
     private val _commandError = MutableStateFlow(false)

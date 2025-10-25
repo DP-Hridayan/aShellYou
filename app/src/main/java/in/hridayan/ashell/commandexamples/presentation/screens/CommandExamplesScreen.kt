@@ -69,7 +69,6 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
                 Icon(
                     imageVector = Icons.Rounded.Add,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.rotate(rotateAngle)
                 )
             }
