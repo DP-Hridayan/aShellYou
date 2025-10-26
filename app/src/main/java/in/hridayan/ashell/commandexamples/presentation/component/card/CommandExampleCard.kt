@@ -2,9 +2,6 @@
 
 package `in`.hridayan.ashell.commandexamples.presentation.component.card
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,18 +13,19 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -40,10 +38,11 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.button.FavouriteIconButton
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.utils.ClipboardUtils
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
-
 
 @Composable
 fun CommandExampleCard(
@@ -53,7 +52,6 @@ fun CommandExampleCard(
     description: String,
     isFavourite: Boolean,
     labels: List<String>,
-    viewModel: CommandViewModel = hiltViewModel(),
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
@@ -83,8 +81,9 @@ fun CommandExampleCard(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                EditButton(id = id, viewModel = viewModel)
-                DeleteButton(id = id, viewModel = viewModel)
+                EditButton(id = id)
+                DeleteButton(id = id)
+                CopyButton(id = id)
                 UseCommandButton(onClick = {
                     shellViewModel.onCommandChange(
                         TextFieldValue(
@@ -102,67 +101,97 @@ fun CommandExampleCard(
 private fun DeleteButton(
     modifier: Modifier = Modifier,
     id: Int,
-    viewModel: CommandViewModel
+    viewModel: CommandViewModel = hiltViewModel()
 ) {
-    Image(
-        painter = painterResource(id = R.drawable.ic_delete),
-        contentDescription = null,
-        colorFilter = ColorFilter.Companion.tint(
-            MaterialTheme.colorScheme.onErrorContainer
+    val weakHaptic = LocalWeakHaptic.current
+
+    IconButton(
+        onClick = {
+            weakHaptic()
+            viewModel.deleteCommand(id = id, onSuccess = {})
+        },
+        colors = IconButtonDefaults.iconButtonColors(
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+            contentColor = MaterialTheme.colorScheme.onErrorContainer
         ),
-        modifier = modifier.clickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication = null,
-            onClick = {
-                viewModel.deleteCommand(id = id, onSuccess = {})
-            })
-    )
+        modifier = modifier
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_delete),
+            contentDescription = null,
+        )
+    }
 }
 
 @Composable
 private fun EditButton(
     modifier: Modifier = Modifier,
     id: Int,
-    viewModel: CommandViewModel
+    viewModel: CommandViewModel = hiltViewModel()
 ) {
     var isEditDialogOpen by rememberSaveable { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
-    Image(
-        painter = painterResource(id = R.drawable.ic_edit),
-        contentDescription = null,
-        colorFilter = ColorFilter.Companion.tint(
-            MaterialTheme.colorScheme.onErrorContainer
+
+    val weakHaptic = LocalWeakHaptic.current
+
+    IconButton(
+        onClick = {
+            weakHaptic()
+            coroutineScope.launch {
+                viewModel.setFieldsForEdit(id = id)
+                isEditDialogOpen = true
+            }
+        },
+        colors = IconButtonDefaults.iconButtonColors(
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+            contentColor = MaterialTheme.colorScheme.onErrorContainer
         ),
-        modifier = modifier.clickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication = null,
-            onClick = {
-                coroutineScope.launch {
-                    viewModel.setFieldsForEdit(id = id)
-                    isEditDialogOpen = true
-                }
-            })
-    )
+        modifier = modifier
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_edit),
+            contentDescription = null,
+        )
+    }
 
     if (isEditDialogOpen) EditCommandDialog(id = id, onDismiss = { isEditDialogOpen = false })
 }
 
 @Composable
-private fun FavouriteButton(
+private fun CopyButton(
     modifier: Modifier = Modifier,
     id: Int,
-    isFavourite: Boolean,
-    viewModel: CommandViewModel
+    viewModel: CommandViewModel = hiltViewModel()
 ) {
-    FavouriteIconButton(
-        isFavorite = isFavourite,
-        onToggle = {
-            viewModel.toggleFavourite(
-                id = id,
-                isFavourite = !isFavourite,
-                onSuccess = {}
-            )
-        })
+    val weakHaptic = LocalWeakHaptic.current
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
+    IconButton(
+        onClick = {
+            weakHaptic()
+            coroutineScope.launch {
+                val command = viewModel.getCommandById(id) ?: ""
+                if (command.isNotEmpty()) {
+                    ClipboardUtils.copyToClipboard(text = command, context = context)
+                    showToast(context, context.getString(R.string.copied_to_clipboard))
+                } else {
+                    showToast(context, context.getString(R.string.command_not_found))
+                }
+            }
+        },
+        colors = IconButtonDefaults.iconButtonColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        ),
+        modifier = modifier
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_copy),
+            contentDescription = null,
+        )
+    }
+
 }
 
 @Composable
@@ -191,4 +220,22 @@ private fun UseCommandButton(
 
         AutoResizeableText(text = stringResource(R.string.use))
     }
+}
+
+@Composable
+private fun FavouriteButton(
+    modifier: Modifier = Modifier,
+    id: Int,
+    isFavourite: Boolean,
+    viewModel: CommandViewModel
+) {
+    FavouriteIconButton(
+        isFavorite = isFavourite,
+        onToggle = {
+            viewModel.toggleFavourite(
+                id = id,
+                isFavourite = !isFavourite,
+                onSuccess = {}
+            )
+        })
 }

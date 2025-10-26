@@ -91,6 +91,10 @@ class CommandViewModel @Inject constructor(
         return count
     }
 
+    suspend fun getCommandById(id: Int): String? {
+        return commandRepository.getCommandById(id)?.command
+    }
+
     fun addCommand(onSuccess: () -> Unit) {
         val isCommandValid = _command.value.trim().isNotBlank()
         val isDescriptionValid = _description.value.trim().isNotBlank()

@@ -103,7 +103,10 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
                 trailingButton = {
                     SplitButtonDefaults.TrailingButton(
                         checked = splitButtonChecked,
-                        onCheckedChange = { splitButtonChecked = it },
+                        onCheckedChange = {
+                            weakHaptic()
+                            splitButtonChecked = it
+                        },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                             contentColor = MaterialTheme.colorScheme.onTertiaryContainer

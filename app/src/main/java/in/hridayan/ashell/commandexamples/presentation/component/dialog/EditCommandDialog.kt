@@ -195,9 +195,12 @@ fun UpdateButton(
     interactionSource: MutableInteractionSource? = null,
     viewModel: CommandViewModel = hiltViewModel()
 ) {
+    val weakHaptic = LocalWeakHaptic.current
+
     Button(
         modifier = modifier,
         onClick = {
+            weakHaptic()
             viewModel.editCommand(id = id) { onSuccess() }
         },
         shapes = ButtonDefaults.shapes(),
@@ -215,9 +218,14 @@ private fun CancelButton(
     onClick: () -> Unit,
     interactionSource: MutableInteractionSource? = null,
 ) {
+    val weakHaptic = LocalWeakHaptic.current
+
     OutlinedButton(
         modifier = modifier,
-        onClick = onClick,
+        onClick = {
+            weakHaptic()
+            onClick()
+        },
         shapes = ButtonDefaults.shapes(),
         interactionSource = interactionSource
     ) {
