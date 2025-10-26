@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface CommandRepository {
     suspend fun insertCommand(command: CommandEntity)
     suspend fun insertAllCommands(commands: List<CommandEntity>)
+    fun loadDefaultCommandsWithProgress(): Flow<Float>
     suspend fun updateCommand(command: CommandEntity)
     suspend fun deleteCommand(id: Int)
     suspend fun deleteAllCommands()

@@ -1,39 +1,44 @@
 package `in`.hridayan.ashell.core.presentation.components.dialog
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
-import `in`.hridayan.ashell.core.presentation.ui.theme.Shape
 
 @Composable
-fun CustomDialog(
-    modifier: Modifier = Modifier,
+fun DialogContainer(
     onDismiss: () -> Unit,
-    content: @Composable () -> Unit
+    properties: DialogProperties = DialogProperties(
+        dismissOnClickOutside = true,
+        dismissOnBackPress = true
+    ),
+    contentPadding: PaddingValues = PaddingValues(24.dp),
+    content: @Composable ColumnScope.() -> Unit
 ) {
     Dialog(
         onDismissRequest = onDismiss,
-        properties = DialogProperties(
-            dismissOnClickOutside = true,
-            dismissOnBackPress = true
-        )
+        properties = properties
     ) {
-        Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .clip((Shape.cardCornerLarge))
-                .background(MaterialTheme.colorScheme.surfaceContainer)
-                .padding(Dimens.paddingLarge)
+        Surface(
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = 8.dp,
+            color = MaterialTheme.colorScheme.surfaceContainer,
         ) {
-            content()
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(contentPadding)
+            ) {
+                content()
+            }
         }
     }
 }

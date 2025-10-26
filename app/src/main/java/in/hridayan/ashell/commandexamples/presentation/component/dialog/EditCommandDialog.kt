@@ -1,13 +1,16 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonGroup
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,17 +32,17 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.presentation.components.dialog.CustomDialog
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.text.DialogTitle
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 @Composable
 fun EditCommandDialog(
-    modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     id: Int,
     viewModel: CommandViewModel = hiltViewModel()
 ) {
+    val interactionSources = remember { List(2) { MutableInteractionSource() } }
 
     val command by viewModel.command.collectAsState()
     val description by viewModel.description.collectAsState()
@@ -48,69 +51,71 @@ fun EditCommandDialog(
     val commandError by viewModel.commandError.collectAsState()
     val descriptionError by viewModel.descriptionError.collectAsState()
 
-    CustomDialog(
-        modifier = modifier,
+    DialogContainer(
         onDismiss = onDismiss,
-        content = {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                DialogTitle(
-                    text = stringResource(R.string.edit_command),
-                    modifier = Modifier
-                        .padding(vertical = Dimens.paddingMedium)
-                        .align(Alignment.Companion.CenterHorizontally)
-                )
+    ) {
+        DialogTitle(
+            text = stringResource(R.string.edit_command),
+            modifier = Modifier
+                .padding(vertical = Dimens.paddingMedium)
+                .align(Alignment.Companion.CenterHorizontally)
+        )
 
-                CommandInputField(
-                    command, viewModel::onCommandChange, commandError, modifier = Modifier
-                )
+        CommandInputField(
+            command, viewModel::onCommandChange, commandError, modifier = Modifier
+        )
 
-                DescriptionInputField(
-                    description,
-                    viewModel::onDescriptionChange,
-                    descriptionError,
-                    modifier = Modifier
-                )
+        DescriptionInputField(
+            description,
+            viewModel::onDescriptionChange,
+            descriptionError,
+            modifier = Modifier
+        )
 
-                if (labels.isNotEmpty()) {
-                    Labels(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp, bottom = 10.dp),
-                        labels = labels,
-                        showCrossIcon = true
-                    )
-                }
+        if (labels.isNotEmpty()) {
+            Labels(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp, bottom = 10.dp),
+                labels = labels,
+                showCrossIcon = true
+            )
+        }
 
-                LabelInputField()
+        LabelInputField()
 
-                Row(
-                    modifier = Modifier.padding(
-                        top = Dimens.paddingLarge,
-                        start = Dimens.paddingLarge,
-                        end = Dimens.paddingLarge
-                    ), horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
-                ) {
-                    CancelButton(
-                        onClick = onDismiss, modifier = Modifier.weight(1f)
-                    )
+        @Suppress("DEPRECATION")
+        ButtonGroup(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Dimens.paddingLarge)
+        ) {
+            CancelButton(
+                onClick = onDismiss,
+                modifier = Modifier
+                    .weight(1f)
+                    .animateWidth(interactionSources[0]),
+                interactionSource = interactionSources[0]
+            )
 
-                    UpdateButton(
-                        id = id,
-                        viewModel = viewModel,
-                        onSuccess = onDismiss,
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-        })
-
+            UpdateButton(
+                id = id,
+                onSuccess = onDismiss,
+                modifier = Modifier
+                    .weight(1f)
+                    .animateWidth(interactionSources[1]),
+                interactionSource = interactionSources[1]
+            )
+        }
+    }
 }
 
 @Composable
 private fun CommandInputField(
-    value: String, onValueChange: (String) -> Unit, isError: Boolean, modifier: Modifier
+    value: String,
+    onValueChange: (String) -> Unit,
+    isError: Boolean,
+    modifier: Modifier
 ) {
     val label =
         if (isError) stringResource(R.string.field_cannot_be_blank) else stringResource(R.string.command)
@@ -126,7 +131,10 @@ private fun CommandInputField(
 
 @Composable
 private fun DescriptionInputField(
-    value: String, onValueChange: (String) -> Unit, isError: Boolean, modifier: Modifier
+    value: String,
+    onValueChange: (String) -> Unit,
+    isError: Boolean,
+    modifier: Modifier
 ) {
     val label =
         if (isError) stringResource(R.string.field_cannot_be_blank) else stringResource(R.string.description)
@@ -181,15 +189,20 @@ private fun LabelInputField(
 
 @Composable
 fun UpdateButton(
+    modifier: Modifier = Modifier,
     id: Int,
-    viewModel: CommandViewModel,
     onSuccess: () -> Unit,
-    modifier: Modifier = Modifier
+    interactionSource: MutableInteractionSource? = null,
+    viewModel: CommandViewModel = hiltViewModel()
 ) {
     Button(
-        modifier = modifier, onClick = {
+        modifier = modifier,
+        onClick = {
             viewModel.editCommand(id = id) { onSuccess() }
-        }) {
+        },
+        shapes = ButtonDefaults.shapes(),
+        interactionSource = interactionSource
+    ) {
         Text(
             text = stringResource(R.string.update), style = MaterialTheme.typography.labelLarge
         )
@@ -197,9 +210,16 @@ fun UpdateButton(
 }
 
 @Composable
-private fun CancelButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+private fun CancelButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    interactionSource: MutableInteractionSource? = null,
+) {
     OutlinedButton(
-        modifier = modifier, onClick = onClick
+        modifier = modifier,
+        onClick = onClick,
+        shapes = ButtonDefaults.shapes(),
+        interactionSource = interactionSource
     ) {
         Text(
             text = stringResource(R.string.cancel), style = MaterialTheme.typography.labelLarge

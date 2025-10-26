@@ -2,8 +2,10 @@ package `in`.hridayan.ashell.commandexamples.data.local.repository
 
 import `in`.hridayan.ashell.commandexamples.data.local.database.CommandDao
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
+import `in`.hridayan.ashell.commandexamples.data.local.preloadedCommands
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class CommandRepositoryImpl @Inject constructor(
@@ -16,6 +18,25 @@ class CommandRepositoryImpl @Inject constructor(
 
     override suspend fun insertAllCommands(commands: List<CommandEntity>) {
         commandDao.insertAllCommands(commands)
+    }
+
+    /**
+     * Loads predefined commands into the database manually.
+     * Emits progress from 0.0 to 1.0 as commands are inserted.
+     * Skips duplicates based on `command` field.
+     */
+    override fun loadDefaultCommandsWithProgress(): Flow<Float> = flow {
+        val total = preloadedCommands.size
+        var inserted = 0
+
+        for (cmd in preloadedCommands) {
+            val exists = commandDao.doesCommandExist(cmd.command)
+            if (exists == 0) {
+                commandDao.insertCommand(cmd)
+            }
+            inserted++
+            emit(inserted / total.toFloat())
+        }
     }
 
     override suspend fun updateCommand(command: CommandEntity) {

@@ -50,6 +50,9 @@ interface CommandDao {
     @Query("SELECT * FROM commands ORDER BY useCount ASC , command ASC ")
     fun getLeastUsedCommands(): Flow<List<CommandEntity>>
 
+    @Query("SELECT COUNT(*) FROM commands WHERE command = :command")
+    suspend fun doesCommandExist(command: String): Int
+
     @Query("SELECT * FROM commands WHERE command LIKE '%' || :query || '%' OR description LIKE '%' || :query || '%'")
     fun searchCommands(query: String): Flow<List<CommandEntity>>
 

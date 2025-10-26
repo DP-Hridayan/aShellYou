@@ -3,7 +3,6 @@
 package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -33,14 +32,13 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.presentation.components.dialog.CustomDialog
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.DialogTitle
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
 @Composable
 fun AddCommandDialog(
-    modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     viewModel: CommandViewModel = hiltViewModel()
 ) {
@@ -54,84 +52,79 @@ fun AddCommandDialog(
     val commandError by viewModel.commandError.collectAsState()
     val descriptionError by viewModel.descriptionError.collectAsState()
 
-    CustomDialog(
-        modifier = modifier,
-        onDismiss = onDismiss,
-        content = {
-            Column(
-                modifier = Modifier.fillMaxWidth()
+    DialogContainer(
+        onDismiss = onDismiss
+    ) {
+        DialogTitle(
+            text = stringResource(R.string.add_command),
+            modifier = Modifier
+                .padding(bottom = Dimens.paddingMedium)
+                .align(Alignment.CenterHorizontally)
+        )
+
+        CommandInputField(
+            command, viewModel::onCommandChange, commandError, modifier = Modifier
+        )
+
+        DescriptionInputField(
+            description,
+            viewModel::onDescriptionChange,
+            descriptionError,
+            modifier = Modifier
+        )
+
+        if (labels.isNotEmpty()) {
+            Labels(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp, bottom = 10.dp),
+                labels = labels,
+                showCrossIcon = true
+            )
+        }
+
+        LabelInputField()
+
+        @Suppress("DEPRECATION")
+        ButtonGroup(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Dimens.paddingLarge)
+        ) {
+            OutlinedButton(
+                onClick = {
+                    weakHaptic()
+                    onDismiss()
+                },
+                shapes = ButtonDefaults.shapes(),
+                modifier = Modifier
+                    .weight(1f)
+                    .animateWidth(interactionSources[0]),
+                interactionSource = interactionSources[0],
             ) {
-                DialogTitle(
-                    text = stringResource(R.string.add_command),
-                    modifier = Modifier
-                        .padding(bottom = Dimens.paddingMedium)
-                        .align(Alignment.CenterHorizontally)
+                AutoResizeableText(
+                    text = stringResource(R.string.cancel),
+                    style = MaterialTheme.typography.labelLarge
                 )
-
-                CommandInputField(
-                    command, viewModel::onCommandChange, commandError, modifier = Modifier
-                )
-
-                DescriptionInputField(
-                    description,
-                    viewModel::onDescriptionChange,
-                    descriptionError,
-                    modifier = Modifier
-                )
-
-                if (labels.isNotEmpty()) {
-                    Labels(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp, bottom = 10.dp),
-                        labels = labels,
-                        showCrossIcon = true
-                    )
-                }
-
-                LabelInputField()
-
-                @Suppress("DEPRECATION")
-                ButtonGroup(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = Dimens.paddingLarge)
-                ) {
-                    OutlinedButton(
-                        onClick = {
-                            weakHaptic()
-                            onDismiss()
-                        },
-                        shapes = ButtonDefaults.shapes(),
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[0]),
-                        interactionSource = interactionSources[0],
-                    ) {
-                        AutoResizeableText(
-                            text = stringResource(R.string.cancel),
-                            style = MaterialTheme.typography.labelLarge
-                        )
-                    }
-
-                    Button(
-                        onClick = {
-                            weakHaptic()
-                            viewModel.addCommand { onDismiss() }
-                        },
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[1]),
-                        interactionSource = interactionSources[1],
-                        shapes = ButtonDefaults.shapes(),
-                    ) {
-                        AutoResizeableText(
-                            text = stringResource(R.string.add),
-                        )
-                    }
-                }
             }
-        })
+
+            Button(
+                onClick = {
+                    weakHaptic()
+                    viewModel.addCommand { onDismiss() }
+                },
+                modifier = Modifier
+                    .weight(1f)
+                    .animateWidth(interactionSources[1]),
+                interactionSource = interactionSources[1],
+                shapes = ButtonDefaults.shapes(),
+            ) {
+                AutoResizeableText(
+                    text = stringResource(R.string.add),
+                )
+            }
+        }
+    }
 }
 
 @Composable

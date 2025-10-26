@@ -36,6 +36,12 @@ class CommandViewModel @Inject constructor(
     private val _labelError = MutableStateFlow(false)
     val labelError: StateFlow<Boolean> = _labelError
 
+    private val _loadProgress = MutableStateFlow(0f)
+    val loadProgress: StateFlow<Float> = _loadProgress
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
         }
@@ -158,6 +164,16 @@ class CommandViewModel @Inject constructor(
         viewModelScope.launch {
             commandRepository.updateFavoriteStatus(id, isFavourite)
             onSuccess()
+        }
+    }
+
+    fun loadDefaultCommands() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            commandRepository.loadDefaultCommandsWithProgress().collect { progress ->
+                _loadProgress.value = progress
+            }
+            _isLoading.value = false
         }
     }
 }

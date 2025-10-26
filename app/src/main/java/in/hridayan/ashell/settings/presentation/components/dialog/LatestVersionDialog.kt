@@ -7,19 +7,18 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Verified
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,62 +28,78 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
+import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import kotlinx.coroutines.launch
 
 @Composable
-fun LatestVersionDialog(modifier: Modifier = Modifier, onDismiss: () -> Unit) {
+fun LatestVersionDialog(onDismiss: () -> Unit) {
     val weakHaptic = LocalWeakHaptic.current
 
     val (angle, scale) = syncedRotationAndScale()
 
-    Dialog(
-        onDismissRequest = onDismiss,
-        properties = DialogProperties(dismissOnClickOutside = true)
-    ) {
-        Surface(
-            modifier = modifier,
-            shape = MaterialTheme.shapes.extraLarge,
-            tonalElevation = 8.dp,
-            color = MaterialTheme.colorScheme.surfaceContainer
-        ) {
-            Row(
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Spacer(
-                        modifier = Modifier
-                            .requiredSize(56.dp)
-                            .graphicsLayer {
-                                rotationZ = angle
-                            }
-                            .scale(scale)
-                            .clip(MaterialShapes.Cookie9Sided.toShape())
-                            .clickable(enabled = true, onClick = weakHaptic)
-                            .background(MaterialTheme.colorScheme.primaryContainer)
-                    )
-                    Icon(
-                        imageVector = Icons.Rounded.Verified,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                }
+    val appVersionName = stringResource(R.string.version_name) + ": " + BuildConfig.VERSION_NAME
+    val appVersionCode =
+        stringResource(R.string.version_code) + ": " + BuildConfig.VERSION_CODE.toString()
 
-                AutoResizeableText(
-                    text = stringResource(R.string.already_latest_version),
-                    style = MaterialTheme.typography.titleMediumEmphasized,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
+    DialogContainer(onDismiss = onDismiss) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Spacer(
+                modifier = Modifier
+                    .requiredSize(96.dp)
+                    .graphicsLayer {
+                        rotationZ = angle
+                    }
+                    .scale(scale)
+                    .clip(MaterialShapes.Cookie9Sided.toShape())
+                    .clickable(enabled = true, onClick = weakHaptic)
+                    .background(MaterialTheme.colorScheme.primaryContainer)
+            )
+            Icon(
+                painter = painterResource(R.drawable.ic_verified),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                modifier = Modifier.size(48.dp)
+            )
+        }
+
+        Text(
+            text = stringResource(R.string.already_latest_version),
+            style = MaterialTheme.typography.titleSmallEmphasized,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 24.dp, bottom = 20.dp)
+        )
+
+        PillShapedCard(
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+            ),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            AutoResizeableText(
+                text = appVersionName,
+                style = MaterialTheme.typography.bodySmallEmphasized,
+                modifier = Modifier.padding(top = 10.dp, start = 15.dp, end = 15.dp)
+            )
+            AutoResizeableText(
+                text = appVersionCode,
+                style = MaterialTheme.typography.bodySmallEmphasized,
+                modifier = Modifier.padding(top = 2.dp, bottom = 10.dp, start = 15.dp, end = 15.dp)
+            )
         }
     }
 }
