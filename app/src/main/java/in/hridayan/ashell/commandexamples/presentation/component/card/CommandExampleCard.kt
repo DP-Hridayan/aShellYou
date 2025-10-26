@@ -6,12 +6,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
@@ -33,7 +31,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCommandDialog
@@ -43,10 +40,10 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.button.FavouriteIconButton
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
+
 
 @Composable
 fun CommandExampleCard(
@@ -59,66 +56,54 @@ fun CommandExampleCard(
     viewModel: CommandViewModel = hiltViewModel(),
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
-    var isExpanded by rememberSaveable { mutableStateOf(false) }
     val navController = LocalNavController.current
 
     CollapsibleCard(
-        modifier = modifier.padding(horizontal = Dimens.paddingLarge),
-        collapsedContent = { modifier ->
-            Column(
-                modifier = modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Dimens.paddingMedium)
-            ) {
-                if (labels.isNotEmpty()) Labels(modifier = Modifier.fillMaxWidth(), labels = labels)
+        modifier = modifier,
+        collapsedContent = {
+            if (labels.isNotEmpty()) Labels(modifier = Modifier.fillMaxWidth(), labels = labels)
 
-                Text(
-                    text = command,
-                    style = MaterialTheme.typography.titleMediumEmphasized
-                )
-            }
+            Text(
+                text = command,
+                style = MaterialTheme.typography.titleMediumEmphasized
+            )
         },
 
         expandedContent = {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 5.dp),
-                verticalArrangement = Arrangement.spacedBy(Dimens.paddingMedium)
-            ) {
-                if (description.isNotEmpty()) {
-                    Text(
-                        text = description,
-                        modifier = Modifier.fillMaxWidth(),
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
-
-                Row(
+            if (description.isNotEmpty()) {
+                Text(
+                    text = description,
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    EditButton(id = id, viewModel = viewModel)
-                    DeleteButton(id = id, viewModel = viewModel)
-                    UseCommandButton(onClick = {
-                        shellViewModel.onCommandChange(
-                            TextFieldValue(
-                                command
-                            )
-                        )
-
-                        navController.popBackStack()
-                    })
-                }
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
-        },
-        onStateChanged = { expanded ->
-            isExpanded = expanded
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                EditButton(id = id, viewModel = viewModel)
+                DeleteButton(id = id, viewModel = viewModel)
+                UseCommandButton(onClick = {
+                    shellViewModel.onCommandChange(
+                        TextFieldValue(
+                            command
+                        )
+                    )
+
+                    navController.popBackStack()
+                })
+            }
         })
 }
 
 @Composable
-fun DeleteButton(modifier: Modifier = Modifier, id: Int, viewModel: CommandViewModel) {
+private fun DeleteButton(
+    modifier: Modifier = Modifier,
+    id: Int,
+    viewModel: CommandViewModel
+) {
     Image(
         painter = painterResource(id = R.drawable.ic_delete),
         contentDescription = null,
@@ -135,7 +120,11 @@ fun DeleteButton(modifier: Modifier = Modifier, id: Int, viewModel: CommandViewM
 }
 
 @Composable
-fun EditButton(modifier: Modifier = Modifier, id: Int, viewModel: CommandViewModel) {
+private fun EditButton(
+    modifier: Modifier = Modifier,
+    id: Int,
+    viewModel: CommandViewModel
+) {
     var isEditDialogOpen by rememberSaveable { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
     Image(
@@ -159,7 +148,7 @@ fun EditButton(modifier: Modifier = Modifier, id: Int, viewModel: CommandViewMod
 }
 
 @Composable
-fun FavouriteButton(
+private fun FavouriteButton(
     modifier: Modifier = Modifier,
     id: Int,
     isFavourite: Boolean,
@@ -177,7 +166,7 @@ fun FavouriteButton(
 }
 
 @Composable
-fun UseCommandButton(
+private fun UseCommandButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {

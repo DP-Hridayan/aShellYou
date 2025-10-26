@@ -49,7 +49,9 @@ fun EditCommandDialog(
     val descriptionError by viewModel.descriptionError.collectAsState()
 
     CustomDialog(
-        onDismiss = onDismiss, content = {
+        modifier = modifier,
+        onDismiss = onDismiss,
+        content = {
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -186,9 +188,7 @@ fun UpdateButton(
 ) {
     Button(
         modifier = modifier, onClick = {
-            viewModel.editCommand(id = id) {
-                onSuccess()
-            }
+            viewModel.editCommand(id = id) { onSuccess() }
         }) {
         Text(
             text = stringResource(R.string.update), style = MaterialTheme.typography.labelLarge

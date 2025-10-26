@@ -26,7 +26,8 @@ import androidx.compose.ui.unit.dp
  * click actions if enabled. Use it when you want a smooth, rounded card with
  * flexible content inside.
  *
- * @param modifier Modifier to be applied to the card. Do not add clickable modifier, use the dedicated clickable parameter!
+ * @param modifier [Modifier] to be applied to the card.
+ *  Do not add [Modifier.clickable], use the parameter [clickable] boolean to enable or disable clickable and use the parameter [onClick] for defining the click action
  * @param colors Defines the background and content colors of the card.
  * @param elevation Controls the shadow depth around the card.
  * @param border Optional border stroke to draw around the card.

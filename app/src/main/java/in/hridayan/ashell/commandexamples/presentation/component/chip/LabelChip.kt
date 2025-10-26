@@ -51,10 +51,7 @@ fun LabelChip(
                 shape = Shape.cardCornerMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
-            .padding(
-                horizontal = 2.dp,
-                vertical = 2.dp
-            ),
+            .padding(2.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(

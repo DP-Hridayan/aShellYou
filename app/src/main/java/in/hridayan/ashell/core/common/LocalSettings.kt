@@ -9,7 +9,7 @@ import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.SettingsState
 
-val LocalSettings = compositionLocalOf<SettingsState> {
+val LocalSettings = compositionLocalOf {
     SettingsState(
         isAutoUpdate = false,
         themeMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,

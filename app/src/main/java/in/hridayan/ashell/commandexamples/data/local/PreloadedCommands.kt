@@ -2,6 +2,9 @@ package `in`.hridayan.ashell.commandexamples.data.local
 
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 
+/**
+ *@param preloadedCommands This is a predefined list of commands with their description and labels
+ */
 val preloadedCommands = listOf(
     CommandEntity(
         command = "adb shell am force-stop <package>",

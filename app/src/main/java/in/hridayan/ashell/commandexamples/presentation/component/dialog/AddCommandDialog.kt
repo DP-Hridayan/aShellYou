@@ -56,7 +56,8 @@ fun AddCommandDialog(
 
     CustomDialog(
         modifier = modifier,
-        onDismiss = onDismiss, content = {
+        onDismiss = onDismiss,
+        content = {
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -116,9 +117,7 @@ fun AddCommandDialog(
                     Button(
                         onClick = {
                             weakHaptic()
-                            viewModel.addCommand {
-                                onDismiss()
-                            }
+                            viewModel.addCommand { onDismiss() }
                         },
                         modifier = Modifier
                             .weight(1f)

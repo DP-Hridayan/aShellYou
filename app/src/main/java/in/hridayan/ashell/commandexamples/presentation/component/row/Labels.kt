@@ -10,6 +10,12 @@ import androidx.compose.ui.Modifier
 import `in`.hridayan.ashell.commandexamples.presentation.component.chip.LabelChip
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
+/**
+ * This composable shows a flow row of label chips
+ * @param modifier Modifier to be applied to the Labels Row
+ * @param labels List of labels which is to be displayed in the row
+ * @param showCrossIcon This boolean is to enable the option to add a 'x' Icon Button next to each individual label
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun Labels(
