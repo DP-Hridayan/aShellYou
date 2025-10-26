@@ -6,12 +6,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,6 +46,9 @@ class CommandViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
         }
@@ -53,9 +60,37 @@ class CommandViewModel @Inject constructor(
             SharingStarted.Companion.Lazily, emptyList()
         )
 
+    @OptIn(FlowPreview::class)
+    val filteredCommands: StateFlow<List<CommandEntity>> =
+        _searchQuery.combine(allCommands) { query, commands ->
+            if (query.isBlank()) {
+                commands
+            } else {
+                withContext(Dispatchers.Default) {
+                    commands.filter {
+                        it.command.contains(query, ignoreCase = true) ||
+                                it.description.contains(query, ignoreCase = true) ||
+                                it.labels.any { label ->
+                                    label.contains(query, ignoreCase = true)
+                                }
+                    }
+                }
+            }
+        }
+            .distinctUntilChanged()
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                emptyList()
+            )
+
     fun onCommandChange(newValue: String) {
         _command.value = newValue
         _commandError.value = false
+    }
+
+    fun onSearchQueryChange(newValue: String) {
+        _searchQuery.value = newValue
     }
 
     fun onDescriptionChange(newValue: String) {

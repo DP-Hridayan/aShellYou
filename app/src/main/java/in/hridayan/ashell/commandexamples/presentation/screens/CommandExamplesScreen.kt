@@ -16,7 +16,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,10 +44,10 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.preloadedCommands
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
+import `in`.hridayan.ashell.commandexamples.presentation.component.search.CustomSearchBar
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
-import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
 
@@ -64,6 +63,8 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
     val rotation by animateFloatAsState(
         targetValue = if (splitButtonChecked) 180f else 0f
     )
+    val commands by viewModel.filteredCommands.collectAsState(initial = emptyList())
+    val searchQuery by viewModel.searchQuery.collectAsState()
 
     Log.d("test", preloadedCommands.size.toString())
 
@@ -142,8 +143,6 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
             )
         }
     ) {
-        val commands by viewModel.allCommands.collectAsState(initial = emptyList())
-
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -153,15 +152,15 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
             verticalArrangement = Arrangement.spacedBy(Dimens.paddingMedium)
         ) {
             item {
-                PillShapedCard(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                    )
-                ) {
-
-                }
+                CustomSearchBar(
+                    value = searchQuery,
+                    onValueChange = { it -> viewModel.onSearchQueryChange(it) },
+                    onClearClick = {
+                        viewModel.onSearchQueryChange("")
+                    },
+                    hint = stringResource(R.string.search_commands_here),
+                    modifier = Modifier.padding(16.dp)
+                )
             }
 
             items(commands.size, key = { index -> commands[index].id }) { index ->

@@ -146,6 +146,7 @@
     <string name="version_code">Version code</string>
     <string name="copied_to_clipboard">Copied to clipboard!</string>
     <string name="command_not_found">Command not found!</string>
+    <string name="search_commands_here">Search commands here</string>
     <string name="edit_command">Edit command</string>
     <string name="load_predefined_commands">Load predefined commands</string>
     <string name="local_adb_shell">Local ADB shell</string>
