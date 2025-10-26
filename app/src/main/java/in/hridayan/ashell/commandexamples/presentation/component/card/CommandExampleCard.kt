@@ -49,7 +49,7 @@ import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun CommandItem(
+fun CommandExampleCard(
     modifier: Modifier,
     id: Int,
     command: String,
@@ -165,13 +165,15 @@ fun FavouriteButton(
     isFavourite: Boolean,
     viewModel: CommandViewModel
 ) {
-    FavouriteIconButton(isFavorite = isFavourite, onToggle = {
-        viewModel.toggleFavourite(
-            id = id,
-            isFavourite = !isFavourite,
-            onSuccess = {}
-        )
-    })
+    FavouriteIconButton(
+        isFavorite = isFavourite,
+        onToggle = {
+            viewModel.toggleFavourite(
+                id = id,
+                isFavourite = !isFavourite,
+                onSuccess = {}
+            )
+        })
 }
 
 @Composable

@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -30,17 +29,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -52,6 +45,7 @@ import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL
+import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.ui.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
@@ -71,8 +65,6 @@ fun CrashDetailsScreen(
     val parentEntry = remember(navController) {
         navController.getBackStackEntry(NavRoutes.CrashHistoryScreen)
     }
-    var cardHeight by remember { mutableStateOf(0.dp) }
-    val screenDensity = LocalDensity.current
     val crashViewModel: CrashViewModel = hiltViewModel(parentEntry)
     val crash = crashViewModel.crash.value
     val stacktrace = crash?.stackTrace
@@ -169,15 +161,10 @@ fun CrashDetailsScreen(
                         }
                     }
 
-                    Card(
+                    PillShapedCard(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 15.dp)
-                            .onGloballyPositioned { coordinates ->
-                                cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
-                            }
-                            .clip(RoundedCornerShape(cardHeight / 2)),
-                        shape = RoundedCornerShape(cardHeight / 2),
+                            .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 15.dp),
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                             contentColor = MaterialTheme.colorScheme.onTertiaryContainer

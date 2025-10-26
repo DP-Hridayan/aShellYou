@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -15,19 +14,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.settings.data.local.model.PreferenceItem
 import `in`.hridayan.ashell.settings.domain.model.SettingsType
 import `in`.hridayan.ashell.settings.domain.model.getResolvedDescription
@@ -48,8 +42,6 @@ fun BooleanPreferenceItemView(
     if (!item.isLayoutVisible) return
 
     val weakHaptic = LocalWeakHaptic.current
-    var cardHeight by remember { mutableStateOf(0.dp) }
-    val screenDensity = LocalDensity.current
     val icon = item.getResolvedIcon()
     val titleText = item.getResolvedTitle()
     val descriptionText = item.getResolvedDescription()
@@ -67,16 +59,12 @@ fun BooleanPreferenceItemView(
     }
 
     if (item.type == SettingsType.SwitchBanner) {
-        Card(
+        PillShapedCard(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 0.dp)
-                .onGloballyPositioned { coordinates ->
-                    cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
-                }
-                .clip(RoundedCornerShape(cardHeight / 2))
-                .clickable(enabled = enabled, onClick = onClick),
-            shape = RoundedCornerShape(cardHeight / 2),
+                .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 0.dp),
+            clickable = enabled,
+            onClick = onClick,
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
