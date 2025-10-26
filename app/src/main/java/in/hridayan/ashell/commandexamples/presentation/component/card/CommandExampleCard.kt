@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
@@ -29,6 +30,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCommandDialog
@@ -63,7 +65,8 @@ fun CommandExampleCard(
 
             Text(
                 text = command,
-                style = MaterialTheme.typography.titleMediumEmphasized
+                style = MaterialTheme.typography.titleMediumEmphasized,
+                modifier = Modifier.padding(start = 5.dp)
             )
         },
 
@@ -71,19 +74,28 @@ fun CommandExampleCard(
             if (description.isNotEmpty()) {
                 Text(
                     text = description,
-                    modifier = Modifier.fillMaxWidth(),
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 5.dp)
                 )
             }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                EditButton(id = id)
-                DeleteButton(id = id)
-                CopyButton(id = id)
+                Row(
+                    modifier = Modifier.weight(1f),
+                    horizontalArrangement = Arrangement.spacedBy(15.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    EditButton(id = id)
+                    DeleteButton(id = id)
+                    CopyButton(id = id)
+                }
+
                 UseCommandButton(onClick = {
                     shellViewModel.onCommandChange(
                         TextFieldValue(
