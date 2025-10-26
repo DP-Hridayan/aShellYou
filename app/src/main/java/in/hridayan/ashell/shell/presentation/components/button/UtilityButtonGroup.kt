@@ -103,7 +103,11 @@ fun UtilityButtonGroup(
             IconButton(
                 onClick = {
                     weakHaptic()
-                    shellViewModel.toggleSearchBar()
+                    if (searchQuery.isEmpty()) {
+                        showToast(context, context.getString(R.string.nothing_to_search))
+                    } else {
+                        shellViewModel.toggleSearchBar()
+                    }
                 },
                 shapes = IconButtonDefaults.shapes(),
                 colors = IconButtonDefaults.iconButtonColors(
