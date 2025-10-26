@@ -5,6 +5,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.model.SharedInputFieldText
@@ -12,11 +13,18 @@ import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.domain.usecase.ExtractLastCommandOutputUseCase
 import `in`.hridayan.ashell.shell.domain.usecase.GetSaveOutputFileNameUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -52,9 +60,40 @@ class ShellViewModel @Inject constructor(
         _isSearchBarVisible.value = !_isSearchBarVisible.value
     }
 
-    fun updateSearchQuery(query: String) {
+    fun onSearchQueryChange(query: String) {
         _searchQuery.value = query
     }
+
+    @OptIn(FlowPreview::class)
+    val filteredOutput: StateFlow<List<CommandResult>> =
+        _searchQuery
+            .combine(_commandResults) { query, results ->
+                if (query.isBlank()) {
+                    results
+                } else {
+                    withContext(Dispatchers.Default) {
+                        results.mapNotNull { commandResult ->
+                            val filteredLines = commandResult.outputFlow.value.filter { line ->
+                                line.text.contains(query, ignoreCase = true)
+                            }
+
+                            if (filteredLines.isNotEmpty()) {
+                                commandResult.copy(
+                                    outputFlow = MutableStateFlow(filteredLines)
+                                )
+                            } else {
+                                null
+                            }
+                        }
+                    }
+                }
+            }
+            .distinctUntilChanged()
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                emptyList()
+            )
 
     fun onCommandChange(newValue: TextFieldValue) {
         val updatedValue = newValue.copy(

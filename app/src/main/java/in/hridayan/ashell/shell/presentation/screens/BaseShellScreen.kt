@@ -285,7 +285,6 @@ fun BaseShellScreen(
                     }
                 }
 
-
                 BottomExtendedFAB(
                     listState = listState,
                     onClickSave = { success ->
@@ -509,7 +508,7 @@ private fun OutputCard(
     val isDarkMode = LocalDarkMode.current
     val isSearchVisible = shellViewModel.isSearchBarVisible.collectAsState()
     val searchQuery = shellViewModel.searchQuery.collectAsState()
-    val results by shellViewModel.commandResults.collectAsState()
+    val results by shellViewModel.filteredOutput.collectAsState()
 
     val allOutputs = results.map { commandResult ->
         commandResult.outputFlow.collectAsState()

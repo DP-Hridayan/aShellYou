@@ -4,11 +4,13 @@ package `in`.hridayan.ashell.shell.presentation.components.button
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ButtonGroup
@@ -18,21 +20,23 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.Text
-import androidx.compose.material3.rememberSearchBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.commandexamples.presentation.component.search.CustomSearchBar
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
@@ -58,33 +62,42 @@ fun UtilityButtonGroup(
     val interactionSources = remember { List(5) { MutableInteractionSource() } }
     val askToClean = LocalSettings.current.clearOutputConfirmation
     val shellState by shellViewModel.shellState.collectAsState()
-    val searchQuery = shellViewModel.searchQuery.collectAsState()
+    val searchQuery by shellViewModel.searchQuery.collectAsState()
     val isSearchVisible = shellViewModel.isSearchBarVisible.collectAsState()
-    val searchBarState = rememberSearchBarState()
+    var buttonGroupHeight by remember { mutableStateOf(0.dp) }
+    val screenDensity = LocalDensity.current
+    val utilityRowPadding = PaddingValues(top = 30.dp, bottom = 25.dp, start = 20.dp, end = 20.dp)
 
     if (isSearchVisible.value && !isOutputEmpty) {
-        val inputField = @Composable {
-            OutlinedTextField(
-                value = searchQuery.value,
-                onValueChange = { shellViewModel.updateSearchQuery(it) },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                label = { Text(stringResource(R.string.search_output)) },
-                trailingIcon = {
-                    IconButton(onClick = { shellViewModel.toggleSearchBar() }) {
-                        Icon(Icons.Default.Close, contentDescription = "Close Search")
-                    }
-                }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(buttonGroupHeight + 55.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            CustomSearchBar(
+                value = searchQuery,
+                onValueChange = { it -> shellViewModel.onSearchQueryChange(it) },
+                onClearClick = {
+                    shellViewModel.onSearchQueryChange("")
+                },
+                hint = stringResource(R.string.search_commands_here),
+                showDismissButton = true,
+                onDismiss = { shellViewModel.toggleSearchBar() },
+                modifier = modifier.padding(16.dp)
             )
         }
-
-        SearchBar(state = searchBarState, inputField = inputField)
     } else
         @Suppress("DEPRECATION")
         ButtonGroup(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(top = 30.dp, bottom = 25.dp, start = 20.dp, end = 20.dp),
+                .padding(utilityRowPadding)
+                .onGloballyPositioned { layoutCoordinates ->
+                    buttonGroupHeight = with(screenDensity) {
+                        layoutCoordinates.size.height.toDp()
+                    }
+                },
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             IconButton(

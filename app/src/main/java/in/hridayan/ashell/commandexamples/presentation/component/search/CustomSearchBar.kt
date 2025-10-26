@@ -27,8 +27,6 @@ import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
-import io.ktor.websocket.parseWebSocketExtensions
-
 
 @Composable
 fun CustomSearchBar(
@@ -37,6 +35,8 @@ fun CustomSearchBar(
     modifier: Modifier = Modifier,
     hint: String = "Search...",
     onClearClick: () -> Unit = {},
+    showDismissButton: Boolean = false,
+    onDismiss: () -> Unit = {}
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val focusManager = LocalFocusManager.current
@@ -98,15 +98,37 @@ fun CustomSearchBar(
                     painter = painterResource(id = R.drawable.ic_clear),
                     contentDescription = "Clear text",
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.clickable(
-                        enabled = true,
-                        interactionSource = null,
-                        onClick = {
-                            weakHaptic()
-                            onClearClick()
-                            focusManager.clearFocus()
-                        }
-                    )
+                    modifier = Modifier
+                        .padding(start = 10.dp)
+                        .clickable(
+                            enabled = true,
+                            interactionSource = null,
+                            onClick = {
+                                weakHaptic()
+                                onClearClick()
+                                focusManager.clearFocus()
+                            }
+                        )
+                )
+            }
+
+            if (showDismissButton) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_cross),
+                    contentDescription = "Clear text",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier
+                        .padding(start = 10.dp)
+                        .clickable(
+                            enabled = true,
+                            interactionSource = null,
+                            onClick = {
+                                weakHaptic()
+                                onDismiss()
+                                onClearClick()
+                                focusManager.clearFocus()
+                            }
+                        )
                 )
             }
         }
