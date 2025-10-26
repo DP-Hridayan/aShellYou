@@ -181,6 +181,7 @@ fun BaseShellScreen(
     }
 
     val actionFabOnClick: () -> Unit = {
+        weakHaptic()
         when (shellState) {
             is ShellState.InputQuery -> {
                 coroutineScope.launch {
