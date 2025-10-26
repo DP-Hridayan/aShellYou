@@ -62,6 +62,7 @@ fun UtilityButtonGroup(
     val interactionSources = remember { List(5) { MutableInteractionSource() } }
     val askToClean = LocalSettings.current.clearOutputConfirmation
     val shellState by shellViewModel.shellState.collectAsState()
+    val commandResults by shellViewModel.commandResults.collectAsState()
     val searchQuery by shellViewModel.searchQuery.collectAsState()
     val isSearchVisible = shellViewModel.isSearchBarVisible.collectAsState()
     var buttonGroupHeight by remember { mutableStateOf(0.dp) }
@@ -103,7 +104,7 @@ fun UtilityButtonGroup(
             IconButton(
                 onClick = {
                     weakHaptic()
-                    if (searchQuery.isEmpty()) {
+                    if (commandResults.isEmpty()) {
                         showToast(context, context.getString(R.string.nothing_to_search))
                     } else {
                         shellViewModel.toggleSearchBar()

@@ -81,9 +81,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
@@ -586,8 +590,19 @@ private fun OutputCard(
                         )
 
                     text?.let {
+                        val annotatedText =
+                            if (isSearchVisible.value && !searchQuery.value.isBlank()) {
+                                highlightSearchText(
+                                    text = text,
+                                    query = searchQuery.value,
+                                    highlightColor = MaterialTheme.colorScheme.primaryContainer
+                                )
+                            } else {
+                                AnnotatedString(text)
+                            }
+
                         Text(
-                            text = text,
+                            text = annotatedText,
                             style = textStyle,
                             color = lineColor,
                             modifier = Modifier
@@ -910,4 +925,45 @@ fun rememberScrollDirection(
     }
 
     return direction
+}
+
+@Composable
+private fun highlightSearchText(
+    text: String,
+    query: String,
+    highlightColor: Color
+): AnnotatedString {
+    if (query.isBlank()) return AnnotatedString(text)
+
+    val lowerText = text.lowercase()
+    val lowerQuery = query.lowercase()
+
+    val startIndexes = buildList {
+        var startIndex = lowerText.indexOf(lowerQuery)
+        while (startIndex >= 0) {
+            add(startIndex)
+            startIndex = lowerText.indexOf(lowerQuery, startIndex + lowerQuery.length)
+        }
+    }
+
+    return buildAnnotatedString {
+        var currentIndex = 0
+        for (start in startIndexes) {
+            val end = start + query.length
+            append(text.substring(currentIndex, start))
+            withStyle(
+                SpanStyle(
+                    background = highlightColor,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontWeight = FontWeight.Bold
+                )
+            ) {
+                append(text.substring(start, end))
+            }
+            currentIndex = end
+        }
+        if (currentIndex < text.length) {
+            append(text.substring(currentIndex))
+        }
+    }
 }
