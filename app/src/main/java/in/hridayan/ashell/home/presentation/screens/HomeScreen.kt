@@ -47,7 +47,7 @@ import `in`.hridayan.ashell.core.common.constants.UrlConst.URL_WIRELESS_DEBUGGIN
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.button.OutlinedIconButtonWithText
 import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
-import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
+import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.home.presentation.component.card.DeviceInfoCard
 import `in`.hridayan.ashell.home.presentation.component.card.RebootOptionsCard

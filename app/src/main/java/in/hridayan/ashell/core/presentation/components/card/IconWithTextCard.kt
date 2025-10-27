@@ -26,8 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
-import `in`.hridayan.ashell.core.presentation.ui.theme.Shape
+import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.presentation.theme.Shape
 
 @Composable
 fun IconWithTextCard(

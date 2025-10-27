@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import `in`.hridayan.ashell.commandexamples.presentation.component.chip.LabelChip
-import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
+import `in`.hridayan.ashell.core.presentation.theme.Dimens
 
 /**
  * This composable shows a flow row of label chips

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.core.presentation.ui.theme
+package `in`.hridayan.ashell.core.presentation.theme
 
 import android.app.Activity
 import android.graphics.Color

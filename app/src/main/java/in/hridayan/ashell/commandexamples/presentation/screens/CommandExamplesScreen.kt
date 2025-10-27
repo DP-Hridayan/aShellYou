@@ -49,7 +49,7 @@ import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewMo
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.ui.theme.Dimens
+import `in`.hridayan.ashell.core.presentation.theme.Dimens
 
 
 @OptIn(ExperimentalMaterial3Api::class)

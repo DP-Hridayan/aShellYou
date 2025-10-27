@@ -96,9 +96,9 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.ScrollDirection
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.ui.utils.disableKeyboard
-import `in`.hridayan.ashell.core.presentation.ui.utils.hideKeyboard
-import `in`.hridayan.ashell.core.presentation.ui.utils.isKeyboardVisible
+import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
+import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
+import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.findActivity

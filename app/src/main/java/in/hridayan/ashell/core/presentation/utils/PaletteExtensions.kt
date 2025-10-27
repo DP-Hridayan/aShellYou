@@ -1,6 +1,6 @@
 @file:SuppressLint("RestrictedApi")
 
-package `in`.hridayan.ashell.core.presentation.ui.utils
+package `in`.hridayan.ashell.core.presentation.utils
 
 import android.annotation.SuppressLint
 import androidx.compose.ui.graphics.Color

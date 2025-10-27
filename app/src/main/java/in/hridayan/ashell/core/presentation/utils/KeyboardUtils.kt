@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.ui.utils
+package `in`.hridayan.ashell.core.presentation.utils
 
 import android.app.Activity
 import android.content.Context

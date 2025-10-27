@@ -17,7 +17,7 @@ import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.SeedColorProvider
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.AppUiEntry
-import `in`.hridayan.ashell.core.presentation.ui.theme.AshellYouTheme
+import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel

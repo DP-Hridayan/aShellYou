@@ -7,15 +7,10 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.wifi.WifiManager
-import android.os.Build
 import android.provider.Settings
 import androidx.core.net.toUri
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.presentation.ui.utils.ToastUtils
+import `in`.hridayan.ashell.core.presentation.utils.ToastUtils
 
 fun openUrl(url: String, context: Context) {
     try {

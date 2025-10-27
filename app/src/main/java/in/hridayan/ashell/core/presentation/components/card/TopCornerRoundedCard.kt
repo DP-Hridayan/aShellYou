@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import `in`.hridayan.ashell.core.presentation.ui.theme.Shape
+import `in`.hridayan.ashell.core.presentation.theme.Shape
 
 @Composable
 fun TopCornerRoundedCard(
