@@ -116,6 +116,7 @@ class CommandViewModel @Inject constructor(
 
     fun onLabelAdd(label: String) = with(_states.value) {
         val trimmedLabel = label.trim()
+
         if (trimmedLabel.isEmpty()) {
             _states.value = this.copy(
                 labelField = labelField.copy(
@@ -127,6 +128,18 @@ class CommandViewModel @Inject constructor(
         }
 
         var labels = _states.value.labelField.labels
+
+        if (labels.size >= 3) {
+            _states.value = this.copy(
+                labelField = labelField.copy(
+                    isError = true,
+                    errorMessage = appContext.getString(R.string.error_labels_limit_reached)
+                )
+            )
+            return@with
+        }
+
+
 
         if (trimmedLabel !in labels) {
             labels = labels + trimmedLabel
