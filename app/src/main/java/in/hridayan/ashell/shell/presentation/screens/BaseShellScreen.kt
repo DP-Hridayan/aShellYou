@@ -82,12 +82,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
@@ -111,9 +108,7 @@ import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.ashell.shell.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.components.button.UtilityButtonGroup
 import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarkDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarksSortDialog
@@ -121,6 +116,9 @@ import `in`.hridayan.ashell.shell.presentation.components.dialog.ClearOutputConf
 import `in`.hridayan.ashell.shell.presentation.components.dialog.DeleteBookmarksDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.FileSavedDialog
 import `in`.hridayan.ashell.shell.presentation.components.icon.AnimatedStopIcon
+import `in`.hridayan.ashell.shell.presentation.model.CommandResult
+import `in`.hridayan.ashell.shell.presentation.model.ShellState
+import `in`.hridayan.ashell.shell.presentation.util.highlightQueryText
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.android.awaitFrame
@@ -585,10 +583,16 @@ private fun OutputCard(
                     text?.let {
                         val annotatedText =
                             if (isSearchVisible.value && !searchQuery.value.isBlank()) {
-                                highlightSearchText(
+                                val highlightBgColor =
+                                    if (line.isError) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer
+                                val highlightTextColor =
+                                    if (line.isError) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onPrimaryContainer
+
+                                highlightQueryText(
                                     text = text,
                                     query = searchQuery.value,
-                                    isError = line.isError
+                                    highlightBgColor = highlightBgColor,
+                                    highlightTextColor = highlightTextColor
                                 )
                             } else {
                                 AnnotatedString(text)
@@ -920,48 +924,3 @@ fun rememberScrollDirection(
     return direction
 }
 
-@Composable
-private fun highlightSearchText(
-    text: String,
-    query: String,
-    isError: Boolean
-): AnnotatedString {
-    if (query.isBlank()) return AnnotatedString(text)
-
-    val lowerText = text.lowercase()
-    val lowerQuery = query.lowercase()
-
-    val startIndexes = buildList {
-        var startIndex = lowerText.indexOf(lowerQuery)
-        while (startIndex >= 0) {
-            add(startIndex)
-            startIndex = lowerText.indexOf(lowerQuery, startIndex + lowerQuery.length)
-        }
-    }
-
-    val highlightBgColor =
-        if (isError) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer
-    val highlightTextColor =
-        if (isError) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onPrimaryContainer
-
-    return buildAnnotatedString {
-        var currentIndex = 0
-        for (start in startIndexes) {
-            val end = start + query.length
-            append(text.substring(currentIndex, start))
-            withStyle(
-                SpanStyle(
-                    background = highlightBgColor,
-                    color = highlightTextColor,
-                    fontWeight = FontWeight.Bold
-                )
-            ) {
-                append(text.substring(start, end))
-            }
-            currentIndex = end
-        }
-        if (currentIndex < text.length) {
-            append(text.substring(currentIndex))
-        }
-    }
-}
