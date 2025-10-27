@@ -141,9 +141,9 @@ fun BaseShellScreen(
     val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
-    val commandResults by shellViewModel.commandResults.collectAsState()
+    val commandResults by shellViewModel.commandOutput.collectAsState()
     val coroutineScope = rememberCoroutineScope()
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
     val listState = rememberLazyListState()
     val scrollDirection = rememberScrollDirection(listState)
     val command by shellViewModel.command.collectAsState()
@@ -224,13 +224,6 @@ fun BaseShellScreen(
         focusManager.clearFocus()
     }
 
-    val handleSearchButtonClick: () -> Unit = {
-        if (commandResults.isEmpty()) showToast(
-            context,
-            context.getString(R.string.nothing_to_search)
-        )
-    }
-
     val handleSaveButtonClick: (success: Boolean) -> Unit = { success ->
         showFileSavedDialog = success
     }
@@ -254,7 +247,7 @@ fun BaseShellScreen(
 
     Scaffold(
         modifier = modifier,
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
         floatingActionButton = {
             Column(
                 horizontalAlignment = Alignment.End,
@@ -390,7 +383,7 @@ fun BaseShellScreen(
                                             else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
                                                 hideKeyboard(context)
                                                 coroutineScope.launch {
-                                                    snackbarHostState.showSnackbar(
+                                                    snackBarHostState.showSnackbar(
                                                         message = context.getString(R.string.bookmark_limit_reached),
                                                         duration = SnackbarDuration.Short
                                                     )
@@ -595,7 +588,7 @@ private fun OutputCard(
                                 highlightSearchText(
                                     text = text,
                                     query = searchQuery.value,
-                                    highlightColor = MaterialTheme.colorScheme.primaryContainer
+                                    isError = line.isError
                                 )
                             } else {
                                 AnnotatedString(text)
@@ -681,7 +674,7 @@ private fun ShareFAB(
     val context = LocalContext.current
     val activity = context.findActivity()
     val weakHaptic = LocalWeakHaptic.current
-    val results by shellViewModel.commandResults.collectAsState()
+    val results by shellViewModel.commandOutput.collectAsState()
     if (results.isEmpty()) return
 
     val icon = Icons.Rounded.Share
@@ -748,7 +741,7 @@ private fun BottomExtendedFAB(
     val activity = context.findActivity()
     val weakHaptic = LocalWeakHaptic.current
     val coroutineScope = rememberCoroutineScope()
-    val results by shellViewModel.commandResults.collectAsState()
+    val results by shellViewModel.commandOutput.collectAsState()
     val savePath = LocalSettings.current.outputSaveDirectory.toUri()
     val saveWholeOutput = LocalSettings.current.saveWholeOutput
 
@@ -931,7 +924,7 @@ fun rememberScrollDirection(
 private fun highlightSearchText(
     text: String,
     query: String,
-    highlightColor: Color
+    isError: Boolean
 ): AnnotatedString {
     if (query.isBlank()) return AnnotatedString(text)
 
@@ -946,6 +939,11 @@ private fun highlightSearchText(
         }
     }
 
+    val highlightBgColor =
+        if (isError) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer
+    val highlightTextColor =
+        if (isError) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onPrimaryContainer
+
     return buildAnnotatedString {
         var currentIndex = 0
         for (start in startIndexes) {
@@ -953,8 +951,8 @@ private fun highlightSearchText(
             append(text.substring(currentIndex, start))
             withStyle(
                 SpanStyle(
-                    background = highlightColor,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    background = highlightBgColor,
+                    color = highlightTextColor,
                     fontWeight = FontWeight.Bold
                 )
             ) {

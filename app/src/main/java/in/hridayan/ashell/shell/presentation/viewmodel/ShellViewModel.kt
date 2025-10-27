@@ -2,13 +2,13 @@ package `in`.hridayan.ashell.shell.presentation.viewmodel
 
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.shell.domain.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.domain.model.SharedInputFieldText
+import `in`.hridayan.ashell.shell.domain.model.SharedShellFieldData
 import `in`.hridayan.ashell.shell.domain.model.ShellState
 import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.domain.usecase.ExtractLastCommandOutputUseCase
@@ -33,28 +33,35 @@ class ShellViewModel @Inject constructor(
     private val extractLastCommandOutputUseCase: ExtractLastCommandOutputUseCase,
     private val getSaveOutputFileNameUseCase: GetSaveOutputFileNameUseCase
 ) : ViewModel() {
-    private val _command = SharedInputFieldText.commandText
+    private val _command = SharedShellFieldData.commandText
     val command: StateFlow<TextFieldValue> = _command
 
-    private val _commandError = MutableStateFlow(false)
+    private val _commandError = SharedShellFieldData.commandError
     val commandError: StateFlow<Boolean> = _commandError
 
-    private val _commandResults = MutableStateFlow<List<CommandResult>>(emptyList())
-    val commandResults: StateFlow<List<CommandResult>> = _commandResults
+    private val _commandOutput = SharedShellFieldData.commandOutput
+    val commandOutput: StateFlow<List<CommandResult>> = _commandOutput
 
-    private val _shellState = MutableStateFlow<ShellState>(ShellState.Free)
+    private val _shellState = SharedShellFieldData.shellState
     val shellState: StateFlow<ShellState> = _shellState
 
-    private val _history = MutableStateFlow<List<String>>(emptyList())
+    private val _history = SharedShellFieldData.history
     val history: StateFlow<List<String>> = _history
 
     val shizukuPermissionState: StateFlow<Boolean> = shellRepository.shizukuPermissionState()
 
-    private val _isSearchBarVisible = MutableStateFlow(false)
+    private val _isSearchBarVisible = SharedShellFieldData.isSearchBarVisible
     val isSearchBarVisible: StateFlow<Boolean> = _isSearchBarVisible
 
-    private val _searchQuery = MutableStateFlow("")
+    private val _searchQuery = SharedShellFieldData.searchQuery
     val searchQuery: StateFlow<String> = _searchQuery
+
+    private val _buttonGroupHeight = SharedShellFieldData.buttonGroupHeight
+    val buttonGroupHeight: StateFlow<Dp> = _buttonGroupHeight
+
+    fun updateButtonGroupHeight(newHeight: Dp) {
+        _buttonGroupHeight.value = newHeight
+    }
 
     fun toggleSearchBar() {
         _isSearchBarVisible.value = !_isSearchBarVisible.value
@@ -67,7 +74,7 @@ class ShellViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     val filteredOutput: StateFlow<List<CommandResult>> =
         _searchQuery
-            .combine(_commandResults) { query, results ->
+            .combine(_commandOutput) { query, results ->
                 if (query.isBlank()) {
                     results
                 } else {
@@ -110,7 +117,7 @@ class ShellViewModel @Inject constructor(
     }
 
     fun clearOutput() {
-        if (_commandResults.value.isNotEmpty()) _commandResults.value = emptyList()
+        if (_commandOutput.value.isNotEmpty()) _commandOutput.value = emptyList()
     }
 
     fun getLastCommandOutput(rawOutput: String): String {
@@ -144,7 +151,7 @@ class ShellViewModel @Inject constructor(
             if (history.lastOrNull() == commandText) history
             else history + commandText
         }
-        _commandResults.update { it + newResult }
+        _commandOutput.update { it + newResult }
         _command.value = TextFieldValue("")
         _shellState.value = ShellState.Busy
 

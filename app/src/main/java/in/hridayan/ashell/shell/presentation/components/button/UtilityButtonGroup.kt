@@ -23,9 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -59,14 +57,14 @@ fun UtilityButtonGroup(
     val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
+    val screenDensity = LocalDensity.current
     val interactionSources = remember { List(5) { MutableInteractionSource() } }
     val askToClean = LocalSettings.current.clearOutputConfirmation
     val shellState by shellViewModel.shellState.collectAsState()
-    val commandResults by shellViewModel.commandResults.collectAsState()
+    val commandResults by shellViewModel.commandOutput.collectAsState()
     val searchQuery by shellViewModel.searchQuery.collectAsState()
     val isSearchVisible = shellViewModel.isSearchBarVisible.collectAsState()
-    var buttonGroupHeight by remember { mutableStateOf(0.dp) }
-    val screenDensity = LocalDensity.current
+    val buttonGroupHeight by shellViewModel.buttonGroupHeight.collectAsState()
     val utilityRowPadding = PaddingValues(top = 30.dp, bottom = 25.dp, start = 20.dp, end = 20.dp)
 
     if (isSearchVisible.value && !isOutputEmpty) {
@@ -95,9 +93,10 @@ fun UtilityButtonGroup(
                 .fillMaxWidth()
                 .padding(utilityRowPadding)
                 .onGloballyPositioned { layoutCoordinates ->
-                    buttonGroupHeight = with(screenDensity) {
+                   val height = with(screenDensity) {
                         layoutCoordinates.size.height.toDp()
                     }
+                    shellViewModel.updateButtonGroupHeight(height)
                 },
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -181,7 +180,7 @@ fun UtilityButtonGroup(
                 onClick = {
                     weakHaptic()
 
-                    if (shellViewModel.commandResults.value.isEmpty()) {
+                    if (shellViewModel.commandOutput.value.isEmpty()) {
                         showToast(context, context.getString(R.string.nothing_to_clear))
                         return@IconButton
                     }

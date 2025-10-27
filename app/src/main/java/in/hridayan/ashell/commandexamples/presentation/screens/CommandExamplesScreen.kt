@@ -64,7 +64,7 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
         targetValue = if (splitButtonChecked) 180f else 0f
     )
     val commands by viewModel.filteredCommands.collectAsState(initial = emptyList())
-    val searchQuery by viewModel.searchQuery.collectAsState()
+    val states by viewModel.states.collectAsState()
 
     Log.d("test", preloadedCommands.size.toString())
 
@@ -153,11 +153,9 @@ fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
         ) {
             item {
                 CustomSearchBar(
-                    value = searchQuery,
+                    value = states.search.query,
                     onValueChange = { it -> viewModel.onSearchQueryChange(it) },
-                    onClearClick = {
-                        viewModel.onSearchQueryChange("")
-                    },
+                    onClearClick = { viewModel.onSearchQueryChange("") },
                     hint = stringResource(R.string.search_commands_here),
                     modifier = Modifier.padding(16.dp)
                 )

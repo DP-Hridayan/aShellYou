@@ -1,9 +1,13 @@
 package `in`.hridayan.ashell.commandexamples.presentation.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
+import `in`.hridayan.ashell.commandexamples.data.local.model.CommandExamplesScreenState
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -13,6 +17,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,34 +25,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CommandViewModel @Inject constructor(
-    private val commandRepository: CommandRepository
+    private val commandRepository: CommandRepository,
+    @param:ApplicationContext private val appContext: Context
 ) : ViewModel() {
-    private val _command = MutableStateFlow("")
-    val command: StateFlow<String> = _command
+    private val _states = MutableStateFlow(CommandExamplesScreenState())
+    val states: StateFlow<CommandExamplesScreenState> = _states
 
-    private val _description = MutableStateFlow("")
-    val description: StateFlow<String> = _description
-
-    private val _labels = MutableStateFlow<List<String>>(emptyList())
-    val labels: StateFlow<List<String>> = _labels
-
-    private val _commandError = MutableStateFlow(false)
-    val commandError: StateFlow<Boolean> = _commandError
-
-    private val _descriptionError = MutableStateFlow(false)
-    val descriptionError: StateFlow<Boolean> = _descriptionError
-
-    private val _labelError = MutableStateFlow(false)
-    val labelError: StateFlow<Boolean> = _labelError
-
+    /**
+     * @param loadProgress This loading progress shows the progress when loading the list of [preloadedCommands]
+     */
     private val _loadProgress = MutableStateFlow(0f)
     val loadProgress: StateFlow<Float> = _loadProgress
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> = _searchQuery
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -62,21 +54,23 @@ class CommandViewModel @Inject constructor(
 
     @OptIn(FlowPreview::class)
     val filteredCommands: StateFlow<List<CommandEntity>> =
-        _searchQuery.combine(allCommands) { query, commands ->
-            if (query.isBlank()) {
-                commands
-            } else {
-                withContext(Dispatchers.Default) {
-                    commands.filter {
-                        it.command.contains(query, ignoreCase = true) ||
-                                it.description.contains(query, ignoreCase = true) ||
-                                it.labels.any { label ->
-                                    label.contains(query, ignoreCase = true)
-                                }
+        _states
+            .map { it.search.query }
+            .combine(allCommands) { query, commands ->
+                if (query.isBlank()) {
+                    commands
+                } else {
+                    withContext(Dispatchers.Default) {
+                        commands.filter {
+                            it.command.contains(query, ignoreCase = true) ||
+                                    it.description.contains(query, ignoreCase = true) ||
+                                    it.labels.any { label ->
+                                        label.contains(query, ignoreCase = true)
+                                    }
+                        }
                     }
                 }
             }
-        }
             .distinctUntilChanged()
             .stateIn(
                 viewModelScope,
@@ -84,38 +78,78 @@ class CommandViewModel @Inject constructor(
                 emptyList()
             )
 
-    fun onCommandChange(newValue: String) {
-        _command.value = newValue
-        _commandError.value = false
+
+    fun onSearchQueryChange(newValue: String) = with(_states.value) {
+        _states.value = this.copy(
+            search = search.copy(
+                query = newValue
+            )
+        )
     }
 
-    fun onSearchQueryChange(newValue: String) {
-        _searchQuery.value = newValue
+    fun onCommandFieldTextChange(newValue: String) = with(_states.value) {
+        _states.value = this.copy(
+            commandField = commandField.copy(
+                fieldText = newValue,
+                isError = false
+            )
+        )
     }
 
-    fun onDescriptionChange(newValue: String) {
-        _description.value = newValue
-        _descriptionError.value = false
+    fun onDescriptionFieldTextChange(newValue: String) = with(_states.value) {
+        _states.value = this.copy(
+            descriptionField = descriptionField.copy(
+                fieldText = newValue,
+                isError = false
+            )
+        )
     }
 
-    fun onLabelAdd(label: String) {
+    fun onLabelFieldTextChange(newValue: String) = with(_states.value) {
+        _states.value = this.copy(
+            labelField = labelField.copy(
+                fieldText = newValue,
+                isError = false
+            )
+        )
+    }
+
+    fun onLabelAdd(label: String) = with(_states.value) {
         val trimmedLabel = label.trim()
         if (trimmedLabel.isEmpty()) {
-            _labelError.value = true
-            return
+            _states.value = this.copy(
+                labelField = labelField.copy(
+                    isError = true,
+                    errorMessage = appContext.getString(R.string.field_cannot_be_blank)
+                )
+            )
+            return@with
         }
 
-        if (trimmedLabel !in _labels.value) {
-            _labels.value = _labels.value + trimmedLabel
+        var labels = _states.value.labelField.labels
+
+        if (trimmedLabel !in labels) {
+            labels = labels + trimmedLabel
         }
+
+        _states.value = this.copy(
+            labelField = labelField.copy(
+                fieldText = "",
+                labels = labels
+            )
+        )
     }
 
-    fun onLabelRemove(label: String) {
-        _labels.value = _labels.value.filterNot { it == label }
-    }
+    fun onLabelRemove(label: String) = with(_states.value) {
+        var labels = this.labelField.labels
 
-    fun clearLabelError() {
-        _labelError.value = false
+        labels = labels.filterNot { it == label }
+
+        _states.value = this.copy(
+            labelField = labelField.copy(
+                labels = labels
+            )
+        )
     }
 
     fun getCommandCount(): Int {
@@ -130,27 +164,38 @@ class CommandViewModel @Inject constructor(
         return commandRepository.getCommandById(id)?.command
     }
 
-    fun addCommand(onSuccess: () -> Unit) {
-        val isCommandValid = _command.value.trim().isNotBlank()
-        val isDescriptionValid = _description.value.trim().isNotBlank()
+    fun addCommand(onSuccess: () -> Unit) = with(_states.value) {
+        val command = this.commandField.fieldText.trim()
+        val description = this.descriptionField.fieldText.trim()
 
-        _commandError.value = !isCommandValid
-        _descriptionError.value = !isDescriptionValid
+        val isCommandFieldBlank = command.isBlank()
+        val isDescriptionFieldBlank = description.isBlank()
 
-        if (isCommandValid && isDescriptionValid) {
-            viewModelScope.launch {
-                commandRepository.insertCommand(
-                    CommandEntity(
-                        command = _command.value.trim(),
-                        description = _description.value.trim(),
-                        labels = _labels.value
-                    )
+        if (isCommandFieldBlank || isDescriptionFieldBlank) {
+            _states.value = this.copy(
+                commandField = commandField.copy(
+                    isError = isCommandFieldBlank,
+                    errorMessage = appContext.getString(R.string.field_cannot_be_blank)
+                ),
+                descriptionField = descriptionField.copy(
+                    isError = isDescriptionFieldBlank,
+                    errorMessage = appContext.getString(R.string.field_cannot_be_blank)
                 )
-                _command.value = ""
-                _description.value = ""
-                _labels.value = emptyList()
-                onSuccess()
-            }
+            )
+
+            return@with
+        }
+
+        viewModelScope.launch {
+            commandRepository.insertCommand(
+                CommandEntity(
+                    command = command,
+                    description = description,
+                    labels = this@with.labelField.labels
+                )
+            )
+            clearInputFields()
+            onSuccess()
         }
     }
 
@@ -161,41 +206,63 @@ class CommandViewModel @Inject constructor(
         }
     }
 
-    suspend fun setFieldsForEdit(id: Int) {
+    suspend fun setFieldsForEdit(id: Int) = with(_states.value) {
         val commandById = commandRepository.getCommandById(id)
-        _command.value = commandById?.command ?: ""
-        _description.value = commandById?.description ?: ""
-        _labels.value = commandById?.labels ?: emptyList()
+
+        _states.value = this.copy(
+            commandField = commandField.copy(
+                fieldText = commandById?.command ?: ""
+            ),
+            descriptionField = descriptionField.copy(
+                fieldText = commandById?.description ?: ""
+            ),
+            labelField = labelField.copy(
+                fieldText = "",
+                labels = commandById?.labels ?: emptyList()
+            )
+        )
     }
 
-    fun clearInputFields() {
-        _command.value = ""
-        _description.value = ""
-        _labels.value = emptyList()
+    fun clearInputFields() = with(_states.value) {
+        _states.value = this.copy(
+            commandField = commandField.copy(fieldText = ""),
+            descriptionField = descriptionField.copy(fieldText = ""),
+            labelField = labelField.copy(fieldText = "", labels = emptyList())
+        )
     }
 
-    fun editCommand(id: Int, onSuccess: () -> Unit) {
-        val isCommandValid = _command.value.trim().isNotBlank()
-        val isDescriptionValid = _description.value.trim().isNotBlank()
+    fun editCommand(id: Int, onSuccess: () -> Unit) = with(_states.value) {
+        val command = this.commandField.fieldText.trim()
+        val description = this.descriptionField.fieldText.trim()
 
-        _commandError.value = !isCommandValid
-        _descriptionError.value = !isDescriptionValid
+        val isCommandFieldBlank = command.isBlank()
+        val isDescriptionFieldBlank = description.isBlank()
 
-        if (isCommandValid && isDescriptionValid) {
-            viewModelScope.launch {
-                commandRepository.updateCommand(
-                    CommandEntity(
-                        id = id,
-                        command = _command.value.trim(),
-                        description = _description.value.trim(),
-                        labels = _labels.value
-                    )
+        if (isCommandFieldBlank || isDescriptionFieldBlank) {
+            _states.value = this.copy(
+                commandField = commandField.copy(
+                    isError = isCommandFieldBlank,
+                    errorMessage = appContext.getString(R.string.field_cannot_be_blank)
+                ),
+                descriptionField = descriptionField.copy(
+                    isError = isDescriptionFieldBlank,
+                    errorMessage = appContext.getString(R.string.field_cannot_be_blank)
                 )
-                _command.value = ""
-                _description.value = ""
-                _labels.value = emptyList()
-                onSuccess()
-            }
+            )
+            return@with
+        }
+
+        viewModelScope.launch {
+            commandRepository.updateCommand(
+                CommandEntity(
+                    id = id,
+                    command = command,
+                    description = description,
+                    labels = this@with.labelField.labels
+                )
+            )
+            clearInputFields()
+            onSuccess()
         }
     }
 

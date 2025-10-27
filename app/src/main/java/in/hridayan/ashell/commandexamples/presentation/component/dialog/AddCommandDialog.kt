@@ -20,15 +20,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.commandexamples.data.local.model.InputFieldState
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
@@ -44,13 +43,7 @@ fun AddCommandDialog(
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
-
-    val command by viewModel.command.collectAsState()
-    val description by viewModel.description.collectAsState()
-    val labels by viewModel.labels.collectAsState()
-
-    val commandError by viewModel.commandError.collectAsState()
-    val descriptionError by viewModel.descriptionError.collectAsState()
+    val states by viewModel.states.collectAsState()
 
     DialogContainer(
         onDismiss = onDismiss
@@ -63,22 +56,21 @@ fun AddCommandDialog(
         )
 
         CommandInputField(
-            command, viewModel::onCommandChange, commandError, modifier = Modifier
+            onValueChange = viewModel::onCommandFieldTextChange,
+            state = states.commandField
         )
 
         DescriptionInputField(
-            description,
-            viewModel::onDescriptionChange,
-            descriptionError,
-            modifier = Modifier
+            onValueChange = viewModel::onDescriptionFieldTextChange,
+            state = states.descriptionField
         )
 
-        if (labels.isNotEmpty()) {
+        if (states.labelField.labels.isNotEmpty()) {
             Labels(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp, bottom = 10.dp),
-                labels = labels,
+                labels = states.labelField.labels,
                 showCrossIcon = true
             )
         }
@@ -129,33 +121,37 @@ fun AddCommandDialog(
 
 @Composable
 private fun CommandInputField(
-    value: String, onValueChange: (String) -> Unit, isError: Boolean, modifier: Modifier
+    modifier: Modifier = Modifier,
+    onValueChange: (String) -> Unit,
+    state: InputFieldState.CommandInputFieldState
 ) {
     val label =
-        if (isError) stringResource(R.string.field_cannot_be_blank) else stringResource(R.string.command)
+        if (state.isError) state.errorMessage else stringResource(R.string.command)
 
     OutlinedTextField(
-        value = value,
+        value = state.fieldText,
         onValueChange = onValueChange,
         label = { Text(label) },
-        isError = isError,
+        isError = state.isError,
         modifier = modifier.fillMaxWidth()
     )
 }
 
 @Composable
 private fun DescriptionInputField(
-    value: String, onValueChange: (String) -> Unit, isError: Boolean, modifier: Modifier
+    modifier: Modifier = Modifier,
+    onValueChange: (String) -> Unit,
+    state: InputFieldState.DescriptionInputFieldState
 ) {
     val label =
-        if (isError) stringResource(R.string.field_cannot_be_blank) else stringResource(R.string.description)
+        if (state.isError) state.errorMessage else stringResource(R.string.description)
 
     OutlinedTextField(
-        modifier = modifier.fillMaxWidth(),
-        value = value,
+        value = state.fieldText,
         onValueChange = onValueChange,
         label = { Text(label) },
-        isError = isError
+        isError = state.isError,
+        modifier = modifier.fillMaxWidth(),
     )
 }
 
@@ -165,25 +161,21 @@ private fun LabelInputField(
     viewModel: CommandViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
-    var value by remember { mutableStateOf("") }
-    val isError by viewModel.labelError.collectAsState()
+    val state by viewModel.states.collectAsState()
+
     val label =
-        if (isError) stringResource(R.string.field_cannot_be_blank) else stringResource(R.string.label)
+        if (state.labelField.isError) state.labelField.errorMessage else stringResource(R.string.label)
 
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
-        value = value,
-        isError = isError,
-        onValueChange = {
-            value = it
-            viewModel.clearLabelError()
-        },
+        value = state.labelField.fieldText,
+        isError = state.labelField.isError,
+        onValueChange = { viewModel.onLabelFieldTextChange(it) },
         trailingIcon = {
             IconButton(
                 onClick = {
                     weakHaptic()
-                    viewModel.onLabelAdd(value)
-                    value = ""
+                    viewModel.onLabelAdd(state.labelField.fieldText)
                 }
             ) {
                 Icon(
