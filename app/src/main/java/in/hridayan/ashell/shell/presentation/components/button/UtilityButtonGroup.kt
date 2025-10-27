@@ -41,7 +41,7 @@ import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.shell.domain.model.ShellState
+import `in`.hridayan.ashell.shell.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 
 @Composable

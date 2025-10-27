@@ -4,7 +4,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.settings.data.local.model.PreferenceItem
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 
 @Composable
 fun PreferenceItemView(

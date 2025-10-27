@@ -1,11 +1,11 @@
-package `in`.hridayan.ashell.settings.data.local.model
+package `in`.hridayan.ashell.settings.presentation.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.model.RadioButtonOptions
-import `in`.hridayan.ashell.settings.domain.model.SettingsType
+import `in`.hridayan.ashell.settings.presentation.model.RadioButtonOptions
+import `in`.hridayan.ashell.settings.presentation.model.SettingsType
 
 sealed class PreferenceItem(
     open val key: SettingsKeys,

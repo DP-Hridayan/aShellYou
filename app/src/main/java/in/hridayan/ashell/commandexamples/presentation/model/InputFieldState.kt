@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.commandexamples.data.local.model
+package `in`.hridayan.ashell.commandexamples.presentation.model
 
 sealed class InputFieldState() {
     /**

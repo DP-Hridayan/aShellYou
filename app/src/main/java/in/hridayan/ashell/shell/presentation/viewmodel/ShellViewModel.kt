@@ -6,10 +6,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.shell.domain.model.CommandResult
+import `in`.hridayan.ashell.shell.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.domain.model.SharedShellFieldData
-import `in`.hridayan.ashell.shell.domain.model.ShellState
+import `in`.hridayan.ashell.shell.presentation.model.SharedShellFieldData
+import `in`.hridayan.ashell.shell.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.domain.usecase.ExtractLastCommandOutputUseCase
 import `in`.hridayan.ashell.shell.domain.usecase.GetSaveOutputFileNameUseCase

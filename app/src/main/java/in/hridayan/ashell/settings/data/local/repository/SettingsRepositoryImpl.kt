@@ -1,9 +1,9 @@
 package `in`.hridayan.ashell.settings.data.local.repository
 
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
-import `in`.hridayan.ashell.settings.data.local.SettingsProvider
+import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
 import `in`.hridayan.ashell.settings.data.local.datastore.SettingsDataStore
-import `in`.hridayan.ashell.settings.data.local.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.Flow
 

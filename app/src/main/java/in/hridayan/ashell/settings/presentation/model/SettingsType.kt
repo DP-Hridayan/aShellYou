@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.domain.model
+package `in`.hridayan.ashell.settings.presentation.model
 
 enum class SettingsType {
     Switch, SwitchBanner, RadioGroup, None

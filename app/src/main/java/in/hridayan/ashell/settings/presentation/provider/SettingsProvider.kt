@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.data.local
+package `in`.hridayan.ashell.settings.presentation.provider
 
 import android.os.Build
 import androidx.compose.material.icons.Icons
@@ -20,15 +20,15 @@ import androidx.compose.material.icons.rounded.Vibration
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.utils.MiUiCheck
-import `in`.hridayan.ashell.settings.data.local.model.PreferenceGroup
-import `in`.hridayan.ashell.settings.domain.model.SettingsType
-import `in`.hridayan.ashell.settings.domain.model.boolPreferenceItem
-import `in`.hridayan.ashell.settings.domain.model.categorizedItems
-import `in`.hridayan.ashell.settings.domain.model.customComposable
-import `in`.hridayan.ashell.settings.domain.model.horizontalDivider
-import `in`.hridayan.ashell.settings.domain.model.intPreferenceItem
-import `in`.hridayan.ashell.settings.domain.model.nullPreferenceItem
-import `in`.hridayan.ashell.settings.domain.model.uncategorizedItems
+import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.presentation.model.SettingsType
+import `in`.hridayan.ashell.settings.presentation.util.boolPreferenceItem
+import `in`.hridayan.ashell.settings.presentation.util.categorizedItems
+import `in`.hridayan.ashell.settings.presentation.util.customComposable
+import `in`.hridayan.ashell.settings.presentation.util.intPreferenceItem
+import `in`.hridayan.ashell.settings.presentation.util.nullPreferenceItem
+import `in`.hridayan.ashell.settings.presentation.util.uncategorizedItems
 
 val isMiUi = MiUiCheck.isMiui
 val isSdkLowerThan13 = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU

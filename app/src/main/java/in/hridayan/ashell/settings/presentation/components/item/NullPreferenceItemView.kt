@@ -18,10 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.settings.data.local.model.PreferenceItem
-import `in`.hridayan.ashell.settings.domain.model.getResolvedDescription
-import `in`.hridayan.ashell.settings.domain.model.getResolvedIcon
-import `in`.hridayan.ashell.settings.domain.model.getResolvedTitle
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
+import `in`.hridayan.ashell.settings.presentation.util.getResolvedDescription
+import `in`.hridayan.ashell.settings.presentation.util.getResolvedIcon
+import `in`.hridayan.ashell.settings.presentation.util.getResolvedTitle
 import `in`.hridayan.ashell.settings.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 

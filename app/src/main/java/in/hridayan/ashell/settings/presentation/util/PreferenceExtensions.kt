@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.domain.model
+package `in`.hridayan.ashell.settings.presentation.util
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.material.icons.Icons
@@ -12,9 +12,10 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
-import `in`.hridayan.ashell.settings.data.local.model.PreferenceGroup
-import `in`.hridayan.ashell.settings.data.local.model.PreferenceItem
-import `in`.hridayan.ashell.settings.domain.model.RadioButtonOptions
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
+import `in`.hridayan.ashell.settings.presentation.model.RadioButtonOptions
+import `in`.hridayan.ashell.settings.presentation.model.SettingsType
 
 fun categorizedItems(
     categoryNameResId: Int,

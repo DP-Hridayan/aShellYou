@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
-import `in`.hridayan.ashell.commandexamples.data.local.model.CommandExamplesScreenState
+import `in`.hridayan.ashell.commandexamples.presentation.model.CommandExamplesScreenState
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview

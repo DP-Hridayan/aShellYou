@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.commandexamples.data.local
+package `in`.hridayan.ashell.commandexamples.data.local.source
 
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 

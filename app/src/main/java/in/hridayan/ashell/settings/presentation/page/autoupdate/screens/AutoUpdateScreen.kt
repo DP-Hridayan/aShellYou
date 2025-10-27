@@ -44,7 +44,7 @@ import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBotto
 import `in`.hridayan.ashell.core.presentation.components.progress.LoadingSpinner
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.settings.data.local.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView

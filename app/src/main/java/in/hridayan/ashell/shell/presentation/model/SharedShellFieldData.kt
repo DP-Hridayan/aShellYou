@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.domain.model
+package `in`.hridayan.ashell.shell.presentation.model
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp

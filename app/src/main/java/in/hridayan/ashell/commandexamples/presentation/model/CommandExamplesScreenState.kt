@@ -1,4 +1,7 @@
-package `in`.hridayan.ashell.commandexamples.data.local.model
+package `in`.hridayan.ashell.commandexamples.presentation.model
+
+import `in`.hridayan.ashell.commandexamples.presentation.model.InputFieldState
+import `in`.hridayan.ashell.commandexamples.presentation.model.UiState
 
 data class CommandExamplesScreenState(
     val commandField: InputFieldState.CommandInputFieldState = InputFieldState.CommandInputFieldState(),

@@ -1,6 +1,7 @@
-package `in`.hridayan.ashell.settings.data.local.model
+package `in`.hridayan.ashell.settings.presentation.model
 
 import androidx.annotation.StringRes
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 
 sealed class PreferenceGroup {
     data class Category(
