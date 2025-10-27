@@ -88,7 +88,7 @@
     <string name="des_report_issue">Report any issue or bug you have encountered while using the app</string>
     <string name="des_reset_app_settings">Reset app settings to default values</string>
     <string name="des_restore_app_data">Restore app data from the saved backup file.\nThe saved database will overwrite the current database</string>
-    <string name="des_save_whole_output">Enable this option to save the whole output of the command.\nIf disabled only the last command output will be saved.</string>
+    <string name="des_save_whole_output">Enable this option to save output of the whole shell session.\nIf disabled only the last command output will be saved.</string>
     <string name="des_smooth_scroll">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     <string name="description">Description</string>
