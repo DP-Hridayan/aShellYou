@@ -362,6 +362,8 @@ fun BaseShellScreen(
 
                         OutlinedTextField(
                             modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
                                 .focusRequester(textFieldFocusRequester),
                             label = { Text(label) },
                             value = command,
