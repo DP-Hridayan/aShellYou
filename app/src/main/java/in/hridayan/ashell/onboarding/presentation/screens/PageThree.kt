@@ -39,6 +39,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -65,11 +66,15 @@ import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawSelectChoice
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import rikka.shizuku.Shizuku
 
 @Composable
@@ -80,12 +85,19 @@ fun PageThree(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val weakHaptic = LocalWeakHaptic.current
+    val scope = rememberCoroutineScope()
     var scale by remember { mutableStateOf(Animatable(0f)) }
-    var scaleMainShape by remember { mutableStateOf(Animatable(0.75f) )}
+    var scaleMainShape by remember { mutableStateOf(Animatable(0.75f)) }
     var rootCardChecked by rememberSaveable { mutableStateOf(false) }
     val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
-    var isShizukuInstalled by rememberSaveable {mutableStateOf( context.isAppInstalled(SHIZUKU_PACKAGE_NAME)) }
+    var isShizukuInstalled by rememberSaveable {
+        mutableStateOf(
+            context.isAppInstalled(
+                SHIZUKU_PACKAGE_NAME
+            )
+        )
+    }
 
     LaunchedEffect(pagerState.currentPage == 2) {
         scale.animateTo(
@@ -236,7 +248,18 @@ fun PageThree(
                 description = stringResource(R.string.mode_one_desc),
                 onClick = {
                     weakHaptic()
-                    rootCardChecked = !rootCardChecked
+                    scope.launch {
+                        val hasRoot = withContext(Dispatchers.IO) {
+                            shellViewModel.hasRootAccess()
+                        }
+                        rootCardChecked = hasRoot
+                    }
+
+                    if (!rootCardChecked) {
+                        makeToast(context, context.getString(R.string.no_root_access))
+                    } else {
+                        shellViewModel.runRootCommand()
+                    }
                 }
             )
 

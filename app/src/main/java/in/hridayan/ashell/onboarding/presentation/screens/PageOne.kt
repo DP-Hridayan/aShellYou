@@ -38,9 +38,8 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
 fun PageOne(modifier: Modifier = Modifier, pagerState: PagerState) {
-    var scale = remember { Animatable(0f) }
-
-    var scaleMainShape = remember { Animatable(0.75f) }
+    val scale = remember { Animatable(0f) }
+    val scaleMainShape = remember { Animatable(0.75f) }
 
     LaunchedEffect(pagerState.currentPage == 0) {
         scale.animateTo(
