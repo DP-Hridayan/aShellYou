@@ -67,8 +67,8 @@ import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
-import `in`.hridayan.ashell.settings.presentation.components.card.RoundedCornerCard
-import `in`.hridayan.ashell.settings.presentation.components.shape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.dialog.GrantNotificationAccessDialog
 
 @Composable
@@ -293,7 +293,7 @@ fun Instructions(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
         )
 
         RoundedCornerCard(
-            roundedShape = getRoundedShape(index = 0, size = 3),
+            roundedCornerShape = getRoundedShape(index = 0, size = 3),
             paddingValues = PaddingValues(horizontal = 0.dp, vertical = 1.dp)
         ) {
             Row(
@@ -327,7 +327,7 @@ fun Instructions(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
         }
 
         RoundedCornerCard(
-            roundedShape = getRoundedShape(index = 1, size = 3),
+            roundedCornerShape = getRoundedShape(index = 1, size = 3),
             paddingValues = PaddingValues(horizontal = 0.dp, vertical = 1.dp)
         ) {
             Row(
@@ -347,7 +347,7 @@ fun Instructions(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
         }
 
         RoundedCornerCard(
-            roundedShape = getRoundedShape(index = 2, size = 3),
+            roundedCornerShape = getRoundedShape(index = 2, size = 3),
             paddingValues = PaddingValues(horizontal = 0.dp, vertical = 1.dp)
         ) {
             Row(

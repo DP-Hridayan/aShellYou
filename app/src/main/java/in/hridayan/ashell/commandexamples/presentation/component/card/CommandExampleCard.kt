@@ -120,9 +120,7 @@ fun CommandExampleCard(
 
                 UseCommandButton(onClick = {
                     shellViewModel.onCommandChange(
-                        TextFieldValue(
-                            command
-                        )
+                        TextFieldValue(text = command)
                     )
 
                     navController.popBackStack()

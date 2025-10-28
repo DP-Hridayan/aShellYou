@@ -22,7 +22,7 @@ import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedDescription
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedIcon
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedTitle
-import `in`.hridayan.ashell.settings.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
@@ -43,7 +43,7 @@ fun NullPreferenceItemView(
 
     RoundedCornerCard(
         modifier = Modifier.fillMaxWidth(),
-        roundedShape = roundedShape
+        roundedCornerShape = roundedShape
     )
     {
         Row(

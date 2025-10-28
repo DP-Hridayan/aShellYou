@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -34,8 +35,8 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
-import `in`.hridayan.ashell.settings.presentation.components.card.RoundedCornerCard
-import `in`.hridayan.ashell.settings.presentation.components.shape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 
 @Composable
 fun BookmarkDialog(
@@ -87,7 +88,7 @@ fun BookmarkDialog(
                         val bookmark = bookmarks[index]
 
                         RoundedCornerCard(
-                            roundedShape = roundedShape,
+                            roundedCornerShape = roundedShape,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable(enabled = true, onClick = {
@@ -95,8 +96,10 @@ fun BookmarkDialog(
                                     onBookmarkClicked(bookmark.command)
                                 }),
                             paddingValues = PaddingValues(vertical = 1.dp),
-                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                            )
                         ) {
                             Text(
                                 text = bookmark.command,

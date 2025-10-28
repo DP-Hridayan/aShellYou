@@ -53,6 +53,7 @@ fun RebootOptionsDialog(
             verticalArrangement = Arrangement.spacedBy(15.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            @Suppress("DEPRECATION")
             ButtonGroup(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -126,7 +127,8 @@ fun RebootOptionsDialog(
                     textAlign = TextAlign.Center
                 )
             }
-
+            
+            @Suppress("DEPRECATION")
             ButtonGroup(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
