@@ -29,7 +29,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.model.InputFieldState
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
-import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
+import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -39,7 +39,7 @@ import `in`.hridayan.ashell.core.presentation.theme.Dimens
 @Composable
 fun AddCommandDialog(
     onDismiss: () -> Unit,
-    viewModel: CommandViewModel = hiltViewModel()
+    viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
@@ -158,7 +158,7 @@ private fun DescriptionInputField(
 @Composable
 private fun LabelInputField(
     modifier: Modifier = Modifier,
-    viewModel: CommandViewModel = hiltViewModel()
+    viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val state by viewModel.states.collectAsState()

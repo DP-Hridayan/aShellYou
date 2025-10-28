@@ -365,6 +365,7 @@ fun BaseShellScreen(
                                 .weight(1f)
                                 .fillMaxWidth()
                                 .focusRequester(textFieldFocusRequester),
+                            maxLines = 3,
                             label = { Text(label) },
                             value = command,
                             onValueChange = { shellViewModel.onCommandChange(it) },

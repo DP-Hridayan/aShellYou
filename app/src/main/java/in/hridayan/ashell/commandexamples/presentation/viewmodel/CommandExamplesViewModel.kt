@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class CommandViewModel @Inject constructor(
+class CommandExamplesViewModel @Inject constructor(
     private val commandRepository: CommandRepository,
     @param:ApplicationContext private val appContext: Context
 ) : ViewModel() {

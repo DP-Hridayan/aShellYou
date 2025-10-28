@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
+import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.theme.Shape
 
@@ -32,7 +32,7 @@ fun LabelChip(
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
     showCrossIcon: Boolean = false,
-    commandViewModel: CommandViewModel = hiltViewModel()
+    commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
 
@@ -64,7 +64,7 @@ fun LabelChip(
             FilledIconButton(
                 onClick = {
                     weakHaptic()
-                    commandViewModel.onLabelRemove(label)
+                    commandExamplesViewModel.onLabelRemove(label)
                 },
                 colors = IconButtonDefaults.iconButtonColors(
                     containerColor = MaterialTheme.colorScheme.errorContainer,

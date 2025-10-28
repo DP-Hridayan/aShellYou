@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.commandexamples.presentation.component.card
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -35,7 +38,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
-import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
+import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.button.FavouriteIconButton
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
@@ -57,6 +60,7 @@ fun CommandExampleCard(
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
+    val interactionSources = remember { List(3) { MutableInteractionSource() } }
 
     CollapsibleCard(
         modifier = modifier,
@@ -86,14 +90,32 @@ fun CommandExampleCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
+                @Suppress("DEPRECATION")
+                ButtonGroup(
                     modifier = Modifier.weight(1f),
-                    horizontalArrangement = Arrangement.spacedBy(15.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    horizontalArrangement = Arrangement.spacedBy(15.dp)
                 ) {
-                    EditButton(id = id)
-                    DeleteButton(id = id)
-                    CopyButton(id = id)
+                    EditButton(
+                        id = id,
+                        interactionSource = interactionSources[0],
+                        modifier = Modifier
+                            .size(40.dp)
+                            .animateWidth(interactionSources[0])
+                    )
+                    DeleteButton(
+                        id = id,
+                        interactionSource = interactionSources[1],
+                        modifier = Modifier
+                            .size(40.dp)
+                            .animateWidth(interactionSources[1])
+                    )
+                    CopyButton(
+                        id = id,
+                        interactionSource = interactionSources[2],
+                        modifier = Modifier
+                            .size(40.dp)
+                            .animateWidth(interactionSources[2])
+                    )
                 }
 
                 UseCommandButton(onClick = {
@@ -112,8 +134,9 @@ fun CommandExampleCard(
 @Composable
 private fun DeleteButton(
     modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource,
     id: Int,
-    viewModel: CommandViewModel = hiltViewModel()
+    viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
 
@@ -126,6 +149,8 @@ private fun DeleteButton(
             containerColor = MaterialTheme.colorScheme.errorContainer,
             contentColor = MaterialTheme.colorScheme.onErrorContainer
         ),
+        shapes = IconButtonDefaults.shapes(),
+        interactionSource = interactionSource,
         modifier = modifier
     ) {
         Icon(
@@ -138,8 +163,9 @@ private fun DeleteButton(
 @Composable
 private fun EditButton(
     modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource,
     id: Int,
-    viewModel: CommandViewModel = hiltViewModel()
+    viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     var isEditDialogOpen by rememberSaveable { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
@@ -158,6 +184,8 @@ private fun EditButton(
             containerColor = MaterialTheme.colorScheme.errorContainer,
             contentColor = MaterialTheme.colorScheme.onErrorContainer
         ),
+        shapes = IconButtonDefaults.shapes(),
+        interactionSource = interactionSource,
         modifier = modifier
     ) {
         Icon(
@@ -172,8 +200,9 @@ private fun EditButton(
 @Composable
 private fun CopyButton(
     modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource,
     id: Int,
-    viewModel: CommandViewModel = hiltViewModel()
+    viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val context = LocalContext.current
@@ -196,6 +225,8 @@ private fun CopyButton(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
         ),
+        shapes = IconButtonDefaults.shapes(),
+        interactionSource = interactionSource,
         modifier = modifier
     ) {
         Icon(
@@ -220,6 +251,7 @@ private fun UseCommandButton(
             onClick()
         },
         modifier = modifier.heightIn(size),
+        shapes = ButtonDefaults.shapes(),
         contentPadding = ButtonDefaults.contentPaddingFor(size)
     ) {
         Icon(
@@ -236,10 +268,9 @@ private fun UseCommandButton(
 
 @Composable
 private fun FavouriteButton(
-    modifier: Modifier = Modifier,
     id: Int,
     isFavourite: Boolean,
-    viewModel: CommandViewModel
+    viewModel: CommandExamplesViewModel
 ) {
     FavouriteIconButton(
         isFavorite = isFavourite,

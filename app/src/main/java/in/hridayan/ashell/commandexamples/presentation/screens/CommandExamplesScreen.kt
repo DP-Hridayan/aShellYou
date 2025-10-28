@@ -45,7 +45,7 @@ import `in`.hridayan.ashell.commandexamples.data.local.source.preloadedCommands
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.search.CustomSearchBar
-import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandViewModel
+import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -54,7 +54,7 @@ import `in`.hridayan.ashell.core.presentation.theme.Dimens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CommandExamplesScreen(viewModel: CommandViewModel = hiltViewModel()) {
+fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel()) {
     val weakHaptic = LocalWeakHaptic.current
     var isDialogOpen by rememberSaveable { mutableStateOf(false) }
     val scrollBehavior =
