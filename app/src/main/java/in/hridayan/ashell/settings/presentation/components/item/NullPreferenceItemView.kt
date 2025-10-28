@@ -67,7 +67,8 @@ fun NullPreferenceItemView(
             }
 
             Column(
-                modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
                 if (titleText.isNotEmpty()) {
                     Text(

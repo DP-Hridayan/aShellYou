@@ -447,19 +447,7 @@ fun BaseShellScreen(
                 }
 
                 if (command.text.isNotEmpty()) {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        itemsIndexed(commandSuggestions) { index, command ->
-                            val shape = getRoundedShape(index = index, size = commandSuggestions.size)
-
-                            CommandSuggestionsCard(
-                                modifier = Modifier.fillMaxWidth(),
-                                command = command.command,
-                                roundedCornerShape = shape
-                            )
-                        }
-                    }
+                    CommandSuggestions()
                 }
 
                 OutputCard(listState = listState)
@@ -524,6 +512,40 @@ fun BaseShellScreen(
         }
 
         extraContent()
+    }
+}
+
+@Composable
+fun CommandSuggestions(
+    modifier: Modifier = Modifier,
+    viewModel: ShellViewModel = hiltViewModel()
+) {
+    val listState = rememberLazyListState()
+    val commandSuggestions by viewModel.commandSuggestions.collectAsState()
+
+    LaunchedEffect(commandSuggestions) {
+        if (commandSuggestions.isNotEmpty()) {
+            listState.scrollToItem(0)
+        }
+    }
+
+    LazyColumn(
+        state = listState,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        items(
+            count = commandSuggestions.size,
+            key = { index -> commandSuggestions[index].id }) { index ->
+            val shape = getRoundedShape(index = index, size = commandSuggestions.size)
+
+            CommandSuggestionsCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .animateItem(),
+                command = commandSuggestions[index].command,
+                roundedCornerShape = shape
+            )
+        }
     }
 }
 
