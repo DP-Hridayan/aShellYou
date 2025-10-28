@@ -5,6 +5,8 @@ package `in`.hridayan.ashell.commandexamples.presentation.screens
 import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,12 +37,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -64,6 +68,7 @@ import `in`.hridayan.ashell.core.presentation.theme.Dimens
 @Composable
 fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel()) {
     val weakHaptic = LocalWeakHaptic.current
+    val focusManager = LocalFocusManager.current
     var isDialogOpen by rememberSaveable { mutableStateOf(false) }
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -162,11 +167,47 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
             ) {
                 item {
                     CustomSearchBar(
+                        modifier = Modifier.padding(16.dp),
                         value = states.search.textFieldValue,
                         onValueChange = { it -> viewModel.onSearchQueryChange(it) },
-                        onClearClick = { viewModel.onSearchQueryChange(TextFieldValue("")) },
                         hint = stringResource(R.string.search_commands_here),
-                        modifier = Modifier.padding(16.dp)
+                        trailingIcon = {
+                            if (states.search.textFieldValue.text.isNotEmpty()) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_clear),
+                                    contentDescription = "Clear text",
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier
+                                        .padding(start = 10.dp)
+                                        .clickable(
+                                            enabled = true,
+                                            indication = null,
+                                            interactionSource = remember { MutableInteractionSource() },
+                                            onClick = {
+                                                weakHaptic()
+                                                viewModel.onSearchQueryChange(TextFieldValue(""))
+                                                focusManager.clearFocus()
+                                            }
+                                        )
+                                )
+                            } else {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_sort),
+                                    contentDescription = "Sort",
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier
+                                        .padding(start = 10.dp)
+                                        .clickable(
+                                            enabled = true,
+                                            indication = null,
+                                            interactionSource = remember { MutableInteractionSource() },
+                                            onClick = {
+                                                weakHaptic()
+                                            }
+                                        )
+                                )
+                            }
+                        }
                     )
                 }
 

@@ -2,10 +2,12 @@
 
 package `in`.hridayan.ashell.shell.presentation.components.button
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -29,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -57,6 +60,7 @@ fun UtilityButtonGroup(
 ) {
     val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
+    val focusManager = LocalFocusManager.current
     val navController = LocalNavController.current
     val screenDensity = LocalDensity.current
     val interactionSources = remember { List(5) { MutableInteractionSource() } }
@@ -76,15 +80,50 @@ fun UtilityButtonGroup(
             contentAlignment = Alignment.Center
         ) {
             CustomSearchBar(
+                modifier = modifier.padding(16.dp),
                 value = searchQuery,
                 onValueChange = { it -> shellViewModel.onSearchQueryChange(it) },
-                onClearClick = {
-                    shellViewModel.onSearchQueryChange(TextFieldValue(""))
-                },
                 hint = stringResource(R.string.search_commands_here),
-                showDismissButton = true,
-                onDismiss = { shellViewModel.toggleSearchBar() },
-                modifier = modifier.padding(16.dp)
+                trailingIcon = {
+                    Row {
+                        if (searchQuery.text.isNotEmpty()) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_clear),
+                                contentDescription = "Clear text",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier
+                                    .padding(start = 10.dp)
+                                    .clickable(
+                                        enabled = true,
+                                        indication = null,
+                                        interactionSource = remember { MutableInteractionSource() },
+                                        onClick = {
+                                            weakHaptic()
+                                            shellViewModel.onSearchQueryChange(TextFieldValue(""))
+                                            focusManager.clearFocus()
+                                        }
+                                    )
+                            )
+                        }
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_cross),
+                            contentDescription = "Clear text",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier
+                                .padding(start = 10.dp)
+                                .clickable(
+                                    enabled = true,
+                                    indication = null,
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    onClick = {
+                                        weakHaptic()
+                                        shellViewModel.toggleSearchBar()
+                                    }
+                                )
+                        )
+                    }
+                }
             )
         }
     } else
@@ -94,7 +133,7 @@ fun UtilityButtonGroup(
                 .fillMaxWidth()
                 .padding(utilityRowPadding)
                 .onGloballyPositioned { layoutCoordinates ->
-                   val height = with(screenDensity) {
+                    val height = with(screenDensity) {
                         layoutCoordinates.size.height.toDp()
                     }
                     shellViewModel.updateButtonGroupHeight(height)
