@@ -221,14 +221,16 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
             Text(
                 text = stringResource(R.string.disclaimer_5_description),
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.alpha(0.9f)
+                modifier = Modifier
+                    .alpha(0.9f)
+                    .padding(bottom = 30.dp)
             )
         }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 80.dp)
-                .height(40.dp)
+                .height(60.dp)
                 .align(Alignment.BottomCenter)
                 .background(
                     Brush.verticalGradient(
