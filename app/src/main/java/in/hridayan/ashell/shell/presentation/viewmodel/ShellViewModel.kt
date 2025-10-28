@@ -76,7 +76,7 @@ class ShellViewModel @Inject constructor(
         }
             .combine(allCommands) { query, commands ->
                 if (query.isBlank()) {
-                    commands
+                    emptyList()
                 } else {
                     withContext(Dispatchers.Default) {
                         commands.filter {

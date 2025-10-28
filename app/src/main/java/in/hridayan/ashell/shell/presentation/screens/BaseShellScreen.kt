@@ -151,7 +151,6 @@ fun BaseShellScreen(
     val scrollDirection = rememberScrollDirection(listState)
     val command by shellViewModel.command.collectAsState()
     val commandError by shellViewModel.commandError.collectAsState()
-    val commandSuggestions by shellViewModel.commandSuggestions.collectAsState()
     val shellState by shellViewModel.shellState.collectAsState()
     val isKeyboardVisible = isKeyboardVisible().value
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
@@ -447,7 +446,9 @@ fun BaseShellScreen(
                 }
 
                 if (command.text.isNotEmpty()) {
-                    CommandSuggestions()
+                    CommandSuggestions(
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
 
                 OutputCard(listState = listState)
