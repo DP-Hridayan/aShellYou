@@ -50,6 +50,8 @@ import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
  * text field, such as a clear or filter button. Defaults to an empty composable.
  *
  * @param hint The placeholder text shown when the search input is empty. Defaults to `"Search..."`.
+ *
+ * @param colors The search container color and content color.
  */
 @Composable
 fun CustomSearchBar(
