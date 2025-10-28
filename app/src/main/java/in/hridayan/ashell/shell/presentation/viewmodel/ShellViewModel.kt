@@ -54,7 +54,7 @@ class ShellViewModel @Inject constructor(
     val isSearchBarVisible: StateFlow<Boolean> = _isSearchBarVisible
 
     private val _searchQuery = SharedShellFieldData.searchQuery
-    val searchQuery: StateFlow<String> = _searchQuery
+    val searchQuery: StateFlow<TextFieldValue> = _searchQuery
 
     private val _buttonGroupHeight = SharedShellFieldData.buttonGroupHeight
     val buttonGroupHeight: StateFlow<Dp> = _buttonGroupHeight
@@ -67,21 +67,21 @@ class ShellViewModel @Inject constructor(
         _isSearchBarVisible.value = !_isSearchBarVisible.value
     }
 
-    fun onSearchQueryChange(query: String) {
-        _searchQuery.value = query
+    fun onSearchQueryChange(value: TextFieldValue) {
+        _searchQuery.value = value
     }
 
     @OptIn(FlowPreview::class)
     val filteredOutput: StateFlow<List<CommandResult>> =
         _searchQuery
             .combine(_commandOutput) { query, results ->
-                if (query.isBlank()) {
+                if (query.text.isBlank()) {
                     results
                 } else {
                     withContext(Dispatchers.Default) {
                         results.mapNotNull { commandResult ->
                             val filteredLines = commandResult.outputFlow.value.filter { line ->
-                                line.text.contains(query, ignoreCase = true)
+                                line.text.contains(query.text, ignoreCase = true)
                             }
 
                             if (filteredLines.isNotEmpty()) {

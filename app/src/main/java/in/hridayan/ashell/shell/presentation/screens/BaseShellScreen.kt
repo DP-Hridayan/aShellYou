@@ -562,7 +562,7 @@ private fun OutputCard(
                 itemsIndexed(combinedOutput.value) { index, line ->
                     val text = if (!isSearchVisible.value) line.text else line.text.takeIf {
                         line.text.contains(
-                            searchQuery.value,
+                            searchQuery.value.text,
                             ignoreCase = true
                         )
                     }
@@ -585,7 +585,7 @@ private fun OutputCard(
 
                     text?.let {
                         val annotatedText =
-                            if (isSearchVisible.value && !searchQuery.value.isBlank()) {
+                            if (isSearchVisible.value && !searchQuery.value.text.isBlank()) {
                                 val highlightBgColor =
                                     if (line.isError) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer
                                 val highlightTextColor =
@@ -593,7 +593,7 @@ private fun OutputCard(
 
                                 highlightQueryText(
                                     text = text,
-                                    query = searchQuery.value,
+                                    query = searchQuery.value.text,
                                     highlightBgColor = highlightBgColor,
                                     highlightTextColor = highlightTextColor
                                 )

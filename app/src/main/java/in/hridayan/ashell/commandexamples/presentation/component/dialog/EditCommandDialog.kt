@@ -27,8 +27,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.commandexamples.presentation.model.InputFieldState
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
+import `in`.hridayan.ashell.commandexamples.presentation.model.InputFieldState
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
@@ -55,15 +55,9 @@ fun EditCommandDialog(
                 .align(Alignment.Companion.CenterHorizontally)
         )
 
-        CommandInputField(
-            onValueChange = viewModel::onCommandFieldTextChange,
-            state = states.commandField
-        )
+        CommandInputField(state = states.commandField)
 
-        DescriptionInputField(
-            onValueChange = viewModel::onDescriptionFieldTextChange,
-            state = states.descriptionField
-        )
+        DescriptionInputField(state = states.descriptionField)
 
         if (states.labelField.labels.isNotEmpty()) {
             Labels(
@@ -106,15 +100,15 @@ fun EditCommandDialog(
 @Composable
 private fun CommandInputField(
     modifier: Modifier = Modifier,
-    onValueChange: (String) -> Unit,
-    state: InputFieldState.CommandInputFieldState
+    state: InputFieldState.CommandInputFieldState,
+    viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val label =
         if (state.isError) state.errorMessage else stringResource(R.string.command)
 
     OutlinedTextField(
-        value = state.fieldText,
-        onValueChange = onValueChange,
+        value = state.fieldValue,
+        onValueChange = { viewModel.onCommandFieldTextChange(it) },
         label = { Text(label) },
         isError = state.isError,
         modifier = modifier.fillMaxWidth()
@@ -124,15 +118,15 @@ private fun CommandInputField(
 @Composable
 private fun DescriptionInputField(
     modifier: Modifier = Modifier,
-    onValueChange: (String) -> Unit,
-    state: InputFieldState.DescriptionInputFieldState
+    state: InputFieldState.DescriptionInputFieldState,
+    viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val label =
         if (state.isError) state.errorMessage else stringResource(R.string.description)
 
     OutlinedTextField(
-        value = state.fieldText,
-        onValueChange = onValueChange,
+        value = state.fieldValue,
+        onValueChange = { viewModel.onDescriptionFieldTextChange(it) },
         label = { Text(label) },
         isError = state.isError,
         modifier = modifier.fillMaxWidth(),
@@ -152,14 +146,14 @@ private fun LabelInputField(
 
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
-        value = state.labelField.fieldText,
+        value = state.labelField.fieldValue,
         isError = state.labelField.isError,
         onValueChange = { viewModel.onLabelFieldTextChange(it) },
         trailingIcon = {
             IconButton(
                 onClick = {
                     weakHaptic()
-                    viewModel.onLabelAdd(state.labelField.fieldText)
+                    viewModel.onLabelAdd(state.labelField.fieldValue.text)
                 }
             ) {
                 Icon(

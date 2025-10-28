@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.commandexamples.presentation.component.search
+package `in`.hridayan.ashell.core.presentation.components.search
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.R
@@ -30,8 +31,8 @@ import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 
 @Composable
 fun CustomSearchBar(
-    value: String,
-    onValueChange: (String) -> Unit,
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
     modifier: Modifier = Modifier,
     hint: String = "Search...",
     onClearClick: () -> Unit = {},
@@ -40,7 +41,7 @@ fun CustomSearchBar(
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val focusManager = LocalFocusManager.current
-    val isHintVisible = value.isEmpty()
+    val isHintVisible = value.text.isEmpty()
 
     PillShapedCard(
         modifier = Modifier
@@ -93,7 +94,7 @@ fun CustomSearchBar(
                 }
             }
 
-            if (value.isNotEmpty()) {
+            if (value.text.isNotEmpty()) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_clear),
                     contentDescription = "Clear text",

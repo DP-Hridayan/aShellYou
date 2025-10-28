@@ -11,6 +11,6 @@ object SharedShellFieldData {
     var shellState = MutableStateFlow<ShellState>(ShellState.Free)
     var history = MutableStateFlow<List<String>>(emptyList())
     var isSearchBarVisible = MutableStateFlow(false)
-    var searchQuery = MutableStateFlow("")
+    var searchQuery = MutableStateFlow(TextFieldValue(""))
     var buttonGroupHeight = MutableStateFlow(0.dp)
 }

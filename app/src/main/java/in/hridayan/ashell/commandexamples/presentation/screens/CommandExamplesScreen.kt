@@ -38,13 +38,14 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.source.preloadedCommands
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
-import `in`.hridayan.ashell.commandexamples.presentation.component.search.CustomSearchBar
+import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
@@ -153,9 +154,9 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
         ) {
             item {
                 CustomSearchBar(
-                    value = states.search.query,
+                    value = states.search.textFieldValue,
                     onValueChange = { it -> viewModel.onSearchQueryChange(it) },
-                    onClearClick = { viewModel.onSearchQueryChange("") },
+                    onClearClick = { viewModel.onSearchQueryChange(TextFieldValue("")) },
                     hint = stringResource(R.string.search_commands_here),
                     modifier = Modifier.padding(16.dp)
                 )

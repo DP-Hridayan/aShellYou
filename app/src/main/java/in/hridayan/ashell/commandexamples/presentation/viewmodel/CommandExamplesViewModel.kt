@@ -1,14 +1,15 @@
 package `in`.hridayan.ashell.commandexamples.presentation.viewmodel
 
 import android.content.Context
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
-import `in`.hridayan.ashell.commandexamples.presentation.model.CommandExamplesScreenState
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
+import `in`.hridayan.ashell.commandexamples.presentation.model.CommandExamplesScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -55,7 +56,7 @@ class CommandExamplesViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     val filteredCommands: StateFlow<List<CommandEntity>> =
         _states
-            .map { it.search.query }
+            .map { it.search.textFieldValue.text }
             .combine(allCommands) { query, commands ->
                 if (query.isBlank()) {
                     commands
@@ -79,36 +80,34 @@ class CommandExamplesViewModel @Inject constructor(
             )
 
 
-    fun onSearchQueryChange(newValue: String) = with(_states.value) {
+    fun onSearchQueryChange(newValue: TextFieldValue) = with(_states.value) {
         _states.value = this.copy(
-            search = search.copy(
-                query = newValue
-            )
+            search = search.copy(textFieldValue = newValue)
         )
     }
 
-    fun onCommandFieldTextChange(newValue: String) = with(_states.value) {
+    fun onCommandFieldTextChange(newValue: TextFieldValue) = with(_states.value) {
         _states.value = this.copy(
             commandField = commandField.copy(
-                fieldText = newValue,
+                fieldValue = newValue,
                 isError = false
             )
         )
     }
 
-    fun onDescriptionFieldTextChange(newValue: String) = with(_states.value) {
+    fun onDescriptionFieldTextChange(newValue: TextFieldValue) = with(_states.value) {
         _states.value = this.copy(
             descriptionField = descriptionField.copy(
-                fieldText = newValue,
+                fieldValue = newValue,
                 isError = false
             )
         )
     }
 
-    fun onLabelFieldTextChange(newValue: String) = with(_states.value) {
+    fun onLabelFieldTextChange(newValue: TextFieldValue) = with(_states.value) {
         _states.value = this.copy(
             labelField = labelField.copy(
-                fieldText = newValue,
+                fieldValue = newValue,
                 isError = false
             )
         )
@@ -147,7 +146,7 @@ class CommandExamplesViewModel @Inject constructor(
 
         _states.value = this.copy(
             labelField = labelField.copy(
-                fieldText = "",
+                fieldValue = TextFieldValue(""),
                 labels = labels
             )
         )
@@ -178,8 +177,8 @@ class CommandExamplesViewModel @Inject constructor(
     }
 
     fun addCommand(onSuccess: () -> Unit) = with(_states.value) {
-        val command = this.commandField.fieldText.trim()
-        val description = this.descriptionField.fieldText.trim()
+        val command = this.commandField.fieldValue.text.trim()
+        val description = this.descriptionField.fieldValue.text.trim()
 
         val isCommandFieldBlank = command.isBlank()
         val isDescriptionFieldBlank = description.isBlank()
@@ -224,13 +223,13 @@ class CommandExamplesViewModel @Inject constructor(
 
         _states.value = this.copy(
             commandField = commandField.copy(
-                fieldText = commandById?.command ?: ""
+                fieldValue = TextFieldValue(commandById?.command ?: "")
             ),
             descriptionField = descriptionField.copy(
-                fieldText = commandById?.description ?: ""
+                fieldValue = TextFieldValue(commandById?.description ?: "")
             ),
             labelField = labelField.copy(
-                fieldText = "",
+                fieldValue = TextFieldValue(""),
                 labels = commandById?.labels ?: emptyList()
             )
         )
@@ -238,15 +237,15 @@ class CommandExamplesViewModel @Inject constructor(
 
     fun clearInputFields() = with(_states.value) {
         _states.value = this.copy(
-            commandField = commandField.copy(fieldText = ""),
-            descriptionField = descriptionField.copy(fieldText = ""),
-            labelField = labelField.copy(fieldText = "", labels = emptyList())
+            commandField = commandField.copy(fieldValue = TextFieldValue("")),
+            descriptionField = descriptionField.copy(fieldValue = TextFieldValue("")),
+            labelField = labelField.copy(fieldValue = TextFieldValue(""), labels = emptyList())
         )
     }
 
     fun editCommand(id: Int, onSuccess: () -> Unit) = with(_states.value) {
-        val command = this.commandField.fieldText.trim()
-        val description = this.descriptionField.fieldText.trim()
+        val command = this.commandField.fieldValue.text.trim()
+        val description = this.descriptionField.fieldValue.text.trim()
 
         val isCommandFieldBlank = command.isBlank()
         val isDescriptionFieldBlank = description.isBlank()
