@@ -93,6 +93,7 @@
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     <string name="description">Description</string>
     <string name="root_access_granted">Root access granted!</string>
+    <string name="no_search_results_found">No search results found</string>
     <string name="no_root_access">No root access</string>
     <string name="developer_options">Developer options</string>
     <string name="developer_options_not_available">Developer options not available!</string>

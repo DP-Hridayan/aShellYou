@@ -14,6 +14,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -88,6 +89,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
@@ -99,6 +101,8 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.ScrollDirection
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
@@ -153,6 +157,9 @@ fun BaseShellScreen(
     val commandError by shellViewModel.commandError.collectAsState()
     val shellState by shellViewModel.shellState.collectAsState()
     val isKeyboardVisible = isKeyboardVisible().value
+    val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
+    val searchQuery by shellViewModel.searchQuery.collectAsState()
+    val isSearchBarVisible by shellViewModel.isSearchBarVisible.collectAsState()
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val lastSavedFileUri = LocalSettings.current.lastSavedFileUri
@@ -294,7 +301,11 @@ fun BaseShellScreen(
             }
         })
     { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
@@ -445,13 +456,22 @@ fun BaseShellScreen(
                     )
                 }
 
-                if (command.text.isNotEmpty()) {
+                if (command.text.isNotEmpty() && !isSearchBarVisible) {
                     CommandSuggestions(
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
 
                 OutputCard(listState = listState)
+            }
+
+            if (searchQuery.text.isNotEmpty() && searchOutputResult.isEmpty()) {
+                NoSearchResultUi(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 40.dp)
+                        .align(Alignment.Center)
+                )
             }
         }
 
@@ -547,6 +567,25 @@ fun CommandSuggestions(
                 roundedCornerShape = shape
             )
         }
+    }
+}
+
+@Composable
+fun NoSearchResultUi(modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        Image(
+            imageVector = DynamicColorImageVectors.noSearchResult(),
+            contentDescription = null,
+        )
+
+        AutoResizeableText(
+            text = stringResource(R.string.no_search_results_found),
+            style = MaterialTheme.typography.bodyMediumEmphasized,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp)
+        )
     }
 }
 
