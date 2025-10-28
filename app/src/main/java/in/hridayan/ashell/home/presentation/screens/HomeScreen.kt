@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.home.presentation.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -48,6 +47,7 @@ import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButt
 import `in`.hridayan.ashell.core.presentation.components.button.OutlinedIconButtonWithText
 import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.home.presentation.component.card.DeviceInfoCard
 import `in`.hridayan.ashell.home.presentation.component.card.RebootOptionsCard
@@ -103,9 +103,9 @@ fun HomeScreen(
             }
 
             if (!hasRoot) {
-                Toast.makeText(context, "No root access!", Toast.LENGTH_SHORT).show()
+                makeToast(context, context.getString(R.string.no_root_access))
             } else {
-                Toast.makeText(context, "Root access granted!", Toast.LENGTH_SHORT).show()
+                makeToast(context, context.getString(R.string.root_access_granted))
                 showRebootOptionsDialog = true
             }
         }

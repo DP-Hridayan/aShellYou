@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -20,6 +21,7 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.DeviceUtils
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled
@@ -30,6 +32,9 @@ import `in`.hridayan.ashell.shell.presentation.components.dialog.ConnectedDevice
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.shell.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import rikka.shizuku.Shizuku
 
 @Composable
@@ -39,6 +44,7 @@ fun LocalAdbScreen(
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
+    val scope = rememberCoroutineScope()
 
     val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
     var isShizukuInstalled by rememberSaveable {
@@ -48,7 +54,7 @@ fun LocalAdbScreen(
             )
         )
     }
-
+    var hasRootAccess by rememberSaveable { mutableStateOf(false) }
     val localAdbMode = LocalSettings.current.localAdbMode
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
@@ -73,7 +79,18 @@ fun LocalAdbScreen(
                     }
 
                     LocalAdbWorkingMode.ROOT -> {
-                        shellViewModel.runRootCommand()
+                        scope.launch {
+                            val hasRoot = withContext(Dispatchers.IO) {
+                                shellViewModel.hasRootAccess()
+                            }
+                            hasRootAccess = hasRoot
+                        }
+
+                        if (!hasRootAccess) {
+                            makeToast(context, context.getString(R.string.no_root_access))
+                        } else {
+                            shellViewModel.runRootCommand()
+                        }
                     }
                 }
             }

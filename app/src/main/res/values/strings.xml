@@ -92,6 +92,8 @@
     <string name="des_smooth_scroll">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     <string name="description">Description</string>
+    <string name="root_access_granted">Root access granted!</string>
+    <string name="no_root_access">No root access</string>
     <string name="developer_options">Developer options</string>
     <string name="developer_options_not_available">Developer options not available!</string>
     <string name="device_connected">Device connected!</string>

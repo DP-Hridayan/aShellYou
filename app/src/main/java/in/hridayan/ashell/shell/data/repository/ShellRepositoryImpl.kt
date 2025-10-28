@@ -14,13 +14,13 @@ class ShellRepositoryImpl @Inject constructor(
     private val shellCommandExecutor: ShellCommandExecutor,
     private val shizukuPermissionHandler: ShizukuPermissionHandler,
     @param:ApplicationContext private val context: Context
-): ShellRepository{
+) : ShellRepository {
 
     override fun hasShizukuPermission(): Boolean {
         return shizukuPermissionHandler.hasPermission()
     }
 
-    override fun shizukuPermissionState(): StateFlow<Boolean>{
+    override fun shizukuPermissionState(): StateFlow<Boolean> {
         return shizukuPermissionHandler.permissionGranted
     }
 
@@ -30,6 +30,24 @@ class ShellRepositoryImpl @Inject constructor(
 
     override fun requestShizukuPermission() {
         return shizukuPermissionHandler.requestPermission()
+    }
+
+    override fun hasRootAccess(): Boolean {
+        return try {
+            val process = Runtime.getRuntime().exec("su")
+            val outputStream = process.outputStream
+
+            outputStream.write("id\n".toByteArray())
+            outputStream.flush()
+
+            outputStream.write("exit\n".toByteArray())
+            outputStream.flush()
+
+            val result = process.waitFor()
+            result == 0
+        } catch (e: Exception) {
+            false
+        }
     }
 
     override suspend fun executeBasicCommand(command: String): Flow<OutputLine> {

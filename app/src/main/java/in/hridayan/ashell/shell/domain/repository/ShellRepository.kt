@@ -9,6 +9,7 @@ interface ShellRepository {
     fun shizukuPermissionState(): StateFlow<Boolean>
     fun requestShizukuPermission()
     fun refreshShizukuPermission()
+    fun hasRootAccess() : Boolean
     suspend fun executeBasicCommand(command: String): Flow<OutputLine>
     suspend fun executeRootCommand(command: String): Flow<OutputLine>
     suspend fun executeShizukuCommand(command: String): Flow<OutputLine>
