@@ -74,13 +74,15 @@ fun UtilityButtonGroup(
 
     if (isSearchVisible.value && !isOutputEmpty) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .height(buttonGroupHeight + 55.dp),
             contentAlignment = Alignment.Center
         ) {
             CustomSearchBar(
-                modifier = modifier.padding(16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 15.dp, vertical = 16.dp),
                 value = searchQuery,
                 onValueChange = { it -> shellViewModel.onSearchQueryChange(it) },
                 hint = stringResource(R.string.search_commands_here),

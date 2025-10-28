@@ -167,7 +167,9 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
             ) {
                 item {
                     CustomSearchBar(
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 15.dp),
                         value = states.search.textFieldValue,
                         onValueChange = { it -> viewModel.onSearchQueryChange(it) },
                         hint = stringResource(R.string.search_commands_here),
