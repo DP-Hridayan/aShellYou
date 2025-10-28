@@ -4,10 +4,14 @@ package `in`.hridayan.ashell.commandexamples.presentation.screens
 
 import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -33,25 +37,28 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.source.preloadedCommands
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
-import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
+import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
+import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -144,38 +151,68 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
             )
         }
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(it)
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
-            contentPadding = PaddingValues(vertical = Dimens.paddingMedium),
-            verticalArrangement = Arrangement.spacedBy(Dimens.paddingMedium)
-        ) {
-            item {
-                CustomSearchBar(
-                    value = states.search.textFieldValue,
-                    onValueChange = { it -> viewModel.onSearchQueryChange(it) },
-                    onClearClick = { viewModel.onSearchQueryChange(TextFieldValue("")) },
-                    hint = stringResource(R.string.search_commands_here),
-                    modifier = Modifier.padding(16.dp)
-                )
+        Box(modifier = Modifier.fillMaxSize()) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(it)
+                    .nestedScroll(scrollBehavior.nestedScrollConnection),
+                contentPadding = PaddingValues(vertical = Dimens.paddingMedium),
+                verticalArrangement = Arrangement.spacedBy(Dimens.paddingMedium)
+            ) {
+                item {
+                    CustomSearchBar(
+                        value = states.search.textFieldValue,
+                        onValueChange = { it -> viewModel.onSearchQueryChange(it) },
+                        onClearClick = { viewModel.onSearchQueryChange(TextFieldValue("")) },
+                        hint = stringResource(R.string.search_commands_here),
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
+
+                items(commands.size, key = { index -> commands[index].id }) { index ->
+                    CommandExampleCard(
+                        modifier = Modifier
+                            .padding(horizontal = 15.dp)
+                            .animateItem(),
+                        id = commands[index].id,
+                        command = commands[index].command,
+                        description = commands[index].description,
+                        isFavourite = commands[index].isFavourite,
+                        labels = commands[index].labels,
+                    )
+                }
             }
 
-            items(commands.size, key = { index -> commands[index].id }) { index ->
-                CommandExampleCard(
+            if (states.search.textFieldValue.text.isNotEmpty() && commands.isEmpty()) {
+                NoSearchResultUi(
                     modifier = Modifier
-                        .padding(horizontal = 15.dp)
-                        .animateItem(),
-                    id = commands[index].id,
-                    command = commands[index].command,
-                    description = commands[index].description,
-                    isFavourite = commands[index].isFavourite,
-                    labels = commands[index].labels,
+                        .fillMaxWidth()
+                        .padding(horizontal = 40.dp)
+                        .align(Alignment.Center)
                 )
             }
         }
     }
 
     if (isDialogOpen) AddCommandDialog(onDismiss = { isDialogOpen = false })
+}
+
+@Composable
+private fun NoSearchResultUi(modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        Image(
+            imageVector = DynamicColorImageVectors.noSearchResult(),
+            contentDescription = null,
+        )
+
+        AutoResizeableText(
+            text = stringResource(R.string.no_search_results_found),
+            style = MaterialTheme.typography.bodyMediumEmphasized,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp)
+        )
+    }
 }

@@ -571,7 +571,7 @@ fun CommandSuggestions(
 }
 
 @Composable
-fun NoSearchResultUi(modifier: Modifier = Modifier) {
+private fun NoSearchResultUi(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Image(
             imageVector = DynamicColorImageVectors.noSearchResult(),
