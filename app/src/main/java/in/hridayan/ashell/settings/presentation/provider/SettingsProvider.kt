@@ -11,7 +11,6 @@ import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.FolderOpen
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Numbers
-import androidx.compose.material.icons.rounded.SaveAs
 import androidx.compose.material.icons.rounded.SentimentNeutral
 import androidx.compose.material.icons.rounded.SettingsBackupRestore
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
@@ -261,7 +260,7 @@ object SettingsProvider {
                 key = SettingsKeys.SAVE_WHOLE_OUTPUT,
                 titleResId = R.string.save_whole_output,
                 descriptionResId = R.string.des_save_whole_output,
-                iconVector = Icons.Rounded.SaveAs
+                iconResId = R.drawable.ic_save_as
             ),
         )
     )
