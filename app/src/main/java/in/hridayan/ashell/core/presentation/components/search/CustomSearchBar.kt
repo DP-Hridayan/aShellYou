@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +18,7 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
@@ -103,7 +105,8 @@ fun CustomSearchBar(
                         .padding(start = 10.dp)
                         .clickable(
                             enabled = true,
-                            interactionSource = null,
+                            indication = null,
+                            interactionSource = remember { MutableInteractionSource() },
                             onClick = {
                                 weakHaptic()
                                 onClearClick()
@@ -122,7 +125,8 @@ fun CustomSearchBar(
                         .padding(start = 10.dp)
                         .clickable(
                             enabled = true,
-                            interactionSource = null,
+                            indication = null,
+                            interactionSource = remember { MutableInteractionSource() },
                             onClick = {
                                 weakHaptic()
                                 onDismiss()

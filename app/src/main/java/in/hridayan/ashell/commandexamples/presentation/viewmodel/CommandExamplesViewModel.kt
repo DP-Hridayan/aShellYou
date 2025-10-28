@@ -138,8 +138,6 @@ class CommandExamplesViewModel @Inject constructor(
             return@with
         }
 
-
-
         if (trimmedLabel !in labels) {
             labels = labels + trimmedLabel
         }
