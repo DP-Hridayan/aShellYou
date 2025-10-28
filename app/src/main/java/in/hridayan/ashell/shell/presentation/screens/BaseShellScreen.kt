@@ -98,6 +98,7 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.ScrollDirection
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
+import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
@@ -113,6 +114,7 @@ import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.presentation.components.button.UtilityButtonGroup
+import `in`.hridayan.ashell.shell.presentation.components.card.CommandSuggestionsCard
 import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarkDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.BookmarksSortDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.ClearOutputConfirmationDialog
@@ -149,6 +151,7 @@ fun BaseShellScreen(
     val scrollDirection = rememberScrollDirection(listState)
     val command by shellViewModel.command.collectAsState()
     val commandError by shellViewModel.commandError.collectAsState()
+    val commandSuggestions by shellViewModel.commandSuggestions.collectAsState()
     val shellState by shellViewModel.shellState.collectAsState()
     val isKeyboardVisible = isKeyboardVisible().value
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
@@ -441,6 +444,22 @@ fun BaseShellScreen(
                         modifier = Modifier.padding(top = 10.dp),
                         content = actionFabIcon
                     )
+                }
+
+                if (command.text.isNotEmpty()) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        itemsIndexed(commandSuggestions) { index, command ->
+                            val shape = getRoundedShape(index = index, size = commandSuggestions.size)
+
+                            CommandSuggestionsCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                command = command.command,
+                                roundedCornerShape = shape
+                            )
+                        }
+                    }
                 }
 
                 OutputCard(listState = listState)

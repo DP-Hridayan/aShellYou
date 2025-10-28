@@ -20,12 +20,15 @@ fun CommandSuggestionsCard(
 ) {
     RoundedCornerCard(
         modifier = modifier,
-        roundedCornerShape = roundedCornerShape
+        roundedCornerShape = roundedCornerShape,
     ) {
         Text(
             text = command,
             style = MaterialTheme.typography.titleMediumEmphasized,
-            modifier = Modifier.padding(start = 5.dp)
+            modifier = Modifier.padding(
+                horizontal = 15.dp,
+                vertical = 10.dp
+            )
         )
     }
 }

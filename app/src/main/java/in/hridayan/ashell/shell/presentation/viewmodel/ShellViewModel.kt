@@ -6,6 +6,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
+import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.domain.usecase.ExtractLastCommandOutputUseCase
@@ -21,6 +23,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -30,6 +33,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ShellViewModel @Inject constructor(
     private val shellRepository: ShellRepository,
+    private val commandExamplesRepository: CommandRepository,
     private val extractLastCommandOutputUseCase: ExtractLastCommandOutputUseCase,
     private val getSaveOutputFileNameUseCase: GetSaveOutputFileNameUseCase
 ) : ViewModel() {
@@ -58,6 +62,35 @@ class ShellViewModel @Inject constructor(
 
     private val _buttonGroupHeight = SharedShellFieldData.buttonGroupHeight
     val buttonGroupHeight: StateFlow<Dp> = _buttonGroupHeight
+
+    val allCommands: Flow<List<CommandEntity>> =
+        commandExamplesRepository.getCommandsAlphabetically().stateIn(
+            viewModelScope,
+            SharingStarted.Companion.Lazily, emptyList()
+        )
+
+    @OptIn(FlowPreview::class)
+    val commandSuggestions: StateFlow<List<CommandEntity>> =
+        _command.map {
+            it.text
+        }
+            .combine(allCommands) { query, commands ->
+                if (query.isBlank()) {
+                    commands
+                } else {
+                    withContext(Dispatchers.Default) {
+                        commands.filter {
+                            it.command.contains(query, ignoreCase = true)
+                        }
+                    }
+                }
+            }
+            .distinctUntilChanged()
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                emptyList()
+            )
 
     fun updateButtonGroupHeight(newHeight: Dp) {
         _buttonGroupHeight.value = newHeight
