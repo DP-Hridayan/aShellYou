@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.presentation.components.card
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -27,15 +26,15 @@ fun CommandSuggestionsCard(
     val weakHaptic = LocalWeakHaptic.current
 
     RoundedCornerCard(
-        modifier = modifier.clickable(
-            enabled = true,
-            onClick = {
-                weakHaptic()
-                viewModel.onCommandTextFieldChange(TextFieldValue(
+        modifier = modifier,
+        onClick = {
+            weakHaptic()
+            viewModel.onCommandTextFieldChange(
+                TextFieldValue(
                     text = command,
-                ))
-            }
-        ),
+                )
+            )
+        },
         roundedCornerShape = roundedCornerShape,
     ) {
         Text(

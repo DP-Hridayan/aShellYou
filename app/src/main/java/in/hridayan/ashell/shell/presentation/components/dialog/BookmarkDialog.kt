@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.shell.presentation.components.dialog
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,10 +32,10 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
 
 @Composable
 fun BookmarkDialog(
@@ -89,12 +88,11 @@ fun BookmarkDialog(
 
                         RoundedCornerCard(
                             roundedCornerShape = roundedShape,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable(enabled = true, onClick = {
-                                    weakHaptic()
-                                    onBookmarkClicked(bookmark.command)
-                                }),
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = {
+                                weakHaptic()
+                                onBookmarkClicked(bookmark.command)
+                            },
                             paddingValues = PaddingValues(vertical = 1.dp),
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,

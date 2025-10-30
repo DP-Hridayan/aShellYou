@@ -63,6 +63,7 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -78,6 +79,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     )
     val commands by viewModel.filteredCommands.collectAsState(initial = emptyList())
     val states by viewModel.states.collectAsState()
+    val isKeyboardVisible = isKeyboardVisible()
 
     Log.d("test", preloadedCommands.size.toString())
 
@@ -91,6 +93,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
             )
         },
         floatingActionButton = {
+            if(!isKeyboardVisible.value)
             SplitButtonLayout(
                 modifier = Modifier.padding(bottom = 20.dp),
                 leadingButton = {

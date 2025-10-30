@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.core.presentation.components.card
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -26,12 +27,14 @@ fun RoundedCornerCard(
     elevation: CardElevation = CardDefaults.cardElevation(),
     border: BorderStroke? = null,
     paddingValues: PaddingValues = PaddingValues(vertical = 1.dp, horizontal = 15.dp),
+    onClick: () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit
 ) {
     Card(
         modifier = modifier
             .padding(paddingValues)
-            .clip(roundedCornerShape),
+            .clip(roundedCornerShape)
+            .clickable(enabled = true, onClick = onClick),
         shape = roundedCornerShape,
         elevation = elevation,
         border = border,
