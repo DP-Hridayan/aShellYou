@@ -3,8 +3,10 @@ package `in`.hridayan.ashell.core.presentation.components.search
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -65,7 +67,7 @@ fun CustomSearchBar(
             tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
     },
-    trailingIcon: @Composable () -> Unit = {},
+    trailingIcon: @Composable RowScope.() -> Unit = {},
     hint: String = "Search...",
     colors: CardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -117,7 +119,13 @@ fun CustomSearchBar(
                 }
             }
 
-            trailingIcon()
+            Row(
+                modifier = Modifier.padding(start = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                trailingIcon()
+            }
         }
     }
 }

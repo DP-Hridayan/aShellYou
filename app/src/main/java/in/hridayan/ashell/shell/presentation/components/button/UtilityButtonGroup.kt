@@ -7,7 +7,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -82,44 +81,40 @@ fun UtilityButtonGroup(
                 onValueChange = { it -> shellViewModel.onSearchQueryChange(it) },
                 hint = stringResource(R.string.search_commands_here),
                 trailingIcon = {
-                    Row {
-                        if (states.search.textFieldValue.text.isNotEmpty()) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_clear),
-                                contentDescription = "Clear text",
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier
-                                    .padding(start = 10.dp)
-                                    .clickable(
-                                        enabled = true,
-                                        indication = null,
-                                        interactionSource = remember { MutableInteractionSource() },
-                                        onClick = {
-                                            weakHaptic()
-                                            shellViewModel.onSearchQueryChange(TextFieldValue(""))
-                                            focusManager.clearFocus()
-                                        }
-                                    )
-                            )
-                        }
-
+                    if (states.search.textFieldValue.text.isNotEmpty()) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_cross),
+                            painter = painterResource(id = R.drawable.ic_clear),
                             contentDescription = "Clear text",
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier
-                                .padding(start = 10.dp)
                                 .clickable(
                                     enabled = true,
                                     indication = null,
                                     interactionSource = remember { MutableInteractionSource() },
                                     onClick = {
                                         weakHaptic()
-                                        shellViewModel.toggleSearchBar()
+                                        shellViewModel.onSearchQueryChange(TextFieldValue(""))
+                                        focusManager.clearFocus()
                                     }
                                 )
                         )
                     }
+
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_cross),
+                        contentDescription = "Clear text",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier
+                            .clickable(
+                                enabled = true,
+                                indication = null,
+                                interactionSource = remember { MutableInteractionSource() },
+                                onClick = {
+                                    weakHaptic()
+                                    shellViewModel.toggleSearchBar()
+                                }
+                            )
+                    )
                 }
             )
         }
