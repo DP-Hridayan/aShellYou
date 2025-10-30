@@ -31,7 +31,7 @@ fun CommandSuggestionsCard(
             enabled = true,
             onClick = {
                 weakHaptic()
-                viewModel.onCommandChange(TextFieldValue(
+                viewModel.onCommandTextFieldChange(TextFieldValue(
                     text = command,
                 ))
             }

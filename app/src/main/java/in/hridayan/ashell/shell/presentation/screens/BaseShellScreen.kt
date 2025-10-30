@@ -384,7 +384,7 @@ fun BaseShellScreen(
                             maxLines = 3,
                             label = { Text(label) },
                             value = command,
-                            onValueChange = { shellViewModel.onCommandChange(it) },
+                            onValueChange = { shellViewModel.onCommandTextFieldChange(it) },
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 imeAction = ImeAction.Send
                             ),
@@ -440,7 +440,7 @@ fun BaseShellScreen(
                                         )
                                     },
                                     onClick = {
-                                        shellViewModel.onCommandChange(TextFieldValue(command))
+                                        shellViewModel.onCommandTextFieldChange(TextFieldValue(command))
                                         historyMenuExpanded = false
                                         textFieldFocusRequester.requestFocus()
                                     }
@@ -484,7 +484,7 @@ fun BaseShellScreen(
         if (showBookmarkDialog) {
             BookmarkDialog(
                 onBookmarkClicked = { command ->
-                    shellViewModel.onCommandChange(TextFieldValue(command))
+                    shellViewModel.onCommandTextFieldChange(TextFieldValue(command))
                     showBookmarkDialog = false
                     textFieldFocusRequester.requestFocus()
                 },
@@ -900,7 +900,7 @@ private fun BottomExtendedFAB(
         if (textInClipboard.trim().isEmpty()) {
             showToast(context, context.getString(R.string.clipboard_empty))
         } else {
-            shellViewModel.onCommandChange(TextFieldValue(textInClipboard))
+            shellViewModel.onCommandTextFieldChange(TextFieldValue(textInClipboard))
         }
     }
 

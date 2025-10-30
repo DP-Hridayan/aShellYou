@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.shell.presentation.viewmodel
 
+import androidx.compose.material3.TextField
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
@@ -98,6 +99,7 @@ class ShellViewModel @Inject constructor(
 
     fun toggleSearchBar() {
         _isSearchBarVisible.value = !_isSearchBarVisible.value
+        _searchQuery.value = TextFieldValue("")
     }
 
     fun onSearchQueryChange(value: TextFieldValue) {
@@ -135,13 +137,16 @@ class ShellViewModel @Inject constructor(
                 emptyList()
             )
 
-    fun onCommandChange(newValue: TextFieldValue) {
+    fun onCommandTextFieldChange(newValue: TextFieldValue) {
         val updatedValue = newValue.copy(
             selection = TextRange(newValue.text.length)
         )
 
         _command.value = updatedValue
         _commandError.value = false
+
+        _searchQuery.value = TextFieldValue("")
+        _isSearchBarVisible.value = false
 
         _shellState.value = when {
             newValue.text.isBlank() -> ShellState.Free

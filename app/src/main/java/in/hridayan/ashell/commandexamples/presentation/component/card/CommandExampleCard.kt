@@ -119,7 +119,7 @@ fun CommandExampleCard(
                 }
 
                 UseCommandButton(onClick = {
-                    shellViewModel.onCommandChange(
+                    shellViewModel.onCommandTextFieldChange(
                         TextFieldValue(text = command)
                     )
 
