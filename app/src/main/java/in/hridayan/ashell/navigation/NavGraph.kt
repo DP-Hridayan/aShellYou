@@ -10,6 +10,7 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SizeTransform
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
@@ -20,6 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import `in`.hridayan.ashell.commandexamples.presentation.screens.CommandExamplesScreen
 import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
+import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
 import `in`.hridayan.ashell.settings.presentation.page.about.screens.AboutScreen
@@ -47,6 +49,12 @@ fun Navigation(isFirstLaunch: Boolean = false) {
         CompositionLocalProvider(
             LocalNavController provides navController,
         ) {
+            LaunchedEffect(Unit) {
+                SharedTextHolder.text?.let {
+                    navController.navigate(NavRoutes.LocalAdbScreen)
+                }
+            }
+
             NavHost(
                 navController = navController,
                 startDestination = if (isFirstLaunch) NavRoutes.OnboardingScreen else NavRoutes.HomeScreen

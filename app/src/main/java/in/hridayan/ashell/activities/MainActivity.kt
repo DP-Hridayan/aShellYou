@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,6 +19,7 @@ import `in`.hridayan.ashell.core.common.SeedColorProvider
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.AppUiEntry
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
+import `in`.hridayan.ashell.core.utils.handleSharedText
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -35,6 +37,8 @@ class MainActivity : ComponentActivity() {
         }
 
         super.onCreate(savedInstanceState)
+
+        handleSharedText(intent)
 
         lifecycleScope.launch {
             val autoUpdateEnabled = settingsViewModel.getBoolean(SettingsKeys.AUTO_UPDATE).first()
@@ -65,4 +69,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleSharedText(intent)
+    }
 }
+

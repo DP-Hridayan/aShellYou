@@ -10,6 +10,7 @@ import android.content.Intent
 import android.provider.Settings
 import androidx.core.net.toUri
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.core.presentation.utils.ToastUtils
 
 fun openUrl(url: String, context: Context) {
@@ -24,6 +25,7 @@ fun openUrl(url: String, context: Context) {
     } catch (ignored: ActivityNotFoundException) {
     }
 }
+
 /**
  * Check if an app is installed by package name.
  */
@@ -70,6 +72,22 @@ fun Context.findActivity(): Activity? = when (this) {
     is Activity -> this
     is ContextWrapper -> baseContext.findActivity()
     else -> null
+}
+
+fun handleSharedText(intent: Intent) {
+    if (intent.action == Intent.ACTION_SEND && intent.type == "text/plain") {
+        val sharedText = intent.getStringExtra(Intent.EXTRA_TEXT)
+        if (!sharedText.isNullOrBlank()) {
+            var cleanedText = sharedText.trim()
+
+            if (cleanedText.startsWith("\"") && cleanedText.endsWith("\"") && cleanedText.length > 1) {
+                cleanedText = cleanedText.substring(1, cleanedText.length - 1)
+            }
+
+            cleanedText = cleanedText.trim()
+            SharedTextHolder.text = cleanedText
+        }
+    }
 }
 
 

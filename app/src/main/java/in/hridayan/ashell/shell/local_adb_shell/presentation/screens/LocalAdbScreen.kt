@@ -22,12 +22,14 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.DeviceUtils
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.presentation.model.ShellState
@@ -45,6 +47,7 @@ fun LocalAdbScreen(
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
+    val navController = LocalNavController.current
     val scope = rememberCoroutineScope()
 
     val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
@@ -129,6 +132,13 @@ fun LocalAdbScreen(
                 }
             }
         )
+    }
+
+    LaunchedEffect(Unit) {
+        SharedTextHolder.text?.let {
+            shellViewModel.onCommandTextFieldChange(newValue = TextFieldValue(it))
+            SharedTextHolder.text = null
+        }
     }
 
     BaseShellScreen(
