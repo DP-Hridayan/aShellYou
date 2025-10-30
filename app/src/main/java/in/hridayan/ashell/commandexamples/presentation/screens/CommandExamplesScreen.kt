@@ -2,8 +2,9 @@
 
 package `in`.hridayan.ashell.commandexamples.presentation.screens
 
+import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -17,24 +18,26 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FloatingActionButtonMenu
+import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SplitButtonDefaults
-import androidx.compose.material3.SplitButtonLayout
+import androidx.compose.material3.ToggleFloatingActionButton
+import androidx.compose.material3.ToggleFloatingActionButtonDefaults
+import androidx.compose.material3.ToggleFloatingActionButtonDefaults.animateIcon
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.animateFloatingActionButton
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,11 +45,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -67,6 +76,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 
+@SuppressLint("RememberInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel()) {
@@ -75,19 +85,26 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
-    var splitButtonChecked by rememberSaveable { mutableStateOf(false) }
+    var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var showAddCommandDialog by rememberSaveable { mutableStateOf(false) }
     var showSortExamplesDialog by rememberSaveable { mutableStateOf(false) }
-
-    val rotation by animateFloatAsState(
-        targetValue = if (splitButtonChecked) 180f else 0f
-    )
+    val focusRequester = FocusRequester()
     val sortType = LocalSettings.current.commandsSortType
     val commands by viewModel.filteredCommands(sortType).collectAsState()
     val states by viewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible()
 
+    val addOptions = listOf(
+        stringResource(R.string.load_predefined_commands) to { viewModel.loadDefaultCommands() },
+        stringResource(R.string.add_new_item) to {
+            viewModel.clearInputFields()
+            showAddCommandDialog = true
+        }
+    )
+
     Log.d("test", preloadedCommands.size.toString())
+
+    BackHandler(fabMenuExpanded) { fabMenuExpanded = false }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -99,70 +116,67 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
             )
         },
         floatingActionButton = {
-            if (!isKeyboardVisible.value)
-                SplitButtonLayout(
-                    modifier = Modifier.padding(bottom = 20.dp),
-                    leadingButton = {
-                        SplitButtonDefaults.LeadingButton(
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                            ),
-                            elevation = ButtonDefaults.elevatedButtonElevation(),
-                            onClick = {
-                                weakHaptic()
-                                viewModel.clearInputFields()
-                                showAddCommandDialog = true
+            FloatingActionButtonMenu(
+                expanded = fabMenuExpanded,
+                button = {
+                    ToggleFloatingActionButton(
+                        modifier = Modifier
+                            .semantics {
+                                traversalIndex = -1f
+                                stateDescription =
+                                    if (fabMenuExpanded) "Expanded" else "Collapsed"
+                                contentDescription = "Toggle menu"
                             }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Rounded.Add,
-                                contentDescription = null,
+                            .animateFloatingActionButton(
+                                visible = !isKeyboardVisible.value,
+                                alignment = Alignment.BottomEnd
                             )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            AutoResizeableText(text = stringResource(R.string.add))
+                            .focusRequester(focusRequester),
+                        checked = fabMenuExpanded,
+                        containerColor = ToggleFloatingActionButtonDefaults.containerColor(
+                            initialColor = MaterialTheme.colorScheme.tertiaryContainer,
+                            finalColor = MaterialTheme.colorScheme.tertiary
+                        ),
+                        onCheckedChange = {
+                            weakHaptic()
+                            fabMenuExpanded = !fabMenuExpanded
                         }
-                    },
-                    trailingButton = {
-                        SplitButtonDefaults.TrailingButton(
-                            checked = splitButtonChecked,
-                            onCheckedChange = {
-                                weakHaptic()
-                                splitButtonChecked = it
-                            },
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                            ),
-                            elevation = ButtonDefaults.elevatedButtonElevation()
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_expand),
-                                contentDescription = "Expand",
-                                modifier = Modifier.graphicsLayer {
-                                    rotationZ = rotation
-                                }
-                            )
+                    ) {
+                        val imageVector by remember {
+                            derivedStateOf {
+                                if (checkedProgress > 0.5f) Icons.Rounded.Close else Icons.Rounded.Add
+                            }
                         }
 
-                        DropdownMenu(
-                            expanded = splitButtonChecked,
-                            onDismissRequest = { splitButtonChecked = false }
-                        ) {
-                            DropdownMenuItem(
-                                text = {
-                                    AutoResizeableText(
-                                        text = stringResource(R.string.load_predefined_commands),
-                                        style = MaterialTheme.typography.bodySmallEmphasized
-                                    )
-                                },
-                                onClick = {
-                                    weakHaptic()
-                                    viewModel.loadDefaultCommands()
-                                })
-                        }
+                        Icon(
+                            painter = rememberVectorPainter(imageVector),
+                            contentDescription = null,
+                            modifier = Modifier.animateIcon(
+                                checkedProgress = { checkedProgress },
+                                color = ToggleFloatingActionButtonDefaults.iconColor(
+                                    initialColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                                    finalColor = MaterialTheme.colorScheme.onTertiary
+                                )
+                            )
+                        )
                     }
-                )
+                }
+            ) {
+                addOptions.forEachIndexed { i, option ->
+                    FloatingActionButtonMenuItem(
+                        onClick = {
+                            weakHaptic()
+                            fabMenuExpanded = false
+                            option.second()
+                        },
+                        text = { AutoResizeableText(option.first) },
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                        icon = { }
+                    )
+                }
+
+            }
         }
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -235,9 +249,13 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                     )
                 }
 
-                item { Spacer(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(25.dp)) }
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(25.dp)
+                    )
+                }
             }
 
             if (states.search.textFieldValue.text.isNotEmpty() && commands.isEmpty()) {

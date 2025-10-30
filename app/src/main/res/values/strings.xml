@@ -230,6 +230,7 @@
     <string name="Z_A">Z → A</string>
     <string name="item_deleted">Item has been deleted successfully</string>
     <string name="undo">Undo</string>
+    <string name="add_new_item">Add new item</string>
     <string name="stable">Stable</string>
     <string name="stack_trace">Stack trace</string>
     <string name="start">Start</string>
