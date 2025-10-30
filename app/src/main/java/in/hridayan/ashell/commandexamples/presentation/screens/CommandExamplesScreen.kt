@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Close
@@ -36,6 +38,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.animateFloatingActionButton
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -85,12 +88,15 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
+    val listState =rememberLazyListState()
+
     var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var showAddCommandDialog by rememberSaveable { mutableStateOf(false) }
     var showSortExamplesDialog by rememberSaveable { mutableStateOf(false) }
     val focusRequester = FocusRequester()
     val sortType = LocalSettings.current.commandsSortType
-    val commands by viewModel.filteredCommands(sortType).collectAsState()
+    val commands by viewModel.filteredCommands.collectAsState()
+
     val states by viewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible()
 
@@ -103,6 +109,10 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     )
 
     Log.d("test", preloadedCommands.size.toString())
+
+    LaunchedEffect(sortType) {
+        viewModel.setSortType(sortType)
+    }
 
     BackHandler(fabMenuExpanded) { fabMenuExpanded = false }
 
@@ -185,6 +195,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                     .fillMaxWidth()
                     .padding(it)
                     .nestedScroll(scrollBehavior.nestedScrollConnection),
+                state = listState,
                 contentPadding = PaddingValues(vertical = Dimens.paddingMedium),
             ) {
                 item {

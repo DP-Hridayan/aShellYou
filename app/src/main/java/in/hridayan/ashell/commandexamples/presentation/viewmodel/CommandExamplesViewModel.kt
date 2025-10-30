@@ -10,6 +10,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdExamplesScreenState
+import `in`.hridayan.ashell.core.domain.model.SortType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -32,6 +33,8 @@ class CommandExamplesViewModel @Inject constructor(
     private val _states = MutableStateFlow(CmdExamplesScreenState())
     val states: StateFlow<CmdExamplesScreenState> = _states
 
+    private val _sortType = MutableStateFlow(SortType.AZ)
+
     /**
      * @param loadProgress This loading progress shows the progress when loading the list of [preloadedCommands]
      */
@@ -41,17 +44,24 @@ class CommandExamplesViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-
     init {
         viewModelScope.launch(Dispatchers.IO) {
         }
     }
 
-    @OptIn(FlowPreview::class)
-    fun filteredCommands(sortType: Int): StateFlow<List<CommandEntity>> {
-        val allCommands = allCommands(sortType)
+    fun setSortType(value: Int) {
+        _sortType.value = value
+    }
 
-        return _states
+    val allCommands: Flow<List<CommandEntity>> =
+        commandRepository.getSortedCommands(_sortType.value).stateIn(
+            viewModelScope,
+            SharingStarted.Companion.Lazily, emptyList()
+        )
+
+    @OptIn(FlowPreview::class)
+    val filteredCommands: StateFlow<List<CommandEntity>> =
+        _states
             .map { it.search.textFieldValue.text }
             .combine(allCommands) { query, commands ->
                 if (query.isBlank()) {
@@ -74,13 +84,6 @@ class CommandExamplesViewModel @Inject constructor(
                 SharingStarted.WhileSubscribed(5000),
                 emptyList()
             )
-    }
-
-    private fun allCommands(sortType: Int): Flow<List<CommandEntity>> =
-        commandRepository.getSortedCommands(sortType).stateIn(
-            viewModelScope,
-            SharingStarted.Companion.Lazily, emptyList()
-        )
 
     fun onSearchQueryChange(newValue: TextFieldValue) = with(_states.value) {
         _states.value = this.copy(
