@@ -5,7 +5,11 @@ package `in`.hridayan.ashell.commandexamples.presentation.screens
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -19,7 +23,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
@@ -50,6 +53,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalFocusManager
@@ -88,7 +92,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
-    val listState =rememberLazyListState()
+    val listState = rememberLazyListState()
 
     var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var showAddCommandDialog by rememberSaveable { mutableStateOf(false) }
@@ -108,6 +112,12 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
         }
     )
 
+    val dimAlpha by animateFloatAsState(
+        targetValue = if (fabMenuExpanded) 0.5f else 0f,
+        animationSpec = tween(durationMillis = 500, easing = LinearOutSlowInEasing),
+        label = "DimAlphaAnimation"
+    )
+
     Log.d("test", preloadedCommands.size.toString())
 
     LaunchedEffect(sortType) {
@@ -116,167 +126,185 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
 
     BackHandler(fabMenuExpanded) { fabMenuExpanded = false }
 
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        contentWindowInsets = WindowInsets.safeDrawing,
-        topBar = {
-            TopAppBarLarge(
-                topBarTitle = stringResource(id = R.string.commands),
-                scrollBehavior = scrollBehavior
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButtonMenu(
-                expanded = fabMenuExpanded,
-                button = {
-                    ToggleFloatingActionButton(
-                        modifier = Modifier
-                            .semantics {
-                                traversalIndex = -1f
-                                stateDescription =
-                                    if (fabMenuExpanded) "Expanded" else "Collapsed"
-                                contentDescription = "Toggle menu"
+    Box(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            contentWindowInsets = WindowInsets.safeDrawing,
+            topBar = {
+                TopAppBarLarge(
+                    topBarTitle = stringResource(id = R.string.commands),
+                    scrollBehavior = scrollBehavior
+                )
+            }
+        ) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(it)
+                        .nestedScroll(scrollBehavior.nestedScrollConnection),
+                    state = listState,
+                    contentPadding = PaddingValues(vertical = Dimens.paddingMedium),
+                ) {
+                    item {
+                        CustomSearchBar(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 15.dp),
+                            value = states.search.textFieldValue,
+                            onValueChange = { it -> viewModel.onSearchQueryChange(it) },
+                            hint = stringResource(R.string.search_commands_here),
+                            trailingIcon = {
+                                if (states.search.textFieldValue.text.isNotEmpty()) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_clear),
+                                        contentDescription = "Clear text",
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier
+                                            .padding(start = 10.dp)
+                                            .clickable(
+                                                enabled = true,
+                                                indication = null,
+                                                interactionSource = remember { MutableInteractionSource() },
+                                                onClick = {
+                                                    weakHaptic()
+                                                    viewModel.onSearchQueryChange(TextFieldValue(""))
+                                                    focusManager.clearFocus()
+                                                }
+                                            )
+                                    )
+                                } else {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_sort),
+                                        contentDescription = "Sort",
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier
+                                            .padding(start = 10.dp)
+                                            .clickable(
+                                                enabled = true,
+                                                indication = null,
+                                                interactionSource = remember { MutableInteractionSource() },
+                                                onClick = {
+                                                    weakHaptic()
+                                                    showSortExamplesDialog = true
+                                                }
+                                            )
+                                    )
+                                }
                             }
-                            .animateFloatingActionButton(
-                                visible = !isKeyboardVisible.value,
-                                alignment = Alignment.BottomEnd
-                            )
-                            .focusRequester(focusRequester),
-                        checked = fabMenuExpanded,
-                        containerColor = ToggleFloatingActionButtonDefaults.containerColor(
-                            initialColor = MaterialTheme.colorScheme.tertiaryContainer,
-                            finalColor = MaterialTheme.colorScheme.tertiary
-                        ),
-                        onCheckedChange = {
-                            weakHaptic()
-                            fabMenuExpanded = !fabMenuExpanded
-                        }
-                    ) {
-                        val imageVector by remember {
-                            derivedStateOf {
-                                if (checkedProgress > 0.5f) Icons.Rounded.Close else Icons.Rounded.Add
-                            }
-                        }
+                        )
+                    }
 
-                        Icon(
-                            painter = rememberVectorPainter(imageVector),
-                            contentDescription = null,
-                            modifier = Modifier.animateIcon(
-                                checkedProgress = { checkedProgress },
-                                color = ToggleFloatingActionButtonDefaults.iconColor(
-                                    initialColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                                    finalColor = MaterialTheme.colorScheme.onTertiary
-                                )
-                            )
+                    items(commands.size, key = { index -> commands[index].id }) { index ->
+                        CommandExampleCard(
+                            modifier = Modifier
+                                .padding(start = 15.dp, end = 15.dp, top = 15.dp)
+                                .animateItem(),
+                            id = commands[index].id,
+                            command = commands[index].command,
+                            description = commands[index].description,
+                            isFavourite = commands[index].isFavourite,
+                            labels = commands[index].labels,
+                        )
+                    }
+
+                    item {
+                        Spacer(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(25.dp)
                         )
                     }
                 }
-            ) {
-                addOptions.forEachIndexed { i, option ->
-                    FloatingActionButtonMenuItem(
-                        onClick = {
-                            weakHaptic()
-                            fabMenuExpanded = false
-                            option.second()
-                        },
-                        text = { AutoResizeableText(option.first) },
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                        icon = { }
+
+                if (states.search.textFieldValue.text.isNotEmpty() && commands.isEmpty()) {
+                    NoSearchResultUi(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 40.dp)
+                            .align(Alignment.Center)
                     )
                 }
-
             }
         }
-    ) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            LazyColumn(
+
+        if (dimAlpha > 0)
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(it)
-                    .nestedScroll(scrollBehavior.nestedScrollConnection),
-                state = listState,
-                contentPadding = PaddingValues(vertical = Dimens.paddingMedium),
-            ) {
-                item {
-                    CustomSearchBar(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 15.dp),
-                        value = states.search.textFieldValue,
-                        onValueChange = { it -> viewModel.onSearchQueryChange(it) },
-                        hint = stringResource(R.string.search_commands_here),
-                        trailingIcon = {
-                            if (states.search.textFieldValue.text.isNotEmpty()) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_clear),
-                                    contentDescription = "Clear text",
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier
-                                        .padding(start = 10.dp)
-                                        .clickable(
-                                            enabled = true,
-                                            indication = null,
-                                            interactionSource = remember { MutableInteractionSource() },
-                                            onClick = {
-                                                weakHaptic()
-                                                viewModel.onSearchQueryChange(TextFieldValue(""))
-                                                focusManager.clearFocus()
-                                            }
-                                        )
-                                )
-                            } else {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_sort),
-                                    contentDescription = "Sort",
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier
-                                        .padding(start = 10.dp)
-                                        .clickable(
-                                            enabled = true,
-                                            indication = null,
-                                            interactionSource = remember { MutableInteractionSource() },
-                                            onClick = {
-                                                weakHaptic()
-                                                showSortExamplesDialog = true
-                                            }
-                                        )
-                                )
-                            }
+                    .fillMaxSize()
+                    .background(color = Color.Black.copy(alpha = dimAlpha))
+                    .clickable(
+                        enabled = fabMenuExpanded,
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() },
+                        onClick = {
+                            fabMenuExpanded = false
+                        })
+            )
+
+        FloatingActionButtonMenu(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 20.dp),
+            expanded = fabMenuExpanded,
+            button = {
+                ToggleFloatingActionButton(
+                    modifier = Modifier
+                        .semantics {
+                            traversalIndex = -1f
+                            stateDescription =
+                                if (fabMenuExpanded) "Expanded" else "Collapsed"
+                            contentDescription = "Toggle menu"
                         }
-                    )
-                }
+                        .animateFloatingActionButton(
+                            visible = !isKeyboardVisible.value,
+                            alignment = Alignment.BottomEnd
+                        )
+                        .focusRequester(focusRequester),
+                    checked = fabMenuExpanded,
+                    containerColor = ToggleFloatingActionButtonDefaults.containerColor(
+                        initialColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        finalColor = MaterialTheme.colorScheme.tertiary
+                    ),
+                    onCheckedChange = {
+                        weakHaptic()
+                        fabMenuExpanded = !fabMenuExpanded
+                    }
+                ) {
+                    val imageVector by remember {
+                        derivedStateOf {
+                            if (checkedProgress > 0.5f) Icons.Rounded.Close else Icons.Rounded.Add
+                        }
+                    }
 
-                items(commands.size, key = { index -> commands[index].id }) { index ->
-                    CommandExampleCard(
-                        modifier = Modifier
-                            .padding(start = 15.dp, end = 15.dp, top = 15.dp)
-                            .animateItem(),
-                        id = commands[index].id,
-                        command = commands[index].command,
-                        description = commands[index].description,
-                        isFavourite = commands[index].isFavourite,
-                        labels = commands[index].labels,
-                    )
-                }
-
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(25.dp)
+                    Icon(
+                        painter = rememberVectorPainter(imageVector),
+                        contentDescription = null,
+                        modifier = Modifier.animateIcon(
+                            checkedProgress = { checkedProgress },
+                            color = ToggleFloatingActionButtonDefaults.iconColor(
+                                initialColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                                finalColor = MaterialTheme.colorScheme.onTertiary
+                            )
+                        )
                     )
                 }
             }
-
-            if (states.search.textFieldValue.text.isNotEmpty() && commands.isEmpty()) {
-                NoSearchResultUi(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp)
-                        .align(Alignment.Center)
+        ) {
+            addOptions.forEachIndexed { i, option ->
+                FloatingActionButtonMenuItem(
+                    onClick = {
+                        weakHaptic()
+                        fabMenuExpanded = false
+                        option.second()
+                    },
+                    text = { AutoResizeableText(option.first) },
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                    icon = { }
                 )
             }
+
         }
     }
 
