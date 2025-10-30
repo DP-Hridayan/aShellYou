@@ -9,9 +9,9 @@ object ToastUtils {
     const val LENGTH_SHORT = Toast.LENGTH_SHORT
     const val LENGTH_LONG = Toast.LENGTH_LONG
 
-    fun makeToast(context: Context, message: String, length: Int = LENGTH_SHORT) {
+    fun makeToast(context: Context, text: CharSequence, duration: Int = LENGTH_SHORT) {
         toast?.cancel()
-        toast = Toast.makeText(context.applicationContext, message, length)
+        toast = Toast.makeText(context.applicationContext, text, duration)
         toast?.show()
     }
 }

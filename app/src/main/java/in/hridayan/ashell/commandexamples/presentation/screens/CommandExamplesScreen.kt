@@ -7,7 +7,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
@@ -172,7 +172,6 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                     .padding(it)
                     .nestedScroll(scrollBehavior.nestedScrollConnection),
                 contentPadding = PaddingValues(vertical = Dimens.paddingMedium),
-                verticalArrangement = Arrangement.spacedBy(Dimens.paddingMedium)
             ) {
                 item {
                     CustomSearchBar(
@@ -226,7 +225,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                 items(commands.size, key = { index -> commands[index].id }) { index ->
                     CommandExampleCard(
                         modifier = Modifier
-                            .padding(horizontal = 15.dp)
+                            .padding(start = 15.dp, end = 15.dp, top = 15.dp)
                             .animateItem(),
                         id = commands[index].id,
                         command = commands[index].command,
@@ -235,6 +234,10 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                         labels = commands[index].labels,
                     )
                 }
+
+                item { Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(25.dp)) }
             }
 
             if (states.search.textFieldValue.text.isNotEmpty() && commands.isEmpty()) {

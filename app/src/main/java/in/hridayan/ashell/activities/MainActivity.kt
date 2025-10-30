@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,6 +19,7 @@ import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.SeedColorProvider
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.AppUiEntry
+import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
 import `in`.hridayan.ashell.core.utils.handleSharedText
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
@@ -60,10 +62,13 @@ class MainActivity : ComponentActivity() {
 
                 AshellYouTheme {
                     Surface(
-                        modifier = Modifier.Companion.fillMaxSize(),
+                        modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.surface
                     ) {
-                        AppUiEntry()
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            AppUiEntry()
+                            SnackBarHost()
+                        }
                     }
                 }
             }

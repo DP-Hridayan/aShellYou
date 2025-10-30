@@ -43,6 +43,7 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.button.FavouriteIconButton
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -59,12 +60,15 @@ fun CommandExampleCard(
     labels: List<String>,
     commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val navController = LocalNavController.current
     val prevScreen = navController.previousBackStackEntry
     val shellViewModel: ShellViewModel =
         if (prevScreen != null) hiltViewModel(prevScreen) else hiltViewModel()
     val interactionSources = remember { List(3) { MutableInteractionSource() } }
+    var isDeleted by rememberSaveable { mutableStateOf(false) }
 
+    if(!isDeleted)
     CollapsibleCard(
         modifier = modifier,
         collapsedContent = {
@@ -110,7 +114,23 @@ fun CommandExampleCard(
                         interactionSource = interactionSources[1],
                         modifier = Modifier
                             .size(40.dp)
-                            .animateWidth(interactionSources[1])
+                            .animateWidth(interactionSources[1]),
+                        onClick = {
+                            isDeleted = true
+
+                            SnackBarUtils.showSnackBarWithAction(
+                                message = context.getString(R.string.item_deleted),
+                                actionText = context.getString(R.string.undo),
+                                onActionClicked = { isDeleted = false },
+                                onDismiss = {
+                                    if (isDeleted) {
+                                        commandExamplesViewModel.deleteCommand(
+                                            id = id,
+                                            onSuccess = { isDeleted = true })
+                                    }
+                                }
+                            )
+                        }
                     )
                     CopyButton(
                         id = id,
@@ -137,14 +157,14 @@ private fun DeleteButton(
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource,
     id: Int,
-    viewModel: CommandExamplesViewModel = hiltViewModel()
+    onClick: () -> Unit = {},
 ) {
     val weakHaptic = LocalWeakHaptic.current
 
     IconButton(
         onClick = {
             weakHaptic()
-            viewModel.deleteCommand(id = id, onSuccess = {})
+            onClick()
         },
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = MaterialTheme.colorScheme.errorContainer,
