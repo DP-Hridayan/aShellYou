@@ -56,10 +56,12 @@ fun CommandExampleCard(
     command: String,
     description: String,
     isFavourite: Boolean,
-    labels: List<String>,
-    shellViewModel: ShellViewModel = hiltViewModel()
+    labels: List<String>
 ) {
     val navController = LocalNavController.current
+    val prevScreen = navController.previousBackStackEntry
+    val shellViewModel: ShellViewModel =
+        if (prevScreen != null) hiltViewModel(prevScreen) else hiltViewModel()
     val interactionSources = remember { List(3) { MutableInteractionSource() } }
 
     CollapsibleCard(

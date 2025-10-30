@@ -73,7 +73,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -128,10 +127,9 @@ import `in`.hridayan.ashell.shell.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.util.highlightQueryText
+import `in`.hridayan.ashell.shell.presentation.util.rememberScrollDirection
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.android.awaitFrame
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -148,24 +146,18 @@ fun BaseShellScreen(
     val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
-    val commandResults by shellViewModel.commandOutput.collectAsState()
     val coroutineScope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
     val listState = rememberLazyListState()
     val scrollDirection = rememberScrollDirection(listState)
-    val command by shellViewModel.command.collectAsState()
-    val commandError by shellViewModel.commandError.collectAsState()
-    val shellState by shellViewModel.shellState.collectAsState()
+    val states by shellViewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible().value
     val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
-    val searchQuery by shellViewModel.searchQuery.collectAsState()
-    val isSearchBarVisible by shellViewModel.isSearchBarVisible.collectAsState()
     val disableSoftKeyboard = LocalSettings.current.disableSoftKeyboard
     val bookmarkCount = bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val lastSavedFileUri = LocalSettings.current.lastSavedFileUri
     val textFieldFocusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
-    val history = shellViewModel.history.collectAsState(initial = emptyList())
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
     var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
@@ -178,7 +170,7 @@ fun BaseShellScreen(
     }
 
     val actionFabIcon: @Composable () -> Unit = {
-        when (shellState) {
+        when (states.shellState) {
             is ShellState.Busy -> AnimatedStopIcon()
             is ShellState.Free -> Icon(
                 painter = painterResource(R.drawable.ic_help),
@@ -196,7 +188,7 @@ fun BaseShellScreen(
 
     val actionFabOnClick: () -> Unit = {
         weakHaptic()
-        when (shellState) {
+        when (states.shellState) {
             is ShellState.InputQuery -> {
                 coroutineScope.launch {
                     if (isKeyboardVisible) hideKeyboard(context)
@@ -223,7 +215,7 @@ fun BaseShellScreen(
     }
 
     val handleHistoryButtonClick: () -> Unit = {
-        if (history.value.isEmpty()) showToast(
+        if (states.cmdHistory.isEmpty()) showToast(
             context,
             context.getString(R.string.no_history)
         ) else historyMenuExpanded = true
@@ -310,7 +302,6 @@ fun BaseShellScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 UtilityButtonGroup(
-                    isOutputEmpty = commandResults.isEmpty(),
                     showClearOutputDialog = { showClearOutputDialog = true },
                     handleClearOutput = { handleClearOutput() },
                     showBookmarkDialog = {
@@ -359,12 +350,13 @@ fun BaseShellScreen(
                         .padding(20.dp)
                 ) {
                     val label =
-                        if (commandError) stringResource(R.string.field_cannot_be_blank) else stringResource(
+                        if (states.commandField.isError) states.commandField.errorMessage else stringResource(
                             R.string.command_title
                         )
 
-                    val isBookmarked = bookmarkViewModel.isBookmarked(command.text)
-                        .collectAsState(initial = false)
+                    val isBookmarked =
+                        bookmarkViewModel.isBookmarked(states.commandField.fieldValue.text)
+                            .collectAsState(initial = false)
                     val trailingIcon =
                         if (isBookmarked.value) painterResource(R.drawable.ic_bookmark_added) else painterResource(
                             R.drawable.ic_add_bookmark
@@ -383,7 +375,7 @@ fun BaseShellScreen(
                                 .focusRequester(textFieldFocusRequester),
                             maxLines = 3,
                             label = { Text(label) },
-                            value = command,
+                            value = states.commandField.fieldValue,
                             onValueChange = { shellViewModel.onCommandTextFieldChange(it) },
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 imeAction = ImeAction.Send
@@ -392,7 +384,7 @@ fun BaseShellScreen(
                                 onSend = { actionFabOnClick() }
                             ),
                             trailingIcon = {
-                                if (command.text.trim().isNotEmpty())
+                                if (states.commandField.fieldValue.text.trim().isNotEmpty())
                                     IconButton(
                                         colors = IconButtonDefaults.iconButtonColors(
                                             containerColor = Color.Transparent,
@@ -401,7 +393,7 @@ fun BaseShellScreen(
                                         onClick = {
                                             weakHaptic()
                                             if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
-                                                command.text
+                                                states.commandField.fieldValue.text
                                             )
                                             else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
                                                 hideKeyboard(context)
@@ -411,7 +403,7 @@ fun BaseShellScreen(
                                                         duration = SnackbarDuration.Short
                                                     )
                                                 }
-                                            } else bookmarkViewModel.addBookmark(command.text)
+                                            } else bookmarkViewModel.addBookmark(states.commandField.fieldValue.text)
                                         }) {
                                         Icon(
                                             painter = trailingIcon,
@@ -428,9 +420,9 @@ fun BaseShellScreen(
                                 .heightIn(max = 400.dp)
                                 .verticalScroll(rememberScrollState())
                         ) {
-                            if (history.value.isEmpty()) return@ExposedDropdownMenu
+                            if (states.cmdHistory.isEmpty()) return@ExposedDropdownMenu
 
-                            history.value.reversed().forEach { command ->
+                            states.cmdHistory.reversed().forEach { command ->
                                 DropdownMenuItem(
                                     text = {
                                         Text(
@@ -440,7 +432,11 @@ fun BaseShellScreen(
                                         )
                                     },
                                     onClick = {
-                                        shellViewModel.onCommandTextFieldChange(TextFieldValue(command))
+                                        shellViewModel.onCommandTextFieldChange(
+                                            TextFieldValue(
+                                                command
+                                            )
+                                        )
                                         historyMenuExpanded = false
                                         textFieldFocusRequester.requestFocus()
                                     }
@@ -456,7 +452,7 @@ fun BaseShellScreen(
                     )
                 }
 
-                if (command.text.isNotEmpty() && !isSearchBarVisible) {
+                if (states.commandField.fieldValue.text.isNotEmpty() && !states.search.isVisible) {
                     CommandSuggestions(
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -465,7 +461,7 @@ fun BaseShellScreen(
                 OutputCard(listState = listState)
             }
 
-            if (searchQuery.text.isNotEmpty() && searchOutputResult.isEmpty()) {
+            if (states.search.textFieldValue.text.isNotEmpty() && searchOutputResult.isEmpty()) {
                 NoSearchResultUi(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -595,8 +591,7 @@ private fun OutputCard(
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val isDarkMode = LocalDarkMode.current
-    val isSearchVisible = shellViewModel.isSearchBarVisible.collectAsState()
-    val searchQuery = shellViewModel.searchQuery.collectAsState()
+    val states by shellViewModel.states.collectAsState()
     val results by shellViewModel.filteredOutput.collectAsState()
 
     val allOutputs = results.map { commandResult ->
@@ -650,9 +645,9 @@ private fun OutputCard(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 itemsIndexed(combinedOutput.value) { index, line ->
-                    val text = if (!isSearchVisible.value) line.text else line.text.takeIf {
+                    val text = if (!states.search.isVisible) line.text else line.text.takeIf {
                         line.text.contains(
-                            searchQuery.value.text,
+                            states.search.textFieldValue.text,
                             ignoreCase = true
                         )
                     }
@@ -675,7 +670,7 @@ private fun OutputCard(
 
                     text?.let {
                         val annotatedText =
-                            if (isSearchVisible.value && !searchQuery.value.text.isBlank()) {
+                            if (states.search.isVisible && !states.search.textFieldValue.text.isBlank()) {
                                 val highlightBgColor =
                                     if (line.isError) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer
                                 val highlightTextColor =
@@ -683,7 +678,7 @@ private fun OutputCard(
 
                                 highlightQueryText(
                                     text = text,
-                                    query = searchQuery.value.text,
+                                    query = states.search.textFieldValue.text,
                                     highlightBgColor = highlightBgColor,
                                     highlightTextColor = highlightTextColor
                                 )
@@ -771,14 +766,15 @@ private fun ShareFAB(
     val context = LocalContext.current
     val activity = context.findActivity()
     val weakHaptic = LocalWeakHaptic.current
-    val results by shellViewModel.commandOutput.collectAsState()
-    if (results.isEmpty()) return
+    val states by shellViewModel.states.collectAsState()
+
+    if (states.output.isEmpty()) return
 
     val icon = Icons.Rounded.Share
 
     val shareAction: () -> Unit = {
         val outputText = buildString {
-            results.forEachIndexed { index, commandResult ->
+            states.output.forEachIndexed { index, commandResult ->
                 appendLine("$ ${commandResult.command}")
                 val lines = commandResult.outputFlow.value
                 lines.forEach { line ->
@@ -838,7 +834,7 @@ private fun BottomExtendedFAB(
     val activity = context.findActivity()
     val weakHaptic = LocalWeakHaptic.current
     val coroutineScope = rememberCoroutineScope()
-    val results by shellViewModel.commandOutput.collectAsState()
+    val states by shellViewModel.states.collectAsState()
     val savePath = LocalSettings.current.outputSaveDirectory.toUri()
     val saveWholeOutput = LocalSettings.current.saveWholeOutput
 
@@ -846,21 +842,21 @@ private fun BottomExtendedFAB(
 
     val expanded by remember {
         derivedStateOf {
-            listState.shouldFabExpand(results, lastScrollOffset) {
+            listState.shouldFabExpand(states.output, lastScrollOffset) {
                 lastScrollOffset = it
             }
         }
     }
 
     val icon =
-        if (results.isEmpty()) painterResource(R.drawable.ic_paste) else painterResource(R.drawable.ic_save)
+        if (states.output.isEmpty()) painterResource(R.drawable.ic_paste) else painterResource(R.drawable.ic_save)
 
     val buttonText =
-        if (results.isEmpty()) stringResource(R.string.paste) else stringResource(R.string.save)
+        if (states.output.isEmpty()) stringResource(R.string.paste) else stringResource(R.string.save)
 
     val saveAction: () -> Unit = {
         val allOutputText = buildString {
-            results.forEachIndexed { index, commandResult ->
+            states.output.forEachIndexed { index, commandResult ->
                 appendLine("$ ${commandResult.command}")
                 val lines = commandResult.outputFlow.value
                 lines.forEach { line ->
@@ -908,7 +904,7 @@ private fun BottomExtendedFAB(
         modifier = modifier,
         onClick = {
             weakHaptic()
-            if (results.isEmpty()) pasteAction() else saveAction()
+            if (states.output.isEmpty()) pasteAction() else saveAction()
         },
         expanded = expanded,
         icon = {
@@ -953,67 +949,3 @@ private fun LazyListState.shouldFabExpand(
         else -> false
     }
 }
-
-@Composable
-fun rememberScrollDirection(
-    listState: LazyListState,
-    fastThreshold: Int = 150,
-    idleDelayMillis: Long = 2000
-): ScrollDirection {
-    var lastOffset by remember { mutableIntStateOf(0) }
-    var direction by remember { mutableStateOf(ScrollDirection.NONE) }
-    var job by remember { mutableStateOf<Job?>(null) }
-
-    LaunchedEffect(listState) {
-        snapshotFlow {
-            val layoutInfo = listState.layoutInfo
-            val isScrollable = layoutInfo.totalItemsCount > 0 &&
-                    layoutInfo.visibleItemsInfo.sumOf { it.size } < layoutInfo.viewportEndOffset
-
-            val atBottom = layoutInfo.visibleItemsInfo.lastOrNull()?.let { lastItem ->
-                lastItem.index == layoutInfo.totalItemsCount - 1 &&
-                        lastItem.offset + lastItem.size <= layoutInfo.viewportEndOffset
-            } ?: false
-
-            if (!isScrollable || atBottom) null
-            else listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
-        }.collect { value ->
-            if (value == null) {
-                direction = ScrollDirection.NONE
-                job?.cancel()
-                job = null
-            } else {
-                val (index, offset) = value
-                val currentOffset = index * 1000 + offset
-                val dy = currentOffset - lastOffset
-
-                when {
-                    dy < -fastThreshold -> {
-                        job?.cancel()
-                        direction = ScrollDirection.UP
-                        job = null
-                    }
-
-                    dy > fastThreshold -> {
-                        job?.cancel()
-                        direction = ScrollDirection.DOWN
-                        job = null
-                    }
-
-                    else -> {
-                        job?.cancel()
-                        job = launch {
-                            delay(idleDelayMillis)
-                            direction = ScrollDirection.NONE
-                        }
-                    }
-                }
-
-                lastOffset = currentOffset
-            }
-        }
-    }
-
-    return direction
-}
-

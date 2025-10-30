@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
-import `in`.hridayan.ashell.commandexamples.presentation.model.InputFieldState
+import `in`.hridayan.ashell.commandexamples.presentation.model.CmdScreenInputFieldState
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
@@ -100,7 +100,7 @@ fun EditCommandDialog(
 @Composable
 private fun CommandInputField(
     modifier: Modifier = Modifier,
-    state: InputFieldState.CommandInputFieldState,
+    state: CmdScreenInputFieldState.CommandInputFieldState,
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val label =
@@ -118,7 +118,7 @@ private fun CommandInputField(
 @Composable
 private fun DescriptionInputField(
     modifier: Modifier = Modifier,
-    state: InputFieldState.DescriptionInputFieldState,
+    state: CmdScreenInputFieldState.DescriptionInputFieldState,
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val label =

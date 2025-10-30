@@ -61,12 +61,6 @@ object SettingsProvider {
                 iconVector = Icons.Rounded.SettingsBackupRestore
             ),
             nullPreferenceItem(
-                key = SettingsKeys.COMMANDS,
-                titleResId = R.string.commands,
-                descriptionResId = R.string.des_examples,
-                iconVector = Icons.Rounded.Numbers
-            ),
-            nullPreferenceItem(
                 key = SettingsKeys.ABOUT,
                 titleResId = R.string.about,
                 descriptionResId = R.string.des_about,

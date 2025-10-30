@@ -27,9 +27,9 @@ import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.shell.presentation.model.ShellState
-import `in`.hridayan.ashell.shell.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
+import `in`.hridayan.ashell.shell.presentation.components.dialog.ConnectedDeviceDialog
+import `in`.hridayan.ashell.shell.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +58,7 @@ fun LocalAdbScreen(
     val localAdbMode = LocalSettings.current.localAdbMode
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
-    val shellState = shellViewModel.shellState.collectAsState()
+    val states by shellViewModel.states.collectAsState()
 
     val runCommandIfPermissionGranted: () -> Unit =
         remember(localAdbMode, hasShizukuPermission, isShizukuInstalled) {
@@ -96,9 +96,9 @@ fun LocalAdbScreen(
             }
         }
 
-    val modeButtonOnClick: () -> Unit = remember(shellState.value) {
+    val modeButtonOnClick: () -> Unit = remember(states.shellState) {
         {
-            if (shellState.value == ShellState.Busy) {
+            if (states.shellState == ShellState.Busy) {
                 showToast(context, context.getString(R.string.abort_command))
             } else {
                 showConnectedDeviceDialog = true

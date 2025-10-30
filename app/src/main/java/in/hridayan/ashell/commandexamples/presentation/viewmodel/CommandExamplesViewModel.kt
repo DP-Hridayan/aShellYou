@@ -9,7 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
-import `in`.hridayan.ashell.commandexamples.presentation.model.CommandExamplesScreenState
+import `in`.hridayan.ashell.commandexamples.presentation.model.CmdExamplesScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -29,8 +29,8 @@ class CommandExamplesViewModel @Inject constructor(
     private val commandRepository: CommandRepository,
     @param:ApplicationContext private val appContext: Context
 ) : ViewModel() {
-    private val _states = MutableStateFlow(CommandExamplesScreenState())
-    val states: StateFlow<CommandExamplesScreenState> = _states
+    private val _states = MutableStateFlow(CmdExamplesScreenState())
+    val states: StateFlow<CmdExamplesScreenState> = _states
 
     /**
      * @param loadProgress This loading progress shows the progress when loading the list of [preloadedCommands]

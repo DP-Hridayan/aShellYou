@@ -15,11 +15,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.domain.model.BackupOption
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -144,10 +144,6 @@ class SettingsViewModel @Inject constructor(
 
                 SettingsKeys.BACKUP_AND_RESTORE -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.BackupAndRestoreScreen)
-                )
-
-                SettingsKeys.COMMANDS -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.CommandExamplesScreen)
                 )
 
                 SettingsKeys.ABOUT -> _uiEvent.emit(

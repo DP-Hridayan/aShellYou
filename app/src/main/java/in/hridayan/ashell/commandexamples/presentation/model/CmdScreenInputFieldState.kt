@@ -2,7 +2,7 @@ package `in`.hridayan.ashell.commandexamples.presentation.model
 
 import androidx.compose.ui.text.input.TextFieldValue
 
-sealed class InputFieldState() {
+sealed class CmdScreenInputFieldState() {
     /**
      * This input field is in the command examples screen AddCommandDialog and EditCommandDialog command input field
      */
@@ -10,7 +10,7 @@ sealed class InputFieldState() {
         val fieldValue: TextFieldValue = TextFieldValue(""),
         val isError: Boolean = false,
         val errorMessage: String = ""
-    ) : InputFieldState()
+    ) : CmdScreenInputFieldState()
 
     /**
      * This input field is in the command examples screen AddCommandDialog and EditCommandDialog description input field
@@ -19,7 +19,7 @@ sealed class InputFieldState() {
         val fieldValue: TextFieldValue = TextFieldValue(""),
         val isError: Boolean = false,
         val errorMessage: String = ""
-    ) : InputFieldState()
+    ) : CmdScreenInputFieldState()
 
     /**
      * This input field is in the command examples screen AddCommandDialog and EditCommandDialog label input field
@@ -29,5 +29,5 @@ sealed class InputFieldState() {
         val labels: List<String> = emptyList(),
         val isError: Boolean = false,
         val errorMessage: String = ""
-    ) : InputFieldState()
+    ) : CmdScreenInputFieldState()
 }

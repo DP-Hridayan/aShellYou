@@ -52,7 +52,6 @@ import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 fun UtilityButtonGroup(
     modifier: Modifier = Modifier,
     shellViewModel: ShellViewModel = hiltViewModel(),
-    isOutputEmpty: Boolean,
     showClearOutputDialog: () -> Unit = {},
     handleClearOutput: () -> Unit = {},
     showBookmarkDialog: () -> Unit = {},
@@ -65,30 +64,26 @@ fun UtilityButtonGroup(
     val screenDensity = LocalDensity.current
     val interactionSources = remember { List(5) { MutableInteractionSource() } }
     val askToClean = LocalSettings.current.clearOutputConfirmation
-    val shellState by shellViewModel.shellState.collectAsState()
-    val commandResults by shellViewModel.commandOutput.collectAsState()
-    val searchQuery by shellViewModel.searchQuery.collectAsState()
-    val isSearchVisible = shellViewModel.isSearchBarVisible.collectAsState()
-    val buttonGroupHeight by shellViewModel.buttonGroupHeight.collectAsState()
+    val states by shellViewModel.states.collectAsState()
     val utilityRowPadding = PaddingValues(top = 30.dp, bottom = 25.dp, start = 20.dp, end = 20.dp)
 
-    if (isSearchVisible.value && !isOutputEmpty) {
+    if (states.search.isVisible && !states.output.isEmpty()) {
         Box(
             modifier = modifier
                 .fillMaxWidth()
-                .height(buttonGroupHeight + 55.dp),
+                .height(states.buttonGroupHeight + 55.dp),
             contentAlignment = Alignment.Center
         ) {
             CustomSearchBar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 15.dp, vertical = 16.dp),
-                value = searchQuery,
+                value = states.search.textFieldValue,
                 onValueChange = { it -> shellViewModel.onSearchQueryChange(it) },
                 hint = stringResource(R.string.search_commands_here),
                 trailingIcon = {
                     Row {
-                        if (searchQuery.text.isNotEmpty()) {
+                        if (states.search.textFieldValue.text.isNotEmpty()) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_clear),
                                 contentDescription = "Clear text",
@@ -145,7 +140,7 @@ fun UtilityButtonGroup(
             IconButton(
                 onClick = {
                     weakHaptic()
-                    if (commandResults.isEmpty()) {
+                    if (states.output.isEmpty()) {
                         showToast(context, context.getString(R.string.nothing_to_search))
                     } else {
                         shellViewModel.toggleSearchBar()
@@ -222,12 +217,12 @@ fun UtilityButtonGroup(
                 onClick = {
                     weakHaptic()
 
-                    if (shellViewModel.commandOutput.value.isEmpty()) {
+                    if (states.output.isEmpty()) {
                         showToast(context, context.getString(R.string.nothing_to_clear))
                         return@IconButton
                     }
 
-                    if (shellState == ShellState.Busy) {
+                    if (states.shellState == ShellState.Busy) {
                         showToast(context, context.getString(R.string.abort_command))
                         return@IconButton
                     }
