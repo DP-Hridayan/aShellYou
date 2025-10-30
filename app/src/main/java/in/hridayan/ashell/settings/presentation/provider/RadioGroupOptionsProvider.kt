@@ -53,18 +53,36 @@ class RadioGroupOptionsProvider {
         val bookmarkSortOptions: List<RadioButtonOptions> = listOf(
             RadioButtonOptions(
                 value = SortType.AZ,
-                labelResId = R.string.sort_A_Z
+                labelResId = R.string.A_Z
             ), RadioButtonOptions(
                 value = SortType.ZA,
-                labelResId = R.string.sort_Z_A
+                labelResId = R.string.Z_A
             ),
             RadioButtonOptions(
                 value = SortType.NEWEST,
-                labelResId = R.string.sort_newest
+                labelResId = R.string.newest
             ),
             RadioButtonOptions(
                 value = SortType.OLDEST,
-                labelResId = R.string.sort_oldest
+                labelResId = R.string.oldest
+            )
+        )
+
+        val commandSortOptions: List<RadioButtonOptions> = listOf(
+            RadioButtonOptions(
+                value = SortType.AZ,
+                labelResId = R.string.A_Z
+            ), RadioButtonOptions(
+                value = SortType.ZA,
+                labelResId = R.string.Z_A
+            ),
+            RadioButtonOptions(
+                value = SortType.MOST_USED,
+                labelResId = R.string.most_used
+            ),
+            RadioButtonOptions(
+                value = SortType.LEAST_USED,
+                labelResId = R.string.least_used
             )
         )
     }

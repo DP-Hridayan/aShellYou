@@ -19,5 +19,6 @@ data class SettingsState(
     val saveWholeOutput: Boolean,
     val lastSavedFileUri: String,
     val isFirstLaunch: Boolean,
-    val bookmarkSortType: Int
+    val bookmarkSortType: Int,
+    val commandsSortType: Int,
 )

@@ -88,6 +88,8 @@ fun CompositionLocals(
 
     val bookmarkSortType by settingsViewModel.intState(SettingsKeys.BOOKMARK_SORT_TYPE)
 
+    val commandSortType by settingsViewModel.intState(SettingsKeys.COMMAND_SORT_TYPE)
+
     val state =
         remember(
             autoUpdate,
@@ -108,7 +110,8 @@ fun CompositionLocals(
             saveWholeOutput,
             lastSavedFileUri,
             isFirstLaunch,
-            bookmarkSortType
+            bookmarkSortType,
+            commandSortType
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
@@ -129,7 +132,8 @@ fun CompositionLocals(
                 saveWholeOutput = saveWholeOutput,
                 lastSavedFileUri = lastSavedFileUri,
                 isFirstLaunch = isFirstLaunch,
-                bookmarkSortType = bookmarkSortType
+                bookmarkSortType = bookmarkSortType,
+                commandsSortType = commandSortType
             )
         }
 

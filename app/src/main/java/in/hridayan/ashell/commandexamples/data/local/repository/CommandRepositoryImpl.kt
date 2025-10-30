@@ -4,6 +4,7 @@ import `in`.hridayan.ashell.commandexamples.data.local.database.CommandDao
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.commandexamples.data.local.source.preloadedCommands
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.domain.model.SortType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -63,20 +64,14 @@ class CommandRepositoryImpl @Inject constructor(
         return commandDao.getCommandById(id)
     }
 
-    override fun getCommandsAlphabetically(): Flow<List<CommandEntity>> {
-        return commandDao.getCommandsAlphabetically()
-    }
-
-    override fun getCommandsReverseAlphabetically(): Flow<List<CommandEntity>> {
-        return commandDao.getCommandsReverseAlphabetically()
-    }
-
-    override fun getMostUsedCommands(): Flow<List<CommandEntity>> {
-        return commandDao.getMostUsedCommands()
-    }
-
-    override fun getLeastUsedCommands(): Flow<List<CommandEntity>> {
-        return commandDao.getLeastUsedCommands()
+    override fun getSortedCommands(sortType: Int): Flow<List<CommandEntity>> {
+        return when (sortType) {
+            SortType.AZ -> commandDao.getCommandsAlphabetically()
+            SortType.ZA -> commandDao.getCommandsReverseAlphabetically()
+            SortType.MOST_USED -> commandDao.getMostUsedCommands()
+            SortType.LEAST_USED -> commandDao.getLeastUsedCommands()
+            else -> commandDao.getCommandsAlphabetically()
+        }
     }
 
     override fun getFavoriteCommands(): Flow<List<CommandEntity>> {

@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -88,6 +89,11 @@ fun LocalAdbScreen(
 
                         if (!hasRootAccess) {
                             makeToast(context, context.getString(R.string.no_root_access))
+                            shellViewModel.onCommandTextFieldChange(
+                                newValue = TextFieldValue(""),
+                                isError = true,
+                                errorMessage = context.getString(R.string.no_root_access)
+                            )
                         } else {
                             shellViewModel.runRootCommand()
                         }

@@ -55,7 +55,9 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.source.preloadedCommands
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
+import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandsSortDialog
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
@@ -70,14 +72,18 @@ import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel()) {
     val weakHaptic = LocalWeakHaptic.current
     val focusManager = LocalFocusManager.current
-    var isDialogOpen by rememberSaveable { mutableStateOf(false) }
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+
     var splitButtonChecked by rememberSaveable { mutableStateOf(false) }
+    var showAddCommandDialog by rememberSaveable { mutableStateOf(false) }
+    var showSortExamplesDialog by rememberSaveable { mutableStateOf(false) }
+
     val rotation by animateFloatAsState(
         targetValue = if (splitButtonChecked) 180f else 0f
     )
-    val commands by viewModel.filteredCommands.collectAsState(initial = emptyList())
+    val sortType = LocalSettings.current.commandsSortType
+    val commands by viewModel.filteredCommands(sortType).collectAsState()
     val states by viewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible()
 
@@ -93,70 +99,70 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
             )
         },
         floatingActionButton = {
-            if(!isKeyboardVisible.value)
-            SplitButtonLayout(
-                modifier = Modifier.padding(bottom = 20.dp),
-                leadingButton = {
-                    SplitButtonDefaults.LeadingButton(
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                        ),
-                        elevation = ButtonDefaults.elevatedButtonElevation(),
-                        onClick = {
-                            weakHaptic()
-                            viewModel.clearInputFields()
-                            isDialogOpen = true
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Rounded.Add,
-                            contentDescription = null,
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        AutoResizeableText(text = stringResource(R.string.add))
-                    }
-                },
-                trailingButton = {
-                    SplitButtonDefaults.TrailingButton(
-                        checked = splitButtonChecked,
-                        onCheckedChange = {
-                            weakHaptic()
-                            splitButtonChecked = it
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                        ),
-                        elevation = ButtonDefaults.elevatedButtonElevation()
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_expand),
-                            contentDescription = "Expand",
-                            modifier = Modifier.graphicsLayer {
-                                rotationZ = rotation
-                            }
-                        )
-                    }
-
-                    DropdownMenu(
-                        expanded = splitButtonChecked,
-                        onDismissRequest = { splitButtonChecked = false }
-                    ) {
-                        DropdownMenuItem(
-                            text = {
-                                AutoResizeableText(
-                                    text = stringResource(R.string.load_predefined_commands),
-                                    style = MaterialTheme.typography.bodySmallEmphasized
-                                )
-                            },
+            if (!isKeyboardVisible.value)
+                SplitButtonLayout(
+                    modifier = Modifier.padding(bottom = 20.dp),
+                    leadingButton = {
+                        SplitButtonDefaults.LeadingButton(
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                            ),
+                            elevation = ButtonDefaults.elevatedButtonElevation(),
                             onClick = {
                                 weakHaptic()
-                                viewModel.loadDefaultCommands()
-                            })
+                                viewModel.clearInputFields()
+                                showAddCommandDialog = true
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Add,
+                                contentDescription = null,
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            AutoResizeableText(text = stringResource(R.string.add))
+                        }
+                    },
+                    trailingButton = {
+                        SplitButtonDefaults.TrailingButton(
+                            checked = splitButtonChecked,
+                            onCheckedChange = {
+                                weakHaptic()
+                                splitButtonChecked = it
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                            ),
+                            elevation = ButtonDefaults.elevatedButtonElevation()
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_expand),
+                                contentDescription = "Expand",
+                                modifier = Modifier.graphicsLayer {
+                                    rotationZ = rotation
+                                }
+                            )
+                        }
+
+                        DropdownMenu(
+                            expanded = splitButtonChecked,
+                            onDismissRequest = { splitButtonChecked = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = {
+                                    AutoResizeableText(
+                                        text = stringResource(R.string.load_predefined_commands),
+                                        style = MaterialTheme.typography.bodySmallEmphasized
+                                    )
+                                },
+                                onClick = {
+                                    weakHaptic()
+                                    viewModel.loadDefaultCommands()
+                                })
+                        }
                     }
-                }
-            )
+                )
         }
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -208,6 +214,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                                             interactionSource = remember { MutableInteractionSource() },
                                             onClick = {
                                                 weakHaptic()
+                                                showSortExamplesDialog = true
                                             }
                                         )
                                 )
@@ -241,7 +248,8 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
         }
     }
 
-    if (isDialogOpen) AddCommandDialog(onDismiss = { isDialogOpen = false })
+    if (showAddCommandDialog) AddCommandDialog(onDismiss = { showAddCommandDialog = false })
+    if (showSortExamplesDialog) CommandsSortDialog(onDismiss = { showSortExamplesDialog = false })
 }
 
 @Composable

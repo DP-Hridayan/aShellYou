@@ -377,6 +377,7 @@ fun BaseShellScreen(
                             label = { Text(label) },
                             value = states.commandField.fieldValue,
                             onValueChange = { shellViewModel.onCommandTextFieldChange(it) },
+                            isError = states.commandField.isError,
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 imeAction = ImeAction.Send
                             ),

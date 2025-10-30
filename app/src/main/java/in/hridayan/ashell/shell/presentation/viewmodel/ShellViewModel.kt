@@ -11,6 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.domain.usecase.ExtractLastCommandOutputUseCase
@@ -47,7 +48,7 @@ class ShellViewModel @Inject constructor(
     val shizukuPermissionState: StateFlow<Boolean> = shellRepository.shizukuPermissionState()
 
     val allCommands: Flow<List<CommandEntity>> =
-        commandExamplesRepository.getCommandsAlphabetically().stateIn(
+        commandExamplesRepository.getSortedCommands(SortType.AZ).stateIn(
             viewModelScope,
             SharingStarted.Companion.Lazily, emptyList()
         )
@@ -123,14 +124,19 @@ class ShellViewModel @Inject constructor(
         _states.update { it.copy(search = it.search.copy(textFieldValue = value)) }
 
 
-    fun onCommandTextFieldChange(newValue: TextFieldValue) =
+    fun onCommandTextFieldChange(
+        newValue: TextFieldValue,
+        isError: Boolean = false,
+        errorMessage: String = ""
+    ) =
         _states.update {
             it.copy(
                 commandField = it.commandField.copy(
                     fieldValue = newValue.copy(
                         selection = TextRange(newValue.text.length)
                     ),
-                    isError = false,
+                    isError = isError,
+                    errorMessage = errorMessage
                 ),
                 search = it.search.copy(
                     textFieldValue = TextFieldValue(""),

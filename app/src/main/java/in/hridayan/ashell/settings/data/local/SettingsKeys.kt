@@ -51,5 +51,6 @@ enum class SettingsKeys(val default: Any?) {
     COMMANDS(null),
     TELEGRAM(null),
     FIRST_LAUNCH(true),
-    BOOKMARK_SORT_TYPE(SortType.AZ)
+    BOOKMARK_SORT_TYPE(SortType.AZ),
+    COMMAND_SORT_TYPE(SortType.AZ)
 }

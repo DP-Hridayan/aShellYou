@@ -47,15 +47,11 @@ class CommandExamplesViewModel @Inject constructor(
         }
     }
 
-    val allCommands: Flow<List<CommandEntity>> =
-        commandRepository.getCommandsAlphabetically().stateIn(
-            viewModelScope,
-            SharingStarted.Companion.Lazily, emptyList()
-        )
-
     @OptIn(FlowPreview::class)
-    val filteredCommands: StateFlow<List<CommandEntity>> =
-        _states
+    fun filteredCommands(sortType: Int): StateFlow<List<CommandEntity>> {
+        val allCommands = allCommands(sortType)
+
+        return _states
             .map { it.search.textFieldValue.text }
             .combine(allCommands) { query, commands ->
                 if (query.isBlank()) {
@@ -78,7 +74,13 @@ class CommandExamplesViewModel @Inject constructor(
                 SharingStarted.WhileSubscribed(5000),
                 emptyList()
             )
+    }
 
+    private fun allCommands(sortType: Int): Flow<List<CommandEntity>> =
+        commandRepository.getSortedCommands(sortType).stateIn(
+            viewModelScope,
+            SharingStarted.Companion.Lazily, emptyList()
+        )
 
     fun onSearchQueryChange(newValue: TextFieldValue) = with(_states.value) {
         _states.value = this.copy(
@@ -172,6 +174,12 @@ class CommandExamplesViewModel @Inject constructor(
 
     suspend fun getCommandById(id: Int): String? {
         return commandRepository.getCommandById(id)?.command
+    }
+
+    fun incrementUseCount(commandId: Int) {
+        viewModelScope.launch {
+            commandRepository.incrementUseCount(commandId)
+        }
     }
 
     fun addCommand(onSuccess: () -> Unit) = with(_states.value) {

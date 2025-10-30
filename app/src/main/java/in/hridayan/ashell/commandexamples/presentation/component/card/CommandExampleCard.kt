@@ -56,7 +56,8 @@ fun CommandExampleCard(
     command: String,
     description: String,
     isFavourite: Boolean,
-    labels: List<String>
+    labels: List<String>,
+    commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
     val prevScreen = navController.previousBackStackEntry
@@ -124,8 +125,8 @@ fun CommandExampleCard(
                     shellViewModel.onCommandTextFieldChange(
                         TextFieldValue(text = command)
                     )
-
                     navController.popBackStack()
+                    commandExamplesViewModel.incrementUseCount(id)
                 })
             }
         })

@@ -94,6 +94,8 @@
     <string name="description">Description</string>
     <string name="root_access_granted">Root access granted!</string>
     <string name="no_search_results_found">No search results found</string>
+    <string name="most_used">Most used</string>
+    <string name="least_used">Least used</string>
     <string name="no_root_access">No root access</string>
     <string name="developer_options">Developer options</string>
     <string name="developer_options_not_available">Developer options not available!</string>
@@ -222,10 +224,10 @@
     <string name="shizuku_unavailable_message">Shizuku is not installed or properly configured on your device</string>
     <string name="smooth_scrolling">Smooth scrolling</string>
     <string name="sort">Sort</string>
-    <string name="sort_A_Z">A → Z</string>
-    <string name="sort_newest">Newest</string>
-    <string name="sort_oldest">Oldest</string>
-    <string name="sort_Z_A">Z → A</string>
+    <string name="A_Z">A → Z</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
+    <string name="Z_A">Z → A</string>
     <string name="stable">Stable</string>
     <string name="stack_trace">Stack trace</string>
     <string name="start">Start</string>

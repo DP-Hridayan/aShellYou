@@ -13,10 +13,7 @@ interface CommandRepository {
     fun getCommandCount(): Int
     suspend fun getAllCommandsOnce(): List<CommandEntity>
     suspend fun getCommandById(id: Int): CommandEntity?
-    fun getCommandsAlphabetically(): Flow<List<CommandEntity>>
-    fun getCommandsReverseAlphabetically(): Flow<List<CommandEntity>>
-    fun getMostUsedCommands(): Flow<List<CommandEntity>>
-    fun getLeastUsedCommands(): Flow<List<CommandEntity>>
+    fun getSortedCommands(sortType: Int) :  Flow<List<CommandEntity>>
     fun getFavoriteCommands(): Flow<List<CommandEntity>>
     fun searchCommands(query: String): Flow<List<CommandEntity>>
     suspend fun incrementUseCount(commandId: Int)
