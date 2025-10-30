@@ -12,13 +12,14 @@ import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdExamplesScreenState
 import `in`.hridayan.ashell.core.domain.model.SortType
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -53,13 +54,19 @@ class CommandExamplesViewModel @Inject constructor(
         _sortType.value = value
     }
 
-    val allCommands: Flow<List<CommandEntity>> =
-        commandRepository.getSortedCommands(_sortType.value).stateIn(
-            viewModelScope,
-            SharingStarted.Companion.Lazily, emptyList()
-        )
+    @ExperimentalCoroutinesApi
+    val allCommands: StateFlow<List<CommandEntity>> =
+        _sortType
+            .flatMapLatest { sortType ->
+                commandRepository.getSortedCommands(sortType)
+            }
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                emptyList()
+            )
 
-    @OptIn(FlowPreview::class)
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val filteredCommands: StateFlow<List<CommandEntity>> =
         _states
             .map { it.search.textFieldValue.text }
