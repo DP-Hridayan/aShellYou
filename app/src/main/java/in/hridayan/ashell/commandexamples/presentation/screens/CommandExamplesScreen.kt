@@ -14,7 +14,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -80,7 +79,6 @@ import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 
 @SuppressLint("RememberInComposition")
@@ -136,15 +134,15 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                     scrollBehavior = scrollBehavior
                 )
             }
-        ) {
+        ) { innerPadding ->
             Box(modifier = Modifier.fillMaxSize()) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(it)
+                        .padding(top = 15.dp)
                         .nestedScroll(scrollBehavior.nestedScrollConnection),
                     state = listState,
-                    contentPadding = PaddingValues(vertical = Dimens.paddingMedium),
+                    contentPadding = innerPadding,
                 ) {
                     item {
                         CustomSearchBar(

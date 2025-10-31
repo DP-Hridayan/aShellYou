@@ -160,8 +160,8 @@ fun PairingOtherDeviceScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .nestedScroll(scrollBehavior.nestedScrollConnection)
-                    .padding(innerPadding)
+                    .nestedScroll(scrollBehavior.nestedScrollConnection),
+                contentPadding = innerPadding
             ) {
 
                 if (!isWifiConnected) item {
