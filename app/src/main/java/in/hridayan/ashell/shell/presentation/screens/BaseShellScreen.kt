@@ -438,6 +438,7 @@ fun BaseShellScreen(
                                                 command
                                             )
                                         )
+                                        shellViewModel.updateTextFieldSelection()
                                         historyMenuExpanded = false
                                         textFieldFocusRequester.requestFocus()
                                     }
@@ -482,6 +483,7 @@ fun BaseShellScreen(
             BookmarkDialog(
                 onBookmarkClicked = { command ->
                     shellViewModel.onCommandTextFieldChange(TextFieldValue(command))
+                    shellViewModel.updateTextFieldSelection()
                     showBookmarkDialog = false
                     textFieldFocusRequester.requestFocus()
                 },
@@ -898,6 +900,7 @@ private fun BottomExtendedFAB(
             showToast(context, context.getString(R.string.clipboard_empty))
         } else {
             shellViewModel.onCommandTextFieldChange(TextFieldValue(textInClipboard))
+            shellViewModel.updateTextFieldSelection()
         }
     }
 

@@ -137,6 +137,7 @@ fun LocalAdbScreen(
     LaunchedEffect(Unit) {
         SharedTextHolder.text?.let {
             shellViewModel.onCommandTextFieldChange(newValue = TextFieldValue(it))
+            shellViewModel.updateTextFieldSelection()
             SharedTextHolder.text = null
         }
     }

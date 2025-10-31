@@ -34,6 +34,7 @@ fun CommandSuggestionsCard(
                     text = command,
                 )
             )
+            viewModel.updateTextFieldSelection()
         },
         roundedCornerShape = roundedCornerShape,
     ) {

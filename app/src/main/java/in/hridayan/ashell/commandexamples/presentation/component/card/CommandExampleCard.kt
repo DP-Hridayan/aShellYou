@@ -68,88 +68,89 @@ fun CommandExampleCard(
     val interactionSources = remember { List(3) { MutableInteractionSource() } }
     var isDeleted by rememberSaveable { mutableStateOf(false) }
 
-    if(!isDeleted)
-    CollapsibleCard(
-        modifier = modifier,
-        collapsedContent = {
-            if (labels.isNotEmpty()) Labels(modifier = Modifier.fillMaxWidth(), labels = labels)
+    if (!isDeleted)
+        CollapsibleCard(
+            modifier = modifier,
+            collapsedContent = {
+                if (labels.isNotEmpty()) Labels(modifier = Modifier.fillMaxWidth(), labels = labels)
 
-            Text(
-                text = command,
-                style = MaterialTheme.typography.titleMediumEmphasized,
-                modifier = Modifier.padding(start = 5.dp)
-            )
-        },
-
-        expandedContent = {
-            if (description.isNotEmpty()) {
                 Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 5.dp)
+                    text = command,
+                    style = MaterialTheme.typography.titleMediumEmphasized,
+                    modifier = Modifier.padding(start = 5.dp)
                 )
-            }
+            },
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                @Suppress("DEPRECATION")
-                ButtonGroup(
-                    modifier = Modifier.weight(1f),
-                    horizontalArrangement = Arrangement.spacedBy(15.dp)
-                ) {
-                    EditButton(
-                        id = id,
-                        interactionSource = interactionSources[0],
+            expandedContent = {
+                if (description.isNotEmpty()) {
+                    Text(
+                        text = description,
+                        style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
-                            .size(40.dp)
-                            .animateWidth(interactionSources[0])
-                    )
-                    DeleteButton(
-                        id = id,
-                        interactionSource = interactionSources[1],
-                        modifier = Modifier
-                            .size(40.dp)
-                            .animateWidth(interactionSources[1]),
-                        onClick = {
-                            isDeleted = true
-
-                            SnackBarUtils.showSnackBarWithAction(
-                                message = context.getString(R.string.item_deleted),
-                                actionText = context.getString(R.string.undo),
-                                onActionClicked = { isDeleted = false },
-                                onDismiss = {
-                                    if (isDeleted) {
-                                        commandExamplesViewModel.deleteCommand(
-                                            id = id,
-                                            onSuccess = { isDeleted = true })
-                                    }
-                                }
-                            )
-                        }
-                    )
-                    CopyButton(
-                        id = id,
-                        interactionSource = interactionSources[2],
-                        modifier = Modifier
-                            .size(40.dp)
-                            .animateWidth(interactionSources[2])
+                            .fillMaxWidth()
+                            .padding(start = 5.dp)
                     )
                 }
 
-                UseCommandButton(onClick = {
-                    shellViewModel.onCommandTextFieldChange(
-                        TextFieldValue(text = command)
-                    )
-                    navController.popBackStack()
-                    commandExamplesViewModel.incrementUseCount(id)
-                })
-            }
-        })
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    @Suppress("DEPRECATION")
+                    ButtonGroup(
+                        modifier = Modifier.weight(1f),
+                        horizontalArrangement = Arrangement.spacedBy(15.dp)
+                    ) {
+                        EditButton(
+                            id = id,
+                            interactionSource = interactionSources[0],
+                            modifier = Modifier
+                                .size(40.dp)
+                                .animateWidth(interactionSources[0])
+                        )
+                        DeleteButton(
+                            id = id,
+                            interactionSource = interactionSources[1],
+                            modifier = Modifier
+                                .size(40.dp)
+                                .animateWidth(interactionSources[1]),
+                            onClick = {
+                                isDeleted = true
+
+                                SnackBarUtils.showSnackBarWithAction(
+                                    message = context.getString(R.string.item_deleted),
+                                    actionText = context.getString(R.string.undo),
+                                    onActionClicked = { isDeleted = false },
+                                    onDismiss = {
+                                        if (isDeleted) {
+                                            commandExamplesViewModel.deleteCommand(
+                                                id = id,
+                                                onSuccess = { isDeleted = true })
+                                        }
+                                    }
+                                )
+                            }
+                        )
+                        CopyButton(
+                            id = id,
+                            interactionSource = interactionSources[2],
+                            modifier = Modifier
+                                .size(40.dp)
+                                .animateWidth(interactionSources[2])
+                        )
+                    }
+
+                    UseCommandButton(onClick = {
+                        shellViewModel.onCommandTextFieldChange(
+                            TextFieldValue(text = command)
+                        )
+                        shellViewModel.updateTextFieldSelection()
+                        navController.popBackStack()
+                        commandExamplesViewModel.incrementUseCount(id)
+                    })
+                }
+            })
 }
 
 @Composable

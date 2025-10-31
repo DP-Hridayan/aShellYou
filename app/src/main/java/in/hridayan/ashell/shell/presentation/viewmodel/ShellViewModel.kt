@@ -121,10 +121,8 @@ class ShellViewModel @Inject constructor(
         )
     }
 
-
     fun onSearchQueryChange(value: TextFieldValue) =
         _states.update { it.copy(search = it.search.copy(textFieldValue = value)) }
-
 
     fun onCommandTextFieldChange(
         newValue: TextFieldValue,
@@ -134,9 +132,7 @@ class ShellViewModel @Inject constructor(
         _states.update {
             it.copy(
                 commandField = it.commandField.copy(
-                    fieldValue = newValue.copy(
-                        selection = TextRange(newValue.text.length)
-                    ),
+                    fieldValue = newValue.copy(),
                     isError = isError,
                     errorMessage = errorMessage
                 ),
@@ -150,6 +146,16 @@ class ShellViewModel @Inject constructor(
                 }
             )
         }
+
+    fun updateTextFieldSelection() = _states.update {
+        it.copy(
+            commandField = it.commandField.copy(
+                fieldValue = it.commandField.fieldValue.copy(
+                    selection = TextRange(it.commandField.fieldValue.text.length)
+                )
+            )
+        )
+    }
 
     fun clearOutput() = _states.update { it.copy(output = emptyList()) }
 
