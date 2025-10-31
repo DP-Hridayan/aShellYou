@@ -9,6 +9,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,6 +23,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -87,11 +89,10 @@ fun HomeScreen(
     }
 
     val onClickOtgAdbCard: () -> Unit = {
-        otgViewModel.startScan()
-
         if (otgState is OtgState.Connected) {
             navController.navigate(NavRoutes.OtgAdbScreen)
         } else {
+            otgViewModel.startScan()
             showOtgDeviceWaitingDialog = true
         }
     }
@@ -145,7 +146,10 @@ fun HomeScreen(
                 onClickStart = onClickWifiAdbStartButton,
                 onClickPair = onClickWifiAdbPairButton
             )
-            OtgAdbCard(onClickOtgAdbCard = onClickOtgAdbCard)
+            OtgAdbCard(
+                onClickOtgAdbCard = onClickOtgAdbCard,
+                otgState = otgState
+            )
             QuickToolsCard(onClickRebootOptions = onClickRebootOptions)
         }
     }
@@ -286,8 +290,31 @@ fun WirelessDebuggingCard(
         showNavigationArrowIcon = false,
         modifier = modifier
     ) {
-        OutlinedIconButtonWithText(
+        IconWithTextButton(
             modifier = Modifier.padding(top = 35.dp),
+            icon = painterResource(R.drawable.ic_pair),
+            text = stringResource(R.string.pair),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+            ),
+            contentDescription = null,
+            onClick = {
+                weakHaptic()
+                onClickPair()
+            })
+
+        IconWithTextButton(
+            modifier = Modifier.padding(vertical = 5.dp),
+            icon = painterResource(R.drawable.ic_play),
+            text = stringResource(R.string.start),
+            contentDescription = null,
+            onClick = {
+                weakHaptic()
+                onClickStart()
+            })
+
+        OutlinedIconButtonWithText(
             text = stringResource(R.string.instructions),
             painter = painterResource(R.drawable.ic_open_in_new),
             onClick = {
@@ -298,34 +325,15 @@ fun WirelessDebuggingCard(
                 )
             })
 
-
-        IconWithTextButton(
-            icon = painterResource(R.drawable.ic_pair),
-            text = stringResource(R.string.pair),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-            ),
-            contentDescription = null,
-            modifier = Modifier.padding(vertical = 5.dp),
-            onClick = {
-                weakHaptic()
-                onClickPair()
-            })
-
-        IconWithTextButton(
-            icon = painterResource(R.drawable.ic_play),
-            text = stringResource(R.string.start),
-            contentDescription = null,
-            onClick = {
-                weakHaptic()
-                onClickStart()
-            })
     }
 }
 
 @Composable
-fun OtgAdbCard(modifier: Modifier = Modifier, onClickOtgAdbCard: () -> Unit = {}) {
+fun OtgAdbCard(
+    modifier: Modifier = Modifier,
+    otgState: OtgState,
+    onClickOtgAdbCard: () -> Unit = {}
+) {
     val weakHaptic = LocalWeakHaptic.current
 
     NavigationCard(
@@ -338,7 +346,33 @@ fun OtgAdbCard(modifier: Modifier = Modifier, onClickOtgAdbCard: () -> Unit = {}
             onClickOtgAdbCard()
         },
         content = {
-            OtgInstructionButton(Modifier.padding(top = 35.dp))
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(35.dp)
+            )
+
+            if (otgState is OtgState.Connected) {
+                TextButton(
+                    modifier = Modifier.padding(bottom = 10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    ),
+                    shapes = ButtonDefaults.shapes(),
+                    onClick = {
+                        weakHaptic()
+                        onClickOtgAdbCard()
+                    }
+                ) {
+                    Text(
+                        text = otgState.deviceName,
+                        style = MaterialTheme.typography.bodyMediumEmphasized
+                    )
+                }
+            }
+
+            OtgInstructionButton()
         })
 }
 

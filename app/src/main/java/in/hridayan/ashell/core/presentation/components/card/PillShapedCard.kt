@@ -55,7 +55,7 @@ fun PillShapedCard(
                 cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
             }
             .clip(pillCornerShape)
-            .clickable(enabled = clickable, onClick = onClick),
+            .clickable(enabled = clickable, onClick = { onClick() }),
         shape = pillCornerShape,
         colors = colors,
         elevation = elevation,
