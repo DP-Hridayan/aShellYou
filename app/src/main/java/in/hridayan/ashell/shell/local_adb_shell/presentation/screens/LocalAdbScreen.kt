@@ -29,7 +29,6 @@ import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
 import `in`.hridayan.ashell.shell.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.presentation.model.ShellState
@@ -47,7 +46,6 @@ fun LocalAdbScreen(
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
-    val navController = LocalNavController.current
     val scope = rememberCoroutineScope()
 
     val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
@@ -84,21 +82,30 @@ fun LocalAdbScreen(
 
                     LocalAdbWorkingMode.ROOT -> {
                         scope.launch {
-                            val hasRoot = withContext(Dispatchers.IO) {
-                                shellViewModel.hasRootAccess()
-                            }
-                            hasRootAccess = hasRoot
-                        }
+                            scope.launch {
+                                val hasRoot = withContext(Dispatchers.IO) {
+                                    shellViewModel.hasRootAccess()
+                                }
+                                hasRootAccess = hasRoot
 
-                        if (!hasRootAccess) {
-                            makeToast(context, context.getString(R.string.no_root_access))
-                            shellViewModel.onCommandTextFieldChange(
-                                newValue = TextFieldValue(""),
-                                isError = true,
-                                errorMessage = context.getString(R.string.no_root_access)
-                            )
-                        } else {
-                            shellViewModel.runRootCommand()
+                                if (!hasRootAccess) {
+                                    withContext(Dispatchers.Main) {
+                                        makeToast(
+                                            context,
+                                            context.getString(R.string.no_root_access)
+                                        )
+                                        shellViewModel.onCommandTextFieldChange(
+                                            newValue =
+                                                TextFieldValue(""),
+                                            isError = true,
+                                            errorMessage = context.getString(R.string.no_root_access)
+                                        )
+                                    }
+                                } else {
+                                    shellViewModel.runRootCommand()
+                                }
+                            }
+
                         }
                     }
                 }
