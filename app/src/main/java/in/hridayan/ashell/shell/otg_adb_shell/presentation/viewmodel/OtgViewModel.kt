@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImpl
+import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgConnection
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,7 @@ class OtgViewModel @Inject constructor(
     private val repository: OtgRepository
 ) : ViewModel() {
 
-    val state: StateFlow<OtgState> = repository.state
+    val state: StateFlow<OtgState> = OtgConnection.state
 
     fun startScan() = viewModelScope.launch {
         repository.searchDevices()

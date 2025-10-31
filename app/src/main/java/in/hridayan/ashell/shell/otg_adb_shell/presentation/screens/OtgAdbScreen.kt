@@ -10,6 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
@@ -41,17 +42,37 @@ fun OtgAdbScreen(
         }
     }
 
+    val runCommandIfPermissionGranted: () -> Unit = {
+        if (otgState is OtgState.Connected) {
+            shellViewModel.runOtgCommand()
+        } else {
+            otgViewModel.startScan()
+            shellViewModel.onCommandTextFieldChange(
+                newValue = TextFieldValue(""),
+                isError = true,
+                errorMessage = context.getString(R.string.waiting_for_device)
+            )
+            showOtgDeviceWaitingDialog = true
+        }
+    }
+
     LaunchedEffect(otgState) {
+        otgViewModel.startScan()
         connectedDevice = when (otgState) {
             is OtgState.DeviceFound -> (otgState as OtgState.DeviceFound).deviceName
             is OtgState.Connected -> (otgState as OtgState.Connected).deviceName
             else -> context.getString(R.string.none)
         }
+
+        if (otgState !is OtgState.Connected) {
+            showOtgDeviceWaitingDialog = true
+        }
     }
 
     BaseShellScreen(
         modeButtonText = modeButtonText,
-        modeButtonOnClick = modeButtonOnClick
+        modeButtonOnClick = modeButtonOnClick,
+        runCommandIfPermissionGranted = runCommandIfPermissionGranted
     )
 
     if (showConnectedDeviceDialog) {

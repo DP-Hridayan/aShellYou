@@ -1,8 +1,10 @@
 package `in`.hridayan.ashell.shell.domain.usecase
 
 import android.content.Context
+import com.cgutman.adblib.AdbConnection
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
@@ -13,6 +15,7 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.InterruptedIOException
+import java.nio.charset.StandardCharsets
 
 class ShellCommandExecutor {
     private var currentProcess: Process? = null
@@ -55,7 +58,7 @@ class ShellCommandExecutor {
         }
     }.flowOn(Dispatchers.IO)
 
-    fun execShizukuProcess(): Flow<OutputLine> = flow {
+    private fun execShizukuProcess(): Flow<OutputLine> = flow {
         val reader = BufferedReader(InputStreamReader(shizukuProcess?.inputStream))
         val errorReader = BufferedReader(InputStreamReader(shizukuProcess?.errorStream))
 
@@ -84,6 +87,7 @@ class ShellCommandExecutor {
             shizukuProcess?.destroy()
             shizukuProcess = null
         }
+
     }
 
     fun exec(process: Process): Flow<OutputLine> = flow {

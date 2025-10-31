@@ -172,8 +172,9 @@ fun HomeScreen(
         OtgDeviceWaitingDialog(
             onDismiss = { showOtgDeviceWaitingDialog = false },
             onConfirm = {
-                navController.navigate(NavRoutes.OtgAdbScreen)
                 showOtgDeviceWaitingDialog = false
+                navController.navigate(NavRoutes.OtgAdbScreen)
+                otgViewModel.startScan()
             }
         )
     }

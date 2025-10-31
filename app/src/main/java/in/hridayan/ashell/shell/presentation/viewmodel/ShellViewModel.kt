@@ -16,6 +16,7 @@ import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
 import `in`.hridayan.ashell.shell.domain.usecase.ExtractLastCommandOutputUseCase
 import `in`.hridayan.ashell.shell.domain.usecase.GetSaveOutputFileNameUseCase
+import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.presentation.model.ShellState
@@ -40,6 +41,7 @@ class ShellViewModel @Inject constructor(
     private val commandExamplesRepository: CommandRepository,
     private val extractLastCommandOutputUseCase: ExtractLastCommandOutputUseCase,
     private val getSaveOutputFileNameUseCase: GetSaveOutputFileNameUseCase,
+    private val otgRepository: OtgRepository,
     @param:ApplicationContext private val appContext: Context
 ) : ViewModel() {
     private val _states = MutableStateFlow(ShellScreenState())
@@ -166,6 +168,8 @@ class ShellViewModel @Inject constructor(
 
     fun runShizukuCommand() = runCommand { shellRepository.executeShizukuCommand(it) }
 
+    fun runOtgCommand() = runCommand { otgRepository.runOtgCommand(it) }
+
     private fun runCommand(executor: suspend (String) -> Flow<OutputLine>) = with(_states.value) {
         if (this.shellState is ShellState.Busy) return@with
 
@@ -211,6 +215,7 @@ class ShellViewModel @Inject constructor(
 
     fun stopCommand() {
         shellRepository.stopCommand()
+        otgRepository.stopCommand()
         _states.update { it.copy(shellState = ShellState.Free) }
     }
 

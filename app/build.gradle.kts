@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                plugins {
+plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -80,7 +80,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlin{
+    kotlin {
         jvmToolchain(21)
     }
 
@@ -108,6 +108,7 @@ android {
 
 dependencies {
     implementation(project(":libadb"))
+    implementation(project(":adblib"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
