@@ -17,8 +17,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -27,6 +27,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -34,6 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -74,6 +76,8 @@ import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.navigation.slideFadeInFromLeft
 import `in`.hridayan.ashell.navigation.slideFadeInFromRight
 import `in`.hridayan.ashell.navigation.slideFadeOutToLeft
@@ -92,6 +96,7 @@ fun PairingOtherDeviceScreen(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val weakHaptic = LocalWeakHaptic.current
+    val navController = LocalNavController.current
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     var showManualPairingMenu by rememberSaveable { mutableStateOf(false) }
@@ -122,7 +127,6 @@ fun PairingOtherDeviceScreen(
         weakHaptic()
         context.askUserToEnableWifi()
     }
-
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -155,6 +159,7 @@ fun PairingOtherDeviceScreen(
                 contentAlignment = Alignment.Center
             ) {
                 ConnectionSuccessfulUi()
+                Button(onClick = { navController.navigate(NavRoutes.WifiAdbScreen) }) { }
             }
         } else {
             LazyColumn(
@@ -214,11 +219,9 @@ fun QRPair(
     val pairingCode = generatePairingCode()
     val qrBitmap = qrHelper.generateQrBitmap(sessionId, pairingCode)
 
-    LaunchedEffect(pairingCode) {
-        viewModel.startPairingFlow(
-            sessionId = sessionId,
-            pairingCode = pairingCode
-        )
+
+    LaunchedEffect(Unit) {
+        viewModel.startMdnsPairing(pairingCode)
     }
 
     Column(modifier = modifier) {
@@ -359,7 +362,7 @@ fun PairManually(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 10.dp),
-            onClick = { viewModel.startPairing() })
+            onClick = { viewModel.startPairingManually() })
 
         if (wifiAdbState is WifiAdbState.PairingSuccess || wifiAdbState is WifiAdbState.ConnectStarted) {
             HorizontalDivider(
@@ -388,7 +391,7 @@ fun PairManually(
                         .align(Alignment.CenterVertically),
                     onClick = {
                         weakHaptic()
-                        viewModel.startConnecting()
+                        viewModel.startConnectingManually()
                     }
                 )
             }
@@ -540,7 +543,7 @@ fun ConnectionSuccessfulUi(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .size(160.dp)
                 .padding(top = 25.dp)
-                .clip(CircleShape)
+                .clip(MaterialShapes.Cookie9Sided.toShape())
                 .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)),
             contentAlignment = Alignment.Center
         ) {

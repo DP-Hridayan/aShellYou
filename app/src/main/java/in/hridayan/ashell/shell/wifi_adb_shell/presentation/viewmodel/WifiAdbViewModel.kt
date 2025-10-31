@@ -1,22 +1,22 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.shell.data.adb.WifiAdbShell
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class WifiAdbViewModel @Inject constructor() : ViewModel() {
-    private val executor = WifiAdbShell()
-
+class WifiAdbViewModel @Inject constructor(
+    private val wifiAdbRepository: WifiAdbRepository
+) : ViewModel() {
     private val _ipAddress = MutableStateFlow("")
     val ipAddress: StateFlow<String> = _ipAddress
 
@@ -63,7 +63,8 @@ class WifiAdbViewModel @Inject constructor() : ViewModel() {
         _connectPortError.value = false
     }
 
-    fun startPairing() {
+
+    fun startPairingManually() {
         checkInputFieldValidity()
 
         if (pairingFieldsInvalid) {
@@ -74,9 +75,14 @@ class WifiAdbViewModel @Inject constructor() : ViewModel() {
         val port = _pairingPort.value.toIntOrNull() ?: return
         val code = _pairingCode.value.toIntOrNull() ?: return
 
+        startPairing(ip, port, code)
+    }
+
+    private fun startPairing(ip: String, port: Int, code: Int) {
+
         _state.value = WifiAdbState.PairingStarted()
 
-        executor.pair(ip, port, code, object : WifiAdbShell.PairingListener {
+        wifiAdbRepository.pair(ip, port, code, object : WifiAdbRepositoryImpl.PairingListener {
             override fun onPairingSuccess() {
                 _state.value = WifiAdbState.PairingSuccess("Paired successfully")
             }
@@ -87,7 +93,35 @@ class WifiAdbViewModel @Inject constructor() : ViewModel() {
         })
     }
 
-    fun startConnecting() {
+    fun startMdnsPairing(pairingCode: Int) {
+        wifiAdbRepository.discoverAdbPairingService(
+            pairingCode,
+            autoPair = true,
+            callback = object :
+                WifiAdbRepositoryImpl.MdnsDiscoveryCallback {
+                override fun onServiceFound(name: String, ip: String, port: Int) {
+                    _state.value = WifiAdbState.PairingStarted()
+                }
+
+                override fun onPairingSuccess(ip: String, port: Int) {
+                    _state.value = WifiAdbState.PairingSuccess(ip)
+                }
+
+                override fun onPairingFailed(ip: String, port: Int) {
+                    _state.value = WifiAdbState.PairingFailed(ip)
+                }
+
+                override fun onServiceLost(name: String) {
+                    Log.d("ADB", "Service lost: $name")
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.e("ADB", "Error: ${e.message}")
+                }
+            })
+    }
+
+    fun startConnectingManually() {
         checkInputFieldValidity()
 
         if (connectFieldsInvalid) {
@@ -97,9 +131,14 @@ class WifiAdbViewModel @Inject constructor() : ViewModel() {
         val ip = _ipAddress.value
         val port = _connectPort.value.toIntOrNull() ?: return
 
+        startConnecting(ip, port)
+    }
+
+
+    private fun startConnecting(ip: String, port: Int) {
         _state.value = WifiAdbState.ConnectStarted()
 
-        executor.connect(ip, port, object : WifiAdbShell.ConnectionListener {
+        wifiAdbRepository.connect(ip, port, object : WifiAdbRepositoryImpl.ConnectionListener {
             override fun onConnectionSuccess() {
                 _state.value = WifiAdbState.ConnectSuccess("Connected!")
             }
@@ -110,15 +149,6 @@ class WifiAdbViewModel @Inject constructor() : ViewModel() {
         })
     }
 
-    fun startPairingFlow(sessionId: String, pairingCode: Int) {
-        executor.waitForPairRequest(sessionId, pairingCode, object : WifiAdbShell.StateCallback {
-            override fun onStateChanged(state: WifiAdbState) {
-                viewModelScope.launch {
-                    _state.value = state
-                }
-            }
-        })
-    }
 
     fun refreshFieldsForNewPair() {
         _state.value = WifiAdbState.None

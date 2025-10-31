@@ -2,10 +2,10 @@ package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.helper
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.set
 import io.nayuki.qrcodegen.QrCode
 import io.nayuki.qrcodegen.QrCode.Ecc
-import androidx.core.graphics.set
-import androidx.core.graphics.createBitmap
 
 class PairUsingQR {
 

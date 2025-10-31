@@ -20,6 +20,7 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.presentation.model.ShellState
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -42,6 +43,7 @@ class ShellViewModel @Inject constructor(
     private val extractLastCommandOutputUseCase: ExtractLastCommandOutputUseCase,
     private val getSaveOutputFileNameUseCase: GetSaveOutputFileNameUseCase,
     private val otgRepository: OtgRepository,
+    private val wifiAdbRepository: WifiAdbRepository,
     @param:ApplicationContext private val appContext: Context
 ) : ViewModel() {
     private val _states = MutableStateFlow(ShellScreenState())
@@ -175,6 +177,8 @@ class ShellViewModel @Inject constructor(
     fun runShizukuCommand() = runCommand { shellRepository.executeShizukuCommand(it) }
 
     fun runOtgCommand() = runCommand { otgRepository.runOtgCommand(it) }
+
+    fun runWifiAdbCommand() = runCommand { wifiAdbRepository.execute(it) }
 
     private fun runCommand(executor: suspend (String) -> Flow<OutputLine>) = with(_states.value) {
         if (this.shellState is ShellState.Busy) return@with

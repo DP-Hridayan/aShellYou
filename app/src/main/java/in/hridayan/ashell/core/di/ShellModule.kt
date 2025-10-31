@@ -12,6 +12,8 @@ import `in`.hridayan.ashell.shell.domain.usecase.ShellCommandExecutor
 import `in`.hridayan.ashell.shell.domain.usecase.ShizukuPermissionHandler
 import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImpl
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import javax.inject.Singleton
 
 @Module
@@ -29,5 +31,11 @@ object ShellModule {
     @Singleton
     fun provideOtgRepository(@ApplicationContext context: Context): OtgRepository {
         return OtgRepositoryImpl(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideWifiAdbRepository(@ApplicationContext context: Context): WifiAdbRepository {
+        return WifiAdbRepositoryImpl(context)
     }
 }

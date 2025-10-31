@@ -38,6 +38,7 @@ import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbS
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.screens.PairingOtherDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.screens.PairingOwnDeviceScreen
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
 import kotlin.reflect.KType
 
 @Composable
@@ -194,6 +195,15 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                     popExitTransition = { slideFadeOutToRight() }
                 ) {
                     PairingOtherDeviceScreen()
+                }
+
+                composable<NavRoutes.WifiAdbScreen>(
+                    enterTransition = { slideFadeInFromRight() },
+                    exitTransition = { slideFadeOutToLeft() },
+                    popEnterTransition = { slideFadeInFromLeft() },
+                    popExitTransition = { slideFadeOutToRight() }
+                ) {
+                    WifiAdbScreen()
                 }
             }
         }

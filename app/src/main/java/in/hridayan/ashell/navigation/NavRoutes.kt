@@ -54,4 +54,7 @@ sealed class NavRoutes {
     @Serializable
     object SettingsScreen : NavRoutes()
 
+    @Serializable
+    object WifiAdbScreen : NavRoutes()
+
 }
