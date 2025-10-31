@@ -198,7 +198,10 @@ fun PairingOtherDeviceScreen(
                         if (manualMode) {
                             PairManually(onClickPairUsingQR = { showManualPairingMenu = false })
                         } else {
-                            QRPair(onClickPairManually = { showManualPairingMenu = true })
+                            QRPair(
+                                onClickPairManually = { showManualPairingMenu = true },
+                                isWifiConnected = isWifiConnected
+                            )
                         }
                     }
                 }
@@ -211,14 +214,15 @@ fun PairingOtherDeviceScreen(
 fun QRPair(
     modifier: Modifier = Modifier,
     onClickPairManually: () -> Unit = {},
+    isWifiConnected: Boolean,
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
     val qrHelper = PairUsingQR()
     val sessionId = "ashell_you"
     val pairingCode = generatePairingCode()
     val qrBitmap = qrHelper.generateQrBitmap(sessionId, pairingCode)
-
 
     LaunchedEffect(Unit) {
         viewModel.startMdnsPairing(pairingCode)
@@ -279,7 +283,8 @@ fun QRPair(
         ) {
             QRImage(
                 qrBitmap = qrBitmap,
-                modifier = Modifier.padding(25.dp)
+                modifier = Modifier.padding(25.dp),
+                isWifiConnected = isWifiConnected
             )
         }
 
