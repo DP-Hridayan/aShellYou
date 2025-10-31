@@ -26,7 +26,7 @@ fun ChangelogItemLayout(
     versionName: String,
     changelog: List<String>,
 ) {
-    val isLatestVersion = versionName == BuildConfig.VERSION_NAME
+    val isLatestVersion = versionName == BuildConfig.VERSION_NAME.removeSuffix("-debug")
 
     Column(
         modifier = modifier.fillMaxWidth(),

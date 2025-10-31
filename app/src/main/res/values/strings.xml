@@ -264,4 +264,57 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A">Z → A</string>
+
+    /**
+    * Changelogs
+    * Created by DP-Hridayan
+    * Absolutely necessary to follow this string name format
+    * Use \n to separate changelog lines for bullet points in UI
+    * Use this exact res ID naming format, eg: for v6.0.0 -> changelog_v6_0_0
+    */
+    <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
+    <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in app crash reporter.</string>
+    <string name="changelog_v6_0_3">\nFixed the issue which caused per app translations to be broken for aShell You</string>
+    <string name="changelog_v6_0_2">\nAdapted Github Actions for release builds.\nWhat this means for you?\nAll subsequent builds including this will be more secure!</string>
+    <string name="changelog_v6_0_1">\nMaintenance update</string>
+    <string name="changelog_v6_0_0">\nAdded WIRELESS DEBUGGING mode for running ADB commands on both own or other device\nRedesigned homepage for minimal navigation and less cluttery input field screen\nAdded Warning feedback when executing commands involving critical system packages\nAdded in-app updater. Now you can directly download the latest package without visiting Github repository\nFixed a lot of bugs</string>
+    <string name="changelog_v5_2_1">\nMaintenance update</string>
+    <string name="changelog_v5_2_0">\nUI improvements\nFixed some bugs</string>
+    <string name="changelog_v5_1_0">\nSmall UI improvements</string>
+    <string name="changelog_v5_0_0">\nHuge UI and UX improvements across all sections of the app\nAdded ROOT and BASIC shell in addition to Shizuku shell for running commands\nAdded option to save output in custom directory\nFixed a lot of bugs and issues\nOptimised app\'s code for better performance and stability</string>
+    <string name="changelog_v4_4_0">\nAdded vibration for haptic feedback\nAdded option to change app language from within the app (for devices running Android 13 and above only and excluding unsupported devices)\nFixed some crashes and improved crash reporting\nMinor UI improvements</string>
+    <string name="changelog_v4_3_1">\nNow app catches any crashes and provides the option to report them via email</string>
+    <string name="changelog_v4_3_0">\nAdded option to open saved output directly\nAdded option to save whole output or the last command output only\nFixed crashes</string>
+    <string name="changelog_v4_2_1">\nFixed an issue with Sharing text to aShell You where the text did not appear when app was starting fresh\nFixed minor UI issues</string>
+    <string name="changelog_v4_2_0">\nStable release of OTG mode\nAdded features like save, share, quick scroll buttons to the OTG mode\nAdded info cards for quick information\nAdded in app update checker along with the option to auto check for updates\nMinor UI improvements</string>
+    <string name="changelog_v4_1_0">\nFixed some issues in OTG adb support\nUpdated translations</string>
+    <string name="changelog_v4_0_3">\nUpdated dependencies\nAdded more command examples</string>
+    <string name="changelog_v4_0_2">\nFixed AMOLED theme not working on devices running Android 11 or below</string>
+    <string name="changelog_v4_0_1">\nNow you can Pin commands for quick access\n\nBug fixes and lot of code optimisations</string>
+    <string name="changelog_v4_0_0">\nNow you can directly use commands from the Commands section instead of the need to copy them every time\n\nAdded option to delete all bookmarks\nIn search : You can now search in commands summary by clicking a prompt chip\nAdded sorting options in Commands templates\nAdded option to directly bookmark selected items in Commands section\nChip Indicator shows connected device(currently only in local ADB mode)\nFixed bugs causing crashes in devices running Android 11 or below\nAdded Turkish translation\nMinor UI improvements\nLot of other bug fixes</string>
+    <string name="changelog_v3_9_1">\nAdded total bookmarks count\nFixed some bugs</string>
+    <string name="changelog_v3_9_0">\nAdded Search in commands section\nAdded option to set default working mode\nImproved animations\nReworked bookmarks section and added sorting options\nIncreased bookmarks limit to 25\nRemoved ADB shell launcher shortcut and added Commands launcher shortcut\nFixed padding issues in button navigation\nFixed some buttons shape</string>
+    <string name="changelog_v3_8_2">\nApp uses a more refreshed color palette for material you theming\nFixed minor bugs</string>
+    <string name="changelog_v3_8_1">\nFixed some crashes that were introduced in v3.8.0</string>
+    <string name="changelog_v3_8_0">\nAdded black (amoled) theme\nAdded undo button to undo paste\nAdded option to disable soft keyboard\nFixed buttons stretched in some screen sizes\nFixed bookmarks button not appearing after opening the app\nRenamed Examples section to Commands\nFixed copy command option not appearing for every command template\nApp now uses system font everywhere\nImproved UI handling\nUpdated translations</string>
+    <string name="changelog_v3_7_0">\nNow you can share texts from anywhere on your device to aShell You and run commands directly.\nNow you can share shell output directly without needing to save it !\nA lot of optimisations and UI handling.\nAdded Chinese translations.\nUpdated translations.
+</string>
+    <string name="changelog_v3_6_0">\nAdded option to clear the command input field after an error\nFixed a bug which caused the app to crash upon pasting from clipboard under certain conditions\nCode optimisations</string>
+    <string name="changelog_v3_5_1">\nFixed some issues with bottom navigation.</string>
+    <string name="changelog_v3_5_0">\nRevamped About section of the app.\nAdded launcher shortcuts.\nFixed navigation menu not showing in button navigation.\nImproved bottom navigation menu visibility on scrolling.\nAdded per app language support for aShell You (translations aren\'t completed yet).\nA lot of code optimisations.</string>
+    <string name="changelog_v3_4_0">\nAdded a Paste button so that you can copy and paste commands quickly.\nAdded Error indicators in the text input field.\nImproved Navigation Bar visibility logic.\nFixed an issue where switches misbehaves under certain situations.\nFixed add bookmark icon visibility in various contrast levels.\nA lot of code optimisation. App now opens a lot faster than before.\nApp will stay in background and won\'t restart every time you close the app by just pressing the back button or gesture.</string>
+    <string name="changelog_v3_3_0">\nAdded bookmarks , history and command suggestions to OTG\nAdded maximum bookmarks limit.\nAdded option to override maximum bookmarks limit.\nA lot of bug fixes.\nImproved some UI handling.\nA lot of code optimisation.</string>
+    <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimisation.</string>
+    <string name="changelog_v3_1_0">\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accomodate the new otg feature.</string>
+    <string name="changelog_v3_0_0">\nAdded ADB THROUGH OTG support.\n\n*** You will be able to run ADB commands on other devices using aShellYou by connecting the other device using an OTG cable ***</string>
+    <string name="changelog_v2_0_2">\nRemoved unnecessary code and resources.\nMinor UI changes.</string>
+    <string name="changelog_v2_0_1">\nRemoved unnecessary code and resources.\nMinor UI changes.</string>
+    <string name="changelog_v2_0_0">\nChanged app name to aShell You.\nAdded predictive back animations for supporting devices.\nAdded confirmation dialog popup before clearing screen.\nFixed StatusBar elements not properly visible in Light mode.\nApp is much more smooth now.\n~ Reduced app size and optimised code.\nAdded themed icon for launchers that support themed icons.\nMinor UI changes.</string>
+    <string name="changelog_v1_3_0">\nRevamped Settings panel.\nAdded Double Tap to instant scroll to top and bottom positions in shell output view.\nMinor UI fixes.</string>
+    <string name="changelog_v1_2_0">\nAdded Settings panel.\nAdded option to disable smooth scroll in shell output.\nFixed major bugs:\n\n ~  Crash while changing device theme.\n\n ~  Crash while trying to save large shell output . eg : output of \'pm\' command.</string>
+    <string name="changelog_v1_1_1">\nReplaced some deprecated api.\nMinor UI changes.</string>
+    <string name="changelog_v1_1_0">\nAdded Scroll To Top and Scroll To Bottom buttons.\nAdded Click keyboard Enter key to Send command.\nAdded some commands.\nUpdated dependencies to include latest material you library.\nMinor UI changes.</string>
+    <string name="changelog_v1_0_0">\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
+    <string name="changelog_v0_9_1">\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
+    <string name="changelog_v0_9_0">\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
 </resources>
