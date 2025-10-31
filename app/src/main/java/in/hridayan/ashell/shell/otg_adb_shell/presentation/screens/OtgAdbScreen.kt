@@ -7,7 +7,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -22,7 +21,6 @@ import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 
 @Composable
 fun OtgAdbScreen(
-    modifier: Modifier = Modifier,
     shellViewModel: ShellViewModel = hiltViewModel(),
     otgViewModel: OtgViewModel = hiltViewModel()
 ) {
@@ -30,9 +28,14 @@ fun OtgAdbScreen(
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showOtgDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
     var connectedDevice by rememberSaveable { mutableStateOf(context.getString(R.string.none)) }
-
     val otgState by otgViewModel.state.collectAsState()
     val modeButtonText = stringResource(R.string.otg)
+
+    /**
+     * Do not bother why we need this [disconnected] variable.
+     * It is just a dirty setup for properly syncing the otg states after reconnection
+     */
+    var disconnected by rememberSaveable { mutableStateOf(false) }
 
     val modeButtonOnClick: () -> Unit = {
         if (otgState is OtgState.Connected || otgState is OtgState.DeviceFound) {
@@ -47,6 +50,7 @@ fun OtgAdbScreen(
             shellViewModel.runOtgCommand()
         } else {
             otgViewModel.startScan()
+            showOtgDeviceWaitingDialog = true
             shellViewModel.onCommandTextFieldChange(
                 newValue = TextFieldValue(""),
                 isError = true,
@@ -62,9 +66,12 @@ fun OtgAdbScreen(
             else -> context.getString(R.string.none)
         }
 
-        if (!(otgState is OtgState.Connected || otgState is OtgState.DeviceFound)) {
+        if (!(otgState is OtgState.Connected || otgState is OtgState.DeviceFound) && !disconnected) {
             showOtgDeviceWaitingDialog = true
+            disconnected = true
         }
+
+        if (otgState is OtgState.Connected) disconnected = false
     }
 
     BaseShellScreen(
@@ -84,7 +91,12 @@ fun OtgAdbScreen(
     if (showOtgDeviceWaitingDialog) {
         OtgDeviceWaitingDialog(
             onDismiss = { showOtgDeviceWaitingDialog = false },
-            onConfirm = { showOtgDeviceWaitingDialog = false }
+            onConfirm = {
+                showOtgDeviceWaitingDialog = false
+                if (disconnected) {
+                    otgViewModel.startScan()
+                }
+            }
         )
     }
 }
