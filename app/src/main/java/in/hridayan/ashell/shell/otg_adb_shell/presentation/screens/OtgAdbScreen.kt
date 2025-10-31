@@ -52,19 +52,17 @@ fun OtgAdbScreen(
                 isError = true,
                 errorMessage = context.getString(R.string.waiting_for_device)
             )
-            showOtgDeviceWaitingDialog = true
         }
     }
 
     LaunchedEffect(otgState) {
-        otgViewModel.startScan()
         connectedDevice = when (otgState) {
             is OtgState.DeviceFound -> (otgState as OtgState.DeviceFound).deviceName
             is OtgState.Connected -> (otgState as OtgState.Connected).deviceName
             else -> context.getString(R.string.none)
         }
 
-        if (otgState !is OtgState.Connected) {
+        if (!(otgState is OtgState.Connected || otgState is OtgState.DeviceFound)) {
             showOtgDeviceWaitingDialog = true
         }
     }

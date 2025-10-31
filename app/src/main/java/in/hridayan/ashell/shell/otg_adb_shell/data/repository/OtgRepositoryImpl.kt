@@ -19,14 +19,12 @@ import com.cgutman.adblib.AdbStream
 import com.cgutman.adblib.UsbChannel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
+import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgConnection
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -39,9 +37,6 @@ import javax.inject.Singleton
 class OtgRepositoryImpl(private val context: Context) : OtgRepository {
 
     private val usbManager = context.getSystemService(Context.USB_SERVICE) as UsbManager
-
-    private val _state = MutableStateFlow<OtgState>(OtgState.Idle)
-    override val state: StateFlow<OtgState> = _state.asStateFlow()
 
     private val permissionAction = "in.hridayan.ashell.USB_PERMISSION"
 
@@ -61,7 +56,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             if (granted && usbManager.hasPermission(device)) {
                 connectToDevice(device)
             } else {
-                _state.value = OtgState.PermissionDenied
+                OtgConnection.updateState(OtgState.PermissionDenied)
             }
         }
     }
@@ -136,11 +131,11 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             if (usbManager.hasPermission(device)) {
                 connectToDevice(device)
             } else {
-                _state.value = OtgState.DeviceFound(friendlyName)
+                OtgConnection.updateState(OtgState.DeviceFound(friendlyName))
                 requestPermission(device)
             }
         } else {
-            _state.value = OtgState.Error(context.getString(R.string.no_adb_device_error))
+            OtgConnection.updateState(OtgState.Error(context.getString(R.string.no_adb_device_error)))
         }
     }
 
@@ -149,27 +144,27 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             CoroutineScope(Dispatchers.IO).launch {
                 disconnect()
                 kotlinx.coroutines.delay(500)
-                _state.value = OtgState.Idle
+                OtgConnection.updateState(OtgState.Idle)
             }
         }
     }
 
 
     override fun searchDevices() {
-        _state.value = OtgState.Searching
+        OtgConnection.updateState(OtgState.Searching)
         checkConnectedDevices()
     }
 
     private fun checkConnectedDevices() {
         val devices = usbManager.deviceList.values
         if (devices.isEmpty()) {
-            _state.value = OtgState.Idle
+            OtgConnection.updateState(OtgState.Idle)
             return
         }
 
         val adbDevice = devices.firstOrNull { isAdbDevice(it) }
         if (adbDevice != null) handleDeviceAttach(adbDevice)
-        else _state.value = OtgState.Error(context.getString(R.string.no_adb_device_error))
+        else OtgConnection.updateState(OtgState.Error(context.getString(R.string.no_adb_device_error)))
     }
 
     private fun requestPermission(device: UsbDevice) {
@@ -182,28 +177,28 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     }
 
     private fun connectToDevice(device: UsbDevice) {
-        _state.value = OtgState.Connecting
+        OtgConnection.updateState(OtgState.Connecting)
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val intf = findAdbInterface(device) ?: run {
-                    _state.value = OtgState.Error("No ADB interface found")
+                    OtgConnection.updateState(OtgState.Error("No ADB interface found"))
                     return@launch
                 }
 
                 val connection = usbManager.openDevice(device) ?: run {
-                    _state.value = OtgState.Error("Failed to open USB connection")
+                    OtgConnection.updateState(OtgState.Error("Failed to open USB connection"))
                     return@launch
                 }
 
                 if (!connection.claimInterface(intf, true)) {
-                    _state.value = OtgState.Error("Failed to claim interface")
+                    OtgConnection.updateState(OtgState.Error("Failed to claim interface"))
                     return@launch
                 }
 
                 val channel = UsbChannel(connection, intf)
                 val crypto = adbCrypto ?: run {
-                    _state.value = OtgState.Error("ADB Crypto not initialized")
+                    OtgConnection.updateState(OtgState.Error("ADB Crypto not initialized"))
                     return@launch
                 }
 
@@ -211,13 +206,13 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
 
                 withContext(Dispatchers.Main) {
                     val name = device.productName ?: device.manufacturerName ?: device.deviceName
-                    _state.value = OtgState.Connected(name)
+                    OtgConnection.updateState(OtgState.Connected(name))
                     Log.d("OtgRepository", "ADB connected to $name")
                 }
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    _state.value = OtgState.Error("ADB Connection failed: ${e.message}")
+                    OtgConnection.updateState(OtgState.Error("ADB Connection failed: ${e.message}"))
                 }
                 Log.e("OtgRepository", "ADB Connection error", e)
             }
@@ -298,8 +293,8 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         }
         adbConnection = null
         currentDevice = null
-        _state.value = OtgState.Disconnected
-        _state.value = OtgState.Idle
+        OtgConnection.updateState(OtgState.Disconnected)
+        OtgConnection.updateState(OtgState.Idle)
     }
 
     override fun unRegister() {
