@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="A_Z">A → Z</string>
     <string name="abort_command">Abort command first</string>
     <string name="about">About</string>
     <string name="adb_through_otg">ADB Through OTG</string>
@@ -7,6 +8,7 @@
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
     <string name="add_command">Add command</string>
+    <string name="add_new_item">Add new item</string>
     <string name="additional_settings">Additional settings</string>
     <string name="already_latest_version">You are using the latest version</string>
     <string name="app">App</string>
@@ -92,26 +94,21 @@
     <string name="des_smooth_scroll">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
     <string name="des_telegram_channel">Join the telegram channel for discussion</string>
     <string name="description">Description</string>
-    <string name="root_access_granted">Root access granted!</string>
-    <string name="no_search_results_found">No search results found</string>
-    <string name="most_used">Most used</string>
-    <string name="least_used">Least used</string>
-    <string name="no_root_access">No root access</string>
     <string name="developer_options">Developer options</string>
     <string name="developer_options_not_available">Developer options not available!</string>
     <string name="device_connected">Device connected!</string>
     <string name="device_info">Device info</string>
     <string name="disable_softkey">Disable soft keyboard</string>
     <string name="disclaimer">Disclaimer</string>
-    <string name="disclaimer_1_description">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability. You are solely responsible for any changes made using this app.</string>
+    <string name="disclaimer_1_description">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability.\nYou are solely responsible for any changes made using this app.</string>
     <string name="disclaimer_1_title">Use at Your Own Risk</string>
-    <string name="disclaimer_2_description">While root access is not mandatory, certain commands may require elevated permissions. Misuse of ADB commands can lead to data loss, app crashes, or unexpected system behavior.</string>
+    <string name="disclaimer_2_description">While root access is not mandatory, certain commands may require elevated permissions.\nMisuse of ADB commands can lead to data loss, app crashes, or unexpected system behavior.</string>
     <string name="disclaimer_2_title">Root is not Mandatory, but Caution Needed</string>
-    <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app. Proceed with caution and ensure you understand the commands you execute.</string>
+    <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app.\nProceed with caution and ensure you understand the commands you execute.</string>
     <string name="disclaimer_3_title">We Are Not Liable</string>
-    <string name="disclaimer_4_description">This app is designed for users who have a basic understanding of ADB commands. If you are unsure about a command’s effect, research it before executing it.</string>
+    <string name="disclaimer_4_description">This app is designed for users who have a basic understanding of ADB commands.\nIf you are unsure about a command’s effect, research it before executing it.</string>
     <string name="disclaimer_4_title">Intended for Advanced Users</string>
-    <string name="disclaimer_5_description">This app may require special permissions to function properly. It does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
+    <string name="disclaimer_5_description">This app may require special permissions to function properly.\nIt does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
     <string name="disclaimer_5_title">Permissions and Security</string>
     <string name="disconnected">Disconnected!</string>
     <string name="download">Download</string>
@@ -141,11 +138,13 @@
     <string name="instructions">Instructions</string>
     <string name="ip_address">IP address</string>
     <string name="irreversible_action_warning">This action is irreversible!</string>
+    <string name="item_deleted">Item has been deleted successfully</string>
     <string name="label">Label</string>
     <string name="last_backup_date">Last backup date</string>
     <string name="last_backup_time">Last backup time</string>
     <string name="latest_version">Latest version</string>
     <string name="lead_developer">Lead developer</string>
+    <string name="least_used">Least used</string>
     <string name="license">License</string>
     <string name="load_predefined_commands">Load predefined commands</string>
     <string name="local_adb">Local ADB</string>
@@ -155,12 +154,16 @@
     <string name="mode">Mode</string>
     <string name="mode_one_desc">Use root access to run commands. Rooted commands can be executed.</string>
     <string name="mode_two_desc">Use shizuku to run commands. Commands that require root won\'t execute.</string>
+    <string name="most_used">Most used</string>
     <string name="network_error">Network error</string>
+    <string name="newest">Newest</string>
     <string name="no_adb_device_error">No ADB-compatible devices found. Enable USB debugging on the target.</string>
     <string name="no_bookmarks">No bookmarks found</string>
     <string name="no_changelog_found">No changelog found for this version</string>
     <string name="no_crashes">No crashes have been reported. aShell You is running smoothly.</string>
     <string name="no_history">No command history</string>
+    <string name="no_root_access">No root access</string>
+    <string name="no_search_results_found">No search results found</string>
     <string name="none">None</string>
     <string name="nothing_to_clear">Nothing to clear</string>
     <string name="nothing_to_search">Nothing to search</string>
@@ -168,6 +171,7 @@
     <string name="notification_settings">Notification settings</string>
     <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="off">Off</string>
+    <string name="oldest">Oldest</string>
     <string name="on">On</string>
     <string name="open">Open</string>
     <string name="or">OR</string>
@@ -208,6 +212,7 @@
     <string name="restore_failed">Restore failed</string>
     <string name="restore_successful">Restore successful</string>
     <string name="root" translatable="false">Root</string>
+    <string name="root_access_granted">Root access granted!</string>
     <string name="save">Save</string>
     <string name="save_whole_output">Save whole output</string>
     <string name="search">Search</string>
@@ -224,13 +229,6 @@
     <string name="shizuku_unavailable_message">Shizuku is not installed or properly configured on your device</string>
     <string name="smooth_scrolling">Smooth scrolling</string>
     <string name="sort">Sort</string>
-    <string name="A_Z">A → Z</string>
-    <string name="newest">Newest</string>
-    <string name="oldest">Oldest</string>
-    <string name="Z_A">Z → A</string>
-    <string name="item_deleted">Item has been deleted successfully</string>
-    <string name="undo">Undo</string>
-    <string name="add_new_item">Add new item</string>
     <string name="stable">Stable</string>
     <string name="stack_trace">Stack trace</string>
     <string name="start">Start</string>
@@ -244,6 +242,7 @@
     <string name="terminal">Terminal</string>
     <string name="turn_off_mobile_data">Turn off Mobile Data if the Wifi connection has NO INTERNET</string>
     <string name="tweak_your_experience">Tweak your experience</string>
+    <string name="undo">Undo</string>
     <string name="unknown_error">Unknown error occurred</string>
     <string name="unknown_sources_install_permission_not_granted">Permission not granted. Please allow app installation from unknown sources.</string>
     <string name="update">Update</string>
@@ -262,4 +261,5 @@
     <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
+    <string name="Z_A">Z → A</string>
 </resources>
