@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
@@ -44,6 +45,10 @@ fun PaletteWheel(
         animationSpec = tween(durationMillis = 300),
         label = "Check Scale Animation"
     )
+
+    val primaryColor = modifyColorForDisplay(Color(seedColor.primary), toneFactor = 1f)
+    val secondaryColor = modifyColorForDisplay(Color(seedColor.secondary), toneFactor = 1.4f)
+    val tertiaryColor = modifyColorForDisplay(Color(seedColor.tertiary), toneFactor = 0.7f)
 
     Box(
         modifier = Modifier
@@ -73,7 +78,7 @@ fun PaletteWheel(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxSize()
-                        .background(color = Color(seedColor.primary))
+                        .background(color =primaryColor)
                 )
 
                 Row(
@@ -85,13 +90,13 @@ fun PaletteWheel(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxSize()
-                            .background(color = Color(seedColor.secondary))
+                            .background(color = secondaryColor)
                     )
                     Box(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxSize()
-                            .background(color = Color(seedColor.tertiary))
+                            .background(color = tertiaryColor)
                     )
                 }
             }
@@ -115,4 +120,14 @@ fun PaletteWheel(
             }
         }
     }
+}
+
+fun modifyColorForDisplay(color: Color, toneFactor: Float = 1.2f, chromaFactor: Float = 1.15f): Color {
+    val hsv = FloatArray(3)
+    android.graphics.Color.colorToHSV(color.toArgb(), hsv)
+
+    hsv[1] = (hsv[1] * chromaFactor).coerceIn(0f, 1f)
+    hsv[2] = (hsv[2] * toneFactor).coerceIn(0f, 1f)
+
+    return Color(android.graphics.Color.HSVToColor(hsv))
 }
