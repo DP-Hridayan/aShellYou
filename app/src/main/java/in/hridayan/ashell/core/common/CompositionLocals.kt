@@ -19,7 +19,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.AmberDrift
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.AquaCalm
-import `in`.hridayan.ashell.core.common.constants.AppSeedColors.AzureBloom
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.AshMist
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.BlushMauve
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.CoralSunset
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.CrimsonDepth
@@ -29,12 +29,16 @@ import `in`.hridayan.ashell.core.common.constants.AppSeedColors.ForestWhisper
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.IndigoGlow
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.LavenderBliss
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.LeafHarmony
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.MistyTaupe
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.MossHaven
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.OceanBreeze
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.OliveGrove
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.RoseClay
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.RoyalOrchid
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.Sandstone
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.SkyPulse
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.SlateEcho
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.StoneWhisper
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.TealHarmony
 import `in`.hridayan.ashell.core.common.constants.AppSeedColors.VioletMist
 import `in`.hridayan.ashell.core.common.constants.SeedColor
@@ -170,28 +174,18 @@ fun CompositionLocals(
         else -> isSystemInDarkTheme()
     }
 
-    val tonalPalette = listOf(
-        LavenderBliss,
-        ForestWhisper,
-        AquaCalm,
-        VioletMist,
-        CrimsonDepth,
-        DeepSea,
-        OceanBreeze,
-        IndigoGlow,
-        MossHaven,
-        EarthClay,
-        CoralSunset,
-        LeafHarmony,
-        AzureBloom,
-        AmberDrift,
-        RoyalOrchid,
-        SkyPulse,
-        TealHarmony,
-        RoseClay,
-        OliveGrove,
-        BlushMauve
-    )
+    val tonalPalette = remember {
+        listOf(
+            CrimsonDepth, RoseClay, CoralSunset, AmberDrift,
+            LeafHarmony, ForestWhisper, MossHaven, OliveGrove,
+            TealHarmony, AquaCalm, DeepSea, OceanBreeze,
+            SkyPulse, IndigoGlow, VioletMist,
+            RoyalOrchid, LavenderBliss, BlushMauve, EarthClay,
+            Sandstone, MistyTaupe, SlateEcho, StoneWhisper,
+            AshMist
+        )
+    }
+
 
     val weakHaptic = remember(isHapticEnabled, view) {
         {

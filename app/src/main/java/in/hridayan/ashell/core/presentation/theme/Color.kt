@@ -22,6 +22,7 @@ import `in`.hridayan.ashell.core.presentation.utils.a3
 import `in`.hridayan.ashell.core.presentation.utils.n1
 import `in`.hridayan.ashell.core.presentation.utils.n2
 
+@Composable
 fun lightColorSchemeFromSeed(): ColorScheme {
     return expressiveLightColorScheme().copy(
         primary = 40.a1,
@@ -30,15 +31,15 @@ fun lightColorSchemeFromSeed(): ColorScheme {
         onPrimaryContainer = 10.a1,
         inversePrimary = 80.a1,
 
-        secondary = 40.a2,
-        secondaryContainer = 90.a2,
-        onSecondary = 100.a2,
-        onSecondaryContainer = 10.a2,
+        secondary = 40.a2.harmonizeWithPrimary(0.1f),
+        secondaryContainer = 90.a2.harmonizeWithPrimary(0.1f),
+        onSecondary = 100.a2.harmonizeWithPrimary(0.1f),
+        onSecondaryContainer = 10.a2.harmonizeWithPrimary(0.1f),
 
-        tertiary = 40.a3,
-        tertiaryContainer = 90.a3,
-        onTertiary = 100.a3,
-        onTertiaryContainer = 10.a3,
+        tertiary = 40.a3.harmonizeWithPrimary(0.1f),
+        tertiaryContainer = 90.a3.harmonizeWithPrimary(0.1f),
+        onTertiary = 100.a3.harmonizeWithPrimary(0.1f),
+        onTertiaryContainer = 10.a3.harmonizeWithPrimary(0.1f),
 
         background = 98.n1,
         onBackground = 10.n1,
@@ -62,6 +63,7 @@ fun lightColorSchemeFromSeed(): ColorScheme {
     )
 }
 
+@Composable
 fun darkColorSchemeFromSeed(): ColorScheme {
     return darkColorScheme(
         primary = 80.a1,
@@ -70,15 +72,15 @@ fun darkColorSchemeFromSeed(): ColorScheme {
         onPrimaryContainer = 90.a1,
         inversePrimary = 40.a1,
 
-        secondary = 80.a2,
-        secondaryContainer = 30.a2,
-        onSecondary = 20.a2,
-        onSecondaryContainer = 90.a2,
+        secondary = 80.a2.harmonizeWithPrimary(0.1f),
+        secondaryContainer = 30.a2.harmonizeWithPrimary(0.1f),
+        onSecondary = 20.a2.harmonizeWithPrimary(0.1f),
+        onSecondaryContainer = 90.a2.harmonizeWithPrimary(0.1f),
 
-        tertiary = 80.a3,
-        tertiaryContainer = 30.a3,
-        onTertiary = 20.a3,
-        onTertiaryContainer = 90.a3,
+        tertiary = 80.a3.harmonizeWithPrimary(0.1f),
+        tertiaryContainer = 30.a3.harmonizeWithPrimary(0.1f),
+        onTertiary = 20.a3.harmonizeWithPrimary(0.1f),
+        onTertiaryContainer = 90.a3.harmonizeWithPrimary(0.1f),
 
         background = 6.n1,
         onBackground = 90.n1,
@@ -102,6 +104,7 @@ fun darkColorSchemeFromSeed(): ColorScheme {
     )
 }
 
+@Composable
 fun highContrastDarkColorSchemeFromSeed(): ColorScheme {
     return darkColorSchemeFromSeed().copy(
         background = Color.Black,
@@ -129,11 +132,11 @@ fun highContrastDynamicDarkColorScheme(context: Context): ColorScheme {
 
 @Composable
 fun Color.harmonizeWithPrimary(
-    @FloatRange(from = 0.0, to = 1.0) fraction: Float = 0.2f
+    @FloatRange(from = 0.0, to = 1.0) fraction: Float = 0.1f
 ): Color = blend(MaterialTheme.colorScheme.primary, fraction)
 
 
 fun Color.blend(
     color: Color,
-    @FloatRange(from = 0.0, to = 1.0) fraction: Float = 0.2f
+    @FloatRange(from = 0.0, to = 1.0) fraction: Float = 0.1f
 ): Color = Color(ColorUtils.blendARGB(this.toArgb(), color.toArgb(), fraction))

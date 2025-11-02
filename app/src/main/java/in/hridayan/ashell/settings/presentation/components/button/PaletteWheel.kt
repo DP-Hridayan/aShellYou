@@ -1,6 +1,5 @@
 package `in`.hridayan.ashell.settings.presentation.components.button
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -25,13 +24,9 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.google.android.material.color.utilities.CorePalette
-import com.google.android.material.color.utilities.TonalPalette
-import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.SeedColorProvider
 import `in`.hridayan.ashell.core.common.constants.SeedColor
-import `in`.hridayan.ashell.core.presentation.utils.a1
 
 @Composable
 fun PaletteWheel(
@@ -112,16 +107,9 @@ fun PaletteWheel(
                         .align(Alignment.Center),
                     imageVector = Icons.Rounded.Check,
                     contentDescription = null,
-                    tint = Color(seedColor.primary)
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
         }
     }
-}
-
-@SuppressLint("RestrictedApi")
-private fun getColorFromSeed(seedColor: Int, tone: Int): Color {
-    val palette = CorePalette.of(seedColor)
-    val colorInt = palette.a1.getHct(tone.toDouble()).toInt()
-    return Color(colorInt)
 }

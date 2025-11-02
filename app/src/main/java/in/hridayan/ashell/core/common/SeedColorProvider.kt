@@ -4,7 +4,7 @@ import `in`.hridayan.ashell.core.common.constants.AppSeedColors
 import `in`.hridayan.ashell.core.common.constants.SeedColor
 
 object SeedColorProvider {
-    val seed = AppSeedColors.DeepSea.colors
+    val seed = AppSeedColors.SlateEcho.colors
 
     var primary: Int = seed.primary
     var secondary: Int = seed.secondary
