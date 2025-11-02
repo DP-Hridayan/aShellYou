@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.settings.presentation.components.button
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -47,8 +48,10 @@ fun PaletteWheel(
     Box(
         modifier = Modifier
             .clip(MaterialTheme.shapes.medium)
-            .background(
-                MaterialTheme.colorScheme.surfaceVariant
+            .border(
+                width = 1.dp,
+                shape = MaterialTheme.shapes.medium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
             )
             .clickable(
                 enabled = true,
