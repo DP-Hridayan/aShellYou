@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.settings.presentation.components.button
 
 import androidx.compose.animation.core.animateFloatAsState
@@ -14,8 +16,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -27,8 +32,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.data.provider.SeedColor
+import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 
 @Composable
 fun PaletteWheel(
@@ -45,6 +50,7 @@ fun PaletteWheel(
         animationSpec = tween(durationMillis = 300),
         label = "Check Scale Animation"
     )
+    val wheelShape = if (isChecked) MaterialShapes.Cookie9Sided.toShape() else CircleShape
 
     val primaryColor = modifyColorForDisplay(Color(seedColor.primary), toneFactor = 1f)
     val secondaryColor = modifyColorForDisplay(Color(seedColor.secondary), toneFactor = 1.4f)
@@ -69,7 +75,7 @@ fun PaletteWheel(
             modifier = modifier
                 .padding(10.dp)
                 .size(size)
-                .clip(CircleShape)
+                .clip(wheelShape)
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -78,7 +84,7 @@ fun PaletteWheel(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxSize()
-                        .background(color =primaryColor)
+                        .background(color = primaryColor)
                 )
 
                 Row(
@@ -122,7 +128,11 @@ fun PaletteWheel(
     }
 }
 
-fun modifyColorForDisplay(color: Color, toneFactor: Float = 1.2f, chromaFactor: Float = 1.15f): Color {
+fun modifyColorForDisplay(
+    color: Color,
+    toneFactor: Float = 1.2f,
+    chromaFactor: Float = 1.15f
+): Color {
     val hsv = FloatArray(3)
     android.graphics.Color.colorToHSV(color.toArgb(), hsv)
 
