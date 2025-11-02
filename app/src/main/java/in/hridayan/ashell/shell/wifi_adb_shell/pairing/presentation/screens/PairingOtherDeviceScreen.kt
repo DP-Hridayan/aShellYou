@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
@@ -43,6 +44,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -86,6 +88,8 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.helper.PairUsingQR
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.security.SecureRandom
 
 @Composable
@@ -97,11 +101,12 @@ fun PairingOtherDeviceScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
+    val coroutineScope = rememberCoroutineScope()
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     var showManualPairingMenu by rememberSaveable { mutableStateOf(false) }
     var isWifiConnected by remember { mutableStateOf(context.isConnectedToWifi()) }
-    val wifiAdbState by viewModel.state
+    val wifiAdbState by viewModel.state.collectAsState()
 
     DisposableEffect(Unit) {
         val callback = registerNetworkCallback(context) { isConnected ->
@@ -111,6 +116,11 @@ fun PairingOtherDeviceScreen(
         onDispose {
             unregisterNetworkCallback(context, callback)
         }
+    }
+
+    BackHandler {
+        coroutineScope.launch(Dispatchers.Default) { viewModel.stopMdnsDiscovery() }
+        navController.popBackStack()
     }
 
     LaunchedEffect(lifecycleOwner) {
@@ -159,7 +169,14 @@ fun PairingOtherDeviceScreen(
                 contentAlignment = Alignment.Center
             ) {
                 ConnectionSuccessfulUi()
-                Button(onClick = { navController.navigate(NavRoutes.WifiAdbScreen) }) { }
+                Button(
+                    onClick = { navController.navigate(NavRoutes.WifiAdbScreen) },
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 25.dp)
+                ) {
+                    Text(wifiAdbState.message)
+                }
             }
         } else {
             LazyColumn(
@@ -200,7 +217,8 @@ fun PairingOtherDeviceScreen(
                         } else {
                             QRPair(
                                 onClickPairManually = { showManualPairingMenu = true },
-                                isWifiConnected = isWifiConnected
+                                isWifiConnected = isWifiConnected,
+                                wifiAdbState = wifiAdbState
                             )
                         }
                     }
@@ -215,6 +233,7 @@ fun QRPair(
     modifier: Modifier = Modifier,
     onClickPairManually: () -> Unit = {},
     isWifiConnected: Boolean,
+    wifiAdbState: WifiAdbState,
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -224,8 +243,8 @@ fun QRPair(
     val pairingCode = generatePairingCode()
     val qrBitmap = qrHelper.generateQrBitmap(sessionId, pairingCode)
 
-    LaunchedEffect(Unit) {
-        viewModel.startMdnsPairing(pairingCode)
+    LaunchedEffect(Unit, isWifiConnected) {
+        if (isWifiConnected) viewModel.startMdnsPairing(pairingCode) else viewModel.stopMdnsDiscovery()
     }
 
     Column(modifier = modifier) {
@@ -284,7 +303,8 @@ fun QRPair(
             QRImage(
                 qrBitmap = qrBitmap,
                 modifier = Modifier.padding(25.dp),
-                isWifiConnected = isWifiConnected
+                isWifiConnected = isWifiConnected,
+                wifiAdbState = wifiAdbState
             )
         }
 
@@ -326,7 +346,7 @@ fun PairManually(
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
-    val wifiAdbState by viewModel.state
+    val wifiAdbState by viewModel.state.collectAsState()
 
     Column(
         modifier = modifier
@@ -547,7 +567,6 @@ fun ConnectionSuccessfulUi(modifier: Modifier = Modifier) {
         Box(
             modifier = Modifier
                 .size(160.dp)
-                .padding(top = 25.dp)
                 .clip(MaterialShapes.Cookie9Sided.toShape())
                 .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)),
             contentAlignment = Alignment.Center

@@ -1,15 +1,16 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 
@@ -40,8 +41,15 @@ class WifiAdbViewModel @Inject constructor(
 
     private val _connectPortError = MutableStateFlow(false)
     val connectPortError: StateFlow<Boolean> = _connectPortError
-    private val _state = mutableStateOf<WifiAdbState?>(null)
-    val state: State<WifiAdbState?> = _state
+
+    val state: StateFlow<WifiAdbState> = WifiAdbConnection.state
+
+    private val _savedDevices = MutableStateFlow<List<WifiAdbDevice>>(emptyList())
+    val savedDevices = _savedDevices.asStateFlow()
+
+    fun loadSavedDevices() {
+        _savedDevices.value = wifiAdbRepository.getSavedDevices()
+    }
 
     fun onIpChange(newValue: String) {
         _ipAddress.value = newValue
@@ -68,7 +76,7 @@ class WifiAdbViewModel @Inject constructor(
         checkInputFieldValidity()
 
         if (pairingFieldsInvalid) {
-            _state.value = WifiAdbState.PairingFailed("Invalid fields")
+            WifiAdbConnection.updateState(WifiAdbState.PairingFailed("Invalid fields"))
             return
         }
         val ip = _ipAddress.value
@@ -80,15 +88,15 @@ class WifiAdbViewModel @Inject constructor(
 
     private fun startPairing(ip: String, port: Int, code: Int) {
 
-        _state.value = WifiAdbState.PairingStarted()
+        WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
 
         wifiAdbRepository.pair(ip, port, code, object : WifiAdbRepositoryImpl.PairingListener {
             override fun onPairingSuccess() {
-                _state.value = WifiAdbState.PairingSuccess("Paired successfully")
+                WifiAdbConnection.updateState(WifiAdbState.PairingSuccess("Paired successfully"))
             }
 
             override fun onPairingFailed() {
-                _state.value = WifiAdbState.PairingFailed("Pairing failed")
+                WifiAdbConnection.updateState(WifiAdbState.PairingFailed("Pairing failed"))
             }
         })
     }
@@ -100,15 +108,15 @@ class WifiAdbViewModel @Inject constructor(
             callback = object :
                 WifiAdbRepositoryImpl.MdnsDiscoveryCallback {
                 override fun onServiceFound(name: String, ip: String, port: Int) {
-                    _state.value = WifiAdbState.PairingStarted()
+                    WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
                 }
 
                 override fun onPairingSuccess(ip: String, port: Int) {
-                    _state.value = WifiAdbState.PairingSuccess(ip)
+                    WifiAdbConnection.updateState(WifiAdbState.PairingSuccess(ip))
                 }
 
                 override fun onPairingFailed(ip: String, port: Int) {
-                    _state.value = WifiAdbState.PairingFailed(ip)
+                    WifiAdbConnection.updateState(WifiAdbState.PairingFailed(ip))
                 }
 
                 override fun onServiceLost(name: String) {
@@ -121,11 +129,15 @@ class WifiAdbViewModel @Inject constructor(
             })
     }
 
+    fun stopMdnsDiscovery(){
+        wifiAdbRepository.stopMdnsDiscovery()
+    }
+
     fun startConnectingManually() {
         checkInputFieldValidity()
 
         if (connectFieldsInvalid) {
-            _state.value = WifiAdbState.ConnectFailed("Invalid fields")
+            WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Invalid fields"))
             return
         }
         val ip = _ipAddress.value
@@ -136,22 +148,22 @@ class WifiAdbViewModel @Inject constructor(
 
 
     private fun startConnecting(ip: String, port: Int) {
-        _state.value = WifiAdbState.ConnectStarted()
+        WifiAdbConnection.updateState(WifiAdbState.ConnectStarted())
 
         wifiAdbRepository.connect(ip, port, object : WifiAdbRepositoryImpl.ConnectionListener {
             override fun onConnectionSuccess() {
-                _state.value = WifiAdbState.ConnectSuccess("Connected!")
+                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess("Connected!"))
             }
 
             override fun onConnectionFailed() {
-                _state.value = WifiAdbState.ConnectFailed("Connection failed")
+                WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Connection failed"))
             }
         })
     }
 
 
     fun refreshFieldsForNewPair() {
-        _state.value = WifiAdbState.None
+        WifiAdbConnection.updateState(WifiAdbState.None)
         _ipAddress.value = ""
         _pairingPort.value = ""
         _pairingCode.value = ""

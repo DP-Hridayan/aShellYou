@@ -62,6 +62,7 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.dialog.PairModeChooseDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairedDevicesDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -79,6 +80,7 @@ fun HomeScreen(
     var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
     var showPairModeChooseDialog by rememberSaveable { mutableStateOf(false) }
     var showOtgDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
+    var showPairedDevicesDialog by rememberSaveable { mutableStateOf(false) }
     val otgState by otgViewModel.state.collectAsState()
 
     val onClickWifiAdbPairButton: () -> Unit = {
@@ -86,6 +88,7 @@ fun HomeScreen(
     }
 
     val onClickWifiAdbStartButton: () -> Unit = {
+        showPairedDevicesDialog = true
     }
 
     val onClickOtgAdbCard: () -> Unit = {
@@ -181,6 +184,10 @@ fun HomeScreen(
                 otgViewModel.startScan()
             }
         )
+    }
+
+    if (showPairedDevicesDialog) {
+        PairedDevicesDialog(onDismiss = { showPairedDevicesDialog = false })
     }
 }
 

@@ -6,15 +6,20 @@ import android.net.wifi.WifiManager
 import android.util.Log
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.domain.usecase.AdbConnectionManager
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.WifiAdbStorage
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import io.github.muntashirakon.adb.AdbStream
 import io.github.muntashirakon.adb.LocalServices
 import io.github.muntashirakon.adb.android.AndroidUtils
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.InetAddress
@@ -33,6 +38,9 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
     private var jmDns: JmDNS? = null
     private val pairingInProgress = mutableSetOf<String>()
     private val connectInProgress = mutableSetOf<String>()
+    private val mainScope = CoroutineScope(Dispatchers.Main)
+
+    private val storage = WifiAdbStorage(context)
 
     override fun discoverAdbPairingService(
         pairingCode: Int,
@@ -87,6 +95,11 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
 
                                     executor.schedule({
                                         Log.d(TAG, "Discovering ADB connect service after delay...")
+                                        mainScope.launch {
+                                            WifiAdbConnection.updateState(
+                                                WifiAdbState.DiscoveryStarted("connect service discovery started")
+                                            )
+                                        }
                                         discoverConnectService(callback)
                                     }, 1, TimeUnit.SECONDS)
                                 }
@@ -158,20 +171,38 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                             return
                         }
 
-                        Log.d(TAG, "Found ADB connect service at $ip:$port")
+                        mainScope.launch {
+                            WifiAdbConnection.updateState(WifiAdbState.DiscoveryFound(key))
+                        }
+
+                        Log.d(TAG, "Found ADB connect service at $key")
 
                         if (event.type.contains("_adb-tls-connect")) {
                             connectInProgress.add(key)
 
+                            mainScope.launch {
+                                WifiAdbConnection.updateState(WifiAdbState.ConnectStarted(key))
+                            }
+
                             connect(ip, port, object : ConnectionListener {
                                 override fun onConnectionSuccess() {
                                     connectInProgress.remove(key)
+                                    mainScope.launch {
+                                        WifiAdbConnection.updateState(
+                                            WifiAdbState.ConnectSuccess(
+                                                key
+                                            )
+                                        )
+                                    }
                                     Log.d(TAG, "Connected successfully to $ip:$port")
                                     callback?.onPairingSuccess(ip, port)
                                 }
 
                                 override fun onConnectionFailed() {
                                     connectInProgress.remove(key)
+                                    mainScope.launch {
+                                        WifiAdbConnection.updateState(WifiAdbState.ConnectFailed(key))
+                                    }
                                     Log.e(TAG, "Failed to connect to $ip:$port")
                                     callback?.onPairingFailed(ip, port)
                                 }
@@ -210,7 +241,10 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
             try {
                 val manager = AdbConnectionManager.getInstance(context)
                 val connected = manager.connect(ip ?: AndroidUtils.getHostIpAddress(context), port)
-                if (connected) callback?.onConnectionSuccess() else callback?.onConnectionFailed()
+                if (connected) {
+                    callback?.onConnectionSuccess()
+                    storage.saveDevice(WifiAdbDevice(ip ?: "", port, isPaired = true))
+                } else callback?.onConnectionFailed()
             } catch (e: Throwable) {
                 Log.e(TAG, "connect() failed", e)
                 callback?.onConnectionFailed()
@@ -264,10 +298,13 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
         try {
             jmDns?.close()
             jmDns = null
+            mainScope.launch { WifiAdbConnection.updateState(WifiAdbState.None) }
         } catch (e: Exception) {
             Log.e(TAG, "Error closing JmDNS", e)
         }
     }
+
+    override fun getSavedDevices(): List<WifiAdbDevice> = storage.getDevices()
 
     interface PairingListener {
         fun onPairingSuccess()
