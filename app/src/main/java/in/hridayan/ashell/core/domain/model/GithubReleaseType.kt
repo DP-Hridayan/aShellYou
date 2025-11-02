@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.common.constants
+package `in`.hridayan.ashell.core.domain.model
 
 object GithubReleaseType {
     const val STABLE = 1

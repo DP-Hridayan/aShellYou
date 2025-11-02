@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.settings.domain.model
 
-import `in`.hridayan.ashell.core.common.constants.SeedColor
+import `in`.hridayan.ashell.core.data.provider.SeedColor
 
 data class SettingsState(
     val isAutoUpdate: Boolean,

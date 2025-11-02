@@ -2,9 +2,9 @@ package `in`.hridayan.ashell.settings.data.local
 
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
-import `in`.hridayan.ashell.core.common.SeedColorProvider
-import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
-import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
+import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.SortType
 
 enum class SettingsKeys(val default: Any?) {

@@ -2,8 +2,8 @@ package `in`.hridayan.ashell.settings.presentation.provider
 
 import androidx.appcompat.app.AppCompatDelegate
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
-import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
+import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.settings.presentation.model.RadioButtonOptions
 

@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.common.constants
+package `in`.hridayan.ashell.core.data.provider
 
 data class SeedColor(
     val primary: Int,

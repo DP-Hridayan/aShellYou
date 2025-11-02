@@ -1,10 +1,10 @@
-package `in`.hridayan.ashell.core.common
+package `in`.hridayan.ashell.core.domain.provider
 
-import `in`.hridayan.ashell.core.common.constants.AppSeedColors
-import `in`.hridayan.ashell.core.common.constants.SeedColor
+import `in`.hridayan.ashell.core.data.provider.AppSeedColors
+import `in`.hridayan.ashell.core.data.provider.SeedColor
 
 object SeedColorProvider {
-    val seed = AppSeedColors.Color00.colors
+    val seed = AppSeedColors.Color05.colors
 
     var primary: Int = seed.primary
     var secondary: Int = seed.secondary

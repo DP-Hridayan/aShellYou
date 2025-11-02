@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.common.constants
+package `in`.hridayan.ashell.core.domain.model
 
 object LocalAdbWorkingMode {
     const val BASIC = 1

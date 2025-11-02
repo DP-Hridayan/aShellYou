@@ -5,7 +5,7 @@ package `in`.hridayan.ashell.core.presentation.utils
 import android.annotation.SuppressLint
 import androidx.compose.ui.graphics.Color
 import com.google.android.material.color.utilities.CorePalette
-import `in`.hridayan.ashell.core.common.SeedColorProvider
+import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 
 private val primaryPalette get() = CorePalette.of(SeedColorProvider.primary)
 private val secondaryPalette get() = CorePalette.of(SeedColorProvider.secondary)
