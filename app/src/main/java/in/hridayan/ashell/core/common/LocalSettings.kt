@@ -2,9 +2,9 @@ package `in`.hridayan.ashell.core.common
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.compositionLocalOf
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors
 import `in`.hridayan.ashell.core.common.constants.GithubReleaseType
 import `in`.hridayan.ashell.core.common.constants.LocalAdbWorkingMode
-import `in`.hridayan.ashell.core.common.constants.SeedColors
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.SettingsState
@@ -14,7 +14,7 @@ val LocalSettings = compositionLocalOf {
         isAutoUpdate = false,
         themeMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
         isHighContrastDarkMode = false,
-        seedColor = SeedColors.Blue.seed,
+        seedColor = AppSeedColors.DeepSea.colors,
         isDynamicColor = true,
         isHapticEnabled = true,
         githubReleaseType = GithubReleaseType.STABLE,

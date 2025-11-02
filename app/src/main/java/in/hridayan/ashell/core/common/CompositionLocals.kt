@@ -16,22 +16,43 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalView
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.constants.SeedColors
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.AmberDrift
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.AquaCalm
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.AzureBloom
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.BlushMauve
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.CoralSunset
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.CrimsonDepth
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.DeepSea
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.EarthClay
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.ForestWhisper
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.IndigoGlow
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.LavenderBliss
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.LeafHarmony
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.MossHaven
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.OceanBreeze
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.OliveGrove
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.RoseClay
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.RoyalOrchid
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.SkyPulse
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.TealHarmony
+import `in`.hridayan.ashell.core.common.constants.AppSeedColors.VioletMist
+import `in`.hridayan.ashell.core.common.constants.SeedColor
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.strongHaptic
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.weakHaptic
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.SettingsState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
-val LocalWeakHaptic = staticCompositionLocalOf<() -> Unit> { {} }
-val LocalStrongHaptic = staticCompositionLocalOf<() -> Unit> { {} }
+val LocalWeakHaptic = staticCompositionLocalOf { {} }
+val LocalStrongHaptic = staticCompositionLocalOf { {} }
 val LocalDarkMode = staticCompositionLocalOf<Boolean> {
     error("No dark mode provided")
 }
-val LocalSeedColor = staticCompositionLocalOf<Int> {
+val LocalSeedColor = staticCompositionLocalOf<SeedColor> {
     error("No seed color provided")
 }
-val LocalTonalPalette = staticCompositionLocalOf<List<SeedColors>> {
+val LocalTonalPalette = staticCompositionLocalOf<List<AppSeedColors>> {
     error("No tonal palette provided")
 }
 
@@ -54,7 +75,13 @@ fun CompositionLocals(
 
     val themeMode by settingsViewModel.intState(SettingsKeys.THEME_MODE)
 
-    val seedColor by settingsViewModel.intState(SettingsKeys.SEED_COLOR)
+    val primarySeed by settingsViewModel.intState(SettingsKeys.PRIMARY_SEED)
+
+    val secondarySeed by settingsViewModel.intState(SettingsKeys.SECONDARY_SEED)
+
+    val tertiarySeed by settingsViewModel.intState(SettingsKeys.TERTIARY_SEED)
+
+    val seedColor = SeedColor(primarySeed, secondarySeed, tertiarySeed)
 
     val isDynamicColor by settingsViewModel.booleanState(SettingsKeys.DYNAMIC_COLORS)
 
@@ -143,16 +170,27 @@ fun CompositionLocals(
         else -> isSystemInDarkTheme()
     }
 
-    val tonalPalette = listOf<SeedColors>(
-        SeedColors.Blue,
-        SeedColors.Indigo,
-        SeedColors.Purple,
-        SeedColors.Pink,
-        SeedColors.Red,
-        SeedColors.Orange,
-        SeedColors.Yellow,
-        SeedColors.Teal,
-        SeedColors.Green
+    val tonalPalette = listOf(
+        LavenderBliss,
+        ForestWhisper,
+        AquaCalm,
+        VioletMist,
+        CrimsonDepth,
+        DeepSea,
+        OceanBreeze,
+        IndigoGlow,
+        MossHaven,
+        EarthClay,
+        CoralSunset,
+        LeafHarmony,
+        AzureBloom,
+        AmberDrift,
+        RoyalOrchid,
+        SkyPulse,
+        TealHarmony,
+        RoseClay,
+        OliveGrove,
+        BlushMauve
     )
 
     val weakHaptic = remember(isHapticEnabled, view) {

@@ -7,11 +7,13 @@ import androidx.compose.ui.graphics.Color
 import com.google.android.material.color.utilities.CorePalette
 import `in`.hridayan.ashell.core.common.SeedColorProvider
 
-private val palette: CorePalette get() = CorePalette.of(SeedColorProvider.seedColor)
+private val primaryPalette get() = CorePalette.of(SeedColorProvider.primary)
+private val secondaryPalette get() = CorePalette.of(SeedColorProvider.secondary)
+private val tertiaryPalette get() = CorePalette.of(SeedColorProvider.tertiary)
 
-val Int.a1 get() = palette.a1.getHct(this.toDouble()).toInt().let { Color(it) }
-val Int.a2 get() = palette.a2.getHct(this.toDouble()).toInt().let { Color(it) }
-val Int.a3 get() = palette.a3.getHct(this.toDouble()).toInt().let { Color(it) }
-val Int.n1 get() = palette.n1.getHct(this.toDouble()).toInt().let { Color(it) }
-val Int.n2 get() = palette.n2.getHct(this.toDouble()).toInt().let { Color(it) }
-val Int.error get() = palette.error.getHct(this.toDouble()).toInt().let { Color(it) }
+val Int.a1 get() = primaryPalette.a1.getHct(this.toDouble()).toInt().let { Color(it) }
+val Int.a2 get() = secondaryPalette.a1.getHct(this.toDouble()).toInt().let { Color(it) }
+val Int.a3 get() = tertiaryPalette.a1.getHct(this.toDouble()).toInt().let { Color(it) }
+val Int.n1 get() = primaryPalette.n1.getHct(this.toDouble()).toInt().let { Color(it) }
+val Int.n2 get() = primaryPalette.n2.getHct(this.toDouble()).toInt().let { Color(it) }
+val Int.error get() = primaryPalette.error.getHct(this.toDouble()).toInt().let { Color(it) }

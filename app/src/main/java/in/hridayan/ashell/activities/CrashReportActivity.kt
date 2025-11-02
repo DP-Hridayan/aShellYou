@@ -24,7 +24,7 @@ class CrashReportActivity : ComponentActivity() {
 
         setContent {
             CompositionLocals {
-                SeedColorProvider.seedColor = LocalSeedColor.current
+                SeedColorProvider.setSeedColor(LocalSeedColor.current)
 
                 AshellYouTheme {
                     Surface(

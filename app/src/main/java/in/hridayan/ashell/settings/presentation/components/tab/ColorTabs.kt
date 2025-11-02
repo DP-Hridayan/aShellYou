@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalSeedColor
@@ -32,7 +31,6 @@ fun ColorTabs(
 ) {
     val tonalPalettes = LocalTonalPalette.current
     val groupedPalettes = tonalPalettes.chunked(4)
-
     val pagerState = rememberPagerState(initialPage = 0) { groupedPalettes.size }
 
     Column(modifier = modifier) {
@@ -46,19 +44,14 @@ fun ColorTabs(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 groupedPalettes[page].forEach { palette ->
-
-                    var isChecked = LocalSeedColor.current == palette.seed
+                    val isChecked = LocalSeedColor.current == palette.colors
                     val isDynamicColor = LocalSettings.current.isDynamicColor
 
                     PaletteWheel(
-                        seedColor = Color(palette.seed),
-                        primaryColor = palette.primary,
-                        secondaryColor = palette.secondary,
-                        tertiaryColor = palette.tertiary,
+                        seedColor = palette.colors,
                         onClick = {
-                            lookAndFeelViewModel.setSeedColor(seed = palette.seed)
+                            lookAndFeelViewModel.setSeedColor(seed = palette.colors)
                             lookAndFeelViewModel.disableDynamicColors()
-                            isChecked = !isChecked
                         },
                         isChecked = isChecked && !isDynamicColor,
                     )

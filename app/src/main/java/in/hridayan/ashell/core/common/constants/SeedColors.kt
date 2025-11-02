@@ -1,73 +1,195 @@
 package `in`.hridayan.ashell.core.common.constants
 
-import androidx.compose.ui.graphics.Color
+data class SeedColor(
+    val primary: Int,
+    val secondary: Int,
+    val tertiary: Int
+)
 
-sealed class SeedColors(
-    val seed: Int,
-    val primary: Color,
-    val secondary: Color,
-    val tertiary: Color
-) {
-    object Blue : SeedColors(
-        seed = 0xFF0061A4.toInt(),
-        primary = Color(0xFF2EC7FF),
-        secondary = Color(0xFF688D8F),
-        tertiary = Color(0xFF674875)
+sealed class AppSeedColors(val colors: SeedColor) {
+
+    data object LavenderBliss : AppSeedColors(
+        SeedColor(
+            primary = 0xFF6750A4.toInt(),
+            secondary = 0xFF625B71.toInt(),
+            tertiary = 0xFF7D5260.toInt()
+        )
     )
 
-    object Indigo : SeedColors(
-        seed = 0xFF535A92.toInt(),
-        primary = Color(0xFFA9C7FF),
-        secondary = Color(0xFF8891A5),
-        tertiary = Color(0xFF856079)
+    data object ForestWhisper : AppSeedColors(
+        SeedColor(
+            primary = 0xFF386A20.toInt(),
+            secondary = 0xFF55624C.toInt(),
+            tertiary = 0xFF6B5F40.toInt()
+        )
     )
 
-    object Purple : SeedColors(
-        seed = 0xFF794A99.toInt(),
-        primary = Color(0xFFD6BBFB),
-        secondary = Color(0xFF978CA3),
-        tertiary = Color(0xFFD49DA7)
+    data object AquaCalm : AppSeedColors(
+        SeedColor(
+            primary = 0xFF006D77.toInt(),
+            secondary = 0xFF83C5BE.toInt(),
+            tertiary = 0xFFEDF6F9.toInt()
+        )
     )
 
-    object Pink : SeedColors(
-        seed = 0xFF94416F.toInt(),
-        primary = Color(0xFFF7B1DE),
-        secondary = Color(0xFFA58999),
-        tertiary = Color(0xFFD69F86)
+    data object VioletMist : AppSeedColors(
+        SeedColor(
+            primary = 0xFF8E4EC6.toInt(),
+            secondary = 0xFFB689D2.toInt(),
+            tertiary = 0xFFE8D6FA.toInt()
+        )
     )
 
-    object Red : SeedColors(
-        seed = 0xFFFF3B30.toInt(),
-        primary = Color(0xFFFFB4A7),
-        secondary = Color(0xFFAE8882),
-        tertiary = Color(0xFFC1A973)
+    data object CrimsonDepth : AppSeedColors(
+        SeedColor(
+            primary = 0xFFB3261E.toInt(),
+            secondary = 0xFF775652.toInt(),
+            tertiary = 0xFF6F5D7E.toInt()
+        )
     )
 
-    object Orange : SeedColors(
-        seed = 0xFF855318.toInt(),
-        primary = Color(0xFFFDB975),
-        secondary = Color(0xFFA88B71),
-        tertiary = Color(0xFFA5B080)
+    data object DeepSea : AppSeedColors(
+        SeedColor(
+            primary = 0xFF0B7285.toInt(),
+            secondary = 0xFF82C0CC.toInt(),
+            tertiary = 0xFFD9ED92.toInt()
+        )
     )
 
-    object Yellow : SeedColors(
-        seed = 0xFF785A0B.toInt(),
-        primary = Color(0xFFEBC97D),
-        secondary = Color(0xFFA08F6E),
-        tertiary = Color(0xFF96B38F)
+    data object OceanBreeze : AppSeedColors(
+        SeedColor(
+            primary = 0xFF005F73.toInt(),
+            secondary = 0xFF94D2BD.toInt(),
+            tertiary = 0xFFE9D8A6.toInt()
+        )
     )
 
-    object Teal : SeedColors(
-        seed = 0xFF666014.toInt(),
-        primary = Color(0xFFD2C973),
-        secondary = Color(0xFF969270),
-        tertiary = Color(0xFF8BB49E)
+    data object IndigoGlow : AppSeedColors(
+        SeedColor(
+            primary = 0xFF3B5BDB.toInt(),
+            secondary = 0xFF748FFC.toInt(),
+            tertiary = 0xFF91A7FF.toInt()
+        )
     )
 
-    object Green : SeedColors(
-        seed = 0xFF1E6B4F.toInt(),
-        primary = Color(0xFF8CD5B4),
-        secondary = Color(0xFF7E9689),
-        tertiary = Color(0xFF8BB1C3)
+    data object MossHaven : AppSeedColors(
+        SeedColor(
+            primary = 0xFF5B8C5A.toInt(),
+            secondary = 0xFFA4C3A2.toInt(),
+            tertiary = 0xFFC2C5AA.toInt()
+        )
     )
+
+    data object EarthClay : AppSeedColors(
+        SeedColor(
+            primary = 0xFF6C584C.toInt(),
+            secondary = 0xFFA98467.toInt(),
+            tertiary = 0xFFADC178.toInt()
+        )
+    )
+
+    data object CoralSunset : AppSeedColors(
+        SeedColor(
+            primary = 0xFFFF6F61.toInt(),
+            secondary = 0xFFF4A261.toInt(),
+            tertiary = 0xFFE9C46A.toInt()
+        )
+    )
+
+    data object LeafHarmony : AppSeedColors(
+        SeedColor(
+            primary = 0xFF52796F.toInt(),
+            secondary = 0xFF84A98C.toInt(),
+            tertiary = 0xFFCAD2C5.toInt()
+        )
+    )
+
+    data object AzureBloom : AppSeedColors(
+        SeedColor(
+            primary = 0xFF1E6091.toInt(),
+            secondary = 0xFF76C893.toInt(),
+            tertiary = 0xFF99D98C.toInt()
+        )
+    )
+
+    data object AmberDrift : AppSeedColors(
+        SeedColor(
+            primary = 0xFFEE9B00.toInt(),
+            secondary = 0xFFCA6702.toInt(),
+            tertiary = 0xFFBB3E03.toInt()
+        )
+    )
+
+    data object RoyalOrchid : AppSeedColors(
+        SeedColor(
+            primary = 0xFF7B2CBF.toInt(),
+            secondary = 0xFF9D4EDD.toInt(),
+            tertiary = 0xFFC77DFF.toInt()
+        )
+    )
+
+    data object SkyPulse : AppSeedColors(
+        SeedColor(
+            primary = 0xFF006494.toInt(),
+            secondary = 0xFF247BA0.toInt(),
+            tertiary = 0xFF1B98E0.toInt()
+        )
+    )
+
+    data object TealHarmony : AppSeedColors(
+        SeedColor(
+            primary = 0xFF264653.toInt(),
+            secondary = 0xFF2A9D8F.toInt(),
+            tertiary = 0xFFE9C46A.toInt()
+        )
+    )
+
+    data object RoseClay : AppSeedColors(
+        SeedColor(
+            primary = 0xFFC44536.toInt(),
+            secondary = 0xFFDA5552.toInt(),
+            tertiary = 0xFFEDDDD4.toInt()
+        )
+    )
+
+    data object OliveGrove : AppSeedColors(
+        SeedColor(
+            primary = 0xFF283618.toInt(),
+            secondary = 0xFF606C38.toInt(),
+            tertiary = 0xFFFEFAE0.toInt()
+        )
+    )
+
+    data object BlushMauve : AppSeedColors(
+        SeedColor(
+            primary = 0xFF6D597A.toInt(),
+            secondary = 0xFFB56576.toInt(),
+            tertiary = 0xFFE56B6F.toInt()
+        )
+    )
+
+    companion object {
+        val all = listOf(
+            LavenderBliss,
+            ForestWhisper,
+            AquaCalm,
+            VioletMist,
+            CrimsonDepth,
+            DeepSea,
+            OceanBreeze,
+            IndigoGlow,
+            MossHaven,
+            EarthClay,
+            CoralSunset,
+            LeafHarmony,
+            AzureBloom,
+            AmberDrift,
+            RoyalOrchid,
+            SkyPulse,
+            TealHarmony,
+            RoseClay,
+            OliveGrove,
+            BlushMauve
+        )
+    }
 }
