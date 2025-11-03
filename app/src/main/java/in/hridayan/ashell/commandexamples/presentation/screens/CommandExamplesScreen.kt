@@ -157,9 +157,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_clear),
                                         contentDescription = "Clear text",
-                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                         modifier = Modifier
-                                            .padding(start = 10.dp)
                                             .clickable(
                                                 enabled = true,
                                                 indication = null,
@@ -173,11 +171,21 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                                     )
                                 } else {
                                     Icon(
+                                        painter = painterResource(R.drawable.ic_filter_alt),
+                                        contentDescription = null,
+                                        modifier = Modifier.clickable(
+                                            enabled = true,
+                                            indication = null,
+                                            interactionSource = remember { MutableInteractionSource() },
+                                            onClick = {
+                                                weakHaptic()
+                                            }
+                                        )
+                                    )
+                                    Icon(
                                         painter = painterResource(id = R.drawable.ic_sort),
                                         contentDescription = "Sort",
-                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                         modifier = Modifier
-                                            .padding(start = 10.dp)
                                             .clickable(
                                                 enabled = true,
                                                 indication = null,

@@ -64,7 +64,6 @@ fun CustomSearchBar(
         Icon(
             painter = painterResource(id = R.drawable.ic_search),
             contentDescription = "Search",
-            tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
     },
     trailingIcon: @Composable RowScope.() -> Unit = {},
@@ -100,8 +99,8 @@ fun CustomSearchBar(
                     value = value,
                     onValueChange = onValueChange,
                     textStyle = LocalTextStyle.current.copy(
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        color = colors.contentColor
                     ),
                     singleLine = true,
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
@@ -113,7 +112,6 @@ fun CustomSearchBar(
                 if (isHintVisible) {
                     Text(
                         text = hint,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 16.sp
                     )
                 }

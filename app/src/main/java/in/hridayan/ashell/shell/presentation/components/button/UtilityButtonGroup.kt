@@ -85,7 +85,6 @@ fun UtilityButtonGroup(
                         Icon(
                             painter = painterResource(id = R.drawable.ic_clear),
                             contentDescription = "Clear text",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier
                                 .clickable(
                                     enabled = true,
@@ -103,7 +102,6 @@ fun UtilityButtonGroup(
                     Icon(
                         painter = painterResource(id = R.drawable.ic_cross),
                         contentDescription = "Clear text",
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier
                             .clickable(
                                 enabled = true,
