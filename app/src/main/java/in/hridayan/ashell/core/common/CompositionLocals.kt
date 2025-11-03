@@ -97,6 +97,8 @@ fun CompositionLocals(
 
     val commandSortType by settingsViewModel.intState(SettingsKeys.COMMAND_SORT_TYPE)
 
+    val terminalFontStyle by settingsViewModel.intState(SettingsKeys.TERMINAL_FONT_STYLE)
+
     val state =
         remember(
             autoUpdate,
@@ -118,7 +120,8 @@ fun CompositionLocals(
             lastSavedFileUri,
             isFirstLaunch,
             bookmarkSortType,
-            commandSortType
+            commandSortType,
+            terminalFontStyle
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
@@ -140,7 +143,8 @@ fun CompositionLocals(
                 lastSavedFileUri = lastSavedFileUri,
                 isFirstLaunch = isFirstLaunch,
                 bookmarkSortType = bookmarkSortType,
-                commandsSortType = commandSortType
+                commandsSortType = commandSortType,
+                terminalFontStyle = terminalFontStyle
             )
         }
 
@@ -151,7 +155,6 @@ fun CompositionLocals(
     }
 
     val tonalPalette = listOf(
-        AppSeedColors.Color00,
         AppSeedColors.Color01,
         AppSeedColors.Color02,
         AppSeedColors.Color03,
@@ -170,9 +173,9 @@ fun CompositionLocals(
         AppSeedColors.Color16,
         AppSeedColors.Color17,
         AppSeedColors.Color18,
-        AppSeedColors.Color19
+        AppSeedColors.Color19,
+        AppSeedColors.Color20
     )
-
 
     val weakHaptic = remember(isHapticEnabled, view) {
         {

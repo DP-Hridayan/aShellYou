@@ -2,10 +2,11 @@ package `in`.hridayan.ashell.settings.data.local
 
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
-import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.SortType
+import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
+import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 
 enum class SettingsKeys(val default: Any?) {
     LOOK_AND_FEEL(null),
@@ -48,6 +49,7 @@ enum class SettingsKeys(val default: Any?) {
     LOCAL_ADB_WORKING_MODE(LocalAdbWorkingMode.BASIC),
     DISABLE_SOFT_KEYBOARD(false),
     OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT(false),
+    TERMINAL_FONT_STYLE(TerminalFontStyle.MONOSPACE),
     SAVE_WHOLE_OUTPUT(true),
     SMOOTH_SCROLLING(true),
     COMMANDS(null),

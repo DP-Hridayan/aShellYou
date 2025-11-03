@@ -10,7 +10,6 @@ import androidx.compose.material.icons.rounded.Contrast
 import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.FolderOpen
 import androidx.compose.material.icons.rounded.Language
-import androidx.compose.material.icons.rounded.Numbers
 import androidx.compose.material.icons.rounded.SentimentNeutral
 import androidx.compose.material.icons.rounded.SettingsBackupRestore
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
@@ -243,6 +242,15 @@ object SettingsProvider {
         ),
 
         categorizedItems(
+            categoryNameResId = R.string.terminal_font_style,
+            intPreferenceItem(
+                type = SettingsType.SingleSelectButtonGroups,
+                buttonGroupOptions = ButtonGroupOptionsProvider.terminalFontOptions,
+                key = SettingsKeys.TERMINAL_FONT_STYLE
+            )
+        ),
+
+        categorizedItems(
             categoryNameResId = R.string.file_actions,
             nullPreferenceItem(
                 key = SettingsKeys.OUTPUT_SAVE_DIRECTORY,
@@ -303,5 +311,4 @@ object SettingsProvider {
             )
         )
     )
-
 }

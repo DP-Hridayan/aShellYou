@@ -8,14 +8,6 @@ data class SeedColor(
 
 sealed class AppSeedColors(val colors: SeedColor) {
 
-    data object Color00 : AppSeedColors(
-        SeedColor(
-            primary = 0xFFB23268.toInt(),
-            secondary = 0xFFB38491.toInt(),
-            tertiary = 0xFFBF844F.toInt()
-        )
-    )
-
     data object Color01 : AppSeedColors(
         SeedColor(
             primary = 0xFFB5353F.toInt(),
@@ -165,6 +157,14 @@ sealed class AppSeedColors(val colors: SeedColor) {
             primary = 0xFFC677AD.toInt(),
             secondary = 0xFFA38998.toInt(),
             tertiary = 0xFFB78671.toInt()
+        )
+    )
+
+    data object Color20 : AppSeedColors(
+        SeedColor(
+            primary = 0xFFB23268.toInt(),
+            secondary = 0xFFB38491.toInt(),
+            tertiary = 0xFFBF844F.toInt()
         )
     )
 }

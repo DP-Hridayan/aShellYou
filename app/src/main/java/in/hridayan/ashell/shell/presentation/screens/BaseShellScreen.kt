@@ -98,6 +98,7 @@ import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.domain.model.ScrollDirection
+import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
@@ -594,6 +595,22 @@ private fun OutputCard(
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val isDarkMode = LocalDarkMode.current
+    val terminalFontStyle = LocalSettings.current.terminalFontStyle
+
+    val commandTextStyle =
+        if (terminalFontStyle == TerminalFontStyle.MONOSPACE) MaterialTheme.typography.titleSmallEmphasized.copy(
+            fontFamily = FontFamily.Monospace,
+            fontWeight = FontWeight.SemiBold
+        )
+        else MaterialTheme.typography.titleSmallEmphasized.copy(
+            fontWeight = FontWeight.SemiBold
+        )
+
+    val bodyTextStyle =
+        if (terminalFontStyle == TerminalFontStyle.MONOSPACE) MaterialTheme.typography.bodySmallEmphasized.copy(
+            fontFamily = FontFamily.Monospace
+        ) else MaterialTheme.typography.bodySmallEmphasized
+
     val states by shellViewModel.states.collectAsState()
     val results by shellViewModel.filteredOutput.collectAsState()
 
@@ -662,14 +679,7 @@ private fun OutputCard(
                             if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
                         }
 
-                    val textStyle =
-                        if (isCommandLine == true) MaterialTheme.typography.titleSmallEmphasized.copy(
-                            fontFamily = FontFamily.Monospace,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        else MaterialTheme.typography.bodySmallEmphasized.copy(
-                            fontFamily = FontFamily.Monospace
-                        )
+                    val textStyle = if (isCommandLine == true) commandTextStyle else bodyTextStyle
 
                     text?.let {
                         val annotatedText =

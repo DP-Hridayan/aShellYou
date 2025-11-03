@@ -20,6 +20,7 @@ import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -89,14 +90,14 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun onToggle(key: SettingsKeys) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             toggleSettingUseCase(key)
             loadSettings()
         }
     }
 
     fun setBoolean(key: SettingsKeys, value: Boolean) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setBoolean(key, value)
         }
     }
@@ -104,7 +105,7 @@ class SettingsViewModel @Inject constructor(
     fun getBoolean(key: SettingsKeys): Flow<Boolean> = settingsRepository.getBoolean(key)
 
     fun setInt(key: SettingsKeys, value: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setInt(key, value)
         }
     }
@@ -112,7 +113,7 @@ class SettingsViewModel @Inject constructor(
     fun getInt(key: SettingsKeys): Flow<Int> = settingsRepository.getInt(key)
 
     fun setFloat(key: SettingsKeys, value: Float) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setFloat(key, value)
         }
     }
@@ -120,7 +121,7 @@ class SettingsViewModel @Inject constructor(
     fun getFloat(key: SettingsKeys): Flow<Float> = settingsRepository.getFloat(key)
 
     fun setString(key: SettingsKeys, value: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setString(key, value)
         }
     }

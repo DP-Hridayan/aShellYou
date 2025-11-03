@@ -19,6 +19,9 @@
     <string name="back">Back</string>
     <string name="back_button">Back button</string>
     <string name="backup">Backup</string>
+    <string name="monospace">Monospace</string>
+    <string name="system_font">System font</string>
+    <string name="terminal_font_style">Terminal font style</string>
     <string name="backup_all_data">Backup all data</string>
     <string name="backup_and_restore">Backup &amp; restore</string>
     <string name="backup_app_database">Backup app database</string>

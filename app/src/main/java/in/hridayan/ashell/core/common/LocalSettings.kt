@@ -5,6 +5,7 @@ import androidx.compose.runtime.compositionLocalOf
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.SortType
+import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.SettingsState
@@ -26,6 +27,7 @@ val LocalSettings = compositionLocalOf {
         overrideBookmarksLimit = false,
         disableSoftKeyboard = false,
         outputSaveDirectory = SettingsKeys.OUTPUT_SAVE_DIRECTORY.default as String,
+        terminalFontStyle = TerminalFontStyle.MONOSPACE,
         saveWholeOutput = true,
         lastSavedFileUri = "",
         isFirstLaunch = true,

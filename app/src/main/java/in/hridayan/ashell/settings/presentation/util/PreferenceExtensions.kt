@@ -12,6 +12,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.presentation.model.ButtonGroupOptions
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.model.RadioButtonOptions
@@ -37,6 +38,7 @@ fun horizontalDivider() = PreferenceGroup.HorizontalDivider
 fun intPreferenceItem(
     key: SettingsKeys,
     radioOptions: List<RadioButtonOptions> = emptyList(),
+    buttonGroupOptions: List<ButtonGroupOptions> = emptyList(),
     isLayoutVisible: Boolean = true,
     titleString: String = "",
     titleResId: Int? = null,
@@ -49,6 +51,7 @@ fun intPreferenceItem(
     key = key,
     isLayoutVisible = isLayoutVisible,
     radioOptions = radioOptions,
+    buttonGroupOptions = buttonGroupOptions,
     titleString = titleString,
     titleResId = titleResId,
     descriptionString = descriptionString,

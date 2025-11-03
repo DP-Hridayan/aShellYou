@@ -4,8 +4,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.model.RadioButtonOptions
-import `in`.hridayan.ashell.settings.presentation.model.SettingsType
 
 sealed class PreferenceItem(
     open val key: SettingsKeys,
@@ -20,6 +18,7 @@ sealed class PreferenceItem(
 ) {
     data class IntPreferenceItem(
         val radioOptions: List<RadioButtonOptions>,
+        val buttonGroupOptions: List<ButtonGroupOptions>,
         override val key: SettingsKeys,
         override val isLayoutVisible: Boolean,
         override val titleString: String,
