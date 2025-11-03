@@ -102,23 +102,12 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of com.airbnb.android:lottie-compose than 6.6.10 is available: 6.7.0"
-        errorLine1="lottie = &quot;6.6.10&quot;"
-        errorLine2="         ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="23"
-            column="10"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
         message="A newer version of dev.rikka.shizuku:api than 13.1.0 is available: 13.1.5"
         errorLine1="shizuku = &quot;13.1.0&quot;"
         errorLine2="          ~~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="32"
+            line="33"
             column="11"/>
     </issue>
 
@@ -129,22 +118,77 @@
         errorLine2="          ~~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="32"
+            line="33"
             column="11"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;accomodate&quot; is a common misspelling; did you mean &quot;accommodate&quot;?"
+        errorLine1="    &lt;string name=&quot;changelog_v3_1_0&quot;>\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accomodate the new otg feature.&lt;/string>"
+        errorLine2="                                                                                                                       ~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="312"
+            column="120"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;sort_A_Z&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;sort_A_Z&quot;>А → Я&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="118"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;sort_newest&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;sort_newest&quot;>Сначала новые&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="119"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;sort_oldest&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;sort_oldest&quot;>Сначала старые&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="120"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;sort_Z_A&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;sort_Z_A&quot;>Я → А&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="121"
+            column="13"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/8287f7e53e6c9412b3595bdb5232518e/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/07f6f1bb6bb06ea0cd6bb07c76470da1/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/8287f7e53e6c9412b3595bdb5232518e/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/07f6f1bb6bb06ea0cd6bb07c76470da1/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
@@ -474,17 +518,6 @@
         <location
             file="src/main/res/anim/fragment_pop_exit.xml"
             line="2"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_404_error` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_404_error.xml"
-            line="1"
             column="1"/>
     </issue>
 
@@ -886,17 +919,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_save_24px` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_save_24px.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_scroll` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -957,17 +979,6 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_shizuku.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_sort` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_sort.xml"
             line="1"
             column="1"/>
     </issue>
@@ -1228,12 +1239,606 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.string.des_examples` appears to be unused"
+        errorLine1="    &lt;string name=&quot;des_examples&quot;>Collection of some command templates&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="83"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.sort_A_Z` appears to be unused"
+        errorLine1="    &lt;string name=&quot;sort_A_Z&quot;>А → Я&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="118"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.sort_newest` appears to be unused"
+        errorLine1="    &lt;string name=&quot;sort_newest&quot;>Сначала новые&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="119"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.sort_oldest` appears to be unused"
+        errorLine1="    &lt;string name=&quot;sort_oldest&quot;>Сначала старые&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="120"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.sort_Z_A` appears to be unused"
+        errorLine1="    &lt;string name=&quot;sort_Z_A&quot;>Я → А&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru/strings.xml"
+            line="121"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.failed_to_open_usb_connection` appears to be unused"
+        errorLine1="    &lt;string name=&quot;failed_to_open_usb_connection&quot;>Failed to open USB connection. Is USB debugging enabled?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="127"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.string.search_output` appears to be unused"
         errorLine1="    &lt;string name=&quot;search_output&quot;>Search output here&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="213"
+            line="223"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.no_adb_interface_found` appears to be unused"
+        errorLine1="    &lt;string name=&quot;no_adb_interface_found&quot;>No adb interface found&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="255"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.failed_to_claim_interface` appears to be unused"
+        errorLine1="    &lt;string name=&quot;failed_to_claim_interface&quot;>Failed to claim interface&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="256"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.found_connect_service` appears to be unused"
+        errorLine1="    &lt;string name=&quot;found_connect_service&quot;>Found connect service&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="270"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.searching_connect_service` appears to be unused"
+        errorLine1="    &lt;string name=&quot;searching_connect_service&quot;>Searching connect service&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="271"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v7_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v7_0_0&quot;>\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp;amp; UX in shell output\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="279"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v6_1_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v6_1_0&quot;>\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in app crash reporter.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="280"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v6_0_3` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v6_0_3&quot;>\nFixed the issue which caused per app translations to be broken for aShell You&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="281"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v6_0_2` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v6_0_2&quot;>\nAdapted Github Actions for release builds.\nWhat this means for you?\nAll subsequent builds including this will be more secure!&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="282"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v6_0_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v6_0_1&quot;>\nMaintenance update&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="283"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v6_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v6_0_0&quot;>\nAdded WIRELESS DEBUGGING mode for running ADB commands on both own or other device\nRedesigned homepage for minimal navigation and less cluttery input field screen\nAdded Warning feedback when executing commands involving critical system packages\nAdded in-app updater. Now you can directly download the latest package without visiting Github repository\nFixed a lot of bugs&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="284"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v5_2_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v5_2_1&quot;>\nMaintenance update&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="285"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v5_2_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v5_2_0&quot;>\nUI improvements\nFixed some bugs&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="286"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v5_1_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v5_1_0&quot;>\nSmall UI improvements&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="287"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v5_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v5_0_0&quot;>\nHuge UI and UX improvements across all sections of the app\nAdded ROOT and BASIC shell in addition to Shizuku shell for running commands\nAdded option to save output in custom directory\nFixed a lot of bugs and issues\nOptimised app\&apos;s code for better performance and stability&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="288"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_4_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_4_0&quot;>\nAdded vibration for haptic feedback\nAdded option to change app language from within the app (for devices running Android 13 and above only and excluding unsupported devices)\nFixed some crashes and improved crash reporting\nMinor UI improvements&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="289"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_3_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_3_1&quot;>\nNow app catches any crashes and provides the option to report them via email&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="290"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_3_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_3_0&quot;>\nAdded option to open saved output directly\nAdded option to save whole output or the last command output only\nFixed crashes&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="291"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_2_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_2_1&quot;>\nFixed an issue with Sharing text to aShell You where the text did not appear when app was starting fresh\nFixed minor UI issues&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="292"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_2_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_2_0&quot;>\nStable release of OTG mode\nAdded features like save, share, quick scroll buttons to the OTG mode\nAdded info cards for quick information\nAdded in app update checker along with the option to auto check for updates\nMinor UI improvements&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="293"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_1_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_1_0&quot;>\nFixed some issues in OTG adb support\nUpdated translations&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="294"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_0_3` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_0_3&quot;>\nUpdated dependencies\nAdded more command examples&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="295"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_0_2` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_0_2&quot;>\nFixed AMOLED theme not working on devices running Android 11 or below&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="296"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_0_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_0_1&quot;>\nNow you can Pin commands for quick access\n\nBug fixes and lot of code optimisations&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="297"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v4_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v4_0_0&quot;>\nNow you can directly use commands from the Commands section instead of the need to copy them every time\n\nAdded option to delete all bookmarks\nIn search : You can now search in commands summary by clicking a prompt chip\nAdded sorting options in Commands templates\nAdded option to directly bookmark selected items in Commands section\nChip Indicator shows connected device(currently only in local ADB mode)\nFixed bugs causing crashes in devices running Android 11 or below\nAdded Turkish translation\nMinor UI improvements\nLot of other bug fixes&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="298"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_9_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_9_1&quot;>\nAdded total bookmarks count\nFixed some bugs&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="299"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_9_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_9_0&quot;>\nAdded Search in commands section\nAdded option to set default working mode\nImproved animations\nReworked bookmarks section and added sorting options\nIncreased bookmarks limit to 25\nRemoved ADB shell launcher shortcut and added Commands launcher shortcut\nFixed padding issues in button navigation\nFixed some buttons shape&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="300"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_8_2` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_8_2&quot;>\nApp uses a more refreshed color palette for material you theming\nFixed minor bugs&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="301"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_8_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_8_1&quot;>\nFixed some crashes that were introduced in v3.8.0&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="302"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_8_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_8_0&quot;>\nAdded black (amoled) theme\nAdded undo button to undo paste\nAdded option to disable soft keyboard\nFixed buttons stretched in some screen sizes\nFixed bookmarks button not appearing after opening the app\nRenamed Examples section to Commands\nFixed copy command option not appearing for every command template\nApp now uses system font everywhere\nImproved UI handling\nUpdated translations&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="303"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_7_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_7_0&quot;>\nNow you can share texts from anywhere on your device to aShell You and run commands directly.\nNow you can share shell output directly without needing to save it !\nA lot of optimisations and UI handling.\nAdded Chinese translations.\nUpdated translations."
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="304"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_6_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_6_0&quot;>\nAdded option to clear the command input field after an error\nFixed a bug which caused the app to crash upon pasting from clipboard under certain conditions\nCode optimisations&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="306"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_5_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_5_1&quot;>\nFixed some issues with bottom navigation.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="307"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_5_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_5_0&quot;>\nRevamped About section of the app.\nAdded launcher shortcuts.\nFixed navigation menu not showing in button navigation.\nImproved bottom navigation menu visibility on scrolling.\nAdded per app language support for aShell You (translations aren\&apos;t completed yet).\nA lot of code optimisations.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="308"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_4_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_4_0&quot;>\nAdded a Paste button so that you can copy and paste commands quickly.\nAdded Error indicators in the text input field.\nImproved Navigation Bar visibility logic.\nFixed an issue where switches misbehaves under certain situations.\nFixed add bookmark icon visibility in various contrast levels.\nA lot of code optimisation. App now opens a lot faster than before.\nApp will stay in background and won\&apos;t restart every time you close the app by just pressing the back button or gesture.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="309"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_3_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_3_0&quot;>\nAdded bookmarks , history and command suggestions to OTG\nAdded maximum bookmarks limit.\nAdded option to override maximum bookmarks limit.\nA lot of bug fixes.\nImproved some UI handling.\nA lot of code optimisation.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="310"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_2_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_2_0&quot;>\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimisation.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="311"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_1_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_1_0&quot;>\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accomodate the new otg feature.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="312"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v3_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v3_0_0&quot;>\nAdded ADB THROUGH OTG support.\n\n*** You will be able to run ADB commands on other devices using aShellYou by connecting the other device using an OTG cable ***&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="313"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v2_0_2` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v2_0_2&quot;>\nRemoved unnecessary code and resources.\nMinor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="314"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v2_0_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v2_0_1&quot;>\nRemoved unnecessary code and resources.\nMinor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="315"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v2_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v2_0_0&quot;>\nChanged app name to aShell You.\nAdded predictive back animations for supporting devices.\nAdded confirmation dialog popup before clearing screen.\nFixed StatusBar elements not properly visible in Light mode.\nApp is much more smooth now.\n~ Reduced app size and optimised code.\nAdded themed icon for launchers that support themed icons.\nMinor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="316"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_3_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_3_0&quot;>\nRevamped Settings panel.\nAdded Double Tap to instant scroll to top and bottom positions in shell output view.\nMinor UI fixes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="317"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_2_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_2_0&quot;>\nAdded Settings panel.\nAdded option to disable smooth scroll in shell output.\nFixed major bugs:\n\n ~  Crash while changing device theme.\n\n ~  Crash while trying to save large shell output . eg : output of \&apos;pm\&apos; command.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="318"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_1_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_1_1&quot;>\nReplaced some deprecated api.\nMinor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="319"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_1_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_1_0&quot;>\nAdded Scroll To Top and Scroll To Bottom buttons.\nAdded Click keyboard Enter key to Send command.\nAdded some commands.\nUpdated dependencies to include latest material you library.\nMinor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="320"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_0_0&quot;>\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="321"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v0_9_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v0_9_1&quot;>\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="322"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v0_9_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v0_9_0&quot;>\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="323"
             column="13"/>
     </issue>
 

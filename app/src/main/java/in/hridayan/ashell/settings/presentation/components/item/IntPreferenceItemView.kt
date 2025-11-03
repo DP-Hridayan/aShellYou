@@ -104,7 +104,10 @@ fun IntPreferenceItemView(
             options.forEachIndexed { index, option ->
                 ToggleButton(
                     checked = option.value == selected.value,
-                    onCheckedChange = { onSelectedChange(option.value) },
+                    onCheckedChange = {
+                        onSelectedChange(option.value)
+                        weakHaptic()
+                    },
                     modifier = Modifier.weight(1f),
                     shapes = when (index) {
                         0 -> ButtonGroupDefaults.connectedLeadingButtonShapes()
