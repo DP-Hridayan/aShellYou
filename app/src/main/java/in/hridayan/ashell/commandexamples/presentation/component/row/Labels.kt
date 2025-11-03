@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import `in`.hridayan.ashell.commandexamples.presentation.component.chip.LabelChip
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import kotlin.math.max
 
 /**
  * This composable shows a flow row of label chips
@@ -22,18 +23,24 @@ fun Labels(
     modifier: Modifier = Modifier,
     labels: List<String>,
     showCrossIcon: Boolean = false,
+    crossIconOnClick: (label: String) -> Unit = {},
+    maxItemsInEachRow: Int = Int.MAX_VALUE,
+    maxLines: Int = Int.MAX_VALUE
 ) {
     FlowRow(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight(),
         horizontalArrangement = Arrangement.spacedBy(Dimens.paddingMedium),
-        verticalArrangement = Arrangement.spacedBy(Dimens.paddingSmall)
+        verticalArrangement = Arrangement.spacedBy(Dimens.paddingSmall),
+        maxLines = maxLines,
+        maxItemsInEachRow = maxItemsInEachRow
     ) {
         labels.forEach {
             LabelChip(
                 label = it,
-                showCrossIcon = showCrossIcon
+                showCrossIcon = showCrossIcon,
+                crossIconOnClick = crossIconOnClick
             )
         }
     }

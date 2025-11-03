@@ -7,6 +7,7 @@ import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.domain.model.SortType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CommandRepositoryImpl @Inject constructor(
@@ -55,6 +56,15 @@ class CommandRepositoryImpl @Inject constructor(
     override suspend fun getAllCommandsOnce(): List<CommandEntity> {
         return commandDao.getAllCommandsOnce()
     }
+
+    override fun getAllLabels(): Flow<List<String>> =
+        commandDao.getCommandsAlphabetically().map { commands ->
+            commands
+                .flatMap { it.labels }
+                .distinct()
+                .sortedBy { it.lowercase() }
+        }
+
 
     override fun getCommandCount(): Int {
         return commandDao.getCommandCount()

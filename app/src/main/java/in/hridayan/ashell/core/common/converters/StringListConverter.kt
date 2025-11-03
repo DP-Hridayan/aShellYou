@@ -6,12 +6,12 @@ import androidx.room.TypeConverter
 @ProvidedTypeConverter
 class StringListConverter {
     @TypeConverter
-    fun fromString(value: String): List<String> {
+    fun fromStringToList(value: String): List<String> {
         return if (value.isEmpty()) emptyList() else value.split(",")
     }
 
     @TypeConverter
-    fun toString(list: List<String>): String {
+    fun toStringFromList(list: List<String>): String {
         return list.joinToString(",")
     }
 }

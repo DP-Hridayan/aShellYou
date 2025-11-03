@@ -12,8 +12,9 @@ interface CommandRepository {
     suspend fun deleteAllCommands()
     fun getCommandCount(): Int
     suspend fun getAllCommandsOnce(): List<CommandEntity>
+    fun getAllLabels(): Flow<List<String>>
     suspend fun getCommandById(id: Int): CommandEntity?
-    fun getSortedCommands(sortType: Int) :  Flow<List<CommandEntity>>
+    fun getSortedCommands(sortType: Int): Flow<List<CommandEntity>>
     fun getFavoriteCommands(): Flow<List<CommandEntity>>
     fun searchCommands(query: String): Flow<List<CommandEntity>>
     suspend fun incrementUseCount(commandId: Int)

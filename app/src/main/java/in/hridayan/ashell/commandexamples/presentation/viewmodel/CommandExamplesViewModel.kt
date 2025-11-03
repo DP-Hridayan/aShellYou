@@ -42,6 +42,9 @@ class CommandExamplesViewModel @Inject constructor(
     private val _loadProgress = MutableStateFlow(0f)
     val loadProgress: StateFlow<Float> = _loadProgress
 
+    private val _filteredLabels = MutableStateFlow<List<String>>(emptyList())
+    val filteredLabels: StateFlow<List<String>> = _filteredLabels
+
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
@@ -66,31 +69,68 @@ class CommandExamplesViewModel @Inject constructor(
                 emptyList()
             )
 
-    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    val filteredCommands: StateFlow<List<CommandEntity>> =
+    val allLabels: StateFlow<List<String>> =
+        commandRepository.getAllLabels()
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                emptyList()
+            )
+
+    val searchedLabels: StateFlow<List<String>> =
         _states
-            .map { it.search.textFieldValue.text }
-            .combine(allCommands) { query, commands ->
+            .map { it.labelField.fieldValue.text }
+            .combine(allLabels) { query, labels ->
                 if (query.isBlank()) {
-                    commands
+                    labels
                 } else {
                     withContext(Dispatchers.Default) {
-                        commands.filter {
-                            it.command.contains(query, ignoreCase = true) ||
-                                    it.description.contains(query, ignoreCase = true) ||
-                                    it.labels.any { label ->
-                                        label.contains(query, ignoreCase = true)
-                                    }
-                        }
+                        labels.filter { it.contains(query, ignoreCase = true) }
                     }
                 }
+            }.distinctUntilChanged()
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                emptyList()
+            )
+
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
+    val searchedCommands: StateFlow<List<CommandEntity>> =
+        combine(
+            _states.map { it.search.textFieldValue.text },
+            allCommands,
+            _filteredLabels
+        ) { query, commands, selectedLabels ->
+            withContext(Dispatchers.Default) {
+                var filtered = commands
+
+                if (query.isNotBlank()) {
+                    filtered = filtered.filter {
+                        it.command.contains(query, ignoreCase = true) ||
+                                it.description.contains(query, ignoreCase = true) ||
+                                it.labels.any { label ->
+                                    label.contains(query, ignoreCase = true)
+                                }
+                    }
+                }
+
+                if (selectedLabels.isNotEmpty()) {
+                    filtered = filtered.filter { cmd ->
+                        selectedLabels.all { it in cmd.labels }
+                    }
+                }
+
+                filtered
             }
+        }
             .distinctUntilChanged()
             .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(5000),
                 emptyList()
             )
+
 
     fun onSearchQueryChange(newValue: TextFieldValue) = with(_states.value) {
         _states.value = this.copy(
@@ -173,6 +213,17 @@ class CommandExamplesViewModel @Inject constructor(
             )
         )
     }
+
+    fun toggleFilteredLabels(label: String) {
+        val current = _filteredLabels.value.toMutableList()
+        if (current.contains(label)) {
+            current.remove(label)
+        } else {
+            current.add(label)
+        }
+        _filteredLabels.value = current.distinct().sortedBy { it.lowercase() }
+    }
+
 
     fun getCommandCount(): Int {
         var count = 0

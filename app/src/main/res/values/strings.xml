@@ -12,6 +12,8 @@
     <string name="additional_settings">Additional settings</string>
     <string name="already_latest_version">You are using the latest version</string>
     <string name="app">App</string>
+    <string name="filter">Filter</string>
+    <string name="filter_by_labels">Filter by labels</string>
     <string name="app_crashed">App has crashed</string>
     <string name="app_name" translatable="false">aShell You</string>
     <string name="app_tagline">ADB at your fingertips</string>

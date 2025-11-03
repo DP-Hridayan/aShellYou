@@ -65,7 +65,8 @@ fun AddCommandDialog(
                     .fillMaxWidth()
                     .padding(top = 20.dp, bottom = 10.dp),
                 labels = states.labelField.labels,
-                showCrossIcon = true
+                showCrossIcon = true,
+                crossIconOnClick = { label -> viewModel.onLabelRemove(label) }
             )
         }
 

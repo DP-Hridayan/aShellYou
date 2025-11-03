@@ -68,6 +68,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.source.preloadedCommands
+import `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet.CommandsFilterBottomSheet
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandsSortDialog
@@ -95,10 +96,11 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var showAddCommandDialog by rememberSaveable { mutableStateOf(false) }
     var showSortExamplesDialog by rememberSaveable { mutableStateOf(false) }
+    var showFilterExamplesBottomSheet by rememberSaveable { mutableStateOf(false) }
     val focusRequester = FocusRequester()
     val sortType = LocalSettings.current.commandsSortType
-    val commands by viewModel.filteredCommands.collectAsState()
-
+    val commands by viewModel.searchedCommands.collectAsState()
+    val filteredLabels by viewModel.filteredLabels.collectAsState()
     val states by viewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible()
 
@@ -179,6 +181,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                                             interactionSource = remember { MutableInteractionSource() },
                                             onClick = {
                                                 weakHaptic()
+                                                showFilterExamplesBottomSheet = true
                                             }
                                         )
                                     )
@@ -223,7 +226,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                     }
                 }
 
-                if (states.search.textFieldValue.text.isNotEmpty() && commands.isEmpty()) {
+                if ((states.search.textFieldValue.text.isNotEmpty() || filteredLabels.isNotEmpty()) && commands.isEmpty()) {
                     NoSearchResultUi(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -316,6 +319,9 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
 
     if (showAddCommandDialog) AddCommandDialog(onDismiss = { showAddCommandDialog = false })
     if (showSortExamplesDialog) CommandsSortDialog(onDismiss = { showSortExamplesDialog = false })
+    if (showFilterExamplesBottomSheet) CommandsFilterBottomSheet(onDismiss = {
+        showFilterExamplesBottomSheet = false
+    })
 }
 
 @Composable
