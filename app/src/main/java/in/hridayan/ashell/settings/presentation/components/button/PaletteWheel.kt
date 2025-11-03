@@ -18,9 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -50,7 +48,6 @@ fun PaletteWheel(
         animationSpec = tween(durationMillis = 300),
         label = "Check Scale Animation"
     )
-    val wheelShape = if (isChecked) MaterialShapes.Cookie9Sided.toShape() else CircleShape
 
     val primaryColor = modifyColorForDisplay(Color(seedColor.primary), toneFactor = 1f)
     val secondaryColor = modifyColorForDisplay(Color(seedColor.secondary), toneFactor = 1.4f)
@@ -75,7 +72,7 @@ fun PaletteWheel(
             modifier = modifier
                 .padding(10.dp)
                 .size(size)
-                .clip(wheelShape)
+                .clip(CircleShape)
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
