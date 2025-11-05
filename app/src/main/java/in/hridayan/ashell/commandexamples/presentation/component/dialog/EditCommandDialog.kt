@@ -13,6 +13,7 @@ import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -155,7 +156,11 @@ private fun LabelInputField(
                 onClick = {
                     weakHaptic()
                     viewModel.onLabelAdd(state.labelField.fieldValue.text)
-                }
+                },
+                colors = IconButtonDefaults.iconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                )
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Add,
