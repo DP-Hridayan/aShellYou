@@ -94,6 +94,14 @@ fun BookmarksSortDialog(
 
                     val selected = option.value == tempSelected
 
+                    val cardColors = if (selected) CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ) else CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    )
+
                     val animatedCorner by animateDpAsState(
                         targetValue = if (selected) 32.dp else 4.dp,
                         animationSpec = tween(
@@ -113,10 +121,7 @@ fun BookmarksSortDialog(
                         modifier = Modifier.fillMaxWidth(),
                         roundedCornerShape = finalShape,
                         paddingValues = PaddingValues(vertical = 1.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                        )
+                        colors = cardColors
                     )
                     {
                         Row(
@@ -144,8 +149,8 @@ fun BookmarksSortDialog(
                                     weakHaptic()
                                 },
                                 colors = RadioButtonDefaults.colors(
-                                    selectedColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                                    unselectedColor = MaterialTheme.colorScheme.onTertiaryContainer
+                                    selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    unselectedColor = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                         }

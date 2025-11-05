@@ -95,8 +95,8 @@ fun BookmarkDialog(
                             },
                             paddingValues = PaddingValues(vertical = 1.dp),
                             colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                                contentColor = MaterialTheme.colorScheme.onSurface
                             )
                         ) {
                             Text(
