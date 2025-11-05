@@ -46,7 +46,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -549,11 +553,7 @@ private fun DeleteLottie(
         composition = composition,
         progress = { progress },
         dynamicProperties = dynamicProperties,
-        modifier = modifier
-            .size(48.dp)
-            .padding(end = 20.dp),
-
-        )
+        modifier = modifier.size(36.dp))
 }
 
 @Composable
@@ -564,21 +564,21 @@ private fun EditLottie(
 ) {
     val color = MaterialTheme.colorScheme.onPrimary
 
-    val colorProperty = rememberLottieDynamicProperty(
-        property = LottieProperty.COLOR,
-        keyPath = arrayOf("**"),
-        value = color.toArgb()
-    )
-
-    val dynamicProperties = rememberLottieDynamicProperties(colorProperty)
-
-    LottieAnimation(
-        composition = composition,
-        progress = { progress },
-        dynamicProperties = dynamicProperties,
+    Box(
         modifier = modifier
-            .size(48.dp)
-            .padding(end = 20.dp),
-
+            .graphicsLayer {
+                alpha = 1f
+                compositingStrategy = CompositingStrategy.Offscreen
+            }
+            .drawWithContent {
+                drawContent()
+                drawRect(color = color, blendMode = BlendMode.SrcAtop)
+            }
+    ) {
+        LottieAnimation(
+            composition = composition,
+            progress = { progress },
+            modifier = Modifier.size(36.dp)
         )
+    }
 }
