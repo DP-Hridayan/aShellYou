@@ -98,6 +98,7 @@ fun CommandsFilterBottomSheet(
             CustomSearchBar(
                 modifier = Modifier.fillMaxWidth(),
                 value = states.labelField.fieldValue,
+                hint = stringResource(R.string.search_labels_here),
                 onValueChange = { commandExamplesViewModel.onLabelFieldTextChange(it) },
                 trailingIcon = {
                     if (states.labelField.fieldValue.text.isNotEmpty()) {

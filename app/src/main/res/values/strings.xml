@@ -12,8 +12,6 @@
     <string name="additional_settings">Additional settings</string>
     <string name="already_latest_version">You are using the latest version</string>
     <string name="app">App</string>
-    <string name="filter">Filter</string>
-    <string name="filter_by_labels">Filter by labels</string>
     <string name="app_crashed">App has crashed</string>
     <string name="app_name" translatable="false">aShell You</string>
     <string name="app_tagline">ADB at your fingertips</string>
@@ -21,9 +19,6 @@
     <string name="back">Back</string>
     <string name="back_button">Back button</string>
     <string name="backup">Backup</string>
-    <string name="monospace">Monospace</string>
-    <string name="system_font">System font</string>
-    <string name="terminal_font_style">Terminal font style</string>
     <string name="backup_all_data">Backup all data</string>
     <string name="backup_and_restore">Backup &amp; restore</string>
     <string name="backup_app_database">Backup app database</string>
@@ -126,13 +121,17 @@
     <string name="error">Error</string>
     <string name="error_labels_limit_reached">Maximum labels limit reached</string>
     <string name="failed">Failed</string>
+    <string name="failed_to_claim_interface">Failed to claim interface</string>
     <string name="failed_to_open_usb_connection">Failed to open USB connection. Is USB debugging enabled?</string>
     <string name="fastboot">Fastboot</string>
     <string name="feature_request">Feature request</string>
     <string name="field_cannot_be_blank">Field cannot be blank</string>
     <string name="file_actions">File actions</string>
     <string name="file_not_found">File not found</string>
+    <string name="filter">Filter</string>
+    <string name="filter_by_labels">Filter by labels</string>
     <string name="folder_picker">Folder picker</string>
+    <string name="found_connect_service">Found connect service</string>
     <string name="github" translatable="false">Github</string>
     <string name="grant">Grant</string>
     <string name="grant_permission">Grant permission</string>
@@ -159,10 +158,12 @@
     <string name="mode">Mode</string>
     <string name="mode_one_desc">Use root access to run commands. Rooted commands can be executed.</string>
     <string name="mode_two_desc">Use shizuku to run commands. Commands that require root won\'t execute.</string>
+    <string name="monospace">Monospace</string>
     <string name="most_used">Most used</string>
     <string name="network_error">Network error</string>
     <string name="newest">Newest</string>
     <string name="no_adb_device_error">No ADB-compatible devices found. Enable USB debugging on the target.</string>
+    <string name="no_adb_interface_found">No adb interface found</string>
     <string name="no_bookmarks">No bookmarks found</string>
     <string name="no_changelog_found">No changelog found for this version</string>
     <string name="no_crashes">No crashes have been reported. aShell You is running smoothly.</string>
@@ -222,7 +223,9 @@
     <string name="save_whole_output">Save whole output</string>
     <string name="search">Search</string>
     <string name="search_commands_here">Search commands here</string>
+    <string name="search_labels_here">Search labels here</string>
     <string name="search_output">Search output here</string>
+    <string name="searching_connect_service">Searching connect service</string>
     <string name="searching_for_devices">Searching for devices…</string>
     <string name="self">Self</string>
     <string name="settings">Settings</string>
@@ -242,9 +245,11 @@
     <string name="support_bmc">Like what I do?\nConsider buying me a coffee</string>
     <string name="switch_mode">Switch mode</string>
     <string name="system">System</string>
+    <string name="system_font">System font</string>
     <string name="system_settings">System settings</string>
     <string name="telegram_channel">Telegram channel</string>
     <string name="terminal">Terminal</string>
+    <string name="terminal_font_style">Terminal font style</string>
     <string name="turn_off_mobile_data">Turn off Mobile Data if the Wifi connection has NO INTERNET</string>
     <string name="tweak_your_experience">Tweak your experience</string>
     <string name="undo">Undo</string>
@@ -254,8 +259,6 @@
     <string name="update_available">Update available !</string>
     <string name="update_channel">Update channel</string>
     <string name="use">Use</string>
-    <string name="no_adb_interface_found">No adb interface found</string>
-    <string name="failed_to_claim_interface">Failed to claim interface</string>
     <string name="version">Version</string>
     <string name="version_code">Version code</string>
     <string name="version_name">Version name</string>
@@ -269,8 +272,6 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A">Z → A</string>
-    <string name="found_connect_service">Found connect service</string>
-    <string name="searching_connect_service">Searching connect service</string>
     /**
     * Changelogs
     * Created by DP-Hridayan
