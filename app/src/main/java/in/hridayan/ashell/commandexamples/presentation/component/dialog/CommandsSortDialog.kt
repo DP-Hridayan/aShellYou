@@ -43,10 +43,10 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
@@ -94,6 +94,14 @@ fun CommandsSortDialog(
 
                     val selected = option.value == tempSelected
 
+                    val cardColors = if (selected) CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    ) else CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    )
+
                     val animatedCorner by animateDpAsState(
                         targetValue = if (selected) 32.dp else 4.dp,
                         animationSpec = tween(
@@ -113,10 +121,7 @@ fun CommandsSortDialog(
                         modifier = Modifier.fillMaxWidth(),
                         roundedCornerShape = finalShape,
                         paddingValues = PaddingValues(vertical = 1.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                        )
+                        colors = cardColors
                     )
                     {
                         Row(
@@ -144,8 +149,8 @@ fun CommandsSortDialog(
                                     weakHaptic()
                                 },
                                 colors = RadioButtonDefaults.colors(
-                                    selectedColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                                    unselectedColor = MaterialTheme.colorScheme.onTertiaryContainer
+                                    selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    unselectedColor = MaterialTheme.colorScheme.onSurface
                                 )
                             )
                         }
