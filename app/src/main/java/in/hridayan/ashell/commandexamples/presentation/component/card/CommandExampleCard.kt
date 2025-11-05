@@ -3,8 +3,10 @@
 package `in`.hridayan.ashell.commandexamples.presentation.component.card
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
@@ -63,7 +65,6 @@ import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExampl
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.button.FavouriteIconButton
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
-import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
@@ -94,14 +95,25 @@ fun CommandExampleCard(
     val interactionSources = remember { List(3) { MutableInteractionSource() } }
     var isDeleted by rememberSaveable { mutableStateOf(false) }
     var isEditDialogOpen by rememberSaveable { mutableStateOf(false) }
+    val animatedHeight = remember { Animatable(1f) }
+    var topPadding by remember(id) { mutableStateOf(15.dp) }
+    val swipeOffset = remember { Animatable(0f) }
+    val scope = rememberCoroutineScope()
+    val cardWidth = remember { mutableFloatStateOf(0f) }
+    val cardHeight = remember { mutableFloatStateOf(0f) }
 
     val onDelete: () -> Unit = {
         isDeleted = true
-
         SnackBarUtils.showSnackBarWithAction(
             message = context.getString(R.string.item_deleted),
             actionText = context.getString(R.string.undo),
-            onActionClicked = { isDeleted = false },
+            onActionClicked = {
+                coroutineScope.launch {
+                    swipeOffset.snapTo(0f)
+                    topPadding = 15.dp
+                }
+                isDeleted = false
+            },
             onDismiss = {
                 if (isDeleted) {
                     commandExamplesViewModel.deleteCommand(
@@ -119,24 +131,31 @@ fun CommandExampleCard(
         }
     }
 
-    val swipeOffset = remember { Animatable(0f) }
-    val scope = rememberCoroutineScope()
-    val cardWidth = remember { mutableFloatStateOf(0f) }
-    val cardHeight = remember { mutableFloatStateOf(0f) }
-
     val borderStroke = if (swipeOffset.value == 0f) BorderStroke(
         width = 1.dp,
         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
     ) else null
 
-    if (!isDeleted)
+    if (!isDeleted || swipeOffset.value != 0f)
         Box(
             modifier = modifier
+                .fillMaxWidth()
+                .padding(start = 15.dp, end = 15.dp, top = topPadding)
                 .onGloballyPositioned {
+                    if (cardHeight.floatValue == 0f || !isDeleted) {
+                        cardHeight.floatValue = it.size.height.toFloat()
+                    }
                     cardWidth.floatValue = it.size.width.toFloat()
-                    cardHeight.floatValue = it.size.height.toFloat()
                 }
-                .fillMaxWidth(),
+                .then(
+                    if (isDeleted && cardHeight.floatValue > 0f)
+                        Modifier.height(
+                            with(screenDensity) {
+                                (cardHeight.floatValue * animatedHeight.value).toDp()
+                            }
+                        )
+                    else Modifier
+                ),
             contentAlignment = if (swipeOffset.value > 0) Alignment.CenterStart else Alignment.CenterEnd
         ) {
             if (swipeOffset.value != 0f) {
@@ -240,8 +259,20 @@ fun CommandExampleCard(
                                                 -width,
                                                 spring(stiffness = Spring.StiffnessMediumLow)
                                             )
+
+                                            scope.launch {
+                                                animatedHeight.animateTo(
+                                                    0f,
+                                                    animationSpec = tween(
+                                                        durationMillis = 130,
+                                                        easing = FastOutLinearInEasing
+                                                    )
+                                                )
+
+                                                topPadding = 0.dp
+                                            }
+
                                             onDelete()
-                                            swipeOffset.snapTo(0f)
                                         }
 
                                         else -> {
@@ -452,7 +483,7 @@ private fun UseCommandButton(
 
         Spacer(Modifier.widthIn(ButtonDefaults.iconSpacingFor(size)))
 
-        AutoResizeableText(text = stringResource(R.string.use))
+        Text(text = stringResource(R.string.use))
     }
 }
 

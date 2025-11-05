@@ -206,9 +206,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
 
                     items(commands.size, key = { index -> commands[index].id }) { index ->
                         CommandExampleCard(
-                            modifier = Modifier
-                                .padding(start = 15.dp, end = 15.dp, top = 15.dp)
-                                .animateItem(),
+                            modifier = Modifier.animateItem(),
                             id = commands[index].id,
                             command = commands[index].command,
                             description = commands[index].description,
