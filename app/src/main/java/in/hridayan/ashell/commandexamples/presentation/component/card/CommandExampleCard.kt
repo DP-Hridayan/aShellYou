@@ -26,9 +26,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Delete
-import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
@@ -50,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
@@ -60,6 +58,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.airbnb.lottie.LottieComposition
+import com.airbnb.lottie.LottieProperty
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.airbnb.lottie.compose.rememberLottieDynamicProperties
+import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
@@ -104,11 +110,26 @@ fun CommandExampleCard(
     val cardWidth = remember { mutableFloatStateOf(0f) }
     val cardHeight = remember { mutableFloatStateOf(0f) }
 
+    val compositionDeleteLottie by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.icons8_trash))
+
+    val deleteLottieProgress by animateLottieCompositionAsState(
+        composition = compositionDeleteLottie,
+        isPlaying = swipeOffset.value < -0.25f
+    )
+
+    val compositionEditLottie by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.icons8_edit))
+
+    val editLottieProgress by animateLottieCompositionAsState(
+        composition = compositionDeleteLottie,
+        isPlaying = swipeOffset.value > 0.25f
+    )
+
     val onDelete: () -> Unit = {
         isDeleted = true
         SnackBarUtils.showSnackBarWithAction(
             message = context.getString(R.string.item_deleted),
             actionText = context.getString(R.string.undo),
+            durationMillis = 2500,
             onActionClicked = {
                 coroutineScope.launch {
                     swipeOffset.snapTo(0f)
@@ -180,17 +201,14 @@ fun CommandExampleCard(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = if (swipeOffset.value > 0) Icons.Rounded.Edit else Icons.Rounded.Delete,
-                        contentDescription = null,
-                        tint = when {
-                            swipeOffset.value > 0 -> MaterialTheme.colorScheme.onPrimary
-                            swipeOffset.value < 0 -> MaterialTheme.colorScheme.onError
-                            else -> Color.Transparent
-                        },
-                        modifier = Modifier
-                            .padding(horizontal = 24.dp)
-                            .size(28.dp)
+                    if (swipeOffset.value > 0)
+                        EditLottie(
+                            composition = compositionEditLottie,
+                            progress = editLottieProgress,
+                        )
+                    else DeleteLottie(
+                        composition = compositionDeleteLottie,
+                        progress = deleteLottieProgress,
                     )
                 }
             }
@@ -509,4 +527,58 @@ private fun FavouriteButton(
                 onSuccess = {}
             )
         })
+}
+
+@Composable
+private fun DeleteLottie(
+    modifier: Modifier = Modifier,
+    composition: LottieComposition?,
+    progress: Float
+) {
+    val color = MaterialTheme.colorScheme.onError
+
+    val colorProperty = rememberLottieDynamicProperty(
+        property = LottieProperty.COLOR,
+        keyPath = arrayOf("**"),
+        value = color.toArgb()
+    )
+
+    val dynamicProperties = rememberLottieDynamicProperties(colorProperty)
+
+    LottieAnimation(
+        composition = composition,
+        progress = { progress },
+        dynamicProperties = dynamicProperties,
+        modifier = modifier
+            .size(48.dp)
+            .padding(end = 20.dp),
+
+        )
+}
+
+@Composable
+private fun EditLottie(
+    modifier: Modifier = Modifier,
+    composition: LottieComposition?,
+    progress: Float
+) {
+    val color = MaterialTheme.colorScheme.onPrimary
+
+    val colorProperty = rememberLottieDynamicProperty(
+        property = LottieProperty.COLOR,
+        keyPath = arrayOf("**"),
+        value = color.toArgb()
+    )
+
+    val dynamicProperties = rememberLottieDynamicProperties(colorProperty)
+
+    LottieAnimation(
+        composition = composition,
+        progress = { progress },
+        dynamicProperties = dynamicProperties,
+        modifier = modifier
+            .size(48.dp)
+            .padding(end = 20.dp),
+
+        )
 }
