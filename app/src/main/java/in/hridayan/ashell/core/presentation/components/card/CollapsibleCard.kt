@@ -60,7 +60,6 @@ fun CollapsibleCard(
 
     Card(
         modifier = modifier
-            .fillMaxWidth()
             .clip(shape)
             .clickable(enabled = true) {
                 weakHaptic()

@@ -2,15 +2,29 @@
 
 package `in`.hridayan.ashell.commandexamples.presentation.component.card
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
@@ -22,6 +36,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -29,10 +44,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
@@ -49,6 +70,8 @@ import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
+import kotlin.math.abs
+import kotlin.math.roundToInt
 
 @Composable
 fun CommandExampleCard(
@@ -62,95 +85,249 @@ fun CommandExampleCard(
 ) {
     val context = LocalContext.current
     val navController = LocalNavController.current
+    val weakHaptic = LocalWeakHaptic.current
+    val screenDensity = LocalDensity.current
+    val coroutineScope = rememberCoroutineScope()
     val prevScreen = navController.previousBackStackEntry
     val shellViewModel: ShellViewModel =
         if (prevScreen != null) hiltViewModel(prevScreen) else hiltViewModel()
     val interactionSources = remember { List(3) { MutableInteractionSource() } }
     var isDeleted by rememberSaveable { mutableStateOf(false) }
+    var isEditDialogOpen by rememberSaveable { mutableStateOf(false) }
+
+    val onDelete: () -> Unit = {
+        isDeleted = true
+
+        SnackBarUtils.showSnackBarWithAction(
+            message = context.getString(R.string.item_deleted),
+            actionText = context.getString(R.string.undo),
+            onActionClicked = { isDeleted = false },
+            onDismiss = {
+                if (isDeleted) {
+                    commandExamplesViewModel.deleteCommand(
+                        id = id,
+                        onSuccess = { isDeleted = true })
+                }
+            }
+        )
+    }
+
+    val onEdit: () -> Unit = {
+        coroutineScope.launch {
+            commandExamplesViewModel.setFieldsForEdit(id = id)
+            isEditDialogOpen = true
+        }
+    }
+
+    val swipeOffset = remember { Animatable(0f) }
+    val scope = rememberCoroutineScope()
+    val cardWidth = remember { mutableFloatStateOf(0f) }
+    val cardHeight = remember { mutableFloatStateOf(0f) }
+
+    val borderStroke = if (swipeOffset.value == 0f) BorderStroke(
+        width = 1.dp,
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+    ) else null
 
     if (!isDeleted)
-        CollapsibleCard(
-            modifier = modifier,
-            collapsedContent = {
-                if (labels.isNotEmpty()) Labels(modifier = Modifier.fillMaxWidth(), labels = labels)
-
-                Text(
-                    text = command,
-                    style = MaterialTheme.typography.titleMediumEmphasized,
-                    modifier = Modifier.padding(start = 5.dp)
-                )
-            },
-
-            expandedContent = {
-                if (description.isNotEmpty()) {
-                    Text(
-                        text = description,
-                        style = MaterialTheme.typography.bodySmall,
+        Box(
+            modifier = modifier
+                .onGloballyPositioned {
+                    cardWidth.floatValue = it.size.width.toFloat()
+                    cardHeight.floatValue = it.size.height.toFloat()
+                }
+                .fillMaxWidth(),
+            contentAlignment = if (swipeOffset.value > 0) Alignment.CenterStart else Alignment.CenterEnd
+        ) {
+            if (swipeOffset.value != 0f) {
+                Box(
+                    modifier = Modifier
+                        .width(with(screenDensity) { abs(swipeOffset.value).toDp() })
+                        .height(with(screenDensity) { cardHeight.floatValue.toDp() })
+                        .clip(with(screenDensity) { RoundedCornerShape(cardHeight.floatValue.toDp() / 2) })
+                        .background(
+                            when {
+                                swipeOffset.value > 0 -> MaterialTheme.colorScheme.primary
+                                swipeOffset.value < 0 -> MaterialTheme.colorScheme.error
+                                else -> Color.Transparent
+                            }
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = if (swipeOffset.value > 0) Icons.Rounded.Edit else Icons.Rounded.Delete,
+                        contentDescription = null,
+                        tint = when {
+                            swipeOffset.value > 0 -> MaterialTheme.colorScheme.onPrimary
+                            swipeOffset.value < 0 -> MaterialTheme.colorScheme.onError
+                            else -> Color.Transparent
+                        },
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 5.dp)
+                            .padding(horizontal = 24.dp)
+                            .size(28.dp)
                     )
                 }
+            }
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    @Suppress("DEPRECATION")
-                    ButtonGroup(
-                        modifier = Modifier.weight(1f),
-                        horizontalArrangement = Arrangement.spacedBy(15.dp)
-                    ) {
-                        EditButton(
-                            id = id,
-                            interactionSource = interactionSources[0],
-                            modifier = Modifier
-                                .size(40.dp)
-                                .animateWidth(interactionSources[0])
-                        )
-                        DeleteButton(
-                            id = id,
-                            interactionSource = interactionSources[1],
-                            modifier = Modifier
-                                .size(40.dp)
-                                .animateWidth(interactionSources[1]),
-                            onClick = {
-                                isDeleted = true
+            CollapsibleCard(
+                modifier = Modifier
+                    .offset { IntOffset(swipeOffset.value.roundToInt(), 0) }
+                    .pointerInput(Unit) {
+                        var lastCrossedRight = false
+                        var lastCrossedLeft = false
 
-                                SnackBarUtils.showSnackBarWithAction(
-                                    message = context.getString(R.string.item_deleted),
-                                    actionText = context.getString(R.string.undo),
-                                    onActionClicked = { isDeleted = false },
-                                    onDismiss = {
-                                        if (isDeleted) {
-                                            commandExamplesViewModel.deleteCommand(
-                                                id = id,
-                                                onSuccess = { isDeleted = true })
+                        detectHorizontalDragGestures(
+                            onHorizontalDrag = { _, dragAmount ->
+                                val width = cardWidth.floatValue
+                                if (width == 0f) return@detectHorizontalDragGestures
+
+                                val elasticLimit = width * 0.25f
+                                val newOffset = swipeOffset.value + dragAmount
+                                val absOffset = abs(newOffset)
+
+                                // --- Elastic movement logic ---
+                                val adjustedOffset = when {
+                                    absOffset < elasticLimit -> {
+                                        val resistance = 1f - (absOffset / elasticLimit)
+                                        val resistanceFactor = 0.25f + (resistance * 0.75f)
+                                        swipeOffset.value + (dragAmount * resistanceFactor)
+                                    }
+
+                                    else -> newOffset
+                                }
+
+                                scope.launch {
+                                    swipeOffset.snapTo(adjustedOffset.coerceIn(-width, width))
+                                }
+
+                                // --- Haptic trigger detection ---
+                                val crossedRight = swipeOffset.value > elasticLimit
+                                val crossedLeft = swipeOffset.value < -elasticLimit
+
+                                // If user crosses right threshold and it wasn’t previously crossed
+                                if (crossedRight && !lastCrossedRight) {
+                                    weakHaptic()
+                                    lastCrossedRight = true
+                                }
+
+                                // If user crosses left threshold and it wasn’t previously crossed
+                                if (crossedLeft && !lastCrossedLeft) {
+                                    weakHaptic()
+                                    lastCrossedLeft = true
+                                }
+
+                                // Reset triggers if the user goes back into elastic zone
+                                if (!crossedRight) lastCrossedRight = false
+                                if (!crossedLeft) lastCrossedLeft = false
+                            },
+                            onDragEnd = {
+                                scope.launch {
+                                    val width = cardWidth.floatValue
+                                    val elasticLimit = width * 0.25f
+
+                                    when {
+                                        swipeOffset.value > elasticLimit -> {
+                                            swipeOffset.animateTo(
+                                                width,
+                                                spring(stiffness = Spring.StiffnessMediumLow)
+                                            )
+                                            onEdit()
+                                            swipeOffset.snapTo(0f)
+                                        }
+
+                                        swipeOffset.value < -elasticLimit -> {
+                                            swipeOffset.animateTo(
+                                                -width,
+                                                spring(stiffness = Spring.StiffnessMediumLow)
+                                            )
+                                            onDelete()
+                                            swipeOffset.snapTo(0f)
+                                        }
+
+                                        else -> {
+                                            swipeOffset.animateTo(
+                                                0f,
+                                                spring(stiffness = Spring.StiffnessLow)
+                                            )
                                         }
                                     }
-                                )
+                                }
                             }
                         )
-                        CopyButton(
-                            id = id,
-                            interactionSource = interactionSources[2],
+                    }
+                    .fillMaxWidth(),
+                border = borderStroke,
+                collapsedContent = {
+                    if (labels.isNotEmpty()) Labels(
+                        modifier = Modifier.fillMaxWidth(),
+                        labels = labels
+                    )
+
+                    Text(
+                        text = command,
+                        style = MaterialTheme.typography.titleMediumEmphasized,
+                        modifier = Modifier.padding(start = 5.dp)
+                    )
+                },
+
+                expandedContent = {
+                    if (description.isNotEmpty()) {
+                        Text(
+                            text = description,
+                            style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier
-                                .size(40.dp)
-                                .animateWidth(interactionSources[2])
+                                .fillMaxWidth()
+                                .padding(start = 5.dp)
                         )
                     }
 
-                    UseCommandButton(onClick = {
-                        shellViewModel.onCommandTextFieldChange(
-                            TextFieldValue(text = command)
-                        )
-                        shellViewModel.updateTextFieldSelection()
-                        navController.popBackStack()
-                        commandExamplesViewModel.incrementUseCount(id)
-                    })
-                }
-            })
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        @Suppress("DEPRECATION")
+                        ButtonGroup(
+                            modifier = Modifier.weight(1f),
+                            horizontalArrangement = Arrangement.spacedBy(15.dp)
+                        ) {
+                            EditButton(
+                                onEdit = onEdit,
+                                interactionSource = interactionSources[0],
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .animateWidth(interactionSources[0])
+                            )
+                            DeleteButton(
+                                id = id,
+                                interactionSource = interactionSources[1],
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .animateWidth(interactionSources[1]),
+                                onClick = onDelete
+                            )
+                            CopyButton(
+                                id = id,
+                                interactionSource = interactionSources[2],
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .animateWidth(interactionSources[2])
+                            )
+                        }
+
+                        UseCommandButton(onClick = {
+                            shellViewModel.onCommandTextFieldChange(
+                                TextFieldValue(text = command)
+                            )
+                            shellViewModel.updateTextFieldSelection()
+                            navController.popBackStack()
+                            commandExamplesViewModel.incrementUseCount(id)
+                        })
+                    }
+                })
+        }
+
+    if (isEditDialogOpen) EditCommandDialog(id = id, onDismiss = { isEditDialogOpen = false })
 }
 
 @Composable
@@ -186,21 +363,14 @@ private fun DeleteButton(
 private fun EditButton(
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource,
-    id: Int,
-    viewModel: CommandExamplesViewModel = hiltViewModel()
+    onEdit: () -> Unit = {}
 ) {
-    var isEditDialogOpen by rememberSaveable { mutableStateOf(false) }
-    val coroutineScope = rememberCoroutineScope()
-
     val weakHaptic = LocalWeakHaptic.current
 
     IconButton(
         onClick = {
             weakHaptic()
-            coroutineScope.launch {
-                viewModel.setFieldsForEdit(id = id)
-                isEditDialogOpen = true
-            }
+            onEdit()
         },
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = MaterialTheme.colorScheme.errorContainer,
@@ -215,8 +385,6 @@ private fun EditButton(
             contentDescription = null,
         )
     }
-
-    if (isEditDialogOpen) EditCommandDialog(id = id, onDismiss = { isEditDialogOpen = false })
 }
 
 @Composable

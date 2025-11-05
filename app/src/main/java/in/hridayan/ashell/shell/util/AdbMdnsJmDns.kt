@@ -22,7 +22,7 @@ import javax.jmdns.ServiceListener
  */
 class AdbMdnsJmDns(
     private val context: Context,
-    private val serviceType: String, // "_adb-tls-pairing._tcp.local." or "_adb-tls-connect._tcp.local."
+    private val serviceType: String,
     private val listener: OnAdbServiceDiscovered
 ) {
     interface OnAdbServiceDiscovered {
@@ -95,6 +95,7 @@ class AdbMdnsJmDns(
         }
     }
 
+    @Suppress("DEPRECATION")
     @SuppressLint("DefaultLocale")
     private fun getWifiIpAddress(context: Context): InetAddress? {
         return try {

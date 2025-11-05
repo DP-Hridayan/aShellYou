@@ -16,7 +16,7 @@ interface WifiAdbRepository {
     fun pair(ip: String, port: Int, pairingCode: Int, listener: PairingListener? = null)
     fun connect(ip: String?, port: Int, callback: ConnectionListener? = null)
     fun execute(commandText: String): Flow<OutputLine>
-    fun stop()
+    fun abortShell()
     fun stopMdnsDiscovery()
     fun getSavedDevices(): List<WifiAdbDevice>
 

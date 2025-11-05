@@ -281,11 +281,11 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
             emit(OutputLine("Error: ${e.message}", isError = true))
             Log.e("WifiAdbShell", "execute() failed", e)
         } finally {
-            stop()
+            abortShell()
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun stop() {
+    override fun abortShell() {
         try {
             adbShellStream?.close()
         } catch (e: Exception) {
