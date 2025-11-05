@@ -4,7 +4,9 @@ package `in`.hridayan.ashell.commandexamples.presentation.component.card
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
@@ -131,10 +133,15 @@ fun CommandExampleCard(
         }
     }
 
-    val borderStroke = if (swipeOffset.value == 0f) BorderStroke(
+    val borderAlpha by animateFloatAsState(
+        targetValue = if (swipeOffset.value == 0f) 0.5f else 0f,
+        animationSpec = tween(durationMillis = 250, easing = LinearEasing)
+    )
+
+    val borderStroke = BorderStroke(
         width = 1.dp,
-        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-    ) else null
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = borderAlpha)
+    )
 
     if (!isDeleted || swipeOffset.value != 0f)
         Box(
