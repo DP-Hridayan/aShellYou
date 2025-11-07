@@ -75,7 +75,6 @@ import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCo
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.presentation.components.button.FavouriteIconButton
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
 import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
@@ -113,19 +112,20 @@ fun CommandExampleCard(
     val scope = rememberCoroutineScope()
     val cardWidth = remember { mutableFloatStateOf(0f) }
     val cardHeight = remember { mutableFloatStateOf(0f) }
+    var lastHapticZone by remember { mutableStateOf(0) }
 
     val compositionDeleteLottie by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.icons8_trash))
 
     val deleteLottieProgress by animateLottieCompositionAsState(
         composition = compositionDeleteLottie,
-        isPlaying = swipeOffset.value < -0.25f
+        isPlaying = swipeOffset.value < -0.25f * cardWidth.floatValue
     )
 
     val compositionEditLottie by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.icons8_edit))
 
     val editLottieProgress by animateLottieCompositionAsState(
-        composition = compositionDeleteLottie,
-        isPlaying = swipeOffset.value > 0.25f
+        composition = compositionEditLottie,
+        isPlaying = swipeOffset.value > 0.25f * cardWidth.floatValue
     )
 
     val onDelete: () -> Unit = {
@@ -221,9 +221,6 @@ fun CommandExampleCard(
                 modifier = Modifier
                     .offset { IntOffset(swipeOffset.value.roundToInt(), 0) }
                     .pointerInput(Unit) {
-                        var lastCrossedRight = false
-                        var lastCrossedLeft = false
-
                         detectHorizontalDragGestures(
                             onHorizontalDrag = { _, dragAmount ->
                                 val width = cardWidth.floatValue
@@ -233,7 +230,6 @@ fun CommandExampleCard(
                                 val newOffset = swipeOffset.value + dragAmount
                                 val absOffset = abs(newOffset)
 
-                                // --- Elastic movement logic ---
                                 val adjustedOffset = when {
                                     absOffset < elasticLimit -> {
                                         val resistance = 1f - (absOffset / elasticLimit)
@@ -248,28 +244,20 @@ fun CommandExampleCard(
                                     swipeOffset.snapTo(adjustedOffset.coerceIn(-width, width))
                                 }
 
-                                // --- Haptic trigger detection ---
-                                val crossedRight = swipeOffset.value > elasticLimit
-                                val crossedLeft = swipeOffset.value < -elasticLimit
-
-                                // If user crosses right threshold and it wasn’t previously crossed
-                                if (crossedRight && !lastCrossedRight) {
-                                    weakHaptic()
-                                    lastCrossedRight = true
+                                val currentZone = when {
+                                    swipeOffset.value > elasticLimit -> 1
+                                    swipeOffset.value < -elasticLimit -> -1
+                                    else -> 0
                                 }
 
-                                // If user crosses left threshold and it wasn’t previously crossed
-                                if (crossedLeft && !lastCrossedLeft) {
+                                if (currentZone != lastHapticZone) {
                                     weakHaptic()
-                                    lastCrossedLeft = true
+                                    lastHapticZone = currentZone
                                 }
-
-                                // Reset triggers if the user goes back into elastic zone
-                                if (!crossedRight) lastCrossedRight = false
-                                if (!crossedLeft) lastCrossedLeft = false
                             },
                             onDragEnd = {
                                 scope.launch {
+                                    lastHapticZone = 0
                                     val width = cardWidth.floatValue
                                     val elasticLimit = width * 0.25f
 
@@ -297,7 +285,6 @@ fun CommandExampleCard(
                                                         easing = FastOutLinearInEasing
                                                     )
                                                 )
-
                                                 topPadding = 0.dp
                                             }
 
@@ -359,7 +346,6 @@ fun CommandExampleCard(
                                     .animateWidth(interactionSources[0])
                             )
                             DeleteButton(
-                                id = id,
                                 interactionSource = interactionSources[1],
                                 modifier = Modifier
                                     .size(40.dp)
@@ -394,7 +380,6 @@ fun CommandExampleCard(
 private fun DeleteButton(
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource,
-    id: Int,
     onClick: () -> Unit = {},
 ) {
     val weakHaptic = LocalWeakHaptic.current
@@ -433,8 +418,8 @@ private fun EditButton(
             onEdit()
         },
         colors = IconButtonDefaults.iconButtonColors(
-            containerColor = MaterialTheme.colorScheme.errorContainer,
-            contentColor = MaterialTheme.colorScheme.onErrorContainer
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
         ),
         shapes = IconButtonDefaults.shapes(),
         interactionSource = interactionSource,
@@ -484,7 +469,6 @@ private fun CopyButton(
             contentDescription = null,
         )
     }
-
 }
 
 @Composable
@@ -516,22 +500,25 @@ private fun UseCommandButton(
     }
 }
 
-@Composable
-private fun FavouriteButton(
-    id: Int,
-    isFavourite: Boolean,
-    viewModel: CommandExamplesViewModel
-) {
-    FavouriteIconButton(
-        isFavorite = isFavourite,
-        onToggle = {
-            viewModel.toggleFavourite(
-                id = id,
-                isFavourite = !isFavourite,
-                onSuccess = {}
-            )
-        })
-}
+/**
+ * @Composable
+ * private fun FavouriteButton(
+ *     id: Int,
+ *     isFavourite: Boolean,
+ *     viewModel: CommandExamplesViewModel
+ * ) {
+ *     FavouriteIconButton(
+ *         isFavorite = isFavourite,
+ *         onToggle = {
+ *             viewModel.toggleFavourite(
+ *                 id = id,
+ *                 isFavourite = !isFavourite,
+ *                 onSuccess = {}
+ *             )
+ *         })
+ * }
+ */
+
 
 @Composable
 private fun DeleteLottie(
@@ -553,7 +540,8 @@ private fun DeleteLottie(
         composition = composition,
         progress = { progress },
         dynamicProperties = dynamicProperties,
-        modifier = modifier.size(36.dp))
+        modifier = modifier.size(36.dp)
+    )
 }
 
 @Composable
