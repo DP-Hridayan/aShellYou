@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.settings.presentation.components.tab
 
 import androidx.compose.animation.animateColorAsState
@@ -14,16 +16,20 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.graphics.shapes.Morph
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.LocalSettings
@@ -41,9 +47,9 @@ fun ColorTabs(
     val tonalPalettes = LocalTonalPalette.current
     val groupedPalettes = tonalPalettes.chunked(4)
     val pagerState = rememberPagerState(initialPage = 0) { groupedPalettes.size }
+    val shuffledShapes = remember { shapes.shuffled() }
 
     Column(modifier = modifier) {
-
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxWidth()
@@ -70,8 +76,8 @@ fun ColorTabs(
 
         Spacer(Modifier.height(12.dp))
 
-        val smallSize = 8.dp
-        val bigSize = 12.dp
+        val smallSize = 10.dp
+        val bigSize = 16.dp
 
         Row(
             modifier = Modifier
@@ -115,10 +121,12 @@ fun ColorTabs(
                 val animatedSize by animateDpAsState(targetSize, label = "")
                 val animatedColor by animateColorAsState(targetColor, label = "")
 
+                val shape = shuffledShapes[index % shuffledShapes.size].toShape()
+
                 Box(
                     modifier = Modifier
                         .size(animatedSize)
-                        .clip(CircleShape)
+                        .clip(shape)
                         .background(animatedColor)
                 )
             }
@@ -126,8 +134,16 @@ fun ColorTabs(
     }
 }
 
-
 @Composable
 private fun lerpSize(start: Dp, end: Dp, fraction: Float): Dp {
     return start + (end - start) * fraction.coerceIn(0f, 1f)
 }
+
+private val shapes = listOf(
+    MaterialShapes.SoftBurst,
+    MaterialShapes.Arrow,
+    MaterialShapes.Cookie4Sided,
+    MaterialShapes.Pill,
+    MaterialShapes.Diamond,
+    MaterialShapes.Pentagon,
+)
