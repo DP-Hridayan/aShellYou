@@ -192,9 +192,12 @@ fun HomeScreen(
 }
 
 @Composable
-fun SettingsButton(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
+fun SettingsButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
     Image(
-        painter = painterResource(id = R.drawable.ic_settings),
+        painter = painterResource(R.drawable.ic_settings),
         contentDescription = null,
         colorFilter = ColorFilter.tint(
             MaterialTheme.colorScheme.onSurfaceVariant
@@ -211,7 +214,7 @@ fun SettingsButton(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
 @Composable
 fun AppNameText(modifier: Modifier = Modifier) {
     Text(
-        text = stringResource(id = R.string.app_name),
+        text = stringResource(R.string.app_name),
         style = MaterialTheme.typography.headlineLarge,
         modifier = modifier
             .alpha(0.9f)

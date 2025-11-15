@@ -65,7 +65,7 @@ fun AshellYouTheme(
 
     MaterialExpressiveTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = appTypography(),
         content = content
     )
 }

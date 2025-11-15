@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
@@ -89,6 +90,7 @@ fun NavigationCard(
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleLargeEmphasized,
+                    fontWeight = FontWeight(500),
                     modifier = Modifier
                         .weight(1f)
                         .padding(start = Dimens.paddingExtraLarge)

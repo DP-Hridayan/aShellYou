@@ -75,8 +75,8 @@ fun IntPreferenceItemView(
                     ) {
                         Text(
                             text = stringResource(option.labelResId),
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontWeight = FontWeight.Bold
+                            style = MaterialTheme.typography.titleMediumEmphasized,
+                            fontWeight = FontWeight.SemiBold
                         )
 
                         Spacer(Modifier.weight(1f))

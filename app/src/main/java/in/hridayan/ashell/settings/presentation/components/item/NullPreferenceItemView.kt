@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.settings.presentation.components.item
 
 import androidx.compose.foundation.clickable
@@ -7,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -73,9 +76,8 @@ fun NullPreferenceItemView(
                 if (titleText.isNotEmpty()) {
                     Text(
                         text = titleText,
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.alpha(0.95f)
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleMediumEmphasized,
                     )
                 }
 
@@ -83,7 +85,7 @@ fun NullPreferenceItemView(
                     Text(
                         text = descriptionText,
                         style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.alpha(0.90f)
+                        modifier = Modifier.alpha(0.9f)
                     )
                 }
             }

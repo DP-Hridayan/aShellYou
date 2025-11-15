@@ -67,7 +67,10 @@ fun IconWithTextCard(
                     .size(Dimens.iconSizeLarge)
             )
             Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
-                Text(text = text, style = MaterialTheme.typography.bodySmallEmphasized)
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.bodySmallEmphasized,
+                )
                 content()
             }
         }

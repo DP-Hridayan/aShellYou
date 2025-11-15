@@ -6,6 +6,7 @@ import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,13 +17,16 @@ fun SettingsSwitch(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     enabled: Boolean = true,
+    colors: SwitchColors = SwitchDefaults.colors(),
 ) {
     Switch(
+        modifier = modifier,
         checked = checked,
-        enabled = enabled,
         onCheckedChange = {
             onCheckedChange(it)
         },
+        enabled = enabled,
+        colors = colors,
         thumbContent = {
             val thumbIcon = if (checked) Icons.Rounded.Check else Icons.Rounded.Close
 
@@ -32,6 +36,5 @@ fun SettingsSwitch(
                 modifier = Modifier.size(SwitchDefaults.IconSize)
             )
         },
-        modifier = modifier
     )
 }
