@@ -8,30 +8,34 @@ android {
 
     defaultConfig {
         minSdk = 14
+    }
+
+    testOptions {
         targetSdk = 36
     }
 
     lint {
         baseline = file("lint-baseline.xml")
+        targetSdk = 36
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
 dependencies {
     api(fileTree("libs") { include("*.jar") })
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(libs.junit)
 }

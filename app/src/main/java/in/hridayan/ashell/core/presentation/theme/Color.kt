@@ -140,3 +140,24 @@ fun Color.blend(
     color: Color,
     @FloatRange(from = 0.0, to = 1.0) fraction: Float = 0.1f
 ): Color = Color(ColorUtils.blendARGB(this.toArgb(), color.toArgb(), fraction))
+
+fun colorLerp(start: Color, end: Color, fraction: Float): Color {
+    val f = fraction.coerceIn(0f, 1f)
+
+    val startRed = start.red
+    val startGreen = start.green
+    val startBlue = start.blue
+    val startAlpha = start.alpha
+
+    val endRed = end.red
+    val endGreen = end.green
+    val endBlue = end.blue
+    val endAlpha = end.alpha
+
+    return Color(
+        red = startRed + (endRed - startRed) * f,
+        green = startGreen + (endGreen - startGreen) * f,
+        blue = startBlue + (endBlue - startBlue) * f,
+        alpha = startAlpha + (endAlpha - startAlpha) * f
+    )
+}

@@ -69,7 +69,7 @@ fun CommandsSortDialog(
     ) {
         AutoResizeableText(
             text = stringResource(R.string.sort),
-            style = MaterialTheme.typography.titleLarge,
+            style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center,
             modifier = Modifier
