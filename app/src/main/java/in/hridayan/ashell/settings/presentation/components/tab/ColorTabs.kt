@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -83,9 +84,9 @@ fun ColorTabs(
 
         Row(
             modifier = Modifier
+                .width(120.dp)
                 .heightIn(min = bigSize)
                 .align(Alignment.CenterHorizontally),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -123,36 +124,38 @@ fun ColorTabs(
                 val animatedSize by animateDpAsState(targetSize, label = "")
                 val animatedColor by animateColorAsState(targetColor, label = "")
 
-                Box(
-                    modifier = Modifier
-                        .size(animatedSize)
-                        .drawWithCache {
-                            val sizePx = this.size.minDimension
-                            val baseShape = MaterialShapes.Circle.scaled(sizePx)
-                            val targetShape =
-                                shuffledShapes[index % shuffledShapes.size].scaled(sizePx)
+                Box(modifier = Modifier.weight(1f)) {
+                    Box(
+                        modifier = Modifier
+                            .size(animatedSize)
+                            .align(Alignment.Center)
+                            .drawWithCache {
+                                val sizePx = this.size.minDimension
+                                val baseShape = MaterialShapes.Circle.scaled(sizePx)
+                                val targetShape =
+                                    shuffledShapes[index % shuffledShapes.size].scaled(sizePx)
 
-                            val morphProgress = when (index) {
-                                currentPage -> 1f - abs(offset)
-                                currentPage + 1 -> abs(offset)
-                                currentPage - 1 -> abs(offset)
-                                else -> 0f
-                            }.coerceIn(0f, 1f)
+                                val morphProgress = when (index) {
+                                    currentPage -> 1f - abs(offset)
+                                    currentPage + 1 -> abs(offset)
+                                    currentPage - 1 -> abs(offset)
+                                    else -> 0f
+                                }.coerceIn(0f, 1f)
 
-                            val morph = Morph(start = baseShape, end = targetShape)
+                                val morph = Morph(start = baseShape, end = targetShape)
 
-                            val roundedPolygonPath =
-                                morph.toPath(progress = morphProgress).asComposePath()
+                                val roundedPolygonPath =
+                                    morph.toPath(progress = morphProgress).asComposePath()
 
-                            onDrawBehind {
-                                drawPath(
-                                    path = roundedPolygonPath,
-                                    color = animatedColor
-                                )
+                                onDrawBehind {
+                                    drawPath(
+                                        path = roundedPolygonPath,
+                                        color = animatedColor
+                                    )
+                                }
                             }
-                        }
-
-                )
+                    )
+                }
             }
         }
     }
