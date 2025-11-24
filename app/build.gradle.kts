@@ -163,6 +163,8 @@ dependencies {
     implementation(libs.sun.security.android)
     implementation(libs.lsposed.hiddenapibypass)
 
+    implementation(libs.shapeindicators)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)

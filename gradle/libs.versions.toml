@@ -1,13 +1,13 @@
 [versions]
-activityCompose = "1.11.0"
+activityCompose = "1.12.0"
 agp = "8.13.1"
 androidxJunit = "1.3.0"
 annotation = "1.9.1"
 bcprovJdk15to18 = "1.82"
-composeAnimation = "1.9.4"
-composeBom = "2025.11.00"
+composeAnimation = "1.9.5"
+composeBom = "2025.11.01"
 coreKtx = "1.17.0"
-datastore = "1.1.7"
+datastore = "1.2.0"
 documentfile = "1.1.0"
 espresso = "3.7.0"
 gson = "2.13.2"
@@ -20,14 +20,14 @@ kotlin = "2.2.21"
 ksp = "2.2.20-2.0.3"
 ktor = "3.3.2"
 libsu = "6.0.0"
-lifecycle = "2.9.4"
+lifecycle = "2.10.0"
 lottie = "6.7.1"
 material = "1.13.0"
-material3 = "1.5.0-alpha08"
+material3 = "1.5.0-alpha09"
 materialIconsExtended = "1.7.8"
 navigation = "2.9.6"
 nayukiQR = "1.8.0"
-room = "2.8.3"
+room = "2.8.4"
 securityCrypto = "1.1.0"
 serialization = "1.9.0"
 shizuku = "13.1.0"
@@ -36,6 +36,7 @@ spake2Android = "-SNAPSHOT"
 splashscreen = "1.2.0"
 sunSecurityAndroid = "1.1"
 work = "2.11.0"
+shapeindicators = "1.0.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -97,4 +98,4 @@ shizuku-provider = { module = "dev.rikka.shizuku:provider", version.ref = "shizu
 slf4j-android = { group = "org.slf4j", name = "slf4j-android", version.ref = "slf4j" }
 spake2-android = { module = "com.github.Mahmud0808.spake2-java:spake2-android", version.ref = "spake2Android" }
 sun-security-android = { module = "com.github.MuntashirAkon:sun-security-android", version.ref = "sunSecurityAndroid" }
-
+shapeindicators = { group = "io.github.dp-hridayan", name = "shapeindicators", version.ref = "shapeindicators" }
