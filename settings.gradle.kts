@@ -23,4 +23,3 @@ dependencyResolutionManagement {
 rootProject.name = "aShell You"
 
 include(":app", ":adblib", ":libadb")
-include(":composecolorkit")
