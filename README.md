@@ -16,7 +16,7 @@
   <a href="https://github.com/DP-Hridayan/aShellYou/issues">
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Issues" />
   </a>
-  <a href="https://github.com/DP-Hridayan/aShellYou/releases">
+  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest">
     <img alt="GitHub release" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Release" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/releases">
