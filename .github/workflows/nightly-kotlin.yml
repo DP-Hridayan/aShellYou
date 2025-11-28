@@ -1,8 +1,7 @@
 name: Nightly Build (Kotlin Branch)
 
 on:
-  schedule:
-    - cron: '0 2 * * *'  # runs daily at 2 AM UTC
+  # runs daily at 2 AM UTC
   workflow_dispatch:       # allows manual run
 
 permissions:
