@@ -9,10 +9,13 @@
 >[!WARNING]
 >
 > *Due to some unexpected bug in Github releases, all the releases are gone from releases page!
-> The releases still exist and you can find them in their respective tags!*
+> The releases still exist and you can find them in their respective [tags](https://github.com/DP-Hridayan/aShellYou/tags).*
 >
 >**Alternatively you can find the releases [here](https://github.com/DP-Hridayan/aShellYou/releases?page=3)**.
 
+>[!NOTE]
+>
+> **New releases after [v6.1.0](https://github.com/DP-Hridayan/aShellYou/releases/tag/v6.1.0) will be normally shown in the releases section.**
 #### 
 
 </br>
