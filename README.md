@@ -8,10 +8,12 @@
 
 >[!WARNING]
 >
-> Due to some unexpected bug in Github releases, all the releases are gone from releases page!
-> The releases still exist and you can find them in their respective tags!
+> *Due to some unexpected bug in Github releases, all the releases are gone from releases page!
+> The releases still exist and you can find them in their respective tags!*
+>
+>**Alternatively you can find the releases [here](https://github.com/DP-Hridayan/aShellYou/releases?page=3)**.
 
-#### **Alternatively you can find the releases [here](https://github.com/DP-Hridayan/aShellYou/releases?page=3)**
+#### 
 
 </br>
 
