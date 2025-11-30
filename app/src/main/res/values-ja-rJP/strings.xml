@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_tagline">ADB at your fingertips</string>
+    <string name="app_tagline">指先でADBを</string>
     <string name="abort_command">実行中のコマンドを終了してください</string>
     <string name="access_denied">アクセス拒絶</string>
     <string name="accept_device_prompt">このデバイスから初めて接続しようとする場合、他のデバイスのプロンプトを受け入れる必要があるかもしれません</string>
@@ -8,9 +8,9 @@
     <string name="adb_device_not_connected">ADBデバイス接続ない</string>
     <string name="adb_device_waiting">ADBデバイス待つ</string>
     <string name="adb_shell">ADB シェル</string>
-    <string name="adb_through_otg">ADB Through OTG</string>
-    <string name="adb_through_otg_summary">Use an OTG cable and USB debugging to execute ADB commands on another Android device. You need to turn on USB Debugging in the developer settings of the target device.</string>
-    <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
+    <string name="adb_through_otg">OTGを介したADB</string>
+    <string name="adb_through_otg_summary">OTGケーブルとUSBデバッグを使用して、別のAndroidデバイスでADBコマンドを実行します。 対象デバイスの開発者設定でUSBデバッグを有効にする必要があります。</string>
+    <string name="adb_via_wireless_debugging">ワイヤレスデバッグ経由のADB</string>
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add_bookmark">ブックマークを追加</string>
     <string name="additional_settings">Additional settings</string>
