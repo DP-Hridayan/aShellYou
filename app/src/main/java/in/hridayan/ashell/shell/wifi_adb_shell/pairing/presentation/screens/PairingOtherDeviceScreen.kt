@@ -236,7 +236,7 @@ fun QRPair(
     wifiAdbState: WifiAdbState,
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
+    LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
     val qrHelper = PairUsingQR()
     val sessionId = "ashell_you"
@@ -372,7 +372,7 @@ fun PairManually(
             PairingCodeInputField(modifier = Modifier.weight(1f))
         }
 
-        val pairButtonText = wifiAdbState?.let {
+        val pairButtonText = wifiAdbState.let {
             when (wifiAdbState) {
                 is WifiAdbState.PairingStarted -> stringResource(R.string.pairing)
                 is WifiAdbState.PairingSuccess -> stringResource(R.string.paired)
@@ -382,7 +382,7 @@ fun PairManually(
 
         IconWithTextButton(
             icon = painterResource(R.drawable.ic_pair),
-            text = pairButtonText ?: stringResource(R.string.pair),
+            text = pairButtonText,
             contentDescription = null,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -476,7 +476,7 @@ fun IpAddressInputField(
                 modifier = Modifier.basicMarquee()
             )
         },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Companion.Number)
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
     )
 }
 
@@ -502,7 +502,7 @@ fun PairingPortInputField(
                 modifier = Modifier.basicMarquee()
             )
         },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Companion.Number)
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
     )
 }
 
@@ -527,7 +527,7 @@ fun PairingCodeInputField(
                 modifier = Modifier.basicMarquee()
             )
         },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Companion.Number)
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
     )
 }
 
@@ -552,7 +552,7 @@ fun ConnectPortInputField(
                 modifier = Modifier.basicMarquee()
             )
         },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Companion.Number)
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
     )
 }
 

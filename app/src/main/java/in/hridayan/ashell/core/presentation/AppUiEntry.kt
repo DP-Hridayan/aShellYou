@@ -31,8 +31,7 @@ fun AppUiEntry(
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
-    val isFirstLaunch = settingsViewModel.isFirstLaunch
-    if (isFirstLaunch == null) return
+    val isFirstLaunch = settingsViewModel.isFirstLaunch ?: return
 
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var showChangelogSheet by rememberSaveable { mutableStateOf(false) }

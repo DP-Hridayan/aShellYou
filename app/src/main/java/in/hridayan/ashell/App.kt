@@ -34,12 +34,11 @@ class App : Application() {
         ).crashRepository()
 
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-            handleUncaughtException(thread, throwable, crashRepo)
+            handleUncaughtException( throwable, crashRepo)
         }
     }
 
     private fun handleUncaughtException(
-        thread: Thread,
         throwable: Throwable,
         crashRepo: CrashRepository
     ) {

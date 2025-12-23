@@ -224,24 +224,24 @@ fun SharedTransitionScope.CrashCard(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(7.dp)
             ) {
-                AutoResizeableText(
-                    text = timestamp,
+                Text(
+                    text = crashTitle,
                     style = MaterialTheme.typography.titleMediumEmphasized,
                     fontWeight = FontWeight.Bold
                 )
-                Text(
-                    text = crashTitle,
+
+                AutoResizeableText(
+                    text = timestamp,
                     style = MaterialTheme.typography.bodyMediumEmphasized,
                     modifier = Modifier.alpha(0.9f)
                 )
             }
         }
-
     }
 }
 
 private fun formatTimestamp(timestamp: Long): String {
-    val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+    val formatter = DateTimeFormatter.ofPattern("HH:mm:ss | dd-MM-yyyy", Locale.getDefault())
     return Instant.ofEpochMilli(timestamp)
         .atZone(ZoneId.systemDefault())
         .format(formatter)
