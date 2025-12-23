@@ -153,7 +153,7 @@ fun HomeScreen(
                 onClickOtgAdbCard = onClickOtgAdbCard,
                 otgState = otgState
             )
-            QuickToolsCard(onClickRebootOptions = onClickRebootOptions)
+            //  QuickToolsCard(onClickRebootOptions = onClickRebootOptions)
         }
     }
 
