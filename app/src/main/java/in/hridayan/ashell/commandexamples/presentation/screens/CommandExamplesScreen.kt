@@ -72,6 +72,7 @@ import `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet.C
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandsSortDialog
+import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.LoadDefaultCommandsDialog
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
@@ -97,6 +98,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     var showAddCommandDialog by rememberSaveable { mutableStateOf(false) }
     var showSortExamplesDialog by rememberSaveable { mutableStateOf(false) }
     var showFilterExamplesBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var showLoadDefaultCommandDialog by rememberSaveable { mutableStateOf(false) }
     val focusRequester = FocusRequester()
     val sortType = LocalSettings.current.commandsSortType
     val commands by viewModel.searchedCommands.collectAsState()
@@ -105,7 +107,10 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     val isKeyboardVisible = isKeyboardVisible()
 
     val addOptions = listOf(
-        stringResource(R.string.load_predefined_commands) to { viewModel.loadDefaultCommands() },
+        stringResource(R.string.load_predefined_commands) to {
+            showLoadDefaultCommandDialog = true
+            viewModel.loadDefaultCommands()
+        },
         stringResource(R.string.add_new_item) to {
             viewModel.clearInputFields()
             showAddCommandDialog = true
@@ -319,6 +324,9 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     if (showSortExamplesDialog) CommandsSortDialog(onDismiss = { showSortExamplesDialog = false })
     if (showFilterExamplesBottomSheet) CommandsFilterBottomSheet(onDismiss = {
         showFilterExamplesBottomSheet = false
+    })
+    if (showLoadDefaultCommandDialog) LoadDefaultCommandsDialog(onDismiss = {
+        showLoadDefaultCommandDialog = false
     })
 }
 

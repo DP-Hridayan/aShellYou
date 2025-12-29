@@ -149,7 +149,6 @@ fun nullPreferenceItem(
     type = type
 )
 
-
 @Composable
 fun PreferenceItem.getResolvedTitle(): String {
     return titleResId?.let { resId ->

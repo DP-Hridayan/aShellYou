@@ -111,6 +111,7 @@
     <string name="disclaimer_5_description">This app may require special permissions to function properly.\nIt does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
     <string name="disclaimer_5_title">Permissions and Security</string>
     <string name="disconnected">Disconnected!</string>
+    <string name="done">Done</string>
     <string name="download">Download</string>
     <string name="download_failed">Download failed</string>
     <string name="dynamic_colors">Dynamic colors</string>
@@ -151,6 +152,7 @@
     <string name="least_used">Least used</string>
     <string name="license">License</string>
     <string name="load_predefined_commands">Load predefined commands</string>
+    <string name="loading">Loading</string>
     <string name="local_adb">Local ADB</string>
     <string name="local_adb_shell">Local ADB shell</string>
     <string name="local_adb_summary">Execute ADB commands directly on your device using Shizuku or root.</string>
