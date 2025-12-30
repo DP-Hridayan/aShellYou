@@ -20,6 +20,7 @@ import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -61,21 +62,21 @@ class SettingsViewModel @Inject constructor(
 
     fun loadSettings() {
         viewModelScope.launch {
-            val lookAndFeel = settingsRepository.getLookAndFeelPageList()
-            val settings = settingsRepository.getSettingsPageList()
-            val about = settingsRepository.getAboutPageList()
-            val autoUpdate = settingsRepository.getAutoUpdatePageList()
-            val behavior = settingsRepository.getBehaviorPageList()
-            val darkTheme = settingsRepository.getDarkThemePageList()
-            val backup = settingsRepository.getBackupPageList()
+            val settings = SettingsProvider.settingsPageList
+            val lookAndFeel = SettingsProvider.lookAndFeelPageList
+            val darkTheme = SettingsProvider.darkThemePageList
+            val behavior = SettingsProvider.behaviorPageList
+            val autoUpdate = SettingsProvider.autoUpdatePageList
+            val backup = SettingsProvider.backupPageList
+            val about = SettingsProvider.aboutPageList
 
             settingsPageList = settings
-            autoUpdatePageList = autoUpdate
             lookAndFeelPageList = lookAndFeel
-            aboutPageList = about
-            behaviorPageList = behavior
             darkThemePageList = darkTheme
+            behaviorPageList = behavior
+            autoUpdatePageList = autoUpdate
             backupPageList = backup
+            aboutPageList = about
         }
     }
 
