@@ -37,19 +37,22 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
+import `in`.hridayan.ashell.core.presentation.components.dialog.WithDialog
 import `in`.hridayan.ashell.core.presentation.components.progress.LoadingSpinner
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
@@ -61,6 +64,7 @@ fun AutoUpdateScreen(
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val context = LocalContext.current
+    val dialogManager = LocalDialogManager.current
     var showLoading by rememberSaveable { mutableStateOf(false) }
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
@@ -70,7 +74,6 @@ fun AutoUpdateScreen(
     val requestTimeout = stringResource(R.string.request_timeout)
     val unKnownError = stringResource(R.string.unknown_error)
     val settings = settingsViewModel.autoUpdatePageList
-    var showLatestVersionDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         autoUpdateViewModel.updateEvents.collect { result ->
@@ -82,7 +85,7 @@ fun AutoUpdateScreen(
                         apkUrl = result.release.apkUrl.toString()
                         showUpdateSheet = true
                     } else {
-                        showLatestVersionDialog = true
+                        dialogManager.show(DialogKey.Settings.LatestVersion)
                     }
                 }
 
@@ -223,8 +226,8 @@ fun AutoUpdateScreen(
         )
     }
 
-    if (showLatestVersionDialog) {
-        LatestVersionDialog(onDismiss = { showLatestVersionDialog = false })
+    WithDialog(DialogKey.Settings.LatestVersion) {
+        LatestVersionDialog(onDismiss = { it.dismiss() })
     }
 }
 

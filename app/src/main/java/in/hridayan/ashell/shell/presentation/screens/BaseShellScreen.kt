@@ -95,6 +95,7 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.domain.model.ScrollDirection
@@ -104,6 +105,7 @@ import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.g
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
@@ -160,15 +162,12 @@ fun BaseShellScreen(
     val textFieldFocusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
-    var showClearOutputDialog by rememberSaveable { mutableStateOf(false) }
-    var showBookmarkDialog by rememberSaveable { mutableStateOf(false) }
-    var showDeleteConfirmationDialog by rememberSaveable { mutableStateOf(false) }
-    var showBookmarkSortDialog by rememberSaveable { mutableStateOf(false) }
-    var showFileSavedDialog by rememberSaveable { mutableStateOf(false) }
+    val dialogManager = LocalDialogManager.current
 
     LaunchedEffect(disableSoftKeyboard) {
         disableKeyboard(context, disableSoftKeyboard)
     }
+
 
     val actionFabIcon: @Composable () -> Unit = {
         when (states.shellState) {
@@ -212,7 +211,7 @@ fun BaseShellScreen(
         if (bookmarkCount.value == 0) showToast(
             context,
             context.getString(R.string.no_bookmarks)
-        ) else showBookmarkDialog = true
+        ) else dialogManager.show(DialogKey.Shell.Bookmark)
     }
 
     val handleHistoryButtonClick: () -> Unit = {
@@ -228,7 +227,7 @@ fun BaseShellScreen(
     }
 
     val handleSaveButtonClick: (success: Boolean) -> Unit = { success ->
-        showFileSavedDialog = success
+        if (success) dialogManager.show(DialogKey.Shell.FileSaved)
     }
 
     val handleSavedFileOpen: () -> Unit = {
@@ -303,7 +302,7 @@ fun BaseShellScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 UtilityButtonGroup(
-                    showClearOutputDialog = { showClearOutputDialog = true },
+                    showClearOutputDialog = { dialogManager.show(DialogKey.Shell.ClearOutput) },
                     handleClearOutput = { handleClearOutput() },
                     showBookmarkDialog = {
                         handleBookmarkButtonClick()
@@ -474,62 +473,41 @@ fun BaseShellScreen(
             }
         }
 
-        if (showClearOutputDialog) {
-            ClearOutputConfirmationDialog(
-                onDismiss = { showClearOutputDialog = false },
+        when (dialogManager.activeDialog) {
+            DialogKey.Shell.ClearOutput -> ClearOutputConfirmationDialog(
+                onDismiss = { dialogManager.dismiss() },
                 onConfirm = { handleClearOutput() })
-        }
 
-        if (showBookmarkDialog) {
-            BookmarkDialog(
+            DialogKey.Shell.Bookmark -> BookmarkDialog(
                 onBookmarkClicked = { command ->
                     shellViewModel.onCommandTextFieldChange(TextFieldValue(command))
                     shellViewModel.updateTextFieldSelection()
-                    showBookmarkDialog = false
+                    dialogManager.dismiss()
                     textFieldFocusRequester.requestFocus()
                 },
-                onDelete = {
-                    showDeleteConfirmationDialog = true
-                    showBookmarkDialog = false
-                },
-                onSort = {
-                    showBookmarkSortDialog = true
-                    showBookmarkDialog = false
-                },
-                onDismiss = { showBookmarkDialog = false }
+                onDelete = { dialogManager.show(DialogKey.Shell.DeleteBookmarks) },
+                onSort = { dialogManager.show(DialogKey.Shell.BookmarkSort) },
+                onDismiss = { dialogManager.dismiss() }
             )
-        }
 
-        if (showDeleteConfirmationDialog) {
-            DeleteBookmarksDialog(
-                onDismiss = {
-                    showDeleteConfirmationDialog = false
-                    showBookmarkDialog = true
-                },
+            DialogKey.Shell.DeleteBookmarks -> DeleteBookmarksDialog(
+                onDismiss = { dialogManager.show(DialogKey.Shell.Bookmark) },
                 onDelete = {
-                    showBookmarkDialog = false
-                    showDeleteConfirmationDialog = false
+                    dialogManager.dismiss()
                     bookmarkViewModel.deleteAllBookmark()
                 }
             )
-        }
 
-        if (showBookmarkSortDialog) {
-            BookmarksSortDialog(
-                onDismiss = {
-                    showBookmarkDialog = true
-                    showBookmarkSortDialog = false
-                }
+            DialogKey.Shell.BookmarkSort -> BookmarksSortDialog(
+                onDismiss = { dialogManager.show(DialogKey.Shell.Bookmark) }
             )
-        }
 
-        if (showFileSavedDialog) {
-            FileSavedDialog(
-                onDismiss = {
-                    showFileSavedDialog = false
-                },
+            DialogKey.Shell.FileSaved -> FileSavedDialog(
+                onDismiss = { dialogManager.dismiss() },
                 onOpenFile = { handleSavedFileOpen() },
             )
+
+            else -> dialogManager.dismiss()
         }
 
         extraContent()

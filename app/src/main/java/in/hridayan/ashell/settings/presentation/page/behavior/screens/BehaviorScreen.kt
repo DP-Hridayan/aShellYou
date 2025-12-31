@@ -14,18 +14,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.presentation.components.dialog.WithDialog
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ConfigureSaveDirectoryDialog
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
@@ -39,14 +37,13 @@ fun BehaviorScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val settings = settingsViewModel.behaviorPageList
-
-    var showConfigureSaveOutputDialog by rememberSaveable { mutableStateOf(false) }
+    val dialogManager = LocalDialogManager.current
 
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
             when (event) {
                 is SettingsUiEvent.ShowDialog -> {
-                    showConfigureSaveOutputDialog = event.key == SettingsKeys.OUTPUT_SAVE_DIRECTORY
+                    dialogManager.show(event.key)
                 }
 
                 else -> {}
@@ -124,9 +121,9 @@ fun BehaviorScreen(
             }
         })
 
-    if (showConfigureSaveOutputDialog) {
+    WithDialog(DialogKey.Settings.ConfigureSaveDir) {
         ConfigureSaveDirectoryDialog(
-            onDismiss = { showConfigureSaveOutputDialog = false },
+            onDismiss = { it.dismiss() },
         )
     }
 }

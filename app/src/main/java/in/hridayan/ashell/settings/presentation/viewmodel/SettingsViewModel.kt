@@ -13,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.BackupOption
@@ -195,7 +196,7 @@ class SettingsViewModel @Inject constructor(
                 )
 
                 SettingsKeys.RESET_APP_SETTINGS -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(SettingsKeys.RESET_APP_SETTINGS)
+                    SettingsUiEvent.ShowDialog(DialogKey.Settings.ResetSettings)
                 )
 
                 SettingsKeys.BACKUP_APP_SETTINGS -> _uiEvent.emit(
@@ -215,7 +216,7 @@ class SettingsViewModel @Inject constructor(
                 )
 
                 SettingsKeys.OUTPUT_SAVE_DIRECTORY -> _uiEvent.emit(
-                    SettingsUiEvent.ShowDialog(SettingsKeys.OUTPUT_SAVE_DIRECTORY)
+                    SettingsUiEvent.ShowDialog(DialogKey.Settings.ConfigureSaveDir)
                 )
 
                 else -> {}

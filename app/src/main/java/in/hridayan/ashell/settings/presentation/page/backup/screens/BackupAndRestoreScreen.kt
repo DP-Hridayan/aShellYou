@@ -36,17 +36,20 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.presentation.components.dialog.WithDialog
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ResetSettingsDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreBackupDialog
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
@@ -58,8 +61,7 @@ fun BackupAndRestoreScreen(
 ) {
     val context = LocalContext.current
     val settings = settingsViewModel.backupPageList
-    var showResetDialog by rememberSaveable { mutableStateOf(false) }
-    var showRestoreBackupDialog by rememberSaveable { mutableStateOf(false) }
+    val dialogManager = LocalDialogManager.current
     val backupTime by backupAndRestoreViewModel.backupTime.collectAsState()
     val lastBackupTime by settingsViewModel.getString(SettingsKeys.LAST_BACKUP_TIME)
         .collectAsState(initial = "")
@@ -80,7 +82,7 @@ fun BackupAndRestoreScreen(
             if (fileName?.endsWith(".ashellyou") == true) {
                 restoreFileUri = it
                 backupAndRestoreViewModel.loadBackupTime(it)
-                showRestoreBackupDialog = true
+                dialogManager.show(DialogKey.Settings.RestoreBackup)
             } else {
                 showToast(context, context.getString(R.string.pick_ashellyou_extension))
             }
@@ -91,7 +93,7 @@ fun BackupAndRestoreScreen(
         settingsViewModel.uiEvent.collect { event ->
             when (event) {
                 is SettingsUiEvent.ShowDialog -> {
-                    showResetDialog = event.key == SettingsKeys.RESET_APP_SETTINGS
+                    dialogManager.show(event.key)
                 }
 
                 is SettingsUiEvent.RequestDocumentUriForBackup -> {
@@ -193,15 +195,15 @@ fun BackupAndRestoreScreen(
             }
         })
 
-    if (showResetDialog) {
+    WithDialog(DialogKey.Settings.ResetSettings) {
         ResetSettingsDialog(
-            onDismiss = { showResetDialog = false },
+            onDismiss = { it.dismiss() },
             onConfirm = { backupAndRestoreViewModel.resetSettingsToDefault() })
     }
 
-    if (showRestoreBackupDialog) {
+    WithDialog(DialogKey.Settings.RestoreBackup) {
         RestoreBackupDialog(
-            onDismiss = { showRestoreBackupDialog = false },
+            onDismiss = { it.dismiss() },
             onConfirm = { backupAndRestoreViewModel.performRestore(restoreFileUri) },
             backupTime = backupTime
         )

@@ -20,6 +20,7 @@ import `in`.hridayan.ashell.core.data.provider.AppSeedColors
 import `in`.hridayan.ashell.core.data.provider.SeedColor
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.strongHaptic
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.weakHaptic
+import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.SettingsState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -44,9 +45,14 @@ val LocalAnimatedContentScope = staticCompositionLocalOf<AnimatedContentScope> {
     error("No AnimatedContentScope provided")
 }
 
+val LocalDialogManager = staticCompositionLocalOf<DialogViewModel> {
+    error { "No DialogViewModel provided" }
+}
+
 @Composable
 fun CompositionLocals(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
+    dialogViewModel: DialogViewModel = hiltViewModel(),
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
@@ -200,6 +206,7 @@ fun CompositionLocals(
         LocalSeedColor provides seedColor,
         LocalDarkMode provides isDarkTheme,
         LocalTonalPalette provides tonalPalette,
+        LocalDialogManager provides dialogViewModel
     ) {
         content()
     }

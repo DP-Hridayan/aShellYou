@@ -71,11 +71,12 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
+import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
+import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
@@ -99,13 +100,13 @@ fun CommandExampleCard(
     val navController = LocalNavController.current
     val weakHaptic = LocalWeakHaptic.current
     val screenDensity = LocalDensity.current
+    val dialogManager = LocalDialogManager.current
     val coroutineScope = rememberCoroutineScope()
     val prevScreen = navController.previousBackStackEntry
     val shellViewModel: ShellViewModel =
         if (prevScreen != null) hiltViewModel(prevScreen) else hiltViewModel()
     val interactionSources = remember { List(3) { MutableInteractionSource() } }
     var isDeleted by rememberSaveable { mutableStateOf(false) }
-    var isEditDialogOpen by rememberSaveable { mutableStateOf(false) }
     val animatedHeight = remember { Animatable(1f) }
     var topPadding by remember(id) { mutableStateOf(15.dp) }
     val swipeOffset = remember { Animatable(0f) }
@@ -154,7 +155,7 @@ fun CommandExampleCard(
     val onEdit: () -> Unit = {
         coroutineScope.launch {
             commandExamplesViewModel.setFieldsForEdit(id = id)
-            isEditDialogOpen = true
+            dialogManager.show(DialogKey.CommandExamples.Edit(id))
         }
     }
 
@@ -372,8 +373,6 @@ fun CommandExampleCard(
                     }
                 })
         }
-
-    if (isEditDialogOpen) EditCommandDialog(id = id, onDismiss = { isEditDialogOpen = false })
 }
 
 @Composable

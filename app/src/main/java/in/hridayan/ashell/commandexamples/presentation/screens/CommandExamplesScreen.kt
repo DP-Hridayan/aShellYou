@@ -72,8 +72,10 @@ import `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet.C
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandsSortDialog
+import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.LoadDefaultCommandsDialog
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
+import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
@@ -81,6 +83,7 @@ import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 
 @SuppressLint("RememberInComposition")
@@ -95,10 +98,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     val listState = rememberLazyListState()
 
     var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
-    var showAddCommandDialog by rememberSaveable { mutableStateOf(false) }
-    var showSortExamplesDialog by rememberSaveable { mutableStateOf(false) }
-    var showFilterExamplesBottomSheet by rememberSaveable { mutableStateOf(false) }
-    var showLoadDefaultCommandDialog by rememberSaveable { mutableStateOf(false) }
+    val dialogManager = LocalDialogManager.current
     val focusRequester = FocusRequester()
     val sortType = LocalSettings.current.commandsSortType
     val commands by viewModel.searchedCommands.collectAsState()
@@ -106,14 +106,16 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     val states by viewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible()
 
+    var showFilterCommandBottomSheet by rememberSaveable { mutableStateOf(false) }
+
     val addOptions = listOf(
         stringResource(R.string.load_predefined_commands) to {
-            showLoadDefaultCommandDialog = true
+            dialogManager.show(DialogKey.CommandExamples.LoadDefaultCommands)
             viewModel.loadDefaultCommands()
         },
         stringResource(R.string.add_new_item) to {
             viewModel.clearInputFields()
-            showAddCommandDialog = true
+            dialogManager.show(DialogKey.CommandExamples.Add)
         }
     )
 
@@ -186,7 +188,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                                             interactionSource = remember { MutableInteractionSource() },
                                             onClick = {
                                                 weakHaptic()
-                                                showFilterExamplesBottomSheet = true
+                                                showFilterCommandBottomSheet = true
                                             }
                                         )
                                     )
@@ -200,7 +202,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                                                 interactionSource = remember { MutableInteractionSource() },
                                                 onClick = {
                                                     weakHaptic()
-                                                    showSortExamplesDialog = true
+                                                    dialogManager.show(DialogKey.CommandExamples.SortCommands)
                                                 }
                                             )
                                     )
@@ -320,14 +322,24 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
         }
     }
 
-    if (showAddCommandDialog) AddCommandDialog(onDismiss = { showAddCommandDialog = false })
-    if (showSortExamplesDialog) CommandsSortDialog(onDismiss = { showSortExamplesDialog = false })
-    if (showFilterExamplesBottomSheet) CommandsFilterBottomSheet(onDismiss = {
-        showFilterExamplesBottomSheet = false
-    })
-    if (showLoadDefaultCommandDialog) LoadDefaultCommandsDialog(onDismiss = {
-        showLoadDefaultCommandDialog = false
-    })
+    if (showFilterCommandBottomSheet) {
+        CommandsFilterBottomSheet(onDismiss = {
+            showFilterCommandBottomSheet = false
+        })
+    }
+
+    when (dialogManager.activeDialog) {
+        DialogKey.CommandExamples.LoadDefaultCommands -> LoadDefaultCommandsDialog(onDismiss = { dialogManager.dismiss() })
+        DialogKey.CommandExamples.SortCommands -> CommandsSortDialog(onDismiss = { dialogManager.dismiss() })
+        DialogKey.CommandExamples.Add -> AddCommandDialog(onDismiss = { dialogManager.dismiss() })
+         is DialogKey.CommandExamples.Edit ->
+            EditCommandDialog(
+                onDismiss = { dialogManager.dismiss() },
+                id = (dialogManager.activeDialog as DialogKey.CommandExamples.Edit).commandId
+            )
+
+        else -> dialogManager.dismiss()
+    }
 }
 
 @Composable

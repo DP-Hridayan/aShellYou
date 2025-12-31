@@ -27,11 +27,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -42,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.UrlConst.URL_OTG_INSTRUCTIONS
 import `in`.hridayan.ashell.core.common.constants.UrlConst.URL_WIRELESS_DEBUGGING_INSTRUCTIONS
@@ -49,6 +47,7 @@ import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButt
 import `in`.hridayan.ashell.core.presentation.components.button.OutlinedIconButtonWithText
 import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.home.presentation.component.card.DeviceInfoCard
@@ -77,26 +76,15 @@ fun HomeScreen(
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val navController = LocalNavController.current
-    var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
-    var showPairModeChooseDialog by rememberSaveable { mutableStateOf(false) }
-    var showOtgDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
-    var showPairedDevicesDialog by rememberSaveable { mutableStateOf(false) }
+    val dialogManager = LocalDialogManager.current
     val otgState by otgViewModel.state.collectAsState()
-
-    val onClickWifiAdbPairButton: () -> Unit = {
-        showPairModeChooseDialog = true
-    }
-
-    val onClickWifiAdbStartButton: () -> Unit = {
-        showPairedDevicesDialog = true
-    }
 
     val onClickOtgAdbCard: () -> Unit = {
         if (otgState is OtgState.Connected) {
             navController.navigate(NavRoutes.OtgAdbScreen)
         } else {
             otgViewModel.startScan()
-            showOtgDeviceWaitingDialog = true
+            dialogManager.show(DialogKey.Home.OtgDeviceWaiting)
         }
     }
 
@@ -110,7 +98,7 @@ fun HomeScreen(
                 makeToast(context, context.getString(R.string.no_root_access))
             } else {
                 makeToast(context, context.getString(R.string.root_access_granted))
-                showRebootOptionsDialog = true
+                dialogManager.show(DialogKey.Home.RebootOptions)
             }
         }
     }
@@ -145,10 +133,8 @@ fun HomeScreen(
                 }
             )
 
-            WirelessDebuggingCard(
-                onClickStart = onClickWifiAdbStartButton,
-                onClickPair = onClickWifiAdbPairButton
-            )
+            WirelessDebuggingCard()
+
             OtgAdbCard(
                 onClickOtgAdbCard = onClickOtgAdbCard,
                 otgState = otgState
@@ -157,37 +143,32 @@ fun HomeScreen(
         }
     }
 
+    when (dialogManager.activeDialog) {
+        DialogKey.Home.RebootOptions -> RebootOptionsDialog(onDismiss = { dialogManager.dismiss() })
 
-    if (showRebootOptionsDialog) {
-        RebootOptionsDialog(onDismiss = { showRebootOptionsDialog = false })
-    }
-
-    if (showPairModeChooseDialog) {
-        PairModeChooseDialog(
-            onDismiss = { showPairModeChooseDialog = false },
+        DialogKey.Home.ChooseWifiAdbPairMode -> PairModeChooseDialog(
+            onDismiss = { dialogManager.dismiss() },
             onClickPairSelf = {
-                showPairModeChooseDialog = false
+                dialogManager.dismiss()
                 navController.navigate(NavRoutes.PairingOwnDeviceScreen)
             },
             onClickPairAnother = {
-                showPairModeChooseDialog = false
+                dialogManager.dismiss()
                 navController.navigate(NavRoutes.PairingOtherDeviceScreen)
             })
-    }
 
-    if (showOtgDeviceWaitingDialog) {
-        OtgDeviceWaitingDialog(
-            onDismiss = { showOtgDeviceWaitingDialog = false },
+        DialogKey.Home.OtgDeviceWaiting -> OtgDeviceWaitingDialog(
+            onDismiss = { dialogManager.dismiss() },
             onConfirm = {
-                showOtgDeviceWaitingDialog = false
+                dialogManager.dismiss()
                 navController.navigate(NavRoutes.OtgAdbScreen)
                 otgViewModel.startScan()
             }
         )
-    }
 
-    if (showPairedDevicesDialog) {
-        PairedDevicesDialog(onDismiss = { showPairedDevicesDialog = false })
+        DialogKey.Home.WifiAdbPairedDevices -> PairedDevicesDialog(onDismiss = { dialogManager.dismiss() })
+
+        else -> dialogManager.dismiss()
     }
 }
 
@@ -285,13 +266,10 @@ fun LocalAdbCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
-fun WirelessDebuggingCard(
-    modifier: Modifier = Modifier,
-    onClickPair: () -> Unit = {},
-    onClickStart: () -> Unit = {}
-) {
+fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val weakHaptic = LocalWeakHaptic.current
+    val dialogManager = LocalDialogManager.current
 
     NavigationCard(
         title = stringResource(R.string.adb_via_wireless_debugging),
@@ -311,7 +289,7 @@ fun WirelessDebuggingCard(
             contentDescription = null,
             onClick = {
                 weakHaptic()
-                onClickPair()
+                dialogManager.show(DialogKey.Home.ChooseWifiAdbPairMode)
             })
 
         IconWithTextButton(
@@ -321,7 +299,7 @@ fun WirelessDebuggingCard(
             contentDescription = null,
             onClick = {
                 weakHaptic()
-                onClickStart()
+                dialogManager.show(DialogKey.Home.WifiAdbPairedDevices)
             })
 
         OutlinedIconButtonWithText(
