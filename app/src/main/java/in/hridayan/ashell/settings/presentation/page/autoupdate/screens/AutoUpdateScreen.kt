@@ -226,7 +226,9 @@ fun AutoUpdateScreen(
         )
     }
 
-    DialogKey.Settings.LatestVersion.createDialog { LatestVersionDialog(onDismiss = { it.dismiss() }) }
+    DialogKey.Settings.LatestVersion.createDialog {
+        LatestVersionDialog(onDismiss = { it.dismiss() })
+    }
 }
 
 @Composable
