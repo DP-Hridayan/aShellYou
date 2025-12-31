@@ -42,11 +42,11 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
-import `in`.hridayan.ashell.core.presentation.components.dialog.WithDialog
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.progress.LoadingSpinner
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
@@ -226,9 +226,7 @@ fun AutoUpdateScreen(
         )
     }
 
-    WithDialog(DialogKey.Settings.LatestVersion) {
-        LatestVersionDialog(onDismiss = { it.dismiss() })
-    }
+    DialogKey.Settings.LatestVersion.createDialog { LatestVersionDialog(onDismiss = { it.dismiss() }) }
 }
 
 @Composable

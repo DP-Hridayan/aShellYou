@@ -37,10 +37,10 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.presentation.components.dialog.WithDialog
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
@@ -195,13 +195,13 @@ fun BackupAndRestoreScreen(
             }
         })
 
-    WithDialog(DialogKey.Settings.ResetSettings) {
+    DialogKey.Settings.ResetSettings.createDialog {
         ResetSettingsDialog(
             onDismiss = { it.dismiss() },
             onConfirm = { backupAndRestoreViewModel.resetSettingsToDefault() })
     }
 
-    WithDialog(DialogKey.Settings.RestoreBackup) {
+    DialogKey.Settings.RestoreBackup.createDialog {
         RestoreBackupDialog(
             onDismiss = { it.dismiss() },
             onConfirm = { backupAndRestoreViewModel.performRestore(restoreFileUri) },

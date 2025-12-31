@@ -1,4 +1,8 @@
-package `in`.hridayan.ashell.core.presentation.utils
+package `in`.hridayan.ashell.core.presentation.components.dialog
+
+import androidx.compose.runtime.Composable
+import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
 
 sealed class DialogKey {
     object None : DialogKey()
@@ -32,4 +36,22 @@ sealed class DialogKey {
         object ResetSettings : DialogKey()
         object RestoreBackup : DialogKey()
     }
+}
+
+@Composable
+fun DialogKey.createDialog(content: @Composable (DialogViewModel) -> Unit) {
+    val dialogManager = LocalDialogManager.current
+    val active = dialogManager.activeDialog
+
+    if (this.matches(active)) {
+        content(dialogManager)
+    }
+}
+
+private fun DialogKey.matches(other: DialogKey): Boolean {
+    // Exact match (works for objects + data classes with same data)
+    if (this == other) return true
+
+    // Match by type (for data classes when payload differs)
+    return this::class == other::class
 }

@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.settings.presentation.event
 
 import android.content.Intent
-import `in`.hridayan.ashell.core.presentation.utils.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.BackupOption
 

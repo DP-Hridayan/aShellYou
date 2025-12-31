@@ -21,9 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.presentation.components.dialog.WithDialog
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
-import `in`.hridayan.ashell.core.presentation.utils.DialogKey
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ConfigureSaveDirectoryDialog
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
@@ -121,7 +121,7 @@ fun BehaviorScreen(
             }
         })
 
-    WithDialog(DialogKey.Settings.ConfigureSaveDir) {
+    DialogKey.Settings.ConfigureSaveDir.createDialog {
         ConfigureSaveDirectoryDialog(
             onDismiss = { it.dismiss() },
         )

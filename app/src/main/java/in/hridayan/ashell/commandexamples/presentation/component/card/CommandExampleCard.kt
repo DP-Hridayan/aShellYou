@@ -76,7 +76,7 @@ import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExampl
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
-import `in`.hridayan.ashell.core.presentation.utils.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
