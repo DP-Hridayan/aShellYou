@@ -54,13 +54,13 @@ class ShellViewModel @Inject constructor(
     val allCommands: Flow<List<CommandEntity>> =
         commandExamplesRepository.getSortedCommands(SortType.AZ).stateIn(
             viewModelScope,
-            SharingStarted.Companion.Lazily, emptyList()
+            SharingStarted.Lazily, emptyList()
         )
 
     @OptIn(FlowPreview::class)
     val commandSuggestions: StateFlow<List<CommandEntity>> =
         _states
-            .map { it.commandField.fieldValue.text }
+            .map { it.commandField.fieldValue.text.trim() }
             .combine(allCommands) { query, commands ->
                 if (query.isBlank()) {
                     emptyList()
