@@ -79,11 +79,11 @@ import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 
 @SuppressLint("RememberInComposition")
@@ -332,7 +332,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
         DialogKey.CommandExamples.LoadDefaultCommands -> LoadDefaultCommandsDialog(onDismiss = { dialogManager.dismiss() })
         DialogKey.CommandExamples.SortCommands -> CommandsSortDialog(onDismiss = { dialogManager.dismiss() })
         DialogKey.CommandExamples.Add -> AddCommandDialog(onDismiss = { dialogManager.dismiss() })
-         is DialogKey.CommandExamples.Edit ->
+        is DialogKey.CommandExamples.Edit ->
             EditCommandDialog(
                 onDismiss = { dialogManager.dismiss() },
                 id = (dialogManager.activeDialog as DialogKey.CommandExamples.Edit).commandId
