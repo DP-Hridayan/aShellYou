@@ -40,14 +40,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.UrlConst.URL_OTG_INSTRUCTIONS
 import `in`.hridayan.ashell.core.common.constants.UrlConst.URL_WIRELESS_DEBUGGING_INSTRUCTIONS
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.button.OutlinedIconButtonWithText
 import `in`.hridayan.ashell.core.presentation.components.card.NavigationCard
-import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.home.presentation.component.card.DeviceInfoCard
@@ -72,7 +72,6 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     otgViewModel: OtgViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val navController = LocalNavController.current
@@ -120,8 +119,7 @@ fun HomeScreen(
                 horizontalArrangement = Arrangement.spacedBy(25.dp)
             ) {
                 AppNameText(modifier = Modifier.weight(1f))
-                SettingsButton(onClick = {
-                    weakHaptic()
+                SettingsButton(onClick = withHaptic {
                     navController.navigate(NavRoutes.SettingsScreen)
                 })
             }
@@ -268,7 +266,6 @@ fun LocalAdbCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
 @Composable
 fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val weakHaptic = LocalWeakHaptic.current
     val dialogManager = LocalDialogManager.current
 
     NavigationCard(
@@ -287,8 +284,7 @@ fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer
             ),
             contentDescription = null,
-            onClick = {
-                weakHaptic()
+            onClick = withHaptic {
                 dialogManager.show(DialogKey.Home.ChooseWifiAdbPairMode)
             })
 
@@ -297,16 +293,14 @@ fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
             icon = painterResource(R.drawable.ic_play),
             text = stringResource(R.string.start),
             contentDescription = null,
-            onClick = {
-                weakHaptic()
+            onClick = withHaptic {
                 dialogManager.show(DialogKey.Home.WifiAdbPairedDevices)
             })
 
         OutlinedIconButtonWithText(
             text = stringResource(R.string.instructions),
             painter = painterResource(R.drawable.ic_open_in_new),
-            onClick = {
-                weakHaptic()
+            onClick = withHaptic {
                 UrlUtils.openUrl(
                     url = URL_WIRELESS_DEBUGGING_INSTRUCTIONS,
                     context = context
@@ -322,15 +316,12 @@ fun OtgAdbCard(
     otgState: OtgState,
     onClickOtgAdbCard: () -> Unit = {}
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     NavigationCard(
         title = stringResource(R.string.adb_through_otg),
         description = stringResource(R.string.adb_through_otg_summary),
         icon = painterResource(R.drawable.ic_otg),
         modifier = modifier,
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic {
             onClickOtgAdbCard()
         },
         content = {
@@ -348,8 +339,7 @@ fun OtgAdbCard(
                         contentColor = MaterialTheme.colorScheme.onTertiaryContainer
                     ),
                     shapes = ButtonDefaults.shapes(),
-                    onClick = {
-                        weakHaptic()
+                    onClick = withHaptic {
                         onClickOtgAdbCard()
                     }
                 ) {

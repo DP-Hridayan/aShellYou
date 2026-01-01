@@ -24,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -31,8 +32,8 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdScreenInputFieldState
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.DialogTitle
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 
@@ -53,7 +54,7 @@ fun EditCommandDialog(
             text = stringResource(R.string.edit_command),
             modifier = Modifier
                 .padding(vertical = Dimens.paddingMedium)
-                .align(Alignment.Companion.CenterHorizontally)
+                .align(Alignment.CenterHorizontally)
         )
 
         CommandInputField(state = states.commandField)
@@ -140,7 +141,6 @@ private fun LabelInputField(
     modifier: Modifier = Modifier,
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val state by viewModel.states.collectAsState()
 
     val label =
@@ -153,8 +153,7 @@ private fun LabelInputField(
         onValueChange = { viewModel.onLabelFieldTextChange(it) },
         trailingIcon = {
             IconButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     viewModel.onLabelAdd(state.labelField.fieldValue.text)
                 },
                 colors = IconButtonDefaults.iconButtonColors(
@@ -180,12 +179,9 @@ fun UpdateButton(
     interactionSource: MutableInteractionSource? = null,
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     Button(
         modifier = modifier,
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic(HapticFeedbackType.Confirm) {
             viewModel.editCommand(id = id) { onSuccess() }
         },
         shapes = ButtonDefaults.shapes(),
@@ -203,12 +199,9 @@ private fun CancelButton(
     onClick: () -> Unit,
     interactionSource: MutableInteractionSource? = null,
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     OutlinedButton(
         modifier = modifier,
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic(HapticFeedbackType.Reject) {
             onClick()
         },
         shapes = ButtonDefaults.shapes(),

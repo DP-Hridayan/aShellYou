@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
@@ -24,12 +25,9 @@ fun OutlinedIconButtonWithText(
     text: String,
     painter: Painter
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     OutlinedButton(
         modifier = modifier,
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic{
             onClick()
         },
         colors = ButtonDefaults.outlinedButtonColors(

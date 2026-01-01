@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 
 @Composable
@@ -23,12 +23,9 @@ fun CommandSuggestionsCard(
     roundedCornerShape: RoundedCornerShape,
     viewModel: ShellViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     RoundedCornerCard(
         modifier = modifier,
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic {
             viewModel.onCommandTextFieldChange(
                 TextFieldValue(
                     text = command,

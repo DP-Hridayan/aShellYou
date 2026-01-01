@@ -36,7 +36,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,11 +54,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
@@ -75,13 +77,12 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.
 fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
-    val weakHaptic = LocalWeakHaptic.current
+    val dialogManager = LocalDialogManager.current
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     var isWifiConnected by remember { mutableStateOf(context.isConnectedToWifi()) }
     var hasNotificationAccess by remember { mutableStateOf(isNotificationPermissionGranted(context)) }
-    var showNotificationEnableDialog by rememberSaveable { mutableStateOf(false) }
     val lazyListState = rememberLazyListState()
 
     DisposableEffect(Unit) {
@@ -100,7 +101,7 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
                 if (event == Lifecycle.Event.ON_RESUME) {
                     hasNotificationAccess = isNotificationPermissionGranted(context)
                     isWifiConnected = context.isConnectedToWifi()
-                    showNotificationEnableDialog = false
+                    dialogManager.dismiss()
                 }
             }
         )
@@ -108,20 +109,17 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
 
     val notificationSettingsIntent = createAppNotificationSettingsIntent(context)
 
-    val onClickNotificationButton: () -> Unit = {
-        weakHaptic()
+    val onClickNotificationButton: () -> Unit = withHaptic {
         context.startActivity(notificationSettingsIntent)
     }
 
-    val onClickWifiEnableButton: () -> Unit = {
-        weakHaptic()
+    val onClickWifiEnableButton: () -> Unit = withHaptic {
         context.askUserToEnableWifi()
     }
 
-    val onClickDeveloperOptionsButton: () -> Unit = {
-        weakHaptic()
+    val onClickDeveloperOptionsButton: () -> Unit = withHaptic {
         if (hasNotificationAccess) openDeveloperOptions(context)
-        else showNotificationEnableDialog = true
+        else dialogManager.show(DialogKey.Pair.GrantNotificationAccess)
     }
 
     Scaffold(
@@ -186,9 +184,9 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
         }
     }
 
-    if (showNotificationEnableDialog) {
+    DialogKey.Pair.GrantNotificationAccess.createDialog {
         GrantNotificationAccessDialog(
-            onDismiss = { showNotificationEnableDialog = false },
+            onDismiss = { it.dismiss() },
             onConfirm = { onClickNotificationButton() })
     }
 }

@@ -67,10 +67,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.LabelText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
@@ -99,7 +99,6 @@ fun PairingOtherDeviceScreen(
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
-    val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
     val coroutineScope = rememberCoroutineScope()
     val scrollBehavior =
@@ -133,8 +132,7 @@ fun PairingOtherDeviceScreen(
         )
     }
 
-    val onClickWifiEnableButton: () -> Unit = {
-        weakHaptic()
+    val onClickWifiEnableButton: () -> Unit = withHaptic {
         context.askUserToEnableWifi()
     }
 
@@ -237,7 +235,6 @@ fun QRPair(
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     LocalContext.current
-    val weakHaptic = LocalWeakHaptic.current
     val qrHelper = PairUsingQR()
     val sessionId = "ashell_you"
     val pairingCode = generatePairingCode()
@@ -326,8 +323,7 @@ fun QRPair(
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
             ),
             shapes = ButtonDefaults.shapes(),
-            onClick = {
-                weakHaptic()
+            onClick = withHaptic {
                 onClickPairManually()
             },
         ) {
@@ -345,7 +341,6 @@ fun PairManually(
     onClickPairUsingQR: () -> Unit = {},
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val wifiAdbState by viewModel.state.collectAsState()
 
     Column(
@@ -414,8 +409,7 @@ fun PairManually(
                     modifier = Modifier
                         .weight(1f)
                         .align(Alignment.CenterVertically),
-                    onClick = {
-                        weakHaptic()
+                    onClick = withHaptic {
                         viewModel.startConnectingManually()
                     }
                 )
@@ -442,8 +436,7 @@ fun PairManually(
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
             ),
             shapes = ButtonDefaults.shapes(),
-            onClick = {
-                weakHaptic()
+            onClick = withHaptic {
                 onClickPairUsingQR()
             },
         ) {

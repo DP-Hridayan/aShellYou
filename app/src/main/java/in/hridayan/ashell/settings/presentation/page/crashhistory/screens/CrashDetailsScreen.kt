@@ -43,9 +43,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL
 import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
@@ -60,7 +60,6 @@ fun CrashDetailsScreen(
 ) {
     val context = LocalContext.current
     val listState = rememberLazyListState()
-    val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
     val parentEntry = remember(navController) {
         navController.getBackStackEntry(NavRoutes.CrashHistoryScreen)
@@ -92,8 +91,7 @@ fun CrashDetailsScreen(
         topBarTitle = stringResource(R.string.crash_details),
         fabContent = {
             ExtendedFloatingActionButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     context.sendCrashReport("$deviceInfo\n\n$appInfo\n\n$stacktrace")
                 },
                 modifier = Modifier.padding(bottom = 10.dp)

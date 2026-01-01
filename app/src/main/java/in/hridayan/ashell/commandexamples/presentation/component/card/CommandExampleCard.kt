@@ -77,6 +77,7 @@ import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.CollapsibleCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
@@ -381,11 +382,8 @@ private fun DeleteButton(
     interactionSource: MutableInteractionSource,
     onClick: () -> Unit = {},
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     IconButton(
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic {
             onClick()
         },
         colors = IconButtonDefaults.iconButtonColors(
@@ -409,11 +407,8 @@ private fun EditButton(
     interactionSource: MutableInteractionSource,
     onEdit: () -> Unit = {}
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     IconButton(
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic {
             onEdit()
         },
         colors = IconButtonDefaults.iconButtonColors(
@@ -438,13 +433,11 @@ private fun CopyButton(
     id: Int,
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
     IconButton(
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic {
             coroutineScope.launch {
                 val command = viewModel.getCommandById(id) ?: ""
                 if (command.isNotEmpty()) {
@@ -475,12 +468,10 @@ private fun UseCommandButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val size = ButtonDefaults.ExtraSmallContainerHeight
 
     Button(
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic {
             onClick()
         },
         modifier = modifier.heightIn(size),

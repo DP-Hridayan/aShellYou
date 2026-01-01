@@ -46,8 +46,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -59,7 +59,6 @@ fun CommandsFilterBottomSheet(
     commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val weakHaptic = LocalWeakHaptic.current
     val lazyListState = rememberLazyListState()
     val states by commandExamplesViewModel.states.collectAsState()
     val searchedLabels by commandExamplesViewModel.searchedLabels.collectAsState()
@@ -109,8 +108,7 @@ fun CommandsFilterBottomSheet(
                                 enabled = true,
                                 indication = null,
                                 interactionSource = remember { MutableInteractionSource() },
-                                onClick = {
-                                    weakHaptic()
+                                onClick = withHaptic {
                                     commandExamplesViewModel.onLabelFieldTextChange(TextFieldValue(""))
                                 }
                             ))
@@ -164,8 +162,7 @@ fun CommandsFilterBottomSheet(
                             containerColor = containerColor,
                             contentColor = contentColor
                         ),
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic {
                             commandExamplesViewModel.toggleFilteredLabels(label)
                         }
                     ) {

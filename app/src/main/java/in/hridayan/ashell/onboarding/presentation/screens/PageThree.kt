@@ -60,9 +60,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawSelectChoice
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -84,7 +84,6 @@ fun PageThree(
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
-    val weakHaptic = LocalWeakHaptic.current
     val scope = rememberCoroutineScope()
     var scale by remember { mutableStateOf(Animatable(0f)) }
     var scaleMainShape by remember { mutableStateOf(Animatable(0.75f)) }
@@ -246,8 +245,7 @@ fun PageThree(
                 isChecked = rootCardChecked,
                 title = stringResource(R.string.root),
                 description = stringResource(R.string.mode_one_desc),
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     scope.launch {
                         val hasRoot = withContext(Dispatchers.IO) {
                             shellViewModel.hasRootAccess()
@@ -267,11 +265,10 @@ fun PageThree(
                 isChecked = hasShizukuPermission,
                 title = stringResource(R.string.shizuku),
                 description = stringResource(R.string.mode_two_desc),
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     if (!Shizuku.pingBinder()) {
                         showShizukuUnavailableDialog = true
-                        return@PermissionCard
+                        return@withHaptic
                     }
                     if (!hasShizukuPermission) {
                         shellViewModel.requestShizukuPermission()
@@ -318,16 +315,13 @@ private fun PermissionCard(
     title: String,
     description: String
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     OutlinedCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 40.dp)
             .clip(MaterialTheme.shapes.large)
             .border(CardDefaults.outlinedCardBorder())
-            .clickable(enabled = true, onClick = {
-                weakHaptic()
+            .clickable(onClick = withHaptic {
                 onClick()
             }),
         shape = MaterialTheme.shapes.large,

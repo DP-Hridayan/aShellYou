@@ -32,15 +32,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
@@ -52,7 +53,6 @@ fun CommandsSortDialog(
     onDismiss: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
     val sortOptions = RadioGroupOptionsProvider.commandSortOptions
     val selected =
@@ -116,10 +116,7 @@ fun CommandsSortDialog(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable {
-                            tempSelected = option.value
-                            weakHaptic()
-                        }
+                        .clickable(onClick = withHaptic { tempSelected = option.value })
                         .padding(vertical = 8.dp, horizontal = 20.dp)
                 ) {
                     Text(
@@ -132,9 +129,8 @@ fun CommandsSortDialog(
 
                     RadioButton(
                         selected = (option.value == tempSelected),
-                        onClick = {
+                        onClick = withHaptic(HapticFeedbackType.ToggleOn) {
                             tempSelected = option.value
-                            weakHaptic()
                         },
                         colors = RadioButtonDefaults.colors(
                             selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -157,8 +153,7 @@ fun CommandsSortDialog(
                     .animateWidth(interactionSources[0]),
                 shapes = ButtonDefaults.shapes(),
                 interactionSource = interactionSources[0],
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic(HapticFeedbackType.Reject) {
                     onDismiss()
                 },
                 content = { AutoResizeableText(text = stringResource(R.string.cancel)) }
@@ -174,8 +169,7 @@ fun CommandsSortDialog(
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
                 interactionSource = interactionSources[1],
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic(HapticFeedbackType.Confirm) {
                     settingsViewModel.setInt(
                         key = SettingsKeys.COMMAND_SORT_TYPE,
                         value = tempSelected

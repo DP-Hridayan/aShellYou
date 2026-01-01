@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.model.SettingsType
@@ -67,10 +69,9 @@ fun IntPreferenceItemView(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable {
+                            .clickable(onClick = withHaptic(HapticFeedbackType.ToggleOn) {
                                 onSelectedChange(option.value)
-                                weakHaptic()
-                            }
+                            })
                             .padding(vertical = 8.dp, horizontal = 20.dp)
                     ) {
                         Text(
@@ -83,9 +84,8 @@ fun IntPreferenceItemView(
 
                         RadioButton(
                             selected = (option.value == selected.value),
-                            onClick = {
+                            onClick = withHaptic(HapticFeedbackType.ToggleOn) {
                                 onSelectedChange(option.value)
-                                weakHaptic()
                             }
                         )
                     }

@@ -36,6 +36,10 @@ sealed class DialogKey {
         object ResetSettings : DialogKey()
         object RestoreBackup : DialogKey()
     }
+
+    sealed class Pair {
+        object GrantNotificationAccess : DialogKey()
+    }
 }
 
 @Composable

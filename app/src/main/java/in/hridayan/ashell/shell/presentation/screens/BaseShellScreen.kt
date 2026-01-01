@@ -97,15 +97,15 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.domain.model.ScrollDirection
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
@@ -147,7 +147,6 @@ fun BaseShellScreen(
     extraContent: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
-    val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
     val coroutineScope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
@@ -186,8 +185,7 @@ fun BaseShellScreen(
         }
     }
 
-    val actionFabOnClick: () -> Unit = {
-        weakHaptic()
+    val actionFabOnClick: () -> Unit = withHaptic {
         when (states.shellState) {
             is ShellState.InputQuery -> {
                 coroutineScope.launch {
@@ -323,8 +321,7 @@ fun BaseShellScreen(
                     )
 
                     TextButton(
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic {
                             modeButtonOnClick()
                         },
                         shapes = ButtonDefaults.shapes(),
@@ -391,8 +388,7 @@ fun BaseShellScreen(
                                             containerColor = Color.Transparent,
                                             contentColor = MaterialTheme.colorScheme.primary
                                         ),
-                                        onClick = {
-                                            weakHaptic()
+                                        onClick = withHaptic {
                                             if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
                                                 states.commandField.fieldValue.text
                                             )
@@ -756,7 +752,6 @@ private fun ShareFAB(
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
-    val weakHaptic = LocalWeakHaptic.current
     val states by shellViewModel.states.collectAsState()
 
     if (states.output.isEmpty()) return
@@ -802,8 +797,7 @@ private fun ShareFAB(
     }
 
     SmallFloatingActionButton(
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic {
             shareAction()
         }, containerColor = MaterialTheme.colorScheme.tertiaryContainer,
         contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
@@ -823,7 +817,6 @@ private fun BottomExtendedFAB(
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
-    val weakHaptic = LocalWeakHaptic.current
     val coroutineScope = rememberCoroutineScope()
     val states by shellViewModel.states.collectAsState()
     val savePath = LocalSettings.current.outputSaveDirectory.toUri()
@@ -894,8 +887,7 @@ private fun BottomExtendedFAB(
 
     ExtendedFloatingActionButton(
         modifier = modifier,
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic {
             if (states.output.isEmpty()) pasteAction() else saveAction()
         },
         expanded = expanded,

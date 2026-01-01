@@ -36,18 +36,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import kotlinx.coroutines.launch
 
 @Composable
 fun LatestVersionDialog(onDismiss: () -> Unit) {
-    val weakHaptic = LocalWeakHaptic.current
-
     val (angle, scale) = syncedRotationAndScale()
-
     val appVersionName = stringResource(R.string.version_name) + ": " + BuildConfig.VERSION_NAME
     val appVersionCode =
         stringResource(R.string.version_code) + ": " + BuildConfig.VERSION_CODE.toString()
@@ -65,7 +62,7 @@ fun LatestVersionDialog(onDismiss: () -> Unit) {
                     }
                     .scale(scale)
                     .clip(MaterialShapes.Cookie9Sided.toShape())
-                    .clickable(enabled = true, onClick = weakHaptic)
+                    .clickable(onClick = withHaptic {})
                     .background(MaterialTheme.colorScheme.primaryContainer)
             )
             Icon(

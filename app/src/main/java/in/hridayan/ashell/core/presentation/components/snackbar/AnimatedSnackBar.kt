@@ -18,8 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import kotlinx.coroutines.delay
 
@@ -31,8 +32,6 @@ fun AnimatedSnackBar(
     onActionClicked: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     LaunchedEffect(message, durationMillis) {
         delay(durationMillis.toLong())
         onDismiss()
@@ -65,8 +64,7 @@ fun AnimatedSnackBar(
             )
 
             Button(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic(HapticFeedbackType.Confirm) {
                     onActionClicked()
                 },
                 modifier = Modifier.heightIn(buttonHeight)

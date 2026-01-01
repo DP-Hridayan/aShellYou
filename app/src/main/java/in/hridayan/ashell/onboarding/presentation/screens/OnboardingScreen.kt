@@ -36,7 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
@@ -45,7 +45,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
-    val weakHaptic = LocalWeakHaptic.current
     val pageCount = 3
     val pagerState = rememberPagerState(pageCount = { 3 })
     val coroutineScope = rememberCoroutineScope()
@@ -104,8 +103,7 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                     ) + fadeOut(animationSpec = tween(150))
                 ) {
                     TextButton(
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic {
                             coroutineScope.launch {
                                 if (pagerState.currentPage > 0) pagerState.animateScrollToPage(
                                     pagerState.currentPage - 1
@@ -124,8 +122,7 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                 Spacer(modifier = Modifier.weight(1f))
 
                 Button(
-                    onClick = {
-                        weakHaptic()
+                    onClick = withHaptic {
                         coroutineScope.launch {
                             if (pagerState.currentPage < pageCount - 1) {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)

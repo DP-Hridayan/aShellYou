@@ -50,7 +50,7 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.getFullPathFromTreeUri
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
@@ -63,9 +63,6 @@ fun ConfigureSaveDirectoryDialog(
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-
-    val weakHaptic = LocalWeakHaptic.current
-
     val uriString = LocalSettings.current.outputSaveDirectory
 
     val pathToDisplay =
@@ -100,8 +97,7 @@ fun ConfigureSaveDirectoryDialog(
         }
     }
 
-    val onResetDirectory: () -> Unit = {
-        weakHaptic()
+    val onResetDirectory: () -> Unit = withHaptic {
         settingsViewModel.setString(
             SettingsKeys.OUTPUT_SAVE_DIRECTORY,
             SettingsKeys.OUTPUT_SAVE_DIRECTORY.default as String
@@ -109,8 +105,7 @@ fun ConfigureSaveDirectoryDialog(
         rotationAngle -= 360f
     }
 
-    val onPickFolder: () -> Unit = {
-        weakHaptic()
+    val onPickFolder: () -> Unit = withHaptic {
         folderPickerLauncher.launch(null)
     }
 
@@ -158,7 +153,7 @@ fun ConfigureSaveDirectoryDialog(
                             color = MaterialTheme.colorScheme.primary,
                             shape = MaterialTheme.shapes.largeIncreased
                         )
-                        .clickable(enabled = true, onClick = weakHaptic),
+                        .clickable(onClick = withHaptic { }),
                     shape = MaterialTheme.shapes.largeIncreased,
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.75f),

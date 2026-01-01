@@ -35,6 +35,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -44,8 +45,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.domain.model.DownloadState
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.installApk
 import `in`.hridayan.ashell.core.utils.openUrl
@@ -61,7 +62,6 @@ fun UpdateBottomSheet(
     apkUrl: String = "",
     viewModel: AutoUpdateViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val context = LocalContext.current
     val activity = context as? Activity
@@ -218,8 +218,7 @@ fun UpdateBottomSheet(
                 .padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
         ) {
             OutlinedButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic(HapticFeedbackType.Reject) {
                     permissionPromptShown = false
 
                     if (showDownloadButton) {
@@ -239,7 +238,7 @@ fun UpdateBottomSheet(
 
             if (showDownloadButton)
                 Button(
-                    onClick = {
+                    onClick = withHaptic(HapticFeedbackType.Confirm) {
                         if (isDirectDownloadEnabled) {
                             permissionPromptShown = false
                             viewModel.downloadApk(apkUrl, apkName)
@@ -249,7 +248,6 @@ fun UpdateBottomSheet(
                                 url = "https://github.com/dp-hridayan/ashellyou/releases/tag/$latestVersion"
                             )
                         }
-                        weakHaptic()
                     },
                     shapes = ButtonDefaults.shapes(),
                     modifier = Modifier

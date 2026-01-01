@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -40,8 +41,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
@@ -53,7 +54,6 @@ fun OtgDeviceWaitingDialog(
     onConfirm: () -> Unit = {},
     otgViewModel: OtgViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val otgState by otgViewModel.state.collectAsState()
     var cardHeight by remember { mutableStateOf(0.dp) }
     val screenDensity = LocalDensity.current
@@ -125,8 +125,7 @@ fun OtgDeviceWaitingDialog(
                     )
 
                     Button(
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic(HapticFeedbackType.Confirm) {
                             onConfirm()
                         },
                         shapes = ButtonDefaults.shapes(),
@@ -151,8 +150,7 @@ fun OtgDeviceWaitingDialog(
                     OutlinedButton(
                         modifier = Modifier.fillMaxWidth(),
                         shapes = ButtonDefaults.shapes(),
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic(HapticFeedbackType.Reject) {
                             onDismiss()
                             otgViewModel.disconnect()
                         }) {

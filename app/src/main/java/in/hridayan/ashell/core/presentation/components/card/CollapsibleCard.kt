@@ -35,7 +35,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 
 @Composable
@@ -55,17 +55,15 @@ fun CollapsibleCard(
         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
     ),
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     var expanded by rememberSaveable { mutableStateOf(false) }
 
     Card(
         modifier = modifier
             .clip(shape)
-            .clickable(enabled = true) {
-                weakHaptic()
+            .clickable(onClick = withHaptic {
                 expanded = !expanded
                 onStateChanged?.invoke(expanded)
-            },
+            }),
         shape = shape,
         colors = colors,
         elevation = elevation,

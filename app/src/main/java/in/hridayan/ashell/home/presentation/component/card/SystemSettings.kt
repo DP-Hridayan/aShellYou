@@ -22,17 +22,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
 fun SystemSettings(modifier: Modifier = Modifier) {
-    val weakHaptic = LocalWeakHaptic.current
-
     Card(
         modifier = modifier
             .clip(MaterialTheme.shapes.largeIncreased)
-            .clickable(enabled = true, onClick = { weakHaptic() }),
+            .clickable(onClick = withHaptic { }),
         shape = MaterialTheme.shapes.largeIncreased,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,

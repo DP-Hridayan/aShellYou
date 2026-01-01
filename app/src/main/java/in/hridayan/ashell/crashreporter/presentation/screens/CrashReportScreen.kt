@@ -41,9 +41,9 @@ import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL
 import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
@@ -53,7 +53,6 @@ fun CrashReportScreen(
     modifier: Modifier = Modifier,
     crashViewModel: CrashViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val context = LocalContext.current
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -98,8 +97,7 @@ fun CrashReportScreen(
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     context.sendCrashReport("$deviceInfo\n\n$appInfo\n\n$stacktrace")
                 },
                 modifier = Modifier.padding(bottom = 10.dp)

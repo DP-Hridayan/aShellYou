@@ -27,9 +27,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.bmcLogo
@@ -99,15 +99,13 @@ private fun ContactBox(
     text: String,
     onClick: () -> Unit = {}
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp),
         modifier = modifier
             .clip(MaterialTheme.shapes.extraLarge)
-            .clickable(enabled = true, onClick = {
+            .clickable(onClick = withHaptic {
                 onClick()
-                weakHaptic()
             })
             .padding(vertical = 5.dp),
     ) {
@@ -127,8 +125,6 @@ private fun ContactBox(
 
 @Composable
 private fun BuyMeACoffee(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
-    val weakHaptic = LocalWeakHaptic.current
-
     RoundedCornerCard(
         modifier = modifier,
         roundedCornerShape = CardCornerShape.LAST_CARD,
@@ -138,9 +134,8 @@ private fun BuyMeACoffee(modifier: Modifier = Modifier, onClick: () -> Unit = {}
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .clickable(enabled = true, onClick = {
+                .clickable(onClick = withHaptic {
                     onClick()
-                    weakHaptic()
                 })
                 .padding(horizontal = 25.dp, vertical = 15.dp)
         ) {

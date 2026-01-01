@@ -39,11 +39,11 @@ import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.progress.LoadingSpinner
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -62,7 +62,6 @@ fun AutoUpdateScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
     var showLoading by rememberSaveable { mutableStateOf(false) }
@@ -209,8 +208,7 @@ fun AutoUpdateScreen(
             CheckUpdateButton(
                 showLoading = showLoading,
                 expanded = expanded,
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     autoUpdateViewModel.checkForUpdates(
                         includePrerelease = includePrerelease
                     )

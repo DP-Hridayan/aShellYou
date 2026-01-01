@@ -47,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -55,7 +56,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.settings.data.local.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.provider.RadioGroupOptionsProvider
@@ -68,7 +69,6 @@ fun ConnectedDeviceDialog(
     showModeSwitchButton: Boolean = true,
     onDismiss: () -> Unit
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     var showExpandedLayout by rememberSaveable { mutableStateOf(false) }
 
     var rotationAngle by rememberSaveable { mutableFloatStateOf(0f) }
@@ -116,8 +116,7 @@ fun ConnectedDeviceDialog(
                 if (!showModeSwitchButton) return@Column
 
                 Button(
-                    onClick = {
-                        weakHaptic()
+                    onClick = withHaptic {
                         showExpandedLayout = !showExpandedLayout
                         rotationAngle -= 360f
                     },
@@ -154,8 +153,6 @@ fun ConnectedDeviceDialog(
 
 @Composable
 private fun ConnectedDeviceCard(modifier: Modifier = Modifier, connectedDevice: String?) {
-    val weakHaptic = LocalWeakHaptic.current
-
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -165,7 +162,7 @@ private fun ConnectedDeviceCard(modifier: Modifier = Modifier, connectedDevice: 
                 color = MaterialTheme.colorScheme.primary,
                 shape = MaterialTheme.shapes.largeIncreased
             )
-            .clickable(enabled = true, onClick = weakHaptic),
+            .clickable(onClick = withHaptic { }),
         shape = MaterialTheme.shapes.largeIncreased,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.75f),
@@ -189,7 +186,6 @@ private fun ExpandedLayoutView(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     onDismiss: () -> Unit = {},
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val key = SettingsKeys.LOCAL_ADB_WORKING_MODE
 
     val initialSelected =
@@ -216,8 +212,7 @@ private fun ExpandedLayoutView(
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null,
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic {
                             selected = option.value
                         }
                     )
@@ -232,9 +227,8 @@ private fun ExpandedLayoutView(
 
                 RadioButton(
                     selected = (option.value == selected),
-                    onClick = {
+                    onClick = withHaptic(HapticFeedbackType.ToggleOn) {
                         selected = option.value
-                        weakHaptic()
                     }
                 )
             }
@@ -243,8 +237,7 @@ private fun ExpandedLayoutView(
         @Suppress("DEPRECATION")
         ButtonGroup(modifier = Modifier.fillMaxWidth()) {
             OutlinedButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic(HapticFeedbackType.Reject) {
                     onDismiss()
                 },
                 shapes = ButtonDefaults.shapes(),
@@ -260,8 +253,7 @@ private fun ExpandedLayoutView(
             }
 
             Button(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic(HapticFeedbackType.Confirm) {
                     onDismiss()
                     settingsViewModel.setInt(key = key, value = selected)
                 },

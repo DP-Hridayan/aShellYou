@@ -24,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -31,8 +32,8 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
@@ -46,7 +47,6 @@ fun BookmarkDialog(
     onDismiss: () -> Unit,
     bookmarkViewModel: BookmarkViewModel = hiltViewModel(),
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val sortType = LocalSettings.current.bookmarkSortType
     val bookmarks = bookmarkViewModel.getAllBookmarks(sortType).value
     val bookmarkCount by bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
@@ -89,8 +89,7 @@ fun BookmarkDialog(
                         RoundedCornerCard(
                             roundedCornerShape = roundedShape,
                             modifier = Modifier.fillMaxWidth(),
-                            onClick = {
-                                weakHaptic()
+                            onClick = withHaptic {
                                 onBookmarkClicked(bookmark.command)
                             },
                             paddingValues = PaddingValues(vertical = 1.dp),
@@ -114,8 +113,7 @@ fun BookmarkDialog(
                 ) {
                     TextButton(
                         modifier = Modifier,
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic(HapticFeedbackType.Confirm) {
                             onDelete()
                         },
                         shapes = ButtonDefaults.shapes()
@@ -128,8 +126,7 @@ fun BookmarkDialog(
 
                     TextButton(
                         modifier = Modifier,
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic(HapticFeedbackType.Confirm) {
                             onSort()
                         },
                         shapes = ButtonDefaults.shapes()
@@ -139,8 +136,7 @@ fun BookmarkDialog(
 
                     TextButton(
                         modifier = Modifier,
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic(HapticFeedbackType.Reject) {
                             onDismiss()
                         },
                         shapes = ButtonDefaults.shapes()

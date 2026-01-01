@@ -30,7 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 
 @Composable
@@ -43,17 +43,14 @@ fun NavigationCard(
     onClick: () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit = {},
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     Card(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .clip(MaterialTheme.shapes.largeIncreased)
-            .clickable {
-                weakHaptic()
+            .clickable(onClick = withHaptic {
                 onClick()
-            }
+            })
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),

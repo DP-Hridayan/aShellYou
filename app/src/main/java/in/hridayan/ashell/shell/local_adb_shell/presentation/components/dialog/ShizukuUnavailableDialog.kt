@@ -21,13 +21,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undraw404Error
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -38,7 +39,6 @@ fun ShizukuUnavailableDialog(
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {}
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
 
     Dialog(
@@ -86,9 +86,8 @@ fun ShizukuUnavailableDialog(
                 @Suppress("DEPRECATION")
                 ButtonGroup(modifier = Modifier.fillMaxWidth()) {
                     OutlinedButton(
-                        onClick = {
+                        onClick =withHaptic(HapticFeedbackType.Reject) {
                             onDismiss()
-                            weakHaptic()
                         },
                         shapes = ButtonDefaults.shapes(),
                         modifier = Modifier
@@ -103,9 +102,8 @@ fun ShizukuUnavailableDialog(
                     }
 
                     Button(
-                        onClick = {
+                        onClick =withHaptic(HapticFeedbackType.Confirm) {
                             onConfirm()
-                            weakHaptic()
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.primaryContainer,

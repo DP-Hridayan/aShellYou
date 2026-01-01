@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
@@ -36,7 +38,6 @@ fun RestoreBackupDialog(
     onConfirm: () -> Unit,
     backupTime: String? = ""
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
 
     val (date, time) = (backupTime ?: "").split(" ").let {
@@ -92,8 +93,7 @@ fun RestoreBackupDialog(
                 @Suppress("DEPRECATION")
                 ButtonGroup(modifier = Modifier.fillMaxWidth()) {
                     OutlinedButton(
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic(HapticFeedbackType.Reject){
                             onDismiss()
                         },
                         shapes = ButtonDefaults.shapes(),
@@ -109,8 +109,7 @@ fun RestoreBackupDialog(
                     }
 
                     Button(
-                        onClick = {
-                            weakHaptic()
+                        onClick = withHaptic(HapticFeedbackType.Confirm){
                             onConfirm()
                             onDismiss()
                         },

@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
 import `in`.hridayan.ashell.core.utils.showToast
@@ -57,7 +57,6 @@ fun UtilityButtonGroup(
     showHistoryMenu: () -> Unit = {},
 ) {
     val context = LocalContext.current
-    val weakHaptic = LocalWeakHaptic.current
     val focusManager = LocalFocusManager.current
     val navController = LocalNavController.current
     val screenDensity = LocalDensity.current
@@ -90,8 +89,7 @@ fun UtilityButtonGroup(
                                     enabled = true,
                                     indication = null,
                                     interactionSource = remember { MutableInteractionSource() },
-                                    onClick = {
-                                        weakHaptic()
+                                    onClick = withHaptic {
                                         shellViewModel.onSearchQueryChange(TextFieldValue(""))
                                         focusManager.clearFocus()
                                     }
@@ -107,8 +105,7 @@ fun UtilityButtonGroup(
                                 enabled = true,
                                 indication = null,
                                 interactionSource = remember { MutableInteractionSource() },
-                                onClick = {
-                                    weakHaptic()
+                                onClick = withHaptic {
                                     shellViewModel.toggleSearchBar()
                                 }
                             )
@@ -131,8 +128,7 @@ fun UtilityButtonGroup(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             IconButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     if (states.output.isEmpty()) {
                         showToast(context, context.getString(R.string.nothing_to_search))
                     } else {
@@ -159,8 +155,7 @@ fun UtilityButtonGroup(
             }
 
             IconButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     showBookmarkDialog()
                 },
                 shapes = IconButtonDefaults.shapes(),
@@ -183,8 +178,7 @@ fun UtilityButtonGroup(
             }
 
             IconButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     showHistoryMenu()
                 },
                 shapes = IconButtonDefaults.shapes(),
@@ -207,17 +201,15 @@ fun UtilityButtonGroup(
             }
 
             IconButton(
-                onClick = {
-                    weakHaptic()
-
+                onClick = withHaptic {
                     if (states.output.isEmpty()) {
                         showToast(context, context.getString(R.string.nothing_to_clear))
-                        return@IconButton
+                        return@withHaptic
                     }
 
                     if (states.shellState == ShellState.Busy) {
                         showToast(context, context.getString(R.string.abort_command))
-                        return@IconButton
+                        return@withHaptic
                     }
 
                     if (askToClean) showClearOutputDialog()
@@ -243,8 +235,7 @@ fun UtilityButtonGroup(
             }
 
             IconButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     navController.navigate(NavRoutes.SettingsScreen)
                 },
                 shapes = IconButtonDefaults.shapes(),

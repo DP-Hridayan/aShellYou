@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -29,8 +30,8 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
@@ -38,7 +39,6 @@ fun LoadDefaultCommandsDialog(
     viewModel: CommandExamplesViewModel = hiltViewModel(),
     onDismiss: () -> Unit = {}
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val loadProgress by viewModel.loadProgress.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
 
@@ -86,8 +86,7 @@ fun LoadDefaultCommandsDialog(
                 OutlinedButton(
                     modifier = Modifier.fillMaxWidth(),
                     shapes = ButtonDefaults.shapes(),
-                    onClick = {
-                        weakHaptic()
+                    onClick = withHaptic(HapticFeedbackType.Confirm) {
                         onDismiss()
                     }) {
                     AutoResizeableText(text = stringResource(R.string.done))

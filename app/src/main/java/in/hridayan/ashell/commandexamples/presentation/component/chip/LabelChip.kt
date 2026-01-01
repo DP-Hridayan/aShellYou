@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.Shape
 
 @Composable
@@ -32,8 +32,6 @@ fun LabelChip(
     showCrossIcon: Boolean = false,
     crossIconOnClick: (label: String) -> Unit = {}
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     Row(
         modifier = modifier
             .wrapContentSize()
@@ -60,8 +58,7 @@ fun LabelChip(
         )
         if (showCrossIcon) {
             FilledIconButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     crossIconOnClick(label)
                 },
                 colors = IconButtonDefaults.iconButtonColors(

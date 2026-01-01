@@ -24,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -31,8 +32,8 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.model.CmdScreenInputFieldState
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.DialogTitle
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
@@ -42,7 +43,6 @@ fun AddCommandDialog(
     onDismiss: () -> Unit,
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
     val states by viewModel.states.collectAsState()
 
@@ -80,8 +80,7 @@ fun AddCommandDialog(
                 .padding(top = Dimens.paddingLarge)
         ) {
             OutlinedButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic(HapticFeedbackType.Reject) {
                     onDismiss()
                 },
                 shapes = ButtonDefaults.shapes(),
@@ -97,9 +96,8 @@ fun AddCommandDialog(
             }
 
             Button(
-                onClick = {
-                    weakHaptic()
-                    viewModel.addCommand { onDismiss() }
+                onClick = withHaptic(HapticFeedbackType.Confirm) {
+                    viewModel.addCommand(onSuccess = { onDismiss() })
                 },
                 modifier = Modifier
                     .weight(1f)
@@ -156,7 +154,6 @@ private fun LabelInputField(
     modifier: Modifier = Modifier,
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val state by viewModel.states.collectAsState()
 
     val label =
@@ -169,8 +166,7 @@ private fun LabelInputField(
         onValueChange = { viewModel.onLabelFieldTextChange(it) },
         trailingIcon = {
             IconButton(
-                onClick = {
-                    weakHaptic()
+                onClick = withHaptic {
                     viewModel.onLabelAdd(state.labelField.fieldValue.text)
                 },
                 colors = IconButtonDefaults.iconButtonColors(

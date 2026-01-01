@@ -21,7 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 
 @Composable
@@ -36,11 +36,8 @@ fun IconWithTextButton(
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     Button(
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic {
             onClick()
         },
         enabled = enabled,

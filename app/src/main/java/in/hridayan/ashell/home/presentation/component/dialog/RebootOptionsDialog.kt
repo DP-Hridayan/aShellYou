@@ -28,8 +28,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 
@@ -43,7 +43,6 @@ fun RebootOptionsDialog(
     val interactionSources2 = remember { List(2) { MutableInteractionSource() } }
     val buttonSize = 110.dp
     val iconSize = 36.dp
-    val weakHaptic = LocalWeakHaptic.current
 
     DialogContainer(onDismiss = onDismiss) {
         Column(
@@ -59,8 +58,7 @@ fun RebootOptionsDialog(
                 horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 IconButton(
-                    onClick = {
-                        weakHaptic()
+                    onClick = withHaptic {
                         shellViewModel.executeSimpleCommand(arrayOf("su", "-c", "reboot"))
                     },
                     modifier = Modifier
@@ -81,8 +79,7 @@ fun RebootOptionsDialog(
                 }
 
                 IconButton(
-                    onClick = {
-                        weakHaptic()
+                    onClick = withHaptic {
                         shellViewModel.executeSimpleCommand(
                             arrayOf(
                                 "su",
@@ -127,15 +124,14 @@ fun RebootOptionsDialog(
                     textAlign = TextAlign.Center
                 )
             }
-            
+
             @Suppress("DEPRECATION")
             ButtonGroup(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 IconButton(
-                    onClick = {
-                        weakHaptic()
+                    onClick = withHaptic {
                         shellViewModel.executeSimpleCommand(
                             arrayOf(
                                 "su",
@@ -162,8 +158,7 @@ fun RebootOptionsDialog(
                 }
 
                 IconButton(
-                    onClick = {
-                        weakHaptic()
+                    onClick = withHaptic {
                         shellViewModel.executeSimpleCommand(
                             arrayOf(
                                 "su",

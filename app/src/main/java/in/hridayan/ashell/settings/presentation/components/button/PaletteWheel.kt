@@ -29,9 +29,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.data.provider.SeedColor
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 
 @Composable
 fun PaletteWheel(
@@ -41,8 +41,6 @@ fun PaletteWheel(
     isChecked: Boolean = false,
     onClick: () -> Unit
 ) {
-    val weakHaptic = LocalWeakHaptic.current
-
     val scale by animateFloatAsState(
         targetValue = if (isChecked) 1f else 0f,
         animationSpec = tween(durationMillis = 300),
@@ -63,9 +61,8 @@ fun PaletteWheel(
             )
             .clickable(
                 enabled = true,
-                onClick = {
+                onClick = withHaptic {
                     onClick()
-                    weakHaptic()
                 })
     ) {
         Box(

@@ -51,6 +51,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
@@ -177,7 +178,6 @@ fun SharedTransitionScope.CrashCard(
     crashViewModel: CrashViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
-    val weakHaptic = LocalWeakHaptic.current
     val timestamp = formatTimestamp(crashReport.timestamp)
     val crashTitle = getCrashTitle(crashReport.stackTrace)
     val sharedElementKey = "crashCardToCrashDetails$index"
@@ -192,8 +192,7 @@ fun SharedTransitionScope.CrashCard(
             containerColor = MaterialTheme.colorScheme.surfaceContainer,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
-        onClick = {
-            weakHaptic()
+        onClick = withHaptic{
             crashViewModel.setSharedElementKey(sharedElementKey)
             crashViewModel.setViewingCrash(crashReport)
             navController.navigate(NavRoutes.CrashDetailsScreen)

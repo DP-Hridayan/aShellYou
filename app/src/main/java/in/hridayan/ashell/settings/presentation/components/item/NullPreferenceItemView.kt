@@ -20,12 +20,12 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedDescription
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedIcon
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedTitle
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
@@ -37,8 +37,6 @@ fun NullPreferenceItemView(
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     if (!item.isLayoutVisible) return
-
-    val weakHaptic = LocalWeakHaptic.current
 
     val icon = item.getResolvedIcon()
     val titleText = item.getResolvedTitle()
@@ -53,8 +51,7 @@ fun NullPreferenceItemView(
             modifier = modifier
                 .fillMaxWidth()
                 .clickable(
-                    enabled = true, onClick = {
-                        weakHaptic()
+                    onClick = withHaptic {
                         settingsViewModel.onItemClicked(item.key)
                     })
                 .padding(horizontal = 20.dp, vertical = 17.dp),
