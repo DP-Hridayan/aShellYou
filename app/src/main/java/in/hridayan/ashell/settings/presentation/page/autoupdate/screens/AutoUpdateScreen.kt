@@ -2,7 +2,9 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,6 +31,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -46,6 +49,8 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.progress.LoadingSpinner
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
+import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
@@ -165,43 +170,55 @@ fun AutoUpdateScreen(
                 }
 
                 item {
-                    Column(
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 25.dp, end = 25.dp, top = 25.dp, bottom = 75.dp),
-                        verticalArrangement = Arrangement.spacedBy(15.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(20.dp)
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_info),
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.error,
+                            .padding(top = 30.dp)
+                            .clip(
+                                SineWaveShape(
+                                    amplitude = 15f,
+                                    frequency = 5f,
+                                    edge = WaveEdge.Top
+                                )
                             )
+                            .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 25.dp, end = 25.dp, top = 35.dp, bottom = 75.dp),
+                            verticalArrangement = Arrangement.spacedBy(15.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(20.dp)
+                            ) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_info),
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.error,
+                                )
 
+                                Text(
+                                    text = stringResource(R.string.pre_release_warning),
+                                    style = MaterialTheme.typography.titleSmall,
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                            }
                             Text(
-                                text = stringResource(R.string.pre_release_warning),
-                                style = MaterialTheme.typography.titleSmall,
+                                text = stringResource(R.string.pre_release_warning_description),
+                                style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.error
                             )
-                        }
-                        Text(
-                            text = stringResource(R.string.pre_release_warning_description),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.error
-                        )
-                    }
-                }
 
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(25.dp)
-                    )
+                            Spacer(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(25.dp)
+                            )
+                        }
+                    }
                 }
             }
         }, fabContent = { expanded ->
