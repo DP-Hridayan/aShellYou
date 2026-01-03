@@ -2,9 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,8 +20,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,7 +35,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import kotlinx.coroutines.launch
+import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 
 @Composable
 fun LatestVersionDialog(onDismiss: () -> Unit) {
@@ -107,41 +102,4 @@ fun LatestVersionDialog(onDismiss: () -> Unit) {
             }
         }
     }
-}
-
-@Composable
-private fun syncedRotationAndScale(): Pair<Float, Float> {
-    val rotation = remember { Animatable(0f) }
-    val scale = remember { Animatable(1f) }
-    val durationMillis = 3000
-
-    LaunchedEffect(Unit) {
-        launch {
-            while (true) {
-                rotation.animateTo(
-                    targetValue = rotation.value + 360f,
-                    animationSpec = tween(
-                        durationMillis = durationMillis,
-                        easing = FastOutSlowInEasing
-                    )
-                )
-            }
-        }
-        launch {
-            var toSmall = true
-            while (true) {
-                val target = if (toSmall) 0.7f else 1f
-                toSmall = !toSmall
-                scale.animateTo(
-                    targetValue = target,
-                    animationSpec = tween(
-                        durationMillis = durationMillis,
-                        easing = FastOutSlowInEasing
-                    )
-                )
-            }
-        }
-    }
-
-    return rotation.value to scale.value
 }

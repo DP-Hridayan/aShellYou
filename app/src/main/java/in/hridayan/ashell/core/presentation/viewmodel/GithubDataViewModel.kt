@@ -30,10 +30,9 @@ class GithubDataViewModel @Inject constructor(
     }
 
     fun refreshIfPossible() {
-        if (isNetworkAvailable(context)) {
-            viewModelScope.launch {
-                repository.refreshRepoStats()
-            }
+        viewModelScope.launch {
+            if (!isNetworkAvailable(context)) return@launch
+            repository.refreshRepoStats()
         }
     }
 }

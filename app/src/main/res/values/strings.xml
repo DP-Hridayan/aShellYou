@@ -113,6 +113,7 @@
     <string name="disconnected">Disconnected!</string>
     <string name="done">Done</string>
     <string name="download">Download</string>
+    <string name="downloads">Downloads</string>
     <string name="download_failed">Download failed</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="edit_command">Edit command</string>
@@ -132,6 +133,7 @@
     <string name="filter">Filter</string>
     <string name="filter_by_labels">Filter by labels</string>
     <string name="folder_picker">Folder picker</string>
+    <string name="forks">Forks</string>
     <string name="found_connect_service">Found connect service</string>
     <string name="github" translatable="false">Github</string>
     <string name="grant">Grant</string>
@@ -182,6 +184,7 @@
     <string name="oldest">Oldest</string>
     <string name="on">On</string>
     <string name="open">Open</string>
+    <string name="open_issues">Open issues</string>
     <string name="or">OR</string>
     <string name="otg">OTG</string>
     <string name="override_bookmarks_limit">Override maximum bookmarks limit</string>
@@ -241,6 +244,7 @@
     <string name="sort">Sort</string>
     <string name="stable">Stable</string>
     <string name="stack_trace">Stack trace</string>
+    <string name="stargazers">Stargazers</string>
     <string name="start">Start</string>
     <string name="success">Success</string>
     <string name="successful_connection_message">Device is connected successfully. You can now start running commands on the target device.</string>

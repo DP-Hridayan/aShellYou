@@ -11,9 +11,11 @@ import `in`.hridayan.ashell.core.domain.model.GithubRepoStats
 import `in`.hridayan.ashell.core.domain.repository.GithubDataRepository
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import io.ktor.client.network.sockets.SocketTimeoutException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import kotlinx.io.IOException
 import java.net.ConnectException
 import java.net.UnknownHostException
@@ -59,15 +61,17 @@ class GithubDataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun refreshRepoStats() {
-        try {
-            val repoInfo = api.fetchRepoStats()
-            val allReleases = api.fetchAllReleases()
+        withContext(Dispatchers.IO) {
+            try {
+                val repoInfo = api.fetchRepoStats()
+                val allReleases = api.fetchAllReleases()
 
-            val stats = mapToRepoStats(repoInfo, allReleases)
+                val stats = mapToRepoStats(repoInfo, allReleases)
 
-            dao.insert(stats.toEntity(repoKey))
-        } catch (e: Exception) {
-            Log.d("refreshRepoStats [GithubDataRepositoryImpl]", e.toString())
+                dao.insert(stats.toEntity(repoKey))
+            } catch (e: Exception) {
+                Log.d("refreshRepoStats [GithubDataRepositoryImpl]", e.toString())
+            }
         }
     }
 }
