@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.settings.presentation.components.button
+package `in`.hridayan.ashell.settings.presentation.components.palette
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -122,7 +122,7 @@ fun PaletteWheel(
     }
 }
 
-fun modifyColorForDisplay(
+private fun modifyColorForDisplay(
     color: Color,
     toneFactor: Float = 1.2f,
     chromaFactor: Float = 1.15f

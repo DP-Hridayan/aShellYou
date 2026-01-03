@@ -20,7 +20,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalTonalPalette
-import `in`.hridayan.ashell.settings.presentation.components.button.PaletteWheel
+import `in`.hridayan.ashell.settings.presentation.components.palette.PaletteWheel
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
 import `in`.hridayan.shapeindicators.ShapeIndicatorRow
 

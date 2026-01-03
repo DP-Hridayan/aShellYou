@@ -28,9 +28,9 @@ import `in`.hridayan.ashell.settings.presentation.util.intPreferenceItem
 import `in`.hridayan.ashell.settings.presentation.util.nullPreferenceItem
 import `in`.hridayan.ashell.settings.presentation.util.uncategorizedItems
 
-val isMiUi = MiUiCheck.isMiui
-val isSdkLowerThan13 = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
-val isSdkLowerThan12 = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
+private val isMiUi = MiUiCheck.isMiui
+private val isSdkLowerThan33 = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
+private val isSdkLowerThan31 = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
 
 object SettingsProvider {
     val settingsPageList: List<PreferenceGroup> = listOf(
@@ -94,7 +94,7 @@ object SettingsProvider {
                 titleResId = R.string.dynamic_colors,
                 descriptionResId = R.string.des_dynamic_colors,
                 iconVector = Icons.Rounded.Colorize,
-                isLayoutVisible = !isSdkLowerThan12
+                isLayoutVisible = !isSdkLowerThan31
             )
         ),
         categorizedItems(
@@ -113,7 +113,7 @@ object SettingsProvider {
             ),
             nullPreferenceItem(
                 key = SettingsKeys.LANGUAGE,
-                isLayoutVisible = !isMiUi && !isSdkLowerThan13,
+                isLayoutVisible = !isMiUi && !isSdkLowerThan33,
                 titleResId = R.string.default_language,
                 descriptionResId = R.string.des_default_language,
                 iconVector = Icons.Rounded.Language,
