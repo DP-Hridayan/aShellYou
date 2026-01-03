@@ -34,7 +34,7 @@ fun RoundedCornerCard(
         modifier = modifier
             .padding(paddingValues)
             .clip(roundedCornerShape)
-            .clickable(enabled = true, onClick = onClick),
+            .clickable(onClick = onClick),
         shape = roundedCornerShape,
         elevation = elevation,
         border = border,

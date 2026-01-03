@@ -49,8 +49,11 @@ import androidx.compose.ui.unit.em
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
+import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 import `in`.hridayan.ashell.core.presentation.viewmodel.GithubDataViewModel
@@ -204,7 +207,13 @@ fun AboutScreen(
                                     statsText = it,
                                     statsDescription = stringResource(R.string.license),
                                     containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    onClick = {
+                                        openUrl(
+                                            url = UrlConst.URL_GITHUB_REPO_LICENSE,
+                                            context = context
+                                        )
+                                    }
                                 )
                             }
 
@@ -213,23 +222,36 @@ fun AboutScreen(
                 }
 
                 item {
-                    Text(
-                        text = stringResource(R.string.lead_developer),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier
-                            .padding(horizontal = 20.dp, vertical = 25.dp)
-                            .animateItem()
-                    )
-
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .animateItem()
-                            .padding(top = 25.dp),
+                            .then(
+                                if (githubRepoStats?.totalDownloadCount != null) {
+                                    Modifier
+                                        .clip(
+                                            SineWaveShape(
+                                                amplitude = 10f,
+                                                frequency = 5f,
+                                                edge = WaveEdge.Both
+                                            )
+                                        )
+                                        .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                                } else Modifier
+                            )
+                            .animateItem(),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(15.dp)
                     ) {
+                        Text(
+                            text = stringResource(R.string.lead_developer),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier
+                                .padding(horizontal = 20.dp, vertical = 25.dp)
+                                .align(Alignment.Start)
+                                .animateItem()
+                        )
+
                         ProfilePic(
                             painter = painterResource(R.mipmap.dp_hridayan),
                             size = 150.dp,
@@ -248,7 +270,13 @@ fun AboutScreen(
                             fontStyle = FontStyle.Italic,
                         )
 
-                        SupportMeCard(modifier = modifier.padding(horizontal = 15.dp))
+                        SupportMeCard(
+                            modifier = modifier.padding(
+                                start = 15.dp,
+                                end = 15.dp,
+                                bottom = 25.dp
+                            )
+                        )
                     }
                 }
 
@@ -264,7 +292,7 @@ fun AboutScreen(
                                     .padding(
                                         start = 20.dp,
                                         end = 20.dp,
-                                        top = 30.dp,
+                                        top = 25.dp,
                                         bottom = 10.dp
                                     )
                             )

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -57,7 +58,11 @@ private fun ContactHandles(modifier: Modifier = Modifier) {
     RoundedCornerCard(
         modifier = modifier,
         roundedCornerShape = CardCornerShape.FIRST_CARD,
-        paddingValues = PaddingValues(0.dp)
+        paddingValues = PaddingValues(0.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     ) {
         Row(
             modifier = Modifier
@@ -71,7 +76,11 @@ private fun ContactHandles(modifier: Modifier = Modifier) {
                 onClick = { openUrl(url = UrlConst.URL_DEV_EMAIL, context = context) }
             )
 
-            VerticalDivider(thickness = 1.dp, modifier = Modifier.padding(horizontal = 5.dp))
+            VerticalDivider(
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.surfaceContainerLow,
+                modifier = Modifier.padding(horizontal = 5.dp)
+            )
 
             ContactBox(
                 modifier = Modifier.weight(1f),
@@ -80,7 +89,11 @@ private fun ContactHandles(modifier: Modifier = Modifier) {
                 onClick = { openUrl(url = UrlConst.URL_DEV_GITHUB, context = context) }
             )
 
-            VerticalDivider(thickness = 1.dp, modifier = Modifier.padding(horizontal = 5.dp))
+            VerticalDivider(
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.surfaceContainerLow,
+                modifier = Modifier.padding(horizontal = 5.dp)
+            )
 
             ContactBox(
                 modifier = Modifier.weight(1f),
@@ -124,20 +137,24 @@ private fun ContactBox(
 }
 
 @Composable
-private fun BuyMeACoffee(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
+private fun BuyMeACoffee(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
     RoundedCornerCard(
         modifier = modifier,
         roundedCornerShape = CardCornerShape.LAST_CARD,
-        paddingValues = PaddingValues(0.dp)
+        paddingValues = PaddingValues(0.dp),
+        onClick = withHaptic { onClick() },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .clickable(onClick = withHaptic {
-                    onClick()
-                })
-                .padding(horizontal = 25.dp, vertical = 15.dp)
+            modifier = Modifier.padding(horizontal = 25.dp, vertical = 15.dp)
         ) {
             Spacer(modifier = Modifier.weight(0.4f))
             Image(
