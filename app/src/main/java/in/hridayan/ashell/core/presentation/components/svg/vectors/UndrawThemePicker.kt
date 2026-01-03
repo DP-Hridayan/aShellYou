@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 
-
 @Composable
 fun DynamicColorImageVectors.themePicker(): ImageVector {
     return Builder(
