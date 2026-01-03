@@ -14,12 +14,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
@@ -28,9 +30,6 @@ import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,10 +37,9 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -109,106 +107,108 @@ fun AboutScreen(
                 state = listState,
                 contentPadding = innerPadding
             ) {
-
-                item {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(20.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(15.dp)
-                    ) {
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                githubRepoStats?.totalDownloadCount?.let {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .animateItem()
+                                .padding(20.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(15.dp)
                         ) {
-                            Spacer(
-                                modifier = Modifier
-                                    .requiredSize(120.dp)
-                                    .graphicsLayer {
-                                        rotationZ = angle
-                                    }
-                                    .scale(scale)
-                                    .clip(MaterialShapes.Cookie9Sided.toShape())
-                                    .clickable(onClick = withHaptic {})
-                                    .background(MaterialTheme.colorScheme.primaryContainer)
-                            )
-                            Icon(
-                                painter = painterResource(R.drawable.ic_adb2),
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                                modifier = Modifier.size(60.dp)
-                            )
-                        }
-
-                        AutoResizeableText(
-                            text = stringResource(R.string.app_name),
-                            fontWeight = FontWeight.Black,
-                            fontStyle = FontStyle.Italic,
-                            style = MaterialTheme.typography.displayLargeEmphasized.copy(
-                                letterSpacing = 0.025.em,
-                            )
-                        )
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(15.dp)
-                        ) {
-                            githubRepoStats?.stars?.let {
-                                GithubStatsChip(
-                                    icon = painterResource(R.drawable.ic_star),
-                                    statsText = it.toString(),
-                                    statsDescription = stringResource(R.string.stargazers)
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier.align(Alignment.CenterHorizontally)
+                            ) {
+                                Spacer(
+                                    modifier = Modifier
+                                        .requiredSize(120.dp)
+                                        .graphicsLayer {
+                                            rotationZ = angle
+                                        }
+                                        .scale(scale)
+                                        .clip(MaterialShapes.Cookie9Sided.toShape())
+                                        .clickable(onClick = withHaptic {})
+                                        .background(MaterialTheme.colorScheme.primaryContainer)
+                                )
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_adb2),
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    modifier = Modifier.size(60.dp)
                                 )
                             }
 
-                            githubRepoStats?.totalDownloadCount?.let {
-                                GithubStatsChip(
-                                    icon = painterResource(R.drawable.ic_download),
-                                    statsText = it.toCompactFormat(),
-                                    statsDescription = stringResource(R.string.downloads),
-                                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                            AutoResizeableText(
+                                text = stringResource(R.string.app_name),
+                                fontWeight = FontWeight.Black,
+                                fontStyle = FontStyle.Italic,
+                                style = MaterialTheme.typography.displayLargeEmphasized.copy(
+                                    letterSpacing = 0.025.em,
                                 )
-                            }
-                        }
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(15.dp)
-                        ) {
-                            githubRepoStats?.openIssues?.let {
-                                GithubStatsChip(
-                                    icon = painterResource(R.drawable.ic_bug),
-                                    statsText = it.toString(),
-                                    statsDescription = stringResource(R.string.open_issues),
-                                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                                    contentColor = MaterialTheme.colorScheme.onErrorContainer
-                                )
-                            }
-
-                            githubRepoStats?.forks?.let {
-                                GithubStatsChip(
-                                    icon = painterResource(R.drawable.ic_fork),
-                                    statsText = it.toString(),
-                                    statsDescription = stringResource(R.string.forks),
-                                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-
-                                )
-                            }
-                        }
-
-                        githubRepoStats?.license?.let {
-                            GithubStatsChip(
-                                icon = painterResource(R.drawable.ic_license),
-                                statsText = it,
-                                statsDescription = stringResource(R.string.license),
-                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                                contentColor = MaterialTheme.colorScheme.onSurfaceVariant
                             )
-                        }
 
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(15.dp)
+                            ) {
+                                githubRepoStats?.stars?.let {
+                                    GithubStatsChip(
+                                        icon = painterResource(R.drawable.ic_star),
+                                        statsText = it.toString(),
+                                        statsDescription = stringResource(R.string.stargazers)
+                                    )
+                                }
+
+                                githubRepoStats?.totalDownloadCount?.let {
+                                    GithubStatsChip(
+                                        icon = painterResource(R.drawable.ic_download),
+                                        statsText = it.toCompactFormat(),
+                                        statsDescription = stringResource(R.string.downloads),
+                                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                                    )
+                                }
+                            }
+
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(15.dp)
+                            ) {
+                                githubRepoStats?.openIssues?.let {
+                                    GithubStatsChip(
+                                        icon = painterResource(R.drawable.ic_bug),
+                                        statsText = it.toString(),
+                                        statsDescription = stringResource(R.string.open_issues),
+                                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                                    )
+                                }
+
+                                githubRepoStats?.forks?.let {
+                                    GithubStatsChip(
+                                        icon = painterResource(R.drawable.ic_fork),
+                                        statsText = it.toString(),
+                                        statsDescription = stringResource(R.string.forks),
+                                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+
+                                    )
+                                }
+                            }
+
+                            githubRepoStats?.license?.let {
+                                GithubStatsChip(
+                                    icon = painterResource(R.drawable.ic_license),
+                                    statsText = it,
+                                    statsDescription = stringResource(R.string.license),
+                                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+
+                        }
                     }
                 }
 
@@ -217,12 +217,15 @@ fun AboutScreen(
                         text = stringResource(R.string.lead_developer),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 25.dp)
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp, vertical = 25.dp)
+                            .animateItem()
                     )
 
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .animateItem()
                             .padding(top = 25.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(15.dp)
@@ -308,40 +311,33 @@ fun AboutScreen(
 }
 
 @Composable
-fun GithubStatsChip(
+private fun GithubStatsChip(
     modifier: Modifier = Modifier,
     icon: Painter,
+    statsText: String,
+    statsDescription: String,
     containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
     contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
-    statsText: String,
-    statsDescription: String
+    onClick: () -> Unit = {}
 ) {
-    var cardHeight by remember { mutableStateOf(0.dp) }
-    val screenDensity = LocalDensity.current
-    val pillCornerShape = RoundedCornerShape(cardHeight / 2)
-
-    Row(
-        modifier = modifier
-            .onGloballyPositioned { coordinates ->
-                cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
-            }
-            .clip(pillCornerShape)
-            .background(containerColor),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    FilledTonalButton(
+        modifier = modifier,
+        shapes = ButtonDefaults.shapes(),
+        colors = ButtonDefaults.filledTonalButtonColors(containerColor, contentColor),
+        onClick = withHaptic(HapticFeedbackType.VirtualKey) { onClick() }
     ) {
         Icon(
-            modifier = Modifier.padding(start = 20.dp, top = 8.dp, bottom = 8.dp),
             painter = icon,
             contentDescription = null,
             tint = contentColor
         )
 
-        Column(modifier = Modifier.padding(end = 20.dp, top = 8.dp, bottom = 8.dp)) {
+        Spacer(modifier = Modifier.width(10.dp))
+
+        Column {
             AutoResizeableText(
                 text = statsText,
                 style = MaterialTheme.typography.titleMediumEmphasized,
-                color = contentColor
             )
             AutoResizeableText(
                 text = statsDescription,
