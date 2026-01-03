@@ -18,7 +18,7 @@ import androidx.compose.material.icons.rounded.Vibration
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.utils.MiUiCheck
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.model.SettingsType
 import `in`.hridayan.ashell.settings.presentation.util.boolPreferenceItem

@@ -22,7 +22,7 @@ import `in`.hridayan.ashell.core.presentation.AppUiEntry
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
 import `in`.hridayan.ashell.core.utils.handleSharedText
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import kotlinx.coroutines.flow.first

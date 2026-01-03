@@ -6,12 +6,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import `in`.hridayan.ashell.core.data.repository.DownloadRepositoryImpl
+import `in`.hridayan.ashell.core.data.local.database.GithubRepoStatsDao
+import `in`.hridayan.ashell.core.data.local.repository.DownloadRepositoryImpl
+import `in`.hridayan.ashell.core.data.remote.api.GithubApi
+import `in`.hridayan.ashell.core.data.remote.repository.GithubDataRepositoryImpl
 import `in`.hridayan.ashell.core.di.qualifiers.ApiHttpClient
 import `in`.hridayan.ashell.core.domain.repository.DownloadRepository
-import `in`.hridayan.ashell.settings.data.remote.api.GitHubApi
-import `in`.hridayan.ashell.settings.data.remote.repository.UpdateRepositoryImpl
-import `in`.hridayan.ashell.settings.domain.repository.UpdateRepository
+import `in`.hridayan.ashell.core.domain.repository.GithubDataRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -37,11 +38,12 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGitHubApi(@ApiHttpClient client: HttpClient): GitHubApi = GitHubApi(client)
+    fun provideGithubApi(@ApiHttpClient client: HttpClient): GithubApi = GithubApi(client)
 
     @Provides
     @Singleton
-    fun provideUpdateRepository(api: GitHubApi): UpdateRepository = UpdateRepositoryImpl(api)
+    fun provideGithubDataRepository(api: GithubApi, dao: GithubRepoStatsDao): GithubDataRepository =
+        GithubDataRepositoryImpl(api, dao)
 
     @Provides
     @Singleton

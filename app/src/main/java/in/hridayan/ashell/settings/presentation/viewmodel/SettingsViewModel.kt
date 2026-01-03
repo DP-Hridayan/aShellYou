@@ -15,7 +15,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.BackupOption
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase

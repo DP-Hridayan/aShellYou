@@ -1,7 +1,7 @@
 package `in`.hridayan.ashell.core.domain.provider
 
-import `in`.hridayan.ashell.core.data.provider.AppSeedColors
-import `in`.hridayan.ashell.core.data.provider.SeedColor
+import `in`.hridayan.ashell.core.data.local.provider.AppSeedColors
+import `in`.hridayan.ashell.core.data.local.provider.SeedColor
 
 object SeedColorProvider {
     val seed = AppSeedColors.Color05.colors

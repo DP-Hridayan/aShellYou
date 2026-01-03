@@ -109,14 +109,14 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
-import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
+import `in`.hridayan.ashell.shell.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.core.utils.saveToFileFlow
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.presentation.components.button.UtilityButtonGroup

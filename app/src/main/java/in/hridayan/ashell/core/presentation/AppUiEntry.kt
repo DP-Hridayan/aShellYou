@@ -13,14 +13,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.ChangelogBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
+import `in`.hridayan.ashell.core.presentation.viewmodel.GithubDataViewModel
+import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.navigation.Navigation
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -29,8 +32,10 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun AppUiEntry(
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
+    githubDataViewModel: GithubDataViewModel = hiltViewModel(),
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val isFirstLaunch = settingsViewModel.isFirstLaunch ?: return
 
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
@@ -40,7 +45,7 @@ fun AppUiEntry(
     val savedVersionCode = LocalSettings.current.savedVersionCode
     val firstLaunchFlow = LocalSettings.current.isFirstLaunch
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit, isNetworkAvailable(context)) {
         autoUpdateViewModel.updateEvents.collectLatest { result ->
             if (result is UpdateResult.Success && result.isUpdateAvailable) {
                 tagName = result.release.tagName
@@ -53,6 +58,10 @@ fun AppUiEntry(
 
     LaunchedEffect(savedVersionCode, firstLaunchFlow) {
         showChangelogSheet = savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow
+    }
+
+    LaunchedEffect(Unit) {
+        githubDataViewModel.refreshIfPossible()
     }
 
     Surface {

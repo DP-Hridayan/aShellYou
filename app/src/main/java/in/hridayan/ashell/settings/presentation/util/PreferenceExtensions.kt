@@ -11,7 +11,7 @@ import androidx.compose.ui.res.vectorResource
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.model.ButtonGroupOptions
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem

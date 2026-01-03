@@ -44,7 +44,7 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 

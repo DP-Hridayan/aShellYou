@@ -43,7 +43,7 @@ import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.g
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ResetSettingsDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreBackupDialog
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView

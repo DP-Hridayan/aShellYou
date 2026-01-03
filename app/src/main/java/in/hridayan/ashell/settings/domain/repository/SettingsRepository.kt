@@ -1,7 +1,6 @@
 package `in`.hridayan.ashell.settings.domain.repository
 
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {

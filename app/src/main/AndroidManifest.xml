@@ -20,7 +20,7 @@
     <uses-feature android:name="android.hardware.usb.host" />
     <uses-permission android:name="android.permission.USB_PERMISSION" />
 
-    <!-- Used only for user-initiated app updates by installing APKs fetched from GitHub releases -->
+    <!-- Used only for user-initiated app updates by installing APKs fetched from Github releases -->
     <uses-permission
         android:name="android.permission.REQUEST_INSTALL_PACKAGES"
         tools:ignore="RequestInstallPackagesPolicy" />

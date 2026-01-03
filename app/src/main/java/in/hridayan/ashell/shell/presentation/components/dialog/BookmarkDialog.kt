@@ -36,7 +36,7 @@ import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.viewmodel.BookmarkViewModel
+import `in`.hridayan.ashell.shell.presentation.viewmodel.BookmarkViewModel
 
 @Composable
 fun BookmarkDialog(

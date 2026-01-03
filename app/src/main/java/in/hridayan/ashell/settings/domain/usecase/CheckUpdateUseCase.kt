@@ -1,11 +1,11 @@
 package `in`.hridayan.ashell.settings.domain.usecase
 
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
-import `in`.hridayan.ashell.settings.domain.repository.UpdateRepository
+import `in`.hridayan.ashell.core.domain.repository.GithubDataRepository
 import javax.inject.Inject
 
 class CheckUpdateUseCase @Inject constructor(
-    private val repository: UpdateRepository
+    private val repository: GithubDataRepository
 ) {
     suspend operator fun invoke(currentVersion: String, includePrerelease: Boolean): UpdateResult {
         return when (val result = repository.fetchLatestRelease(includePrerelease)) {

@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.about.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -26,8 +28,11 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.viewmodel.GithubDataViewModel
+import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.presentation.components.card.SupportMeCard
@@ -41,11 +46,13 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 @Composable
 fun AboutScreen(
     modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel = hiltViewModel()
+    settingsViewModel: SettingsViewModel = hiltViewModel(),
+    githubDataViewModel: GithubDataViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
     val context = LocalContext.current
     val settings = settingsViewModel.aboutPageList
+    val githubRepoStats by githubDataViewModel.stats.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
@@ -62,6 +69,15 @@ fun AboutScreen(
             }
         }
     }
+
+    LaunchedEffect(Unit, isNetworkAvailable(context)) {
+        githubDataViewModel.refreshIfPossible()
+    }
+
+    Log.d(
+        "AboutScreen",
+        "${githubRepoStats?.totalDownloadCount?.toCompactFormat()}\n${githubRepoStats?.stars}\n${githubRepoStats?.forks}\n${githubRepoStats?.openIssues}\n${githubRepoStats?.license}"
+    )
 
     val listState = rememberLazyListState()
 
@@ -170,4 +186,15 @@ fun AboutScreen(
                 }
             }
         })
+}
+
+private fun Long.toCompactFormat(): String {
+    return when {
+        this < 1_000 -> this.toString()
+        this < 1_000_000 -> String.format("%.1fK", this / 1_000f)
+        this < 1_000_000_000 -> String.format("%.1fM", this / 1_000_000f)
+        else -> String.format("%.1fB", this / 1_000_000_000f)
+    }.removeSuffix(".0K")
+        .removeSuffix(".0M")
+        .removeSuffix(".0B")
 }

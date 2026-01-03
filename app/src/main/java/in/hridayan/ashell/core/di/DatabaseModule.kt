@@ -13,10 +13,12 @@ import `in`.hridayan.ashell.commandexamples.data.local.database.CommandDao
 import `in`.hridayan.ashell.commandexamples.data.local.database.CommandDatabase
 import `in`.hridayan.ashell.commandexamples.data.local.source.preloadedCommands
 import `in`.hridayan.ashell.core.common.converters.StringListConverter
-import `in`.hridayan.ashell.core.data.database.BookmarkDao
-import `in`.hridayan.ashell.core.data.database.BookmarkDatabase
+import `in`.hridayan.ashell.core.data.local.database.GithubRepoStatsDao
+import `in`.hridayan.ashell.core.data.local.database.GithubRepoStatsDatabase
 import `in`.hridayan.ashell.crashreporter.data.database.CrashDatabase
 import `in`.hridayan.ashell.crashreporter.data.database.CrashLogDao
+import `in`.hridayan.ashell.shell.data.database.BookmarkDao
+import `in`.hridayan.ashell.shell.data.database.BookmarkDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -94,5 +96,22 @@ object DatabaseModule {
     @Provides
     fun provideCrashLogDao(db: CrashDatabase): CrashLogDao {
         return db.crashLogDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGithubRepoStatsDatabase(@ApplicationContext context: Context): GithubRepoStatsDatabase {
+        return Room.databaseBuilder(
+            context,
+            GithubRepoStatsDatabase::class.java,
+            "github_repo_stats_database"
+        )
+            .fallbackToDestructiveMigration(false)
+            .build()
+    }
+
+    @Provides
+    fun provideGithubRepoStatsDao(database: GithubRepoStatsDatabase): GithubRepoStatsDao {
+        return database.githubRepoStatsDao()
     }
 }

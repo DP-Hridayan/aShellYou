@@ -3,7 +3,7 @@ package `in`.hridayan.ashell.settings.presentation.model
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.vector.ImageVector
-import `in`.hridayan.ashell.settings.data.local.SettingsKeys
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 
 sealed class PreferenceItem(
     open val key: SettingsKeys,

@@ -41,7 +41,7 @@ fun Context.launchApp(packageName: String) {
         startActivity(launchIntent)
     } else {
         showToast(this, this.getString(R.string.shizuku_not_installed))
-        // Optionally redirect to Play Store or GitHub
+        // Optionally redirect to Play Store or Github
         // val playStoreIntent = Intent(
         //     Intent.ACTION_VIEW,
         //     Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
