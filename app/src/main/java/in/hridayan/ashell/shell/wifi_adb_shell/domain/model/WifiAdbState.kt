@@ -2,6 +2,8 @@ package `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model
 
 sealed class WifiAdbState(val message: String) {
     object None : WifiAdbState("none")
+    data class Reconnecting(val device: String) : WifiAdbState(device)
+    data class Disconnected(val info: String = "Disconnected") : WifiAdbState(info)
     data class PairingStarted(val info: String = "Pairing started") : WifiAdbState(info)
     data class PairingSuccess(val info: String) : WifiAdbState(info)
     data class PairingFailed(val error: String) : WifiAdbState(error)
@@ -13,3 +15,4 @@ sealed class WifiAdbState(val message: String) {
     data class DiscoverySessionMatched(val info: String = "Session matched") : WifiAdbState(info)
     data class DiscoveryFailed(val info: String) : WifiAdbState(message = info)
 }
+

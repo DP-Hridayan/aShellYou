@@ -47,8 +47,18 @@ class WifiAdbViewModel @Inject constructor(
     private val _savedDevices = MutableStateFlow<List<WifiAdbDevice>>(emptyList())
     val savedDevices = _savedDevices.asStateFlow()
 
+    // Track currently connected device
+    private val _currentDevice = MutableStateFlow<WifiAdbDevice?>(null)
+    val currentDevice = _currentDevice.asStateFlow()
+
+    init {
+        // Load saved devices when ViewModel is created
+        loadSavedDevices()
+    }
+
     fun loadSavedDevices() {
         _savedDevices.value = wifiAdbRepository.getSavedDevices()
+        _currentDevice.value = wifiAdbRepository.getCurrentDevice()
     }
 
     fun onIpChange(newValue: String) {
@@ -129,7 +139,7 @@ class WifiAdbViewModel @Inject constructor(
             })
     }
 
-    fun stopMdnsDiscovery(){
+    fun stopMdnsDiscovery() {
         wifiAdbRepository.stopMdnsDiscovery()
     }
 
@@ -153,6 +163,7 @@ class WifiAdbViewModel @Inject constructor(
         wifiAdbRepository.connect(ip, port, object : WifiAdbRepositoryImpl.ConnectionListener {
             override fun onConnectionSuccess() {
                 WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess("Connected!"))
+                loadSavedDevices() // Refresh to update current device
             }
 
             override fun onConnectionFailed() {
@@ -161,6 +172,39 @@ class WifiAdbViewModel @Inject constructor(
         })
     }
 
+    // ========== NEW RECONNECT FUNCTIONALITY ==========
+
+    fun reconnectToDevice(device: WifiAdbDevice) {
+        wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
+            override fun onReconnectSuccess() {
+                _currentDevice.value = device
+                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id))
+                loadSavedDevices()
+            }
+
+            override fun onReconnectFailed(requiresPairing: Boolean) {
+                _currentDevice.value = null
+                if (requiresPairing) {
+                    // Prefill IP for re-pairing
+                    _ipAddress.value = device.ip
+                }
+            }
+        })
+    }
+
+    fun disconnect() {
+        wifiAdbRepository.disconnect()
+        _currentDevice.value = null
+    }
+
+    fun forgetDevice(device: WifiAdbDevice) {
+        wifiAdbRepository.forgetDevice(device)
+        loadSavedDevices()
+    }
+
+    fun isConnected(): Boolean = wifiAdbRepository.isConnected()
+
+    // ========== END RECONNECT FUNCTIONALITY ==========
 
     fun refreshFieldsForNewPair() {
         WifiAdbConnection.updateState(WifiAdbState.None)
@@ -181,11 +225,9 @@ class WifiAdbViewModel @Inject constructor(
         _connectPortError.value = _connectPort.value.isEmpty()
     }
 
-    private val pairingFieldsInvalid =
-        _ipAddressError.value || _pairingPortError.value || _pairingCodeError.value
+    private val pairingFieldsInvalid: Boolean
+        get() = _ipAddressError.value || _pairingPortError.value || _pairingCodeError.value
 
-    private val connectFieldsInvalid =
-        _ipAddressError.value || _connectPortError.value
-
-
+    private val connectFieldsInvalid: Boolean
+        get() = _ipAddressError.value || _connectPortError.value
 }

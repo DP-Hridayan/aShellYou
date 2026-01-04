@@ -91,6 +91,10 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                                 override fun onPairingSuccess() {
                                     pairingInProgress.remove(key)
                                     Log.d(TAG, "Pairing succeeded for $key!")
+                                    
+                                    // Don't save device here - only save after successful CONNECTION
+                                    // This prevents showing non-functional reconnect tiles for paired-but-not-connected devices
+                                    
                                     callback?.onPairingSuccess(ip, port)
 
                                     executor.schedule({
@@ -100,8 +104,9 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                                                 WifiAdbState.DiscoveryStarted("connect service discovery started")
                                             )
                                         }
-                                        discoverConnectService(callback)
-                                    }, 1, TimeUnit.SECONDS)
+                                        // Pass the paired device IP for filtering and fallback direct connect
+                                        discoverConnectService(callback, ip)
+                                    }, 2, TimeUnit.SECONDS)
                                 }
 
 
@@ -127,10 +132,13 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
 
     /**
      * After pairing, discover the normal adb-tls-connect service.
+     * @param targetIp IP of device we just paired with - for fallback direct connection
      */
     @Suppress("DEPRECATION")
     @SuppressLint("DefaultLocale")
-    private fun discoverConnectService(callback: MdnsDiscoveryCallback?) {
+    private fun discoverConnectService(callback: MdnsDiscoveryCallback?, targetIp: String? = null) {
+        var foundService = false
+        
         executor.submit {
             try {
                 val wifi =
@@ -147,8 +155,9 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                     wifiInfo.ipAddress shr 16 and 0xff,
                     wifiInfo.ipAddress shr 24 and 0xff
                 )
-                Log.d(TAG, "Creating new JmDNS for connect on $ipAddress")
+                Log.d(TAG, "Creating new JmDNS for connect on $ipAddress (paired device: $targetIp)")
 
+                jmDns?.close()
                 jmDns = JmDNS.create(InetAddress.getByName(ipAddress))
 
                 jmDns?.addServiceListener("_adb-tls-connect._tcp.local.", object : ServiceListener {
@@ -165,17 +174,26 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                         val ip = info.inet4Addresses.firstOrNull()?.hostAddress ?: return
                         val port = info.port
                         val key = "$ip:$port"
+                        
+                        Log.d(TAG, "Found ADB connect service at $key")
 
                         if (connectInProgress.contains(key)) {
                             Log.d(TAG, "Connection already in progress for $key, skipping...")
                             return
                         }
+                        
+                        // If we have a target IP, prefer that device
+                        // But also accept others if target device isn't advertising
+                        if (targetIp != null && ip != targetIp) {
+                            Log.d(TAG, "Found $key but looking for $targetIp, will try this if target not found...")
+                            // Don't skip immediately - schedule a fallback connection
+                            return
+                        }
 
+                        foundService = true
                         mainScope.launch {
                             WifiAdbConnection.updateState(WifiAdbState.DiscoveryFound(key))
                         }
-
-                        Log.d(TAG, "Found ADB connect service at $key")
 
                         if (event.type.contains("_adb-tls-connect")) {
                             connectInProgress.add(key)
@@ -187,11 +205,28 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                             connect(ip, port, object : ConnectionListener {
                                 override fun onConnectionSuccess() {
                                     connectInProgress.remove(key)
+                                    
+                                    // Retrieve device serial and name for proper identification
+                                    val serial = getDeviceSerialNumber()
+                                    val deviceName = getDeviceName()
+                                    Log.d(TAG, "Device info - Serial: $serial, Name: $deviceName")
+                                    
+                                    // Save device with serial number for unique identification
+                                    val connectedDevice = WifiAdbDevice(
+                                        ip = ip,
+                                        port = port,
+                                        deviceName = deviceName,
+                                        isPaired = true,
+                                        lastConnected = System.currentTimeMillis(),
+                                        serialNumber = serial
+                                    )
+                                    storage.saveDevice(connectedDevice)
+                                    currentDevice = connectedDevice
+                                    Log.d(TAG, "Saved device: ${connectedDevice.id} (${connectedDevice.deviceName})")
+                                    
                                     mainScope.launch {
                                         WifiAdbConnection.updateState(
-                                            WifiAdbState.ConnectSuccess(
-                                                key
-                                            )
+                                            WifiAdbState.ConnectSuccess(key)
                                         )
                                     }
                                     Log.d(TAG, "Connected successfully to $ip:$port")
@@ -212,12 +247,92 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                 })
 
                 Log.d(TAG, "Started discovery for _adb-tls-connect._tcp.local.")
+                
+                // Fallback: If we have a target IP and mDNS doesn't find it, try direct connection
+                if (targetIp != null) {
+                    executor.schedule({
+                        if (!foundService) {
+                            Log.d(TAG, "mDNS didn't find $targetIp, trying direct connection on common ports...")
+                            
+                            // Try multiple common ADB ports as fallback
+                            val portsToTry = listOf(5555, 37373, 42069, 5037)
+                            var connected = false
+                            val manager = AdbConnectionManager.getInstance(context)
+                            
+                            for (port in portsToTry) {
+                                if (connected) break
+                                
+                                Log.d(TAG, "Trying direct connect to $targetIp:$port...")
+                                mainScope.launch {
+                                    WifiAdbConnection.updateState(WifiAdbState.ConnectStarted("$targetIp:$port (direct)"))
+                                }
+                                
+                                try {
+                                    val success = manager.connect(targetIp, port)
+                                    if (success) {
+                                        connected = true
+                                        
+                                        // Retrieve device serial and name
+                                        val serial = getDeviceSerialNumber()
+                                        val deviceName = getDeviceName()
+                                        Log.d(TAG, "Device info (direct) - Serial: $serial, Name: $deviceName")
+                                        
+                                        val connectedDevice = WifiAdbDevice(
+                                            ip = targetIp,
+                                            port = port,
+                                            deviceName = deviceName,
+                                            isPaired = true,
+                                            lastConnected = System.currentTimeMillis(),
+                                            serialNumber = serial
+                                        )
+                                        storage.saveDevice(connectedDevice)
+                                        currentDevice = connectedDevice
+                                        
+                                        mainScope.launch {
+                                            WifiAdbConnection.updateState(
+                                                WifiAdbState.ConnectSuccess("$targetIp:$port")
+                                            )
+                                        }
+                                        Log.d(TAG, "Direct connection to $targetIp:$port succeeded!")
+                                        callback?.onPairingSuccess(targetIp, port)
+                                        break
+                                    }
+                                } catch (e: Exception) {
+                                    Log.d(TAG, "Port $port failed: ${e.message}")
+                                }
+                            }
+                            
+                            if (!connected) {
+                                // All ports failed - save device as paired-only for manual connect later
+                                Log.e(TAG, "All direct connection attempts failed for $targetIp")
+                                
+                                val pairedDevice = WifiAdbDevice(
+                                    ip = targetIp,
+                                    port = 0, // Unknown port - user needs to provide it
+                                    deviceName = "Paired Device ($targetIp)",
+                                    isPaired = true,
+                                    lastConnected = System.currentTimeMillis()
+                                )
+                                storage.saveDevice(pairedDevice)
+                                
+                                mainScope.launch {
+                                    WifiAdbConnection.updateState(
+                                        WifiAdbState.ConnectFailed("Paired but connect failed - use Manual Connect with correct port")
+                                    )
+                                }
+                                callback?.onPairingFailed(targetIp, 0)
+                            }
+                        }
+                    }, 8, TimeUnit.SECONDS)
+                }
 
             } catch (e: Exception) {
                 Log.e(TAG, "Error discovering connect service", e)
             }
         }
     }
+
+
 
     override fun pair(ip: String, port: Int, pairingCode: Int, listener: PairingListener?) {
         executor.submit {
@@ -240,10 +355,28 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
         executor.submit {
             try {
                 val manager = AdbConnectionManager.getInstance(context)
-                val connected = manager.connect(ip ?: AndroidUtils.getHostIpAddress(context), port)
+                val actualIp = ip ?: AndroidUtils.getHostIpAddress(context)
+                val connected = manager.connect(actualIp, port)
                 if (connected) {
+                    // Retrieve device serial and name for proper identification
+                    val serial = getDeviceSerialNumber()
+                    val deviceName = getDeviceName()
+                    Log.d(TAG, "Connected! Device info - Serial: $serial, Name: $deviceName")
+                    
+                    // Save device with serial number
+                    val connectedDevice = WifiAdbDevice(
+                        ip = actualIp,
+                        port = port,
+                        deviceName = deviceName,
+                        isPaired = true,
+                        lastConnected = System.currentTimeMillis(),
+                        serialNumber = serial
+                    )
+                    storage.saveDevice(connectedDevice)
+                    currentDevice = connectedDevice
+                    Log.d(TAG, "Saved device: ${connectedDevice.id}")
+                    
                     callback?.onConnectionSuccess()
-                    storage.saveDevice(WifiAdbDevice(ip ?: "", port, isPaired = true))
                 } else callback?.onConnectionFailed()
             } catch (e: Throwable) {
                 Log.e(TAG, "connect() failed", e)
@@ -251,7 +384,51 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
             }
         }
     }
+    
+    /**
+     * Retrieves the device serial number by running 'getprop ro.serialno'
+     * Returns null if unable to retrieve
+     */
+    private fun getDeviceSerialNumber(): String? {
+        val manager = AdbConnectionManager.getInstance(context)
+        if (!manager.isConnected) return null
+        
+        return try {
+            val stream = manager.openStream("shell:getprop ro.serialno")
+            val input = stream.openInputStream()
+            val reader = BufferedReader(InputStreamReader(input, StandardCharsets.UTF_8))
+            val serial = reader.readLine()?.trim()
+            stream.close()
+            if (serial.isNullOrBlank()) null else serial
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to get device serial", e)
+            null
+        }
+    }
+    
+    /**
+     * Retrieves or generates a device name by getting the device model
+     */
+    private fun getDeviceName(): String {
+        val manager = AdbConnectionManager.getInstance(context)
+        if (!manager.isConnected) return "Unknown Device"
+        
+        return try {
+            val stream = manager.openStream("shell:getprop ro.product.model")
+            val input = stream.openInputStream()
+            val reader = BufferedReader(InputStreamReader(input, StandardCharsets.UTF_8))
+            val model = reader.readLine()?.trim()
+            stream.close()
+            if (model.isNullOrBlank()) "Unknown Device" else model
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to get device name", e)
+            "Unknown Device"
+        }
+    }
 
+    @Volatile
+    private var isAborted = false
+    
     override fun execute(commandText: String): Flow<OutputLine> = flow {
         val manager = AdbConnectionManager.getInstance(context)
 
@@ -260,32 +437,55 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
             return@flow
         }
 
+        isAborted = false
+        
         try {
-            if (adbShellStream == null || adbShellStream!!.isClosed) {
-                adbShellStream = manager.openStream(LocalServices.SHELL)
+            // Close any existing stream first
+            try {
+                adbShellStream?.close()
+            } catch (e: Exception) {
+                // Ignore
             }
-
-            val output = adbShellStream!!.openOutputStream()
+            
+            // Use shell:command format for one-shot execution
+            adbShellStream = manager.openStream("shell:$commandText")
+            
             val input = adbShellStream!!.openInputStream()
             val reader = BufferedReader(InputStreamReader(input, StandardCharsets.UTF_8))
 
-            output.write("$commandText\n".toByteArray(StandardCharsets.UTF_8))
-            output.flush()
-
-            var line: String?
-            while (reader.readLine().also { line = it } != null) {
-                emit(OutputLine(line.orEmpty(), isError = false))
+            var line: String? = null
+            while (!isAborted) {
+                line = reader.readLine()
+                if (line == null) break
+                emit(OutputLine(line, isError = false))
             }
+            
+            Log.d(TAG, "Command completed. Aborted: $isAborted")
 
         } catch (e: Exception) {
-            emit(OutputLine("Error: ${e.message}", isError = true))
-            Log.e("WifiAdbShell", "execute() failed", e)
+            // Only emit error if not aborted
+            if (!isAborted) {
+                emit(OutputLine("Error: ${e.message}", isError = true))
+                Log.e("WifiAdbShell", "execute() failed", e)
+            } else {
+                Log.d(TAG, "Command was aborted, ignoring exception: ${e.message}")
+            }
         } finally {
-            abortShell()
+            // Clean up stream after command completes
+            try {
+                adbShellStream?.close()
+            } catch (e: Exception) {
+                // Ignore
+            }
+            adbShellStream = null
+            Log.d(TAG, "Shell stream cleaned up")
         }
     }.flowOn(Dispatchers.IO)
 
+
     override fun abortShell() {
+        Log.d(TAG, "abortShell() called")
+        isAborted = true
         try {
             adbShellStream?.close()
         } catch (e: Exception) {
@@ -293,6 +493,8 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
         }
         adbShellStream = null
     }
+
+
 
     override fun stopMdnsDiscovery() {
         try {
@@ -306,6 +508,207 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
 
     override fun getSavedDevices(): List<WifiAdbDevice> = storage.getDevices()
 
+    // ========== NEW RECONNECT FUNCTIONALITY ==========
+    
+    private var currentDevice: WifiAdbDevice? = null
+
+    override fun reconnect(device: WifiAdbDevice, listener: ReconnectListener?) {
+        executor.submit {
+            try {
+                val manager = AdbConnectionManager.getInstance(context)
+                
+                // Check if already connected to this device
+                if (manager.isConnected && currentDevice?.id == device.id) {
+                    Log.d(TAG, "Already connected to ${device.id}")
+                    listener?.onReconnectSuccess()
+                    return@submit
+                }
+                
+                // Disconnect any existing connection first
+                if (manager.isConnected) {
+                    Log.d(TAG, "Disconnecting existing connection before reconnect...")
+                    try {
+                        manager.disconnect()
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error disconnecting before reconnect", e)
+                    }
+                }
+                
+                mainScope.launch {
+                    WifiAdbConnection.updateState(WifiAdbState.Reconnecting(device.id))
+                }
+
+                Log.d(TAG, "Attempting direct connect to ${device.ip}:${device.port}")
+
+                // Try direct connect first with stored IP:port
+                try {
+                    val connected = manager.connect(device.ip, device.port)
+                    if (connected) {
+                        Log.d(TAG, "Direct connect succeeded for ${device.id}")
+                        currentDevice = device.copy(lastConnected = System.currentTimeMillis())
+                        storage.updateDevice(currentDevice!!)
+                        mainScope.launch {
+                            WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id))
+                        }
+                        listener?.onReconnectSuccess()
+                        return@submit
+                    } else {
+                        Log.d(TAG, "Direct connect returned false for ${device.id}")
+                    }
+                } catch (e: io.github.muntashirakon.adb.AdbPairingRequiredException) {
+                    // Device needs re-pairing - public key not saved on target
+                    Log.d(TAG, "Device requires re-pairing: ${device.id}")
+                    mainScope.launch {
+                        WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Requires re-pairing"))
+                    }
+                    listener?.onReconnectFailed(requiresPairing = true)
+                    return@submit
+                } catch (e: Exception) {
+                    Log.d(TAG, "Direct connect failed for ${device.id}: ${e.message}")
+                }
+
+                // Direct connect failed, try mDNS discovery for new port
+                Log.d(TAG, "Direct connect failed, trying mDNS discovery for ${device.ip}...")
+                discoverConnectServiceForReconnect(device, listener)
+
+            } catch (e: Throwable) {
+                Log.e(TAG, "reconnect() failed", e)
+                mainScope.launch {
+                    WifiAdbConnection.updateState(WifiAdbState.ConnectFailed(e.message ?: "Unknown error"))
+                }
+                listener?.onReconnectFailed(requiresPairing = false)
+            }
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    @SuppressLint("DefaultLocale")
+    private fun discoverConnectServiceForReconnect(device: WifiAdbDevice, listener: ReconnectListener?) {
+        try {
+            val wifi = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+            val lock = wifi.createMulticastLock("adb_mdns_lock_reconnect")
+            lock.setReferenceCounted(true)
+            lock.acquire()
+
+            val wifiInfo = wifi.connectionInfo
+            val ipAddress = String.format(
+                "%d.%d.%d.%d",
+                wifiInfo.ipAddress and 0xff,
+                wifiInfo.ipAddress shr 8 and 0xff,
+                wifiInfo.ipAddress shr 16 and 0xff,
+                wifiInfo.ipAddress shr 24 and 0xff
+            )
+
+            jmDns?.close()
+            jmDns = JmDNS.create(InetAddress.getByName(ipAddress))
+
+            val discoveryTimeout = executor.schedule({
+                Log.d(TAG, "mDNS discovery timeout for reconnect")
+                mainScope.launch {
+                    WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Discovery timeout"))
+                }
+                listener?.onReconnectFailed(requiresPairing = false)
+            }, 10, TimeUnit.SECONDS)
+
+            jmDns?.addServiceListener("_adb-tls-connect._tcp.local.", object : ServiceListener {
+                override fun serviceAdded(event: ServiceEvent) {
+                    jmDns?.getServiceInfo(event.type, event.name)
+                }
+
+                override fun serviceRemoved(event: ServiceEvent) {
+                    Log.d(TAG, "ADB connect service lost: ${event.name}")
+                }
+
+                override fun serviceResolved(event: ServiceEvent) {
+                    val info = event.info
+                    val ip = info.inet4Addresses.firstOrNull()?.hostAddress ?: return
+                    val port = info.port
+                    
+                    // Only connect if IP matches our target device
+                    if (ip != device.ip) {
+                        Log.d(TAG, "Found service at $ip:$port but looking for ${device.ip}")
+                        return
+                    }
+
+                    val key = "$ip:$port"
+                    if (connectInProgress.contains(key)) {
+                        return
+                    }
+                    connectInProgress.add(key)
+                    discoveryTimeout.cancel(false)
+
+                    Log.d(TAG, "Found matching ADB connect service at $key")
+
+                    mainScope.launch {
+                        WifiAdbConnection.updateState(WifiAdbState.ConnectStarted(key))
+                    }
+
+                    connect(ip, port, object : ConnectionListener {
+                        override fun onConnectionSuccess() {
+                            connectInProgress.remove(key)
+                            currentDevice = device.copy(
+                                port = port,
+                                lastConnected = System.currentTimeMillis()
+                            )
+                            storage.updateDevice(currentDevice!!)
+                            mainScope.launch {
+                                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(key))
+                            }
+                            listener?.onReconnectSuccess()
+                        }
+
+                        override fun onConnectionFailed() {
+                            connectInProgress.remove(key)
+                            mainScope.launch {
+                                WifiAdbConnection.updateState(WifiAdbState.ConnectFailed(key))
+                            }
+                            listener?.onReconnectFailed(requiresPairing = false)
+                        }
+                    })
+                }
+            })
+
+            Log.d(TAG, "Started mDNS discovery for reconnect to ${device.ip}")
+
+        } catch (e: Exception) {
+            Log.e(TAG, "Error discovering connect service for reconnect", e)
+            listener?.onReconnectFailed(requiresPairing = false)
+        }
+    }
+
+    override fun disconnect() {
+        executor.submit {
+            try {
+                val manager = AdbConnectionManager.getInstance(context)
+                manager.disconnect()
+                abortShell()
+                currentDevice = null
+                mainScope.launch {
+                    WifiAdbConnection.updateState(WifiAdbState.Disconnected())
+                }
+                Log.d(TAG, "Disconnected from ADB")
+            } catch (e: Exception) {
+                Log.e(TAG, "disconnect() failed", e)
+            }
+        }
+    }
+
+    override fun isConnected(): Boolean {
+        return try {
+            AdbConnectionManager.getInstance(context).isConnected
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    override fun getCurrentDevice(): WifiAdbDevice? = currentDevice
+
+    override fun forgetDevice(device: WifiAdbDevice) {
+        storage.removeDevice(device)
+    }
+
+    // ========== INTERFACES ==========
+
     interface PairingListener {
         fun onPairingSuccess()
         fun onPairingFailed()
@@ -314,6 +717,11 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
     interface ConnectionListener {
         fun onConnectionSuccess()
         fun onConnectionFailed()
+    }
+
+    interface ReconnectListener {
+        fun onReconnectSuccess()
+        fun onReconnectFailed(requiresPairing: Boolean)
     }
 
     interface MdnsDiscoveryCallback {
@@ -328,3 +736,4 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
         fun onStateChanged(state: WifiAdbState)
     }
 }
+

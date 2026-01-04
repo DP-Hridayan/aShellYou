@@ -226,6 +226,7 @@ class ShellViewModel @Inject constructor(
     fun stopCommand() {
         shellRepository.stopCommand()
         otgRepository.stopCommand()
+        wifiAdbRepository.abortShell()
         _states.update { it.copy(shellState = ShellState.Free) }
     }
 

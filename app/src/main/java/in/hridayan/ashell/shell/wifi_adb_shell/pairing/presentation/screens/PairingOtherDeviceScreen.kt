@@ -87,6 +87,7 @@ import `in`.hridayan.ashell.navigation.slideFadeOutToRight
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.helper.PairUsingQR
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.SavedDevicesSection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -106,6 +107,24 @@ fun PairingOtherDeviceScreen(
     var showManualPairingMenu by rememberSaveable { mutableStateOf(false) }
     var isWifiConnected by remember { mutableStateOf(context.isConnectedToWifi()) }
     val wifiAdbState by viewModel.state.collectAsState()
+    val savedDevices by viewModel.savedDevices.collectAsState()
+    val currentDevice by viewModel.currentDevice.collectAsState()
+
+    // Load saved devices on screen launch
+    LaunchedEffect(Unit) {
+        viewModel.loadSavedDevices()
+    }
+    
+    // Refresh saved devices when pairing or connection succeeds
+    LaunchedEffect(wifiAdbState) {
+        when (wifiAdbState) {
+            is WifiAdbState.PairingSuccess,
+            is WifiAdbState.ConnectSuccess -> {
+                viewModel.loadSavedDevices()
+            }
+            else -> {}
+        }
+    }
 
     DisposableEffect(Unit) {
         val callback = registerNetworkCallback(context) { isConnected ->
@@ -196,6 +215,21 @@ fun PairingOtherDeviceScreen(
                         text = stringResource(R.string.turn_off_mobile_data),
                         icon = painterResource(R.drawable.ic_warning)
                     )
+                }
+
+                // Show saved devices for quick reconnect
+                if (savedDevices.isNotEmpty()) {
+                    item {
+                        SavedDevicesSection(
+                            modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp),
+                            savedDevices = savedDevices,
+                            currentDevice = currentDevice,
+                            wifiAdbState = wifiAdbState,
+                            onReconnect = { device -> viewModel.reconnectToDevice(device) },
+                            onForget = { device -> viewModel.forgetDevice(device) },
+                            onDisconnect = { viewModel.disconnect() }
+                        )
+                    }
                 }
 
                 item {

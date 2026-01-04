@@ -278,6 +278,16 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A">Z → A</string>
+    
+    <!-- Saved devices section -->
+    <string name="saved_devices">Saved devices</string>
+    <string name="connected">Connected</string>
+    <string name="reconnect">Reconnect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="forget_device">Forget device</string>
+    <string name="forget_device_confirmation">Are you sure you want to forget %1$s? You will need to pair again to connect.</string>
+    <string name="forget">Forget</string>
+    
     /**
     * Changelogs
     * Created by DP-Hridayan

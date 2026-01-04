@@ -4,6 +4,7 @@ import `in`.hridayan.ashell.shell.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.ConnectionListener
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.MdnsDiscoveryCallback
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.PairingListener
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.ReconnectListener
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import kotlinx.coroutines.flow.Flow
 
@@ -19,5 +20,11 @@ interface WifiAdbRepository {
     fun abortShell()
     fun stopMdnsDiscovery()
     fun getSavedDevices(): List<WifiAdbDevice>
-
+    
+    // New methods for reconnect functionality
+    fun reconnect(device: WifiAdbDevice, listener: ReconnectListener? = null)
+    fun disconnect()
+    fun isConnected(): Boolean
+    fun getCurrentDevice(): WifiAdbDevice?
+    fun forgetDevice(device: WifiAdbDevice)
 }

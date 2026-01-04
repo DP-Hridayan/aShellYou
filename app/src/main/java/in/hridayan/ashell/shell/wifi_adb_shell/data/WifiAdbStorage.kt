@@ -18,9 +18,17 @@ class WifiAdbStorage(context: Context) {
 
     fun saveDevice(device: WifiAdbDevice) {
         val devices = getDevices().toMutableList()
-        val existing = devices.indexOfFirst { it.ip == device.ip && it.port == device.port }
+        // Match by serial number if available, otherwise by IP
+        val existing = devices.indexOfFirst { existingDevice ->
+            if (device.serialNumber != null && existingDevice.serialNumber != null) {
+                existingDevice.serialNumber == device.serialNumber
+            } else {
+                existingDevice.ip == device.ip
+            }
+        }
 
         if (existing >= 0) {
+            // Update existing device entry with new port/IP/etc
             devices[existing] = device
         } else {
             devices.add(device)
@@ -29,8 +37,23 @@ class WifiAdbStorage(context: Context) {
         prefs.edit { putString("devices", gson.toJson(devices)) }
     }
 
-    fun removeDevice(ip: String, port: Int) {
-        val devices = getDevices().filterNot { it.ip == ip && it.port == port }
+    fun updateDevice(device: WifiAdbDevice) {
+        val devices = getDevices().toMutableList()
+        val existing = devices.indexOfFirst { existingDevice ->
+            if (device.serialNumber != null && existingDevice.serialNumber != null) {
+                existingDevice.serialNumber == device.serialNumber
+            } else {
+                existingDevice.ip == device.ip
+            }
+        }
+        if (existing >= 0) {
+            devices[existing] = device
+            prefs.edit { putString("devices", gson.toJson(devices)) }
+        }
+    }
+
+    fun removeDevice(device: WifiAdbDevice) {
+        val devices = getDevices().filterNot { it.ip == device.ip }
         prefs.edit { putString("devices", gson.toJson(devices)) }
     }
 
@@ -38,3 +61,6 @@ class WifiAdbStorage(context: Context) {
         prefs.edit { clear() }
     }
 }
+
+
+
