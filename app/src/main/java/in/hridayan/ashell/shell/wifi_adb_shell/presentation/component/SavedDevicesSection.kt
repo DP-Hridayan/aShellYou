@@ -12,12 +12,9 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -37,12 +34,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
@@ -87,7 +88,8 @@ fun SavedDevicesSection(
                         isReconnecting = isReconnecting,
                         onReconnect = { onReconnect(device) },
                         onForget = { onForget(device) },
-                        onDisconnect = onDisconnect
+                        onDisconnect = onDisconnect,
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
@@ -108,32 +110,40 @@ fun SavedDeviceItem(
     isReconnecting: Boolean,
     onReconnect: () -> Unit,
     onForget: () -> Unit,
-    onDisconnect: () -> Unit
+    onDisconnect: () -> Unit,
+    onClick: () -> Unit = {},
+    modifier: Modifier = Modifier
 ) {
     var showForgetDialog by remember { mutableStateOf(false) }
 
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .combinedClickable(
-                onClick = { if (!isConnected && !isReconnecting) onReconnect() },
-                onLongClick = { showForgetDialog = true }
-            ),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isConnected) {
-                MaterialTheme.colorScheme.primaryContainer
-            } else {
-                MaterialTheme.colorScheme.surfaceContainerHigh
-            }
-        )
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
-        Column(
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+                .clip(CardCornerShape.FIRST_CARD)
+                .combinedClickable(
+                    onClick = withHaptic { onClick() },
+                    onLongClick = { showForgetDialog = true }
+                ),
+            shape = CardCornerShape.FIRST_CARD,
+            colors = CardDefaults.cardColors(
+                containerColor = if (isConnected) {
+                    MaterialTheme.colorScheme.primaryContainer
+                } else {
+                    MaterialTheme.colorScheme.surfaceContainerHigh
+                }
+            )
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp, horizontal = 15.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_wireless),
                     contentDescription = null,
@@ -144,7 +154,7 @@ fun SavedDeviceItem(
                         MaterialTheme.colorScheme.onSurfaceVariant
                     }
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+
                 Text(
                     text = device.deviceName,
                     style = MaterialTheme.typography.bodyLarge,
@@ -152,39 +162,67 @@ fun SavedDeviceItem(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+
                 if (device.isOwnDevice) {
-                    Spacer(modifier = Modifier.width(6.dp))
                     Card(
                         colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                            containerColor = MaterialTheme.colorScheme.tertiary,
+                            contentColor = MaterialTheme.colorScheme.onTertiary
                         )
                     ) {
                         Text(
                             text = stringResource(R.string.this_device),
                             style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onTertiaryContainer,
                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                         )
                     }
                 }
+
                 if (isConnected) {
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = stringResource(R.string.connected),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary
-                    )
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        )
+                    ) {
+                        Text(
+                            text = stringResource(R.string.connected),
+                            style = MaterialTheme.typography.labelSmall,
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                        )
+                    }
                 }
             }
+        }
 
-            Row(modifier = Modifier.fillMaxWidth()) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(CardCornerShape.LAST_CARD)
+                .combinedClickable(
+                    onClick = withHaptic { onClick() },
+                    onLongClick = { showForgetDialog = true }
+                ),
+            shape = CardCornerShape.LAST_CARD,
+            colors = CardDefaults.cardColors(
+                containerColor = if (isConnected) {
+                    MaterialTheme.colorScheme.primaryContainer
+                } else {
+                    MaterialTheme.colorScheme.surfaceContainerHigh
+                }
+            )) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp, horizontal = 15.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
                 Column(modifier = Modifier.weight(1f)) {
-
-                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "${device.ip}:${device.port}",
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Text(
                         text = formatLastConnected(device.lastConnected),
@@ -193,25 +231,23 @@ fun SavedDeviceItem(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(8.dp))
-
                 if (isReconnecting) {
-                    CircularWavyProgressIndicator(modifier = Modifier.size(24.dp),)
+                    CircularWavyProgressIndicator()
                     return@Row
                 }
 
                 if (isConnected) {
                     Button(
-                        onClick = onDisconnect,
+                        onClick = withHaptic(HapticFeedbackType.Reject) { onDisconnect() },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.errorContainer,
-                            contentColor = MaterialTheme.colorScheme.onErrorContainer
+                            containerColor = MaterialTheme.colorScheme.error,
+                            contentColor = MaterialTheme.colorScheme.onError
                         )
                     ) {
                         AutoResizeableText(stringResource(R.string.disconnect))
                     }
                 } else {
-                    Button(onClick = onReconnect) {
+                    Button(onClick = withHaptic(HapticFeedbackType.Confirm) { onReconnect() }) {
                         AutoResizeableText(stringResource(R.string.reconnect))
                     }
                 }

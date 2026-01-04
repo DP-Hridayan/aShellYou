@@ -567,7 +567,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                         )
                         storage.updateDevice(currentDevice!!)
                         mainScope.launch {
-                            WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id))
+                            WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id, device.id))
                         }
                         listener?.onReconnectSuccess()
                         return@submit
@@ -578,7 +578,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                     // Device needs re-pairing - public key not saved on target
                     Log.d(TAG, "Device requires re-pairing: ${device.id}")
                     mainScope.launch {
-                        WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Requires re-pairing"))
+                        WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Requires re-pairing", device.id))
                     }
                     listener?.onReconnectFailed(requiresPairing = true)
                     return@submit
@@ -593,7 +593,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
             } catch (e: Throwable) {
                 Log.e(TAG, "reconnect() failed", e)
                 mainScope.launch {
-                    WifiAdbConnection.updateState(WifiAdbState.ConnectFailed(e.message ?: "Unknown error"))
+                    WifiAdbConnection.updateState(WifiAdbState.ConnectFailed(e.message ?: "Unknown error", device.id))
                 }
                 listener?.onReconnectFailed(requiresPairing = false)
             }
@@ -656,9 +656,9 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                 mainScope.launch {
                     // For own device, timeout likely means wireless debugging is off
                     if (device.isOwnDevice) {
-                        WifiAdbConnection.updateState(WifiAdbState.WirelessDebuggingOff())
+                        WifiAdbConnection.updateState(WifiAdbState.WirelessDebuggingOff(device.id))
                     } else {
-                        WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Discovery timeout"))
+                        WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Discovery timeout", device.id))
                     }
                 }
                 listener?.onReconnectFailed(requiresPairing = false)
@@ -714,7 +714,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                     }
 
                     mainScope.launch {
-                        WifiAdbConnection.updateState(WifiAdbState.ConnectStarted(key))
+                        WifiAdbConnection.updateState(WifiAdbState.ConnectStarted(key, device.id))
                     }
 
                     connect(ip, port, object : ConnectionListener {
@@ -728,7 +728,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                             )
                             storage.updateDevice(currentDevice!!)
                             mainScope.launch {
-                                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(key))
+                                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(key, device.id))
                             }
                             listener?.onReconnectSuccess()
                         }
@@ -736,7 +736,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                         override fun onConnectionFailed() {
                             connectInProgress.remove(key)
                             mainScope.launch {
-                                WifiAdbConnection.updateState(WifiAdbState.ConnectFailed(key))
+                                WifiAdbConnection.updateState(WifiAdbState.ConnectFailed(key, device.id))
                             }
                             listener?.onReconnectFailed(requiresPairing = false)
                         }
@@ -803,11 +803,13 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
         executor.submit {
             try {
                 val manager = AdbConnectionManager.getInstance(context)
+                val disconnectedDevice = currentDevice
                 manager.disconnect()
                 abortShell()
                 currentDevice = null
                 mainScope.launch {
-                    WifiAdbConnection.updateState(WifiAdbState.Disconnected())
+                    val deviceId = disconnectedDevice?.id
+                    WifiAdbConnection.updateState(WifiAdbState.Disconnected(deviceId))
                 }
                 Log.d(TAG, "Disconnected from ADB")
             } catch (e: Exception) {

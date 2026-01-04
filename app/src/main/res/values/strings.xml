@@ -60,6 +60,7 @@
     <string name="crash_history">Crash history</string>
     <string name="current_version">Current version</string>
     <string name="hint">Hint</string>
+    <string name="go_to_terminal">Go to terminal</string>
     <string name="dark_theme">Dark theme</string>
     <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>

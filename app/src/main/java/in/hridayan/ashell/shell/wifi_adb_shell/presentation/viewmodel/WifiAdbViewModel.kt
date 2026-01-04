@@ -43,6 +43,20 @@ class WifiAdbViewModel @Inject constructor(
     val connectPortError: StateFlow<Boolean> = _connectPortError
 
     val state: StateFlow<WifiAdbState> = WifiAdbConnection.state
+    
+    // Per-device connection states
+    val deviceStates: StateFlow<Map<String, WifiAdbState>> = WifiAdbConnection.deviceStates
+    
+    /**
+     * Get the current state for a specific device.
+     */
+    fun getDeviceState(deviceId: String): WifiAdbState? = WifiAdbConnection.getDeviceState(deviceId)
+    
+    /**
+     * Set a device to disconnected state.
+     * Used when WiFi is lost or device should be marked as disconnected.
+     */
+    fun setDeviceDisconnected(deviceId: String) = WifiAdbConnection.setDeviceDisconnected(deviceId)
 
     private val _savedDevices = MutableStateFlow<List<WifiAdbDevice>>(emptyList())
     val savedDevices = _savedDevices.asStateFlow()
@@ -178,7 +192,7 @@ class WifiAdbViewModel @Inject constructor(
         wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
             override fun onReconnectSuccess() {
                 _currentDevice.value = device
-                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id))
+                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id, device.id))
                 loadSavedDevices()
             }
 
