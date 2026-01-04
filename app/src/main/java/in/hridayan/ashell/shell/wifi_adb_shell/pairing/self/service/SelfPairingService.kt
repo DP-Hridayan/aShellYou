@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.service
+package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.self.service
 
 import android.annotation.SuppressLint
 import android.app.Service
@@ -14,7 +14,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbReposito
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
-import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.notification.WifiAdbSelfPairHelperNotification
+import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.self.notification.SelfPairingNotificationHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +30,7 @@ import javax.jmdns.ServiceEvent
 import javax.jmdns.ServiceListener
 
 /**
- * Foreground service for pairing with the device the app is running on (own device).
+ * Foreground service for pairing with the device the app is running on (self/own device).
  *
  * Flow:
  * 1. User clicks Developer Options → Service starts and shows "Searching..." notification
@@ -41,23 +41,23 @@ import javax.jmdns.ServiceListener
  * 6. Discovers connect service and connects
  * 7. Saves device with isOwnDevice=true
  */
-class OwnDevicePairingService : Service() {
+class SelfPairingService : Service() {
 
     companion object {
-        private const val TAG = "OwnDevicePairing"
+        private const val TAG = "SelfPairingService"
 
         fun start(context: Context) {
-            val intent = Intent(context, OwnDevicePairingService::class.java)
+            val intent = Intent(context, SelfPairingService::class.java)
             context.startForegroundService(intent)
         }
 
         fun stop(context: Context) {
-            context.stopService(Intent(context, OwnDevicePairingService::class.java))
+            context.stopService(Intent(context, SelfPairingService::class.java))
         }
     }
 
     // Dependencies
-    private lateinit var notificationHelper: WifiAdbSelfPairHelperNotification
+    private lateinit var notificationHelper: SelfPairingNotificationHelper
     private lateinit var storage: WifiAdbStorage
     private lateinit var repository: WifiAdbRepositoryImpl
     private val mainScope = CoroutineScope(Dispatchers.Main)
@@ -75,7 +75,7 @@ class OwnDevicePairingService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        notificationHelper = WifiAdbSelfPairHelperNotification(this)
+        notificationHelper = SelfPairingNotificationHelper(this)
         storage = WifiAdbStorage(this)
         repository = WifiAdbRepositoryImpl(this)
         executor = Executors.newScheduledThreadPool(2)
@@ -83,11 +83,11 @@ class OwnDevicePairingService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
-            WifiAdbSelfPairHelperNotification.ACTION_SUBMIT_PAIRING_CODE -> {
+            SelfPairingNotificationHelper.ACTION_SUBMIT_PAIRING_CODE -> {
                 handlePairingCodeSubmission(intent)
             }
 
-            WifiAdbSelfPairHelperNotification.ACTION_CANCEL -> {
+            SelfPairingNotificationHelper.ACTION_CANCEL -> {
                 cleanup()
                 stopSelf()
             }
@@ -96,9 +96,9 @@ class OwnDevicePairingService : Service() {
                 // Fresh start - reset state and begin discovery
                 resetState()
                 val notification = notificationHelper.showSearchingNotification(
-                    OwnDevicePairingService::class.java
+                    SelfPairingService::class.java
                 )
-                startForeground(WifiAdbSelfPairHelperNotification.NOTIFICATION_ID, notification)
+                startForeground(SelfPairingNotificationHelper.NOTIFICATION_ID, notification)
                 startPairingServiceDiscovery()
             }
         }
@@ -182,7 +182,7 @@ class OwnDevicePairingService : Service() {
 
     private fun handlePairingCodeSubmission(intent: Intent) {
         val remoteInput = RemoteInput.getResultsFromIntent(intent)
-        val code = remoteInput?.getCharSequence(WifiAdbSelfPairHelperNotification.KEY_PAIRING_CODE)
+        val code = remoteInput?.getCharSequence(SelfPairingNotificationHelper.KEY_PAIRING_CODE)
             ?.toString()
 
         if (!code.isNullOrBlank()) {
@@ -190,8 +190,8 @@ class OwnDevicePairingService : Service() {
             if (codeInt != null) {
                 onPairingCodeReceived(codeInt)
             } else {
-                notificationHelper.showFailureNotification("Invalid code format")
-                stopSelfDelayed()
+                // Invalid format - restart discovery
+                restartDiscoveryAfterFailure()
             }
         }
     }
@@ -203,7 +203,7 @@ class OwnDevicePairingService : Service() {
             try {
                 // Setup multicast for mDNS
                 val wifi = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-                multicastLock = wifi.createMulticastLock("adb_own_device_lock").apply {
+                multicastLock = wifi.createMulticastLock("adb_self_device_lock").apply {
                     setReferenceCounted(true)
                     acquire()
                 }
@@ -219,7 +219,7 @@ class OwnDevicePairingService : Service() {
                 )
 
                 Log.d(TAG, "Local IP address: $localIpAddress")
-                Log.d(TAG, "Starting mDNS discovery for own device pairing...")
+                Log.d(TAG, "Starting mDNS discovery for self device pairing...")
 
                 // Create JmDNS instance
                 jmDns = JmDNS.create(InetAddress.getByName(localIpAddress))
@@ -233,7 +233,7 @@ class OwnDevicePairingService : Service() {
                 // Set timeout
                 discoveryTimeout = executor?.schedule({
                     if (discoveredPairingPort == null) {
-                        Log.d(TAG, "Discovery timeout - no own device pairing service found")
+                        Log.d(TAG, "Discovery timeout - no self device pairing service found")
                         notificationHelper.showFailureNotification(
                             "Timeout - open pairing dialog in Wireless Debugging"
                         )
@@ -268,12 +268,12 @@ class OwnDevicePairingService : Service() {
 
                 // Only accept if it's our own device
                 if (ip == localIpAddress && discoveredPairingPort == null) {
-                    Log.d(TAG, "Own device pairing service detected!")
+                    Log.d(TAG, "Self device pairing service detected!")
                     discoveredPairingPort = port
                     discoveryTimeout?.cancel(false)
 
                     notificationHelper.showEnterCodeNotification(
-                        OwnDevicePairingService::class.java
+                        SelfPairingService::class.java
                     )
                 } else if (ip != localIpAddress) {
                     Log.d(TAG, "Ignoring pairing service from other device: $ip")
@@ -318,14 +318,43 @@ class OwnDevicePairingService : Service() {
             }
 
             override fun onPairingFailed() {
-                Log.e(TAG, "Pairing failed")
+                Log.e(TAG, "Pairing failed - wrong code, restarting discovery")
                 mainScope.launch {
                     WifiAdbConnection.updateState(WifiAdbState.PairingFailed("Pairing failed"))
                 }
-                notificationHelper.showFailureNotification("Pairing failed - check the code")
-                stopSelfDelayed()
+                // Restart discovery immediately so user can try again with correct code
+                restartDiscoveryAfterFailure()
             }
         })
+    }
+
+    /**
+     * Restart discovery after a pairing failure (e.g., wrong code).
+     * Shows a brief message, then immediately goes back to searching state.
+     */
+    private fun restartDiscoveryAfterFailure() {
+        Log.d(TAG, "Restarting discovery after pairing failure...")
+        
+        // Show brief error message
+        notificationHelper.showFailureNotification("Wrong code - open pairing dialog again")
+        
+        // Reset state for new attempt
+        discoveredPairingPort = null
+        isProcessing = false
+        
+        // Close existing mDNS
+        try {
+            jmDns?.close()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error closing JmDNS", e)
+        }
+        jmDns = null
+        
+        // Wait a moment for user to see message, then restart discovery
+        executor?.schedule({
+            notificationHelper.showSearchingNotification(SelfPairingService::class.java)
+            startPairingServiceDiscovery()
+        }, 2, TimeUnit.SECONDS)
     }
 
     @Suppress("DEPRECATION")
@@ -359,7 +388,7 @@ class OwnDevicePairingService : Service() {
                             val port = info.port
 
                             if (ip == targetIp) {
-                                Log.d(TAG, "Found own device connect service at $ip:$port")
+                                Log.d(TAG, "Found self device connect service at $ip:$port")
                                 connected = true
                                 connectAndSave(ip, port)
                             }
@@ -411,7 +440,7 @@ class OwnDevicePairingService : Service() {
                 val adbManager = AdbConnectionManager.getInstance(this)
 
                 if (adbManager.connect(ip, port)) {
-                    Log.d(TAG, "Connected to own device at $ip:$port")
+                    Log.d(TAG, "Connected to self device at $ip:$port")
                     saveOwnDeviceAndFinish(ip, port)
                 } else {
                     Log.e(TAG, "Connection failed, trying fallback ports")
@@ -445,7 +474,7 @@ class OwnDevicePairingService : Service() {
             )
 
             storage.saveDevice(ownDevice)
-            Log.d(TAG, "Saved own device: ${ownDevice.id}")
+            Log.d(TAG, "Saved self device: ${ownDevice.id}")
 
             mainScope.launch {
                 WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(ip))
@@ -455,7 +484,7 @@ class OwnDevicePairingService : Service() {
             stopSelfDelayed()
 
         } catch (e: Exception) {
-            Log.e(TAG, "Error saving own device", e)
+            Log.e(TAG, "Error saving self device", e)
             notificationHelper.showFailureNotification("Error saving device")
             stopSelfDelayed()
         }

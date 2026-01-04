@@ -85,7 +85,7 @@ import `in`.hridayan.ashell.navigation.slideFadeInFromRight
 import `in`.hridayan.ashell.navigation.slideFadeOutToLeft
 import `in`.hridayan.ashell.navigation.slideFadeOutToRight
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
-import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.helper.PairUsingQR
+import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.other_device.qr.PairUsingQR
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.SavedDevicesSection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel

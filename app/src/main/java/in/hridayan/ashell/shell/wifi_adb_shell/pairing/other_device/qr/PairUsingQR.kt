@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.helper
+package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.other_device.qr
 
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -7,6 +7,9 @@ import androidx.core.graphics.set
 import io.nayuki.qrcodegen.QrCode
 import io.nayuki.qrcodegen.QrCode.Ecc
 
+/**
+ * Generates QR codes for wireless debugging pairing with other devices.
+ */
 class PairUsingQR {
 
     /**

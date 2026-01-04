@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.notification
+package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.self.notification
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -15,7 +15,7 @@ import `in`.hridayan.ashell.activities.MainActivity
  * Helper class for managing notifications during own device pairing flow.
  * Handles all notification creation and display logic.
  */
-class WifiAdbSelfPairHelperNotification(private val context: Context) {
+class SelfPairingNotificationHelper(private val context: Context) {
 
     companion object {
         const val CHANNEL_ID = "own_device_pairing_channel"
