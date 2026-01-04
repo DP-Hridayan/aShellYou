@@ -538,14 +538,33 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                     WifiAdbConnection.updateState(WifiAdbState.Reconnecting(device.id))
                 }
 
-                Log.d(TAG, "Attempting direct connect to ${device.ip}:${device.port}")
+                // For own device, get current local IP since it might have changed
+                val targetIp = if (device.isOwnDevice) {
+                    val wifi = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+                    val currentIp = getLocalIpAddress(wifi)
+                    if (currentIp != null) {
+                        Log.d(TAG, "Own device reconnect - using current local IP: $currentIp")
+                        currentIp
+                    } else {
+                        Log.d(TAG, "Could not get current local IP, using saved: ${device.ip}")
+                        device.ip
+                    }
+                } else {
+                    device.ip
+                }
 
-                // Try direct connect first with stored IP:port
+                Log.d(TAG, "Attempting direct connect to $targetIp:${device.port}")
+
+                // Try direct connect first with current IP and stored port
                 try {
-                    val connected = manager.connect(device.ip, device.port)
+                    val connected = manager.connect(targetIp, device.port)
                     if (connected) {
                         Log.d(TAG, "Direct connect succeeded for ${device.id}")
-                        currentDevice = device.copy(lastConnected = System.currentTimeMillis())
+                        // Update device with current IP in case it changed
+                        currentDevice = device.copy(
+                            ip = targetIp,
+                            lastConnected = System.currentTimeMillis()
+                        )
                         storage.updateDevice(currentDevice!!)
                         mainScope.launch {
                             WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id))
@@ -568,7 +587,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                 }
 
                 // Direct connect failed, try mDNS discovery for new port
-                Log.d(TAG, "Direct connect failed, trying mDNS discovery for ${device.ip}...")
+                Log.d(TAG, "Direct connect failed, trying mDNS discovery for $targetIp...")
                 discoverConnectServiceForReconnect(device, listener)
 
             } catch (e: Throwable) {
@@ -590,22 +609,57 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
             lock.setReferenceCounted(true)
             lock.acquire()
 
-            val wifiInfo = wifi.connectionInfo
-            val ipAddress = String.format(
-                "%d.%d.%d.%d",
-                wifiInfo.ipAddress and 0xff,
-                wifiInfo.ipAddress shr 8 and 0xff,
-                wifiInfo.ipAddress shr 16 and 0xff,
-                wifiInfo.ipAddress shr 24 and 0xff
-            )
+            // Get current local IP
+            val currentLocalIp = getLocalIpAddress(wifi)
+            
+            // For own device, use current local IP since it might change between sessions
+            // For other devices, use the saved device IP
+            val targetIp = if (device.isOwnDevice && currentLocalIp != null) {
+                Log.d(TAG, "Own device reconnect - using current local IP: $currentLocalIp")
+                currentLocalIp
+            } else {
+                Log.d(TAG, "Other device reconnect - using saved IP: ${device.ip}")
+                device.ip
+            }
 
-            jmDns?.close()
-            jmDns = JmDNS.create(InetAddress.getByName(ipAddress))
+            // Close any existing JmDNS first
+            try {
+                jmDns?.close()
+            } catch (e: Exception) {
+                Log.e(TAG, "Error closing existing JmDNS", e)
+            }
+            jmDns = JmDNS.create(InetAddress.getByName(currentLocalIp ?: targetIp))
+            
+            // Track if connection was already handled to prevent duplicate processing
+            var connectionHandled = false
 
             val discoveryTimeout = executor.schedule({
+                if (connectionHandled) return@schedule
+                connectionHandled = true
+                
                 Log.d(TAG, "mDNS discovery timeout for reconnect")
+                
+                // Close JmDNS on timeout
+                try {
+                    jmDns?.close()
+                    jmDns = null
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error closing JmDNS on timeout", e)
+                }
+                
+                try {
+                    lock.release()
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error releasing lock", e)
+                }
+                
                 mainScope.launch {
-                    WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Discovery timeout"))
+                    // For own device, timeout likely means wireless debugging is off
+                    if (device.isOwnDevice) {
+                        WifiAdbConnection.updateState(WifiAdbState.WirelessDebuggingOff())
+                    } else {
+                        WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Discovery timeout"))
+                    }
                 }
                 listener?.onReconnectFailed(requiresPairing = false)
             }, 10, TimeUnit.SECONDS)
@@ -620,13 +674,16 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                 }
 
                 override fun serviceResolved(event: ServiceEvent) {
+                    // Skip if already handled
+                    if (connectionHandled) return
+                    
                     val info = event.info
                     val ip = info.inet4Addresses.firstOrNull()?.hostAddress ?: return
                     val port = info.port
                     
-                    // Only connect if IP matches our target device
-                    if (ip != device.ip) {
-                        Log.d(TAG, "Found service at $ip:$port but looking for ${device.ip}")
+                    // Only connect if IP matches our target
+                    if (ip != targetIp) {
+                        Log.d(TAG, "Found service at $ip:$port but looking for $targetIp")
                         return
                     }
 
@@ -634,10 +691,27 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                     if (connectInProgress.contains(key)) {
                         return
                     }
+                    
+                    // Mark as handled immediately
+                    connectionHandled = true
                     connectInProgress.add(key)
                     discoveryTimeout.cancel(false)
 
                     Log.d(TAG, "Found matching ADB connect service at $key")
+
+                    // Close JmDNS now that we found the service
+                    try {
+                        jmDns?.close()
+                        jmDns = null
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error closing JmDNS after finding service", e)
+                    }
+                    
+                    try {
+                        lock.release()
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error releasing lock", e)
+                    }
 
                     mainScope.launch {
                         WifiAdbConnection.updateState(WifiAdbState.ConnectStarted(key))
@@ -646,7 +720,9 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                     connect(ip, port, object : ConnectionListener {
                         override fun onConnectionSuccess() {
                             connectInProgress.remove(key)
+                            // Update device with new IP/port if they changed
                             currentDevice = device.copy(
+                                ip = ip,
                                 port = port,
                                 lastConnected = System.currentTimeMillis()
                             )
@@ -668,12 +744,59 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                 }
             })
 
-            Log.d(TAG, "Started mDNS discovery for reconnect to ${device.ip}")
+            Log.d(TAG, "Started mDNS discovery for reconnect to $targetIp")
 
         } catch (e: Exception) {
             Log.e(TAG, "Error discovering connect service for reconnect", e)
             listener?.onReconnectFailed(requiresPairing = false)
         }
+    }
+    
+    /**
+     * Get current local IP address using NetworkInterface (more reliable).
+     */
+    @Suppress("DEPRECATION")
+    @SuppressLint("DefaultLocale")
+    private fun getLocalIpAddress(wifi: WifiManager): String? {
+        // Method 1: Use NetworkInterface enumeration (most reliable)
+        try {
+            val interfaces = java.net.NetworkInterface.getNetworkInterfaces()
+            while (interfaces.hasMoreElements()) {
+                val networkInterface = interfaces.nextElement()
+                if (networkInterface.isLoopback || !networkInterface.isUp) continue
+                
+                val name = networkInterface.name.lowercase()
+                if (name.contains("wlan") || name.contains("wifi") || name.contains("eth")) {
+                    val addresses = networkInterface.inetAddresses
+                    while (addresses.hasMoreElements()) {
+                        val address = addresses.nextElement()
+                        if (!address.isLoopbackAddress && address is java.net.Inet4Address) {
+                            return address.hostAddress
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error getting IP via NetworkInterface", e)
+        }
+        
+        // Method 2: Fallback to WifiManager
+        try {
+            val wifiInfo = wifi.connectionInfo
+            if (wifiInfo.ipAddress != 0) {
+                return String.format(
+                    "%d.%d.%d.%d",
+                    wifiInfo.ipAddress and 0xff,
+                    wifiInfo.ipAddress shr 8 and 0xff,
+                    wifiInfo.ipAddress shr 16 and 0xff,
+                    wifiInfo.ipAddress shr 24 and 0xff
+                )
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error getting IP via WifiManager", e)
+        }
+        
+        return null
     }
 
     override fun disconnect() {

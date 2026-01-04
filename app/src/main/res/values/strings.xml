@@ -46,6 +46,7 @@
     <string name="command_not_found">Command not found!</string>
     <string name="command_title">Input ADB Command</string>
     <string name="commands">Commands</string>
+    <string name="connect_to_wifi_network">Connect to wifi network</string>
     <string name="configure_save_directory">Configure save directory</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_delete">Confirm delete</string>
@@ -58,6 +59,7 @@
     <string name="crash_details">Crash details</string>
     <string name="crash_history">Crash history</string>
     <string name="current_version">Current version</string>
+    <string name="hint">Hint</string>
     <string name="dark_theme">Dark theme</string>
     <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>
@@ -278,7 +280,7 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A">Z → A</string>
-    
+
     <!-- Saved devices section -->
     <string name="saved_devices">Saved devices</string>
     <string name="connected">Connected</string>
@@ -287,7 +289,28 @@
     <string name="forget_device">Forget device</string>
     <string name="forget_device_confirmation">Are you sure you want to forget %1$s? You will need to pair again to connect.</string>
     <string name="forget">Forget</string>
-    
+
+    <!-- Self pairing notifications -->
+    <string name="self_pair_searching">Searching for pairing service…</string>
+    <string name="self_pair_searching_hint">Open Wireless Debugging and tap \'Pair device with pairing code\'</string>
+    <string name="self_pair_found">Pairing service found!</string>
+    <string name="self_pair_enter_code">Enter the 6-digit code from the pairing dialog</string>
+    <string name="self_pair_enter_code_hint">Enter 6-digit pairing code</string>
+    <string name="self_pair_in_progress">Pairing in progress…</string>
+    <string name="self_pair_in_progress_hint">Please wait while connecting to this device</string>
+    <string name="self_pair_success">Connected to this device!</string>
+    <string name="self_pair_success_hint">Local ADB shell is now available</string>
+    <string name="self_pair_failed">Pairing failed</string>
+    <string name="self_pair_wrong_code">Wrong code - open pairing dialog again</string>
+    <string name="self_pair_timeout">Timeout - open pairing dialog in Wireless Debugging</string>
+    <string name="self_pair_error_no_ip">Could not determine IP address</string>
+    <string name="self_pair_discovery_error">Discovery error: %1$s</string>
+    <string name="self_pair_pairing_not_found">Pairing service not found</string>
+    <string name="self_pair_connection_failed">Connection failed - try manual connect</string>
+    <string name="self_pair_error_saving">Error saving device</string>
+    <string name="this_device">This Device</string>
+    <string name="enable_wireless_debugging">Please enable Wireless Debugging in Developer Options</string>
+
     /**
     * Changelogs
     * Created by DP-Hridayan
@@ -320,8 +343,7 @@
     <string name="changelog_v3_8_2">\nApp uses a more refreshed color palette for material you theming\nFixed minor bugs</string>
     <string name="changelog_v3_8_1">\nFixed some crashes that were introduced in v3.8.0</string>
     <string name="changelog_v3_8_0">\nAdded black (amoled) theme\nAdded undo button to undo paste\nAdded option to disable soft keyboard\nFixed buttons stretched in some screen sizes\nFixed bookmarks button not appearing after opening the app\nRenamed Examples section to Commands\nFixed copy command option not appearing for every command template\nApp now uses system font everywhere\nImproved UI handling\nUpdated translations</string>
-    <string name="changelog_v3_7_0">\nNow you can share texts from anywhere on your device to aShell You and run commands directly.\nNow you can share shell output directly without needing to save it !\nA lot of optimisations and UI handling.\nAdded Chinese translations.\nUpdated translations.
-</string>
+    <string name="changelog_v3_7_0">\nNow you can share texts from anywhere on your device to aShell You and run commands directly.\nNow you can share shell output directly without needing to save it !\nA lot of optimisations and UI handling.\nAdded Chinese translations.\nUpdated translations.</string>
     <string name="changelog_v3_6_0">\nAdded option to clear the command input field after an error\nFixed a bug which caused the app to crash upon pasting from clipboard under certain conditions\nCode optimisations</string>
     <string name="changelog_v3_5_1">\nFixed some issues with bottom navigation.</string>
     <string name="changelog_v3_5_0">\nRevamped About section of the app.\nAdded launcher shortcuts.\nFixed navigation menu not showing in button navigation.\nImproved bottom navigation menu visibility on scrolling.\nAdded per app language support for aShell You (translations aren\'t completed yet).\nA lot of code optimisations.</string>

@@ -8,6 +8,7 @@ import android.net.wifi.WifiManager
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.RemoteInput
+import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.shell.domain.usecase.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.WifiAdbStorage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
@@ -208,15 +209,17 @@ class SelfPairingService : Service() {
                     acquire()
                 }
 
-                // Get local IP address
-                val wifiInfo = wifi.connectionInfo
-                localIpAddress = String.format(
-                    "%d.%d.%d.%d",
-                    wifiInfo.ipAddress and 0xff,
-                    wifiInfo.ipAddress shr 8 and 0xff,
-                    wifiInfo.ipAddress shr 16 and 0xff,
-                    wifiInfo.ipAddress shr 24 and 0xff
-                )
+                // Get local IP address using multiple methods for reliability
+                localIpAddress = getLocalIpAddress(wifi)
+                
+                if (localIpAddress == null || localIpAddress == "0.0.0.0") {
+                    Log.e(TAG, "Could not determine local IP address")
+                    notificationHelper.showFailureNotification(
+                        getString(R.string.self_pair_error_no_ip)
+                    )
+                    stopSelf()
+                    return@submit
+                }
 
                 Log.d(TAG, "Local IP address: $localIpAddress")
                 Log.d(TAG, "Starting mDNS discovery for self device pairing...")
@@ -235,7 +238,7 @@ class SelfPairingService : Service() {
                     if (discoveredPairingPort == null) {
                         Log.d(TAG, "Discovery timeout - no self device pairing service found")
                         notificationHelper.showFailureNotification(
-                            "Timeout - open pairing dialog in Wireless Debugging"
+                            getString(R.string.self_pair_timeout)
                         )
                         stopSelf()
                     }
@@ -243,10 +246,67 @@ class SelfPairingService : Service() {
 
             } catch (e: Exception) {
                 Log.e(TAG, "Error in mDNS discovery", e)
-                notificationHelper.showFailureNotification("Discovery error: ${e.message}")
+                notificationHelper.showFailureNotification(
+                    getString(R.string.self_pair_discovery_error, e.message ?: "Unknown")
+                )
                 stopSelf()
             }
         }
+    }
+
+    /**
+     * Get local IP address using multiple methods for reliability.
+     * First tries NetworkInterface enumeration (more reliable on newer Android),
+     * then falls back to WifiManager (works on older versions).
+     */
+    @Suppress("DEPRECATION")
+    @SuppressLint("DefaultLocale")
+    private fun getLocalIpAddress(wifi: WifiManager): String? {
+        // Method 1: Use NetworkInterface enumeration (most reliable)
+        try {
+            val interfaces = java.net.NetworkInterface.getNetworkInterfaces()
+            while (interfaces.hasMoreElements()) {
+                val networkInterface = interfaces.nextElement()
+                // Skip loopback and down interfaces
+                if (networkInterface.isLoopback || !networkInterface.isUp) continue
+                
+                // Prefer WiFi interface (usually wlan0)
+                val name = networkInterface.name.lowercase()
+                if (name.contains("wlan") || name.contains("wifi") || name.contains("eth")) {
+                    val addresses = networkInterface.inetAddresses
+                    while (addresses.hasMoreElements()) {
+                        val address = addresses.nextElement()
+                        if (!address.isLoopbackAddress && address is java.net.Inet4Address) {
+                            val ip = address.hostAddress
+                            Log.d(TAG, "Found IP via NetworkInterface ($name): $ip")
+                            return ip
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error getting IP via NetworkInterface", e)
+        }
+        
+        // Method 2: Fallback to WifiManager (deprecated but works on some devices)
+        try {
+            val wifiInfo = wifi.connectionInfo
+            if (wifiInfo.ipAddress != 0) {
+                val ip = String.format(
+                    "%d.%d.%d.%d",
+                    wifiInfo.ipAddress and 0xff,
+                    wifiInfo.ipAddress shr 8 and 0xff,
+                    wifiInfo.ipAddress shr 16 and 0xff,
+                    wifiInfo.ipAddress shr 24 and 0xff
+                )
+                Log.d(TAG, "Found IP via WifiManager: $ip")
+                return ip
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error getting IP via WifiManager", e)
+        }
+        
+        return null
     }
 
     private fun createPairingServiceListener(): ServiceListener {
@@ -296,7 +356,7 @@ class SelfPairingService : Service() {
 
         if (ip == null || port == null) {
             Log.e(TAG, "Cannot pair - IP or port is null")
-            notificationHelper.showFailureNotification("Pairing service not found")
+            notificationHelper.showFailureNotification(getString(R.string.self_pair_pairing_not_found))
             stopSelfDelayed()
             return
         }
@@ -334,14 +394,14 @@ class SelfPairingService : Service() {
      */
     private fun restartDiscoveryAfterFailure() {
         Log.d(TAG, "Restarting discovery after pairing failure...")
-        
+
         // Show brief error message
-        notificationHelper.showFailureNotification("Wrong code - open pairing dialog again")
-        
+        notificationHelper.showFailureNotification(getString(R.string.self_pair_wrong_code))
+
         // Reset state for new attempt
         discoveredPairingPort = null
         isProcessing = false
-        
+
         // Close existing mDNS
         try {
             jmDns?.close()
@@ -349,7 +409,7 @@ class SelfPairingService : Service() {
             Log.e(TAG, "Error closing JmDNS", e)
         }
         jmDns = null
-        
+
         // Wait a moment for user to see message, then restart discovery
         executor?.schedule({
             notificationHelper.showSearchingNotification(SelfPairingService::class.java)
@@ -430,7 +490,7 @@ class SelfPairingService : Service() {
         }
 
         Log.e(TAG, "All direct connect attempts failed")
-        notificationHelper.showFailureNotification("Connection failed - try manual connect")
+        notificationHelper.showFailureNotification(getString(R.string.self_pair_connection_failed))
         stopSelfDelayed()
     }
 
@@ -461,12 +521,12 @@ class SelfPairingService : Service() {
             val serial = getDeviceProperty(adbManager, "ro.serialno")
 
             // Get device model name
-            val deviceName = getDeviceProperty(adbManager, "ro.product.model") ?: "This Device"
+            val deviceName = getDeviceProperty(adbManager, "ro.product.model") ?: getString(R.string.this_device)
 
             val ownDevice = WifiAdbDevice(
                 ip = ip,
                 port = port,
-                deviceName = "$deviceName (This Device)",
+                deviceName = deviceName,
                 isPaired = true,
                 lastConnected = System.currentTimeMillis(),
                 serialNumber = serial,
@@ -485,7 +545,7 @@ class SelfPairingService : Service() {
 
         } catch (e: Exception) {
             Log.e(TAG, "Error saving self device", e)
-            notificationHelper.showFailureNotification("Error saving device")
+            notificationHelper.showFailureNotification(getString(R.string.self_pair_error_saving))
             stopSelfDelayed()
         }
     }

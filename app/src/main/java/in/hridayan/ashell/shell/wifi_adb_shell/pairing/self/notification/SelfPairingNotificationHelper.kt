@@ -35,10 +35,10 @@ class SelfPairingNotificationHelper(private val context: Context) {
     private fun createNotificationChannel() {
         val channel = NotificationChannel(
             CHANNEL_ID,
-            "Own Device Pairing",
+            context.getString(R.string.self_pair_searching),
             NotificationManager.IMPORTANCE_HIGH
         ).apply {
-            description = "Notifications for pairing with own device"
+            description = context.getString(R.string.self_pair_searching_hint)
             setShowBadge(true)
         }
         notificationManager.createNotificationChannel(channel)
@@ -80,18 +80,18 @@ class SelfPairingNotificationHelper(private val context: Context) {
         )
 
         return NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle("Searching for pairing service...")
-            .setContentText("Open Wireless Debugging and tap 'Pair device with pairing code'")
+            .setContentTitle(context.getString(R.string.self_pair_searching))
+            .setContentText(context.getString(R.string.self_pair_searching_hint))
             .setSmallIcon(R.drawable.ic_wireless)
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .addAction(R.drawable.ic_cancel, "Cancel", cancelPendingIntent)
+            .addAction(R.drawable.ic_cancel, context.getString(R.string.cancel), cancelPendingIntent)
             .build()
     }
 
     private fun createEnterCodeNotification(serviceClass: Class<*>): Notification {
         val remoteInput = RemoteInput.Builder(KEY_PAIRING_CODE)
-            .setLabel("Enter 6-digit pairing code")
+            .setLabel(context.getString(R.string.self_pair_enter_code_hint))
             .build()
 
         val submitIntent = Intent(context, serviceClass).apply {
@@ -111,24 +111,24 @@ class SelfPairingNotificationHelper(private val context: Context) {
         )
 
         val submitAction = NotificationCompat.Action.Builder(
-            R.drawable.ic_check, "Pair", submitPendingIntent
+            R.drawable.ic_check, context.getString(R.string.pair), submitPendingIntent
         ).addRemoteInput(remoteInput).build()
 
         return NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle("Pairing service found!")
-            .setContentText("Enter the 6-digit code from the pairing dialog")
+            .setContentTitle(context.getString(R.string.self_pair_found))
+            .setContentText(context.getString(R.string.self_pair_enter_code))
             .setSmallIcon(R.drawable.ic_wireless)
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .addAction(submitAction)
-            .addAction(R.drawable.ic_cancel, "Cancel", cancelPendingIntent)
+            .addAction(R.drawable.ic_cancel, context.getString(R.string.cancel), cancelPendingIntent)
             .build()
     }
 
     private fun createPairingNotification(): Notification {
         return NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle("Pairing in progress...")
-            .setContentText("Please wait while connecting to this device")
+            .setContentTitle(context.getString(R.string.self_pair_in_progress))
+            .setContentText(context.getString(R.string.self_pair_in_progress_hint))
             .setSmallIcon(R.drawable.ic_wireless)
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -143,8 +143,8 @@ class SelfPairingNotificationHelper(private val context: Context) {
         )
 
         return NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle("Connected to this device!")
-            .setContentText("Local ADB shell is now available")
+            .setContentTitle(context.getString(R.string.self_pair_success))
+            .setContentText(context.getString(R.string.self_pair_success_hint))
             .setSmallIcon(R.drawable.ic_check)
             .setOngoing(false)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -155,7 +155,7 @@ class SelfPairingNotificationHelper(private val context: Context) {
 
     private fun createFailureNotification(message: String): Notification {
         return NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle("Pairing failed")
+            .setContentTitle(context.getString(R.string.self_pair_failed))
             .setContentText(message)
             .setSmallIcon(R.drawable.ic_error)
             .setOngoing(false)

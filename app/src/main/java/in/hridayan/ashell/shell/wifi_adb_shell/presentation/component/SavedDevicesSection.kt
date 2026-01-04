@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component
 
 import androidx.compose.animation.AnimatedVisibility
@@ -21,11 +23,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.CircularWavyProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -41,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import java.text.SimpleDateFormat
@@ -69,15 +72,15 @@ fun SavedDevicesSection(
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(bottom = 12.dp)
             )
-            
+
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 savedDevices.forEach { device ->
                     val isCurrentDevice = currentDevice?.id == device.id
-                    val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting && 
-                                         wifiAdbState.device == device.id
-                    
+                    val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting &&
+                            wifiAdbState.device == device.id
+
                     SavedDeviceItem(
                         device = device,
                         isConnected = isCurrentDevice && wifiAdbState is WifiAdbState.ConnectSuccess,
@@ -88,7 +91,7 @@ fun SavedDevicesSection(
                     )
                 }
             }
-            
+
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = 16.dp),
                 color = MaterialTheme.colorScheme.outlineVariant
@@ -99,7 +102,7 @@ fun SavedDevicesSection(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun SavedDeviceItem(
+fun SavedDeviceItem(
     device: WifiAdbDevice,
     isConnected: Boolean,
     isReconnecting: Boolean,
@@ -108,7 +111,7 @@ private fun SavedDeviceItem(
     onDisconnect: () -> Unit
 ) {
     var showForgetDialog by remember { mutableStateOf(false) }
-    
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -124,106 +127,110 @@ private fun SavedDeviceItem(
             }
         )
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_wireless),
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp),
-                        tint = if (isConnected) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.onSurfaceVariant
-                        }
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = device.deviceName,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontWeight = FontWeight.Medium,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    if (device.isOwnDevice) {
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Card(
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.tertiaryContainer
-                            )
-                        ) {
-                            Text(
-                                text = "This Device",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onTertiaryContainer,
-                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                            )
-                        }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_wireless),
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp),
+                    tint = if (isConnected) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
                     }
-                    if (isConnected) {
-                        Spacer(modifier = Modifier.width(8.dp))
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = device.deviceName,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Medium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                if (device.isOwnDevice) {
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                        )
+                    ) {
                         Text(
-                            text = stringResource(R.string.connected),
+                            text = stringResource(R.string.this_device),
                             style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.primary
+                            color = MaterialTheme.colorScheme.onTertiaryContainer,
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = "${device.ip}:${device.port}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = formatLastConnected(device.lastConnected),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
-                )
-            }
-            
-            Spacer(modifier = Modifier.width(8.dp))
-            
-            if (isReconnecting) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    strokeWidth = 2.dp
-                )
-            } else if (isConnected) {
-                OutlinedButton(
-                    onClick = onDisconnect,
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = MaterialTheme.colorScheme.error
+                if (isConnected) {
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = stringResource(R.string.connected),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.primary
                     )
-                ) {
-                    Text(stringResource(R.string.disconnect))
                 }
-            } else {
-                Button(onClick = onReconnect) {
-                    Text(stringResource(R.string.reconnect))
+            }
+
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.weight(1f)) {
+
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "${device.ip}:${device.port}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        text = formatLastConnected(device.lastConnected),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                if (isReconnecting) {
+                    CircularWavyProgressIndicator(modifier = Modifier.size(24.dp),)
+                    return@Row
+                }
+
+                if (isConnected) {
+                    Button(
+                        onClick = onDisconnect,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.errorContainer,
+                            contentColor = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                    ) {
+                        AutoResizeableText(stringResource(R.string.disconnect))
+                    }
+                } else {
+                    Button(onClick = onReconnect) {
+                        AutoResizeableText(stringResource(R.string.reconnect))
+                    }
                 }
             }
         }
     }
-    
+
     // Forget device confirmation dialog
     if (showForgetDialog) {
         AlertDialog(
             onDismissRequest = { showForgetDialog = false },
             title = { Text(stringResource(R.string.forget_device)) },
-            text = { 
+            text = {
                 Text(
                     stringResource(
-                        R.string.forget_device_confirmation, 
+                        R.string.forget_device_confirmation,
                         device.deviceName
                     )
-                ) 
+                )
             },
             confirmButton = {
                 TextButton(

@@ -10,6 +10,7 @@ sealed class WifiAdbState(val message: String) {
     data class ConnectStarted(val info: String = "Connecting...") : WifiAdbState(info)
     data class ConnectSuccess(val info: String) : WifiAdbState(info)
     data class ConnectFailed(val error: String) : WifiAdbState(error)
+    data class WirelessDebuggingOff(val info: String = "Enable wireless debugging") : WifiAdbState(info)
     data class DiscoveryStarted(val info: String) : WifiAdbState(message = info)
     data class DiscoveryFound(val info: String) : WifiAdbState(info)
     data class DiscoverySessionMatched(val info: String = "Session matched") : WifiAdbState(info)

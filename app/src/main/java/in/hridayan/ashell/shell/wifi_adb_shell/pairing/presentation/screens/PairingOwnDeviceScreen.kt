@@ -33,6 +33,7 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -70,11 +72,19 @@ import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.dialog.GrantNotificationAccessDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.self.service.SelfPairingService
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.SavedDeviceItem
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 
 @Composable
-fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
+fun PairingOwnDeviceScreen(
+    modifier: Modifier = Modifier,
+    viewModel: WifiAdbViewModel = hiltViewModel()
+) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val dialogManager = LocalDialogManager.current
@@ -84,6 +94,10 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
     var isWifiConnected by remember { mutableStateOf(context.isConnectedToWifi()) }
     var hasNotificationAccess by remember { mutableStateOf(isNotificationPermissionGranted(context)) }
     val lazyListState = rememberLazyListState()
+    val savedDevices by viewModel.savedDevices.collectAsState()
+    val wifiAdbState by viewModel.state.collectAsState()
+    val ownDevice = savedDevices.filter { it.isOwnDevice }.getOrNull(0)
+    val currentDevice by viewModel.currentDevice.collectAsState()
 
     DisposableEffect(Unit) {
         val callback = registerNetworkCallback(context) { isConnected ->
@@ -107,6 +121,13 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
         )
     }
 
+    // Show toast when wireless debugging is off during reconnect attempt
+    LaunchedEffect(wifiAdbState) {
+        if (wifiAdbState is WifiAdbState.WirelessDebuggingOff) {
+            showToast(context, context.getString(R.string.enable_wireless_debugging))
+        }
+    }
+
     val notificationSettingsIntent = createAppNotificationSettingsIntent(context)
 
     val onClickNotificationButton: () -> Unit = withHaptic {
@@ -118,13 +139,21 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
     }
 
     val onClickDeveloperOptionsButton: () -> Unit = withHaptic {
-        if (hasNotificationAccess) {
-            // Start the pairing service before opening developer options
-            `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.self.service.SelfPairingService.start(context)
-            openDeveloperOptions(context)
-        } else {
+        if (!hasNotificationAccess) {
             dialogManager.show(DialogKey.Pair.GrantNotificationAccess)
+            return@withHaptic
         }
+
+        if (!isWifiConnected) {
+            showToast(
+                context,
+                context.getString(R.string.connect_to_wifi_network)
+            )
+            return@withHaptic
+        }
+
+        SelfPairingService.start(context)
+        openDeveloperOptions(context)
     }
 
     Scaffold(
@@ -160,22 +189,65 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
             contentPadding = innerPadding,
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
+            item {
+                ownDevice?.let {
+                    val isCurrentDevice = currentDevice?.id == it.id
+                    val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting &&
+                            (wifiAdbState as WifiAdbState.Reconnecting).device == it.id
+
+                    SavedDeviceItem(
+                        device = it,
+                        isConnected = isCurrentDevice && wifiAdbState is WifiAdbState.ConnectSuccess && isWifiConnected,
+                        isReconnecting = isReconnecting,
+                        onReconnect = {
+                            if (!isWifiConnected) {
+                                showToast(
+                                    context,
+                                    context.getString(R.string.connect_to_wifi_network)
+                                )
+                                return@SavedDeviceItem
+                            }
+
+                            viewModel.reconnectToDevice(it)
+                        },
+                        onForget = { viewModel.forgetDevice(it) },
+                        onDisconnect = { viewModel.disconnect() }
+                    )
+                }
+            }
+
+            item {
+                AutoResizeableText(
+                    modifier = Modifier.padding(start = 5.dp, end = 5.dp, top = 10.dp),
+                    text = stringResource(R.string.hint),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+
             if (!hasNotificationAccess) item {
                 NotificationAccessRequestCard(
-                    onClickButton = onClickNotificationButton
+                    onClickButton = onClickNotificationButton,
+                    modifier = Modifier.animateItem()
                 )
             } else
                 item {
-                    NotificationPairingHintCard()
+                    NotificationPairingHintCard(modifier = Modifier.animateItem())
                 }
 
-            item { NotificationStyleIconWithTextCard() }
+            item { NotificationStyleIconWithTextCard(modifier = Modifier.animateItem()) }
 
-            if (!isWifiConnected) item { WifiEnableCard(onClickButton = onClickWifiEnableButton) }
+            if (!isWifiConnected) item {
+                WifiEnableCard(
+                    onClickButton = onClickWifiEnableButton,
+                    modifier = Modifier.animateItem()
+                )
+            }
 
             item {
                 Instructions(
-                    onClickButton = onClickDeveloperOptionsButton
+                    onClickButton = onClickDeveloperOptionsButton,
+                    modifier = Modifier.animateItem()
                 )
             }
 
