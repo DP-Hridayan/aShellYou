@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.about.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -376,13 +377,15 @@ private fun GithubStatsChip(
     }
 }
 
+@SuppressLint("DefaultLocale")
 private fun Long.toCompactFormat(): String {
     return when {
         this < 1_000 -> this.toString()
         this < 1_000_000 -> String.format("%.1fK", this / 1_000f)
         this < 1_000_000_000 -> String.format("%.1fM", this / 1_000_000f)
         else -> String.format("%.1fB", this / 1_000_000_000f)
-    }.removeSuffix(".0K")
-        .removeSuffix(".0M")
-        .removeSuffix(".0B")
+    }
+        .replace(".0K", "K")
+        .replace(".0M", "M")
+        .replace(".0B", "B")
 }
