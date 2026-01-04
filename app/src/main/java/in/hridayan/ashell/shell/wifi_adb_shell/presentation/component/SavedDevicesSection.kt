@@ -151,6 +151,21 @@ private fun SavedDeviceItem(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
+                    if (device.isOwnDevice) {
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Card(
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                            )
+                        ) {
+                            Text(
+                                text = "This Device",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
                     if (isConnected) {
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(

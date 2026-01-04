@@ -118,8 +118,13 @@ fun PairingOwnDeviceScreen(modifier: Modifier = Modifier) {
     }
 
     val onClickDeveloperOptionsButton: () -> Unit = withHaptic {
-        if (hasNotificationAccess) openDeveloperOptions(context)
-        else dialogManager.show(DialogKey.Pair.GrantNotificationAccess)
+        if (hasNotificationAccess) {
+            // Start the pairing service before opening developer options
+            `in`.hridayan.ashell.shell.wifi_adb_shell.service.OwnDevicePairingService.start(context)
+            openDeveloperOptions(context)
+        } else {
+            dialogManager.show(DialogKey.Pair.GrantNotificationAccess)
+        }
     }
 
     Scaffold(
