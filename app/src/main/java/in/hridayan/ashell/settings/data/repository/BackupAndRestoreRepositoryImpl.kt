@@ -4,12 +4,14 @@ import android.content.Context
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.utils.EncryptionHelper
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.BackupData
 import `in`.hridayan.ashell.settings.domain.model.BackupOption
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
+import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -20,6 +22,7 @@ import javax.inject.Inject
 class BackupAndRestoreRepositoryImpl @Inject constructor(
     private val json: Json,
     private val commandRepository: CommandRepository,
+    private val bookmarkRepository: BookmarkRepository,
     private val settingsRepository: SettingsRepository,
     @param:ApplicationContext private val context: Context
 ) : BackupAndRestoreRepository {
@@ -70,11 +73,20 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
             if (option == BackupOption.DATABASE_ONLY || option == BackupOption.SETTINGS_AND_DATABASE)
                 commandRepository.getAllCommandsOnce() else null
 
+        val bookmarks =
+            if (option == BackupOption.DATABASE_ONLY || option == BackupOption.SETTINGS_AND_DATABASE)
+                bookmarkRepository.getBookmarksSorted(SortType.AZ) else null
+
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
 
         val backupTime = LocalDateTime.now().format(formatter)
 
-        return BackupData(settings = settings, commands = commands, backupTime = backupTime)
+        return BackupData(
+            settings = settings,
+            commands = commands,
+            bookmarks = bookmarks,
+            backupTime = backupTime
+        )
     }
 
     override suspend fun getBackupTimeFromFile(uri: Uri): String? = withContext(Dispatchers.IO) {
@@ -101,6 +113,10 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
         data.commands?.let {
             commandRepository.deleteAllCommands()
             commandRepository.insertAllCommands(it)
+        }
+        data.bookmarks?.let {
+            bookmarkRepository.deleteAllBookmarks()
+            bookmarkRepository.insertAllBookmarks(it)
         }
         data.settings?.let { restoreSettings(it) }
     }

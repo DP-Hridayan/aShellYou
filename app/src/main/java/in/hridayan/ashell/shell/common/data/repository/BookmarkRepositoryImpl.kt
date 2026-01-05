@@ -1,9 +1,9 @@
 package `in`.hridayan.ashell.shell.common.data.repository
 
 import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import `in`.hridayan.ashell.shell.common.data.database.BookmarkDao
 import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
+import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -21,6 +21,10 @@ class BookmarkRepositoryImpl @Inject constructor(
 
     override suspend fun deleteAllBookmarks() {
         dao.deleteAllBookmarks()
+    }
+
+    override suspend fun insertAllBookmarks(bookmarks: List<BookmarkEntity>) {
+        dao.insertAllBookmarks(bookmarks)
     }
 
     override fun isBookmarked(command: String): Flow<Boolean> {

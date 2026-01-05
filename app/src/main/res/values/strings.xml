@@ -69,7 +69,7 @@
     <string name="des_auto_update">Check for updates automatically</string>
     <string name="des_backup_all_data">Backup all data of the app</string>
     <string name="des_backup_and_restore">Backup and restore app settings and other data</string>
-    <string name="des_backup_app_database">Backup app database which includes the command examples</string>
+    <string name="des_backup_app_database">Backup app database which includes the command examples &amp; bookmarks</string>
     <string name="des_backup_settings">Backup app settings preferences only</string>
     <string name="des_behavior">Modify certain behavior of the app</string>
     <string name="des_changelogs">History of all the changes made to the app</string>

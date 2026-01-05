@@ -2,7 +2,9 @@ package `in`.hridayan.ashell.shell.common.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -16,6 +18,9 @@ interface BookmarkDao {
 
     @Query("DELETE FROM bookmarks")
     suspend fun deleteAllBookmarks()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllBookmarks(bookmarks: List<BookmarkEntity>)
 
     @Query("SELECT EXISTS(SELECT 1 FROM bookmarks WHERE command = :command)")
     fun isBookmarked(command: String): Flow<Boolean>
