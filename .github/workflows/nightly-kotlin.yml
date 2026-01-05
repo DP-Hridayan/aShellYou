@@ -27,7 +27,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleRelease
 
       - name: Delete existing nightly release if it exists
         uses: dev-drprasad/delete-tag-and-release@v1.1
