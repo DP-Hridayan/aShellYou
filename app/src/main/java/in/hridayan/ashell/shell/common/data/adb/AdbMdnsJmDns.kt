@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.util
+package `in`.hridayan.ashell.shell.common.data.adb
 
 import android.annotation.SuppressLint
 import android.content.Context

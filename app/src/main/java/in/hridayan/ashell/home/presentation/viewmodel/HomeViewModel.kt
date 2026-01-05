@@ -2,7 +2,7 @@ package `in`.hridayan.ashell.home.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
+import `in`.hridayan.ashell.shell.common.domain.repository.ShellRepository
 import javax.inject.Inject
 
 @HiltViewModel

@@ -1,6 +1,6 @@
-package `in`.hridayan.ashell.shell.domain.repository
+package `in`.hridayan.ashell.shell.common.domain.repository
 
-import `in`.hridayan.ashell.shell.data.model.BookmarkEntity
+import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
 import kotlinx.coroutines.flow.Flow
 
 interface BookmarkRepository {

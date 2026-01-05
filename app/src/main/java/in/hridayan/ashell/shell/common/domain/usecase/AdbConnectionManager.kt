@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.domain.usecase
+package `in`.hridayan.ashell.shell.common.domain.usecase
 
 import android.content.Context
 import android.os.Build

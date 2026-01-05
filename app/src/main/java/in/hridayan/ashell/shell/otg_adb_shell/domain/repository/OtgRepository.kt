@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository
 
-import `in`.hridayan.ashell.shell.domain.model.OutputLine
+import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import kotlinx.coroutines.flow.Flow
 
 interface OtgRepository {

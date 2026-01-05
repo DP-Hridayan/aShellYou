@@ -4,15 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.wifi.WifiManager
 import android.util.Log
-import `in`.hridayan.ashell.shell.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.domain.usecase.AdbConnectionManager
+import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
+import `in`.hridayan.ashell.shell.common.domain.usecase.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.WifiAdbStorage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import io.github.muntashirakon.adb.AdbStream
-import io.github.muntashirakon.adb.LocalServices
 import io.github.muntashirakon.adb.android.AndroidUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -222,6 +221,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                                     )
                                     storage.saveDevice(connectedDevice)
                                     currentDevice = connectedDevice
+                                    WifiAdbConnection.setCurrentDevice(connectedDevice)
                                     Log.d(TAG, "Saved device: ${connectedDevice.id} (${connectedDevice.deviceName})")
                                     
                                     mainScope.launch {
@@ -287,6 +287,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                                         )
                                         storage.saveDevice(connectedDevice)
                                         currentDevice = connectedDevice
+                                        WifiAdbConnection.setCurrentDevice(connectedDevice)
                                         
                                         mainScope.launch {
                                             WifiAdbConnection.updateState(
@@ -374,6 +375,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                     )
                     storage.saveDevice(connectedDevice)
                     currentDevice = connectedDevice
+                    WifiAdbConnection.setCurrentDevice(connectedDevice)
                     Log.d(TAG, "Saved device: ${connectedDevice.id}")
                     
                     callback?.onConnectionSuccess()
@@ -566,6 +568,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                             lastConnected = System.currentTimeMillis()
                         )
                         storage.updateDevice(currentDevice!!)
+                        WifiAdbConnection.setCurrentDevice(currentDevice)
                         mainScope.launch {
                             WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id, device.id))
                         }
@@ -727,6 +730,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                                 lastConnected = System.currentTimeMillis()
                             )
                             storage.updateDevice(currentDevice!!)
+                            WifiAdbConnection.setCurrentDevice(currentDevice)
                             mainScope.launch {
                                 WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(key, device.id))
                             }
@@ -807,6 +811,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                 manager.disconnect()
                 abortShell()
                 currentDevice = null
+                WifiAdbConnection.setCurrentDevice(null)
                 mainScope.launch {
                     val deviceId = disconnectedDevice?.id
                     WifiAdbConnection.updateState(WifiAdbState.Disconnected(deviceId))

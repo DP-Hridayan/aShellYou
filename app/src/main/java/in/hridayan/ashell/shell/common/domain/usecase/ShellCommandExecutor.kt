@@ -1,10 +1,8 @@
-package `in`.hridayan.ashell.shell.domain.usecase
+package `in`.hridayan.ashell.shell.common.domain.usecase
 
 import android.content.Context
-import com.cgutman.adblib.AdbConnection
-import `in`.hridayan.ashell.shell.domain.model.OutputLine
+import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
@@ -15,7 +13,6 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.InterruptedIOException
-import java.nio.charset.StandardCharsets
 
 class ShellCommandExecutor {
     private var currentProcess: Process? = null

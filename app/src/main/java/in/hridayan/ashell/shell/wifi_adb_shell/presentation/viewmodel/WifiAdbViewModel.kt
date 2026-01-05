@@ -8,9 +8,11 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -61,18 +63,32 @@ class WifiAdbViewModel @Inject constructor(
     private val _savedDevices = MutableStateFlow<List<WifiAdbDevice>>(emptyList())
     val savedDevices = _savedDevices.asStateFlow()
 
-    // Track currently connected device
-    private val _currentDevice = MutableStateFlow<WifiAdbDevice?>(null)
-    val currentDevice = _currentDevice.asStateFlow()
+    // Track currently connected device - observe from WifiAdbConnection for cross-component updates
+    val currentDevice: StateFlow<WifiAdbDevice?> = WifiAdbConnection.currentDevice
 
     init {
         // Load saved devices when ViewModel is created
         loadSavedDevices()
+        
+        // Observe current device changes to auto-reload saved devices
+        // This handles updates from SelfPairingService and other components
+        viewModelScope.launch {
+            WifiAdbConnection.currentDevice.collect { device ->
+                if (device != null) {
+                    loadSavedDevices()
+                }
+            }
+        }
     }
 
     fun loadSavedDevices() {
         _savedDevices.value = wifiAdbRepository.getSavedDevices()
-        _currentDevice.value = wifiAdbRepository.getCurrentDevice()
+        // Also sync WifiAdbConnection if repository has a current device
+        wifiAdbRepository.getCurrentDevice()?.let { device ->
+            if (WifiAdbConnection.currentDevice.value?.id != device.id) {
+                WifiAdbConnection.setCurrentDevice(device)
+            }
+        }
     }
 
     fun onIpChange(newValue: String) {
@@ -191,13 +207,13 @@ class WifiAdbViewModel @Inject constructor(
     fun reconnectToDevice(device: WifiAdbDevice) {
         wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
             override fun onReconnectSuccess() {
-                _currentDevice.value = device
+                WifiAdbConnection.setCurrentDevice(device)
                 WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id, device.id))
                 loadSavedDevices()
             }
 
             override fun onReconnectFailed(requiresPairing: Boolean) {
-                _currentDevice.value = null
+                WifiAdbConnection.setCurrentDevice(null)
                 if (requiresPairing) {
                     // Prefill IP for re-pairing
                     _ipAddress.value = device.ip
@@ -208,7 +224,7 @@ class WifiAdbViewModel @Inject constructor(
 
     fun disconnect() {
         wifiAdbRepository.disconnect()
-        _currentDevice.value = null
+        WifiAdbConnection.setCurrentDevice(null)
     }
 
     fun forgetDevice(device: WifiAdbDevice) {

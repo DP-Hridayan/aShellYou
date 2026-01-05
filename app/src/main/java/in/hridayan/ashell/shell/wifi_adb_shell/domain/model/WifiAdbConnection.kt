@@ -16,6 +16,10 @@ object WifiAdbConnection {
     private val _deviceStates = MutableStateFlow<Map<String, WifiAdbState>>(emptyMap())
     val deviceStates = _deviceStates.asStateFlow()
 
+    // Currently connected device - shared across components
+    private val _currentDevice = MutableStateFlow<WifiAdbDevice?>(null)
+    val currentDevice = _currentDevice.asStateFlow()
+
     /**
      * Update the connection state.
      * If the state has a deviceId, also updates the per-device state map.
@@ -53,6 +57,14 @@ object WifiAdbConnection {
         if (currentState.deviceId == deviceId) {
             _state.value = newState
         }
+    }
+
+    /**
+     * Set the currently connected device.
+     * This allows cross-component communication (e.g., SelfPairingService -> ViewModel).
+     */
+    fun setCurrentDevice(device: WifiAdbDevice?) {
+        _currentDevice.value = device
     }
 
     val currentState: WifiAdbState get() = _state.value

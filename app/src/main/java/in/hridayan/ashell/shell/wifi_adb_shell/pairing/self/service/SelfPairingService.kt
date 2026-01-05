@@ -4,12 +4,13 @@ import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.net.wifi.WifiManager
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.RemoteInput
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.shell.domain.usecase.AdbConnectionManager
+import `in`.hridayan.ashell.shell.common.domain.usecase.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.WifiAdbStorage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
@@ -21,27 +22,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.net.InetAddress
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
-import javax.jmdns.JmDNS
-import javax.jmdns.ServiceEvent
-import javax.jmdns.ServiceListener
 
 /**
  * Foreground service for pairing with the device the app is running on (self/own device).
+ * 
+ * Uses Android's native NsdManager (via AdbMdnsDiscovery) for reliable mDNS discovery.
  *
  * Flow:
  * 1. User clicks Developer Options → Service starts and shows "Searching..." notification
- * 2. mDNS discovers pairing service (filtered by local IP)
+ * 2. NsdManager discovers pairing service (filtered by matching network interfaces)
  * 3. Shows "Enter code" notification with input field
  * 4. User enters pairing code
  * 5. Pairs using existing WifiAdbRepository logic
- * 6. Discovers connect service and connects
- * 7. Saves device with isOwnDevice=true
+ * 6. NsdManager discovers connect service
+ * 7. Connects and saves device with isOwnDevice=true
  */
+@RequiresApi(Build.VERSION_CODES.R)
 class SelfPairingService : Service() {
 
     companion object {
@@ -63,16 +63,18 @@ class SelfPairingService : Service() {
     private lateinit var repository: WifiAdbRepositoryImpl
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
-    // mDNS and threading
-    private var jmDns: JmDNS? = null
+    // NsdManager-based mDNS discovery (replaces JmDNS)
+    private var mdnsDiscovery: AdbMdnsDiscovery? = null
     private var executor: ScheduledExecutorService? = null
     private var discoveryTimeout: ScheduledFuture<*>? = null
-    private var multicastLock: WifiManager.MulticastLock? = null
 
     // State
-    private var localIpAddress: String? = null
+    private var discoveredPairingIp: String? = null
     private var discoveredPairingPort: Int? = null
-    private var isProcessing = false
+    private var discoveredConnectPort: Int? = null
+    @Volatile private var isProcessing = false
+    @Volatile private var isPairingDone = false
+    @Volatile private var isConnected = false
 
     override fun onCreate() {
         super.onCreate()
@@ -100,7 +102,7 @@ class SelfPairingService : Service() {
                     SelfPairingService::class.java
                 )
                 startForeground(SelfPairingNotificationHelper.NOTIFICATION_ID, notification)
-                startPairingServiceDiscovery()
+                startMdnsDiscovery()
             }
         }
         return START_NOT_STICKY
@@ -123,21 +125,9 @@ class SelfPairingService : Service() {
         discoveryTimeout?.cancel(true)
         discoveryTimeout = null
 
-        // Close existing mDNS
-        try {
-            jmDns?.close()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error closing JmDNS", e)
-        }
-        jmDns = null
-
-        // Release multicast lock
-        try {
-            multicastLock?.release()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error releasing multicast lock", e)
-        }
-        multicastLock = null
+        // Stop mDNS discovery
+        mdnsDiscovery?.stop()
+        mdnsDiscovery = null
 
         // Disconnect any existing connection to allow fresh pairing
         try {
@@ -151,9 +141,12 @@ class SelfPairingService : Service() {
         }
 
         // Reset state variables
-        localIpAddress = null
+        discoveredPairingIp = null
         discoveredPairingPort = null
+        discoveredConnectPort = null
         isProcessing = false
+        isPairingDone = false
+        isConnected = false
     }
 
     /**
@@ -162,20 +155,9 @@ class SelfPairingService : Service() {
     private fun cleanup() {
         Log.d(TAG, "Cleaning up service")
         discoveryTimeout?.cancel(true)
-
-        try {
-            jmDns?.close()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error closing JmDNS", e)
-        }
-        jmDns = null
-
-        try {
-            multicastLock?.release()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error releasing multicast lock", e)
-        }
-        multicastLock = null
+        
+        mdnsDiscovery?.stop()
+        mdnsDiscovery = null
 
         executor?.shutdownNow()
         executor = null
@@ -191,155 +173,73 @@ class SelfPairingService : Service() {
             if (codeInt != null) {
                 onPairingCodeReceived(codeInt)
             } else {
-                // Invalid format - restart discovery
-                restartDiscoveryAfterFailure()
-            }
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    @SuppressLint("DefaultLocale")
-    private fun startPairingServiceDiscovery() {
-        executor?.submit {
-            try {
-                // Setup multicast for mDNS
-                val wifi = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-                multicastLock = wifi.createMulticastLock("adb_self_device_lock").apply {
-                    setReferenceCounted(true)
-                    acquire()
-                }
-
-                // Get local IP address using multiple methods for reliability
-                localIpAddress = getLocalIpAddress(wifi)
-                
-                if (localIpAddress == null || localIpAddress == "0.0.0.0") {
-                    Log.e(TAG, "Could not determine local IP address")
-                    notificationHelper.showFailureNotification(
-                        getString(R.string.self_pair_error_no_ip)
-                    )
-                    stopSelf()
-                    return@submit
-                }
-
-                Log.d(TAG, "Local IP address: $localIpAddress")
-                Log.d(TAG, "Starting mDNS discovery for self device pairing...")
-
-                // Create JmDNS instance
-                jmDns = JmDNS.create(InetAddress.getByName(localIpAddress))
-
-                // Add listener for pairing service
-                jmDns?.addServiceListener(
-                    "_adb-tls-pairing._tcp.local.",
-                    createPairingServiceListener()
-                )
-
-                // Set timeout
-                discoveryTimeout = executor?.schedule({
-                    if (discoveredPairingPort == null) {
-                        Log.d(TAG, "Discovery timeout - no self device pairing service found")
-                        notificationHelper.showFailureNotification(
-                            getString(R.string.self_pair_timeout)
-                        )
-                        stopSelf()
-                    }
-                }, 60, TimeUnit.SECONDS)
-
-            } catch (e: Exception) {
-                Log.e(TAG, "Error in mDNS discovery", e)
-                notificationHelper.showFailureNotification(
-                    getString(R.string.self_pair_discovery_error, e.message ?: "Unknown")
-                )
-                stopSelf()
+                // Invalid format - show error and keep listening
+                notificationHelper.showFailureNotification(getString(R.string.self_pair_wrong_code))
+                executor?.schedule({
+                    notificationHelper.showEnterCodeNotification(SelfPairingService::class.java)
+                }, 2, TimeUnit.SECONDS)
             }
         }
     }
 
     /**
-     * Get local IP address using multiple methods for reliability.
-     * First tries NetworkInterface enumeration (more reliable on newer Android),
-     * then falls back to WifiManager (works on older versions).
+     * Start mDNS discovery using NsdManager.
+     * This discovers BOTH pairing and connect services simultaneously.
      */
-    @Suppress("DEPRECATION")
-    @SuppressLint("DefaultLocale")
-    private fun getLocalIpAddress(wifi: WifiManager): String? {
-        // Method 1: Use NetworkInterface enumeration (most reliable)
-        try {
-            val interfaces = java.net.NetworkInterface.getNetworkInterfaces()
-            while (interfaces.hasMoreElements()) {
-                val networkInterface = interfaces.nextElement()
-                // Skip loopback and down interfaces
-                if (networkInterface.isLoopback || !networkInterface.isUp) continue
-                
-                // Prefer WiFi interface (usually wlan0)
-                val name = networkInterface.name.lowercase()
-                if (name.contains("wlan") || name.contains("wifi") || name.contains("eth")) {
-                    val addresses = networkInterface.inetAddresses
-                    while (addresses.hasMoreElements()) {
-                        val address = addresses.nextElement()
-                        if (!address.isLoopbackAddress && address is java.net.Inet4Address) {
-                            val ip = address.hostAddress
-                            Log.d(TAG, "Found IP via NetworkInterface ($name): $ip")
-                            return ip
-                        }
+    private fun startMdnsDiscovery() {
+        Log.d(TAG, "Starting NsdManager-based mDNS discovery...")
+
+        mdnsDiscovery = AdbMdnsDiscovery(this, object : AdbMdnsDiscovery.AdbFoundCallback {
+            override fun onPairingServiceFound(ipAddress: String, port: Int) {
+                if (isPairingDone || discoveredPairingPort != null) {
+                    Log.d(TAG, "Pairing service found but already have one, ignoring")
+                    return
+                }
+
+                Log.d(TAG, "Pairing service detected at $ipAddress:$port")
+                discoveredPairingIp = ipAddress
+                discoveredPairingPort = port
+                discoveryTimeout?.cancel(false)
+
+                // Show notification to enter pairing code
+                notificationHelper.showEnterCodeNotification(SelfPairingService::class.java)
+            }
+
+            override fun onConnectServiceFound(ipAddress: String, port: Int) {
+                if (isConnected) {
+                    Log.d(TAG, "Connect service found but already connected, ignoring")
+                    return
+                }
+
+                // ALWAYS store the connect port when found, even before pairing completes
+                // The connect service may be discovered before pairing and then disappear
+                if (discoveredPairingIp == null || discoveredPairingIp == ipAddress) {
+                    Log.d(TAG, "Connect service detected at $ipAddress:$port - storing for later use")
+                    discoveredConnectPort = port
+                    
+                    // If pairing is already done, connect immediately
+                    if (isPairingDone) {
+                        Log.d(TAG, "Pairing already done, connecting now...")
+                        connectAndSave(ipAddress, port)
                     }
+                } else {
+                    Log.d(TAG, "Ignoring connect service at $ipAddress:$port (different from pairing IP $discoveredPairingIp)")
                 }
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error getting IP via NetworkInterface", e)
-        }
-        
-        // Method 2: Fallback to WifiManager (deprecated but works on some devices)
-        try {
-            val wifiInfo = wifi.connectionInfo
-            if (wifiInfo.ipAddress != 0) {
-                val ip = String.format(
-                    "%d.%d.%d.%d",
-                    wifiInfo.ipAddress and 0xff,
-                    wifiInfo.ipAddress shr 8 and 0xff,
-                    wifiInfo.ipAddress shr 16 and 0xff,
-                    wifiInfo.ipAddress shr 24 and 0xff
+        })
+
+        mdnsDiscovery?.start()
+
+        // Set timeout for pairing service discovery
+        discoveryTimeout = executor?.schedule({
+            if (discoveredPairingPort == null) {
+                Log.d(TAG, "Discovery timeout - no self device pairing service found")
+                notificationHelper.showFailureNotification(
+                    getString(R.string.self_pair_timeout)
                 )
-                Log.d(TAG, "Found IP via WifiManager: $ip")
-                return ip
+                stopSelf()
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error getting IP via WifiManager", e)
-        }
-        
-        return null
-    }
-
-    private fun createPairingServiceListener(): ServiceListener {
-        return object : ServiceListener {
-            override fun serviceAdded(event: ServiceEvent) {
-                jmDns?.getServiceInfo(event.type, event.name)
-            }
-
-            override fun serviceRemoved(event: ServiceEvent) {
-                Log.d(TAG, "Pairing service removed: ${event.name}")
-            }
-
-            override fun serviceResolved(event: ServiceEvent) {
-                val info = event.info
-                val ip = info.inet4Addresses.firstOrNull()?.hostAddress ?: return
-                val port = info.port
-
-                Log.d(TAG, "Found pairing service at $ip:$port (local IP: $localIpAddress)")
-
-                // Only accept if it's our own device
-                if (ip == localIpAddress && discoveredPairingPort == null) {
-                    Log.d(TAG, "Self device pairing service detected!")
-                    discoveredPairingPort = port
-                    discoveryTimeout?.cancel(false)
-
-                    notificationHelper.showEnterCodeNotification(
-                        SelfPairingService::class.java
-                    )
-                } else if (ip != localIpAddress) {
-                    Log.d(TAG, "Ignoring pairing service from other device: $ip")
-                }
-            }
-        }
+        }, 60, TimeUnit.SECONDS)
     }
 
     private fun onPairingCodeReceived(code: Int) {
@@ -351,7 +251,7 @@ class SelfPairingService : Service() {
 
         Log.d(TAG, "Pairing code received: $code")
 
-        val ip = localIpAddress
+        val ip = discoveredPairingIp
         val port = discoveredPairingPort
 
         if (ip == null || port == null) {
@@ -370,108 +270,76 @@ class SelfPairingService : Service() {
         // Use repository for pairing
         repository.pair(ip, port, code, object : WifiAdbRepositoryImpl.PairingListener {
             override fun onPairingSuccess() {
-                Log.d(TAG, "Pairing succeeded! Starting connect discovery...")
+                Log.d(TAG, "Pairing succeeded!")
+                isPairingDone = true
                 mainScope.launch {
                     WifiAdbConnection.updateState(WifiAdbState.PairingSuccess(ip))
                 }
-                discoverConnectServiceAndConnect(ip)
+                
+                // Check if we already have a connect port from earlier discovery
+                val connectPort = discoveredConnectPort
+                if (connectPort != null) {
+                    Log.d(TAG, "Using previously discovered connect port: $connectPort")
+                    connectAndSave(ip, connectPort)
+                } else {
+                    // Wait a bit for the connect service to be discovered via mDNS
+                    Log.d(TAG, "Waiting for connect service discovery...")
+                    executor?.schedule({
+                        if (!isConnected) {
+                            // Check again if connect port was discovered while waiting
+                            val port = discoveredConnectPort
+                            if (port != null) {
+                                Log.d(TAG, "Connect port discovered during wait: $port")
+                                connectAndSave(ip, port)
+                            } else {
+                                Log.d(TAG, "Connect service not found via mDNS, trying direct connect...")
+                                tryDirectConnect(ip)
+                            }
+                        }
+                    }, 3, TimeUnit.SECONDS)
+                }
             }
 
             override fun onPairingFailed() {
-                Log.e(TAG, "Pairing failed - wrong code, restarting discovery")
+                Log.e(TAG, "Pairing failed - wrong code")
+                isProcessing = false
                 mainScope.launch {
                     WifiAdbConnection.updateState(WifiAdbState.PairingFailed("Pairing failed"))
                 }
-                // Restart discovery immediately so user can try again with correct code
-                restartDiscoveryAfterFailure()
+                // Show error and let user try again
+                notificationHelper.showFailureNotification(getString(R.string.self_pair_wrong_code))
+                executor?.schedule({
+                    notificationHelper.showEnterCodeNotification(SelfPairingService::class.java)
+                }, 2, TimeUnit.SECONDS)
             }
         })
     }
 
-    /**
-     * Restart discovery after a pairing failure (e.g., wrong code).
-     * Shows a brief message, then immediately goes back to searching state.
-     */
-    private fun restartDiscoveryAfterFailure() {
-        Log.d(TAG, "Restarting discovery after pairing failure...")
-
-        // Show brief error message
-        notificationHelper.showFailureNotification(getString(R.string.self_pair_wrong_code))
-
-        // Reset state for new attempt
-        discoveredPairingPort = null
-        isProcessing = false
-
-        // Close existing mDNS
-        try {
-            jmDns?.close()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error closing JmDNS", e)
-        }
-        jmDns = null
-
-        // Wait a moment for user to see message, then restart discovery
-        executor?.schedule({
-            notificationHelper.showSearchingNotification(SelfPairingService::class.java)
-            startPairingServiceDiscovery()
-        }, 2, TimeUnit.SECONDS)
-    }
-
-    @Suppress("DEPRECATION")
-    @SuppressLint("DefaultLocale")
-    private fun discoverConnectServiceAndConnect(targetIp: String) {
+    private fun connectAndSave(ip: String, port: Int) {
+        if (isConnected) return
+        
         executor?.submit {
             try {
-                // Wait for connect service to appear
-                Thread.sleep(2000)
+                val adbManager = AdbConnectionManager.getInstance(this)
 
-                // Close pairing mDNS and create new one for connect
-                jmDns?.close()
-                jmDns = JmDNS.create(InetAddress.getByName(targetIp))
-
-                var connected = false
-
-                jmDns?.addServiceListener(
-                    "_adb-tls-connect._tcp.local.",
-                    object : ServiceListener {
-                        override fun serviceAdded(event: ServiceEvent) {
-                            jmDns?.getServiceInfo(event.type, event.name)
-                        }
-
-                        override fun serviceRemoved(event: ServiceEvent) {}
-
-                        override fun serviceResolved(event: ServiceEvent) {
-                            if (connected) return
-
-                            val info = event.info
-                            val ip = info.inet4Addresses.firstOrNull()?.hostAddress ?: return
-                            val port = info.port
-
-                            if (ip == targetIp) {
-                                Log.d(TAG, "Found self device connect service at $ip:$port")
-                                connected = true
-                                connectAndSave(ip, port)
-                            }
-                        }
-                    })
-
-                // Fallback after timeout
-                executor?.schedule({
-                    if (!connected) {
-                        Log.d(TAG, "mDNS connect discovery timeout, trying direct ports...")
-                        tryDirectConnect(targetIp)
-                    }
-                }, 8, TimeUnit.SECONDS)
-
+                if (adbManager.connect(ip, port)) {
+                    Log.d(TAG, "Connected to self device at $ip:$port")
+                    isConnected = true
+                    saveOwnDeviceAndFinish(ip, port)
+                } else {
+                    Log.e(TAG, "Connection failed, trying fallback ports")
+                    tryDirectConnect(ip)
+                }
             } catch (e: Exception) {
-                Log.e(TAG, "Error discovering connect service", e)
-                notificationHelper.showFailureNotification("Connect discovery error")
-                stopSelfDelayed()
+                Log.e(TAG, "Connection error", e)
+                tryDirectConnect(ip)
             }
         }
     }
 
     private fun tryDirectConnect(ip: String) {
+        if (isConnected) return
+        
         val ports = listOf(5555, 37373, 42069, 5037)
 
         for (port in ports) {
@@ -481,6 +349,7 @@ class SelfPairingService : Service() {
 
                 if (adbManager.connect(ip, port)) {
                     Log.d(TAG, "Direct connect succeeded on port $port")
+                    isConnected = true
                     saveOwnDeviceAndFinish(ip, port)
                     return
                 }
@@ -494,25 +363,7 @@ class SelfPairingService : Service() {
         stopSelfDelayed()
     }
 
-    private fun connectAndSave(ip: String, port: Int) {
-        executor?.submit {
-            try {
-                val adbManager = AdbConnectionManager.getInstance(this)
-
-                if (adbManager.connect(ip, port)) {
-                    Log.d(TAG, "Connected to self device at $ip:$port")
-                    saveOwnDeviceAndFinish(ip, port)
-                } else {
-                    Log.e(TAG, "Connection failed, trying fallback ports")
-                    tryDirectConnect(ip)
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Connection error", e)
-                tryDirectConnect(ip)
-            }
-        }
-    }
-
+    @SuppressLint("DefaultLocale")
     private fun saveOwnDeviceAndFinish(ip: String, port: Int) {
         try {
             val adbManager = AdbConnectionManager.getInstance(this)
@@ -537,7 +388,10 @@ class SelfPairingService : Service() {
             Log.d(TAG, "Saved self device: ${ownDevice.id}")
 
             mainScope.launch {
-                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(ip))
+                // Set current device in WifiAdbConnection for cross-component state sharing
+                WifiAdbConnection.setCurrentDevice(ownDevice)
+                // Emit ConnectSuccess with device ID for proper UI state matching
+                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(ownDevice.id, ownDevice.id))
             }
 
             notificationHelper.showSuccessNotification()
@@ -557,11 +411,12 @@ class SelfPairingService : Service() {
         return try {
             val stream = adbManager.openStream("shell:getprop $property")
             val reader = BufferedReader(InputStreamReader(stream.openInputStream()))
-            val value = reader.readLine()?.trim()
+            val result = reader.readLine()?.trim()
+            reader.close()
             stream.close()
-            if (value.isNullOrBlank()) null else value
+            if (result.isNullOrBlank()) null else result
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to get property $property", e)
+            Log.e(TAG, "Error getting property $property", e)
             null
         }
     }

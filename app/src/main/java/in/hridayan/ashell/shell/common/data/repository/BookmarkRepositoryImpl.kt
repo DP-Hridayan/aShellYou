@@ -1,9 +1,9 @@
-package `in`.hridayan.ashell.shell.data.repository
+package `in`.hridayan.ashell.shell.common.data.repository
 
 import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.shell.domain.repository.BookmarkRepository
-import `in`.hridayan.ashell.shell.data.database.BookmarkDao
-import `in`.hridayan.ashell.shell.data.model.BookmarkEntity
+import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
+import `in`.hridayan.ashell.shell.common.data.database.BookmarkDao
+import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

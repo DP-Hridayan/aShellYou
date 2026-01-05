@@ -1,11 +1,11 @@
-package `in`.hridayan.ashell.shell.data.repository
+package `in`.hridayan.ashell.shell.common.data.repository
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.shell.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
-import `in`.hridayan.ashell.shell.domain.usecase.ShellCommandExecutor
-import `in`.hridayan.ashell.shell.domain.usecase.ShizukuPermissionHandler
+import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
+import `in`.hridayan.ashell.shell.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.shell.common.domain.usecase.ShellCommandExecutor
+import `in`.hridayan.ashell.shell.common.domain.usecase.ShizukuPermissionHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject

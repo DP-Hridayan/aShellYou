@@ -1,9 +1,9 @@
-package `in`.hridayan.ashell.shell.data.database
+package `in`.hridayan.ashell.shell.common.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import `in`.hridayan.ashell.shell.data.model.BookmarkEntity
+import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

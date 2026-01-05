@@ -6,8 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.commandexamples.data.local.repository.CommandRepositoryImpl
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
-import `in`.hridayan.ashell.shell.data.repository.BookmarkRepositoryImpl
-import `in`.hridayan.ashell.shell.domain.repository.BookmarkRepository
+import `in`.hridayan.ashell.shell.common.data.repository.BookmarkRepositoryImpl
+import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import `in`.hridayan.ashell.crashreporter.data.repository.CrashRepositoryImpl
 import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
 import `in`.hridayan.ashell.settings.data.repository.BackupAndRestoreRepositoryImpl

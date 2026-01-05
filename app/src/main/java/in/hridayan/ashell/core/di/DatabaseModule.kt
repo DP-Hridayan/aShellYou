@@ -17,8 +17,8 @@ import `in`.hridayan.ashell.core.data.local.database.GithubRepoStatsDao
 import `in`.hridayan.ashell.core.data.local.database.GithubRepoStatsDatabase
 import `in`.hridayan.ashell.crashreporter.data.database.CrashDatabase
 import `in`.hridayan.ashell.crashreporter.data.database.CrashLogDao
-import `in`.hridayan.ashell.shell.data.database.BookmarkDao
-import `in`.hridayan.ashell.shell.data.database.BookmarkDatabase
+import `in`.hridayan.ashell.shell.common.data.database.BookmarkDao
+import `in`.hridayan.ashell.shell.common.data.database.BookmarkDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -20,7 +20,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonShapes
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -80,7 +79,7 @@ import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.dialog.GrantNotificationAccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.self.service.SelfPairingService
-import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.SavedDeviceItem
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 
 @Composable
@@ -226,7 +225,7 @@ fun PairingOwnDeviceScreen(
 
                                 viewModel.reconnectToDevice(it)
                             },
-                            onForget = { viewModel.forgetDevice(it) },
+                            onForget = { device -> viewModel.forgetDevice(device) },
                             onDisconnect = { viewModel.disconnect() }
                         )
 
@@ -238,13 +237,19 @@ fun PairingOwnDeviceScreen(
                             onClick = withHaptic { navController.navigate(NavRoutes.WifiAdbScreen) }) {
                             AutoResizeableText(text = stringResource(R.string.go_to_terminal))
                         }
+
+                        Spacer(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(10.dp)
+                        )
                     }
                 }
             }
 
             item {
                 AutoResizeableText(
-                    modifier = Modifier.padding(start = 5.dp, end = 5.dp, top = 10.dp),
+                    modifier = Modifier.padding(horizontal = 5.dp),
                     text = stringResource(R.string.hint),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary

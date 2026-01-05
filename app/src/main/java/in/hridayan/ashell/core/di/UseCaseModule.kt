@@ -8,12 +8,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.core.domain.repository.DownloadRepository
 import `in`.hridayan.ashell.core.domain.usecase.DownloadApkUseCase
-import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.GetAllChangelogsUseCase
-import `in`.hridayan.ashell.shell.domain.usecase.ExtractLastCommandOutputUseCase
-import `in`.hridayan.ashell.shell.domain.usecase.GetSaveOutputFileNameUseCase
-import `in`.hridayan.ashell.shell.domain.usecase.ShellCommandExecutor
-import `in`.hridayan.ashell.shell.domain.usecase.ShizukuPermissionHandler
+import `in`.hridayan.ashell.shell.common.domain.usecase.ExtractLastCommandOutputUseCase
+import `in`.hridayan.ashell.shell.common.domain.usecase.GetSaveOutputFileNameUseCase
+import `in`.hridayan.ashell.shell.common.domain.usecase.ShellCommandExecutor
+import `in`.hridayan.ashell.shell.common.domain.usecase.ShizukuPermissionHandler
 
 @Module
 @InstallIn(SingletonComponent::class)

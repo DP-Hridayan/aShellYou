@@ -6,10 +6,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import `in`.hridayan.ashell.shell.data.repository.ShellRepositoryImpl
-import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
-import `in`.hridayan.ashell.shell.domain.usecase.ShellCommandExecutor
-import `in`.hridayan.ashell.shell.domain.usecase.ShizukuPermissionHandler
+import `in`.hridayan.ashell.shell.common.data.repository.ShellRepositoryImpl
+import `in`.hridayan.ashell.shell.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.shell.common.domain.usecase.ShellCommandExecutor
+import `in`.hridayan.ashell.shell.common.domain.usecase.ShizukuPermissionHandler
 import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImpl
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl

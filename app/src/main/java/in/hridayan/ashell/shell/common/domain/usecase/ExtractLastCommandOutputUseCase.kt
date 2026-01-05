@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.domain.usecase
+package `in`.hridayan.ashell.shell.common.domain.usecase
 
 class ExtractLastCommandOutputUseCase {
     operator fun invoke(fullOutput: String): String {

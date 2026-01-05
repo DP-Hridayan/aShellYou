@@ -12,10 +12,10 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.domain.model.SortType
-import `in`.hridayan.ashell.shell.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.domain.repository.ShellRepository
-import `in`.hridayan.ashell.shell.domain.usecase.ExtractLastCommandOutputUseCase
-import `in`.hridayan.ashell.shell.domain.usecase.GetSaveOutputFileNameUseCase
+import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
+import `in`.hridayan.ashell.shell.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.shell.common.domain.usecase.ExtractLastCommandOutputUseCase
+import `in`.hridayan.ashell.shell.common.domain.usecase.GetSaveOutputFileNameUseCase
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.presentation.model.ShellScreenState

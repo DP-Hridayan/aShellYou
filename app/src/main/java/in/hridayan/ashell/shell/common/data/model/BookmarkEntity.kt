@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.data.model
+package `in`.hridayan.ashell.shell.common.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

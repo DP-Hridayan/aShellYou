@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.shell.data.model.BookmarkEntity
-import `in`.hridayan.ashell.shell.domain.repository.BookmarkRepository
+import `in`.hridayan.ashell.shell.common.data.model.BookmarkEntity
+import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
