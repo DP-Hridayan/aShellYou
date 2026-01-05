@@ -109,7 +109,6 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
-import `in`.hridayan.ashell.shell.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.core.utils.saveToFileFlow
@@ -131,6 +130,7 @@ import `in`.hridayan.ashell.shell.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.presentation.util.highlightQueryText
 import `in`.hridayan.ashell.shell.presentation.util.rememberScrollDirection
+import `in`.hridayan.ashell.shell.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch
@@ -446,6 +446,16 @@ fun BaseShellScreen(
                     FloatingActionButton(
                         onClick = actionFabOnClick,
                         modifier = Modifier.padding(top = 10.dp),
+                        containerColor = if (states.shellState is ShellState.Busy) {
+                            MaterialTheme.colorScheme.errorContainer
+                        } else {
+                            MaterialTheme.colorScheme.primaryContainer
+                        },
+                        contentColor = if (states.shellState is ShellState.Busy) {
+                            MaterialTheme.colorScheme.onErrorContainer
+                        } else {
+                            MaterialTheme.colorScheme.onPrimaryContainer
+                        },
                         content = actionFabIcon
                     )
                 }

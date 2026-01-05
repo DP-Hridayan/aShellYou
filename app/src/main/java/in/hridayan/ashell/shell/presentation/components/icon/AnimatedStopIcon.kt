@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -15,16 +16,17 @@ import `in`.hridayan.ashell.R
 
 @SuppressLint("UseCompatLoadingForDrawables")
 @Composable
-fun AnimatedStopIcon(modifier: Modifier = Modifier) {
-    val tintColor = MaterialTheme.colorScheme.onPrimaryContainer
-
+fun AnimatedStopIcon(
+    modifier: Modifier = Modifier,
+    tint: Color = MaterialTheme.colorScheme.onErrorContainer
+) {
     AndroidView(
         factory = { context ->
             ImageView(context).apply {
                 val avd =
                     context.getDrawable(R.drawable.ic_stop_animated) as? AnimatedVectorDrawable
                 setImageDrawable(avd)
-                setColorFilter(tintColor.toArgb(), PorterDuff.Mode.SRC_IN)
+                setColorFilter(tint.toArgb(), PorterDuff.Mode.SRC_IN)
                 avd?.start()
             }
         },
