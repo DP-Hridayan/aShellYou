@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.home.presentation.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -131,7 +133,9 @@ fun HomeScreen(
                 }
             )
 
-            WirelessDebuggingCard()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                WirelessDebuggingCard()
+            }
 
             OtgAdbCard(
                 onClickOtgAdbCard = onClickOtgAdbCard,
@@ -171,7 +175,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun SettingsButton(
+private fun SettingsButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
@@ -191,65 +195,13 @@ fun SettingsButton(
 }
 
 @Composable
-fun AppNameText(modifier: Modifier = Modifier) {
+private fun AppNameText(modifier: Modifier = Modifier) {
     Text(
         text = stringResource(R.string.app_name),
         style = MaterialTheme.typography.headlineLarge,
         modifier = modifier
             .alpha(0.9f)
     )
-}
-
-@Composable
-fun QuickToolsCard(
-    modifier: Modifier = Modifier,
-    onClickDeviceInfo: () -> Unit = {},
-    onClickSystemSettings: () -> Unit = {},
-    onClickRebootOptions: () -> Unit = {}
-) {
-    NavigationCard(
-        icon = painterResource(R.drawable.ic_handyman),
-        title = stringResource(R.string.quick_tools),
-        showNavigationArrowIcon = false,
-        modifier = modifier
-            .fillMaxWidth()
-            .height(300.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 20.dp),
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            DeviceInfoCard(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxSize()
-            )
-
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                RebootOptionsCard(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxSize(),
-                    onClick = onClickRebootOptions
-                )
-
-                SystemSettings(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxSize()
-                )
-            }
-        }
-    }
 }
 
 @Composable
@@ -263,6 +215,7 @@ fun LocalAdbCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
     )
 }
 
+@RequiresApi(Build.VERSION_CODES.R)
 @Composable
 fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
     val context = LocalContext.current
@@ -368,4 +321,56 @@ fun OtgInstructionButton(modifier: Modifier = Modifier) {
                 context = context
             )
         })
+}
+
+@Composable
+private fun QuickToolsCard(
+    modifier: Modifier = Modifier,
+    onClickDeviceInfo: () -> Unit = {},
+    onClickSystemSettings: () -> Unit = {},
+    onClickRebootOptions: () -> Unit = {}
+) {
+    NavigationCard(
+        icon = painterResource(R.drawable.ic_handyman),
+        title = stringResource(R.string.quick_tools),
+        showNavigationArrowIcon = false,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(300.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 20.dp),
+            horizontalArrangement = Arrangement.spacedBy(20.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            DeviceInfoCard(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxSize()
+            )
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                RebootOptionsCard(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxSize(),
+                    onClick = onClickRebootOptions
+                )
+
+                SystemSettings(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxSize()
+                )
+            }
+        }
+    }
 }
