@@ -166,14 +166,15 @@ class SelfPairingService : Service() {
     private fun handlePairingCodeSubmission(intent: Intent) {
         val remoteInput = RemoteInput.getResultsFromIntent(intent)
         val code = remoteInput?.getCharSequence(SelfPairingNotificationHelper.KEY_PAIRING_CODE)
-            ?.toString()
+            ?.toString()?.trim()
 
         if (!code.isNullOrBlank()) {
-            val codeInt = code.toIntOrNull()
-            if (codeInt != null) {
-                onPairingCodeReceived(codeInt)
+            // Validate that code contains only digits (6 digit pairing code)
+            if (code.all { it.isDigit() } && code.length == 6) {
+                onPairingCodeReceived(code)
             } else {
                 // Invalid format - show error and keep listening
+                Log.d(TAG, "Invalid pairing code format: $code")
                 notificationHelper.showFailureNotification(getString(R.string.self_pair_wrong_code))
                 executor?.schedule({
                     notificationHelper.showEnterCodeNotification(SelfPairingService::class.java)
@@ -242,7 +243,7 @@ class SelfPairingService : Service() {
         }, 60, TimeUnit.SECONDS)
     }
 
-    private fun onPairingCodeReceived(code: Int) {
+    private fun onPairingCodeReceived(code: String) {
         if (isProcessing) {
             Log.d(TAG, "Already processing, ignoring duplicate code submission")
             return

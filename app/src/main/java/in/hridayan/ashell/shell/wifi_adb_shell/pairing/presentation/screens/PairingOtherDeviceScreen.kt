@@ -271,8 +271,8 @@ fun QRPair(
     LocalContext.current
     val qrHelper = PairUsingQR()
     val sessionId = "ashell_you"
-    val pairingCode = generatePairingCode()
-    val qrBitmap = qrHelper.generateQrBitmap(sessionId, pairingCode)
+    val pairingCode = String.format("%06d", generatePairingCode())
+    val qrBitmap = qrHelper.generateQrBitmap(sessionId, pairingCode.toInt())
 
     LaunchedEffect(Unit, isWifiConnected) {
         if (isWifiConnected) viewModel.startMdnsPairing(pairingCode) else viewModel.stopMdnsDiscovery()

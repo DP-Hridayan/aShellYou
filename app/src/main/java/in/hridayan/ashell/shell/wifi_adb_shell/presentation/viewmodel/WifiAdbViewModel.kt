@@ -121,12 +121,14 @@ class WifiAdbViewModel @Inject constructor(
         }
         val ip = _ipAddress.value
         val port = _pairingPort.value.toIntOrNull() ?: return
-        val code = _pairingCode.value.toIntOrNull() ?: return
+        val code = _pairingCode.value.trim()
+        
+        if (code.isEmpty() || !code.all { it.isDigit() }) return
 
         startPairing(ip, port, code)
     }
 
-    private fun startPairing(ip: String, port: Int, code: Int) {
+    private fun startPairing(ip: String, port: Int, code: String) {
 
         WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
 
@@ -141,7 +143,7 @@ class WifiAdbViewModel @Inject constructor(
         })
     }
 
-    fun startMdnsPairing(pairingCode: Int) {
+    fun startMdnsPairing(pairingCode: String) {
         wifiAdbRepository.discoverAdbPairingService(
             pairingCode,
             autoPair = true,
