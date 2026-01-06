@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.self.service
+package `in`.hridayan.ashell.shell.wifi_adb_shell.service
 
 import android.annotation.SuppressLint
 import android.app.Service
@@ -16,7 +16,8 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbReposito
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
-import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.self.notification.SelfPairingNotificationHelper
+import `in`.hridayan.ashell.shell.wifi_adb_shell.notification.SelfPairingNotificationHelper
+import io.github.muntashirakon.adb.AbsAdbConnectionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -406,7 +407,7 @@ class SelfPairingService : Service() {
     }
 
     private fun getDeviceProperty(
-        adbManager: io.github.muntashirakon.adb.AbsAdbConnectionManager,
+        adbManager: AbsAdbConnectionManager,
         property: String
     ): String? {
         return try {

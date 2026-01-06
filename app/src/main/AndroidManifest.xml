@@ -79,7 +79,7 @@
         </provider>
 
         <service
-            android:name=".shell.wifi_adb_shell.pairing.self.service.SelfPairingService"
+            android:name=".shell.wifi_adb_shell.service.SelfPairingService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="connectedDevice" />

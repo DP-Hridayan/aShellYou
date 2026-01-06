@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.self.notification
+package `in`.hridayan.ashell.shell.wifi_adb_shell.notification
 
 import android.app.Notification
 import android.app.NotificationChannel

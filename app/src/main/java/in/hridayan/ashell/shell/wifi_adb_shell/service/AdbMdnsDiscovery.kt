@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.self.service
+package `in`.hridayan.ashell.shell.wifi_adb_shell.service
 
 import android.content.Context
 import android.net.nsd.NsdManager
@@ -9,6 +9,9 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import java.io.IOException
+import java.net.Inet4Address
+import java.net.Inet6Address
+import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.NetworkInterface
 import java.net.ServerSocket
@@ -37,9 +40,10 @@ class AdbMdnsDiscovery(
     private val nsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
     private val resolvedServices = HashSet<String>()
     private val handler = Handler(Looper.getMainLooper())
-    
+
     @Volatile
     private var running = false
+
     @Volatile
     private var stopResolving = false
 
@@ -49,7 +53,7 @@ class AdbMdnsDiscovery(
     fun start() {
         if (running) return
         running = true
-        
+
         try {
             nsdManager.discoverServices(TLS_PAIRING, NsdManager.PROTOCOL_DNS_SD, pairingListener)
             nsdManager.discoverServices(TLS_CONNECT, NsdManager.PROTOCOL_DNS_SD, connectListener)
@@ -69,7 +73,7 @@ class AdbMdnsDiscovery(
         } catch (e: Exception) {
             Log.e(TAG, "Error stopping pairing discovery", e)
         }
-        
+
         try {
             nsdManager.stopServiceDiscovery(connectListener)
         } catch (e: Exception) {
@@ -88,14 +92,17 @@ class AdbMdnsDiscovery(
      */
     private fun isMatchingNetwork(resolvedService: NsdServiceInfo): Boolean {
         val serviceHost = resolvedService.host?.hostAddress ?: return false
-        
+
         try {
             val interfaces = NetworkInterface.getNetworkInterfaces()
             for (networkInterface in Collections.list(interfaces)) {
                 if (networkInterface.isUp) {
                     for (inetAddress in Collections.list(networkInterface.inetAddresses)) {
                         if (serviceHost == inetAddress.hostAddress) {
-                            Log.d(TAG, "Service IP $serviceHost matches network interface ${networkInterface.name}")
+                            Log.d(
+                                TAG,
+                                "Service IP $serviceHost matches network interface ${networkInterface.name}"
+                            )
                             return true
                         }
                     }
@@ -104,7 +111,7 @@ class AdbMdnsDiscovery(
         } catch (e: IOException) {
             Log.e(TAG, "Error checking network interfaces", e)
         }
-        
+
         Log.d(TAG, "Service IP $serviceHost does not match any local network interface")
         return false
     }
@@ -125,8 +132,9 @@ class AdbMdnsDiscovery(
         }
     }
 
-    private inner class DiscoveryListener(private val serviceType: String) : NsdManager.DiscoveryListener {
-        
+    private inner class DiscoveryListener(private val serviceType: String) :
+        NsdManager.DiscoveryListener {
+
         override fun onDiscoveryStarted(serviceType: String) {
             Log.d(TAG, "Discovery started: $serviceType")
         }
@@ -147,7 +155,7 @@ class AdbMdnsDiscovery(
             if (!running) return
 
             val serviceKey = "${info.serviceName}:${info.serviceType}"
-            
+
             if (!resolvedServices.contains(serviceKey)) {
                 resolvedServices.add(serviceKey)
                 nsdManager.resolveService(info, ResolveListener(serviceType))
@@ -169,31 +177,46 @@ class AdbMdnsDiscovery(
         }
     }
 
-    private inner class ResolveListener(private val serviceType: String) : NsdManager.ResolveListener {
-        
+    private inner class ResolveListener(private val serviceType: String) :
+        NsdManager.ResolveListener {
+
         override fun onResolveFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
             Log.w(TAG, "Resolve failed for ${serviceInfo.serviceName}: errorCode $errorCode")
         }
 
         override fun onServiceResolved(resolvedService: NsdServiceInfo) {
             if (!running) return
-            
+
             val ipAddress = resolvedService.host?.hostAddress ?: return
             val portNumber = resolvedService.port
-            
+
             Log.d(TAG, "Service resolved: $serviceType at $ipAddress:$portNumber")
 
             // Check if this service is on our network and the port is in use
             if (isMatchingNetwork(resolvedService) && isPortInUse(portNumber)) {
-                Log.d(TAG, "Valid self-device service detected: $serviceType at $ipAddress:$portNumber")
-                
+                Log.d(
+                    TAG,
+                    "Valid self-device service detected: $serviceType at $ipAddress:$portNumber"
+                )
+
                 when (serviceType) {
                     TLS_PAIRING -> callback.onPairingServiceFound(ipAddress, portNumber)
                     TLS_CONNECT -> callback.onConnectServiceFound(ipAddress, portNumber)
                 }
             } else {
-                Log.d(TAG, "Ignoring service: $serviceType at $ipAddress:$portNumber (not on our network or port not in use)")
+                Log.d(
+                    TAG,
+                    "Ignoring service: $serviceType at $ipAddress:$portNumber (not on our network or port not in use)"
+                )
             }
         }
     }
+
+    private fun selectBestAddress(addresses: List<InetAddress>): InetAddress? {
+        return addresses.firstOrNull { it is Inet4Address }
+            ?: addresses.firstOrNull { addr ->
+                addr is Inet6Address && !addr.isLinkLocalAddress
+            }
+    }
+
 }
