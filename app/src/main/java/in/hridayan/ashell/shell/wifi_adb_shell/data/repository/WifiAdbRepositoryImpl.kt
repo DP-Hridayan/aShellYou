@@ -44,6 +44,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
     private var jmDns: JmDNS? = null
     private val pairingInProgress = mutableSetOf<String>()
     private val connectInProgress = mutableSetOf<String>()
+
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
     private val storage = WifiAdbStorage(context)

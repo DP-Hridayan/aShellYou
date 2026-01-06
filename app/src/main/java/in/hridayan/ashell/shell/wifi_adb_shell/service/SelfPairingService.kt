@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Foreground service for pairing with the device the app is running on (self/own device).
- * 
+ *
  * Uses Android's native NsdManager (via AdbMdnsDiscovery) for reliable mDNS discovery.
  *
  * Flow:
@@ -156,7 +156,7 @@ class SelfPairingService : Service() {
     private fun cleanup() {
         Log.d(TAG, "Cleaning up service")
         discoveryTimeout?.cancel(true)
-        
+
         mdnsDiscovery?.stop()
         mdnsDiscovery = null
 
@@ -218,7 +218,7 @@ class SelfPairingService : Service() {
                 if (discoveredPairingIp == null || discoveredPairingIp == ipAddress) {
                     Log.d(TAG, "Connect service detected at $ipAddress:$port - storing for later use")
                     discoveredConnectPort = port
-                    
+
                     // If pairing is already done, connect immediately
                     if (isPairingDone) {
                         Log.d(TAG, "Pairing already done, connecting now...")
@@ -241,7 +241,7 @@ class SelfPairingService : Service() {
                 )
                 stopSelf()
             }
-        }, 60, TimeUnit.SECONDS)
+        }, 2, TimeUnit.MINUTES)
     }
 
     private fun onPairingCodeReceived(code: String) {
@@ -277,7 +277,7 @@ class SelfPairingService : Service() {
                 mainScope.launch {
                     WifiAdbConnection.updateState(WifiAdbState.PairingSuccess(ip))
                 }
-                
+
                 // Check if we already have a connect port from earlier discovery
                 val connectPort = discoveredConnectPort
                 if (connectPort != null) {
@@ -319,7 +319,7 @@ class SelfPairingService : Service() {
 
     private fun connectAndSave(ip: String, port: Int) {
         if (isConnected) return
-        
+
         executor?.submit {
             try {
                 val adbManager = AdbConnectionManager.getInstance(this)
@@ -341,7 +341,7 @@ class SelfPairingService : Service() {
 
     private fun tryDirectConnect(ip: String) {
         if (isConnected) return
-        
+
         val ports = listOf(5555, 37373, 42069, 5037)
 
         for (port in ports) {
