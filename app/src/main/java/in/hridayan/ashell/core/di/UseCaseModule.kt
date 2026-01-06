@@ -11,8 +11,8 @@ import `in`.hridayan.ashell.core.domain.usecase.DownloadApkUseCase
 import `in`.hridayan.ashell.settings.domain.usecase.GetAllChangelogsUseCase
 import `in`.hridayan.ashell.shell.common.domain.usecase.ExtractLastCommandOutputUseCase
 import `in`.hridayan.ashell.shell.common.domain.usecase.GetSaveOutputFileNameUseCase
-import `in`.hridayan.ashell.shell.common.domain.usecase.ShellCommandExecutor
-import `in`.hridayan.ashell.shell.common.domain.usecase.ShizukuPermissionHandler
+import `in`.hridayan.ashell.shell.local_adb_shell.data.shell.ShellCommandExecutor
+import `in`.hridayan.ashell.shell.local_adb_shell.data.shizuku.ShizukuPermissionHandler
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -1,0 +1,9 @@
+package `in`.hridayan.ashell.shell.common.presentation.model
+
+import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
+import kotlinx.coroutines.flow.MutableStateFlow
+
+data class CommandResult(
+    val command: String,
+    val outputFlow: MutableStateFlow<List<OutputLine>>
+)

@@ -36,8 +36,8 @@ import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookA
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScreen
-import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.screens.PairingOtherDeviceScreen
-import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.screens.PairingOwnDeviceScreen
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOtherDeviceScreen
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwnDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
 import kotlin.reflect.KType
 

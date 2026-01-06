@@ -10,7 +10,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.RemoteInput
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.shell.common.domain.usecase.AdbConnectionManager
+import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.WifiAdbStorage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection

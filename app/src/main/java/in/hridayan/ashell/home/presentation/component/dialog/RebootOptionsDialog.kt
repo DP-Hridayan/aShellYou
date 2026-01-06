@@ -31,7 +31,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 
 @Composable
 fun RebootOptionsDialog(

@@ -1,10 +1,9 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.shell.presentation.screens.BaseShellScreen
-import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
+import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 
 @Composable

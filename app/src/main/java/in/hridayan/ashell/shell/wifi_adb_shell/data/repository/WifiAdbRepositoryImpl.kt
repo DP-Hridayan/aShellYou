@@ -5,7 +5,7 @@ import android.content.Context
 import android.net.wifi.WifiManager
 import android.util.Log
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.common.domain.usecase.AdbConnectionManager
+import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.WifiAdbStorage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice

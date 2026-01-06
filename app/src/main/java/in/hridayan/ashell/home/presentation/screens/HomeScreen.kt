@@ -62,7 +62,7 @@ import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
-import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.presentation.component.dialog.PairModeChooseDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairedDevicesDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

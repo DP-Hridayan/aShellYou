@@ -71,7 +71,7 @@ import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
-import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

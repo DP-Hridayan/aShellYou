@@ -15,9 +15,9 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
-import `in`.hridayan.ashell.shell.presentation.components.dialog.ConnectedDeviceDialog
-import `in`.hridayan.ashell.shell.presentation.screens.BaseShellScreen
-import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
+import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
+import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 
 @Composable
 fun OtgAdbScreen(

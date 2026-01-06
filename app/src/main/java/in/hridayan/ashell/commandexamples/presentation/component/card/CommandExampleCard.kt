@@ -82,7 +82,7 @@ import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.shell.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.roundToInt
