@@ -31,6 +31,7 @@ import `in`.hridayan.ashell.core.utils.splitStringToLines
 @Composable
 fun ReconnectFailedDialog(
     modifier: Modifier = Modifier,
+    showDevOptionsButton: Boolean = true,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -73,33 +74,45 @@ fun ReconnectFailedDialog(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Button(
-                    onClick = withHaptic(HapticFeedbackType.Confirm) {
-                        onConfirm()
-                        onDismiss()
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                    shapes = ButtonDefaults.shapes(),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    AutoResizeableText(
-                        text = stringResource(R.string.developer_options),
-                    )
-                }
+                if (showDevOptionsButton) {
+                    Button(
+                        onClick = withHaptic(HapticFeedbackType.Confirm) {
+                            onConfirm()
+                            onDismiss()
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        ),
+                        shapes = ButtonDefaults.shapes(),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        AutoResizeableText(
+                            text = stringResource(R.string.developer_options),
+                        )
+                    }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                OutlinedButton(
-                    onClick = withHaptic { onDismiss() },
-                    shapes = ButtonDefaults.shapes(),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    AutoResizeableText(
-                        text = stringResource(R.string.dismiss),
-                    )
+                    OutlinedButton(
+                        onClick = withHaptic { onDismiss() },
+                        shapes = ButtonDefaults.shapes(),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        AutoResizeableText(
+                            text = stringResource(R.string.dismiss),
+                        )
+                    }
+                } else {
+                    Button(
+                        onClick = withHaptic { onDismiss() },
+                        shapes = ButtonDefaults.shapes(),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        AutoResizeableText(
+                            text = stringResource(R.string.dismiss),
+                        )
+                    }
                 }
             }
         }

@@ -86,6 +86,7 @@ import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ConnectionSuccessDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
@@ -138,6 +139,11 @@ fun PairingOtherDeviceScreen(
                 if (pagerState.currentPage != 0) {
                     dialogManager.show(DialogKey.Pair.ConnectionSuccess)
                 }
+            }
+
+            is WifiAdbState.ConnectFailed -> {
+                // Show reconnect failed dialog for other devices (not own device)
+                dialogManager.show(DialogKey.Pair.ReconnectFailedOtherDevice)
             }
 
             else -> {}
@@ -276,6 +282,15 @@ fun PairingOtherDeviceScreen(
                 it.dismiss()
                 coroutineScope.launch { pagerState.animateScrollToPage(0) }
             }
+        )
+    }
+
+    // Reconnect Failed Dialog for other devices (without Developer Options button)
+    DialogKey.Pair.ReconnectFailedOtherDevice.createDialog {
+        ReconnectFailedDialog(
+            showDevOptionsButton = false,
+            onConfirm = { /* Not used since button is hidden */ },
+            onDismiss = { it.dismiss() }
         )
     }
 }

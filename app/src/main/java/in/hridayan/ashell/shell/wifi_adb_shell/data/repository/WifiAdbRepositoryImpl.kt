@@ -53,6 +53,8 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
     // Reconnect cancellation state
     @Volatile
     private var isReconnectCancelled = false
+    @Volatile
+    private var currentReconnectingDeviceId: String? = null
     private var activeNsdManager: NsdManager? = null
     private var activeDiscoveryListener: NsdManager.DiscoveryListener? = null
     private var activeReconnectTimeout: java.util.concurrent.ScheduledFuture<*>? = null
@@ -549,6 +551,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
     override fun cancelReconnect() {
         Log.d(TAG, "cancelReconnect() called")
         isReconnectCancelled = true
+        currentReconnectingDeviceId = null
 
         // Cancel scheduled timeout
         activeReconnectTimeout?.let { future ->
@@ -577,8 +580,28 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
     }
 
     override fun reconnect(device: WifiAdbDevice, listener: ReconnectListener?) {
-        // Reset cancellation flag on new reconnect attempt
+        // Cancel any ongoing reconnect to a different device
+        val previousDeviceId = currentReconnectingDeviceId
+        if (previousDeviceId != null && previousDeviceId != device.id) {
+            Log.d(TAG, "Cancelling previous reconnect to $previousDeviceId, starting reconnect to ${device.id}")
+            // Cancel previous reconnect resources silently (don't update state to None)
+            activeReconnectTimeout?.cancel(false)
+            activeReconnectTimeout = null
+            activeDiscoveryListener?.let { listener ->
+                try {
+                    activeNsdManager?.stopServiceDiscovery(listener)
+                } catch (e: Exception) {
+                    // Ignore - may already be stopped
+                }
+            }
+            activeDiscoveryListener = null
+            activeNsdManager = null
+        }
+
+        // Set current reconnecting device ID and reset cancellation flag
+        currentReconnectingDeviceId = device.id
         isReconnectCancelled = false
+
         executor.submit {
             try {
                 val manager = AdbConnectionManager.getInstance(context)
@@ -586,6 +609,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                 // Check if already connected to this device
                 if (manager.isConnected && currentDevice?.id == device.id) {
                     Log.d(TAG, "Already connected to ${device.id}")
+                    currentReconnectingDeviceId = null
                     listener?.onReconnectSuccess()
                     return@submit
                 }
@@ -715,10 +739,18 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
             }
             var discoveryListener: NsdManager.DiscoveryListener? = null
 
+            // Track the device ID we're reconnecting to for this attempt
+            val reconnectDeviceId = device.id
+
             // Set timeout for discovery
             activeReconnectTimeout = executor.schedule({
-                if (connectionHandled || isReconnectCancelled) return@schedule
+                // Only update state if we're still reconnecting to the same device
+                if (connectionHandled || isReconnectCancelled || currentReconnectingDeviceId != reconnectDeviceId) {
+                    Log.d(TAG, "Ignoring timeout - handled: $connectionHandled, cancelled: $isReconnectCancelled, currentDevice: $currentReconnectingDeviceId, thisDevice: $reconnectDeviceId")
+                    return@schedule
+                }
                 connectionHandled = true
+                currentReconnectingDeviceId = null
 
                 Log.d(TAG, "NsdManager discovery timeout for reconnect")
 
@@ -842,6 +874,8 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
 
                                 connect(ip, port, object : ConnectionListener {
                                     override fun onConnectionSuccess() {
+                                        // Clear reconnecting device ID on success
+                                        currentReconnectingDeviceId = null
                                         // Update device with new IP/port if they changed
                                         currentDevice = device.copy(
                                             ip = ip,
@@ -862,15 +896,21 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                                     }
 
                                     override fun onConnectionFailed() {
-                                        mainScope.launch {
-                                            WifiAdbConnection.updateState(
-                                                WifiAdbState.ConnectFailed(
-                                                    key,
-                                                    device.id
+                                        // Only update state if still reconnecting to this device
+                                        if (currentReconnectingDeviceId == reconnectDeviceId) {
+                                            currentReconnectingDeviceId = null
+                                            mainScope.launch {
+                                                WifiAdbConnection.updateState(
+                                                    WifiAdbState.ConnectFailed(
+                                                        key,
+                                                        device.id
+                                                    )
                                                 )
-                                            )
+                                            }
+                                            listener?.onReconnectFailed(requiresPairing = false)
+                                        } else {
+                                            Log.d(TAG, "Ignoring connection failed for $reconnectDeviceId - now reconnecting to $currentReconnectingDeviceId")
                                         }
-                                        listener?.onReconnectFailed(requiresPairing = false)
                                     }
                                 })
                             }
