@@ -4,21 +4,21 @@ package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
 import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -29,15 +29,15 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SecondaryTabRow
+import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
-import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -46,17 +46,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -69,9 +67,12 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.LabelText
@@ -82,17 +83,21 @@ import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.navigation.slideFadeInFromLeft
-import `in`.hridayan.ashell.navigation.slideFadeInFromRight
-import `in`.hridayan.ashell.navigation.slideFadeOutToLeft
-import `in`.hridayan.ashell.navigation.slideFadeOutToRight
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
-import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.SavedDevicesSection
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ConnectionSuccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.security.SecureRandom
+
+private enum class PairingTab(val titleRes: Int) {
+    SavedDevices(R.string.saved_devices),
+    QrPair(R.string.qr_pair),
+    ManualPair(R.string.manual_pair)
+}
 
 @Composable
 fun PairingOtherDeviceScreen(
@@ -102,14 +107,19 @@ fun PairingOtherDeviceScreen(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val navController = LocalNavController.current
+    val dialogManager = LocalDialogManager.current
     val coroutineScope = rememberCoroutineScope()
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-    var showManualPairingMenu by rememberSaveable { mutableStateOf(false) }
+
     var isWifiConnected by remember { mutableStateOf(context.isConnectedToWifi()) }
     val wifiAdbState by viewModel.state.collectAsState()
     val savedDevices by viewModel.savedDevices.collectAsState()
     val currentDevice by viewModel.currentDevice.collectAsState()
+
+    // Pager state for tabs
+    val tabs = PairingTab.entries
+    val pagerState = rememberPagerState(initialPage = 0) { tabs.size }
 
     // Load saved devices on screen launch
     LaunchedEffect(Unit) {
@@ -119,9 +129,15 @@ fun PairingOtherDeviceScreen(
     // Refresh saved devices when pairing or connection succeeds
     LaunchedEffect(wifiAdbState) {
         when (wifiAdbState) {
-            is WifiAdbState.PairingSuccess,
+            is WifiAdbState.PairingSuccess -> {
+                viewModel.loadSavedDevices()
+            }
+
             is WifiAdbState.ConnectSuccess -> {
                 viewModel.loadSavedDevices()
+                if (pagerState.currentPage != 0) {
+                    dialogManager.show(DialogKey.Pair.ConnectionSuccess)
+                }
             }
 
             else -> {}
@@ -181,97 +197,216 @@ fun PairingOtherDeviceScreen(
                 scrollBehavior = scrollBehavior,
             )
         }) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+        ) {
+            // WiFi enable or mobile data warning card (outside pager)
+            if (!isWifiConnected) {
+                WifiEnableCard(
+                    onClickButton = onClickWifiEnableButton,
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp)
+                )
+            } else {
+                IconWithTextCard(
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                    text = stringResource(R.string.turn_off_mobile_data),
+                    icon = painterResource(R.drawable.ic_warning)
+                )
+            }
 
-        if (wifiAdbState is WifiAdbState.ConnectSuccess) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+            // Tab Row
+            SecondaryTabRow(
+                selectedTabIndex = pagerState.currentPage,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
             ) {
-                ConnectionSuccessfulUi()
-                Button(
-                    onClick = { navController.navigate(NavRoutes.WifiAdbScreen) },
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = 25.dp)
-                ) {
-                    Text(wifiAdbState.message)
+                tabs.forEachIndexed { index, tab ->
+                    Tab(
+                        selected = pagerState.currentPage == index,
+                        onClick = {
+                            coroutineScope.launch { pagerState.animateScrollToPage(index) }
+                        },
+                        text = { Text(stringResource(tab.titleRes)) }
+                    )
                 }
             }
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .nestedScroll(scrollBehavior.nestedScrollConnection),
-                contentPadding = innerPadding
-            ) {
 
-                if (!isWifiConnected) item {
-                    WifiEnableCard(
-                        onClickButton = onClickWifiEnableButton,
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp)
+            // Horizontal Pager with tabs
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize()
+            ) { page ->
+                when (tabs[page]) {
+                    PairingTab.SavedDevices -> SavedDevicesTab(
+                        savedDevices = savedDevices,
+                        currentDevice = currentDevice,
+                        wifiAdbState = wifiAdbState,
+                        isWifiConnected = isWifiConnected,
+                        onReconnect = { device -> viewModel.reconnectToDevice(device) },
+                        onCancelReconnect = { viewModel.cancelReconnect() },
+                        onDisconnect = { viewModel.disconnect() },
+                        onForget = { device -> viewModel.forgetDevice(device) },
+                        onGoToTerminal = { navController.navigate(NavRoutes.WifiAdbScreen) }
                     )
-                }
-                else item {
-                    IconWithTextCard(
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
-                        text = stringResource(R.string.turn_off_mobile_data),
-                        icon = painterResource(R.drawable.ic_warning)
+
+                    PairingTab.QrPair -> QRPairTab(
+                        isWifiConnected = isWifiConnected,
+                        wifiAdbState = wifiAdbState
                     )
-                }
 
-                // Show saved devices for quick reconnect
-                if (savedDevices.isNotEmpty()) {
-                    item {
-                        SavedDevicesSection(
-                            modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp),
-                            savedDevices = savedDevices,
-                            currentDevice = currentDevice,
-                            wifiAdbState = wifiAdbState,
-                            onReconnect = { device -> viewModel.reconnectToDevice(device) },
-                            onForget = { device -> viewModel.forgetDevice(device) },
-                            onDisconnect = { viewModel.disconnect() }
-                        )
-                    }
+                    PairingTab.ManualPair -> ManualPairTab()
                 }
+            }
+        }
+    }
 
-                item {
-                    AnimatedContent(
-                        targetState = showManualPairingMenu,
-                        transitionSpec = {
-                            if (targetState) {
-                                slideFadeInFromRight() togetherWith slideFadeOutToLeft()
-                            } else {
-                                slideFadeInFromLeft() togetherWith slideFadeOutToRight()
+    // Connection Success Dialog
+    DialogKey.Pair.ConnectionSuccess.createDialog {
+        ConnectionSuccessDialog(
+            device = currentDevice,
+            onGoToTerminal = {
+                it.dismiss()
+                navController.navigate(NavRoutes.WifiAdbScreen)
+            },
+            onDismiss = {
+                it.dismiss()
+                coroutineScope.launch { pagerState.animateScrollToPage(0) }
+            }
+        )
+    }
+}
+
+@Composable
+fun SavedDevicesTab(
+    savedDevices: List<WifiAdbDevice>,
+    currentDevice: WifiAdbDevice?,
+    wifiAdbState: WifiAdbState,
+    isWifiConnected: Boolean,
+    onReconnect: (WifiAdbDevice) -> Unit,
+    onCancelReconnect: () -> Unit,
+    onDisconnect: () -> Unit,
+    onForget: (WifiAdbDevice) -> Unit,
+    onGoToTerminal: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+
+    if (savedDevices.isEmpty()) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_wireless),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+            Text(
+                text = stringResource(R.string.no_saved_devices),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = stringResource(R.string.pair_device_to_start),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
+    } else {
+        LazyColumn(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(0.dp)
+        ) {
+            item { Spacer(modifier = Modifier.height(16.dp)) }
+
+            items(savedDevices, key = { it.id }) { device ->
+                val isCurrentDevice = currentDevice?.id == device.id
+                val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting &&
+                        (wifiAdbState as WifiAdbState.Reconnecting).device == device.id
+                val isConnected =
+                    isCurrentDevice && wifiAdbState is WifiAdbState.ConnectSuccess && isWifiConnected
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .animateItem(),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    SavedDeviceItem(
+                        modifier = Modifier.fillMaxWidth(),
+                        device = device,
+                        isConnected = isConnected,
+                        isReconnecting = isReconnecting,
+                        onReconnect = {
+                            if (!isWifiConnected) {
+                                `in`.hridayan.ashell.core.utils.showToast(
+                                    context,
+                                    context.getString(R.string.connect_to_wifi_network)
+                                )
+                                return@SavedDeviceItem
                             }
+                            onReconnect(device)
                         },
-                        label = "Pairing Mode Transition"
-                    ) { manualMode ->
-                        if (manualMode) {
-                            PairManually(onClickPairUsingQR = { showManualPairingMenu = false })
-                        } else {
-                            QRPair(
-                                onClickPairManually = { showManualPairingMenu = true },
-                                isWifiConnected = isWifiConnected,
-                                wifiAdbState = wifiAdbState
-                            )
+                        onForget = { onForget(device) },
+                        onDisconnect = { onDisconnect() }
+                    )
+
+                    if (isReconnecting) {
+                        OutlinedButton(
+                            modifier = Modifier.fillMaxWidth(),
+                            shapes = ButtonDefaults.shapes(),
+                            onClick = withHaptic(HapticFeedbackType.Reject) {
+                                onCancelReconnect()
+                            }
+                        ) {
+                            AutoResizeableText(text = stringResource(R.string.cancel))
+                        }
+                    }
+
+                    if (isConnected) {
+                        Button(
+                            modifier = Modifier.fillMaxWidth(),
+                            shapes = ButtonDefaults.shapes(),
+                            onClick = withHaptic { onGoToTerminal() }
+                        ) {
+                            AutoResizeableText(text = stringResource(R.string.go_to_terminal))
                         }
                     }
                 }
+
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 12.dp)
+                )
             }
+
+            item { Spacer(modifier = Modifier.height(16.dp)) }
         }
     }
 }
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun QRPair(
+fun QRPairTab(
     modifier: Modifier = Modifier,
-    onClickPairManually: () -> Unit = {},
     isWifiConnected: Boolean,
     wifiAdbState: WifiAdbState,
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
-    LocalContext.current
     val sessionId = "ashell_you"
     val pairingCode = String.format("%06d", generatePairingCode())
     val qrBitmap by viewModel.qrBitmap.collectAsState()
@@ -284,209 +419,167 @@ fun QRPair(
         viewModel.generateQr(sessionId, pairingCode.toInt())
     }
 
-    Column(modifier = modifier) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 5.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-            )
-        ) {
-            Row(
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Top
+    ) {
+        item {
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 15.dp),
-                horizontalArrangement = Arrangement.spacedBy(20.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(horizontal = 20.dp, vertical = 16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                )
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_qr_scanner),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 15.dp),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_qr_scanner),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                    )
 
-                Text(
-                    text = stringResource(R.string.qr_pair_hint),
-                    style = MaterialTheme.typography.bodySmallEmphasized,
-                )
-            }
+                    Text(
+                        text = stringResource(R.string.qr_pair_hint),
+                        style = MaterialTheme.typography.bodySmallEmphasized,
+                    )
+                }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, bottom = 15.dp),
-                horizontalArrangement = Arrangement.spacedBy(20.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_search),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, end = 20.dp, bottom = 15.dp),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_search),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                    )
 
-                Text(
-                    text = stringResource(R.string.qr_scanner_location_hint),
-                    style = MaterialTheme.typography.bodySmallEmphasized,
-                )
+                    Text(
+                        text = stringResource(R.string.qr_scanner_location_hint),
+                        style = MaterialTheme.typography.bodySmallEmphasized,
+                    )
+                }
             }
         }
 
-        qrBitmap?.let { qrBitmap ->
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                QRImage(
-                    qrBitmap = qrBitmap,
-                    modifier = Modifier.padding(25.dp),
-                    isWifiConnected = isWifiConnected,
-                    wifiAdbState = wifiAdbState
-                )
+        item {
+            qrBitmap?.let { qrBitmap ->
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    QRImage(
+                        qrBitmap = qrBitmap,
+                        modifier = Modifier.padding(25.dp),
+                        isWifiConnected = isWifiConnected,
+                        wifiAdbState = wifiAdbState
+                    )
+                }
             }
-        }
-
-        Text(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            text = stringResource(R.string.or),
-            color = MaterialTheme.colorScheme.primary,
-            style = MaterialTheme.typography.titleLarge,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold
-        )
-
-        TextButton(
-            modifier = Modifier
-                .padding(25.dp)
-                .align(Alignment.CenterHorizontally),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
-            shapes = ButtonDefaults.shapes(),
-            onClick = withHaptic {
-                onClickPairManually()
-            },
-        ) {
-            Text(
-                text = stringResource(R.string.pair_manually),
-                modifier = Modifier.padding(horizontal = 5.dp)
-            )
         }
     }
 }
 
 @Composable
-fun PairManually(
+fun ManualPairTab(
     modifier: Modifier = Modifier,
-    onClickPairUsingQR: () -> Unit = {},
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val wifiAdbState by viewModel.state.collectAsStateWithLifecycle()
 
-    Column(
+    LazyColumn(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp, start = 25.dp, end = 25.dp)
+            .fillMaxSize()
+            .padding(horizontal = 25.dp),
+        verticalArrangement = Arrangement.Top
     ) {
-        LabelText(
-            stringResource(R.string.pair),
-            modifier = Modifier
-                .padding(top = 25.dp, bottom = 10.dp)
-                .align(Alignment.Start)
-        )
-
-        IpAddressInputField()
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 10.dp),
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            PairingPortInputField(modifier = Modifier.weight(1f))
-            PairingCodeInputField(modifier = Modifier.weight(1f))
-        }
-
-        val pairButtonText = wifiAdbState.let {
-            when (wifiAdbState) {
-                is WifiAdbState.PairingStarted -> stringResource(R.string.pairing)
-                is WifiAdbState.PairingSuccess -> stringResource(R.string.paired)
-                else -> stringResource(R.string.pair)
-            }
-        }
-
-        IconWithTextButton(
-            icon = painterResource(R.drawable.ic_pair),
-            text = pairButtonText,
-            contentDescription = null,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 10.dp),
-            onClick = { viewModel.startPairingManually() })
-
-        if (wifiAdbState is WifiAdbState.PairingSuccess || wifiAdbState is WifiAdbState.ConnectStarted) {
-            HorizontalDivider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 20.dp)
-            )
-
+        item {
             LabelText(
-                stringResource(R.string.connect), modifier = Modifier
-                    .padding(bottom = 10.dp)
-                    .align(Alignment.Start)
+                stringResource(R.string.pair),
+                modifier = Modifier.padding(top = 25.dp, bottom = 10.dp)
             )
+        }
 
+        item { IpAddressInputField() }
+
+        item {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp),
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                ConnectPortInputField(modifier = Modifier.weight(1f))
-                IconWithTextButton(
-                    icon = painterResource(R.drawable.ic_wireless),
-                    text = stringResource(R.string.connect),
-                    modifier = Modifier
-                        .weight(1f)
-                        .align(Alignment.CenterVertically),
-                    onClick = withHaptic {
-                        viewModel.startConnectingManually()
-                    }
-                )
+                PairingPortInputField(modifier = Modifier.weight(1f))
+                PairingCodeInputField(modifier = Modifier.weight(1f))
             }
         }
 
-        Text(
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 25.dp),
-            text = stringResource(R.string.or),
-            color = MaterialTheme.colorScheme.primary,
-            style = MaterialTheme.typography.titleLarge,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold
-        )
+        item {
+            val pairButtonText = wifiAdbState.let {
+                when (wifiAdbState) {
+                    is WifiAdbState.PairingStarted -> stringResource(R.string.pairing)
+                    is WifiAdbState.PairingSuccess -> stringResource(R.string.paired)
+                    else -> stringResource(R.string.pair)
+                }
+            }
 
-        TextButton(
-            modifier = Modifier
-                .padding(25.dp)
-                .align(Alignment.CenterHorizontally),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            ),
-            shapes = ButtonDefaults.shapes(),
-            onClick = withHaptic {
-                onClickPairUsingQR()
-            },
-        ) {
-            Text(
-                text = stringResource(R.string.pair_using_qr),
-                modifier = Modifier.padding(horizontal = 5.dp)
+            IconWithTextButton(
+                icon = painterResource(R.drawable.ic_pair),
+                text = pairButtonText,
+                contentDescription = null,
+                modifier = Modifier.padding(top = 10.dp),
+                onClick = { viewModel.startPairingManually() }
             )
         }
+
+        if (wifiAdbState is WifiAdbState.PairingSuccess || wifiAdbState is WifiAdbState.ConnectStarted) {
+            item {
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 20.dp)
+                )
+            }
+
+            item {
+                LabelText(
+                    stringResource(R.string.connect),
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+            }
+
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
+                ) {
+                    ConnectPortInputField(modifier = Modifier.weight(1f))
+                    IconWithTextButton(
+                        icon = painterResource(R.drawable.ic_wireless),
+                        text = stringResource(R.string.connect),
+                        modifier = Modifier
+                            .weight(1f)
+                            .align(Alignment.CenterVertically),
+                        onClick = withHaptic {
+                            viewModel.startConnectingManually()
+                        }
+                    )
+                }
+            }
+        }
+
+        item { Spacer(modifier = Modifier.height(32.dp)) }
     }
 }
 
@@ -589,45 +682,6 @@ fun ConnectPortInputField(
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
     )
-}
-
-@Composable
-fun ConnectionSuccessfulUi(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 25.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(
-            modifier = Modifier
-                .size(160.dp)
-                .clip(MaterialShapes.Cookie9Sided.toShape())
-                .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                modifier = Modifier.size(80.dp),
-                painter = painterResource(R.drawable.ic_check_circle),
-                tint = MaterialTheme.colorScheme.primary,
-                contentDescription = null
-            )
-        }
-
-        AutoResizeableText(
-            text = stringResource(R.string.success),
-            style = MaterialTheme.typography.titleLargeEmphasized,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 50.dp, bottom = 15.dp)
-        )
-
-        Text(
-            text = stringResource(R.string.successful_connection_message),
-            style = MaterialTheme.typography.bodySmall,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 25.dp)
-        )
-    }
 }
 
 fun generatePairingCode(): Int {
