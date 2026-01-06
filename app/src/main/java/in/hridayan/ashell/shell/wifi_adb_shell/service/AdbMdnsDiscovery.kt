@@ -34,6 +34,8 @@ class AdbMdnsDiscovery(
     interface AdbFoundCallback {
         fun onPairingServiceFound(ipAddress: String, port: Int)
         fun onConnectServiceFound(ipAddress: String, port: Int)
+        fun onPairingServiceLost() {}
+        fun onConnectServiceLost() {}
     }
 
     private val nsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
@@ -156,6 +158,13 @@ class AdbMdnsDiscovery(
             }
 
             Log.d(TAG, "Service lost: $serviceKey ($host:${info.port})")
+            
+            // Notify callback about service loss
+            if (info.serviceType.contains(TLS_PAIRING)) {
+                handler.post { callback.onPairingServiceLost() }
+            } else if (info.serviceType.contains(TLS_CONNECT)) {
+                handler.post { callback.onConnectServiceLost() }
+            }
         }
     }
 
@@ -216,6 +225,13 @@ class AdbMdnsDiscovery(
             override fun onServiceLost() {
                 Log.d(TAG, "Service lost (A13+): $serviceKey")
                 resolvedServices.remove(serviceKey)
+                
+                // Notify callback about service loss
+                if (serviceKey.contains(TLS_PAIRING)) {
+                    context.mainExecutor.execute { callback.onPairingServiceLost() }
+                } else if (serviceKey.contains(TLS_CONNECT)) {
+                    context.mainExecutor.execute { callback.onConnectServiceLost() }
+                }
             }
 
             override fun onServiceUpdated(updatedInfo: NsdServiceInfo) {

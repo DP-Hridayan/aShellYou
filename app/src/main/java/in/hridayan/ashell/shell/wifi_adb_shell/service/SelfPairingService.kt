@@ -193,11 +193,17 @@ class SelfPairingService : Service() {
 
         mdnsDiscovery = AdbMdnsDiscovery(this, object : AdbMdnsDiscovery.AdbFoundCallback {
             override fun onPairingServiceFound(ipAddress: String, port: Int) {
-                if (isPairingDone || discoveredPairingPort != null) {
-                    Log.d(TAG, "Pairing service found but already have one, ignoring")
+                if (isPairingDone) {
+                    Log.d(TAG, "Pairing service found but pairing already done, ignoring")
+                    return
+                }
+                
+                if (isProcessing) {
+                    Log.d(TAG, "Pairing service found but pairing in progress, ignoring")
                     return
                 }
 
+                // Always update to the latest service info (handles dialog close/reopen)
                 Log.d(TAG, "Pairing service detected at $ipAddress:$port")
                 discoveredPairingIp = ipAddress
                 discoveredPairingPort = port
@@ -205,6 +211,17 @@ class SelfPairingService : Service() {
 
                 // Show notification to enter pairing code
                 notificationHelper.showEnterCodeNotification(SelfPairingService::class.java)
+            }
+            
+            override fun onPairingServiceLost() {
+                if (isPairingDone || isProcessing) {
+                    Log.d(TAG, "Pairing service lost but pairing done/in progress, ignoring")
+                    return
+                }
+                
+                Log.d(TAG, "Pairing service lost - clearing stale state to accept new service")
+                discoveredPairingIp = null
+                discoveredPairingPort = null
             }
 
             override fun onConnectServiceFound(ipAddress: String, port: Int) {
