@@ -6,6 +6,7 @@ import android.net.nsd.NsdServiceInfo
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.ext.SdkExtensions
 import android.util.Log
 import androidx.annotation.RequiresApi
 import java.io.IOException
@@ -91,7 +92,12 @@ class AdbMdnsDiscovery(
      * This is more reliable than comparing with a single IP address.
      */
     private fun isMatchingNetwork(resolvedService: NsdServiceInfo): Boolean {
-        val serviceHost = resolvedService.host?.hostAddress ?: return false
+        val serviceHost =
+            if (SdkExtensions.getExtensionVersion(Build.VERSION_CODES.TIRAMISU) >= 7) {
+                selectBestAddress(resolvedService.hostAddresses)?.hostAddress ?: return false
+            } else {
+                resolvedService.host?.hostAddress ?: return false
+            }
 
         try {
             val interfaces = NetworkInterface.getNetworkInterfaces()
@@ -170,7 +176,14 @@ class AdbMdnsDiscovery(
         }
 
         override fun onServiceLost(info: NsdServiceInfo) {
-            val host = info.host?.hostAddress ?: "unknown"
+            val host =
+                if (SdkExtensions.getExtensionVersion(Build.VERSION_CODES.TIRAMISU) >= 7) {
+                    selectBestAddress(info.hostAddresses)?.hostAddress ?: "unknown"
+                } else {
+                    info.host?.hostAddress ?: "unknown"
+                }
+
+
             val serviceKey = "${info.serviceName}:${info.serviceType}"
             resolvedServices.remove(serviceKey)
             Log.d(TAG, "Service lost: $serviceKey ($host:${info.port})")
@@ -187,7 +200,13 @@ class AdbMdnsDiscovery(
         override fun onServiceResolved(resolvedService: NsdServiceInfo) {
             if (!running) return
 
-            val ipAddress = resolvedService.host?.hostAddress ?: return
+            val ipAddress =
+                if (SdkExtensions.getExtensionVersion(Build.VERSION_CODES.TIRAMISU) >= 7) {
+                    selectBestAddress(resolvedService.hostAddresses)?.hostAddress ?: return
+                } else {
+                    resolvedService.host?.hostAddress ?: return
+                }
+
             val portNumber = resolvedService.port
 
             Log.d(TAG, "Service resolved: $serviceType at $ipAddress:$portNumber")
