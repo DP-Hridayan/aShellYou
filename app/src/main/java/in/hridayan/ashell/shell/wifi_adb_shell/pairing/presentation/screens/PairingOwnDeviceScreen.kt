@@ -198,6 +198,13 @@ fun PairingOwnDeviceScreen(
             contentPadding = innerPadding,
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
+            if (!isWifiConnected) item {
+                WifiEnableCard(
+                    onClickButton = onClickWifiEnableButton,
+                    modifier = Modifier.animateItem()
+                )
+            }
+
             item {
                 ownDevice?.let {
                     val isCurrentDevice = currentDevice?.id == it.id
@@ -207,10 +214,15 @@ fun PairingOwnDeviceScreen(
                         isCurrentDevice && wifiAdbState is WifiAdbState.ConnectSuccess && isWifiConnected
 
                     Column(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .animateItem(),
                         verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         SavedDeviceItem(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .animateItem(),
                             device = it,
                             isConnected = isConnected,
                             isReconnecting = isReconnecting,
@@ -267,13 +279,6 @@ fun PairingOwnDeviceScreen(
                 }
 
             item { NotificationStyleIconWithTextCard(modifier = Modifier.animateItem()) }
-
-            if (!isWifiConnected) item {
-                WifiEnableCard(
-                    onClickButton = onClickWifiEnableButton,
-                    modifier = Modifier.animateItem()
-                )
-            }
 
             item {
                 Instructions(

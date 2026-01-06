@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
-import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -187,6 +186,7 @@ fun SavedDeviceItem(
                 if (isConnected) {
                     Button(
                         onClick = withHaptic(HapticFeedbackType.Reject) { onDisconnect() },
+                        shapes = ButtonDefaults.shapes(),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.error,
                             contentColor = MaterialTheme.colorScheme.onError
@@ -195,7 +195,10 @@ fun SavedDeviceItem(
                         AutoResizeableText(stringResource(R.string.disconnect))
                     }
                 } else {
-                    Button(onClick = withHaptic(HapticFeedbackType.Confirm) { onReconnect() }) {
+                    Button(
+                        onClick = withHaptic(HapticFeedbackType.Confirm) { onReconnect() },
+                        shapes = ButtonDefaults.shapes(),
+                    ) {
                         AutoResizeableText(stringResource(R.string.reconnect))
                     }
                 }

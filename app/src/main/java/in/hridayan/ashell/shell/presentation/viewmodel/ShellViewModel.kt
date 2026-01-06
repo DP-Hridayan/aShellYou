@@ -203,8 +203,7 @@ class ShellViewModel @Inject constructor(
             it.copy(
                 commandField = it.commandField.copy(fieldValue = TextFieldValue("")),
                 output = it.output + newResult,
-                cmdHistory = if (it.cmdHistory.lastOrNull() == commandText) it.cmdHistory
-                else it.cmdHistory + commandText,
+                cmdHistory = filterDuplicateHistoryEntries(commandText, it.cmdHistory),
                 shellState = ShellState.Busy
             )
         }
@@ -215,6 +214,14 @@ class ShellViewModel @Inject constructor(
             }
             _states.update { it.copy(shellState = ShellState.Free) }
         }
+    }
+
+    private fun filterDuplicateHistoryEntries(
+        commandText: String,
+        cmdHistory: List<String>
+    ): List<String> {
+        val filteredHistory = cmdHistory.filter { it != commandText.trim() }
+        return filteredHistory + commandText
     }
 
     fun executeSimpleCommand(cmdArray: Array<String>) {
