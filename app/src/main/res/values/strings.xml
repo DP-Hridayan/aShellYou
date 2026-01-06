@@ -120,11 +120,13 @@
     <string name="downloads">Downloads</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="edit_command">Edit command</string>
+    <string name="possible_reasons">Possible reasons</string>
     <string name="enable_auto_update">Enable auto update</string>
     <string name="enable_direct_download">Enable direct apk download</string>
     <string name="enable_wifi">Enable wifi</string>
     <string name="enable_wireless_debugging">Please enable Wireless Debugging in Developer Options</string>
     <string name="enter">Enter</string>
+    <string name="reconnect_failed_message">\nWireless Debugging might not be enabled\nPairing info might be lost. Pair manually again!</string>
     <string name="error">Error</string>
     <string name="error_labels_limit_reached">Maximum labels limit reached</string>
     <string name="failed">Failed</string>

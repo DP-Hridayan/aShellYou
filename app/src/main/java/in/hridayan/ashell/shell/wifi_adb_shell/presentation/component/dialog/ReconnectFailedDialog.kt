@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +14,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -24,6 +24,8 @@ import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout
+import `in`.hridayan.ashell.core.utils.splitStringToLines
 
 @Composable
 fun ReconnectFailedDialog(
@@ -51,12 +53,20 @@ fun ReconnectFailedDialog(
                     color = MaterialTheme.colorScheme.onSurface,
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
-                Text(
-                    text = stringResource(R.string.forget_device_confirmation),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                AutoResizeableText(
+                    text = stringResource(R.string.possible_reasons) + ":",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
+                Spacer(modifier = Modifier.height(15.dp))
+
+                BulletPointsTextLayout(
+                    modifier = Modifier.fillMaxWidth(),
+                    textLines = splitStringToLines(stringResource(R.string.reconnect_failed_message)),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))

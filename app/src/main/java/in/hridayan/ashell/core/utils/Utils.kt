@@ -90,5 +90,12 @@ fun handleSharedText(intent: Intent) {
     }
 }
 
+/**
+ * Splits strings into lines by each \n
+ */
+fun splitStringToLines(input: String): List<String> {
+    return input.split("\n").filter { it.isNotBlank() }
+}
+
 
 

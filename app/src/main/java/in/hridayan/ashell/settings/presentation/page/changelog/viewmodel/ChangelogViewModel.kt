@@ -24,8 +24,4 @@ class ChangelogViewModel @Inject constructor(
             _changelogs.value = getAllChangelogsUseCase()
         }
     }
-
-    fun splitStringToLines(input: String): List<String> {
-        return input.split("\n").filter { it.isNotBlank() }
-    }
 }

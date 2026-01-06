@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.components.item
+package `in`.hridayan.ashell.core.presentation.components.text
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -13,34 +13,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.FirstBaseline
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.BuildConfig
-import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
-fun ChangelogItemLayout(
+fun BulletPointsTextLayout(
     modifier: Modifier = Modifier,
-    versionName: String,
-    changelog: List<String>,
+    textLines: List<String>,
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(25.dp)
 ) {
-    val isLatestVersion = versionName == BuildConfig.VERSION_NAME.removeSuffix("-debug")
-
     Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(25.dp)
+        modifier = modifier,
+        verticalArrangement = verticalArrangement
     ) {
-        AutoResizeableText(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(R.string.version) + "\t\t$versionName",
-            style = if (isLatestVersion) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.headlineSmall,
-            color = if (isLatestVersion) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-            fontWeight = FontWeight.Bold
-        )
-
-        changelog.forEach { item ->
+        textLines.forEach { item ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)

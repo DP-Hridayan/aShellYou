@@ -80,6 +80,7 @@ import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.GrantNotificationAccessDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.service.SelfPairingService
@@ -129,7 +130,7 @@ fun PairingOwnDeviceScreen(
 
     LaunchedEffect(wifiAdbState) {
         if (wifiAdbState is WifiAdbState.WirelessDebuggingOff) {
-            showToast(context, context.getString(R.string.enable_wireless_debugging))
+            dialogManager.show(DialogKey.Pair.ReconnectFailed)
         }
     }
 
@@ -149,7 +150,7 @@ fun PairingOwnDeviceScreen(
         context.askUserToEnableWifi()
     }
 
-    val onClickDeveloperOptionsButton: () -> Unit = withHaptic {
+    val openDeveloperOptionsWithConditions: () -> Unit = withHaptic {
         if (!hasNotificationAccess) {
             dialogManager.show(DialogKey.Pair.GrantNotificationAccess)
             return@withHaptic
@@ -163,7 +164,6 @@ fun PairingOwnDeviceScreen(
             return@withHaptic
         }
 
-        SelfPairingService.start(context)
         openDeveloperOptions(context)
     }
 
@@ -299,7 +299,10 @@ fun PairingOwnDeviceScreen(
 
             item {
                 Instructions(
-                    onClickButton = onClickDeveloperOptionsButton,
+                    onClickDevOptionsButton = {
+                        openDeveloperOptionsWithConditions()
+                        SelfPairingService.start(context)
+                    },
                     modifier = Modifier.animateItem()
                 )
             }
@@ -318,6 +321,12 @@ fun PairingOwnDeviceScreen(
         GrantNotificationAccessDialog(
             onDismiss = { it.dismiss() },
             onConfirm = { onClickNotificationButton() })
+    }
+
+    DialogKey.Pair.ReconnectFailed.createDialog {
+        ReconnectFailedDialog(
+            onDismiss = { it.dismiss() },
+            onConfirm = { openDeveloperOptionsWithConditions() })
     }
 }
 
@@ -411,7 +420,7 @@ fun WifiEnableCard(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
 }
 
 @Composable
-fun Instructions(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
+fun Instructions(modifier: Modifier = Modifier, onClickDevOptionsButton: () -> Unit) {
     Column(
         modifier = modifier,
     ) {
@@ -450,7 +459,7 @@ fun Instructions(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
                         modifier = Modifier.padding(top = 5.dp),
                         icon = painterResource(R.drawable.ic_open_in_new),
                         text = stringResource(R.string.developer_options),
-                        onClick = { onClickButton() }
+                        onClick = { onClickDevOptionsButton() }
                     )
                 }
             }

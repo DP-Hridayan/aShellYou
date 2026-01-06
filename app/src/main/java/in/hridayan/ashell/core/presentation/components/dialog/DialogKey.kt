@@ -41,6 +41,7 @@ sealed class DialogKey {
     sealed class Pair {
         object GrantNotificationAccess : DialogKey()
         data class ForgetDeviceConfirmation(val device: WifiAdbDevice) : DialogKey()
+        object ReconnectFailed : DialogKey()
     }
 }
 
