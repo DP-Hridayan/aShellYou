@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.nsd.NsdManager
 import android.net.wifi.WifiManager
 import android.util.Log
 import androidx.core.graphics.createBitmap
@@ -48,6 +49,13 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
     private val storage = WifiAdbStorage(context)
+
+    // Reconnect cancellation state
+    @Volatile
+    private var isReconnectCancelled = false
+    private var activeNsdManager: NsdManager? = null
+    private var activeDiscoveryListener: NsdManager.DiscoveryListener? = null
+    private var activeReconnectTimeout: java.util.concurrent.ScheduledFuture<*>? = null
 
     override fun discoverAdbPairingService(
         pairingCode: String,
@@ -538,7 +546,39 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
 
     private var currentDevice: WifiAdbDevice? = null
 
+    override fun cancelReconnect() {
+        Log.d(TAG, "cancelReconnect() called")
+        isReconnectCancelled = true
+
+        // Cancel scheduled timeout
+        activeReconnectTimeout?.let { future ->
+            future.cancel(false)
+            Log.d(TAG, "Cancelled reconnect timeout")
+        }
+        activeReconnectTimeout = null
+
+        // Stop NSD discovery
+        activeDiscoveryListener?.let { listener ->
+            try {
+                activeNsdManager?.stopServiceDiscovery(listener)
+                Log.d(TAG, "Stopped NSD discovery")
+            } catch (e: Exception) {
+                // May throw if discovery already stopped
+                Log.d(TAG, "Error stopping NSD discovery (may already be stopped): ${e.message}")
+            }
+        }
+        activeDiscoveryListener = null
+        activeNsdManager = null
+
+        // Reset state
+        mainScope.launch {
+            WifiAdbConnection.updateState(WifiAdbState.None)
+        }
+    }
+
     override fun reconnect(device: WifiAdbDevice, listener: ReconnectListener?) {
+        // Reset cancellation flag on new reconnect attempt
+        isReconnectCancelled = false
         executor.submit {
             try {
                 val manager = AdbConnectionManager.getInstance(context)
@@ -650,7 +690,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
     ) {
         try {
             val nsdManager =
-                context.getSystemService(Context.NSD_SERVICE) as android.net.nsd.NsdManager
+                context.getSystemService(Context.NSD_SERVICE) as NsdManager
 
             // Get current local IP for own device
             val wifi =
@@ -667,21 +707,30 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
             }
             // Track state
             var connectionHandled = false
-            var discoveryListener: android.net.nsd.NsdManager.DiscoveryListener? = null
+
+            // Check if already cancelled before starting
+            if (isReconnectCancelled) {
+                Log.d(TAG, "Reconnect was cancelled before NSD discovery started")
+                return
+            }
+            var discoveryListener: NsdManager.DiscoveryListener? = null
 
             // Set timeout for discovery
-            val discoveryTimeout = executor.schedule({
-                if (connectionHandled) return@schedule
+            activeReconnectTimeout = executor.schedule({
+                if (connectionHandled || isReconnectCancelled) return@schedule
                 connectionHandled = true
 
                 Log.d(TAG, "NsdManager discovery timeout for reconnect")
 
                 // Stop discovery
                 try {
-                    discoveryListener?.let { nsdManager.stopServiceDiscovery(it) }
+                    activeDiscoveryListener?.let { nsdManager.stopServiceDiscovery(it) }
                 } catch (e: Exception) {
                     Log.e(TAG, "Error stopping discovery on timeout", e)
                 }
+                activeDiscoveryListener = null
+                activeNsdManager = null
+                activeReconnectTimeout = null
 
                 mainScope.launch {
                     // For own device, timeout likely means wireless debugging is off
@@ -699,16 +748,19 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                 listener?.onReconnectFailed(requiresPairing = false)
             }, 10, TimeUnit.SECONDS)
 
-            discoveryListener = object : android.net.nsd.NsdManager.DiscoveryListener {
+            activeDiscoveryListener = object : NsdManager.DiscoveryListener {
                 override fun onDiscoveryStarted(serviceType: String) {
                     Log.d(TAG, "Reconnect mDNS discovery started: $serviceType")
                 }
 
                 override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
                     Log.e(TAG, "Reconnect discovery start failed: $errorCode")
-                    if (!connectionHandled) {
+                    if (!connectionHandled && !isReconnectCancelled) {
                         connectionHandled = true
-                        discoveryTimeout.cancel(false)
+                        activeReconnectTimeout?.cancel(false)
+                        activeReconnectTimeout = null
+                        activeDiscoveryListener = null
+                        activeNsdManager = null
                         listener?.onReconnectFailed(requiresPairing = false)
                     }
                 }
@@ -722,10 +774,10 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                 }
 
                 override fun onServiceFound(info: android.net.nsd.NsdServiceInfo) {
-                    if (connectionHandled) return
+                    if (connectionHandled || isReconnectCancelled) return
                     nsdManager.resolveService(
                         info,
-                        object : android.net.nsd.NsdManager.ResolveListener {
+                        object : NsdManager.ResolveListener {
                             override fun onResolveFailed(
                                 serviceInfo: android.net.nsd.NsdServiceInfo,
                                 errorCode: Int
@@ -734,7 +786,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                             }
 
                             override fun onServiceResolved(resolvedService: android.net.nsd.NsdServiceInfo) {
-                                if (connectionHandled) return
+                                if (connectionHandled || isReconnectCancelled) return
 
                                 val ip = resolvedService.host?.hostAddress ?: return
                                 val port = resolvedService.port
@@ -759,12 +811,21 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
 
                                 // Found matching service - connect!
                                 connectionHandled = true
-                                discoveryTimeout.cancel(false)
+                                activeReconnectTimeout?.cancel(false)
+                                activeReconnectTimeout = null
 
                                 try {
-                                    nsdManager.stopServiceDiscovery(discoveryListener)
+                                    nsdManager.stopServiceDiscovery(activeDiscoveryListener)
                                 } catch (e: Exception) {
                                     Log.e(TAG, "Error stopping discovery after finding service", e)
+                                }
+                                activeDiscoveryListener = null
+                                activeNsdManager = null
+
+                                // Final check for cancellation before connecting
+                                if (isReconnectCancelled) {
+                                    Log.d(TAG, "Reconnect cancelled just before connect")
+                                    return
                                 }
 
                                 Log.d(TAG, "Reconnect: Connecting to $ip:$port")
@@ -821,10 +882,11 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                 }
             }
 
+            activeNsdManager = nsdManager
             nsdManager.discoverServices(
                 "_adb-tls-connect._tcp",
-                android.net.nsd.NsdManager.PROTOCOL_DNS_SD,
-                discoveryListener
+                NsdManager.PROTOCOL_DNS_SD,
+                activeDiscoveryListener
             )
             Log.d(TAG, "Started NsdManager discovery for reconnect to $targetIp")
 

@@ -228,6 +228,10 @@ class WifiAdbViewModel @Inject constructor(
         })
     }
 
+    fun cancelReconnect() {
+        wifiAdbRepository.cancelReconnect()
+    }
+
     fun disconnect() {
         wifiAdbRepository.disconnect()
         WifiAdbConnection.setCurrentDevice(null)

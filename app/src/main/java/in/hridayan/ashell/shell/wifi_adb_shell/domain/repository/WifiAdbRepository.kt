@@ -25,6 +25,7 @@ interface WifiAdbRepository {
 
     // New methods for reconnect functionality
     fun reconnect(device: WifiAdbDevice, listener: ReconnectListener? = null)
+    fun cancelReconnect()
     fun disconnect()
     fun isConnected(): Boolean
     fun getCurrentDevice(): WifiAdbDevice?

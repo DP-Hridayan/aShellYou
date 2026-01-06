@@ -26,6 +26,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -79,9 +80,9 @@ import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.GrantNotificationAccessDialog
-import `in`.hridayan.ashell.shell.wifi_adb_shell.service.SelfPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
+import `in`.hridayan.ashell.shell.wifi_adb_shell.service.SelfPairingService
 
 @Composable
 fun PairingOwnDeviceScreen(
@@ -243,13 +244,13 @@ fun PairingOwnDeviceScreen(
                         )
 
                         if (isReconnecting) {
-                            Button(
+                            OutlinedButton(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .animateItem(),
                                 shapes = ButtonDefaults.shapes(),
                                 onClick = withHaptic(HapticFeedbackType.Reject) {
-                                    navController.navigate(NavRoutes.WifiAdbScreen)
+                                    viewModel.cancelReconnect()
                                 }) {
                                 AutoResizeableText(text = stringResource(R.string.cancel))
                             }
