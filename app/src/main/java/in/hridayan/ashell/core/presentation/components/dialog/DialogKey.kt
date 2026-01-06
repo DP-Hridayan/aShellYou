@@ -41,8 +41,7 @@ sealed class DialogKey {
     sealed class Pair {
         object GrantNotificationAccess : DialogKey()
         data class ForgetDeviceConfirmation(val device: WifiAdbDevice) : DialogKey()
-        object ReconnectFailed : DialogKey()
-        object ReconnectFailedOtherDevice : DialogKey()
+        data class ReconnectFailed(val showDevOptionsButton: Boolean) : DialogKey()
         object ConnectionSuccess : DialogKey()
     }
 }
@@ -58,5 +57,11 @@ fun DialogKey.createDialog(content: @Composable (DialogViewModel) -> Unit) {
 }
 
 private fun DialogKey.matches(other: DialogKey): Boolean {
-    return this == other
+    // For data classes, match by type (class) to allow different parameters
+    return when {
+        this is DialogKey.Pair.ReconnectFailed && other is DialogKey.Pair.ReconnectFailed -> true
+        this is DialogKey.Pair.ForgetDeviceConfirmation && other is DialogKey.Pair.ForgetDeviceConfirmation -> true
+        this is DialogKey.CommandExamples.Edit && other is DialogKey.CommandExamples.Edit -> true
+        else -> this == other
+    }
 }

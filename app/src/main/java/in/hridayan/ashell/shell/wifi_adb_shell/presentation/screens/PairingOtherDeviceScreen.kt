@@ -122,6 +122,10 @@ fun PairingOtherDeviceScreen(
     val tabs = PairingTab.entries
     val pagerState = rememberPagerState(initialPage = 0) { tabs.size }
 
+    // Track if reconnect was manually cancelled (to avoid showing dialog on cancel)
+    var wasReconnectCancelled by remember { mutableStateOf(false) }
+    var lastReconnectingDeviceId by remember { mutableStateOf<String?>(null) }
+
     // Load saved devices on screen launch
     LaunchedEffect(Unit) {
         viewModel.loadSavedDevices()
@@ -129,21 +133,43 @@ fun PairingOtherDeviceScreen(
 
     // Refresh saved devices when pairing or connection succeeds
     LaunchedEffect(wifiAdbState) {
-        when (wifiAdbState) {
+        val state = wifiAdbState
+        when (state) {
             is WifiAdbState.PairingSuccess -> {
                 viewModel.loadSavedDevices()
             }
 
             is WifiAdbState.ConnectSuccess -> {
                 viewModel.loadSavedDevices()
+                wasReconnectCancelled = false
                 if (pagerState.currentPage != 0) {
                     dialogManager.show(DialogKey.Pair.ConnectionSuccess)
                 }
             }
 
+            is WifiAdbState.Reconnecting -> {
+                // Track which device we're reconnecting to
+                lastReconnectingDeviceId = state.device
+                wasReconnectCancelled = false
+            }
+
             is WifiAdbState.ConnectFailed -> {
-                // Show reconnect failed dialog for other devices (not own device)
-                dialogManager.show(DialogKey.Pair.ReconnectFailedOtherDevice)
+                // Only show dialog if reconnect wasn't manually cancelled
+                if (!wasReconnectCancelled) {
+                    // For other devices, don't show Dev Options button
+                    val failedDevice = savedDevices.find { it.id == state.device }
+                    val showDevOptions = failedDevice?.isOwnDevice == true
+                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = showDevOptions))
+                }
+                wasReconnectCancelled = false
+            }
+
+            is WifiAdbState.WirelessDebuggingOff -> {
+                // Only show dialog if reconnect wasn't manually cancelled (for own device)
+                if (!wasReconnectCancelled) {
+                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
+                }
+                wasReconnectCancelled = false
             }
 
             else -> {}
@@ -252,8 +278,17 @@ fun PairingOtherDeviceScreen(
                         currentDevice = currentDevice,
                         wifiAdbState = wifiAdbState,
                         isWifiConnected = isWifiConnected,
-                        onReconnect = { device -> viewModel.reconnectToDevice(device) },
-                        onCancelReconnect = { viewModel.cancelReconnect() },
+                        onReconnect = { device ->
+                            // If already reconnecting to a different device, mark as cancelled
+                            if (lastReconnectingDeviceId != null && lastReconnectingDeviceId != device.id) {
+                                wasReconnectCancelled = true
+                            }
+                            viewModel.reconnectToDevice(device)
+                        },
+                        onCancelReconnect = {
+                            wasReconnectCancelled = true
+                            viewModel.cancelReconnect()
+                        },
                         onDisconnect = { viewModel.disconnect() },
                         onForget = { device -> viewModel.forgetDevice(device) },
                         onGoToTerminal = { navController.navigate(NavRoutes.WifiAdbScreen) }
@@ -285,11 +320,12 @@ fun PairingOtherDeviceScreen(
         )
     }
 
-    // Reconnect Failed Dialog for other devices (without Developer Options button)
-    DialogKey.Pair.ReconnectFailedOtherDevice.createDialog {
+    // Reconnect Failed Dialog
+    DialogKey.Pair.ReconnectFailed(showDevOptionsButton = false).createDialog {
+        val dialogKey = (it.activeDialog as? DialogKey.Pair.ReconnectFailed)
         ReconnectFailedDialog(
-            showDevOptionsButton = false,
-            onConfirm = { /* Not used since button is hidden */ },
+            showDevOptionsButton = dialogKey?.showDevOptionsButton ?: false,
+            onConfirm = { /* Developer Options - handled only if button is shown */ },
             onDismiss = { it.dismiss() }
         )
     }

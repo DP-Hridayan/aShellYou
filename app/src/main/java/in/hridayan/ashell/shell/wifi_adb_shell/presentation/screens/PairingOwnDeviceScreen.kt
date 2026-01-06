@@ -130,7 +130,7 @@ fun PairingOwnDeviceScreen(
 
     LaunchedEffect(wifiAdbState) {
         if (wifiAdbState is WifiAdbState.WirelessDebuggingOff) {
-            dialogManager.show(DialogKey.Pair.ReconnectFailed)
+            dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
         }
     }
 
@@ -338,8 +338,10 @@ fun PairingOwnDeviceScreen(
             onConfirm = { onClickNotificationButton() })
     }
 
-    DialogKey.Pair.ReconnectFailed.createDialog {
+    DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true).createDialog {
+        val dialogKey = (it.activeDialog as? DialogKey.Pair.ReconnectFailed)
         ReconnectFailedDialog(
+            showDevOptionsButton = dialogKey?.showDevOptionsButton ?: true,
             onDismiss = { it.dismiss() },
             onConfirm = { openDeveloperOptionsWithConditions() })
     }
