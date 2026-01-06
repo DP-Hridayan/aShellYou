@@ -132,11 +132,13 @@ class AdbMdnsDiscovery(
                 // Old logic
                 if (!resolvedServices.contains(serviceKey)) {
                     resolvedServices.add(serviceKey)
+                    @Suppress("DEPRECATION")
                     nsdManager.resolveService(info, ResolveListener(serviceType))
 
                     handler.removeCallbacksAndMessages(null)
                     handler.postDelayed({ stopResolving = true }, 3 * 60 * 1000)
                 } else if (!stopResolving) {
+                    @Suppress("DEPRECATION")
                     nsdManager.resolveService(info, ResolveListener(serviceType))
                 }
             }
@@ -147,6 +149,7 @@ class AdbMdnsDiscovery(
                 if (SdkExtensions.getExtensionVersion(Build.VERSION_CODES.TIRAMISU) >= 7) {
                     selectBestAddress(info.hostAddresses)?.hostAddress ?: "unknown"
                 } else {
+                    @Suppress("DEPRECATION")
                     info.host?.hostAddress ?: "unknown"
                 }
 
@@ -181,6 +184,7 @@ class AdbMdnsDiscovery(
                 if (SdkExtensions.getExtensionVersion(Build.VERSION_CODES.TIRAMISU) >= 7) {
                     selectBestAddress(resolvedService.hostAddresses)?.hostAddress ?: return
                 } else {
+                    @Suppress("DEPRECATION")
                     resolvedService.host?.hostAddress ?: return
                 }
 
@@ -278,6 +282,7 @@ class AdbMdnsDiscovery(
             if (SdkExtensions.getExtensionVersion(Build.VERSION_CODES.TIRAMISU) >= 7) {
                 selectBestAddress(resolvedService.hostAddresses)?.hostAddress ?: return false
             } else {
+                @Suppress("DEPRECATION")
                 resolvedService.host?.hostAddress ?: return false
             }
 
@@ -310,7 +315,7 @@ class AdbMdnsDiscovery(
                 socket.bind(InetSocketAddress("127.0.0.1", port), 1)
                 false
             }
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             true
         }
     }
