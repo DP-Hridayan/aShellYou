@@ -167,6 +167,24 @@ fun PairingOwnDeviceScreen(
         openDeveloperOptions(context)
     }
 
+    val onClickDevOptionsButton: () -> Unit = withHaptic {
+        if (!hasNotificationAccess) {
+            dialogManager.show(DialogKey.Pair.GrantNotificationAccess)
+            return@withHaptic
+        }
+
+        if (!isWifiConnected) {
+            showToast(
+                context,
+                context.getString(R.string.connect_to_wifi_network)
+            )
+            return@withHaptic
+        }
+
+        SelfPairingService.start(context)
+        openDeveloperOptions(context)
+    }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets.safeDrawing,
@@ -299,10 +317,7 @@ fun PairingOwnDeviceScreen(
 
             item {
                 Instructions(
-                    onClickDevOptionsButton = {
-                        openDeveloperOptionsWithConditions()
-                        SelfPairingService.start(context)
-                    },
+                    onClickDevOptionsButton = onClickDevOptionsButton,
                     modifier = Modifier.animateItem()
                 )
             }
