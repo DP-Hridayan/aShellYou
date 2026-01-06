@@ -12,6 +12,7 @@ import `in`.hridayan.ashell.shell.local_adb_shell.data.shell.ShellCommandExecuto
 import `in`.hridayan.ashell.shell.local_adb_shell.data.shizuku.ShizukuPermissionHandler
 import `in`.hridayan.ashell.shell.otg_adb_shell.data.repository.OtgRepositoryImpl
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import javax.inject.Singleton
@@ -35,7 +36,10 @@ object ShellModule {
 
     @Provides
     @Singleton
-    fun provideWifiAdbRepository(@ApplicationContext context: Context): WifiAdbRepository {
-        return WifiAdbRepositoryImpl(context)
+    fun provideWifiAdbRepository(
+        @ApplicationContext context: Context,
+        deviceDao: WifiAdbDeviceDao
+    ): WifiAdbRepository {
+        return WifiAdbRepositoryImpl(context, deviceDao)
     }
 }

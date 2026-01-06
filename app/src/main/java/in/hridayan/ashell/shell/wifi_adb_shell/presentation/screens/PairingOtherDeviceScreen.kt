@@ -458,15 +458,17 @@ fun QRPairTab(
     wifiAdbState: WifiAdbState,
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
-    val sessionId = "ashell_you"
-    val pairingCode = String.format("%06d", generatePairingCode())
+    val sessionId = remember { "ashell_you" }
+    val pairingCode = remember { String.format("%06d", generatePairingCode()) }
     val qrBitmap by viewModel.qrBitmap.collectAsState()
 
-    LaunchedEffect(Unit, isWifiConnected) {
+    // Start mDNS discovery when WiFi is connected - only re-run if isWifiConnected changes
+    LaunchedEffect(isWifiConnected) {
         if (isWifiConnected) viewModel.startMdnsPairing(pairingCode) else viewModel.stopMdnsDiscovery()
     }
 
-    LaunchedEffect(Unit, isWifiConnected) {
+    // Generate QR code only once when tab is first shown
+    LaunchedEffect(pairingCode) {
         viewModel.generateQr(sessionId, pairingCode.toInt())
     }
 

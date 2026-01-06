@@ -1,0 +1,194 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
+package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
+import kotlinx.coroutines.launch
+
+@Composable
+fun SavedDevicesBottomSheet(
+    onDismiss: () -> Unit,
+    onGoToTerminal: () -> Unit,
+    viewModel: WifiAdbViewModel = hiltViewModel(),
+    sheetState: SheetState = rememberModalBottomSheetState()
+) {
+    val savedDevices by viewModel.savedDevices.collectAsState()
+    val currentDevice by viewModel.currentDevice.collectAsState()
+    val wifiAdbState by viewModel.state.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+    val dialogManager = LocalDialogManager.current
+
+    // Track if reconnect was manually cancelled (to avoid showing dialog on cancel)
+    var wasReconnectCancelled by remember { mutableStateOf(false) }
+    var lastReconnectingDeviceId by remember { mutableStateOf<String?>(null) }
+
+    // Handle state changes for showing dialogs
+    androidx.compose.runtime.LaunchedEffect(wifiAdbState) {
+        val state = wifiAdbState
+        when (state) {
+            is WifiAdbState.Reconnecting -> {
+                lastReconnectingDeviceId = state.device
+                wasReconnectCancelled = false
+            }
+
+            is WifiAdbState.ConnectSuccess -> {
+                wasReconnectCancelled = false
+                // Auto-dismiss bottom sheet on successful connection
+                coroutineScope.launch { sheetState.hide() }
+                onGoToTerminal()
+            }
+
+            is WifiAdbState.ConnectFailed -> {
+                if (!wasReconnectCancelled) {
+                    val failedDevice = savedDevices.find { it.id == state.device }
+                    val showDevOptions = failedDevice?.isOwnDevice == true
+                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = showDevOptions))
+                }
+                wasReconnectCancelled = false
+            }
+
+            is WifiAdbState.WirelessDebuggingOff -> {
+                if (!wasReconnectCancelled) {
+                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
+                }
+                wasReconnectCancelled = false
+            }
+
+            else -> {}
+        }
+    }
+
+    // Compute isReconnecting for UI
+    val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting
+
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+        containerColor = MaterialTheme.colorScheme.surface
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .navigationBarsPadding()
+                .padding(horizontal = 16.dp)
+        ) {
+            // Title
+            Text(
+                text = stringResource(R.string.connect_to_device),
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+
+            if (savedDevices.isEmpty()) {
+                // Empty state
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 48.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_wireless),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(R.string.no_saved_devices),
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        text = stringResource(R.string.pair_device_to_start),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            } else {
+                // Device list
+                LazyColumn(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(savedDevices, key = { it.id }) { device ->
+                        val isThisDeviceReconnecting = isReconnecting && 
+                            (wifiAdbState as? WifiAdbState.Reconnecting)?.device == device.id
+                        val isConnected = currentDevice?.id == device.id && !isReconnecting
+                        
+                        SavedDeviceItem(
+                            device = device,
+                            isConnected = isConnected,
+                            isReconnecting = isThisDeviceReconnecting,
+                            onReconnect = {
+                                // If already reconnecting to a different device, mark as cancelled
+                                if (lastReconnectingDeviceId != null && lastReconnectingDeviceId != device.id) {
+                                    wasReconnectCancelled = true
+                                }
+                                viewModel.reconnectToDevice(device)
+                            },
+                            onDisconnect = { viewModel.disconnect() },
+                            onForget = { viewModel.forgetDevice(device) },
+                            onClick = {
+                                if (isConnected) {
+                                    onGoToTerminal()
+                                }
+                            }
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+
+    // Reconnect Failed Dialog
+    DialogKey.Pair.ReconnectFailed(showDevOptionsButton = false).createDialog {
+        val dialogKey = (it.activeDialog as? DialogKey.Pair.ReconnectFailed)
+        ReconnectFailedDialog(
+            showDevOptionsButton = dialogKey?.showDevOptionsButton ?: false,
+            onConfirm = { /* Developer Options - handled only if button is shown */ },
+            onDismiss = { it.dismiss() }
+        )
+    }
+}
+

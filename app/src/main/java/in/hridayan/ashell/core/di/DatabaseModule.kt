@@ -19,6 +19,8 @@ import `in`.hridayan.ashell.crashreporter.data.database.CrashDatabase
 import `in`.hridayan.ashell.crashreporter.data.database.CrashLogDao
 import `in`.hridayan.ashell.shell.common.data.database.BookmarkDao
 import `in`.hridayan.ashell.shell.common.data.database.BookmarkDatabase
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -113,5 +115,22 @@ object DatabaseModule {
     @Provides
     fun provideGithubRepoStatsDao(database: GithubRepoStatsDatabase): GithubRepoStatsDao {
         return database.githubRepoStatsDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWifiAdbDeviceDatabase(@ApplicationContext context: Context): WifiAdbDeviceDatabase {
+        return Room.databaseBuilder(
+            context,
+            WifiAdbDeviceDatabase::class.java,
+            "wifi_adb_device_database"
+        )
+            .fallbackToDestructiveMigration(false)
+            .build()
+    }
+
+    @Provides
+    fun provideWifiAdbDeviceDao(database: WifiAdbDeviceDatabase): WifiAdbDeviceDao {
+        return database.wifiAdbDeviceDao()
     }
 }

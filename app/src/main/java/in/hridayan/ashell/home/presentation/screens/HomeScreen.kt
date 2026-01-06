@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 
 package `in`.hridayan.ashell.home.presentation.screens
 
@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -63,7 +64,7 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
-import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairedDevicesDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet.SavedDevicesBottomSheet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -168,7 +169,13 @@ fun HomeScreen(
             }
         )
 
-        DialogKey.Home.WifiAdbPairedDevices -> PairedDevicesDialog(onDismiss = { dialogManager.dismiss() })
+        DialogKey.Home.WifiAdbPairedDevices -> SavedDevicesBottomSheet(
+            onDismiss = { dialogManager.dismiss() },
+            onGoToTerminal = { 
+                dialogManager.dismiss()
+                navController.navigate(NavRoutes.WifiAdbScreen) 
+            }
+        )
 
         else -> dialogManager.dismiss()
     }

@@ -21,7 +21,12 @@ interface WifiAdbRepository {
     fun execute(commandText: String): Flow<OutputLine>
     fun abortShell()
     fun stopMdnsDiscovery()
-    fun getSavedDevices(): List<WifiAdbDevice>
+    
+    // Device storage - Flow-based reactive updates
+    fun getSavedDevicesFlow(): Flow<List<WifiAdbDevice>>
+    suspend fun saveDevice(device: WifiAdbDevice)
+    suspend fun updateDevice(device: WifiAdbDevice)
+    suspend fun removeDevice(device: WifiAdbDevice)
 
     // New methods for reconnect functionality
     fun reconnect(device: WifiAdbDevice, listener: ReconnectListener? = null)

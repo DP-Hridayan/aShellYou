@@ -9,13 +9,17 @@ import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.RemoteInput
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
-import `in`.hridayan.ashell.shell.wifi_adb_shell.data.WifiAdbStorage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.notification.SelfPairingNotificationHelper
 import io.github.muntashirakon.adb.AbsAdbConnectionManager
 import kotlinx.coroutines.CoroutineScope
@@ -58,10 +62,16 @@ class SelfPairingService : Service() {
         }
     }
 
+    // Hilt EntryPoint for service injection
+    @EntryPoint
+    @InstallIn(SingletonComponent::class)
+    interface SelfPairingServiceEntryPoint {
+        fun wifiAdbRepository(): WifiAdbRepository
+    }
+
     // Dependencies
     private lateinit var notificationHelper: SelfPairingNotificationHelper
-    private lateinit var storage: WifiAdbStorage
-    private lateinit var repository: WifiAdbRepositoryImpl
+    private lateinit var repository: WifiAdbRepository
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
     // NsdManager-based mDNS discovery (replaces JmDNS)
@@ -80,8 +90,13 @@ class SelfPairingService : Service() {
     override fun onCreate() {
         super.onCreate()
         notificationHelper = SelfPairingNotificationHelper(this)
-        storage = WifiAdbStorage(this)
-        repository = WifiAdbRepositoryImpl(this)
+        
+        // Get repository via Hilt EntryPoint
+        val entryPoint = EntryPointAccessors.fromApplication(
+            applicationContext,
+            SelfPairingServiceEntryPoint::class.java
+        )
+        repository = entryPoint.wifiAdbRepository()
         executor = Executors.newScheduledThreadPool(2)
     }
 
@@ -403,7 +418,9 @@ class SelfPairingService : Service() {
                 isOwnDevice = true
             )
 
-            storage.saveDevice(ownDevice)
+            CoroutineScope(Dispatchers.IO).launch { 
+                repository.saveDevice(ownDevice)
+            }
             Log.d(TAG, "Saved self device: ${ownDevice.id}")
 
             mainScope.launch {

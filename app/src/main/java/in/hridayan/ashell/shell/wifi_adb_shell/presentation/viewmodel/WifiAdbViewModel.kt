@@ -71,28 +71,34 @@ class WifiAdbViewModel @Inject constructor(
     val currentDevice: StateFlow<WifiAdbDevice?> = WifiAdbConnection.currentDevice
 
     init {
-        // Load saved devices when ViewModel is created
-        loadSavedDevices()
+        // Collect saved devices Flow from repository - auto-updates when database changes
+        viewModelScope.launch {
+            wifiAdbRepository.getSavedDevicesFlow().collect { devices ->
+                _savedDevices.value = devices
+            }
+        }
 
-        // Observe current device changes to auto-reload saved devices
-        // This handles updates from SelfPairingService and other components
+        // Also sync WifiAdbConnection when current device changes
         viewModelScope.launch {
             WifiAdbConnection.currentDevice.collect { device ->
                 if (device != null) {
-                    loadSavedDevices()
+                    wifiAdbRepository.getCurrentDevice()?.let { repoDevice ->
+                        if (WifiAdbConnection.currentDevice.value?.id != repoDevice.id) {
+                            WifiAdbConnection.setCurrentDevice(repoDevice)
+                        }
+                    }
                 }
             }
         }
     }
 
+    /**
+     * No-op - savedDevices is now automatically updated via Flow from database.
+     * Kept for backward compatibility with existing call sites.
+     */
+    @Suppress("unused")
     fun loadSavedDevices() {
-        _savedDevices.value = wifiAdbRepository.getSavedDevices()
-        // Also sync WifiAdbConnection if repository has a current device
-        wifiAdbRepository.getCurrentDevice()?.let { device ->
-            if (WifiAdbConnection.currentDevice.value?.id != device.id) {
-                WifiAdbConnection.setCurrentDevice(device)
-            }
-        }
+        // No-op: savedDevices Flow auto-updates from database changes
     }
 
     fun onIpChange(newValue: String) {

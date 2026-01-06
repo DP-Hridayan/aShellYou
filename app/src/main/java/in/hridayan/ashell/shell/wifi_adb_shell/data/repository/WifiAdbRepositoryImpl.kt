@@ -11,7 +11,10 @@ import androidx.core.graphics.createBitmap
 import androidx.core.graphics.set
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
-import `in`.hridayan.ashell.shell.wifi_adb_shell.data.WifiAdbStorage
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomain
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomainList
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toEntity
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
@@ -25,7 +28,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.InetAddress
@@ -37,7 +42,10 @@ import javax.jmdns.ServiceEvent
 import javax.jmdns.ServiceListener
 import kotlin.math.max
 
-class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
+class WifiAdbRepositoryImpl(
+    private val context: Context,
+    private val deviceDao: WifiAdbDeviceDao
+) : WifiAdbRepository {
 
     private val TAG = "WifiAdbShell"
     private var adbShellStream: AdbStream? = null
@@ -47,8 +55,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
     private val connectInProgress = mutableSetOf<String>()
 
     private val mainScope = CoroutineScope(Dispatchers.Main)
-
-    private val storage = WifiAdbStorage(context)
+    private val ioScope = CoroutineScope(Dispatchers.IO)
 
     // Reconnect cancellation state
     @Volatile
@@ -243,7 +250,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                                         lastConnected = System.currentTimeMillis(),
                                         serialNumber = serial
                                     )
-                                    storage.saveDevice(connectedDevice)
+                                    ioScope.launch { deviceDao.insertDevice(connectedDevice.toEntity()) }
                                     currentDevice = connectedDevice
                                     WifiAdbConnection.setCurrentDevice(connectedDevice)
                                     Log.d(
@@ -318,7 +325,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                                             lastConnected = System.currentTimeMillis(),
                                             serialNumber = serial
                                         )
-                                        storage.saveDevice(connectedDevice)
+                                        ioScope.launch { deviceDao.insertDevice(connectedDevice.toEntity()) }
                                         currentDevice = connectedDevice
                                         WifiAdbConnection.setCurrentDevice(connectedDevice)
 
@@ -350,7 +357,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                                     isPaired = true,
                                     lastConnected = System.currentTimeMillis()
                                 )
-                                storage.saveDevice(pairedDevice)
+                                ioScope.launch { deviceDao.insertDevice(pairedDevice.toEntity()) }
 
                                 mainScope.launch {
                                     WifiAdbConnection.updateState(
@@ -408,7 +415,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                         lastConnected = System.currentTimeMillis(),
                         serialNumber = serial
                     )
-                    storage.saveDevice(connectedDevice)
+                    ioScope.launch { deviceDao.insertDevice(connectedDevice.toEntity()) }
                     currentDevice = connectedDevice
                     WifiAdbConnection.setCurrentDevice(connectedDevice)
                     Log.d(TAG, "Saved device: ${connectedDevice.id}")
@@ -542,7 +549,20 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
         }
     }
 
-    override fun getSavedDevices(): List<WifiAdbDevice> = storage.getDevices()
+    override fun getSavedDevicesFlow(): Flow<List<WifiAdbDevice>> = 
+        deviceDao.getAllDevices().map { entities -> entities.toDomainList() }
+
+    override suspend fun saveDevice(device: WifiAdbDevice) {
+        deviceDao.insertDevice(device.toEntity())
+    }
+
+    override suspend fun updateDevice(device: WifiAdbDevice) {
+        deviceDao.updateDevice(device.toEntity())
+    }
+
+    override suspend fun removeDevice(device: WifiAdbDevice) {
+        deviceDao.deleteDevice(device.toEntity())
+    }
 
     // ========== NEW RECONNECT FUNCTIONALITY ==========
 
@@ -656,7 +676,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                             ip = targetIp,
                             lastConnected = System.currentTimeMillis()
                         )
-                        storage.updateDevice(currentDevice!!)
+                        ioScope.launch { deviceDao.updateDevice(currentDevice!!.toEntity()) }
                         WifiAdbConnection.setCurrentDevice(currentDevice)
                         mainScope.launch {
                             WifiAdbConnection.updateState(
@@ -882,7 +902,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
                                             port = port,
                                             lastConnected = System.currentTimeMillis()
                                         )
-                                        storage.updateDevice(currentDevice!!)
+                                        ioScope.launch { deviceDao.updateDevice(currentDevice!!.toEntity()) }
                                         WifiAdbConnection.setCurrentDevice(currentDevice)
                                         mainScope.launch {
                                             WifiAdbConnection.updateState(
@@ -1036,7 +1056,7 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
     override fun getCurrentDevice(): WifiAdbDevice? = currentDevice
 
     override fun forgetDevice(device: WifiAdbDevice) {
-        storage.removeDevice(device)
+        ioScope.launch { deviceDao.deleteDevice(device.toEntity()) }
     }
 
     override suspend fun generatePairingQR(sessionId: String, pairingCode: Int, size: Int): Bitmap {
