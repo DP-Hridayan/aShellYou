@@ -1,14 +1,15 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel
 
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -45,15 +46,18 @@ class WifiAdbViewModel @Inject constructor(
     val connectPortError: StateFlow<Boolean> = _connectPortError
 
     val state: StateFlow<WifiAdbState> = WifiAdbConnection.state
-    
+
+    private val _qrBitmap = MutableStateFlow<Bitmap?>(null)
+    val qrBitmap: StateFlow<Bitmap?> = _qrBitmap
+
     // Per-device connection states
     val deviceStates: StateFlow<Map<String, WifiAdbState>> = WifiAdbConnection.deviceStates
-    
+
     /**
      * Get the current state for a specific device.
      */
     fun getDeviceState(deviceId: String): WifiAdbState? = WifiAdbConnection.getDeviceState(deviceId)
-    
+
     /**
      * Set a device to disconnected state.
      * Used when WiFi is lost or device should be marked as disconnected.
@@ -69,7 +73,7 @@ class WifiAdbViewModel @Inject constructor(
     init {
         // Load saved devices when ViewModel is created
         loadSavedDevices()
-        
+
         // Observe current device changes to auto-reload saved devices
         // This handles updates from SelfPairingService and other components
         viewModelScope.launch {
@@ -122,7 +126,7 @@ class WifiAdbViewModel @Inject constructor(
         val ip = _ipAddress.value
         val port = _pairingPort.value.toIntOrNull() ?: return
         val code = _pairingCode.value.trim()
-        
+
         if (code.isEmpty() || !code.all { it.isDigit() }) return
 
         startPairing(ip, port, code)
@@ -235,6 +239,20 @@ class WifiAdbViewModel @Inject constructor(
     }
 
     fun isConnected(): Boolean = wifiAdbRepository.isConnected()
+
+    fun generateQr(sessionId: String, pairingCode: Int) {
+        viewModelScope.launch {
+            try {
+                val bitmap = wifiAdbRepository.generatePairingQR(
+                    sessionId = sessionId,
+                    pairingCode = pairingCode
+                )
+                _qrBitmap.value = bitmap
+            } catch (e: Exception) {
+                Log.e("Failed to generate QR", e.message.toString())
+            }
+        }
+    }
 
     // ========== END RECONNECT FUNCTIONALITY ==========
 

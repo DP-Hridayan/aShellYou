@@ -2,10 +2,14 @@ package `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.wifi.WifiManager
 import android.util.Log
-import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.set
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
+import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.WifiAdbStorage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
@@ -13,6 +17,8 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import io.github.muntashirakon.adb.AdbStream
 import io.github.muntashirakon.adb.android.AndroidUtils
+import io.nayuki.qrcodegen.QrCode
+import io.nayuki.qrcodegen.QrCode.Ecc
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -28,6 +34,7 @@ import java.util.concurrent.TimeUnit
 import javax.jmdns.JmDNS
 import javax.jmdns.ServiceEvent
 import javax.jmdns.ServiceListener
+import kotlin.math.max
 
 class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
 
@@ -927,6 +934,29 @@ class WifiAdbRepositoryImpl(private val context: Context) : WifiAdbRepository {
 
     override fun forgetDevice(device: WifiAdbDevice) {
         storage.removeDevice(device)
+    }
+
+    override suspend fun generatePairingQR(sessionId: String, pairingCode: Int, size: Int): Bitmap {
+        val content = "WIFI:T:ADB;S:$sessionId;P:$pairingCode;;"
+
+        val qr = QrCode.encodeText(content, Ecc.MEDIUM)
+
+        val qrSize = qr.size
+        val scale = max(1, size / qrSize)
+
+        val bitmap = createBitmap(qrSize * scale, qrSize * scale)
+        for (y in 0 until qrSize) {
+            for (x in 0 until qrSize) {
+                val color = if (qr.getModule(x, y)) Color.BLACK else Color.WHITE
+                for (dy in 0 until scale) {
+                    for (dx in 0 until scale) {
+                        bitmap[x * scale + dx, y * scale + dy] = color
+                    }
+                }
+            }
+        }
+
+        return bitmap
     }
 
     // ========== INTERFACES ==========

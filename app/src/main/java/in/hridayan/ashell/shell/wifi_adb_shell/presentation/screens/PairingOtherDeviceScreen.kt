@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
+import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.togetherWith
@@ -66,6 +67,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
@@ -85,9 +87,8 @@ import `in`.hridayan.ashell.navigation.slideFadeInFromRight
 import `in`.hridayan.ashell.navigation.slideFadeOutToLeft
 import `in`.hridayan.ashell.navigation.slideFadeOutToRight
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
-import `in`.hridayan.ashell.shell.wifi_adb_shell.pairing.other_device.qr.PairUsingQR
-import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.SavedDevicesSection
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -114,7 +115,7 @@ fun PairingOtherDeviceScreen(
     LaunchedEffect(Unit) {
         viewModel.loadSavedDevices()
     }
-    
+
     // Refresh saved devices when pairing or connection succeeds
     LaunchedEffect(wifiAdbState) {
         when (wifiAdbState) {
@@ -122,6 +123,7 @@ fun PairingOtherDeviceScreen(
             is WifiAdbState.ConnectSuccess -> {
                 viewModel.loadSavedDevices()
             }
+
             else -> {}
         }
     }
@@ -260,6 +262,7 @@ fun PairingOtherDeviceScreen(
     }
 }
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun QRPair(
     modifier: Modifier = Modifier,
@@ -269,13 +272,16 @@ fun QRPair(
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     LocalContext.current
-    val qrHelper = PairUsingQR()
     val sessionId = "ashell_you"
     val pairingCode = String.format("%06d", generatePairingCode())
-    val qrBitmap = qrHelper.generateQrBitmap(sessionId, pairingCode.toInt())
+    val qrBitmap by viewModel.qrBitmap.collectAsState()
 
     LaunchedEffect(Unit, isWifiConnected) {
         if (isWifiConnected) viewModel.startMdnsPairing(pairingCode) else viewModel.stopMdnsDiscovery()
+    }
+
+    LaunchedEffect(Unit, isWifiConnected) {
+        viewModel.generateQr(sessionId, pairingCode.toInt())
     }
 
     Column(modifier = modifier) {
@@ -327,16 +333,18 @@ fun QRPair(
             }
         }
 
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            QRImage(
-                qrBitmap = qrBitmap,
-                modifier = Modifier.padding(25.dp),
-                isWifiConnected = isWifiConnected,
-                wifiAdbState = wifiAdbState
-            )
+        qrBitmap?.let { qrBitmap ->
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                QRImage(
+                    qrBitmap = qrBitmap,
+                    modifier = Modifier.padding(25.dp),
+                    isWifiConnected = isWifiConnected,
+                    wifiAdbState = wifiAdbState
+                )
+            }
         }
 
         Text(
@@ -375,7 +383,7 @@ fun PairManually(
     onClickPairUsingQR: () -> Unit = {},
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
-    val wifiAdbState by viewModel.state.collectAsState()
+    val wifiAdbState by viewModel.state.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier
