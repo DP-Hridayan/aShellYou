@@ -46,21 +46,20 @@
     <string name="command_not_found">Command not found!</string>
     <string name="command_title">Input ADB Command</string>
     <string name="commands">Commands</string>
-    <string name="connect_to_wifi_network">Connect to wifi network</string>
     <string name="configure_save_directory">Configure save directory</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="connect">Connect</string>
     <string name="connect_device_via_otg">Connect a device via OTG</string>
+    <string name="connect_to_wifi_network">Connect to wifi network</string>
+    <string name="connected">Connected</string>
     <string name="connected_device">Connected device</string>
     <string name="connecting">Connecting…</string>
     <string name="copied_to_clipboard">Copied to clipboard!</string>
     <string name="crash_details">Crash details</string>
     <string name="crash_history">Crash history</string>
     <string name="current_version">Current version</string>
-    <string name="hint">Hint</string>
-    <string name="go_to_terminal">Go to terminal</string>
     <string name="dark_theme">Dark theme</string>
     <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>
@@ -113,16 +112,19 @@
     <string name="disclaimer_4_title">Intended for Advanced Users</string>
     <string name="disclaimer_5_description">This app may require special permissions to function properly.\nIt does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
     <string name="disclaimer_5_title">Permissions and Security</string>
+    <string name="disconnect">Disconnect</string>
     <string name="disconnected">Disconnected!</string>
     <string name="done">Done</string>
     <string name="download">Download</string>
-    <string name="downloads">Downloads</string>
     <string name="download_failed">Download failed</string>
+    <string name="downloads">Downloads</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="edit_command">Edit command</string>
     <string name="enable_auto_update">Enable auto update</string>
     <string name="enable_direct_download">Enable direct apk download</string>
     <string name="enable_wifi">Enable wifi</string>
+    <string name="enable_wireless_debugging">Please enable Wireless Debugging in Developer Options</string>
+    <string name="enter">Enter</string>
     <string name="error">Error</string>
     <string name="error_labels_limit_reached">Maximum labels limit reached</string>
     <string name="failed">Failed</string>
@@ -136,14 +138,19 @@
     <string name="filter">Filter</string>
     <string name="filter_by_labels">Filter by labels</string>
     <string name="folder_picker">Folder picker</string>
+    <string name="forget">Forget</string>
+    <string name="forget_device">Forget device</string>
+    <string name="forget_device_confirmation">Are you sure you want to forget %1$s? You will need to pair again to connect.</string>
     <string name="forks">Forks</string>
     <string name="found_connect_service">Found connect service</string>
     <string name="github" translatable="false">Github</string>
+    <string name="go_to_terminal">Go to terminal</string>
     <string name="grant">Grant</string>
     <string name="grant_permission">Grant permission</string>
     <string name="great_news">Great news!</string>
     <string name="haptics_and_vibration">Haptics &amp; Vibration</string>
     <string name="high_contrast_dark_mode">High contrast dark mode</string>
+    <string name="hint">Hint</string>
     <string name="history">History</string>
     <string name="instructions">Instructions</string>
     <string name="ip_address">IP address</string>
@@ -212,6 +219,8 @@
     <string name="qr_scanner_location_hint">QR scanner available at:\nDeveloper Options > Wireless Debugging > Pair using QR Code</string>
     <string name="quick_tools">Quick tools</string>
     <string name="reboot_options">Reboot options</string>
+    <string name="reconnect">Reconnect</string>
+    <string name="reconnect_failed">Reconnect failed</string>
     <string name="recovery">Recovery</string>
     <string name="report">Report</string>
     <string name="report_issue">Report issue</string>
@@ -229,6 +238,7 @@
     <string name="root_access_granted">Root access granted!</string>
     <string name="save">Save</string>
     <string name="save_whole_output">Save whole output</string>
+    <string name="saved_devices">Saved devices</string>
     <string name="search">Search</string>
     <string name="search_commands_here">Search commands here</string>
     <string name="search_labels_here">Search labels here</string>
@@ -236,6 +246,22 @@
     <string name="searching_connect_service">Searching connect service</string>
     <string name="searching_for_devices">Searching for devices…</string>
     <string name="self">Self</string>
+    <string name="self_pair_connection_failed">Connection failed - try manual connect</string>
+    <string name="self_pair_enter_code">Enter the 6-digit code from the pairing dialog</string>
+    <string name="self_pair_enter_code_hint">Enter 6-digit pairing code</string>
+    <string name="self_pair_error_no_ip">Could not determine IP address</string>
+    <string name="self_pair_error_saving">Error saving device</string>
+    <string name="self_pair_failed">Pairing failed</string>
+    <string name="self_pair_found">Pairing service found!</string>
+    <string name="self_pair_in_progress">Pairing in progress…</string>
+    <string name="self_pair_in_progress_hint">Please wait while connecting to this device</string>
+    <string name="self_pair_pairing_not_found">Pairing service not found</string>
+    <string name="self_pair_searching">Searching for pairing service…</string>
+    <string name="self_pair_searching_hint">Open Wireless Debugging and tap \'Pair device with pairing code\'</string>
+    <string name="self_pair_success">Connected to this device!</string>
+    <string name="self_pair_success_hint">Local ADB shell is now available</string>
+    <string name="self_pair_timeout">Timeout - open pairing dialog in Wireless Debugging</string>
+    <string name="self_pair_wrong_code">Wrong code - open pairing dialog again</string>
     <string name="settings">Settings</string>
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\'</string>
     <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\'</string>
@@ -259,9 +285,11 @@
     <string name="telegram_channel">Telegram channel</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Terminal font style</string>
+    <string name="this_device">This Device</string>
     <string name="turn_off_mobile_data">Turn off Mobile Data if the Wifi connection has NO INTERNET</string>
     <string name="tweak_your_experience">Tweak your experience</string>
     <string name="undo">Undo</string>
+    <string name="unknown">Unknown</string>
     <string name="unknown_error">Unknown error occurred</string>
     <string name="unknown_sources_install_permission_not_granted">Permission not granted. Please allow app installation from unknown sources.</string>
     <string name="update">Update</string>
@@ -281,36 +309,6 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A">Z → A</string>
-
-    <!-- Saved devices section -->
-    <string name="saved_devices">Saved devices</string>
-    <string name="connected">Connected</string>
-    <string name="reconnect">Reconnect</string>
-    <string name="disconnect">Disconnect</string>
-    <string name="forget_device">Forget device</string>
-    <string name="forget_device_confirmation">Are you sure you want to forget %1$s? You will need to pair again to connect.</string>
-    <string name="forget">Forget</string>
-
-    <!-- Self pairing notifications -->
-    <string name="self_pair_searching">Searching for pairing service…</string>
-    <string name="self_pair_searching_hint">Open Wireless Debugging and tap \'Pair device with pairing code\'</string>
-    <string name="self_pair_found">Pairing service found!</string>
-    <string name="self_pair_enter_code">Enter the 6-digit code from the pairing dialog</string>
-    <string name="self_pair_enter_code_hint">Enter 6-digit pairing code</string>
-    <string name="self_pair_in_progress">Pairing in progress…</string>
-    <string name="self_pair_in_progress_hint">Please wait while connecting to this device</string>
-    <string name="self_pair_success">Connected to this device!</string>
-    <string name="self_pair_success_hint">Local ADB shell is now available</string>
-    <string name="self_pair_failed">Pairing failed</string>
-    <string name="self_pair_wrong_code">Wrong code - open pairing dialog again</string>
-    <string name="self_pair_timeout">Timeout - open pairing dialog in Wireless Debugging</string>
-    <string name="self_pair_error_no_ip">Could not determine IP address</string>
-    <string name="self_pair_discovery_error">Discovery error: %1$s</string>
-    <string name="self_pair_pairing_not_found">Pairing service not found</string>
-    <string name="self_pair_connection_failed">Connection failed - try manual connect</string>
-    <string name="self_pair_error_saving">Error saving device</string>
-    <string name="this_device">This Device</string>
-    <string name="enable_wireless_debugging">Please enable Wireless Debugging in Developer Options</string>
 
     /**
     * Changelogs

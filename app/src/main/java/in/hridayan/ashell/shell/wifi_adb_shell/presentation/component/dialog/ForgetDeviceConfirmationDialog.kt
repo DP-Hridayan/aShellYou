@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -32,10 +33,13 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 @Composable
 fun ForgetDeviceConfirmationDialog(
     modifier: Modifier = Modifier,
+    deviceName: String,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
+    val context = LocalContext.current
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
+    val message = context.getString(R.string.forget_device_confirmation, deviceName)
 
     Dialog(
         onDismissRequest = { onDismiss() },
@@ -60,7 +64,7 @@ fun ForgetDeviceConfirmationDialog(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = stringResource(R.string.forget_device_confirmation),
+                    text = message,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

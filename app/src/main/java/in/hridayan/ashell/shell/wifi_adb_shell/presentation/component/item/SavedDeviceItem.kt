@@ -208,6 +208,7 @@ fun SavedDeviceItem(
 
     if (dialogManager.activeDialog is DialogKey.Pair.ForgetDeviceConfirmation) {
         ForgetDeviceConfirmationDialog(
+            deviceName = (dialogManager.activeDialog as DialogKey.Pair.ForgetDeviceConfirmation).device.deviceName,
             onConfirm = { onForget((dialogManager.activeDialog as DialogKey.Pair.ForgetDeviceConfirmation).device) },
             onDismiss = { dialogManager.dismiss() })
     }

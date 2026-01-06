@@ -111,7 +111,7 @@ class SelfPairingNotificationHelper(private val context: Context) {
         )
 
         val submitAction = NotificationCompat.Action.Builder(
-            R.drawable.ic_check, context.getString(R.string.pair), submitPendingIntent
+            R.drawable.ic_check, context.getString(R.string.enter), submitPendingIntent
         ).addRemoteInput(remoteInput).build()
 
         return NotificationCompat.Builder(context, CHANNEL_ID)
