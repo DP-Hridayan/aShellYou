@@ -214,6 +214,12 @@
     <string name="paired">Paired</string>
     <string name="pairing">Pairing</string>
     <string name="pairing_code">Pairing code</string>
+    <string name="pair_using_code">Pair using code</string>
+    <string name="enter_pairing_code">Enter the 6-digit pairing code</string>
+    <string name="code_pair_instruction">Open \"Wireless debugging\" on the target device and tap \"Pair device with pairing code\"</string>
+    <string name="waiting_for_devices">Waiting for devices…</string>
+    <string name="device_found">Device found!</string>
+    <string name="already_connected">Already connected</string>
     <string name="pairing_notification_hint">You will receive a notification from aShell You to help you with pairing</string>
     <string name="paste">Paste</string>
     <string name="permission_denied">Permission denied</string>

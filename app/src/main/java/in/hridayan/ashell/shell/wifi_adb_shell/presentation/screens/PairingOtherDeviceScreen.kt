@@ -91,14 +91,15 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.P
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.DiscoveredDeviceCard
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.security.SecureRandom
 
 private enum class PairingTab(val titleRes: Int) {
-    QrPair(R.string.qr_pair),
-    ManualPair(R.string.manual_pair),
+    QrPair(R.string.pair_using_qr),
+    CodePair(R.string.pair_using_code),
     SavedDevices(R.string.saved_devices)
 }
 
@@ -294,7 +295,7 @@ fun PairingOtherDeviceScreen(
                         wifiAdbState = wifiAdbState
                     )
 
-                    PairingTab.ManualPair -> ManualPairTab()
+                    PairingTab.CodePair -> CodePairTab(isWifiConnected = isWifiConnected)
                 }
             }
         }
@@ -543,96 +544,114 @@ fun QRPairTab(
 }
 
 @Composable
-fun ManualPairTab(
+fun CodePairTab(
     modifier: Modifier = Modifier,
+    isWifiConnected: Boolean,
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val wifiAdbState by viewModel.state.collectAsStateWithLifecycle()
+    val discoveredServices by viewModel.discoveredPairingServices.collectAsStateWithLifecycle()
+
+    // Start/stop discovery based on tab visibility and Wi-Fi connection
+    LaunchedEffect(isWifiConnected) {
+        if (isWifiConnected) {
+            viewModel.startCodePairingDiscovery()
+        } else {
+            viewModel.stopCodePairingDiscovery()
+        }
+    }
+
+    // Cleanup when leaving the tab
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.stopCodePairingDiscovery()
+        }
+    }
 
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 25.dp),
-        verticalArrangement = Arrangement.Top
+            .padding(horizontal = 20.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        // Instruction card
         item {
-            AutoResizeableText(
-                text = stringResource(R.string.pair),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(top = 25.dp, bottom = 10.dp)
-            )
-        }
-
-        item { IpAddressInputField() }
-
-        item {
-            Row(
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 10.dp),
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
+                    .padding(top = 20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                )
             ) {
-                PairingPortInputField(modifier = Modifier.weight(1f))
-                PairingCodeInputField(modifier = Modifier.weight(1f))
-            }
-        }
-
-        item {
-            val pairButtonText = wifiAdbState.let {
-                when (wifiAdbState) {
-                    is WifiAdbState.PairingStarted -> stringResource(R.string.pairing)
-                    is WifiAdbState.PairingSuccess -> stringResource(R.string.paired)
-                    else -> stringResource(R.string.pair)
-                }
-            }
-
-            IconWithTextButton(
-                icon = painterResource(R.drawable.ic_pair),
-                text = pairButtonText,
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp),
-                onClick = { viewModel.startPairingManually() }
-            )
-        }
-
-        if (wifiAdbState is WifiAdbState.PairingSuccess || wifiAdbState is WifiAdbState.ConnectStarted) {
-            item {
-                HorizontalDivider(
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 20.dp)
-                )
-            }
-
-            item {
-                AutoResizeableText(
-                    text = stringResource(R.string.connect),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(top = 25.dp, bottom = 10.dp)
-                )
-            }
-
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(Dimens.paddingLarge)
+                        .padding(horizontal = 20.dp, vertical = 15.dp),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    ConnectPortInputField(modifier = Modifier.weight(1f))
-                    IconWithTextButton(
-                        icon = painterResource(R.drawable.ic_wireless),
-                        text = stringResource(R.string.connect),
-                        modifier = Modifier
-                            .weight(1f)
-                            .align(Alignment.CenterVertically),
-                        onClick = withHaptic {
-                            viewModel.startConnectingManually()
-                        }
+                    Icon(
+                        painter = painterResource(R.drawable.ic_pair),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                    )
+
+                    Text(
+                        text = stringResource(R.string.code_pair_instruction),
+                        style = MaterialTheme.typography.bodySmallEmphasized,
                     )
                 }
+            }
+        }
+
+        // Status message
+        item {
+            val statusText = when {
+                discoveredServices.isEmpty() -> stringResource(R.string.waiting_for_devices)
+                else -> stringResource(R.string.device_found)
+            }
+            
+            Text(
+                text = statusText,
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
+
+        // Discovered device cards with OTP input
+        items(discoveredServices, key = { it.key }) { service ->
+            DiscoveredDeviceCard(
+                service = service,
+                isPairing = wifiAdbState is WifiAdbState.PairingStarted,
+                onPair = { pairingCode ->
+                    viewModel.pairWithCode(service, pairingCode)
+                }
+            )
+        }
+
+        // Show connecting state
+        if (wifiAdbState is WifiAdbState.ConnectStarted) {
+            item {
+                Text(
+                    text = stringResource(R.string.connecting),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
+        }
+
+        // Show already connected state
+        if (wifiAdbState is WifiAdbState.AlreadyConnected) {
+            item {
+                Text(
+                    text = stringResource(R.string.already_connected),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
             }
         }
 

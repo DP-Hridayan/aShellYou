@@ -26,4 +26,7 @@ sealed class WifiAdbState(val message: String, open val deviceId: String? = null
     
     // Pairing flow connection failure (distinct from reconnect failure)
     data class PairConnectFailed(val error: String) : WifiAdbState(error)
+    
+    // Device is already connected
+    data class AlreadyConnected(val device: String) : WifiAdbState("Already connected to $device", device)
 }

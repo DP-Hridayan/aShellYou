@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -49,6 +50,10 @@ class WifiAdbViewModel @Inject constructor(
 
     private val _qrBitmap = MutableStateFlow<Bitmap?>(null)
     val qrBitmap: StateFlow<Bitmap?> = _qrBitmap
+
+    // Discovered pairing services for "Pair Using Code" tab
+    private val _discoveredPairingServices = MutableStateFlow<List<DiscoveredPairingService>>(emptyList())
+    val discoveredPairingServices: StateFlow<List<DiscoveredPairingService>> = _discoveredPairingServices.asStateFlow()
 
     /**
      * Get the current state for a specific device.
@@ -279,4 +284,86 @@ class WifiAdbViewModel @Inject constructor(
 
     private val connectFieldsInvalid: Boolean
         get() = _ipAddressError.value || _connectPortError.value
+
+    // ============ "Pair Using Code" Tab Methods ============
+
+    /**
+     * Start discovery for both pairing and connect services.
+     * Used when "Pair Using Code" tab is opened.
+     */
+    fun startCodePairingDiscovery() {
+        _discoveredPairingServices.value = emptyList()
+        wifiAdbRepository.startCodePairingDiscovery(
+            onPairingServiceFound = { service ->
+                val current = _discoveredPairingServices.value.toMutableList()
+                // Avoid duplicates
+                if (current.none { it.key == service.key }) {
+                    current.add(service)
+                    _discoveredPairingServices.value = current
+                }
+            },
+            onPairingServiceLost = { serviceName ->
+                val current = _discoveredPairingServices.value.toMutableList()
+                current.removeAll { it.serviceName == serviceName }
+                _discoveredPairingServices.value = current
+            }
+        )
+    }
+
+    /**
+     * Stop code pairing discovery.
+     */
+    fun stopCodePairingDiscovery() {
+        wifiAdbRepository.stopCodePairingDiscovery()
+        _discoveredPairingServices.value = emptyList()
+    }
+
+    /**
+     * Pair with a discovered device using the entered pairing code.
+     * Uses cached connect port for immediate connection after pairing.
+     */
+    fun pairWithCode(service: DiscoveredPairingService, pairingCode: String) {
+        if (pairingCode.length != 6) return
+
+        WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
+        
+        wifiAdbRepository.pairAndConnect(
+            ip = service.ip,
+            pairingPort = service.port,
+            pairingCode = pairingCode,
+            callback = object : WifiAdbRepositoryImpl.MdnsDiscoveryCallback {
+                override fun onPairingSuccess(ip: String, port: Int) {
+                    WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess("$ip:$port"))
+                }
+
+                override fun onPairingFailed(ip: String, port: Int) {
+                    WifiAdbConnection.updateState(WifiAdbState.PairConnectFailed("Pairing failed"))
+                }
+
+                override fun onServiceFound(name: String, ip: String, port: Int) {}
+                override fun onServiceLost(name: String) {}
+                override fun onError(e: Throwable) {}
+            }
+        )
+    }
+
+    /**
+     * Add a discovered pairing service (called from repository callback).
+     */
+    fun addDiscoveredPairingService(service: DiscoveredPairingService) {
+        val current = _discoveredPairingServices.value.toMutableList()
+        if (current.none { it.key == service.key }) {
+            current.add(service)
+            _discoveredPairingServices.value = current
+        }
+    }
+
+    /**
+     * Remove a discovered pairing service when it goes away.
+     */
+    fun removeDiscoveredPairingService(serviceName: String) {
+        val current = _discoveredPairingServices.value.toMutableList()
+        current.removeAll { it.serviceName == serviceName }
+        _discoveredPairingServices.value = current
+    }
 }

@@ -6,6 +6,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbReposito
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.MdnsDiscoveryCallback
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.PairingListener
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl.ReconnectListener
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import kotlinx.coroutines.flow.Flow
 
@@ -41,4 +42,19 @@ interface WifiAdbRepository {
     fun stopHeartbeat()
 
     suspend fun generatePairingQR(sessionId: String, pairingCode: String, size: Int = 512): Bitmap
+
+    // "Pair Using Code" tab - dual discovery for pairing and connect services
+    fun startCodePairingDiscovery(
+        onPairingServiceFound: (DiscoveredPairingService) -> Unit,
+        onPairingServiceLost: (serviceName: String) -> Unit
+    )
+    fun stopCodePairingDiscovery()
+    
+    // Pair and connect using cached connect port
+    fun pairAndConnect(
+        ip: String,
+        pairingPort: Int,
+        pairingCode: String,
+        callback: MdnsDiscoveryCallback?
+    )
 }

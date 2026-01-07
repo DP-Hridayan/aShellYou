@@ -16,6 +16,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomainList
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toEntity
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import io.github.muntashirakon.adb.AdbStream
@@ -1335,6 +1336,178 @@ class WifiAdbRepositoryImpl(
 
     interface StateCallback {
         fun onStateChanged(state: WifiAdbState)
+    }
+
+    // ========== "Pair Using Code" Discovery ==========
+
+    private var codePairingNsdManager: NsdManager? = null
+    private var codePairingDiscoveryListener: NsdManager.DiscoveryListener? = null
+    private var codePairingConnectDiscoveryListener: NsdManager.DiscoveryListener? = null
+    private var onPairingServiceFoundCallback: ((DiscoveredPairingService) -> Unit)? = null
+    private var onPairingServiceLostCallback: ((String) -> Unit)? = null
+
+    override fun startCodePairingDiscovery(
+        onPairingServiceFound: (DiscoveredPairingService) -> Unit,
+        onPairingServiceLost: (serviceName: String) -> Unit
+    ) {
+        stopCodePairingDiscovery()
+        Log.d(TAG, "Starting Code Pairing discovery (dual: pairing + connect)")
+        
+        onPairingServiceFoundCallback = onPairingServiceFound
+        onPairingServiceLostCallback = onPairingServiceLost
+
+        codePairingNsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
+
+        // Start connect service discovery first to cache ports
+        startParallelConnectDiscovery()
+
+        // Now start pairing service discovery
+        codePairingDiscoveryListener = object : NsdManager.DiscoveryListener {
+            override fun onDiscoveryStarted(serviceType: String) {
+                Log.d(TAG, "Code pairing discovery started: $serviceType")
+            }
+
+            override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
+                Log.e(TAG, "Code pairing discovery start failed: $errorCode")
+            }
+
+            override fun onDiscoveryStopped(serviceType: String) {
+                Log.d(TAG, "Code pairing discovery stopped: $serviceType")
+            }
+
+            override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {
+                Log.e(TAG, "Code pairing discovery stop failed: $errorCode")
+            }
+
+            override fun onServiceFound(info: android.net.nsd.NsdServiceInfo) {
+                Log.d(TAG, "Code pairing: Found pairing service: ${info.serviceName}")
+                codePairingNsdManager?.resolveService(info, object : NsdManager.ResolveListener {
+                    override fun onResolveFailed(serviceInfo: android.net.nsd.NsdServiceInfo, errorCode: Int) {
+                        Log.w(TAG, "Code pairing: Resolve failed: $errorCode")
+                    }
+
+                    override fun onServiceResolved(resolvedService: android.net.nsd.NsdServiceInfo) {
+                        val ip = resolvedService.host?.hostAddress ?: return
+                        val port = resolvedService.port
+                        val name = resolvedService.serviceName
+
+                        Log.d(TAG, "Code pairing: Resolved service $name at $ip:$port")
+                        
+                        val service = DiscoveredPairingService(
+                            serviceName = name,
+                            ip = ip,
+                            port = port,
+                            deviceName = name
+                        )
+                        
+                        mainScope.launch {
+                            onPairingServiceFoundCallback?.invoke(service)
+                        }
+                    }
+                })
+            }
+
+            override fun onServiceLost(info: android.net.nsd.NsdServiceInfo) {
+                Log.d(TAG, "Code pairing: Pairing service lost: ${info.serviceName}")
+                mainScope.launch {
+                    onPairingServiceLostCallback?.invoke(info.serviceName)
+                }
+            }
+        }
+
+        try {
+            codePairingNsdManager?.discoverServices(
+                "_adb-tls-pairing._tcp",
+                NsdManager.PROTOCOL_DNS_SD,
+                codePairingDiscoveryListener
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "Error starting code pairing discovery", e)
+        }
+    }
+
+    override fun stopCodePairingDiscovery() {
+        try {
+            codePairingDiscoveryListener?.let { listener ->
+                codePairingNsdManager?.stopServiceDiscovery(listener)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error stopping code pairing discovery", e)
+        }
+        codePairingDiscoveryListener = null
+        stopParallelConnectDiscovery()
+        clearCachedConnectPorts()
+        codePairingNsdManager = null
+        onPairingServiceFoundCallback = null
+        onPairingServiceLostCallback = null
+    }
+
+    override fun pairAndConnect(
+        ip: String,
+        pairingPort: Int,
+        pairingCode: String,
+        callback: MdnsDiscoveryCallback?
+    ) {
+        executor.submit {
+            Log.d(TAG, "Starting pair and connect for $ip:$pairingPort")
+            
+            // Check if already connected to this device
+            val currentDev = currentDevice
+            if (currentDev != null && currentDev.ip == ip && isConnected()) {
+                Log.d(TAG, "Device $ip is already connected")
+                mainScope.launch {
+                    WifiAdbConnection.updateState(WifiAdbState.AlreadyConnected(ip))
+                }
+                return@submit
+            }
+            
+            pair(ip, pairingPort, pairingCode, object : PairingListener {
+                override fun onPairingSuccess() {
+                    Log.d(TAG, "Pairing succeeded for $ip:$pairingPort, looking up connect port...")
+                    
+                    // Look up cached connect port for this IP
+                    val connectPort = synchronized(cachedConnectPorts) { cachedConnectPorts[ip] }
+                    
+                    if (connectPort != null) {
+                        Log.d(TAG, "Using cached connect port $connectPort for $ip")
+                        
+                        mainScope.launch {
+                            WifiAdbConnection.updateState(WifiAdbState.ConnectStarted("$ip:$connectPort"))
+                        }
+                        
+                        connect(ip, connectPort, object : ConnectionListener {
+                            override fun onConnectionSuccess() {
+                                Log.d(TAG, "Connection successful to $ip:$connectPort")
+                                clearCachedConnectPorts()
+                                callback?.onPairingSuccess(ip, connectPort)
+                            }
+
+                            override fun onConnectionFailed() {
+                                Log.e(TAG, "Connection failed to $ip:$connectPort")
+                                clearCachedConnectPorts()
+                                mainScope.launch {
+                                    WifiAdbConnection.updateState(WifiAdbState.PairConnectFailed("Connection failed"))
+                                }
+                                callback?.onPairingFailed(ip, connectPort)
+                            }
+                        })
+                    } else {
+                        // No cached port - fallback to discovery
+                        Log.d(TAG, "No cached connect port for $ip, using discovery fallback...")
+                        discoverConnectService(callback, ip)
+                    }
+                }
+
+                override fun onPairingFailed() {
+                    Log.e(TAG, "Pairing failed for $ip:$pairingPort")
+                    clearCachedConnectPorts()
+                    mainScope.launch {
+                        WifiAdbConnection.updateState(WifiAdbState.PairingFailed("Pairing failed"))
+                    }
+                    callback?.onPairingFailed(ip, pairingPort)
+                }
+            })
+        }
     }
 }
 
