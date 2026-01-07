@@ -194,7 +194,7 @@ fun HomeScreen(
             onDismiss = { showSavedDevicesBottomSheet = false },
             onGoToTerminal = {
                 showSavedDevicesBottomSheet = false
-                navController.navigate(NavRoutes.WifiAdbScreen)
+                navController.navigate(NavRoutes.WifiAdbScreen())
             }
         )
     }

@@ -266,7 +266,7 @@ fun PairingOwnDeviceScreen(
                                     .fillMaxWidth()
                                     .animateItem(),
                                 shapes = ButtonDefaults.shapes(),
-                                onClick = withHaptic { navController.navigate(NavRoutes.WifiAdbScreen) }) {
+                                onClick = withHaptic { navController.navigate(NavRoutes.WifiAdbScreen()) }) {
                                 AutoResizeableText(text = stringResource(R.string.go_to_terminal))
                             }
                         }

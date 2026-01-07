@@ -286,7 +286,7 @@ fun PairingOtherDeviceScreen(
                         },
                         onDisconnect = { viewModel.disconnect() },
                         onForget = { device -> viewModel.forgetDevice(device) },
-                        onGoToTerminal = { navController.navigate(NavRoutes.WifiAdbScreen) }
+                        onGoToTerminal = { navController.navigate(NavRoutes.WifiAdbScreen()) }
                     )
 
                     PairingTab.QrPair -> QRPairTab(
@@ -305,7 +305,7 @@ fun PairingOtherDeviceScreen(
             device = currentDevice,
             onGoToTerminal = {
                 it.dismiss()
-                navController.navigate(NavRoutes.WifiAdbScreen)
+                navController.navigate(NavRoutes.WifiAdbScreen())
             },
             onDismiss = {
                 it.dismiss()
