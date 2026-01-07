@@ -209,9 +209,29 @@ class ShellViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
+            // Buffer for batching output lines to prevent UI ANR with high-frequency output
+            val outputBuffer = mutableListOf<OutputLine>()
+            var lastFlushTime = System.currentTimeMillis()
+            val flushIntervalMs = 50L // Update UI at most every 50ms
+            
             executor(commandText).collect { line ->
-                outputFlow.update { it + line }
+                outputBuffer.add(line)
+                
+                val now = System.currentTimeMillis()
+                if (now - lastFlushTime >= flushIntervalMs || outputBuffer.size >= 100) {
+                    // Batch update to reduce recomposition overhead
+                    val linesToAdd = outputBuffer.toList()
+                    outputBuffer.clear()
+                    outputFlow.update { it + linesToAdd }
+                    lastFlushTime = now
+                }
             }
+            
+            // Flush any remaining lines
+            if (outputBuffer.isNotEmpty()) {
+                outputFlow.update { it + outputBuffer }
+            }
+            
             _states.update { it.copy(shellState = ShellState.Free) }
         }
     }

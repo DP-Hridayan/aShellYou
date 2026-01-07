@@ -92,14 +92,6 @@ class WifiAdbViewModel @Inject constructor(
         }
     }
 
-    /**
-     * No-op - savedDevices is now automatically updated via Flow from database.
-     * Kept for backward compatibility with existing call sites.
-     */
-    @Suppress("unused")
-    fun loadSavedDevices() {
-        // No-op: savedDevices Flow auto-updates from database changes
-    }
 
     fun onIpChange(newValue: String) {
         _ipAddress.value = newValue
@@ -205,7 +197,6 @@ class WifiAdbViewModel @Inject constructor(
         wifiAdbRepository.connect(ip, port, object : WifiAdbRepositoryImpl.ConnectionListener {
             override fun onConnectionSuccess() {
                 WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess("Connected!"))
-                loadSavedDevices() // Refresh to update current device
             }
 
             override fun onConnectionFailed() {
@@ -221,7 +212,6 @@ class WifiAdbViewModel @Inject constructor(
             override fun onReconnectSuccess() {
                 WifiAdbConnection.setCurrentDevice(device)
                 WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id, device.id))
-                loadSavedDevices()
             }
 
             override fun onReconnectFailed(requiresPairing: Boolean) {
@@ -245,7 +235,6 @@ class WifiAdbViewModel @Inject constructor(
 
     fun forgetDevice(device: WifiAdbDevice) {
         wifiAdbRepository.forgetDevice(device)
-        loadSavedDevices()
     }
 
     fun isConnected(): Boolean = wifiAdbRepository.isConnected()

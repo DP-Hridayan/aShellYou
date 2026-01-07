@@ -543,7 +543,13 @@ class WifiAdbRepositoryImpl(
         try {
             jmDns?.close()
             jmDns = null
-            mainScope.launch { WifiAdbConnection.updateState(WifiAdbState.None) }
+            // Only reset state if not currently connected - preserve existing connection
+            mainScope.launch { 
+                val currentState = WifiAdbConnection.currentState
+                if (currentState !is WifiAdbState.ConnectSuccess) {
+                    WifiAdbConnection.updateState(WifiAdbState.None)
+                }
+            }
         } catch (e: Exception) {
             Log.e(TAG, "Error closing JmDNS", e)
         }
@@ -593,9 +599,12 @@ class WifiAdbRepositoryImpl(
         activeDiscoveryListener = null
         activeNsdManager = null
 
-        // Reset state
+        // Only reset state if not currently connected - preserve existing connection
         mainScope.launch {
-            WifiAdbConnection.updateState(WifiAdbState.None)
+            val currentState = WifiAdbConnection.currentState
+            if (currentState !is WifiAdbState.ConnectSuccess) {
+                WifiAdbConnection.updateState(WifiAdbState.None)
+            }
         }
     }
 
@@ -916,20 +925,19 @@ class WifiAdbRepositoryImpl(
                                     }
 
                                     override fun onConnectionFailed() {
-                                        // Only update state if still reconnecting to this device
-                                        if (currentReconnectingDeviceId == reconnectDeviceId) {
-                                            currentReconnectingDeviceId = null
-                                            mainScope.launch {
-                                                WifiAdbConnection.updateState(
-                                                    WifiAdbState.ConnectFailed(
-                                                        key,
-                                                        device.id
-                                                    )
+                                        // Always emit ConnectFailed for this device
+                                        currentReconnectingDeviceId = null
+                                        mainScope.launch {
+                                            WifiAdbConnection.updateState(
+                                                WifiAdbState.ConnectFailed(
+                                                    key,
+                                                    device.id
                                                 )
-                                            }
+                                            )
+                                        }
+                                        // Only call listener if still relevant
+                                        if (reconnectDeviceId == device.id) {
                                             listener?.onReconnectFailed(requiresPairing = false)
-                                        } else {
-                                            Log.d(TAG, "Ignoring connection failed for $reconnectDeviceId - now reconnecting to $currentReconnectingDeviceId")
                                         }
                                     }
                                 })
@@ -952,6 +960,14 @@ class WifiAdbRepositoryImpl(
 
         } catch (e: Exception) {
             Log.e(TAG, "Error discovering connect service for reconnect", e)
+            currentReconnectingDeviceId = null
+            mainScope.launch {
+                WifiAdbConnection.updateState(
+                    WifiAdbState.ConnectFailed(
+                        e.message ?: "Discovery error", device.id
+                    )
+                )
+            }
             listener?.onReconnectFailed(requiresPairing = false)
         }
     }

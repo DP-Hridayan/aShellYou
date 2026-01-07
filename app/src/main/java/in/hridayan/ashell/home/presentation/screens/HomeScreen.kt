@@ -30,8 +30,11 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -63,8 +66,9 @@ import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
-import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet.SavedDevicesBottomSheet
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairModeChooseDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -73,13 +77,20 @@ import kotlinx.coroutines.withContext
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    otgViewModel: OtgViewModel = hiltViewModel()
+    otgViewModel: OtgViewModel = hiltViewModel(),
+    wifiAdbViewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val otgState by otgViewModel.state.collectAsState()
+
+    // WiFi ADB state
+    val savedDevices by wifiAdbViewModel.savedDevices.collectAsState()
+    val currentDevice by wifiAdbViewModel.currentDevice.collectAsState()
+
+    var showSavedDevicesBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     val onClickOtgAdbCard: () -> Unit = {
         if (otgState is OtgState.Connected) {
@@ -135,7 +146,23 @@ fun HomeScreen(
             )
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                WirelessDebuggingCard()
+                WirelessDebuggingCard(
+                    onStartClick = {
+                        // Always show bottom sheet if more than 1 saved device
+                        // Only skip if exactly 1 device AND it's connected
+
+                        val shouldSkipBottomSheet = savedDevices.size == 1 &&
+                                currentDevice != null &&
+                                savedDevices.firstOrNull()?.id == currentDevice?.id &&
+                                wifiAdbViewModel.isConnected()
+
+                        if (shouldSkipBottomSheet) {
+                            navController.navigate(NavRoutes.WifiAdbScreen)
+                        } else {
+                            showSavedDevicesBottomSheet = true
+                        }
+                    }
+                )
             }
 
             OtgAdbCard(
@@ -169,15 +196,17 @@ fun HomeScreen(
             }
         )
 
-        DialogKey.Home.WifiAdbPairedDevices -> SavedDevicesBottomSheet(
-            onDismiss = { dialogManager.dismiss() },
-            onGoToTerminal = { 
-                dialogManager.dismiss()
-                navController.navigate(NavRoutes.WifiAdbScreen) 
+        else -> dialogManager.dismiss()
+    }
+
+    if (showSavedDevicesBottomSheet) {
+        SavedDevicesBottomSheet(
+            onDismiss = { showSavedDevicesBottomSheet = false },
+            onGoToTerminal = {
+                showSavedDevicesBottomSheet = false
+                navController.navigate(NavRoutes.WifiAdbScreen)
             }
         )
-
-        else -> dialogManager.dismiss()
     }
 }
 
@@ -224,7 +253,10 @@ fun LocalAdbCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
 
 @RequiresApi(Build.VERSION_CODES.R)
 @Composable
-fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
+fun WirelessDebuggingCard(
+    modifier: Modifier = Modifier,
+    onStartClick: () -> Unit
+) {
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
 
@@ -253,9 +285,7 @@ fun WirelessDebuggingCard(modifier: Modifier = Modifier) {
             icon = painterResource(R.drawable.ic_play),
             text = stringResource(R.string.start),
             contentDescription = null,
-            onClick = withHaptic {
-                dialogManager.show(DialogKey.Home.WifiAdbPairedDevices)
-            })
+            onClick = withHaptic { onStartClick() })
 
         OutlinedIconButtonWithText(
             text = stringResource(R.string.instructions),

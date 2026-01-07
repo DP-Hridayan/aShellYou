@@ -27,7 +27,6 @@ sealed class DialogKey {
     sealed class Home {
         object OtgDeviceWaiting : DialogKey()
         object ChooseWifiAdbPairMode : DialogKey()
-        object WifiAdbPairedDevices : DialogKey()
         object RebootOptions : DialogKey()
     }
 

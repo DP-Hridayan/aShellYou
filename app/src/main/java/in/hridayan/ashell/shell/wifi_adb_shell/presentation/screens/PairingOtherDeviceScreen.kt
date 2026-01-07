@@ -95,9 +95,9 @@ import kotlinx.coroutines.launch
 import java.security.SecureRandom
 
 private enum class PairingTab(val titleRes: Int) {
-    SavedDevices(R.string.saved_devices),
     QrPair(R.string.qr_pair),
-    ManualPair(R.string.manual_pair)
+    ManualPair(R.string.manual_pair),
+    SavedDevices(R.string.saved_devices)
 }
 
 @Composable
@@ -126,23 +126,13 @@ fun PairingOtherDeviceScreen(
     var wasReconnectCancelled by remember { mutableStateOf(false) }
     var lastReconnectingDeviceId by remember { mutableStateOf<String?>(null) }
 
-    // Load saved devices on screen launch
-    LaunchedEffect(Unit) {
-        viewModel.loadSavedDevices()
-    }
-
     // Refresh saved devices when pairing or connection succeeds
     LaunchedEffect(wifiAdbState) {
         val state = wifiAdbState
         when (state) {
-            is WifiAdbState.PairingSuccess -> {
-                viewModel.loadSavedDevices()
-            }
-
             is WifiAdbState.ConnectSuccess -> {
-                viewModel.loadSavedDevices()
                 wasReconnectCancelled = false
-                if (pagerState.currentPage != 0) {
+                if (pagerState.currentPage != PairingTab.SavedDevices.ordinal) {
                     dialogManager.show(DialogKey.Pair.ConnectionSuccess)
                 }
             }
@@ -315,7 +305,7 @@ fun PairingOtherDeviceScreen(
             },
             onDismiss = {
                 it.dismiss()
-                coroutineScope.launch { pagerState.animateScrollToPage(0) }
+                coroutineScope.launch { pagerState.animateScrollToPage(PairingTab.SavedDevices.ordinal) }
             }
         )
     }
@@ -386,7 +376,7 @@ fun SavedDevicesTab(
             items(savedDevices, key = { it.id }) { device ->
                 val isCurrentDevice = currentDevice?.id == device.id
                 val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting &&
-                        (wifiAdbState as WifiAdbState.Reconnecting).device == device.id
+                        wifiAdbState.device == device.id
                 val isConnected =
                     isCurrentDevice && wifiAdbState is WifiAdbState.ConnectSuccess && isWifiConnected
 
@@ -438,10 +428,10 @@ fun SavedDevicesTab(
                     }
                 }
 
-                HorizontalDivider(
+                Spacer(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 12.dp)
+                        .height(15.dp)
                 )
             }
 

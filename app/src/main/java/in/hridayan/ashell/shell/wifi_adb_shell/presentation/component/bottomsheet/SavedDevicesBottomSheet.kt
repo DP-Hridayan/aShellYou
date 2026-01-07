@@ -19,6 +19,7 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,11 +32,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
-import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
@@ -53,14 +52,17 @@ fun SavedDevicesBottomSheet(
     val currentDevice by viewModel.currentDevice.collectAsState()
     val wifiAdbState by viewModel.state.collectAsState()
     val coroutineScope = rememberCoroutineScope()
-    val dialogManager = LocalDialogManager.current
 
     // Track if reconnect was manually cancelled (to avoid showing dialog on cancel)
     var wasReconnectCancelled by remember { mutableStateOf(false) }
     var lastReconnectingDeviceId by remember { mutableStateOf<String?>(null) }
+    
+    // Track dialog visibility with state instead of DialogManager
+    var showReconnectFailedDialog by remember { mutableStateOf(false) }
+    var showDevOptionsButton by remember { mutableStateOf(false) }
 
     // Handle state changes for showing dialogs
-    androidx.compose.runtime.LaunchedEffect(wifiAdbState) {
+    LaunchedEffect(wifiAdbState) {
         val state = wifiAdbState
         when (state) {
             is WifiAdbState.Reconnecting -> {
@@ -70,6 +72,7 @@ fun SavedDevicesBottomSheet(
 
             is WifiAdbState.ConnectSuccess -> {
                 wasReconnectCancelled = false
+                showReconnectFailedDialog = false
                 // Auto-dismiss bottom sheet on successful connection
                 coroutineScope.launch { sheetState.hide() }
                 onGoToTerminal()
@@ -78,15 +81,16 @@ fun SavedDevicesBottomSheet(
             is WifiAdbState.ConnectFailed -> {
                 if (!wasReconnectCancelled) {
                     val failedDevice = savedDevices.find { it.id == state.device }
-                    val showDevOptions = failedDevice?.isOwnDevice == true
-                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = showDevOptions))
+                    showDevOptionsButton = failedDevice?.isOwnDevice == true
+                    showReconnectFailedDialog = true
                 }
                 wasReconnectCancelled = false
             }
 
             is WifiAdbState.WirelessDebuggingOff -> {
                 if (!wasReconnectCancelled) {
-                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
+                    showDevOptionsButton = true
+                    showReconnectFailedDialog = true
                 }
                 wasReconnectCancelled = false
             }
@@ -152,13 +156,18 @@ fun SavedDevicesBottomSheet(
                     items(savedDevices, key = { it.id }) { device ->
                         val isThisDeviceReconnecting = isReconnecting && 
                             (wifiAdbState as? WifiAdbState.Reconnecting)?.device == device.id
-                        val isConnected = currentDevice?.id == device.id && !isReconnecting
+                        val isConnected = currentDevice?.id == device.id && 
+                            wifiAdbState is WifiAdbState.ConnectSuccess
                         
                         SavedDeviceItem(
                             device = device,
                             isConnected = isConnected,
                             isReconnecting = isThisDeviceReconnecting,
                             onReconnect = {
+                                // Reset state before new reconnect attempt
+                                WifiAdbConnection.updateState(WifiAdbState.None)
+                                showReconnectFailedDialog = false
+                                
                                 // If already reconnecting to a different device, mark as cancelled
                                 if (lastReconnectingDeviceId != null && lastReconnectingDeviceId != device.id) {
                                     wasReconnectCancelled = true
@@ -181,14 +190,22 @@ fun SavedDevicesBottomSheet(
         }
     }
 
-    // Reconnect Failed Dialog
-    DialogKey.Pair.ReconnectFailed(showDevOptionsButton = false).createDialog {
-        val dialogKey = (it.activeDialog as? DialogKey.Pair.ReconnectFailed)
+    // Reconnect Failed Dialog - using state-driven visibility
+    if (showReconnectFailedDialog) {
         ReconnectFailedDialog(
-            showDevOptionsButton = dialogKey?.showDevOptionsButton ?: false,
-            onConfirm = { /* Developer Options - handled only if button is shown */ },
-            onDismiss = { it.dismiss() }
+            showDevOptionsButton = showDevOptionsButton,
+            onConfirm = { 
+                showReconnectFailedDialog = false
+                // Reset state to allow retry
+                WifiAdbConnection.updateState(WifiAdbState.None)
+            },
+            onDismiss = { 
+                showReconnectFailedDialog = false
+                // Reset state to allow retry
+                WifiAdbConnection.updateState(WifiAdbState.None)
+            }
         )
     }
 }
+
 

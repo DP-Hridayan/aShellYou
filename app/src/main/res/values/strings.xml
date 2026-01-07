@@ -52,7 +52,7 @@
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="connect">Connect</string>
     <string name="connect_device_via_otg">Connect a device via OTG</string>
-    <string name="connect_to_device">Connect to Device</string>
+    <string name="connect_to_device">Choose a device</string>
     <string name="connect_to_wifi_network">Connect to wifi network</string>
     <string name="connected">Connected</string>
     <string name="connected_device">Connected device</string>
