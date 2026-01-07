@@ -212,7 +212,7 @@ class ShellViewModel @Inject constructor(
             // Buffer for batching output lines to prevent UI ANR with high-frequency output
             val outputBuffer = mutableListOf<OutputLine>()
             var lastFlushTime = System.currentTimeMillis()
-            val flushIntervalMs = 50L // Update UI at most every 50ms
+            val flushIntervalMs = 250L // Update UI at most every 250ms
             
             executor(commandText).collect { line ->
                 outputBuffer.add(line)
