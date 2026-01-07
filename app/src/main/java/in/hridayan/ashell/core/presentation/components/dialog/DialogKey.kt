@@ -44,6 +44,10 @@ sealed class DialogKey {
         object ConnectionSuccess : DialogKey()
         object PairConnectFailed : DialogKey()
     }
+
+    sealed class WifiAdbScreen {
+        object DeviceDisconnected : DialogKey()
+    }
 }
 
 @Composable
@@ -58,10 +62,10 @@ fun DialogKey.createDialog(content: @Composable (DialogViewModel) -> Unit) {
 
 private fun DialogKey.matches(other: DialogKey): Boolean {
     // For data classes, match by type (class) to allow different parameters
-    return when {
-        this is DialogKey.Pair.ReconnectFailed && other is DialogKey.Pair.ReconnectFailed -> true
-        this is DialogKey.Pair.ForgetDeviceConfirmation && other is DialogKey.Pair.ForgetDeviceConfirmation -> true
-        this is DialogKey.CommandExamples.Edit && other is DialogKey.CommandExamples.Edit -> true
+    return when (this) {
+        is DialogKey.Pair.ReconnectFailed if other is DialogKey.Pair.ReconnectFailed -> true
+        is DialogKey.Pair.ForgetDeviceConfirmation if other is DialogKey.Pair.ForgetDeviceConfirmation -> true
+        is DialogKey.CommandExamples.Edit if other is DialogKey.CommandExamples.Edit -> true
         else -> this == other
     }
 }

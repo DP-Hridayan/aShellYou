@@ -57,6 +57,9 @@
     <string name="connected">Connected</string>
     <string name="connected_device">Connected device</string>
     <string name="connecting">Connecting…</string>
+    <string name="device_disconnected">Device Disconnected</string>
+    <string name="device_disconnected_message">The WiFi ADB connection was lost.</string>
+    <string name="device_disconnected_message_with_name">"%s" has disconnected.</string>
     <string name="copied_to_clipboard">Copied to clipboard!</string>
     <string name="crash_details">Crash details</string>
     <string name="crash_history">Crash history</string>
