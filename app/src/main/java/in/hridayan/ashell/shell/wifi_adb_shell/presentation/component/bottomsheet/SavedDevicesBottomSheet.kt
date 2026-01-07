@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
@@ -80,7 +81,6 @@ fun SavedDevicesBottomSheet(
 
             is WifiAdbState.WirelessDebuggingOff -> {
                 if (!wasReconnectCancelled) {
-                    showDevOptionsButton = true
                     showReconnectFailedDialog = true
                 }
                 wasReconnectCancelled = false
@@ -160,8 +160,8 @@ fun SavedDevicesBottomSheet(
             showDevOptionsButton = showDevOptionsButton,
             onConfirm = {
                 showReconnectFailedDialog = false
-                // Reset state to allow retry
                 WifiAdbConnection.updateState(WifiAdbState.None)
+                openDeveloperOptions(context)
             },
             onDismiss = {
                 showReconnectFailedDialog = false

@@ -82,8 +82,8 @@ fun DeleteBookmarksDialog(
                             .animateWidth(interactionSources[1]),
                         shapes = ButtonDefaults.shapes(),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.errorContainer,
-                            contentColor = MaterialTheme.colorScheme.onErrorContainer
+                            containerColor = MaterialTheme.colorScheme.error,
+                            contentColor = MaterialTheme.colorScheme.onError
                         ),
                         interactionSource = interactionSources[1],
                         onClick = withHaptic(HapticFeedbackType.Confirm){

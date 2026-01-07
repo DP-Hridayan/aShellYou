@@ -112,10 +112,6 @@ fun FileSavedDialog(
                             onOpenFile()
                             onDismiss()
                         },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                        ),
                         modifier = Modifier
                             .weight(1f)
                             .animateWidth(interactionSources[1]),

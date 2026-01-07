@@ -84,10 +84,6 @@ fun ConnectionSuccessDialog(
                     onClick = withHaptic(HapticFeedbackType.Confirm) {
                         onGoToTerminal()
                     },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    ),
                     shapes = ButtonDefaults.shapes(),
                     modifier = Modifier.fillMaxWidth()
                 ) {

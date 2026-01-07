@@ -164,10 +164,6 @@ fun CommandsSortDialog(
                     .weight(1f)
                     .animateWidth(interactionSources[1]),
                 shapes = ButtonDefaults.shapes(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
                 interactionSource = interactionSources[1],
                 onClick = withHaptic(HapticFeedbackType.Confirm) {
                     settingsViewModel.setInt(

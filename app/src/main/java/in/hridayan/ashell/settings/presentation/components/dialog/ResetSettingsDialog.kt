@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
@@ -71,7 +70,7 @@ fun ResetSettingsDialog(
                 @Suppress("DEPRECATION")
                 ButtonGroup(modifier = Modifier.fillMaxWidth()) {
                     OutlinedButton(
-                        onClick = withHaptic(HapticFeedbackType.Reject){
+                        onClick = withHaptic(HapticFeedbackType.Reject) {
                             onDismiss()
                         },
                         shapes = ButtonDefaults.shapes(),
@@ -87,13 +86,13 @@ fun ResetSettingsDialog(
                     }
 
                     Button(
-                        onClick = withHaptic(HapticFeedbackType.Confirm){
+                        onClick = withHaptic(HapticFeedbackType.Confirm) {
                             onConfirm()
                             onDismiss()
                         },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.errorContainer,
-                            contentColor = MaterialTheme.colorScheme.onErrorContainer
+                            containerColor = MaterialTheme.colorScheme.error,
+                            contentColor = MaterialTheme.colorScheme.onError
                         ),
                         modifier = Modifier
                             .weight(1f)
