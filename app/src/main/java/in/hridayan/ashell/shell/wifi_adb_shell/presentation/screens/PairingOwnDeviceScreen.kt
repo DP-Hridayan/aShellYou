@@ -217,7 +217,7 @@ fun PairingOwnDeviceScreen(
                     val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting &&
                             (wifiAdbState as WifiAdbState.Reconnecting).device == it.id
                     val isConnected =
-                        isCurrentDevice && wifiAdbState is WifiAdbState.ConnectSuccess && isWifiConnected
+                        isCurrentDevice && (wifiAdbState is WifiAdbState.ConnectSuccess || viewModel.isConnected()) && isWifiConnected
 
                     Column(
                         modifier = Modifier

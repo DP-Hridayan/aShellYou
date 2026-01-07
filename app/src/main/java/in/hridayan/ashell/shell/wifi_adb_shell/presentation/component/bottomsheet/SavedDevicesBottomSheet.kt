@@ -117,7 +117,7 @@ fun SavedDevicesBottomSheet(
                     val isThisDeviceReconnecting = isReconnecting &&
                             (wifiAdbState as? WifiAdbState.Reconnecting)?.device == device.id
                     val isConnected = currentDevice?.id == device.id &&
-                            wifiAdbState is WifiAdbState.ConnectSuccess
+                            (wifiAdbState is WifiAdbState.ConnectSuccess || viewModel.isConnected())
 
                     SavedDeviceItem(
                         device = device,

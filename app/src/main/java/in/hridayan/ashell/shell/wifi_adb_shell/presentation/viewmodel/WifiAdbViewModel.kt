@@ -115,20 +115,6 @@ class WifiAdbViewModel @Inject constructor(
         wifiAdbRepository.stopMdnsDiscovery()
     }
 
-    private fun startConnecting(ip: String, port: Int) {
-        WifiAdbConnection.updateState(WifiAdbState.ConnectStarted())
-
-        wifiAdbRepository.connect(ip, port, object : WifiAdbRepositoryImpl.ConnectionListener {
-            override fun onConnectionSuccess() {
-                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess("Connected!"))
-            }
-
-            override fun onConnectionFailed() {
-                WifiAdbConnection.updateState(WifiAdbState.PairConnectFailed("Connection failed"))
-            }
-        })
-    }
-
     fun reconnectToDevice(device: WifiAdbDevice) {
         wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
             override fun onReconnectSuccess() {
@@ -213,6 +199,8 @@ class WifiAdbViewModel @Inject constructor(
 
         WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
 
+        disconnect()
+        
         wifiAdbRepository.pairAndConnect(
             ip = service.ip,
             pairingPort = service.port,
