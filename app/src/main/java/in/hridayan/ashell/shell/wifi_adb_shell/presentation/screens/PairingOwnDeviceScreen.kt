@@ -151,23 +151,6 @@ fun PairingOwnDeviceScreen(
         context.askUserToEnableWifi()
     }
 
-    val openDeveloperOptionsWithConditions: () -> Unit = withHaptic {
-        if (!hasNotificationAccess) {
-            dialogManager.show(DialogKey.Pair.GrantNotificationAccess)
-            return@withHaptic
-        }
-
-        if (!isWifiConnected) {
-            showToast(
-                context,
-                context.getString(R.string.connect_to_wifi_network)
-            )
-            return@withHaptic
-        }
-
-        openDeveloperOptions(context)
-    }
-
     val onClickDevOptionsButton: () -> Unit = withHaptic {
         if (!hasNotificationAccess) {
             dialogManager.show(DialogKey.Pair.GrantNotificationAccess)
@@ -346,7 +329,7 @@ fun PairingOwnDeviceScreen(
         ReconnectFailedDialog(
             showDevOptionsButton = dialogKey?.showDevOptionsButton ?: true,
             onDismiss = { it.dismiss() },
-            onConfirm = { openDeveloperOptionsWithConditions() })
+            onConfirm = { openDeveloperOptions(context) })
     }
 }
 

@@ -79,6 +79,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.LabelText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
+import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -295,7 +296,6 @@ fun PairingOtherDeviceScreen(
         }
     }
 
-    // Connection Success Dialog
     DialogKey.Pair.ConnectionSuccess.createDialog {
         ConnectionSuccessDialog(
             device = currentDevice,
@@ -310,12 +310,11 @@ fun PairingOtherDeviceScreen(
         )
     }
 
-    // Reconnect Failed Dialog
     DialogKey.Pair.ReconnectFailed(showDevOptionsButton = false).createDialog {
         val dialogKey = (it.activeDialog as? DialogKey.Pair.ReconnectFailed)
         ReconnectFailedDialog(
             showDevOptionsButton = dialogKey?.showDevOptionsButton ?: false,
-            onConfirm = { /* Developer Options - handled only if button is shown */ },
+            onConfirm = { openDeveloperOptions(context) },
             onDismiss = { it.dismiss() }
         )
     }
