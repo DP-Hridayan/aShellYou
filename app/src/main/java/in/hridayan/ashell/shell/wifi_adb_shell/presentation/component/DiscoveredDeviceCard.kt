@@ -46,7 +46,7 @@ fun DiscoveredDeviceCard(
     var pairingCode by remember { mutableStateOf("") }
     
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
             contentColor = MaterialTheme.colorScheme.onSurfaceVariant

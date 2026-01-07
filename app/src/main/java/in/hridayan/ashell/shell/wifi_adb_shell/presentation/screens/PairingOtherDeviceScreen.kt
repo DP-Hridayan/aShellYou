@@ -82,8 +82,8 @@ import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.DiscoveredDeviceCard
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ConnectionSuccessDialog
@@ -553,7 +553,7 @@ fun CodePairTab(
     val wifiAdbState by viewModel.state.collectAsStateWithLifecycle()
     val discoveredServices by viewModel.discoveredPairingServices.collectAsStateWithLifecycle()
     val isKeyboardVisible = isKeyboardVisible()
-    // Start/stop discovery based on tab visibility and Wi-Fi connection
+
     LaunchedEffect(isWifiConnected) {
         if (isWifiConnected) {
             viewModel.startCodePairingDiscovery()
@@ -562,7 +562,6 @@ fun CodePairTab(
         }
     }
 
-    // Cleanup when leaving the tab
     DisposableEffect(Unit) {
         onDispose {
             viewModel.stopCodePairingDiscovery()
@@ -575,12 +574,12 @@ fun CodePairTab(
             .padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Instruction card
         item {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp),
+                    .padding(top = 20.dp)
+                    .animateItem(),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.tertiaryContainer
                 )
@@ -621,9 +620,11 @@ fun CodePairTab(
             )
         }
 
-        // Discovered device cards with OTP input
         items(discoveredServices, key = { it.key }) { service ->
             DiscoveredDeviceCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .animateItem(),
                 service = service,
                 isPairing = wifiAdbState is WifiAdbState.PairingStarted,
                 onPair = { pairingCode ->
@@ -632,7 +633,6 @@ fun CodePairTab(
             )
         }
 
-        // Show connecting state
         if (wifiAdbState is WifiAdbState.ConnectStarted) {
             item {
                 Text(
@@ -644,7 +644,6 @@ fun CodePairTab(
             }
         }
 
-        // Show already connected state
         if (wifiAdbState is WifiAdbState.AlreadyConnected) {
             item {
                 Text(
