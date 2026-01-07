@@ -75,7 +75,6 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.components.text.LabelText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
@@ -558,8 +557,10 @@ fun ManualPairTab(
         verticalArrangement = Arrangement.Top
     ) {
         item {
-            LabelText(
-                stringResource(R.string.pair),
+            AutoResizeableText(
+                text = stringResource(R.string.pair),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(top = 25.dp, bottom = 10.dp)
             )
         }
@@ -591,7 +592,9 @@ fun ManualPairTab(
                 icon = painterResource(R.drawable.ic_pair),
                 text = pairButtonText,
                 contentDescription = null,
-                modifier = Modifier.padding(top = 10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
                 onClick = { viewModel.startPairingManually() }
             )
         }
@@ -606,9 +609,11 @@ fun ManualPairTab(
             }
 
             item {
-                LabelText(
-                    stringResource(R.string.connect),
-                    modifier = Modifier.padding(bottom = 10.dp)
+                AutoResizeableText(
+                    text = stringResource(R.string.connect),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(top = 25.dp, bottom = 10.dp)
                 )
             }
 
