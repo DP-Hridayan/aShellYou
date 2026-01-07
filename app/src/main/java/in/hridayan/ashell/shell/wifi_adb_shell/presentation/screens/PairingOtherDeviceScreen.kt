@@ -83,6 +83,7 @@ import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.DiscoveredDeviceCard
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ConnectionSuccessDialog
@@ -343,6 +344,8 @@ fun SavedDevicesTab(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    // Observe per-device connection states
+    val deviceStates by WifiAdbConnection.deviceStates.collectAsState()
 
     if (savedDevices.isEmpty()) {
         Column(
@@ -382,11 +385,11 @@ fun SavedDevicesTab(
             item { Spacer(modifier = Modifier.height(16.dp)) }
 
             items(savedDevices, key = { it.id }) { device ->
-                val isCurrentDevice = currentDevice?.id == device.id
                 val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting &&
                         wifiAdbState.device == device.id
-                val isConnected =
-                    isCurrentDevice && wifiAdbState is WifiAdbState.ConnectSuccess && isWifiConnected
+                // Use per-device state from deviceStates map for connected status
+                val deviceState = deviceStates[device.id]
+                val isConnected = deviceState is WifiAdbState.ConnectSuccess && isWifiConnected
 
                 Column(
                     modifier = Modifier

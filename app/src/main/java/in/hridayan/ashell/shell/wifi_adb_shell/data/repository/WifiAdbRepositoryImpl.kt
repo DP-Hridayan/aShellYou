@@ -161,7 +161,7 @@ class WifiAdbRepositoryImpl(
                                                 WifiAdbConnection.setCurrentDevice(connectedDevice)
 
                                                 mainScope.launch {
-                                                    WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess("$ip:$cachedPort"))
+                                                    WifiAdbConnection.setDeviceConnected(connectedDevice.id, "$ip:$cachedPort")
                                                 }
                                                 Log.d(TAG, "Connected successfully via cached port to $ip:$cachedPort")
                                                 clearCachedConnectPorts()
@@ -366,7 +366,7 @@ class WifiAdbRepositoryImpl(
                                     WifiAdbConnection.setCurrentDevice(connectedDevice)
                                     
                                     mainScope.launch {
-                                        WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess("$targetIp:$port"))
+                                        WifiAdbConnection.setDeviceConnected(connectedDevice.id, "$targetIp:$port")
                                     }
                                     Log.d(TAG, "Direct connection to $targetIp:$port succeeded!")
                                     callback?.onPairingSuccess(targetIp, port)
@@ -477,7 +477,7 @@ class WifiAdbRepositoryImpl(
                                         WifiAdbConnection.setCurrentDevice(connectedDevice)
                                         
                                         mainScope.launch {
-                                            WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(key))
+                                            WifiAdbConnection.setDeviceConnected(connectedDevice.id, key)
                                         }
                                         Log.d(TAG, "Connected successfully to $ip:$port")
                                         callback?.onPairingSuccess(ip, port)
@@ -1222,6 +1222,12 @@ class WifiAdbRepositoryImpl(
     override fun getCurrentDevice(): WifiAdbDevice? = currentDevice
 
     override fun forgetDevice(device: WifiAdbDevice) {
+        // If currently connected to this device, disconnect first
+        val currentDev = currentDevice
+        if (currentDev != null && currentDev.id == device.id && isConnected()) {
+            Log.d(TAG, "Forget device: Disconnecting from ${device.deviceName} first")
+            disconnect()
+        }
         ioScope.launch { deviceDao.deleteDevice(device.toEntity()) }
     }
 
@@ -1282,9 +1288,9 @@ class WifiAdbRepositoryImpl(
                         Log.d(TAG, "Heartbeat detected disconnection for device: ${device.id}")
                         stopHeartbeat()
 
-                        // Update state on main thread
+                        // Update per-device state on main thread
                         mainScope.launch {
-                            WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                            WifiAdbConnection.setDeviceDisconnected(device.id)
                             WifiAdbConnection.setCurrentDevice(null)
                         }
                         currentDevice = null
@@ -1477,6 +1483,25 @@ class WifiAdbRepositoryImpl(
                         
                         connect(ip, connectPort, object : ConnectionListener {
                             override fun onConnectionSuccess() {
+                                val serial = getDeviceSerialNumber()
+                                val deviceName = getDeviceName()
+                                Log.d(TAG, "Device info - Serial: $serial, Name: $deviceName")
+                                
+                                val connectedDevice = WifiAdbDevice(
+                                    ip = ip,
+                                    port = connectPort,
+                                    deviceName = deviceName,
+                                    isPaired = true,
+                                    lastConnected = System.currentTimeMillis(),
+                                    serialNumber = serial
+                                )
+                                ioScope.launch { deviceDao.insertDevice(connectedDevice.toEntity()) }
+                                currentDevice = connectedDevice
+                                WifiAdbConnection.setCurrentDevice(connectedDevice)
+                                
+                                mainScope.launch {
+                                    WifiAdbConnection.setDeviceConnected(connectedDevice.id, "$ip:$connectPort")
+                                }
                                 Log.d(TAG, "Connection successful to $ip:$connectPort")
                                 clearCachedConnectPorts()
                                 callback?.onPairingSuccess(ip, connectPort)

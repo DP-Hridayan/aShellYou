@@ -60,6 +60,17 @@ object WifiAdbConnection {
     }
 
     /**
+     * Set a device to connected state.
+     * Used to track per-device connection status.
+     */
+    fun setDeviceConnected(deviceId: String, address: String) {
+        val newState = WifiAdbState.ConnectSuccess(info = address, device = deviceId)
+        _deviceStates.value = _deviceStates.value + (deviceId to newState)
+        // Also update global state
+        _state.value = newState
+    }
+
+    /**
      * Set the currently connected device.
      * This allows cross-component communication (e.g., SelfPairingService -> ViewModel).
      */
