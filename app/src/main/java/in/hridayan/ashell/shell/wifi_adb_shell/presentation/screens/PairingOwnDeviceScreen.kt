@@ -79,6 +79,7 @@ import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.GrantNotificationAccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
@@ -138,6 +139,17 @@ fun PairingOwnDeviceScreen(
     LaunchedEffect(isWifiConnected, ownDevice) {
         if (!isWifiConnected && ownDevice != null) {
             viewModel.setDeviceDisconnected(ownDevice.id)
+        }
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            if (
+                wifiAdbState is WifiAdbState.WirelessDebuggingOff ||
+                wifiAdbState is WifiAdbState.ConnectFailed
+            ) {
+                WifiAdbConnection.updateState(WifiAdbState.None)
+            }
         }
     }
 
