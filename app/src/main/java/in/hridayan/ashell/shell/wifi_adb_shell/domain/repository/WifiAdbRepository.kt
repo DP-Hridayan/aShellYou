@@ -40,5 +40,5 @@ interface WifiAdbRepository {
     fun startHeartbeat()
     fun stopHeartbeat()
 
-    suspend fun generatePairingQR(sessionId: String, pairingCode: Int, size: Int = 512): Bitmap
+    suspend fun generatePairingQR(sessionId: String, pairingCode: String, size: Int = 512): Bitmap
 }

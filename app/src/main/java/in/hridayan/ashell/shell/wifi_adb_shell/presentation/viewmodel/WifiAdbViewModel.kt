@@ -197,7 +197,7 @@ class WifiAdbViewModel @Inject constructor(
         checkInputFieldValidity()
 
         if (connectFieldsInvalid) {
-            WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Invalid fields"))
+            WifiAdbConnection.updateState(WifiAdbState.PairConnectFailed("Invalid fields"))
             return
         }
         val ip = _ipAddress.value
@@ -216,7 +216,7 @@ class WifiAdbViewModel @Inject constructor(
             }
 
             override fun onConnectionFailed() {
-                WifiAdbConnection.updateState(WifiAdbState.ConnectFailed("Connection failed"))
+                WifiAdbConnection.updateState(WifiAdbState.PairConnectFailed("Connection failed"))
             }
         })
     }
@@ -253,7 +253,7 @@ class WifiAdbViewModel @Inject constructor(
 
     fun isConnected(): Boolean = wifiAdbRepository.isConnected()
 
-    fun generateQr(sessionId: String, pairingCode: Int) {
+    fun generateQr(sessionId: String, pairingCode: String) {
         viewModelScope.launch {
             try {
                 val bitmap = wifiAdbRepository.generatePairingQR(

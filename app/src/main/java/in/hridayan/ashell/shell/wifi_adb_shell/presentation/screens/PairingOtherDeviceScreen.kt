@@ -466,9 +466,8 @@ fun QRPairTab(
         if (isWifiConnected) viewModel.startMdnsPairing(pairingCode) else viewModel.stopMdnsDiscovery()
     }
 
-    // Generate QR code only once when tab is first shown
-    LaunchedEffect(pairingCode) {
-        viewModel.generateQr(sessionId, pairingCode.toInt())
+    LaunchedEffect(pairingCode, isWifiConnected) {
+        viewModel.generateQr(sessionId, pairingCode)
     }
 
     LazyColumn(
