@@ -26,7 +26,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -69,13 +68,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
-import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.theme.Dimens
+import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.openDeveloperOptions
@@ -86,12 +84,12 @@ import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.DiscoveredDeviceCard
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ConnectionSuccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairConnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
-import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.DiscoveredDeviceCard
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -551,7 +549,7 @@ fun CodePairTab(
 ) {
     val wifiAdbState by viewModel.state.collectAsStateWithLifecycle()
     val discoveredServices by viewModel.discoveredPairingServices.collectAsStateWithLifecycle()
-
+    val isKeyboardVisible = isKeyboardVisible()
     // Start/stop discovery based on tab visibility and Wi-Fi connection
     LaunchedEffect(isWifiConnected) {
         if (isWifiConnected) {
@@ -611,12 +609,12 @@ fun CodePairTab(
                 discoveredServices.isEmpty() -> stringResource(R.string.waiting_for_devices)
                 else -> stringResource(R.string.device_found)
             }
-            
+
             Text(
                 text = statusText,
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 8.dp)
+                modifier = Modifier.padding(top = 8.dp, start = 5.dp)
             )
         }
 
@@ -655,7 +653,11 @@ fun CodePairTab(
             }
         }
 
-        item { Spacer(modifier = Modifier.height(32.dp)) }
+        item {
+            if (!isKeyboardVisible.value) {
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+        }
     }
 }
 
