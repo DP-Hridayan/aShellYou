@@ -42,6 +42,7 @@ sealed class DialogKey {
         data class ForgetDeviceConfirmation(val device: WifiAdbDevice) : DialogKey()
         data class ReconnectFailed(val showDevOptionsButton: Boolean) : DialogKey()
         object ConnectionSuccess : DialogKey()
+        object PairConnectFailed : DialogKey()
     }
 }
 

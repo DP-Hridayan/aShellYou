@@ -87,6 +87,7 @@ import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ConnectionSuccessDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairConnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
@@ -161,6 +162,11 @@ fun PairingOtherDeviceScreen(
                     dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
                 }
                 wasReconnectCancelled = false
+            }
+
+            is WifiAdbState.PairConnectFailed -> {
+                // Show pairing connect failed dialog (different from reconnect failed)
+                dialogManager.show(DialogKey.Pair.PairConnectFailed)
             }
 
             else -> {}
@@ -315,6 +321,12 @@ fun PairingOtherDeviceScreen(
         ReconnectFailedDialog(
             showDevOptionsButton = dialogKey?.showDevOptionsButton ?: false,
             onConfirm = { openDeveloperOptions(context) },
+            onDismiss = { it.dismiss() }
+        )
+    }
+
+    DialogKey.Pair.PairConnectFailed.createDialog {
+        PairConnectFailedDialog(
             onDismiss = { it.dismiss() }
         )
     }

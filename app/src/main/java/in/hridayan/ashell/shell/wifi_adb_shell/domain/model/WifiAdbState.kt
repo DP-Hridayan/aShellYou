@@ -23,4 +23,7 @@ sealed class WifiAdbState(val message: String, open val deviceId: String? = null
     data class DiscoveryFound(val info: String) : WifiAdbState(info)
     data class DiscoverySessionMatched(val info: String = "Session matched") : WifiAdbState(info)
     data class DiscoveryFailed(val info: String) : WifiAdbState(message = info)
+    
+    // Pairing flow connection failure (distinct from reconnect failure)
+    data class PairConnectFailed(val error: String) : WifiAdbState(error)
 }

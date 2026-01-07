@@ -128,6 +128,8 @@
     <string name="enable_wireless_debugging">Please enable Wireless Debugging in Developer Options</string>
     <string name="enter">Enter</string>
     <string name="reconnect_failed_message">\nWireless Debugging might not be enabled\nPairing info might be lost. Pair manually again!</string>
+    <string name="connection_failed">Connection failed</string>
+    <string name="pair_connect_failed_message">\nCould not connect to the paired device\nThe device may not be on the same network\nTry pairing again</string>
     <string name="error">Error</string>
     <string name="error_labels_limit_reached">Maximum labels limit reached</string>
     <string name="failed">Failed</string>

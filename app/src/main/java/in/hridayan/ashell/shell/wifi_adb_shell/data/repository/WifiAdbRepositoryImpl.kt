@@ -270,7 +270,7 @@ class WifiAdbRepositoryImpl(
                                 override fun onConnectionFailed() {
                                     connectInProgress.remove(key)
                                     mainScope.launch {
-                                        WifiAdbConnection.updateState(WifiAdbState.ConnectFailed(key))
+                                        WifiAdbConnection.updateState(WifiAdbState.PairConnectFailed(key))
                                     }
                                     Log.e(TAG, "Failed to connect to $ip:$port")
                                     callback?.onPairingFailed(ip, port)
@@ -347,21 +347,12 @@ class WifiAdbRepositoryImpl(
                             }
 
                             if (!connected) {
-                                // All ports failed - save device as paired-only for manual connect later
+                                // All ports failed - do NOT save device, only save successfully connected ones
                                 Log.e(TAG, "All direct connection attempts failed for $targetIp")
-
-                                val pairedDevice = WifiAdbDevice(
-                                    ip = targetIp,
-                                    port = 0, // Unknown port - user needs to provide it
-                                    deviceName = "Paired Device ($targetIp)",
-                                    isPaired = true,
-                                    lastConnected = System.currentTimeMillis()
-                                )
-                                ioScope.launch { deviceDao.insertDevice(pairedDevice.toEntity()) }
 
                                 mainScope.launch {
                                     WifiAdbConnection.updateState(
-                                        WifiAdbState.ConnectFailed("Paired but connect failed - use Manual Connect with correct port")
+                                        WifiAdbState.PairConnectFailed("Paired but connect failed - try Manual Pair with correct port")
                                     )
                                 }
                                 callback?.onPairingFailed(targetIp, 0)
