@@ -12,7 +12,6 @@ import androidx.core.graphics.set
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
-import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomain
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomainList
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toEntity
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
@@ -25,12 +24,12 @@ import io.nayuki.qrcodegen.QrCode
 import io.nayuki.qrcodegen.QrCode.Ecc
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.InetAddress
@@ -60,11 +59,18 @@ class WifiAdbRepositoryImpl(
     // Reconnect cancellation state
     @Volatile
     private var isReconnectCancelled = false
+
     @Volatile
     private var currentReconnectingDeviceId: String? = null
     private var activeNsdManager: NsdManager? = null
     private var activeDiscoveryListener: NsdManager.DiscoveryListener? = null
     private var activeReconnectTimeout: java.util.concurrent.ScheduledFuture<*>? = null
+
+    // Heartbeat mechanism
+    private var heartbeatJob: kotlinx.coroutines.Job? = null
+
+    @Volatile
+    private var isHeartbeatRunning = false
 
     override fun discoverAdbPairingService(
         pairingCode: String,
@@ -270,7 +276,11 @@ class WifiAdbRepositoryImpl(
                                 override fun onConnectionFailed() {
                                     connectInProgress.remove(key)
                                     mainScope.launch {
-                                        WifiAdbConnection.updateState(WifiAdbState.PairConnectFailed(key))
+                                        WifiAdbConnection.updateState(
+                                            WifiAdbState.PairConnectFailed(
+                                                key
+                                            )
+                                        )
                                     }
                                     Log.e(TAG, "Failed to connect to $ip:$port")
                                     callback?.onPairingFailed(ip, port)
@@ -535,7 +545,7 @@ class WifiAdbRepositoryImpl(
             jmDns?.close()
             jmDns = null
             // Only reset state if not currently connected - preserve existing connection
-            mainScope.launch { 
+            mainScope.launch {
                 val currentState = WifiAdbConnection.currentState
                 if (currentState !is WifiAdbState.ConnectSuccess) {
                     WifiAdbConnection.updateState(WifiAdbState.None)
@@ -546,7 +556,7 @@ class WifiAdbRepositoryImpl(
         }
     }
 
-    override fun getSavedDevicesFlow(): Flow<List<WifiAdbDevice>> = 
+    override fun getSavedDevicesFlow(): Flow<List<WifiAdbDevice>> =
         deviceDao.getAllDevices().map { entities -> entities.toDomainList() }
 
     override suspend fun saveDevice(device: WifiAdbDevice) {
@@ -603,7 +613,10 @@ class WifiAdbRepositoryImpl(
         // Cancel any ongoing reconnect to a different device
         val previousDeviceId = currentReconnectingDeviceId
         if (previousDeviceId != null && previousDeviceId != device.id) {
-            Log.d(TAG, "Cancelling previous reconnect to $previousDeviceId, starting reconnect to ${device.id}")
+            Log.d(
+                TAG,
+                "Cancelling previous reconnect to $previousDeviceId, starting reconnect to ${device.id}"
+            )
             // Cancel previous reconnect resources silently (don't update state to None)
             activeReconnectTimeout?.cancel(false)
             activeReconnectTimeout = null
@@ -766,7 +779,10 @@ class WifiAdbRepositoryImpl(
             activeReconnectTimeout = executor.schedule({
                 // Only update state if we're still reconnecting to the same device
                 if (connectionHandled || isReconnectCancelled || currentReconnectingDeviceId != reconnectDeviceId) {
-                    Log.d(TAG, "Ignoring timeout - handled: $connectionHandled, cancelled: $isReconnectCancelled, currentDevice: $currentReconnectingDeviceId, thisDevice: $reconnectDeviceId")
+                    Log.d(
+                        TAG,
+                        "Ignoring timeout - handled: $connectionHandled, cancelled: $isReconnectCancelled, currentDevice: $currentReconnectingDeviceId, thisDevice: $reconnectDeviceId"
+                    )
                     return@schedule
                 }
                 connectionHandled = true
@@ -1087,6 +1103,67 @@ class WifiAdbRepositoryImpl(
         }
 
         return bitmap
+    }
+
+    override fun startHeartbeat() {
+        if (isHeartbeatRunning) {
+            Log.d(TAG, "Heartbeat already running")
+            return
+        }
+
+        isHeartbeatRunning = true
+        Log.d(TAG, "Starting connection heartbeat")
+
+        heartbeatJob = ioScope.launch {
+            while (isHeartbeatRunning) {
+                try {
+                    delay(2500)
+
+                    if (!isHeartbeatRunning) break
+
+                    val device = currentDevice ?: run {
+                        Log.d(TAG, "Heartbeat: No current device, stopping")
+                        stopHeartbeat()
+                        return@launch
+                    }
+
+                    val isStillConnected = try {
+                        val manager = AdbConnectionManager.getInstance(context)
+                        manager.isConnected
+                    } catch (e: Exception) {
+                        Log.d(TAG, "Heartbeat check failed: ${e.message}")
+                        false
+                    }
+
+                    if (!isStillConnected && isHeartbeatRunning) {
+                        Log.d(TAG, "Heartbeat detected disconnection for device: ${device.id}")
+                        stopHeartbeat()
+
+                        // Update state on main thread
+                        mainScope.launch {
+                            WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                            WifiAdbConnection.setCurrentDevice(null)
+                        }
+                        currentDevice = null
+                        return@launch
+                    }
+                } catch (e: kotlinx.coroutines.CancellationException) {
+                    Log.d(TAG, "Heartbeat cancelled")
+                    throw e
+                } catch (e: Exception) {
+                    Log.e(TAG, "Heartbeat error", e)
+                }
+            }
+        }
+    }
+
+    override fun stopHeartbeat() {
+        if (!isHeartbeatRunning && heartbeatJob == null) return
+
+        Log.d(TAG, "Stopping connection heartbeat")
+        isHeartbeatRunning = false
+        heartbeatJob?.cancel()
+        heartbeatJob = null
     }
 
     // ========== INTERFACES ==========

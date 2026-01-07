@@ -50,9 +50,6 @@ class WifiAdbViewModel @Inject constructor(
     private val _qrBitmap = MutableStateFlow<Bitmap?>(null)
     val qrBitmap: StateFlow<Bitmap?> = _qrBitmap
 
-    // Per-device connection states
-    val deviceStates: StateFlow<Map<String, WifiAdbState>> = WifiAdbConnection.deviceStates
-
     /**
      * Get the current state for a specific device.
      */
@@ -71,7 +68,6 @@ class WifiAdbViewModel @Inject constructor(
     val currentDevice: StateFlow<WifiAdbDevice?> = WifiAdbConnection.currentDevice
 
     init {
-        // Collect saved devices Flow from repository - auto-updates when database changes
         viewModelScope.launch {
             wifiAdbRepository.getSavedDevicesFlow().collect { devices ->
                 _savedDevices.value = devices
@@ -86,6 +82,26 @@ class WifiAdbViewModel @Inject constructor(
                         if (WifiAdbConnection.currentDevice.value?.id != repoDevice.id) {
                             WifiAdbConnection.setCurrentDevice(repoDevice)
                         }
+                    }
+                }
+            }
+        }
+
+        // Auto-start/stop heartbeat based on connection state
+        viewModelScope.launch {
+            WifiAdbConnection.state.collect { state ->
+                when (state) {
+                    is WifiAdbState.ConnectSuccess -> {
+                        wifiAdbRepository.startHeartbeat()
+                    }
+
+                    is WifiAdbState.Disconnected,
+                    is WifiAdbState.ConnectFailed,
+                    is WifiAdbState.None -> {
+                        wifiAdbRepository.stopHeartbeat()
+                    }
+
+                    else -> { /* Keep heartbeat running for other states */
                     }
                 }
             }
@@ -205,8 +221,6 @@ class WifiAdbViewModel @Inject constructor(
         })
     }
 
-    // ========== NEW RECONNECT FUNCTIONALITY ==========
-
     fun reconnectToDevice(device: WifiAdbDevice) {
         wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
             override fun onReconnectSuccess() {
@@ -251,20 +265,6 @@ class WifiAdbViewModel @Inject constructor(
                 Log.e("Failed to generate QR", e.message.toString())
             }
         }
-    }
-
-    // ========== END RECONNECT FUNCTIONALITY ==========
-
-    fun refreshFieldsForNewPair() {
-        WifiAdbConnection.updateState(WifiAdbState.None)
-        _ipAddress.value = ""
-        _pairingPort.value = ""
-        _pairingCode.value = ""
-        _connectPort.value = ""
-        _ipAddressError.value = false
-        _pairingPortError.value = false
-        _pairingCodeError.value = false
-        _connectPortError.value = false
     }
 
     private fun checkInputFieldValidity() {

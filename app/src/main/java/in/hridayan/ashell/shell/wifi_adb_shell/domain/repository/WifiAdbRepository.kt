@@ -36,5 +36,9 @@ interface WifiAdbRepository {
     fun getCurrentDevice(): WifiAdbDevice?
     fun forgetDevice(device: WifiAdbDevice)
 
+    // Heartbeat mechanism for connection status
+    fun startHeartbeat()
+    fun stopHeartbeat()
+
     suspend fun generatePairingQR(sessionId: String, pairingCode: Int, size: Int = 512): Bitmap
 }
