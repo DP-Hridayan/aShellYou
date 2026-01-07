@@ -19,7 +19,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -30,7 +29,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
@@ -54,7 +52,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -82,7 +79,6 @@ import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.DiscoveredDeviceCard
@@ -341,11 +337,10 @@ fun SavedDevicesTab(
     onDisconnect: () -> Unit,
     onForget: (WifiAdbDevice) -> Unit,
     onGoToTerminal: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    // Observe per-device connection states
-    val deviceStates by WifiAdbConnection.deviceStates.collectAsState()
 
     if (savedDevices.isEmpty()) {
         Column(
@@ -387,9 +382,9 @@ fun SavedDevicesTab(
             items(savedDevices, key = { it.id }) { device ->
                 val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting &&
                         wifiAdbState.device == device.id
-                // Use per-device state from deviceStates map for connected status
-                val deviceState = deviceStates[device.id]
-                val isConnected = deviceState is WifiAdbState.ConnectSuccess && isWifiConnected
+
+                val isConnected = currentDevice?.id == device.id &&
+                        (wifiAdbState is WifiAdbState.ConnectSuccess || viewModel.isConnected())
 
                 Column(
                     modifier = Modifier
