@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
+import android.os.Build
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -181,7 +182,9 @@ fun PairingOwnDeviceScreen(
             return@withHaptic
         }
 
-        SelfPairingService.start(context)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            SelfPairingService.start(context)
+        }
         openDeveloperOptions(context)
     }
 
