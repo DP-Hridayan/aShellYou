@@ -83,21 +83,6 @@ class WifiAdbViewModel @Inject constructor(
         }
     }
 
-    private fun startPairing(ip: String, port: Int, code: String) {
-
-        WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
-
-        wifiAdbRepository.pair(ip, port, code, object : WifiAdbRepositoryImpl.PairingListener {
-            override fun onPairingSuccess() {
-                WifiAdbConnection.updateState(WifiAdbState.PairingSuccess("Paired successfully"))
-            }
-
-            override fun onPairingFailed() {
-                WifiAdbConnection.updateState(WifiAdbState.PairingFailed("Pairing failed"))
-            }
-        })
-    }
-
     fun startMdnsPairing(pairingCode: String) {
         wifiAdbRepository.discoverAdbPairingService(
             pairingCode,
@@ -246,25 +231,5 @@ class WifiAdbViewModel @Inject constructor(
                 override fun onError(e: Throwable) {}
             }
         )
-    }
-
-    /**
-     * Add a discovered pairing service (called from repository callback).
-     */
-    fun addDiscoveredPairingService(service: DiscoveredPairingService) {
-        val current = _discoveredPairingServices.value.toMutableList()
-        if (current.none { it.key == service.key }) {
-            current.add(service)
-            _discoveredPairingServices.value = current
-        }
-    }
-
-    /**
-     * Remove a discovered pairing service when it goes away.
-     */
-    fun removeDiscoveredPairingService(serviceName: String) {
-        val current = _discoveredPairingServices.value.toMutableList()
-        current.removeAll { it.serviceName == serviceName }
-        _discoveredPairingServices.value = current
     }
 }

@@ -14,9 +14,9 @@ import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.database.WifiAdbDeviceDao
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toDomainList
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toEntity
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import io.github.muntashirakon.adb.AdbStream
@@ -46,14 +46,11 @@ class WifiAdbRepositoryImpl(
     private val context: Context,
     private val deviceDao: WifiAdbDeviceDao
 ) : WifiAdbRepository {
-
     private val TAG = "WifiAdbShell"
     private var adbShellStream: AdbStream? = null
     private val executor = Executors.newScheduledThreadPool(1)
     private var jmDns: JmDNS? = null
     private val pairingInProgress = mutableSetOf<String>()
-    private val connectInProgress = mutableSetOf<String>()
-
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private val ioScope = CoroutineScope(Dispatchers.IO)
 
@@ -131,22 +128,33 @@ class WifiAdbRepositoryImpl(
                                     callback?.onPairingSuccess(ip, port)
 
                                     // Check if we have a cached connect port from parallel discovery
-                                    val cachedPort = synchronized(cachedConnectPorts) { cachedConnectPorts[ip] }
+                                    val cachedPort =
+                                        synchronized(cachedConnectPorts) { cachedConnectPorts[ip] }
 
                                     if (cachedPort != null) {
                                         // Use cached port for immediate connection
-                                        Log.d(TAG, "Using cached connect port for $ip -> $cachedPort")
+                                        Log.d(
+                                            TAG,
+                                            "Using cached connect port for $ip -> $cachedPort"
+                                        )
                                         stopParallelConnectDiscovery()
 
                                         mainScope.launch {
-                                            WifiAdbConnection.updateState(WifiAdbState.ConnectStarted("$ip:$cachedPort"))
+                                            WifiAdbConnection.updateState(
+                                                WifiAdbState.ConnectStarted(
+                                                    "$ip:$cachedPort"
+                                                )
+                                            )
                                         }
 
                                         connect(ip, cachedPort, object : ConnectionListener {
                                             override fun onConnectionSuccess() {
                                                 val serial = getDeviceSerialNumber()
                                                 val deviceName = getDeviceName()
-                                                Log.d(TAG, "Device info - Serial: $serial, Name: $deviceName")
+                                                Log.d(
+                                                    TAG,
+                                                    "Device info - Serial: $serial, Name: $deviceName"
+                                                )
 
                                                 val connectedDevice = WifiAdbDevice(
                                                     ip = ip,
@@ -156,20 +164,33 @@ class WifiAdbRepositoryImpl(
                                                     lastConnected = System.currentTimeMillis(),
                                                     serialNumber = serial
                                                 )
-                                                ioScope.launch { deviceDao.insertDevice(connectedDevice.toEntity()) }
+                                                ioScope.launch {
+                                                    deviceDao.insertDevice(
+                                                        connectedDevice.toEntity()
+                                                    )
+                                                }
                                                 currentDevice = connectedDevice
                                                 WifiAdbConnection.setCurrentDevice(connectedDevice)
 
                                                 mainScope.launch {
-                                                    WifiAdbConnection.setDeviceConnected(connectedDevice.id, "$ip:$cachedPort")
+                                                    WifiAdbConnection.setDeviceConnected(
+                                                        connectedDevice.id,
+                                                        "$ip:$cachedPort"
+                                                    )
                                                 }
-                                                Log.d(TAG, "Connected successfully via cached port to $ip:$cachedPort")
+                                                Log.d(
+                                                    TAG,
+                                                    "Connected successfully via cached port to $ip:$cachedPort"
+                                                )
                                                 clearCachedConnectPorts()
                                                 callback?.onPairingSuccess(ip, cachedPort)
                                             }
 
                                             override fun onConnectionFailed() {
-                                                Log.e(TAG, "Cached port connection failed for $ip:$cachedPort, trying discovery...")
+                                                Log.e(
+                                                    TAG,
+                                                    "Cached port connection failed for $ip:$cachedPort, trying discovery..."
+                                                )
                                                 clearCachedConnectPorts()
                                                 // Fallback to NSD discovery
                                                 discoverConnectService(callback, ip)
@@ -177,7 +198,10 @@ class WifiAdbRepositoryImpl(
                                         })
                                     } else {
                                         // No cached port, wait a moment then try discovery
-                                        Log.d(TAG, "No cached connect port for $ip, falling back to discovery...")
+                                        Log.d(
+                                            TAG,
+                                            "No cached connect port for $ip, falling back to discovery..."
+                                        )
                                         stopParallelConnectDiscovery()
                                         executor.schedule({
                                             mainScope.launch {
@@ -248,7 +272,10 @@ class WifiAdbRepositoryImpl(
                 override fun onServiceFound(info: android.net.nsd.NsdServiceInfo) {
                     Log.d(TAG, "Parallel: Found connect service: ${info.serviceName}")
                     pairingNsdManager?.resolveService(info, object : NsdManager.ResolveListener {
-                        override fun onResolveFailed(serviceInfo: android.net.nsd.NsdServiceInfo, errorCode: Int) {
+                        override fun onResolveFailed(
+                            serviceInfo: android.net.nsd.NsdServiceInfo,
+                            errorCode: Int
+                        ) {
                             Log.w(TAG, "Parallel: Resolve failed: errorCode=$errorCode")
                         }
 
@@ -321,38 +348,44 @@ class WifiAdbRepositoryImpl(
                 val discoveryTimeout = executor.schedule({
                     if (connectionHandled) return@schedule
                     connectionHandled = true
-                    
-                    Log.d(TAG, "NSD connect discovery timeout, trying direct connection fallback...")
-                    
+
+                    Log.d(
+                        TAG,
+                        "NSD connect discovery timeout, trying direct connection fallback..."
+                    )
+
                     try {
                         pairConnectDiscoveryListener?.let { nsdManager.stopServiceDiscovery(it) }
                     } catch (e: Exception) {
                         Log.e(TAG, "Error stopping NSD discovery on timeout", e)
                     }
-                    
+
                     // Fallback to direct connection on common ports
                     if (targetIp != null) {
                         val portsToTry = listOf(5555, 37373, 42069, 5037)
                         var connected = false
                         val manager = AdbConnectionManager.getInstance(context)
-                        
+
                         for (port in portsToTry) {
                             if (connected) break
-                            
+
                             Log.d(TAG, "Trying direct connect to $targetIp:$port...")
                             mainScope.launch {
                                 WifiAdbConnection.updateState(WifiAdbState.ConnectStarted("$targetIp:$port (direct)"))
                             }
-                            
+
                             try {
                                 val success = manager.connect(targetIp, port)
                                 if (success) {
                                     connected = true
-                                    
+
                                     val serial = getDeviceSerialNumber()
                                     val deviceName = getDeviceName()
-                                    Log.d(TAG, "Device info (direct) - Serial: $serial, Name: $deviceName")
-                                    
+                                    Log.d(
+                                        TAG,
+                                        "Device info (direct) - Serial: $serial, Name: $deviceName"
+                                    )
+
                                     val connectedDevice = WifiAdbDevice(
                                         ip = targetIp,
                                         port = port,
@@ -364,9 +397,12 @@ class WifiAdbRepositoryImpl(
                                     ioScope.launch { deviceDao.insertDevice(connectedDevice.toEntity()) }
                                     currentDevice = connectedDevice
                                     WifiAdbConnection.setCurrentDevice(connectedDevice)
-                                    
+
                                     mainScope.launch {
-                                        WifiAdbConnection.setDeviceConnected(connectedDevice.id, "$targetIp:$port")
+                                        WifiAdbConnection.setDeviceConnected(
+                                            connectedDevice.id,
+                                            "$targetIp:$port"
+                                        )
                                     }
                                     Log.d(TAG, "Direct connection to $targetIp:$port succeeded!")
                                     callback?.onPairingSuccess(targetIp, port)
@@ -376,7 +412,7 @@ class WifiAdbRepositoryImpl(
                                 Log.d(TAG, "Port $port failed: ${e.message}")
                             }
                         }
-                        
+
                         if (!connected) {
                             Log.e(TAG, "All direct connection attempts failed for $targetIp")
                             mainScope.launch {
@@ -425,45 +461,51 @@ class WifiAdbRepositoryImpl(
                         if (connectionHandled) return
                         Log.d(TAG, "NSD found service: ${info.serviceName}")
                         nsdManager.resolveService(info, object : NsdManager.ResolveListener {
-                            override fun onResolveFailed(serviceInfo: android.net.nsd.NsdServiceInfo, errorCode: Int) {
+                            override fun onResolveFailed(
+                                serviceInfo: android.net.nsd.NsdServiceInfo,
+                                errorCode: Int
+                            ) {
                                 Log.w(TAG, "NSD resolve failed: errorCode=$errorCode")
                             }
 
                             override fun onServiceResolved(resolvedService: android.net.nsd.NsdServiceInfo) {
                                 if (connectionHandled) return
-                                
+
                                 val ip = resolvedService.host?.hostAddress ?: return
                                 val port = resolvedService.port
                                 val key = "$ip:$port"
-                                
+
                                 Log.d(TAG, "NSD resolved service at $key (looking for: $targetIp)")
-                                
+
                                 // If we have a target IP, only connect to that device
                                 if (targetIp != null && ip != targetIp) {
                                     Log.d(TAG, "Ignoring $key, not matching target $targetIp")
                                     return
                                 }
-                                
+
                                 // Found matching service - connect
                                 connectionHandled = true
                                 discoveryTimeout.cancel(false)
-                                
+
                                 try {
                                     nsdManager.stopServiceDiscovery(pairConnectDiscoveryListener)
                                 } catch (e: Exception) {
                                     Log.e(TAG, "Error stopping NSD discovery", e)
                                 }
-                                
+
                                 mainScope.launch {
                                     WifiAdbConnection.updateState(WifiAdbState.ConnectStarted(key))
                                 }
-                                
+
                                 connect(ip, port, object : ConnectionListener {
                                     override fun onConnectionSuccess() {
                                         val serial = getDeviceSerialNumber()
                                         val deviceName = getDeviceName()
-                                        Log.d(TAG, "Device info - Serial: $serial, Name: $deviceName")
-                                        
+                                        Log.d(
+                                            TAG,
+                                            "Device info - Serial: $serial, Name: $deviceName"
+                                        )
+
                                         val connectedDevice = WifiAdbDevice(
                                             ip = ip,
                                             port = port,
@@ -475,9 +517,12 @@ class WifiAdbRepositoryImpl(
                                         ioScope.launch { deviceDao.insertDevice(connectedDevice.toEntity()) }
                                         currentDevice = connectedDevice
                                         WifiAdbConnection.setCurrentDevice(connectedDevice)
-                                        
+
                                         mainScope.launch {
-                                            WifiAdbConnection.setDeviceConnected(connectedDevice.id, key)
+                                            WifiAdbConnection.setDeviceConnected(
+                                                connectedDevice.id,
+                                                key
+                                            )
                                         }
                                         Log.d(TAG, "Connected successfully to $ip:$port")
                                         callback?.onPairingSuccess(ip, port)
@@ -485,7 +530,11 @@ class WifiAdbRepositoryImpl(
 
                                     override fun onConnectionFailed() {
                                         mainScope.launch {
-                                            WifiAdbConnection.updateState(WifiAdbState.PairConnectFailed(key))
+                                            WifiAdbConnection.updateState(
+                                                WifiAdbState.PairConnectFailed(
+                                                    key
+                                                )
+                                            )
                                         }
                                         Log.e(TAG, "Failed to connect to $ip:$port")
                                         callback?.onPairingFailed(ip, port)
@@ -1231,7 +1280,11 @@ class WifiAdbRepositoryImpl(
         ioScope.launch { deviceDao.deleteDevice(device.toEntity()) }
     }
 
-    override suspend fun generatePairingQR(sessionId: String, pairingCode: String, size: Int): Bitmap {
+    override suspend fun generatePairingQR(
+        sessionId: String,
+        pairingCode: String,
+        size: Int
+    ): Bitmap {
         val content = "WIFI:T:ADB;S:$sessionId;P:$pairingCode;;"
 
         val qr = QrCode.encodeText(content, Ecc.MEDIUM)
@@ -1358,7 +1411,7 @@ class WifiAdbRepositoryImpl(
     ) {
         stopCodePairingDiscovery()
         Log.d(TAG, "Starting Code Pairing discovery (dual: pairing + connect)")
-        
+
         onPairingServiceFoundCallback = onPairingServiceFound
         onPairingServiceLostCallback = onPairingServiceLost
 
@@ -1388,7 +1441,10 @@ class WifiAdbRepositoryImpl(
             override fun onServiceFound(info: android.net.nsd.NsdServiceInfo) {
                 Log.d(TAG, "Code pairing: Found pairing service: ${info.serviceName}")
                 codePairingNsdManager?.resolveService(info, object : NsdManager.ResolveListener {
-                    override fun onResolveFailed(serviceInfo: android.net.nsd.NsdServiceInfo, errorCode: Int) {
+                    override fun onResolveFailed(
+                        serviceInfo: android.net.nsd.NsdServiceInfo,
+                        errorCode: Int
+                    ) {
                         Log.w(TAG, "Code pairing: Resolve failed: $errorCode")
                     }
 
@@ -1398,14 +1454,14 @@ class WifiAdbRepositoryImpl(
                         val name = resolvedService.serviceName
 
                         Log.d(TAG, "Code pairing: Resolved service $name at $ip:$port")
-                        
+
                         val service = DiscoveredPairingService(
                             serviceName = name,
                             ip = ip,
                             port = port,
                             deviceName = name
                         )
-                        
+
                         mainScope.launch {
                             onPairingServiceFoundCallback?.invoke(service)
                         }
@@ -1456,7 +1512,7 @@ class WifiAdbRepositoryImpl(
     ) {
         executor.submit {
             Log.d(TAG, "Starting pair and connect for $ip:$pairingPort")
-            
+
             // Check if already connected to this device
             val currentDev = currentDevice
             if (currentDev != null && currentDev.ip == ip && isConnected()) {
@@ -1466,27 +1522,27 @@ class WifiAdbRepositoryImpl(
                 }
                 return@submit
             }
-            
+
             pair(ip, pairingPort, pairingCode, object : PairingListener {
                 override fun onPairingSuccess() {
                     Log.d(TAG, "Pairing succeeded for $ip:$pairingPort, looking up connect port...")
-                    
+
                     // Look up cached connect port for this IP
                     val connectPort = synchronized(cachedConnectPorts) { cachedConnectPorts[ip] }
-                    
+
                     if (connectPort != null) {
                         Log.d(TAG, "Using cached connect port $connectPort for $ip")
-                        
+
                         mainScope.launch {
                             WifiAdbConnection.updateState(WifiAdbState.ConnectStarted("$ip:$connectPort"))
                         }
-                        
+
                         connect(ip, connectPort, object : ConnectionListener {
                             override fun onConnectionSuccess() {
                                 val serial = getDeviceSerialNumber()
                                 val deviceName = getDeviceName()
                                 Log.d(TAG, "Device info - Serial: $serial, Name: $deviceName")
-                                
+
                                 val connectedDevice = WifiAdbDevice(
                                     ip = ip,
                                     port = connectPort,
@@ -1498,9 +1554,12 @@ class WifiAdbRepositoryImpl(
                                 ioScope.launch { deviceDao.insertDevice(connectedDevice.toEntity()) }
                                 currentDevice = connectedDevice
                                 WifiAdbConnection.setCurrentDevice(connectedDevice)
-                                
+
                                 mainScope.launch {
-                                    WifiAdbConnection.setDeviceConnected(connectedDevice.id, "$ip:$connectPort")
+                                    WifiAdbConnection.setDeviceConnected(
+                                        connectedDevice.id,
+                                        "$ip:$connectPort"
+                                    )
                                 }
                                 Log.d(TAG, "Connection successful to $ip:$connectPort")
                                 clearCachedConnectPorts()
