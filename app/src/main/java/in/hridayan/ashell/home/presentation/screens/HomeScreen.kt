@@ -56,6 +56,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.UrlUtils
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.home.presentation.component.card.DeviceInfoCard
 import `in`.hridayan.ashell.home.presentation.component.card.RebootOptionsCard
 import `in`.hridayan.ashell.home.presentation.component.card.SystemSettings
@@ -85,11 +86,7 @@ fun HomeScreen(
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val otgState by otgViewModel.state.collectAsState()
-
-    // WiFi ADB state
     val savedDevices by wifiAdbViewModel.savedDevices.collectAsState()
-    val currentDevice by wifiAdbViewModel.currentDevice.collectAsState()
-
     var showSavedDevicesBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     val onClickOtgAdbCard: () -> Unit = {
@@ -148,19 +145,12 @@ fun HomeScreen(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 WirelessDebuggingCard(
                     onStartClick = {
-                        // Always show bottom sheet if more than 1 saved device
-                        // Only skip if exactly 1 device AND it's connected
-
-                        val shouldSkipBottomSheet = savedDevices.size == 1 &&
-                                currentDevice != null &&
-                                savedDevices.firstOrNull()?.id == currentDevice?.id &&
-                                wifiAdbViewModel.isConnected()
-
-                        if (shouldSkipBottomSheet) {
-                            navController.navigate(NavRoutes.WifiAdbScreen)
-                        } else {
-                            showSavedDevicesBottomSheet = true
+                        if (savedDevices.count() == 0) {
+                            showToast(context, context.getString(R.string.pair_a_device_first))
+                            return@WirelessDebuggingCard
                         }
+
+                        showSavedDevicesBottomSheet = true
                     }
                 )
             }

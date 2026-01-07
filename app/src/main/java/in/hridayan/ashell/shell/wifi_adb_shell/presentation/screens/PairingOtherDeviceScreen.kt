@@ -81,6 +81,7 @@ import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
@@ -120,7 +121,6 @@ fun PairingOtherDeviceScreen(
     val savedDevices by viewModel.savedDevices.collectAsState()
     val currentDevice by viewModel.currentDevice.collectAsState()
 
-    // Pager state for tabs
     val tabs = PairingTab.entries
     val pagerState = rememberPagerState(initialPage = 0) { tabs.size }
 
@@ -232,7 +232,6 @@ fun PairingOtherDeviceScreen(
                 .padding(innerPadding)
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
         ) {
-            // WiFi enable or mobile data warning card (outside pager)
             if (!isWifiConnected) {
                 WifiEnableCard(
                     onClickButton = onClickWifiEnableButton,
@@ -404,7 +403,7 @@ fun SavedDevicesTab(
                         isReconnecting = isReconnecting,
                         onReconnect = {
                             if (!isWifiConnected) {
-                                `in`.hridayan.ashell.core.utils.showToast(
+                                showToast(
                                     context,
                                     context.getString(R.string.connect_to_wifi_network)
                                 )

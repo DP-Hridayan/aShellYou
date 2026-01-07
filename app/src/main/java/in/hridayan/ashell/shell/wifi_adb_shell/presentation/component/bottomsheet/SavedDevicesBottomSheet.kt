@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
@@ -26,11 +25,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
@@ -39,7 +35,6 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
-import kotlinx.coroutines.launch
 
 @Composable
 fun SavedDevicesBottomSheet(
@@ -56,7 +51,7 @@ fun SavedDevicesBottomSheet(
     // Track if reconnect was manually cancelled (to avoid showing dialog on cancel)
     var wasReconnectCancelled by remember { mutableStateOf(false) }
     var lastReconnectingDeviceId by remember { mutableStateOf<String?>(null) }
-    
+
     // Track dialog visibility with state instead of DialogManager
     var showReconnectFailedDialog by remember { mutableStateOf(false) }
     var showDevOptionsButton by remember { mutableStateOf(false) }
@@ -73,9 +68,6 @@ fun SavedDevicesBottomSheet(
             is WifiAdbState.ConnectSuccess -> {
                 wasReconnectCancelled = false
                 showReconnectFailedDialog = false
-                // Auto-dismiss bottom sheet on successful connection
-                coroutineScope.launch { sheetState.hide() }
-                onGoToTerminal()
             }
 
             is WifiAdbState.ConnectFailed -> {
@@ -99,7 +91,6 @@ fun SavedDevicesBottomSheet(
         }
     }
 
-    // Compute isReconnecting for UI
     val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting
 
     ModalBottomSheet(
@@ -113,80 +104,52 @@ fun SavedDevicesBottomSheet(
                 .navigationBarsPadding()
                 .padding(horizontal = 16.dp)
         ) {
-            // Title
             Text(
-                text = stringResource(R.string.connect_to_device),
+                text = stringResource(R.string.choose_a_device),
                 style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 25.dp)
             )
 
-            if (savedDevices.isEmpty()) {
-                // Empty state
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 48.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_wireless),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = stringResource(R.string.no_saved_devices),
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        text = stringResource(R.string.pair_device_to_start),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            } else {
-                // Device list
-                LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(savedDevices, key = { it.id }) { device ->
-                        val isThisDeviceReconnecting = isReconnecting && 
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(savedDevices, key = { it.id }) { device ->
+                    val isThisDeviceReconnecting = isReconnecting &&
                             (wifiAdbState as? WifiAdbState.Reconnecting)?.device == device.id
-                        val isConnected = currentDevice?.id == device.id && 
+                    val isConnected = currentDevice?.id == device.id &&
                             wifiAdbState is WifiAdbState.ConnectSuccess
-                        
-                        SavedDeviceItem(
-                            device = device,
-                            isConnected = isConnected,
-                            isReconnecting = isThisDeviceReconnecting,
-                            onReconnect = {
-                                // Reset state before new reconnect attempt
-                                WifiAdbConnection.updateState(WifiAdbState.None)
-                                showReconnectFailedDialog = false
-                                
-                                // If already reconnecting to a different device, mark as cancelled
-                                if (lastReconnectingDeviceId != null && lastReconnectingDeviceId != device.id) {
-                                    wasReconnectCancelled = true
-                                }
-                                viewModel.reconnectToDevice(device)
-                            },
-                            onDisconnect = { viewModel.disconnect() },
-                            onForget = { viewModel.forgetDevice(device) },
-                            onClick = {
-                                if (isConnected) {
-                                    onGoToTerminal()
-                                }
+
+                    SavedDeviceItem(
+                        device = device,
+                        isConnected = isConnected,
+                        isReconnecting = isThisDeviceReconnecting,
+                        onReconnect = {
+                            // Reset state before new reconnect attempt
+                            WifiAdbConnection.updateState(WifiAdbState.None)
+                            showReconnectFailedDialog = false
+
+                            // If already reconnecting to a different device, mark as cancelled
+                            if (lastReconnectingDeviceId != null && lastReconnectingDeviceId != device.id) {
+                                wasReconnectCancelled = true
                             }
-                        )
-                    }
+                            viewModel.reconnectToDevice(device)
+                        },
+                        onDisconnect = { viewModel.disconnect() },
+                        onForget = { viewModel.forgetDevice(device) },
+                        onClick = {
+                            if (isConnected) {
+                                onGoToTerminal()
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .animateItem()
+                    )
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(25.dp))
         }
     }
 
@@ -194,12 +157,12 @@ fun SavedDevicesBottomSheet(
     if (showReconnectFailedDialog) {
         ReconnectFailedDialog(
             showDevOptionsButton = showDevOptionsButton,
-            onConfirm = { 
+            onConfirm = {
                 showReconnectFailedDialog = false
                 // Reset state to allow retry
                 WifiAdbConnection.updateState(WifiAdbState.None)
             },
-            onDismiss = { 
+            onDismiss = {
                 showReconnectFailedDialog = false
                 // Reset state to allow retry
                 WifiAdbConnection.updateState(WifiAdbState.None)

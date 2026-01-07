@@ -52,7 +52,7 @@
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="connect">Connect</string>
     <string name="connect_device_via_otg">Connect a device via OTG</string>
-    <string name="connect_to_device">Choose a device</string>
+    <string name="choose_a_device">Choose a device</string>
     <string name="connect_to_wifi_network">Connect to wifi network</string>
     <string name="connected">Connected</string>
     <string name="connected_device">Connected device</string>
@@ -307,6 +307,7 @@
     <string name="update_channel">Update channel</string>
     <string name="use">Use</string>
     <string name="version">Version</string>
+    <string name="pair_a_device_first">Pair a device first</string>
     <string name="version_code">Version code</string>
     <string name="version_name">Version name</string>
     <string name="visit_repo_to_download">Click on the download button to get the latest version of aShellYou from the github repository.</string>
