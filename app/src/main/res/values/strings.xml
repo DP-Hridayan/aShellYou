@@ -307,6 +307,7 @@
     <string name="update_channel">Update channel</string>
     <string name="use">Use</string>
     <string name="version">Version</string>
+    <string name="reconnect_the_device">Reconnect the device</string>
     <string name="pair_a_device_first">Pair a device first</string>
     <string name="version_code">Version code</string>
     <string name="version_name">Version name</string>

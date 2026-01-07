@@ -23,13 +23,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
@@ -43,10 +44,10 @@ fun SavedDevicesBottomSheet(
     viewModel: WifiAdbViewModel = hiltViewModel(),
     sheetState: SheetState = rememberModalBottomSheetState()
 ) {
+    val context = LocalContext.current
     val savedDevices by viewModel.savedDevices.collectAsState()
     val currentDevice by viewModel.currentDevice.collectAsState()
     val wifiAdbState by viewModel.state.collectAsState()
-    val coroutineScope = rememberCoroutineScope()
 
     // Track if reconnect was manually cancelled (to avoid showing dialog on cancel)
     var wasReconnectCancelled by remember { mutableStateOf(false) }
@@ -56,10 +57,8 @@ fun SavedDevicesBottomSheet(
     var showReconnectFailedDialog by remember { mutableStateOf(false) }
     var showDevOptionsButton by remember { mutableStateOf(false) }
 
-    // Handle state changes for showing dialogs
     LaunchedEffect(wifiAdbState) {
-        val state = wifiAdbState
-        when (state) {
+        when (val state = wifiAdbState) {
             is WifiAdbState.Reconnecting -> {
                 lastReconnectingDeviceId = state.device
                 wasReconnectCancelled = false
@@ -140,6 +139,8 @@ fun SavedDevicesBottomSheet(
                         onClick = {
                             if (isConnected) {
                                 onGoToTerminal()
+                            } else {
+                                showToast(context, context.getString(R.string.reconnect_the_device))
                             }
                         },
                         modifier = Modifier
