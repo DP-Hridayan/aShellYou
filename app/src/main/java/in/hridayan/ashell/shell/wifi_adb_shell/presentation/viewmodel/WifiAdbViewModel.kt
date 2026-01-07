@@ -83,37 +83,6 @@ class WifiAdbViewModel @Inject constructor(
         }
     }
 
-    fun startMdnsPairing(pairingCode: String) {
-        wifiAdbRepository.discoverAdbPairingService(
-            pairingCode,
-            autoPair = true,
-            callback = object :
-                WifiAdbRepositoryImpl.MdnsDiscoveryCallback {
-                override fun onServiceFound(name: String, ip: String, port: Int) {
-                    WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
-                }
-
-                override fun onPairingSuccess(ip: String, port: Int) {
-                    WifiAdbConnection.updateState(WifiAdbState.PairingSuccess(ip))
-                }
-
-                override fun onPairingFailed(ip: String, port: Int) {
-                    WifiAdbConnection.updateState(WifiAdbState.PairingFailed(ip))
-                }
-
-                override fun onServiceLost(name: String) {
-                    Log.d("ADB", "Service lost: $name")
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.e("ADB", "Error: ${e.message}")
-                }
-            })
-    }
-
-    fun stopMdnsDiscovery() {
-        wifiAdbRepository.stopMdnsDiscovery()
-    }
 
     fun reconnectToDevice(device: WifiAdbDevice) {
         wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
@@ -156,6 +125,41 @@ class WifiAdbViewModel @Inject constructor(
             }
         }
     }
+
+    fun startQrPairDiscovery(pairingCode: String) {
+        if (pairingCode.length != 6) return
+
+        wifiAdbRepository.pairingWithQr(
+            pairingCode,
+            autoPair = true,
+            callback = object :
+                WifiAdbRepositoryImpl.MdnsDiscoveryCallback {
+                override fun onServiceFound(name: String, ip: String, port: Int) {
+                    WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
+                }
+
+                override fun onPairingSuccess(ip: String, port: Int) {
+                    WifiAdbConnection.updateState(WifiAdbState.PairingSuccess(ip))
+                }
+
+                override fun onPairingFailed(ip: String, port: Int) {
+                    WifiAdbConnection.updateState(WifiAdbState.PairingFailed(ip))
+                }
+
+                override fun onServiceLost(name: String) {
+                    Log.d("ADB", "Service lost: $name")
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.e("ADB", "Error: ${e.message}")
+                }
+            })
+    }
+
+    fun stopQrPairDiscovery() {
+        wifiAdbRepository.stopMdnsDiscovery()
+    }
+
 
     // ============ "Pair Using Code" Tab Methods ============
 
@@ -200,7 +204,7 @@ class WifiAdbViewModel @Inject constructor(
         WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
 
         disconnect()
-        
+
         wifiAdbRepository.pairAndConnect(
             ip = service.ip,
             pairingPort = service.port,
@@ -211,12 +215,14 @@ class WifiAdbViewModel @Inject constructor(
                 }
 
                 override fun onPairingFailed(ip: String, port: Int) {
-                    WifiAdbConnection.updateState(WifiAdbState.PairConnectFailed("Pairing failed"))
                 }
 
                 override fun onServiceFound(name: String, ip: String, port: Int) {}
-                override fun onServiceLost(name: String) {}
-                override fun onError(e: Throwable) {}
+                override fun onServiceLost(name: String) {
+                }
+
+                override fun onError(e: Throwable) {
+                }
             }
         )
     }

@@ -11,12 +11,6 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import kotlinx.coroutines.flow.Flow
 
 interface WifiAdbRepository {
-    fun discoverAdbPairingService(
-        pairingCode: String,
-        autoPair: Boolean = true,
-        callback: MdnsDiscoveryCallback? = null
-    )
-
     fun pair(ip: String, port: Int, pairingCode: String, listener: PairingListener? = null)
     fun connect(ip: String?, port: Int, callback: ConnectionListener? = null)
     fun execute(commandText: String): Flow<OutputLine>
@@ -42,6 +36,12 @@ interface WifiAdbRepository {
     fun stopHeartbeat()
 
     suspend fun generatePairingQR(sessionId: String, pairingCode: String, size: Int = 512): Bitmap
+
+    fun pairingWithQr(
+        pairingCode: String,
+        autoPair: Boolean = true,
+        callback: MdnsDiscoveryCallback? = null
+    )
 
     // "Pair Using Code" tab - dual discovery for pairing and connect services
     fun startCodePairingDiscovery(

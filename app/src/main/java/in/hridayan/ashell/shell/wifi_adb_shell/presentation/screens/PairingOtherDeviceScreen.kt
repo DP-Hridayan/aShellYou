@@ -125,8 +125,7 @@ fun PairingOtherDeviceScreen(
 
     // Refresh saved devices when pairing or connection succeeds
     LaunchedEffect(wifiAdbState) {
-        val state = wifiAdbState
-        when (state) {
+        when (val state = wifiAdbState) {
             is WifiAdbState.ConnectSuccess -> {
                 wasReconnectCancelled = false
                 if (pagerState.currentPage != PairingTab.SavedDevices.ordinal) {
@@ -179,7 +178,7 @@ fun PairingOtherDeviceScreen(
     }
 
     BackHandler {
-        coroutineScope.launch(Dispatchers.Default) { viewModel.stopMdnsDiscovery() }
+        coroutineScope.launch(Dispatchers.Default) { viewModel.stopQrPairDiscovery() }
         navController.popBackStack()
     }
 
@@ -460,7 +459,7 @@ fun QRPairTab(
 
     // Start mDNS discovery when WiFi is connected - only re-run if isWifiConnected changes
     LaunchedEffect(isWifiConnected) {
-        if (isWifiConnected) viewModel.startMdnsPairing(pairingCode) else viewModel.stopMdnsDiscovery()
+        if (isWifiConnected) viewModel.startQrPairDiscovery(pairingCode) else viewModel.stopQrPairDiscovery()
     }
 
     LaunchedEffect(pairingCode, isWifiConnected) {

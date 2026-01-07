@@ -76,7 +76,7 @@ class WifiAdbRepositoryImpl(
     private var pairingNsdManager: NsdManager? = null
     private var pairingNsdDiscoveryListener: NsdManager.DiscoveryListener? = null
 
-    override fun discoverAdbPairingService(
+    override fun pairingWithQr(
         pairingCode: String,
         autoPair: Boolean,
         callback: MdnsDiscoveryCallback?
@@ -120,6 +120,8 @@ class WifiAdbRepositoryImpl(
 
                         if (autoPair && event.type.contains("_adb-tls-pairing")) {
                             pairingInProgress.add(key)
+
+                            disconnect()
 
                             pair(ip, port, pairingCode, object : PairingListener {
                                 override fun onPairingSuccess() {
