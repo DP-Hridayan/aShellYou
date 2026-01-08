@@ -1,28 +1,39 @@
 @file:OptIn(
     ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class,
-    ExperimentalAnimationApi::class
+    ExperimentalAnimationApi::class, ExperimentalSharedTransitionApi::class
 )
 
 package `in`.hridayan.ashell.shell.common.presentation.screens
 
 import android.content.Intent
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -38,6 +49,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Send
+import androidx.compose.material.icons.rounded.Fullscreen
+import androidx.compose.material.icons.rounded.FullscreenExit
 import androidx.compose.material.icons.rounded.KeyboardDoubleArrowDown
 import androidx.compose.material.icons.rounded.KeyboardDoubleArrowUp
 import androidx.compose.material.icons.rounded.Share
@@ -60,9 +73,13 @@ import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
@@ -79,8 +96,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -127,6 +146,7 @@ import `in`.hridayan.ashell.shell.common.presentation.components.dialog.DeleteBo
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.FileSavedDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
+import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.util.highlightQueryText
 import `in`.hridayan.ashell.shell.common.presentation.util.rememberScrollDirection
@@ -161,6 +181,7 @@ fun BaseShellScreen(
     val textFieldFocusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
+    var isOutputFullscreen by rememberSaveable { mutableStateOf(false) }
     val dialogManager = LocalDialogManager.current
 
     LaunchedEffect(disableSoftKeyboard) {
@@ -249,275 +270,336 @@ fun BaseShellScreen(
         modifier = modifier,
         snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
         floatingActionButton = {
-            Column(
-                horizontalAlignment = Alignment.End,
-                verticalArrangement = Arrangement.spacedBy(15.dp),
-                modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)
+            // Hide FABs in fullscreen mode
+            AnimatedVisibility(
+                visible = !isOutputFullscreen,
+                enter = scaleIn(),
+                exit = scaleOut()
             ) {
-                AnimatedContent(
-                    targetState = scrollDirection != ScrollDirection.NONE,
-                    transitionSpec = {
-                        scaleIn(
-                            animationSpec = spring(
-                                dampingRatio = Spring.DampingRatioMediumBouncy,
-                                stiffness = Spring.StiffnessLow
-                            )
-                        ).togetherWith(
-                            scaleOut(
+                Column(
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.spacedBy(15.dp),
+                    modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)
+                ) {
+                    AnimatedContent(
+                        targetState = scrollDirection != ScrollDirection.NONE,
+                        transitionSpec = {
+                            scaleIn(
                                 animationSpec = spring(
                                     dampingRatio = Spring.DampingRatioMediumBouncy,
                                     stiffness = Spring.StiffnessLow
                                 )
+                            ).togetherWith(
+                                scaleOut(
+                                    animationSpec = spring(
+                                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                                        stiffness = Spring.StiffnessLow
+                                    )
+                                )
                             )
-                        )
+                        }
+                    ) { isScrolling ->
+                        if (isScrolling) {
+                            ScrollFAB(
+                                modifier = Modifier,
+                                listState = listState,
+                                scrollDirection = scrollDirection
+                            )
+                        } else {
+                            ShareFAB()
+                        }
                     }
-                ) { isScrolling ->
-                    if (isScrolling) {
-                        ScrollFAB(
-                            modifier = Modifier,
-                            listState = listState,
-                            scrollDirection = scrollDirection
-                        )
-                    } else {
-                        ShareFAB()
-                    }
-                }
 
-                BottomExtendedFAB(
-                    listState = listState,
-                    onClickSave = { success ->
-                        handleSaveButtonClick(success)
-                    })
+                    BottomExtendedFAB(
+                        listState = listState,
+                        onClickSave = { success ->
+                            handleSaveButtonClick(success)
+                        })
+                }
             }
         })
     { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize()
+        SharedTransitionLayout {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
             ) {
-                UtilityButtonGroup(
-                    showClearOutputDialog = { dialogManager.show(DialogKey.Shell.ClearOutput) },
-                    handleClearOutput = { handleClearOutput() },
-                    showBookmarkDialog = {
-                        handleBookmarkButtonClick()
-                    },
-                    showHistoryMenu = { handleHistoryButtonClick() })
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(25.dp)
-                ) {
-                    AutoResizeableText(
-                        text = stringResource(R.string.app_name),
-                        style = MaterialTheme.typography.headlineLarge,
-                        modifier = Modifier.weight(1f)
-                    )
-
-                    TextButton(
-                        onClick = withHaptic {
-                            modeButtonOnClick()
-                        },
-                        shapes = ButtonDefaults.shapes(),
-                        modifier = Modifier.animateContentSize(),
-                        colors = ButtonDefaults.textButtonColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                    ) {
-                        AutoResizeableText(
-                            text = modeButtonText,
-                            style = MaterialTheme.typography.labelLarge,
-                            modifier = Modifier.padding(horizontal = 5.dp)
-                        )
-                    }
-                }
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(20.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(20.dp)
-                ) {
-                    val label =
-                        if (states.commandField.isError) states.commandField.errorMessage else stringResource(
-                            R.string.command_title
-                        )
-
-                    val isBookmarked =
-                        bookmarkViewModel.isBookmarked(states.commandField.fieldValue.text)
-                            .collectAsState(initial = false)
-                    val trailingIcon =
-                        if (isBookmarked.value) painterResource(R.drawable.ic_bookmark_added) else painterResource(
-                            R.drawable.ic_add_bookmark
-                        )
-                    val overrideBookmarksLimit = LocalSettings.current.overrideBookmarksLimit
-
-                    ExposedDropdownMenuBox(
-                        modifier = Modifier.weight(1f),
-                        expanded = historyMenuExpanded,
-                        onExpandedChange = {}) {
-
-                        OutlinedTextField(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth()
-                                .focusRequester(textFieldFocusRequester),
-                            maxLines = 3,
-                            label = { Text(label) },
-                            value = states.commandField.fieldValue,
-                            onValueChange = { shellViewModel.onCommandTextFieldChange(it) },
-                            isError = states.commandField.isError,
-                            keyboardOptions = KeyboardOptions.Default.copy(
-                                imeAction = ImeAction.Send
-                            ),
-                            keyboardActions = KeyboardActions(
-                                onSend = { actionFabOnClick() }
-                            ),
-                            trailingIcon = {
-                                if (states.commandField.fieldValue.text.trim().isNotEmpty())
-                                    IconButton(
-                                        colors = IconButtonDefaults.iconButtonColors(
-                                            containerColor = Color.Transparent,
-                                            contentColor = MaterialTheme.colorScheme.primary
-                                        ),
-                                        onClick = withHaptic {
-                                            if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
-                                                states.commandField.fieldValue.text
+                AnimatedContent(
+                    targetState = isOutputFullscreen,
+                    label = "fullscreen_transition",
+                    transitionSpec = {
+                        if (targetState) {
+                            (fadeIn(animationSpec = spring(stiffness = Spring.StiffnessLow)) +
+                                    scaleIn(
+                                        initialScale = 0.9f,
+                                        animationSpec = spring(stiffness = Spring.StiffnessLow)
+                                    ))
+                                .togetherWith(fadeOut(animationSpec = spring(stiffness = Spring.StiffnessLow)))
+                        } else {
+                            fadeIn(animationSpec = spring(stiffness = Spring.StiffnessLow))
+                                .togetherWith(
+                                    fadeOut(animationSpec = spring(stiffness = Spring.StiffnessLow)) +
+                                            scaleOut(
+                                                targetScale = 0.9f,
+                                                animationSpec = spring(stiffness = Spring.StiffnessLow)
                                             )
-                                            else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
-                                                hideKeyboard(context)
-                                                coroutineScope.launch {
-                                                    snackBarHostState.showSnackbar(
-                                                        message = context.getString(R.string.bookmark_limit_reached),
-                                                        duration = SnackbarDuration.Short
+                                )
+                        }
+                    }
+                ) { fullscreen ->
+                    if (fullscreen) {
+                        // Fullscreen output overlay - covers all UI and ignores innerPadding
+                        FullscreenOutputOverlay(
+                            onDismiss = { isOutputFullscreen = false },
+                            initialScrollIndex = listState.firstVisibleItemIndex,
+                            shellViewModel = shellViewModel,
+                            sharedTransitionScope = this@SharedTransitionLayout,
+                            animatedContentScope = this@AnimatedContent
+                        )
+                    } else {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(innerPadding)
+                        ) {
+                            UtilityButtonGroup(
+                                showClearOutputDialog = { dialogManager.show(DialogKey.Shell.ClearOutput) },
+                                handleClearOutput = { handleClearOutput() },
+                                showBookmarkDialog = {
+                                    handleBookmarkButtonClick()
+                                },
+                                showHistoryMenu = { handleHistoryButtonClick() })
+
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 20.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(25.dp)
+                            ) {
+                                AutoResizeableText(
+                                    text = stringResource(R.string.app_name),
+                                    style = MaterialTheme.typography.headlineLarge,
+                                    modifier = Modifier.weight(1f)
+                                )
+
+                                TextButton(
+                                    onClick = withHaptic {
+                                        modeButtonOnClick()
+                                    },
+                                    shapes = ButtonDefaults.shapes(),
+                                    modifier = Modifier.animateContentSize(),
+                                    colors = ButtonDefaults.textButtonColors(
+                                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                    )
+                                ) {
+                                    AutoResizeableText(
+                                        text = modeButtonText,
+                                        style = MaterialTheme.typography.labelLarge,
+                                        modifier = Modifier.padding(horizontal = 5.dp)
+                                    )
+                                }
+                            }
+
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(20.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(20.dp)
+                            ) {
+                                val label =
+                                    if (states.commandField.isError) states.commandField.errorMessage else stringResource(
+                                        R.string.command_title
+                                    )
+
+                                val isBookmarked =
+                                    bookmarkViewModel.isBookmarked(states.commandField.fieldValue.text)
+                                        .collectAsState(initial = false)
+                                val trailingIcon =
+                                    if (isBookmarked.value) painterResource(R.drawable.ic_bookmark_added) else painterResource(
+                                        R.drawable.ic_add_bookmark
+                                    )
+                                val overrideBookmarksLimit =
+                                    LocalSettings.current.overrideBookmarksLimit
+
+                                ExposedDropdownMenuBox(
+                                    modifier = Modifier.weight(1f),
+                                    expanded = historyMenuExpanded,
+                                    onExpandedChange = {}) {
+
+                                    OutlinedTextField(
+                                        modifier = Modifier
+                                            .weight(1f)
+                                            .fillMaxWidth()
+                                            .focusRequester(textFieldFocusRequester)
+                                            .menuAnchor(),
+                                        maxLines = 3,
+                                        label = { Text(label) },
+                                        value = states.commandField.fieldValue,
+                                        onValueChange = { shellViewModel.onCommandTextFieldChange(it) },
+                                        isError = states.commandField.isError,
+                                        keyboardOptions = KeyboardOptions.Default.copy(
+                                            imeAction = ImeAction.Send
+                                        ),
+                                        keyboardActions = KeyboardActions(
+                                            onSend = { actionFabOnClick() }
+                                        ),
+                                        trailingIcon = {
+                                            if (states.commandField.fieldValue.text.trim()
+                                                    .isNotEmpty()
+                                            )
+                                                IconButton(
+                                                    colors = IconButtonDefaults.iconButtonColors(
+                                                        containerColor = Color.Transparent,
+                                                        contentColor = MaterialTheme.colorScheme.primary
+                                                    ),
+                                                    onClick = withHaptic {
+                                                        if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
+                                                            states.commandField.fieldValue.text
+                                                        )
+                                                        else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
+                                                            hideKeyboard(context)
+                                                            coroutineScope.launch {
+                                                                snackBarHostState.showSnackbar(
+                                                                    message = context.getString(R.string.bookmark_limit_reached),
+                                                                    duration = SnackbarDuration.Short
+                                                                )
+                                                            }
+                                                        } else bookmarkViewModel.addBookmark(states.commandField.fieldValue.text)
+                                                    }) {
+                                                    Icon(
+                                                        painter = trailingIcon,
+                                                        contentDescription = null,
+                                                        modifier = Modifier
                                                     )
                                                 }
-                                            } else bookmarkViewModel.addBookmark(states.commandField.fieldValue.text)
-                                        }) {
-                                        Icon(
-                                            painter = trailingIcon,
-                                            contentDescription = null,
-                                            modifier = Modifier
-                                        )
-                                    }
-                            })
+                                        })
 
-                        ExposedDropdownMenu(
-                            expanded = historyMenuExpanded,
-                            onDismissRequest = { historyMenuExpanded = false },
-                            modifier = Modifier
-                                .heightIn(max = 400.dp)
-                                .verticalScroll(rememberScrollState())
-                        ) {
-                            if (states.cmdHistory.isEmpty()) return@ExposedDropdownMenu
+                                    ExposedDropdownMenu(
+                                        expanded = historyMenuExpanded,
+                                        onDismissRequest = { historyMenuExpanded = false },
+                                        modifier = Modifier
+                                            .heightIn(max = 400.dp)
+                                            .verticalScroll(rememberScrollState())
+                                    ) {
+                                        if (states.cmdHistory.isEmpty()) return@ExposedDropdownMenu
 
-                            states.cmdHistory.reversed().forEach { command ->
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(
-                                            text = command,
-                                            maxLines = 1,
-                                            modifier = Modifier.basicMarquee()
-                                        )
-                                    },
-                                    onClick = {
-                                        shellViewModel.onCommandTextFieldChange(
-                                            TextFieldValue(
-                                                command
+                                        states.cmdHistory.reversed().forEach { command ->
+                                            DropdownMenuItem(
+                                                text = {
+                                                    Text(
+                                                        text = command,
+                                                        maxLines = 1,
+                                                        modifier = Modifier.basicMarquee()
+                                                    )
+                                                },
+                                                onClick = {
+                                                    shellViewModel.onCommandTextFieldChange(
+                                                        TextFieldValue(
+                                                            command
+                                                        )
+                                                    )
+                                                    shellViewModel.updateTextFieldSelection()
+                                                    historyMenuExpanded = false
+                                                    textFieldFocusRequester.requestFocus()
+                                                }
                                             )
-                                        )
-                                        shellViewModel.updateTextFieldSelection()
-                                        historyMenuExpanded = false
-                                        textFieldFocusRequester.requestFocus()
+                                        }
                                     }
+                                }
+
+                                FloatingActionButton(
+                                    modifier = Modifier.padding(top = 10.dp),
+                                    onClick = actionFabOnClick,
+                                    containerColor = if (states.shellState is ShellState.Busy) {
+                                        MaterialTheme.colorScheme.errorContainer
+                                    } else {
+                                        MaterialTheme.colorScheme.primaryContainer
+                                    },
+                                    contentColor = if (states.shellState is ShellState.Busy) {
+                                        MaterialTheme.colorScheme.onErrorContainer
+                                    } else {
+                                        MaterialTheme.colorScheme.onPrimaryContainer
+                                    },
+                                    content = actionFabIcon
+                                )
+                            }
+
+                            if (states.commandField.fieldValue.text.isNotEmpty() && !states.search.isVisible) {
+                                CommandSuggestions(
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
+
+                            OutputCard(
+                                listState = listState,
+                                isFullscreen = isOutputFullscreen,
+                                onFullscreenToggle = { isOutputFullscreen = !isOutputFullscreen },
+                                sharedTransitionScope = this@SharedTransitionLayout,
+                                animatedContentScope = this@AnimatedContent
+                            )
+                        }
+
+                        if (states.search.textFieldValue.text.isNotEmpty() && searchOutputResult.isEmpty()) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(innerPadding)
+                            ) {
+                                NoSearchResultUi(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 40.dp)
+                                        .align(Alignment.Center)
                                 )
                             }
                         }
                     }
-
-                    FloatingActionButton(
-                        onClick = actionFabOnClick,
-                        modifier = Modifier.padding(top = 10.dp),
-                        containerColor = if (states.shellState is ShellState.Busy) {
-                            MaterialTheme.colorScheme.errorContainer
-                        } else {
-                            MaterialTheme.colorScheme.primaryContainer
-                        },
-                        contentColor = if (states.shellState is ShellState.Busy) {
-                            MaterialTheme.colorScheme.onErrorContainer
-                        } else {
-                            MaterialTheme.colorScheme.onPrimaryContainer
-                        },
-                        content = actionFabIcon
-                    )
                 }
-
-                if (states.commandField.fieldValue.text.isNotEmpty() && !states.search.isVisible) {
-                    CommandSuggestions(
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-
-                OutputCard(listState = listState)
-            }
-
-            if (states.search.textFieldValue.text.isNotEmpty() && searchOutputResult.isEmpty()) {
-                NoSearchResultUi(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp)
-                        .align(Alignment.Center)
-                )
             }
         }
-
-        when (dialogManager.activeDialog) {
-            DialogKey.Shell.ClearOutput -> ClearOutputConfirmationDialog(
-                onDismiss = { dialogManager.dismiss() },
-                onConfirm = { handleClearOutput() })
-
-            DialogKey.Shell.Bookmark -> BookmarkDialog(
-                onBookmarkClicked = { command ->
-                    shellViewModel.onCommandTextFieldChange(TextFieldValue(command))
-                    shellViewModel.updateTextFieldSelection()
-                    dialogManager.dismiss()
-                    textFieldFocusRequester.requestFocus()
-                },
-                onDelete = { dialogManager.show(DialogKey.Shell.DeleteBookmarks) },
-                onSort = { dialogManager.show(DialogKey.Shell.BookmarkSort) },
-                onDismiss = { dialogManager.dismiss() }
-            )
-
-            DialogKey.Shell.DeleteBookmarks -> DeleteBookmarksDialog(
-                onDismiss = { dialogManager.show(DialogKey.Shell.Bookmark) },
-                onDelete = {
-                    dialogManager.dismiss()
-                    bookmarkViewModel.deleteAllBookmark()
-                }
-            )
-
-            DialogKey.Shell.BookmarkSort -> BookmarksSortDialog(
-                onDismiss = { dialogManager.show(DialogKey.Shell.Bookmark) }
-            )
-
-            DialogKey.Shell.FileSaved -> FileSavedDialog(
-                onDismiss = { dialogManager.dismiss() },
-                onOpenFile = { handleSavedFileOpen() },
-            )
-
-            else -> dialogManager.dismiss()
-        }
-
-        extraContent()
     }
+
+    when (dialogManager.activeDialog) {
+        DialogKey.Shell.ClearOutput -> ClearOutputConfirmationDialog(
+            onDismiss = { dialogManager.dismiss() },
+            onConfirm = { handleClearOutput() })
+
+        DialogKey.Shell.Bookmark -> BookmarkDialog(
+            onBookmarkClicked = { command ->
+                shellViewModel.onCommandTextFieldChange(TextFieldValue(command))
+                shellViewModel.updateTextFieldSelection()
+                dialogManager.dismiss()
+                textFieldFocusRequester.requestFocus()
+            },
+            onDelete = { dialogManager.show(DialogKey.Shell.DeleteBookmarks) },
+            onSort = { dialogManager.show(DialogKey.Shell.BookmarkSort) },
+            onDismiss = { dialogManager.dismiss() }
+        )
+
+        DialogKey.Shell.DeleteBookmarks -> DeleteBookmarksDialog(
+            onDismiss = { dialogManager.show(DialogKey.Shell.Bookmark) },
+            onDelete = {
+                dialogManager.dismiss()
+                bookmarkViewModel.deleteAllBookmark()
+            }
+        )
+
+        DialogKey.Shell.BookmarkSort -> BookmarksSortDialog(
+            onDismiss = { dialogManager.show(DialogKey.Shell.Bookmark) }
+        )
+
+        DialogKey.Shell.FileSaved -> FileSavedDialog(
+            onDismiss = { dialogManager.dismiss() },
+            onOpenFile = { handleSavedFileOpen() },
+        )
+
+        else -> dialogManager.dismiss()
+    }
+
+    extraContent()
 }
 
 @Composable
@@ -576,6 +658,10 @@ private fun NoSearchResultUi(modifier: Modifier = Modifier) {
 @Composable
 private fun OutputCard(
     listState: LazyListState,
+    isFullscreen: Boolean,
+    onFullscreenToggle: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val isDarkMode = LocalDarkMode.current
@@ -619,94 +705,274 @@ private fun OutputCard(
     if (combinedOutput.value.isEmpty()) return
 
     LaunchedEffect(combinedOutput.value.size) {
-        if (combinedOutput.value.isNotEmpty()) {
+        if (combinedOutput.value.isNotEmpty() && !isFullscreen) {
             listState.scrollToItem(combinedOutput.value.lastIndex)
         }
     }
 
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clip(MaterialTheme.shapes.large),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isDarkMode)
-                MaterialTheme.colorScheme.surfaceContainerLowest
-            else MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        )
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-        ) {
-            LazyColumn(
-                state = listState,
+    val cardContainerColor = if (isDarkMode)
+        MaterialTheme.colorScheme.surfaceContainerLowest
+    else MaterialTheme.colorScheme.surfaceVariant
+
+    val headerColor = if (isDarkMode)
+        MaterialTheme.colorScheme.surfaceContainerLow
+    else MaterialTheme.colorScheme.surfaceContainer
+
+    // Only render the card when not in fullscreen
+    if (!isFullscreen) {
+        with(sharedTransitionScope) {
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .sharedElement(
+                        rememberSharedContentState(key = "output_card"),
+                        animatedVisibilityScope = animatedContentScope
+                    )
+                    .clip(MaterialTheme.shapes.large),
+                colors = CardDefaults.cardColors(
+                    containerColor = cardContainerColor,
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                )
             ) {
-                itemsIndexed(combinedOutput.value) { index, line ->
-                    val text = if (!states.search.isVisible) line.text else line.text.takeIf {
-                        line.text.contains(
-                            states.search.textFieldValue.text,
-                            ignoreCase = true
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                ) {
+                    // Header bar
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(headerColor)
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(R.string.output),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
+                        IconButton(
+                            onClick = onFullscreenToggle,
+                            modifier = Modifier.size(32.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Fullscreen,
+                                contentDescription = "Fullscreen",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
 
-                    val isCommandLine = text?.startsWith("$ ")
-
-                    val lineColor =
-                        if (isCommandLine == true) MaterialTheme.colorScheme.primary else {
-                            if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
-                        }
-
-                    val textStyle = if (isCommandLine == true) commandTextStyle else bodyTextStyle
-
-                    text?.let {
-                        val annotatedText =
-                            if (states.search.isVisible && !states.search.textFieldValue.text.isBlank()) {
-                                val highlightBgColor =
-                                    if (line.isError) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer
-                                val highlightTextColor =
-                                    if (line.isError) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onPrimaryContainer
-
-                                highlightQueryText(
-                                    text = text,
-                                    query = states.search.textFieldValue.text,
-                                    highlightBgColor = highlightBgColor,
-                                    highlightTextColor = highlightTextColor
-                                )
-                            } else {
-                                AnnotatedString(text)
-                            }
-
-                        Text(
-                            text = annotatedText,
-                            style = textStyle,
-                            color = lineColor,
+                    // Output content
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                    ) {
+                        LazyColumn(
+                            state = listState,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .then(
-                                    if (isCommandLine == true) Modifier.padding(
-                                        top = 20.dp,
-                                        bottom = 10.dp
-                                    ) else Modifier
+                                .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            itemsIndexed(combinedOutput.value) { _, line ->
+                                OutputLineItem(
+                                    line = line,
+                                    states = states,
+                                    commandTextStyle = commandTextStyle,
+                                    bodyTextStyle = bodyTextStyle
                                 )
+                            }
+                        }
+
+                        VerticalScrollbar(
+                            listState = listState,
+                            modifier = Modifier
+                                .align(Alignment.CenterEnd)
+                                .fillMaxHeight()
+                                .width(4.dp)
                         )
                     }
                 }
             }
+        }
+    }
+}
 
-            VerticalScrollbar(
-                listState = listState,
-                modifier = Modifier
-                    .align(Alignment.CenterEnd)
-                    .fillMaxHeight()
-                    .width(4.dp)
-            )
+@Composable
+private fun OutputLineItem(
+    line: OutputLine,
+    states: ShellScreenState,
+    commandTextStyle: androidx.compose.ui.text.TextStyle,
+    bodyTextStyle: androidx.compose.ui.text.TextStyle
+) {
+    val text = if (!states.search.isVisible) line.text else line.text.takeIf {
+        line.text.contains(
+            states.search.textFieldValue.text,
+            ignoreCase = true
+        )
+    }
+
+    val isCommandLine = text?.startsWith("$ ")
+
+    val lineColor =
+        if (isCommandLine == true) MaterialTheme.colorScheme.primary else {
+            if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
+        }
+
+    val textStyle = if (isCommandLine == true) commandTextStyle else bodyTextStyle
+
+    text?.let {
+        val annotatedText =
+            if (states.search.isVisible && !states.search.textFieldValue.text.isBlank()) {
+                val highlightBgColor =
+                    if (line.isError) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer
+                val highlightTextColor =
+                    if (line.isError) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onPrimaryContainer
+
+                highlightQueryText(
+                    text = text,
+                    query = states.search.textFieldValue.text,
+                    highlightBgColor = highlightBgColor,
+                    highlightTextColor = highlightTextColor
+                )
+            } else {
+                AnnotatedString(text)
+            }
+
+        Text(
+            text = annotatedText,
+            style = textStyle,
+            color = lineColor,
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(
+                    if (isCommandLine == true) Modifier.padding(
+                        top = 20.dp,
+                        bottom = 10.dp
+                    ) else Modifier
+                )
+        )
+    }
+}
+
+@Composable
+private fun FullscreenOutputOverlay(
+    onDismiss: () -> Unit,
+    initialScrollIndex: Int = 0,
+    shellViewModel: ShellViewModel = hiltViewModel(),
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope
+) {
+    val terminalFontStyle = LocalSettings.current.terminalFontStyle
+    val fullscreenListState =
+        rememberLazyListState(initialFirstVisibleItemIndex = initialScrollIndex)
+
+    val commandTextStyle =
+        if (terminalFontStyle == TerminalFontStyle.MONOSPACE) MaterialTheme.typography.titleSmallEmphasized.copy(
+            fontFamily = FontFamily.Monospace,
+            fontWeight = FontWeight.SemiBold
+        )
+        else MaterialTheme.typography.titleSmallEmphasized.copy(
+            fontWeight = FontWeight.SemiBold
+        )
+
+    val bodyTextStyle =
+        if (terminalFontStyle == TerminalFontStyle.MONOSPACE) MaterialTheme.typography.bodySmallEmphasized.copy(
+            fontFamily = FontFamily.Monospace
+        ) else MaterialTheme.typography.bodySmallEmphasized
+
+    val states by shellViewModel.states.collectAsState()
+    val results by shellViewModel.filteredOutput.collectAsState()
+
+    val allOutputs = results.map { commandResult ->
+        commandResult.outputFlow.collectAsState()
+    }
+
+    val combinedOutput = remember(results, allOutputs) {
+        derivedStateOf {
+            if (results.isEmpty() || allOutputs.isEmpty()) {
+                emptyList()
+            } else {
+                allOutputs.flatMapIndexed { index, outputState ->
+                    val command =
+                        results.getOrNull(index)?.command ?: return@flatMapIndexed emptyList()
+                    listOf(OutputLine("$ $command", isError = false)) + outputState.value
+                }
+            }
+        }
+    }
+
+    BackHandler(enabled = true) {
+        onDismiss()
+    }
+
+    val containerColor = MaterialTheme.colorScheme.surface
+
+    with(sharedTransitionScope) {
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .sharedElement(
+                    rememberSharedContentState(key = "output_card"),
+                    animatedVisibilityScope = animatedContentScope
+                ),
+            color = containerColor
+        ) {
+            Scaffold(
+                containerColor = containerColor,
+                topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = stringResource(R.string.output),
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                        },
+                        navigationIcon = {
+                            IconButton(onClick = onDismiss) {
+                                Icon(
+                                    imageVector = Icons.Rounded.FullscreenExit,
+                                    contentDescription = "Exit fullscreen"
+                                )
+                            }
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                            titleContentColor = MaterialTheme.colorScheme.onSurface,
+                            navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
+                            actionIconContentColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    )
+                }
+            ) { paddingValues ->
+
+                LazyColumn(
+                    state = fullscreenListState,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
+                        .padding(horizontal = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    itemsIndexed(combinedOutput.value) { _, line ->
+                        OutputLineItem(
+                            line = line,
+                            states = states,
+                            commandTextStyle = commandTextStyle,
+                            bodyTextStyle = bodyTextStyle
+                        )
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height(30.dp))
+                    }
+                }
+            }
         }
     }
 }
