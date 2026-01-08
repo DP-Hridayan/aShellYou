@@ -278,39 +278,43 @@ fun BaseShellScreen(
                 enter = scaleIn(),
                 exit = scaleOut()
             ) {
+                // Check if scroll buttons should be visible
+                val isScrolling = listState.isScrollInProgress
+                val canScrollUp = listState.canScrollBackward
+                val canScrollDown = listState.canScrollForward
+                val isNotBusy = states.shellState !is ShellState.Busy
+                val showScrollButton = isNotBusy && isScrolling && (canScrollUp || canScrollDown)
+
                 Column(
                     horizontalAlignment = Alignment.End,
                     verticalArrangement = Arrangement.spacedBy(15.dp),
                     modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)
                 ) {
-                    AnimatedContent(
-                        targetState = scrollDirection != ScrollDirection.NONE,
-                        transitionSpec = {
-                            scaleIn(
-                                animationSpec = spring(
-                                    dampingRatio = Spring.DampingRatioMediumBouncy,
-                                    stiffness = Spring.StiffnessLow
-                                )
-                            ).togetherWith(
-                                scaleOut(
-                                    animationSpec = spring(
-                                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                                        stiffness = Spring.StiffnessLow
-                                    )
-                                )
+                    // Scroll up/down button (separate from share)
+                    AnimatedVisibility(
+                        visible = showScrollButton,
+                        enter = scaleIn(
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioMediumBouncy,
+                                stiffness = Spring.StiffnessLow
                             )
-                        }
-                    ) { isScrolling ->
-                        if (isScrolling) {
-                            ScrollFAB(
-                                modifier = Modifier,
-                                listState = listState,
-                                scrollDirection = scrollDirection
+                        ),
+                        exit = scaleOut(
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioMediumBouncy,
+                                stiffness = Spring.StiffnessLow
                             )
-                        } else {
-                            ShareFAB()
-                        }
+                        )
+                    ) {
+                        ScrollFAB(
+                            modifier = Modifier,
+                            listState = listState,
+                            scrollDirection = scrollDirection
+                        )
                     }
+
+                    // Share button (always visible when output exists, like save button)
+                    ShareFAB()
 
                     BottomExtendedFAB(
                         listState = listState,
@@ -996,6 +1000,9 @@ private fun FullscreenOutputOverlay(
             Scaffold(
                 containerColor = containerColor,
                 topBar = {
+                    val coroutineScope = rememberCoroutineScope()
+                    val smoothScroll = LocalSettings.current.smoothScrolling
+
                     TopAppBar(
                         title = {
                             Text(
@@ -1008,6 +1015,35 @@ private fun FullscreenOutputOverlay(
                                 Icon(
                                     imageVector = Icons.Rounded.FullscreenExit,
                                     contentDescription = "Exit fullscreen"
+                                )
+                            }
+                        },
+                        actions = {
+                            // Scroll to top
+                            IconButton(onClick = {
+                                coroutineScope.launch {
+                                    if (smoothScroll) fullscreenListState.animateScrollToItem(0)
+                                    else fullscreenListState.scrollToItem(0)
+                                }
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Rounded.KeyboardDoubleArrowUp,
+                                    contentDescription = "Scroll to top"
+                                )
+                            }
+                            // Scroll to bottom
+                            IconButton(onClick = {
+                                coroutineScope.launch {
+                                    val lastIndex = fullscreenListState.layoutInfo.totalItemsCount - 1
+                                    if (lastIndex >= 0) {
+                                        if (smoothScroll) fullscreenListState.animateScrollToItem(lastIndex)
+                                        else fullscreenListState.scrollToItem(lastIndex)
+                                    }
+                                }
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Rounded.KeyboardDoubleArrowDown,
+                                    contentDescription = "Scroll to bottom"
                                 )
                             }
                         },
