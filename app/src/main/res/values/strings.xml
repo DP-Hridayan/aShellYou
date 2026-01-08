@@ -385,4 +385,49 @@
     <string name="changelog_v1_0_0">\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
     <string name="changelog_v0_9_1">\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
     <string name="changelog_v0_9_0">\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
+
+    <!-- File Browser -->
+    <string name="fb_upload_file">Upload file</string>
+    <string name="fb_new_folder">New folder</string>
+    <string name="fb_paste">Paste</string>
+    <string name="fb_minimize">Minimize</string>
+    <string name="fb_refresh">Refresh</string>
+    <string name="fb_home">Home</string>
+    <string name="fb_internal_storage">Internal Storage</string>
+    <string name="fb_empty_folder">This folder is empty</string>
+    <string name="fb_downloading">Downloading…</string>
+    <string name="fb_uploading">Uploading…</string>
+    <string name="fb_copying">Copying…</string>
+    <string name="fb_moving">Moving…</string>
+    <string name="fb_operations">Operations</string>
+    <string name="fb_no_operations">No operations in progress</string>
+    <string name="fb_cancel_all">Cancel all</string>
+    <string name="fb_file_info">File Info</string>
+    <string name="fb_folder_info">Folder Info</string>
+    <string name="fb_name">Name</string>
+    <string name="fb_path">Path</string>
+    <string name="fb_type">Type</string>
+    <string name="fb_size">Size</string>
+    <string name="fb_modified">Modified</string>
+    <string name="fb_folder">Folder</string>
+    <string name="fb_file">File</string>
+    <string name="fb_rename">Rename</string>
+    <string name="fb_copy">Copy</string>
+    <string name="fb_move">Move</string>
+    <string name="fb_info">Info</string>
+    <string name="fb_download">Download</string>
+    <string name="fb_delete">Delete</string>
+    <string name="fb_delete_title">Delete %1$s?</string>
+    <string name="fb_delete_message">Are you sure you want to delete \"%1$s\"?</string>
+    <string name="fb_rename_title">Rename %1$s</string>
+    <string name="fb_new_name">New name</string>
+    <string name="fb_folder_name">Folder name</string>
+    <string name="fb_conflict_title">Item already exists</string>
+    <string name="fb_conflict_message">\"%1$s\" already exists in this location.</string>
+    <string name="fb_skip">Skip</string>
+    <string name="fb_replace">Replace</string>
+    <string name="fb_merge">Merge</string>
+    <string name="fb_copied_to_clipboard">Copied to clipboard</string>
+    <string name="fb_cut_to_clipboard">Cut to clipboard</string>
 </resources>
+
