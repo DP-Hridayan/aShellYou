@@ -48,6 +48,7 @@
     <string name="commands">Commands</string>
     <string name="configure_save_directory">Configure save directory</string>
     <string name="confirm">Confirm</string>
+    <string name="file_browser">File Browser</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="connect">Connect</string>
@@ -257,7 +258,7 @@
     <string name="qr_pair">QR Pair</string>
     <string name="manual_pair">Manual Pair</string>
     <string name="no_saved_devices">No saved devices</string>
-    <string name="pair_device_to_start">Pair a device using QR or manually to see it here</string>
+    <string name="pair_device_to_start">Pair a device using QR or pairing code to see it here</string>
     <string name="dismiss">Dismiss</string>
     <string name="search">Search</string>
     <string name="search_commands_here">Search commands here</string>

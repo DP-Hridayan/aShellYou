@@ -205,6 +205,15 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 ) {
                     WifiAdbScreen()
                 }
+
+                composable<NavRoutes.FileBrowserScreen>(
+                    enterTransition = { slideFadeInFromRight() },
+                    exitTransition = { slideFadeOutToLeft() },
+                    popEnterTransition = { slideFadeInFromLeft() },
+                    popExitTransition = { slideFadeOutToRight() }
+                ) {
+                    `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.screens.FileBrowserScreen()
+                }
             }
         }
     }

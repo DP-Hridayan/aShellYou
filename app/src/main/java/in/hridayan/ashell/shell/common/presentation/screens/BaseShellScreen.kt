@@ -164,6 +164,7 @@ fun BaseShellScreen(
     modeButtonText: String = stringResource(R.string.mode),
     shellViewModel: ShellViewModel = hiltViewModel(),
     bookmarkViewModel: BookmarkViewModel = hiltViewModel(),
+    extraButtonContent: @Composable (() -> Unit)? = null,
     extraContent: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -414,6 +415,9 @@ fun BaseShellScreen(
                                     style = MaterialTheme.typography.headlineLarge,
                                     modifier = Modifier.weight(1f)
                                 )
+
+                                // Extra button content (e.g., file browser)
+                                extraButtonContent?.invoke()
 
                                 TextButton(
                                     onClick = withHaptic {

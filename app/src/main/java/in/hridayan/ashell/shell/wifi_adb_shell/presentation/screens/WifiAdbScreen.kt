@@ -1,5 +1,12 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Folder
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -7,10 +14,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
@@ -24,6 +37,7 @@ fun WifiAdbScreen(
     wifiAdbViewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val navController = LocalNavController.current
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showDisconnectedDialog by rememberSaveable { mutableStateOf(false) }
     var disconnectedDeviceName by rememberSaveable { mutableStateOf<String?>(null) }
@@ -59,7 +73,26 @@ fun WifiAdbScreen(
     BaseShellScreen(
         modeButtonText = modeButtonText,
         modeButtonOnClick = modeButtonOnClick,
-        runCommandIfPermissionGranted = runCommandIfPermissionGranted
+        runCommandIfPermissionGranted = runCommandIfPermissionGranted,
+        extraButtonContent = if (isConnected) {
+            {
+                IconButton(
+                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                        navController.navigate(NavRoutes.FileBrowserScreen)
+                    },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Folder,
+                        contentDescription = stringResource(R.string.file_browser),
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
+            }
+        } else null
     )
 
     if (showConnectedDeviceDialog) {
