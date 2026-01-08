@@ -85,6 +85,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -721,6 +722,35 @@ private fun OutputCard(
         }
     }
 
+    // Smart auto-scroll during live output (ShellState.Busy)
+    var userInteracting by remember { mutableStateOf(false) }
+    var lastInteractionTime by remember { mutableLongStateOf(0L) }
+
+    // Detect user interaction
+    LaunchedEffect(listState.isScrollInProgress) {
+        if (listState.isScrollInProgress) {
+            userInteracting = true
+            lastInteractionTime = System.currentTimeMillis()
+        }
+    }
+
+    // Resume auto-scroll after 3 seconds of no interaction
+    LaunchedEffect(userInteracting, states.shellState) {
+        if (userInteracting && states.shellState is ShellState.Busy) {
+            while (System.currentTimeMillis() - lastInteractionTime < 3000) {
+                kotlinx.coroutines.delay(500)
+            }
+            userInteracting = false
+        }
+    }
+
+    // Auto-scroll to bottom during live output
+    LaunchedEffect(combinedOutput.value.size, states.shellState, userInteracting) {
+        if (states.shellState is ShellState.Busy && !userInteracting && combinedOutput.value.isNotEmpty() && !isFullscreen) {
+            listState.scrollToItem(combinedOutput.value.lastIndex)
+        }
+    }
+
     val cardContainerColor = if (isDarkMode)
         MaterialTheme.colorScheme.surfaceContainerLowest
     else MaterialTheme.colorScheme.surfaceVariant
@@ -922,6 +952,35 @@ private fun FullscreenOutputOverlay(
         onDismiss(fullscreenListState.firstVisibleItemIndex)
     }
 
+    // Smart auto-scroll during live output (ShellState.Busy)
+    var userInteracting by remember { mutableStateOf(false) }
+    var lastInteractionTime by remember { mutableLongStateOf(0L) }
+
+    // Detect user interaction
+    LaunchedEffect(fullscreenListState.isScrollInProgress) {
+        if (fullscreenListState.isScrollInProgress) {
+            userInteracting = true
+            lastInteractionTime = System.currentTimeMillis()
+        }
+    }
+
+    // Resume auto-scroll after 3 seconds of no interaction
+    LaunchedEffect(userInteracting, states.shellState) {
+        if (userInteracting && states.shellState is ShellState.Busy) {
+            while (System.currentTimeMillis() - lastInteractionTime < 3000) {
+                kotlinx.coroutines.delay(500)
+            }
+            userInteracting = false
+        }
+    }
+
+    // Auto-scroll to bottom during live output
+    LaunchedEffect(combinedOutput.value.size, states.shellState, userInteracting) {
+        if (states.shellState is ShellState.Busy && !userInteracting && combinedOutput.value.isNotEmpty()) {
+            fullscreenListState.scrollToItem(combinedOutput.value.lastIndex)
+        }
+    }
+
     val containerColor = MaterialTheme.colorScheme.surface
 
     with(sharedTransitionScope) {
@@ -962,26 +1021,39 @@ private fun FullscreenOutputOverlay(
                 }
             ) { paddingValues ->
 
-                LazyColumn(
-                    state = fullscreenListState,
+                Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues)
-                        .padding(horizontal = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    itemsIndexed(combinedOutput.value) { _, line ->
-                        OutputLineItem(
-                            line = line,
-                            states = states,
-                            commandTextStyle = commandTextStyle,
-                            bodyTextStyle = bodyTextStyle
-                        )
+                    LazyColumn(
+                        state = fullscreenListState,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        itemsIndexed(combinedOutput.value) { _, line ->
+                            OutputLineItem(
+                                line = line,
+                                states = states,
+                                commandTextStyle = commandTextStyle,
+                                bodyTextStyle = bodyTextStyle
+                            )
+                        }
+
+                        item {
+                            Spacer(modifier = Modifier.height(30.dp))
+                        }
                     }
 
-                    item {
-                        Spacer(modifier = Modifier.height(30.dp))
-                    }
+                    VerticalScrollbar(
+                        listState = fullscreenListState,
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .fillMaxHeight()
+                            .width(4.dp)
+                    )
                 }
             }
         }
