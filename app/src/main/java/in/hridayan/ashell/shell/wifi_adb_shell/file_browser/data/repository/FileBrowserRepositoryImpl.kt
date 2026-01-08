@@ -32,67 +32,110 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
     override suspend fun listFiles(path: String): Result<List<RemoteFile>> =
         withContext(Dispatchers.IO) {
-            try {
-                val adbManager = getAdbManager()
-                // Normalize path - ensure trailing slash for directories to get contents not symlink info
-                val normalizedPath = if (path.endsWith("/")) path else "$path/"
-                val escapedPath = normalizedPath.replace("'", "'\\''")
-                val command = "shell:ls -la '$escapedPath'"
-                
-                Log.d(TAG, "Listing files with command: $command")
-
-                val stream = adbManager.openStream(command)
-                val reader = BufferedReader(InputStreamReader(stream.openInputStream()))
-                val files = mutableListOf<RemoteFile>()
-                val rawLines = mutableListOf<String>()
-
-                // Read all lines first, then close stream
-                reader.forEachLine { line ->
-                    rawLines.add(line)
-                }
-                reader.close()
-                stream.close()
-                
-                Log.d(TAG, "Got ${rawLines.size} lines from ls output")
-
-                // Add parent directory navigation if not at root
-                val cleanPath = path.trimEnd('/')
-                if (cleanPath != "" && cleanPath != "/") {
-                    val parentPath = File(cleanPath).parent ?: "/"
-                    files.add(
-                        RemoteFile(
-                            name = "..",
-                            path = parentPath,
-                            isDirectory = true
-                        )
-                    )
-                }
-
-                // Parse lines
-                rawLines.forEach { line ->
-                    parseListLine(line, cleanPath.ifEmpty { "/" })?.let { file ->
-                        if (file.name != "." && file.name != "..") {
-                            files.add(file)
-                            Log.d(TAG, "Parsed file: ${file.name} (dir=${file.isDirectory})")
-                        }
+            var lastException: Exception? = null
+            
+            // Retry up to 3 times for transient stream errors
+            repeat(3) { attempt ->
+                try {
+                    val result = listFilesInternal(path)
+                    if (result.isSuccess) {
+                        return@withContext result
+                    }
+                    lastException = result.exceptionOrNull() as? Exception
+                    Log.w(TAG, "Attempt ${attempt + 1} failed for path: $path", lastException)
+                    
+                    // Small delay before retry
+                    if (attempt < 2) {
+                        kotlinx.coroutines.delay(100)
+                    }
+                } catch (e: Exception) {
+                    lastException = e
+                    Log.w(TAG, "Attempt ${attempt + 1} exception for path: $path", e)
+                    if (attempt < 2) {
+                        kotlinx.coroutines.delay(100)
                     }
                 }
-
-                // Sort: directories first, then alphabetically
-                val sorted = files.sortedWith(
-                    compareByDescending<RemoteFile> { it.isParentDirectory }
-                        .thenByDescending { it.isDirectory }
-                        .thenBy { it.name.lowercase() }
-                )
-                
-                Log.d(TAG, "Returning ${sorted.size} files for path: $path")
-
-                Result.success(sorted)
-            } catch (e: Exception) {
-                Log.e(TAG, "Error listing files at $path", e)
-                Result.failure(e)
             }
+            
+            Result.failure(lastException ?: Exception("Failed to list files after 3 attempts"))
         }
+    
+    private fun listFilesInternal(path: String): Result<List<RemoteFile>> {
+        var stream: io.github.muntashirakon.adb.AdbStream? = null
+        var reader: BufferedReader? = null
+        
+        try {
+            val adbManager = getAdbManager()
+            
+            // Check if connected first
+            if (!adbManager.isConnected) {
+                return Result.failure(Exception("Not connected to device"))
+            }
+            
+            // Normalize path - ensure trailing slash for directories to get contents not symlink info
+            val normalizedPath = if (path.endsWith("/")) path else "$path/"
+            val escapedPath = normalizedPath.replace("'", "'\\''")
+            val command = "shell:ls -la '$escapedPath'"
+            
+            Log.d(TAG, "Listing files with command: $command")
+
+            stream = adbManager.openStream(command)
+            reader = BufferedReader(InputStreamReader(stream.openInputStream()))
+            val files = mutableListOf<RemoteFile>()
+            val rawLines = mutableListOf<String>()
+
+            // Read all lines
+            var line: String?
+            while (reader.readLine().also { line = it } != null) {
+                line?.let { rawLines.add(it) }
+            }
+            
+            // Close resources
+            try { reader.close() } catch (e: Exception) { /* ignore */ }
+            try { stream.close() } catch (e: Exception) { /* ignore */ }
+            
+            Log.d(TAG, "Got ${rawLines.size} lines from ls output")
+
+            // Add parent directory navigation if not at root
+            val cleanPath = path.trimEnd('/')
+            if (cleanPath != "" && cleanPath != "/") {
+                val parentPath = File(cleanPath).parent ?: "/"
+                files.add(
+                    RemoteFile(
+                        name = "..",
+                        path = parentPath,
+                        isDirectory = true
+                    )
+                )
+            }
+
+            // Parse lines
+            rawLines.forEach { l ->
+                parseListLine(l, cleanPath.ifEmpty { "/" })?.let { file ->
+                    if (file.name != "." && file.name != "..") {
+                        files.add(file)
+                    }
+                }
+            }
+
+            // Sort: directories first, then alphabetically
+            val sorted = files.sortedWith(
+                compareByDescending<RemoteFile> { it.isParentDirectory }
+                    .thenByDescending { it.isDirectory }
+                    .thenBy { it.name.lowercase() }
+            )
+            
+            Log.d(TAG, "Returning ${sorted.size} files for path: $path")
+
+            return Result.success(sorted)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error listing files at $path", e)
+            // Ensure resources are closed
+            try { reader?.close() } catch (ex: Exception) { /* ignore */ }
+            try { stream?.close() } catch (ex: Exception) { /* ignore */ }
+            return Result.failure(e)
+        }
+    }
 
     /**
      * Parse a line from `ls -la` output.
