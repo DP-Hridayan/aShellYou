@@ -12,6 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.File
@@ -25,6 +27,9 @@ class FileBrowserRepositoryImpl @Inject constructor(
 ) : FileBrowserRepository {
 
     private val TAG = "FileBrowser"
+    
+    // Mutex to ensure only one ADB operation runs at a time
+    private val adbMutex = Mutex()
 
     private fun getAdbManager(): AbsAdbConnectionManager {
         return AdbConnectionManager.getInstance(context)
@@ -32,6 +37,8 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
     override suspend fun listFiles(path: String): Result<List<RemoteFile>> =
         withContext(Dispatchers.IO) {
+            // Use mutex to prevent concurrent ADB access
+            adbMutex.withLock {
             var lastException: Exception? = null
             
             // Retry up to 3 times for transient stream errors
@@ -58,11 +65,11 @@ class FileBrowserRepositoryImpl @Inject constructor(
             }
             
             Result.failure(lastException ?: Exception("Failed to list files after 3 attempts"))
+            }
         }
     
     private fun listFilesInternal(path: String): Result<List<RemoteFile>> {
         var stream: io.github.muntashirakon.adb.AdbStream? = null
-        var reader: BufferedReader? = null
         
         try {
             val adbManager = getAdbManager()
@@ -72,30 +79,50 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 return Result.failure(Exception("Not connected to device"))
             }
             
-            // Normalize path - ensure trailing slash for directories to get contents not symlink info
+            // Normalize path
             val normalizedPath = if (path.endsWith("/")) path else "$path/"
             val escapedPath = normalizedPath.replace("'", "'\\''")
-            val command = "shell:ls -la '$escapedPath'"
+            
+            // Use compound command with end marker - ensures we always get output even for empty dirs
+            // The || true ensures we don't fail on permission errors, just get empty output
+            val command = "shell:(ls -la '$escapedPath' 2>&1 || true); echo '__END__'"
             
             Log.d(TAG, "Listing files with command: $command")
 
             stream = adbManager.openStream(command)
-            reader = BufferedReader(InputStreamReader(stream.openInputStream()))
-            val files = mutableListOf<RemoteFile>()
-            val rawLines = mutableListOf<String>()
-
-            // Read all lines
-            var line: String?
-            while (reader.readLine().also { line = it } != null) {
-                line?.let { rawLines.add(it) }
+            val inputStream = stream.openInputStream()
+            
+            // Read all data using byte buffer - more robust than line-by-line for ADB streams
+            val buffer = ByteArray(4096)
+            val output = StringBuilder()
+            var bytesRead: Int
+            
+            while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                output.append(String(buffer, 0, bytesRead))
+                // Check if we got the end marker
+                if (output.contains("__END__")) {
+                    break
+                }
             }
             
-            // Close resources
-            try { reader.close() } catch (e: Exception) { /* ignore */ }
+            // Close stream
+            try { inputStream.close() } catch (e: Exception) { /* ignore */ }
             try { stream.close() } catch (e: Exception) { /* ignore */ }
+            
+            val fullOutput = output.toString()
+            Log.d(TAG, "Got output length: ${fullOutput.length}")
+            
+            // Parse output into lines, removing the end marker
+            val rawLines = fullOutput
+                .replace("__END__", "")
+                .trim()
+                .split("\n")
+                .filter { it.isNotBlank() }
             
             Log.d(TAG, "Got ${rawLines.size} lines from ls output")
 
+            val files = mutableListOf<RemoteFile>()
+            
             // Add parent directory navigation if not at root
             val cleanPath = path.trimEnd('/')
             if (cleanPath != "" && cleanPath != "/") {
@@ -131,7 +158,6 @@ class FileBrowserRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Log.e(TAG, "Error listing files at $path", e)
             // Ensure resources are closed
-            try { reader?.close() } catch (ex: Exception) { /* ignore */ }
             try { stream?.close() } catch (ex: Exception) { /* ignore */ }
             return Result.failure(e)
         }

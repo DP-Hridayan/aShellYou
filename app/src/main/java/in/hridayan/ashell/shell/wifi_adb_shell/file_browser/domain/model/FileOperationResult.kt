@@ -8,14 +8,3 @@ sealed class FileOperationResult {
     data class Error(val message: String) : FileOperationResult()
     data class Progress(val current: Long, val total: Long) : FileOperationResult()
 }
-
-/**
- * Types of file operations.
- */
-enum class FileOperation {
-    PULL,
-    PUSH,
-    DELETE,
-    CREATE_DIRECTORY,
-    RENAME
-}
