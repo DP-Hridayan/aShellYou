@@ -61,6 +61,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -1083,41 +1084,84 @@ private fun FullscreenOutputOverlay(
                 }
             ) { paddingValues ->
 
-                Box(
+                // Find current sticky command based on scroll position
+                val currentStickyCommand: String? by remember {
+                    derivedStateOf<String?> {
+                        val firstVisibleIndex = fullscreenListState.firstVisibleItemIndex
+                        // Find the most recent command line at or before the first visible item
+                        val items = combinedOutput.value
+                        for (i in firstVisibleIndex downTo 0) {
+                            val line = items.getOrNull(i)
+                            if (line?.text?.startsWith("$ ") == true) {
+                                return@derivedStateOf line.text
+                            }
+                        }
+                        null
+                    }
+                }
+
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues)
                 ) {
-                    LazyColumn(
-                        state = fullscreenListState,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(horizontal = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        itemsIndexed(combinedOutput.value) { _, line ->
-                            OutputLineItem(
-                                line = line,
-                                states = states,
-                                commandTextStyle = commandTextStyle,
-                                bodyTextStyle = bodyTextStyle
+                    // Sticky command header
+                    currentStickyCommand?.let { command ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                                .padding(horizontal = 16.dp, vertical = 10.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = command,
+                                style = commandTextStyle,
+                                color = MaterialTheme.colorScheme.primary,
+                                maxLines = 1,
+                                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                             )
                         }
-
-                        item {
-                            Spacer(modifier = Modifier.height(30.dp))
-                        }
+                        HorizontalDivider(
+                            color = MaterialTheme.colorScheme.outlineVariant,
+                            thickness = 1.dp
+                        )
                     }
 
-                    VerticalScrollbar(
-                        listState = fullscreenListState,
-                        thumbSize = 20,
-                        modifier = Modifier
-                            .align(Alignment.CenterEnd)
-                            .fillMaxHeight()
-                            .width(8.dp)
-                            .padding(end = 4.dp)
-                    )
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        LazyColumn(
+                            state = fullscreenListState,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            itemsIndexed(combinedOutput.value) { _, line ->
+                                OutputLineItem(
+                                    line = line,
+                                    states = states,
+                                    commandTextStyle = commandTextStyle,
+                                    bodyTextStyle = bodyTextStyle
+                                )
+                            }
+
+                            item {
+                                Spacer(modifier = Modifier.height(30.dp))
+                            }
+                        }
+
+                        VerticalScrollbar(
+                            listState = fullscreenListState,
+                            thumbSize = 20,
+                            modifier = Modifier
+                                .align(Alignment.CenterEnd)
+                                .fillMaxHeight()
+                                .width(8.dp)
+                                .padding(end = 4.dp)
+                        )
+                    }
                 }
             }
         }
