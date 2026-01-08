@@ -79,7 +79,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
@@ -97,10 +96,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -278,12 +275,36 @@ fun BaseShellScreen(
                 enter = scaleIn(),
                 exit = scaleOut()
             ) {
-                // Check if scroll buttons should be visible
-                val isScrolling = listState.isScrollInProgress
-                val canScrollUp = listState.canScrollBackward
-                val canScrollDown = listState.canScrollForward
+                // Scroll button visibility with 3-second hide delay
+                var lastScrollDirection by remember { mutableStateOf(ScrollDirection.NONE) }
+                var showScrollButton by remember { mutableStateOf(false) }
                 val isNotBusy = states.shellState !is ShellState.Busy
-                val showScrollButton = isNotBusy && isScrolling && (canScrollUp || canScrollDown)
+                val canScroll = listState.canScrollBackward || listState.canScrollForward
+
+                // Track scroll direction
+                LaunchedEffect(scrollDirection) {
+                    if (scrollDirection != ScrollDirection.NONE && isNotBusy && canScroll) {
+                        lastScrollDirection = scrollDirection
+                        showScrollButton = true
+                    }
+                }
+
+                // Hide after 3 seconds of no scrolling
+                LaunchedEffect(listState.isScrollInProgress) {
+                    if (!listState.isScrollInProgress && showScrollButton) {
+                        kotlinx.coroutines.delay(3000)
+                        if (!listState.isScrollInProgress) {
+                            showScrollButton = false
+                        }
+                    }
+                }
+
+                // Hide when busy or can't scroll
+                LaunchedEffect(isNotBusy, canScroll) {
+                    if (!isNotBusy || !canScroll) {
+                        showScrollButton = false
+                    }
+                }
 
                 Column(
                     horizontalAlignment = Alignment.End,
@@ -309,7 +330,7 @@ fun BaseShellScreen(
                         ScrollFAB(
                             modifier = Modifier,
                             listState = listState,
-                            scrollDirection = scrollDirection
+                            scrollDirection = lastScrollDirection
                         )
                     }
 
@@ -1034,9 +1055,12 @@ private fun FullscreenOutputOverlay(
                             // Scroll to bottom
                             IconButton(onClick = {
                                 coroutineScope.launch {
-                                    val lastIndex = fullscreenListState.layoutInfo.totalItemsCount - 1
+                                    val lastIndex =
+                                        fullscreenListState.layoutInfo.totalItemsCount - 1
                                     if (lastIndex >= 0) {
-                                        if (smoothScroll) fullscreenListState.animateScrollToItem(lastIndex)
+                                        if (smoothScroll) fullscreenListState.animateScrollToItem(
+                                            lastIndex
+                                        )
                                         else fullscreenListState.scrollToItem(lastIndex)
                                     }
                                 }
