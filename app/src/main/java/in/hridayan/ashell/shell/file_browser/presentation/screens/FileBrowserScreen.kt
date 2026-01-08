@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.screens
+package `in`.hridayan.ashell.shell.file_browser.presentation.screens
 
 import android.net.Uri
 import android.provider.OpenableColumns
@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -49,13 +48,16 @@ import androidx.compose.material.icons.rounded.DriveFileMove
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.FolderOpen
+import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Refresh
+import androidx.compose.material.icons.rounded.SelectAll
 import androidx.compose.material.icons.rounded.Upload
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -66,7 +68,6 @@ import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -77,8 +78,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.material3.ToggleFloatingActionButtonDefaults
 import androidx.compose.material3.ToggleFloatingActionButtonDefaults.animateIcon
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -94,7 +95,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -103,19 +103,20 @@ import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.model.RemoteFile
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.viewmodel.FileOperation
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.viewmodel.FileBrowserEvent
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.viewmodel.FileBrowserViewModel
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.viewmodel.OperationType
+import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
+import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileBrowserEvent
+import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileBrowserViewModel
+import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileOperation
+import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.OperationType
 import java.io.File
 
 @Composable
 fun FileBrowserScreen(
+    deviceAddress: String = "",
     viewModel: FileBrowserViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -131,6 +132,7 @@ fun FileBrowserScreen(
     var fileForInfo by remember { mutableStateOf<RemoteFile?>(null) }
     var clipboardFile by remember { mutableStateOf<RemoteFile?>(null) }
     var clipboardOperation by remember { mutableStateOf<String?>(null) }
+    var clipboardPaths by remember { mutableStateOf<List<String>>(emptyList()) }
 
     val filePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -142,7 +144,7 @@ fun FileBrowserScreen(
                 c.moveToFirst()
                 if (nameIndex >= 0) c.getString(nameIndex) else "uploaded_file"
             } ?: "uploaded_file"
-            
+
             val cacheFile = File(context.cacheDir, fileName)
             context.contentResolver.openInputStream(uri)?.use { input ->
                 cacheFile.outputStream().use { output ->
@@ -159,6 +161,7 @@ fun FileBrowserScreen(
                 is FileBrowserEvent.ShowToast -> {
                     Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
                 }
+
                 else -> {}
             }
         }
@@ -167,64 +170,135 @@ fun FileBrowserScreen(
     val isAtHome = state.currentPath == "/storage/emulated/0"
     var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var isProgressMinimized by rememberSaveable { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-    
+
     val dimAlpha by animateFloatAsState(
         targetValue = if (fabMenuExpanded) 0.5f else 0f,
         animationSpec = tween(durationMillis = 500, easing = LinearOutSlowInEasing),
         label = "DimAlphaAnimation"
     )
 
-    BackHandler(enabled = fabMenuExpanded || !isAtHome) {
+    BackHandler(enabled = state.isSelectionMode || fabMenuExpanded || !isAtHome) {
         when {
+            state.isSelectionMode -> viewModel.exitSelectionMode()
             fabMenuExpanded -> fabMenuExpanded = false
             isAtHome -> navController.popBackStack()
             else -> viewModel.navigateUp()
         }
     }
-    
-    val deviceAddress = "Connected Device"
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             contentWindowInsets = WindowInsets.safeDrawing,
             topBar = {
-                LargeTopAppBar(
-                    title = {
-                        Column {
+                if (state.isSelectionMode) {
+                    TopAppBar(
+                        title = {
+                            Text("${state.selectedFiles.size} selected")
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                            titleContentColor = MaterialTheme.colorScheme.onSurface,
+                            navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
+                            actionIconContentColor = MaterialTheme.colorScheme.onSurface
+                        ),
+                        navigationIcon = {
+                            IconButton(onClick = { viewModel.exitSelectionMode() }) {
+                                Icon(Icons.Rounded.Close, contentDescription = "Cancel")
+                            }
+                        },
+                        actions = {
+                            IconButton(onClick = { viewModel.selectAllFiles() }) {
+                                Icon(Icons.Rounded.SelectAll, contentDescription = "Select all")
+                            }
+                            IconButton(onClick = {
+                                // Copy selected files - store paths for paste
+                                val selectedPaths = viewModel.getSelectedFilePaths()
+                                if (selectedPaths.isNotEmpty()) {
+                                    clipboardPaths = selectedPaths
+                                    clipboardOperation = "copy_batch"
+                                    clipboardFile =
+                                        state.files.find { it.path == selectedPaths.first() }
+                                    Toast.makeText(
+                                        context,
+                                        "Copied ${selectedPaths.size} items",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    viewModel.exitSelectionMode()
+                                }
+                            }) {
+                                Icon(Icons.Rounded.ContentCopy, contentDescription = "Copy")
+                            }
+                            IconButton(onClick = {
+                                // Move selected files - store paths for paste
+                                val selectedPaths = viewModel.getSelectedFilePaths()
+                                if (selectedPaths.isNotEmpty()) {
+                                    clipboardPaths = selectedPaths
+                                    clipboardOperation = "move_batch"
+                                    clipboardFile =
+                                        state.files.find { it.path == selectedPaths.first() }
+                                    Toast.makeText(
+                                        context,
+                                        "Cut ${selectedPaths.size} items",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    viewModel.exitSelectionMode()
+                                }
+                            }) {
+                                Icon(Icons.Rounded.DriveFileMove, contentDescription = "Move")
+                            }
+                            IconButton(onClick = {
+                                showDeleteDialog = true
+                            }) {
+                                Icon(
+                                    Icons.Rounded.Delete,
+                                    contentDescription = "Delete",
+                                    tint = MaterialTheme.colorScheme.error
+                                )
+                            }
+                        }
+                    )
+                } else {
+                    TopAppBar(
+                        title = {
                             Text(
-                                text = deviceAddress,
+                                text = deviceAddress.ifEmpty { "File Browser" },
                                 style = MaterialTheme.typography.titleMedium
                             )
-                        }
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                            if (isAtHome) {
-                                navController.popBackStack()
-                            } else {
-                                viewModel.navigateUp()
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                            titleContentColor = MaterialTheme.colorScheme.onSurface,
+                            navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
+                            actionIconContentColor = MaterialTheme.colorScheme.onSurface
+                        ),
+                        navigationIcon = {
+                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                if (isAtHome) {
+                                    navController.popBackStack()
+                                } else {
+                                    viewModel.navigateUp()
+                                }
+                            }) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
+                                    contentDescription = "Back"
+                                )
                             }
-                        }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                                contentDescription = "Back"
-                            )
+                        },
+                        actions = {
+                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                viewModel.loadFiles("/storage/emulated/0")
+                            }) {
+                                Icon(Icons.Rounded.Home, contentDescription = "Home")
+                            }
+                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                viewModel.refresh()
+                            }) {
+                                Icon(Icons.Rounded.Refresh, contentDescription = "Refresh")
+                            }
                         }
-                    },
-                    actions = {
-                        IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                            viewModel.refresh()
-                        }) {
-                            Icon(
-                                imageVector = Icons.Rounded.Refresh,
-                                contentDescription = "Refresh"
-                            )
-                        }
-                    },
-                    scrollBehavior = scrollBehavior
-                )
+                    )
+                }
             }
         ) { paddingValues ->
             Column(
@@ -237,9 +311,10 @@ fun FileBrowserScreen(
                     onNavigateToPath = { path -> viewModel.loadFiles(path) },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 8.dp)
+                        .background(MaterialTheme.colorScheme.surfaceContainer)
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
                 )
-                
+
                 Box(modifier = Modifier.fillMaxSize()) {
                     when {
                         state.isLoading -> {
@@ -247,6 +322,7 @@ fun FileBrowserScreen(
                                 modifier = Modifier.align(Alignment.Center)
                             )
                         }
+
                         state.error != null -> {
                             Box(
                                 modifier = Modifier.fillMaxSize(),
@@ -264,10 +340,11 @@ fun FileBrowserScreen(
                                 }
                             }
                         }
+
                         else -> {
                             val displayFiles = state.files.filterNot { it.isParentDirectory }
                             val isEmpty = state.isVirtualEmptyFolder || displayFiles.isEmpty()
-                            
+
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize(),
                                 verticalArrangement = Arrangement.spacedBy(2.dp)
@@ -275,8 +352,26 @@ fun FileBrowserScreen(
                                 items(displayFiles, key = { it.path }) { file ->
                                     FileListItem(
                                         file = file,
-                                        onClick = { viewModel.onFileClick(file) },
-                                        onDownload = { viewModel.downloadFile(file.path, file.name) },
+                                        isSelectionMode = state.isSelectionMode,
+                                        isSelected = state.selectedFiles.contains(file.path),
+                                        onClick = {
+                                            if (state.isSelectionMode) {
+                                                viewModel.toggleFileSelection(file)
+                                            } else {
+                                                viewModel.onFileClick(file)
+                                            }
+                                        },
+                                        onLongClick = {
+                                            if (!state.isSelectionMode) {
+                                                viewModel.enterSelectionMode(file)
+                                            }
+                                        },
+                                        onDownload = {
+                                            viewModel.downloadFile(
+                                                file.path,
+                                                file.name
+                                            )
+                                        },
                                         onDelete = {
                                             fileToDelete = file
                                             showDeleteDialog = true
@@ -288,12 +383,20 @@ fun FileBrowserScreen(
                                         onCopy = {
                                             clipboardFile = file
                                             clipboardOperation = "copy"
-                                            Toast.makeText(context, "Copied: ${file.name}", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(
+                                                context,
+                                                "Copied: ${file.name}",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
                                         },
                                         onMove = {
                                             clipboardFile = file
                                             clipboardOperation = "move"
-                                            Toast.makeText(context, "Cut: ${file.name}", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(
+                                                context,
+                                                "Cut: ${file.name}",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
                                         },
                                         onInfo = {
                                             fileForInfo = file
@@ -302,7 +405,7 @@ fun FileBrowserScreen(
                                         modifier = Modifier.animateItem()
                                     )
                                 }
-                                
+
                                 if (isEmpty) {
                                     item {
                                         Box(
@@ -319,7 +422,7 @@ fun FileBrowserScreen(
                                         }
                                     }
                                 }
-                                
+
                                 item {
                                     Spacer(modifier = Modifier.height(80.dp))
                                 }
@@ -365,7 +468,10 @@ fun FileBrowserScreen(
                                             Text("Minimize")
                                         }
                                         TextButton(onClick = { viewModel.cancelAllOperations() }) {
-                                            Text("Cancel all", color = MaterialTheme.colorScheme.error)
+                                            Text(
+                                                "Cancel all",
+                                                color = MaterialTheme.colorScheme.error
+                                            )
                                         }
                                     }
                                 }
@@ -375,7 +481,7 @@ fun FileBrowserScreen(
                 }
             }
         }
-        
+
         // Dim overlay for FAB menu
         if (dimAlpha > 0) {
             Box(
@@ -390,7 +496,7 @@ fun FileBrowserScreen(
                     )
             )
         }
-        
+
         // FAB column
         Column(
             modifier = Modifier
@@ -417,21 +523,37 @@ fun FileBrowserScreen(
                     }
                 }
             }
-            
+
             // Paste button
-            if (clipboardFile != null) {
+            if (clipboardFile != null || clipboardPaths.isNotEmpty()) {
                 FloatingActionButton(
                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        clipboardFile?.let { file ->
-                            val destPath = "${state.currentPath}/${file.name}"
-                            if (clipboardOperation == "copy") {
-                                viewModel.copyFile(file.path, destPath)
-                            } else if (clipboardOperation == "move") {
-                                viewModel.moveFile(file.path, destPath)
+                        when (clipboardOperation) {
+                            "copy" -> {
+                                clipboardFile?.let { file ->
+                                    val destPath = "${state.currentPath}/${file.name}"
+                                    viewModel.copyFile(file.path, destPath)
+                                }
                             }
-                            clipboardFile = null
-                            clipboardOperation = null
+
+                            "move" -> {
+                                clipboardFile?.let { file ->
+                                    val destPath = "${state.currentPath}/${file.name}"
+                                    viewModel.moveFile(file.path, destPath)
+                                }
+                            }
+
+                            "copy_batch" -> {
+                                viewModel.copyFileBatch(clipboardPaths, state.currentPath)
+                            }
+
+                            "move_batch" -> {
+                                viewModel.moveFileBatch(clipboardPaths, state.currentPath)
+                            }
                         }
+                        clipboardFile = null
+                        clipboardOperation = null
+                        clipboardPaths = emptyList()
                     },
                     containerColor = MaterialTheme.colorScheme.secondaryContainer
                 ) {
@@ -441,7 +563,7 @@ fun FileBrowserScreen(
                     )
                 }
             }
-            
+
             // Main FAB menu
             FloatingActionButtonMenu(
                 expanded = fabMenuExpanded,
@@ -450,7 +572,8 @@ fun FileBrowserScreen(
                         modifier = Modifier
                             .semantics {
                                 traversalIndex = -1f
-                                stateDescription = if (fabMenuExpanded) "Expanded" else "Collapsed"
+                                stateDescription =
+                                    if (fabMenuExpanded) "Expanded" else "Collapsed"
                                 contentDescription = "Toggle menu"
                             },
                         checked = fabMenuExpanded,
@@ -465,7 +588,7 @@ fun FileBrowserScreen(
                                 if (checkedProgress > 0.5f) Icons.Rounded.Close else Icons.Rounded.Add
                             }
                         }
-                        
+
                         Icon(
                             painter = rememberVectorPainter(imageVector),
                             contentDescription = null,
@@ -490,14 +613,19 @@ fun FileBrowserScreen(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
-                
+
                 FloatingActionButtonMenuItem(
                     onClick = {
                         fabMenuExpanded = false
                         showCreateFolderDialog = true
                     },
                     text = { Text("New folder") },
-                    icon = { Icon(Icons.Rounded.CreateNewFolder, contentDescription = null) },
+                    icon = {
+                        Icon(
+                            Icons.Rounded.CreateNewFolder,
+                            contentDescription = null
+                        )
+                    },
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -516,15 +644,35 @@ fun FileBrowserScreen(
         )
     }
 
-    if (showDeleteDialog && fileToDelete != null) {
+    if (showDeleteDialog) {
+        val isSelectionDelete = state.isSelectionMode && state.selectedFiles.isNotEmpty()
+        val deleteCount = if (isSelectionDelete) state.selectedFiles.size else 1
+        val deleteTitle = if (isSelectionDelete) {
+            "Delete $deleteCount items?"
+        } else {
+            "Delete ${if (fileToDelete?.isDirectory == true) "folder" else "file"}?"
+        }
+        val deleteText = if (isSelectionDelete) {
+            "Are you sure you want to delete $deleteCount selected items?"
+        } else {
+            "Are you sure you want to delete \"${fileToDelete?.name}\"?"
+        }
+
         AlertDialog(
-            onDismissRequest = { showDeleteDialog = false },
-            title = { Text("Delete ${if (fileToDelete!!.isDirectory) "folder" else "file"}?") },
-            text = { Text("Are you sure you want to delete \"${fileToDelete!!.name}\"?") },
+            onDismissRequest = {
+                showDeleteDialog = false
+                fileToDelete = null
+            },
+            title = { Text(deleteTitle) },
+            text = { Text(deleteText) },
             confirmButton = {
                 TextButton(
                     onClick = {
-                        fileToDelete?.let { viewModel.deleteFile(it.path) }
+                        if (isSelectionDelete) {
+                            viewModel.deleteSelectedFiles()
+                        } else {
+                            fileToDelete?.let { viewModel.deleteFile(it.path) }
+                        }
                         showDeleteDialog = false
                         fileToDelete = null
                     }
@@ -533,13 +681,16 @@ fun FileBrowserScreen(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDeleteDialog = false }) {
+                TextButton(onClick = {
+                    showDeleteDialog = false
+                    fileToDelete = null
+                }) {
                     Text("Cancel")
                 }
             }
         )
     }
-    
+
     if (showRenameDialog && fileToRename != null) {
         RenameDialog(
             currentName = fileToRename!!.name,
@@ -558,7 +709,7 @@ fun FileBrowserScreen(
             }
         )
     }
-    
+
     if (showInfoDialog && fileForInfo != null) {
         FileInfoDialog(
             file = fileForInfo!!,
@@ -570,11 +721,13 @@ fun FileBrowserScreen(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun FileListItem(
     file: RemoteFile,
+    isSelectionMode: Boolean,
+    isSelected: Boolean,
     onClick: () -> Unit,
+    onLongClick: () -> Unit,
     onDownload: () -> Unit,
     onDelete: () -> Unit,
     onRename: () -> Unit,
@@ -588,13 +741,32 @@ private fun FileListItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .background(
+                if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                else Color.Transparent
+            )
             .combinedClickable(
                 onClick = onClick,
-                onLongClick = { showMenu = true }
+                onLongClick = {
+                    if (isSelectionMode) {
+                        // In selection mode, long click toggles selection (same as click)
+                        onClick()
+                    } else {
+                        onLongClick()
+                    }
+                }
             )
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        if (isSelectionMode) {
+            Checkbox(
+                checked = isSelected,
+                onCheckedChange = { onClick() },
+                modifier = Modifier.padding(end = 8.dp)
+            )
+        }
+
         Icon(
             imageVector = getFileIcon(file),
             contentDescription = null,
@@ -651,14 +823,19 @@ private fun FileListItem(
                     if (!file.isDirectory) {
                         DropdownMenuItem(
                             text = { Text("Download") },
-                            leadingIcon = { Icon(Icons.Rounded.Download, contentDescription = null) },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Rounded.Download,
+                                    contentDescription = null
+                                )
+                            },
                             onClick = {
                                 onDownload()
                                 showMenu = false
                             }
                         )
                     }
-                    
+
                     DropdownMenuItem(
                         text = { Text("Rename") },
                         leadingIcon = { Icon(Icons.Rounded.Edit, contentDescription = null) },
@@ -667,25 +844,35 @@ private fun FileListItem(
                             showMenu = false
                         }
                     )
-                    
+
                     DropdownMenuItem(
                         text = { Text("Copy") },
-                        leadingIcon = { Icon(Icons.Rounded.ContentCopy, contentDescription = null) },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Rounded.ContentCopy,
+                                contentDescription = null
+                            )
+                        },
                         onClick = {
                             onCopy()
                             showMenu = false
                         }
                     )
-                    
+
                     DropdownMenuItem(
                         text = { Text("Move") },
-                        leadingIcon = { Icon(Icons.Rounded.DriveFileMove, contentDescription = null) },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Rounded.DriveFileMove,
+                                contentDescription = null
+                            )
+                        },
                         onClick = {
                             onMove()
                             showMenu = false
                         }
                     )
-                    
+
                     DropdownMenuItem(
                         text = { Text("Info") },
                         leadingIcon = { Icon(Icons.Rounded.Info, contentDescription = null) },
@@ -694,7 +881,7 @@ private fun FileListItem(
                             showMenu = false
                         }
                     )
-                    
+
                     DropdownMenuItem(
                         text = { Text("Delete") },
                         leadingIcon = {
@@ -765,17 +952,17 @@ private fun PathBreadcrumbs(
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
-    
+
     val basePath = "/storage/emulated/0"
     val relativePath = if (currentPath.startsWith(basePath)) {
         currentPath.removePrefix(basePath)
     } else {
         currentPath
     }
-    
+
     val segments = mutableListOf<Pair<String, String>>()
     segments.add("Internal Storage" to basePath)
-    
+
     if (relativePath.isNotBlank() && relativePath != "/") {
         val parts = relativePath.trim('/').split("/")
         var accumulatedPath = basePath
@@ -786,11 +973,11 @@ private fun PathBreadcrumbs(
             }
         }
     }
-    
+
     LaunchedEffect(currentPath) {
         scrollState.animateScrollTo(scrollState.maxValue)
     }
-    
+
     Row(
         modifier = modifier
             .horizontalScroll(scrollState)
@@ -799,7 +986,7 @@ private fun PathBreadcrumbs(
     ) {
         segments.forEachIndexed { index, (displayName, fullPath) ->
             val isLast = index == segments.lastIndex
-            
+
             Text(
                 text = displayName,
                 style = MaterialTheme.typography.bodyMedium,
@@ -807,7 +994,7 @@ private fun PathBreadcrumbs(
                 color = if (isLast) {
                     MaterialTheme.colorScheme.primary
                 } else {
-                    MaterialTheme.colorScheme.onSurfaceVariant
+                    MaterialTheme.colorScheme.onSurface
                 },
                 maxLines = 1,
                 modifier = Modifier
@@ -815,13 +1002,13 @@ private fun PathBreadcrumbs(
                     .clickable(enabled = !isLast) { onNavigateToPath(fullPath) }
                     .padding(horizontal = 4.dp, vertical = 2.dp)
             )
-            
+
             if (!isLast) {
                 Icon(
                     imageVector = Icons.Rounded.ChevronRight,
                     contentDescription = null,
                     modifier = Modifier.size(16.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                 )
             }
         }
@@ -917,14 +1104,14 @@ private fun OperationItem(
     val progress = if (operation.totalBytes > 0) {
         operation.bytesTransferred.toFloat() / operation.totalBytes.toFloat()
     } else 0f
-    
+
     val icon = when (operation.type) {
         OperationType.DOWNLOAD -> Icons.Rounded.Download
         OperationType.UPLOAD -> Icons.Rounded.Upload
         OperationType.COPY -> Icons.Rounded.ContentCopy
         OperationType.MOVE -> Icons.Rounded.DriveFileMove
     }
-    
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,

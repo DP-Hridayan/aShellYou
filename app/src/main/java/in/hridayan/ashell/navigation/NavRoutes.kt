@@ -58,6 +58,6 @@ sealed class NavRoutes {
     data class WifiAdbScreen(val deviceName: String? = null) : NavRoutes()
 
     @Serializable
-    object FileBrowserScreen : NavRoutes()
+    data class FileBrowserScreen(val deviceAddress: String) : NavRoutes()
 
 }

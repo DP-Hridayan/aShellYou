@@ -1,12 +1,12 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.viewmodel
+package `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel
 
 import android.os.Environment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.model.FileOperationResult
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.model.RemoteFile
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.repository.FileBrowserRepository
+import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
+import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
+import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,7 +39,9 @@ data class FileBrowserState(
     val operations: List<FileOperation> = emptyList(),
     val isVirtualEmptyFolder: Boolean = false,
     val lastSuccessfulPath: String = "/storage/emulated/0",
-    val pendingConflict: ConflictInfo? = null
+    val pendingConflict: ConflictInfo? = null,
+    val selectedFiles: Set<String> = emptySet(),
+    val isSelectionMode: Boolean = false
 )
 
 data class ConflictInfo(
@@ -376,4 +378,75 @@ class FileBrowserViewModel @Inject constructor(
     fun dismissConflict() {
         _state.value = _state.value.copy(pendingConflict = null)
     }
+    
+    fun enterSelectionMode(initialFile: RemoteFile) {
+        _state.value = _state.value.copy(
+            isSelectionMode = true,
+            selectedFiles = setOf(initialFile.path)
+        )
+    }
+    
+    fun exitSelectionMode() {
+        _state.value = _state.value.copy(
+            isSelectionMode = false,
+            selectedFiles = emptySet()
+        )
+    }
+    
+    fun toggleFileSelection(file: RemoteFile) {
+        val current = _state.value.selectedFiles
+        val newSelection = if (current.contains(file.path)) {
+            current - file.path
+        } else {
+            current + file.path
+        }
+        _state.value = _state.value.copy(
+            selectedFiles = newSelection,
+            isSelectionMode = newSelection.isNotEmpty()
+        )
+    }
+    
+    fun selectAllFiles() {
+        val allPaths = _state.value.files
+            .filterNot { it.isParentDirectory }
+            .map { it.path }
+            .toSet()
+        _state.value = _state.value.copy(selectedFiles = allPaths)
+    }
+    
+    fun deleteSelectedFiles() {
+        val paths = _state.value.selectedFiles.toList()
+        exitSelectionMode()
+        viewModelScope.launch {
+            paths.forEach { path ->
+                repository.deleteFile(path).fold(
+                    onSuccess = {},
+                    onFailure = { error ->
+                        _events.emit(FileBrowserEvent.ShowToast("Failed to delete: ${error.message}"))
+                    }
+                )
+            }
+            _events.emit(FileBrowserEvent.ShowToast("Deleted ${paths.size} items"))
+            refresh()
+        }
+    }
+    
+    fun getSelectedFilePaths(): List<String> = _state.value.selectedFiles.toList()
+    
+    fun copyFileBatch(sourcePaths: List<String>, destDir: String) {
+        sourcePaths.forEach { sourcePath ->
+            val fileName = sourcePath.substringAfterLast("/")
+            val destPath = "$destDir/$fileName"
+            copyFile(sourcePath, destPath)
+        }
+    }
+    
+    fun moveFileBatch(sourcePaths: List<String>, destDir: String) {
+        sourcePaths.forEach { sourcePath ->
+            val fileName = sourcePath.substringAfterLast("/")
+            val destPath = "$destDir/$fileName"
+            moveFile(sourcePath, destPath)
+        }
+    }
 }
+

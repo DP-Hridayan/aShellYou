@@ -1,14 +1,16 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.data.repository
+package `in`.hridayan.ashell.shell.file_browser.data.repository
 
 import android.content.Context
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.model.FileOperationResult
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.model.RemoteFile
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.repository.FileBrowserRepository
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
+import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
+import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
+import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
 import io.github.muntashirakon.adb.AbsAdbConnectionManager
+import io.github.muntashirakon.adb.AdbStream
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -23,12 +25,9 @@ import javax.inject.Singleton
 
 @Singleton
 class FileBrowserRepositoryImpl @Inject constructor(
-    @ApplicationContext private val context: Context
+    @param:ApplicationContext private val context: Context
 ) : FileBrowserRepository {
-
     private val TAG = "FileBrowser"
-    
-    // Mutex to ensure only one ADB operation runs at a time
     private val adbMutex = Mutex()
 
     private fun getAdbManager(): AbsAdbConnectionManager {
@@ -37,66 +36,58 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
     override suspend fun listFiles(path: String): Result<List<RemoteFile>> =
         withContext(Dispatchers.IO) {
-            // Use mutex to prevent concurrent ADB access
             adbMutex.withLock {
-            var lastException: Exception? = null
-            
-            // Retry up to 3 times for transient stream errors
-            repeat(3) { attempt ->
-                try {
-                    val result = listFilesInternal(path)
-                    if (result.isSuccess) {
-                        return@withContext result
-                    }
-                    lastException = result.exceptionOrNull() as? Exception
-                    Log.w(TAG, "Attempt ${attempt + 1} failed for path: $path", lastException)
-                    
-                    // Small delay before retry
-                    if (attempt < 2) {
-                        kotlinx.coroutines.delay(100)
-                    }
-                } catch (e: Exception) {
-                    lastException = e
-                    Log.w(TAG, "Attempt ${attempt + 1} exception for path: $path", e)
-                    if (attempt < 2) {
-                        kotlinx.coroutines.delay(100)
+                var lastException: Exception? = null
+
+                repeat(3) { attempt ->
+                    try {
+                        val result = listFilesInternal(path)
+                        if (result.isSuccess) {
+                            return@withContext result
+                        }
+                        lastException = result.exceptionOrNull() as? Exception
+                        Log.w(TAG, "Attempt ${attempt + 1} failed for path: $path", lastException)
+
+                        if (attempt < 2) {
+                            delay(100)
+                        }
+                    } catch (e: Exception) {
+                        lastException = e
+                        Log.w(TAG, "Attempt ${attempt + 1} exception for path: $path", e)
+                        if (attempt < 2) {
+                            delay(100)
+                        }
                     }
                 }
-            }
-            
-            Result.failure(lastException ?: Exception("Failed to list files after 3 attempts"))
+
+                Result.failure(lastException ?: Exception("Failed to list files after 3 attempts"))
             }
         }
-    
+
     private fun listFilesInternal(path: String): Result<List<RemoteFile>> {
-        var stream: io.github.muntashirakon.adb.AdbStream? = null
-        
+        var stream: AdbStream? = null
+
         try {
             val adbManager = getAdbManager()
-            
-            // Check if connected first
+
             if (!adbManager.isConnected) {
                 return Result.failure(Exception("Not connected to device"))
             }
-            
-            // Normalize path
+
             val normalizedPath = if (path.endsWith("/")) path else "$path/"
             val escapedPath = normalizedPath.replace("'", "'\\''")
-            
-            // Use compound command with end marker - ensures we always get output even for empty dirs
-            // The || true ensures we don't fail on permission errors, just get empty output
+
             val command = "shell:(ls -la '$escapedPath' 2>&1 || true); echo '__END__'"
-            
+
             Log.d(TAG, "Listing files with command: $command")
 
             stream = adbManager.openStream(command)
             val inputStream = stream.openInputStream()
-            
-            // Read all data using byte buffer - more robust than line-by-line for ADB streams
+
             val buffer = ByteArray(4096)
             val output = StringBuilder()
             var bytesRead: Int
-            
+
             while (inputStream.read(buffer).also { bytesRead = it } != -1) {
                 output.append(String(buffer, 0, bytesRead))
                 // Check if we got the end marker
@@ -104,26 +95,29 @@ class FileBrowserRepositoryImpl @Inject constructor(
                     break
                 }
             }
-            
-            // Close stream
-            try { inputStream.close() } catch (e: Exception) { /* ignore */ }
-            try { stream.close() } catch (e: Exception) { /* ignore */ }
-            
+
+            try {
+                inputStream.close()
+            } catch (e: Exception) { /* ignore */
+            }
+            try {
+                stream.close()
+            } catch (e: Exception) { /* ignore */
+            }
+
             val fullOutput = output.toString()
             Log.d(TAG, "Got output length: ${fullOutput.length}")
-            
-            // Parse output into lines, removing the end marker
+
             val rawLines = fullOutput
                 .replace("__END__", "")
                 .trim()
                 .split("\n")
                 .filter { it.isNotBlank() }
-            
+
             Log.d(TAG, "Got ${rawLines.size} lines from ls output")
 
             val files = mutableListOf<RemoteFile>()
-            
-            // Add parent directory navigation if not at root
+
             val cleanPath = path.trimEnd('/')
             if (cleanPath != "" && cleanPath != "/") {
                 val parentPath = File(cleanPath).parent ?: "/"
@@ -136,7 +130,6 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 )
             }
 
-            // Parse lines
             rawLines.forEach { l ->
                 parseListLine(l, cleanPath.ifEmpty { "/" })?.let { file ->
                     if (file.name != "." && file.name != "..") {
@@ -145,20 +138,21 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 }
             }
 
-            // Sort: directories first, then alphabetically
             val sorted = files.sortedWith(
                 compareByDescending<RemoteFile> { it.isParentDirectory }
                     .thenByDescending { it.isDirectory }
                     .thenBy { it.name.lowercase() }
             )
-            
+
             Log.d(TAG, "Returning ${sorted.size} files for path: $path")
 
             return Result.success(sorted)
         } catch (e: Exception) {
             Log.e(TAG, "Error listing files at $path", e)
-            // Ensure resources are closed
-            try { stream?.close() } catch (ex: Exception) { /* ignore */ }
+            try {
+                stream?.close()
+            } catch (ex: Exception) { /* ignore */
+            }
             return Result.failure(e)
         }
     }
@@ -172,42 +166,42 @@ class FileBrowserRepositoryImpl @Inject constructor(
      */
     private fun parseListLine(line: String, basePath: String): RemoteFile? {
         if (line.isBlank() || line.startsWith("total ")) return null
-        
+
         // Skip lines that are clearly not file listings
         if (!line.matches(Regex("^[dlcbsp-].*"))) return null
 
         try {
-            // Parse permissions (first field)
-            val permissions = line.substring(0, minOf(10, line.length)).trim()
+            val permissions = line.take(minOf(10, line.length)).trim()
             if (permissions.length < 10) return null
-            
+
             val isDirectory = permissions.startsWith("d")
             val isLink = permissions.startsWith("l")
-            
+
             // Use regex to find the filename at the end, after the date/time pattern
             // Look for date pattern like "2024-01-08 10:30" or "Jan  8 10:30" or "Jan  8  2024"
-            val dateTimeRegex = Regex("""(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}|\w{3}\s+\d{1,2}\s+(\d{2}:\d{2}|\d{4}))\s+(.+)$""")
+            val dateTimeRegex =
+                Regex("""(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}|\w{3}\s+\d{1,2}\s+(\d{2}:\d{2}|\d{4}))\s+(.+)$""")
             val match = dateTimeRegex.find(line)
-            
+
             if (match != null) {
                 val dateTime = match.groupValues[1]
                 var name = match.groupValues[3].trim()
-                
+
                 // Skip . and ..
                 if (name == "." || name == "..") return null
-                
+
                 // Handle symlinks - extract actual name from "linkname -> target"
                 if (isLink && name.contains(" -> ")) {
                     name = name.substringBefore(" -> ")
                 }
-                
+
                 // Parse size - find the number before the date
                 val beforeDate = line.substring(0, match.range.first).trim()
                 val sizeParts = beforeDate.split(Regex("\\s+"))
                 val size = sizeParts.lastOrNull()?.toLongOrNull() ?: 0L
-                
+
                 val fullPath = if (basePath.endsWith("/")) "$basePath$name" else "$basePath/$name"
-                
+
                 return RemoteFile(
                     name = name,
                     path = fullPath,
@@ -219,7 +213,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
                     group = sizeParts.getOrElse(2) { "" }
                 )
             }
-            
+
             // Fallback: Simple space-split parsing
             val parts = line.split(Regex("\\s+"))
             if (parts.size >= 7) {
@@ -228,12 +222,12 @@ class FileBrowserRepositoryImpl @Inject constructor(
                         rawName.substringBefore(" -> ")
                     } else rawName
                 }
-                
+
                 if (name == "." || name == "..") return null
-                
+
                 val fullPath = if (basePath.endsWith("/")) "$basePath$name" else "$basePath/$name"
                 val size = parts.getOrNull(4)?.toLongOrNull() ?: 0L
-                
+
                 return RemoteFile(
                     name = name,
                     path = fullPath,
@@ -245,7 +239,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
                     group = parts.getOrElse(3) { "" }
                 )
             }
-            
+
             return null
         } catch (e: Exception) {
             Log.w(TAG, "Failed to parse line: $line", e)
@@ -257,26 +251,26 @@ class FileBrowserRepositoryImpl @Inject constructor(
         try {
             val adbManager = getAdbManager()
             val escapedPath = remotePath.replace("'", "'\\''")
-            
+
             // First get file size for progress
             val sizeResult = executeCommand("stat -c%s '$escapedPath'")
             val totalSize = sizeResult?.trim()?.toLongOrNull() ?: 0L
-            
+
             emit(FileOperationResult.Progress(0, totalSize))
 
             val localFile = File(localPath)
             localFile.parentFile?.mkdirs()
-            
+
             // Use shell cat command with larger buffer for better throughput
             val stream = adbManager.openStream("shell:cat '$escapedPath'")
             val inputStream = stream.openInputStream().buffered(65536)
             val outputStream = localFile.outputStream().buffered(65536)
-            
+
             var bytesRead: Long = 0
             val buffer = ByteArray(65536) // 64KB buffer
             var len: Int
             var lastProgressUpdate = 0L
-            
+
             while (inputStream.read(buffer).also { len = it } != -1) {
                 outputStream.write(buffer, 0, len)
                 bytesRead += len
@@ -286,12 +280,12 @@ class FileBrowserRepositoryImpl @Inject constructor(
                     lastProgressUpdate = bytesRead
                 }
             }
-            
+
             outputStream.flush()
             outputStream.close()
             inputStream.close()
             stream.close()
-            
+
             emit(FileOperationResult.Success("File downloaded successfully"))
         } catch (e: Exception) {
             Log.e(TAG, "Error pulling file $remotePath", e)
@@ -312,17 +306,17 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
             val adbManager = getAdbManager()
             val escapedPath = remotePath.replace("'", "'\\''")
-            
+
             // Use larger buffer for better throughput
             val inputStream = localFile.inputStream().buffered(65536)
             val stream = adbManager.openStream("shell:cat > '$escapedPath'")
             val outputStream = stream.openOutputStream().buffered(65536)
-            
+
             var bytesWritten: Long = 0
             val buffer = ByteArray(65536) // 64KB buffer
             var len: Int
             var lastProgressUpdate = 0L
-            
+
             while (inputStream.read(buffer).also { len = it } != -1) {
                 outputStream.write(buffer, 0, len)
                 bytesWritten += len
@@ -332,12 +326,12 @@ class FileBrowserRepositoryImpl @Inject constructor(
                     lastProgressUpdate = bytesWritten
                 }
             }
-            
+
             outputStream.flush()
             outputStream.close()
             inputStream.close()
             stream.close()
-            
+
             emit(FileOperationResult.Success("File uploaded successfully"))
         } catch (e: Exception) {
             Log.e(TAG, "Error pushing file to $remotePath", e)
@@ -348,7 +342,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
     override suspend fun deleteFile(path: String): Result<Unit> = withContext(Dispatchers.IO) {
         try {
             val escapedPath = path.replace("'", "'\\''")
-            val result = executeCommand("rm -rf '$escapedPath'")
+            executeCommand("rm -rf '$escapedPath'")
             Result.success(Unit)
         } catch (e: Exception) {
             Log.e(TAG, "Error deleting file $path", e)
@@ -412,7 +406,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
             null
         }
     }
-    
+
     override fun isAdbConnected(): Boolean {
         return try {
             getAdbManager().isConnected
@@ -421,44 +415,70 @@ class FileBrowserRepositoryImpl @Inject constructor(
             false
         }
     }
-    
-    override suspend fun copy(sourcePath: String, destPath: String): Result<Unit> = withContext(Dispatchers.IO) {
-        try {
-            val escapedSource = sourcePath.replace("'", "'\\''")
-            val escapedDest = destPath.replace("'", "'\\''")
-            val command = "cp -r '$escapedSource' '$escapedDest'"
-            val result = executeCommand(command)
-            
-            // Check if copy was successful
-            if (result?.contains("error", ignoreCase = true) == true ||
-                result?.contains("cannot", ignoreCase = true) == true) {
-                Result.failure(Exception(result ?: "Failed to copy"))
-            } else {
-                Result.success(Unit)
+
+    override suspend fun copy(sourcePath: String, destPath: String): Result<Unit> =
+        withContext(Dispatchers.IO) {
+            try {
+                val escapedSource = sourcePath.replace("'", "'\\''")
+                val escapedDest = destPath.replace("'", "'\\''")
+                val command = "cp -r '$escapedSource' '$escapedDest'"
+                val result = executeCommand(command)
+
+                // Check if copy was successful
+                if (result?.contains("error", ignoreCase = true) == true ||
+                    result?.contains("cannot", ignoreCase = true) == true
+                ) {
+                    Result.failure(Exception(result ?: "Failed to copy"))
+                } else {
+                    Result.success(Unit)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error copying: $sourcePath -> $destPath", e)
+                Result.failure(e)
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error copying: $sourcePath -> $destPath", e)
-            Result.failure(e)
         }
-    }
-    
-    override suspend fun move(sourcePath: String, destPath: String): Result<Unit> = withContext(Dispatchers.IO) {
-        try {
-            val escapedSource = sourcePath.replace("'", "'\\''")
-            val escapedDest = destPath.replace("'", "'\\''") 
-            val command = "mv '$escapedSource' '$escapedDest'"
-            val result = executeCommand(command)
-            
-            // Check if move was successful
-            if (result?.contains("error", ignoreCase = true) == true ||
-                result?.contains("cannot", ignoreCase = true) == true) {
-                Result.failure(Exception(result ?: "Failed to move"))
-            } else {
-                Result.success(Unit)
+
+    override suspend fun move(sourcePath: String, destPath: String): Result<Unit> =
+        withContext(Dispatchers.IO) {
+            try {
+                val escapedSource = sourcePath.replace("'", "'\\''")
+                val escapedDest = destPath.replace("'", "'\\''")
+                val command = "mv '$escapedSource' '$escapedDest'"
+                val result = executeCommand(command)
+
+                // Check if move was successful
+                if (result?.contains("error", ignoreCase = true) == true ||
+                    result?.contains("cannot", ignoreCase = true) == true
+                ) {
+                    Result.failure(Exception(result ?: "Failed to move"))
+                } else {
+                    Result.success(Unit)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error moving: $sourcePath -> $destPath", e)
+                Result.failure(e)
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error moving: $sourcePath -> $destPath", e)
-            Result.failure(e)
+        }
+
+    override suspend fun exists(path: String): Result<Boolean> = withContext(Dispatchers.IO) {
+        adbMutex.withLock {
+            try {
+                val adbManager = getAdbManager()
+                val escapedPath = path.replace("'", "'\\''")
+                val command = "shell:[ -e '$escapedPath' ] && echo 'EXISTS' || echo 'NOT_EXISTS'"
+                
+                val stream = adbManager.openStream(command)
+                val inputStream = stream.openInputStream()
+                val result = inputStream.bufferedReader().readText()
+                
+                try { inputStream.close() } catch (_: Exception) {}
+                try { stream.close() } catch (_: Exception) {}
+                
+                Result.success(result.contains("EXISTS"))
+            } catch (e: Exception) {
+                Log.e(TAG, "Error checking exists: $path", e)
+                Result.failure(e)
+            }
         }
     }
 }

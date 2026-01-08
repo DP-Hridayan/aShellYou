@@ -18,6 +18,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import `in`.hridayan.ashell.commandexamples.presentation.screens.CommandExamplesScreen
 import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
@@ -36,6 +37,7 @@ import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookA
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScreen
+import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOtherDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwnDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
@@ -211,8 +213,11 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                     exitTransition = { slideFadeOutToLeft() },
                     popEnterTransition = { slideFadeInFromLeft() },
                     popExitTransition = { slideFadeOutToRight() }
-                ) {
-                    `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.screens.FileBrowserScreen()
+                ) { backStackEntry ->
+                    val route = backStackEntry.toRoute<NavRoutes.FileBrowserScreen>()
+                    FileBrowserScreen(
+                        deviceAddress = route.deviceAddress
+                    )
                 }
             }
         }

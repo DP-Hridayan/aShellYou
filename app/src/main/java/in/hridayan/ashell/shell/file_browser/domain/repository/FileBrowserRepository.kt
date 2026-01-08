@@ -1,7 +1,7 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.repository
+package `in`.hridayan.ashell.shell.file_browser.domain.repository
 
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.model.FileOperationResult
-import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.model.RemoteFile
+import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
+import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -63,4 +63,9 @@ interface FileBrowserRepository {
      * Move a file or directory on remote device.
      */
     suspend fun move(sourcePath: String, destPath: String): Result<Unit>
+    
+    /**
+     * Check if a file or directory exists at the given path.
+     */
+    suspend fun exists(path: String): Result<Boolean>
 }

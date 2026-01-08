@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.model
+package `in`.hridayan.ashell.shell.file_browser.domain.model
 
 /**
  * Represents the result of a file operation.

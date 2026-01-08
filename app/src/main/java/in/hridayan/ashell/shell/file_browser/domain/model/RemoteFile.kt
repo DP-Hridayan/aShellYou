@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.model
+package `in`.hridayan.ashell.shell.file_browser.domain.model
 
 /**
  * Represents a file or directory on the remote device.
