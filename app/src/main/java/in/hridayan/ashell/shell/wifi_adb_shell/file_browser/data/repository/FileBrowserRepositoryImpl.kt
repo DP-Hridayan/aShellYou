@@ -195,26 +195,30 @@ class FileBrowserRepositoryImpl @Inject constructor(
             
             emit(FileOperationResult.Progress(0, totalSize))
 
-            // Use sync protocol for pull
-            val syncStream = adbManager.openStream("sync:")
             val localFile = File(localPath)
             localFile.parentFile?.mkdirs()
             
-            // For simplicity, use a shell cat command to read file content
+            // Use shell cat command with larger buffer for better throughput
             val stream = adbManager.openStream("shell:cat '$escapedPath'")
-            val inputStream = stream.openInputStream()
-            val outputStream = localFile.outputStream()
+            val inputStream = stream.openInputStream().buffered(65536)
+            val outputStream = localFile.outputStream().buffered(65536)
             
             var bytesRead: Long = 0
-            val buffer = ByteArray(8192)
+            val buffer = ByteArray(65536) // 64KB buffer
             var len: Int
+            var lastProgressUpdate = 0L
             
             while (inputStream.read(buffer).also { len = it } != -1) {
                 outputStream.write(buffer, 0, len)
                 bytesRead += len
-                emit(FileOperationResult.Progress(bytesRead, totalSize))
+                // Only emit progress every 256KB to reduce overhead
+                if (bytesRead - lastProgressUpdate >= 262144 || bytesRead == totalSize) {
+                    emit(FileOperationResult.Progress(bytesRead, totalSize))
+                    lastProgressUpdate = bytesRead
+                }
             }
             
+            outputStream.flush()
             outputStream.close()
             inputStream.close()
             stream.close()
@@ -240,21 +244,27 @@ class FileBrowserRepositoryImpl @Inject constructor(
             val adbManager = getAdbManager()
             val escapedPath = remotePath.replace("'", "'\\''")
             
-            // Use shell and base64 encoding for reliable transfer
-            val inputStream = localFile.inputStream()
+            // Use larger buffer for better throughput
+            val inputStream = localFile.inputStream().buffered(65536)
             val stream = adbManager.openStream("shell:cat > '$escapedPath'")
-            val outputStream = stream.openOutputStream()
+            val outputStream = stream.openOutputStream().buffered(65536)
             
             var bytesWritten: Long = 0
-            val buffer = ByteArray(8192)
+            val buffer = ByteArray(65536) // 64KB buffer
             var len: Int
+            var lastProgressUpdate = 0L
             
             while (inputStream.read(buffer).also { len = it } != -1) {
                 outputStream.write(buffer, 0, len)
                 bytesWritten += len
-                emit(FileOperationResult.Progress(bytesWritten, totalSize))
+                // Only emit progress every 256KB to reduce overhead
+                if (bytesWritten - lastProgressUpdate >= 262144 || bytesWritten == totalSize) {
+                    emit(FileOperationResult.Progress(bytesWritten, totalSize))
+                    lastProgressUpdate = bytesWritten
+                }
             }
             
+            outputStream.flush()
             outputStream.close()
             inputStream.close()
             stream.close()

@@ -62,17 +62,17 @@ class FileBrowserViewModel @Inject constructor(
         loadFiles("/storage/emulated/0")
     }
 
-    fun loadFiles(path: String) {
+    fun loadFiles(path: String, addToHistory: Boolean = true) {
         // Cancel any pending navigation
         navigationJob?.cancel()
         
         navigationJob = viewModelScope.launch {
-            _state.value = _state.value.copy(isLoading = true, error = null, isVirtualEmptyFolder = false)
+            _state.value = _state.value.copy(isLoading = true, error = null)
             
             repository.listFiles(path).fold(
                 onSuccess = { files ->
-                    // Add current path to history if navigating forward
-                    if (path != _state.value.currentPath && !path.startsWith(_state.value.currentPath + "/..")) {
+                    // Only add to history if navigating forward (not refresh)
+                    if (addToHistory && path != _state.value.currentPath) {
                         pathHistory.add(_state.value.currentPath)
                     }
                     _state.value = _state.value.copy(
@@ -80,45 +80,27 @@ class FileBrowserViewModel @Inject constructor(
                         lastSuccessfulPath = path,
                         files = files,
                         isLoading = false,
+                        error = null,
                         isVirtualEmptyFolder = false
                     )
                 },
                 onFailure = { error ->
-                    // Smart detection: check if ADB is still connected
-                    val isConnected = repository.isAdbConnected()
-                    
-                    if (isConnected) {
-                        // ADB is connected but listing failed - likely empty folder or permission issue
-                        // Treat as virtual empty folder
-                        val parentPath = File(path).parent ?: "/"
-                        val parentFile = RemoteFile(
-                            name = "..",
-                            path = parentPath,
-                            isDirectory = true
-                        )
-                        
-                        // Add to history if navigating forward (before updating path)
-                        if (path != _state.value.currentPath) {
-                            pathHistory.add(_state.value.currentPath)
-                        }
-                        
-                        _state.value = _state.value.copy(
-                            currentPath = path,
-                            files = listOf(parentFile),
-                            isLoading = false,
-                            error = null,
-                            isVirtualEmptyFolder = true
-                        )
-                    } else {
-                        // ADB disconnected - show connection error
-                        _state.value = _state.value.copy(
-                            isLoading = false,
-                            error = "Connection lost. Please reconnect."
-                        )
-                    }
+                    // Keep current state, just show error
+                    _state.value = _state.value.copy(
+                        isLoading = false,
+                        error = error.message ?: "Failed to load files"
+                    )
+                    _events.emit(FileBrowserEvent.ShowToast("Error: ${error.message}"))
                 }
             )
         }
+    }
+    
+    /**
+     * Refresh current directory without adding to history
+     */
+    fun refresh() {
+        loadFiles(_state.value.currentPath, addToHistory = false)
     }
 
     fun navigateUp(): Boolean {
@@ -234,7 +216,7 @@ class FileBrowserViewModel @Inject constructor(
                         )
                         _events.emit(FileBrowserEvent.FileUploaded(remotePath))
                         _events.emit(FileBrowserEvent.ShowToast("File uploaded successfully"))
-                        loadFiles(_state.value.currentPath) // Refresh
+                        refresh() // Refresh
                     }
                     is FileOperationResult.Error -> {
                         _state.value = _state.value.copy(
@@ -264,7 +246,7 @@ class FileBrowserViewModel @Inject constructor(
                     )
                     _events.emit(FileBrowserEvent.FileDeleted)
                     _events.emit(FileBrowserEvent.ShowToast("File deleted"))
-                    loadFiles(_state.value.currentPath) // Refresh
+                    refresh() // Refresh
                 },
                 onFailure = { error ->
                     _state.value = _state.value.copy(
@@ -294,7 +276,7 @@ class FileBrowserViewModel @Inject constructor(
                     )
                     _events.emit(FileBrowserEvent.DirectoryCreated)
                     _events.emit(FileBrowserEvent.ShowToast("Folder created"))
-                    loadFiles(_state.value.currentPath) // Refresh
+                    refresh() // Refresh
                 },
                 onFailure = { error ->
                     _state.value = _state.value.copy(
@@ -305,9 +287,5 @@ class FileBrowserViewModel @Inject constructor(
                 }
             )
         }
-    }
-
-    fun refresh() {
-        loadFiles(_state.value.currentPath)
     }
 }
