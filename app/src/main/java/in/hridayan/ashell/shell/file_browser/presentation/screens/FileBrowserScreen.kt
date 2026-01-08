@@ -8,9 +8,13 @@ import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -45,7 +49,7 @@ import androidx.compose.material.icons.rounded.ContentPaste
 import androidx.compose.material.icons.rounded.CreateNewFolder
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Download
-import androidx.compose.material.icons.rounded.DriveFileMove
+import androidx.compose.material.icons.automirrored.rounded.DriveFileMove
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.FolderOpen
@@ -245,7 +249,7 @@ fun FileBrowserScreen(
                                     viewModel.exitSelectionMode()
                                 }
                             }) {
-                                Icon(Icons.Rounded.DriveFileMove, contentDescription = "Move")
+                                Icon(Icons.AutoMirrored.Rounded.DriveFileMove, contentDescription = "Move")
                             }
                             IconButton(onClick = {
                                 showDeleteDialog = true
@@ -501,11 +505,113 @@ fun FileBrowserScreen(
             )
         }
 
-        // FAB column
+        // Clipboard dock visibility state
+        val hasClipboard = clipboardFile != null || clipboardPaths.isNotEmpty()
+        val dockHeight by animateDpAsState(
+            targetValue = if (hasClipboard) 64.dp else 0.dp,
+            animationSpec = tween(durationMillis = 300, easing = LinearOutSlowInEasing),
+            label = "DockHeightAnimation"
+        )
+
+        // Clipboard dock at bottom of screen
+        AnimatedVisibility(
+            visible = hasClipboard,
+            modifier = Modifier.align(Alignment.BottomCenter),
+            enter = slideInVertically(
+                initialOffsetY = { it },
+                animationSpec = tween(300, easing = LinearOutSlowInEasing)
+            ),
+            exit = slideOutVertically(
+                targetOffsetY = { it },
+                animationSpec = tween(300, easing = LinearOutSlowInEasing)
+            )
+        ) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+                )
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    // Cancel button
+                    IconButton(
+                        onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                            clipboardFile = null
+                            clipboardOperation = null
+                            clipboardPaths = emptyList()
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Close,
+                            contentDescription = "Cancel",
+                            tint = MaterialTheme.colorScheme.error
+                        )
+                    }
+                    
+                    // Status text
+                    val operationText = when (clipboardOperation) {
+                        "copy", "copy_batch" -> "Copying ${clipboardPaths.size.takeIf { it > 0 } ?: 1} item(s)"
+                        "move", "move_batch" -> "Moving ${clipboardPaths.size.takeIf { it > 0 } ?: 1} item(s)"
+                        else -> "Ready to paste"
+                    }
+                    Text(
+                        text = operationText,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    
+                    // Paste button
+                    IconButton(
+                        onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                            when (clipboardOperation) {
+                                "copy" -> {
+                                    clipboardFile?.let { file ->
+                                        val destPath = "${state.currentPath}/${file.name}"
+                                        viewModel.copyFile(file.path, destPath)
+                                    }
+                                }
+                                "move" -> {
+                                    clipboardFile?.let { file ->
+                                        val destPath = "${state.currentPath}/${file.name}"
+                                        viewModel.moveFile(file.path, destPath)
+                                    }
+                                }
+                                "copy_batch" -> {
+                                    viewModel.copyFileBatch(clipboardPaths, state.currentPath)
+                                }
+                                "move_batch" -> {
+                                    viewModel.moveFileBatch(clipboardPaths, state.currentPath)
+                                }
+                            }
+                            clipboardFile = null
+                            clipboardOperation = null
+                            clipboardPaths = emptyList()
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.ContentPaste,
+                            contentDescription = "Paste",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+            }
+        }
+
+        // FAB column - pushed up when dock is visible
         Column(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp),
+                .padding(bottom = 16.dp + dockHeight, end = 16.dp, top = 16.dp),
             horizontalAlignment = Alignment.End,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -523,69 +629,6 @@ fun FileBrowserScreen(
                         Text(
                             text = state.operations.size.toString(),
                             style = MaterialTheme.typography.labelSmall
-                        )
-                    }
-                }
-            }
-
-            // Paste button with cancel option
-            if (clipboardFile != null || clipboardPaths.isNotEmpty()) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Cancel clipboard button
-                    SmallFloatingActionButton(
-                        onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                            clipboardFile = null
-                            clipboardOperation = null
-                            clipboardPaths = emptyList()
-                            Toast.makeText(context, "Clipboard cleared", Toast.LENGTH_SHORT).show()
-                        },
-                        containerColor = MaterialTheme.colorScheme.errorContainer
-                    ) {
-                        Icon(
-                            imageVector = Icons.Rounded.Close,
-                            contentDescription = "Cancel clipboard",
-                            tint = MaterialTheme.colorScheme.onErrorContainer
-                        )
-                    }
-                    
-                    // Paste button
-                    FloatingActionButton(
-                        onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                            when (clipboardOperation) {
-                                "copy" -> {
-                                    clipboardFile?.let { file ->
-                                        val destPath = "${state.currentPath}/${file.name}"
-                                        viewModel.copyFile(file.path, destPath)
-                                    }
-                                }
-
-                                "move" -> {
-                                    clipboardFile?.let { file ->
-                                        val destPath = "${state.currentPath}/${file.name}"
-                                        viewModel.moveFile(file.path, destPath)
-                                    }
-                                }
-
-                                "copy_batch" -> {
-                                    viewModel.copyFileBatch(clipboardPaths, state.currentPath)
-                                }
-
-                                "move_batch" -> {
-                                    viewModel.moveFileBatch(clipboardPaths, state.currentPath)
-                                }
-                            }
-                            clipboardFile = null
-                            clipboardOperation = null
-                            clipboardPaths = emptyList()
-                        },
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer
-                    ) {
-                        Icon(
-                            imageVector = Icons.Rounded.ContentPaste,
-                            contentDescription = "Paste"
                         )
                     }
                 }
@@ -889,7 +932,7 @@ private fun FileListItem(
                             text = { Text("Move") },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Rounded.DriveFileMove,
+                                    Icons.AutoMirrored.Rounded.DriveFileMove,
                                     contentDescription = null
                                 )
                             },
@@ -1136,7 +1179,7 @@ private fun OperationItem(
         OperationType.DOWNLOAD -> Icons.Rounded.Download
         OperationType.UPLOAD -> Icons.Rounded.Upload
         OperationType.COPY -> Icons.Rounded.ContentCopy
-        OperationType.MOVE -> Icons.Rounded.DriveFileMove
+        OperationType.MOVE -> Icons.AutoMirrored.Rounded.DriveFileMove
     }
 
     Row(
