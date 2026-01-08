@@ -1084,61 +1084,76 @@ private fun FullscreenOutputOverlay(
                 }
             ) { paddingValues ->
 
-                // Find current sticky command based on scroll position
-                val currentStickyCommand: String? by remember {
-                    derivedStateOf<String?> {
-                        val firstVisibleIndex = fullscreenListState.firstVisibleItemIndex
-                        // Find the most recent command line at or before the first visible item
-                        val items = combinedOutput.value
-                        for (i in firstVisibleIndex downTo 0) {
-                            val line = items.getOrNull(i)
-                            if (line?.text?.startsWith("$ ") == true) {
-                                return@derivedStateOf line.text
+                // Group output lines by command sections
+                val commandSections = remember(combinedOutput.value) {
+                    val sections = mutableListOf<Pair<String, List<OutputLine>>>()
+                    var currentCommand: String? = null
+                    var currentLines = mutableListOf<OutputLine>()
+
+                    combinedOutput.value.forEach { line ->
+                        if (line.text.startsWith("$ ")) {
+                            // Save previous section if exists
+                            if (currentCommand != null && currentLines.isNotEmpty()) {
+                                sections.add(currentCommand!! to currentLines.toList())
                             }
+                            currentCommand = line.text
+                            currentLines = mutableListOf()
+                        } else if (currentCommand != null) {
+                            currentLines.add(line)
                         }
-                        null
                     }
+                    // Add last section
+                    if (currentCommand != null) {
+                        sections.add(currentCommand!! to currentLines.toList())
+                    }
+                    sections
                 }
 
-                Column(
+                Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues)
                 ) {
-                    // Sticky command header
-                    currentStickyCommand?.let { command ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                                .padding(horizontal = 16.dp, vertical = 10.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = command,
-                                style = commandTextStyle,
-                                color = MaterialTheme.colorScheme.primary,
-                                maxLines = 1,
-                                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
-                            )
-                        }
-                        HorizontalDivider(
-                            color = MaterialTheme.colorScheme.outlineVariant,
-                            thickness = 1.dp
-                        )
-                    }
-
-                    Box(
-                        modifier = Modifier.fillMaxSize()
+                    LazyColumn(
+                        state = fullscreenListState,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        LazyColumn(
-                            state = fullscreenListState,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 16.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            itemsIndexed(combinedOutput.value) { _, line ->
+                        commandSections.forEachIndexed { sectionIndex, (command, lines) ->
+                            stickyHeader(key = "header_$sectionIndex") {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .background(MaterialTheme.colorScheme.surface)
+                                ) {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                                            .padding(horizontal = 0.dp, vertical = 10.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Text(
+                                            text = command,
+                                            style = commandTextStyle,
+                                            color = MaterialTheme.colorScheme.primary,
+                                            maxLines = 1,
+                                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                                        )
+                                    }
+                                    HorizontalDivider(
+                                        color = MaterialTheme.colorScheme.outlineVariant,
+                                        thickness = 1.dp
+                                    )
+                                }
+                            }
+
+                            itemsIndexed(
+                                items = lines,
+                                key = { index, _ -> "${sectionIndex}_$index" }
+                            ) { _, line ->
                                 OutputLineItem(
                                     line = line,
                                     states = states,
@@ -1146,22 +1161,22 @@ private fun FullscreenOutputOverlay(
                                     bodyTextStyle = bodyTextStyle
                                 )
                             }
-
-                            item {
-                                Spacer(modifier = Modifier.height(30.dp))
-                            }
                         }
 
-                        VerticalScrollbar(
-                            listState = fullscreenListState,
-                            thumbSize = 20,
-                            modifier = Modifier
-                                .align(Alignment.CenterEnd)
-                                .fillMaxHeight()
-                                .width(8.dp)
-                                .padding(end = 4.dp)
-                        )
+                        item {
+                            Spacer(modifier = Modifier.height(30.dp))
+                        }
                     }
+
+                    VerticalScrollbar(
+                        listState = fullscreenListState,
+                        thumbSize = 20,
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .fillMaxHeight()
+                            .width(8.dp)
+                            .padding(end = 4.dp)
+                    )
                 }
             }
         }
