@@ -11,7 +11,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,16 +27,22 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.InsertDriveFile
+import androidx.compose.material.icons.rounded.ChevronRight
+import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.CreateNewFolder
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Download
+import androidx.compose.material.icons.rounded.DriveFileMove
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.FolderOpen
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Upload
@@ -93,6 +101,18 @@ fun FileBrowserScreen(
     var showCreateFolderDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var fileToDelete by remember { mutableStateOf<RemoteFile?>(null) }
+    
+    // Rename dialog state
+    var showRenameDialog by remember { mutableStateOf(false) }
+    var fileToRename by remember { mutableStateOf<RemoteFile?>(null) }
+    
+    // Info dialog state
+    var showInfoDialog by remember { mutableStateOf(false) }
+    var fileForInfo by remember { mutableStateOf<RemoteFile?>(null) }
+    
+    // Clipboard for copy/move
+    var clipboardFile by remember { mutableStateOf<RemoteFile?>(null) }
+    var clipboardOperation by remember { mutableStateOf<String?>(null) } // "copy" or "move"
 
     // File picker for upload
     val filePickerLauncher = rememberLauncherForActivityResult(
@@ -146,19 +166,11 @@ fun FileBrowserScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Column {
-                        Text(
-                            text = stringResource(R.string.file_browser),
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Text(
-                            text = state.currentPath,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+                    // Breadcrumb navigation
+                    PathBreadcrumbs(
+                        currentPath = state.currentPath,
+                        onNavigateToPath = { path -> viewModel.loadFiles(path) }
+                    )
                 },
                 navigationIcon = {
                     // Back/Up navigation
@@ -229,58 +241,35 @@ fun FileBrowserScreen(
                     )
                 }
                 state.error != null -> {
-                    // Connection error - show retry with back option
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp)
+                    // Connection error - show retry (breadcrumbs handle navigation)
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
                     ) {
-                        // Always show parent directory option on error
-                        if (!isAtHome) {
-                            FileListItem(
-                                file = RemoteFile(
-                                    name = "..",
-                                    path = java.io.File(state.currentPath).parent ?: "/",
-                                    isDirectory = true
-                                ),
-                                onClick = { viewModel.navigateUp() },
-                                onDownload = {},
-                                onDelete = {}
-                            )
-                        }
-                        
-                        // Error message centered
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth(),
-                            contentAlignment = Alignment.Center
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Text(
-                                    text = state.error ?: "Connection error",
-                                    color = MaterialTheme.colorScheme.error
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                                TextButton(onClick = { viewModel.refresh() }) {
-                                    Text("Retry")
-                                }
+                            Text(
+                                text = state.error ?: "Connection error",
+                                color = MaterialTheme.colorScheme.error
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            TextButton(onClick = { viewModel.refresh() }) {
+                                Text("Retry")
                             }
                         }
                     }
                 }
                 else -> {
-                    // Check if folder is truly empty (virtual empty or only has ".." entry)
-                    val isEmpty = state.isVirtualEmptyFolder || 
-                        (state.files.size <= 1 && state.files.all { it.isParentDirectory })
+                    // Filter out ".." entries since breadcrumbs handle navigation
+                    val displayFiles = state.files.filterNot { it.isParentDirectory }
+                    val isEmpty = state.isVirtualEmptyFolder || displayFiles.isEmpty()
                     
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
-                        items(state.files, key = { it.path }) { file ->
+                        items(displayFiles, key = { it.path }) { file ->
                             FileListItem(
                                 file = file,
                                 onClick = { viewModel.onFileClick(file) },
@@ -290,6 +279,24 @@ fun FileBrowserScreen(
                                 onDelete = {
                                     fileToDelete = file
                                     showDeleteDialog = true
+                                },
+                                onRename = {
+                                    fileToRename = file
+                                    showRenameDialog = true
+                                },
+                                onCopy = {
+                                    clipboardFile = file
+                                    clipboardOperation = "copy"
+                                    Toast.makeText(context, "Copied: ${file.name}", Toast.LENGTH_SHORT).show()
+                                },
+                                onMove = {
+                                    clipboardFile = file
+                                    clipboardOperation = "move"
+                                    Toast.makeText(context, "Cut: ${file.name}", Toast.LENGTH_SHORT).show()
+                                },
+                                onInfo = {
+                                    fileForInfo = file
+                                    showInfoDialog = true
                                 },
                                 modifier = Modifier.animateItem()
                             )
@@ -389,6 +396,37 @@ fun FileBrowserScreen(
             }
         )
     }
+    
+    // Rename dialog
+    if (showRenameDialog && fileToRename != null) {
+        RenameDialog(
+            currentName = fileToRename!!.name,
+            isDirectory = fileToRename!!.isDirectory,
+            onDismiss = {
+                showRenameDialog = false
+                fileToRename = null
+            },
+            onRename = { newName ->
+                val oldPath = fileToRename!!.path
+                val parentPath = File(oldPath).parent ?: ""
+                val newPath = "$parentPath/$newName"
+                viewModel.renameFile(oldPath, newPath)
+                showRenameDialog = false
+                fileToRename = null
+            }
+        )
+    }
+    
+    // Info dialog
+    if (showInfoDialog && fileForInfo != null) {
+        FileInfoDialog(
+            file = fileForInfo!!,
+            onDismiss = {
+                showInfoDialog = false
+                fileForInfo = null
+            }
+        )
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -398,6 +436,10 @@ private fun FileListItem(
     onClick: () -> Unit,
     onDownload: () -> Unit,
     onDelete: () -> Unit,
+    onRename: () -> Unit,
+    onCopy: () -> Unit,
+    onMove: () -> Unit,
+    onInfo: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var showMenu by remember { mutableStateOf(false) }
@@ -455,7 +497,7 @@ private fun FileListItem(
             }
         }
 
-        // More options
+        // More options menu
         if (!file.isParentDirectory) {
             Box {
                 IconButton(onClick = { showMenu = true }) {
@@ -470,6 +512,7 @@ private fun FileListItem(
                     expanded = showMenu,
                     onDismissRequest = { showMenu = false }
                 ) {
+                    // Download (files only)
                     if (!file.isDirectory) {
                         DropdownMenuItem(
                             text = { Text("Download") },
@@ -482,6 +525,56 @@ private fun FileListItem(
                             }
                         )
                     }
+                    
+                    // Rename
+                    DropdownMenuItem(
+                        text = { Text("Rename") },
+                        leadingIcon = {
+                            Icon(Icons.Rounded.Edit, contentDescription = null)
+                        },
+                        onClick = {
+                            onRename()
+                            showMenu = false
+                        }
+                    )
+                    
+                    // Copy
+                    DropdownMenuItem(
+                        text = { Text("Copy") },
+                        leadingIcon = {
+                            Icon(Icons.Rounded.ContentCopy, contentDescription = null)
+                        },
+                        onClick = {
+                            onCopy()
+                            showMenu = false
+                        }
+                    )
+                    
+                    // Move
+                    DropdownMenuItem(
+                        text = { Text("Move") },
+                        leadingIcon = {
+                            Icon(Icons.Rounded.DriveFileMove, contentDescription = null)
+                        },
+                        onClick = {
+                            onMove()
+                            showMenu = false
+                        }
+                    )
+                    
+                    // Info
+                    DropdownMenuItem(
+                        text = { Text("Info") },
+                        leadingIcon = {
+                            Icon(Icons.Rounded.Info, contentDescription = null)
+                        },
+                        onClick = {
+                            onInfo()
+                            showMenu = false
+                        }
+                    )
+                    
+                    // Delete
                     DropdownMenuItem(
                         text = { Text("Delete") },
                         leadingIcon = {
@@ -542,5 +635,174 @@ private fun getFileIcon(file: RemoteFile): ImageVector {
         file.isParentDirectory -> Icons.Rounded.FolderOpen
         file.isDirectory -> Icons.Rounded.Folder
         else -> Icons.AutoMirrored.Rounded.InsertDriveFile
+    }
+}
+
+/**
+ * Breadcrumb navigation for file browser path.
+ * Displays path as: Internal Storage > folder1 > folder2
+ * Each segment is clickable for direct navigation.
+ */
+@Composable
+private fun PathBreadcrumbs(
+    currentPath: String,
+    onNavigateToPath: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val scrollState = rememberScrollState()
+    
+    // Parse path into segments
+    val basePath = "/storage/emulated/0"
+    val relativePath = if (currentPath.startsWith(basePath)) {
+        currentPath.removePrefix(basePath)
+    } else {
+        currentPath
+    }
+    
+    val segments = mutableListOf<Pair<String, String>>() // (displayName, fullPath)
+    
+    // Add "Internal Storage" as root
+    segments.add("Internal Storage" to basePath)
+    
+    // Add path segments
+    if (relativePath.isNotBlank() && relativePath != "/") {
+        val parts = relativePath.trim('/').split("/")
+        var accumulatedPath = basePath
+        for (part in parts) {
+            if (part.isNotBlank()) {
+                accumulatedPath = "$accumulatedPath/$part"
+                segments.add(part to accumulatedPath)
+            }
+        }
+    }
+    
+    // Auto-scroll to end when path changes
+    LaunchedEffect(currentPath) {
+        scrollState.animateScrollTo(scrollState.maxValue)
+    }
+    
+    Row(
+        modifier = modifier
+            .horizontalScroll(scrollState)
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        segments.forEachIndexed { index, (displayName, fullPath) ->
+            val isLast = index == segments.lastIndex
+            
+            Text(
+                text = displayName,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = if (isLast) FontWeight.Bold else FontWeight.Normal,
+                color = if (isLast) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
+                maxLines = 1,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(4.dp))
+                    .clickable(enabled = !isLast) { onNavigateToPath(fullPath) }
+                    .padding(horizontal = 4.dp, vertical = 2.dp)
+            )
+            
+            if (!isLast) {
+                Icon(
+                    imageVector = Icons.Rounded.ChevronRight,
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Dialog for renaming a file or folder.
+ */
+@Composable
+private fun RenameDialog(
+    currentName: String,
+    isDirectory: Boolean,
+    onDismiss: () -> Unit,
+    onRename: (String) -> Unit
+) {
+    var newName by remember { mutableStateOf(currentName) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Rename ${if (isDirectory) "folder" else "file"}") },
+        text = {
+            OutlinedTextField(
+                value = newName,
+                onValueChange = { newName = it },
+                label = { Text("New name") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+        },
+        confirmButton = {
+            TextButton(
+                onClick = { onRename(newName) },
+                enabled = newName.isNotBlank() && newName != currentName
+            ) {
+                Text("Rename")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
+        }
+    )
+}
+
+/**
+ * Dialog showing file/folder information.
+ */
+@Composable
+private fun FileInfoDialog(
+    file: RemoteFile,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(if (file.isDirectory) "Folder Info" else "File Info") },
+        text = {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                InfoRow("Name", file.name)
+                InfoRow("Path", file.path)
+                InfoRow("Type", if (file.isDirectory) "Folder" else "File")
+                if (!file.isDirectory && file.displaySize.isNotEmpty()) {
+                    InfoRow("Size", file.displaySize)
+                }
+                if (file.lastModified.isNotEmpty()) {
+                    InfoRow("Modified", file.lastModified)
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Close")
+            }
+        }
+    )
+}
+
+@Composable
+private fun InfoRow(label: String, value: String) {
+    Column {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }

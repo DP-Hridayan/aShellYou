@@ -288,4 +288,31 @@ class FileBrowserViewModel @Inject constructor(
             )
         }
     }
+    
+    fun renameFile(oldPath: String, newPath: String) {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(
+                isOperationInProgress = true,
+                operationMessage = "Renaming..."
+            )
+
+            repository.rename(oldPath, newPath).fold(
+                onSuccess = {
+                    _state.value = _state.value.copy(
+                        isOperationInProgress = false,
+                        operationMessage = null
+                    )
+                    _events.emit(FileBrowserEvent.ShowToast("Renamed successfully"))
+                    refresh()
+                },
+                onFailure = { error ->
+                    _state.value = _state.value.copy(
+                        isOperationInProgress = false,
+                        operationMessage = null
+                    )
+                    _events.emit(FileBrowserEvent.ShowToast("Rename failed: ${error.message}"))
+                }
+            )
+        }
+    }
 }
