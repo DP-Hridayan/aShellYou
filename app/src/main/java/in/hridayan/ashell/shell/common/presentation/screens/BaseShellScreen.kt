@@ -182,6 +182,7 @@ fun BaseShellScreen(
     val focusManager = LocalFocusManager.current
     var historyMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var isOutputFullscreen by rememberSaveable { mutableStateOf(false) }
+    var restoredScrollIndex by rememberSaveable { mutableIntStateOf(-1) }
     val dialogManager = LocalDialogManager.current
 
     LaunchedEffect(disableSoftKeyboard) {
@@ -350,7 +351,10 @@ fun BaseShellScreen(
                     if (fullscreen) {
                         // Fullscreen output overlay - covers all UI and ignores innerPadding
                         FullscreenOutputOverlay(
-                            onDismiss = { isOutputFullscreen = false },
+                            onDismiss = { scrollIndex ->
+                                restoredScrollIndex = scrollIndex
+                                isOutputFullscreen = false
+                            },
                             initialScrollIndex = listState.firstVisibleItemIndex,
                             shellViewModel = shellViewModel,
                             sharedTransitionScope = this@SharedTransitionLayout,
@@ -537,6 +541,8 @@ fun BaseShellScreen(
                                 listState = listState,
                                 isFullscreen = isOutputFullscreen,
                                 onFullscreenToggle = { isOutputFullscreen = !isOutputFullscreen },
+                                restoredScrollIndex = restoredScrollIndex,
+                                onScrollRestored = { restoredScrollIndex = -1 },
                                 sharedTransitionScope = this@SharedTransitionLayout,
                                 animatedContentScope = this@AnimatedContent
                             )
@@ -660,6 +666,8 @@ private fun OutputCard(
     listState: LazyListState,
     isFullscreen: Boolean,
     onFullscreenToggle: () -> Unit,
+    restoredScrollIndex: Int = -1,
+    onScrollRestored: () -> Unit = {},
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
     shellViewModel: ShellViewModel = hiltViewModel()
@@ -704,9 +712,12 @@ private fun OutputCard(
 
     if (combinedOutput.value.isEmpty()) return
 
-    LaunchedEffect(combinedOutput.value.size) {
-        if (combinedOutput.value.isNotEmpty() && !isFullscreen) {
-            listState.scrollToItem(combinedOutput.value.lastIndex)
+    // Restore scroll position when exiting fullscreen
+    LaunchedEffect(restoredScrollIndex) {
+        if (restoredScrollIndex >= 0 && combinedOutput.value.isNotEmpty()) {
+            val safeIndex = restoredScrollIndex.coerceAtMost(combinedOutput.value.lastIndex)
+            listState.scrollToItem(safeIndex)
+            onScrollRestored()
         }
     }
 
@@ -862,7 +873,7 @@ private fun OutputLineItem(
 
 @Composable
 private fun FullscreenOutputOverlay(
-    onDismiss: () -> Unit,
+    onDismiss: (scrollIndex: Int) -> Unit,
     initialScrollIndex: Int = 0,
     shellViewModel: ShellViewModel = hiltViewModel(),
     sharedTransitionScope: SharedTransitionScope,
@@ -908,7 +919,7 @@ private fun FullscreenOutputOverlay(
     }
 
     BackHandler(enabled = true) {
-        onDismiss()
+        onDismiss(fullscreenListState.firstVisibleItemIndex)
     }
 
     val containerColor = MaterialTheme.colorScheme.surface
@@ -934,7 +945,7 @@ private fun FullscreenOutputOverlay(
                             )
                         },
                         navigationIcon = {
-                            IconButton(onClick = onDismiss) {
+                            IconButton(onClick = { onDismiss(fullscreenListState.firstVisibleItemIndex) }) {
                                 Icon(
                                     imageVector = Icons.Rounded.FullscreenExit,
                                     contentDescription = "Exit fullscreen"
