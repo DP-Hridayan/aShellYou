@@ -61,9 +61,9 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -97,6 +97,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -822,7 +823,7 @@ private fun OutputCard(
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         IconButton(
-                            onClick = onFullscreenToggle,
+                            onClick = withHaptic(HapticFeedbackType.VirtualKey) { onFullscreenToggle() },
                             modifier = Modifier.size(32.dp)
                         ) {
                             Icon(
@@ -1033,7 +1034,11 @@ private fun FullscreenOutputOverlay(
                             )
                         },
                         navigationIcon = {
-                            IconButton(onClick = { onDismiss(fullscreenListState.firstVisibleItemIndex) }) {
+                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                onDismiss(
+                                    fullscreenListState.firstVisibleItemIndex
+                                )
+                            }) {
                                 Icon(
                                     imageVector = Icons.Rounded.FullscreenExit,
                                     contentDescription = "Exit fullscreen"
@@ -1043,7 +1048,7 @@ private fun FullscreenOutputOverlay(
                         actions = {
                             if (states.shellState !is ShellState.Busy) {
                                 // Scroll to top
-                                IconButton(onClick = {
+                                IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                     coroutineScope.launch {
                                         if (smoothScroll) fullscreenListState.animateScrollToItem(0)
                                         else fullscreenListState.scrollToItem(0)
@@ -1055,7 +1060,7 @@ private fun FullscreenOutputOverlay(
                                     )
                                 }
                                 // Scroll to bottom
-                                IconButton(onClick = {
+                                IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                     coroutineScope.launch {
                                         val lastIndex =
                                             fullscreenListState.layoutInfo.totalItemsCount - 1

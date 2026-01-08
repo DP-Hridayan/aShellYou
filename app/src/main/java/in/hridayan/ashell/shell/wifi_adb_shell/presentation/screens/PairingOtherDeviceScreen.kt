@@ -251,7 +251,6 @@ fun PairingOtherDeviceScreen(
                 )
             }
 
-            // Tab Row
             SecondaryTabRow(
                 selectedTabIndex = pagerState.currentPage,
                 modifier = Modifier
@@ -261,7 +260,7 @@ fun PairingOtherDeviceScreen(
                 tabs.forEachIndexed { index, tab ->
                     Tab(
                         selected = pagerState.currentPage == index,
-                        onClick = {
+                        onClick = withHaptic {
                             coroutineScope.launch { pagerState.animateScrollToPage(index) }
                         },
                         text = { Text(stringResource(tab.titleRes)) }
@@ -269,7 +268,6 @@ fun PairingOtherDeviceScreen(
                 }
             }
 
-            // Horizontal Pager with tabs
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier.fillMaxSize()
