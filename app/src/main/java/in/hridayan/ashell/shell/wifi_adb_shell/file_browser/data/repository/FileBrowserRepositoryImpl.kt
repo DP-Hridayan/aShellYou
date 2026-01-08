@@ -421,4 +421,44 @@ class FileBrowserRepositoryImpl @Inject constructor(
             false
         }
     }
+    
+    override suspend fun copy(sourcePath: String, destPath: String): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val escapedSource = sourcePath.replace("'", "'\\''")
+            val escapedDest = destPath.replace("'", "'\\''")
+            val command = "cp -r '$escapedSource' '$escapedDest'"
+            val result = executeCommand(command)
+            
+            // Check if copy was successful
+            if (result?.contains("error", ignoreCase = true) == true ||
+                result?.contains("cannot", ignoreCase = true) == true) {
+                Result.failure(Exception(result ?: "Failed to copy"))
+            } else {
+                Result.success(Unit)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error copying: $sourcePath -> $destPath", e)
+            Result.failure(e)
+        }
+    }
+    
+    override suspend fun move(sourcePath: String, destPath: String): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val escapedSource = sourcePath.replace("'", "'\\''")
+            val escapedDest = destPath.replace("'", "'\\''") 
+            val command = "mv '$escapedSource' '$escapedDest'"
+            val result = executeCommand(command)
+            
+            // Check if move was successful
+            if (result?.contains("error", ignoreCase = true) == true ||
+                result?.contains("cannot", ignoreCase = true) == true) {
+                Result.failure(Exception(result ?: "Failed to move"))
+            } else {
+                Result.success(Unit)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error moving: $sourcePath -> $destPath", e)
+            Result.failure(e)
+        }
+    }
 }

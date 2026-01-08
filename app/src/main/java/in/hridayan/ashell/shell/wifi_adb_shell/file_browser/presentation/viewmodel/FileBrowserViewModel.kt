@@ -315,4 +315,69 @@ class FileBrowserViewModel @Inject constructor(
             )
         }
     }
+    
+    fun cancelOperation() {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(
+                isOperationInProgress = false,
+                operationMessage = null,
+                operationProgress = 0f
+            )
+            _events.emit(FileBrowserEvent.ShowToast("Operation cancelled"))
+        }
+    }
+    
+    fun copyFile(sourcePath: String, destPath: String) {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(
+                isOperationInProgress = true,
+                operationMessage = "Copying..."
+            )
+
+            repository.copy(sourcePath, destPath).fold(
+                onSuccess = {
+                    _state.value = _state.value.copy(
+                        isOperationInProgress = false,
+                        operationMessage = null
+                    )
+                    _events.emit(FileBrowserEvent.ShowToast("Copied successfully"))
+                    refresh()
+                },
+                onFailure = { error ->
+                    _state.value = _state.value.copy(
+                        isOperationInProgress = false,
+                        operationMessage = null
+                    )
+                    _events.emit(FileBrowserEvent.ShowToast("Copy failed: ${error.message}"))
+                }
+            )
+        }
+    }
+    
+    fun moveFile(sourcePath: String, destPath: String) {
+        viewModelScope.launch {
+            _state.value = _state.value.copy(
+                isOperationInProgress = true,
+                operationMessage = "Moving..."
+            )
+
+            repository.move(sourcePath, destPath).fold(
+                onSuccess = {
+                    _state.value = _state.value.copy(
+                        isOperationInProgress = false,
+                        operationMessage = null
+                    )
+                    _events.emit(FileBrowserEvent.ShowToast("Moved successfully"))
+                    refresh()
+                },
+                onFailure = { error ->
+                    _state.value = _state.value.copy(
+                        isOperationInProgress = false,
+                        operationMessage = null
+                    )
+                    _events.emit(FileBrowserEvent.ShowToast("Move failed: ${error.message}"))
+                }
+            )
+        }
+    }
 }

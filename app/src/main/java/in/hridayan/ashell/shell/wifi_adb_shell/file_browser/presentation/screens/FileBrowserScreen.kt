@@ -9,31 +9,41 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.InsertDriveFile
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ChevronRight
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.ContentCopy
+import androidx.compose.material.icons.rounded.ContentPaste
 import androidx.compose.material.icons.rounded.CreateNewFolder
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Download
@@ -41,7 +51,6 @@ import androidx.compose.material.icons.rounded.DriveFileMove
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.FolderOpen
-import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Refresh
@@ -54,29 +63,47 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.FloatingActionButtonMenu
+import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.ToggleFloatingActionButton
+import androidx.compose.material3.ToggleFloatingActionButtonDefaults
+import androidx.compose.material3.ToggleFloatingActionButtonDefaults.animateIcon
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.animateFloatingActionButton
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -152,88 +179,97 @@ fun FileBrowserScreen(
 
     // Determine if we're at the root/home path
     val isAtHome = state.currentPath == "/storage/emulated/0"
+    
+    // FAB menu state
+    var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }
+    
+    // Progress dialog minimize state
+    var isProgressMinimized by rememberSaveable { mutableStateOf(false) }
+    
+    // Scroll behavior for LargeTopAppBar
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+    
+    // Dim background animation for FAB menu
+    val dimAlpha by animateFloatAsState(
+        targetValue = if (fabMenuExpanded) 0.5f else 0f,
+        animationSpec = tween(durationMillis = 500, easing = LinearOutSlowInEasing),
+        label = "DimAlphaAnimation"
+    )
 
-    // Back handler - navigate to parent directory, or exit if at home
-    BackHandler {
-        if (isAtHome) {
-            navController.popBackStack()
-        } else {
-            viewModel.navigateUp()
+    // Back handler - close FAB menu first, then navigate
+    BackHandler(enabled = fabMenuExpanded || !isAtHome) {
+        when {
+            fabMenuExpanded -> fabMenuExpanded = false
+            isAtHome -> navController.popBackStack()
+            else -> viewModel.navigateUp()
         }
     }
+    
+    // Device address for display (extract from state or use default)
+    val deviceAddress = "Connected Device" // TODO: Get actual IP:port from ViewModel/state
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    // Breadcrumb navigation
-                    PathBreadcrumbs(
-                        currentPath = state.currentPath,
-                        onNavigateToPath = { path -> viewModel.loadFiles(path) }
-                    )
-                },
-                navigationIcon = {
-                    // Back/Up navigation
-                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        if (isAtHome) {
-                            navController.popBackStack()
-                        } else {
-                            viewModel.navigateUp()
+    Box(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            contentWindowInsets = WindowInsets.safeDrawing,
+            topBar = {
+                LargeTopAppBar(
+                    title = {
+                        Column {
+                            // Device IP:port at top
+                            Text(
+                                text = deviceAddress,
+                                style = MaterialTheme.typography.titleMedium
+                            )
                         }
-                    }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                },
-                actions = {
-                    // Home button - go directly to WiFi ADB screen
-                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        navController.popBackStack()
-                    }) {
-                        Icon(
-                            imageVector = Icons.Rounded.Home,
-                            contentDescription = "Home"
-                        )
-                    }
-                    // Upload button
-                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        filePickerLauncher.launch("*/*")
-                    }) {
-                        Icon(
-                            imageVector = Icons.Rounded.Upload,
-                            contentDescription = "Upload"
-                        )
-                    }
-                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        viewModel.refresh()
-                    }) {
-                        Icon(
-                            imageVector = Icons.Rounded.Refresh,
-                            contentDescription = "Refresh"
-                        )
-                    }
-                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        showCreateFolderDialog = true
-                    }) {
-                        Icon(
-                            imageVector = Icons.Rounded.CreateNewFolder,
-                            contentDescription = "New Folder"
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                            if (isAtHome) {
+                                navController.popBackStack()
+                            } else {
+                                viewModel.navigateUp()
+                            }
+                        }) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
+                                contentDescription = "Back"
+                            )
+                        }
+                    },
+                    actions = {
+                        // Refresh button only
+                        IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                            viewModel.refresh()
+                        }) {
+                            Icon(
+                                imageVector = Icons.Rounded.Refresh,
+                                contentDescription = "Refresh"
+                            )
+                        }
+                    },
+                    scrollBehavior = scrollBehavior
                 )
-            )
-        }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
+            }
+        ) { paddingValues ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                // Breadcrumb navigation below TopAppBar
+                PathBreadcrumbs(
+                    currentPath = state.currentPath,
+                    onNavigateToPath = { path -> viewModel.loadFiles(path) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
+                )
+                
+                // Main content
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                ) {
             when {
                 state.isLoading -> {
                     CircularProgressIndicator(
@@ -327,8 +363,8 @@ fun FileBrowserScreen(
                 }
             }
 
-            // Progress overlay
-            if (state.isOperationInProgress) {
+            // Progress overlay (can be minimized)
+            if (state.isOperationInProgress && !isProgressMinimized) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -354,9 +390,150 @@ fun FileBrowserScreen(
                                 progress = { state.operationProgress },
                                 modifier = Modifier.fillMaxWidth()
                             )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                TextButton(onClick = { isProgressMinimized = true }) {
+                                    Text("Minimize")
+                                }
+                                TextButton(
+                                    onClick = { viewModel.cancelOperation() }
+                                ) {
+                                    Text("Cancel", color = MaterialTheme.colorScheme.error)
+                                }
+                            }
                         }
                     }
                 }
+            }
+                }
+            }
+        }
+        
+        // Dim overlay for FAB menu
+        if (dimAlpha > 0) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = Color.Black.copy(alpha = dimAlpha))
+                    .clickable(
+                        enabled = fabMenuExpanded,
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() },
+                        onClick = { fabMenuExpanded = false }
+                    )
+            )
+        }
+        
+        // FAB column at bottom end
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            // Minimized progress indicator (small FAB)
+            if (state.isOperationInProgress && isProgressMinimized) {
+                SmallFloatingActionButton(
+                    onClick = { isProgressMinimized = false },
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        strokeWidth = 2.dp
+                    )
+                }
+            }
+            
+            // Paste button (appears after copy/move)
+            if (clipboardFile != null) {
+                FloatingActionButton(
+                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                        clipboardFile?.let { file ->
+                            val destPath = "${state.currentPath}/${file.name}"
+                            if (clipboardOperation == "copy") {
+                                viewModel.copyFile(file.path, destPath)
+                            } else if (clipboardOperation == "move") {
+                                viewModel.moveFile(file.path, destPath)
+                            }
+                            clipboardFile = null
+                            clipboardOperation = null
+                        }
+                    },
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.ContentPaste,
+                        contentDescription = "Paste"
+                    )
+                }
+            }
+            
+            // Main FAB menu
+            FloatingActionButtonMenu(
+                expanded = fabMenuExpanded,
+                button = {
+                    ToggleFloatingActionButton(
+                        modifier = Modifier
+                            .semantics {
+                                traversalIndex = -1f
+                                stateDescription = if (fabMenuExpanded) "Expanded" else "Collapsed"
+                                contentDescription = "Toggle menu"
+                            },
+                        checked = fabMenuExpanded,
+                        containerColor = ToggleFloatingActionButtonDefaults.containerColor(
+                            initialColor = MaterialTheme.colorScheme.primaryContainer,
+                            finalColor = MaterialTheme.colorScheme.primary
+                        ),
+                        onCheckedChange = {
+                            fabMenuExpanded = !fabMenuExpanded
+                        }
+                    ) {
+                        val imageVector by remember {
+                            derivedStateOf {
+                                if (checkedProgress > 0.5f) Icons.Rounded.Close else Icons.Rounded.Add
+                            }
+                        }
+                        
+                        Icon(
+                            painter = rememberVectorPainter(imageVector),
+                            contentDescription = null,
+                            modifier = Modifier.animateIcon(
+                                checkedProgress = { checkedProgress },
+                                color = ToggleFloatingActionButtonDefaults.iconColor(
+                                    initialColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    finalColor = MaterialTheme.colorScheme.onPrimary
+                                )
+                            )
+                        )
+                    }
+                }
+            ) {
+                // Upload file option
+                FloatingActionButtonMenuItem(
+                    onClick = {
+                        fabMenuExpanded = false
+                        filePickerLauncher.launch("*/*")
+                    },
+                    text = { Text("Upload file") },
+                    icon = { Icon(Icons.Rounded.Upload, contentDescription = null) },
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+                
+                // Create folder option
+                FloatingActionButtonMenuItem(
+                    onClick = {
+                        fabMenuExpanded = false
+                        showCreateFolderDialog = true
+                    },
+                    text = { Text("New folder") },
+                    icon = { Icon(Icons.Rounded.CreateNewFolder, contentDescription = null) },
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                )
             }
         }
     }

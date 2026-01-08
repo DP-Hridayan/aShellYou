@@ -53,4 +53,14 @@ interface FileBrowserRepository {
      * Used to differentiate between empty folder and connection error.
      */
     fun isAdbConnected(): Boolean
+    
+    /**
+     * Copy a file or directory on remote device.
+     */
+    suspend fun copy(sourcePath: String, destPath: String): Result<Unit>
+    
+    /**
+     * Move a file or directory on remote device.
+     */
+    suspend fun move(sourcePath: String, destPath: String): Result<Unit>
 }
