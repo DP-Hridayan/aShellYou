@@ -139,7 +139,8 @@ class WifiAdbViewModel @Inject constructor(
                 }
 
                 override fun onPairingSuccess(ip: String, port: Int) {
-                    WifiAdbConnection.updateState(WifiAdbState.PairingSuccess(ip))
+                    // State is already set to ConnectSuccess by the repository
+                    // Do not overwrite it here - this was causing the success dialog to not appear
                 }
 
                 override fun onPairingFailed(ip: String, port: Int) {

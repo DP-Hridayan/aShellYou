@@ -234,9 +234,17 @@ class SelfPairingService : Service() {
                     return
                 }
                 
-                Log.d(TAG, "Pairing service lost - clearing stale state to accept new service")
-                discoveredPairingIp = null
-                discoveredPairingPort = null
+                // Debounce: only clear state if service doesn't reappear in 3 seconds
+                // This handles cases where user briefly closes/reopens the pairing dialog
+                Log.d(TAG, "Pairing service lost - scheduling state clear after delay")
+                executor?.schedule({
+                    if (!isPairingDone && !isProcessing && discoveredPairingIp != null) {
+                        Log.d(TAG, "Clearing stale pairing state after debounce")
+                        discoveredPairingIp = null
+                        discoveredPairingPort = null
+                        notificationHelper.showSearchingNotification(SelfPairingService::class.java)
+                    }
+                }, 3, TimeUnit.SECONDS)
             }
 
             override fun onConnectServiceFound(ipAddress: String, port: Int) {

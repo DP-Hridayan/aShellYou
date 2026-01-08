@@ -1395,10 +1395,6 @@ class WifiAdbRepositoryImpl(
         fun onError(e: Throwable)
     }
 
-    interface StateCallback {
-        fun onStateChanged(state: WifiAdbState)
-    }
-
     // ========== "Pair Using Code" Discovery ==========
 
     private var codePairingNsdManager: NsdManager? = null
@@ -1578,8 +1574,8 @@ class WifiAdbRepositoryImpl(
                             }
                         })
                     } else {
-                        // No cached port - fallback to discovery
-                        Log.d(TAG, "No cached connect port for $ip, using discovery fallback...")
+                        // No cached port -  fallback to discovery
+                        Log.w(TAG, "No cached connect port for $ip, using discovery fallback...")
                         discoverConnectService(callback, ip)
                     }
                 }
