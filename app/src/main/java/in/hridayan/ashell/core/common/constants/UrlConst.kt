@@ -2,12 +2,19 @@ package `in`.hridayan.ashell.core.common.constants
 
 object UrlConst {
     const val URL_GITHUB_REPO = "https://github.com/DP-Hridayan/aShellYou"
+    const val URL_GITHUB_RELEASES = "https://github.com/DP-Hridayan/aShellYou/releases"
     const val URL_GITHUB_ISSUE_REPORT =
         "https://github.com/DP-Hridayan/aShellYou/issues/new?template=bug_report.yml"
     const val URL_GITHUB_ISSUE_FEATURE_REQUEST =
         "https://github.com/DP-Hridayan/aShellYou/issues/new?template=feature_request.yml"
     const val URL_GITHUB_REPO_LICENSE =
         "https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md"
+    const val URL_GITHUB_REPO_STARGAZERS =
+        "https://github.com/DP-Hridayan/aShellYou/stargazers"
+    const val URL_GITHUB_REPO_FORKS =
+        "https://github.com/DP-Hridayan/aShellYou/forks"
+    const val URL_GITHUB_REPO_ISSUES =
+        "https://github.com/DP-Hridayan/aShellYou/issues"
     const val URL_DEV_TELEGRAM = "https://t.me/hridayan"
     const val URL_TELEGRAM_CHANNEL = "https://t.me/ashellyou"
     const val URL_DEV_GITHUB = "https://github.com/DP-Hridayan"

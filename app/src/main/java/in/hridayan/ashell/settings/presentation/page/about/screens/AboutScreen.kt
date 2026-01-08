@@ -161,7 +161,13 @@ fun AboutScreen(
                                     GithubStatsChip(
                                         icon = painterResource(R.drawable.ic_star),
                                         statsText = it.toString(),
-                                        statsDescription = stringResource(R.string.stargazers)
+                                        statsDescription = stringResource(R.string.stargazers),
+                                        onClick = {
+                                            openUrl(
+                                                url = UrlConst.URL_GITHUB_REPO_STARGAZERS,
+                                                context = context
+                                            )
+                                        }
                                     )
                                 }
 
@@ -171,7 +177,13 @@ fun AboutScreen(
                                         statsText = it.toCompactFormat(),
                                         statsDescription = stringResource(R.string.downloads),
                                         containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                                        onClick = {
+                                            openUrl(
+                                                url = UrlConst.URL_GITHUB_RELEASES,
+                                                context = context
+                                            )
+                                        }
                                     )
                                 }
                             }
@@ -186,7 +198,13 @@ fun AboutScreen(
                                         statsText = it.toString(),
                                         statsDescription = stringResource(R.string.open_issues),
                                         containerColor = MaterialTheme.colorScheme.errorContainer,
-                                        contentColor = MaterialTheme.colorScheme.onErrorContainer
+                                        contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                                        onClick = {
+                                            openUrl(
+                                                url = UrlConst.URL_GITHUB_REPO_ISSUES,
+                                                context = context
+                                            )
+                                        }
                                     )
                                 }
 
@@ -196,8 +214,13 @@ fun AboutScreen(
                                         statsText = it.toString(),
                                         statsDescription = stringResource(R.string.forks),
                                         containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-
+                                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        onClick = {
+                                            openUrl(
+                                                url = UrlConst.URL_GITHUB_REPO_FORKS,
+                                                context = context
+                                            )
+                                        }
                                     )
                                 }
                             }
