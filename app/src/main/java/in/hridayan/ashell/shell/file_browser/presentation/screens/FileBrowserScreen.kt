@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -287,7 +288,7 @@ fun FileBrowserScreen(
                         },
                         actions = {
                             IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                viewModel.loadFiles("/storage/emulated/0")
+                                navController.popBackStack()
                             }) {
                                 Icon(Icons.Rounded.Home, contentDescription = "Home")
                             }
@@ -345,7 +346,10 @@ fun FileBrowserScreen(
                             val displayFiles = state.files.filterNot { it.isParentDirectory }
                             val isEmpty = state.isVirtualEmptyFolder || displayFiles.isEmpty()
 
+                            val listState = rememberLazyListState()
+                            
                             LazyColumn(
+                                state = listState,
                                 modifier = Modifier.fillMaxSize(),
                                 verticalArrangement = Arrangement.spacedBy(2.dp)
                             ) {
@@ -524,43 +528,66 @@ fun FileBrowserScreen(
                 }
             }
 
-            // Paste button
+            // Paste button with cancel option
             if (clipboardFile != null || clipboardPaths.isNotEmpty()) {
-                FloatingActionButton(
-                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        when (clipboardOperation) {
-                            "copy" -> {
-                                clipboardFile?.let { file ->
-                                    val destPath = "${state.currentPath}/${file.name}"
-                                    viewModel.copyFile(file.path, destPath)
-                                }
-                            }
-
-                            "move" -> {
-                                clipboardFile?.let { file ->
-                                    val destPath = "${state.currentPath}/${file.name}"
-                                    viewModel.moveFile(file.path, destPath)
-                                }
-                            }
-
-                            "copy_batch" -> {
-                                viewModel.copyFileBatch(clipboardPaths, state.currentPath)
-                            }
-
-                            "move_batch" -> {
-                                viewModel.moveFileBatch(clipboardPaths, state.currentPath)
-                            }
-                        }
-                        clipboardFile = null
-                        clipboardOperation = null
-                        clipboardPaths = emptyList()
-                    },
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        imageVector = Icons.Rounded.ContentPaste,
-                        contentDescription = "Paste"
-                    )
+                    // Cancel clipboard button
+                    SmallFloatingActionButton(
+                        onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                            clipboardFile = null
+                            clipboardOperation = null
+                            clipboardPaths = emptyList()
+                            Toast.makeText(context, "Clipboard cleared", Toast.LENGTH_SHORT).show()
+                        },
+                        containerColor = MaterialTheme.colorScheme.errorContainer
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Close,
+                            contentDescription = "Cancel clipboard",
+                            tint = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                    }
+                    
+                    // Paste button
+                    FloatingActionButton(
+                        onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                            when (clipboardOperation) {
+                                "copy" -> {
+                                    clipboardFile?.let { file ->
+                                        val destPath = "${state.currentPath}/${file.name}"
+                                        viewModel.copyFile(file.path, destPath)
+                                    }
+                                }
+
+                                "move" -> {
+                                    clipboardFile?.let { file ->
+                                        val destPath = "${state.currentPath}/${file.name}"
+                                        viewModel.moveFile(file.path, destPath)
+                                    }
+                                }
+
+                                "copy_batch" -> {
+                                    viewModel.copyFileBatch(clipboardPaths, state.currentPath)
+                                }
+
+                                "move_batch" -> {
+                                    viewModel.moveFileBatch(clipboardPaths, state.currentPath)
+                                }
+                            }
+                            clipboardFile = null
+                            clipboardOperation = null
+                            clipboardPaths = emptyList()
+                        },
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.ContentPaste,
+                            contentDescription = "Paste"
+                        )
+                    }
                 }
             }
 
@@ -759,14 +786,6 @@ private fun FileListItem(
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (isSelectionMode) {
-            Checkbox(
-                checked = isSelected,
-                onCheckedChange = { onClick() },
-                modifier = Modifier.padding(end = 8.dp)
-            )
-        }
-
         Icon(
             imageVector = getFileIcon(file),
             contentDescription = null,
@@ -806,96 +825,104 @@ private fun FileListItem(
             }
         }
 
+        // In selection mode: show checkbox, otherwise show menu
         if (!file.isParentDirectory) {
-            Box {
-                IconButton(onClick = { showMenu = true }) {
-                    Icon(
-                        imageVector = Icons.Rounded.MoreVert,
-                        contentDescription = "More",
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+            if (isSelectionMode) {
+                Checkbox(
+                    checked = isSelected,
+                    onCheckedChange = { onClick() }
+                )
+            } else {
+                Box {
+                    IconButton(onClick = { showMenu = true }) {
+                        Icon(
+                            imageVector = Icons.Rounded.MoreVert,
+                            contentDescription = "More",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
 
-                DropdownMenu(
-                    expanded = showMenu,
-                    onDismissRequest = { showMenu = false }
-                ) {
-                    if (!file.isDirectory) {
+                    DropdownMenu(
+                        expanded = showMenu,
+                        onDismissRequest = { showMenu = false }
+                    ) {
+                        if (!file.isDirectory) {
+                            DropdownMenuItem(
+                                text = { Text("Download") },
+                                leadingIcon = {
+                                    Icon(
+                                        Icons.Rounded.Download,
+                                        contentDescription = null
+                                    )
+                                },
+                                onClick = {
+                                    onDownload()
+                                    showMenu = false
+                                }
+                            )
+                        }
+
                         DropdownMenuItem(
-                            text = { Text("Download") },
+                            text = { Text("Rename") },
+                            leadingIcon = { Icon(Icons.Rounded.Edit, contentDescription = null) },
+                            onClick = {
+                                onRename()
+                                showMenu = false
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = { Text("Copy") },
                             leadingIcon = {
                                 Icon(
-                                    Icons.Rounded.Download,
+                                    Icons.Rounded.ContentCopy,
                                     contentDescription = null
                                 )
                             },
                             onClick = {
-                                onDownload()
+                                onCopy()
+                                showMenu = false
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = { Text("Move") },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Rounded.DriveFileMove,
+                                    contentDescription = null
+                                )
+                            },
+                            onClick = {
+                                onMove()
+                                showMenu = false
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = { Text("Info") },
+                            leadingIcon = { Icon(Icons.Rounded.Info, contentDescription = null) },
+                            onClick = {
+                                onInfo()
+                                showMenu = false
+                            }
+                        )
+
+                        DropdownMenuItem(
+                            text = { Text("Delete") },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Rounded.Delete,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.error
+                                )
+                            },
+                            onClick = {
+                                onDelete()
                                 showMenu = false
                             }
                         )
                     }
-
-                    DropdownMenuItem(
-                        text = { Text("Rename") },
-                        leadingIcon = { Icon(Icons.Rounded.Edit, contentDescription = null) },
-                        onClick = {
-                            onRename()
-                            showMenu = false
-                        }
-                    )
-
-                    DropdownMenuItem(
-                        text = { Text("Copy") },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Rounded.ContentCopy,
-                                contentDescription = null
-                            )
-                        },
-                        onClick = {
-                            onCopy()
-                            showMenu = false
-                        }
-                    )
-
-                    DropdownMenuItem(
-                        text = { Text("Move") },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Rounded.DriveFileMove,
-                                contentDescription = null
-                            )
-                        },
-                        onClick = {
-                            onMove()
-                            showMenu = false
-                        }
-                    )
-
-                    DropdownMenuItem(
-                        text = { Text("Info") },
-                        leadingIcon = { Icon(Icons.Rounded.Info, contentDescription = null) },
-                        onClick = {
-                            onInfo()
-                            showMenu = false
-                        }
-                    )
-
-                    DropdownMenuItem(
-                        text = { Text("Delete") },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Rounded.Delete,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.error
-                            )
-                        },
-                        onClick = {
-                            onDelete()
-                            showMenu = false
-                        }
-                    )
                 }
             }
         }

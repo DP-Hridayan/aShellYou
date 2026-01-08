@@ -43,7 +43,7 @@ fun SavedDevicesBottomSheet(
     onDismiss: () -> Unit,
     onGoToTerminal: () -> Unit,
     viewModel: WifiAdbViewModel = hiltViewModel(),
-    sheetState: SheetState = rememberModalBottomSheetState()
+    sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 ) {
     val context = LocalContext.current
     val savedDevices by viewModel.savedDevices.collectAsState()
