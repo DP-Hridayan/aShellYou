@@ -1116,9 +1116,7 @@ private fun FullscreenOutputOverlay(
                 ) {
                     LazyColumn(
                         state = fullscreenListState,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(horizontal = 16.dp),
+                        modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         commandSections.forEachIndexed { sectionIndex, (command, lines) ->
@@ -1132,7 +1130,7 @@ private fun FullscreenOutputOverlay(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                                            .padding(horizontal = 0.dp, vertical = 10.dp),
+                                            .padding(horizontal = 20.dp, vertical = 10.dp),
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Text(
@@ -1154,12 +1152,14 @@ private fun FullscreenOutputOverlay(
                                 items = lines,
                                 key = { index, _ -> "${sectionIndex}_$index" }
                             ) { _, line ->
-                                OutputLineItem(
-                                    line = line,
-                                    states = states,
-                                    commandTextStyle = commandTextStyle,
-                                    bodyTextStyle = bodyTextStyle
-                                )
+                                Box(modifier = Modifier.padding(horizontal = 20.dp)) {
+                                    OutputLineItem(
+                                        line = line,
+                                        states = states,
+                                        commandTextStyle = commandTextStyle,
+                                        bodyTextStyle = bodyTextStyle
+                                    )
+                                }
                             }
                         }
 
