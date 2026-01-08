@@ -34,16 +34,31 @@ class FileBrowserRepositoryImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             try {
                 val adbManager = getAdbManager()
-                val escapedPath = path.replace("'", "'\\''")
+                // Normalize path - ensure trailing slash for directories to get contents not symlink info
+                val normalizedPath = if (path.endsWith("/")) path else "$path/"
+                val escapedPath = normalizedPath.replace("'", "'\\''")
                 val command = "shell:ls -la '$escapedPath'"
+                
+                Log.d(TAG, "Listing files with command: $command")
 
                 val stream = adbManager.openStream(command)
                 val reader = BufferedReader(InputStreamReader(stream.openInputStream()))
                 val files = mutableListOf<RemoteFile>()
+                val rawLines = mutableListOf<String>()
+
+                // Read all lines first, then close stream
+                reader.forEachLine { line ->
+                    rawLines.add(line)
+                }
+                reader.close()
+                stream.close()
+                
+                Log.d(TAG, "Got ${rawLines.size} lines from ls output")
 
                 // Add parent directory navigation if not at root
-                if (path != "/" && path.isNotEmpty()) {
-                    val parentPath = File(path).parent ?: "/"
+                val cleanPath = path.trimEnd('/')
+                if (cleanPath != "" && cleanPath != "/") {
+                    val parentPath = File(cleanPath).parent ?: "/"
                     files.add(
                         RemoteFile(
                             name = "..",
@@ -53,16 +68,15 @@ class FileBrowserRepositoryImpl @Inject constructor(
                     )
                 }
 
-                reader.useLines { lines ->
-                    lines.forEach { line ->
-                        parseListLine(line, path)?.let { file ->
-                            if (file.name != "." && file.name != "..") {
-                                files.add(file)
-                            }
+                // Parse lines
+                rawLines.forEach { line ->
+                    parseListLine(line, cleanPath.ifEmpty { "/" })?.let { file ->
+                        if (file.name != "." && file.name != "..") {
+                            files.add(file)
+                            Log.d(TAG, "Parsed file: ${file.name} (dir=${file.isDirectory})")
                         }
                     }
                 }
-                stream.close()
 
                 // Sort: directories first, then alphabetically
                 val sorted = files.sortedWith(
@@ -70,6 +84,8 @@ class FileBrowserRepositoryImpl @Inject constructor(
                         .thenByDescending { it.isDirectory }
                         .thenBy { it.name.lowercase() }
                 )
+                
+                Log.d(TAG, "Returning ${sorted.size} files for path: $path")
 
                 Result.success(sorted)
             } catch (e: Exception) {

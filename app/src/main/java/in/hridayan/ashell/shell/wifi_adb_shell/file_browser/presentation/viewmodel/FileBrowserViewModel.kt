@@ -18,7 +18,7 @@ import java.io.File
 import javax.inject.Inject
 
 data class FileBrowserState(
-    val currentPath: String = "/sdcard",
+    val currentPath: String = "/storage/emulated/0",
     val files: List<RemoteFile> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null,
@@ -49,13 +49,20 @@ class FileBrowserViewModel @Inject constructor(
 
     // Path history for back navigation
     private val pathHistory = mutableListOf<String>()
+    
+    // Navigation job for debouncing rapid clicks
+    private var navigationJob: kotlinx.coroutines.Job? = null
 
     init {
-        loadFiles("/sdcard")
+        // Start at internal storage (more reliable than /sdcard symlink)
+        loadFiles("/storage/emulated/0")
     }
 
     fun loadFiles(path: String) {
-        viewModelScope.launch {
+        // Cancel any pending navigation
+        navigationJob?.cancel()
+        
+        navigationJob = viewModelScope.launch {
             _state.value = _state.value.copy(isLoading = true, error = null)
             
             repository.listFiles(path).fold(
