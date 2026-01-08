@@ -43,8 +43,7 @@ import javax.jmdns.ServiceListener
 import kotlin.math.max
 
 class WifiAdbRepositoryImpl(
-    private val context: Context,
-    private val deviceDao: WifiAdbDeviceDao
+    private val context: Context, private val deviceDao: WifiAdbDeviceDao
 ) : WifiAdbRepository {
     private val TAG = "WifiAdbShell"
     private var adbShellStream: AdbStream? = null
@@ -76,10 +75,10 @@ class WifiAdbRepositoryImpl(
     private var pairingNsdManager: NsdManager? = null
     private var pairingNsdDiscoveryListener: NsdManager.DiscoveryListener? = null
 
+    // region QR/Code Pairing Flow
+
     override fun pairingWithQr(
-        pairingCode: String,
-        autoPair: Boolean,
-        callback: MdnsDiscoveryCallback?
+        pairingCode: String, autoPair: Boolean, callback: MdnsDiscoveryCallback?
     ) {
         executor.submit {
             try {
@@ -136,8 +135,7 @@ class WifiAdbRepositoryImpl(
                                     if (cachedPort != null) {
                                         // Use cached port for immediate connection
                                         Log.d(
-                                            TAG,
-                                            "Using cached connect port for $ip -> $cachedPort"
+                                            TAG, "Using cached connect port for $ip -> $cachedPort"
                                         )
                                         stopParallelConnectDiscovery()
 
@@ -176,8 +174,7 @@ class WifiAdbRepositoryImpl(
 
                                                 mainScope.launch {
                                                     WifiAdbConnection.setDeviceConnected(
-                                                        connectedDevice.id,
-                                                        "$ip:$cachedPort"
+                                                        connectedDevice.id, "$ip:$cachedPort"
                                                     )
                                                 }
                                                 Log.d(
@@ -275,8 +272,7 @@ class WifiAdbRepositoryImpl(
                     Log.d(TAG, "Parallel: Found connect service: ${info.serviceName}")
                     pairingNsdManager?.resolveService(info, object : NsdManager.ResolveListener {
                         override fun onResolveFailed(
-                            serviceInfo: android.net.nsd.NsdServiceInfo,
-                            errorCode: Int
+                            serviceInfo: android.net.nsd.NsdServiceInfo, errorCode: Int
                         ) {
                             Log.w(TAG, "Parallel: Resolve failed: errorCode=$errorCode")
                         }
@@ -299,9 +295,7 @@ class WifiAdbRepositoryImpl(
             }
 
             pairingNsdManager?.discoverServices(
-                "_adb-tls-connect._tcp",
-                NsdManager.PROTOCOL_DNS_SD,
-                pairingNsdDiscoveryListener
+                "_adb-tls-connect._tcp", NsdManager.PROTOCOL_DNS_SD, pairingNsdDiscoveryListener
             )
         } catch (e: Exception) {
             Log.e(TAG, "Error starting parallel connect discovery", e)
@@ -352,8 +346,7 @@ class WifiAdbRepositoryImpl(
                     connectionHandled = true
 
                     Log.d(
-                        TAG,
-                        "NSD connect discovery timeout, trying direct connection fallback..."
+                        TAG, "NSD connect discovery timeout, trying direct connection fallback..."
                     )
 
                     try {
@@ -402,8 +395,7 @@ class WifiAdbRepositoryImpl(
 
                                     mainScope.launch {
                                         WifiAdbConnection.setDeviceConnected(
-                                            connectedDevice.id,
-                                            "$targetIp:$port"
+                                            connectedDevice.id, "$targetIp:$port"
                                         )
                                     }
                                     Log.d(TAG, "Direct connection to $targetIp:$port succeeded!")
@@ -464,8 +456,7 @@ class WifiAdbRepositoryImpl(
                         Log.d(TAG, "NSD found service: ${info.serviceName}")
                         nsdManager.resolveService(info, object : NsdManager.ResolveListener {
                             override fun onResolveFailed(
-                                serviceInfo: android.net.nsd.NsdServiceInfo,
-                                errorCode: Int
+                                serviceInfo: android.net.nsd.NsdServiceInfo, errorCode: Int
                             ) {
                                 Log.w(TAG, "NSD resolve failed: errorCode=$errorCode")
                             }
@@ -504,8 +495,7 @@ class WifiAdbRepositoryImpl(
                                         val serial = getDeviceSerialNumber()
                                         val deviceName = getDeviceName()
                                         Log.d(
-                                            TAG,
-                                            "Device info - Serial: $serial, Name: $deviceName"
+                                            TAG, "Device info - Serial: $serial, Name: $deviceName"
                                         )
 
                                         val connectedDevice = WifiAdbDevice(
@@ -522,8 +512,7 @@ class WifiAdbRepositoryImpl(
 
                                         mainScope.launch {
                                             WifiAdbConnection.setDeviceConnected(
-                                                connectedDevice.id,
-                                                key
+                                                connectedDevice.id, key
                                             )
                                         }
                                         Log.d(TAG, "Connected successfully to $ip:$port")
@@ -568,6 +557,8 @@ class WifiAdbRepositoryImpl(
         }
     }
 
+
+    // region Low-Level Connection
 
     override fun pair(ip: String, port: Int, pairingCode: String, listener: PairingListener?) {
         executor.submit {
@@ -621,6 +612,9 @@ class WifiAdbRepositoryImpl(
         }
     }
 
+
+    // region Device Info Utilities
+
     /**
      * Retrieves the device serial number by running 'getprop ro.serialno'
      * Returns null if unable to retrieve
@@ -661,6 +655,9 @@ class WifiAdbRepositoryImpl(
             "Unknown Device"
         }
     }
+
+
+    // region Shell Execution
 
     @Volatile
     private var isAborted = false
@@ -750,6 +747,9 @@ class WifiAdbRepositoryImpl(
         }
     }
 
+
+    // region Device CRUD
+
     override fun getSavedDevicesFlow(): Flow<List<WifiAdbDevice>> =
         deviceDao.getAllDevices().map { entities -> entities.toDomainList() }
 
@@ -765,7 +765,8 @@ class WifiAdbRepositoryImpl(
         deviceDao.deleteDevice(device.toEntity())
     }
 
-    // ========== NEW RECONNECT FUNCTIONALITY ==========
+
+    // region Reconnection Flow
 
     private var currentDevice: WifiAdbDevice? = null
 
@@ -880,16 +881,14 @@ class WifiAdbRepositoryImpl(
                         Log.d(TAG, "Direct connect succeeded for ${device.id}")
                         // Update device with current IP in case it changed
                         currentDevice = device.copy(
-                            ip = targetIp,
-                            lastConnected = System.currentTimeMillis()
+                            ip = targetIp, lastConnected = System.currentTimeMillis()
                         )
                         ioScope.launch { deviceDao.updateDevice(currentDevice!!.toEntity()) }
                         WifiAdbConnection.setCurrentDevice(currentDevice)
                         mainScope.launch {
                             WifiAdbConnection.updateState(
                                 WifiAdbState.ConnectSuccess(
-                                    device.id,
-                                    device.id
+                                    device.id, device.id
                                 )
                             )
                         }
@@ -904,8 +903,7 @@ class WifiAdbRepositoryImpl(
                     mainScope.launch {
                         WifiAdbConnection.updateState(
                             WifiAdbState.ConnectFailed(
-                                "Requires re-pairing",
-                                device.id
+                                "Requires re-pairing", device.id
                             )
                         )
                     }
@@ -936,12 +934,10 @@ class WifiAdbRepositoryImpl(
     @Suppress("DEPRECATION")
     @SuppressLint("DefaultLocale")
     private fun discoverConnectServiceForReconnect(
-        device: WifiAdbDevice,
-        listener: ReconnectListener?
+        device: WifiAdbDevice, listener: ReconnectListener?
     ) {
         try {
-            val nsdManager =
-                context.getSystemService(Context.NSD_SERVICE) as NsdManager
+            val nsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
 
             // Get current local IP for own device
             val wifi =
@@ -1001,8 +997,7 @@ class WifiAdbRepositoryImpl(
                     } else {
                         WifiAdbConnection.updateState(
                             WifiAdbState.ConnectFailed(
-                                "Discovery timeout",
-                                device.id
+                                "Discovery timeout", device.id
                             )
                         )
                     }
@@ -1038,11 +1033,9 @@ class WifiAdbRepositoryImpl(
                 override fun onServiceFound(info: android.net.nsd.NsdServiceInfo) {
                     if (connectionHandled || isReconnectCancelled) return
                     nsdManager.resolveService(
-                        info,
-                        object : NsdManager.ResolveListener {
+                        info, object : NsdManager.ResolveListener {
                             override fun onResolveFailed(
-                                serviceInfo: android.net.nsd.NsdServiceInfo,
-                                errorCode: Int
+                                serviceInfo: android.net.nsd.NsdServiceInfo, errorCode: Int
                             ) {
                                 Log.w(TAG, "Resolve failed: errorCode $errorCode")
                             }
@@ -1096,8 +1089,7 @@ class WifiAdbRepositoryImpl(
                                 mainScope.launch {
                                     WifiAdbConnection.updateState(
                                         WifiAdbState.ConnectStarted(
-                                            key,
-                                            device.id
+                                            key, device.id
                                         )
                                     )
                                 }
@@ -1117,8 +1109,7 @@ class WifiAdbRepositoryImpl(
                                         mainScope.launch {
                                             WifiAdbConnection.updateState(
                                                 WifiAdbState.ConnectSuccess(
-                                                    key,
-                                                    device.id
+                                                    key, device.id
                                                 )
                                             )
                                         }
@@ -1131,8 +1122,7 @@ class WifiAdbRepositoryImpl(
                                         mainScope.launch {
                                             WifiAdbConnection.updateState(
                                                 WifiAdbState.ConnectFailed(
-                                                    key,
-                                                    device.id
+                                                    key, device.id
                                                 )
                                             )
                                         }
@@ -1153,9 +1143,7 @@ class WifiAdbRepositoryImpl(
 
             activeNsdManager = nsdManager
             nsdManager.discoverServices(
-                "_adb-tls-connect._tcp",
-                NsdManager.PROTOCOL_DNS_SD,
-                activeDiscoveryListener
+                "_adb-tls-connect._tcp", NsdManager.PROTOCOL_DNS_SD, activeDiscoveryListener
             )
             Log.d(TAG, "Started NsdManager discovery for reconnect to $targetIp")
 
@@ -1283,9 +1271,7 @@ class WifiAdbRepositoryImpl(
     }
 
     override suspend fun generatePairingQR(
-        sessionId: String,
-        pairingCode: String,
-        size: Int
+        sessionId: String, pairingCode: String, size: Int
     ): Bitmap {
         val content = "WIFI:T:ADB;S:$sessionId;P:$pairingCode;;"
 
@@ -1370,7 +1356,8 @@ class WifiAdbRepositoryImpl(
         heartbeatJob = null
     }
 
-    // ========== INTERFACES ==========
+
+    // region Listener Interfaces
 
     interface PairingListener {
         fun onPairingSuccess()
@@ -1395,7 +1382,8 @@ class WifiAdbRepositoryImpl(
         fun onError(e: Throwable)
     }
 
-    // ========== "Pair Using Code" Discovery ==========
+
+    // region Code Pairing Discovery
 
     private var codePairingNsdManager: NsdManager? = null
     private var codePairingDiscoveryListener: NsdManager.DiscoveryListener? = null
@@ -1440,8 +1428,7 @@ class WifiAdbRepositoryImpl(
                 Log.d(TAG, "Code pairing: Found pairing service: ${info.serviceName}")
                 codePairingNsdManager?.resolveService(info, object : NsdManager.ResolveListener {
                     override fun onResolveFailed(
-                        serviceInfo: android.net.nsd.NsdServiceInfo,
-                        errorCode: Int
+                        serviceInfo: android.net.nsd.NsdServiceInfo, errorCode: Int
                     ) {
                         Log.w(TAG, "Code pairing: Resolve failed: $errorCode")
                     }
@@ -1454,10 +1441,7 @@ class WifiAdbRepositoryImpl(
                         Log.d(TAG, "Code pairing: Resolved service $name at $ip:$port")
 
                         val service = DiscoveredPairingService(
-                            serviceName = name,
-                            ip = ip,
-                            port = port,
-                            deviceName = name
+                            serviceName = name, ip = ip, port = port, deviceName = name
                         )
 
                         mainScope.launch {
@@ -1477,9 +1461,7 @@ class WifiAdbRepositoryImpl(
 
         try {
             codePairingNsdManager?.discoverServices(
-                "_adb-tls-pairing._tcp",
-                NsdManager.PROTOCOL_DNS_SD,
-                codePairingDiscoveryListener
+                "_adb-tls-pairing._tcp", NsdManager.PROTOCOL_DNS_SD, codePairingDiscoveryListener
             )
         } catch (e: Exception) {
             Log.e(TAG, "Error starting code pairing discovery", e)
@@ -1503,10 +1485,7 @@ class WifiAdbRepositoryImpl(
     }
 
     override fun pairAndConnect(
-        ip: String,
-        pairingPort: Int,
-        pairingCode: String,
-        callback: MdnsDiscoveryCallback?
+        ip: String, pairingPort: Int, pairingCode: String, callback: MdnsDiscoveryCallback?
     ) {
         executor.submit {
             Log.d(TAG, "Starting pair and connect for $ip:$pairingPort")
@@ -1555,8 +1534,7 @@ class WifiAdbRepositoryImpl(
 
                                 mainScope.launch {
                                     WifiAdbConnection.setDeviceConnected(
-                                        connectedDevice.id,
-                                        "$ip:$connectPort"
+                                        connectedDevice.id, "$ip:$connectPort"
                                     )
                                 }
                                 Log.d(TAG, "Connection successful to $ip:$connectPort")
@@ -1591,5 +1569,6 @@ class WifiAdbRepositoryImpl(
             })
         }
     }
-}
 
+
+}
