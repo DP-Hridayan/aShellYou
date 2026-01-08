@@ -811,7 +811,7 @@ private fun OutputCard(
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(headerColor)
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                            .padding(horizontal = 16.dp, vertical = 6.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -1040,35 +1040,37 @@ private fun FullscreenOutputOverlay(
                             }
                         },
                         actions = {
-                            // Scroll to top
-                            IconButton(onClick = {
-                                coroutineScope.launch {
-                                    if (smoothScroll) fullscreenListState.animateScrollToItem(0)
-                                    else fullscreenListState.scrollToItem(0)
-                                }
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Rounded.KeyboardDoubleArrowUp,
-                                    contentDescription = "Scroll to top"
-                                )
-                            }
-                            // Scroll to bottom
-                            IconButton(onClick = {
-                                coroutineScope.launch {
-                                    val lastIndex =
-                                        fullscreenListState.layoutInfo.totalItemsCount - 1
-                                    if (lastIndex >= 0) {
-                                        if (smoothScroll) fullscreenListState.animateScrollToItem(
-                                            lastIndex
-                                        )
-                                        else fullscreenListState.scrollToItem(lastIndex)
+                            if (states.shellState !is ShellState.Busy) {
+                                // Scroll to top
+                                IconButton(onClick = {
+                                    coroutineScope.launch {
+                                        if (smoothScroll) fullscreenListState.animateScrollToItem(0)
+                                        else fullscreenListState.scrollToItem(0)
                                     }
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.KeyboardDoubleArrowUp,
+                                        contentDescription = "Scroll to top"
+                                    )
                                 }
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Rounded.KeyboardDoubleArrowDown,
-                                    contentDescription = "Scroll to bottom"
-                                )
+                                // Scroll to bottom
+                                IconButton(onClick = {
+                                    coroutineScope.launch {
+                                        val lastIndex =
+                                            fullscreenListState.layoutInfo.totalItemsCount - 1
+                                        if (lastIndex >= 0) {
+                                            if (smoothScroll) fullscreenListState.animateScrollToItem(
+                                                lastIndex
+                                            )
+                                            else fullscreenListState.scrollToItem(lastIndex)
+                                        }
+                                    }
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.KeyboardDoubleArrowDown,
+                                        contentDescription = "Scroll to bottom"
+                                    )
+                                }
                             }
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
@@ -1109,10 +1111,12 @@ private fun FullscreenOutputOverlay(
 
                     VerticalScrollbar(
                         listState = fullscreenListState,
+                        thumbSize = 20,
                         modifier = Modifier
                             .align(Alignment.CenterEnd)
                             .fillMaxHeight()
-                            .width(4.dp)
+                            .width(8.dp)
+                            .padding(end = 4.dp)
                     )
                 }
             }
