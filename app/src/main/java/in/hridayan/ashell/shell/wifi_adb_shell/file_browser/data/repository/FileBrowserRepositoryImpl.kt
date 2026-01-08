@@ -80,43 +80,88 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
     /**
      * Parse a line from `ls -la` output.
-     * Format: drwxrwxr-x 3 user group 4096 2024-01-08 10:30 filename
+     * Android ls -la format varies but typically:
+     * drwxrwx--x   5 root   sdcard_rw     4096 2024-01-08 10:30 DCIM
+     * -rw-rw----   1 u0_a123 u0_a123      1234 2024-01-08 10:30 file.txt
+     * lrwxrwxrwx   1 root   root           13 2024-01-08 10:30 link -> target
      */
     private fun parseListLine(line: String, basePath: String): RemoteFile? {
         if (line.isBlank() || line.startsWith("total ")) return null
-
-        val parts = line.split(Regex("\\s+"), limit = 9)
-        if (parts.size < 9) return null
+        
+        // Skip lines that are clearly not file listings
+        if (!line.matches(Regex("^[dlcbsp-].*"))) return null
 
         try {
-            val permissions = parts[0]
-            val owner = parts[2]
-            val group = parts[3]
-            val size = parts[4].toLongOrNull() ?: 0
-            val date = "${parts[5]} ${parts[6]}"
-            val name = parts[8]
-
-            if (name == "." || name == "..") return null
-
+            // Parse permissions (first field)
+            val permissions = line.substring(0, minOf(10, line.length)).trim()
+            if (permissions.length < 10) return null
+            
             val isDirectory = permissions.startsWith("d")
             val isLink = permissions.startsWith("l")
-            val fullPath = if (basePath.endsWith("/")) "$basePath$name" else "$basePath/$name"
-
-            // Handle symlinks - extract actual name from "linkname -> target"
-            val actualName = if (isLink && name.contains(" -> ")) {
-                name.substringBefore(" -> ")
-            } else name
-
-            return RemoteFile(
-                name = actualName,
-                path = if (basePath.endsWith("/")) "$basePath$actualName" else "$basePath/$actualName",
-                isDirectory = isDirectory,
-                size = size,
-                permissions = permissions,
-                lastModified = date,
-                owner = owner,
-                group = group
-            )
+            
+            // Use regex to find the filename at the end, after the date/time pattern
+            // Look for date pattern like "2024-01-08 10:30" or "Jan  8 10:30" or "Jan  8  2024"
+            val dateTimeRegex = Regex("""(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}|\w{3}\s+\d{1,2}\s+(\d{2}:\d{2}|\d{4}))\s+(.+)$""")
+            val match = dateTimeRegex.find(line)
+            
+            if (match != null) {
+                val dateTime = match.groupValues[1]
+                var name = match.groupValues[3].trim()
+                
+                // Skip . and ..
+                if (name == "." || name == "..") return null
+                
+                // Handle symlinks - extract actual name from "linkname -> target"
+                if (isLink && name.contains(" -> ")) {
+                    name = name.substringBefore(" -> ")
+                }
+                
+                // Parse size - find the number before the date
+                val beforeDate = line.substring(0, match.range.first).trim()
+                val sizeParts = beforeDate.split(Regex("\\s+"))
+                val size = sizeParts.lastOrNull()?.toLongOrNull() ?: 0L
+                
+                val fullPath = if (basePath.endsWith("/")) "$basePath$name" else "$basePath/$name"
+                
+                return RemoteFile(
+                    name = name,
+                    path = fullPath,
+                    isDirectory = isDirectory,
+                    size = size,
+                    permissions = permissions,
+                    lastModified = dateTime,
+                    owner = sizeParts.getOrElse(1) { "" },
+                    group = sizeParts.getOrElse(2) { "" }
+                )
+            }
+            
+            // Fallback: Simple space-split parsing
+            val parts = line.split(Regex("\\s+"))
+            if (parts.size >= 7) {
+                val name = parts.drop(6).joinToString(" ").let { rawName ->
+                    if (isLink && rawName.contains(" -> ")) {
+                        rawName.substringBefore(" -> ")
+                    } else rawName
+                }
+                
+                if (name == "." || name == "..") return null
+                
+                val fullPath = if (basePath.endsWith("/")) "$basePath$name" else "$basePath/$name"
+                val size = parts.getOrNull(4)?.toLongOrNull() ?: 0L
+                
+                return RemoteFile(
+                    name = name,
+                    path = fullPath,
+                    isDirectory = isDirectory,
+                    size = size,
+                    permissions = permissions,
+                    lastModified = "${parts.getOrElse(5) { "" }} ${parts.getOrElse(6) { "" }}".trim(),
+                    owner = parts.getOrElse(2) { "" },
+                    group = parts.getOrElse(3) { "" }
+                )
+            }
+            
+            return null
         } catch (e: Exception) {
             Log.w(TAG, "Failed to parse line: $line", e)
             return null

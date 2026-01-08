@@ -2,8 +2,12 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.screens
 
+import android.net.Uri
+import android.provider.OpenableColumns
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -24,12 +28,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.InsertDriveFile
 import androidx.compose.material.icons.rounded.CreateNewFolder
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.FolderOpen
-import androidx.compose.material.icons.rounded.InsertDriveFile
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Upload
@@ -75,6 +79,7 @@ import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.viewmodel.FileBrowserEvent
 import `in`.hridayan.ashell.shell.wifi_adb_shell.file_browser.presentation.viewmodel.FileBrowserViewModel
+import java.io.File
 
 @Composable
 fun FileBrowserScreen(
@@ -87,6 +92,30 @@ fun FileBrowserScreen(
     var showCreateFolderDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var fileToDelete by remember { mutableStateOf<RemoteFile?>(null) }
+
+    // File picker for upload
+    val filePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            // Get file name from URI
+            val cursor = context.contentResolver.query(uri, null, null, null, null)
+            val fileName = cursor?.use { c ->
+                val nameIndex = c.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                c.moveToFirst()
+                if (nameIndex >= 0) c.getString(nameIndex) else "uploaded_file"
+            } ?: "uploaded_file"
+            
+            // Copy to cache and upload
+            val cacheFile = File(context.cacheDir, fileName)
+            context.contentResolver.openInputStream(uri)?.use { input ->
+                cacheFile.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            viewModel.uploadFile(cacheFile.absolutePath, fileName)
+        }
+    }
 
     // Handle events
     LaunchedEffect(Unit) {
@@ -136,6 +165,15 @@ fun FileBrowserScreen(
                     }
                 },
                 actions = {
+                    // Upload button
+                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                        filePickerLauncher.launch("*/*")
+                    }) {
+                        Icon(
+                            imageVector = Icons.Rounded.Upload,
+                            contentDescription = "Upload"
+                        )
+                    }
                     IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                         viewModel.refresh()
                     }) {
@@ -442,6 +480,6 @@ private fun getFileIcon(file: RemoteFile): ImageVector {
     return when {
         file.isParentDirectory -> Icons.Rounded.FolderOpen
         file.isDirectory -> Icons.Rounded.Folder
-        else -> Icons.Rounded.InsertDriveFile
+        else -> Icons.AutoMirrored.Rounded.InsertDriveFile
     }
 }
