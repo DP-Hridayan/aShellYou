@@ -34,6 +34,7 @@ import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.FolderOpen
+import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Upload
@@ -129,10 +130,15 @@ fun FileBrowserScreen(
         }
     }
 
-    // Back handler
+    // Determine if we're at the root/home path
+    val isAtHome = state.currentPath == "/storage/emulated/0"
+
+    // Back handler - navigate to parent directory, or exit if at home
     BackHandler {
-        if (!viewModel.navigateBack()) {
+        if (isAtHome) {
             navController.popBackStack()
+        } else {
+            viewModel.navigateUp()
         }
     }
 
@@ -155,8 +161,13 @@ fun FileBrowserScreen(
                     }
                 },
                 navigationIcon = {
+                    // Back/Up navigation
                     IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                        navController.popBackStack()
+                        if (isAtHome) {
+                            navController.popBackStack()
+                        } else {
+                            viewModel.navigateUp()
+                        }
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
@@ -165,6 +176,15 @@ fun FileBrowserScreen(
                     }
                 },
                 actions = {
+                    // Home button - go directly to WiFi ADB screen
+                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                        navController.popBackStack()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Rounded.Home,
+                            contentDescription = "Home"
+                        )
+                    }
                     // Upload button
                     IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                         filePickerLauncher.launch("*/*")
@@ -209,30 +229,53 @@ fun FileBrowserScreen(
                     )
                 }
                 state.error != null -> {
+                    // Connection error - show retry with back option
                     Column(
                         modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                            .fillMaxSize()
+                            .padding(16.dp)
                     ) {
-                        Text(
-                            text = state.error ?: "Error",
-                            color = MaterialTheme.colorScheme.error
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        TextButton(onClick = { viewModel.refresh() }) {
-                            Text("Retry")
+                        // Always show parent directory option on error
+                        if (!isAtHome) {
+                            FileListItem(
+                                file = RemoteFile(
+                                    name = "..",
+                                    path = java.io.File(state.currentPath).parent ?: "/",
+                                    isDirectory = true
+                                ),
+                                onClick = { viewModel.navigateUp() },
+                                onDownload = {},
+                                onDelete = {}
+                            )
+                        }
+                        
+                        // Error message centered
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = state.error ?: "Connection error",
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+                                TextButton(onClick = { viewModel.refresh() }) {
+                                    Text("Retry")
+                                }
+                            }
                         }
                     }
                 }
-                state.files.isEmpty() -> {
-                    Text(
-                        text = "Empty folder",
-                        modifier = Modifier.align(Alignment.Center),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
                 else -> {
+                    // Check if folder is truly empty (virtual empty or only has ".." entry)
+                    val isEmpty = state.isVirtualEmptyFolder || 
+                        (state.files.size <= 1 && state.files.all { it.isParentDirectory })
+                    
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(2.dp)
@@ -250,6 +293,24 @@ fun FileBrowserScreen(
                                 },
                                 modifier = Modifier.animateItem()
                             )
+                        }
+                        
+                        // Show "empty folder" message if no files besides parent
+                        if (isEmpty) {
+                            item {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(200.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "This folder is empty",
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        style = MaterialTheme.typography.bodyLarge
+                                    )
+                                }
+                            }
                         }
                         
                         item {

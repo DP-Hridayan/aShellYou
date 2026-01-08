@@ -47,4 +47,10 @@ interface FileBrowserRepository {
      * Get file information.
      */
     suspend fun getFileInfo(path: String): Result<RemoteFile>
+    
+    /**
+     * Check if ADB is currently connected.
+     * Used to differentiate between empty folder and connection error.
+     */
+    fun isAdbConnected(): Boolean
 }

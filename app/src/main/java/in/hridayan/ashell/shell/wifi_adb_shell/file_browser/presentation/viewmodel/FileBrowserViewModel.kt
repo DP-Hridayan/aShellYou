@@ -25,7 +25,11 @@ data class FileBrowserState(
     val selectedFile: RemoteFile? = null,
     val isOperationInProgress: Boolean = false,
     val operationProgress: Float = 0f,
-    val operationMessage: String? = null
+    val operationMessage: String? = null,
+    // Virtual empty folder - when we couldn't list but ADB is connected
+    val isVirtualEmptyFolder: Boolean = false,
+    // Last path that successfully loaded (for recovery)
+    val lastSuccessfulPath: String = "/storage/emulated/0"
 )
 
 sealed class FileBrowserEvent {
@@ -63,7 +67,7 @@ class FileBrowserViewModel @Inject constructor(
         navigationJob?.cancel()
         
         navigationJob = viewModelScope.launch {
-            _state.value = _state.value.copy(isLoading = true, error = null)
+            _state.value = _state.value.copy(isLoading = true, error = null, isVirtualEmptyFolder = false)
             
             repository.listFiles(path).fold(
                 onSuccess = { files ->
@@ -73,15 +77,45 @@ class FileBrowserViewModel @Inject constructor(
                     }
                     _state.value = _state.value.copy(
                         currentPath = path,
+                        lastSuccessfulPath = path,
                         files = files,
-                        isLoading = false
+                        isLoading = false,
+                        isVirtualEmptyFolder = false
                     )
                 },
                 onFailure = { error ->
-                    _state.value = _state.value.copy(
-                        isLoading = false,
-                        error = error.message ?: "Failed to load files"
-                    )
+                    // Smart detection: check if ADB is still connected
+                    val isConnected = repository.isAdbConnected()
+                    
+                    if (isConnected) {
+                        // ADB is connected but listing failed - likely empty folder or permission issue
+                        // Treat as virtual empty folder
+                        val parentPath = File(path).parent ?: "/"
+                        val parentFile = RemoteFile(
+                            name = "..",
+                            path = parentPath,
+                            isDirectory = true
+                        )
+                        
+                        // Add to history if navigating forward (before updating path)
+                        if (path != _state.value.currentPath) {
+                            pathHistory.add(_state.value.currentPath)
+                        }
+                        
+                        _state.value = _state.value.copy(
+                            currentPath = path,
+                            files = listOf(parentFile),
+                            isLoading = false,
+                            error = null,
+                            isVirtualEmptyFolder = true
+                        )
+                    } else {
+                        // ADB disconnected - show connection error
+                        _state.value = _state.value.copy(
+                            isLoading = false,
+                            error = "Connection lost. Please reconnect."
+                        )
+                    }
                 }
             )
         }

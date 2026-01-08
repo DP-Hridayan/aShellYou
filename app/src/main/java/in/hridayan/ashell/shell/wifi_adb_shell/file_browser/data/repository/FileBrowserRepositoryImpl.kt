@@ -333,4 +333,13 @@ class FileBrowserRepositoryImpl @Inject constructor(
             null
         }
     }
+    
+    override fun isAdbConnected(): Boolean {
+        return try {
+            getAdbManager().isConnected
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking ADB connection", e)
+            false
+        }
+    }
 }
