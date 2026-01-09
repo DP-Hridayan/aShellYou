@@ -1,12 +1,16 @@
 package `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel
 
 import android.os.Environment
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
+import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -61,7 +65,8 @@ sealed class FileBrowserEvent {
 
 @HiltViewModel
 class FileBrowserViewModel @Inject constructor(
-    private val repository: FileBrowserRepository
+    private val repository: FileBrowserRepository,
+    private val wifiAdbRepository: WifiAdbRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(FileBrowserState())
@@ -73,19 +78,37 @@ class FileBrowserViewModel @Inject constructor(
     private val pathHistory = mutableListOf<String>()
     private var navigationJob: Job? = null
     private val operationJobs = mutableMapOf<String, Job>()
+    private var connectedDevice: WifiAdbDevice? = null
 
     init {
+        connectedDevice = wifiAdbRepository.getCurrentDevice()
+        Log.d(
+            "FileBrowserVM",
+            "Init: captured device = ${connectedDevice?.deviceName} at ${connectedDevice?.ip}:${connectedDevice?.port}"
+        )
+
         // Start at internal storage (more reliable than /sdcard symlink)
         loadFiles("/storage/emulated/0")
+    }
+
+    /**
+     * Set the connected device explicitly (called from UI with device from navigation if needed)
+     */
+    fun setConnectedDevice(device: WifiAdbDevice?) {
+        connectedDevice = device
+        Log.d(
+            "FileBrowserVM",
+            "setConnectedDevice: ${device?.deviceName} at ${device?.ip}:${device?.port}"
+        )
     }
 
     fun loadFiles(path: String, addToHistory: Boolean = true) {
         // Cancel any pending navigation
         navigationJob?.cancel()
-        
+
         navigationJob = viewModelScope.launch {
             _state.value = _state.value.copy(isLoading = true, error = null)
-            
+
             repository.listFiles(path).fold(
                 onSuccess = { files ->
                     // Only add to history if navigating forward (not refresh)
@@ -112,7 +135,7 @@ class FileBrowserViewModel @Inject constructor(
             )
         }
     }
-    
+
     /**
      * Refresh current directory without adding to history
      */
@@ -120,37 +143,67 @@ class FileBrowserViewModel @Inject constructor(
         loadFiles(_state.value.currentPath, addToHistory = false)
     }
 
+    /**
+     * Check if ADB is currently connected
+     */
+    fun isAdbConnected(): Boolean = repository.isAdbConnected()
+
+    /**
+     * Attempt a silent reconnect using the stored device and refresh file list.
+     * This provides seamless reconnection when the connection drops.
+     * Uses the device captured at init or set via setConnectedDevice.
+     */
+    fun silentReconnectAndRefresh() {
+        Log.d("FileBrowserVM", "silentReconnectAndRefresh called")
+
+        val device = connectedDevice
+        if (device == null) {
+            Log.w("FileBrowserVM", "No connected device stored, falling back to refresh")
+            refresh()
+            return
+        }
+
+        Log.d(
+            "FileBrowserVM",
+            "Using stored device: ${device.deviceName} at ${device.ip}:${device.port}"
+        )
+        _state.value = _state.value.copy(isLoading = true, error = null)
+        performReconnect(device)
+    }
+
+    private fun performReconnect(device: WifiAdbDevice) {
+        Log.d(
+            "FileBrowserVM",
+            "Attempting reconnect to: ${device.deviceName} at ${device.ip}:${device.port}"
+        )
+
+        wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
+            override fun onReconnectSuccess() {
+                Log.d("FileBrowserVM", "Reconnect SUCCESS")
+                // Update stored device with fresh reference after successful reconnect
+                connectedDevice = wifiAdbRepository.getCurrentDevice() ?: device
+                viewModelScope.launch {
+                    _events.emit(FileBrowserEvent.ShowToast("Reconnected successfully"))
+                    refresh()
+                }
+            }
+
+            override fun onReconnectFailed(requiresPairing: Boolean) {
+                Log.e("FileBrowserVM", "Reconnect FAILED, requiresPairing=$requiresPairing")
+                viewModelScope.launch {
+                    _state.value = _state.value.copy(
+                        isLoading = false,
+                        error = if (requiresPairing) "Connection lost. Please re-pair device." else "Reconnection failed"
+                    )
+                }
+            }
+        })
+    }
+
     fun navigateUp(): Boolean {
         val parentPath = File(_state.value.currentPath).parent
         return if (parentPath != null && _state.value.currentPath != "/") {
             loadFiles(parentPath)
-            true
-        } else {
-            false
-        }
-    }
-
-    fun navigateBack(): Boolean {
-        return if (pathHistory.isNotEmpty()) {
-            val previousPath = pathHistory.removeAt(pathHistory.lastIndex)
-            viewModelScope.launch {
-                _state.value = _state.value.copy(isLoading = true, error = null)
-                repository.listFiles(previousPath).fold(
-                    onSuccess = { files ->
-                        _state.value = _state.value.copy(
-                            currentPath = previousPath,
-                            files = files,
-                            isLoading = false
-                        )
-                    },
-                    onFailure = { error ->
-                        _state.value = _state.value.copy(
-                            isLoading = false,
-                            error = error.message
-                        )
-                    }
-                )
-            }
             true
         } else {
             false
@@ -165,12 +218,9 @@ class FileBrowserViewModel @Inject constructor(
         }
     }
 
-    fun clearSelectedFile() {
-        _state.value = _state.value.copy(selectedFile = null)
-    }
-
     fun downloadFile(remotePath: String, fileName: String) {
-        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val downloadsDir =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         val localPath = File(downloadsDir, fileName).absolutePath
         val operationId = UUID.randomUUID().toString()
         val operation = FileOperation(
@@ -189,11 +239,13 @@ class FileBrowserViewModel @Inject constructor(
                             it.copy(bytesTransferred = result.current, totalBytes = result.total)
                         }
                     }
+
                     is FileOperationResult.Success -> {
                         removeOperation(operationId)
                         _events.emit(FileBrowserEvent.FileDownloaded(localPath))
                         _events.emit(FileBrowserEvent.ShowToast("Downloaded to $localPath"))
                     }
+
                     is FileOperationResult.Error -> {
                         removeOperation(operationId)
                         _events.emit(FileBrowserEvent.ShowToast("Download failed: ${result.message}"))
@@ -223,12 +275,14 @@ class FileBrowserViewModel @Inject constructor(
                             it.copy(bytesTransferred = result.current, totalBytes = result.total)
                         }
                     }
+
                     is FileOperationResult.Success -> {
                         removeOperation(operationId)
                         _events.emit(FileBrowserEvent.FileUploaded(remotePath))
                         _events.emit(FileBrowserEvent.ShowToast("File uploaded successfully"))
                         refresh()
                     }
+
                     is FileOperationResult.Error -> {
                         removeOperation(operationId)
                         _events.emit(FileBrowserEvent.ShowToast("Upload failed: ${result.message}"))
@@ -289,7 +343,7 @@ class FileBrowserViewModel @Inject constructor(
             )
         }
     }
-    
+
     fun renameFile(oldPath: String, newPath: String) {
         viewModelScope.launch {
             repository.rename(oldPath, newPath).fold(
@@ -303,7 +357,7 @@ class FileBrowserViewModel @Inject constructor(
             )
         }
     }
-    
+
     fun cancelOperation(operationId: String) {
         operationJobs[operationId]?.cancel()
         removeOperation(operationId)
@@ -311,7 +365,7 @@ class FileBrowserViewModel @Inject constructor(
             _events.emit(FileBrowserEvent.ShowToast("Operation cancelled"))
         }
     }
-    
+
     fun cancelAllOperations() {
         operationJobs.values.forEach { it.cancel() }
         operationJobs.clear()
@@ -320,11 +374,11 @@ class FileBrowserViewModel @Inject constructor(
             _events.emit(FileBrowserEvent.ShowToast("All operations cancelled"))
         }
     }
-    
+
     fun copyFile(sourcePath: String, destPath: String, forceOverwrite: Boolean = false) {
         val fileName = File(sourcePath).name
         val operationId = UUID.randomUUID().toString()
-        
+
         viewModelScope.launch {
             // Check if destination exists (unless forcing overwrite)
             if (!forceOverwrite) {
@@ -341,7 +395,7 @@ class FileBrowserViewModel @Inject constructor(
                     return@launch
                 }
             }
-            
+
             val operation = FileOperation(
                 id = operationId,
                 type = OperationType.COPY,
@@ -363,11 +417,11 @@ class FileBrowserViewModel @Inject constructor(
             )
         }
     }
-    
+
     fun moveFile(sourcePath: String, destPath: String, forceOverwrite: Boolean = false) {
         val fileName = File(sourcePath).name
         val operationId = UUID.randomUUID().toString()
-        
+
         viewModelScope.launch {
             // Check if destination exists (unless forcing overwrite)
             if (!forceOverwrite) {
@@ -384,7 +438,7 @@ class FileBrowserViewModel @Inject constructor(
                     return@launch
                 }
             }
-            
+
             val operation = FileOperation(
                 id = operationId,
                 type = OperationType.MOVE,
@@ -406,17 +460,27 @@ class FileBrowserViewModel @Inject constructor(
             )
         }
     }
-    
+
     fun resolveConflictReplace() {
         val conflict = _state.value.pendingConflict ?: return
         dismissConflict()
         when (conflict.operationType) {
-            OperationType.COPY -> copyFile(conflict.sourcePath, conflict.destPath, forceOverwrite = true)
-            OperationType.MOVE -> moveFile(conflict.sourcePath, conflict.destPath, forceOverwrite = true)
+            OperationType.COPY -> copyFile(
+                conflict.sourcePath,
+                conflict.destPath,
+                forceOverwrite = true
+            )
+
+            OperationType.MOVE -> moveFile(
+                conflict.sourcePath,
+                conflict.destPath,
+                forceOverwrite = true
+            )
+
             else -> {}
         }
     }
-    
+
     fun resolveConflictKeepBoth() {
         val conflict = _state.value.pendingConflict ?: return
         dismissConflict()
@@ -425,7 +489,7 @@ class FileBrowserViewModel @Inject constructor(
         val baseName = destFile.nameWithoutExtension
         val extension = destFile.extension.let { if (it.isNotEmpty()) ".$it" else "" }
         val parentPath = destFile.parent ?: _state.value.currentPath
-        
+
         viewModelScope.launch {
             var counter = 1
             var newPath: String
@@ -433,7 +497,7 @@ class FileBrowserViewModel @Inject constructor(
                 newPath = "$parentPath/${baseName} ($counter)$extension"
                 counter++
             } while (repository.exists(newPath).getOrNull() == true && counter < 100)
-            
+
             when (conflict.operationType) {
                 OperationType.COPY -> copyFile(conflict.sourcePath, newPath, forceOverwrite = true)
                 OperationType.MOVE -> moveFile(conflict.sourcePath, newPath, forceOverwrite = true)
@@ -441,32 +505,32 @@ class FileBrowserViewModel @Inject constructor(
             }
         }
     }
-    
+
     fun resolveConflictSkip() {
         dismissConflict()
         viewModelScope.launch {
             _events.emit(FileBrowserEvent.ShowToast("Skipped"))
         }
     }
-    
+
     fun dismissConflict() {
         _state.value = _state.value.copy(pendingConflict = null)
     }
-    
+
     fun enterSelectionMode(initialFile: RemoteFile) {
         _state.value = _state.value.copy(
             isSelectionMode = true,
             selectedFiles = setOf(initialFile.path)
         )
     }
-    
+
     fun exitSelectionMode() {
         _state.value = _state.value.copy(
             isSelectionMode = false,
             selectedFiles = emptySet()
         )
     }
-    
+
     fun toggleFileSelection(file: RemoteFile) {
         val current = _state.value.selectedFiles
         val newSelection = if (current.contains(file.path)) {
@@ -479,7 +543,7 @@ class FileBrowserViewModel @Inject constructor(
             isSelectionMode = newSelection.isNotEmpty()
         )
     }
-    
+
     fun selectAllFiles() {
         val allPaths = _state.value.files
             .filterNot { it.isParentDirectory }
@@ -487,7 +551,7 @@ class FileBrowserViewModel @Inject constructor(
             .toSet()
         _state.value = _state.value.copy(selectedFiles = allPaths)
     }
-    
+
     fun deleteSelectedFiles() {
         val paths = _state.value.selectedFiles.toList()
         exitSelectionMode()
@@ -504,9 +568,9 @@ class FileBrowserViewModel @Inject constructor(
             refresh()
         }
     }
-    
+
     fun getSelectedFilePaths(): List<String> = _state.value.selectedFiles.toList()
-    
+
     fun copyFileBatch(sourcePaths: List<String>, destDir: String) {
         sourcePaths.forEach { sourcePath ->
             val fileName = sourcePath.substringAfterLast("/")
@@ -514,7 +578,7 @@ class FileBrowserViewModel @Inject constructor(
             copyFile(sourcePath, destPath)
         }
     }
-    
+
     fun moveFileBatch(sourcePaths: List<String>, destDir: String) {
         sourcePaths.forEach { sourcePath ->
             val fileName = sourcePath.substringAfterLast("/")
@@ -535,7 +599,7 @@ class FileBrowserViewModel @Inject constructor(
     fun downloadSelectedFiles() {
         val selectedPaths = _state.value.selectedFiles.toList()
         val files = _state.value.files.filter { it.path in selectedPaths && !it.isDirectory }
-        
+
         if (files.isEmpty()) {
             viewModelScope.launch {
                 _events.emit(FileBrowserEvent.ShowToast("No files selected (folders cannot be downloaded)"))
@@ -544,7 +608,7 @@ class FileBrowserViewModel @Inject constructor(
         }
 
         exitSelectionMode()
-        
+
         files.forEach { file ->
             downloadFile(file.path, file.name)
         }

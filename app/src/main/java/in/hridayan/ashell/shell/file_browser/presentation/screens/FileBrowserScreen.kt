@@ -99,6 +99,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -110,6 +111,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.CreateFolderDialog
@@ -356,18 +358,29 @@ fun FileBrowserScreen(
                         }
 
                         state.error != null -> {
+                            val isWifiConnected = context.isConnectedToWifi()
+                            
                             Box(
                                 modifier = Modifier.fillMaxSize(),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     Text(
-                                        text = state.error ?: "Connection error",
+                                        text = state.error ?: stringResource(R.string.fb_connection_error),
                                         color = MaterialTheme.colorScheme.error
                                     )
                                     Spacer(modifier = Modifier.height(8.dp))
-                                    TextButton(onClick = { viewModel.refresh() }) {
-                                        Text("Retry")
+                                    TextButton(onClick = {
+                                        // If we're in error state and WiFi is connected, always try 
+                                        // silent reconnect since the error indicates connection issue
+                                        if (isWifiConnected) {
+                                            viewModel.silentReconnectAndRefresh()
+                                        } else {
+                                            // WiFi not connected, just show error persists
+                                            viewModel.refresh()
+                                        }
+                                    }) {
+                                        Text(stringResource(R.string.fb_retry))
                                     }
                                 }
                             }
@@ -450,7 +463,7 @@ fun FileBrowserScreen(
                                             contentAlignment = Alignment.Center
                                         ) {
                                             Text(
-                                                text = "This folder is empty",
+                                                text = stringResource(R.string.fb_empty_folder),
                                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                                 style = MaterialTheme.typography.bodyLarge
                                             )

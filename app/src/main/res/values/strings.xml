@@ -429,5 +429,23 @@
     <string name="fb_merge">Merge</string>
     <string name="fb_copied_to_clipboard">Copied to clipboard</string>
     <string name="fb_cut_to_clipboard">Cut to clipboard</string>
+    <string name="fb_create">Create</string>
+    <string name="fb_more">More</string>
+    <string name="fb_select_all">Select all</string>
+    <string name="fb_deselect_all">Deselect all</string>
+    <string name="fb_file_already_exists">File Already Exists</string>
+    <string name="fb_file_exists_message">"%1$s" already exists in this location.</string>
+    <string name="fb_what_to_do">What would you like to do while %1$s?</string>
+    <string name="fb_keep_both">Keep Both</string>
+    <string name="fb_close">Close</string>
+    <string name="fb_retry">Retry</string>
+    <string name="fb_connection_error">Connection error</string>
+    <string name="fb_delete_items_title">Delete %1$d items?</string>
+    <string name="fb_delete_items_message">Are you sure you want to delete %1$d selected items?</string>
+    <string name="fb_copied_items">Copied %1$d items</string>
+    <string name="fb_cut_items">Cut %1$d items</string>
+    <string name="fb_copying_items">Copying %1$d item(s)</string>
+    <string name="fb_moving_items">Moving %1$d item(s)</string>
+    <string name="fb_ready_to_paste">Ready to paste</string>
+    <string name="fb_no_files_download">No files selected (folders cannot be downloaded)</string>
 </resources>
-
