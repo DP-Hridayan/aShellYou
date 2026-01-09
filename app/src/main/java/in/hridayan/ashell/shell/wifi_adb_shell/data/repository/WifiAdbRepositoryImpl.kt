@@ -46,6 +46,7 @@ import java.util.concurrent.TimeUnit
 import javax.jmdns.JmDNS
 import javax.jmdns.ServiceEvent
 import javax.jmdns.ServiceListener
+import `in`.hridayan.ashell.shell.wifi_adb_shell.service.AdbConnectionService
 import kotlin.math.max
 
 class WifiAdbRepositoryImpl(
@@ -1551,11 +1552,14 @@ class WifiAdbRepositoryImpl(
 
         isHeartbeatRunning = true
         Log.d(TAG, "Starting connection heartbeat")
+        
+        // Start foreground service to keep connection alive in background
+        AdbConnectionService.start(context)
 
         heartbeatJob = ioScope.launch {
             while (isHeartbeatRunning) {
                 try {
-                    delay(2500)
+                    delay(5000) // Check every 5 seconds
 
                     if (!isHeartbeatRunning) break
 
@@ -1565,6 +1569,7 @@ class WifiAdbRepositoryImpl(
                         return@launch
                     }
 
+                    // Simple isConnected check (foreground service keeps process alive)
                     val isStillConnected = try {
                         val manager = AdbConnectionManager.getInstance(context)
                         manager.isConnected
@@ -1602,6 +1607,9 @@ class WifiAdbRepositoryImpl(
         isHeartbeatRunning = false
         heartbeatJob?.cancel()
         heartbeatJob = null
+        
+        // Stop foreground service
+        AdbConnectionService.stop(context)
     }
 
 

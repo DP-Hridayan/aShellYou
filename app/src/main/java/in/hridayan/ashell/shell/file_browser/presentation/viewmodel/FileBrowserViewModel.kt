@@ -57,6 +57,10 @@ class FileBrowserViewModel @Inject constructor(
     private val wifiAdbRepository: WifiAdbRepository
 ) : ViewModel() {
 
+    companion object {
+        private const val TAG = "FileBrowserViewModel"
+    }
+
     private val _state = MutableStateFlow(FileBrowserState())
     val state: StateFlow<FileBrowserState> = _state.asStateFlow()
 
@@ -368,9 +372,11 @@ class FileBrowserViewModel @Inject constructor(
         val operationId = UUID.randomUUID().toString()
 
         viewModelScope.launch {
+            Log.d(TAG, "copyFile: source=$sourcePath, dest=$destPath, forceOverwrite=$forceOverwrite")
             // Check if destination exists (unless forcing overwrite)
             if (!forceOverwrite) {
                 val exists = repository.exists(destPath).getOrNull() ?: false
+                Log.d(TAG, "copyFile: exists check for '$destPath' = $exists")
                 if (exists) {
                     // Check if it's a directory to show appropriate dialog
                     val isDir = repository.isDirectory(destPath).getOrNull() ?: false
@@ -420,9 +426,11 @@ class FileBrowserViewModel @Inject constructor(
         val operationId = UUID.randomUUID().toString()
 
         viewModelScope.launch {
+            Log.d(TAG, "moveFile: source=$sourcePath, dest=$destPath, forceOverwrite=$forceOverwrite")
             // Check if destination exists (unless forcing overwrite)
             if (!forceOverwrite) {
                 val exists = repository.exists(destPath).getOrNull() ?: false
+                Log.d(TAG, "moveFile: exists check for '$destPath' = $exists")
                 if (exists) {
                     // Check if it's a directory to show appropriate dialog
                     val isDir = repository.isDirectory(destPath).getOrNull() ?: false

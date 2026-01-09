@@ -2,20 +2,19 @@
 
 package `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -33,7 +32,7 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
 
 /**
  * Dialog for handling file/folder conflicts during copy/move operations.
- * Uses DialogContainer with ButtonGroup for consistent UI pattern.
+ * Uses vertical button layout for better readability.
  */
 @Composable
 fun FileConflictDialog(
@@ -41,8 +40,6 @@ fun FileConflictDialog(
     onResolution: (ConflictResolution) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val interactionSources = remember { List(3) { MutableInteractionSource() } }
-
     val title = if (conflict.isDirectory) {
         stringResource(R.string.fb_folder_conflict_title)
     } else {
@@ -50,8 +47,8 @@ fun FileConflictDialog(
     }
 
     val operationText = when (conflict.operationType) {
-        OperationType.COPY -> stringResource(R.string.fb_copying)
-        OperationType.MOVE -> stringResource(R.string.fb_moving)
+        OperationType.COPY -> stringResource(R.string.fb_copying).lowercase().removeSuffix(".")
+        OperationType.MOVE -> stringResource(R.string.fb_moving).lowercase().removeSuffix(".")
         else -> ""
     }
 
@@ -84,23 +81,24 @@ fun FileConflictDialog(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        @Suppress("DEPRECATION")
-        ButtonGroup(
-            modifier = Modifier.fillMaxWidth()
+        // Vertical button layout for better fit
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // Skip button
-            OutlinedButton(
-                onClick = withHaptic(HapticFeedbackType.Reject) {
-                    onResolution(ConflictResolution.SKIP)
+            // Replace button (primary action for most cases)
+            Button(
+                onClick = withHaptic(HapticFeedbackType.Confirm) {
+                    onResolution(ConflictResolution.REPLACE)
                 },
-                modifier = Modifier
-                    .weight(1f)
-                    .animateWidth(interactionSources[0]),
-                shapes = ButtonDefaults.shapes(),
-                interactionSource = interactionSources[0]
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = MaterialTheme.colorScheme.onError
+                )
             ) {
                 Text(
-                    text = stringResource(R.string.fb_skip),
+                    text = stringResource(R.string.fb_replace),
                     style = MaterialTheme.typography.labelLarge
                 )
             }
@@ -111,11 +109,7 @@ fun FileConflictDialog(
                     onClick = withHaptic(HapticFeedbackType.Confirm) {
                         onResolution(ConflictResolution.MERGE)
                     },
-                    modifier = Modifier
-                        .weight(1f)
-                        .animateWidth(interactionSources[1]),
-                    shapes = ButtonDefaults.shapes(),
-                    interactionSource = interactionSources[1]
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(R.string.fb_merge),
@@ -127,11 +121,7 @@ fun FileConflictDialog(
                     onClick = withHaptic(HapticFeedbackType.Confirm) {
                         onResolution(ConflictResolution.KEEP_BOTH)
                     },
-                    modifier = Modifier
-                        .weight(1f)
-                        .animateWidth(interactionSources[1]),
-                    shapes = ButtonDefaults.shapes(),
-                    interactionSource = interactionSources[1]
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(R.string.fb_keep_both),
@@ -140,23 +130,15 @@ fun FileConflictDialog(
                 }
             }
 
-            // Replace button
-            Button(
-                onClick = withHaptic(HapticFeedbackType.Confirm) {
-                    onResolution(ConflictResolution.REPLACE)
+            // Skip button
+            OutlinedButton(
+                onClick = withHaptic(HapticFeedbackType.Reject) {
+                    onResolution(ConflictResolution.SKIP)
                 },
-                modifier = Modifier
-                    .weight(1f)
-                    .animateWidth(interactionSources[2]),
-                shapes = ButtonDefaults.shapes(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error,
-                    contentColor = MaterialTheme.colorScheme.onError
-                ),
-                interactionSource = interactionSources[2]
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = stringResource(R.string.fb_replace),
+                    text = stringResource(R.string.fb_skip),
                     style = MaterialTheme.typography.labelLarge
                 )
             }

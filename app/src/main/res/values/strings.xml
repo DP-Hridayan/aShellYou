@@ -450,5 +450,12 @@
     <string name="fb_no_files_download">No files selected (folders cannot be downloaded)</string>
     <string name="fb_file_conflict_title">File Already Exists</string>
     <string name="fb_folder_conflict_title">Folder Already Exists</string>
+    
+    <!-- ADB Connection Service Notification -->
+    <string name="adb_connection_channel_name">ADB Connection</string>
+    <string name="adb_connection_channel_description">Shows when ADB connection is active</string>
+    <string name="adb_connection_active">ADB Connection Active</string>
+    <string name="adb_connection_description">WiFi ADB connection is being maintained</string>
 </resources>
+
 

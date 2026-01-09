@@ -467,6 +467,8 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 val escapedPath = path.replace("'", "'\\''")
                 val command = "shell:[ -e '$escapedPath' ] && echo 'EXISTS' || echo 'NOT_EXISTS'"
                 
+                Log.d(TAG, "exists: checking path=$path")
+                
                 val stream = adbManager.openStream(command)
                 val inputStream = stream.openInputStream()
                 val result = inputStream.bufferedReader().readText()
@@ -474,7 +476,10 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 try { inputStream.close() } catch (_: Exception) {}
                 try { stream.close() } catch (_: Exception) {}
                 
-                Result.success(result.contains("EXISTS"))
+                val exists = result.contains("EXISTS")
+                Log.d(TAG, "exists: path=$path, result=$exists, raw='${result.trim()}'")
+                
+                Result.success(exists)
             } catch (e: Exception) {
                 Log.e(TAG, "Error checking exists: $path", e)
                 Result.failure(e)
