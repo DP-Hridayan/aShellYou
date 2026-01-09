@@ -42,8 +42,12 @@ class WifiAdbViewModel @Inject constructor(
 
     // Track currently connected device - observe from WifiAdbConnection for cross-component updates
     val currentDevice: StateFlow<WifiAdbDevice?> = WifiAdbConnection.currentDevice
+    private val _lastConnectedDevice = MutableStateFlow<WifiAdbDevice?>(null)
+    val lastConnectedDevice = _lastConnectedDevice.asStateFlow()
 
     init {
+        _lastConnectedDevice.value = currentDevice.value
+
         viewModelScope.launch {
             wifiAdbRepository.getSavedDevicesFlow().collect { devices ->
                 _savedDevices.value = devices
@@ -88,6 +92,7 @@ class WifiAdbViewModel @Inject constructor(
         wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
             override fun onReconnectSuccess() {
                 WifiAdbConnection.setCurrentDevice(device)
+                _lastConnectedDevice.value = currentDevice.value
                 WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id, device.id))
             }
 

@@ -20,6 +20,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
@@ -37,8 +40,8 @@ fun WifiAdbScreen(
 ) {
     val context = LocalContext.current
     val navController = LocalNavController.current
+    val dialogManager = LocalDialogManager.current
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
-    var showDisconnectedDialog by rememberSaveable { mutableStateOf(false) }
     var disconnectedDeviceName by rememberSaveable { mutableStateOf<String?>(null) }
 
     val wifiAdbState by wifiAdbViewModel.state.collectAsState()
@@ -52,11 +55,16 @@ fun WifiAdbScreen(
         context.getString(R.string.none)
     }
 
-    // Watch for disconnect state changes (from heartbeat)
     LaunchedEffect(wifiAdbState) {
-        if (wifiAdbState is WifiAdbState.Disconnected) {
-            disconnectedDeviceName = currentDevice?.deviceName
-            showDisconnectedDialog = true
+        when (wifiAdbState) {
+            is WifiAdbState.Disconnected -> {
+                disconnectedDeviceName = currentDevice?.deviceName
+                dialogManager.show(DialogKey.WifiAdbScreen.DeviceDisconnected)
+            }
+
+            is WifiAdbState.ConnectSuccess -> {}
+
+            else -> {}
         }
     }
 
@@ -103,10 +111,9 @@ fun WifiAdbScreen(
         )
     }
 
-    if (showDisconnectedDialog) {
+    DialogKey.WifiAdbScreen.DeviceDisconnected.createDialog {
         DeviceDisconnectedDialog(
-            deviceName = disconnectedDeviceName,
-            onDismiss = { showDisconnectedDialog = false }
+            onDismiss = { it.dismiss() }
         )
     }
 }

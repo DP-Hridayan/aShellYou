@@ -70,13 +70,13 @@ class FileBrowserViewModel @Inject constructor(
     private val pathHistory = mutableListOf<String>()
     private var navigationJob: Job? = null
     private val operationJobs = mutableMapOf<String, Job>()
-    private var connectedDevice: WifiAdbDevice? = null
+    private var lastConnectedDevice: WifiAdbDevice? = null
 
     init {
-        connectedDevice = wifiAdbRepository.getCurrentDevice()
+        lastConnectedDevice = wifiAdbRepository.getCurrentDevice()
         Log.d(
             "FileBrowserVM",
-            "Init: captured device = ${connectedDevice?.deviceName} at ${connectedDevice?.ip}:${connectedDevice?.port}"
+            "Init: captured device = ${lastConnectedDevice?.deviceName} at ${lastConnectedDevice?.ip}:${lastConnectedDevice?.port}"
         )
 
         // Start at internal storage (more reliable than /sdcard symlink)
@@ -87,7 +87,7 @@ class FileBrowserViewModel @Inject constructor(
      * Set the connected device explicitly (called from UI with device from navigation if needed)
      */
     fun setConnectedDevice(device: WifiAdbDevice?) {
-        connectedDevice = device
+        lastConnectedDevice = device
         Log.d(
             "FileBrowserVM",
             "setConnectedDevice: ${device?.deviceName} at ${device?.ip}:${device?.port}"
@@ -148,7 +148,7 @@ class FileBrowserViewModel @Inject constructor(
     fun silentReconnectAndRefresh() {
         Log.d("FileBrowserVM", "silentReconnectAndRefresh called")
 
-        val device = connectedDevice
+        val device = lastConnectedDevice
         if (device == null) {
             Log.w("FileBrowserVM", "No connected device stored, falling back to refresh")
             refresh()
@@ -173,7 +173,7 @@ class FileBrowserViewModel @Inject constructor(
             override fun onReconnectSuccess() {
                 Log.d("FileBrowserVM", "Reconnect SUCCESS")
                 // Update stored device with fresh reference after successful reconnect
-                connectedDevice = wifiAdbRepository.getCurrentDevice() ?: device
+                lastConnectedDevice = wifiAdbRepository.getCurrentDevice() ?: device
                 viewModelScope.launch {
                     _events.emit(FileBrowserEvent.ShowToast("Reconnected successfully"))
                     refresh()
