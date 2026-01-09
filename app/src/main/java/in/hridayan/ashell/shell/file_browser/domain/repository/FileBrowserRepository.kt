@@ -68,4 +68,14 @@ interface FileBrowserRepository {
      * Check if a file or directory exists at the given path.
      */
     suspend fun exists(path: String): Result<Boolean>
+    
+    /**
+     * Check if the path is a directory.
+     */
+    suspend fun isDirectory(path: String): Result<Boolean>
+    
+    /**
+     * Delete a file or directory recursively.
+     */
+    suspend fun delete(path: String): Result<Unit>
 }

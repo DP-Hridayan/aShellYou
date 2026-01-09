@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.shell.file_browser.presentation.screens
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.widget.Toast
@@ -9,12 +10,14 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -59,6 +62,7 @@ import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Upload
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -72,6 +76,7 @@ import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallFloatingActionButton
@@ -92,7 +97,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -104,6 +108,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.traversalIndex
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -111,16 +116,20 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawDreamer
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
+import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.CreateFolderDialog
+import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.FileConflictDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.FileInfoDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.RenameDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileBrowserEvent
 import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileBrowserViewModel
-import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileOperation
-import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.OperationType
 import java.io.File
 
 @Composable
@@ -294,9 +303,10 @@ fun FileBrowserScreen(
                 } else {
                     TopAppBar(
                         title = {
-                            Text(
+                            AutoResizeableText(
                                 text = deviceAddress.ifEmpty { "File Browser" },
-                                style = MaterialTheme.typography.titleMedium
+                                style = MaterialTheme.typography.titleMedium,
+                                fontFamily = FontFamily.Monospace
                             )
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
@@ -346,27 +356,28 @@ fun FileBrowserScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(MaterialTheme.colorScheme.surfaceContainer)
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                        .padding(horizontal = 15.dp, vertical = 4.dp)
                 )
 
                 Box(modifier = Modifier.fillMaxSize()) {
                     when {
                         state.isLoading -> {
-                            CircularProgressIndicator(
+                            LoadingIndicator(
                                 modifier = Modifier.align(Alignment.Center)
                             )
                         }
 
                         state.error != null -> {
                             val isWifiConnected = context.isConnectedToWifi()
-                            
+
                             Box(
                                 modifier = Modifier.fillMaxSize(),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     Text(
-                                        text = state.error ?: stringResource(R.string.fb_connection_error),
+                                        text = state.error
+                                            ?: stringResource(R.string.fb_connection_error),
                                         color = MaterialTheme.colorScheme.error
                                     )
                                     Spacer(modifier = Modifier.height(8.dp))
@@ -392,89 +403,107 @@ fun FileBrowserScreen(
 
                             val listState = rememberLazyListState()
 
-                            LazyColumn(
-                                state = listState,
-                                modifier = Modifier.fillMaxSize(),
-                                verticalArrangement = Arrangement.spacedBy(2.dp)
-                            ) {
-                                items(displayFiles, key = { it.path }) { file ->
-                                    FileListItem(
-                                        file = file,
-                                        isSelectionMode = state.isSelectionMode,
-                                        isSelected = state.selectedFiles.contains(file.path),
-                                        onClick = {
-                                            if (state.isSelectionMode) {
-                                                viewModel.toggleFileSelection(file)
-                                            } else {
-                                                viewModel.onFileClick(file)
-                                            }
-                                        },
-                                        onLongClick = {
-                                            if (!state.isSelectionMode) {
-                                                viewModel.enterSelectionMode(file)
-                                            }
-                                        },
-                                        onDownload = {
-                                            viewModel.downloadFile(
-                                                file.path,
-                                                file.name
-                                            )
-                                        },
-                                        onDelete = {
-                                            fileToDelete = file
-                                            showDeleteDialog = true
-                                        },
-                                        onRename = {
-                                            fileToRename = file
-                                            showRenameDialog = true
-                                        },
-                                        onCopy = {
-                                            clipboardFile = file
-                                            clipboardOperation = "copy"
-                                            Toast.makeText(
-                                                context,
-                                                "Copied: ${file.name}",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        },
-                                        onMove = {
-                                            clipboardFile = file
-                                            clipboardOperation = "move"
-                                            Toast.makeText(
-                                                context,
-                                                "Cut: ${file.name}",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        },
-                                        onInfo = {
-                                            fileForInfo = file
-                                            showInfoDialog = true
-                                        },
-                                        modifier = Modifier.animateItem()
-                                    )
-                                }
+                            Box(modifier = Modifier.fillMaxSize()) {
+                                LazyColumn(
+                                    state = listState,
+                                    modifier = Modifier.fillMaxSize(),
+                                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                                ) {
+                                    items(displayFiles, key = { it.path }) { file ->
+                                        FileListItem(
+                                            file = file,
+                                            isSelectionMode = state.isSelectionMode,
+                                            isSelected = state.selectedFiles.contains(file.path),
+                                            onClick = {
+                                                if (state.isSelectionMode) {
+                                                    viewModel.toggleFileSelection(file)
+                                                } else {
+                                                    viewModel.onFileClick(file)
+                                                }
+                                            },
+                                            onLongClick = {
+                                                if (!state.isSelectionMode) {
+                                                    viewModel.enterSelectionMode(file)
+                                                }
+                                            },
+                                            onDownload = {
+                                                viewModel.downloadFile(
+                                                    file.path,
+                                                    file.name
+                                                )
+                                            },
+                                            onDelete = {
+                                                fileToDelete = file
+                                                showDeleteDialog = true
+                                            },
+                                            onRename = {
+                                                fileToRename = file
+                                                showRenameDialog = true
+                                            },
+                                            onCopy = {
+                                                clipboardFile = file
+                                                clipboardOperation = "copy"
+                                                Toast.makeText(
+                                                    context,
+                                                    "Copied: ${file.name}",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            },
+                                            onMove = {
+                                                clipboardFile = file
+                                                clipboardOperation = "move"
+                                                Toast.makeText(
+                                                    context,
+                                                    "Cut: ${file.name}",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            },
+                                            onInfo = {
+                                                fileForInfo = file
+                                                showInfoDialog = true
+                                            },
+                                            modifier = Modifier.animateItem()
+                                        )
+                                    }
 
-                                if (isEmpty) {
-                                    item {
-                                        Box(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .height(200.dp),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            Text(
-                                                text = stringResource(R.string.fb_empty_folder),
-                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                                style = MaterialTheme.typography.bodyLarge
-                                            )
+                                    if (isEmpty) {
+                                        item {
+
                                         }
+                                    }
+
+                                    item {
+                                        Spacer(modifier = Modifier.height(80.dp))
                                     }
                                 }
 
-                                item {
-                                    Spacer(modifier = Modifier.height(80.dp))
+
+                                if (isEmpty) Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .align(Alignment.Center)
+                                        .padding(bottom = 45.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.spacedBy(30.dp)
+                                ) {
+                                    Image(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 40.dp),
+                                        imageVector = DynamicColorImageVectors.undrawDreamer(),
+                                        contentDescription = null
+                                    )
+
+                                    Text(
+                                        text = stringResource(R.string.fb_empty_folder),
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(
+                                            alpha = 0.9f
+                                        ),
+                                        style = MaterialTheme.typography.bodyLarge
+                                    )
                                 }
                             }
+
                         }
                     }
 
@@ -746,7 +775,7 @@ fun FileBrowserScreen(
         }
     }
 
-    // Dialogs
+// Dialogs
     if (showCreateFolderDialog) {
         CreateFolderDialog(
             onDismiss = { showCreateFolderDialog = false },
@@ -833,48 +862,14 @@ fun FileBrowserScreen(
         )
     }
 
-    // Conflict Resolution Dialog
+// Conflict Resolution Dialog
     state.pendingConflict?.let { conflict ->
-        val fileName = File(conflict.destPath).name
-        val operationType =
-            if (conflict.operationType == OperationType.COPY) "copying" else "moving"
-
-        AlertDialog(
-            onDismissRequest = { viewModel.dismissConflict() },
-            title = {
-                Text(
-                    text = "File Already Exists",
-                    style = MaterialTheme.typography.headlineSmall
-                )
+        FileConflictDialog(
+            conflict = conflict,
+            onResolution = { resolution ->
+                viewModel.resolveConflict(resolution)
             },
-            text = {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = "\"$fileName\" already exists in this location.",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        text = "What would you like to do while $operationType?",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            },
-            confirmButton = {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    TextButton(onClick = { viewModel.resolveConflictSkip() }) {
-                        Text("Skip")
-                    }
-                    TextButton(onClick = { viewModel.resolveConflictKeepBoth() }) {
-                        Text("Keep Both")
-                    }
-                    TextButton(
-                        onClick = { viewModel.resolveConflictReplace() }
-                    ) {
-                        Text("Replace", color = MaterialTheme.colorScheme.error)
-                    }
-                }
-            }
+            onDismiss = { viewModel.dismissConflict() }
         )
     }
 }
@@ -1112,27 +1107,32 @@ private fun PathBreadcrumbs(
         segments.forEachIndexed { index, (displayName, fullPath) ->
             val isLast = index == segments.lastIndex
 
-            Text(
-                text = displayName,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = if (isLast) FontWeight.Bold else FontWeight.Normal,
-                color = if (isLast) {
-                    MaterialTheme.colorScheme.primary
-                } else {
-                    MaterialTheme.colorScheme.onSurface
+            TextButton(
+                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                    if (isLast) return@withHaptic
+                    onNavigateToPath(fullPath)
                 },
-                maxLines = 1,
-                modifier = Modifier
-                    .clip(RoundedCornerShape(4.dp))
-                    .clickable(enabled = !isLast) { onNavigateToPath(fullPath) }
-                    .padding(horizontal = 4.dp, vertical = 2.dp)
-            )
+                shapes = ButtonDefaults.shapes(),
+                modifier = Modifier.animateContentSize()
+            ) {
+                AutoResizeableText(
+                    text = displayName,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = if (isLast) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    },
+                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                )
+            }
 
             if (!isLast) {
                 Icon(
                     imageVector = Icons.Rounded.ChevronRight,
                     contentDescription = null,
-                    modifier = Modifier.size(16.dp),
+                    modifier = Modifier.size(20.dp),
                     tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                 )
             }
@@ -1196,6 +1196,7 @@ private fun OperationItem(
     }
 }
 
+@SuppressLint("DefaultLocale")
 private fun formatSize(bytes: Long): String {
     return when {
         bytes >= 1_073_741_824 -> String.format("%.1f GB", bytes / 1_073_741_824.0)

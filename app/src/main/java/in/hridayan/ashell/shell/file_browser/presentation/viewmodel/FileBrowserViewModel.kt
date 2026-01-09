@@ -5,7 +5,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.shell.file_browser.domain.model.ConflictResolution
+import `in`.hridayan.ashell.shell.file_browser.domain.model.FileConflict
+import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
+import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
@@ -23,17 +27,6 @@ import java.io.File
 import java.util.UUID
 import javax.inject.Inject
 
-enum class OperationType { UPLOAD, DOWNLOAD, COPY, MOVE }
-
-data class FileOperation(
-    val id: String = UUID.randomUUID().toString(),
-    val type: OperationType,
-    val fileName: String,
-    val bytesTransferred: Long = 0L,
-    val totalBytes: Long = 0L,
-    val message: String = ""
-)
-
 data class FileBrowserState(
     val currentPath: String = "/storage/emulated/0",
     val files: List<RemoteFile> = emptyList(),
@@ -43,16 +36,10 @@ data class FileBrowserState(
     val operations: List<FileOperation> = emptyList(),
     val isVirtualEmptyFolder: Boolean = false,
     val lastSuccessfulPath: String = "/storage/emulated/0",
-    val pendingConflict: ConflictInfo? = null,
+    val pendingConflict: FileConflict? = null,
+    val applyToAllResolution: ConflictResolution? = null,
     val selectedFiles: Set<String> = emptySet(),
     val isSelectionMode: Boolean = false
-)
-
-data class ConflictInfo(
-    val sourcePath: String,
-    val destPath: String,
-    val isDirectory: Boolean,
-    val operationType: OperationType
 )
 
 sealed class FileBrowserEvent {
@@ -62,6 +49,7 @@ sealed class FileBrowserEvent {
     data object FileDeleted : FileBrowserEvent()
     data object DirectoryCreated : FileBrowserEvent()
 }
+
 
 @HiltViewModel
 class FileBrowserViewModel @Inject constructor(
@@ -384,15 +372,24 @@ class FileBrowserViewModel @Inject constructor(
             if (!forceOverwrite) {
                 val exists = repository.exists(destPath).getOrNull() ?: false
                 if (exists) {
+                    // Check if it's a directory to show appropriate dialog
+                    val isDir = repository.isDirectory(destPath).getOrNull() ?: false
                     _state.value = _state.value.copy(
-                        pendingConflict = ConflictInfo(
+                        pendingConflict = FileConflict(
                             sourcePath = sourcePath,
                             destPath = destPath,
-                            isDirectory = false,
-                            operationType = OperationType.COPY
+                            operationType = OperationType.COPY,
+                            isDirectory = isDir,
+                            fileName = fileName
                         )
                     )
                     return@launch
+                }
+            } else {
+                // Force overwrite - delete existing first
+                val exists = repository.exists(destPath).getOrNull() ?: false
+                if (exists) {
+                    repository.delete(destPath) // Delete existing before copy
                 }
             }
 
@@ -427,15 +424,24 @@ class FileBrowserViewModel @Inject constructor(
             if (!forceOverwrite) {
                 val exists = repository.exists(destPath).getOrNull() ?: false
                 if (exists) {
+                    // Check if it's a directory to show appropriate dialog
+                    val isDir = repository.isDirectory(destPath).getOrNull() ?: false
                     _state.value = _state.value.copy(
-                        pendingConflict = ConflictInfo(
+                        pendingConflict = FileConflict(
                             sourcePath = sourcePath,
                             destPath = destPath,
-                            isDirectory = false,
-                            operationType = OperationType.MOVE
+                            operationType = OperationType.MOVE,
+                            isDirectory = isDir,
+                            fileName = fileName
                         )
                     )
                     return@launch
+                }
+            } else {
+                // Force overwrite - delete existing first
+                val exists = repository.exists(destPath).getOrNull() ?: false
+                if (exists) {
+                    repository.delete(destPath) // Delete existing before move
                 }
             }
 
@@ -510,6 +516,100 @@ class FileBrowserViewModel @Inject constructor(
         dismissConflict()
         viewModelScope.launch {
             _events.emit(FileBrowserEvent.ShowToast("Skipped"))
+        }
+    }
+
+    /**
+     * Merge directory contents - copy/move source contents into destination
+     * without deleting existing files in destination
+     */
+    fun resolveConflictMerge() {
+        val conflict = _state.value.pendingConflict ?: return
+        if (!conflict.isDirectory) {
+            // Merge only applies to directories, use Keep Both for files
+            resolveConflictKeepBoth()
+            return
+        }
+        
+        dismissConflict()
+        
+        viewModelScope.launch {
+            _state.value = _state.value.copy(isLoading = true)
+            
+            // List source directory contents
+            val sourceFiles = repository.listFiles(conflict.sourcePath).getOrNull() ?: emptyList()
+            val filesToMerge = sourceFiles.filterNot { it.isParentDirectory || it.name == ".." }
+            
+            var successCount = 0
+            var failCount = 0
+            
+            for (file in filesToMerge) {
+                val destItemPath = "${conflict.destPath}/${file.name}"
+                val sourceItemPath = file.path
+                
+                // Check if destination item exists
+                val destExists = repository.exists(destItemPath).getOrNull() ?: false
+                
+                if (destExists) {
+                    val destIsDir = repository.isDirectory(destItemPath).getOrNull() ?: false
+                    if (file.isDirectory && destIsDir) {
+                        // Both are directories - recursively merge
+                        // For now, we'll use cp -r which handles this
+                        repository.copy(sourceItemPath, destItemPath).fold(
+                            onSuccess = { successCount++ },
+                            onFailure = { failCount++ }
+                        )
+                    } else {
+                        // Conflict within merge - for now just skip (keep existing)
+                        // Future: could queue these as sub-conflicts
+                        failCount++
+                    }
+                } else {
+                    // No conflict, just copy/move
+                    when (conflict.operationType) {
+                        OperationType.COPY -> {
+                            repository.copy(sourceItemPath, destItemPath).fold(
+                                onSuccess = { successCount++ },
+                                onFailure = { failCount++ }
+                            )
+                        }
+                        OperationType.MOVE -> {
+                            repository.move(sourceItemPath, destItemPath).fold(
+                                onSuccess = { successCount++ },
+                                onFailure = { failCount++ }
+                            )
+                        }
+                        else -> {}
+                    }
+                }
+            }
+            
+            // If move operation and all succeeded, delete source folder
+            if (conflict.operationType == OperationType.MOVE && failCount == 0) {
+                repository.delete(conflict.sourcePath)
+            }
+            
+            _state.value = _state.value.copy(isLoading = false)
+            
+            val message = if (failCount == 0) {
+                "Merged $successCount items successfully"
+            } else {
+                "Merged $successCount items, $failCount conflicts skipped"
+            }
+            _events.emit(FileBrowserEvent.ShowToast(message))
+            refresh()
+        }
+    }
+
+    /**
+     * Unified conflict resolution handler
+     */
+    fun resolveConflict(resolution: ConflictResolution) {
+        when (resolution) {
+            ConflictResolution.SKIP -> resolveConflictSkip()
+            ConflictResolution.REPLACE -> resolveConflictReplace()
+            ConflictResolution.MERGE -> resolveConflictMerge()
+            ConflictResolution.KEEP_BOTH -> resolveConflictKeepBoth()
         }
     }
 

@@ -280,6 +280,9 @@ fun DynamicColorImageVectors.undrawSelectChoice(): ImageVector {
 @Composable
 private fun Preview() {
     val painter = rememberVectorPainter(DynamicColorImageVectors.undrawSelectChoice())
-    Image(painter = painter,
-        contentDescription = null)
+
+    Image(
+        painter = painter,
+        contentDescription = null
+    )
 }

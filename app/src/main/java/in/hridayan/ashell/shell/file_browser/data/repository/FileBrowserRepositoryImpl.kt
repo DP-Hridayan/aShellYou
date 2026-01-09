@@ -481,4 +481,37 @@ class FileBrowserRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun isDirectory(path: String): Result<Boolean> = withContext(Dispatchers.IO) {
+        adbMutex.withLock {
+            try {
+                val adbManager = getAdbManager()
+                val escapedPath = path.replace("'", "'\\'")
+                val command = "shell:[ -d '$escapedPath' ] && echo 'IS_DIR' || echo 'NOT_DIR'"
+                
+                val stream = adbManager.openStream(command)
+                val inputStream = stream.openInputStream()
+                val result = inputStream.bufferedReader().readText()
+                
+                try { inputStream.close() } catch (_: Exception) {}
+                try { stream.close() } catch (_: Exception) {}
+                
+                Result.success(result.contains("IS_DIR"))
+            } catch (e: Exception) {
+                Log.e(TAG, "Error checking isDirectory: $path", e)
+                Result.failure(e)
+            }
+        }
+    }
+
+    override suspend fun delete(path: String): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val escapedPath = path.replace("'", "'\\'")
+            executeCommand("rm -rf '$escapedPath'")
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error deleting $path", e)
+            Result.failure(e)
+        }
+    }
 }
