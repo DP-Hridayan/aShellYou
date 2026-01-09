@@ -783,6 +783,10 @@ class WifiAdbRepositoryImpl(
         }
         activeReconnectTimeout = null
 
+        // Cancel serial match job
+        serialMatchJob?.cancel()
+        serialMatchJob = null
+
         // Stop NSD discovery
         activeDiscoveryListener?.let { listener ->
             try {
@@ -976,7 +980,7 @@ class WifiAdbRepositoryImpl(
                     return@schedule
                 }
                 connectionHandled = true
-                currentReconnectingDeviceId = null
+                // NOTE: Don't set currentReconnectingDeviceId = null here if going to serial matching!
 
                 Log.d(TAG, "NsdManager discovery timeout for reconnect")
 
@@ -990,20 +994,30 @@ class WifiAdbRepositoryImpl(
                 activeNsdManager = null
                 activeReconnectTimeout = null
 
-                mainScope.launch {
-                    // For own device, timeout likely means wireless debugging is off
-                    if (device.isOwnDevice) {
+                // For own device, timeout likely means wireless debugging is off
+                if (device.isOwnDevice) {
+                    currentReconnectingDeviceId = null
+                    mainScope.launch {
                         WifiAdbConnection.updateState(WifiAdbState.WirelessDebuggingOff(device.id))
-                    } else {
+                    }
+                    listener?.onReconnectFailed(requiresPairing = false)
+                } else if (!device.serialNumber.isNullOrBlank()) {
+                    // Try serial matching as fallback for devices with saved serial
+                    // Keep currentReconnectingDeviceId set - serial matching needs it!
+                    Log.d(TAG, "Port discovery timeout, trying serial matching for ${device.id}")
+                    discoverAndMatchBySerial(device, listener)
+                } else {
+                    currentReconnectingDeviceId = null
+                    mainScope.launch {
                         WifiAdbConnection.updateState(
                             WifiAdbState.ConnectFailed(
                                 "Discovery timeout", device.id
                             )
                         )
                     }
+                    listener?.onReconnectFailed(requiresPairing = false)
                 }
-                listener?.onReconnectFailed(requiresPairing = false)
-            }, 10, TimeUnit.SECONDS)
+            }, 6, TimeUnit.SECONDS)
 
             activeDiscoveryListener = object : NsdManager.DiscoveryListener {
                 override fun onDiscoveryStarted(serviceType: String) {
@@ -1117,18 +1131,27 @@ class WifiAdbRepositoryImpl(
                                     }
 
                                     override fun onConnectionFailed() {
-                                        // Always emit ConnectFailed for this device
-                                        currentReconnectingDeviceId = null
-                                        mainScope.launch {
-                                            WifiAdbConnection.updateState(
-                                                WifiAdbState.ConnectFailed(
-                                                    key, device.id
-                                                )
+                                        // Try serial matching for devices with saved serial
+                                        if (!device.serialNumber.isNullOrBlank()) {
+                                            Log.d(
+                                                TAG,
+                                                "Connection failed, trying serial matching for ${device.id}"
                                             )
-                                        }
-                                        // Only call listener if still relevant
-                                        if (reconnectDeviceId == device.id) {
-                                            listener?.onReconnectFailed(requiresPairing = false)
+                                            discoverAndMatchBySerial(device, listener)
+                                        } else {
+                                            // No serial available, emit failure
+                                            currentReconnectingDeviceId = null
+                                            mainScope.launch {
+                                                WifiAdbConnection.updateState(
+                                                    WifiAdbState.ConnectFailed(
+                                                        key, device.id
+                                                    )
+                                                )
+                                            }
+                                            // Only call listener if still relevant
+                                            if (reconnectDeviceId == device.id) {
+                                                listener?.onReconnectFailed(requiresPairing = false)
+                                            }
                                         }
                                     }
                                 })
@@ -1159,6 +1182,211 @@ class WifiAdbRepositoryImpl(
             }
             listener?.onReconnectFailed(requiresPairing = false)
         }
+    }
+
+    // Job for serial matching to enable cancellation
+    private var serialMatchJob: kotlinx.coroutines.Job? = null
+
+    /**
+     * Step 3 of reconnect: Discover ALL connect services on the network,
+     * match by service name (which contains serial), and connect.
+     * Service name format: adb-{serial}-{random}
+     */
+    @Suppress("DEPRECATION")
+    @SuppressLint("DefaultLocale")
+    private fun discoverAndMatchBySerial(
+        device: WifiAdbDevice,
+        listener: ReconnectListener?
+    ) {
+        // Only proceed if device has a saved serial number
+        if (device.serialNumber.isNullOrBlank()) {
+            Log.d(TAG, "Serial matching skipped - no saved serial for ${device.id}")
+            currentReconnectingDeviceId = null
+            mainScope.launch {
+                WifiAdbConnection.updateState(
+                    WifiAdbState.ConnectFailed("No serial for matching", device.id)
+                )
+            }
+            listener?.onReconnectFailed(requiresPairing = false)
+            return
+        }
+
+        Log.d(
+            TAG,
+            "Starting serial matching discovery for ${device.id} (serial: ${device.serialNumber})"
+        )
+
+        // Cancel any previous serial match job
+        serialMatchJob?.cancel()
+
+        val nsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
+        var matchFound = false
+        val reconnectDeviceId = device.id
+        val targetSerial = device.serialNumber!!
+
+        // Set a timeout for discovery
+        val discoveryTimeout = executor.schedule({
+            if (!matchFound && !isReconnectCancelled && currentReconnectingDeviceId == reconnectDeviceId) {
+                Log.d(TAG, "Serial matching discovery timeout - device not found")
+                
+                try {
+                    activeDiscoveryListener?.let { nsdManager.stopServiceDiscovery(it) }
+                } catch (e: Exception) {
+                    // Ignore
+                }
+                activeDiscoveryListener = null
+                activeNsdManager = null
+                
+                currentReconnectingDeviceId = null
+                mainScope.launch {
+                    WifiAdbConnection.updateState(
+                        WifiAdbState.ConnectFailed("Device not broadcasting", device.id)
+                    )
+                }
+                listener?.onReconnectFailed(requiresPairing = false)
+            }
+        }, 10, TimeUnit.SECONDS)
+
+        activeDiscoveryListener = object : NsdManager.DiscoveryListener {
+            override fun onDiscoveryStarted(serviceType: String) {
+                Log.d(TAG, "Serial matching discovery started")
+            }
+
+            override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
+                Log.e(TAG, "Serial matching discovery start failed: $errorCode")
+                discoveryTimeout.cancel(false)
+                currentReconnectingDeviceId = null
+                mainScope.launch {
+                    WifiAdbConnection.updateState(
+                        WifiAdbState.ConnectFailed("Discovery failed", device.id)
+                    )
+                }
+                listener?.onReconnectFailed(requiresPairing = false)
+            }
+
+            override fun onDiscoveryStopped(serviceType: String) {
+                Log.d(TAG, "Serial matching discovery stopped")
+            }
+
+            override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {
+                Log.e(TAG, "Serial matching discovery stop failed: $errorCode")
+            }
+
+            override fun onServiceFound(info: android.net.nsd.NsdServiceInfo) {
+                if (matchFound || isReconnectCancelled) return
+
+                val serviceName = info.serviceName
+                Log.d(TAG, "Serial matching: Found service $serviceName")
+
+                // Check if service name contains our serial
+                // Service name format: adb-{serial}-{random}
+                if (serviceName.contains(targetSerial, ignoreCase = true)) {
+                    Log.d(TAG, "Serial matching: Service name matches! Resolving $serviceName")
+                    
+                    nsdManager.resolveService(info, object : NsdManager.ResolveListener {
+                        override fun onResolveFailed(
+                            serviceInfo: android.net.nsd.NsdServiceInfo,
+                            errorCode: Int
+                        ) {
+                            Log.e(TAG, "Serial matching: Resolve failed for matching service: $errorCode")
+                        }
+
+                        override fun onServiceResolved(resolvedService: android.net.nsd.NsdServiceInfo) {
+                            if (matchFound || isReconnectCancelled) return
+
+                            val ip = resolvedService.host?.hostAddress ?: return
+                            val port = resolvedService.port
+
+                            Log.d(TAG, "Serial matching: Matched device at $ip:$port")
+                            matchFound = true
+                            discoveryTimeout.cancel(false)
+
+                            // Stop discovery
+                            try {
+                                nsdManager.stopServiceDiscovery(activeDiscoveryListener)
+                            } catch (e: Exception) {
+                                // Ignore
+                            }
+                            activeDiscoveryListener = null
+                            activeNsdManager = null
+
+                            // Try to connect to the matched device
+                            ioScope.launch {
+                                try {
+                                    val manager = AdbConnectionManager.getInstance(context)
+                                    
+                                    // Disconnect any existing connection
+                                    if (manager.isConnected) {
+                                        try { manager.disconnect() } catch (e: Exception) {}
+                                    }
+
+                                    Log.d(TAG, "Serial matching: Connecting to matched device at $ip:$port")
+                                    val connected = manager.connect(ip, port)
+                                    
+                                    if (connected) {
+                                        Log.d(TAG, "Serial matching: Connection successful!")
+                                        
+                                        // Update device with new IP and port
+                                        currentDevice = device.copy(
+                                            ip = ip,
+                                            port = port,
+                                            lastConnected = System.currentTimeMillis()
+                                        )
+                                        deviceDao.updateDevice(currentDevice!!.toEntity())
+                                        WifiAdbConnection.setCurrentDevice(currentDevice)
+
+                                        currentReconnectingDeviceId = null
+                                        mainScope.launch {
+                                            WifiAdbConnection.updateState(
+                                                WifiAdbState.ConnectSuccess("$ip:$port", device.id)
+                                            )
+                                        }
+                                        listener?.onReconnectSuccess()
+                                    } else {
+                                        Log.e(TAG, "Serial matching: Connection to matched device failed")
+                                        currentReconnectingDeviceId = null
+                                        mainScope.launch {
+                                            WifiAdbConnection.updateState(
+                                                WifiAdbState.ConnectFailed("Connection failed", device.id)
+                                            )
+                                        }
+                                        listener?.onReconnectFailed(requiresPairing = false)
+                                    }
+                                } catch (e: AdbPairingRequiredException) {
+                                    Log.e(TAG, "Serial matching: Device requires re-pairing")
+                                    currentReconnectingDeviceId = null
+                                    mainScope.launch {
+                                        WifiAdbConnection.updateState(
+                                            WifiAdbState.ConnectFailed("Requires re-pairing", device.id)
+                                        )
+                                    }
+                                    listener?.onReconnectFailed(requiresPairing = true)
+                                } catch (e: Exception) {
+                                    Log.e(TAG, "Serial matching: Connection error", e)
+                                    currentReconnectingDeviceId = null
+                                    mainScope.launch {
+                                        WifiAdbConnection.updateState(
+                                            WifiAdbState.ConnectFailed("Error: ${e.message}", device.id)
+                                        )
+                                    }
+                                    listener?.onReconnectFailed(requiresPairing = false)
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+
+            override fun onServiceLost(info: android.net.nsd.NsdServiceInfo) {
+                Log.d(TAG, "Serial matching: Service lost ${info.serviceName}")
+            }
+        }
+
+        activeNsdManager = nsdManager
+        nsdManager.discoverServices(
+            "_adb-tls-connect._tcp", NsdManager.PROTOCOL_DNS_SD, activeDiscoveryListener
+        )
+        Log.d(TAG, "Started serial matching discovery for ${device.id}")
     }
 
     /**
@@ -1569,6 +1797,4 @@ class WifiAdbRepositoryImpl(
             })
         }
     }
-
-
 }
