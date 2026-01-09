@@ -522,5 +522,31 @@ class FileBrowserViewModel @Inject constructor(
             moveFile(sourcePath, destPath)
         }
     }
-}
 
+    fun deselectAllFiles() {
+        _state.value = _state.value.copy(selectedFiles = emptySet())
+    }
+
+    fun areAllFilesSelected(): Boolean {
+        val allFiles = _state.value.files.filterNot { it.isParentDirectory }
+        return allFiles.isNotEmpty() && _state.value.selectedFiles.size == allFiles.size
+    }
+
+    fun downloadSelectedFiles() {
+        val selectedPaths = _state.value.selectedFiles.toList()
+        val files = _state.value.files.filter { it.path in selectedPaths && !it.isDirectory }
+        
+        if (files.isEmpty()) {
+            viewModelScope.launch {
+                _events.emit(FileBrowserEvent.ShowToast("No files selected (folders cannot be downloaded)"))
+            }
+            return
+        }
+
+        exitSelectionMode()
+        
+        files.forEach { file ->
+            downloadFile(file.path, file.name)
+        }
+    }
+}

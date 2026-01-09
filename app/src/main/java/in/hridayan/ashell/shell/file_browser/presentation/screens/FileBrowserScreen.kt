@@ -57,7 +57,6 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Refresh
-import androidx.compose.material.icons.rounded.SelectAll
 import androidx.compose.material.icons.rounded.Upload
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
@@ -74,7 +73,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
@@ -100,6 +98,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -109,9 +108,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
+import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.CreateFolderDialog
+import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.FileInfoDialog
+import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.RenameDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileBrowserEvent
 import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileBrowserViewModel
 import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileOperation
@@ -197,7 +200,7 @@ fun FileBrowserScreen(
                 if (state.isSelectionMode) {
                     TopAppBar(
                         title = {
-                            Text("${state.selectedFiles.size} selected")
+                            Text("${state.selectedFiles.size}")
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
                             containerColor = MaterialTheme.colorScheme.surfaceContainer,
@@ -211,11 +214,32 @@ fun FileBrowserScreen(
                             }
                         },
                         actions = {
-                            IconButton(onClick = { viewModel.selectAllFiles() }) {
-                                Icon(Icons.Rounded.SelectAll, contentDescription = "Select all")
+                            // Toggle select all / deselect all based on current selection
+                            val allSelected = viewModel.areAllFilesSelected()
+                            IconButton(
+                                onClick = {
+                                    if (allSelected) {
+                                        viewModel.deselectAllFiles()
+                                    } else {
+                                        viewModel.selectAllFiles()
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    painter = if (allSelected) painterResource(R.drawable.ic_deselect_all)
+                                    else painterResource(R.drawable.ic_select_all),
+                                    contentDescription = if (allSelected) "Deselect all" else "Select all"
+                                )
                             }
+
+                            IconButton(onClick = { viewModel.downloadSelectedFiles() }) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Download,
+                                    contentDescription = "Download"
+                                )
+                            }
+
                             IconButton(onClick = {
-                                // Copy selected files - store paths for paste
                                 val selectedPaths = viewModel.getSelectedFilePaths()
                                 if (selectedPaths.isNotEmpty()) {
                                     clipboardPaths = selectedPaths
@@ -232,8 +256,8 @@ fun FileBrowserScreen(
                             }) {
                                 Icon(Icons.Rounded.ContentCopy, contentDescription = "Copy")
                             }
+
                             IconButton(onClick = {
-                                // Move selected files - store paths for paste
                                 val selectedPaths = viewModel.getSelectedFilePaths()
                                 if (selectedPaths.isNotEmpty()) {
                                     clipboardPaths = selectedPaths
@@ -253,6 +277,7 @@ fun FileBrowserScreen(
                                     contentDescription = "Move"
                                 )
                             }
+
                             IconButton(onClick = {
                                 showDeleteDialog = true
                             }) {
@@ -1022,40 +1047,7 @@ private fun FileListItem(
     }
 }
 
-@Composable
-private fun CreateFolderDialog(
-    onDismiss: () -> Unit,
-    onCreate: (String) -> Unit
-) {
-    var folderName by remember { mutableStateOf("") }
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("Create folder") },
-        text = {
-            OutlinedTextField(
-                value = folderName,
-                onValueChange = { folderName = it },
-                label = { Text("Folder name") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
-        confirmButton = {
-            TextButton(
-                onClick = { onCreate(folderName) },
-                enabled = folderName.isNotBlank()
-            ) {
-                Text("Create")
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancel")
-            }
-        }
-    )
-}
+// Dialog functions moved to presentation/component/dialog/ for better code organization
 
 private fun getFileIcon(file: RemoteFile): ImageVector {
     return when {
@@ -1132,87 +1124,6 @@ private fun PathBreadcrumbs(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun RenameDialog(
-    currentName: String,
-    isDirectory: Boolean,
-    onDismiss: () -> Unit,
-    onRename: (String) -> Unit
-) {
-    var newName by remember { mutableStateOf(currentName) }
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("Rename ${if (isDirectory) "folder" else "file"}") },
-        text = {
-            OutlinedTextField(
-                value = newName,
-                onValueChange = { newName = it },
-                label = { Text("New name") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
-        confirmButton = {
-            TextButton(
-                onClick = { onRename(newName) },
-                enabled = newName.isNotBlank() && newName != currentName
-            ) {
-                Text("Rename")
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancel")
-            }
-        }
-    )
-}
-
-@Composable
-private fun FileInfoDialog(
-    file: RemoteFile,
-    onDismiss: () -> Unit
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(if (file.isDirectory) "Folder Info" else "File Info") },
-        text = {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                InfoRow("Name", file.name)
-                InfoRow("Path", file.path)
-                InfoRow("Type", if (file.isDirectory) "Folder" else "File")
-                if (!file.isDirectory && file.displaySize.isNotEmpty()) {
-                    InfoRow("Size", file.displaySize)
-                }
-                if (file.lastModified.isNotEmpty()) {
-                    InfoRow("Modified", file.lastModified)
-                }
-            }
-        },
-        confirmButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Close")
-            }
-        }
-    )
-}
-
-@Composable
-private fun InfoRow(label: String, value: String) {
-    Column {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyMedium
-        )
     }
 }
 
