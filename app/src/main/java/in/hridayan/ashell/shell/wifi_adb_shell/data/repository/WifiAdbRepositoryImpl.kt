@@ -19,6 +19,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
+import io.github.muntashirakon.adb.AdbPairingRequiredException
 import io.github.muntashirakon.adb.AdbStream
 import io.github.muntashirakon.adb.android.AndroidUtils
 import io.nayuki.qrcodegen.QrCode
@@ -897,7 +898,7 @@ class WifiAdbRepositoryImpl(
                     } else {
                         Log.d(TAG, "Direct connect returned false for ${device.id}")
                     }
-                } catch (e: io.github.muntashirakon.adb.AdbPairingRequiredException) {
+                } catch (e: AdbPairingRequiredException) {
                     // Device needs re-pairing - public key not saved on target
                     Log.d(TAG, "Device requires re-pairing: ${device.id}")
                     mainScope.launch {
@@ -960,7 +961,6 @@ class WifiAdbRepositoryImpl(
                 Log.d(TAG, "Reconnect was cancelled before NSD discovery started")
                 return
             }
-            var discoveryListener: NsdManager.DiscoveryListener? = null
 
             // Track the device ID we're reconnecting to for this attempt
             val reconnectDeviceId = device.id

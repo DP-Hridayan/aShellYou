@@ -321,18 +321,35 @@ class FileBrowserViewModel @Inject constructor(
         }
     }
     
-    fun copyFile(sourcePath: String, destPath: String) {
+    fun copyFile(sourcePath: String, destPath: String, forceOverwrite: Boolean = false) {
         val fileName = File(sourcePath).name
         val operationId = UUID.randomUUID().toString()
-        val operation = FileOperation(
-            id = operationId,
-            type = OperationType.COPY,
-            fileName = fileName,
-            message = "Copying..."
-        )
-        addOperation(operation)
+        
+        viewModelScope.launch {
+            // Check if destination exists (unless forcing overwrite)
+            if (!forceOverwrite) {
+                val exists = repository.exists(destPath).getOrNull() ?: false
+                if (exists) {
+                    _state.value = _state.value.copy(
+                        pendingConflict = ConflictInfo(
+                            sourcePath = sourcePath,
+                            destPath = destPath,
+                            isDirectory = false,
+                            operationType = OperationType.COPY
+                        )
+                    )
+                    return@launch
+                }
+            }
+            
+            val operation = FileOperation(
+                id = operationId,
+                type = OperationType.COPY,
+                fileName = fileName,
+                message = "Copying..."
+            )
+            addOperation(operation)
 
-        val job = viewModelScope.launch {
             repository.copy(sourcePath, destPath).fold(
                 onSuccess = {
                     removeOperation(operationId)
@@ -345,21 +362,37 @@ class FileBrowserViewModel @Inject constructor(
                 }
             )
         }
-        operationJobs[operationId] = job
     }
     
-    fun moveFile(sourcePath: String, destPath: String) {
+    fun moveFile(sourcePath: String, destPath: String, forceOverwrite: Boolean = false) {
         val fileName = File(sourcePath).name
         val operationId = UUID.randomUUID().toString()
-        val operation = FileOperation(
-            id = operationId,
-            type = OperationType.MOVE,
-            fileName = fileName,
-            message = "Moving..."
-        )
-        addOperation(operation)
+        
+        viewModelScope.launch {
+            // Check if destination exists (unless forcing overwrite)
+            if (!forceOverwrite) {
+                val exists = repository.exists(destPath).getOrNull() ?: false
+                if (exists) {
+                    _state.value = _state.value.copy(
+                        pendingConflict = ConflictInfo(
+                            sourcePath = sourcePath,
+                            destPath = destPath,
+                            isDirectory = false,
+                            operationType = OperationType.MOVE
+                        )
+                    )
+                    return@launch
+                }
+            }
+            
+            val operation = FileOperation(
+                id = operationId,
+                type = OperationType.MOVE,
+                fileName = fileName,
+                message = "Moving..."
+            )
+            addOperation(operation)
 
-        val job = viewModelScope.launch {
             repository.move(sourcePath, destPath).fold(
                 onSuccess = {
                     removeOperation(operationId)
@@ -372,7 +405,48 @@ class FileBrowserViewModel @Inject constructor(
                 }
             )
         }
-        operationJobs[operationId] = job
+    }
+    
+    fun resolveConflictReplace() {
+        val conflict = _state.value.pendingConflict ?: return
+        dismissConflict()
+        when (conflict.operationType) {
+            OperationType.COPY -> copyFile(conflict.sourcePath, conflict.destPath, forceOverwrite = true)
+            OperationType.MOVE -> moveFile(conflict.sourcePath, conflict.destPath, forceOverwrite = true)
+            else -> {}
+        }
+    }
+    
+    fun resolveConflictKeepBoth() {
+        val conflict = _state.value.pendingConflict ?: return
+        dismissConflict()
+        // Generate new name with (1), (2), etc.
+        val destFile = File(conflict.destPath)
+        val baseName = destFile.nameWithoutExtension
+        val extension = destFile.extension.let { if (it.isNotEmpty()) ".$it" else "" }
+        val parentPath = destFile.parent ?: _state.value.currentPath
+        
+        viewModelScope.launch {
+            var counter = 1
+            var newPath: String
+            do {
+                newPath = "$parentPath/${baseName} ($counter)$extension"
+                counter++
+            } while (repository.exists(newPath).getOrNull() == true && counter < 100)
+            
+            when (conflict.operationType) {
+                OperationType.COPY -> copyFile(conflict.sourcePath, newPath, forceOverwrite = true)
+                OperationType.MOVE -> moveFile(conflict.sourcePath, newPath, forceOverwrite = true)
+                else -> {}
+            }
+        }
+    }
+    
+    fun resolveConflictSkip() {
+        dismissConflict()
+        viewModelScope.launch {
+            _events.emit(FileBrowserEvent.ShowToast("Skipped"))
+        }
     }
     
     fun dismissConflict() {

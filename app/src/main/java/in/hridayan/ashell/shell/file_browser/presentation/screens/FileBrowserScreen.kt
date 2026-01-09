@@ -40,6 +40,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.DriveFileMove
 import androidx.compose.material.icons.automirrored.rounded.InsertDriveFile
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ChevronRight
@@ -49,7 +50,6 @@ import androidx.compose.material.icons.rounded.ContentPaste
 import androidx.compose.material.icons.rounded.CreateNewFolder
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Download
-import androidx.compose.material.icons.automirrored.rounded.DriveFileMove
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Folder
 import androidx.compose.material.icons.rounded.FolderOpen
@@ -68,7 +68,6 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
@@ -249,7 +248,10 @@ fun FileBrowserScreen(
                                     viewModel.exitSelectionMode()
                                 }
                             }) {
-                                Icon(Icons.AutoMirrored.Rounded.DriveFileMove, contentDescription = "Move")
+                                Icon(
+                                    Icons.AutoMirrored.Rounded.DriveFileMove,
+                                    contentDescription = "Move"
+                                )
                             }
                             IconButton(onClick = {
                                 showDeleteDialog = true
@@ -351,7 +353,7 @@ fun FileBrowserScreen(
                             val isEmpty = state.isVirtualEmptyFolder || displayFiles.isEmpty()
 
                             val listState = rememberLazyListState()
-                            
+
                             LazyColumn(
                                 state = listState,
                                 modifier = Modifier.fillMaxSize(),
@@ -556,7 +558,7 @@ fun FileBrowserScreen(
                             tint = MaterialTheme.colorScheme.error
                         )
                     }
-                    
+
                     // Status text
                     val operationText = when (clipboardOperation) {
                         "copy", "copy_batch" -> "Copying ${clipboardPaths.size.takeIf { it > 0 } ?: 1} item(s)"
@@ -568,7 +570,7 @@ fun FileBrowserScreen(
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
-                    
+
                     // Paste button
                     IconButton(
                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
@@ -579,15 +581,18 @@ fun FileBrowserScreen(
                                         viewModel.copyFile(file.path, destPath)
                                     }
                                 }
+
                                 "move" -> {
                                     clipboardFile?.let { file ->
                                         val destPath = "${state.currentPath}/${file.name}"
                                         viewModel.moveFile(file.path, destPath)
                                     }
                                 }
+
                                 "copy_batch" -> {
                                     viewModel.copyFileBatch(clipboardPaths, state.currentPath)
                                 }
+
                                 "move_batch" -> {
                                     viewModel.moveFileBatch(clipboardPaths, state.currentPath)
                                 }
@@ -786,6 +791,51 @@ fun FileBrowserScreen(
             onDismiss = {
                 showInfoDialog = false
                 fileForInfo = null
+            }
+        )
+    }
+
+    // Conflict Resolution Dialog
+    state.pendingConflict?.let { conflict ->
+        val fileName = File(conflict.destPath).name
+        val operationType =
+            if (conflict.operationType == OperationType.COPY) "copying" else "moving"
+
+        AlertDialog(
+            onDismissRequest = { viewModel.dismissConflict() },
+            title = {
+                Text(
+                    text = "File Already Exists",
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        text = "\"$fileName\" already exists in this location.",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = "What would you like to do while $operationType?",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            },
+            confirmButton = {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    TextButton(onClick = { viewModel.resolveConflictSkip() }) {
+                        Text("Skip")
+                    }
+                    TextButton(onClick = { viewModel.resolveConflictKeepBoth() }) {
+                        Text("Keep Both")
+                    }
+                    TextButton(
+                        onClick = { viewModel.resolveConflictReplace() }
+                    ) {
+                        Text("Replace", color = MaterialTheme.colorScheme.error)
+                    }
+                }
             }
         )
     }
