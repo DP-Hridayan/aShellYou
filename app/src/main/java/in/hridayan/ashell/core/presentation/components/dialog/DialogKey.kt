@@ -44,10 +44,6 @@ sealed class DialogKey {
         object ConnectionSuccess : DialogKey()
         object PairConnectFailed : DialogKey()
     }
-
-    sealed class WifiAdbScreen {
-        object DeviceDisconnected : DialogKey()
-    }
 }
 
 @Composable

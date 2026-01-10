@@ -20,9 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
-import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
@@ -40,14 +37,12 @@ fun WifiAdbScreen(
 ) {
     val context = LocalContext.current
     val navController = LocalNavController.current
-    val dialogManager = LocalDialogManager.current
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
-    var disconnectedDeviceName by rememberSaveable { mutableStateOf<String?>(null) }
+    var showDeviceDisconnectedDialog by rememberSaveable { mutableStateOf(false) }
 
     val wifiAdbState by wifiAdbViewModel.state.collectAsState()
     val currentDevice by wifiAdbViewModel.currentDevice.collectAsState()
 
-    // Get device name from current device, or "None" if not connected
     val isConnected = wifiAdbState is WifiAdbState.ConnectSuccess
     val connectedDeviceName = if (isConnected) {
         currentDevice?.deviceName ?: context.getString(R.string.none)
@@ -58,8 +53,7 @@ fun WifiAdbScreen(
     LaunchedEffect(wifiAdbState) {
         when (wifiAdbState) {
             is WifiAdbState.Disconnected -> {
-                disconnectedDeviceName = currentDevice?.deviceName
-                dialogManager.show(DialogKey.WifiAdbScreen.DeviceDisconnected)
+                showDeviceDisconnectedDialog = true
             }
 
             is WifiAdbState.ConnectSuccess -> {}
@@ -111,9 +105,9 @@ fun WifiAdbScreen(
         )
     }
 
-    DialogKey.WifiAdbScreen.DeviceDisconnected.createDialog {
+    if (showDeviceDisconnectedDialog) {
         DeviceDisconnectedDialog(
-            onDismiss = { it.dismiss() }
+            onDismiss = { showDeviceDisconnectedDialog = false }
         )
     }
 }
