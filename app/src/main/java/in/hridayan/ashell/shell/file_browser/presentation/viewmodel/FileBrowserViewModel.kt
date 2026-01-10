@@ -9,6 +9,7 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.ConflictResolution
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileConflict
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
+import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationStatus
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
@@ -219,7 +220,8 @@ class FileBrowserViewModel @Inject constructor(
             id = operationId,
             type = OperationType.DOWNLOAD,
             fileName = fileName,
-            message = "Downloading..."
+            message = "Downloading...",
+            status = OperationStatus.IN_PROGRESS
         )
         addOperation(operation)
 
@@ -228,19 +230,39 @@ class FileBrowserViewModel @Inject constructor(
                 when (result) {
                     is FileOperationResult.Progress -> {
                         updateOperation(operationId) {
-                            it.copy(bytesTransferred = result.current, totalBytes = result.total)
+                            it.copy(
+                                bytesTransferred = result.current,
+                                totalBytes = result.total,
+                                status = OperationStatus.IN_PROGRESS
+                            )
                         }
                     }
 
                     is FileOperationResult.Success -> {
-                        removeOperation(operationId)
+                        updateOperation(operationId) {
+                            it.copy(
+                                status = OperationStatus.COMPLETED,
+                                message = "Download complete",
+                                bytesTransferred = it.totalBytes // Ensure 100% shown
+                            )
+                        }
                         _events.emit(FileBrowserEvent.FileDownloaded(localPath))
                         _events.emit(FileBrowserEvent.ShowToast("Downloaded to $localPath"))
+                        // Delay removal to let UI show completion
+                        kotlinx.coroutines.delay(2000)
+                        removeOperation(operationId)
                     }
 
                     is FileOperationResult.Error -> {
-                        removeOperation(operationId)
+                        updateOperation(operationId) {
+                            it.copy(
+                                status = OperationStatus.FAILED,
+                                message = "Failed: ${result.message}"
+                            )
+                        }
                         _events.emit(FileBrowserEvent.ShowToast("Download failed: ${result.message}"))
+                        kotlinx.coroutines.delay(3000)
+                        removeOperation(operationId)
                     }
                 }
             }
@@ -255,7 +277,8 @@ class FileBrowserViewModel @Inject constructor(
             id = operationId,
             type = OperationType.UPLOAD,
             fileName = fileName,
-            message = "Uploading..."
+            message = "Uploading...",
+            status = OperationStatus.IN_PROGRESS
         )
         addOperation(operation)
 
@@ -264,20 +287,39 @@ class FileBrowserViewModel @Inject constructor(
                 when (result) {
                     is FileOperationResult.Progress -> {
                         updateOperation(operationId) {
-                            it.copy(bytesTransferred = result.current, totalBytes = result.total)
+                            it.copy(
+                                bytesTransferred = result.current,
+                                totalBytes = result.total,
+                                status = OperationStatus.IN_PROGRESS
+                            )
                         }
                     }
 
                     is FileOperationResult.Success -> {
-                        removeOperation(operationId)
+                        updateOperation(operationId) {
+                            it.copy(
+                                status = OperationStatus.COMPLETED,
+                                message = "Upload complete",
+                                bytesTransferred = it.totalBytes
+                            )
+                        }
                         _events.emit(FileBrowserEvent.FileUploaded(remotePath))
                         _events.emit(FileBrowserEvent.ShowToast("File uploaded successfully"))
                         refresh()
+                        kotlinx.coroutines.delay(2000)
+                        removeOperation(operationId)
                     }
 
                     is FileOperationResult.Error -> {
-                        removeOperation(operationId)
+                        updateOperation(operationId) {
+                            it.copy(
+                                status = OperationStatus.FAILED,
+                                message = "Failed: ${result.message}"
+                            )
+                        }
                         _events.emit(FileBrowserEvent.ShowToast("Upload failed: ${result.message}"))
+                        kotlinx.coroutines.delay(3000)
+                        removeOperation(operationId)
                     }
                 }
             }

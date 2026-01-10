@@ -80,7 +80,8 @@ fun WifiAdbScreen(
                 IconButton(
                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                         val deviceAddr = currentDevice?.let { "${it.ip}:${it.port}" } ?: ""
-                        navController.navigate(NavRoutes.FileBrowserScreen(deviceAddr))
+                        val isOwn = currentDevice?.isOwnDevice ?: false
+                        navController.navigate(NavRoutes.FileBrowserScreen(deviceAddr, isOwn))
                     },
                     colors = IconButtonDefaults.iconButtonColors(
                         containerColor = MaterialTheme.colorScheme.secondaryContainer,

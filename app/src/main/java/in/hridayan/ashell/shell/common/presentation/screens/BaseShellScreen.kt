@@ -989,43 +989,67 @@ private fun FullscreenOutputOverlay(
         onDismiss(fullscreenListState.firstVisibleItemIndex)
     }
 
-    // Cache scroll position with derivedStateOf to avoid recomposition warnings
-    val currentScrollIndex by remember {
-        derivedStateOf { fullscreenListState.firstVisibleItemIndex }
+    // Track if user has scrolled away from bottom
+    var userScrolledAway by remember { mutableStateOf(false) }
+    var lastScrollPosition by remember { mutableIntStateOf(0) }
+    var autoScrollJob by remember { mutableStateOf<kotlinx.coroutines.Job?>(null) }
+    val coroutineScope = rememberCoroutineScope()
+    
+    // Check if we're near the bottom (within 3 items)
+    val isNearBottom by remember {
+        derivedStateOf {
+            val layoutInfo = fullscreenListState.layoutInfo
+            val totalItems = layoutInfo.totalItemsCount
+            val lastVisibleIndex = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+            totalItems == 0 || lastVisibleIndex >= totalItems - 3
+        }
     }
     
-    // Smart auto-scroll during live output (ShellState.Busy)
-    var userInteracting by remember { mutableStateOf(false) }
-    var lastInteractionTime by remember { mutableLongStateOf(0L) }
-
-    // Detect user interaction using snapshotFlow for better accuracy
+    // Detect user scroll using scroll position changes
     LaunchedEffect(Unit) {
-        snapshotFlow { fullscreenListState.isScrollInProgress }
-            .collect { isScrolling ->
-                if (isScrolling) {
-                    userInteracting = true
-                    lastInteractionTime = System.currentTimeMillis()
+        snapshotFlow { 
+            Triple(
+                fullscreenListState.firstVisibleItemIndex,
+                fullscreenListState.isScrollInProgress,
+                fullscreenListState.layoutInfo.totalItemsCount
+            )
+        }.collect { (currentIndex, isScrolling, totalItems) ->
+            if (isScrolling && totalItems > 0) {
+                // User scrolled UP (away from bottom) - pause auto-scroll
+                if (currentIndex < lastScrollPosition && !isNearBottom) {
+                    userScrolledAway = true
+                    // Cancel any existing resume job and start new 3s timer
+                    autoScrollJob?.cancel()
+                    autoScrollJob = coroutineScope.launch {
+                        kotlinx.coroutines.delay(3000)
+                        userScrolledAway = false
+                    }
                 }
             }
-    }
-
-    // Resume auto-scroll after 3 seconds of no interaction
-    LaunchedEffect(userInteracting, states.shellState) {
-        if (userInteracting && states.shellState is ShellState.Busy) {
-            while (System.currentTimeMillis() - lastInteractionTime < 3000) {
-                kotlinx.coroutines.delay(500)
-            }
-            userInteracting = false
+            lastScrollPosition = currentIndex
         }
     }
 
-    // Auto-scroll to bottom during live output - use animateScrollToItem for smooth scrolling
-    LaunchedEffect(combinedOutput.value.size, states.shellState, userInteracting) {
-        if (states.shellState is ShellState.Busy && !userInteracting && combinedOutput.value.isNotEmpty()) {
+    // Auto-scroll to absolute bottom during live output
+    LaunchedEffect(combinedOutput.value.size, states.shellState) {
+        if (states.shellState is ShellState.Busy && !userScrolledAway && combinedOutput.value.isNotEmpty()) {
+            try {
+                // Use scrollToItem for instant positioning (no animation during rapid output)
+                fullscreenListState.scrollToItem(combinedOutput.value.lastIndex)
+            } catch (_: Exception) {
+                // Ignore scroll cancellation
+            }
+        }
+    }
+    
+    // When command finishes, always scroll to absolute bottom
+    LaunchedEffect(states.shellState) {
+        if (states.shellState !is ShellState.Busy && combinedOutput.value.isNotEmpty()) {
+            userScrolledAway = false
             try {
                 fullscreenListState.animateScrollToItem(combinedOutput.value.lastIndex)
             } catch (_: Exception) {
-                // Ignore scroll cancellation
+                // Ignore
             }
         }
     }

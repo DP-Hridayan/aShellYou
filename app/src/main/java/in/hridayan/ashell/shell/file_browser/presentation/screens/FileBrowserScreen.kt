@@ -44,7 +44,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.DriveFileMove
-import androidx.compose.material.icons.automirrored.rounded.InsertDriveFile
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.Close
@@ -54,8 +53,6 @@ import androidx.compose.material.icons.rounded.CreateNewFolder
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.Edit
-import androidx.compose.material.icons.rounded.Folder
-import androidx.compose.material.icons.rounded.FolderOpen
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.MoreVert
@@ -136,6 +133,7 @@ import java.io.File
 @Composable
 fun FileBrowserScreen(
     deviceAddress: String = "",
+    isOwnDevice: Boolean = false,
     viewModel: FileBrowserViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -463,6 +461,7 @@ fun FileBrowserScreen(
                                                 fileForInfo = file
                                                 showInfoDialog = true
                                             },
+                                            hideDownload = isOwnDevice,
                                             modifier = Modifier.animateItem()
                                         )
                                     }
@@ -746,16 +745,19 @@ fun FileBrowserScreen(
                     }
                 }
             ) {
-                FloatingActionButtonMenuItem(
-                    onClick = {
-                        fabMenuExpanded = false
-                        filePickerLauncher.launch("*/*")
-                    },
-                    text = { Text("Upload file") },
-                    icon = { Icon(Icons.Rounded.Upload, contentDescription = null) },
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+                // Hide upload when browsing own device (file transfer makes no sense)
+                if (!isOwnDevice) {
+                    FloatingActionButtonMenuItem(
+                        onClick = {
+                            fabMenuExpanded = false
+                            filePickerLauncher.launch("*/*")
+                        },
+                        text = { Text("Upload file") },
+                        icon = { Icon(Icons.Rounded.Upload, contentDescription = null) },
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
 
                 FloatingActionButtonMenuItem(
                     onClick = {
@@ -888,6 +890,7 @@ private fun FileListItem(
     onCopy: () -> Unit,
     onMove: () -> Unit,
     onInfo: () -> Unit,
+    hideDownload: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     var showMenu by remember { mutableStateOf(false) }
@@ -973,7 +976,8 @@ private fun FileListItem(
                         expanded = showMenu,
                         onDismissRequest = { showMenu = false }
                     ) {
-                        if (!file.isDirectory) {
+                        // Hide download when browsing own device
+                        if (!file.isDirectory && !hideDownload) {
                             DropdownMenuItem(
                                 text = { Text("Download") },
                                 leadingIcon = {

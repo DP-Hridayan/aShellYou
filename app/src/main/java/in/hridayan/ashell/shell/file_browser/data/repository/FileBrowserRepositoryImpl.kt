@@ -439,7 +439,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 if (result?.contains("error", ignoreCase = true) == true ||
                     result?.contains("cannot", ignoreCase = true) == true
                 ) {
-                    Result.failure(Exception(result ?: "Failed to copy"))
+                    Result.failure(Exception(result))
                 } else {
                     Result.success(Unit)
                 }
@@ -461,7 +461,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 if (result?.contains("error", ignoreCase = true) == true ||
                     result?.contains("cannot", ignoreCase = true) == true
                 ) {
-                    Result.failure(Exception(result ?: "Failed to move"))
+                    Result.failure(Exception(result))
                 } else {
                     Result.success(Unit)
                 }
