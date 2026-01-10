@@ -60,6 +60,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
@@ -470,7 +471,10 @@ fun BaseShellScreen(
                                             .weight(1f)
                                             .fillMaxWidth()
                                             .focusRequester(textFieldFocusRequester)
-                                            .menuAnchor(),
+                                            .menuAnchor(
+                                                ExposedDropdownMenuAnchorType.PrimaryNotEditable,
+                                                enabled = true
+                                            ),
                                         maxLines = 3,
                                         label = { Text(label) },
                                         value = states.commandField.fieldValue,
@@ -1103,7 +1107,7 @@ private fun FullscreenOutputOverlay(
                         if (line.text.startsWith("$ ")) {
                             // Save previous section if exists
                             if (currentCommand != null && currentLines.isNotEmpty()) {
-                                sections.add(currentCommand!! to currentLines.toList())
+                                sections.add(currentCommand to currentLines.toList())
                             }
                             currentCommand = line.text
                             currentLines = mutableListOf()
@@ -1113,7 +1117,7 @@ private fun FullscreenOutputOverlay(
                     }
                     // Add last section
                     if (currentCommand != null) {
-                        sections.add(currentCommand!! to currentLines.toList())
+                        sections.add(currentCommand to currentLines.toList())
                     }
                     sections
                 }
