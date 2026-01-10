@@ -43,6 +43,7 @@ data class FileBrowserState(
     val pendingConflict: FileConflict? = null,
     val pendingPasteOperation: PendingPasteOperation? = null,
     val applyToAllResolution: ConflictResolution? = null,
+    val isPasting: Boolean = false, // True when paste is actively executing
     // Selection mode
     val selectedFiles: Set<String> = emptySet(),
     val isSelectionMode: Boolean = false
@@ -710,6 +711,9 @@ class FileBrowserViewModel @Inject constructor(
      * Execute the actual copy/move operation for an item.
      */
     private suspend fun executeOperation(item: PendingPasteItem, pendingOp: PendingPasteOperation) {
+        // Show loading indicator
+        _state.value = _state.value.copy(isPasting = true)
+        
         val result = when (pendingOp.operationType) {
             OperationType.COPY -> repository.copy(item.sourcePath, item.destPath)
             OperationType.MOVE -> repository.move(item.sourcePath, item.destPath)
@@ -873,7 +877,8 @@ class FileBrowserViewModel @Inject constructor(
         _state.value = _state.value.copy(
             pendingPasteOperation = null,
             pendingConflict = null,
-            applyToAllResolution = null
+            applyToAllResolution = null,
+            isPasting = false // Hide loading indicator
         )
 
         _events.emit(FileBrowserEvent.ShowToast(message))

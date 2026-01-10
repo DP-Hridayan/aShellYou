@@ -360,7 +360,7 @@ fun FileBrowserScreen(
 
                 Box(modifier = Modifier.fillMaxSize()) {
                     when {
-                        state.isLoading -> {
+                        state.isLoading || state.isPasting -> {
                             LoadingIndicator(
                                 modifier = Modifier.align(Alignment.Center)
                             )
@@ -785,7 +785,8 @@ fun FileBrowserScreen(
             onCreate = { name ->
                 viewModel.createDirectory(name)
                 showCreateFolderDialog = false
-            }
+            },
+            existingNames = state.files.map { it.name }.toSet()
         )
     }
 

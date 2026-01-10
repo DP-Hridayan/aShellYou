@@ -464,6 +464,10 @@
     <string name="fb_file_conflict_title">File Already Exists</string>
     <string name="fb_folder_conflict_title">Folder Already Exists</string>
     <string name="fb_apply_to_all">Apply to all (%1$d remaining)</string>
+    <string name="fb_folder_already_exists">A folder with this name already exists</string>
+    <string name="fb_invalid_folder_name">Folder name cannot contain /</string>
+    <string name="create_folder">Create folder</string>
+    <string name="folder_name">Folder name</string>
 </resources>
 
 
