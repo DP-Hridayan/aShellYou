@@ -11,6 +11,8 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationStatus
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
+import `in`.hridayan.ashell.shell.file_browser.domain.model.PendingPasteOperation
+import `in`.hridayan.ashell.shell.file_browser.domain.model.PendingPasteItem
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
@@ -37,8 +39,11 @@ data class FileBrowserState(
     val operations: List<FileOperation> = emptyList(),
     val isVirtualEmptyFolder: Boolean = false,
     val lastSuccessfulPath: String = "/storage/emulated/0",
+    // Conflict handling state
     val pendingConflict: FileConflict? = null,
+    val pendingPasteOperation: PendingPasteOperation? = null,
     val applyToAllResolution: ConflictResolution? = null,
+    // Selection mode
     val selectedFiles: Set<String> = emptySet(),
     val isSelectionMode: Boolean = false
 )
@@ -517,155 +522,7 @@ class FileBrowserViewModel @Inject constructor(
         }
     }
 
-    fun resolveConflictReplace() {
-        val conflict = _state.value.pendingConflict ?: return
-        dismissConflict()
-        when (conflict.operationType) {
-            OperationType.COPY -> copyFile(
-                conflict.sourcePath,
-                conflict.destPath,
-                forceOverwrite = true
-            )
 
-            OperationType.MOVE -> moveFile(
-                conflict.sourcePath,
-                conflict.destPath,
-                forceOverwrite = true
-            )
-
-            else -> {}
-        }
-    }
-
-    fun resolveConflictKeepBoth() {
-        val conflict = _state.value.pendingConflict ?: return
-        dismissConflict()
-        // Generate new name with (1), (2), etc.
-        val destFile = File(conflict.destPath)
-        val baseName = destFile.nameWithoutExtension
-        val extension = destFile.extension.let { if (it.isNotEmpty()) ".$it" else "" }
-        val parentPath = destFile.parent ?: _state.value.currentPath
-
-        viewModelScope.launch {
-            var counter = 1
-            var newPath: String
-            do {
-                newPath = "$parentPath/${baseName} ($counter)$extension"
-                counter++
-            } while (repository.exists(newPath).getOrNull() == true && counter < 100)
-
-            when (conflict.operationType) {
-                OperationType.COPY -> copyFile(conflict.sourcePath, newPath, forceOverwrite = true)
-                OperationType.MOVE -> moveFile(conflict.sourcePath, newPath, forceOverwrite = true)
-                else -> {}
-            }
-        }
-    }
-
-    fun resolveConflictSkip() {
-        dismissConflict()
-        viewModelScope.launch {
-            _events.emit(FileBrowserEvent.ShowToast("Skipped"))
-        }
-    }
-
-    /**
-     * Merge directory contents - copy/move source contents into destination
-     * without deleting existing files in destination
-     */
-    fun resolveConflictMerge() {
-        val conflict = _state.value.pendingConflict ?: return
-        if (!conflict.isDirectory) {
-            // Merge only applies to directories, use Keep Both for files
-            resolveConflictKeepBoth()
-            return
-        }
-        
-        dismissConflict()
-        
-        viewModelScope.launch {
-            _state.value = _state.value.copy(isLoading = true)
-            
-            // List source directory contents
-            val sourceFiles = repository.listFiles(conflict.sourcePath).getOrNull() ?: emptyList()
-            val filesToMerge = sourceFiles.filterNot { it.isParentDirectory || it.name == ".." }
-            
-            var successCount = 0
-            var failCount = 0
-            
-            for (file in filesToMerge) {
-                val destItemPath = "${conflict.destPath}/${file.name}"
-                val sourceItemPath = file.path
-                
-                // Check if destination item exists
-                val destExists = repository.exists(destItemPath).getOrNull() ?: false
-                
-                if (destExists) {
-                    val destIsDir = repository.isDirectory(destItemPath).getOrNull() ?: false
-                    if (file.isDirectory && destIsDir) {
-                        // Both are directories - recursively merge
-                        // For now, we'll use cp -r which handles this
-                        repository.copy(sourceItemPath, destItemPath).fold(
-                            onSuccess = { successCount++ },
-                            onFailure = { failCount++ }
-                        )
-                    } else {
-                        // Conflict within merge - for now just skip (keep existing)
-                        // Future: could queue these as sub-conflicts
-                        failCount++
-                    }
-                } else {
-                    // No conflict, just copy/move
-                    when (conflict.operationType) {
-                        OperationType.COPY -> {
-                            repository.copy(sourceItemPath, destItemPath).fold(
-                                onSuccess = { successCount++ },
-                                onFailure = { failCount++ }
-                            )
-                        }
-                        OperationType.MOVE -> {
-                            repository.move(sourceItemPath, destItemPath).fold(
-                                onSuccess = { successCount++ },
-                                onFailure = { failCount++ }
-                            )
-                        }
-                        else -> {}
-                    }
-                }
-            }
-            
-            // If move operation and all succeeded, delete source folder
-            if (conflict.operationType == OperationType.MOVE && failCount == 0) {
-                repository.delete(conflict.sourcePath)
-            }
-            
-            _state.value = _state.value.copy(isLoading = false)
-            
-            val message = if (failCount == 0) {
-                "Merged $successCount items successfully"
-            } else {
-                "Merged $successCount items, $failCount conflicts skipped"
-            }
-            _events.emit(FileBrowserEvent.ShowToast(message))
-            refresh()
-        }
-    }
-
-    /**
-     * Unified conflict resolution handler
-     */
-    fun resolveConflict(resolution: ConflictResolution) {
-        when (resolution) {
-            ConflictResolution.SKIP -> resolveConflictSkip()
-            ConflictResolution.REPLACE -> resolveConflictReplace()
-            ConflictResolution.MERGE -> resolveConflictMerge()
-            ConflictResolution.KEEP_BOTH -> resolveConflictKeepBoth()
-        }
-    }
-
-    fun dismissConflict() {
-        _state.value = _state.value.copy(pendingConflict = null)
-    }
 
     fun enterSelectionMode(initialFile: RemoteFile) {
         _state.value = _state.value.copy(
@@ -721,19 +578,341 @@ class FileBrowserViewModel @Inject constructor(
 
     fun getSelectedFilePaths(): List<String> = _state.value.selectedFiles.toList()
 
+    /**
+     * Start a batch paste operation with conflict detection for all items upfront.
+     * This is the main entry point for copy/move from clipboard.
+     */
     fun copyFileBatch(sourcePaths: List<String>, destDir: String) {
-        sourcePaths.forEach { sourcePath ->
-            val fileName = sourcePath.substringAfterLast("/")
-            val destPath = "$destDir/$fileName"
-            copyFile(sourcePath, destPath)
-        }
+        startPasteOperation(sourcePaths, destDir, OperationType.COPY)
     }
 
     fun moveFileBatch(sourcePaths: List<String>, destDir: String) {
-        sourcePaths.forEach { sourcePath ->
-            val fileName = sourcePath.substringAfterLast("/")
-            val destPath = "$destDir/$fileName"
-            moveFile(sourcePath, destPath)
+        startPasteOperation(sourcePaths, destDir, OperationType.MOVE)
+    }
+
+    private fun startPasteOperation(sourcePaths: List<String>, destDir: String, operationType: OperationType) {
+        Log.d(TAG, "startPasteOperation: sources=$sourcePaths, destDir=$destDir, op=$operationType")
+        viewModelScope.launch {
+            // Build list of pending items - use quick check with fallback
+            val items = sourcePaths.map { sourcePath ->
+                val fileName = sourcePath.substringAfterLast("/")
+                val destPath = "$destDir/$fileName"
+                // Try to determine if source is directory, but don't block on failure
+                // If the path has no extension and doesn't contain a dot, likely a directory
+                val isDir = try {
+                    kotlinx.coroutines.withTimeoutOrNull(500L) {
+                        repository.isDirectory(sourcePath).getOrNull()
+                    } ?: !fileName.contains(".")
+                } catch (e: Exception) {
+                    !fileName.contains(".") // Fallback: no extension = likely directory
+                }
+                Log.d(TAG, "startPasteOperation: item source=$sourcePath, dest=$destPath, isDir=$isDir")
+                PendingPasteItem(
+                    sourcePath = sourcePath,
+                    destPath = destPath,
+                    isDirectory = isDir
+                )
+            }
+
+            if (items.isEmpty()) {
+                Log.d(TAG, "startPasteOperation: no items to paste")
+                _events.emit(FileBrowserEvent.ShowToast("Nothing to paste"))
+                return@launch
+            }
+
+            // Create pending operation and start processing
+            val pendingOp = PendingPasteOperation(
+                operationType = operationType,
+                destDir = destDir,
+                items = items,
+                currentIndex = 0
+            )
+
+            Log.d(TAG, "startPasteOperation: created pendingOp with ${items.size} items")
+            _state.value = _state.value.copy(
+                pendingPasteOperation = pendingOp,
+                applyToAllResolution = null // Reset apply-to-all
+            )
+
+            // Process first item
+            processNextPasteItem()
+        }
+    }
+
+    /**
+     * Process the next item in the pending paste operation.
+     * Called after each conflict resolution or when no conflict exists.
+     */
+    private fun processNextPasteItem() {
+        viewModelScope.launch {
+            val pendingOp = _state.value.pendingPasteOperation
+            if (pendingOp == null) {
+                Log.d(TAG, "processNextPasteItem: pendingPasteOperation is NULL - exiting")
+                return@launch
+            }
+            
+            Log.d(TAG, "processNextPasteItem: currentIndex=${pendingOp.currentIndex}, totalItems=${pendingOp.items.size}, isComplete=${pendingOp.isComplete}")
+
+            if (pendingOp.isComplete) {
+                Log.d(TAG, "processNextPasteItem: operation complete - finalizing")
+                finalizePasteOperation()
+                return@launch
+            }
+
+            val currentItem = pendingOp.currentItem
+            if (currentItem == null) {
+                Log.d(TAG, "processNextPasteItem: currentItem is NULL - exiting")
+                return@launch
+            }
+            
+            Log.d(TAG, "processNextPasteItem: checking exists for destPath=${currentItem.destPath}")
+            
+            // Use cached file list to check for conflicts - NO ADB CALLS!
+            // The _state.value.files contains the current directory listing
+            val destFileName = currentItem.destPath.substringAfterLast("/")
+            val existingFile = _state.value.files.find { it.name == destFileName }
+            val destExists = existingFile != null
+            val destIsDir = existingFile?.isDirectory ?: false
+            
+            Log.d(TAG, "processNextPasteItem: cached lookup - exists=$destExists, isDir=$destIsDir")
+
+            if (destExists) {
+                Log.d(TAG, "processNextPasteItem: CONFLICT DETECTED for ${currentItem.destPath}")
+                // Check if we have an apply-to-all resolution cached
+                val cachedResolution = _state.value.applyToAllResolution
+                if (cachedResolution != null) {
+                    Log.d(TAG, "processNextPasteItem: using cached resolution: $cachedResolution")
+                    executeResolution(cachedResolution, currentItem, pendingOp)
+                } else {
+                    Log.d(TAG, "processNextPasteItem: showing conflict dialog")
+                    // Show conflict dialog using cached data
+                    val conflict = FileConflict(
+                        sourcePath = currentItem.sourcePath,
+                        destPath = currentItem.destPath,
+                        operationType = pendingOp.operationType,
+                        isDirectory = destIsDir,
+                        sourceIsDirectory = currentItem.isDirectory,
+                        fileName = currentItem.sourcePath.substringAfterLast("/"),
+                        remainingCount = pendingOp.remainingCount
+                    )
+                    Log.d(TAG, "processNextPasteItem: setting pendingConflict=$conflict")
+                    _state.value = _state.value.copy(pendingConflict = conflict)
+                    Log.d(TAG, "processNextPasteItem: state.pendingConflict is now ${_state.value.pendingConflict}")
+                }
+            } else {
+                Log.d(TAG, "processNextPasteItem: no conflict - executing operation")
+                executeOperation(currentItem, pendingOp)
+            }
+        }
+    }
+
+    /**
+     * Execute the actual copy/move operation for an item.
+     */
+    private suspend fun executeOperation(item: PendingPasteItem, pendingOp: PendingPasteOperation) {
+        val result = when (pendingOp.operationType) {
+            OperationType.COPY -> repository.copy(item.sourcePath, item.destPath)
+            OperationType.MOVE -> repository.move(item.sourcePath, item.destPath)
+            else -> Result.failure(Exception("Invalid operation type"))
+        }
+
+        val newOp = result.fold(
+            onSuccess = {
+                pendingOp.copy(
+                    currentIndex = pendingOp.currentIndex + 1,
+                    processedCount = pendingOp.processedCount + 1
+                )
+            },
+            onFailure = {
+                Log.e(TAG, "Failed to ${pendingOp.operationType.name.lowercase()} ${item.sourcePath}", it)
+                pendingOp.copy(
+                    currentIndex = pendingOp.currentIndex + 1,
+                    failedCount = pendingOp.failedCount + 1
+                )
+            }
+        )
+
+        _state.value = _state.value.copy(pendingPasteOperation = newOp)
+        processNextPasteItem()
+    }
+
+    /**
+     * Execute a conflict resolution for the current item.
+     */
+    private suspend fun executeResolution(resolution: ConflictResolution, item: PendingPasteItem, pendingOp: PendingPasteOperation) {
+        when (resolution) {
+            ConflictResolution.SKIP -> {
+                // Skip - just move to next item
+                val newOp = pendingOp.copy(
+                    currentIndex = pendingOp.currentIndex + 1,
+                    skippedCount = pendingOp.skippedCount + 1
+                )
+                _state.value = _state.value.copy(pendingPasteOperation = newOp)
+                processNextPasteItem()
+            }
+
+            ConflictResolution.REPLACE -> {
+                // Delete existing, then copy/move
+                val deleteResult = repository.delete(item.destPath)
+                if (deleteResult.isSuccess) {
+                    executeOperation(item, pendingOp)
+                } else {
+                    Log.e(TAG, "Failed to delete ${item.destPath} for replace")
+                    val newOp = pendingOp.copy(
+                        currentIndex = pendingOp.currentIndex + 1,
+                        failedCount = pendingOp.failedCount + 1
+                    )
+                    _state.value = _state.value.copy(pendingPasteOperation = newOp)
+                    processNextPasteItem()
+                }
+            }
+
+            ConflictResolution.KEEP_BOTH -> {
+                // Generate unique name and copy/move
+                val uniquePath = generateUniqueName(item.destPath)
+                val newItem = item.copy(destPath = uniquePath)
+                executeOperation(newItem, pendingOp)
+            }
+
+            ConflictResolution.MERGE -> {
+                // Merge directories
+                if (item.isDirectory) {
+                    mergeDirectoryContents(item, pendingOp)
+                } else {
+                    // For files, merge = keep both
+                    executeResolution(ConflictResolution.KEEP_BOTH, item, pendingOp)
+                }
+            }
+        }
+    }
+
+    /**
+     * Generate a unique name for Keep Both: filename (1).ext, filename (2).ext, etc.
+     */
+    private suspend fun generateUniqueName(destPath: String): String {
+        val file = File(destPath)
+        val baseName = file.nameWithoutExtension
+        val extension = file.extension.let { if (it.isNotEmpty()) ".$it" else "" }
+        val parentPath = file.parent ?: _state.value.currentPath
+
+        var counter = 1
+        var newPath: String
+        do {
+            newPath = "$parentPath/$baseName ($counter)$extension"
+            counter++
+        } while (repository.exists(newPath).getOrNull() == true && counter < 100)
+
+        return newPath
+    }
+
+    /**
+     * Merge source directory contents into destination directory.
+     * Contents of source are copied/moved into destination without deleting destination.
+     */
+    private suspend fun mergeDirectoryContents(item: PendingPasteItem, pendingOp: PendingPasteOperation) {
+        val sourceFiles = repository.listFiles(item.sourcePath).getOrNull() ?: emptyList()
+        val filesToMerge = sourceFiles.filterNot { it.isParentDirectory || it.name == ".." }
+
+        if (filesToMerge.isEmpty()) {
+            // Empty source folder - skip
+            val newOp = pendingOp.copy(
+                currentIndex = pendingOp.currentIndex + 1,
+                skippedCount = pendingOp.skippedCount + 1
+            )
+            _state.value = _state.value.copy(pendingPasteOperation = newOp)
+            _events.emit(FileBrowserEvent.ShowToast("Empty folder skipped"))
+            processNextPasteItem()
+            return
+        }
+
+        // Create items for nested paste operation
+        val nestedItems = filesToMerge.map { file ->
+            PendingPasteItem(
+                sourcePath = file.path,
+                destPath = "${item.destPath}/${file.name}",
+                isDirectory = file.isDirectory
+            )
+        }
+
+        // Create nested operation - append to current items
+        val remainingItems = pendingOp.items.drop(pendingOp.currentIndex + 1)
+        val newItems = nestedItems + remainingItems
+        
+        val newOp = PendingPasteOperation(
+            operationType = pendingOp.operationType,
+            destDir = item.destPath,
+            items = newItems,
+            currentIndex = 0,
+            processedCount = pendingOp.processedCount,
+            skippedCount = pendingOp.skippedCount,
+            failedCount = pendingOp.failedCount
+        )
+
+        _state.value = _state.value.copy(pendingPasteOperation = newOp)
+        
+        // If move operation, we'll delete source folder after merge completes
+        // For now, just process nested items
+        processNextPasteItem()
+    }
+
+    /**
+     * Finalize the paste operation - show summary and cleanup state.
+     */
+    private suspend fun finalizePasteOperation() {
+        val pendingOp = _state.value.pendingPasteOperation ?: return
+
+        val message = when {
+            pendingOp.failedCount == 0 && pendingOp.skippedCount == 0 ->
+                "Completed: ${pendingOp.processedCount} items"
+            pendingOp.failedCount == 0 ->
+                "Completed: ${pendingOp.processedCount} items, ${pendingOp.skippedCount} skipped"
+            else ->
+                "Completed: ${pendingOp.processedCount} items, ${pendingOp.skippedCount} skipped, ${pendingOp.failedCount} failed"
+        }
+
+        _state.value = _state.value.copy(
+            pendingPasteOperation = null,
+            pendingConflict = null,
+            applyToAllResolution = null
+        )
+
+        _events.emit(FileBrowserEvent.ShowToast(message))
+        refresh()
+    }
+
+    /**
+     * Handle user's conflict resolution from the dialog.
+     */
+    fun resolveConflict(resolution: ConflictResolution, applyToAll: Boolean = false) {
+        val conflict = _state.value.pendingConflict ?: return
+        val pendingOp = _state.value.pendingPasteOperation ?: return
+        val currentItem = pendingOp.currentItem ?: return
+
+        // Cache resolution if apply-to-all
+        if (applyToAll) {
+            _state.value = _state.value.copy(applyToAllResolution = resolution)
+        }
+
+        // Clear current conflict dialog
+        _state.value = _state.value.copy(pendingConflict = null)
+
+        // Execute resolution
+        viewModelScope.launch {
+            executeResolution(resolution, currentItem, pendingOp)
+        }
+    }
+
+    /**
+     * Dismiss conflict dialog and cancel the entire paste operation.
+     */
+    fun dismissConflict() {
+        _state.value = _state.value.copy(
+            pendingConflict = null,
+            pendingPasteOperation = null,
+            applyToAllResolution = null
+        )
+        viewModelScope.launch {
+            _events.emit(FileBrowserEvent.ShowToast("Operation cancelled"))
         }
     }
 

@@ -4,17 +4,23 @@ package `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -32,15 +38,18 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
 
 /**
  * Dialog for handling file/folder conflicts during copy/move operations.
- * Uses vertical button layout for better readability.
+ * Supports Apply-to-all for batch operations and shows all resolution options.
  */
 @Composable
 fun FileConflictDialog(
     conflict: FileConflict,
-    onResolution: (ConflictResolution) -> Unit,
+    showApplyToAll: Boolean = false,
+    onResolution: (ConflictResolution, applyToAll: Boolean) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val title = if (conflict.isDirectory) {
+    var applyToAll by remember { mutableStateOf(false) }
+    
+    val title = if (conflict.isDirectory || conflict.sourceIsDirectory) {
         stringResource(R.string.fb_folder_conflict_title)
     } else {
         stringResource(R.string.fb_file_conflict_title)
@@ -51,6 +60,9 @@ fun FileConflictDialog(
         OperationType.MOVE -> stringResource(R.string.fb_moving).lowercase().removeSuffix(".")
         else -> ""
     }
+
+    // Determine if both source and dest are directories (for merge option)
+    val canMerge = conflict.sourceIsDirectory && conflict.isDirectory
 
     DialogContainer(onDismiss = onDismiss) {
         DialogTitle(
@@ -79,17 +91,39 @@ fun FileConflictDialog(
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        // Vertical button layout for better fit
+        // Apply to all checkbox (only show if there are more conflicts)
+        if (showApplyToAll && conflict.remainingCount > 0) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = applyToAll,
+                    onCheckedChange = { applyToAll = it }
+                )
+                Text(
+                    text = stringResource(R.string.fb_apply_to_all, conflict.remainingCount),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Vertical button layout
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // Replace button (primary action for most cases)
+            // Replace button (destructive action - error color)
             Button(
                 onClick = withHaptic(HapticFeedbackType.Confirm) {
-                    onResolution(ConflictResolution.REPLACE)
+                    onResolution(ConflictResolution.REPLACE, applyToAll)
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
@@ -103,11 +137,11 @@ fun FileConflictDialog(
                 )
             }
 
-            // Middle button: Merge (for directories) or Keep Both (for files)
-            if (conflict.isDirectory) {
+            // Merge button (only for directory-to-directory conflicts)
+            if (canMerge) {
                 Button(
                     onClick = withHaptic(HapticFeedbackType.Confirm) {
-                        onResolution(ConflictResolution.MERGE)
+                        onResolution(ConflictResolution.MERGE, applyToAll)
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -116,24 +150,29 @@ fun FileConflictDialog(
                         style = MaterialTheme.typography.labelLarge
                     )
                 }
-            } else {
-                Button(
-                    onClick = withHaptic(HapticFeedbackType.Confirm) {
-                        onResolution(ConflictResolution.KEEP_BOTH)
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = stringResource(R.string.fb_keep_both),
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                }
             }
 
-            // Skip button
+            // Keep Both button (works for both files and directories)
+            Button(
+                onClick = withHaptic(HapticFeedbackType.Confirm) {
+                    onResolution(ConflictResolution.KEEP_BOTH, applyToAll)
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+            ) {
+                Text(
+                    text = stringResource(R.string.fb_keep_both),
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
+
+            // Skip button (outlined - least prominent)
             OutlinedButton(
                 onClick = withHaptic(HapticFeedbackType.Reject) {
-                    onResolution(ConflictResolution.SKIP)
+                    onResolution(ConflictResolution.SKIP, applyToAll)
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {

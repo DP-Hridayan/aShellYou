@@ -448,8 +448,6 @@
     <string name="fb_moving_items">Moving %1$d item(s)</string>
     <string name="fb_ready_to_paste">Ready to paste</string>
     <string name="fb_no_files_download">No files selected (folders cannot be downloaded)</string>
-    <string name="fb_file_conflict_title">File Already Exists</string>
-    <string name="fb_folder_conflict_title">Folder Already Exists</string>
     
     <!-- ADB Connection Service Notification -->
     <string name="adb_connection_channel_name">ADB Connection</string>
@@ -461,6 +459,11 @@
     <string name="connection_lost">Connection Lost</string>
     <string name="connection_lost_back_message">The wireless debugging connection was lost. What would you like to do?</string>
     <string name="go_home">Go Home</string>
+    
+    <!-- File Browser Conflict Dialog (additional) -->
+    <string name="fb_file_conflict_title">File Already Exists</string>
+    <string name="fb_folder_conflict_title">Folder Already Exists</string>
+    <string name="fb_apply_to_all">Apply to all (%1$d remaining)</string>
 </resources>
 
 

@@ -643,16 +643,16 @@ fun FileBrowserScreen(
                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                             when (clipboardOperation) {
                                 "copy" -> {
+                                    // Route single file through batch for conflict handling
                                     clipboardFile?.let { file ->
-                                        val destPath = "${state.currentPath}/${file.name}"
-                                        viewModel.copyFile(file.path, destPath)
+                                        viewModel.copyFileBatch(listOf(file.path), state.currentPath)
                                     }
                                 }
 
                                 "move" -> {
+                                    // Route single file through batch for conflict handling
                                     clipboardFile?.let { file ->
-                                        val destPath = "${state.currentPath}/${file.name}"
-                                        viewModel.moveFile(file.path, destPath)
+                                        viewModel.moveFileBatch(listOf(file.path), state.currentPath)
                                     }
                                 }
 
@@ -869,8 +869,9 @@ fun FileBrowserScreen(
     state.pendingConflict?.let { conflict ->
         FileConflictDialog(
             conflict = conflict,
-            onResolution = { resolution ->
-                viewModel.resolveConflict(resolution)
+            showApplyToAll = conflict.remainingCount > 0,
+            onResolution = { resolution, applyToAll ->
+                viewModel.resolveConflict(resolution, applyToAll)
             },
             onDismiss = { viewModel.dismissConflict() }
         )

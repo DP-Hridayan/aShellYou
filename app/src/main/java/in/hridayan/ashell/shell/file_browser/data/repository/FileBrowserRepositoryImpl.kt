@@ -404,16 +404,54 @@ class FileBrowserRepositoryImpl @Inject constructor(
         }
 
     private suspend fun executeCommand(command: String): String? = withContext(Dispatchers.IO) {
-        try {
-            val adbManager = getAdbManager()
-            val stream = adbManager.openStream("shell:$command")
-            val reader = BufferedReader(InputStreamReader(stream.openInputStream()))
-            val result = reader.readText()
-            reader.close()
-            stream.close()
-            result
-        } catch (e: Exception) {
-            Log.e(TAG, "Error executing command: $command", e)
+        // Serialize all ADB commands to prevent concurrent stream issues
+        adbMutex.withLock {
+            var lastException: Exception? = null
+            
+            // Small initial delay to let any previous streams fully close
+            kotlinx.coroutines.delay(50L)
+            
+            // Retry up to 3 times with increasing delays
+            repeat(3) { attempt ->
+                try {
+                    if (attempt > 0) {
+                        Log.d(TAG, "executeCommand retry #${attempt + 1} for: $command")
+                        kotlinx.coroutines.delay(500L * (attempt + 1)) // 500ms, 1000ms, 1500ms delays
+                    }
+                    
+                    val adbManager = getAdbManager()
+                    
+                    // Check if connection is still valid
+                    if (!adbManager.isConnected) {
+                        Log.w(TAG, "executeCommand: ADB not connected, attempt ${attempt + 1}")
+                        lastException = Exception("ADB connection lost")
+                        return@repeat // continue to next attempt
+                    }
+                    
+                    // Use timeout to prevent infinite hanging on corrupted streams
+                    val result = kotlinx.coroutines.withTimeoutOrNull(5000L) {
+                        val stream = adbManager.openStream("shell:$command")
+                        try {
+                            val inputStream = stream.openInputStream()
+                            inputStream.bufferedReader().use { it.readText() }
+                        } finally {
+                            try { stream.close() } catch (_: Exception) {}
+                        }
+                    }
+                    
+                    if (result != null) {
+                        return@withLock result
+                    } else {
+                        Log.w(TAG, "executeCommand timeout for: $command")
+                        lastException = Exception("Command timed out after 5 seconds")
+                    }
+                } catch (e: Exception) {
+                    lastException = e
+                    Log.w(TAG, "executeCommand attempt ${attempt + 1} failed for: $command - ${e.message}")
+                }
+            }
+            
+            Log.e(TAG, "executeCommand failed after 3 retries: $command", lastException)
             null
         }
     }
@@ -472,51 +510,50 @@ class FileBrowserRepositoryImpl @Inject constructor(
         }
 
     override suspend fun exists(path: String): Result<Boolean> = withContext(Dispatchers.IO) {
-        adbMutex.withLock {
-            try {
-                val adbManager = getAdbManager()
-                val escapedPath = path.replace("'", "'\\''")
-                val command = "shell:[ -e '$escapedPath' ] && echo 'EXISTS' || echo 'NOT_EXISTS'"
-                
-                Log.d(TAG, "exists: checking path=$path")
-                
-                val stream = adbManager.openStream(command)
-                val inputStream = stream.openInputStream()
-                val result = inputStream.bufferedReader().readText()
-                
-                try { inputStream.close() } catch (_: Exception) {}
-                try { stream.close() } catch (_: Exception) {}
-                
-                val exists = result.contains("EXISTS")
-                Log.d(TAG, "exists: path=$path, result=$exists, raw='${result.trim()}'")
-                
-                Result.success(exists)
-            } catch (e: Exception) {
-                Log.e(TAG, "Error checking exists: $path", e)
-                Result.failure(e)
+        try {
+            val escapedPath = path.replace("'", "'\\'")
+            val command = "[ -e '$escapedPath' ] && echo 'EXISTS' || echo 'NOT_EXISTS'"
+            
+            Log.d(TAG, "exists: checking path=$path")
+            
+            val result = executeCommand(command)
+            
+            if (result == null) {
+                Log.e(TAG, "exists: executeCommand returned null for $path")
+                return@withContext Result.failure(Exception("ADB command failed for exists check"))
             }
+            
+            val exists = result.contains("EXISTS") && !result.contains("NOT_EXISTS")
+            Log.d(TAG, "exists: path=$path, result=$exists, raw='${result.trim()}'")
+            
+            Result.success(exists)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking exists: $path", e)
+            Result.failure(e)
         }
     }
 
     override suspend fun isDirectory(path: String): Result<Boolean> = withContext(Dispatchers.IO) {
-        adbMutex.withLock {
-            try {
-                val adbManager = getAdbManager()
-                val escapedPath = path.replace("'", "'\\'")
-                val command = "shell:[ -d '$escapedPath' ] && echo 'IS_DIR' || echo 'NOT_DIR'"
-                
-                val stream = adbManager.openStream(command)
-                val inputStream = stream.openInputStream()
-                val result = inputStream.bufferedReader().readText()
-                
-                try { inputStream.close() } catch (_: Exception) {}
-                try { stream.close() } catch (_: Exception) {}
-                
-                Result.success(result.contains("IS_DIR"))
-            } catch (e: Exception) {
-                Log.e(TAG, "Error checking isDirectory: $path", e)
-                Result.failure(e)
+        try {
+            val escapedPath = path.replace("'", "'\\'")
+            val command = "[ -d '$escapedPath' ] && echo 'IS_DIR' || echo 'NOT_DIR'"
+            
+            Log.d(TAG, "isDirectory: checking path=$path")
+            
+            val result = executeCommand(command)
+            
+            if (result == null) {
+                Log.e(TAG, "isDirectory: executeCommand returned null for $path")
+                return@withContext Result.failure(Exception("ADB command failed for isDirectory check"))
             }
+            
+            val isDir = result.contains("IS_DIR") && !result.contains("NOT_DIR")
+            Log.d(TAG, "isDirectory: path=$path, result=$isDir")
+            
+            Result.success(isDir)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error checking isDirectory: $path", e)
+            Result.failure(e)
         }
     }
 
