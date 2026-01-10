@@ -456,6 +456,12 @@
     <string name="adb_connection_channel_description">Shows when ADB connection is active</string>
     <string name="adb_connection_active">ADB Connection Active</string>
     <string name="adb_connection_description">WiFi ADB connection is being maintained</string>
+    
+    <!-- Disconnected Back Navigation Dialog -->
+    <string name="connection_lost">Connection Lost</string>
+    <string name="connection_lost_back_message">The wireless debugging connection was lost. What would you like to do?</string>
+    <string name="go_home">Go Home</string>
 </resources>
+
 
 

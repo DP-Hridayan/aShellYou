@@ -92,6 +92,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -984,19 +985,28 @@ private fun FullscreenOutputOverlay(
     }
 
     BackHandler(enabled = true) {
+        // Cache scroll index to avoid reading it during composition
         onDismiss(fullscreenListState.firstVisibleItemIndex)
     }
 
+    // Cache scroll position with derivedStateOf to avoid recomposition warnings
+    val currentScrollIndex by remember {
+        derivedStateOf { fullscreenListState.firstVisibleItemIndex }
+    }
+    
     // Smart auto-scroll during live output (ShellState.Busy)
     var userInteracting by remember { mutableStateOf(false) }
     var lastInteractionTime by remember { mutableLongStateOf(0L) }
 
-    // Detect user interaction
-    LaunchedEffect(fullscreenListState.isScrollInProgress) {
-        if (fullscreenListState.isScrollInProgress) {
-            userInteracting = true
-            lastInteractionTime = System.currentTimeMillis()
-        }
+    // Detect user interaction using snapshotFlow for better accuracy
+    LaunchedEffect(Unit) {
+        snapshotFlow { fullscreenListState.isScrollInProgress }
+            .collect { isScrolling ->
+                if (isScrolling) {
+                    userInteracting = true
+                    lastInteractionTime = System.currentTimeMillis()
+                }
+            }
     }
 
     // Resume auto-scroll after 3 seconds of no interaction
@@ -1009,10 +1019,14 @@ private fun FullscreenOutputOverlay(
         }
     }
 
-    // Auto-scroll to bottom during live output
+    // Auto-scroll to bottom during live output - use animateScrollToItem for smooth scrolling
     LaunchedEffect(combinedOutput.value.size, states.shellState, userInteracting) {
         if (states.shellState is ShellState.Busy && !userInteracting && combinedOutput.value.isNotEmpty()) {
-            fullscreenListState.scrollToItem(combinedOutput.value.lastIndex)
+            try {
+                fullscreenListState.animateScrollToItem(combinedOutput.value.lastIndex)
+            } catch (_: Exception) {
+                // Ignore scroll cancellation
+            }
         }
     }
 

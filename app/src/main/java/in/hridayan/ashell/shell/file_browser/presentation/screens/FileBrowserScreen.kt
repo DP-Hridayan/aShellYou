@@ -128,6 +128,7 @@ import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.Cre
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.FileConflictDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.FileInfoDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.RenameDialog
+import `in`.hridayan.ashell.shell.file_browser.presentation.util.FileIconMapper
 import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileBrowserEvent
 import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileBrowserViewModel
 import java.io.File
@@ -1058,11 +1059,7 @@ private fun FileListItem(
 // Dialog functions moved to presentation/component/dialog/ for better code organization
 
 private fun getFileIcon(file: RemoteFile): ImageVector {
-    return when {
-        file.isParentDirectory -> Icons.Rounded.FolderOpen
-        file.isDirectory -> Icons.Rounded.Folder
-        else -> Icons.AutoMirrored.Rounded.InsertDriveFile
-    }
+    return FileIconMapper.getIcon(file)
 }
 
 @Composable

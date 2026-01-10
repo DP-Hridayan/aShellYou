@@ -89,7 +89,8 @@ class FileBrowserRepositoryImpl @Inject constructor(
             var bytesRead: Int
 
             while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                output.append(String(buffer, 0, bytesRead))
+                // Explicitly use UTF-8 to preserve special characters including spaces
+                output.append(String(buffer, 0, bytesRead, Charsets.UTF_8))
                 // Check if we got the end marker
                 if (output.contains("__END__")) {
                     break
@@ -107,6 +108,10 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
             val fullOutput = output.toString()
             Log.d(TAG, "Got output length: ${fullOutput.length}")
+            
+            // Debug: log first few lines of raw output to trace spaces issue
+            val debugLines = fullOutput.take(500)
+            Log.d(TAG, "Raw output (first 500 chars): $debugLines")
 
             val rawLines = fullOutput
                 .replace("__END__", "")
@@ -115,6 +120,10 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 .filter { it.isNotBlank() }
 
             Log.d(TAG, "Got ${rawLines.size} lines from ls output")
+            // Debug: log a sample line with spaces if present
+            rawLines.firstOrNull { it.contains(" ") }?.let {
+                Log.d(TAG, "Sample line with spaces: $it")
+            }
 
             val files = mutableListOf<RemoteFile>()
 
@@ -168,7 +177,8 @@ class FileBrowserRepositoryImpl @Inject constructor(
         if (line.isBlank() || line.startsWith("total ")) return null
 
         // Skip lines that are clearly not file listings
-        if (!line.matches(Regex("^[dlcbsp-].*"))) return null
+        // Note: 'ls:' error messages start with 'l' which would match the regex, skip them explicitly
+        if (!line.matches(Regex("^[dlcbsp-].*")) || line.startsWith("ls:")) return null
 
         try {
             val permissions = line.take(minOf(10, line.length)).trim()
@@ -185,7 +195,8 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
             if (match != null) {
                 val dateTime = match.groupValues[1]
-                var name = match.groupValues[3].trim()
+                // Unescape backslash-escaped characters (ls sometimes displays "My\ File" for "My File")
+                var name = match.groupValues[3].trim().replace("\\ ", " ")
 
                 // Skip . and ..
                 if (name == "." || name == "..") return null
@@ -196,7 +207,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 }
 
                 // Parse size - find the number before the date
-                val beforeDate = line.substring(0, match.range.first).trim()
+                val beforeDate = line.take(match.range.first).trim()
                 val sizeParts = beforeDate.split(Regex("\\s+"))
                 val size = sizeParts.lastOrNull()?.toLongOrNull() ?: 0L
 
