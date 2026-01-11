@@ -384,121 +384,6 @@ class FileBrowserViewModel @Inject constructor(
         }
     }
 
-    fun copyFile(sourcePath: String, destPath: String, forceOverwrite: Boolean = false) {
-        val fileName = File(sourcePath).name
-        val operationId = UUID.randomUUID().toString()
-
-        viewModelScope.launch {
-            Log.d(
-                TAG,
-                "copyFile: source=$sourcePath, dest=$destPath, forceOverwrite=$forceOverwrite"
-            )
-            // Check if destination exists (unless forcing overwrite)
-            if (!forceOverwrite) {
-                val exists = repository.exists(destPath).getOrNull() ?: false
-                Log.d(TAG, "copyFile: exists check for '$destPath' = $exists")
-                if (exists) {
-                    // Check if it's a directory to show appropriate dialog
-                    val isDir = repository.isDirectory(destPath).getOrNull() ?: false
-                    _state.value = _state.value.copy(
-                        pendingConflict = FileConflict(
-                            sourcePath = sourcePath,
-                            destPath = destPath,
-                            operationType = OperationType.COPY,
-                            isDirectory = isDir,
-                            fileName = fileName
-                        )
-                    )
-                    return@launch
-                }
-            } else {
-                // Force overwrite - delete existing first
-                val exists = repository.exists(destPath).getOrNull() ?: false
-                if (exists) {
-                    repository.delete(destPath) // Delete existing before copy
-                }
-            }
-
-            val operation = FileOperation(
-                id = operationId,
-                type = OperationType.COPY,
-                fileName = fileName,
-                message = "Copying..."
-            )
-            addOperation(operation)
-
-            repository.copy(sourcePath, destPath).fold(
-                onSuccess = {
-                    removeOperation(operationId)
-                    _events.emit(FileBrowserEvent.ShowToast("Copied successfully"))
-                    refresh()
-                },
-                onFailure = { error ->
-                    removeOperation(operationId)
-                    _events.emit(FileBrowserEvent.ShowToast("Copy failed: ${error.message}"))
-                }
-            )
-        }
-    }
-
-    fun moveFile(sourcePath: String, destPath: String, forceOverwrite: Boolean = false) {
-        val fileName = File(sourcePath).name
-        val operationId = UUID.randomUUID().toString()
-
-        viewModelScope.launch {
-            Log.d(
-                TAG,
-                "moveFile: source=$sourcePath, dest=$destPath, forceOverwrite=$forceOverwrite"
-            )
-            // Check if destination exists (unless forcing overwrite)
-            if (!forceOverwrite) {
-                val exists = repository.exists(destPath).getOrNull() ?: false
-                Log.d(TAG, "moveFile: exists check for '$destPath' = $exists")
-                if (exists) {
-                    // Check if it's a directory to show appropriate dialog
-                    val isDir = repository.isDirectory(destPath).getOrNull() ?: false
-                    _state.value = _state.value.copy(
-                        pendingConflict = FileConflict(
-                            sourcePath = sourcePath,
-                            destPath = destPath,
-                            operationType = OperationType.MOVE,
-                            isDirectory = isDir,
-                            fileName = fileName
-                        )
-                    )
-                    return@launch
-                }
-            } else {
-                // Force overwrite - delete existing first
-                val exists = repository.exists(destPath).getOrNull() ?: false
-                if (exists) {
-                    repository.delete(destPath) // Delete existing before move
-                }
-            }
-
-            val operation = FileOperation(
-                id = operationId,
-                type = OperationType.MOVE,
-                fileName = fileName,
-                message = "Moving..."
-            )
-            addOperation(operation)
-
-            repository.move(sourcePath, destPath).fold(
-                onSuccess = {
-                    removeOperation(operationId)
-                    _events.emit(FileBrowserEvent.ShowToast("Moved successfully"))
-                    refresh()
-                },
-                onFailure = { error ->
-                    removeOperation(operationId)
-                    _events.emit(FileBrowserEvent.ShowToast("Move failed: ${error.message}"))
-                }
-            )
-        }
-    }
-
-
     fun enterSelectionMode(initialFile: RemoteFile) {
         _state.value = _state.value.copy(
             isSelectionMode = true,
@@ -822,15 +707,14 @@ class FileBrowserViewModel @Inject constructor(
     private suspend fun finalizePasteOperation() {
         val pendingOp = _state.value.pendingPasteOperation ?: return
 
-        val message = when {
-            pendingOp.failedCount == 0 && pendingOp.skippedCount == 0 ->
+        val message = when (pendingOp.failedCount) {
+            0 if pendingOp.skippedCount == 0 ->
                 "Completed: ${pendingOp.processedCount} items"
 
-            pendingOp.failedCount == 0 ->
+            0 ->
                 "Completed: ${pendingOp.processedCount} items, ${pendingOp.skippedCount} skipped"
 
-            else ->
-                "Completed: ${pendingOp.processedCount} items, ${pendingOp.skippedCount} skipped, ${pendingOp.failedCount} failed"
+            else -> "Completed: ${pendingOp.processedCount} items, ${pendingOp.skippedCount} skipped, ${pendingOp.failedCount} failed"
         }
 
         _state.value = _state.value.copy(

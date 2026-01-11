@@ -20,6 +20,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
+import `in`.hridayan.ashell.shell.wifi_adb_shell.service.AdbConnectionService
 import io.github.muntashirakon.adb.AdbPairingRequiredException
 import io.github.muntashirakon.adb.AdbStream
 import io.github.muntashirakon.adb.android.AndroidUtils.getHostIpAddress
@@ -46,13 +47,15 @@ import java.util.concurrent.TimeUnit
 import javax.jmdns.JmDNS
 import javax.jmdns.ServiceEvent
 import javax.jmdns.ServiceListener
-import `in`.hridayan.ashell.shell.wifi_adb_shell.service.AdbConnectionService
 import kotlin.math.max
 
 class WifiAdbRepositoryImpl(
     private val context: Context, private val deviceDao: WifiAdbDeviceDao
 ) : WifiAdbRepository {
-    private val TAG = "WifiAdbShell"
+    companion object {
+        private const val TAG = "WifiAdbRepositoryImpl"
+    }
+
     private val tlsConnect = "_adb-tls-connect._tcp"
     private val tlsPairing = "_adb-tls-pairing._tcp"
     private var adbShellStream: AdbStream? = null
@@ -1552,7 +1555,7 @@ class WifiAdbRepositoryImpl(
 
         isHeartbeatRunning = true
         Log.d(TAG, "Starting connection heartbeat")
-        
+
         // Start foreground service to keep connection alive in background
         AdbConnectionService.start(context)
 
@@ -1607,7 +1610,7 @@ class WifiAdbRepositoryImpl(
         isHeartbeatRunning = false
         heartbeatJob?.cancel()
         heartbeatJob = null
-        
+
         // Stop foreground service
         AdbConnectionService.stop(context)
     }
