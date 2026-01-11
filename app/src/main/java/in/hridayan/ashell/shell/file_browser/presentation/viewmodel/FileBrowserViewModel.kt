@@ -117,11 +117,6 @@ class FileBrowserViewModel @Inject constructor(
     }
 
     /**
-     * Check if ADB is currently connected
-     */
-    fun isAdbConnected(): Boolean = repository.isAdbConnected()
-
-    /**
      * Attempt a silent reconnect using the stored device and refresh file list.
      * This provides seamless reconnection when the connection drops.
      * Uses the device captured at init or set via setConnectedDevice.
