@@ -66,6 +66,7 @@ fun DisconnectedBackNavigationDialog(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
+                @Suppress("DEPRECATION")
                 ButtonGroup(modifier = Modifier.fillMaxWidth()) {
                     OutlinedButton(
                         onClick = withHaptic { onGoHome() },
