@@ -4,17 +4,14 @@ package `in`.hridayan.ashell.navigation
 
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.scaleOut
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.graphics.TransformOrigin
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import `in`.hridayan.ashell.commandexamples.presentation.screens.CommandExamplesScreen
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
@@ -58,34 +55,28 @@ fun Navigation(isFirstLaunch: Boolean = false) {
             NavDisplay(
                 backStack = backStack,
                 onBack = { backStack.removeAt(backStack.lastIndex) },
-
                 transitionSpec = {
                     ContentTransform(
                         targetContentEnter = slideFadeInFromRight(),
                         initialContentExit = slideFadeOutToLeft()
                     )
                 },
-
                 popTransitionSpec = {
                     ContentTransform(
                         targetContentEnter = slideFadeInFromLeft(),
                         initialContentExit = slideFadeOutToRight()
                     )
                 },
-
-                predictivePopTransitionSpec = { progress ->
-                    val scale = 1f - (progress * 0.15f)
-                    val horizontalOffsetPercent = progress * 0.10f
-
+                predictivePopTransitionSpec = {
                     ContentTransform(
-                        targetContentEnter = fadeIn(tween(0)),
-                        initialContentExit = scaleOut(
-                            targetScale = scale,
-                            transformOrigin = TransformOrigin.Center
-                        ) + slideOutHorizontally { (it * horizontalOffsetPercent).toInt() }
+                        targetContentEnter = predictiveEnter(),
+                        initialContentExit = predictiveExit()
                     )
                 },
-
+                entryDecorators = listOf(
+                    rememberSaveableStateHolderNavEntryDecorator(),
+                    rememberViewModelStoreNavEntryDecorator()
+                ),
                 entryProvider = entryProvider {
                     entry<NavRoutes.OnboardingScreen> {
                         OnboardingScreen()

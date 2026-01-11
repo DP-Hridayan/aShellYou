@@ -1222,7 +1222,7 @@ class WifiAdbRepositoryImpl(
         val nsdManager = context.getSystemService(Context.NSD_SERVICE) as NsdManager
         var matchFound = false
         val reconnectDeviceId = device.id
-        val targetSerial = device.serialNumber!!
+        val targetSerial = device.serialNumber
 
         // Set a timeout for discovery
         val discoveryTimeout = executor.schedule({
