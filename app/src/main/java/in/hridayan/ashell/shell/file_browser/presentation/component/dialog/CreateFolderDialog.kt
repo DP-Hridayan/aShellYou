@@ -19,7 +19,7 @@ import `in`.hridayan.ashell.R
 fun CreateFolderDialog(
     onDismiss: () -> Unit,
     onCreate: (String) -> Unit,
-    existingNames: Set<String> = emptySet() // Pass current folder/file names
+    existingNames: Set<String> = emptySet()
 ) {
     var folderName by remember { mutableStateOf("") }
     
@@ -51,8 +51,8 @@ fun CreateFolderDialog(
                 isError = nameExists || (folderName.isNotBlank() && folderName.contains("/")),
                 supportingText = {
                     when {
-                        nameExists -> Text(stringResource(R.string.fb_folder_already_exists))
-                        folderName.contains("/") -> Text(stringResource(R.string.fb_invalid_folder_name))
+                        nameExists -> Text(stringResource(R.string.folder_already_exists))
+                        folderName.contains("/") -> Text(stringResource(R.string.invalid_folder_name))
                         else -> null
                     }
                 }

@@ -50,14 +50,14 @@ fun FileConflictDialog(
     var applyToAll by remember { mutableStateOf(false) }
     
     val title = if (conflict.isDirectory || conflict.sourceIsDirectory) {
-        stringResource(R.string.fb_folder_conflict_title)
+        stringResource(R.string.folder_conflict_title)
     } else {
-        stringResource(R.string.fb_file_conflict_title)
+        stringResource(R.string.file_conflict_title)
     }
 
     val operationText = when (conflict.operationType) {
-        OperationType.COPY -> stringResource(R.string.fb_copying).lowercase().removeSuffix(".")
-        OperationType.MOVE -> stringResource(R.string.fb_moving).lowercase().removeSuffix(".")
+        OperationType.COPY -> stringResource(R.string.copying).lowercase().removeSuffix(".")
+        OperationType.MOVE -> stringResource(R.string.moving).lowercase().removeSuffix(".")
         else -> ""
     }
 
@@ -75,7 +75,7 @@ fun FileConflictDialog(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = stringResource(R.string.fb_conflict_message, conflict.fileName),
+            text = stringResource(R.string.conflict_message, conflict.fileName),
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
@@ -84,7 +84,7 @@ fun FileConflictDialog(
         Spacer(modifier = Modifier.height(4.dp))
 
         Text(
-            text = stringResource(R.string.fb_what_to_do, operationText),
+            text = stringResource(R.string.what_to_do, operationText),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -106,7 +106,7 @@ fun FileConflictDialog(
                     onCheckedChange = { applyToAll = it }
                 )
                 Text(
-                    text = stringResource(R.string.fb_apply_to_all, conflict.remainingCount),
+                    text = stringResource(R.string.apply_to_all, conflict.remainingCount),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -132,7 +132,7 @@ fun FileConflictDialog(
                 )
             ) {
                 Text(
-                    text = stringResource(R.string.fb_replace),
+                    text = stringResource(R.string.replace),
                     style = MaterialTheme.typography.labelLarge
                 )
             }
@@ -146,7 +146,7 @@ fun FileConflictDialog(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = stringResource(R.string.fb_merge),
+                        text = stringResource(R.string.merge),
                         style = MaterialTheme.typography.labelLarge
                     )
                 }
@@ -164,7 +164,7 @@ fun FileConflictDialog(
                 )
             ) {
                 Text(
-                    text = stringResource(R.string.fb_keep_both),
+                    text = stringResource(R.string.keep_both),
                     style = MaterialTheme.typography.labelLarge
                 )
             }
@@ -177,7 +177,7 @@ fun FileConflictDialog(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = stringResource(R.string.fb_skip),
+                    text = stringResource(R.string.skip),
                     style = MaterialTheme.typography.labelLarge
                 )
             }

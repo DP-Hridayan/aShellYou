@@ -112,6 +112,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawDreamer
@@ -139,6 +140,7 @@ fun FileBrowserScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val navController = LocalNavController.current
+    val weakHaptic = LocalWeakHaptic.current
 
     var showCreateFolderDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -219,7 +221,9 @@ fun FileBrowserScreen(
                             actionIconContentColor = MaterialTheme.colorScheme.onSurface
                         ),
                         navigationIcon = {
-                            IconButton(onClick = { viewModel.exitSelectionMode() }) {
+                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                viewModel.exitSelectionMode()
+                            }) {
                                 Icon(Icons.Rounded.Close, contentDescription = "Cancel")
                             }
                         },
@@ -227,7 +231,7 @@ fun FileBrowserScreen(
                             // Toggle select all / deselect all based on current selection
                             val allSelected = viewModel.areAllFilesSelected()
                             IconButton(
-                                onClick = {
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                     if (allSelected) {
                                         viewModel.deselectAllFiles()
                                     } else {
@@ -242,14 +246,16 @@ fun FileBrowserScreen(
                                 )
                             }
 
-                            IconButton(onClick = { viewModel.downloadSelectedFiles() }) {
+                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                viewModel.downloadSelectedFiles()
+                            }) {
                                 Icon(
                                     imageVector = Icons.Rounded.Download,
                                     contentDescription = "Download"
                                 )
                             }
 
-                            IconButton(onClick = {
+                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 val selectedPaths = viewModel.getSelectedFilePaths()
                                 if (selectedPaths.isNotEmpty()) {
                                     clipboardPaths = selectedPaths
@@ -267,7 +273,7 @@ fun FileBrowserScreen(
                                 Icon(Icons.Rounded.ContentCopy, contentDescription = "Copy")
                             }
 
-                            IconButton(onClick = {
+                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 val selectedPaths = viewModel.getSelectedFilePaths()
                                 if (selectedPaths.isNotEmpty()) {
                                     clipboardPaths = selectedPaths
@@ -288,7 +294,7 @@ fun FileBrowserScreen(
                                 )
                             }
 
-                            IconButton(onClick = {
+                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 showDeleteDialog = true
                             }) {
                                 Icon(
@@ -376,21 +382,18 @@ fun FileBrowserScreen(
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                     Text(
                                         text = state.error
-                                            ?: stringResource(R.string.fb_connection_error),
+                                            ?: stringResource(R.string.connection_error),
                                         color = MaterialTheme.colorScheme.error
                                     )
                                     Spacer(modifier = Modifier.height(8.dp))
-                                    TextButton(onClick = {
-                                        // If we're in error state and WiFi is connected, always try 
-                                        // silent reconnect since the error indicates connection issue
+                                    TextButton(onClick = withHaptic {
                                         if (isWifiConnected) {
                                             viewModel.silentReconnectAndRefresh()
                                         } else {
-                                            // WiFi not connected, just show error persists
                                             viewModel.refresh()
                                         }
                                     }) {
-                                        Text(stringResource(R.string.fb_retry))
+                                        Text(stringResource(R.string.retry))
                                     }
                                 }
                             }
@@ -466,12 +469,6 @@ fun FileBrowserScreen(
                                         )
                                     }
 
-                                    if (isEmpty) {
-                                        item {
-
-                                        }
-                                    }
-
                                     item {
                                         Spacer(modifier = Modifier.height(80.dp))
                                     }
@@ -495,7 +492,7 @@ fun FileBrowserScreen(
                                     )
 
                                     Text(
-                                        text = stringResource(R.string.fb_empty_folder),
+                                        text = stringResource(R.string.empty_folder),
                                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(
                                             alpha = 0.9f
                                         ),
@@ -729,7 +726,10 @@ fun FileBrowserScreen(
                             initialColor = MaterialTheme.colorScheme.primaryContainer,
                             finalColor = MaterialTheme.colorScheme.primary
                         ),
-                        onCheckedChange = { fabMenuExpanded = !fabMenuExpanded }
+                        onCheckedChange = {
+                            fabMenuExpanded = !fabMenuExpanded
+                            weakHaptic()
+                        }
                     ) {
                         val imageVector by remember {
                             derivedStateOf {
@@ -754,11 +754,11 @@ fun FileBrowserScreen(
                 // Hide upload when browsing own device (file transfer makes no sense)
                 if (!isOwnDevice) {
                     FloatingActionButtonMenuItem(
-                        onClick = {
+                        onClick = withHaptic(HapticFeedbackType.Confirm) {
                             fabMenuExpanded = false
                             filePickerLauncher.launch("*/*")
                         },
-                        text = { Text("Upload file") },
+                        text = { AutoResizeableText(stringResource(R.string.upload_file)) },
                         icon = { Icon(Icons.Rounded.Upload, contentDescription = null) },
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
                         contentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -766,11 +766,11 @@ fun FileBrowserScreen(
                 }
 
                 FloatingActionButtonMenuItem(
-                    onClick = {
+                    onClick = withHaptic(HapticFeedbackType.Confirm) {
                         fabMenuExpanded = false
                         showCreateFolderDialog = true
                     },
-                    text = { Text("New folder") },
+                    text = { AutoResizeableText(stringResource(R.string.new_folder)) },
                     icon = {
                         Icon(
                             Icons.Rounded.CreateNewFolder,
@@ -911,10 +911,9 @@ private fun FileListItem(
                 else Color.Transparent
             )
             .combinedClickable(
-                onClick = onClick,
+                onClick = withHaptic(HapticFeedbackType.VirtualKey) { onClick() },
                 onLongClick = {
                     if (isSelectionMode) {
-                        // In selection mode, long click toggles selection (same as click)
                         onClick()
                     } else {
                         onLongClick()
@@ -972,7 +971,7 @@ private fun FileListItem(
                 )
             } else {
                 Box {
-                    IconButton(onClick = { showMenu = true }) {
+                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) { showMenu = true }) {
                         Icon(
                             imageVector = Icons.Rounded.MoreVert,
                             contentDescription = "More",
@@ -984,7 +983,6 @@ private fun FileListItem(
                         expanded = showMenu,
                         onDismissRequest = { showMenu = false }
                     ) {
-                        // Hide download when browsing own device
                         if (!file.isDirectory && !hideDownload) {
                             DropdownMenuItem(
                                 text = { Text("Download") },
@@ -994,7 +992,7 @@ private fun FileListItem(
                                         contentDescription = null
                                     )
                                 },
-                                onClick = {
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey){
                                     onDownload()
                                     showMenu = false
                                 }
@@ -1002,53 +1000,53 @@ private fun FileListItem(
                         }
 
                         DropdownMenuItem(
-                            text = { Text("Rename") },
+                            text = { Text(stringResource(R.string.rename)) },
                             leadingIcon = { Icon(Icons.Rounded.Edit, contentDescription = null) },
-                            onClick = {
+                            onClick =withHaptic(HapticFeedbackType.VirtualKey) {
                                 onRename()
                                 showMenu = false
                             }
                         )
 
                         DropdownMenuItem(
-                            text = { Text("Copy") },
+                            text = { Text(stringResource(R.string.copy)) },
                             leadingIcon = {
                                 Icon(
                                     Icons.Rounded.ContentCopy,
                                     contentDescription = null
                                 )
                             },
-                            onClick = {
+                            onClick = withHaptic(HapticFeedbackType.VirtualKey){
                                 onCopy()
                                 showMenu = false
                             }
                         )
 
                         DropdownMenuItem(
-                            text = { Text("Move") },
+                            text = { Text(stringResource(R.string.move)) },
                             leadingIcon = {
                                 Icon(
                                     Icons.AutoMirrored.Rounded.DriveFileMove,
                                     contentDescription = null
                                 )
                             },
-                            onClick = {
+                            onClick =withHaptic(HapticFeedbackType.VirtualKey) {
                                 onMove()
                                 showMenu = false
                             }
                         )
 
                         DropdownMenuItem(
-                            text = { Text("Info") },
+                            text = { Text(stringResource(R.string.info)) },
                             leadingIcon = { Icon(Icons.Rounded.Info, contentDescription = null) },
-                            onClick = {
+                            onClick = withHaptic(HapticFeedbackType.VirtualKey){
                                 onInfo()
                                 showMenu = false
                             }
                         )
 
                         DropdownMenuItem(
-                            text = { Text("Delete") },
+                            text = { Text(stringResource(R.string.delete)) },
                             leadingIcon = {
                                 Icon(
                                     Icons.Rounded.Delete,
@@ -1056,7 +1054,7 @@ private fun FileListItem(
                                     tint = MaterialTheme.colorScheme.error
                                 )
                             },
-                            onClick = {
+                            onClick = withHaptic(HapticFeedbackType.VirtualKey){
                                 onDelete()
                                 showMenu = false
                             }
@@ -1067,8 +1065,6 @@ private fun FileListItem(
         }
     }
 }
-
-// Dialog functions moved to presentation/component/dialog/ for better code organization
 
 private fun getFileIcon(file: RemoteFile): ImageVector {
     return FileIconMapper.getIcon(file)
