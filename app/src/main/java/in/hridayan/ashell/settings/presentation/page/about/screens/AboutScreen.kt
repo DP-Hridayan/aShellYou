@@ -59,7 +59,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 import `in`.hridayan.ashell.core.presentation.viewmodel.GithubDataViewModel
 import `in`.hridayan.ashell.core.utils.openUrl
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.settings.presentation.components.card.SupportMeCard
 import `in`.hridayan.ashell.settings.presentation.components.image.ProfilePic
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
@@ -74,7 +74,7 @@ fun AboutScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     githubDataViewModel: GithubDataViewModel = hiltViewModel()
 ) {
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
     val context = LocalContext.current
     val settings = settingsViewModel.aboutPageList
     val githubRepoStats by githubDataViewModel.stats.collectAsStateWithLifecycle()
@@ -85,7 +85,7 @@ fun AboutScreen(
         settingsViewModel.uiEvent.collect { event ->
             when (event) {
                 is SettingsUiEvent.Navigate -> {
-                    navController.navigate(event.route)
+                    backStack.add(event.route)
                 }
 
                 is SettingsUiEvent.OpenUrl -> {

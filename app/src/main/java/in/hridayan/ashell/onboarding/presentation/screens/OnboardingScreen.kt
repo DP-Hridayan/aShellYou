@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -48,7 +48,7 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
     val pageCount = 3
     val pagerState = rememberPagerState(pageCount = { 3 })
     val coroutineScope = rememberCoroutineScope()
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
 
     BackHandler(enabled = pagerState.currentPage != 0) {
         coroutineScope.launch {
@@ -127,9 +127,9 @@ fun OnboardingScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
                             if (pagerState.currentPage < pageCount - 1) {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             } else {
-                                navController.navigate(NavRoutes.HomeScreen) {
-                                    popUpTo(NavRoutes.OnboardingScreen) { inclusive = true }
-                                }
+                                // Clear back stack and navigate to HomeScreen
+                                backStack.clear()
+                                backStack.add(NavRoutes.HomeScreen)
                                 settingsViewModel.setBoolean(SettingsKeys.FIRST_LAUNCH, false)
                             }
                         }

@@ -12,15 +12,15 @@ import androidx.compose.ui.res.stringResource
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 
 @Composable
 fun BackButton(modifier: Modifier = Modifier) {
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
 
     TooltipContent(stringResource(R.string.back_button)) {
         IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-            navController.popBackStack()
+            if (backStack.size > 1) backStack.removeLast()
         }) {
             Icon(
                 modifier = modifier,

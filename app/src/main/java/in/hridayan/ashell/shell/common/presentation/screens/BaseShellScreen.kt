@@ -134,7 +134,7 @@ import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.core.utils.saveToFileFlow
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -170,7 +170,7 @@ fun BaseShellScreen(
     extraContent: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
     val coroutineScope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
     val listState = rememberLazyListState()
@@ -225,7 +225,7 @@ fun BaseShellScreen(
             }
 
             is ShellState.Free -> {
-                navController.navigate(NavRoutes.CommandExamplesScreen)
+                backStack.add(NavRoutes.CommandExamplesScreen)
             }
         }
     }

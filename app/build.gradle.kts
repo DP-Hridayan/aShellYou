@@ -127,6 +127,8 @@ dependencies {
     implementation(libs.material.icons.extended)
     implementation(libs.datastore.preferences)
     implementation(libs.navigation.compose)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
 
     implementation(libs.room.ktx)
     implementation(libs.androidx.documentfile)

@@ -77,7 +77,7 @@ import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
@@ -106,7 +106,7 @@ fun PairingOtherDeviceScreen(
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
     val dialogManager = LocalDialogManager.current
     val coroutineScope = rememberCoroutineScope()
     val scrollBehavior =
@@ -191,7 +191,7 @@ fun PairingOtherDeviceScreen(
 
     BackHandler {
         coroutineScope.launch(Dispatchers.Default) { viewModel.stopQrPairDiscovery() }
-        navController.popBackStack()
+        backStack.removeLast()
     }
 
     LaunchedEffect(lifecycleOwner) {
@@ -291,7 +291,7 @@ fun PairingOtherDeviceScreen(
                         },
                         onDisconnect = { viewModel.disconnect() },
                         onForget = { device -> viewModel.forgetDevice(device) },
-                        onGoToTerminal = { navController.navigate(NavRoutes.WifiAdbScreen()) }
+                        onGoToTerminal = { backStack.add(NavRoutes.WifiAdbScreen()) }
                     )
 
                     PairingTab.QrPair -> QRPairTab(
@@ -310,7 +310,7 @@ fun PairingOtherDeviceScreen(
             device = currentDevice,
             onGoToTerminal = {
                 it.dismiss()
-                navController.navigate(NavRoutes.WifiAdbScreen())
+                backStack.add(NavRoutes.WifiAdbScreen())
             },
             onDismiss = {
                 it.dismiss()

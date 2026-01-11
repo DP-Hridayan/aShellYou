@@ -77,7 +77,7 @@ import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
@@ -95,7 +95,7 @@ fun PairingOwnDeviceScreen(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val dialogManager = LocalDialogManager.current
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
 
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -278,7 +278,7 @@ fun PairingOwnDeviceScreen(
                                     .fillMaxWidth()
                                     .animateItem(),
                                 shapes = ButtonDefaults.shapes(),
-                                onClick = withHaptic { navController.navigate(NavRoutes.WifiAdbScreen()) }) {
+                                onClick = withHaptic { backStack.add(NavRoutes.WifiAdbScreen()) }) {
                                 AutoResizeableText(text = stringResource(R.string.go_to_terminal))
                             }
                         }

@@ -81,7 +81,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.utils.SnackBarUtils
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -98,14 +98,12 @@ fun CommandExampleCard(
     commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
     val weakHaptic = LocalWeakHaptic.current
     val screenDensity = LocalDensity.current
     val dialogManager = LocalDialogManager.current
     val coroutineScope = rememberCoroutineScope()
-    val prevScreen = navController.previousBackStackEntry
-    val shellViewModel: ShellViewModel =
-        if (prevScreen != null) hiltViewModel(prevScreen) else hiltViewModel()
+    val shellViewModel: ShellViewModel = hiltViewModel()
     val interactionSources = remember { List(3) { MutableInteractionSource() } }
     var isDeleted by rememberSaveable { mutableStateOf(false) }
     val animatedHeight = remember { Animatable(1f) }
@@ -368,7 +366,7 @@ fun CommandExampleCard(
                                 TextFieldValue(text = command)
                             )
                             shellViewModel.updateTextFieldSelection()
-                            navController.popBackStack()
+                            backStack.removeLast()
                             commandExamplesViewModel.incrementUseCount(id)
                         })
                     }

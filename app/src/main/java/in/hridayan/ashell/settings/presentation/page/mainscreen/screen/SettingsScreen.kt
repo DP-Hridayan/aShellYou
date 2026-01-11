@@ -34,7 +34,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
@@ -44,14 +44,14 @@ import `in`.hridayan.ashell.core.presentation.components.lottie.SpinningGearsLot
 
 @Composable
 fun SettingsScreen(modifier: Modifier = Modifier, viewModel: SettingsViewModel = hiltViewModel()) {
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
     val settings = viewModel.settingsPageList
 
     LaunchedEffect(Unit) {
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is SettingsUiEvent.Navigate -> {
-                    navController.navigate(event.route)
+                    backStack.add(event.route)
                 }
 
                 else -> {}

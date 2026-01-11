@@ -29,7 +29,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -49,22 +48,18 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
-import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun CrashDetailsScreen(
     modifier: Modifier = Modifier,
+    crashViewModel: CrashViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val listState = rememberLazyListState()
-    val navController = LocalNavController.current
-    val parentEntry = remember(navController) {
-        navController.getBackStackEntry(NavRoutes.CrashHistoryScreen)
-    }
-    val crashViewModel: CrashViewModel = hiltViewModel(parentEntry)
+    
+    // ViewModel now injected via hiltViewModel() - shared state via the ViewModel singleton
     val crash = crashViewModel.crash.value
     val stacktrace = crash?.stackTrace
     val deviceBrand = crash?.deviceBrand

@@ -62,7 +62,7 @@ import `in`.hridayan.ashell.home.presentation.component.card.RebootOptionsCard
 import `in`.hridayan.ashell.home.presentation.component.card.SystemSettings
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
@@ -83,7 +83,7 @@ fun HomeScreen(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
     val dialogManager = LocalDialogManager.current
     val otgState by otgViewModel.state.collectAsState()
     val savedDevices by wifiAdbViewModel.savedDevices.collectAsState()
@@ -91,7 +91,7 @@ fun HomeScreen(
 
     val onClickOtgAdbCard: () -> Unit = {
         if (otgState is OtgState.Connected) {
-            navController.navigate(NavRoutes.OtgAdbScreen)
+            backStack.add(NavRoutes.OtgAdbScreen)
         } else {
             otgViewModel.startScan()
             dialogManager.show(DialogKey.Home.OtgDeviceWaiting)
@@ -131,14 +131,14 @@ fun HomeScreen(
             ) {
                 AppNameText(modifier = Modifier.weight(1f))
                 SettingsButton(onClick = withHaptic {
-                    navController.navigate(NavRoutes.SettingsScreen)
+                    backStack.add(NavRoutes.SettingsScreen)
                 })
             }
 
             LocalAdbCard(
                 modifier = Modifier.padding(top = 10.dp),
                 onClick = {
-                    navController.navigate(NavRoutes.LocalAdbScreen)
+                    backStack.add(NavRoutes.LocalAdbScreen)
                 }
             )
 
@@ -170,18 +170,18 @@ fun HomeScreen(
             onDismiss = { dialogManager.dismiss() },
             onClickPairSelf = {
                 dialogManager.dismiss()
-                navController.navigate(NavRoutes.PairingOwnDeviceScreen)
+                backStack.add(NavRoutes.PairingOwnDeviceScreen)
             },
             onClickPairAnother = {
                 dialogManager.dismiss()
-                navController.navigate(NavRoutes.PairingOtherDeviceScreen)
+                backStack.add(NavRoutes.PairingOtherDeviceScreen)
             })
 
         DialogKey.Home.OtgDeviceWaiting -> OtgDeviceWaitingDialog(
             onDismiss = { dialogManager.dismiss() },
             onConfirm = {
                 dialogManager.dismiss()
-                navController.navigate(NavRoutes.OtgAdbScreen)
+                backStack.add(NavRoutes.OtgAdbScreen)
                 otgViewModel.startScan()
             }
         )
@@ -194,7 +194,7 @@ fun HomeScreen(
             onDismiss = { showSavedDevicesBottomSheet = false },
             onGoToTerminal = {
                 showSavedDevicesBottomSheet = false
-                navController.navigate(NavRoutes.WifiAdbScreen())
+                backStack.add(NavRoutes.WifiAdbScreen())
             }
         )
     }

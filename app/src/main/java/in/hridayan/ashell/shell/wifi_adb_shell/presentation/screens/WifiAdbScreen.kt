@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
@@ -36,7 +36,7 @@ fun WifiAdbScreen(
     wifiAdbViewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showDeviceDisconnectedDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -81,7 +81,7 @@ fun WifiAdbScreen(
                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                         val deviceAddr = currentDevice?.let { "${it.ip}:${it.port}" } ?: ""
                         val isOwn = currentDevice?.isOwnDevice ?: false
-                        navController.navigate(NavRoutes.FileBrowserScreen(deviceAddr, isOwn))
+                        backStack.add(NavRoutes.FileBrowserScreen(deviceAddr, isOwn))
                     },
                     colors = IconButtonDefaults.iconButtonColors(
                         containerColor = MaterialTheme.colorScheme.secondaryContainer,

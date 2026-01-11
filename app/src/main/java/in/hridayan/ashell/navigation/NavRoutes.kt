@@ -1,66 +1,66 @@
 package `in`.hridayan.ashell.navigation
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 sealed class NavRoutes {
     @Serializable
-    object AboutScreen : NavRoutes()
+    data object AboutScreen : NavRoutes(), NavKey
 
     @Serializable
-    object AutoUpdateScreen : NavRoutes()
+    data object AutoUpdateScreen : NavRoutes(), NavKey
 
     @Serializable
-    object BackupAndRestoreScreen : NavRoutes()
+    data object BackupAndRestoreScreen : NavRoutes(), NavKey
 
     @Serializable
-    object BehaviorScreen : NavRoutes()
+    data object BehaviorScreen : NavRoutes(), NavKey
 
     @Serializable
-    object ChangelogScreen : NavRoutes()
+    data object ChangelogScreen : NavRoutes(), NavKey
 
     @Serializable
-    object CommandExamplesScreen : NavRoutes()
+    data object CommandExamplesScreen : NavRoutes(), NavKey
 
     @Serializable
-    object CrashHistoryScreen : NavRoutes()
+    data object CrashHistoryScreen : NavRoutes(), NavKey
 
     @Serializable
-    object CrashDetailsScreen : NavRoutes()
+    data object CrashDetailsScreen : NavRoutes(), NavKey
 
     @Serializable
-    object DarkThemeScreen : NavRoutes()
+    data object DarkThemeScreen : NavRoutes(), NavKey
 
     @Serializable
-    object HomeScreen : NavRoutes()
+    data object HomeScreen : NavRoutes(), NavKey
 
     @Serializable
-    object LocalAdbScreen : NavRoutes()
+    data object LocalAdbScreen : NavRoutes(), NavKey
 
     @Serializable
-    object LookAndFeelScreen : NavRoutes()
+    data object LookAndFeelScreen : NavRoutes(), NavKey
 
     @Serializable
-    object OnboardingScreen : NavRoutes()
+    data object OnboardingScreen : NavRoutes(), NavKey
 
     @Serializable
-    object OtgAdbScreen : NavRoutes()
+    data object OtgAdbScreen : NavRoutes(), NavKey
 
     @Serializable
-    object PairingOtherDeviceScreen : NavRoutes()
+    data object PairingOtherDeviceScreen : NavRoutes(), NavKey
 
     @Serializable
-    object PairingOwnDeviceScreen : NavRoutes()
+    data object PairingOwnDeviceScreen : NavRoutes(), NavKey
 
     @Serializable
-    object SettingsScreen : NavRoutes()
+    data object SettingsScreen : NavRoutes(), NavKey
 
     @Serializable
-    data class WifiAdbScreen(val deviceName: String? = null) : NavRoutes()
+    data class WifiAdbScreen(val deviceName: String? = null) : NavRoutes(), NavKey
 
     @Serializable
     data class FileBrowserScreen(
         val deviceAddress: String,
         val isOwnDevice: Boolean = false
-    ) : NavRoutes()
-
+    ) : NavRoutes(), NavKey
 }

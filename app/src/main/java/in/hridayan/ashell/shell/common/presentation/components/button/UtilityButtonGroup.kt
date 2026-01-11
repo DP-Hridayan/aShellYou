@@ -42,7 +42,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.tooltip.TooltipContent
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
@@ -58,7 +58,7 @@ fun UtilityButtonGroup(
 ) {
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
     val screenDensity = LocalDensity.current
     val interactionSources = remember { List(5) { MutableInteractionSource() } }
     val askToClean = LocalSettings.current.clearOutputConfirmation
@@ -236,7 +236,7 @@ fun UtilityButtonGroup(
 
             IconButton(
                 onClick = withHaptic {
-                    navController.navigate(NavRoutes.SettingsScreen)
+                    backStack.add(NavRoutes.SettingsScreen)
                 },
                 shapes = IconButtonDefaults.shapes(),
                 colors = IconButtonDefaults.iconButtonColors(

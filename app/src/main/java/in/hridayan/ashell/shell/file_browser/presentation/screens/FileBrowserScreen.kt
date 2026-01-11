@@ -117,7 +117,7 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawDreamer
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
-import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.LocalBackStack
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
@@ -138,7 +138,7 @@ fun FileBrowserScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val navController = LocalNavController.current
+    val backStack = LocalBackStack.current
 
     var showCreateFolderDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -198,7 +198,7 @@ fun FileBrowserScreen(
         when {
             state.isSelectionMode -> viewModel.exitSelectionMode()
             fabMenuExpanded -> fabMenuExpanded = false
-            isAtHome -> navController.popBackStack()
+            isAtHome -> backStack.removeLast()
             else -> viewModel.navigateUp()
         }
     }
@@ -317,7 +317,7 @@ fun FileBrowserScreen(
                         navigationIcon = {
                             IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 if (isAtHome) {
-                                    navController.popBackStack()
+                                    backStack.removeLast()
                                 } else {
                                     viewModel.navigateUp()
                                 }
@@ -330,7 +330,7 @@ fun FileBrowserScreen(
                         },
                         actions = {
                             IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                navController.popBackStack()
+                                backStack.removeLast()
                             }) {
                                 Icon(Icons.Rounded.Home, contentDescription = "Home")
                             }
