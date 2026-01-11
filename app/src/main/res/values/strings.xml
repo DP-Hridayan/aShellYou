@@ -468,6 +468,7 @@
     <string name="fb_invalid_folder_name">Folder name cannot contain /</string>
     <string name="create_folder">Create folder</string>
     <string name="folder_name">Folder name</string>
+    <string name="create">Create</string>
 </resources>
 
 

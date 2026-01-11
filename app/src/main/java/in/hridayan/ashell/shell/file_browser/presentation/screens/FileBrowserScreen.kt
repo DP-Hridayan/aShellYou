@@ -125,8 +125,8 @@ import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.Cre
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.FileConflictDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.FileInfoDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.RenameDialog
+import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserEvent
 import `in`.hridayan.ashell.shell.file_browser.presentation.util.FileIconMapper
-import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileBrowserEvent
 import `in`.hridayan.ashell.shell.file_browser.presentation.viewmodel.FileBrowserViewModel
 import java.io.File
 
@@ -645,14 +645,20 @@ fun FileBrowserScreen(
                                 "copy" -> {
                                     // Route single file through batch for conflict handling
                                     clipboardFile?.let { file ->
-                                        viewModel.copyFileBatch(listOf(file.path), state.currentPath)
+                                        viewModel.copyFileBatch(
+                                            listOf(file.path),
+                                            state.currentPath
+                                        )
                                     }
                                 }
 
                                 "move" -> {
                                     // Route single file through batch for conflict handling
                                     clipboardFile?.let { file ->
-                                        viewModel.moveFileBatch(listOf(file.path), state.currentPath)
+                                        viewModel.moveFileBatch(
+                                            listOf(file.path),
+                                            state.currentPath
+                                        )
                                     }
                                 }
 

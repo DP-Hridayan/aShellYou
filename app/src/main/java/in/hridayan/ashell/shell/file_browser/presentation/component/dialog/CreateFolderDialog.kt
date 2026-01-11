@@ -63,12 +63,12 @@ fun CreateFolderDialog(
                 onClick = { onCreate(folderName.trim()) },
                 enabled = isValidName
             ) {
-                Text("Create")
+                Text(stringResource(R.string.create))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.cancel))
             }
         }
     )

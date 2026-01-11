@@ -11,10 +11,12 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationStatus
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
-import `in`.hridayan.ashell.shell.file_browser.domain.model.PendingPasteOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.PendingPasteItem
+import `in`.hridayan.ashell.shell.file_browser.domain.model.PendingPasteOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
+import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserEvent
+import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
@@ -29,34 +31,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.util.UUID
 import javax.inject.Inject
-
-data class FileBrowserState(
-    val currentPath: String = "/storage/emulated/0",
-    val files: List<RemoteFile> = emptyList(),
-    val isLoading: Boolean = false,
-    val error: String? = null,
-    val selectedFile: RemoteFile? = null,
-    val operations: List<FileOperation> = emptyList(),
-    val isVirtualEmptyFolder: Boolean = false,
-    val lastSuccessfulPath: String = "/storage/emulated/0",
-    // Conflict handling state
-    val pendingConflict: FileConflict? = null,
-    val pendingPasteOperation: PendingPasteOperation? = null,
-    val applyToAllResolution: ConflictResolution? = null,
-    val isPasting: Boolean = false, // True when paste is actively executing
-    // Selection mode
-    val selectedFiles: Set<String> = emptySet(),
-    val isSelectionMode: Boolean = false
-)
-
-sealed class FileBrowserEvent {
-    data class ShowToast(val message: String) : FileBrowserEvent()
-    data class FileDownloaded(val localPath: String) : FileBrowserEvent()
-    data class FileUploaded(val remotePath: String) : FileBrowserEvent()
-    data object FileDeleted : FileBrowserEvent()
-    data object DirectoryCreated : FileBrowserEvent()
-}
-
 
 @HiltViewModel
 class FileBrowserViewModel @Inject constructor(
@@ -420,7 +394,10 @@ class FileBrowserViewModel @Inject constructor(
         val operationId = UUID.randomUUID().toString()
 
         viewModelScope.launch {
-            Log.d(TAG, "copyFile: source=$sourcePath, dest=$destPath, forceOverwrite=$forceOverwrite")
+            Log.d(
+                TAG,
+                "copyFile: source=$sourcePath, dest=$destPath, forceOverwrite=$forceOverwrite"
+            )
             // Check if destination exists (unless forcing overwrite)
             if (!forceOverwrite) {
                 val exists = repository.exists(destPath).getOrNull() ?: false
@@ -474,7 +451,10 @@ class FileBrowserViewModel @Inject constructor(
         val operationId = UUID.randomUUID().toString()
 
         viewModelScope.launch {
-            Log.d(TAG, "moveFile: source=$sourcePath, dest=$destPath, forceOverwrite=$forceOverwrite")
+            Log.d(
+                TAG,
+                "moveFile: source=$sourcePath, dest=$destPath, forceOverwrite=$forceOverwrite"
+            )
             // Check if destination exists (unless forcing overwrite)
             if (!forceOverwrite) {
                 val exists = repository.exists(destPath).getOrNull() ?: false
@@ -522,7 +502,6 @@ class FileBrowserViewModel @Inject constructor(
             )
         }
     }
-
 
 
     fun enterSelectionMode(initialFile: RemoteFile) {
@@ -591,23 +570,23 @@ class FileBrowserViewModel @Inject constructor(
         startPasteOperation(sourcePaths, destDir, OperationType.MOVE)
     }
 
-    private fun startPasteOperation(sourcePaths: List<String>, destDir: String, operationType: OperationType) {
-        Log.d(TAG, "startPasteOperation: sources=$sourcePaths, destDir=$destDir, op=$operationType")
+    private fun startPasteOperation(
+        sourcePaths: List<String>,
+        destDir: String,
+        operationType: OperationType
+    ) {
         viewModelScope.launch {
-            // Build list of pending items - use quick check with fallback
             val items = sourcePaths.map { sourcePath ->
                 val fileName = sourcePath.substringAfterLast("/")
                 val destPath = "$destDir/$fileName"
-                // Try to determine if source is directory, but don't block on failure
-                // If the path has no extension and doesn't contain a dot, likely a directory
+                // Determine if source is directory with quick timeout fallback
                 val isDir = try {
                     kotlinx.coroutines.withTimeoutOrNull(500L) {
                         repository.isDirectory(sourcePath).getOrNull()
                     } ?: !fileName.contains(".")
                 } catch (e: Exception) {
-                    !fileName.contains(".") // Fallback: no extension = likely directory
+                    !fileName.contains(".")
                 }
-                Log.d(TAG, "startPasteOperation: item source=$sourcePath, dest=$destPath, isDir=$isDir")
                 PendingPasteItem(
                     sourcePath = sourcePath,
                     destPath = destPath,
@@ -616,12 +595,10 @@ class FileBrowserViewModel @Inject constructor(
             }
 
             if (items.isEmpty()) {
-                Log.d(TAG, "startPasteOperation: no items to paste")
                 _events.emit(FileBrowserEvent.ShowToast("Nothing to paste"))
                 return@launch
             }
 
-            // Create pending operation and start processing
             val pendingOp = PendingPasteOperation(
                 operationType = operationType,
                 destDir = destDir,
@@ -629,13 +606,11 @@ class FileBrowserViewModel @Inject constructor(
                 currentIndex = 0
             )
 
-            Log.d(TAG, "startPasteOperation: created pendingOp with ${items.size} items")
             _state.value = _state.value.copy(
                 pendingPasteOperation = pendingOp,
-                applyToAllResolution = null // Reset apply-to-all
+                applyToAllResolution = null
             )
 
-            // Process first item
             processNextPasteItem()
         }
     }
@@ -646,47 +621,26 @@ class FileBrowserViewModel @Inject constructor(
      */
     private fun processNextPasteItem() {
         viewModelScope.launch {
-            val pendingOp = _state.value.pendingPasteOperation
-            if (pendingOp == null) {
-                Log.d(TAG, "processNextPasteItem: pendingPasteOperation is NULL - exiting")
-                return@launch
-            }
-            
-            Log.d(TAG, "processNextPasteItem: currentIndex=${pendingOp.currentIndex}, totalItems=${pendingOp.items.size}, isComplete=${pendingOp.isComplete}")
+            val pendingOp = _state.value.pendingPasteOperation ?: return@launch
 
             if (pendingOp.isComplete) {
-                Log.d(TAG, "processNextPasteItem: operation complete - finalizing")
                 finalizePasteOperation()
                 return@launch
             }
 
-            val currentItem = pendingOp.currentItem
-            if (currentItem == null) {
-                Log.d(TAG, "processNextPasteItem: currentItem is NULL - exiting")
-                return@launch
-            }
-            
-            Log.d(TAG, "processNextPasteItem: checking exists for destPath=${currentItem.destPath}")
-            
-            // Use cached file list to check for conflicts - NO ADB CALLS!
-            // The _state.value.files contains the current directory listing
+            val currentItem = pendingOp.currentItem ?: return@launch
+
+            // Use cached file list to check for conflicts (no ADB calls)
             val destFileName = currentItem.destPath.substringAfterLast("/")
             val existingFile = _state.value.files.find { it.name == destFileName }
             val destExists = existingFile != null
             val destIsDir = existingFile?.isDirectory ?: false
-            
-            Log.d(TAG, "processNextPasteItem: cached lookup - exists=$destExists, isDir=$destIsDir")
 
             if (destExists) {
-                Log.d(TAG, "processNextPasteItem: CONFLICT DETECTED for ${currentItem.destPath}")
-                // Check if we have an apply-to-all resolution cached
                 val cachedResolution = _state.value.applyToAllResolution
                 if (cachedResolution != null) {
-                    Log.d(TAG, "processNextPasteItem: using cached resolution: $cachedResolution")
                     executeResolution(cachedResolution, currentItem, pendingOp)
                 } else {
-                    Log.d(TAG, "processNextPasteItem: showing conflict dialog")
-                    // Show conflict dialog using cached data
                     val conflict = FileConflict(
                         sourcePath = currentItem.sourcePath,
                         destPath = currentItem.destPath,
@@ -696,12 +650,9 @@ class FileBrowserViewModel @Inject constructor(
                         fileName = currentItem.sourcePath.substringAfterLast("/"),
                         remainingCount = pendingOp.remainingCount
                     )
-                    Log.d(TAG, "processNextPasteItem: setting pendingConflict=$conflict")
                     _state.value = _state.value.copy(pendingConflict = conflict)
-                    Log.d(TAG, "processNextPasteItem: state.pendingConflict is now ${_state.value.pendingConflict}")
                 }
             } else {
-                Log.d(TAG, "processNextPasteItem: no conflict - executing operation")
                 executeOperation(currentItem, pendingOp)
             }
         }
@@ -713,7 +664,7 @@ class FileBrowserViewModel @Inject constructor(
     private suspend fun executeOperation(item: PendingPasteItem, pendingOp: PendingPasteOperation) {
         // Show loading indicator
         _state.value = _state.value.copy(isPasting = true)
-        
+
         val result = when (pendingOp.operationType) {
             OperationType.COPY -> repository.copy(item.sourcePath, item.destPath)
             OperationType.MOVE -> repository.move(item.sourcePath, item.destPath)
@@ -728,7 +679,11 @@ class FileBrowserViewModel @Inject constructor(
                 )
             },
             onFailure = {
-                Log.e(TAG, "Failed to ${pendingOp.operationType.name.lowercase()} ${item.sourcePath}", it)
+                Log.e(
+                    TAG,
+                    "Failed to ${pendingOp.operationType.name.lowercase()} ${item.sourcePath}",
+                    it
+                )
                 pendingOp.copy(
                     currentIndex = pendingOp.currentIndex + 1,
                     failedCount = pendingOp.failedCount + 1
@@ -743,7 +698,11 @@ class FileBrowserViewModel @Inject constructor(
     /**
      * Execute a conflict resolution for the current item.
      */
-    private suspend fun executeResolution(resolution: ConflictResolution, item: PendingPasteItem, pendingOp: PendingPasteOperation) {
+    private suspend fun executeResolution(
+        resolution: ConflictResolution,
+        item: PendingPasteItem,
+        pendingOp: PendingPasteOperation
+    ) {
         when (resolution) {
             ConflictResolution.SKIP -> {
                 // Skip - just move to next item
@@ -813,7 +772,10 @@ class FileBrowserViewModel @Inject constructor(
      * Merge source directory contents into destination directory.
      * Contents of source are copied/moved into destination without deleting destination.
      */
-    private suspend fun mergeDirectoryContents(item: PendingPasteItem, pendingOp: PendingPasteOperation) {
+    private suspend fun mergeDirectoryContents(
+        item: PendingPasteItem,
+        pendingOp: PendingPasteOperation
+    ) {
         val sourceFiles = repository.listFiles(item.sourcePath).getOrNull() ?: emptyList()
         val filesToMerge = sourceFiles.filterNot { it.isParentDirectory || it.name == ".." }
 
@@ -841,7 +803,7 @@ class FileBrowserViewModel @Inject constructor(
         // Create nested operation - append to current items
         val remainingItems = pendingOp.items.drop(pendingOp.currentIndex + 1)
         val newItems = nestedItems + remainingItems
-        
+
         val newOp = PendingPasteOperation(
             operationType = pendingOp.operationType,
             destDir = item.destPath,
@@ -853,7 +815,7 @@ class FileBrowserViewModel @Inject constructor(
         )
 
         _state.value = _state.value.copy(pendingPasteOperation = newOp)
-        
+
         // If move operation, we'll delete source folder after merge completes
         // For now, just process nested items
         processNextPasteItem()
@@ -868,8 +830,10 @@ class FileBrowserViewModel @Inject constructor(
         val message = when {
             pendingOp.failedCount == 0 && pendingOp.skippedCount == 0 ->
                 "Completed: ${pendingOp.processedCount} items"
+
             pendingOp.failedCount == 0 ->
                 "Completed: ${pendingOp.processedCount} items, ${pendingOp.skippedCount} skipped"
+
             else ->
                 "Completed: ${pendingOp.processedCount} items, ${pendingOp.skippedCount} skipped, ${pendingOp.failedCount} failed"
         }
