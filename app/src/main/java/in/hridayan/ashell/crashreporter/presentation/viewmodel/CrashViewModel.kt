@@ -33,20 +33,6 @@ class CrashViewModel @Inject constructor(
         return crashRepository.getCrashById(id)
     }
 
-    fun addCrash(crash: CrashReport) {
-        viewModelScope.launch {
-            crashRepository.addCrash(crash)
-            loadLatestCrash()
-        }
-    }
-
-    fun clearCrashes() {
-        viewModelScope.launch {
-            crashRepository.clearAllCrashes()
-            _latestCrash.value = null
-        }
-    }
-
     private fun loadLatestCrash() {
         viewModelScope.launch {
             _latestCrash.value = crashRepository.getLatestCrash()

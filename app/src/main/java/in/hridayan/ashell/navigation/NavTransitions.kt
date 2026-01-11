@@ -53,22 +53,22 @@ fun slideFadeOutToLeft(): ExitTransition {
 fun predictiveEnter(): EnterTransition {
     return slideInHorizontally(
         initialOffsetX = { -(it * 0.25f).toInt() },
-        animationSpec = tween(600, easing = FastOutSlowInEasing)
+        animationSpec = tween(350, easing = FastOutSlowInEasing)
     ) + fadeIn(
         initialAlpha = 0.75f,
-        animationSpec = tween(100, delayMillis = 66, easing = LinearEasing)
+        animationSpec = tween(75, delayMillis = 66, easing = LinearEasing)
     ) + scaleIn(
         initialScale = 0.9f,
-        animationSpec = tween(600, delayMillis = 66, easing = LinearEasing)
+        animationSpec = tween(350, delayMillis = 66, easing = LinearEasing)
     )
 }
 
 fun predictiveExit(): ExitTransition {
     return slideOutHorizontally(
         targetOffsetX = { (it) },
-        animationSpec = tween(300, easing = FastOutSlowInEasing)
+        animationSpec = tween(200, easing = FastOutSlowInEasing)
     ) + scaleOut(
         targetScale = 0.9f,
-        animationSpec = tween(150, easing = LinearEasing)
+        animationSpec = tween(250, easing = LinearEasing)
     )
 }

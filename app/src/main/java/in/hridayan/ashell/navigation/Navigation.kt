@@ -67,7 +67,8 @@ fun Navigation(isFirstLaunch: Boolean = false) {
             predictivePopTransitionSpec = {
                 ContentTransform(
                     targetContentEnter = predictiveEnter(),
-                    initialContentExit = predictiveExit()
+                    initialContentExit = predictiveExit(),
+                    targetContentZIndex = 1f
                 )
             },
             entryDecorators = listOf(
