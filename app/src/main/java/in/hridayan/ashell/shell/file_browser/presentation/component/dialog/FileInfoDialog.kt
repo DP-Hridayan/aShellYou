@@ -38,7 +38,7 @@ fun FileInfoDialog(
             else stringResource(R.string.file_info),
         )
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         Column(
             modifier = Modifier.fillMaxWidth(),

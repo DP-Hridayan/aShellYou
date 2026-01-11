@@ -102,6 +102,26 @@ class WifiAdbViewModel @Inject constructor(
         })
     }
 
+    fun reconnectToDeviceWithCallback(
+        device: WifiAdbDevice,
+        onSuccess: () -> Unit,
+        onFailure: (requiresPairing: Boolean) -> Unit
+    ) {
+        wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
+            override fun onReconnectSuccess() {
+                WifiAdbConnection.setCurrentDevice(device)
+                _lastConnectedDevice.value = currentDevice.value
+                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id, device.id))
+                onSuccess()
+            }
+
+            override fun onReconnectFailed(requiresPairing: Boolean) {
+                WifiAdbConnection.setCurrentDevice(null)
+                onFailure(requiresPairing)
+            }
+        })
+    }
+
     fun cancelReconnect() {
         wifiAdbRepository.cancelReconnect()
     }

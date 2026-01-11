@@ -49,14 +49,12 @@ fun RenameDialog(
             text = stringResource(R.string.rename) + " " +
                     if (isDirectory) stringResource(R.string.folder)
                     else stringResource(R.string.file),
-            modifier = Modifier
-                .padding(bottom = Dimens.paddingMedium)
-                .align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
         Spacer(modifier = Modifier
             .fillMaxWidth()
-            .height(30.dp))
+            .height(16.dp))
 
         OutlinedTextField(
             value = newName,
@@ -72,9 +70,7 @@ fun RenameDialog(
 
         @Suppress("DEPRECATION")
         ButtonGroup(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = Dimens.paddingLarge)
+            modifier = Modifier.fillMaxWidth()
         ) {
             OutlinedButton(
                 onClick = withHaptic(HapticFeedbackType.Reject) {

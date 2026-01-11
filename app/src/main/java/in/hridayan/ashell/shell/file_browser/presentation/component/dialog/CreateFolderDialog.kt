@@ -62,15 +62,13 @@ fun CreateFolderDialog(
     ) {
         DialogTitle(
             text = stringResource(R.string.create_folder),
-            modifier = Modifier
-                .padding(bottom = Dimens.paddingMedium)
-                .align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(30.dp)
+                .height(16.dp)
         )
 
         OutlinedTextField(
@@ -84,7 +82,6 @@ fun CreateFolderDialog(
                 when {
                     nameExists -> Text(stringResource(R.string.folder_already_exists))
                     folderName.contains("/") -> Text(stringResource(R.string.invalid_folder_name))
-                    else -> null
                 }
             }
         )
@@ -92,14 +89,12 @@ fun CreateFolderDialog(
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(24.dp)
+                .height(20.dp)
         )
 
         @Suppress("DEPRECATION")
         ButtonGroup(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = Dimens.paddingLarge)
+            modifier = Modifier.fillMaxWidth()
         ) {
             OutlinedButton(
                 onClick = withHaptic(HapticFeedbackType.Reject) {

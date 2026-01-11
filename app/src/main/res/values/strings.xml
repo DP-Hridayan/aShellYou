@@ -456,4 +456,9 @@
     <string name="changelog_v1_0_0">\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
     <string name="changelog_v0_9_1">\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
     <string name="changelog_v0_9_0">\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
+    
+    <!-- Reconnect Dialog -->
+    <string name="no_wifi_connection">No WiFi connection</string>
+    <string name="reconnect_success">Reconnected successfully</string>
+    <string name="reconnect_failed_requires_pairing">Reconnection failed. Re-pairing required.</string>
 </resources>
