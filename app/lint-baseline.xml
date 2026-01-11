@@ -838,62 +838,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_commands_background` appears to be unused">
-        <location
-            file="app"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_commands_foreground` appears to be unused">
-        <location
-            file="app"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_commands_monochrome` appears to be unused">
-        <location
-            file="app"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_commands` appears to be unused">
-        <location
-            file="app"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_settings_background` appears to be unused">
-        <location
-            file="app"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_settings_foreground` appears to be unused">
-        <location
-            file="app"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_settings_monochrome` appears to be unused">
-        <location
-            file="app"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_settings` appears to be unused">
-        <location
-            file="app"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.arrow_back` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
