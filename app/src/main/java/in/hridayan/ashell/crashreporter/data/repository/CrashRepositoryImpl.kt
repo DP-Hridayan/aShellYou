@@ -6,6 +6,7 @@ import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
 import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import javax.inject.Inject
 
 class CrashRepositoryImpl @Inject constructor(private val dao: CrashLogDao) : CrashRepository {
@@ -27,6 +28,10 @@ class CrashRepositoryImpl @Inject constructor(private val dao: CrashLogDao) : Cr
         )
     }
 
+    override fun getCrashById(id: Long): Flow<CrashReport?> {
+        return dao.getCrashById(id)
+    }
+
     override suspend fun getLatestCrash(): CrashReport? {
         return dao.getLatestCrash()
     }
@@ -35,6 +40,7 @@ class CrashRepositoryImpl @Inject constructor(private val dao: CrashLogDao) : Cr
         return dao.getAllCrashes().map { list ->
             list.map { crash ->
                 CrashReport(
+                    id = crash.id,
                     timestamp = crash.timestamp,
                     deviceBrand = crash.deviceBrand,
                     deviceModel = crash.deviceModel,

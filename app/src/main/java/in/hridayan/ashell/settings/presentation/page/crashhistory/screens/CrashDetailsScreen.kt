@@ -5,7 +5,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -29,6 +28,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -39,8 +40,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL
 import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
@@ -50,17 +51,18 @@ import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 
-@SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun CrashDetailsScreen(
     modifier: Modifier = Modifier,
+    crashId: Long,
+    sharedElementKey: String,
     crashViewModel: CrashViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val listState = rememberLazyListState()
-    
-    // ViewModel now injected via hiltViewModel() - shared state via the ViewModel singleton
-    val crash = crashViewModel.crash.value
+
+    val crash by crashViewModel.getCrashById(crashId).collectAsState(initial = null)
+
     val stacktrace = crash?.stackTrace
     val deviceBrand = crash?.deviceBrand
     val deviceModel = crash?.deviceModel
@@ -71,8 +73,7 @@ fun CrashDetailsScreen(
     val packageName = crash?.appPackageName
     val versionName = crash?.appVersionName
     val versionCode = crash?.appVersionCode
-    val sharedElementKey = crashViewModel.sharedElementKey.value
-    val animatedContentScope = LocalAnimatedContentScope.current
+    val animatedContentScope = LocalNavAnimatedContentScope.current
     val sharedTransitionScope = LocalSharedTransitionScope.current
 
     val deviceInfo =

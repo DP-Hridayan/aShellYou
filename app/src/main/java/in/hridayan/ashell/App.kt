@@ -60,6 +60,7 @@ class App : Application() {
         val stackTrace = throwable.stackTraceToString()
 
         val crashReport = CrashReport(
+            id = 0,
             timestamp = timestamp,
             deviceBrand = deviceBrand,
             deviceModel = deviceModel,

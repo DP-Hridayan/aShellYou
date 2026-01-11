@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CrashReport(
+    val id: Long,
     val timestamp: Long,
     val deviceBrand: String,
     val deviceModel: String,

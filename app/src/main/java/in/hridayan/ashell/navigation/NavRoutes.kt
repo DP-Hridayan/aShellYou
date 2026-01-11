@@ -26,7 +26,10 @@ sealed interface NavRoutes : NavKey {
     data object CrashHistoryScreen : NavRoutes, NavKey
 
     @Serializable
-    data object CrashDetailsScreen : NavRoutes, NavKey
+    data class CrashDetailsScreen(
+        val crashId: Long,
+        val sharedElementKey: String
+    ) : NavRoutes, NavKey
 
     @Serializable
     data object DarkThemeScreen : NavRoutes, NavKey

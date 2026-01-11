@@ -8,6 +8,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
 import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
 import jakarta.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -22,19 +25,12 @@ class CrashViewModel @Inject constructor(
     private val _crash = mutableStateOf<CrashReport?>(null)
     val crash: State<CrashReport?> = _crash
 
-    private val _sharedElementKey = mutableStateOf<String>("")
-    val sharedElementKey: State<String> = _sharedElementKey
-
     init {
         loadLatestCrash()
     }
 
-    fun setViewingCrash(crashReport: CrashReport) {
-        _crash.value = crashReport
-    }
-
-    fun setSharedElementKey(key: String) {
-        _sharedElementKey.value = key
+    fun getCrashById(id: Long) : Flow<CrashReport?> {
+        return crashRepository.getCrashById(id)
     }
 
     fun addCrash(crash: CrashReport) {

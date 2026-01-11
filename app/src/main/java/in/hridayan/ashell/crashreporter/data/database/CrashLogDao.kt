@@ -17,6 +17,9 @@ interface CrashLogDao {
     @Query("SELECT * FROM crash_logs ORDER BY timestamp DESC LIMIT 1")
     suspend fun getLatestCrash(): CrashReport?
 
+    @Query("SELECT * FROM crash_logs WHERE id = :id")
+    fun getCrashById(id: Long): Flow<CrashReport?>
+
     @Query("SELECT * FROM crash_logs ORDER BY timestamp DESC")
     fun getAllCrashes(): Flow<List<CrashLogEntity>>
 

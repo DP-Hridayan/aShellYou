@@ -14,7 +14,6 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import `in`.hridayan.ashell.commandexamples.presentation.screens.CommandExamplesScreen
-import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
@@ -40,7 +39,6 @@ fun Navigation(isFirstLaunch: Boolean = false) {
     val startDestination: NavKey =
         if (isFirstLaunch) NavRoutes.OnboardingScreen else NavRoutes.HomeScreen
     val backStack = rememberNavBackStack(startDestination)
-    val sharedTransitionScope = LocalSharedTransitionScope.current
 
     LaunchedEffect(Unit) {
         SharedTextHolder.text?.let {
@@ -48,117 +46,117 @@ fun Navigation(isFirstLaunch: Boolean = false) {
         }
     }
 
-    with(sharedTransitionScope) {
-        CompositionLocalProvider(
-            LocalBackStack provides backStack
-        ) {
-            NavDisplay(
-                backStack = backStack,
-                onBack = { backStack.removeAt(backStack.lastIndex) },
-                transitionSpec = {
-                    ContentTransform(
-                        targetContentEnter = slideFadeInFromRight(),
-                        initialContentExit = slideFadeOutToLeft()
-                    )
-                },
-                popTransitionSpec = {
-                    ContentTransform(
-                        targetContentEnter = slideFadeInFromLeft(),
-                        initialContentExit = slideFadeOutToRight()
-                    )
-                },
-                predictivePopTransitionSpec = {
-                    ContentTransform(
-                        targetContentEnter = predictiveEnter(),
-                        initialContentExit = predictiveExit()
-                    )
-                },
-                entryDecorators = listOf(
-                    rememberSaveableStateHolderNavEntryDecorator(),
-                    rememberViewModelStoreNavEntryDecorator()
-                ),
-                entryProvider = entryProvider {
-                    entry<NavRoutes.OnboardingScreen> {
-                        OnboardingScreen()
-                    }
-
-                    entry<NavRoutes.HomeScreen> {
-                        HomeScreen()
-                    }
-
-                    entry<NavRoutes.SettingsScreen> {
-                        SettingsScreen()
-                    }
-
-                    entry<NavRoutes.LookAndFeelScreen> {
-                        LookAndFeelScreen()
-                    }
-
-                    entry<NavRoutes.DarkThemeScreen> {
-                        DarkThemeScreen()
-                    }
-
-                    entry<NavRoutes.BehaviorScreen> {
-                        BehaviorScreen()
-                    }
-
-                    entry<NavRoutes.AboutScreen> {
-                        AboutScreen()
-                    }
-
-                    entry<NavRoutes.CommandExamplesScreen> {
-                        CommandExamplesScreen()
-                    }
-
-                    entry<NavRoutes.ChangelogScreen> {
-                        ChangelogScreen()
-                    }
-
-                    // Crash screens with shared element transition support
-                    entry<NavRoutes.CrashHistoryScreen> {
-                        CrashHistoryScreen()
-                    }
-
-                    entry<NavRoutes.CrashDetailsScreen> {
-                        CrashDetailsScreen()
-                    }
-
-                    entry<NavRoutes.AutoUpdateScreen> {
-                        AutoUpdateScreen()
-                    }
-
-                    entry<NavRoutes.BackupAndRestoreScreen> {
-                        BackupAndRestoreScreen()
-                    }
-
-                    entry<NavRoutes.LocalAdbScreen> {
-                        LocalAdbScreen()
-                    }
-
-                    entry<NavRoutes.OtgAdbScreen> {
-                        OtgAdbScreen()
-                    }
-
-                    entry<NavRoutes.PairingOwnDeviceScreen> {
-                        PairingOwnDeviceScreen()
-                    }
-
-                    entry<NavRoutes.PairingOtherDeviceScreen> {
-                        PairingOtherDeviceScreen()
-                    }
-
-                    entry<NavRoutes.WifiAdbScreen> {
-                        WifiAdbScreen()
-                    }
-
-                    entry<NavRoutes.FileBrowserScreen> { key ->
-                        FileBrowserScreen(
-                            deviceAddress = key.deviceAddress,
-                            isOwnDevice = key.isOwnDevice
-                        )
-                    }
+    CompositionLocalProvider(
+        LocalBackStack provides backStack
+    ) {
+        NavDisplay(
+            backStack = backStack,
+            onBack = { backStack.removeAt(backStack.lastIndex) },
+            transitionSpec = {
+                ContentTransform(
+                    targetContentEnter = slideFadeInFromRight(),
+                    initialContentExit = slideFadeOutToLeft()
+                )
+            },
+            popTransitionSpec = {
+                ContentTransform(
+                    targetContentEnter = slideFadeInFromLeft(),
+                    initialContentExit = slideFadeOutToRight()
+                )
+            },
+            predictivePopTransitionSpec = {
+                ContentTransform(
+                    targetContentEnter = predictiveEnter(),
+                    initialContentExit = predictiveExit()
+                )
+            },
+            entryDecorators = listOf(
+                rememberSaveableStateHolderNavEntryDecorator(),
+                rememberViewModelStoreNavEntryDecorator()
+            ),
+            entryProvider = entryProvider {
+                entry<NavRoutes.OnboardingScreen> {
+                    OnboardingScreen()
                 }
-            )
-        }
+
+                entry<NavRoutes.HomeScreen> {
+                    HomeScreen()
+                }
+
+                entry<NavRoutes.SettingsScreen> {
+                    SettingsScreen()
+                }
+
+                entry<NavRoutes.LookAndFeelScreen> {
+                    LookAndFeelScreen()
+                }
+
+                entry<NavRoutes.DarkThemeScreen> {
+                    DarkThemeScreen()
+                }
+
+                entry<NavRoutes.BehaviorScreen> {
+                    BehaviorScreen()
+                }
+
+                entry<NavRoutes.AboutScreen> {
+                    AboutScreen()
+                }
+
+                entry<NavRoutes.CommandExamplesScreen> {
+                    CommandExamplesScreen()
+                }
+
+                entry<NavRoutes.ChangelogScreen> {
+                    ChangelogScreen()
+                }
+
+                entry<NavRoutes.CrashHistoryScreen> {
+                    CrashHistoryScreen()
+                }
+
+                entry<NavRoutes.CrashDetailsScreen> {
+                    CrashDetailsScreen(
+                        crashId = it.crashId,
+                        sharedElementKey = it.sharedElementKey
+                    )
+                }
+
+                entry<NavRoutes.AutoUpdateScreen> {
+                    AutoUpdateScreen()
+                }
+
+                entry<NavRoutes.BackupAndRestoreScreen> {
+                    BackupAndRestoreScreen()
+                }
+
+                entry<NavRoutes.LocalAdbScreen> {
+                    LocalAdbScreen()
+                }
+
+                entry<NavRoutes.OtgAdbScreen> {
+                    OtgAdbScreen()
+                }
+
+                entry<NavRoutes.PairingOwnDeviceScreen> {
+                    PairingOwnDeviceScreen()
+                }
+
+                entry<NavRoutes.PairingOtherDeviceScreen> {
+                    PairingOtherDeviceScreen()
+                }
+
+                entry<NavRoutes.WifiAdbScreen> {
+                    WifiAdbScreen()
+                }
+
+                entry<NavRoutes.FileBrowserScreen> { key ->
+                    FileBrowserScreen(
+                        deviceAddress = key.deviceAddress,
+                        isOwnDevice = key.isOwnDevice
+                    )
+                }
+            }
+        )
     }
 }
