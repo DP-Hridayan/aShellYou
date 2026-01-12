@@ -115,13 +115,22 @@ class OtgCommandExecutor @Inject constructor(
      * Wraps OTG AdbStream.read() as an InputStream.
      */
     override fun openReadStream(command: String): FileTransferStream? {
+        Log.d(TAG, "openReadStream called: $command")
         return try {
             if (!isConnected()) {
+                Log.w(TAG, "openReadStream: OTG not connected")
                 return null
             }
             
-            val adbConnection = otgRepository.getAdbConnection() ?: return null
+            val adbConnection = otgRepository.getAdbConnection()
+            if (adbConnection == null) {
+                Log.w(TAG, "openReadStream: getAdbConnection returned null")
+                return null
+            }
+            
+            Log.d(TAG, "openReadStream: Opening stream...")
             val stream = adbConnection.open(command)
+            Log.d(TAG, "openReadStream: Stream opened successfully")
             
             // Create a wrapper InputStream that reads from OTG AdbStream
             val inputStream = OtgInputStream(stream)
@@ -144,13 +153,22 @@ class OtgCommandExecutor @Inject constructor(
      * Wraps OTG AdbStream.write() as an OutputStream.
      */
     override fun openWriteStream(command: String): FileTransferStream? {
+        Log.d(TAG, "openWriteStream called: $command")
         return try {
             if (!isConnected()) {
+                Log.w(TAG, "openWriteStream: OTG not connected")
                 return null
             }
             
-            val adbConnection = otgRepository.getAdbConnection() ?: return null
+            val adbConnection = otgRepository.getAdbConnection()
+            if (adbConnection == null) {
+                Log.w(TAG, "openWriteStream: getAdbConnection returned null")
+                return null
+            }
+            
+            Log.d(TAG, "openWriteStream: Opening stream...")
             val stream = adbConnection.open(command)
+            Log.d(TAG, "openWriteStream: Stream opened successfully")
             
             // Create a wrapper OutputStream that writes to OTG AdbStream
             val outputStream = OtgOutputStream(stream)
@@ -176,58 +194,64 @@ class OtgCommandExecutor @Inject constructor(
 private class OtgInputStream(
     private val adbStream: com.cgutman.adblib.AdbStream
 ) : InputStream() {
+    private val TAG = "OtgInputStream"
     private var buffer: ByteArray? = null
     private var bufferPos = 0
     private var closed = false
+    private var eofReached = false
     
     override fun read(): Int {
-        if (closed) return -1
+        if (closed || eofReached) return -1
         
         // Refill buffer if needed
         if (buffer == null || bufferPos >= buffer!!.size) {
             buffer = try {
-                adbStream.read()
+                val data = adbStream.read()
+                if (data == null || data.isEmpty()) {
+                    eofReached = true
+                    return -1
+                }
+                data
             } catch (e: Exception) {
-                null
-            }
-            bufferPos = 0
-            
-            if (buffer == null || buffer!!.isEmpty()) {
+                Log.d(TAG, "read() exception: ${e.message}")
+                eofReached = true
                 return -1
             }
+            bufferPos = 0
         }
         
         return buffer!![bufferPos++].toInt() and 0xFF
     }
     
     override fun read(b: ByteArray, off: Int, len: Int): Int {
-        if (closed) return -1
+        if (closed || eofReached) return -1
         if (len == 0) return 0
         
-        var totalRead = 0
-        while (totalRead < len) {
-            // Refill buffer if needed
-            if (buffer == null || bufferPos >= buffer!!.size) {
-                buffer = try {
-                    adbStream.read()
-                } catch (e: Exception) {
-                    null
+        // Refill buffer if needed - only do ONE read, don't loop
+        if (buffer == null || bufferPos >= buffer!!.size) {
+            buffer = try {
+                val data = adbStream.read()
+                if (data == null || data.isEmpty()) {
+                    Log.d(TAG, "read(b,off,len) got null/empty data - EOF")
+                    eofReached = true
+                    return -1
                 }
-                bufferPos = 0
-                
-                if (buffer == null || buffer!!.isEmpty()) {
-                    return if (totalRead > 0) totalRead else -1
-                }
+                Log.d(TAG, "read(b,off,len) got ${data.size} bytes")
+                data
+            } catch (e: Exception) {
+                Log.e(TAG, "read(b,off,len) exception: ${e.message}")
+                eofReached = true
+                return -1
             }
-            
-            val remaining = buffer!!.size - bufferPos
-            val toCopy = minOf(remaining, len - totalRead)
-            System.arraycopy(buffer!!, bufferPos, b, off + totalRead, toCopy)
-            bufferPos += toCopy
-            totalRead += toCopy
+            bufferPos = 0
         }
         
-        return totalRead
+        // Return what we have (don't loop for more)
+        val remaining = buffer!!.size - bufferPos
+        val toCopy = minOf(remaining, len)
+        System.arraycopy(buffer!!, bufferPos, b, off, toCopy)
+        bufferPos += toCopy
+        return toCopy
     }
     
     override fun close() {

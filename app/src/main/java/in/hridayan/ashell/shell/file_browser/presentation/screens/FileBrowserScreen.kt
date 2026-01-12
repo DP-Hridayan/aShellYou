@@ -19,6 +19,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.horizontalScroll
@@ -86,6 +87,9 @@ import androidx.compose.material3.ToggleFloatingActionButtonDefaults
 import androidx.compose.material3.ToggleFloatingActionButtonDefaults.animateIcon
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -146,6 +150,8 @@ fun FileBrowserScreen(
     val context = LocalContext.current
     val navController = LocalNavController.current
     val weakHaptic = LocalWeakHaptic.current
+
+    val pullToRefreshState = rememberPullToRefreshState()
 
     var showCreateFolderDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -318,10 +324,11 @@ fun FileBrowserScreen(
                 } else {
                     TopAppBar(
                         title = {
-                            AutoResizeableText(
+                            Text(
                                 text = deviceAddress.ifEmpty { stringResource(R.string.file_browser) },
                                 style = MaterialTheme.typography.titleMedium,
-                                fontFamily = FontFamily.Monospace
+                                fontFamily = FontFamily.Monospace,
+                                modifier = Modifier.basicMarquee()
                             )
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
@@ -375,6 +382,9 @@ fun FileBrowserScreen(
                 )
 
                 Box(modifier = Modifier.fillMaxSize()) {
+                    // Preserve scroll position across state changes
+                    val listState = rememberLazyListState()
+
                     when {
                         state.isLoading || state.isPasting -> {
                             LoadingIndicator(
@@ -413,103 +423,112 @@ fun FileBrowserScreen(
                             val displayFiles = state.files.filterNot { it.isParentDirectory }
                             val isEmpty = state.isVirtualEmptyFolder || displayFiles.isEmpty()
 
-                            val listState = rememberLazyListState()
+                            PullToRefreshBox(
+                                isRefreshing = state.isLoading,
+                                onRefresh = { viewModel.refresh() },
+                                modifier = Modifier.fillMaxSize(),
+                                state = pullToRefreshState,
+                                indicator = { PullToRefreshDefaults.LoadingIndicator(
+                                    state = pullToRefreshState ,
+                                    isRefreshing = state.isLoading
+                                )}
+                            ) {
+                                Box(modifier = Modifier.fillMaxSize()) {
+                                    LazyColumn(
+                                        state = listState,
+                                        modifier = Modifier.fillMaxSize(),
+                                        verticalArrangement = Arrangement.spacedBy(2.dp)
+                                    ) {
+                                        items(displayFiles, key = { it.path }) { file ->
+                                            FileListItem(
+                                                file = file,
+                                                isSelectionMode = state.isSelectionMode,
+                                                isSelected = state.selectedFiles.contains(file.path),
+                                                onClick = {
+                                                    if (state.isSelectionMode) {
+                                                        viewModel.toggleFileSelection(file)
+                                                    } else {
+                                                        viewModel.onFileClick(file)
+                                                    }
+                                                },
+                                                onLongClick = {
+                                                    if (!state.isSelectionMode) {
+                                                        viewModel.enterSelectionMode(file)
+                                                    }
+                                                },
+                                                onDownload = {
+                                                    viewModel.downloadFile(
+                                                        file.path,
+                                                        file.name
+                                                    )
+                                                },
+                                                onDelete = {
+                                                    fileToDelete = file
+                                                    showDeleteDialog = true
+                                                },
+                                                onRename = {
+                                                    fileToRename = file
+                                                    showRenameDialog = true
+                                                },
+                                                onCopy = {
+                                                    clipboardFile = file
+                                                    clipboardOperation = "copy"
+                                                    Toast.makeText(
+                                                        context,
+                                                        "Copied: ${file.name}",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                },
+                                                onMove = {
+                                                    clipboardFile = file
+                                                    clipboardOperation = "move"
+                                                    Toast.makeText(
+                                                        context,
+                                                        "Cut: ${file.name}",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                },
+                                                onInfo = {
+                                                    fileForInfo = file
+                                                    showInfoDialog = true
+                                                },
+                                                hideDownload = isOwnDevice,
+                                                modifier = Modifier.animateItem()
+                                            )
+                                        }
 
-                            Box(modifier = Modifier.fillMaxSize()) {
-                                LazyColumn(
-                                    state = listState,
-                                    modifier = Modifier.fillMaxSize(),
-                                    verticalArrangement = Arrangement.spacedBy(2.dp)
-                                ) {
-                                    items(displayFiles, key = { it.path }) { file ->
-                                        FileListItem(
-                                            file = file,
-                                            isSelectionMode = state.isSelectionMode,
-                                            isSelected = state.selectedFiles.contains(file.path),
-                                            onClick = {
-                                                if (state.isSelectionMode) {
-                                                    viewModel.toggleFileSelection(file)
-                                                } else {
-                                                    viewModel.onFileClick(file)
-                                                }
-                                            },
-                                            onLongClick = {
-                                                if (!state.isSelectionMode) {
-                                                    viewModel.enterSelectionMode(file)
-                                                }
-                                            },
-                                            onDownload = {
-                                                viewModel.downloadFile(
-                                                    file.path,
-                                                    file.name
-                                                )
-                                            },
-                                            onDelete = {
-                                                fileToDelete = file
-                                                showDeleteDialog = true
-                                            },
-                                            onRename = {
-                                                fileToRename = file
-                                                showRenameDialog = true
-                                            },
-                                            onCopy = {
-                                                clipboardFile = file
-                                                clipboardOperation = "copy"
-                                                Toast.makeText(
-                                                    context,
-                                                    "Copied: ${file.name}",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-                                            },
-                                            onMove = {
-                                                clipboardFile = file
-                                                clipboardOperation = "move"
-                                                Toast.makeText(
-                                                    context,
-                                                    "Cut: ${file.name}",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-                                            },
-                                            onInfo = {
-                                                fileForInfo = file
-                                                showInfoDialog = true
-                                            },
-                                            hideDownload = isOwnDevice,
-                                            modifier = Modifier.animateItem()
-                                        )
+                                        item {
+                                            Spacer(modifier = Modifier.height(80.dp))
+                                        }
                                     }
 
-                                    item {
-                                        Spacer(modifier = Modifier.height(80.dp))
-                                    }
-                                }
 
-
-                                if (isEmpty) Column(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .align(Alignment.Center)
-                                        .padding(bottom = 45.dp),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(30.dp)
-                                ) {
-                                    Image(
+                                    if (isEmpty) Column(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(horizontal = 40.dp),
-                                        imageVector = DynamicColorImageVectors.undrawDreamer(),
-                                        contentDescription = null
-                                    )
+                                            .align(Alignment.Center)
+                                            .padding(bottom = 45.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        verticalArrangement = Arrangement.spacedBy(30.dp)
+                                    ) {
+                                        Image(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(horizontal = 40.dp),
+                                            imageVector = DynamicColorImageVectors.undrawDreamer(),
+                                            contentDescription = null
+                                        )
 
-                                    Text(
-                                        text = stringResource(R.string.empty_folder),
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(
-                                            alpha = 0.9f
-                                        ),
-                                        style = MaterialTheme.typography.bodyLarge
-                                    )
-                                }
-                            }
+                                        Text(
+                                            text = stringResource(R.string.empty_folder),
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(
+                                                alpha = 0.9f
+                                            ),
+                                            style = MaterialTheme.typography.bodyLarge
+                                        )
+                                    }
+                                } // End Box
+                            } // End PullToRefreshBox
                         }
                     }
 
