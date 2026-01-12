@@ -804,12 +804,27 @@ private fun OutputCard(
         }
     }
 
-    // Reset scroll state when command finishes
-    LaunchedEffect(states.shellState) {
-        if (states.shellState !is ShellState.Busy) {
+    // Track previous busy state to detect command completion
+    var wasBusy by remember { mutableStateOf(false) }
+
+    // Reset scroll state and scroll to bottom when command finishes
+    LaunchedEffect(states.shellState, combinedOutput.value.size) {
+        val isBusy = states.shellState is ShellState.Busy
+        
+        // When command finishes (was busy, now not)
+        if (wasBusy && !isBusy && combinedOutput.value.isNotEmpty() && !isFullscreen) {
             userScrolledAway = false
             autoScrollResumeJob?.cancel()
+            try {
+                // Delay slightly to let UI settle, then scroll to bottom
+                kotlinx.coroutines.delay(50)
+                listState.animateScrollToItem(combinedOutput.value.lastIndex)
+            } catch (_: Exception) {
+                // Ignore scroll cancellation
+            }
         }
+        
+        wasBusy = isBusy
     }
 
     // Auto-scroll to bottom during live output
