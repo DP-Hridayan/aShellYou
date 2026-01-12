@@ -1727,6 +1727,9 @@ class WifiAdbRepositoryImpl(
     private var onPairingServiceFoundCallback: ((DiscoveredPairingService) -> Unit)? = null
     private var onPairingServiceLostCallback: ((String) -> Unit)? = null
 
+    /**
+     * This function is only to discover the ip and port for Pairing with pairing code
+     */
     override fun startCodePairingDiscovery(
         onPairingServiceFound: (DiscoveredPairingService) -> Unit,
         onPairingServiceLost: (serviceName: String) -> Unit

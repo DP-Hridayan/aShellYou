@@ -99,6 +99,7 @@ private enum class PairingTab(val titleRes: Int) {
     SavedDevices(R.string.saved_devices)
 }
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun PairingOtherDeviceScreen(
     modifier: Modifier = Modifier,
@@ -120,11 +121,10 @@ fun PairingOtherDeviceScreen(
     val tabs = PairingTab.entries
     val pagerState = rememberPagerState(initialPage = 0) { tabs.size }
 
-    // Track if reconnect was manually cancelled (to avoid showing dialog on cancel)
     var wasReconnectCancelled by remember { mutableStateOf(false) }
     var lastReconnectingDeviceId by remember { mutableStateOf<String?>(null) }
+    val pairingCode = remember { String.format("%06d", generatePairingCode()) }
 
-    // Refresh saved devices when pairing or connection succeeds
     LaunchedEffect(wifiAdbState) {
         when (val state = wifiAdbState) {
             is WifiAdbState.ConnectSuccess -> {
@@ -135,15 +135,12 @@ fun PairingOtherDeviceScreen(
             }
 
             is WifiAdbState.Reconnecting -> {
-                // Track which device we're reconnecting to
                 lastReconnectingDeviceId = state.device
                 wasReconnectCancelled = false
             }
 
             is WifiAdbState.ConnectFailed -> {
-                // Only show dialog if reconnect wasn't manually cancelled
                 if (!wasReconnectCancelled) {
-                    // For other devices, don't show Dev Options button
                     val failedDevice = savedDevices.find { it.id == state.device }
                     val showDevOptions = failedDevice?.isOwnDevice == true
                     dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = showDevOptions))
@@ -152,7 +149,6 @@ fun PairingOtherDeviceScreen(
             }
 
             is WifiAdbState.WirelessDebuggingOff -> {
-                // Only show dialog if reconnect wasn't manually cancelled (for own device)
                 if (!wasReconnectCancelled) {
                     dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
                 }
@@ -160,7 +156,6 @@ fun PairingOtherDeviceScreen(
             }
 
             is WifiAdbState.PairConnectFailed -> {
-                // Show pairing connect failed dialog (different from reconnect failed)
                 dialogManager.show(DialogKey.Pair.PairConnectFailed)
             }
 
@@ -296,7 +291,8 @@ fun PairingOtherDeviceScreen(
 
                     PairingTab.QrPair -> QRPairTab(
                         isWifiConnected = isWifiConnected,
-                        wifiAdbState = wifiAdbState
+                        wifiAdbState = wifiAdbState,
+                        pairingCode = pairingCode
                     )
 
                     PairingTab.CodePair -> CodePairTab(isWifiConnected = isWifiConnected)
@@ -327,6 +323,9 @@ fun PairingOtherDeviceScreen(
             onDismiss = {
                 it.dismiss()
                 WifiAdbConnection.updateState(WifiAdbState.None)
+                if (!isWifiConnected) return@ReconnectFailedDialog
+                if (pagerState.currentPage == PairingTab.QrPair.ordinal) viewModel.startQrPairDiscovery(pairingCode)
+                if (pagerState.currentPage == PairingTab.CodePair.ordinal) viewModel.startCodePairingDiscovery()
             }
         )
     }
@@ -467,10 +466,10 @@ fun QRPairTab(
     modifier: Modifier = Modifier,
     isWifiConnected: Boolean,
     wifiAdbState: WifiAdbState,
+    pairingCode: String,
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val sessionId = remember { "ashell_you" }
-    val pairingCode = remember { String.format("%06d", generatePairingCode()) }
     val qrBitmap by viewModel.qrBitmap.collectAsState()
 
     // Start mDNS discovery when WiFi is connected - only re-run if isWifiConnected changes
