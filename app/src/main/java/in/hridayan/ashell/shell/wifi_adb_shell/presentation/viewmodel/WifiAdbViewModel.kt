@@ -112,12 +112,18 @@ class WifiAdbViewModel @Inject constructor(
                 WifiAdbConnection.setCurrentDevice(device)
                 _lastConnectedDevice.value = currentDevice.value
                 WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id, device.id))
-                onSuccess()
+                // Ensure callback runs on main thread for Toast
+                viewModelScope.launch {
+                    onSuccess()
+                }
             }
 
             override fun onReconnectFailed(requiresPairing: Boolean) {
                 WifiAdbConnection.setCurrentDevice(null)
-                onFailure(requiresPairing)
+                // Ensure callback runs on main thread for Toast
+                viewModelScope.launch {
+                    onFailure(requiresPairing)
+                }
             }
         })
     }
