@@ -674,13 +674,39 @@ class WifiAdbRepositoryImpl(
 
     /**
      * Handle cd command and return the command to actually execute.
-     * If it's a cd command, updates currentDir and returns null.
+     * - If it's a pure "cd" command, updates currentDir and returns null.
+     * - If it's a compound command starting with cd (e.g., "cd /data && ls"), 
+     *   updates currentDir and returns the remaining commands.
      */
     private fun handleCdCommand(commandText: String): String? {
         val trimmedCommand = commandText.trim()
 
         if (trimmedCommand.startsWith("cd ") || trimmedCommand == "cd") {
-            val parts = trimmedCommand.split("\\s+".toRegex(), limit = 2)
+            // Check for compound command separators (&& or ;)
+            val andAndIndex = trimmedCommand.indexOf(" && ")
+            val semicolonIndex = trimmedCommand.indexOf("; ")
+            
+            val separatorIndex = when {
+                andAndIndex >= 0 && semicolonIndex >= 0 -> minOf(andAndIndex, semicolonIndex)
+                andAndIndex >= 0 -> andAndIndex
+                semicolonIndex >= 0 -> semicolonIndex
+                else -> -1
+            }
+            
+            val cdPart: String
+            val remainingCommand: String?
+            
+            if (separatorIndex > 0) {
+                cdPart = trimmedCommand.substring(0, separatorIndex).trim()
+                remainingCommand = trimmedCommand.substring(
+                    separatorIndex + if (trimmedCommand.substring(separatorIndex).startsWith(" && ")) 4 else 2
+                ).trim()
+            } else {
+                cdPart = trimmedCommand
+                remainingCommand = null
+            }
+            
+            val parts = cdPart.split("\\s+".toRegex(), limit = 2)
             val targetDir = if (parts.size > 1) parts[1] else "/"
 
             currentDir = when {
@@ -689,17 +715,15 @@ class WifiAdbRepositoryImpl(
                     val parent = currentDir.removeSuffix("/").substringBeforeLast("/", "")
                     if (parent.isEmpty()) "/" else "$parent/"
                 }
-
                 targetDir.startsWith("/") -> {
                     if (targetDir.endsWith("/")) targetDir else "$targetDir/"
                 }
-
                 else -> {
                     val newPath = currentDir + targetDir
                     if (newPath.endsWith("/")) newPath else "$newPath/"
                 }
             }
-            return null
+            return remainingCommand
         }
 
         return trimmedCommand

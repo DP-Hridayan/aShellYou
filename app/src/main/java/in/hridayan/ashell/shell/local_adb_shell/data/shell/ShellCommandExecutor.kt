@@ -21,35 +21,64 @@ class ShellCommandExecutor {
 
     /**
      * Handle cd command and return the command to actually execute.
-     * If it's a cd command, updates currentDir and returns null (no command to run).
-     * Otherwise returns the command prefixed with cd to current directory.
+     * - If it's a pure "cd" command, updates currentDir and returns null.
+     * - If it's a compound command starting with cd (e.g., "cd /data && ls"), 
+     *   updates currentDir and returns the remaining commands.
+     * - Otherwise returns the original command.
      */
     private fun handleCdCommand(commandText: String): String? {
         val trimmedCommand = commandText.trim()
         
+        // Check if this is a cd command (standalone or at start of compound)
         if (trimmedCommand.startsWith("cd ") || trimmedCommand == "cd") {
-            // Parse the cd command
-            val parts = trimmedCommand.split("\\s+".toRegex(), limit = 2)
+            // Check for compound command separators (&& or ;)
+            val andAndIndex = trimmedCommand.indexOf(" && ")
+            val semicolonIndex = trimmedCommand.indexOf("; ")
+            
+            val separatorIndex = when {
+                andAndIndex >= 0 && semicolonIndex >= 0 -> minOf(andAndIndex, semicolonIndex)
+                andAndIndex >= 0 -> andAndIndex
+                semicolonIndex >= 0 -> semicolonIndex
+                else -> -1
+            }
+            
+            val cdPart: String
+            val remainingCommand: String?
+            
+            if (separatorIndex > 0) {
+                // Compound command: extract cd part and remaining
+                cdPart = trimmedCommand.take(separatorIndex).trim()
+                remainingCommand = trimmedCommand.substring(
+                    separatorIndex + if (trimmedCommand.substring(separatorIndex).startsWith(" && ")) 4 else 2
+                ).trim()
+            } else {
+                // Pure cd command
+                cdPart = trimmedCommand
+                remainingCommand = null
+            }
+            
+            // Parse the cd part to get target directory
+            val parts = cdPart.split("\\s+".toRegex(), limit = 2)
             val targetDir = if (parts.size > 1) parts[1] else "/"
             
+            // Update currentDir
             currentDir = when {
                 targetDir == "/" || targetDir == "~" -> "/"
                 targetDir == ".." -> {
-                    // Go up one directory
                     val parent = currentDir.removeSuffix("/").substringBeforeLast("/", "")
                     if (parent.isEmpty()) "/" else "$parent/"
                 }
                 targetDir.startsWith("/") -> {
-                    // Absolute path
                     if (targetDir.endsWith("/")) targetDir else "$targetDir/"
                 }
                 else -> {
-                    // Relative path
                     val newPath = currentDir + targetDir
                     if (newPath.endsWith("/")) newPath else "$newPath/"
                 }
             }
-            return null // cd command handled, nothing else to execute
+            
+            // Return remaining command or null if pure cd
+            return remainingCommand
         }
         
         return trimmedCommand
