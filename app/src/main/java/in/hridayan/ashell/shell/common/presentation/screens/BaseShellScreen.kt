@@ -86,7 +86,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -759,31 +758,68 @@ private fun OutputCard(
     }
 
     // Smart auto-scroll during live output (ShellState.Busy)
-    var userInteracting by remember { mutableStateOf(false) }
-    var lastInteractionTime by remember { mutableLongStateOf(0L) }
+    var userScrolledAway by remember { mutableStateOf(false) }
+    var autoScrollResumeJob by remember { mutableStateOf<kotlinx.coroutines.Job?>(null) }
+    val outputCardScope = rememberCoroutineScope()
 
-    // Detect user interaction
-    LaunchedEffect(listState.isScrollInProgress) {
-        if (listState.isScrollInProgress) {
-            userInteracting = true
-            lastInteractionTime = System.currentTimeMillis()
+    // Check if we're near the bottom (within 3 items)
+    val isNearBottom by remember {
+        derivedStateOf {
+            val layoutInfo = listState.layoutInfo
+            val totalItems = layoutInfo.totalItemsCount
+            val lastVisibleIndex = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+            totalItems == 0 || lastVisibleIndex >= totalItems - 3
         }
     }
 
-    // Resume auto-scroll after 3 seconds of no interaction
-    LaunchedEffect(userInteracting, states.shellState) {
-        if (userInteracting && states.shellState is ShellState.Busy) {
-            while (System.currentTimeMillis() - lastInteractionTime < 3000) {
-                kotlinx.coroutines.delay(500)
+    // Detect user scroll using scroll position changes
+    var lastScrollIndex by remember { mutableIntStateOf(0) }
+
+    LaunchedEffect(Unit) {
+        snapshotFlow {
+            Triple(
+                listState.firstVisibleItemIndex,
+                listState.isScrollInProgress,
+                listState.layoutInfo.totalItemsCount
+            )
+        }.collect { (currentIndex, isScrolling, totalItems) ->
+            if (isScrolling && totalItems > 0) {
+                // User scrolled UP (away from bottom) - pause auto-scroll
+                if (currentIndex < lastScrollIndex && !isNearBottom) {
+                    userScrolledAway = true
+                    // Cancel any existing resume job and start new 3s timer
+                    autoScrollResumeJob?.cancel()
+                    autoScrollResumeJob = outputCardScope.launch {
+                        kotlinx.coroutines.delay(3000)
+                        userScrolledAway = false
+                    }
+                }
+                // User scrolled DOWN to bottom - resume auto-scroll immediately
+                else if (isNearBottom && userScrolledAway) {
+                    autoScrollResumeJob?.cancel()
+                    userScrolledAway = false
+                }
             }
-            userInteracting = false
+            lastScrollIndex = currentIndex
+        }
+    }
+
+    // Reset scroll state when command finishes
+    LaunchedEffect(states.shellState) {
+        if (states.shellState !is ShellState.Busy) {
+            userScrolledAway = false
+            autoScrollResumeJob?.cancel()
         }
     }
 
     // Auto-scroll to bottom during live output
-    LaunchedEffect(combinedOutput.value.size, states.shellState, userInteracting) {
-        if (states.shellState is ShellState.Busy && !userInteracting && combinedOutput.value.isNotEmpty() && !isFullscreen) {
-            listState.scrollToItem(combinedOutput.value.lastIndex)
+    LaunchedEffect(combinedOutput.value.size, states.shellState, userScrolledAway) {
+        if (states.shellState is ShellState.Busy && !userScrolledAway && combinedOutput.value.isNotEmpty() && !isFullscreen) {
+            try {
+                listState.scrollToItem(combinedOutput.value.lastIndex)
+            } catch (_: Exception) {
+                // Ignore scroll cancellation
+            }
         }
     }
 
@@ -994,7 +1030,7 @@ private fun FullscreenOutputOverlay(
     var lastScrollPosition by remember { mutableIntStateOf(0) }
     var autoScrollJob by remember { mutableStateOf<kotlinx.coroutines.Job?>(null) }
     val coroutineScope = rememberCoroutineScope()
-    
+
     // Check if we're near the bottom (within 3 items)
     val isNearBottom by remember {
         derivedStateOf {
@@ -1004,10 +1040,10 @@ private fun FullscreenOutputOverlay(
             totalItems == 0 || lastVisibleIndex >= totalItems - 3
         }
     }
-    
+
     // Detect user scroll using scroll position changes
     LaunchedEffect(Unit) {
-        snapshotFlow { 
+        snapshotFlow {
             Triple(
                 fullscreenListState.firstVisibleItemIndex,
                 fullscreenListState.isScrollInProgress,
@@ -1041,7 +1077,7 @@ private fun FullscreenOutputOverlay(
             }
         }
     }
-    
+
     // When command finishes, always scroll to absolute bottom
     LaunchedEffect(states.shellState) {
         if (states.shellState !is ShellState.Busy && combinedOutput.value.isNotEmpty()) {
