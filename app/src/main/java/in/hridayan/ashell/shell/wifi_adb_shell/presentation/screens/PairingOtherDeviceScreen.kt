@@ -324,13 +324,19 @@ fun PairingOtherDeviceScreen(
         ReconnectFailedDialog(
             showDevOptionsButton = dialogKey?.showDevOptionsButton ?: false,
             onConfirm = { openDeveloperOptions(context) },
-            onDismiss = { it.dismiss() }
+            onDismiss = {
+                it.dismiss()
+                WifiAdbConnection.updateState(WifiAdbState.None)
+            }
         )
     }
 
     DialogKey.Pair.PairConnectFailed.createDialog {
         PairConnectFailedDialog(
-            onDismiss = { it.dismiss() }
+            onDismiss = {
+                it.dismiss()
+                WifiAdbConnection.updateState(WifiAdbState.None)
+            }
         )
     }
 }

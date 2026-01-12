@@ -340,7 +340,10 @@ fun PairingOwnDeviceScreen(
         val dialogKey = (it.activeDialog as? DialogKey.Pair.ReconnectFailed)
         ReconnectFailedDialog(
             showDevOptionsButton = dialogKey?.showDevOptionsButton ?: true,
-            onDismiss = { it.dismiss() },
+            onDismiss = {
+                it.dismiss()
+                WifiAdbConnection.updateState(WifiAdbState.None)
+            },
             onConfirm = { openDeveloperOptions(context) })
     }
 }
