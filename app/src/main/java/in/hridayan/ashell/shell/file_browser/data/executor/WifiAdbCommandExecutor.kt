@@ -42,10 +42,10 @@ class WifiAdbCommandExecutor @Inject constructor(
     
     /**
      * Execute command with timeout (NO RETRY - repository handles retries).
-     * Retry was removed because FileBrowserRepositoryImpl.listFiles already has retry logic.
-     * Having retry in both places caused 3x3=9 attempts with long cumulative delays.
+     * Uses original byte buffer approach with __END__ marker detection.
      */
     override suspend fun executeCommand(command: String): String? = withContext(Dispatchers.IO) {
+        var stream: io.github.muntashirakon.adb.AdbStream? = null
         try {
             val adbManager = getAdbManager()
             
@@ -54,18 +54,29 @@ class WifiAdbCommandExecutor @Inject constructor(
                 return@withContext null
             }
             
-            // Use timeout to prevent infinite hanging
-            withTimeoutOrNull(10000L) {
-                val stream = adbManager.openStream("shell:$command")
-                try {
-                    val inputStream = stream.openInputStream()
-                    inputStream.bufferedReader().use { it.readText() }
-                } finally {
-                    try { stream.close() } catch (_: Exception) {}
+            stream = adbManager.openStream("shell:$command")
+            val inputStream = stream.openInputStream()
+            
+            val buffer = ByteArray(4096)
+            val output = StringBuilder()
+            var bytesRead: Int
+            
+            // Read with timeout - original approach that worked
+            while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                output.append(String(buffer, 0, bytesRead, Charsets.UTF_8))
+                // Check for end marker
+                if (output.contains("__END__")) {
+                    break
                 }
             }
+            
+            try { inputStream.close() } catch (_: Exception) {}
+            try { stream.close() } catch (_: Exception) {}
+            
+            output.toString()
         } catch (e: Exception) {
             Log.e(TAG, "executeCommand failed: $command - ${e.message}")
+            try { stream?.close() } catch (_: Exception) {}
             null
         }
     }

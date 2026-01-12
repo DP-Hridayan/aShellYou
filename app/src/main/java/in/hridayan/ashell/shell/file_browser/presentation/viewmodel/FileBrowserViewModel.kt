@@ -110,30 +110,43 @@ class FileBrowserViewModel @Inject constructor(
         navigationJob = viewModelScope.launch {
             _state.value = _state.value.copy(isLoading = true, error = null)
 
-            repository.listFiles(path).fold(
-                onSuccess = { files ->
-                    // Only add to history if navigating forward (not refresh)
-                    if (addToHistory && path != _state.value.currentPath) {
-                        pathHistory.add(_state.value.currentPath)
+            // For OTG mode, retry up to 2 more times before showing error
+            val maxAttempts = if (isOtgMode) 3 else 1
+            var lastError: Throwable? = null
+            
+            repeat(maxAttempts) { attempt ->
+                repository.listFiles(path).fold(
+                    onSuccess = { files ->
+                        // Only add to history if navigating forward (not refresh)
+                        if (addToHistory && path != _state.value.currentPath) {
+                            pathHistory.add(_state.value.currentPath)
+                        }
+                        _state.value = _state.value.copy(
+                            currentPath = path,
+                            lastSuccessfulPath = path,
+                            files = files,
+                            isLoading = false,
+                            error = null,
+                            isVirtualEmptyFolder = false
+                        )
+                        return@launch // Success - exit
+                    },
+                    onFailure = { error ->
+                        lastError = error
+                        if (isOtgMode && attempt < maxAttempts - 1) {
+                            Log.d(TAG, "OTG loadFiles attempt ${attempt + 1} failed, retrying...")
+                            kotlinx.coroutines.delay(500)
+                        }
                     }
-                    _state.value = _state.value.copy(
-                        currentPath = path,
-                        lastSuccessfulPath = path,
-                        files = files,
-                        isLoading = false,
-                        error = null,
-                        isVirtualEmptyFolder = false
-                    )
-                },
-                onFailure = { error ->
-                    // Keep current state, just show error
-                    _state.value = _state.value.copy(
-                        isLoading = false,
-                        error = error.message ?: "Failed to load files"
-                    )
-                    _events.emit(FileBrowserEvent.ShowToast("Error: ${error.message}"))
-                }
+                )
+            }
+            
+            // All attempts failed - show error
+            _state.value = _state.value.copy(
+                isLoading = false,
+                error = lastError?.message ?: "Failed to load files"
             )
+            _events.emit(FileBrowserEvent.ShowToast("Error: ${lastError?.message}"))
         }
     }
 
