@@ -16,8 +16,8 @@ import javax.inject.Singleton
  * OTG ADB command executor.
  * Uses OtgRepository's AdbConnection for transport.
  * 
- * Uses shell-based file transfers with improved buffering and base64 encoding
- * for reliable binary file transfers.
+ * File transfers use shell:cat commands with buffered reads/writes,
+ * similar to WiFi ADB but adapted for cgutman's adblib AdbStream.
  */
 @Singleton
 class OtgCommandExecutor @Inject constructor(
@@ -31,165 +31,9 @@ class OtgCommandExecutor @Inject constructor(
     }
     
     /**
-     * OTG supports progress-aware transfers via base64.
+     * OTG does NOT use sync transfer - uses stream-based like WiFi.
      */
-    override fun supportsSyncTransfer(): Boolean = true
-    
-    /**
-     * Pull file using base64 encoding for safe binary transfer.
-     * This is more reliable than raw cat for binary files over OTG.
-     */
-    override fun pullFileWithProgress(
-        remotePath: String,
-        totalSize: Long,
-        onProgress: (Long, Long) -> Unit
-    ): InputStream? {
-        Log.d(TAG, "pullFileWithProgress: $remotePath (size: $totalSize)")
-        return try {
-            if (!isConnected()) {
-                Log.w(TAG, "pullFileWithProgress: OTG not connected")
-                return null
-            }
-            
-            val adbConnection = otgRepository.getAdbConnection()
-            if (adbConnection == null) {
-                Log.w(TAG, "pullFileWithProgress: getAdbConnection returned null")
-                return null
-            }
-            
-            val escapedPath = remotePath.replace("'", "'\\''")
-            // Use base64 encoding for safe binary transfer
-            val command = "base64 '$escapedPath'"
-            
-            Log.d(TAG, "pullFileWithProgress: Executing base64 read command")
-            
-            val stream = adbConnection.open("shell:$command")
-            
-            // Read all base64 data with timeout
-            val base64Data = StringBuilder()
-            var bytesRead = 0L
-            var lastProgressUpdate = 0L
-            
-            try {
-                while (true) {
-                    val data = stream.read()
-                    if (data == null || data.isEmpty()) break
-                    
-                    val text = String(data, Charsets.UTF_8)
-                    base64Data.append(text)
-                    bytesRead += data.size
-                    
-                    // Report progress based on expected base64 size (roughly 4/3 of original)
-                    val estimatedOriginalBytes = (bytesRead * 3 / 4)
-                    if (estimatedOriginalBytes - lastProgressUpdate >= 65536) {
-                        onProgress(estimatedOriginalBytes, totalSize)
-                        lastProgressUpdate = estimatedOriginalBytes
-                    }
-                }
-            } finally {
-                try { stream.close() } catch (_: Exception) {}
-            }
-            
-            // Decode base64 to binary
-            val base64String = base64Data.toString()
-                .replace("\r", "")
-                .replace("\n", "")
-                .trim()
-            
-            if (base64String.isEmpty()) {
-                Log.e(TAG, "pullFileWithProgress: Empty base64 data")
-                return null
-            }
-            
-            Log.d(TAG, "pullFileWithProgress: Decoding ${base64String.length} base64 chars")
-            
-            val binaryData = try {
-                android.util.Base64.decode(base64String, android.util.Base64.DEFAULT)
-            } catch (e: Exception) {
-                Log.e(TAG, "pullFileWithProgress: Base64 decode failed", e)
-                return null
-            }
-            
-            Log.d(TAG, "pullFileWithProgress: Decoded ${binaryData.size} bytes")
-            onProgress(binaryData.size.toLong(), totalSize)
-            
-            ByteArrayInputStream(binaryData)
-        } catch (e: Exception) {
-            Log.e(TAG, "pullFileWithProgress failed for $remotePath", e)
-            null
-        }
-    }
-    
-    /**
-     * Push file using base64 encoding for safe binary transfer.
-     */
-    override fun pushFileWithProgress(
-        remotePath: String,
-        data: ByteArray,
-        onProgress: (Long, Long) -> Unit
-    ): Boolean {
-        Log.d(TAG, "pushFileWithProgress: $remotePath (size: ${data.size})")
-        return try {
-            if (!isConnected()) {
-                Log.w(TAG, "pushFileWithProgress: OTG not connected")
-                return false
-            }
-            
-            val adbConnection = otgRepository.getAdbConnection()
-            if (adbConnection == null) {
-                Log.w(TAG, "pushFileWithProgress: getAdbConnection returned null")
-                return false
-            }
-            
-            val escapedPath = remotePath.replace("'", "'\\''")
-            
-            // Encode to base64
-            val base64String = android.util.Base64.encodeToString(data, android.util.Base64.NO_WRAP)
-            Log.d(TAG, "pushFileWithProgress: Encoded to ${base64String.length} base64 chars")
-            
-            // Write via echo and base64 decode
-            // Split into chunks to avoid command line length limits
-            val chunkSize = 32768 // 32KB chunks of base64 data
-            val totalChunks = (base64String.length + chunkSize - 1) / chunkSize
-            
-            // First chunk creates the file
-            var offset = 0
-            var chunkNum = 0
-            
-            while (offset < base64String.length) {
-                val endOffset = minOf(offset + chunkSize, base64String.length)
-                val chunk = base64String.substring(offset, endOffset)
-                
-                val operator = if (offset == 0) ">" else ">>"
-                val command = "echo -n '$chunk' | base64 -d $operator '$escapedPath'"
-                
-                val stream = adbConnection.open("shell:$command")
-                try {
-                    // Wait for command to complete by reading any output
-                    while (true) {
-                        val response = stream.read() ?: break
-                        if (response.isEmpty()) break
-                    }
-                } finally {
-                    try { stream.close() } catch (_: Exception) {}
-                }
-                
-                offset = endOffset
-                chunkNum++
-                
-                // Report progress
-                val bytesWritten = (offset.toLong() * data.size / base64String.length)
-                onProgress(bytesWritten, data.size.toLong())
-            }
-            
-            Log.d(TAG, "pushFileWithProgress: Wrote $totalChunks chunks successfully")
-            onProgress(data.size.toLong(), data.size.toLong())
-            true
-        } catch (e: Exception) {
-            Log.e(TAG, "pushFileWithProgress failed for $remotePath", e)
-            false
-        }
-    }
+    override fun supportsSyncTransfer(): Boolean = false
     
     /**
      * Execute command using OTG AdbConnection.
@@ -264,7 +108,7 @@ class OtgCommandExecutor @Inject constructor(
     
     /**
      * Open a read stream for downloading files via OTG.
-     * Falls back to non-progress version.
+     * Uses shell:cat like WiFi, but wraps AdbStream.read() in a proper InputStream.
      */
     override fun openReadStream(command: String): FileTransferStream? {
         Log.d(TAG, "openReadStream called: $command")
@@ -280,24 +124,20 @@ class OtgCommandExecutor @Inject constructor(
                 return null
             }
             
-            // Extract path from command
-            val remotePath = extractPathFromCatCommand(command)
-            if (remotePath == null) {
-                Log.e(TAG, "Could not extract path from command: $command")
-                return null
-            }
+            Log.d(TAG, "openReadStream: Opening stream...")
+            val adbStream = adbConnection.open(command)
+            Log.d(TAG, "openReadStream: Stream opened successfully")
             
-            // Use pullFileWithProgress but without progress callback
-            val inputStream = pullFileWithProgress(remotePath, 0) { _, _ -> }
-            
-            if (inputStream == null) {
-                Log.e(TAG, "Failed to pull file: $remotePath")
-                return null
-            }
+            // Create a wrapper InputStream that reads from OTG AdbStream
+            val inputStream = OtgInputStream(adbStream)
             
             FileTransferStream(
                 inputStream = inputStream,
-                close = { try { inputStream.close() } catch (_: Exception) {} }
+                close = {
+                    Log.d(TAG, "openReadStream: Closing stream")
+                    try { inputStream.close() } catch (_: Exception) {}
+                    try { adbStream.close() } catch (_: Exception) {}
+                }
             )
         } catch (e: Exception) {
             Log.e(TAG, "Error opening read stream: $command", e)
@@ -307,6 +147,7 @@ class OtgCommandExecutor @Inject constructor(
     
     /**
      * Open a write stream for uploading files via OTG.
+     * Uses shell:cat > file, wraps AdbStream.write() in a proper OutputStream.
      */
     override fun openWriteStream(command: String): FileTransferStream? {
         Log.d(TAG, "openWriteStream called: $command")
@@ -322,82 +163,203 @@ class OtgCommandExecutor @Inject constructor(
                 return null
             }
             
-            val remotePath = extractPathFromCatWriteCommand(command)
-            if (remotePath == null) {
-                Log.e(TAG, "Could not extract path from write command: $command")
-                return null
-            }
+            Log.d(TAG, "openWriteStream: Opening stream...")
+            val adbStream = adbConnection.open(command)
+            Log.d(TAG, "openWriteStream: Stream opened successfully")
             
-            val outputStream = OtgBufferedOutputStream(this, remotePath)
+            // Create a wrapper OutputStream that writes to OTG AdbStream
+            val outputStream = OtgOutputStream(adbStream)
             
             FileTransferStream(
                 outputStream = outputStream,
-                close = { try { outputStream.close() } catch (_: Exception) {} }
+                close = {
+                    Log.d(TAG, "openWriteStream: Closing stream (flushing ${outputStream.pendingBytes()} bytes)")
+                    try { outputStream.flush() } catch (e: Exception) {
+                        Log.e(TAG, "Error flushing on close", e)
+                    }
+                    try { outputStream.close() } catch (_: Exception) {}
+                    try { adbStream.close() } catch (_: Exception) {}
+                    Log.d(TAG, "openWriteStream: Stream closed")
+                }
             )
         } catch (e: Exception) {
             Log.e(TAG, "Error opening write stream: $command", e)
             null
         }
     }
+}
+
+/**
+ * InputStream wrapper for OTG AdbStream.
+ * Buffers data from AdbStream.read() which returns byte arrays.
+ */
+private class OtgInputStream(
+    private val adbStream: com.cgutman.adblib.AdbStream
+) : InputStream() {
     
-    private fun extractPathFromCatCommand(command: String): String? {
-        val patterns = listOf(
-            Regex("""shell:cat\s+'([^']+)'"""),
-            Regex("""shell:cat\s+"([^"]+)""""),
-            Regex("""shell:cat\s+(\S+)""")
-        )
-        for (pattern in patterns) {
-            val match = pattern.find(command)
-            if (match != null) return match.groupValues[1].replace("\\'", "'")
+    private val TAG = "OtgInputStream"
+    private var buffer: ByteArray? = null
+    private var bufferPos = 0
+    private var closed = false
+    private var eofReached = false
+    private var totalBytesRead = 0L
+    
+    override fun read(): Int {
+        if (closed || eofReached) return -1
+        
+        // Refill buffer if needed
+        if (buffer == null || bufferPos >= buffer!!.size) {
+            if (!refillBuffer()) return -1
         }
-        return null
+        
+        return buffer!![bufferPos++].toInt() and 0xFF
     }
     
-    private fun extractPathFromCatWriteCommand(command: String): String? {
-        val patterns = listOf(
-            Regex("""shell:cat\s*>\s*'([^']+)'"""),
-            Regex("""shell:cat\s*>\s*"([^"]+)""""),
-            Regex("""shell:cat\s*>\s*(\S+)""")
-        )
-        for (pattern in patterns) {
-            val match = pattern.find(command)
-            if (match != null) return match.groupValues[1].replace("\\'", "'")
+    override fun read(b: ByteArray, off: Int, len: Int): Int {
+        if (closed || eofReached) return -1
+        if (len == 0) return 0
+        
+        var totalRead = 0
+        
+        while (totalRead < len) {
+            // Refill buffer if needed
+            if (buffer == null || bufferPos >= buffer!!.size) {
+                if (!refillBuffer()) break
+            }
+            
+            // Copy from buffer
+            val available = buffer!!.size - bufferPos
+            val toCopy = minOf(available, len - totalRead)
+            System.arraycopy(buffer!!, bufferPos, b, off + totalRead, toCopy)
+            bufferPos += toCopy
+            totalRead += toCopy
         }
-        return null
+        
+        return if (totalRead > 0) totalRead else -1
+    }
+    
+    private fun refillBuffer(): Boolean {
+        if (eofReached) return false
+        
+        try {
+            val data = adbStream.read()
+            if (data == null || data.isEmpty()) {
+                eofReached = true
+                Log.d(TAG, "EOF reached after $totalBytesRead bytes")
+                return false
+            }
+            buffer = data
+            bufferPos = 0
+            totalBytesRead += data.size
+            return true
+        } catch (e: java.io.IOException) {
+            // Stream closed is normal EOF
+            Log.d(TAG, "IOException (EOF): ${e.message}, total read: $totalBytesRead")
+            eofReached = true
+            return false
+        } catch (e: Exception) {
+            Log.w(TAG, "Read exception: ${e.message}, total read: $totalBytesRead")
+            eofReached = true
+            return false
+        }
+    }
+    
+    override fun available(): Int {
+        return if (buffer != null && bufferPos < buffer!!.size) {
+            buffer!!.size - bufferPos
+        } else {
+            0
+        }
+    }
+    
+    override fun close() {
+        closed = true
+        Log.d(TAG, "Closed after reading $totalBytesRead bytes")
     }
 }
 
 /**
- * OutputStream that buffers data and uploads via base64 when closed.
+ * OutputStream wrapper for OTG AdbStream.
+ * Writes directly to ADB stream for each chunk.
  */
-private class OtgBufferedOutputStream(
-    private val executor: OtgCommandExecutor,
-    private val remotePath: String
+private class OtgOutputStream(
+    private val adbStream: com.cgutman.adblib.AdbStream
 ) : OutputStream() {
     
-    private val buffer = ByteArrayOutputStream()
+    private val TAG = "OtgOutputStream"
+    private val pendingData = ByteArrayOutputStream()
     private var closed = false
+    private var totalBytesWritten = 0L
+    
+    // ADB max payload is around 64KB, but we use smaller chunks for safety
+    private val maxChunkSize = 4096  // 4KB chunks for reliability
+    
+    fun pendingBytes(): Int = pendingData.size()
     
     override fun write(b: Int) {
         if (closed) throw java.io.IOException("Stream closed")
-        buffer.write(b)
+        pendingData.write(b)
+        // Flush when we have enough data
+        if (pendingData.size() >= maxChunkSize) {
+            flushInternal()
+        }
     }
     
     override fun write(b: ByteArray, off: Int, len: Int) {
         if (closed) throw java.io.IOException("Stream closed")
-        if (len > 0) buffer.write(b, off, len)
+        if (len == 0) return
+        
+        Log.d(TAG, "write() called with $len bytes")
+        pendingData.write(b, off, len)
+        
+        // Flush when we have enough data
+        while (pendingData.size() >= maxChunkSize) {
+            flushInternal()
+        }
     }
     
-    override fun flush() {}
+    private fun flushInternal() {
+        if (pendingData.size() == 0) return
+        
+        val data = pendingData.toByteArray()
+        val toWrite = minOf(data.size, maxChunkSize)
+        
+        Log.d(TAG, "flushInternal: writing $toWrite bytes to ADB stream")
+        
+        try {
+            adbStream.write(data.copyOf(toWrite))
+            totalBytesWritten += toWrite
+            Log.d(TAG, "Successfully wrote $toWrite bytes, total: $totalBytesWritten")
+            
+            // Keep remaining data
+            pendingData.reset()
+            if (toWrite < data.size) {
+                pendingData.write(data, toWrite, data.size - toWrite)
+            }
+        } catch (e: InterruptedException) {
+            Log.e(TAG, "Write interrupted after $totalBytesWritten bytes", e)
+            throw java.io.IOException("Write interrupted", e)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error writing to ADB stream after $totalBytesWritten bytes", e)
+            throw java.io.IOException("Failed to write to ADB stream: ${e.message}", e)
+        }
+    }
+    
+    override fun flush() {
+        if (closed) return
+        Log.d(TAG, "flush() called, pending: ${pendingData.size()} bytes")
+        
+        // Write all remaining data
+        while (pendingData.size() > 0) {
+            flushInternal()
+        }
+    }
     
     override fun close() {
         if (closed) return
+        Log.d(TAG, "close() called, pending: ${pendingData.size()} bytes, total written: $totalBytesWritten")
+        flush()
         closed = true
-        
-        val data = buffer.toByteArray()
-        val success = executor.pushFileWithProgress(remotePath, data) { _, _ -> }
-        if (!success) {
-            throw java.io.IOException("Failed to upload file")
-        }
+        Log.d(TAG, "Stream closed after writing $totalBytesWritten bytes total")
     }
 }

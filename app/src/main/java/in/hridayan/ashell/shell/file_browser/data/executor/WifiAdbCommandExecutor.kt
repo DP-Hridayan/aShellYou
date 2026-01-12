@@ -22,7 +22,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class WifiAdbCommandExecutor @Inject constructor(
-    @ApplicationContext private val context: Context
+    @param:ApplicationContext private val context: Context
 ) : AdbCommandExecutor {
     
     private val TAG = "WifiAdbExecutor"
