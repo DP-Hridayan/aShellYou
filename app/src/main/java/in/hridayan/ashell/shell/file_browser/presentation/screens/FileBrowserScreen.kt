@@ -58,8 +58,9 @@ import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Upload
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonGroup
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -75,6 +76,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
@@ -123,6 +125,7 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.CreateFolderDialog
+import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.DeleteFileDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.FileConflictDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.FileInfoDialog
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.dialog.RenameDialog
@@ -309,7 +312,7 @@ fun FileBrowserScreen(
                     TopAppBar(
                         title = {
                             AutoResizeableText(
-                                text = deviceAddress.ifEmpty { "File Browser" },
+                                text = deviceAddress.ifEmpty { stringResource(R.string.file_browser)},
                                 style = MaterialTheme.typography.titleMedium,
                                 fontFamily = FontFamily.Monospace
                             )
@@ -500,12 +503,13 @@ fun FileBrowserScreen(
                                     )
                                 }
                             }
-
                         }
                     }
 
                     // Progress dialog overlay
                     if (state.operations.isNotEmpty() && !isProgressMinimized) {
+                        val interactionSources = remember { List(2) { MutableInteractionSource() } }
+
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -522,29 +526,59 @@ fun FileBrowserScreen(
                             ) {
                                 Column(modifier = Modifier.padding(24.dp)) {
                                     Text(
-                                        text = "Operations",
+                                        text = stringResource(R.string.operations),
                                         style = MaterialTheme.typography.titleMedium
                                     )
+
                                     Spacer(modifier = Modifier.height(16.dp))
+
                                     state.operations.forEach { operation ->
                                         OperationItem(
                                             operation = operation,
                                             onCancel = { viewModel.cancelOperation(operation.id) }
                                         )
+
                                         Spacer(modifier = Modifier.height(8.dp))
                                     }
+
                                     Spacer(modifier = Modifier.height(8.dp))
-                                    Row(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceBetween
+
+                                    @Suppress("DEPRECATION")
+                                    ButtonGroup(
+                                        modifier = Modifier.fillMaxWidth()
                                     ) {
-                                        TextButton(onClick = { isProgressMinimized = true }) {
-                                            Text("Minimize")
+                                        OutlinedButton(
+                                            onClick = withHaptic(HapticFeedbackType.Reject) {
+                                                isProgressMinimized = true
+                                            },
+                                            shapes = ButtonDefaults.shapes(),
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .animateWidth(interactionSources[0]),
+                                            interactionSource = interactionSources[0],
+                                        ) {
+                                            AutoResizeableText(
+                                                text = stringResource(R.string.minimize),
+                                                style = MaterialTheme.typography.labelLarge
+                                            )
                                         }
-                                        TextButton(onClick = { viewModel.cancelAllOperations() }) {
-                                            Text(
-                                                "Cancel all",
-                                                color = MaterialTheme.colorScheme.error
+
+                                        Button(
+                                            onClick = withHaptic(HapticFeedbackType.Confirm) {
+                                                viewModel.cancelAllOperations()
+                                            },
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .animateWidth(interactionSources[1]),
+                                            interactionSource = interactionSources[1],
+                                            shapes = ButtonDefaults.shapes(),
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = MaterialTheme.colorScheme.error,
+                                                contentColor = MaterialTheme.colorScheme.onError
+                                            )
+                                        ) {
+                                            AutoResizeableText(
+                                                text = stringResource(R.string.cancel_all),
                                             )
                                         }
                                     }
@@ -687,7 +721,7 @@ fun FileBrowserScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 16.dp + dockHeight, end = 16.dp, top = 16.dp),
-            horizontalAlignment = Alignment.End,
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             // Minimized progress indicator
@@ -800,46 +834,33 @@ fun FileBrowserScreen(
         val isSelectionDelete = state.isSelectionMode && state.selectedFiles.isNotEmpty()
         val deleteCount = if (isSelectionDelete) state.selectedFiles.size else 1
         val deleteTitle = if (isSelectionDelete) {
-            "Delete $deleteCount items?"
+            stringResource(R.string.delete_items_title, deleteCount)
         } else {
-            "Delete ${if (fileToDelete?.isDirectory == true) "folder" else "file"}?"
+            if (fileToDelete?.isDirectory == true) stringResource(R.string.delete_folder)
+            else stringResource(R.string.delete_file)
         }
-        val deleteText = if (isSelectionDelete) {
-            "Are you sure you want to delete $deleteCount selected items?"
+        val deleteMessage = if (isSelectionDelete) {
+            stringResource(R.string.delete_items_message, deleteCount)
         } else {
-            "Are you sure you want to delete \"${fileToDelete?.name}\"?"
+            stringResource(R.string.delete_message, fileToDelete?.name ?: "")
         }
 
-        AlertDialog(
-            onDismissRequest = {
+        DeleteFileDialog(
+            onDismiss = {
                 showDeleteDialog = false
                 fileToDelete = null
             },
-            title = { Text(deleteTitle) },
-            text = { Text(deleteText) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        if (isSelectionDelete) {
-                            viewModel.deleteSelectedFiles()
-                        } else {
-                            fileToDelete?.let { viewModel.deleteFile(it.path) }
-                        }
-                        showDeleteDialog = false
-                        fileToDelete = null
-                    }
-                ) {
-                    Text("Delete", color = MaterialTheme.colorScheme.error)
+            onDelete = {
+                if (isSelectionDelete) {
+                    viewModel.deleteSelectedFiles()
+                } else {
+                    fileToDelete?.let { viewModel.deleteFile(it.path) }
                 }
+                showDeleteDialog = false
+                fileToDelete = null
             },
-            dismissButton = {
-                TextButton(onClick = {
-                    showDeleteDialog = false
-                    fileToDelete = null
-                }) {
-                    Text("Cancel")
-                }
-            }
+            title = deleteTitle,
+            message = deleteMessage
         )
     }
 
@@ -887,6 +908,7 @@ fun FileBrowserScreen(
 
 @Composable
 private fun FileListItem(
+    modifier: Modifier = Modifier,
     file: RemoteFile,
     isSelectionMode: Boolean,
     isSelected: Boolean,
@@ -898,8 +920,7 @@ private fun FileListItem(
     onCopy: () -> Unit,
     onMove: () -> Unit,
     onInfo: () -> Unit,
-    hideDownload: Boolean = false,
-    modifier: Modifier = Modifier
+    hideDownload: Boolean = false
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
@@ -971,7 +992,9 @@ private fun FileListItem(
                 )
             } else {
                 Box {
-                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) { showMenu = true }) {
+                    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                        showMenu = true
+                    }) {
                         Icon(
                             imageVector = Icons.Rounded.MoreVert,
                             contentDescription = "More",
@@ -992,7 +1015,7 @@ private fun FileListItem(
                                         contentDescription = null
                                     )
                                 },
-                                onClick = withHaptic(HapticFeedbackType.VirtualKey){
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                     onDownload()
                                     showMenu = false
                                 }
@@ -1002,7 +1025,7 @@ private fun FileListItem(
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.rename)) },
                             leadingIcon = { Icon(Icons.Rounded.Edit, contentDescription = null) },
-                            onClick =withHaptic(HapticFeedbackType.VirtualKey) {
+                            onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 onRename()
                                 showMenu = false
                             }
@@ -1016,7 +1039,7 @@ private fun FileListItem(
                                     contentDescription = null
                                 )
                             },
-                            onClick = withHaptic(HapticFeedbackType.VirtualKey){
+                            onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 onCopy()
                                 showMenu = false
                             }
@@ -1030,7 +1053,7 @@ private fun FileListItem(
                                     contentDescription = null
                                 )
                             },
-                            onClick =withHaptic(HapticFeedbackType.VirtualKey) {
+                            onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 onMove()
                                 showMenu = false
                             }
@@ -1039,7 +1062,7 @@ private fun FileListItem(
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.info)) },
                             leadingIcon = { Icon(Icons.Rounded.Info, contentDescription = null) },
-                            onClick = withHaptic(HapticFeedbackType.VirtualKey){
+                            onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 onInfo()
                                 showMenu = false
                             }
@@ -1054,7 +1077,7 @@ private fun FileListItem(
                                     tint = MaterialTheme.colorScheme.error
                                 )
                             },
-                            onClick = withHaptic(HapticFeedbackType.VirtualKey){
+                            onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                 onDelete()
                                 showMenu = false
                             }
