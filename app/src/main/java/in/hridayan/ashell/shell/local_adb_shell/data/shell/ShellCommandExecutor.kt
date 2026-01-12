@@ -17,35 +17,95 @@ import java.io.InterruptedIOException
 class ShellCommandExecutor {
     private var currentProcess: Process? = null
     private var shizukuProcess: ShizukuRemoteProcess? = null
-    private var currentDir = "/"
+    private var currentDir = "/storage/emulated/0/"
+
+    /**
+     * Handle cd command and return the command to actually execute.
+     * If it's a cd command, updates currentDir and returns null (no command to run).
+     * Otherwise returns the command prefixed with cd to current directory.
+     */
+    private fun handleCdCommand(commandText: String): String? {
+        val trimmedCommand = commandText.trim()
+        
+        if (trimmedCommand.startsWith("cd ") || trimmedCommand == "cd") {
+            // Parse the cd command
+            val parts = trimmedCommand.split("\\s+".toRegex(), limit = 2)
+            val targetDir = if (parts.size > 1) parts[1] else "/"
+            
+            currentDir = when {
+                targetDir == "/" || targetDir == "~" -> "/"
+                targetDir == ".." -> {
+                    // Go up one directory
+                    val parent = currentDir.removeSuffix("/").substringBeforeLast("/", "")
+                    if (parent.isEmpty()) "/" else "$parent/"
+                }
+                targetDir.startsWith("/") -> {
+                    // Absolute path
+                    if (targetDir.endsWith("/")) targetDir else "$targetDir/"
+                }
+                else -> {
+                    // Relative path
+                    val newPath = currentDir + targetDir
+                    if (newPath.endsWith("/")) newPath else "$newPath/"
+                }
+            }
+            return null // cd command handled, nothing else to execute
+        }
+        
+        return trimmedCommand
+    }
+
+    /**
+     * Build the actual command to run, prefixed with cd if not in root.
+     */
+    private fun buildCommand(commandText: String): String {
+        return if (currentDir != "/") {
+            "cd '$currentDir' && $commandText"
+        } else {
+            commandText
+        }
+    }
 
     fun runBasic(commandText: String, context: Context): Flow<OutputLine> = flow {
-        val process = Runtime.getRuntime().exec(arrayOf("sh", "-c", commandText))
-
+        val actualCommand = handleCdCommand(commandText)
+        
+        if (actualCommand == null) {
+            // Was a cd command - emit success message
+            emit(OutputLine("Changed directory to: $currentDir", isError = false))
+            return@flow
+        }
+        
+        val fullCommand = buildCommand(actualCommand)
+        val process = Runtime.getRuntime().exec(arrayOf("sh", "-c", fullCommand))
         emitAll(exec(process))
     }.flowOn(Dispatchers.IO)
 
     fun runRoot(commandText: String): Flow<OutputLine> = flow {
-        val process = Runtime.getRuntime().exec(arrayOf("su", "-c", commandText))
+        val actualCommand = handleCdCommand(commandText)
+        
+        if (actualCommand == null) {
+            // Was a cd command - emit success message
+            emit(OutputLine("Changed directory to: $currentDir", isError = false))
+            return@flow
+        }
+        
+        val fullCommand = buildCommand(actualCommand)
+        val process = Runtime.getRuntime().exec(arrayOf("su", "-c", fullCommand))
         emitAll(exec(process))
     }.flowOn(Dispatchers.IO)
 
     @Suppress("DEPRECATION")
     fun runShizuku(commandText: String): Flow<OutputLine> = flow {
-        if (commandText.startsWith("cd ")) {
-            val parts = commandText.trim().split("\\s+".toRegex())
-            var dir = parts.last()
-            dir = when {
-                dir == "/" -> "/"
-                dir.startsWith("/") -> dir
-                else -> currentDir + dir
-            }
-            if (!dir.endsWith("/")) dir += "/"
-            currentDir = dir
+        val actualCommand = handleCdCommand(commandText)
+        
+        if (actualCommand == null) {
+            // Was a cd command - emit success message
+            emit(OutputLine("Changed directory to: $currentDir", isError = false))
+            return@flow
         }
 
         shizukuProcess = Shizuku.newProcess(
-            arrayOf("sh", "-c", commandText),
+            arrayOf("sh", "-c", actualCommand),
             null,
             currentDir
         )

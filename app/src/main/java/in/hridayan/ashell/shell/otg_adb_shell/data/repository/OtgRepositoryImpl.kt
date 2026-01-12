@@ -230,8 +230,60 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         return null
     }
 
+    private var currentDir = "/storage/emulated/0/"
+
+    /**
+     * Handle cd command and return the command to actually execute.
+     * If it's a cd command, updates currentDir and returns null.
+     */
+    private fun handleCdCommand(commandText: String): String? {
+        val trimmedCommand = commandText.trim()
+        
+        if (trimmedCommand.startsWith("cd ") || trimmedCommand == "cd") {
+            val parts = trimmedCommand.split("\\s+".toRegex(), limit = 2)
+            val targetDir = if (parts.size > 1) parts[1] else "/"
+            
+            currentDir = when {
+                targetDir == "/" || targetDir == "~" -> "/"
+                targetDir == ".." -> {
+                    val parent = currentDir.removeSuffix("/").substringBeforeLast("/", "")
+                    if (parent.isEmpty()) "/" else "$parent/"
+                }
+                targetDir.startsWith("/") -> {
+                    if (targetDir.endsWith("/")) targetDir else "$targetDir/"
+                }
+                else -> {
+                    val newPath = currentDir + targetDir
+                    if (newPath.endsWith("/")) newPath else "$newPath/"
+                }
+            }
+            return null
+        }
+        
+        return trimmedCommand
+    }
+
+    /**
+     * Build command with cd prefix if not in root.
+     */
+    private fun buildOtgCommand(commandText: String): String {
+        return if (currentDir != "/") {
+            "cd '$currentDir' && $commandText"
+        } else {
+            commandText
+        }
+    }
+
     override fun runOtgCommand(command: String): Flow<OutputLine> = flow {
-        val cmd = sanitizeCommand(command)
+        val sanitized = sanitizeCommand(command)
+        val actualCommand = handleCdCommand(sanitized)
+        
+        if (actualCommand == null) {
+            emit(OutputLine("Changed directory to: $currentDir", isError = false))
+            return@flow
+        }
+        
+        val fullCommand = buildOtgCommand(actualCommand)
 
         val connection = adbConnection ?: run {
             emit(OutputLine("No OTG ADB connection", isError = true))
@@ -239,7 +291,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         }
 
         try {
-            adbStream = connection.open("shell:$cmd")
+            adbStream = connection.open("shell:$fullCommand")
 
             val buffer = StringBuilder()
 

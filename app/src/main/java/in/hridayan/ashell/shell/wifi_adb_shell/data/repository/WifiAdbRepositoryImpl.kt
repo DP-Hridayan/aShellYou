@@ -670,7 +670,61 @@ class WifiAdbRepositoryImpl(
     @Volatile
     private var isAborted = false
 
+    private var currentDir = "/storage/emulated/0/"
+
+    /**
+     * Handle cd command and return the command to actually execute.
+     * If it's a cd command, updates currentDir and returns null.
+     */
+    private fun handleCdCommand(commandText: String): String? {
+        val trimmedCommand = commandText.trim()
+
+        if (trimmedCommand.startsWith("cd ") || trimmedCommand == "cd") {
+            val parts = trimmedCommand.split("\\s+".toRegex(), limit = 2)
+            val targetDir = if (parts.size > 1) parts[1] else "/"
+
+            currentDir = when {
+                targetDir == "/" || targetDir == "~" -> "/"
+                targetDir == ".." -> {
+                    val parent = currentDir.removeSuffix("/").substringBeforeLast("/", "")
+                    if (parent.isEmpty()) "/" else "$parent/"
+                }
+
+                targetDir.startsWith("/") -> {
+                    if (targetDir.endsWith("/")) targetDir else "$targetDir/"
+                }
+
+                else -> {
+                    val newPath = currentDir + targetDir
+                    if (newPath.endsWith("/")) newPath else "$newPath/"
+                }
+            }
+            return null
+        }
+
+        return trimmedCommand
+    }
+
+    /**
+     * Build command with cd prefix if not in root.
+     */
+    private fun buildWifiAdbCommand(commandText: String): String {
+        return if (currentDir != "/") {
+            "cd '$currentDir' && $commandText"
+        } else {
+            commandText
+        }
+    }
+
     override fun execute(commandText: String): Flow<OutputLine> = flow {
+        val actualCommand = handleCdCommand(commandText)
+
+        if (actualCommand == null) {
+            emit(OutputLine("Changed directory to: $currentDir", isError = false))
+            return@flow
+        }
+
+        val fullCommand = buildWifiAdbCommand(actualCommand)
         val manager = AdbConnectionManager.getInstance(context)
 
         if (!manager.isConnected) {
@@ -687,7 +741,7 @@ class WifiAdbRepositoryImpl(
                 // Ignore
             }
 
-            adbShellStream = manager.openStream("shell:$commandText")
+            adbShellStream = manager.openStream("shell:$fullCommand")
 
             val input = adbShellStream!!.openInputStream()
             val reader = BufferedReader(InputStreamReader(input, StandardCharsets.UTF_8))
