@@ -43,6 +43,42 @@ interface AdbCommandExecutor {
      * @return FileTransferStream with write capability
      */
     fun openWriteStream(command: String): FileTransferStream?
+    
+    /**
+     * Pull (download) a file using sync protocol with progress reporting.
+     * This is more reliable than shell-based cat for binary files.
+     * 
+     * @param remotePath Path to file on remote device
+     * @param totalSize Known file size for progress reporting (0 if unknown)
+     * @param onProgress Callback for progress updates (bytesReceived, totalSize)
+     * @return InputStream with file data, or null on error
+     */
+    fun pullFileWithProgress(
+        remotePath: String,
+        totalSize: Long,
+        onProgress: (Long, Long) -> Unit
+    ): InputStream? = null  // Default: not supported, repository falls back to openReadStream
+    
+    /**
+     * Push (upload) a file using sync protocol with progress reporting.
+     * This is more reliable than shell-based cat for binary files.
+     * 
+     * @param remotePath Path where file should be saved on remote device
+     * @param data File data to upload
+     * @param onProgress Callback for progress updates (bytesWritten, totalSize)
+     * @return true on success, false on failure
+     */
+    fun pushFileWithProgress(
+        remotePath: String,
+        data: ByteArray,
+        onProgress: (Long, Long) -> Unit
+    ): Boolean = false  // Default: not supported, repository falls back to openWriteStream
+    
+    /**
+     * Whether this executor supports sync-based file transfers with progress.
+     * If true, repository should use pullFileWithProgress/pushFileWithProgress.
+     */
+    fun supportsSyncTransfer(): Boolean = false
 }
 
 /**

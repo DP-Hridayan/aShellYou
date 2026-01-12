@@ -428,10 +428,13 @@ fun FileBrowserScreen(
                                 onRefresh = { viewModel.refresh() },
                                 modifier = Modifier.fillMaxSize(),
                                 state = pullToRefreshState,
-                                indicator = { PullToRefreshDefaults.LoadingIndicator(
-                                    state = pullToRefreshState ,
-                                    isRefreshing = state.isLoading
-                                )}
+                                indicator = {
+                                    PullToRefreshDefaults.LoadingIndicator(
+                                        state = pullToRefreshState,
+                                        isRefreshing = state.isLoading,
+                                        modifier = Modifier.align(Alignment.TopCenter)
+                                    )
+                                }
                             ) {
                                 Box(modifier = Modifier.fillMaxSize()) {
                                     LazyColumn(

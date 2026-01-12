@@ -264,36 +264,73 @@ class FileBrowserRepositoryImpl @Inject constructor(
             val localFile = File(localPath)
             localFile.parentFile?.mkdirs()
 
-            // Use executor's openReadStream for both WiFi and OTG
-            val transferStream = executor.openReadStream("shell:cat '$escapedPath'")
-            if (transferStream?.inputStream == null) {
-                emit(FileOperationResult.Error("Failed to open stream for download"))
-                return@flow
-            }
-            
-            val inputStream = transferStream.inputStream
-            val outputStream = localFile.outputStream().buffered(65536)
-
-            var bytesRead: Long = 0
-            val buffer = ByteArray(65536) // 64KB buffer
-            var len: Int
-            var lastProgressUpdate = 0L
-
-            while (inputStream.read(buffer).also { len = it } != -1) {
-                outputStream.write(buffer, 0, len)
-                bytesRead += len
-                // Only emit progress every 256KB to reduce overhead
-                if (bytesRead - lastProgressUpdate >= 262144 || bytesRead == totalSize) {
-                    emit(FileOperationResult.Progress(bytesRead, totalSize))
-                    lastProgressUpdate = bytesRead
+            // Use sync-based transfer with progress for OTG (more reliable)
+            if (executor.supportsSyncTransfer()) {
+                Log.d(TAG, "Using sync transfer for pull: $remotePath")
+                
+                val inputStream = executor.pullFileWithProgress(remotePath, totalSize) { bytesReceived, total ->
+                    // Progress is reported via callback during sync transfer
                 }
+                
+                if (inputStream == null) {
+                    emit(FileOperationResult.Error("Failed to open sync stream for download"))
+                    return@flow
+                }
+                
+                // Write to local file and report progress
+                val outputStream = localFile.outputStream().buffered(65536)
+                var bytesWritten: Long = 0
+                val buffer = ByteArray(65536)
+                var len: Int
+                var lastProgressUpdate = 0L
+                
+                while (inputStream.read(buffer).also { len = it } != -1) {
+                    outputStream.write(buffer, 0, len)
+                    bytesWritten += len
+                    // Emit progress while writing to local file
+                    if (bytesWritten - lastProgressUpdate >= 65536 || bytesWritten >= totalSize) {
+                        emit(FileOperationResult.Progress(bytesWritten, totalSize))
+                        lastProgressUpdate = bytesWritten
+                    }
+                }
+                
+                outputStream.flush()
+                outputStream.close()
+                inputStream.close()
+                
+                emit(FileOperationResult.Success("File downloaded successfully"))
+            } else {
+                // Use stream-based transfer for WiFi ADB (existing logic)
+                val transferStream = executor.openReadStream("shell:cat '$escapedPath'")
+                if (transferStream?.inputStream == null) {
+                    emit(FileOperationResult.Error("Failed to open stream for download"))
+                    return@flow
+                }
+                
+                val inputStream = transferStream.inputStream
+                val outputStream = localFile.outputStream().buffered(65536)
+    
+                var bytesRead: Long = 0
+                val buffer = ByteArray(65536) // 64KB buffer
+                var len: Int
+                var lastProgressUpdate = 0L
+    
+                while (inputStream.read(buffer).also { len = it } != -1) {
+                    outputStream.write(buffer, 0, len)
+                    bytesRead += len
+                    // Only emit progress every 256KB to reduce overhead
+                    if (bytesRead - lastProgressUpdate >= 262144 || bytesRead == totalSize) {
+                        emit(FileOperationResult.Progress(bytesRead, totalSize))
+                        lastProgressUpdate = bytesRead
+                    }
+                }
+    
+                outputStream.flush()
+                outputStream.close()
+                transferStream.close()
+    
+                emit(FileOperationResult.Success("File downloaded successfully"))
             }
-
-            outputStream.flush()
-            outputStream.close()
-            transferStream.close()
-
-            emit(FileOperationResult.Success("File downloaded successfully"))
         } catch (e: Exception) {
             Log.e(TAG, "Error pulling file $remotePath", e)
             emit(FileOperationResult.Error(e.message ?: "Failed to download file"))
@@ -311,37 +348,60 @@ class FileBrowserRepositoryImpl @Inject constructor(
             val totalSize = localFile.length()
             emit(FileOperationResult.Progress(0, totalSize))
 
-            val escapedPath = remotePath.replace("'", "'\\''")
-
-            // Use executor's openWriteStream for both WiFi and OTG
-            val transferStream = executor.openWriteStream("shell:cat > '$escapedPath'")
-            if (transferStream?.outputStream == null) {
-                emit(FileOperationResult.Error("Failed to open stream for upload"))
-                return@flow
-            }
-
-            val inputStream = localFile.inputStream().buffered(65536)
-            val outputStream = transferStream.outputStream
-
-            var bytesWritten: Long = 0
-            val buffer = ByteArray(65536) // 64KB buffer
-            var len: Int
-            var lastProgressUpdate = 0L
-
-            while (inputStream.read(buffer).also { len = it } != -1) {
-                outputStream.write(buffer, 0, len)
-                bytesWritten += len
-                // Only emit progress every 256KB to reduce overhead
-                if (bytesWritten - lastProgressUpdate >= 262144 || bytesWritten == totalSize) {
-                    emit(FileOperationResult.Progress(bytesWritten, totalSize))
-                    lastProgressUpdate = bytesWritten
+            // Use sync-based transfer with progress for OTG (more reliable)
+            if (executor.supportsSyncTransfer()) {
+                Log.d(TAG, "Using sync transfer for push: $remotePath")
+                
+                // Read entire file into memory for sync transfer
+                // Note: For very large files, this could be optimized to stream
+                val fileData = localFile.readBytes()
+                var lastEmittedProgress = 0L
+                
+                val success = executor.pushFileWithProgress(remotePath, fileData) { bytesSent, total ->
+                    // Emit progress during sync send
+                    if (bytesSent - lastEmittedProgress >= 65536 || bytesSent >= total) {
+                        lastEmittedProgress = bytesSent
+                    }
                 }
+                
+                if (success) {
+                    emit(FileOperationResult.Progress(totalSize, totalSize))
+                    emit(FileOperationResult.Success("File uploaded successfully"))
+                } else {
+                    emit(FileOperationResult.Error("Sync transfer failed"))
+                }
+            } else {
+                // Use stream-based transfer for WiFi ADB (existing logic)
+                val escapedPath = remotePath.replace("'", "'\\''")
+                val transferStream = executor.openWriteStream("shell:cat > '$escapedPath'")
+                if (transferStream?.outputStream == null) {
+                    emit(FileOperationResult.Error("Failed to open stream for upload"))
+                    return@flow
+                }
+    
+                val inputStream = localFile.inputStream().buffered(65536)
+                val outputStream = transferStream.outputStream
+    
+                var bytesWritten: Long = 0
+                val buffer = ByteArray(65536) // 64KB buffer
+                var len: Int
+                var lastProgressUpdate = 0L
+    
+                while (inputStream.read(buffer).also { len = it } != -1) {
+                    outputStream.write(buffer, 0, len)
+                    bytesWritten += len
+                    // Only emit progress every 256KB to reduce overhead
+                    if (bytesWritten - lastProgressUpdate >= 262144 || bytesWritten == totalSize) {
+                        emit(FileOperationResult.Progress(bytesWritten, totalSize))
+                        lastProgressUpdate = bytesWritten
+                    }
+                }
+    
+                inputStream.close()
+                transferStream.close()
+    
+                emit(FileOperationResult.Success("File uploaded successfully"))
             }
-
-            inputStream.close()
-            transferStream.close()
-
-            emit(FileOperationResult.Success("File uploaded successfully"))
         } catch (e: Exception) {
             Log.e(TAG, "Error pushing file to $remotePath", e)
             emit(FileOperationResult.Error(e.message ?: "Failed to upload file"))
