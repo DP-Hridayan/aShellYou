@@ -188,6 +188,11 @@ fun FileBrowserScreen(
             }
         }
     }
+    
+    // Set connection mode based on navigation parameter (WiFi ADB or OTG)
+    LaunchedEffect(deviceAddress) {
+        viewModel.setConnectionMode(deviceAddress)
+    }
 
     val isAtHome = state.currentPath == "/storage/emulated/0"
     var fabMenuExpanded by rememberSaveable { mutableStateOf(false) }

@@ -393,4 +393,9 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         }
         return false
     }
+    
+    // File browser support methods
+    override fun isConnected(): Boolean = adbConnection != null
+    
+    override fun getAdbConnection(): AdbConnection? = adbConnection
 }

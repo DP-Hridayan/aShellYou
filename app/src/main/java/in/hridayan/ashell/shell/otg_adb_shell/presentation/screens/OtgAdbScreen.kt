@@ -1,5 +1,13 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens
 
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -7,11 +15,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
@@ -25,11 +40,14 @@ fun OtgAdbScreen(
     otgViewModel: OtgViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val navController = LocalNavController.current
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showOtgDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
     var connectedDevice by rememberSaveable { mutableStateOf(context.getString(R.string.none)) }
     val otgState by otgViewModel.state.collectAsState()
     val modeButtonText = stringResource(R.string.otg)
+    
+    val isConnected = otgState is OtgState.Connected
 
     /**
      * Do not bother why we need this [disconnected] variable.
@@ -77,7 +95,26 @@ fun OtgAdbScreen(
     BaseShellScreen(
         modeButtonText = modeButtonText,
         modeButtonOnClick = modeButtonOnClick,
-        runCommandIfPermissionGranted = runCommandIfPermissionGranted
+        runCommandIfPermissionGranted = runCommandIfPermissionGranted,
+        extraButtonContent = if (isConnected) {
+            {
+                IconButton(
+                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                        navController.navigate(NavRoutes.FileBrowserScreen("otg", false))
+                    },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    )
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_directory),
+                        contentDescription = stringResource(R.string.file_browser),
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
+            }
+        } else null
     )
 
     if (showConnectedDeviceDialog) {

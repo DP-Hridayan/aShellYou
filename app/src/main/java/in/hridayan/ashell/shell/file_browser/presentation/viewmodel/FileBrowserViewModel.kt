@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.shell.file_browser.data.executor.OtgCommandExecutor
+import `in`.hridayan.ashell.shell.file_browser.data.repository.FileBrowserRepositoryImpl
 import `in`.hridayan.ashell.shell.file_browser.domain.model.ConflictResolution
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileConflict
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
@@ -35,7 +37,8 @@ import javax.inject.Inject
 @HiltViewModel
 class FileBrowserViewModel @Inject constructor(
     private val repository: FileBrowserRepository,
-    private val wifiAdbRepository: WifiAdbRepository
+    private val wifiAdbRepository: WifiAdbRepository,
+    private val otgExecutor: OtgCommandExecutor
 ) : ViewModel() {
 
     companion object {
@@ -52,6 +55,7 @@ class FileBrowserViewModel @Inject constructor(
     private var navigationJob: Job? = null
     private val operationJobs = mutableMapOf<String, Job>()
     private var lastConnectedDevice: WifiAdbDevice? = null
+    private var isOtgMode = false
 
     init {
         lastConnectedDevice = wifiAdbRepository.getCurrentDevice()
@@ -60,7 +64,31 @@ class FileBrowserViewModel @Inject constructor(
             "Init: captured device = ${lastConnectedDevice?.deviceName} at ${lastConnectedDevice?.ip}:${lastConnectedDevice?.port}"
         )
 
-        // Start at internal storage (more reliable than /sdcard symlink)
+        // Don't auto-load files in init - wait for setConnectionMode to be called
+    }
+    
+    /**
+     * Set the connection mode based on navigation parameter.
+     * Called from FileBrowserScreen on init.
+     * @param deviceAddress Pass "otg" for OTG mode, anything else for WiFi ADB
+     */
+    fun setConnectionMode(deviceAddress: String) {
+        isOtgMode = deviceAddress == "otg"
+        
+        // Cast to impl to access setExecutor (safe since we know the DI provides impl)
+        val repoImpl = repository as? FileBrowserRepositoryImpl
+        
+        if (isOtgMode) {
+            Log.d(TAG, "Setting connection mode: OTG")
+            repoImpl?.setExecutor(otgExecutor)
+        } else {
+            Log.d(TAG, "Setting connection mode: WiFi ADB ($deviceAddress)")
+            repoImpl?.resetToWifiExecutor()
+            // For WiFi, capture current device
+            lastConnectedDevice = wifiAdbRepository.getCurrentDevice()
+        }
+        
+        // Now load files
         loadFiles("/storage/emulated/0")
     }
 
