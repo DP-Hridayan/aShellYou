@@ -300,6 +300,8 @@
     <string name="reboot_options">Reboot options</string>
     <string name="reconnect">Reconnect</string>
     <string name="reconnect_failed">Reconnect failed</string>
+    <string name="troubleshoot">Troubleshoot</string>
+    <string name="troubleshoot_reconnect">Refresh wireless debugging connection by toggling it off-on</string>
     <string name="reconnect_failed_message">\nWireless Debugging might not be enabled\nPairing info might be lost. Pair manually again!</string>
     <string name="reconnect_the_device">Reconnect the device</string>
     <string name="recovery">Recovery</string>

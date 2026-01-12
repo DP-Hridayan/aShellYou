@@ -1,9 +1,13 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.utils.isConnectedToWifi
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
@@ -37,7 +43,6 @@ fun WifiAdbScreen(
     wifiAdbViewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val navController = LocalNavController.current
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showDeviceDisconnectedDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -50,6 +55,7 @@ fun WifiAdbScreen(
     } else {
         context.getString(R.string.none)
     }
+    val lastConnectedDevice by wifiAdbViewModel.lastConnectedDevice.collectAsState()
 
     LaunchedEffect(wifiAdbState) {
         when (wifiAdbState) {
@@ -72,12 +78,15 @@ fun WifiAdbScreen(
         shellViewModel.runWifiAdbCommand()
     }
 
+    var isReconnecting by rememberSaveable { mutableStateOf(false) }
+    val navController = LocalNavController.current
+
     BaseShellScreen(
         modeButtonText = modeButtonText,
         modeButtonOnClick = modeButtonOnClick,
         runCommandIfPermissionGranted = runCommandIfPermissionGranted,
-        extraButtonContent = if (isConnected) {
-            {
+        extraButtonContent = {
+            if (isConnected) {
                 IconButton(
                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                         val deviceAddr = currentDevice?.let { "${it.ip}:${it.port}" } ?: ""
@@ -85,8 +94,8 @@ fun WifiAdbScreen(
                         navController.navigate(NavRoutes.FileBrowserScreen(deviceAddr, isOwn))
                     },
                     colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
                     )
                 ) {
                     Icon(
@@ -95,8 +104,68 @@ fun WifiAdbScreen(
                         modifier = Modifier.size(22.dp)
                     )
                 }
+            } else {
+                IconButton(
+                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                        if (!context.isConnectedToWifi()) {
+                            showToast(
+                                context,
+                                context.getString(R.string.no_wifi_connection)
+                            )
+                            return@withHaptic
+                        }
+
+                        if(lastConnectedDevice == null){
+                            showToast(
+                                context,
+                                context.getString(R.string.error)
+                            )
+                            return@withHaptic
+                        }
+
+                        lastConnectedDevice?.let { device ->
+                            isReconnecting = true
+                            wifiAdbViewModel.reconnectToDeviceWithCallback(
+                                device = device,
+                                onSuccess = {
+                                    isReconnecting = false
+                                    showToast(
+                                        context,
+                                        context.getString(R.string.reconnect_success),
+                                    )
+                                },
+                                onFailure = { requiresPairing ->
+                                    isReconnecting = false
+                                    val message = if (requiresPairing) {
+                                        context.getString(R.string.reconnect_failed_requires_pairing)
+                                    } else {
+                                        context.getString(R.string.reconnect_failed)
+                                    }
+                                    showToast(context, message)
+                                }
+                            )
+                        }
+                    },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    ),
+                    enabled = !isReconnecting
+                ) {
+                    if (isReconnecting) {
+                        LoadingIndicator(
+                            color = MaterialTheme.colorScheme.onTertiaryContainer
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_refresh),
+                            contentDescription = stringResource(R.string.reconnect),
+                            modifier = Modifier.size(22.dp)
+                        )
+                    }
+                }
             }
-        } else null
+        }
     )
 
     if (showConnectedDeviceDialog) {

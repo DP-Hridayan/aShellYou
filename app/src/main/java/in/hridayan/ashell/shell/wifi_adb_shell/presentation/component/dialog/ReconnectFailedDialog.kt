@@ -58,6 +58,24 @@ fun ReconnectFailedDialog(
                 Spacer(modifier = Modifier.height(20.dp))
 
                 AutoResizeableText(
+                    text = stringResource(R.string.troubleshoot) + ":",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.tertiary
+                )
+
+                Spacer(modifier = Modifier.height(15.dp))
+
+                BulletPointsTextLayout(
+                    modifier = Modifier.fillMaxWidth(),
+                    textStyle = MaterialTheme.typography.bodyMedium,
+                    textLines = splitStringToLines("\n" + stringResource(R.string.troubleshoot_reconnect)),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    bulletColor = MaterialTheme.colorScheme.tertiary
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                AutoResizeableText(
                     text = stringResource(R.string.possible_reasons) + ":",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary
@@ -89,26 +107,16 @@ fun ReconnectFailedDialog(
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
+                }
 
-                    OutlinedButton(
-                        onClick = withHaptic { onDismiss() },
-                        shapes = ButtonDefaults.shapes(),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        AutoResizeableText(
-                            text = stringResource(R.string.dismiss),
-                        )
-                    }
-                } else {
-                    Button(
-                        onClick = withHaptic { onDismiss() },
-                        shapes = ButtonDefaults.shapes(),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        AutoResizeableText(
-                            text = stringResource(R.string.dismiss),
-                        )
-                    }
+                OutlinedButton(
+                    onClick = withHaptic { onDismiss() },
+                    shapes = ButtonDefaults.shapes(),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    AutoResizeableText(
+                        text = stringResource(R.string.dismiss),
+                    )
                 }
             }
         }
