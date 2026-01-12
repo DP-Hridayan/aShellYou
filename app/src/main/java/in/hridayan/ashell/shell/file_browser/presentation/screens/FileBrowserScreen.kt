@@ -121,6 +121,7 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawDream
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.shell.file_browser.domain.model.ConnectionMode
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.OperationType
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
@@ -137,6 +138,7 @@ import java.io.File
 @Composable
 fun FileBrowserScreen(
     deviceAddress: String = "",
+    connectionMode: ConnectionMode = ConnectionMode.WIFI_ADB,
     isOwnDevice: Boolean = false,
     viewModel: FileBrowserViewModel = hiltViewModel()
 ) {
@@ -188,10 +190,10 @@ fun FileBrowserScreen(
             }
         }
     }
-    
+
     // Set connection mode based on navigation parameter (WiFi ADB or OTG)
-    LaunchedEffect(deviceAddress) {
-        viewModel.setConnectionMode(deviceAddress)
+    LaunchedEffect(connectionMode) {
+        viewModel.setConnectionMode(connectionMode)
     }
 
     val isAtHome = state.currentPath == "/storage/emulated/0"
@@ -317,7 +319,7 @@ fun FileBrowserScreen(
                     TopAppBar(
                         title = {
                             AutoResizeableText(
-                                text = deviceAddress.ifEmpty { stringResource(R.string.file_browser)},
+                                text = deviceAddress.ifEmpty { stringResource(R.string.file_browser) },
                                 style = MaterialTheme.typography.titleMedium,
                                 fontFamily = FontFamily.Monospace
                             )

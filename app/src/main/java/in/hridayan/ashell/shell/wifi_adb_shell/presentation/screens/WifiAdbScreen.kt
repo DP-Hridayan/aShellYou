@@ -32,6 +32,7 @@ import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ConnectedDeviceDialog
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.shell.file_browser.domain.model.ConnectionMode
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.DeviceDisconnectedDialog
@@ -91,7 +92,13 @@ fun WifiAdbScreen(
                     onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                         val deviceAddr = currentDevice?.let { "${it.ip}:${it.port}" } ?: ""
                         val isOwn = currentDevice?.isOwnDevice ?: false
-                        navController.navigate(NavRoutes.FileBrowserScreen(deviceAddr, isOwn))
+                        navController.navigate(
+                            NavRoutes.FileBrowserScreen(
+                                deviceAddress = deviceAddr,
+                                connectionMode = ConnectionMode.WIFI_ADB,
+                                isOwnDevice = isOwn
+                            )
+                        )
                     },
                     colors = IconButtonDefaults.iconButtonColors(
                         containerColor = MaterialTheme.colorScheme.tertiaryContainer,
@@ -115,7 +122,7 @@ fun WifiAdbScreen(
                             return@withHaptic
                         }
 
-                        if(lastConnectedDevice == null){
+                        if (lastConnectedDevice == null) {
                             showToast(
                                 context,
                                 context.getString(R.string.error)

@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.shell.file_browser.data.executor.OtgCommandExecutor
 import `in`.hridayan.ashell.shell.file_browser.data.repository.FileBrowserRepositoryImpl
 import `in`.hridayan.ashell.shell.file_browser.domain.model.ConflictResolution
+import `in`.hridayan.ashell.shell.file_browser.domain.model.ConnectionMode
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileConflict
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
@@ -19,10 +20,14 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
 import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserEvent
 import `in`.hridayan.ashell.shell.file_browser.presentation.model.FileBrowserState
+import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgConnection
+import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
+import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -38,6 +43,7 @@ import javax.inject.Inject
 class FileBrowserViewModel @Inject constructor(
     private val repository: FileBrowserRepository,
     private val wifiAdbRepository: WifiAdbRepository,
+    private val otgRepository: OtgRepository,
     private val otgExecutor: OtgCommandExecutor
 ) : ViewModel() {
 
@@ -55,7 +61,9 @@ class FileBrowserViewModel @Inject constructor(
     private var navigationJob: Job? = null
     private val operationJobs = mutableMapOf<String, Job>()
     private var lastConnectedDevice: WifiAdbDevice? = null
-    private var isOtgMode = false
+    
+    // Track connection mode for conditional logic
+    private var connectionMode = ConnectionMode.WIFI_ADB
 
     init {
         lastConnectedDevice = wifiAdbRepository.getCurrentDevice()
@@ -66,29 +74,29 @@ class FileBrowserViewModel @Inject constructor(
 
         // Don't auto-load files in init - wait for setConnectionMode to be called
     }
-    
+
     /**
      * Set the connection mode based on navigation parameter.
      * Called from FileBrowserScreen on init.
-     * @param deviceAddress Pass "otg" for OTG mode, anything else for WiFi ADB
      */
-    fun setConnectionMode(deviceAddress: String) {
-        isOtgMode = deviceAddress == "otg"
+    fun setConnectionMode(mode: ConnectionMode) {
+        connectionMode = mode
         
         // Cast to impl to access setExecutor (safe since we know the DI provides impl)
         val repoImpl = repository as? FileBrowserRepositoryImpl
-        
-        if (isOtgMode) {
-            Log.d(TAG, "Setting connection mode: OTG")
-            repoImpl?.setExecutor(otgExecutor)
-        } else {
-            Log.d(TAG, "Setting connection mode: WiFi ADB ($deviceAddress)")
-            repoImpl?.resetToWifiExecutor()
-            // For WiFi, capture current device
-            lastConnectedDevice = wifiAdbRepository.getCurrentDevice()
+
+        when (connectionMode) {
+            ConnectionMode.OTG_ADB -> {
+                Log.d(TAG, "Setting connection mode: OTG")
+                repoImpl?.setExecutor(otgExecutor)
+            }
+            ConnectionMode.WIFI_ADB -> {
+                Log.d(TAG, "Setting connection mode: WIFI")
+                repoImpl?.resetToWifiExecutor()
+                lastConnectedDevice = wifiAdbRepository.getCurrentDevice()
+            }
         }
-        
-        // Now load files
+
         loadFiles("/storage/emulated/0")
     }
 
@@ -111,9 +119,10 @@ class FileBrowserViewModel @Inject constructor(
             _state.value = _state.value.copy(isLoading = true, error = null)
 
             // For OTG mode, retry up to 2 more times before showing error
-            val maxAttempts = if (isOtgMode) 3 else 1
+            val isOtg = connectionMode == ConnectionMode.OTG_ADB
+            val maxAttempts = if (isOtg) 3 else 1
             var lastError: Throwable? = null
-            
+
             repeat(maxAttempts) { attempt ->
                 repository.listFiles(path).fold(
                     onSuccess = { files ->
@@ -133,14 +142,14 @@ class FileBrowserViewModel @Inject constructor(
                     },
                     onFailure = { error ->
                         lastError = error
-                        if (isOtgMode && attempt < maxAttempts - 1) {
+                        if (isOtg && attempt < maxAttempts - 1) {
                             Log.d(TAG, "OTG loadFiles attempt ${attempt + 1} failed, retrying...")
-                            kotlinx.coroutines.delay(500)
+                            delay(500)
                         }
                     }
                 )
             }
-            
+
             // All attempts failed - show error
             _state.value = _state.value.copy(
                 isLoading = false,
@@ -158,38 +167,33 @@ class FileBrowserViewModel @Inject constructor(
     }
 
     /**
-     * Attempt a silent reconnect using the stored device and refresh file list.
-     * This provides seamless reconnection when the connection drops.
-     * Uses the device captured at init or set via setConnectedDevice.
+     * Attempt a silent reconnect using the appropriate method based on connection mode.
+     * WiFi: Uses stored device and WiFi reconnect
+     * OTG: Uses searchDevices with retry
      */
     fun silentReconnectAndRefresh() {
-        Log.d("FileBrowserVM", "silentReconnectAndRefresh called")
+        Log.d(TAG, "silentReconnectAndRefresh called, mode=$connectionMode")
+        _state.value = _state.value.copy(isLoading = true, error = null)
 
+        when (connectionMode) {
+            ConnectionMode.WIFI_ADB -> performWifiReconnect()
+            ConnectionMode.OTG_ADB -> performOtgReconnect()
+        }
+    }
+
+    private fun performWifiReconnect() {
         val device = lastConnectedDevice
         if (device == null) {
-            Log.w("FileBrowserVM", "No connected device stored, falling back to refresh")
+            Log.w(TAG, "No connected device stored, falling back to refresh")
             refresh()
             return
         }
 
-        Log.d(
-            "FileBrowserVM",
-            "Using stored device: ${device.deviceName} at ${device.ip}:${device.port}"
-        )
-        _state.value = _state.value.copy(isLoading = true, error = null)
-        performReconnect(device)
-    }
-
-    private fun performReconnect(device: WifiAdbDevice) {
-        Log.d(
-            "FileBrowserVM",
-            "Attempting reconnect to: ${device.deviceName} at ${device.ip}:${device.port}"
-        )
+        Log.d(TAG, "WiFi reconnect to: ${device.deviceName} at ${device.ip}:${device.port}")
 
         wifiAdbRepository.reconnect(device, object : WifiAdbRepositoryImpl.ReconnectListener {
             override fun onReconnectSuccess() {
-                Log.d("FileBrowserVM", "Reconnect SUCCESS")
-                // Update stored device with fresh reference after successful reconnect
+                Log.d(TAG, "WiFi Reconnect SUCCESS")
                 lastConnectedDevice = wifiAdbRepository.getCurrentDevice() ?: device
                 viewModelScope.launch {
                     _events.emit(FileBrowserEvent.ShowToast("Reconnected successfully"))
@@ -198,7 +202,7 @@ class FileBrowserViewModel @Inject constructor(
             }
 
             override fun onReconnectFailed(requiresPairing: Boolean) {
-                Log.e("FileBrowserVM", "Reconnect FAILED, requiresPairing=$requiresPairing")
+                Log.e(TAG, "WiFi Reconnect FAILED, requiresPairing=$requiresPairing")
                 viewModelScope.launch {
                     _state.value = _state.value.copy(
                         isLoading = false,
@@ -207,6 +211,41 @@ class FileBrowserViewModel @Inject constructor(
                 }
             }
         })
+    }
+
+    private fun performOtgReconnect() {
+        viewModelScope.launch {
+            Log.d(TAG, "OTG reconnect: starting scan with retry")
+            
+            // Try up to 3 times for OTG reconnection
+            repeat(3) { attempt ->
+                Log.d(TAG, "OTG reconnect attempt ${attempt + 1}")
+                otgRepository.searchDevices()
+                
+                // Wait a bit for connection to establish
+                delay(1000)
+                
+                // Check if connected
+                val currentState = OtgConnection.currentState
+                if (currentState is OtgState.Connected) {
+                    Log.d(TAG, "OTG Reconnect SUCCESS on attempt ${attempt + 1}")
+                    _events.emit(FileBrowserEvent.ShowToast("Reconnected successfully"))
+                    refresh()
+                    return@launch
+                }
+                
+                if (attempt < 2) {
+                    delay(500) // Wait before retry
+                }
+            }
+            
+            // All attempts failed
+            Log.e(TAG, "OTG Reconnect FAILED after 3 attempts")
+            _state.value = _state.value.copy(
+                isLoading = false,
+                error = "OTG connection failed. Please reconnect device."
+            )
+        }
     }
 
     fun navigateUp(): Boolean {
@@ -265,7 +304,7 @@ class FileBrowserViewModel @Inject constructor(
                         _events.emit(FileBrowserEvent.FileDownloaded(localPath))
                         _events.emit(FileBrowserEvent.ShowToast("Downloaded to $localPath"))
                         // Delay removal to let UI show completion
-                        kotlinx.coroutines.delay(2000)
+                        delay(2000)
                         removeOperation(operationId)
                     }
 
@@ -277,7 +316,7 @@ class FileBrowserViewModel @Inject constructor(
                             )
                         }
                         _events.emit(FileBrowserEvent.ShowToast("Download failed: ${result.message}"))
-                        kotlinx.coroutines.delay(3000)
+                        delay(3000)
                         removeOperation(operationId)
                     }
                 }
@@ -322,7 +361,7 @@ class FileBrowserViewModel @Inject constructor(
                         _events.emit(FileBrowserEvent.FileUploaded(remotePath))
                         _events.emit(FileBrowserEvent.ShowToast("File uploaded successfully"))
                         refresh()
-                        kotlinx.coroutines.delay(2000)
+                        delay(2000)
                         removeOperation(operationId)
                     }
 
@@ -334,7 +373,7 @@ class FileBrowserViewModel @Inject constructor(
                             )
                         }
                         _events.emit(FileBrowserEvent.ShowToast("Upload failed: ${result.message}"))
-                        kotlinx.coroutines.delay(3000)
+                        delay(3000)
                         removeOperation(operationId)
                     }
                 }
@@ -752,8 +791,7 @@ class FileBrowserViewModel @Inject constructor(
             0 if pendingOp.skippedCount == 0 ->
                 "Completed: ${pendingOp.processedCount} items"
 
-            0 ->
-                "Completed: ${pendingOp.processedCount} items, ${pendingOp.skippedCount} skipped"
+            0 -> "Completed: ${pendingOp.processedCount} items, ${pendingOp.skippedCount} skipped"
 
             else -> "Completed: ${pendingOp.processedCount} items, ${pendingOp.skippedCount} skipped, ${pendingOp.failedCount} failed"
         }
@@ -773,7 +811,7 @@ class FileBrowserViewModel @Inject constructor(
      * Handle user's conflict resolution from the dialog.
      */
     fun resolveConflict(resolution: ConflictResolution, applyToAll: Boolean = false) {
-        val conflict = _state.value.pendingConflict ?: return
+        _state.value.pendingConflict ?: return
         val pendingOp = _state.value.pendingPasteOperation ?: return
         val currentItem = pendingOp.currentItem ?: return
 

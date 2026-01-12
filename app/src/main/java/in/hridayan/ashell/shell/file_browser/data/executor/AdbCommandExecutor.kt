@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.file_browser.data.executor
 
 import java.io.InputStream
+import java.io.OutputStream
 
 /**
  * Abstraction layer for ADB command execution.
@@ -28,6 +29,20 @@ interface AdbCommandExecutor {
      * @return Pair of (inputStream, closeFunction)
      */
     fun openCommandStream(command: String): CommandStream?
+    
+    /**
+     * Open a read stream for downloading files (cat remote file).
+     * @param command Shell command like "shell:cat '/path/to/file'"
+     * @return FileTransferStream with read capability
+     */
+    fun openReadStream(command: String): FileTransferStream?
+    
+    /**
+     * Open a write stream for uploading files (cat > remote file).
+     * @param command Shell command like "shell:cat > '/path/to/file'"
+     * @return FileTransferStream with write capability
+     */
+    fun openWriteStream(command: String): FileTransferStream?
 }
 
 /**
@@ -35,5 +50,14 @@ interface AdbCommandExecutor {
  */
 data class CommandStream(
     val inputStream: InputStream,
+    val close: () -> Unit
+)
+
+/**
+ * Stream for file transfers supporting both read and write.
+ */
+data class FileTransferStream(
+    val inputStream: InputStream? = null,
+    val outputStream: OutputStream? = null,
     val close: () -> Unit
 )

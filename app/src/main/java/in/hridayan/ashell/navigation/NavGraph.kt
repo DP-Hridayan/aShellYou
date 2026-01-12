@@ -213,6 +213,7 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 val route = backStackEntry.toRoute<NavRoutes.FileBrowserScreen>()
                 FileBrowserScreen(
                     deviceAddress = route.deviceAddress,
+                    connectionMode = route.connectionMode,
                     isOwnDevice = route.isOwnDevice
                 )
             }

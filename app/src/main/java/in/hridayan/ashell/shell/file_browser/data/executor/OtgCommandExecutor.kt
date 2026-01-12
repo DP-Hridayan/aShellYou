@@ -6,6 +6,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.io.ByteArrayInputStream
+import java.io.InputStream
+import java.io.OutputStream
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -106,5 +108,163 @@ class OtgCommandExecutor @Inject constructor(
             Log.e(TAG, "Error opening command stream: $command", e)
             null
         }
+    }
+    
+    /**
+     * Open a read stream for downloading files via OTG.
+     * Wraps OTG AdbStream.read() as an InputStream.
+     */
+    override fun openReadStream(command: String): FileTransferStream? {
+        return try {
+            if (!isConnected()) {
+                return null
+            }
+            
+            val adbConnection = otgRepository.getAdbConnection() ?: return null
+            val stream = adbConnection.open(command)
+            
+            // Create a wrapper InputStream that reads from OTG AdbStream
+            val inputStream = OtgInputStream(stream)
+            
+            FileTransferStream(
+                inputStream = inputStream,
+                close = {
+                    try { inputStream.close() } catch (_: Exception) {}
+                    try { stream.close() } catch (_: Exception) {}
+                }
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "Error opening read stream: $command", e)
+            null
+        }
+    }
+    
+    /**
+     * Open a write stream for uploading files via OTG.
+     * Wraps OTG AdbStream.write() as an OutputStream.
+     */
+    override fun openWriteStream(command: String): FileTransferStream? {
+        return try {
+            if (!isConnected()) {
+                return null
+            }
+            
+            val adbConnection = otgRepository.getAdbConnection() ?: return null
+            val stream = adbConnection.open(command)
+            
+            // Create a wrapper OutputStream that writes to OTG AdbStream
+            val outputStream = OtgOutputStream(stream)
+            
+            FileTransferStream(
+                outputStream = outputStream,
+                close = {
+                    try { outputStream.flush() } catch (_: Exception) {}
+                    try { outputStream.close() } catch (_: Exception) {}
+                    try { stream.close() } catch (_: Exception) {}
+                }
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "Error opening write stream: $command", e)
+            null
+        }
+    }
+}
+
+/**
+ * Wrapper to convert OTG AdbStream.read() to standard InputStream.
+ */
+private class OtgInputStream(
+    private val adbStream: com.cgutman.adblib.AdbStream
+) : InputStream() {
+    private var buffer: ByteArray? = null
+    private var bufferPos = 0
+    private var closed = false
+    
+    override fun read(): Int {
+        if (closed) return -1
+        
+        // Refill buffer if needed
+        if (buffer == null || bufferPos >= buffer!!.size) {
+            buffer = try {
+                adbStream.read()
+            } catch (e: Exception) {
+                null
+            }
+            bufferPos = 0
+            
+            if (buffer == null || buffer!!.isEmpty()) {
+                return -1
+            }
+        }
+        
+        return buffer!![bufferPos++].toInt() and 0xFF
+    }
+    
+    override fun read(b: ByteArray, off: Int, len: Int): Int {
+        if (closed) return -1
+        if (len == 0) return 0
+        
+        var totalRead = 0
+        while (totalRead < len) {
+            // Refill buffer if needed
+            if (buffer == null || bufferPos >= buffer!!.size) {
+                buffer = try {
+                    adbStream.read()
+                } catch (e: Exception) {
+                    null
+                }
+                bufferPos = 0
+                
+                if (buffer == null || buffer!!.isEmpty()) {
+                    return if (totalRead > 0) totalRead else -1
+                }
+            }
+            
+            val remaining = buffer!!.size - bufferPos
+            val toCopy = minOf(remaining, len - totalRead)
+            System.arraycopy(buffer!!, bufferPos, b, off + totalRead, toCopy)
+            bufferPos += toCopy
+            totalRead += toCopy
+        }
+        
+        return totalRead
+    }
+    
+    override fun close() {
+        closed = true
+    }
+}
+
+/**
+ * Wrapper to convert OTG AdbStream.write() to standard OutputStream.
+ */
+private class OtgOutputStream(
+    private val adbStream: com.cgutman.adblib.AdbStream
+) : OutputStream() {
+    private var closed = false
+    
+    override fun write(b: Int) {
+        if (closed) throw java.io.IOException("Stream closed")
+        adbStream.write(byteArrayOf(b.toByte()))
+    }
+    
+    override fun write(b: ByteArray, off: Int, len: Int) {
+        if (closed) throw java.io.IOException("Stream closed")
+        if (len == 0) return
+        
+        val data = if (off == 0 && len == b.size) {
+            b
+        } else {
+            b.copyOfRange(off, off + len)
+        }
+        adbStream.write(data)
+    }
+    
+    override fun flush() {
+        // OTG AdbStream doesn't have explicit flush
+    }
+    
+    override fun close() {
+        closed = true
     }
 }

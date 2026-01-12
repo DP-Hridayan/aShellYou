@@ -253,7 +253,6 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
     override fun pullFile(remotePath: String, localPath: String): Flow<FileOperationResult> = flow {
         try {
-            val adbManager = getAdbManager()
             val escapedPath = remotePath.replace("'", "'\\''")
 
             // First get file size for progress
@@ -265,9 +264,14 @@ class FileBrowserRepositoryImpl @Inject constructor(
             val localFile = File(localPath)
             localFile.parentFile?.mkdirs()
 
-            // Use shell cat command with larger buffer for better throughput
-            val stream = adbManager.openStream("shell:cat '$escapedPath'")
-            val inputStream = stream.openInputStream().buffered(65536)
+            // Use executor's openReadStream for both WiFi and OTG
+            val transferStream = executor.openReadStream("shell:cat '$escapedPath'")
+            if (transferStream?.inputStream == null) {
+                emit(FileOperationResult.Error("Failed to open stream for download"))
+                return@flow
+            }
+            
+            val inputStream = transferStream.inputStream
             val outputStream = localFile.outputStream().buffered(65536)
 
             var bytesRead: Long = 0
@@ -287,8 +291,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
             outputStream.flush()
             outputStream.close()
-            inputStream.close()
-            stream.close()
+            transferStream.close()
 
             emit(FileOperationResult.Success("File downloaded successfully"))
         } catch (e: Exception) {
@@ -308,13 +311,17 @@ class FileBrowserRepositoryImpl @Inject constructor(
             val totalSize = localFile.length()
             emit(FileOperationResult.Progress(0, totalSize))
 
-            val adbManager = getAdbManager()
             val escapedPath = remotePath.replace("'", "'\\''")
 
-            // Use larger buffer for better throughput
+            // Use executor's openWriteStream for both WiFi and OTG
+            val transferStream = executor.openWriteStream("shell:cat > '$escapedPath'")
+            if (transferStream?.outputStream == null) {
+                emit(FileOperationResult.Error("Failed to open stream for upload"))
+                return@flow
+            }
+
             val inputStream = localFile.inputStream().buffered(65536)
-            val stream = adbManager.openStream("shell:cat > '$escapedPath'")
-            val outputStream = stream.openOutputStream().buffered(65536)
+            val outputStream = transferStream.outputStream
 
             var bytesWritten: Long = 0
             val buffer = ByteArray(65536) // 64KB buffer
@@ -331,10 +338,8 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 }
             }
 
-            outputStream.flush()
-            outputStream.close()
             inputStream.close()
-            stream.close()
+            transferStream.close()
 
             emit(FileOperationResult.Success("File uploaded successfully"))
         } catch (e: Exception) {

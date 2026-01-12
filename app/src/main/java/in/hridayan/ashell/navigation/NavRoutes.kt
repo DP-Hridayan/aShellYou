@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.navigation
 
+import `in`.hridayan.ashell.shell.file_browser.domain.model.ConnectionMode
 import kotlinx.serialization.Serializable
 
 sealed class NavRoutes {
@@ -60,6 +61,7 @@ sealed class NavRoutes {
     @Serializable
     data class FileBrowserScreen(
         val deviceAddress: String,
+        val connectionMode: ConnectionMode = ConnectionMode.WIFI_ADB,
         val isOwnDevice: Boolean = false
     ) : NavRoutes()
 
