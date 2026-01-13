@@ -6,13 +6,7 @@ import androidx.room.TypeConverters
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.core.common.converters.StringListConverter
 
-@Database(
-    entities = [
-        CommandEntity::class
-    ],
-    version = 2,
-    exportSchema = false
-)
+@Database(entities = [CommandEntity::class], version = 2)
 @TypeConverters(StringListConverter::class)
 abstract class CommandDatabase : RoomDatabase() {
     abstract fun commandDao(): CommandDao

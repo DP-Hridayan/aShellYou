@@ -409,6 +409,32 @@
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A">Z → A</string>
 
+    <!-- File Browser Messages -->
+    <string name="fb_downloaded_to">Downloaded to %1$s</string>
+    <string name="fb_uploaded_successfully">File uploaded successfully</string>
+    <string name="fb_file_deleted">File deleted</string>
+    <string name="fb_folder_created">Folder created</string>
+    <string name="fb_renamed_successfully">Renamed successfully</string>
+    <string name="fb_operation_cancelled">Operation cancelled</string>
+    <string name="fb_all_operations_cancelled">All operations cancelled</string>
+    <string name="fb_nothing_to_paste">Nothing to paste</string>
+    <string name="fb_reconnected_successfully">Reconnected successfully</string>
+    <string name="fb_cannot_paste_into_selected">Cannot paste into selected folder</string>
+    <string name="fb_download_failed">Download failed: %1$s</string>
+    <string name="fb_upload_failed">Upload failed: %1$s</string>
+    <string name="fb_delete_failed">Delete failed: %1$s</string>
+    <string name="fb_create_folder_failed">Failed to create folder: %1$s</string>
+    <string name="fb_rename_failed">Rename failed: %1$s</string>
+    <string name="fb_deleted_items">Deleted %1$d items</string>
+    <string name="fb_empty_folder_skipped">Empty folder skipped</string>
+    <string name="fb_error">Error: %1$s</string>
+    <string name="fb_otg_transfers_not_supported">File transfers not supported in OTG mode</string>
+    <string name="fb_paste_completed">Completed: %1$d items</string>
+    <string name="fb_paste_completed_with_skipped">Completed: %1$d items, %2$d skipped</string>
+    <string name="fb_paste_completed_with_failed">Completed: %1$d items, %2$d skipped, %3$d failed</string>
+    <string name="fb_downloading">Downloading %1$s</string>
+    <string name="fb_uploading">Uploading %1$s</string>
+
     /**
     * Changelogs
     * Created by DP-Hridayan
