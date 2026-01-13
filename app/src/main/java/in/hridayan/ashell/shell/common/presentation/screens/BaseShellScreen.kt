@@ -379,13 +379,15 @@ fun BaseShellScreen(
                     }
                 ) { fullscreen ->
                     if (fullscreen) {
-                        // Fullscreen output overlay - covers all UI and ignores innerPadding
+                        // Capture scroll position when entering fullscreen to avoid recomposition issues
+                        val initialScrollIndex = remember { listState.firstVisibleItemIndex }
+
                         FullscreenOutputOverlay(
                             onDismiss = { scrollIndex ->
                                 restoredScrollIndex = scrollIndex
                                 isOutputFullscreen = false
                             },
-                            initialScrollIndex = listState.firstVisibleItemIndex,
+                            initialScrollIndex = initialScrollIndex,
                             shellViewModel = shellViewModel,
                             sharedTransitionScope = this@SharedTransitionLayout,
                             animatedContentScope = this@AnimatedContent
@@ -568,9 +570,7 @@ fun BaseShellScreen(
                             }
 
                             if (states.commandField.fieldValue.text.isNotEmpty() && !states.search.isVisible) {
-                                Suggestions(
-                                    modifier = Modifier.fillMaxWidth()
-                                )
+                                Suggestions(modifier = Modifier.fillMaxWidth())
                             }
 
                             OutputCard(
@@ -650,6 +650,7 @@ fun Suggestions(
     viewModel: ShellViewModel = hiltViewModel()
 ) {
     val listState = rememberLazyListState()
+    val results by viewModel.filteredOutput.collectAsState()
     val suggestions by viewModel.suggestions.collectAsState()
 
     LaunchedEffect(suggestions) {
@@ -674,6 +675,15 @@ fun Suggestions(
                 suggestion = suggestions[index],
                 roundedCornerShape = shape
             )
+        }
+
+        item {
+            if (results.isEmpty())
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp)
+                )
         }
     }
 }
@@ -810,7 +820,7 @@ private fun OutputCard(
     // Reset scroll state and scroll to bottom when command finishes
     LaunchedEffect(states.shellState, combinedOutput.value.size) {
         val isBusy = states.shellState is ShellState.Busy
-        
+
         // When command finishes (was busy, now not)
         if (wasBusy && !isBusy && combinedOutput.value.isNotEmpty() && !isFullscreen) {
             userScrolledAway = false
@@ -823,7 +833,7 @@ private fun OutputCard(
                 // Ignore scroll cancellation
             }
         }
-        
+
         wasBusy = isBusy
     }
 
