@@ -32,12 +32,12 @@ class DetectSuggestionTypeUseCase @Inject constructor() {
 
         // Check if token contains a dot
         if (!currentToken.contains(".")) {
-            // No dot yet, show command suggestions
+            // No dot yet, show command suggestions using FULL text (not just last token)
             return InputContext(
                 fullText = text,
                 currentToken = currentToken,
                 suggestionType = SuggestionType.COMMAND,
-                filterPrefix = currentToken
+                filterPrefix = text.trim()  // Use full text for command filtering
             )
         }
 
