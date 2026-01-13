@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
@@ -26,33 +28,31 @@ import `in`.hridayan.ashell.core.presentation.theme.Shape
 
 @Composable
 fun LabelChip(
-    label: String,
     modifier: Modifier = Modifier,
-    isSelected: Boolean = false,
+    label: String,
     showCrossIcon: Boolean = false,
-    crossIconOnClick: (label: String) -> Unit = {}
+    crossIconOnClick: (label: String) -> Unit = {},
+    colors: CardColors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+    )
 ) {
     Row(
         modifier = modifier
             .wrapContentSize()
             .clip(Shape.cardCornerMedium)
-            .background(
-                color = if (isSelected)
-                    MaterialTheme.colorScheme.primary
-                else
-                    MaterialTheme.colorScheme.primaryContainer
-            )
+            .background(color = colors.containerColor)
             .border(
                 width = Shape.labelStroke,
                 shape = Shape.cardCornerMedium,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                color = colors.contentColor
             )
             .padding(2.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = label,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = colors.contentColor,
             style = MaterialTheme.typography.labelMedium,
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
         )

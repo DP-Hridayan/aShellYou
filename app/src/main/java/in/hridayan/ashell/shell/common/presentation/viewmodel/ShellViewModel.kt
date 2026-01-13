@@ -16,6 +16,7 @@ import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.common.domain.model.PackageInfo
 import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
+import `in`.hridayan.ashell.shell.common.domain.model.SuggestionLabel
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionType
 import `in`.hridayan.ashell.shell.common.domain.repository.PackageRepository
 import `in`.hridayan.ashell.shell.common.domain.repository.ShellRepository
@@ -106,7 +107,7 @@ class ShellViewModel @Inject constructor(
                                     id = pkg.packageName,
                                     text = pkg.packageName,
                                     type = SuggestionType.PACKAGE,
-                                    label = if (pkg.isSystemApp) "System" else "User"
+                                    label = if (pkg.isSystemApp) SuggestionLabel.SYSTEM else SuggestionLabel.USER
                                 )
                             }
                         }
@@ -121,39 +122,6 @@ class ShellViewModel @Inject constructor(
                                     type = SuggestionType.PERMISSION
                                 )
                             }
-                        }
-                    }
-                }
-            }
-            .distinctUntilChanged()
-            .stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(5000),
-                emptyList()
-            )
-
-    val currentSuggestionType: StateFlow<SuggestionType> =
-        _states
-            .map { detectSuggestionTypeUseCase(it.commandField.fieldValue.text).suggestionType }
-            .distinctUntilChanged()
-            .stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(5000),
-                SuggestionType.COMMAND
-            )
-
-    // Keep legacy for backward compatibility
-    @OptIn(FlowPreview::class)
-    val commandSuggestions: StateFlow<List<CommandEntity>> =
-        _states
-            .map { it.commandField.fieldValue.text.trim() }
-            .combine(allCommands) { query, commands ->
-                if (query.isBlank()) {
-                    emptyList()
-                } else {
-                    withContext(Dispatchers.Default) {
-                        commands.filter {
-                            it.command.contains(query, ignoreCase = true)
                         }
                     }
                 }
@@ -255,6 +223,7 @@ class ShellViewModel @Inject constructor(
                     .trim()
                 onCommandTextFieldChange(TextFieldValue(sanitizedCommand))
             }
+
             SuggestionType.PACKAGE, SuggestionType.PERMISSION -> {
                 // For packages/permissions: replace only the last token
                 val currentText = _states.value.commandField.fieldValue.text

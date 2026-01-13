@@ -408,8 +408,6 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A">Z → A</string>
-
-    <!-- File Browser Messages -->
     <string name="fb_downloaded_to">Downloaded to %1$s</string>
     <string name="fb_uploaded_successfully">File uploaded successfully</string>
     <string name="fb_file_deleted">File deleted</string>

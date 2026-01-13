@@ -568,7 +568,7 @@ fun BaseShellScreen(
                             }
 
                             if (states.commandField.fieldValue.text.isNotEmpty() && !states.search.isVisible) {
-                                CommandSuggestions(
+                                Suggestions(
                                     modifier = Modifier.fillMaxWidth()
                                 )
                             }
@@ -645,7 +645,7 @@ fun BaseShellScreen(
 }
 
 @Composable
-fun CommandSuggestions(
+fun Suggestions(
     modifier: Modifier = Modifier,
     viewModel: ShellViewModel = hiltViewModel()
 ) {

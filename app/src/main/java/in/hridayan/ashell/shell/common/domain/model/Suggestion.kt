@@ -4,5 +4,5 @@ data class Suggestion(
     val id: String,
     val text: String,
     val type: SuggestionType,
-    val label: String? = null  // "System" or "User" for packages
+    val label: SuggestionLabel? = null  // "System" or "User" for packages
 )

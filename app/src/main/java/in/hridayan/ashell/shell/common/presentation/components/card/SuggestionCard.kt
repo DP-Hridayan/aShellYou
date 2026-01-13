@@ -10,17 +10,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.commandexamples.presentation.component.chip.LabelChip
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
+import `in`.hridayan.ashell.shell.common.domain.model.SuggestionLabel
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionType
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 
@@ -33,13 +33,12 @@ fun SuggestionCard(
 ) {
     val containerColor = when (suggestion.type) {
         SuggestionType.COMMAND -> MaterialTheme.colorScheme.surfaceContainer
-        SuggestionType.PACKAGE -> MaterialTheme.colorScheme.secondaryContainer
+        SuggestionType.PACKAGE -> MaterialTheme.colorScheme.surfaceContainerHigh
         SuggestionType.PERMISSION -> MaterialTheme.colorScheme.tertiaryContainer
     }
 
     val contentColor = when (suggestion.type) {
-        SuggestionType.COMMAND -> MaterialTheme.colorScheme.onSurface
-        SuggestionType.PACKAGE -> MaterialTheme.colorScheme.onSecondaryContainer
+        SuggestionType.COMMAND, SuggestionType.PACKAGE -> MaterialTheme.colorScheme.onSurface
         SuggestionType.PERMISSION -> MaterialTheme.colorScheme.onTertiaryContainer
     }
 
@@ -67,24 +66,18 @@ fun SuggestionCard(
             )
 
             suggestion.label?.let { label ->
-                Surface(
-                    shape = RoundedCornerShape(4.dp),
-                    color = if (label == "System")
-                        MaterialTheme.colorScheme.tertiaryContainer
-                    else
-                        MaterialTheme.colorScheme.secondaryContainer
-                ) {
-                    Text(
-                        text = label,
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Medium,
-                        color = if (label == "System")
-                            MaterialTheme.colorScheme.onTertiaryContainer
-                        else
-                            MaterialTheme.colorScheme.onSecondaryContainer,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                LabelChip(
+                    modifier = Modifier.padding(start = 20.dp),
+                    label = label.name
+                        .lowercase()
+                        .replaceFirstChar { it.uppercase() },
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (label == SuggestionLabel.SYSTEM) MaterialTheme.colorScheme.errorContainer
+                        else MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = if (label == SuggestionLabel.SYSTEM) MaterialTheme.colorScheme.onErrorContainer
+                        else MaterialTheme.colorScheme.onTertiaryContainer
                     )
-                }
+                )
             }
         }
     }
