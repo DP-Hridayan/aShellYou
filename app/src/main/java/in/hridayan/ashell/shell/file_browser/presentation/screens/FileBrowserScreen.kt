@@ -250,13 +250,16 @@ fun FileBrowserScreen(
                                 )
                             }
 
-                            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                                viewModel.downloadSelectedFiles()
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Download,
-                                    contentDescription = "Download"
-                                )
+                            // Hide download in OTG mode (file transfers not supported)
+                            if (connectionMode != ConnectionMode.OTG_ADB) {
+                                IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    viewModel.downloadSelectedFiles()
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Download,
+                                        contentDescription = "Download"
+                                    )
+                                }
                             }
 
                             IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) {
@@ -496,7 +499,7 @@ fun FileBrowserScreen(
                                                     fileForInfo = file
                                                     showInfoDialog = true
                                                 },
-                                                hideDownload = isOwnDevice,
+                                                hideDownload = isOwnDevice || connectionMode == ConnectionMode.OTG_ADB,
                                                 modifier = Modifier.animateItem()
                                             )
                                         }
@@ -821,8 +824,8 @@ fun FileBrowserScreen(
                     }
                 }
             ) {
-                // Hide upload when browsing own device (file transfer makes no sense)
-                if (!isOwnDevice) {
+                // Hide upload when browsing own device or in OTG mode (file transfer not supported)
+                if (!isOwnDevice && connectionMode != ConnectionMode.OTG_ADB) {
                     FloatingActionButtonMenuItem(
                         onClick = withHaptic(HapticFeedbackType.Confirm) {
                             fabMenuExpanded = false
