@@ -139,7 +139,6 @@ import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.common.presentation.components.button.UtilityButtonGroup
-import `in`.hridayan.ashell.shell.common.presentation.components.card.CommandSuggestionsCard
 import `in`.hridayan.ashell.shell.common.presentation.components.card.SuggestionCard
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.BookmarkDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.BookmarksSortDialog

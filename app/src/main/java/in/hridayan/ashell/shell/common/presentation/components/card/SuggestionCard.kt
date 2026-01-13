@@ -33,14 +33,14 @@ fun SuggestionCard(
 ) {
     val containerColor = when (suggestion.type) {
         SuggestionType.COMMAND -> MaterialTheme.colorScheme.surfaceContainer
-        SuggestionType.PACKAGE -> MaterialTheme.colorScheme.primaryContainer
-        SuggestionType.PERMISSION -> MaterialTheme.colorScheme.errorContainer
+        SuggestionType.PACKAGE -> MaterialTheme.colorScheme.secondaryContainer
+        SuggestionType.PERMISSION -> MaterialTheme.colorScheme.tertiaryContainer
     }
 
     val contentColor = when (suggestion.type) {
         SuggestionType.COMMAND -> MaterialTheme.colorScheme.onSurface
-        SuggestionType.PACKAGE -> MaterialTheme.colorScheme.onPrimaryContainer
-        SuggestionType.PERMISSION -> MaterialTheme.colorScheme.onErrorContainer
+        SuggestionType.PACKAGE -> MaterialTheme.colorScheme.onSecondaryContainer
+        SuggestionType.PERMISSION -> MaterialTheme.colorScheme.onTertiaryContainer
     }
 
     RoundedCornerCard(

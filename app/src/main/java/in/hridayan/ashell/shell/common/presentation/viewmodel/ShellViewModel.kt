@@ -246,17 +246,27 @@ class ShellViewModel @Inject constructor(
     }
 
     fun applySuggestion(suggestion: Suggestion) {
-        val currentText = _states.value.commandField.fieldValue.text
-        val tokens = currentText.split(" ").toMutableList()
-
-        if (tokens.isNotEmpty()) {
-            tokens[tokens.lastIndex] = suggestion.text
-        } else {
-            tokens.add(suggestion.text)
+        when (suggestion.type) {
+            SuggestionType.COMMAND -> {
+                // For commands: replace entire input with sanitized command (remove placeholders)
+                val sanitizedCommand = suggestion.text
+                    .replace(Regex("<[^>]+>"), "")  // Remove <package>, <permission>, etc.
+                    .replace(Regex("\\s+"), " ")    // Collapse multiple spaces
+                    .trim()
+                onCommandTextFieldChange(TextFieldValue(sanitizedCommand))
+            }
+            SuggestionType.PACKAGE, SuggestionType.PERMISSION -> {
+                // For packages/permissions: replace only the last token
+                val currentText = _states.value.commandField.fieldValue.text
+                val lastSpaceIndex = currentText.lastIndexOf(' ')
+                val newText = if (lastSpaceIndex >= 0) {
+                    currentText.substring(0, lastSpaceIndex + 1) + suggestion.text
+                } else {
+                    suggestion.text
+                }
+                onCommandTextFieldChange(TextFieldValue(newText))
+            }
         }
-
-        val newText = tokens.joinToString(" ")
-        onCommandTextFieldChange(TextFieldValue(newText))
         updateTextFieldSelection()
     }
 
