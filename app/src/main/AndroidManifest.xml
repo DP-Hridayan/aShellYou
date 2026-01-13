@@ -17,7 +17,8 @@
     <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"
+        tools:ignore="ForegroundServicesPolicy" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
     <uses-feature android:name="android.hardware.usb.host" />
     <uses-permission android:name="android.permission.USB_PERMISSION" />
@@ -26,6 +27,15 @@
     <uses-permission
         android:name="android.permission.REQUEST_INSTALL_PACKAGES"
         tools:ignore="RequestInstallPackagesPolicy" />
+
+    <!--
+        QUERY_ALL_PACKAGES: Used to provide auto-complete suggestions for package names
+        when user types ADB commands like "pm grant <package>". Shows package names as
+        user types to help complete commands faster. No package data is collected or transmitted.
+    -->
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="PackageVisibilityPolicy,QueryAllPackagesPermission" />
 
     <queries>
         <package android:name="moe.shizuku.privileged.api" />
@@ -82,7 +92,8 @@
             android:name=".shell.wifi_adb_shell.service.SelfPairingService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="connectedDevice" />
+            android:foregroundServiceType="connectedDevice"
+            tools:targetApi="30" />
 
         <service
             android:name=".shell.wifi_adb_shell.service.AdbConnectionService"

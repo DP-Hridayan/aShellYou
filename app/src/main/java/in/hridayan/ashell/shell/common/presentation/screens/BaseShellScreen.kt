@@ -140,6 +140,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.common.presentation.components.button.UtilityButtonGroup
 import `in`.hridayan.ashell.shell.common.presentation.components.card.CommandSuggestionsCard
+import `in`.hridayan.ashell.shell.common.presentation.components.card.SuggestionCard
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.BookmarkDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.BookmarksSortDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ClearOutputConfirmationDialog
@@ -650,10 +651,10 @@ fun CommandSuggestions(
     viewModel: ShellViewModel = hiltViewModel()
 ) {
     val listState = rememberLazyListState()
-    val commandSuggestions by viewModel.commandSuggestions.collectAsState()
+    val suggestions by viewModel.suggestions.collectAsState()
 
-    LaunchedEffect(commandSuggestions) {
-        if (commandSuggestions.isNotEmpty()) {
+    LaunchedEffect(suggestions) {
+        if (suggestions.isNotEmpty()) {
             listState.scrollToItem(0)
         }
     }
@@ -663,15 +664,15 @@ fun CommandSuggestions(
         modifier = modifier.fillMaxWidth()
     ) {
         items(
-            count = commandSuggestions.size,
-            key = { index -> commandSuggestions[index].id }) { index ->
-            val shape = getRoundedShape(index = index, size = commandSuggestions.size)
+            count = suggestions.size,
+            key = { index -> suggestions[index].id }) { index ->
+            val shape = getRoundedShape(index = index, size = suggestions.size)
 
-            CommandSuggestionsCard(
+            SuggestionCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .animateItem(),
-                command = commandSuggestions[index].command,
+                suggestion = suggestions[index],
                 roundedCornerShape = shape
             )
         }

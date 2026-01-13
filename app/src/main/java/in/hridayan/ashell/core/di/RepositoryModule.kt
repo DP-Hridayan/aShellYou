@@ -7,7 +7,9 @@ import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.commandexamples.data.local.repository.CommandRepositoryImpl
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.shell.common.data.repository.BookmarkRepositoryImpl
+import `in`.hridayan.ashell.shell.common.data.repository.PackageRepositoryImpl
 import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
+import `in`.hridayan.ashell.shell.common.domain.repository.PackageRepository
 import `in`.hridayan.ashell.crashreporter.data.repository.CrashRepositoryImpl
 import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
 import `in`.hridayan.ashell.settings.data.repository.BackupAndRestoreRepositoryImpl
@@ -41,4 +43,9 @@ abstract class RepositoryModule {
         crashRepositoryImpl: CrashRepositoryImpl
     ): CrashRepository
 
+    @Binds
+    @Singleton
+    abstract fun bindPackageRepository(
+        packageRepositoryImpl: PackageRepositoryImpl
+    ): PackageRepository
 }

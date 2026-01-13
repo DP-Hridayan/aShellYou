@@ -12,14 +12,20 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.domain.model.SortType
+import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
+import `in`.hridayan.ashell.shell.common.domain.model.PackageInfo
+import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
+import `in`.hridayan.ashell.shell.common.domain.model.SuggestionType
+import `in`.hridayan.ashell.shell.common.domain.repository.PackageRepository
 import `in`.hridayan.ashell.shell.common.domain.repository.ShellRepository
+import `in`.hridayan.ashell.shell.common.domain.usecase.DetectSuggestionTypeUseCase
 import `in`.hridayan.ashell.shell.common.domain.usecase.ExtractLastCommandOutputUseCase
 import `in`.hridayan.ashell.shell.common.domain.usecase.GetSaveOutputFileNameUseCase
-import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
+import `in`.hridayan.ashell.shell.otg_adb_shell.domain.repository.OtgRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -40,6 +46,8 @@ import javax.inject.Inject
 class ShellViewModel @Inject constructor(
     private val shellRepository: ShellRepository,
     private val commandExamplesRepository: CommandRepository,
+    private val packageRepository: PackageRepository,
+    private val detectSuggestionTypeUseCase: DetectSuggestionTypeUseCase,
     private val extractLastCommandOutputUseCase: ExtractLastCommandOutputUseCase,
     private val getSaveOutputFileNameUseCase: GetSaveOutputFileNameUseCase,
     private val otgRepository: OtgRepository,
@@ -51,12 +59,90 @@ class ShellViewModel @Inject constructor(
 
     val shizukuPermissionState: StateFlow<Boolean> = shellRepository.shizukuPermissionState()
 
-    val allCommands: Flow<List<CommandEntity>> =
+    private val allCommands: Flow<List<CommandEntity>> =
         commandExamplesRepository.getSortedCommands(SortType.AZ).stateIn(
             viewModelScope,
             SharingStarted.Lazily, emptyList()
         )
 
+    private val _packages = MutableStateFlow<List<PackageInfo>>(emptyList())
+
+    init {
+        viewModelScope.launch {
+            _packages.value = packageRepository.getInstalledPackages()
+        }
+    }
+
+    @OptIn(FlowPreview::class)
+    val suggestions: StateFlow<List<Suggestion>> =
+        _states
+            .map { it.commandField.fieldValue.text }
+            .combine(allCommands) { text, commands ->
+                val context = detectSuggestionTypeUseCase(text)
+
+                withContext(Dispatchers.Default) {
+                    when (context.suggestionType) {
+                        SuggestionType.COMMAND -> {
+                            if (context.filterPrefix.isBlank()) {
+                                emptyList()
+                            } else {
+                                commands.filter {
+                                    it.command.contains(context.filterPrefix, ignoreCase = true)
+                                }.map { cmd ->
+                                    Suggestion(
+                                        id = cmd.id.toString(),
+                                        text = cmd.command,
+                                        type = SuggestionType.COMMAND
+                                    )
+                                }
+                            }
+                        }
+
+                        SuggestionType.PACKAGE -> {
+                            _packages.value.filter {
+                                it.packageName.startsWith(context.filterPrefix, ignoreCase = true)
+                            }.take(50).map { pkg ->
+                                Suggestion(
+                                    id = pkg.packageName,
+                                    text = pkg.packageName,
+                                    type = SuggestionType.PACKAGE,
+                                    label = if (pkg.isSystemApp) "System" else "User"
+                                )
+                            }
+                        }
+
+                        SuggestionType.PERMISSION -> {
+                            PermissionProvider.adbPermissions.filter {
+                                it.startsWith(context.filterPrefix, ignoreCase = true)
+                            }.take(50).map { perm ->
+                                Suggestion(
+                                    id = perm,
+                                    text = perm,
+                                    type = SuggestionType.PERMISSION
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            .distinctUntilChanged()
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                emptyList()
+            )
+
+    val currentSuggestionType: StateFlow<SuggestionType> =
+        _states
+            .map { detectSuggestionTypeUseCase(it.commandField.fieldValue.text).suggestionType }
+            .distinctUntilChanged()
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                SuggestionType.COMMAND
+            )
+
+    // Keep legacy for backward compatibility
     @OptIn(FlowPreview::class)
     val commandSuggestions: StateFlow<List<CommandEntity>> =
         _states
@@ -159,6 +245,21 @@ class ShellViewModel @Inject constructor(
         )
     }
 
+    fun applySuggestion(suggestion: Suggestion) {
+        val currentText = _states.value.commandField.fieldValue.text
+        val tokens = currentText.split(" ").toMutableList()
+
+        if (tokens.isNotEmpty()) {
+            tokens[tokens.lastIndex] = suggestion.text
+        } else {
+            tokens.add(suggestion.text)
+        }
+
+        val newText = tokens.joinToString(" ")
+        onCommandTextFieldChange(TextFieldValue(newText))
+        updateTextFieldSelection()
+    }
+
     fun clearOutput() = _states.update { it.copy(output = emptyList()) }
 
     fun getLastCommandOutput(rawOutput: String): String {
@@ -209,29 +310,26 @@ class ShellViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            // Buffer for batching output lines to prevent UI ANR with high-frequency output
             val outputBuffer = mutableListOf<OutputLine>()
             var lastFlushTime = System.currentTimeMillis()
-            val flushIntervalMs = 250L // Update UI at most every 250ms
-            
+            val flushIntervalMs = 250L
+
             executor(commandText).collect { line ->
                 outputBuffer.add(line)
-                
+
                 val now = System.currentTimeMillis()
                 if (now - lastFlushTime >= flushIntervalMs || outputBuffer.size >= 100) {
-                    // Batch update to reduce recomposition overhead
                     val linesToAdd = outputBuffer.toList()
                     outputBuffer.clear()
                     outputFlow.update { it + linesToAdd }
                     lastFlushTime = now
                 }
             }
-            
-            // Flush any remaining lines
+
             if (outputBuffer.isNotEmpty()) {
                 outputFlow.update { it + outputBuffer }
             }
-            
+
             _states.update { it.copy(shellState = ShellState.Free) }
         }
     }
