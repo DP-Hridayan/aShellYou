@@ -107,7 +107,7 @@
 > Save frequently used commands to bookmarks so you can run them again with a single tap.
 </br>
 
-> 🔃 **Backup and restore app settings and database locally**
+🔃 **Backup and restore app settings and database locally**
 > aShellYou lets you have the option to backup app settings and database for restore later.
 </br>
 
