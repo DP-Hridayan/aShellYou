@@ -2591,6 +2591,17 @@
     </issue>
 
     <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="    &lt;string name=&quot;loading&quot;>Carregando...&lt;/string>"
+        errorLine2="                           ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="247"
+            column="28"/>
+    </issue>
+
+    <issue
         id="IconDuplicates"
         message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png">
         <location

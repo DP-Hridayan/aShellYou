@@ -109,7 +109,7 @@ class AdbConnectionManager private constructor(context: Context) : AbsAdbConnect
     }
 
     override fun getDeviceName(): String {
-        return App.Companion.appContext.getString(R.string.app_name)
+        return "aShellYou"
     }
 
     companion object {
