@@ -83,6 +83,10 @@
 > Built-in examples help you understand and run useful commands instantly without memorizing syntax.
 </br>
 
+📁 **ADB based File Explorer for connected devices**
+> ADB push/pull based file manager will help you perform file operations such as delete, copy, move, etc. on the connected device.
+</br>
+
 🛠️ **Support for Continuous Commands**
 > Seamlessly run long or continuous shell commands like `logcat`, `top`, or `watch` and view live updates without interruptions.
 </br>
@@ -101,6 +105,10 @@
 
 📑 **Bookmark Commands**
 > Save frequently used commands to bookmarks so you can run them again with a single tap.
+</br>
+
+> 🔃 **Backup and restore app settings and database locally**
+> aShellYou lets you have the option to backup app settings and database for restore later.
 </br>
 
 🌑 **AMOLED-Friendly Dark Theme**
