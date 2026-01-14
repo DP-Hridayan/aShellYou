@@ -63,7 +63,7 @@ class ShellViewModel @Inject constructor(
     private val allCommands: Flow<List<CommandEntity>> =
         commandExamplesRepository.getSortedCommands(SortType.AZ).stateIn(
             viewModelScope,
-            SharingStarted.Lazily, emptyList()
+            SharingStarted.WhileSubscribed(5000), emptyList()
         )
 
     private val _packages = MutableStateFlow<List<PackageInfo>>(emptyList())
