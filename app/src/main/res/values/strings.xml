@@ -89,6 +89,8 @@
     <string name="default_language">Default language</string>
     <string name="delete">Delete</string>
     <string name="delete_all">Delete all</string>
+    <string name="delete_file">Delete file</string>
+    <string name="delete_folder">Delete folder</string>
     <string name="delete_items_message">Are you sure you want to delete %1$d selected items?</string>
     <string name="delete_items_title">Delete %1$d items?</string>
     <string name="delete_message">Are you sure you want to delete \"%1$s\"?</string>
@@ -169,6 +171,30 @@
     <string name="failed_to_claim_interface">Failed to claim interface</string>
     <string name="failed_to_open_usb_connection">Failed to open USB connection. Is USB debugging enabled?</string>
     <string name="fastboot">Fastboot</string>
+    <string name="fb_all_operations_cancelled">All operations cancelled</string>
+    <string name="fb_cannot_paste_into_selected">Cannot paste into selected folder</string>
+    <string name="fb_create_folder_failed">Failed to create folder: %1$s</string>
+    <string name="fb_delete_failed">Delete failed: %1$s</string>
+    <string name="fb_deleted_items">Deleted %1$d items</string>
+    <string name="fb_download_failed">Download failed: %1$s</string>
+    <string name="fb_downloaded_to">Downloaded to %1$s</string>
+    <string name="fb_downloading">Downloading %1$s</string>
+    <string name="fb_empty_folder_skipped">Empty folder skipped</string>
+    <string name="fb_error">Error: %1$s</string>
+    <string name="fb_file_deleted">File deleted</string>
+    <string name="fb_folder_created">Folder created</string>
+    <string name="fb_nothing_to_paste">Nothing to paste</string>
+    <string name="fb_operation_cancelled">Operation cancelled</string>
+    <string name="fb_otg_transfers_not_supported">File transfers not supported in OTG mode</string>
+    <string name="fb_paste_completed">Completed: %1$d items</string>
+    <string name="fb_paste_completed_with_failed">Completed: %1$d items, %2$d skipped, %3$d failed</string>
+    <string name="fb_paste_completed_with_skipped">Completed: %1$d items, %2$d skipped</string>
+    <string name="fb_reconnected_successfully">Reconnected successfully</string>
+    <string name="fb_rename_failed">Rename failed: %1$s</string>
+    <string name="fb_renamed_successfully">Renamed successfully</string>
+    <string name="fb_upload_failed">Upload failed: %1$s</string>
+    <string name="fb_uploaded_successfully">File uploaded successfully</string>
+    <string name="fb_uploading">Uploading %1$s</string>
     <string name="feature_request">Feature request</string>
     <string name="field_cannot_be_blank">Field cannot be blank</string>
     <string name="file">File</string>
@@ -253,6 +279,7 @@
     <string name="no_root_access">No root access</string>
     <string name="no_saved_devices">No saved devices</string>
     <string name="no_search_results_found">No search results found</string>
+    <string name="no_wifi_connection">No WiFi connection</string>
     <string name="none">None</string>
     <string name="nothing_to_clear">Nothing to clear</string>
     <string name="nothing_to_search">Nothing to search</string>
@@ -300,9 +327,9 @@
     <string name="reboot_options">Reboot options</string>
     <string name="reconnect">Reconnect</string>
     <string name="reconnect_failed">Reconnect failed</string>
-    <string name="troubleshoot">Troubleshoot</string>
-    <string name="troubleshoot_reconnect">Refresh wireless debugging connection by toggling it off-on</string>
     <string name="reconnect_failed_message">\nWireless Debugging might not be enabled\nPairing info might be lost. Pair manually again!</string>
+    <string name="reconnect_failed_requires_pairing">Reconnection failed. Re-pairing required.</string>
+    <string name="reconnect_success">Reconnected successfully</string>
     <string name="reconnect_the_device">Reconnect the device</string>
     <string name="recovery">Recovery</string>
     <string name="refresh">Refresh</string>
@@ -377,6 +404,8 @@
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Terminal font style</string>
     <string name="this_device">This Device</string>
+    <string name="troubleshoot">Troubleshoot</string>
+    <string name="troubleshoot_reconnect">Refresh wireless debugging connection by toggling it off-on</string>
     <string name="turn_off_mobile_data">Turn off Mobile Data if the Wifi connection has NO INTERNET</string>
     <string name="tweak_your_experience">Tweak your experience</string>
     <string name="type">Type</string>
@@ -389,8 +418,6 @@
     <string name="update_channel">Update channel</string>
     <string name="upload_file">Upload file</string>
     <string name="uploading">Uploading…</string>
-    <string name="delete_folder">Delete folder</string>
-    <string name="delete_file">Delete file</string>
     <string name="use">Use</string>
     <string name="version">Version</string>
     <string name="version_code">Version code</string>
@@ -408,30 +435,6 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A">Z → A</string>
-    <string name="fb_downloaded_to">Downloaded to %1$s</string>
-    <string name="fb_uploaded_successfully">File uploaded successfully</string>
-    <string name="fb_file_deleted">File deleted</string>
-    <string name="fb_folder_created">Folder created</string>
-    <string name="fb_renamed_successfully">Renamed successfully</string>
-    <string name="fb_operation_cancelled">Operation cancelled</string>
-    <string name="fb_all_operations_cancelled">All operations cancelled</string>
-    <string name="fb_nothing_to_paste">Nothing to paste</string>
-    <string name="fb_reconnected_successfully">Reconnected successfully</string>
-    <string name="fb_cannot_paste_into_selected">Cannot paste into selected folder</string>
-    <string name="fb_download_failed">Download failed: %1$s</string>
-    <string name="fb_upload_failed">Upload failed: %1$s</string>
-    <string name="fb_delete_failed">Delete failed: %1$s</string>
-    <string name="fb_create_folder_failed">Failed to create folder: %1$s</string>
-    <string name="fb_rename_failed">Rename failed: %1$s</string>
-    <string name="fb_deleted_items">Deleted %1$d items</string>
-    <string name="fb_empty_folder_skipped">Empty folder skipped</string>
-    <string name="fb_error">Error: %1$s</string>
-    <string name="fb_otg_transfers_not_supported">File transfers not supported in OTG mode</string>
-    <string name="fb_paste_completed">Completed: %1$d items</string>
-    <string name="fb_paste_completed_with_skipped">Completed: %1$d items, %2$d skipped</string>
-    <string name="fb_paste_completed_with_failed">Completed: %1$d items, %2$d skipped, %3$d failed</string>
-    <string name="fb_downloading">Downloading %1$s</string>
-    <string name="fb_uploading">Uploading %1$s</string>
 
     /**
     * Changelogs
@@ -484,9 +487,4 @@
     <string name="changelog_v1_0_0">\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
     <string name="changelog_v0_9_1">\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
     <string name="changelog_v0_9_0">\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
-    
-    <!-- Reconnect Dialog -->
-    <string name="no_wifi_connection">No WiFi connection</string>
-    <string name="reconnect_success">Reconnected successfully</string>
-    <string name="reconnect_failed_requires_pairing">Reconnection failed. Re-pairing required.</string>
 </resources>

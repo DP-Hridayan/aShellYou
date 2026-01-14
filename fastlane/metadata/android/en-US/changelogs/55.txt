@@ -1,0 +1,6 @@
+
+• Now command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.
+
+• Option to open Shizuku app directly when Shizuku is installed but not running.
+
+• Fixed the broken in app crash reporter.
