@@ -32,10 +32,10 @@
 
 <p align="center"> 
     <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
-  <img alt="Language" src="https://img.shields.io/badge/Language-Java-007396?style=for-the-badge&logo=java&logoColor=white" />
-  <img alt="UI" src="https://img.shields.io/badge/UI-XML-E44D26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-26-yellow?style=for-the-badge" />
-  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-35-blue?style=for-the-badge" />
+   <img alt="Language" src="https://img.shields.io/badge/Kotlin-%23B125E3.svg?style=for-the-badge&logo=kotlin&logoColor=white"/>
+  <img alt="UI" src="https://img.shields.io/badge/Jetpack%20Compose-%23007ACC.svg?style=for-the-badge&logo=jetpackcompose&logoColor=white"/>
+  <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-28-yellow?style=for-the-badge" />
+  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-36-blue?style=for-the-badge" />
   <a href="https://crowdin.com/project/ashellyou">
     <img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white"/>
 </a>
