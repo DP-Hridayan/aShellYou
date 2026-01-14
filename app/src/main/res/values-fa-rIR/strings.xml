@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="A_Z">الف → ی</string>
     <string name="abort_command">ابتدا فرمان را لغو کنید</string>
     <string name="about">درباره</string>
     <string name="adb_connection_active">اتصال ADB فعال</string>

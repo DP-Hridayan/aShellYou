@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="A_Z">A → Z</string>
     <string name="abort_command">Abortar comando primeiro</string>
     <string name="about">Sobre</string>
     <string name="adb_connection_active">Conexão ADB ativa</string>

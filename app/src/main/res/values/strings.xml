@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="A_Z">A → Z</string>
+    <string name="A_Z" translatable="false">A → Z</string>
     <string name="abort_command">Abort command first</string>
     <string name="about">About</string>
     <string name="adb_connection_active">ADB Connection Active</string>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="A_Z">А → Я</string>
     <string name="abort_command">Сначала отмените команду</string>
     <string name="about">О приложении</string>
     <string name="adb_connection_active">ADB-соединение активно</string>
