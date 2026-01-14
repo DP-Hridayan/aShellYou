@@ -33,7 +33,9 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): CommandDatabase {
-        return Room.databaseBuilder(
+        lateinit var database: CommandDatabase
+        
+        database = Room.databaseBuilder(
             context,
             CommandDatabase::class.java,
             "command_database"
@@ -43,20 +45,14 @@ object DatabaseModule {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     CoroutineScope(Dispatchers.IO).launch {
-                        val database = Room.databaseBuilder(
-                            context,
-                            CommandDatabase::class.java,
-                            "command_database"
-                        )
-                            .addTypeConverter(StringListConverter())
-                            .build()
-
                         database.commandDao().insertAllCommands(preloadedCommands)
                     }
                 }
             })
             .fallbackToDestructiveMigration(false)
             .build()
+        
+        return database
     }
 
 
