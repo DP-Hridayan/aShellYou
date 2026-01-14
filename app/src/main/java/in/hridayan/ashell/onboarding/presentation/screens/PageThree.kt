@@ -34,6 +34,7 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -62,6 +63,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawSelectChoice
@@ -70,8 +72,10 @@ import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
-import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
+import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.ShizukuUnavailableDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -80,7 +84,8 @@ import rikka.shizuku.Shizuku
 @Composable
 fun PageThree(
     modifier: Modifier = Modifier, pagerState: PagerState,
-    shellViewModel: ShellViewModel = hiltViewModel()
+    shellViewModel: ShellViewModel = hiltViewModel(),
+    settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -127,6 +132,28 @@ fun PageThree(
                 }
             }
         )
+    }
+
+    DisposableEffect(rootCardChecked, hasShizukuPermission) {
+        onDispose {
+            if (rootCardChecked) {
+                settingsViewModel.setInt(
+                    SettingsKeys.LOCAL_ADB_WORKING_MODE,
+                    LocalAdbWorkingMode.ROOT
+                )
+
+                return@onDispose
+            }
+
+            if (hasShizukuPermission) {
+                settingsViewModel.setInt(
+                    SettingsKeys.LOCAL_ADB_WORKING_MODE,
+                    LocalAdbWorkingMode.SHIZUKU
+                )
+
+                return@onDispose
+            }
+        }
     }
 
     Box(
@@ -251,12 +278,12 @@ fun PageThree(
                             shellViewModel.hasRootAccess()
                         }
                         rootCardChecked = hasRoot
-                    }
 
-                    if (!rootCardChecked) {
-                        makeToast(context, context.getString(R.string.no_root_access))
-                    } else {
-                        shellViewModel.runRootCommand()
+                        if (!rootCardChecked) {
+                            makeToast(context, context.getString(R.string.no_root_access))
+                        } else {
+                            shellViewModel.runRootCommand()
+                        }
                     }
                 }
             )
