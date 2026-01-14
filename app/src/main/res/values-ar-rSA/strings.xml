@@ -430,7 +430,6 @@
     <string name="wireless_debugging_guide_2">أدخل رمز الإقران المكون من ستة أرقام في الإشعار المُرسل من aShell You.</string>
     <string name="wireless_debugging_guide_3">عد إلى التطبيق وانقر على زر \"ابدأ\" في الشاشة الرئيسية.</string>
     <string name="wireless_debugging_important_notice">يرجى ملاحظة أن الجزء الأيسر من خيار التصحيح اللاسلكي قابل للنقر. الضغط عليه سيفتح قائمة إقران التصحيح اللاسلكي.</string>
-    <string name="Z_A">ي → أ</string>
 
     /**
     * Changelogs

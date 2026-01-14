@@ -430,7 +430,6 @@
     <string name="wireless_debugging_guide_2">Gib den sechsstelligen Kopplungscode in die Benachrichtigung von aShell You ein.</string>
     <string name="wireless_debugging_guide_3">Kehre zur App zurück und klicke auf \"Start\" auf dem Startbildschirm.</string>
     <string name="wireless_debugging_important_notice">Bitte beachte, dass der linke Teil der Kabelloses Debugging-Option anklickbar ist. Durch Antippen wird das Kopplungsmenü für Kabelloses Debugging geöffnet.</string>
-    <string name="Z_A">Z → A</string>
 
     /**
     * Changelogs
