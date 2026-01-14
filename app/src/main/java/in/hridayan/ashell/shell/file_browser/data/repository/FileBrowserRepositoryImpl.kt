@@ -180,18 +180,19 @@ class FileBrowserRepositoryImpl @Inject constructor(
     override fun pullFile(remotePath: String, localPath: String): Flow<FileOperationResult> = flow {
         val localFile = File(localPath)
         var transferComplete = false
+        var expectedTotalSize = 0L
 
         try {
             val escapedPath = remotePath.replace("'", "'\\''"  )
             val sizeResult = executeCommand("stat -c%s '$escapedPath'")
-            val totalSize = sizeResult?.trim()?.toLongOrNull() ?: 0L
+            expectedTotalSize = sizeResult?.trim()?.toLongOrNull() ?: 0L
 
-            emit(FileOperationResult.Progress(0, totalSize))
+            emit(FileOperationResult.Progress(0, expectedTotalSize))
 
             localFile.parentFile?.mkdirs()
 
             if (executor.supportsSyncTransfer()) {
-                val inputStream = executor.pullFileWithProgress(remotePath, totalSize) { _, _ -> }
+                val inputStream = executor.pullFileWithProgress(remotePath, expectedTotalSize) { _, _ -> }
                 if (inputStream == null) {
                     emit(FileOperationResult.Error("Failed to open stream for download"))
                     return@flow
@@ -209,8 +210,8 @@ class FileBrowserRepositoryImpl @Inject constructor(
                     
                     // Emit progress at most every 100ms for responsive UI without overhead
                     val now = System.currentTimeMillis()
-                    if (now - lastEmitTime >= 100 || bytesWritten >= totalSize) {
-                        emit(FileOperationResult.Progress(bytesWritten, totalSize))
+                    if (now - lastEmitTime >= 100 || bytesWritten >= expectedTotalSize) {
+                        emit(FileOperationResult.Progress(bytesWritten, expectedTotalSize))
                         lastEmitTime = now
                     }
                 }
@@ -239,8 +240,8 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
                     // Emit progress at most every 100ms for responsive UI without overhead
                     val now = System.currentTimeMillis()
-                    if (now - lastEmitTime >= 100 || bytesRead >= totalSize) {
-                        emit(FileOperationResult.Progress(bytesRead, totalSize))
+                    if (now - lastEmitTime >= 100 || bytesRead >= expectedTotalSize) {
+                        emit(FileOperationResult.Progress(bytesRead, expectedTotalSize))
                         lastEmitTime = now
                     }
                 }
@@ -253,38 +254,24 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
             // Verify downloaded file
             if (transferComplete) {
-                val finalSize = localFile.length()
-                if (totalSize > 0 && finalSize >= totalSize * 0.99) {
-                    emit(FileOperationResult.Success("File downloaded"))
-                } else if (totalSize == 0L && finalSize > 0) {
-                    // Size was unknown, but we got data
-                    emit(FileOperationResult.Success("File downloaded"))
-                } else {
-                    emit(FileOperationResult.Success("File downloaded"))
-                }
+                emit(FileOperationResult.Success("File downloaded"))
             }
 
         } catch (e: Exception) {
             Log.e(TAG, "Error pulling file $remotePath", e)
 
             // Smart success detection: check if file was actually downloaded
-            if (localFile.exists()) {
-                val sizeResult = executeCommand("stat -c%s '${remotePath.replace("'", "'\\''")}'")
-                val expectedSize = sizeResult?.trim()?.toLongOrNull() ?: 0L
-                val actualSize = localFile.length()
-
-                // If we got at least 99% of the file, consider it successful
-                if (expectedSize > 0 && actualSize >= expectedSize * 0.99) {
-                    Log.i(TAG, "Download completed despite exception. Expected: $expectedSize, Got: $actualSize")
-                    emit(FileOperationResult.Progress(actualSize, expectedSize))
-                    emit(FileOperationResult.Success("File downloaded"))
-                    return@flow
-                }
+            val actualSize = if (localFile.exists()) localFile.length() else 0L
+            
+            if (actualSize > 0 && (expectedTotalSize == 0L || actualSize >= expectedTotalSize * 0.95)) {
+                Log.i(TAG, "Download completed despite exception. Expected: $expectedTotalSize, Got: $actualSize")
+                emit(FileOperationResult.Progress(actualSize, expectedTotalSize))
+                emit(FileOperationResult.Success("File downloaded"))
+            } else {
+                emit(FileOperationResult.Error(e.message ?: "Failed to download file"))
             }
-
-            emit(FileOperationResult.Error(e.message ?: "Failed to download file"))
         }
-    }.buffer(Channel.RENDEZVOUS).flowOn(Dispatchers.IO)
+    }.buffer(Channel.BUFFERED).flowOn(Dispatchers.IO)
 
     override fun pushFile(localPath: String, remotePath: String): Flow<FileOperationResult> = flow {
         try {
