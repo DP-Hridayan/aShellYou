@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.file_browser.domain.model
 
+import android.annotation.SuppressLint
+
 /**
  * Represents a file or directory on the remote device.
  */
@@ -21,6 +23,7 @@ data class RemoteFile(
         } else ""
     
     val displaySize: String
+        @SuppressLint("DefaultLocale")
         get() = when {
             isDirectory -> ""
             size < 1024 -> "$size B"

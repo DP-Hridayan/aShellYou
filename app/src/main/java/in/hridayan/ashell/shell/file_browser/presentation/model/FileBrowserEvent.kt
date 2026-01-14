@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 
 sealed class FileBrowserEvent {
     data class ShowToast(
-        @StringRes val messageResId: Int,
+        @param:StringRes val messageResId: Int,
         val formatArgs: List<Any> = emptyList()
     ) : FileBrowserEvent()
 
