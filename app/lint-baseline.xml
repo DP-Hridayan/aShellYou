@@ -970,13 +970,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.raw.commands` appears to be unused">
-        <location
-            file="src/main/res/raw/commands.json"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.xml.data_extraction_rules` appears to be unused"
         errorLine1="&lt;data-extraction-rules>"
         errorLine2="^">
@@ -1575,62 +1568,6 @@
             file="src/main/res/drawable/scrollbar.xml"
             line="1"
             column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_commands` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_commands.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_commands_background` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_commands_background.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_commands_foreground` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_commands_foreground.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_commands_monochrome` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_commands_monochrome.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_settings` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_settings.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_settings_background` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_settings_background.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_settings_foreground` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_settings_foreground.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.shortcut_settings_monochrome` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_settings_monochrome.png"/>
     </issue>
 
     <issue
@@ -2591,17 +2528,6 @@
     </issue>
 
     <issue
-        id="TypographyEllipsis"
-        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
-        errorLine1="    &lt;string name=&quot;loading&quot;>Carregando...&lt;/string>"
-        errorLine2="                           ~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-pt-rPT/strings.xml"
-            line="247"
-            column="28"/>
-    </issue>
-
-    <issue
         id="IconDuplicates"
         message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png">
         <location
@@ -2644,96 +2570,6 @@
             file="src/main/res/mipmap-xxxhdpi/ic_launcher_monochrome.png"/>
         <location
             file="src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: shortcut_commands_foreground.png, shortcut_commands_monochrome.png">
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_commands_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_commands_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: shortcut_commands_foreground.png, shortcut_commands_monochrome.png">
-        <location
-            file="src/main/res/mipmap-mdpi/shortcut_commands_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-mdpi/shortcut_commands_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: shortcut_commands_foreground.png, shortcut_commands_monochrome.png">
-        <location
-            file="src/main/res/mipmap-xhdpi/shortcut_commands_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-xhdpi/shortcut_commands_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: shortcut_commands_foreground.png, shortcut_commands_monochrome.png">
-        <location
-            file="src/main/res/mipmap-xxhdpi/shortcut_commands_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-xxhdpi/shortcut_commands_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: shortcut_commands_foreground.png, shortcut_commands_monochrome.png">
-        <location
-            file="src/main/res/mipmap-xxxhdpi/shortcut_commands_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-xxxhdpi/shortcut_commands_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: shortcut_settings_foreground.png, shortcut_settings_monochrome.png">
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_settings_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-hdpi/shortcut_settings_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: shortcut_settings_foreground.png, shortcut_settings_monochrome.png">
-        <location
-            file="src/main/res/mipmap-mdpi/shortcut_settings_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-mdpi/shortcut_settings_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: shortcut_settings_foreground.png, shortcut_settings_monochrome.png">
-        <location
-            file="src/main/res/mipmap-xhdpi/shortcut_settings_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-xhdpi/shortcut_settings_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: shortcut_settings_foreground.png, shortcut_settings_monochrome.png">
-        <location
-            file="src/main/res/mipmap-xxhdpi/shortcut_settings_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-xxhdpi/shortcut_settings_foreground.png"/>
-    </issue>
-
-    <issue
-        id="IconDuplicates"
-        message="The following unrelated icon files have identical contents: shortcut_settings_foreground.png, shortcut_settings_monochrome.png">
-        <location
-            file="src/main/res/mipmap-xxxhdpi/shortcut_settings_monochrome.png"/>
-        <location
-            file="src/main/res/mipmap-xxxhdpi/shortcut_settings_foreground.png"/>
     </issue>
 
 </issues>
