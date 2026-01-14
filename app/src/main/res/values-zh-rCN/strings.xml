@@ -432,4 +432,53 @@
     <string name="wireless_debugging_guide_3">返回并点击开始</string>
     <string name="wireless_debugging_important_notice">左侧可点击</string>
     <string name="Z_A">Z → A</string>
+
+    /**
+    * Changelogs
+    * Created by DP-Hridayan
+    */
+    <string name="changelog_v7_0_0">\n使用 Material Expressive 组件全面改版界面\n整个代码库用 Kotlin 和 Jetpack Compose 重写\n添加推送和拉取文件管理器\n添加二维码 WiFi ADB 配对模式\n添加应用设置和数据库备份选项\n添加自定义主题选项\n添加崩溃历史查看功能\n改进自动更新功能\n改进 Shell 输出的 UI &amp; UX\n添加 Android 权限建议\n改版带标签的命令示例布局\n添加、编辑或删除命令的选项\n修复大量错误</string>
+    <string name="changelog_v6_1_0">\n命令搜索现在可以搜索包含关键词的命令\n直接打开 Shizuku 应用的选项\n修复应用内崩溃报告器</string>
+    <string name="changelog_v6_0_3">\n修复应用内翻译问题</string>
+    <string name="changelog_v6_0_2">\n采用 Github Actions 进行发布构建\n所有未来构建将更加安全！</string>
+    <string name="changelog_v6_0_1">\n维护更新</string>
+    <string name="changelog_v6_0_0">\n为 ADB 命令添加无线调试模式\n重新设计主页以实现最小化导航\n为关键系统软件包添加警告\n添加应用内更新器\n修复大量错误</string>
+    <string name="changelog_v5_2_1">\n维护更新</string>
+    <string name="changelog_v5_2_0">\n界面改进\n修复一些错误</string>
+    <string name="changelog_v5_1_0">\n小型界面改进</string>
+    <string name="changelog_v5_0_0">\n整个应用的重大 UI 和 UX 改进\n除 Shizuku 外添加 ROOT 和 BASIC Shell\n自定义目录保存输出的选项\n修复大量错误\n优化代码以提高性能</string>
+    <string name="changelog_v4_4_0">\n添加触觉反馈振动\n添加更改应用语言的选项\n改进崩溃报告\n小型界面改进</string>
+    <string name="changelog_v4_3_1">\n应用现在可以捕获崩溃并提供报告选项</string>
+    <string name="changelog_v4_3_0">\n直接打开已保存输出的选项\n保存全部或仅最后输出的选项\n修复崩溃</string>
+    <string name="changelog_v4_2_1">\n修复文本分享问题\n修复小型界面问题</string>
+    <string name="changelog_v4_2_0">\nOTG 模式稳定版\n添加保存、分享、快速滚动功能\n添加快速信息卡片\n添加应用内更新检查器\n小型界面改进</string>
+    <string name="changelog_v4_1_0">\n修复 OTG ADB 支持的一些问题\n更新翻译</string>
+    <string name="changelog_v4_0_3">\n更新依赖项\n添加更多命令示例</string>
+    <string name="changelog_v4_0_2">\n修复 Android 11 或更低版本的 AMOLED 主题问题</string>
+    <string name="changelog_v4_0_1">\n现在可以固定命令以便快速访问\n错误修复和代码优化</string>
+    <string name="changelog_v4_0_0">\n现在可以直接从命令部分使用命令\n删除所有书签的选项\n命令模板的排序选项\n添加土耳其语翻译\n小型界面改进\n修复大量错误</string>
+    <string name="changelog_v3_9_1">\n添加书签总数\n修复一些错误</string>
+    <string name="changelog_v3_9_0">\n在命令部分添加搜索\n设置默认工作模式的选项\n改进动画\n改版书签部分\n书签限制增加到 25</string>
+    <string name="changelog_v3_8_2">\n应用使用更清新的调色板\n修复小错误</string>
+    <string name="changelog_v3_8_1">\n修复 v3.8.0 中的崩溃</string>
+    <string name="changelog_v3_8_0">\n添加纯黑（AMOLED）主题\n添加撤销按钮\n禁用软键盘的选项\n多项界面改进\n更新翻译</string>
+    <string name="changelog_v3_7_0">\n从任何地方分享文本到 aShell You\n直接分享 Shell 输出\n优化和中文翻译</string>
+    <string name="changelog_v3_6_0">\n错误后清除输入框的选项\n修复粘贴时崩溃\n代码优化</string>
+    <string name="changelog_v3_5_1">\n修复底部导航的一些问题</string>
+    <string name="changelog_v3_5_0">\n改版关于部分\n添加启动器快捷方式\n改进导航菜单可见性\n大量代码优化</string>
+    <string name="changelog_v3_4_0">\n添加粘贴按钮\n添加错误指示器\n改进导航栏逻辑\n应用打开速度大幅提升</string>
+    <string name="changelog_v3_3_0">\n在 OTG 中添加书签和历史\n添加最大书签限制\n大量错误修复和优化</string>
+    <string name="changelog_v3_2_0">\n大量界面相关改进\n添加显示当前 ADB 模式的芯片</string>
+    <string name="changelog_v3_1_0">\n首次发布后的 ADB OTG 改进\n界面和逻辑调整</string>
+    <string name="changelog_v3_0_0">\n添加通过 OTG 的 ADB 支持\n*** 使用 OTG 线在其他设备上执行 ADB 命令 ***</string>
+    <string name="changelog_v2_0_2">\n移除不必要的代码和资源\n小型界面更改</string>
+    <string name="changelog_v2_0_1">\n移除不必要的代码和资源\n小型界面更改</string>
+    <string name="changelog_v2_0_0">\n应用名称更改为 aShell You\n添加预测返回动画\n清除前的确认对话框\n应用更加流畅\n减小应用大小</string>
+    <string name="changelog_v1_3_0">\n改版设置面板\n双击即时滚动\n小型界面修复</string>
+    <string name="changelog_v1_2_0">\n添加设置面板\n禁用平滑滚动的选项\n修复主要错误</string>
+    <string name="changelog_v1_1_1">\n替换一些已弃用的 API\n小型界面更改</string>
+    <string name="changelog_v1_1_0">\n添加上下滚动按钮\n按 Enter 发送命令\n添加一些命令\n小型界面更改</string>
+    <string name="changelog_v1_0_0">\n添加更多命令示例\n小型界面更改\n更改包名</string>
+    <string name="changelog_v0_9_1">\n在应用中添加更新日志\n高亮显示 Shell 输出\n小型界面更改</string>
+    <string name="changelog_v0_9_0">\n添加动态 Material 主题\n整个界面改版</string>
 </resources>

@@ -103,14 +103,18 @@ jobs:
             exit 1
           fi
 
-          # Replace • with * and \n with two spaces followed by \n
-          CHANGELOG=$(echo "$CHANGELOG" | sed 's/•/*/g' | sed 's/\\n/  \n/g')
-
-          # Add ### Changelog before the changelog text
-          CHANGELOG="### Changelog  $CHANGELOG"
-
-          # Write CHANGELOG to a temporary file
+          # Convert \n to newline + bullet
+          CHANGELOG=$(echo "$CHANGELOG" | sed 's/\\n/\n* /g')
+  
+          # Add bullet to first line
+          CHANGELOG="* $CHANGELOG"
+  
+          # Add heading cleanly
+          CHANGELOG="### Changelog\n\n$CHANGELOG"
+  
+          # Write to file
           echo -e "$CHANGELOG" > changelog.txt
+
 
       - name: Publish Release using gh CLI
         run: |

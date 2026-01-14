@@ -432,4 +432,53 @@
     <string name="wireless_debugging_guide_3">Revenez et appuyez sur Démarrer</string>
     <string name="wireless_debugging_important_notice">Le côté gauche est cliquable</string>
     <string name="Z_A">Z → A</string>
+
+    /**
+    * Changelogs
+    * Created by DP-Hridayan
+    */
+    <string name="changelog_v7_0_0">\nRefonte complète de l\'interface avec les composants Material Expressive\nRéécriture complète du code en Kotlin et Jetpack Compose\nAjout d\'un gestionnaire de fichiers push &amp; pull\nAjout du mode d\'appairage WiFi ADB par QR\nAjout des options de sauvegarde des paramètres et de la base de données\nAjout d\'options de thème personnalisé\nAjout de l\'historique des plantages\nAmélioration de la mise à jour automatique\nAmélioration de l\'interface dans la sortie shell\nAjout de suggestions de permissions Android\nRefonte de la mise en page des exemples de commandes avec labels\nOption d\'ajouter, modifier ou supprimer des commandes\nCorrection de nombreux bugs</string>
+    <string name="changelog_v6_1_0">\nLa recherche peut maintenant trouver les commandes contenant le mot\nOption d\'ouvrir directement l\'application Shizuku\nCorrection du rapporteur de plantages</string>
+    <string name="changelog_v6_0_3">\nCorrection du problème des traductions par application</string>
+    <string name="changelog_v6_0_2">\nAdaptation de Github Actions pour les builds\nToutes les versions suivantes seront plus sécurisées !</string>
+    <string name="changelog_v6_0_1">\nMise à jour de maintenance</string>
+    <string name="changelog_v6_0_0">\nAjout du mode DÉBOGAGE SANS FIL pour les commandes ADB\nRefonte de la page d\'accueil\nAjout d\'avertissement pour les commandes système critiques\nAjout du programme de mise à jour intégré\nCorrection de nombreux bugs</string>
+    <string name="changelog_v5_2_1">\nMise à jour de maintenance</string>
+    <string name="changelog_v5_2_0">\nAméliorations de l\'interface\nCorrection de bugs</string>
+    <string name="changelog_v5_1_0">\nPetites améliorations de l\'interface</string>
+    <string name="changelog_v5_0_0">\nAméliorations majeures de l\'interface et de l\'expérience\nAjout des modes ROOT et BASIC en plus de Shizuku\nOption de sauvegarde dans un dossier personnalisé\nCorrection de nombreux bugs\nOptimisation du code</string>
+    <string name="changelog_v4_4_0">\nAjout de vibration pour le retour haptique\nOption de changement de langue\nAmélioration des rapports de plantage\nPetites améliorations de l\'interface</string>
+    <string name="changelog_v4_3_1">\nL\'application capture maintenant les plantages et offre une option de rapport</string>
+    <string name="changelog_v4_3_0">\nOption d\'ouvrir directement les sorties sauvegardées\nOption de sauvegarder toute la sortie ou seulement la dernière\nCorrection de plantages</string>
+    <string name="changelog_v4_2_1">\nCorrection du problème de partage de texte\nCorrections mineures de l\'interface</string>
+    <string name="changelog_v4_2_0">\nVersion stable du mode OTG\nAjout des fonctions sauvegarder, partager, défilement rapide\nAjout de cartes d\'information rapide\nAjout du vérificateur de mises à jour\nPetites améliorations de l\'interface</string>
+    <string name="changelog_v4_1_0">\nCorrection de problèmes OTG ADB\nMise à jour des traductions</string>
+    <string name="changelog_v4_0_3">\nMise à jour des dépendances\nAjout d\'exemples de commandes</string>
+    <string name="changelog_v4_0_2">\nCorrection du thème AMOLED sur Android 11 ou moins</string>
+    <string name="changelog_v4_0_1">\nPossibilité d\'épingler des commandes\nCorrections et optimisations du code</string>
+    <string name="changelog_v4_0_0">\nUtilisation directe des commandes depuis la section Commandes\nOption de supprimer tous les favoris\nOptions de tri dans les modèles\nAjout de la traduction turque\nPetites améliorations de l\'interface\nCorrection de nombreux bugs</string>
+    <string name="changelog_v3_9_1">\nAjout du nombre total de favoris\nCorrection de bugs</string>
+    <string name="changelog_v3_9_0">\nAjout de la recherche dans les commandes\nOption de mode de travail par défaut\nAmélioration des animations\nRefonte des favoris\nLimite de favoris augmentée à 25</string>
+    <string name="changelog_v3_8_2">\nNouvelle palette de couleurs\nCorrections mineures</string>
+    <string name="changelog_v3_8_1">\nCorrection de plantages de v3.8.0</string>
+    <string name="changelog_v3_8_0">\nAjout du thème noir (AMOLED)\nBouton annuler ajouté\nOption de désactiver le clavier virtuel\nAméliorations multiples de l\'interface\nMise à jour des traductions</string>
+    <string name="changelog_v3_7_0">\nPartage de texte vers aShell You depuis n\'importe où\nPartage direct de la sortie shell\nOptimisations et traduction chinoise</string>
+    <string name="changelog_v3_6_0">\nOption d\'effacer le champ après erreur\nCorrection du plantage lors du collage\nOptimisations du code</string>
+    <string name="changelog_v3_5_1">\nCorrection de problèmes de navigation inférieure</string>
+    <string name="changelog_v3_5_0">\nRefonte de la section À propos\nAjout de raccourcis launcher\nAmélioration de la visibilité du menu\nOptimisations du code</string>
+    <string name="changelog_v3_4_0">\nBouton coller ajouté\nIndicateurs d\'erreur ajoutés\nAmélioration de la logique de navigation\nL\'application s\'ouvre plus rapidement</string>
+    <string name="changelog_v3_3_0">\nAjout des favoris et historique à OTG\nLimite maximale de favoris\nCorrections et optimisations</string>
+    <string name="changelog_v3_2_0">\nAméliorations liées à l\'interface\nChips indiquant le mode ADB actuel</string>
+    <string name="changelog_v3_1_0">\nAméliorations d\'ADB OTG après la sortie initiale\nAjustements d\'interface et de logique</string>
+    <string name="changelog_v3_0_0">\nAjout du support ADB VIA OTG\n*** Exécutez des commandes ADB sur d\'autres appareils avec un câble OTG ***</string>
+    <string name="changelog_v2_0_2">\nSuppression du code inutile\nPetits changements d\'interface</string>
+    <string name="changelog_v2_0_1">\nSuppression du code inutile\nPetits changements d\'interface</string>
+    <string name="changelog_v2_0_0">\nNom changé en aShell You\nAnimations predictive back ajoutées\nDialogue de confirmation avant effacement\nApplication plus fluide\nTaille réduite</string>
+    <string name="changelog_v1_3_0">\nRefonte du panneau Paramètres\nDouble tap pour défilement instantané\nCorrections mineures</string>
+    <string name="changelog_v1_2_0">\nAjout du panneau Paramètres\nOption de désactiver le défilement fluide\nCorrections de bugs majeurs</string>
+    <string name="changelog_v1_1_1">\nRemplacement d\'API obsolètes\nPetits changements d\'interface</string>
+    <string name="changelog_v1_1_0">\nBoutons de défilement ajoutés\nEntrée pour envoyer la commande\nCommandes ajoutées\nPetits changements d\'interface</string>
+    <string name="changelog_v1_0_0">\nPlus d\'exemples de commandes\nPetits changements d\'interface\nNom de paquet changé</string>
+    <string name="changelog_v0_9_1">\nChangelogs ajoutés dans l\'app\nSortie shell colorée\nPetits changements d\'interface</string>
+    <string name="changelog_v0_9_0">\nThème Material dynamique ajouté\nRefonte complète de l\'interface</string>
 </resources>

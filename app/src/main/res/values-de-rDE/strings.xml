@@ -432,4 +432,53 @@
     <string name="wireless_debugging_guide_3">Kehre zur App zurück und klicke auf \"Start\" auf dem Startbildschirm.</string>
     <string name="wireless_debugging_important_notice">Bitte beachte, dass der linke Teil der Kabelloses Debugging-Option anklickbar ist. Durch Antippen wird das Kopplungsmenü für Kabelloses Debugging geöffnet.</string>
     <string name="Z_A">Z → A</string>
+
+    /**
+    * Changelogs
+    * Created by DP-Hridayan
+    */
+    <string name="changelog_v7_0_0">\nKomplette UI-Überarbeitung mit Material Expressive-Komponenten\nGesamte Codebasis in Kotlin und Jetpack Compose neu geschrieben\nPush &amp; Pull Dateimanager hinzugefügt\nQR WiFi ADB-Kopplungsmodus hinzugefügt\nApp-Einstellungen und Datenbank-Backup-Optionen hinzugefügt\nBenutzerdefinierte Themen-Optionen hinzugefügt\nCrash-Verlauf zur Anzeige von Fehlerprotokollen hinzugefügt\nAuto-Update-Funktion verbessert\nUI &amp; UX bei Shell-Ausgabe verbessert\nAndroid-Berechtigungsvorschläge hinzugefügt\nBefehlsbeispiel-Layout mit Labels überarbeitet\nOption zum Hinzufügen, Bearbeiten oder Löschen von Befehlen\nViele Fehler behoben</string>
+    <string name="changelog_v6_1_0">\nBefehlssuche findet jetzt Befehle, die das Wort enthalten\nOption zum direkten Öffnen der Shizuku-App\nIn-App Crash-Reporter repariert</string>
+    <string name="changelog_v6_0_3">\nProblem mit App-spezifischen Übersetzungen behoben</string>
+    <string name="changelog_v6_0_2">\nGithub Actions für Release-Builds angepasst\nAlle nachfolgenden Builds werden sicherer sein!</string>
+    <string name="changelog_v6_0_1">\nWartungsupdate</string>
+    <string name="changelog_v6_0_0">\nWIRELESS DEBUGGING-Modus für ADB-Befehle hinzugefügt\nStartseite für minimale Navigation neu gestaltet\nWarnhinweis bei kritischen Systempaketen hinzugefügt\nIn-App-Updater hinzugefügt\nViele Fehler behoben</string>
+    <string name="changelog_v5_2_1">\nWartungsupdate</string>
+    <string name="changelog_v5_2_0">\nUI-Verbesserungen\nEinige Fehler behoben</string>
+    <string name="changelog_v5_1_0">\nKleine UI-Verbesserungen</string>
+    <string name="changelog_v5_0_0">\nGroße UI- und UX-Verbesserungen\nROOT und BASIC Shell zusätzlich zu Shizuku hinzugefügt\nOption zum Speichern in benutzerdefiniertem Verzeichnis\nViele Fehler behoben\nCode für bessere Leistung optimiert</string>
+    <string name="changelog_v4_4_0">\nVibration für haptisches Feedback hinzugefügt\nOption zur Sprachänderung hinzugefügt\nCrash-Reporting verbessert\nKleine UI-Verbesserungen</string>
+    <string name="changelog_v4_3_1">\nApp erfasst jetzt Abstürze und bietet Berichtsoption</string>
+    <string name="changelog_v4_3_0">\nOption zum direkten Öffnen gespeicherter Ausgaben\nOption zum Speichern der gesamten oder letzten Ausgabe\nAbstürze behoben</string>
+    <string name="changelog_v4_2_1">\nProblem beim Teilen von Text behoben\nKleine UI-Probleme behoben</string>
+    <string name="changelog_v4_2_0">\nStabile Version des OTG-Modus\nFunktionen wie Speichern, Teilen, Schnellscroll hinzugefügt\nInfo-Karten hinzugefügt\nIn-App Update-Checker hinzugefügt\nKleine UI-Verbesserungen</string>
+    <string name="changelog_v4_1_0">\nProbleme mit OTG ADB-Unterstützung behoben\nÜbersetzungen aktualisiert</string>
+    <string name="changelog_v4_0_3">\nAbhängigkeiten aktualisiert\nMehr Befehlsbeispiele hinzugefügt</string>
+    <string name="changelog_v4_0_2">\nAMOLED-Theme auf Android 11 oder niedriger repariert</string>
+    <string name="changelog_v4_0_1">\nBefehle können für Schnellzugriff angeheftet werden\nFehlerbehebungen und Code-Optimierungen</string>
+    <string name="changelog_v4_0_0">\nBefehle direkt aus dem Befehlsbereich verwendbar\nOption zum Löschen aller Lesezeichen\nSortieroptionen in Befehlsvorlagen\nTürkische Übersetzung hinzugefügt\nKleine UI-Verbesserungen\nViele Fehler behoben</string>
+    <string name="changelog_v3_9_1">\nGesamte Lesezeichen-Anzahl hinzugefügt\nEinige Fehler behoben</string>
+    <string name="changelog_v3_9_0">\nSuche im Befehlsbereich hinzugefügt\nOption für Standard-Arbeitsmodus\nAnimationen verbessert\nLesezeichen-Bereich überarbeitet\nLesezeichen-Limit auf 25 erhöht</string>
+    <string name="changelog_v3_8_2">\nApp verwendet eine aufgefrischte Farbpalette\nKleine Fehler behoben</string>
+    <string name="changelog_v3_8_1">\nAbstürze aus v3.8.0 behoben</string>
+    <string name="changelog_v3_8_0">\nSchwarzes (AMOLED) Theme hinzugefügt\nRückgängig-Button hinzugefügt\nOption zum Deaktivieren der Soft-Tastatur\nMehrere UI-Verbesserungen\nÜbersetzungen aktualisiert</string>
+    <string name="changelog_v3_7_0">\nTexte von überall an aShell You teilen\nShell-Ausgabe direkt teilen\nOptimierungen und chinesische Übersetzung</string>
+    <string name="changelog_v3_6_0">\nOption zum Löschen des Eingabefelds nach Fehler\nAbsturz beim Einfügen behoben\nCode-Optimierungen</string>
+    <string name="changelog_v3_5_1">\nProbleme mit unterer Navigation behoben</string>
+    <string name="changelog_v3_5_0">\nÜber-Bereich überarbeitet\nLauncher-Shortcuts hinzugefügt\nNavigationsmenü-Sichtbarkeit verbessert\nViele Code-Optimierungen</string>
+    <string name="changelog_v3_4_0">\nEinfüge-Button hinzugefügt\nFehleranzeigen hinzugefügt\nNavigationsleisten-Logik verbessert\nApp öffnet jetzt viel schneller</string>
+    <string name="changelog_v3_3_0">\nLesezeichen und Verlauf zu OTG hinzugefügt\nMaximales Lesezeichen-Limit hinzugefügt\nViele Fehlerbehebungen und Optimierungen</string>
+    <string name="changelog_v3_2_0">\nViele UI-bezogene Verbesserungen\nChips für aktuellen ADB-Modus hinzugefügt</string>
+    <string name="changelog_v3_1_0">\nVerbesserungen an ADB OTG nach Erstveröffentlichung\nUI- und Logik-Anpassungen</string>
+    <string name="changelog_v3_0_0">\nADB ÜBER OTG Unterstützung hinzugefügt\n*** ADB-Befehle auf anderen Geräten per OTG-Kabel ausführen ***</string>
+    <string name="changelog_v2_0_2">\nUnnötigen Code und Ressourcen entfernt\nKleine UI-Änderungen</string>
+    <string name="changelog_v2_0_1">\nUnnötigen Code und Ressourcen entfernt\nKleine UI-Änderungen</string>
+    <string name="changelog_v2_0_0">\nApp-Name zu aShell You geändert\nPredictive Back-Animationen hinzugefügt\nBestätigungsdialog vor dem Löschen\nApp ist jetzt viel flüssiger\nApp-Größe reduziert</string>
+    <string name="changelog_v1_3_0">\nEinstellungen-Panel überarbeitet\nDoppeltippen für Sofort-Scroll\nKleine UI-Korrekturen</string>
+    <string name="changelog_v1_2_0">\nEinstellungen-Panel hinzugefügt\nOption zum Deaktivieren des sanften Scrollens\nWichtige Fehler behoben</string>
+    <string name="changelog_v1_1_1">\nVeraltete API ersetzt\nKleine UI-Änderungen</string>
+    <string name="changelog_v1_1_0">\nScroll-Buttons hinzugefügt\nEnter-Taste zum Senden\nBefehle hinzugefügt\nKleine UI-Änderungen</string>
+    <string name="changelog_v1_0_0">\nMehr Befehlsbeispiele hinzugefügt\nKleine UI-Änderungen\nPaketname geändert</string>
+    <string name="changelog_v0_9_1">\nChangelogs in die App hinzugefügt\nHervorgehobene Shell-Ausgabe\nKleine UI-Änderungen</string>
+    <string name="changelog_v0_9_0">\nDynamisches Material-Theming hinzugefügt\nGesamte UI überarbeitet</string>
 </resources>

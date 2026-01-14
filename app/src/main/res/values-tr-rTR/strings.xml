@@ -432,4 +432,53 @@
     <string name="wireless_debugging_guide_3">Geri dönün ve Başlat\'a basın</string>
     <string name="wireless_debugging_important_notice">Sol taraf tıklanabilir</string>
     <string name="Z_A">Z → A</string>
+
+    /**
+    * Changelogs
+    * Created by DP-Hridayan
+    */
+    <string name="changelog_v7_0_0">\nMaterial Expressive bileşenleriyle tamamen yeniden tasarlanmış arayüz\nTüm kod tabanı Kotlin ve Jetpack Compose ile yeniden yazıldı\nPush &amp; Pull dosya yöneticisi eklendi\nQR WiFi ADB eşleştirme modu eklendi\nUygulama ayarları ve veritabanı yedekleme seçenekleri eklendi\nÖzel tema seçenekleri eklendi\nÇökme geçmişi görüntüleme özelliği eklendi\nOtomatik güncelleme özelliği iyileştirildi\nKabuk çıktısında UI &amp; UX iyileştirildi\nAndroid izin önerileri eklendi\nEtiketli komut örnekleri düzeni yenilendi\nKomut ekleme, düzenleme veya silme seçeneği\nBirçok hata düzeltildi</string>
+    <string name="changelog_v6_1_0">\nKomut araması artık kelime içeren komutları bulabiliyor\nShizuku uygulamasını doğrudan açma seçeneği\nUygulama içi çökme raporlayıcısı düzeltildi</string>
+    <string name="changelog_v6_0_3">\nUygulama başına çeviri sorunu düzeltildi</string>
+    <string name="changelog_v6_0_2">\nSürüm derlemeleri için Github Actions benimsendi\nGelecek tüm derlemeler daha güvenli olacak!</string>
+    <string name="changelog_v6_0_1">\nBakım güncellemesi</string>
+    <string name="changelog_v6_0_0">\nADB komutları için KABLOSUZ HATA AYIKLAMA modu eklendi\nMinimal navigasyon için ana sayfa yeniden tasarlandı\nKritik sistem paketleri için uyarı eklendi\nUygulama içi güncelleyici eklendi\nBirçok hata düzeltildi</string>
+    <string name="changelog_v5_2_1">\nBakım güncellemesi</string>
+    <string name="changelog_v5_2_0">\nUI iyileştirmeleri\nBazı hatalar düzeltildi</string>
+    <string name="changelog_v5_1_0">\nKüçük UI iyileştirmeleri</string>
+    <string name="changelog_v5_0_0">\nTüm uygulamada büyük UI ve UX iyileştirmeleri\nShizuku\'ya ek olarak ROOT ve BASIC kabuk eklendi\nÖzel dizine çıktı kaydetme seçeneği\nBirçok hata düzeltildi\nDaha iyi performans için kod optimize edildi</string>
+    <string name="changelog_v4_4_0">\nDokunsal geri bildirim için titreşim eklendi\nUygulama dilini değiştirme seçeneği eklendi\nÇökme raporlaması iyileştirildi\nKüçük UI iyileştirmeleri</string>
+    <string name="changelog_v4_3_1">\nUygulama artık çökmeleri yakalıyor ve raporlama seçeneği sunuyor</string>
+    <string name="changelog_v4_3_0">\nKaydedilen çıktıları doğrudan açma seçeneği\nTüm veya son çıktıyı kaydetme seçeneği\nÇökmeler düzeltildi</string>
+    <string name="changelog_v4_2_1">\nMetin paylaşım sorunu düzeltildi\nKüçük UI sorunları düzeltildi</string>
+    <string name="changelog_v4_2_0">\nOTG modunun kararlı sürümü\nKaydetme, paylaşma, hızlı kaydırma özellikleri eklendi\nHızlı bilgi kartları eklendi\nUygulama içi güncelleme denetleyicisi eklendi\nKüçük UI iyileştirmeleri</string>
+    <string name="changelog_v4_1_0">\nOTG ADB desteğindeki bazı sorunlar düzeltildi\nÇeviriler güncellendi</string>
+    <string name="changelog_v4_0_3">\nBağımlılıklar güncellendi\nDaha fazla komut örneği eklendi</string>
+    <string name="changelog_v4_0_2">\nAndroid 11 veya altında AMOLED teması sorunu düzeltildi</string>
+    <string name="changelog_v4_0_1">\nKomutlar artık hızlı erişim için sabitlenebiliyor\nHata düzeltmeleri ve kod optimizasyonları</string>
+    <string name="changelog_v4_0_0">\nKomutlar artık Komutlar bölümünden doğrudan kullanılabiliyor\nTüm yer işaretlerini silme seçeneği\nKomut şablonlarında sıralama seçenekleri\nTürkçe çeviri eklendi\nKüçük UI iyileştirmeleri\nBirçok hata düzeltildi</string>
+    <string name="changelog_v3_9_1">\nToplam yer işareti sayısı eklendi\nBazı hatalar düzeltildi</string>
+    <string name="changelog_v3_9_0">\nKomutlar bölümüne arama eklendi\nVarsayılan çalışma modunu ayarlama seçeneği\nAnimasyonlar iyileştirildi\nYer işaretleri bölümü yenilendi\nYer işareti sınırı 25\'e çıkarıldı</string>
+    <string name="changelog_v3_8_2">\nUygulama daha taze renk paleti kullanıyor\nKüçük hatalar düzeltildi</string>
+    <string name="changelog_v3_8_1">\nv3.8.0\'daki çökmeler düzeltildi</string>
+    <string name="changelog_v3_8_0">\nSiyah (AMOLED) tema eklendi\nGeri al düğmesi eklendi\nYumuşak klavyeyi devre dışı bırakma seçeneği\nBirden fazla UI iyileştirmesi\nÇeviriler güncellendi</string>
+    <string name="changelog_v3_7_0">\nHer yerden aShell You\'ya metin paylaşma\nKabuk çıktısını doğrudan paylaşma\nOptimizasyonlar ve Çince çeviri</string>
+    <string name="changelog_v3_6_0">\nHatadan sonra giriş alanını temizleme seçeneği\nYapıştırmada çökme düzeltildi\nKod optimizasyonları</string>
+    <string name="changelog_v3_5_1">\nAlt navigasyondaki bazı sorunlar düzeltildi</string>
+    <string name="changelog_v3_5_0">\nHakkında bölümü yenilendi\nBaşlatıcı kısayolları eklendi\nNavigasyon menüsü görünürlüğü iyileştirildi\nÇok sayıda kod optimizasyonu</string>
+    <string name="changelog_v3_4_0">\nYapıştır düğmesi eklendi\nHata göstergeleri eklendi\nNavigasyon çubuğu mantığı iyileştirildi\nUygulama çok daha hızlı açılıyor</string>
+    <string name="changelog_v3_3_0">\nOTG\'ye yer işaretleri ve geçmiş eklendi\nMaksimum yer işareti sınırı eklendi\nBirçok hata düzeltmesi ve optimizasyon</string>
+    <string name="changelog_v3_2_0">\nUI ile ilgili birçok iyileştirme\nMevcut ADB modunu gösteren çipler eklendi</string>
+    <string name="changelog_v3_1_0">\nİlk sürümden sonra ADB OTG iyileştirmeleri\nUI ve mantık ayarlamaları</string>
+    <string name="changelog_v3_0_0">\nOTG üzerinden ADB desteği eklendi\n*** OTG kablosu kullanarak diğer cihazlarda ADB komutları çalıştırın ***</string>
+    <string name="changelog_v2_0_2">\nGereksiz kod ve kaynaklar kaldırıldı\nKüçük UI değişiklikleri</string>
+    <string name="changelog_v2_0_1">\nGereksiz kod ve kaynaklar kaldırıldı\nKüçük UI değişiklikleri</string>
+    <string name="changelog_v2_0_0">\nUygulama adı aShell You olarak değiştirildi\nTahmine dayalı geri animasyonları eklendi\nTemizlemeden önce onay iletişim kutusu\nUygulama çok daha akıcı\nUygulama boyutu küçültüldü</string>
+    <string name="changelog_v1_3_0">\nAyarlar paneli yenilendi\nAnında kaydırma için çift dokunma\nKüçük UI düzeltmeleri</string>
+    <string name="changelog_v1_2_0">\nAyarlar paneli eklendi\nYumuşak kaydırmayı devre dışı bırakma seçeneği\nAna hatalar düzeltildi</string>
+    <string name="changelog_v1_1_1">\nBazı kullanımdan kaldırılan API\'ler değiştirildi\nKüçük UI değişiklikleri</string>
+    <string name="changelog_v1_1_0">\nYukarı ve aşağı kaydırma düğmeleri eklendi\nKomut göndermek için Enter\nBazı komutlar eklendi\nKüçük UI değişiklikleri</string>
+    <string name="changelog_v1_0_0">\nDaha fazla komut örneği eklendi\nKüçük UI değişiklikleri\nPaket adı değiştirildi</string>
+    <string name="changelog_v0_9_1">\nUygulamaya değişiklik günlükleri eklendi\nVurgulu kabuk çıktısı\nKüçük UI değişiklikleri</string>
+    <string name="changelog_v0_9_0">\nDinamik Materyal teması eklendi\nTüm arayüz yenilendi</string>
 </resources>

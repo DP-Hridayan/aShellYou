@@ -432,4 +432,53 @@
     <string name="wireless_debugging_guide_3">戻って開始を押す</string>
     <string name="wireless_debugging_important_notice">左側はクリック可能です</string>
     <string name="Z_A">ん → あ</string>
+
+    /**
+    * Changelogs
+    * Created by DP-Hridayan
+    */
+    <string name="changelog_v7_0_0">\nMaterial Expressiveコンポーネントを使用してUI全体を刷新\nコードベース全体をKotlinとJetpack Composeで書き直し\nプッシュ&amp;プル対応ファイルマネージャーを追加\nQR WiFi ADBペアリングモードを追加\nアプリ設定とデータベースバックアップオプションを追加\nカスタムテーマオプションを追加\nクラッシュ履歴表示機能を追加\n自動更新機能を改善\nシェル出力のUI &amp; UXを改善\nAndroid権限の提案を追加\nラベル付きコマンド例レイアウトを刷新\nコマンドの追加、編集、削除機能を追加\n多くのバグを修正</string>
+    <string name="changelog_v6_1_0">\nコマンド検索が単語を含むコマンドを検索可能に\nShizukuアプリを直接開くオプション\nアプリ内クラッシュレポーターを修正</string>
+    <string name="changelog_v6_0_3">\nアプリごとの翻訳の問題を修正</string>
+    <string name="changelog_v6_0_2">\nリリースビルド用にGithub Actionsを採用\n今後のビルドはより安全に！</string>
+    <string name="changelog_v6_0_1">\nメンテナンスアップデート</string>
+    <string name="changelog_v6_0_0">\nADBコマンド用ワイヤレスデバッグモードを追加\nホームページを最小限のナビゲーションに再設計\n重要なシステムパッケージの警告を追加\nアプリ内アップデーターを追加\n多くのバグを修正</string>
+    <string name="changelog_v5_2_1">\nメンテナンスアップデート</string>
+    <string name="changelog_v5_2_0">\nUI改善\nいくつかのバグを修正</string>
+    <string name="changelog_v5_1_0">\n小さなUI改善</string>
+    <string name="changelog_v5_0_0">\nアプリ全体で大規模なUI・UX改善\nShizukuに加えてROOTとBASICシェルを追加\nカスタムディレクトリへの出力保存オプション\n多くのバグを修正\nパフォーマンス向上のためコードを最適化</string>
+    <string name="changelog_v4_4_0">\n触覚フィードバック用のバイブレーションを追加\nアプリ言語変更オプションを追加\nクラッシュレポートを改善\n小さなUI改善</string>
+    <string name="changelog_v4_3_1">\nアプリがクラッシュをキャッチし報告オプションを提供</string>
+    <string name="changelog_v4_3_0">\n保存した出力を直接開くオプション\n全体または最後の出力のみ保存するオプション\nクラッシュを修正</string>
+    <string name="changelog_v4_2_1">\nテキスト共有の問題を修正\n小さなUI問題を修正</string>
+    <string name="changelog_v4_2_0">\nOTGモードの安定版リリース\n保存、共有、クイックスクロール機能を追加\nクイック情報カードを追加\nアプリ内アップデートチェッカーを追加\n小さなUI改善</string>
+    <string name="changelog_v4_1_0">\nOTG ADBサポートの問題を修正\n翻訳を更新</string>
+    <string name="changelog_v4_0_3">\n依存関係を更新\nより多くのコマンド例を追加</string>
+    <string name="changelog_v4_0_2">\nAndroid 11以下でのAMOLEDテーマの問題を修正</string>
+    <string name="changelog_v4_0_1">\nクイックアクセス用にコマンドをピン留め可能に\nバグ修正とコード最適化</string>
+    <string name="changelog_v4_0_0">\nコマンドセクションから直接コマンドを使用可能に\n全ブックマーク削除オプション\nコマンドテンプレートのソートオプション\nトルコ語翻訳を追加\n小さなUI改善\n多くのバグを修正</string>
+    <string name="changelog_v3_9_1">\n総ブックマーク数を追加\nいくつかのバグを修正</string>
+    <string name="changelog_v3_9_0">\nコマンドセクションに検索を追加\nデフォルト作業モード設定オプション\nアニメーションを改善\nブックマークセクションを刷新\nブックマーク制限を25に増加</string>
+    <string name="changelog_v3_8_2">\nアプリがより新鮮なカラーパレットを使用\n小さなバグを修正</string>
+    <string name="changelog_v3_8_1">\nv3.8.0のクラッシュを修正</string>
+    <string name="changelog_v3_8_0">\nブラック（AMOLED）テーマを追加\n元に戻すボタンを追加\nソフトキーボード無効化オプション\n複数のUI改善\n翻訳を更新</string>
+    <string name="changelog_v3_7_0">\nどこからでもaShell Youにテキストを共有可能\nシェル出力を直接共有\n最適化と中国語翻訳</string>
+    <string name="changelog_v3_6_0">\nエラー後に入力フィールドをクリアするオプション\nペースト時のクラッシュを修正\nコード最適化</string>
+    <string name="changelog_v3_5_1">\nボトムナビゲーションの問題を修正</string>
+    <string name="changelog_v3_5_0">\nアバウトセクションを刷新\nランチャーショートカットを追加\nナビゲーションメニューの可視性を改善\n多くのコード最適化</string>
+    <string name="changelog_v3_4_0">\nペーストボタンを追加\nエラーインジケーターを追加\nナビゲーションバーのロジックを改善\nアプリの起動が大幅に高速化</string>
+    <string name="changelog_v3_3_0">\nOTGにブックマークと履歴を追加\n最大ブックマーク制限を追加\n多くのバグ修正と最適化</string>
+    <string name="changelog_v3_2_0">\n多くのUI関連改善\n現在のADBモードを示すチップを追加</string>
+    <string name="changelog_v3_1_0">\n初期リリース後のADB OTG改善\nUIとロジックの調整</string>
+    <string name="changelog_v3_0_0">\nOTG経由のADBサポートを追加\n*** OTGケーブルで他のデバイスでADBコマンドを実行可能 ***</string>
+    <string name="changelog_v2_0_2">\n不要なコードとリソースを削除\n小さなUI変更</string>
+    <string name="changelog_v2_0_1">\n不要なコードとリソースを削除\n小さなUI変更</string>
+    <string name="changelog_v2_0_0">\nアプリ名をaShell Youに変更\n予測戻るアニメーションを追加\n画面クリア前の確認ダイアログ\nアプリがより滑らかに\nアプリサイズを削減</string>
+    <string name="changelog_v1_3_0">\n設定パネルを刷新\nダブルタップで即座にスクロール\n小さなUI修正</string>
+    <string name="changelog_v1_2_0">\n設定パネルを追加\nスムーズスクロール無効化オプション\n主要なバグを修正</string>
+    <string name="changelog_v1_1_1">\n一部の非推奨APIを置き換え\n小さなUI変更</string>
+    <string name="changelog_v1_1_0">\n上下スクロールボタンを追加\nEnterでコマンド送信\nいくつかのコマンドを追加\n小さなUI変更</string>
+    <string name="changelog_v1_0_0">\nより多くのコマンド例を追加\n小さなUI変更\nパッケージ名を変更</string>
+    <string name="changelog_v0_9_1">\nアプリにチェンジログを追加\nハイライト付きシェル出力\n小さなUI変更</string>
+    <string name="changelog_v0_9_0">\nダイナミックマテリアルテーマを追加\nUI全体を刷新</string>
 </resources>
