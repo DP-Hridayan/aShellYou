@@ -68,7 +68,7 @@
 ## Features
 
 🎨 **Modern Material Design 3 UI**
-> Experience a clean, smooth, and responsive user interface built with Material You, adapting to your device's wallpaper and theme settings.
+> Experience a clean, smooth, and responsive user interface built with Material You design. Explore different color palettes in theme settings!
 </br>
 
 📲 **Execute Commands with Ease**
@@ -88,7 +88,7 @@
 </br>
 
 🔍 **Search in Command Output**
-> Quickly find what you're looking for in the output of your last command using the integrated search functionality.
+> Quickly find what you're looking for in the output of your command using the integrated search functionality.
 </br>
 
 📝 **Save Output to File**
