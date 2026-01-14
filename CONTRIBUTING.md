@@ -35,7 +35,7 @@ To get started with contributing, follow these steps:
 ### Steps
 
 1. **Fork the Repository**:
-   - Click the "Fork" button on the top right of the repository page to create your own copy.
+    - Click the "Fork" button on the top right of the repository page to create your own copy.
 
 2. **Clone the Repository**:
    ```bash
@@ -44,15 +44,15 @@ To get started with contributing, follow these steps:
    ```
 
 3. **Open the Project in Android Studio**:
-   - Open Android Studio and select "Open an Existing Project."
-   - Navigate to the cloned repository and open it.
+    - Open Android Studio and select "Open an Existing Project."
+    - Navigate to the cloned repository and open it.
 
 4. **Install Dependencies**:
-   - Sync the project with Gradle to download all dependencies.
+    - Sync the project with Gradle to download all dependencies.
 
 5. **Run the App**:
-   - Connect an Android device or start an emulator.
-   - Click the "Run" button in Android Studio to build and run the app.
+    - Connect an Android device or start an emulator.
+    - Click the "Run" button in Android Studio to build and run the app.
 
 ---
 
@@ -66,9 +66,9 @@ If you find a bug, please open an issue and include the following information:
 - **Actual Behavior**: What actually happened.
 - **Screenshots**: If applicable, add screenshots to help explain the issue.
 - **Device Information**:
-  - Device model
-  - Android version
-  - App version
+    - Device model
+    - Android version
+    - App version
 
 **Example**:
 
@@ -120,34 +120,34 @@ If you have an idea for a new feature or improvement, please open an issue and i
 If you'd like to contribute code, follow these steps:
 
 ### 1. Create a Branch
-   - Create a new branch for your feature or bug fix:
-     ```bash
-     git checkout -b feature/your-feature-name
-     ```
+- Create a new branch for your feature or bug fix:
+  ```bash
+  git checkout -b feature/your-feature-name
+  ```
 
 ### 2. Make Your Changes
-   - Write your code and ensure it follows the project's coding standards (see below).
+- Write your code and ensure it follows the project's coding standards (see below).
 
 ### 3. Test Your Changes
-   - Run the app and ensure your changes work as expected.
-   - Write unit tests if applicable.
+- Run the app and ensure your changes work as expected.
+- Write unit tests if applicable.
 
 ### 4. Commit Your Changes
-   - Write clear and concise commit messages:
-     ```bash
-     git commit -m "Add dark mode feature"
-     ```
+- Write clear and concise commit messages:
+  ```bash
+  git commit -m "Add dark mode feature"
+  ```
 
 ### 5. Push Your Changes
-   - Push your branch to your forked repository:
-     ```bash
-     git push origin feature/your-feature-name
-     ```
+- Push your branch to your forked repository:
+  ```bash
+  git push origin feature/your-feature-name
+  ```
 
 ### 6. Open a Pull Request
-   - Go to the original repository and click "New Pull Request."
-   - Provide a clear title and description for your pull request.
-   - Reference any related issues (e.g., "Fixes #123").
+- Go to the original repository and click "New Pull Request."
+- Provide a clear title and description for your pull request.
+- Reference any related issues (e.g., "Fixes #123").
 
 ---
 
@@ -156,15 +156,15 @@ If you'd like to contribute code, follow these steps:
 To maintain consistency, please follow these coding standards:
 
 - **Java**:
-  - Use 4 spaces for indentation.
-  - Follow the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html).
+    - Use 4 spaces for indentation.
+    - Follow the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html).
 - **XML**:
-  - Use 2 spaces for indentation.
-  - Use descriptive IDs and names for resources.
+    - Use 2 spaces for indentation.
+    - Use descriptive IDs and names for resources.
 - **Commit Messages**:
-  - Use the present tense (e.g., "Add feature" instead of "Added feature").
-  - Keep the first line under 50 characters.
-  - Provide a detailed description if necessary.
+    - Use the present tense (e.g., "Add feature" instead of "Added feature").
+    - Keep the first line under 50 characters.
+    - Provide a detailed description if necessary.
 
 ---
 
@@ -181,15 +181,15 @@ Before submitting your changes, ensure the app works as expected:
 ## Code Review Process
 
 1. **Pull Request Submission**:
-   - Open a pull request with a clear description of your changes.
-   - Ensure your code passes all tests and follows the coding standards.
+    - Open a pull request with a clear description of your changes.
+    - Ensure your code passes all tests and follows the coding standards.
 
 2. **Review**:
-   - A maintainer will review your pull request and provide feedback.
-   - Be prepared to make changes based on the feedback.
+    - A maintainer will review your pull request and provide feedback.
+    - Be prepared to make changes based on the feedback.
 
 3. **Merge**:
-   - Once approved, your pull request will be merged into the main branch.
+    - Once approved, your pull request will be merged into the main branch.
 
 ---
 
