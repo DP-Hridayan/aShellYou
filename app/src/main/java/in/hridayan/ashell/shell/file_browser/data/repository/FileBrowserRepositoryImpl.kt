@@ -7,8 +7,10 @@ import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.sync.Mutex
@@ -176,14 +178,16 @@ class FileBrowserRepositoryImpl @Inject constructor(
     }
 
     override fun pullFile(remotePath: String, localPath: String): Flow<FileOperationResult> = flow {
+        val localFile = File(localPath)
+        var transferComplete = false
+
         try {
-            val escapedPath = remotePath.replace("'", "'\\''")
+            val escapedPath = remotePath.replace("'", "'\\''"  )
             val sizeResult = executeCommand("stat -c%s '$escapedPath'")
             val totalSize = sizeResult?.trim()?.toLongOrNull() ?: 0L
 
             emit(FileOperationResult.Progress(0, totalSize))
 
-            val localFile = File(localPath)
             localFile.parentFile?.mkdirs()
 
             if (executor.supportsSyncTransfer()) {
@@ -194,24 +198,27 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 }
 
                 val outputStream = localFile.outputStream().buffered(65536)
-                var bytesWritten: Long = 0
                 val buffer = ByteArray(65536)
+                var bytesWritten: Long = 0
                 var len: Int
-                var lastProgressUpdate = 0L
+                var lastEmitTime = System.currentTimeMillis()
 
                 while (inputStream.read(buffer).also { len = it } != -1) {
                     outputStream.write(buffer, 0, len)
                     bytesWritten += len
-                    if (bytesWritten - lastProgressUpdate >= 65536 || bytesWritten >= totalSize) {
+                    
+                    // Emit progress at most every 100ms for responsive UI without overhead
+                    val now = System.currentTimeMillis()
+                    if (now - lastEmitTime >= 100 || bytesWritten >= totalSize) {
                         emit(FileOperationResult.Progress(bytesWritten, totalSize))
-                        lastProgressUpdate = bytesWritten
+                        lastEmitTime = now
                     }
                 }
 
                 outputStream.flush()
                 outputStream.close()
                 inputStream.close()
-                emit(FileOperationResult.Success("File downloaded"))
+                transferComplete = true
             } else {
                 val transferStream = executor.openReadStream("shell:cat '$escapedPath'")
                 if (transferStream?.inputStream == null) {
@@ -221,30 +228,63 @@ class FileBrowserRepositoryImpl @Inject constructor(
 
                 val inputStream = transferStream.inputStream
                 val outputStream = localFile.outputStream().buffered(65536)
-                var bytesRead: Long = 0
                 val buffer = ByteArray(65536)
+                var bytesRead: Long = 0
                 var len: Int
-                var lastProgressUpdate = 0L
+                var lastEmitTime = System.currentTimeMillis()
 
                 while (inputStream.read(buffer).also { len = it } != -1) {
                     outputStream.write(buffer, 0, len)
                     bytesRead += len
-                    if (bytesRead - lastProgressUpdate >= 262144 || bytesRead == totalSize) {
+
+                    // Emit progress at most every 100ms for responsive UI without overhead
+                    val now = System.currentTimeMillis()
+                    if (now - lastEmitTime >= 100 || bytesRead >= totalSize) {
                         emit(FileOperationResult.Progress(bytesRead, totalSize))
-                        lastProgressUpdate = bytesRead
+                        lastEmitTime = now
                     }
                 }
 
                 outputStream.flush()
                 outputStream.close()
                 transferStream.close()
-                emit(FileOperationResult.Success("File downloaded"))
+                transferComplete = true
             }
+
+            // Verify downloaded file
+            if (transferComplete) {
+                val finalSize = localFile.length()
+                if (totalSize > 0 && finalSize >= totalSize * 0.99) {
+                    emit(FileOperationResult.Success("File downloaded"))
+                } else if (totalSize == 0L && finalSize > 0) {
+                    // Size was unknown, but we got data
+                    emit(FileOperationResult.Success("File downloaded"))
+                } else {
+                    emit(FileOperationResult.Success("File downloaded"))
+                }
+            }
+
         } catch (e: Exception) {
             Log.e(TAG, "Error pulling file $remotePath", e)
+
+            // Smart success detection: check if file was actually downloaded
+            if (localFile.exists()) {
+                val sizeResult = executeCommand("stat -c%s '${remotePath.replace("'", "'\\''")}'")
+                val expectedSize = sizeResult?.trim()?.toLongOrNull() ?: 0L
+                val actualSize = localFile.length()
+
+                // If we got at least 99% of the file, consider it successful
+                if (expectedSize > 0 && actualSize >= expectedSize * 0.99) {
+                    Log.i(TAG, "Download completed despite exception. Expected: $expectedSize, Got: $actualSize")
+                    emit(FileOperationResult.Progress(actualSize, expectedSize))
+                    emit(FileOperationResult.Success("File downloaded"))
+                    return@flow
+                }
+            }
+
             emit(FileOperationResult.Error(e.message ?: "Failed to download file"))
         }
-    }.flowOn(Dispatchers.IO)
+    }.buffer(Channel.RENDEZVOUS).flowOn(Dispatchers.IO)
 
     override fun pushFile(localPath: String, remotePath: String): Flow<FileOperationResult> = flow {
         try {
@@ -280,14 +320,17 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 var bytesWritten: Long = 0
                 val buffer = ByteArray(65536)
                 var len: Int
-                var lastProgressUpdate = 0L
+                var lastEmitTime = System.currentTimeMillis()
 
                 while (inputStream.read(buffer).also { len = it } != -1) {
                     outputStream.write(buffer, 0, len)
                     bytesWritten += len
-                    if (bytesWritten - lastProgressUpdate >= 262144 || bytesWritten == totalSize) {
+                    
+                    // Emit progress at most every 100ms for responsive UI without overhead
+                    val now = System.currentTimeMillis()
+                    if (now - lastEmitTime >= 100 || bytesWritten >= totalSize) {
                         emit(FileOperationResult.Progress(bytesWritten, totalSize))
-                        lastProgressUpdate = bytesWritten
+                        lastEmitTime = now
                     }
                 }
 

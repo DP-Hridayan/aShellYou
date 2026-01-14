@@ -58,61 +58,67 @@ class WifiAdbCommandExecutor @Inject constructor(
         }
     }
 
-    override fun openCommandStream(command: String): CommandStream? = try {
-        val adbManager = getAdbManager()
-        if (!adbManager.isConnected) return null
+    override fun openCommandStream(command: String): CommandStream? {
+        return try {
+            val adbManager = getAdbManager()
+            if (!adbManager.isConnected) return null
 
-        val stream = adbManager.openStream(command)
-        val inputStream = stream.openInputStream()
+            val stream = adbManager.openStream(command)
+            val inputStream = stream.openInputStream()
 
-        CommandStream(
-            inputStream = inputStream,
-            close = {
-                try { inputStream.close() } catch (_: Exception) {}
-                try { stream.close() } catch (_: Exception) {}
-            }
-        )
-    } catch (e: Exception) {
-        Log.e(TAG, "Error opening command stream: $command", e)
-        null
+            CommandStream(
+                inputStream = inputStream,
+                close = {
+                    try { inputStream.close() } catch (_: Exception) {}
+                    try { stream.close() } catch (_: Exception) {}
+                }
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "Error opening command stream: $command", e)
+            null
+        }
     }
 
-    override fun openReadStream(command: String): FileTransferStream? = try {
-        val adbManager = getAdbManager()
-        if (!adbManager.isConnected) return null
+    override fun openReadStream(command: String): FileTransferStream? {
+        return try {
+            val adbManager = getAdbManager()
+            if (!adbManager.isConnected) return null
 
-        val stream = adbManager.openStream(command)
-        val inputStream = stream.openInputStream().buffered(65536)
+            val stream = adbManager.openStream(command)
+            val inputStream = stream.openInputStream().buffered(65536)
 
-        FileTransferStream(
-            inputStream = inputStream,
-            close = {
-                try { inputStream.close() } catch (_: Exception) {}
-                try { stream.close() } catch (_: Exception) {}
-            }
-        )
-    } catch (e: Exception) {
-        Log.e(TAG, "Error opening read stream: $command", e)
-        null
+            FileTransferStream(
+                inputStream = inputStream,
+                close = {
+                    try { inputStream.close() } catch (_: Exception) {}
+                    try { stream.close() } catch (_: Exception) {}
+                }
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "Error opening read stream: $command", e)
+            null
+        }
     }
 
-    override fun openWriteStream(command: String): FileTransferStream? = try {
-        val adbManager = getAdbManager()
-        if (!adbManager.isConnected) return null
+    override fun openWriteStream(command: String): FileTransferStream? {
+        return try {
+            val adbManager = getAdbManager()
+            if (!adbManager.isConnected) return null
 
-        val stream = adbManager.openStream(command)
-        val outputStream = stream.openOutputStream().buffered(65536)
+            val stream = adbManager.openStream(command)
+            val outputStream = stream.openOutputStream().buffered(65536)
 
-        FileTransferStream(
-            outputStream = outputStream,
-            close = {
-                try { outputStream.flush() } catch (_: Exception) {}
-                try { outputStream.close() } catch (_: Exception) {}
-                try { stream.close() } catch (_: Exception) {}
-            }
-        )
-    } catch (e: Exception) {
-        Log.e(TAG, "Error opening write stream: $command", e)
-        null
+            FileTransferStream(
+                outputStream = outputStream,
+                close = {
+                    try { outputStream.flush() } catch (_: Exception) {}
+                    try { outputStream.close() } catch (_: Exception) {}
+                    try { stream.close() } catch (_: Exception) {}
+                }
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "Error opening write stream: $command", e)
+            null
+        }
     }
 }
