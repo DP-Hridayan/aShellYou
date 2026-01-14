@@ -5,7 +5,7 @@ on:
     tags:
       - "v*" # Runs when a tag like "v6.0.1" is pushed
   workflow_dispatch:
-  
+
 jobs:
   build:
     name: Build and Sign APK
@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
@@ -60,7 +60,7 @@ jobs:
           path: ${{ env.APK_PATH }}
 
   release:
-    name: Create Github Release
+    name: Create GitHub Release
     needs: build
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
@@ -96,7 +96,7 @@ jobs:
         run: |
           VERSION_TAG="${{ github.ref_name }}"       # Example: v6.0.1
           VERSION_TAG_XML=$(echo $VERSION_TAG | tr '.' '_' | tr -d 'v')  # Convert v6.0.1 → 6_0_1
-          CHANGELOG=$(xmllint --xpath "string(//string[@name='changelogs_v${VERSION_TAG_XML}']/text())" app/src/main/res/values/strings.xml || echo "No changelog found for $VERSION_TAG")
+          CHANGELOG=$(xmllint --xpath "string(//string[@name='changelog_v${VERSION_TAG_XML}']/text())" app/src/main/res/values/strings.xml || echo "No changelog found for $VERSION_TAG")
 
           if [[ -z "$CHANGELOG" ]]; then
             echo "#### Refer to full changelogs $VERSION_TAG"
