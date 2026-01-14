@@ -19,6 +19,9 @@
   <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest">
     <img alt="GitHub release" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Release" />
   </a>
+    <a href="https://shields.rbtlog.dev/in.hridayan.driftly">
+    <img alt="GitHub release" src="https://shields.rbtlog.dev/simple/in.hridayan.ashell?style=for-the-badge" />
+  </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/releases">
     <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?style=for-the-badge&logo=download&label=Downloads" />
   </a>
@@ -34,6 +37,9 @@
     <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
    <img alt="Language" src="https://img.shields.io/badge/Kotlin-%23B125E3.svg?style=for-the-badge&logo=kotlin&logoColor=white"/>
   <img alt="UI" src="https://img.shields.io/badge/Jetpack%20Compose-%23007ACC.svg?style=for-the-badge&logo=jetpackcompose&logoColor=white"/>
+      <img src="https://img.shields.io/badge/Material%20Design-757575?style=for-the-badge&logo=material-design&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Dagger%20Hilt-%236200EE.svg?style=for-the-badge&logo=dagger&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Room-3F51B5?style=for-the-badge&logo=sqlite&logoColor=white"/>
   <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-28-yellow?style=for-the-badge" />
   <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-36-blue?style=for-the-badge" />
   <a href="https://crowdin.com/project/ashellyou">
