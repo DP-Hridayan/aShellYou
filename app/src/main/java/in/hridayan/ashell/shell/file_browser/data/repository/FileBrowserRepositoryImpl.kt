@@ -271,7 +271,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
                 emit(FileOperationResult.Error(e.message ?: "Failed to download file"))
             }
         }
-    }.buffer(Channel.BUFFERED).flowOn(Dispatchers.IO)
+    }.buffer(4, onBufferOverflow = kotlinx.coroutines.channels.BufferOverflow.DROP_OLDEST).flowOn(Dispatchers.IO)
 
     override fun pushFile(localPath: String, remotePath: String): Flow<FileOperationResult> = flow {
         try {
