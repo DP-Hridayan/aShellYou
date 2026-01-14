@@ -3,12 +3,12 @@
 <b>Features ✨</b>
 
 - 🎨 Features a modern Material Design 3 user interface
-- 📲 Execute commands on your device using Shizuku , ROOT or Wirless Debugging
+- 📲 Execute commands on your device using Shizuku , ROOT or Wireless Debugging
 - 🔌 Run commands on other devices via OTG connection or Wireless Debugging
 - 📚 Provides examples of common ADB commands
 - 🛠️ Supports continuously running commands like logcat and top
-- 🔍 Search within the last command output
-- 📝 Save the last command output as a text file
+- 🔍 Search within the command output
+- 📝 Save the command output as a text file
 - 📤 Share output directly to other apps
 - 📑 Bookmark frequently used commands
 - 🌑 Includes an AMOLED theme
@@ -16,8 +16,6 @@
 
 <b>Requirements ⚙️</b>
 
-- A working Shizuku or Root environment
-- Shizuku / ROOT is not needed to run ADB commands on other devices via OTG or Wireless Debugging
 - Knowledge about basic ADB/Linux commands
 
 <b>Instructions</b>
