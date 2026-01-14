@@ -188,7 +188,7 @@
   </tr>
   <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Migrate to kotlin</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: green;">⏺️ In progress</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
   </tr>
   <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Proper localization</td>
