@@ -115,10 +115,6 @@
     <string name="shizuku_unavailable_message">Shizuku не установлен или не настроен должным образом на вашем устройстве</string>
     <string name="smooth_scrolling">Плавная прокрутка</string>
     <string name="sort">Сортировать</string>
-    <string name="sort_A_Z">А → Я</string>
-    <string name="sort_newest">Сначала новые</string>
-    <string name="sort_oldest">Сначала старые</string>
-    <string name="sort_Z_A">Я → А</string>
     <string name="start">Запустить</string>
     <string name="success">Успешно</string>
     <string name="switch_mode">Переключить режим</string>

@@ -1,49 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.13.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.13.0)" variant="all" version="8.13.0">
-
-    <issue
-        id="MissingDefaultResource"
-        message="The drawable &quot;ic_onboarding1&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier"
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2=" ~~~~~~">
-        <location
-            file="src/main/res/drawable-night/ic_onboarding1.xml"
-            line="1"
-            column="2"/>
-    </issue>
-
-    <issue
-        id="MissingDefaultResource"
-        message="The drawable &quot;ic_onboarding3&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier"
-        errorLine1="&lt;vector"
-        errorLine2=" ~~~~~~">
-        <location
-            file="src/main/res/drawable-night/ic_onboarding3.xml"
-            line="1"
-            column="2"/>
-    </issue>
-
-    <issue
-        id="MissingDefaultResource"
-        message="The drawable &quot;ic_undraw_search&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier"
-        errorLine1="&lt;vector"
-        errorLine2=" ~~~~~~">
-        <location
-            file="src/main/res/drawable-night/ic_undraw_search.xml"
-            line="1"
-            column="2"/>
-    </issue>
-
-    <issue
-        id="MissingDefaultResource"
-        message="The drawable &quot;ic_undraw_theme&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier"
-        errorLine1="&lt;vector"
-        errorLine2=" ~~~~~~">
-        <location
-            file="src/main/res/drawable-night/ic_undraw_theme.xml"
-            line="1"
-            column="2"/>
-    </issue>
+<issues format="6" by="lint 8.13.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.13.2)" variant="all" version="8.13.2">
 
     <issue
         id="DefaultUncaughtExceptionDelegation"
@@ -90,14 +46,14 @@
     </issue>
 
     <issue
-        id="VectorRaster"
-        message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more"
-        errorLine1="    android:width=&quot;690dp&quot;"
-        errorLine2="                   ~~~~~">
+        id="NewerVersionAvailable"
+        message="A newer version of org.jmdns:jmdns than 3.6.2 is available: 3.6.3"
+        errorLine1="jmdns = &quot;3.6.2&quot;"
+        errorLine2="        ~~~~~~~">
         <location
-            file="src/main/res/drawable-night/ic_undraw_bug.xml"
-            line="6"
-            column="20"/>
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="17"
+            column="9"/>
     </issue>
 
     <issue
@@ -123,72 +79,699 @@
     </issue>
 
     <issue
+        id="ComposableNaming"
+        message="Composable functions that return Unit should start with an uppercase letter"
+        errorLine1="fun DialogKey.createDialog(content: @Composable (DialogViewModel) -> Unit) {"
+        errorLine2="              ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/core/presentation/components/dialog/DialogKey.kt"
+            line="50"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                showToast(context, context.getString(R.string.pick_ashellyou_extension))"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/settings/presentation/page/backup/screens/BackupAndRestoreScreen.kt"
+            line="87"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="            context.getString(R.string.no_bookmarks)"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/common/presentation/screens/BaseShellScreen.kt"
+            line="235"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="            context.getString(R.string.no_history)"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/common/presentation/screens/BaseShellScreen.kt"
+            line="242"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="            showToast(context, context.getString(R.string.file_not_found))"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/common/presentation/screens/BaseShellScreen.kt"
+            line="268"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                                                    message = context.getString(R.string.bookmark_limit_reached),"
+        errorLine2="                                                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/common/presentation/screens/BaseShellScreen.kt"
+            line="508"
+            column="79"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                showToast(context, context.getString(R.string.failed))"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/common/presentation/screens/BaseShellScreen.kt"
+            line="1388"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="            showToast(context, context.getString(R.string.clipboard_empty))"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/common/presentation/screens/BaseShellScreen.kt"
+            line="1475"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="            message = context.getString(R.string.item_deleted),"
+        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/card/CommandExampleCard.kt"
+            line="136"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="            actionText = context.getString(R.string.undo),"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/card/CommandExampleCard.kt"
+            line="137"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                    showToast(context, context.getString(R.string.copied_to_clipboard))"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/card/CommandExampleCard.kt"
+            line="445"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                    showToast(context, context.getString(R.string.command_not_found))"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/card/CommandExampleCard.kt"
+            line="447"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                    context.getString(R.string.no_wifi_connection),"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/component/dialog/DeviceDisconnectedDialog.kt"
+            line="121"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                            context.getString(R.string.reconnect_success),"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/component/dialog/DeviceDisconnectedDialog.kt"
+            line="135"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                            context.getString(R.string.reconnect_failed_requires_pairing)"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/component/dialog/DeviceDisconnectedDialog.kt"
+            line="143"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                            context.getString(R.string.reconnect_failed)"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/component/dialog/DeviceDisconnectedDialog.kt"
+            line="145"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                        context.getString(event.messageResId)"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt"
+            line="176"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                        context.getString(event.messageResId, *event.formatArgs.toTypedArray())"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt"
+            line="178"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                        context.getString(R.string.copied_items, selectedPaths.size)"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt"
+            line="274"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                        context.getString(R.string.cut_items, selectedPaths.size)"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt"
+            line="291"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                                            context.getString(R.string.fb_cannot_paste_into_selected)"
+        errorLine2="                                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt"
+            line="455"
+            column="61"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                                        context.getString(R.string.copy) + &quot;: &quot; + file.name"
+        errorLine2="                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt"
+            line="487"
+            column="57"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                                        context.getString(R.string.cut_to_clipboard) + &quot;: &quot; + file.name"
+        errorLine2="                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/file_browser/presentation/screens/FileBrowserScreen.kt"
+            line="495"
+            column="57"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="    val message = context.getString(R.string.forget_device_confirmation, deviceName)"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/component/dialog/ForgetDeviceConfirmationDialog.kt"
+            line="42"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                makeToast(context, context.getString(R.string.no_root_access))"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/home/presentation/screens/HomeScreen.kt"
+            line="108"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                makeToast(context, context.getString(R.string.root_access_granted))"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/home/presentation/screens/HomeScreen.kt"
+            line="110"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                            showToast(context, context.getString(R.string.pair_a_device_first))"
+        errorLine2="                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/home/presentation/screens/HomeScreen.kt"
+            line="149"
+            column="48"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                            context.getString(R.string.no_root_access)"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/local_adb_shell/presentation/screens/LocalAdbScreen.kt"
+            line="95"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                            errorMessage = context.getString(R.string.no_root_access)"
+        errorLine2="                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/local_adb_shell/presentation/screens/LocalAdbScreen.kt"
+            line="101"
+            column="60"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                showToast(context, context.getString(R.string.abort_command))"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/local_adb_shell/presentation/screens/LocalAdbScreen.kt"
+            line="118"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="    var connectedDevice by rememberSaveable { mutableStateOf(context.getString(R.string.none)) }"
+        errorLine2="                                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/otg_adb_shell/presentation/screens/OtgAdbScreen.kt"
+            line="47"
+            column="62"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                errorMessage = context.getString(R.string.waiting_for_device)"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/otg_adb_shell/presentation/screens/OtgAdbScreen.kt"
+            line="76"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="            else -> context.getString(R.string.none)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/otg_adb_shell/presentation/screens/OtgAdbScreen.kt"
+            line="85"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                        makeToast(context, context.getString(R.string.no_root_access))"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/onboarding/presentation/screens/PageThree.kt"
+            line="257"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                    context.getString(R.string.connect_to_wifi_network)"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/screens/PairingOtherDeviceScreen.kt"
+            line="418"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                context.getString(R.string.connect_to_wifi_network)"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/screens/PairingOwnDeviceScreen.kt"
+            line="175"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                        context.getString(R.string.connect_to_wifi_network)"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/screens/PairingOwnDeviceScreen.kt"
+            line="251"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                        context.getString(R.string.connect_to_wifi_network)"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/component/bottomsheet/SavedDevicesBottomSheet.kt"
+            line="162"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                    showToast(context, context.getString(R.string.reconnect_the_device))"
+        errorLine2="                                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/component/bottomsheet/SavedDevicesBottomSheet.kt"
+            line="183"
+            column="56"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                        context.getString(R.string.unknown_sources_install_permission_not_granted),"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/core/presentation/components/bottomsheet/UpdateBottomSheet.kt"
+            line="111"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                        showToast(context, context.getString(R.string.nothing_to_search))"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/common/presentation/components/button/UtilityButtonGroup.kt"
+            line="133"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                        showToast(context, context.getString(R.string.nothing_to_clear))"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/common/presentation/components/button/UtilityButtonGroup.kt"
+            line="206"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                        showToast(context, context.getString(R.string.abort_command))"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/common/presentation/components/button/UtilityButtonGroup.kt"
+            line="211"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="        currentDevice?.deviceName ?: context.getString(R.string.none)"
+        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/screens/WifiAdbScreen.kt"
+            line="55"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="        context.getString(R.string.none)"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/screens/WifiAdbScreen.kt"
+            line="57"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                context.getString(R.string.no_wifi_connection)"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/screens/WifiAdbScreen.kt"
+            line="120"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                context.getString(R.string.error)"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/screens/WifiAdbScreen.kt"
+            line="128"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                        context.getString(R.string.reconnect_success),"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/screens/WifiAdbScreen.kt"
+            line="141"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                        context.getString(R.string.reconnect_failed_requires_pairing)"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/screens/WifiAdbScreen.kt"
+            line="147"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                                        context.getString(R.string.reconnect_failed)"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/screens/WifiAdbScreen.kt"
+            line="149"
+            column="41"/>
+    </issue>
+
+    <issue
         id="Typos"
         message="&quot;accomodate&quot; is a common misspelling; did you mean &quot;accommodate&quot;?"
         errorLine1="    &lt;string name=&quot;changelog_v3_1_0&quot;>\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accomodate the new otg feature.&lt;/string>"
         errorLine2="                                                                                                                       ~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="312"
+            line="478"
             column="120"/>
     </issue>
 
     <issue
-        id="ExtraTranslation"
-        message="&quot;sort_A_Z&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;sort_A_Z&quot;>А → Я&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~">
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;remaining&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;apply_to_all&quot;>Apply to all (%1$d remaining)&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-ru/strings.xml"
-            line="118"
-            column="13"/>
+            file="src/main/res/values/strings.xml"
+            line="23"
+            column="5"/>
     </issue>
 
     <issue
-        id="ExtraTranslation"
-        message="&quot;sort_newest&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;sort_newest&quot;>Сначала новые&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;copied_items&quot;>Copied %1$d items&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-ru/strings.xml"
-            line="119"
-            column="13"/>
+            file="src/main/res/values/strings.xml"
+            line="75"
+            column="5"/>
     </issue>
 
     <issue
-        id="ExtraTranslation"
-        message="&quot;sort_oldest&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;sort_oldest&quot;>Сначала старые&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;item&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;copying_items&quot;>Copying %1$d item(s)&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-ru/strings.xml"
-            line="120"
-            column="13"/>
+            file="src/main/res/values/strings.xml"
+            line="79"
+            column="5"/>
     </issue>
 
     <issue
-        id="ExtraTranslation"
-        message="&quot;sort_Z_A&quot; is translated here but not found in default locale"
-        errorLine1="    &lt;string name=&quot;sort_Z_A&quot;>Я → А&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~">
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;cut_items&quot;>Cut %1$d items&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-ru/strings.xml"
-            line="121"
-            column="13"/>
+            file="src/main/res/values/strings.xml"
+            line="85"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;selected&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;delete_items_message&quot;>Are you sure you want to delete %1$d selected items?&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="94"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;delete_items_title&quot;>Delete %1$d items?&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="95"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;fb_deleted_items&quot;>Deleted %1$d items&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="178"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;fb_paste_completed&quot;>Completed: %1$d items&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="189"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;fb_paste_completed_with_failed&quot;>Completed: %1$d items, %2$d skipped, %3$d failed&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="190"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;fb_paste_completed_with_skipped&quot;>Completed: %1$d items, %2$d skipped&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="191"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;item&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;moving_items&quot;>Moving %1$d item(s)&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="265"
+            column="5"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/07f6f1bb6bb06ea0cd6bb07c76470da1/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/15afd18ac19cf6a97530d48e5a425862/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/07f6f1bb6bb06ea0cd6bb07c76470da1/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/15afd18ac19cf6a97530d48e5a425862/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
@@ -251,6 +834,17 @@
             file="src/main/res/drawable/ic_discord.xml"
             line="17"
             column="27"/>
+    </issue>
+
+    <issue
+        id="AutoboxingStateCreation"
+        message="Prefer `mutableIntStateOf` instead of `mutableStateOf`"
+        errorLine1="    var lastHapticZone by remember { mutableStateOf(0) }"
+        errorLine2="                                     ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/card/CommandExampleCard.kt"
+            line="117"
+            column="38"/>
     </issue>
 
     <issue
@@ -457,72 +1051,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.anim.fast_out_extra_slow_in` appears to be unused"
-        errorLine1="&lt;decelerateInterpolator />"
-        errorLine2="~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/anim/fast_out_extra_slow_in.xml"
-            line="14"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.anim.fragment_enter` appears to be unused"
-        errorLine1="&lt;set"
-        errorLine2="^">
-        <location
-            file="src/main/res/anim/fragment_enter.xml"
-            line="2"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.anim.fragment_exit` appears to be unused"
-        errorLine1="&lt;set"
-        errorLine2="^">
-        <location
-            file="src/main/res/anim/fragment_exit.xml"
-            line="2"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.anim.fragment_exit_fast` appears to be unused"
-        errorLine1="&lt;set"
-        errorLine2="^">
-        <location
-            file="src/main/res/anim/fragment_exit_fast.xml"
-            line="2"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.anim.fragment_pop_enter` appears to be unused"
-        errorLine1="&lt;set"
-        errorLine2="^">
-        <location
-            file="src/main/res/anim/fragment_pop_enter.xml"
-            line="2"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.anim.fragment_pop_exit` appears to be unused"
-        errorLine1="&lt;set"
-        errorLine2="^">
-        <location
-            file="src/main/res/anim/fragment_pop_exit.xml"
-            line="2"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_adb` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -589,17 +1117,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_cancel` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_cancel.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_cards` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -616,17 +1133,6 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_changelog.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_check` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_check.xml"
             line="1"
             column="1"/>
     </issue>
@@ -666,28 +1172,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_deselect_all` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_deselect_all.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_directory` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_directory.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_discord` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -704,17 +1188,6 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_dynamic_color.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_error` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_error.xml"
             line="1"
             column="1"/>
     </issue>
@@ -842,28 +1315,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_onboarding1` appears to be unused"
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable-night/ic_onboarding1.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_onboarding3` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable-night/ic_onboarding3.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_pallete` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -924,17 +1375,6 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_scroll.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_select_all` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_select_all.xml"
             line="1"
             column="1"/>
     </issue>
@@ -1029,22 +1469,11 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_undraw_search` appears to be unused"
-        errorLine1="&lt;vector"
+        message="The resource `R.drawable.ic_undraw_dreamer` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; xmlns:aapt=&quot;http://schemas.android.com/aapt&quot; android:viewportWidth=&quot;1017.831&quot; android:viewportHeight=&quot;752.2687&quot; android:width=&quot;1017.831dp&quot; android:height=&quot;752.2687dp&quot;>"
         errorLine2="^">
         <location
-            file="src/main/res/drawable-night/ic_undraw_search.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_undraw_theme` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable-night/ic_undraw_theme.xml"
+            file="src/main/res/drawable/ic_undraw_dreamer.xml"
             line="1"
             column="1"/>
     </issue>
@@ -1095,17 +1524,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.anim.item_scale_up` appears to be unused"
-        errorLine1="&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
-        errorLine2="^">
-        <location
-            file="src/main/res/anim/item_scale_up.xml"
-            line="2"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.kernelsu_logo` appears to be unused"
         errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^">
@@ -1117,34 +1535,12 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.anim.layout_animator` appears to be unused"
-        errorLine1="&lt;layoutAnimation"
-        errorLine2="^">
-        <location
-            file="src/main/res/anim/layout_animator.xml"
-            line="2"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.magisk_logo` appears to be unused"
         errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^">
         <location
             file="src/main/res/drawable/magisk_logo.xml"
             line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.anim.on_scroll_animator` appears to be unused"
-        errorLine1="&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
-        errorLine2="^">
-        <location
-            file="src/main/res/anim/on_scroll_animator.xml"
-            line="2"
             column="1"/>
     </issue>
 
@@ -1239,89 +1635,122 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.string.close` appears to be unused"
+        errorLine1="    &lt;string name=&quot;close&quot;>Close&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="53"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.conflict_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;conflict_title&quot;>Item already exists&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="64"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.connect` appears to be unused"
+        errorLine1="    &lt;string name=&quot;connect&quot;>Connect&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="65"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.connection_lost` appears to be unused"
+        errorLine1="    &lt;string name=&quot;connection_lost&quot;>Connection Lost&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="73"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.connection_lost_back_message` appears to be unused"
+        errorLine1="    &lt;string name=&quot;connection_lost_back_message&quot;>The wireless debugging connection was lost. What would you like to do?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="74"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.create` appears to be unused"
+        errorLine1="    &lt;string name=&quot;create&quot;>Create&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="82"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.delete_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;delete_title&quot;>Delete %1$s?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="97"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.string.des_examples` appears to be unused"
         errorLine1="    &lt;string name=&quot;des_examples&quot;>Collection of some command templates&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="83"
+            line="113"
             column="13"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.sort_A_Z` appears to be unused"
-        errorLine1="    &lt;string name=&quot;sort_A_Z&quot;>А → Я&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~">
+        message="The resource `R.string.deselect_all` appears to be unused"
+        errorLine1="    &lt;string name=&quot;deselect_all&quot;>Deselect all&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-ru/strings.xml"
-            line="118"
+            file="src/main/res/values/strings.xml"
+            line="130"
             column="13"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.sort_newest` appears to be unused"
-        errorLine1="    &lt;string name=&quot;sort_newest&quot;>Сначала новые&lt;/string>"
+        message="The resource `R.string.downloading` appears to be unused"
+        errorLine1="    &lt;string name=&quot;downloading&quot;>Downloading…&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/values-ru/strings.xml"
-            line="119"
+            file="src/main/res/values/strings.xml"
+            line="157"
             column="13"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.sort_oldest` appears to be unused"
-        errorLine1="    &lt;string name=&quot;sort_oldest&quot;>Сначала старые&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-ru/strings.xml"
-            line="120"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.sort_Z_A` appears to be unused"
-        errorLine1="    &lt;string name=&quot;sort_Z_A&quot;>Я → А&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-ru/strings.xml"
-            line="121"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.failed_to_open_usb_connection` appears to be unused"
-        errorLine1="    &lt;string name=&quot;failed_to_open_usb_connection&quot;>Failed to open USB connection. Is USB debugging enabled?&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        message="The resource `R.string.enable_wireless_debugging` appears to be unused"
+        errorLine1="    &lt;string name=&quot;enable_wireless_debugging&quot;>Please enable Wireless Debugging in Developer Options&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="127"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.search_output` appears to be unused"
-        errorLine1="    &lt;string name=&quot;search_output&quot;>Search output here&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="223"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.no_adb_interface_found` appears to be unused"
-        errorLine1="    &lt;string name=&quot;no_adb_interface_found&quot;>No adb interface found&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="255"
+            line="165"
             column="13"/>
     </issue>
 
@@ -1332,7 +1761,84 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="256"
+            line="171"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.failed_to_open_usb_connection` appears to be unused"
+        errorLine1="    &lt;string name=&quot;failed_to_open_usb_connection&quot;>Failed to open USB connection. Is USB debugging enabled?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="172"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.fb_downloading` appears to be unused"
+        errorLine1="    &lt;string name=&quot;fb_downloading&quot;>Downloading %1$s&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="181"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.fb_otg_transfers_not_supported` appears to be unused"
+        errorLine1="    &lt;string name=&quot;fb_otg_transfers_not_supported&quot;>File transfers not supported in OTG mode&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="188"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.fb_uploading` appears to be unused"
+        errorLine1="    &lt;string name=&quot;fb_uploading&quot;>Uploading %1$s&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="197"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.file_already_exists` appears to be unused"
+        errorLine1="    &lt;string name=&quot;file_already_exists&quot;>File Already Exists&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="202"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.file_exists_message` appears to be unused"
+        errorLine1="    &lt;string name=&quot;file_exists_message&quot;>&quot;%1$s&quot; already exists in this location.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="205"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.filter` appears to be unused"
+        errorLine1="    &lt;string name=&quot;filter&quot;>Filter&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="208"
             column="13"/>
     </issue>
 
@@ -1343,7 +1849,194 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="270"
+            line="220"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.go_home` appears to be unused"
+        errorLine1="    &lt;string name=&quot;go_home&quot;>Go Home&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="222"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.home` appears to be unused"
+        errorLine1="    &lt;string name=&quot;home&quot;>Home&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="231"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.internal_storage` appears to be unused"
+        errorLine1="    &lt;string name=&quot;internal_storage&quot;>Internal Storage&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="234"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.ip_address` appears to be unused"
+        errorLine1="    &lt;string name=&quot;ip_address&quot;>IP address&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="236"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.manual_pair` appears to be unused"
+        errorLine1="    &lt;string name=&quot;manual_pair&quot;>Manual Pair&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="253"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.more` appears to be unused"
+        errorLine1="    &lt;string name=&quot;more&quot;>More&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="261"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.no_adb_interface_found` appears to be unused"
+        errorLine1="    &lt;string name=&quot;no_adb_interface_found&quot;>No adb interface found&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="272"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.no_operations` appears to be unused"
+        errorLine1="    &lt;string name=&quot;no_operations&quot;>No operations in progress&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="278"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.or` appears to be unused"
+        errorLine1="    &lt;string name=&quot;or&quot;>OR&lt;/string>"
+        errorLine2="            ~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="295"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pair_manually` appears to be unused"
+        errorLine1="    &lt;string name=&quot;pair_manually&quot;>Pair manually&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="304"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.paired` appears to be unused"
+        errorLine1="    &lt;string name=&quot;paired&quot;>Paired&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="308"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pairing_code` appears to be unused"
+        errorLine1="    &lt;string name=&quot;pairing_code&quot;>Pairing code&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="310"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.port` appears to be unused"
+        errorLine1="    &lt;string name=&quot;port&quot;>Port&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="317"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.qr_pair` appears to be unused"
+        errorLine1="    &lt;string name=&quot;qr_pair&quot;>QR Pair&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="322"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.refresh` appears to be unused"
+        errorLine1="    &lt;string name=&quot;refresh&quot;>Refresh&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="335"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.rename_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;rename_title&quot;>Rename %1$s&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="337"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.search_output` appears to be unused"
+        errorLine1="    &lt;string name=&quot;search_output&quot;>Search output here&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="360"
             column="13"/>
     </issue>
 
@@ -1354,18 +2047,62 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="271"
+            line="361"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.select_all` appears to be unused"
+        errorLine1="    &lt;string name=&quot;select_all&quot;>Select all&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="363"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.self_pair_error_no_ip` appears to be unused"
+        errorLine1="    &lt;string name=&quot;self_pair_error_no_ip&quot;>Could not determine IP address&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="368"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.unknown` appears to be unused"
+        errorLine1="    &lt;string name=&quot;unknown&quot;>Unknown&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="413"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.uploading` appears to be unused"
+        errorLine1="    &lt;string name=&quot;uploading&quot;>Uploading…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="420"
             column="13"/>
     </issue>
 
     <issue
         id="UnusedResources"
         message="The resource `R.string.changelog_v7_0_0` appears to be unused"
-        errorLine1="    &lt;string name=&quot;changelog_v7_0_0&quot;>\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp;amp; UX in shell output\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed&lt;/string>"
+        errorLine1="    &lt;string name=&quot;changelog_v7_0_0&quot;>\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp;amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp;amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="279"
+            line="446"
             column="13"/>
     </issue>
 
@@ -1376,7 +2113,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="280"
+            line="447"
             column="13"/>
     </issue>
 
@@ -1387,7 +2124,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="281"
+            line="448"
             column="13"/>
     </issue>
 
@@ -1398,7 +2135,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="282"
+            line="449"
             column="13"/>
     </issue>
 
@@ -1409,7 +2146,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="283"
+            line="450"
             column="13"/>
     </issue>
 
@@ -1420,7 +2157,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="284"
+            line="451"
             column="13"/>
     </issue>
 
@@ -1431,7 +2168,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="285"
+            line="452"
             column="13"/>
     </issue>
 
@@ -1442,7 +2179,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="286"
+            line="453"
             column="13"/>
     </issue>
 
@@ -1453,7 +2190,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="287"
+            line="454"
             column="13"/>
     </issue>
 
@@ -1464,7 +2201,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="288"
+            line="455"
             column="13"/>
     </issue>
 
@@ -1475,7 +2212,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="289"
+            line="456"
             column="13"/>
     </issue>
 
@@ -1486,7 +2223,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="290"
+            line="457"
             column="13"/>
     </issue>
 
@@ -1497,7 +2234,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="291"
+            line="458"
             column="13"/>
     </issue>
 
@@ -1508,7 +2245,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="292"
+            line="459"
             column="13"/>
     </issue>
 
@@ -1519,7 +2256,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="293"
+            line="460"
             column="13"/>
     </issue>
 
@@ -1530,7 +2267,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="294"
+            line="461"
             column="13"/>
     </issue>
 
@@ -1541,7 +2278,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="295"
+            line="462"
             column="13"/>
     </issue>
 
@@ -1552,7 +2289,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="296"
+            line="463"
             column="13"/>
     </issue>
 
@@ -1563,7 +2300,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="297"
+            line="464"
             column="13"/>
     </issue>
 
@@ -1574,7 +2311,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="298"
+            line="465"
             column="13"/>
     </issue>
 
@@ -1585,7 +2322,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="299"
+            line="466"
             column="13"/>
     </issue>
 
@@ -1596,7 +2333,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="300"
+            line="467"
             column="13"/>
     </issue>
 
@@ -1607,7 +2344,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="301"
+            line="468"
             column="13"/>
     </issue>
 
@@ -1618,7 +2355,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="302"
+            line="469"
             column="13"/>
     </issue>
 
@@ -1629,18 +2366,18 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="303"
+            line="470"
             column="13"/>
     </issue>
 
     <issue
         id="UnusedResources"
         message="The resource `R.string.changelog_v3_7_0` appears to be unused"
-        errorLine1="    &lt;string name=&quot;changelog_v3_7_0&quot;>\nNow you can share texts from anywhere on your device to aShell You and run commands directly.\nNow you can share shell output directly without needing to save it !\nA lot of optimisations and UI handling.\nAdded Chinese translations.\nUpdated translations."
+        errorLine1="    &lt;string name=&quot;changelog_v3_7_0&quot;>\nNow you can share texts from anywhere on your device to aShell You and run commands directly.\nNow you can share shell output directly without needing to save it !\nA lot of optimisations and UI handling.\nAdded Chinese translations.\nUpdated translations.&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="304"
+            line="471"
             column="13"/>
     </issue>
 
@@ -1651,7 +2388,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="306"
+            line="472"
             column="13"/>
     </issue>
 
@@ -1662,7 +2399,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="307"
+            line="473"
             column="13"/>
     </issue>
 
@@ -1673,7 +2410,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="308"
+            line="474"
             column="13"/>
     </issue>
 
@@ -1684,7 +2421,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="309"
+            line="475"
             column="13"/>
     </issue>
 
@@ -1695,7 +2432,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="310"
+            line="476"
             column="13"/>
     </issue>
 
@@ -1706,7 +2443,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="311"
+            line="477"
             column="13"/>
     </issue>
 
@@ -1717,7 +2454,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="312"
+            line="478"
             column="13"/>
     </issue>
 
@@ -1728,7 +2465,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="313"
+            line="479"
             column="13"/>
     </issue>
 
@@ -1739,7 +2476,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="314"
+            line="480"
             column="13"/>
     </issue>
 
@@ -1750,7 +2487,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="315"
+            line="481"
             column="13"/>
     </issue>
 
@@ -1761,7 +2498,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="316"
+            line="482"
             column="13"/>
     </issue>
 
@@ -1772,7 +2509,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="317"
+            line="483"
             column="13"/>
     </issue>
 
@@ -1783,7 +2520,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="318"
+            line="484"
             column="13"/>
     </issue>
 
@@ -1794,7 +2531,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="319"
+            line="485"
             column="13"/>
     </issue>
 
@@ -1805,7 +2542,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="320"
+            line="486"
             column="13"/>
     </issue>
 
@@ -1816,7 +2553,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="321"
+            line="487"
             column="13"/>
     </issue>
 
@@ -1827,7 +2564,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="322"
+            line="488"
             column="13"/>
     </issue>
 
@@ -1838,7 +2575,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="323"
+            line="489"
             column="13"/>
     </issue>
 

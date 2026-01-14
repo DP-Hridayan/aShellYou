@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.shell.file_browser.domain.model
 
+import androidx.annotation.Keep
+
 /**
  * Represents a file/folder conflict during copy/move operations
  */
@@ -16,6 +18,7 @@ data class FileConflict(
 /**
  * Resolution options for file conflicts
  */
+@Keep
 enum class ConflictResolution {
     /** Skip this file/folder, continue with next */
     SKIP,

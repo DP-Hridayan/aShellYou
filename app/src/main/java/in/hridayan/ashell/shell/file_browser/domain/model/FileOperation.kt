@@ -1,10 +1,12 @@
 package `in`.hridayan.ashell.shell.file_browser.domain.model
 
+import androidx.annotation.Keep
 import java.util.UUID
 
 /**
  * Status of a file operation
  */
+@Keep
 enum class OperationStatus {
     PENDING,
     IN_PROGRESS,
