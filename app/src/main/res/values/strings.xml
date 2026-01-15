@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation,UnusedResources">
     <string name="A_Z" translatable="false">A → Z</string>
     <string name="abort_command">Abort command first</string>
     <string name="about">About</string>

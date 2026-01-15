@@ -26,6 +26,7 @@ import io.github.muntashirakon.adb.AdbStream
 import io.github.muntashirakon.adb.android.AndroidUtils.getHostIpAddress
 import io.nayuki.qrcodegen.QrCode
 import io.nayuki.qrcodegen.QrCode.Ecc
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -41,6 +42,7 @@ import java.net.Inet4Address
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.nio.charset.StandardCharsets
+import java.util.Collections
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
@@ -278,6 +280,7 @@ class WifiAdbRepositoryImpl(
 
                 override fun onServiceFound(info: NsdServiceInfo) {
                     Log.d(TAG, "Parallel: Found connect service: ${info.serviceName}")
+                    @Suppress("DEPRECATION")
                     pairingNsdManager?.resolveService(info, object : NsdManager.ResolveListener {
                         override fun onResolveFailed(
                             serviceInfo: NsdServiceInfo, errorCode: Int
@@ -462,6 +465,7 @@ class WifiAdbRepositoryImpl(
                     override fun onServiceFound(info: NsdServiceInfo) {
                         if (connectionHandled) return
                         Log.d(TAG, "NSD found service: ${info.serviceName}")
+                        @Suppress("DEPRECATION")
                         nsdManager.resolveService(info, object : NsdManager.ResolveListener {
                             override fun onResolveFailed(
                                 serviceInfo: NsdServiceInfo, errorCode: Int
@@ -620,7 +624,6 @@ class WifiAdbRepositoryImpl(
         }
     }
 
-
     // region Device Info Utilities
 
     /**
@@ -675,7 +678,7 @@ class WifiAdbRepositoryImpl(
     /**
      * Handle cd command and return the command to actually execute.
      * - If it's a pure "cd" command, updates currentDir and returns null.
-     * - If it's a compound command starting with cd (e.g., "cd /data && ls"), 
+     * - If it's a compound command starting with cd (e.g., "cd /data && ls"),
      *   updates currentDir and returns the remaining commands.
      */
     private fun handleCdCommand(commandText: String): String? {
@@ -685,27 +688,29 @@ class WifiAdbRepositoryImpl(
             // Check for compound command separators (&& or ;)
             val andAndIndex = trimmedCommand.indexOf(" && ")
             val semicolonIndex = trimmedCommand.indexOf("; ")
-            
+
             val separatorIndex = when {
                 andAndIndex >= 0 && semicolonIndex >= 0 -> minOf(andAndIndex, semicolonIndex)
                 andAndIndex >= 0 -> andAndIndex
                 semicolonIndex >= 0 -> semicolonIndex
                 else -> -1
             }
-            
+
             val cdPart: String
             val remainingCommand: String?
-            
+
             if (separatorIndex > 0) {
-                cdPart = trimmedCommand.substring(0, separatorIndex).trim()
+                cdPart = trimmedCommand.take(separatorIndex).trim()
                 remainingCommand = trimmedCommand.substring(
-                    separatorIndex + if (trimmedCommand.substring(separatorIndex).startsWith(" && ")) 4 else 2
+                    separatorIndex + if (trimmedCommand.substring(separatorIndex)
+                            .startsWith(" && ")
+                    ) 4 else 2
                 ).trim()
             } else {
                 cdPart = trimmedCommand
                 remainingCommand = null
             }
-            
+
             val parts = cdPart.split("\\s+".toRegex(), limit = 2)
             val targetDir = if (parts.size > 1) parts[1] else "/"
 
@@ -715,9 +720,11 @@ class WifiAdbRepositoryImpl(
                     val parent = currentDir.removeSuffix("/").substringBeforeLast("/", "")
                     if (parent.isEmpty()) "/" else "$parent/"
                 }
+
                 targetDir.startsWith("/") -> {
                     if (targetDir.endsWith("/")) targetDir else "$targetDir/"
                 }
+
                 else -> {
                     val newPath = currentDir + targetDir
                     if (newPath.endsWith("/")) newPath else "$newPath/"
@@ -770,7 +777,7 @@ class WifiAdbRepositoryImpl(
             val input = adbShellStream!!.openInputStream()
             val reader = BufferedReader(InputStreamReader(input, StandardCharsets.UTF_8))
 
-            var line: String? = null
+            var line: String?
             while (!isAborted) {
                 line = reader.readLine()
                 if (line == null) break
@@ -1497,9 +1504,9 @@ class WifiAdbRepositoryImpl(
     private fun isMatchingLocalNetwork(ip: String): Boolean {
         try {
             val interfaces = NetworkInterface.getNetworkInterfaces()
-            for (networkInterface in java.util.Collections.list(interfaces)) {
+            for (networkInterface in Collections.list(interfaces)) {
                 if (networkInterface.isUp) {
-                    for (inetAddress in java.util.Collections.list(networkInterface.inetAddresses)) {
+                    for (inetAddress in Collections.list(networkInterface.inetAddresses)) {
                         if (ip == inetAddress.hostAddress) {
                             Log.d(TAG, "IP $ip matches network interface ${networkInterface.name}")
                             return true
@@ -1671,7 +1678,7 @@ class WifiAdbRepositoryImpl(
                         currentDevice = null
                         return@launch
                     }
-                } catch (e: kotlinx.coroutines.CancellationException) {
+                } catch (e: CancellationException) {
                     Log.d(TAG, "Heartbeat cancelled")
                     throw e
                 } catch (e: Exception) {
@@ -1765,6 +1772,7 @@ class WifiAdbRepositoryImpl(
 
             override fun onServiceFound(info: NsdServiceInfo) {
                 Log.d(TAG, "Code pairing: Found pairing service: ${info.serviceName}")
+                @Suppress("DEPRECATION")
                 codePairingNsdManager?.resolveService(info, object : NsdManager.ResolveListener {
                     override fun onResolveFailed(
                         serviceInfo: NsdServiceInfo, errorCode: Int
