@@ -62,7 +62,8 @@ body:
     label: Version
     description: What version of aShellYou are you running?
     options:
-    - v7.0.0 (Latest)
+    - v7.0.1 (Latest)
+    - v7.0.0
     - v6.1.0
     - v6.0.3
     - v6.0.2
