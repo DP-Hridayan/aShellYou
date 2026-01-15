@@ -106,9 +106,6 @@ jobs:
           # Convert \n to newline + bullet
           CHANGELOG=$(echo "$CHANGELOG" | sed 's/\\n/\n* /g')
   
-          # Add bullet to first line
-          CHANGELOG="* $CHANGELOG"
-  
           # Add heading cleanly
           CHANGELOG="### Changelog\n\n$CHANGELOG"
   
@@ -137,7 +134,12 @@ jobs:
           # Escape underscores for MarkdownV2
           ESC_TAG=$(echo "$TAG" | sed -e 's/\./\\./g' -e 's/_/\\_/g' -e 's/\*/\\*/g' -e 's/\-/\\-/g')
 
-          TEXT="🚀 *New Release Published*\n• *${ESC_TAG}*\n🔗 [View Release](${URL})"
+          TEXT=$(cat <<EOF
+          🚀 *New Release Published*
+          • *${ESC_TAG}*
+          🔗 [View Release](${URL})
+          EOF
+          )
 
           REPLY='{"inline_keyboard":[[{"text":"View Release","url":"'"$URL"'"}]]}'
 

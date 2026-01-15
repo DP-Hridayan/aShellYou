@@ -8,11 +8,8 @@
 - 📚 Provides examples of common ADB commands
 - 🛠️ Supports continuously running commands like logcat and top
 - 🔍 Search within the command output
-- 📝 Save the command output as a text file
-- 📤 Share output directly to other apps
+- 📝 Save or share the command output as a text file
 - 📑 Bookmark frequently used commands
-- 🌑 Includes an AMOLED theme
-- 🎉 Offers many additional features
 
 <b>Requirements ⚙️</b>
 
@@ -22,5 +19,8 @@
 
 - Install and open the app
 - Follow the instructions
-- That's it. Now you are good to go!
+
+<b>Translations</b>
+Translations are managed via Crowdin:
+https://crowdin.com/project/ashellyou
 

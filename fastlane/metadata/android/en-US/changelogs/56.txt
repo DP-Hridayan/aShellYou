@@ -1,26 +1,10 @@
-
-* Whole UI Revamped, using material expressive components
-
-* Rewritten whole codebase in Kotlin and Jetpack Compose as UI Framework
-
-* Added push and pull based file manager
-
-* Added QR Wifi Adb Pairing mode
-
-* Added app settings and database backup options
-
-* Added custom theming options
-
-* Added crash history to view app crash logs
-
-* Improved auto update feature
-
-* Improved UI and UX in shell output
-
-* Added Android permissions suggestions
-
-* Revamped command examples layout to include labels
-
-* Added option to Add, Edit or Delete commands as you wish
-
-* Lots of existing bugs are now fixed
+- UI fully revamped using Material expressive components
+- Entire codebase rewritten in Kotlin with Jetpack Compose
+- Added push and pull based file manager
+- Added QR-based WiFi ADB pairing
+- Added app settings, database backup, and custom theming
+- Added crash history to view app crash logs
+- Improved auto update and shell UI/UX
+- Added permission suggestions and revamped command layout with labels
+- Commands can now be added, edited, or deleted
+- Multiple existing bugs fixed
