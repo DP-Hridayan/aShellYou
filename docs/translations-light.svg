@@ -6,32 +6,32 @@
 <text x="460" y="25" text-anchor="start">100%</text>
 <text x="140" y="55" text-anchor="end"><![CDATA[German]]></text>
 <rect x="150" y="41" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="41" width="81" height="14" fill="#863819" rx="8" ry="8" />
-<text x="460" y="55" text-anchor="start">27%</text>
+<rect x="150" y="41" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="55" text-anchor="start">100%</text>
 <text x="140" y="85" text-anchor="end"><![CDATA[Persian]]></text>
 <rect x="150" y="71" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="71" width="0" height="14" fill="#b3261e" rx="8" ry="8" />
-<text x="460" y="85" text-anchor="start">0%</text>
+<rect x="150" y="71" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="85" text-anchor="start">100%</text>
 <text x="140" y="115" text-anchor="end"><![CDATA[French]]></text>
 <rect x="150" y="101" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="101" width="177" height="14" fill="#524e15" rx="8" ry="8" />
-<text x="460" y="115" text-anchor="start">59%</text>
+<rect x="150" y="101" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="115" text-anchor="start">100%</text>
 <text x="140" y="145" text-anchor="end"><![CDATA[Hindi]]></text>
 <rect x="150" y="131" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="131" width="294" height="14" fill="#12690f" rx="8" ry="8" />
-<text x="460" y="145" text-anchor="start">98%</text>
+<rect x="150" y="131" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="145" text-anchor="start">100%</text>
 <text x="140" y="175" text-anchor="end"><![CDATA[Japanese]]></text>
 <rect x="150" y="161" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="161" width="201" height="14" fill="#455413" rx="8" ry="8" />
-<text x="460" y="175" text-anchor="start">67%</text>
+<rect x="150" y="161" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="175" text-anchor="start">100%</text>
 <text x="140" y="205" text-anchor="end"><![CDATA[Portuguese]]></text>
 <rect x="150" y="191" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="191" width="243" height="14" fill="#2e5d11" rx="8" ry="8" />
-<text x="460" y="205" text-anchor="start">81%</text>
+<rect x="150" y="191" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="205" text-anchor="start">100%</text>
 <text x="140" y="235" text-anchor="end"><![CDATA[Russian]]></text>
 <rect x="150" y="221" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="221" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
-<text x="460" y="235" text-anchor="start">100%</text>
+<rect x="150" y="221" width="267" height="14" fill="#216310" rx="8" ry="8" />
+<text x="460" y="235" text-anchor="start">89%</text>
 <text x="140" y="265" text-anchor="end"><![CDATA[Turkish]]></text>
 <rect x="150" y="251" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
 <rect x="150" y="251" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
