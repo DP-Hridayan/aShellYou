@@ -1,149 +1,107 @@
-name: Build and Release APK
+name: Telegram Bot Notify
 
 on:
   push:
-    tags:
-      - "v*" # Runs when a tag like "v6.0.1" is pushed
-  workflow_dispatch:
+    branches:
+      - master
+  watch:
+    types: [started]
+  issues:
+    types: [opened, closed]
+  pull_request:
+    types: [opened, closed, reopened]
+  release:
+    types: [published]
 
 jobs:
-  build:
-    name: Build and Sign APK
+  notify:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Decode Keystore
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        run: |
-          echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
-
-      - name: Set Environment Variables
-        run: |
-          echo "KEYSTORE_PATH=$PWD/keystore.jks" >> $GITHUB_ENV
-          echo "KEYSTORE_PASSWORD=$(echo -n '${{ secrets.KEYSTORE_PASSWORD }}')" >> $GITHUB_ENV
-          echo "KEY_ALIAS=$(echo -n '${{ secrets.KEY_ALIAS }}')" >> $GITHUB_ENV
-          echo "KEY_PASSWORD=$(echo -n '${{ secrets.KEY_PASSWORD }}')" >> $GITHUB_ENV
-
-      - name: Grant Execute Permission to Gradle
-        run: chmod +x gradlew
-
-      - name: Build APK
-        run: ./gradlew assembleRelease --stacktrace
-
-      - name: Find Release APK
-        run: |
-          APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' -print -quit)
-          if [[ -z "$APK_PATH" ]]; then
-            echo "No APK found!"
-            exit 1
-          fi
-          echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
-          echo "Found APK at: $APK_PATH"
-
-      - name: Upload APK as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Signed-APK
-          path: ${{ env.APK_PATH }}
-
-  release:
-    name: Create GitHub Release
-    needs: build
-    if: startsWith(github.ref, 'refs/tags/v')
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Download Signed APK
-        uses: actions/download-artifact@v4
-        with:
-          name: Signed-APK
-          path: artifacts/
-
-      - name: Find Downloaded APK
-        run: |
-          APK_PATH=$(find artifacts -name '*.apk' -print -quit)
-          if [[ -z "$APK_PATH" ]]; then
-            echo "No downloaded APK found!"
-            exit 1
-          fi
-          echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
-          echo "Downloaded APK at: $APK_PATH"
-
-      - name: Rename APK
-        run: |
-          mv "${{ env.APK_PATH }}" "aShellYou-${{ github.ref_name }}-release.apk"
-
-      - name: Install xmllint
-        run: sudo apt-get install -y libxml2-utils
-
-      - name: Extract Changelog from strings.xml
-        run: |
-          VERSION_TAG="${{ github.ref_name }}"       # Example: v6.0.1
-          VERSION_TAG_XML=$(echo $VERSION_TAG | tr '.' '_' | tr -d 'v')  # Convert v6.0.1 → 6_0_1
-          CHANGELOG=$(xmllint --xpath "string(//string[@name='changelog_v${VERSION_TAG_XML}']/text())" app/src/main/res/values/strings.xml || echo "No changelog found for $VERSION_TAG")
-
-          if [[ -z "$CHANGELOG" ]]; then
-            echo "#### Refer to full changelogs $VERSION_TAG"
-            exit 1
-          fi
-
-          # Convert \n to newline + bullet
-          CHANGELOG=$(echo "$CHANGELOG" | sed 's/\\n/\n* /g')
-  
-          # Add bullet to first line
-          CHANGELOG="* $CHANGELOG"
-          
-          # Add heading cleanly
-          CHANGELOG="### Changelog\n\n$CHANGELOG"
-  
-          # Write to file
-          echo -e "$CHANGELOG" > changelog.txt
-
-
-      - name: Publish Release using gh CLI
-        run: |
-          gh release create "${{ github.ref_name }}" \
-            "aShellYou-${{ github.ref_name }}-release.apk" \
-            --title "aShell You ${{ github.ref_name }}" \
-            --notes-file changelog.txt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Notify Telegram of New Release
+      - name: Send Telegram Message
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          CHAT_ID:         ${{ secrets.CHAT_ID }}
-          THREAD_ID:       ${{ secrets.RELEASE_THREAD_ID }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          THREAD_ID: ${{ secrets.THREAD_ID }}
+          COMMIT_MSG_RAW: ${{ github.event.head_commit.message }}
+          ISSUE_TITLE_RAW: ${{ github.event.issue.title }}
+          PR_TITLE_RAW: ${{ github.event.pull_request.title }}
+
         run: |
-          TAG=${{ github.ref_name }}
-          URL="https://github.com/${{ github.repository }}/releases/tag/${TAG}"
+          EVENT_NAME="${{ github.event_name }}"
+          ACTOR="${{ github.actor }}"
+          REPO="${{ github.repository }}"
+          API_URL="https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"
+          
+          escape_markdown() { 
+            echo "$1" | sed -e 's/[*]/\\&/g' \
+                            -e 's/_/\\_/g' \
+                            -e 's/(/\/g' \
+                            -e 's/)/\/g' \
+                            -e 's/`/\\`/g'
+          }
 
-          # Escape underscores for MarkdownV2
-          ESC_TAG=$(echo "$TAG" | sed -e 's/\./\\./g' -e 's/_/\\_/g' -e 's/\*/\\*/g' -e 's/\-/\\-/g')
+          send_message() {
+            # If a second parameter is passed, include reply_markup.
+            if [ -z "$2" ]; then
+              curl -s -X POST $API_URL \
+                -d chat_id="$CHAT_ID" \
+                -d message_thread_id="$THREAD_ID" \
+                -d text="$(echo -e "$1")" \
+                -d parse_mode=Markdown
+            else
+              curl -s -X POST $API_URL \
+                -d chat_id="$CHAT_ID" \
+                -d message_thread_id="$THREAD_ID" \
+                -d text="$(echo -e "$1")" \
+                -d parse_mode=Markdown \
+                -d reply_markup="$2"
+            fi
+          }
 
-          TEXT="🚀 *New Release Published*\n• *${ESC_TAG}*\n🔗 [View Release](${URL})"
+          if [[ "$EVENT_NAME" == "push" ]]; then 
+            COMMIT_URL="${{ github.event.head_commit.url }}"
+            COMMIT_MSG=$(escape_markdown "$COMMIT_MSG_RAW")
+            REPLY='{"inline_keyboard": [[{"text": "View Commit", "url": "'"$COMMIT_URL"'"}]]}'
+            send_message "🔨 *Push* by [$ACTOR](https://github.com/$ACTOR)\n• *Message:* $COMMIT_MSG" "$REPLY"
 
-          REPLY='{"inline_keyboard":[[{"text":"View Release","url":"'"$URL"'"}]]}'
+          elif [[ "$EVENT_NAME" == "watch" ]]; then
+            send_message "⭐ *$ACTOR* starred aShell You"
 
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
-            -d chat_id="$CHAT_ID" \
-            -d parse_mode="MarkdownV2" \
-            -d text="$TEXT" \
-            -d reply_markup="$REPLY" \
-            -d message_thread_id="$THREAD_ID"
+          elif [[ "$EVENT_NAME" == "issues" ]]; then
+            ISSUE_ACTION="${{ github.event.action }}"
+            ISSUE_URL="${{ github.event.issue.html_url }}"
+            ISSUE_TITLE=$(escape_markdown "$ISSUE_TITLE_RAW")
+            if [[ "$ISSUE_ACTION" == "closed" ]]; then
+              ISSUE_REASON="${{ github.event.issue.state_reason }}"
+              REPLY='{"inline_keyboard": [[{"text": "View Issue", "url": "'"$ISSUE_URL"'"}]]}'
+              send_message "✅ *Issue closed* by [$ACTOR](https://github.com/$ACTOR)\n• *Reason:* \`$ISSUE_REASON\`\n• *$ISSUE_TITLE*" "$REPLY"
+            else
+              REPLY='{"inline_keyboard": [[{"text": "View Issue", "url": "'"$ISSUE_URL"'"}]]}'
+              send_message "🐛 *Issue $ISSUE_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$ISSUE_TITLE*" "$REPLY"
+            fi
+
+          elif [[ "$EVENT_NAME" == "pull_request" ]]; then
+          PR_ACTION="${{ github.event.action }}"
+          PR_URL="${{ github.event.pull_request.html_url }}"
+          PR_TITLE=$(escape_markdown "$PR_TITLE_RAW")
+          PR_MERGED="${{ github.event.pull_request.merged }}"
+          REPLY='{"inline_keyboard": [[{"text": "View PR", "url": "'"$PR_URL"'"}]]}'
+          if [[ "$PR_ACTION" == "closed" ]]; then
+          if [[ "$PR_MERGED" == "true" ]]; then
+          STATUS="*Merged*"
+          else
+          STATUS="*Closed without merge*"
+          fi
+          send_message "🔃 *Pull Request closed* by [$ACTOR](https://github.com/$ACTOR)\n• $STATUS\n• *$PR_TITLE*" "$REPLY"
+          else
+          send_message "🔃 *Pull Request $PR_ACTION* by [$ACTOR](https://github.com/$ACTOR):\n• *$PR_TITLE*" "$REPLY"
+          fi
+          
+          elif [[ "$EVENT_NAME" == "release" ]]; then
+            REL_NAME_RAW="${{ github.event.release.name }}"
+            REL_URL="${{ github.event.release.html_url }}"
+            REL_NAME=$(escape_markdown "$REL_NAME_RAW")
+            REPLY='{"inline_keyboard": [[{"text": "View Release", "url": "'"$REL_URL"'"}]]}'
+            send_message "🚀 *New Release Published* by [$ACTOR](https://github.com/$ACTOR):\n• *$REL_NAME*" "$REPLY"
+          fi
