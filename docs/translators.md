@@ -11,7 +11,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>Hridayan (DP-Hridayan)</b></sub></a>
         <br />
-        <sub><b>32539 words</b></sub>
+        <sub><b>45611 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/mikropsoft"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15972315/medium/23948a4df1f365f3bd7accc92c87bc4e.jpg" />
@@ -83,7 +83,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>AlexeiCrystal (alex211952i)</b></sub></a>
         <br />
-        <sub><b>59 words</b></sub>
+        <sub><b>71 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/ru-tei"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17196264/medium/0fc56e447148eb14a35b45b787149aaf.png" />
