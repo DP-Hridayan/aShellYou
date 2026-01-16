@@ -60,8 +60,8 @@ private fun ContactHandles(modifier: Modifier = Modifier) {
         roundedCornerShape = CardCornerShape.FIRST_CARD,
         paddingValues = PaddingValues(0.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
         )
     ) {
         Row(
@@ -147,8 +147,8 @@ private fun BuyMeACoffee(
         paddingValues = PaddingValues(0.dp),
         onClick = withHaptic { onClick() },
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
         )
     ) {
         Row(
