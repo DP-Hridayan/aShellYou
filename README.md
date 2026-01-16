@@ -19,7 +19,7 @@
   <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest">
     <img alt="GitHub release" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Release" />
   </a>
-    <a href="https://shields.rbtlog.dev/in.hridayan.driftly">
+    <a href="https://shields.rbtlog.dev/in.hridayan.ashell">
     <img alt="GitHub release" src="https://shields.rbtlog.dev/simple/in.hridayan.ashell?style=for-the-badge" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/releases">
