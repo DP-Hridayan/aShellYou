@@ -5,6 +5,7 @@ package `in`.hridayan.ashell.commandexamples.presentation.component.dialog
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Button
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
@@ -114,6 +116,7 @@ private fun CommandInputField(
         onValueChange = { viewModel.onCommandFieldTextChange(it) },
         label = { Text(label) },
         isError = state.isError,
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
         modifier = modifier.fillMaxWidth()
     )
 }

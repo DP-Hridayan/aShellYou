@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Search
@@ -33,6 +34,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -79,6 +81,7 @@ fun UtilityButtonGroup(
                 value = states.search.textFieldValue,
                 onValueChange = { it -> shellViewModel.onSearchQueryChange(it) },
                 hint = stringResource(R.string.search_commands_here),
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                 trailingIcon = {
                     if (states.search.textFieldValue.text.isNotEmpty()) {
                         Icon(
