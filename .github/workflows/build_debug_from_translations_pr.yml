@@ -1,0 +1,41 @@
+name: Build Debug APK (Translations PR)
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "app/src/main/res/**"
+      - "app/src/main/assets/translators.json"
+
+jobs:
+  build-debug:
+    if: github.event.pull_request.head.ref == 'localization'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Grant execute permission to Gradle
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk-${{ github.event.pull_request.number }}
+          path: app/build/outputs/apk/debug/*.apk
