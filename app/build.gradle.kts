@@ -18,8 +18,8 @@ android {
         applicationId = "in.hridayan.ashell"
         minSdk = 28
         targetSdk = 36
-        versionCode = 57
-        versionName = "v7.0.1"
+        versionCode = 58
+        versionName = "v7.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

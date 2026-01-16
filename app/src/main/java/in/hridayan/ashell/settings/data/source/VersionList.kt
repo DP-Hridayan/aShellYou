@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.settings.data.source
 
 val versionList = listOf(
+    "v7.1.0",
     "v7.0.1",
     "v7.0.0",
     "v6.1.0",
