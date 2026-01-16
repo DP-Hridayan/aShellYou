@@ -30,7 +30,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,7 +47,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -57,7 +56,6 @@ import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
 import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
-import `in`.hridayan.ashell.core.presentation.viewmodel.GithubDataViewModel
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.presentation.components.card.SupportMeCard
@@ -72,12 +70,10 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 fun AboutScreen(
     modifier: Modifier = Modifier,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
-    githubDataViewModel: GithubDataViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
     val context = LocalContext.current
     val settings = settingsViewModel.aboutPageList
-    val githubRepoStats by githubDataViewModel.stats.collectAsStateWithLifecycle()
 
     val (angle, scale) = syncedRotationAndScale()
 
@@ -111,137 +107,125 @@ fun AboutScreen(
                 state = listState,
                 contentPadding = innerPadding
             ) {
-                githubRepoStats?.totalDownloadCount?.let {
-                    item {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .animateItem()
-                                .padding(20.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(15.dp)
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .animateItem()
+                            .padding(20.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(15.dp)
+                    ) {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
                         ) {
-                            Box(
-                                contentAlignment = Alignment.Center,
-                                modifier = Modifier.align(Alignment.CenterHorizontally)
-                            ) {
-                                Spacer(
-                                    modifier = Modifier
-                                        .requiredSize(120.dp)
-                                        .graphicsLayer {
-                                            rotationZ = angle
-                                        }
-                                        .scale(scale)
-                                        .clip(MaterialShapes.Cookie9Sided.toShape())
-                                        .clickable(onClick = withHaptic {})
-                                        .background(MaterialTheme.colorScheme.primaryContainer)
-                                )
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_adb2),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                                    modifier = Modifier.size(60.dp)
-                                )
-                            }
+                            Spacer(
+                                modifier = Modifier
+                                    .requiredSize(120.dp)
+                                    .graphicsLayer {
+                                        rotationZ = angle
+                                    }
+                                    .scale(scale)
+                                    .clip(MaterialShapes.Cookie9Sided.toShape())
+                                    .clickable(onClick = withHaptic {})
+                                    .background(MaterialTheme.colorScheme.primaryContainer)
+                            )
+                            Icon(
+                                painter = painterResource(R.drawable.ic_adb2),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                modifier = Modifier.size(60.dp)
+                            )
+                        }
 
-                            AutoResizeableText(
-                                text = stringResource(R.string.app_name),
-                                fontWeight = FontWeight.Black,
-                                fontStyle = FontStyle.Italic,
-                                style = MaterialTheme.typography.displayLargeEmphasized.copy(
-                                    letterSpacing = 0.025.em,
-                                )
+                        AutoResizeableText(
+                            text = stringResource(R.string.app_name),
+                            fontWeight = FontWeight.Black,
+                            fontStyle = FontStyle.Italic,
+                            style = MaterialTheme.typography.displayLargeEmphasized.copy(
+                                letterSpacing = 0.025.em,
+                            )
+                        )
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(15.dp)
+                        ) {
+                            AppHandlesChip(
+                                icon = painterResource(R.drawable.ic_telegram),
+                                title = stringResource(R.string.telegram),
+                                description = stringResource(R.string.discussions),
+                                onClick = {
+                                    openUrl(
+                                        url = UrlConst.URL_TELEGRAM_CHANNEL,
+                                        context = context
+                                    )
+                                }
                             )
 
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(15.dp)
-                            ) {
-                                githubRepoStats?.stars?.let {
-                                    GithubStatsChip(
-                                        icon = painterResource(R.drawable.ic_star),
-                                        statsText = it.toString(),
-                                        statsDescription = stringResource(R.string.stargazers),
-                                        onClick = {
-                                            openUrl(
-                                                url = UrlConst.URL_GITHUB_REPO_STARGAZERS,
-                                                context = context
-                                            )
-                                        }
+                            AppHandlesChip(
+                                icon = painterResource(R.drawable.ic_github),
+                                title = stringResource(R.string.github),
+                                description = stringResource(R.string.repository),
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                                onClick = {
+                                    openUrl(
+                                        url = UrlConst.URL_GITHUB_REPO,
+                                        context = context
                                     )
                                 }
+                            )
+                        }
 
-                                githubRepoStats?.totalDownloadCount?.let {
-                                    GithubStatsChip(
-                                        icon = painterResource(R.drawable.ic_download),
-                                        statsText = it.toCompactFormat(),
-                                        statsDescription = stringResource(R.string.downloads),
-                                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                                        onClick = {
-                                            openUrl(
-                                                url = UrlConst.URL_GITHUB_RELEASES,
-                                                context = context
-                                            )
-                                        }
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(15.dp)
+                        ) {
+                            AppHandlesChip(
+                                icon = painterResource(R.drawable.ic_version_tag),
+                                title = BuildConfig.VERSION_NAME,
+                                description = stringResource(R.string.current_version),
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                onClick = {
+                                    openUrl(
+                                        url = UrlConst.URL_GITHUB_RELEASES,
+                                        context = context
                                     )
                                 }
-                            }
+                            )
 
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(15.dp)
-                            ) {
-                                githubRepoStats?.openIssues?.let {
-                                    GithubStatsChip(
-                                        icon = painterResource(R.drawable.ic_bug),
-                                        statsText = it.toString(),
-                                        statsDescription = stringResource(R.string.open_issues),
-                                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                                        contentColor = MaterialTheme.colorScheme.onErrorContainer,
-                                        onClick = {
-                                            openUrl(
-                                                url = UrlConst.URL_GITHUB_REPO_ISSUES,
-                                                context = context
-                                            )
-                                        }
+                            AppHandlesChip(
+                                icon = painterResource(R.drawable.ic_license),
+                                title = stringResource(R.string.gpl_3_0),
+                                description = stringResource(R.string.license),
+                                containerColor = MaterialTheme.colorScheme.errorContainer,
+                                contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                                onClick = {
+                                    openUrl(
+                                        url = UrlConst.URL_GITHUB_REPO_LICENSE,
+                                        context = context
                                     )
                                 }
+                            )
+                        }
 
-                                githubRepoStats?.forks?.let {
-                                    GithubStatsChip(
-                                        icon = painterResource(R.drawable.ic_fork),
-                                        statsText = it.toString(),
-                                        statsDescription = stringResource(R.string.forks),
-                                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                                        onClick = {
-                                            openUrl(
-                                                url = UrlConst.URL_GITHUB_REPO_FORKS,
-                                                context = context
-                                            )
-                                        }
-                                    )
-                                }
-                            }
-
-                            githubRepoStats?.license?.let {
-                                GithubStatsChip(
-                                    icon = painterResource(R.drawable.ic_license),
-                                    statsText = it,
-                                    statsDescription = stringResource(R.string.license),
-                                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    onClick = {
-                                        openUrl(
-                                            url = UrlConst.URL_GITHUB_REPO_LICENSE,
-                                            context = context
-                                        )
-                                    }
+                        AppHandlesChip(
+                            icon = painterResource(R.drawable.ic_translate),
+                            title = stringResource(R.string.crowdin),
+                            description = stringResource(R.string.translations),
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            onClick = {
+                                openUrl(
+                                    url = UrlConst.URL_CROWDIN_PROJECT,
+                                    context = context
                                 )
                             }
+                        )
 
-                        }
                     }
                 }
 
@@ -249,19 +233,14 @@ fun AboutScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .then(
-                                if (githubRepoStats?.totalDownloadCount != null) {
-                                    Modifier
-                                        .clip(
-                                            SineWaveShape(
-                                                amplitude = 10f,
-                                                frequency = 5f,
-                                                edge = WaveEdge.Both
-                                            )
-                                        )
-                                        .background(MaterialTheme.colorScheme.surfaceContainerLow)
-                                } else Modifier
+                            .clip(
+                                SineWaveShape(
+                                    amplitude = 10f,
+                                    frequency = 5f,
+                                    edge = WaveEdge.Both
+                                )
                             )
+                            .background(MaterialTheme.colorScheme.surfaceContainerLow)
                             .animateItem(),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(15.dp)
@@ -363,11 +342,11 @@ fun AboutScreen(
 }
 
 @Composable
-private fun GithubStatsChip(
+private fun AppHandlesChip(
     modifier: Modifier = Modifier,
     icon: Painter,
-    statsText: String,
-    statsDescription: String,
+    title: String,
+    description: String,
     containerColor: Color = MaterialTheme.colorScheme.primaryContainer,
     contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     onClick: () -> Unit = {}
@@ -388,11 +367,11 @@ private fun GithubStatsChip(
 
         Column {
             AutoResizeableText(
-                text = statsText,
+                text = title,
                 style = MaterialTheme.typography.titleMediumEmphasized,
             )
             AutoResizeableText(
-                text = statsDescription,
+                text = description,
                 style = MaterialTheme.typography.bodySmallEmphasized,
                 color = contentColor.copy(alpha = 0.85f)
             )

@@ -1,5 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation,UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="A_Z" translatable="false">A → Z</string>
     <string name="abort_command">Abort command first</string>
     <string name="about">About</string>
@@ -223,6 +222,7 @@
     <string name="go_home">Go Home</string>
     <string name="go_to_terminal">Go to terminal</string>
     <string name="grant">Grant</string>
+    <string name="translations">Translations</string>
     <string name="grant_permission">Grant permission</string>
     <string name="great_news">Great news!</string>
     <string name="haptics_and_vibration">Haptics &amp; Vibration</string>
@@ -390,6 +390,10 @@
     <string name="shizuku_unavailable_message">Shizuku is not installed or properly configured on your device</string>
     <string name="size">Size</string>
     <string name="skip">Skip</string>
+    <string name="crowdin" translatable="false">Crowdin</string>
+    <string name="gpl_3_0" translatable="false">GPL-3.0</string>
+    <string name="repository">Repository</string>
+    <string name="discussions">Discussions</string>
     <string name="smooth_scrolling">Smooth scrolling</string>
     <string name="sort">Sort</string>
     <string name="stable">Stable</string>
@@ -403,6 +407,7 @@
     <string name="system">System</string>
     <string name="system_font">System font</string>
     <string name="system_settings">System settings</string>
+    <string name="telegram">Telegram</string>
     <string name="telegram_channel">Telegram channel</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Terminal font style</string>

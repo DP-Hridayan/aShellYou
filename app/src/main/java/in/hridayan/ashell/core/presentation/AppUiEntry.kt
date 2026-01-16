@@ -20,7 +20,6 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.ChangelogBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
-import `in`.hridayan.ashell.core.presentation.viewmodel.GithubDataViewModel
 import `in`.hridayan.ashell.core.utils.isNetworkAvailable
 import `in`.hridayan.ashell.navigation.Navigation
 import `in`.hridayan.ashell.settings.data.SettingsKeys
@@ -32,7 +31,6 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun AppUiEntry(
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
-    githubDataViewModel: GithubDataViewModel = hiltViewModel(),
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -58,10 +56,6 @@ fun AppUiEntry(
 
     LaunchedEffect(savedVersionCode, firstLaunchFlow) {
         showChangelogSheet = savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow
-    }
-
-    LaunchedEffect(Unit) {
-        githubDataViewModel.refreshIfPossible()
     }
 
     Surface {
