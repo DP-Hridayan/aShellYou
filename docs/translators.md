@@ -11,7 +11,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>Hridayan (DP-Hridayan)</b></sub></a>
         <br />
-        <sub><b>45611 words</b></sub>
+        <sub><b>45623 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/mikropsoft"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15972315/medium/23948a4df1f365f3bd7accc92c87bc4e.jpg" />
@@ -51,6 +51,13 @@ Thanks to these translators and proofreaders, this project exists:
     </tr>
     <tr>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/alex211952i"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16749463/medium/a5c4e3624bfd368750b8b82116a2dafb.png" />
+          <br />
+          <sub><b>AlexeiCrystal (alex211952i)</b></sub></a>
+        <br />
+        <sub><b>405 words</b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/UTAC99645"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16611103/medium/b064b3319dfbfe4c16dfe8690c363ec5.png" />
           <br />
           <sub><b>UTAC (UTAC99645)</b></sub></a>
@@ -77,13 +84,6 @@ Thanks to these translators and proofreaders, this project exists:
           <sub><b>jimietianxia</b></sub></a>
         <br />
         <sub><b>90 words</b></sub>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/alex211952i"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16749463/medium/a5c4e3624bfd368750b8b82116a2dafb.png" />
-          <br />
-          <sub><b>AlexeiCrystal (alex211952i)</b></sub></a>
-        <br />
-        <sub><b>71 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/ru-tei"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17196264/medium/0fc56e447148eb14a35b45b787149aaf.png" />
