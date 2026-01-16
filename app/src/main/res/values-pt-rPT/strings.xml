@@ -146,6 +146,7 @@
     <string name="disclaimer_5_title">Permissões e Segurança</string>
     <string name="disconnect">Desconectar</string>
     <string name="disconnected">Desconectado!</string>
+    <string name="discussions">Discussões</string>
     <string name="dismiss">Descartar</string>
     <string name="done">Concluído</string>
     <string name="download">Baixar</string>
@@ -333,6 +334,7 @@
     <string name="replace">Substituir</string>
     <string name="report">Informar problema</string>
     <string name="report_issue">Reportar problema</string>
+    <string name="repository">Repositório</string>
     <string name="request_timeout">Tempo limite do pedido</string>
     <string name="reset">Reset</string>
     <string name="reset_app_settings">Redefinir configurações do aplicativo</string>
@@ -348,6 +350,8 @@
     <string name="save">Salvar</string>
     <string name="save_whole_output">Salvar saída inteira</string>
     <string name="saved_devices">Dispositivos salvos</string>
+    <string name="saving">Salvando…</string>
+    <string name="saving_output">Exportando saída para o arquivo…</string>
     <string name="search">Pesquisar</string>
     <string name="search_commands_here">Pesquise comandos aqui</string>
     <string name="search_labels_here">Pesquise os rótulos aqui</string>
@@ -393,9 +397,11 @@
     <string name="system">Sistema</string>
     <string name="system_font">Fonte do sistema</string>
     <string name="system_settings">Configurações do sistema</string>
+    <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Estilo de fonte terminal</string>
     <string name="this_device">Este Dispositivo</string>
+    <string name="translations">Traduções</string>
     <string name="troubleshoot">Solução</string>
     <string name="troubleshoot_reconnect">Atualizar a conexão de depuração sem fio alternando</string>
     <string name="turn_off_mobile_data">Desative os dados móveis se a conexão Wi-Fi não tiver INTERNET</string>
@@ -426,6 +432,7 @@
     <string name="wireless_debugging_guide_2">Digite o código de 6 dígitos na notificação enviada pelo aShell You.</string>
     <string name="wireless_debugging_guide_3">Volte para o aplicativo e clique no botão \"Iniciar\" na tela inicial.</string>
     <string name="wireless_debugging_important_notice">Por favor, note que a parte esquerda da opção de depuração por Wi-Fi é clicável. Tocando nele abrirá o menu de depuração por Wi-Fi.</string>
+    <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
     <string name="changelog_v7_0_1">\nFastlane fix</string>
     <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
     <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in app crash reporter.</string>

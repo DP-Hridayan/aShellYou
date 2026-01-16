@@ -146,6 +146,7 @@
     <string name="disclaimer_5_title">Permissions and Security</string>
     <string name="disconnect">Disconnect</string>
     <string name="disconnected">Disconnected!</string>
+    <string name="discussions">Discussions</string>
     <string name="dismiss">Dismiss</string>
     <string name="done">Done</string>
     <string name="download">Download</string>
@@ -333,6 +334,7 @@
     <string name="replace">Replace</string>
     <string name="report">Report</string>
     <string name="report_issue">Report issue</string>
+    <string name="repository">Repository</string>
     <string name="request_timeout">Request timeout</string>
     <string name="reset">Reset</string>
     <string name="reset_app_settings">Reset app settings</string>
@@ -348,6 +350,8 @@
     <string name="save">Save</string>
     <string name="save_whole_output">Save whole output</string>
     <string name="saved_devices">Saved devices</string>
+    <string name="saving">Saving…</string>
+    <string name="saving_output">Exporting output to file…</string>
     <string name="search">Search</string>
     <string name="search_commands_here">Search commands here</string>
     <string name="search_labels_here">Search labels here</string>
@@ -393,9 +397,11 @@
     <string name="system">System</string>
     <string name="system_font">System font</string>
     <string name="system_settings">System settings</string>
+    <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Terminal font style</string>
     <string name="this_device">This Device</string>
+    <string name="translations">Translations</string>
     <string name="troubleshoot">Troubleshoot</string>
     <string name="troubleshoot_reconnect">Refresh wireless debugging connection by toggling it off-on</string>
     <string name="turn_off_mobile_data">Turn off Mobile Data if the Wifi connection has NO INTERNET</string>
@@ -426,6 +432,7 @@
     <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
+    <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
     <string name="changelog_v7_0_1">\nFastlane fix</string>
     <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
     <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in app crash reporter.</string>

@@ -146,6 +146,7 @@
     <string name="disclaimer_5_title">权限与安全</string>
     <string name="disconnect">断开连接</string>
     <string name="disconnected">断开连接！</string>
+    <string name="discussions">讨论</string>
     <string name="dismiss">取消</string>
     <string name="done">完成</string>
     <string name="download">下载</string>
@@ -333,6 +334,7 @@
     <string name="replace">替换</string>
     <string name="report">反馈</string>
     <string name="report_issue">提交议题</string>
+    <string name="repository">存储库</string>
     <string name="request_timeout">请求超时</string>
     <string name="reset">重置</string>
     <string name="reset_app_settings">重置应用设置</string>
@@ -348,6 +350,8 @@
     <string name="save">保存</string>
     <string name="save_whole_output">保存整个输出</string>
     <string name="saved_devices">已保存的设备</string>
+    <string name="saving">Saving…</string>
+    <string name="saving_output">导出输出到文件…</string>
     <string name="search">搜索</string>
     <string name="search_commands_here">在这里搜索命令</string>
     <string name="search_labels_here">在此搜索标签</string>
@@ -393,9 +397,11 @@
     <string name="system">跟随系统</string>
     <string name="system_font">系统字体</string>
     <string name="system_settings">系统设置</string>
+    <string name="telegram">Telegram</string>
     <string name="terminal">终端</string>
     <string name="terminal_font_style">终端字体样式</string>
     <string name="this_device">此设备</string>
+    <string name="translations">翻译</string>
     <string name="troubleshoot">疑难解答</string>
     <string name="troubleshoot_reconnect">切换开启无线调试连接以刷新连接</string>
     <string name="turn_off_mobile_data">如果提示“此无线网络不能访问互联网”，请关闭手机的数据流量</string>
@@ -426,6 +432,7 @@
     <string name="wireless_debugging_guide_2">在aShell You发送的通知中输入配对码</string>
     <string name="wireless_debugging_guide_3">返回aShell You的主页点击无线ADB板块的“开始”即可</string>
     <string name="wireless_debugging_important_notice">注意无线调试选项左侧是可以点的。点击会打开无线调试配对菜单</string>
+    <string name="changelog_v7_1_0">\n修复了一个问题，在用户为应用程序设置一个除英文以外的区域位置时，英文键盘可能无法在命令输入中显示。\n修复了一个邮件图标没有正确显示\n修复了一个问题，这个问题在试图保存大量文件输出时导致应用程序崩溃。\n删除了多余的权限\n关于部分改进了UI</string>
     <string name="changelog_v7_0_1">\nFastlane fix</string>
     <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
     <string name="changelog_v6_1_0">\n现在命令搜索可以搜索包含您输入的单词的命令，而之前的版本则只搜索以输入单词开头的命令。\n选项在Shizuku安装但未运行时直接打开 Shizuku应用。\n修复了应用程序崩溃报告中的故障。</string>

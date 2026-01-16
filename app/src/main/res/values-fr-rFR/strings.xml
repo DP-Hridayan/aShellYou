@@ -146,6 +146,7 @@
     <string name="disclaimer_5_title">Permissions et sécurité</string>
     <string name="disconnect">Déconnecter</string>
     <string name="disconnected">Déconnecté!</string>
+    <string name="discussions">Discussions</string>
     <string name="dismiss">Fermer</string>
     <string name="done">Fait</string>
     <string name="download">Télécharger</string>
@@ -333,6 +334,7 @@
     <string name="replace">Remplacer</string>
     <string name="report">Signaler</string>
     <string name="report_issue">Signaler un problème</string>
+    <string name="repository">Dépôt</string>
     <string name="request_timeout">Requête en timeout</string>
     <string name="reset">Reset</string>
     <string name="reset_app_settings">Réinitialiser les paramètres de l\'application</string>
@@ -348,6 +350,8 @@
     <string name="save">Enregistrer</string>
     <string name="save_whole_output">Enregistrer la sortie entière</string>
     <string name="saved_devices">Périphériques enregistrés</string>
+    <string name="saving">Enregistrement de…</string>
+    <string name="saving_output">Exportation de la sortie vers le fichier…</string>
     <string name="search">Rechercher</string>
     <string name="search_commands_here">Rechercher des commandes ici</string>
     <string name="search_labels_here">Rechercher des étiquettes ici</string>
@@ -393,9 +397,11 @@
     <string name="system">Système</string>
     <string name="system_font">Police du système</string>
     <string name="system_settings">Paramètres du système</string>
+    <string name="telegram">Telegram</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Style de police du terminal</string>
     <string name="this_device">Cet appareil</string>
+    <string name="translations">Traductions</string>
     <string name="troubleshoot">Dépannage</string>
     <string name="troubleshoot_reconnect">Actualiser la connexion de débogage sans fil en la désactivant</string>
     <string name="turn_off_mobile_data">Désactiver les données mobiles si la connexion Wi-Fi n\'a pas d\'INTERNET</string>
@@ -426,6 +432,7 @@
     <string name="wireless_debugging_guide_2">Entrez le code de couplage à six chiffres dans la notification envoyée par aShell You.</string>
     <string name="wireless_debugging_guide_3">Revenez à l\'application et cliquez sur le bouton \"Démarrer\" dans l\'écran d\'accueil.</string>
     <string name="wireless_debugging_important_notice">Veuillez noter que la partie gauche de l\'option Débogage sans fil est cliquable. Appuyer dessus ouvrira le menu de couplage du débogage sans fil.</string>
+    <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
     <string name="changelog_v7_0_1">\nFastlane fix</string>
     <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
     <string name="changelog_v6_1_0">\nNow command search can search the commands that contains the word you typed compared to previous versions where it only searched commands that starts with the typed word.\nOption to open Shizuku app directly when Shizuku is installed but not running.\nFixed the broken in app crash reporter.</string>
