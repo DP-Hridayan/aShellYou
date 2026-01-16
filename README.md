@@ -197,10 +197,6 @@
     <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
   </tr>
   <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Implement root shell</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
-  </tr>
-  <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Migrate to kotlin</td>
     <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
   </tr>
@@ -214,6 +210,10 @@
   </tr>
   <tr>
     <td style="padding: 8px; border: 1px solid #ddd;">Add Fastboot</td>
+    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
+  </tr>
+    <tr>
+    <td style="padding: 8px; border: 1px solid #ddd;">Add Interactive shell</td>
     <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
   </tr>
 </table>
