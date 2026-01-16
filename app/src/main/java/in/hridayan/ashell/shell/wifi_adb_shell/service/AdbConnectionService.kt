@@ -73,6 +73,10 @@ class AdbConnectionService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(TAG, "onStartCommand action=${intent?.action}")
 
+        // IMPORTANT: Must call startForeground() immediately to avoid
+        // ForegroundServiceDidNotStartInTimeException on Android 12+
+        startForeground(NOTIFICATION_ID, notificationHelper.createNotification())
+
         if (intent?.action == ACTION_DISCONNECT) {
             Log.d(TAG, "Disconnect action received - disconnecting")
             handleDisconnect()
@@ -80,8 +84,6 @@ class AdbConnectionService : Service() {
         }
 
         isRunning = true
-
-        startForeground(NOTIFICATION_ID, notificationHelper.createNotification())
 
         return START_STICKY
     }
