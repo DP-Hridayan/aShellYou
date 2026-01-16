@@ -111,7 +111,6 @@
     <string name="des_enable_direct_download">Wenn aktiviert, werden Updates direkt von Github innerhalb der App heruntergeladen. Deaktivieren Sie dies, wenn Sie stattdessen bevorzugen manuelle Updates von der Github Release-Seite zu laden.</string>
     <string name="des_examples">Sammlung von Befehlsbeispielen</string>
     <string name="des_feature_request">Wenn du Ideen oder Vorschläge für die App hast, lass es uns wissen</string>
-    <string name="des_github">Besuche das Github Repository der App</string>
     <string name="des_haptics_and_vibration">Interaktive Haptik für Berührungsfeedback</string>
     <string name="des_high_contrast_dark_mode">Pechschwarzes dunkles Design für Geräte mit OLED-Display</string>
     <string name="des_hridayan">Nur ein Typ, der Apps und Design liebt</string>
@@ -147,6 +146,7 @@
     <string name="disclaimer_5_title">Berechtigungen und Sicherheit</string>
     <string name="disconnect">Verbindung trennen</string>
     <string name="disconnected">Getrennt!</string>
+    <string name="discussions">Diskussionen</string>
     <string name="dismiss">Schließen</string>
     <string name="done">Fertig</string>
     <string name="download">Herunterladen</string>
@@ -334,6 +334,7 @@
     <string name="replace">Ersetzen</string>
     <string name="report">Bericht</string>
     <string name="report_issue">Problem melden</string>
+    <string name="repository">Repository</string>
     <string name="request_timeout">Anfrage-Timeout</string>
     <string name="reset">Zurücksetzen</string>
     <string name="reset_app_settings">App-Einstellungen zurücksetzen</string>
@@ -349,6 +350,8 @@
     <string name="save">Speichern</string>
     <string name="save_whole_output">Gesamte Ausgabe speichern</string>
     <string name="saved_devices">Gespeicherte Geräte</string>
+    <string name="saving">Speichern…</string>
+    <string name="saving_output">Ausgabe wird in Datei… exportiert</string>
     <string name="search">Suchen</string>
     <string name="search_commands_here">Suche Befehle hier</string>
     <string name="search_labels_here">Labels hier suchen</string>
@@ -394,9 +397,11 @@
     <string name="system">System</string>
     <string name="system_font">Systemschriftart</string>
     <string name="system_settings">Systemeinstellungen</string>
+    <string name="telegram">Telegramm</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Terminal-Schriftart</string>
     <string name="this_device">Dieses Gerät</string>
+    <string name="translations">Übersetzungen</string>
     <string name="troubleshoot">Problemlöse</string>
     <string name="troubleshoot_reconnect">Wireless-Debugging-Verbindung aktualisieren, indem sie ausgeschaltet wird</string>
     <string name="turn_off_mobile_data">Schalte mobile Daten aus, wenn die WLAN-Verbindung KEIN INTERNET hat</string>
@@ -427,6 +432,7 @@
     <string name="wireless_debugging_guide_2">Gib den sechsstelligen Kopplungscode in die von aShell You gesendete Benachrichtigung ein.</string>
     <string name="wireless_debugging_guide_3">Kehre zur App zurück und tippe auf den „Start“-Button auf dem Startbildschirm.</string>
     <string name="wireless_debugging_important_notice">Bitte beachte, dass der linke Bereich der WLAN-Debugging-Option anklickbar ist. Durch Anklicken öffnet sich das Kopplungsmenü für WLAN-Debugging</string>
+    <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
     <string name="changelog_v7_0_1">\nFastlane fix</string>
     <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
     <string name="changelog_v6_1_0">\nJetzt kann die Befehlssuche die Befehle durchsuchen, die das eingegebene Wort enthalten, verglichen mit früheren Versionen, bei denen nur Befehle durchsucht wurden, die mit dem eingegebenen Wort beginnen.\nOption, die Shizuku App direkt zu öffnen, wenn Shizuku installiert ist, aber nicht ausgeführt wird.\nFehler beim Absturz-Reporter behoben.</string>

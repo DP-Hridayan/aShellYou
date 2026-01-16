@@ -111,7 +111,6 @@
     <string name="des_enable_direct_download">Когда включено, обновления будут загружаться непосредственно с Github внутри приложения. Выключите, чтобы посетить страницу релизов Github для загрузки вручную.</string>
     <string name="des_examples">Коллекция шаблонов некоторых команд</string>
     <string name="des_feature_request">Если у вас есть какие-либо идеи или предложения, дайте нам знать</string>
-    <string name="des_github">Посетите github-репозиторий приложения</string>
     <string name="des_haptics_and_vibration">Тактильный отклик для сенсорной обратной связи</string>
     <string name="des_high_contrast_dark_mode">Чёрная тема для устройств с OLED-дисплеем</string>
     <string name="des_hridayan">Просто парень который любит приложения и дизайн</string>
@@ -147,6 +146,7 @@
     <string name="disclaimer_5_title">Разрешения и безопасность</string>
     <string name="disconnect">Отключиться</string>
     <string name="disconnected">Отключено!</string>
+    <string name="discussions">Обсуждения</string>
     <string name="dismiss">Отклонить</string>
     <string name="done">Готово</string>
     <string name="download">Скачать</string>
@@ -334,6 +334,7 @@
     <string name="replace">Заменить</string>
     <string name="report">Отчет</string>
     <string name="report_issue">Сообщить о проблеме</string>
+    <string name="repository">Репозиторий</string>
     <string name="request_timeout">Таймаут запроса</string>
     <string name="reset">Сбросить</string>
     <string name="reset_app_settings">Сбросить настройки приложения</string>
@@ -349,6 +350,8 @@
     <string name="save">Сохранить</string>
     <string name="save_whole_output">Сохранить весь вывод</string>
     <string name="saved_devices">Сохраненные устройства</string>
+    <string name="saving">Сохранение…</string>
+    <string name="saving_output">Экспорт вывода в файл…</string>
     <string name="search">Поиск</string>
     <string name="search_commands_here">Поиск команд здесь</string>
     <string name="search_labels_here">Поиск меток здесь</string>
@@ -394,9 +397,11 @@
     <string name="system">Как в системе</string>
     <string name="system_font">Системный Шрифт</string>
     <string name="system_settings">Системные настройки</string>
+    <string name="telegram">Телеграмма</string>
     <string name="terminal">Терминал</string>
     <string name="terminal_font_style">Стиль шрифта терминала</string>
     <string name="this_device">Это устройство</string>
+    <string name="translations">Переводы</string>
     <string name="troubleshoot">Устранение проблем</string>
     <string name="troubleshoot_reconnect">Обновить подключение к беспроводной отладке, включив его</string>
     <string name="turn_off_mobile_data">Отключите мобильную передачу данных, если Wi-Fi-соединение не подключено к Интернету</string>
@@ -427,6 +432,7 @@
     <string name="wireless_debugging_guide_2">Введите шестизначный код сопряжения в уведомление, отправленное aShell You.</string>
     <string name="wireless_debugging_guide_3">Вернитесь в приложение и нажмите кнопку «Пуск» на главном экране.</string>
     <string name="wireless_debugging_important_notice">Обратите внимание, что левая часть опции «Беспроводная отладка» является кликабельной. При нажатии на неё откроется меню сопряжения для беспроводной отладки.</string>
+    <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
     <string name="changelog_v7_0_1">\nFastlane fix</string>
     <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
     <string name="changelog_v6_1_0">\nТеперь поиск по командам позволяет искать команды, содержащие введенное вами слово по сравнению с предыдущими версиями, где оно ищет только команды, начинающиеся с введенного слова.\nОпция открытия приложения Shizuku сразу после его установки, но не запущена.\nИсправлена ошибка отчёта о сбоях приложения.</string>

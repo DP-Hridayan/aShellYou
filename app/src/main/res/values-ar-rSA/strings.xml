@@ -147,6 +147,7 @@
     <string name="disclaimer_5_title">الصلاحيات والأمان</string>
     <string name="disconnect">قطع الاتصال</string>
     <string name="disconnected">قطع الاتصال!</string>
+    <string name="discussions">المناقشات</string>
     <string name="dismiss">تجاهل</string>
     <string name="done">تم</string>
     <string name="download">تنزيل</string>
@@ -334,6 +335,7 @@
     <string name="replace">استبدل</string>
     <string name="report">تقرير</string>
     <string name="report_issue">الإبلاغ عن مشكلة</string>
+    <string name="repository">المستودع</string>
     <string name="request_timeout">انتهت مهلة الطلب</string>
     <string name="reset">إعادة ضبط</string>
     <string name="reset_app_settings">إعادة تعيين إعدادات التطبيق</string>
@@ -349,6 +351,8 @@
     <string name="save">حفظ</string>
     <string name="save_whole_output">حفظ الإخراج بأكمله</string>
     <string name="saved_devices">الأجهزة المحفوظة</string>
+    <string name="saving">حفظ…</string>
+    <string name="saving_output">تصدير الإخراج إلى الملف…</string>
     <string name="search">بحث</string>
     <string name="search_commands_here">ابحث عن أوامر هنا</string>
     <string name="search_labels_here">البحث عن التسميات هنا</string>
@@ -394,9 +398,11 @@
     <string name="system">النظام</string>
     <string name="system_font">خط النظام</string>
     <string name="system_settings">إعدادات النظام</string>
+    <string name="telegram">تيليجرام</string>
     <string name="terminal">المحطة</string>
     <string name="terminal_font_style">نمط الخط الطرفي</string>
     <string name="this_device">هذا الجهاز</string>
+    <string name="translations">الترجمات</string>
     <string name="troubleshoot">استكشاف الأخطاء</string>
     <string name="troubleshoot_reconnect">تحديث اتصال التصحيح اللاسلكي عن طريق إيقاف تشغيله</string>
     <string name="turn_off_mobile_data">قم بإيقاف تشغيل بيانات الجوال إذا كان اتصال الواي فاي ليس لديه إنترنت</string>
@@ -427,6 +433,7 @@
     <string name="wireless_debugging_guide_2">أدخل رمز الاقتران المكون من ست أرقام في الإشعار المرسل من aShell You.</string>
     <string name="wireless_debugging_guide_3">عد إلى التطبيق وانقر على زر \"ابدأ\" في الشاشة الرئيسية.</string>
     <string name="wireless_debugging_important_notice">يرجى ملاحظة أن الجزء الأيسر من خيار التصحيح اللاسلكي قابل للنقر. النقر عليه سيفتح قائمة اقتران التصحيح اللاسلكي.</string>
+    <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
     <string name="changelog_v7_0_1">\nFastlane fix</string>
     <string name="changelog_v7_0_0">\nWhole UI Revamped, using material expressive components\nRewritten whole codebase in Kotlin and Jetpack Compose as UI Framework\nAdded push &amp; pull based file manager\nAdded QR Wifi Adb Pairing mode\nAdded app settings and database backup options\nAdded custom theming options\nAdded crash history to view app crash logs\nImproved auto update feature\nImproved UI &amp; UX in shell output\nAdded Android permissions suggestions\nRevamped command examples layout to include labels\nAdded option to Add, Edit or Delete commands as you wish\nLots of existing bugs are now fixed</string>
     <string name="changelog_v6_1_0">\nالآن يمكن للبحث عن الأوامر التي تحتوي على الكلمة التي كتبتها بالمقارنة مع الإصدارات السابقة حيث تقوم فقط بالبحث عن الأوامر التي تبدأ بكلمة مكتوبة.\nخيار لفتح تطبيق Shizuku مباشرة عند تثبيت Shizuku ولكن لم يتم تشغيله.\nاصلاح مبلّغ التعطل في التطبيق.</string>
