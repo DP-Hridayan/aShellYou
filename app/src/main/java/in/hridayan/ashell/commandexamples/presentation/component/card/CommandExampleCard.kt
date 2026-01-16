@@ -38,6 +38,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -114,7 +115,7 @@ fun CommandExampleCard(
     val scope = rememberCoroutineScope()
     val cardWidth = remember { mutableFloatStateOf(0f) }
     val cardHeight = remember { mutableFloatStateOf(0f) }
-    var lastHapticZone by remember { mutableStateOf(0) }
+    var lastHapticZone by remember { mutableIntStateOf(0) }
 
     val compositionDeleteLottie by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.icons8_trash))
 

@@ -67,7 +67,7 @@ fun FileSavedDialog(
 
     val message = when {
         isSaving -> stringResource(R.string.saving_output)
-        isError -> (saveProgress as SaveProgress.Error).message
+        isError -> saveProgress.message
         else -> if (saveWholeOutput) stringResource(
             R.string.shell_output_saved_whole_message,
             pathToDisplay
