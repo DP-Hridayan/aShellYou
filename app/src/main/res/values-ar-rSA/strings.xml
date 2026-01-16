@@ -111,11 +111,9 @@
     <string name="des_enable_direct_download">عند التمكين، سيتم تنزيل التحديثات مباشرة من GitHub داخل التطبيق. عند الإيقاف، ستتم إعادة التوجيه إلى صفحة الإصدارات على GitHub للتنزيل اليدوي.</string>
     <string name="des_examples">مجموعة من بعض قوالب الأوامر</string>
     <string name="des_feature_request">إذا كان لديك أفكار أو اقتراحات، أخبرنا بها</string>
-    <string name="des_github">زيارة مستودع التطبيق على GitHub</string>
     <string name="des_haptics_and_vibration">اهتزاز تفاعلي عند النقر</string>
     <string name="des_high_contrast_dark_mode">سمة سوداء خالصة لأجهزة OLED</string>
     <string name="des_hridayan">مجرد شخص يحب التطبيقات والتصميم</string>
-    <string name="des_license">تعلم عن الرخصة التي يستخدمها هذا التطبيق</string>
     <string name="des_look_and_feel">الألوان الديناميكية، السمة الداكنة، اللغة</string>
     <string name="des_override_bookmarks">قد يتسبب في تأخير إذا تمت إضافة عدد كبير من الإشارات المرجعية! يجب على الأجهزة ذات الأداء المنخفض الاحتفاظ بهذا الخِيار مغلقًا</string>
     <string name="des_pair_another_device">إقران جهاز مستهدف آخر</string>
@@ -125,7 +123,6 @@
 ستقوم قاعدة البيانات المحفوظة باستبدال القاعدة الحالية</string>
     <string name="des_save_whole_output">تمكين هذا الخيار لحفظ إخراج جلسة القذيفة بأكملها.\nإذا تم تعطيله فقط سيتم حفظ إخراج الأمر الأخير.</string>
     <string name="des_smooth_scroll">يمكن التمرير السلس في ناتج واجهة سطر الأوامر عند النقر على السهم العلوي أو السفلي</string>
-    <string name="des_telegram_channel">انضم إلى قناة Telegram للمناقشة</string>
     <string name="description">الوصف</string>
     <string name="deselect_all">إلغاء تحديد الكل</string>
     <string name="developer_options">خيارات المطور</string>
@@ -397,7 +394,6 @@
     <string name="system">النظام</string>
     <string name="system_font">خط النظام</string>
     <string name="system_settings">إعدادات النظام</string>
-    <string name="telegram_channel">قناة Telegram</string>
     <string name="terminal">المحطة</string>
     <string name="terminal_font_style">نمط الخط الطرفي</string>
     <string name="this_device">هذا الجهاز</string>

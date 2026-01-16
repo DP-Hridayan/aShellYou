@@ -111,11 +111,9 @@
     <string name="des_enable_direct_download">オンにすると、アップデートはアプリ内のGithubから直接ダウンロードされます。オフにすると代わりに手動でダウンロードするためにGithubのリリースページにアクセスできます。</string>
     <string name="des_examples">よく使われるコマンドの例</string>
     <string name="des_feature_request">もしこのアプリについてアイデアや提案があれば教えてください</string>
-    <string name="des_github">アプリのgithubリポジトリにアクセスしてください</string>
     <string name="des_haptics_and_vibration">タッチフィードバックのためのインタラクティブな触覚</string>
     <string name="des_high_contrast_dark_mode">OLEDディスプレイ搭載デバイス向けの真っ黒なダークテーマ</string>
     <string name="des_hridayan">アプリとデザインが大好きな男</string>
-    <string name="des_license">このアプリが使用しているライセンスについて</string>
     <string name="des_look_and_feel">Dynamic colors, Dark theme, Language</string>
     <string name="des_override_bookmarks">有効にした状態で大量のブックマークが追加されると、パフォーマンスの問題が発生する可能性があります！ ローエンドデバイスはオフのままにしてください</string>
     <string name="des_pair_another_device">別のターゲットデバイスをペアリングする</string>
@@ -124,7 +122,6 @@
     <string name="des_restore_app_data">保存したバックアップファイルからアプリのデータを復元します。\n保存したデータベースは現在のデータベースを上書きします。</string>
     <string name="des_save_whole_output">このオプションを有効にすると、シェルセッション全体の出力を保存します。\n無効にすると、最後のコマンド出力のみが保存されます。</string>
     <string name="des_smooth_scroll">上下方向の矢印をクリックすると、スムージング効果を使用します</string>
-    <string name="des_telegram_channel">チャンネルに参加してディスカッションに参加する</string>
     <string name="description">説明</string>
     <string name="deselect_all">すべての選択を解除</string>
     <string name="developer_options">Developer options</string>
@@ -396,7 +393,6 @@
     <string name="system">System</string>
     <string name="system_font">システムフォント</string>
     <string name="system_settings">システム設定</string>
-    <string name="telegram_channel">「Telegram」チャンネル</string>
     <string name="terminal">ターミナル</string>
     <string name="terminal_font_style">端末のフォントスタイル</string>
     <string name="this_device">このデバイス</string>

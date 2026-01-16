@@ -111,11 +111,9 @@
     <string name="des_enable_direct_download">Quando ativado, as atualizações serão baixadas diretamente do Github dentro do aplicativo. Desative para visitar a página de lançamentos do Github para baixar manualmente.</string>
     <string name="des_examples">Coleção de alguns modelos de comando</string>
     <string name="des_feature_request">Se você tem alguma ideia ou sugestão para o aplicativo, conte-nos</string>
-    <string name="des_github">Visite o repositório do github do aplicativo</string>
     <string name="des_haptics_and_vibration">Operações interativas para feedback de toque</string>
     <string name="des_high_contrast_dark_mode">Tema Pitch preto escuro para dispositivos com exibição OLED</string>
     <string name="des_hridayan">Apenas um cara que adora aplicativos e design</string>
-    <string name="des_license">Aprenda sobre a licença que este aplicativo está usando</string>
     <string name="des_look_and_feel">Cores dinâmicas, Tema escuro, Idioma</string>
     <string name="des_override_bookmarks">Pode causar lentidão se um grande número de marcadores for adicionado! Dispositivos de baixo custo devem manter essa opção desativada</string>
     <string name="des_pair_another_device">Parear outro dispositivo de destino</string>
@@ -124,7 +122,6 @@
     <string name="des_restore_app_data">Restore app data from the saved backup file.\nThe saved database will overwrite the current database</string>
     <string name="des_save_whole_output">Ativar esta opção para salvar a saída de toda a sessão shell.\nSe desativado apenas a última saída de comando será salva.</string>
     <string name="des_smooth_scroll">Permite rolagem suave na saída do shell quando a seta de cima ou de baixo é clicada</string>
-    <string name="des_telegram_channel">Entre no canal de telegrama para discussão</string>
     <string name="description">Descrição:</string>
     <string name="deselect_all">Desmarcar todos</string>
     <string name="developer_options">Opções do desenvolvedor</string>
@@ -396,7 +393,6 @@
     <string name="system">Sistema</string>
     <string name="system_font">Fonte do sistema</string>
     <string name="system_settings">Configurações do sistema</string>
-    <string name="telegram_channel">Canal do Telegram</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Estilo de fonte terminal</string>
     <string name="this_device">Este Dispositivo</string>

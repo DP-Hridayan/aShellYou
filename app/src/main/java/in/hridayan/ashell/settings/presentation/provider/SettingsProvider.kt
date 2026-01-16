@@ -15,7 +15,6 @@ import androidx.compose.material.icons.rounded.SettingsBackupRestore
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import androidx.compose.material.icons.rounded.Update
 import androidx.compose.material.icons.rounded.Vibration
-import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.utils.MiUiCheck
 import `in`.hridayan.ashell.settings.data.SettingsKeys
@@ -153,12 +152,6 @@ object SettingsProvider {
         categorizedItems(
             categoryNameResId = R.string.app,
             nullPreferenceItem(
-                key = SettingsKeys.VERSION,
-                titleResId = R.string.version,
-                descriptionString = BuildConfig.VERSION_NAME,
-                iconResId = R.drawable.ic_version,
-            ),
-            nullPreferenceItem(
                 key = SettingsKeys.CHANGELOGS,
                 titleResId = R.string.changelogs,
                 descriptionResId = R.string.des_changelogs,
@@ -181,24 +174,6 @@ object SettingsProvider {
                 titleResId = R.string.feature_request,
                 descriptionResId = R.string.des_feature_request,
                 iconResId = R.drawable.ic_add_comment
-            ),
-            nullPreferenceItem(
-                key = SettingsKeys.GITHUB,
-                titleResId = R.string.github,
-                descriptionResId = R.string.des_github,
-                iconResId = R.drawable.ic_github,
-            ),
-            nullPreferenceItem(
-                key = SettingsKeys.TELEGRAM,
-                titleResId = R.string.telegram_channel,
-                descriptionResId = R.string.des_telegram_channel,
-                iconResId = R.drawable.ic_telegram,
-            ),
-            nullPreferenceItem(
-                key = SettingsKeys.LICENSE,
-                titleResId = R.string.license,
-                descriptionResId = R.string.des_license,
-                iconResId = R.drawable.ic_license,
             )
         )
     )

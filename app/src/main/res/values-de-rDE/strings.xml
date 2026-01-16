@@ -115,7 +115,6 @@
     <string name="des_haptics_and_vibration">Interaktive Haptik für Berührungsfeedback</string>
     <string name="des_high_contrast_dark_mode">Pechschwarzes dunkles Design für Geräte mit OLED-Display</string>
     <string name="des_hridayan">Nur ein Typ, der Apps und Design liebt</string>
-    <string name="des_license">Informiere dich über die Lizenz, die diese App verwendet</string>
     <string name="des_look_and_feel">Dynamische Farben, Dunkles Thema, Sprache</string>
     <string name="des_override_bookmarks">Kann zu Verzögerungen führen, wenn viele Lesezeichen hinzugefügt werden! Geräte mit geringer Leistung sollten diese Option deaktiviert lassen</string>
     <string name="des_pair_another_device">Ein anderes Zielgerät verbinden</string>
@@ -124,7 +123,6 @@
     <string name="des_restore_app_data">App-Daten aus der gesicherten Sicherungsdatei wiederherstellen.\nDie gespeicherte Datenbank wird die aktuelle Datenbank überschreiben</string>
     <string name="des_save_whole_output">Aktivieren Sie diese Option, um die Ausgabe der gesamten Shell Sitzung zu speichern.\nWenn deaktiviert wird nur die letzte Befehlsausgabe gespeichert.</string>
     <string name="des_smooth_scroll">Aktiviert sanften Bildlauf in der Konsolen-Ausgabe, wenn der Pfeil nach oben oder unten geklickt wird</string>
-    <string name="des_telegram_channel">Trete dem Telegram Kanal bei, um eine Diskussion zu starten</string>
     <string name="description">Beschreibung</string>
     <string name="deselect_all">Alle abwählen</string>
     <string name="developer_options">Entwickleroptionen</string>
@@ -396,7 +394,6 @@
     <string name="system">System</string>
     <string name="system_font">Systemschriftart</string>
     <string name="system_settings">Systemeinstellungen</string>
-    <string name="telegram_channel">Telegram Kanal</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Terminal-Schriftart</string>
     <string name="this_device">Dieses Gerät</string>

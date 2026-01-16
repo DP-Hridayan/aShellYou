@@ -111,11 +111,9 @@
     <string name="des_enable_direct_download">Lorsque cette option est activée, les mises à jour seront téléchargées directement depuis Github dans l\'application. Désactivez pour visiter la page des versions de Github pour le téléchargement manuel à la place.</string>
     <string name="des_examples">Collection de quelques modèles de commandes</string>
     <string name="des_feature_request">Si vous avez des idées ou des suggestions pour l\'application, faites-le nous savoir</string>
-    <string name="des_github">Visitez le dépôt github de l\'app</string>
     <string name="des_haptics_and_vibration">Haptique interactive pour retour tactile</string>
     <string name="des_high_contrast_dark_mode">Thème noir pur pour les appareils avec panneau OLED</string>
     <string name="des_hridayan">Juste un gars qui aime les applications et le design</string>
-    <string name="des_license">Découvrez la licence utilisée par cette application</string>
     <string name="des_look_and_feel">Couleurs dynamiques, Thème sombre, Langue</string>
     <string name="des_override_bookmarks">Peut causer des ralentissements si un grand nombre de favoris sont ajoutés ! Les appareils de faible puissance devraient garder cette option désactivée</string>
     <string name="des_pair_another_device">Associer un autre périphérique cible</string>
@@ -124,7 +122,6 @@
     <string name="des_restore_app_data">Restaurer les données de l\'application à partir du fichier de sauvegarde sauvegardé.\nLa base de données sauvegardée écrasera la base de données actuelle</string>
     <string name="des_save_whole_output">Activer cette option pour enregistrer la sortie de toute la session du shell.\nSi désactivé, seule la dernière sortie de la commande sera sauvegardée.</string>
     <string name="des_smooth_scroll">Active le défilement fluide dans la sortie shell lorsque la flèche haut ou bas est cliquée</string>
-    <string name="des_telegram_channel">Rejoignez le canal Telegram pour discuter</string>
     <string name="description">Libellé</string>
     <string name="deselect_all">Désélectionner tout</string>
     <string name="developer_options">Options pour les développeurs</string>
@@ -396,7 +393,6 @@
     <string name="system">Système</string>
     <string name="system_font">Police du système</string>
     <string name="system_settings">Paramètres du système</string>
-    <string name="telegram_channel">Canal Telegram</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Style de police du terminal</string>
     <string name="this_device">Cet appareil</string>

@@ -111,11 +111,9 @@
     <string name="des_enable_direct_download">Açıldığında, güncellemeler doğrudan uygulama içinden Github\'dan indirilecektir. Kapatarak, manuel indirme için Github sürümleri sayfasını ziyaret edebilirsiniz.</string>
     <string name="des_examples">Bazı komut şablonlarından oluşan koleksiyon</string>
     <string name="des_feature_request">Aklınızda herhangi bir fikir veya öneri varsa, bize bildirin</string>
-    <string name="des_github">Uygulamanın Github repo\'sunu ziyaret edin</string>
     <string name="des_haptics_and_vibration">Dokunmatik geri bildirim için etkileşimli dokunsal geri bildirimler</string>
     <string name="des_high_contrast_dark_mode">OLED ekranlar için zifiri karanlık modu</string>
     <string name="des_hridayan">Sadece uygulamaları ve tasarımı seven bir adam</string>
-    <string name="des_license">Bu uygulamanın kullandığı lisans hakkında bilgi edinin</string>
     <string name="des_look_and_feel">Dinamik renkler, Karanlık tema, Dil</string>
     <string name="des_override_bookmarks">Çok sayıda yer imi eklenirse gecikmeye neden olabilir! Düşük donanımlı cihazlar bu seçeneği kapalı tutmalıdır</string>
     <string name="des_pair_another_device">Pair another target device</string>
@@ -124,7 +122,6 @@
     <string name="des_restore_app_data">Kaydedilen yedekleme dosyasından uygulama verilerini geri yükleyin.\nKaydedilen veritabanı mevcut veritabanının üzerine yazacaktır.</string>
     <string name="des_save_whole_output">Enable this option to save output of the whole shell session.\nIf disabled only the last command output will be saved.</string>
     <string name="des_smooth_scroll">Üst veya alt oka tıklandığında kabuk çıktısında akıcı kaydırmayı etkinleştirir</string>
-    <string name="des_telegram_channel">Tartışma için Telegram kanalına katılın</string>
     <string name="description">Description</string>
     <string name="deselect_all">Deselect all</string>
     <string name="developer_options">Geliştirici seçenekleri</string>
@@ -396,7 +393,6 @@
     <string name="system">Sistem</string>
     <string name="system_font">Sistem Yazı Tipi</string>
     <string name="system_settings">System settings</string>
-    <string name="telegram_channel">Telegram kanalı</string>
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Terminal font style</string>
     <string name="this_device">This Device</string>
