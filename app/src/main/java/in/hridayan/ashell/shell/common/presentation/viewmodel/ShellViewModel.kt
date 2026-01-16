@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.shell.common.presentation.viewmodel
 
+import android.app.Activity
 import android.content.Context
+import android.net.Uri
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
@@ -11,7 +13,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.data.local.model.CommandEntity
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
+import `in`.hridayan.ashell.core.domain.model.SaveProgress
 import `in`.hridayan.ashell.core.domain.model.SortType
+import `in`.hridayan.ashell.core.utils.saveToFileStreamingFlow
 import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
 import `in`.hridayan.ashell.shell.common.domain.model.OutputLine
 import `in`.hridayan.ashell.shell.common.domain.model.PackageInfo
@@ -57,6 +61,9 @@ class ShellViewModel @Inject constructor(
 ) : ViewModel() {
     private val _states = MutableStateFlow(ShellScreenState())
     val states: StateFlow<ShellScreenState> = _states
+
+    private val _saveProgress = MutableStateFlow<SaveProgress>(SaveProgress.Idle)
+    val saveProgress: StateFlow<SaveProgress> = _saveProgress
 
     val shizukuPermissionState: StateFlow<Boolean> = shellRepository.shizukuPermissionState()
 
@@ -347,4 +354,69 @@ class ShellViewModel @Inject constructor(
     }
 
     fun hasRootAccess(): Boolean = shellRepository.hasRootAccess()
+
+    /**
+     * Generates a sequence of formatted output lines for streaming save.
+     * Lines are generated lazily to avoid OOM.
+     */
+    fun generateOutputLines(saveWholeOutput: Boolean): Sequence<String> = sequence {
+        val output = if (saveWholeOutput) _states.value.output else _states.value.output.takeLast(1)
+        output.forEach { commandResult ->
+            yield("$ ${commandResult.command}")
+            commandResult.outputFlow.value.forEach { line ->
+                yield(line.text)
+            }
+            yield("") // Empty line between commands
+        }
+    }
+
+    /**
+     * Returns total line count for progress calculation.
+     */
+    fun getTotalOutputLineCount(saveWholeOutput: Boolean): Int {
+        val output = if (saveWholeOutput) _states.value.output else _states.value.output.takeLast(1)
+        return output.sumOf { result ->
+            1 + result.outputFlow.value.size + 1 // command + lines + empty line
+        }
+    }
+
+    /**
+     * Starts streaming save to file with progress updates.
+     */
+    fun startStreamingSave(
+        activity: Activity,
+        saveWholeOutput: Boolean,
+        savePathUri: Uri,
+        onComplete: (success: Boolean, uri: Uri?) -> Unit
+    ) {
+        val fileName = getSaveOutputFileName(saveWholeOutput)
+        val lines = generateOutputLines(saveWholeOutput)
+        val totalLines = getTotalOutputLineCount(saveWholeOutput)
+
+        _saveProgress.value = SaveProgress.Saving(0, totalLines)
+
+        viewModelScope.launch {
+            saveToFileStreamingFlow(
+                lines = lines,
+                totalLines = totalLines,
+                activity = activity,
+                fileName = fileName,
+                savePathUri = savePathUri
+            ).collect { progress ->
+                _saveProgress.value = progress
+                when (progress) {
+                    is SaveProgress.Success -> onComplete(true, progress.uri)
+                    is SaveProgress.Error -> onComplete(false, null)
+                    else -> { /* Saving in progress */ }
+                }
+            }
+        }
+    }
+
+    /**
+     * Resets save progress to idle state.
+     */
+    fun resetSaveProgress() {
+        _saveProgress.value = SaveProgress.Idle
+    }
 }

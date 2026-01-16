@@ -16,12 +16,16 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
-import `in`.hridayan.ashell.core.domain.model.OutputSaveResult
+import `in`.hridayan.ashell.core.domain.model.SaveProgress
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.io.IOException
+import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
+import java.io.OutputStreamWriter
 
 fun getFileNameFromUri(context: Context, uri: Uri): String? {
     return context.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
@@ -50,25 +54,6 @@ fun getFullPathFromTreeUri(uri: Uri, context: Context): String? {
     return "$storagePath/$relativePath"
 }
 
-fun getDownloadsFolderUri(context: Context): Uri? {
-    val downloadsFolder =
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        val docId = "primary:Download"
-        DocumentsContract.buildTreeDocumentUri(
-            "com.android.externalstorage.documents",
-            docId
-        )
-    } else {
-        FileProvider.getUriForFile(
-            context,
-            "${context.packageName}.fileprovider",
-            downloadsFolder
-        )
-    }
-}
-
 fun read(file: File): String? {
     return try {
         file.bufferedReader().use { it.readText() }
@@ -88,113 +73,101 @@ fun create(text: String, path: File) {
     }
 }
 
-fun saveToFileFlow(
-    sb: String,
+/**
+ * Streaming save function that writes output line-by-line to avoid OOM.
+ * Emits progress updates during the save operation.
+ *
+ * @param lines Sequence of lines to write (lazy evaluation)
+ * @param totalLines Total number of lines for progress calculation
+ * @param activity Activity context for file operations
+ * @param fileName Name of the file to create
+ * @param savePathUri URI of the directory to save to
+ * @return Flow that emits [SaveProgress] updates
+ */
+fun saveToFileStreamingFlow(
+    lines: Sequence<String>,
+    totalLines: Int,
     activity: Activity,
     fileName: String,
     savePathUri: Uri
-): Flow<OutputSaveResult> = flow {
-    val result = when {
-        savePathUri.scheme == "content" -> saveToCustomDirectory(
-            sb,
-            activity,
-            fileName,
-            savePathUri
-        )
+): Flow<SaveProgress> = flow {
+    try {
+        val uri: Uri? = when {
+            savePathUri.scheme == "content" -> {
+                val documentFile = DocumentFile.fromTreeUri(activity, savePathUri)
+                    ?: throw IOException("Cannot access directory")
+                val file = documentFile.createFile("text/plain", fileName)
+                    ?: throw IOException("Cannot create file")
+                file.uri
+            }
 
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> saveToFileApi29AndAbove(
-            sb,
-            activity,
-            fileName
-        )
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+                val values = ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+                    put(MediaStore.MediaColumns.MIME_TYPE, "text/plain")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                }
+                activity.contentResolver.insert(
+                    MediaStore.Files.getContentUri("external"),
+                    values
+                )
+            }
 
-        else -> saveToFileBelowApi29(sb, activity, fileName)
-    }
-    emit(result)
-}
-
-
-private fun saveToCustomDirectory(
-    sb: String,
-    activity: Activity,
-    fileName: String,
-    treeUri: Uri
-): OutputSaveResult {
-    val documentFile = DocumentFile.fromTreeUri(activity, treeUri) ?: return OutputSaveResult(false)
-    val file = documentFile.createFile("text/plain", fileName) ?: return OutputSaveResult(false)
-
-    return try {
-        activity.contentResolver.openOutputStream(file.uri)?.use { outputStream ->
-            outputStream.write(sb.toByteArray())
+            else -> {
+                if (ActivityCompat.checkSelfPermission(
+                        activity,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(
+                        activity,
+                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        0
+                    )
+                    emit(SaveProgress.Error("Storage permission required"))
+                    return@flow
+                }
+                val file = File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                    fileName
+                )
+                // For pre-Q, we'll write directly to the file
+                FileProvider.getUriForFile(
+                    activity,
+                    "${activity.packageName}.provider",
+                    file
+                )
+            }
         }
-        OutputSaveResult(true, file.uri)
-    } catch (e: IOException) {
-        Log.e("FileUtils", "Error writing file", e)
-        OutputSaveResult(false)
-    }
-}
 
-private fun saveToFileApi29AndAbove(
-    sb: String,
-    activity: Activity,
-    fileName: String
-): OutputSaveResult = try {
-    val values = ContentValues().apply {
-        put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
-        put(MediaStore.MediaColumns.MIME_TYPE, "text/plain")
-        put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-    }
-
-    val uri = activity.contentResolver.insert(
-        MediaStore.Files.getContentUri("external"),
-        values
-    )
-
-    uri?.let {
-        activity.contentResolver.openOutputStream(it)?.use { outputStream ->
-            outputStream.write(sb.toByteArray())
+        if (uri == null) {
+            emit(SaveProgress.Error("Failed to create file"))
+            return@flow
         }
-        OutputSaveResult(true, it)
-    } ?: OutputSaveResult(false, null)
-} catch (e: Exception) {
-    Log.e("FileUtils", "Error saving file API29+", e)
-    OutputSaveResult(false, null)
-}
 
-private fun saveToFileBelowApi29(
-    sb: String,
-    activity: Activity,
-    fileName: String
-): OutputSaveResult {
-    if (ActivityCompat.checkSelfPermission(
-            activity,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) != PackageManager.PERMISSION_GRANTED
-    ) {
-        ActivityCompat.requestPermissions(
-            activity,
-            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            0
-        )
-        return OutputSaveResult(false)
-    }
+        activity.contentResolver.openOutputStream(uri)?.use { outputStream ->
+            BufferedWriter(OutputStreamWriter(outputStream)).use { writer ->
+                var currentLine = 0
+                var lastEmitTime = System.currentTimeMillis()
+                val emitIntervalMs = 100L
 
-    return try {
-        val file = File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            fileName
-        )
-        file.writeText(sb)
+                lines.forEach { line ->
+                    writer.write(line)
+                    writer.newLine()
+                    currentLine++
 
-        val uri = FileProvider.getUriForFile(
-            activity,
-            "${activity.packageName}.provider",
-            file
-        )
+                    val now = System.currentTimeMillis()
+                    if (now - lastEmitTime >= emitIntervalMs) {
+                        emit(SaveProgress.Saving(currentLine, totalLines))
+                        lastEmitTime = now
+                    }
+                }
+            }
+        } ?: throw IOException("Cannot open output stream")
 
-        OutputSaveResult(true, uri)
+        emit(SaveProgress.Success(uri))
     } catch (e: Exception) {
-        Log.e("FileUtils", "Error saving file below API29", e)
-        OutputSaveResult(false)
+        Log.e("FileUtils", "Error in streaming save", e)
+        emit(SaveProgress.Error(e.message ?: "Unknown error"))
     }
-}
+}.flowOn(Dispatchers.IO)

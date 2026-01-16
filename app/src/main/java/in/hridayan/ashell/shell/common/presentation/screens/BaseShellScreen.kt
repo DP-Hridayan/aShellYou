@@ -118,6 +118,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.domain.model.SaveProgress
 import `in`.hridayan.ashell.core.domain.model.ScrollDirection
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
@@ -130,9 +131,9 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
+import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.findActivity
-import `in`.hridayan.ashell.core.utils.saveToFileFlow
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
@@ -249,8 +250,17 @@ fun BaseShellScreen(
         focusManager.clearFocus()
     }
 
-    val handleSaveButtonClick: (success: Boolean) -> Unit = { success ->
-        if (success) dialogManager.show(DialogKey.Shell.FileSaved)
+    val saveProgress by shellViewModel.saveProgress.collectAsState()
+
+    // Show dialog and reset progress when save completes or fails
+    LaunchedEffect(saveProgress) {
+        when (saveProgress) {
+            is SaveProgress.Success, is SaveProgress.Error -> {
+                // Dialog is already showing, it will update to show result
+            }
+
+            else -> {}
+        }
     }
 
     val handleSavedFileOpen: () -> Unit = {
@@ -344,9 +354,8 @@ fun BaseShellScreen(
 
                     BottomExtendedFAB(
                         listState = listState,
-                        onClickSave = { success ->
-                            handleSaveButtonClick(success)
-                        })
+                        dialogManager = dialogManager,
+                    )
                 }
             }
         })
@@ -636,7 +645,11 @@ fun BaseShellScreen(
         )
 
         DialogKey.Shell.FileSaved -> FileSavedDialog(
-            onDismiss = { dialogManager.dismiss() },
+            saveProgress = saveProgress,
+            onDismiss = {
+                dialogManager.dismiss()
+                shellViewModel.resetSaveProgress()
+            },
             onOpenFile = { handleSavedFileOpen() },
         )
 
@@ -1407,13 +1420,12 @@ private fun ShareFAB(
 private fun BottomExtendedFAB(
     modifier: Modifier = Modifier,
     listState: LazyListState,
-    onClickSave: (success: Boolean) -> Unit,
+    dialogManager: DialogViewModel,
     shellViewModel: ShellViewModel = hiltViewModel(),
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
-    val coroutineScope = rememberCoroutineScope()
     val states by shellViewModel.states.collectAsState()
     val savePath = LocalSettings.current.outputSaveDirectory.toUri()
     val saveWholeOutput = LocalSettings.current.saveWholeOutput
@@ -1435,38 +1447,23 @@ private fun BottomExtendedFAB(
         if (states.output.isEmpty()) stringResource(R.string.paste) else stringResource(R.string.save)
 
     val saveAction: () -> Unit = {
-        val allOutputText = buildString {
-            states.output.forEachIndexed { index, commandResult ->
-                appendLine("$ ${commandResult.command}")
-                val lines = commandResult.outputFlow.value
-                lines.forEach { line ->
-                    appendLine(line.text)
-                }
-                appendLine()
-            }
-        }
-
-        val lastOutputText = shellViewModel.getLastCommandOutput(allOutputText)
-
-        val fileName = shellViewModel.getSaveOutputFileName(saveWholeOutput)
-
-        val textToSave = if (saveWholeOutput) allOutputText else lastOutputText
+        // Show dialog immediately in saving state
+        dialogManager.show(DialogKey.Shell.FileSaved)
 
         activity?.let {
-            coroutineScope.launch {
-                saveToFileFlow(
-                    sb = textToSave,
-                    activity = it,
-                    fileName = fileName,
-                    savePathUri = savePath
-                ).collect { result ->
-                    onClickSave(result.success)
-                    if (result.success) settingsViewModel.setString(
-                        key = SettingsKeys.LAST_SAVED_FILE_URI,
-                        value = result.uri.toString()
-                    )
+            shellViewModel.startStreamingSave(
+                activity = it,
+                saveWholeOutput = saveWholeOutput,
+                savePathUri = savePath,
+                onComplete = { success, uri ->
+                    if (success && uri != null) {
+                        settingsViewModel.setString(
+                            key = SettingsKeys.LAST_SAVED_FILE_URI,
+                            value = uri.toString()
+                        )
+                    }
                 }
-            }
+            )
         }
     }
 
