@@ -1,0 +1,5 @@
+* Fixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app
+*Fixed an issue with Mail icon not showing properly
+*Fixed an issue which caused app to crash while trying to save huge file outputs
+*Removed redundant permission
+*Improved UI in About section
