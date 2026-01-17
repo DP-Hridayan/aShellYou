@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -64,6 +65,7 @@ fun UpdateBottomSheet(
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val context = LocalContext.current
+    val res = LocalResources.current
     val activity = context as? Activity
     val isDirectDownloadEnabled = LocalSettings.current.enableDirectDownload
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
@@ -108,7 +110,7 @@ fun UpdateBottomSheet(
                 } else {
                     showToast(
                         context,
-                        context.getString(R.string.unknown_sources_install_permission_not_granted),
+                        res.getString(R.string.unknown_sources_install_permission_not_granted),
                     )
                 }
             }

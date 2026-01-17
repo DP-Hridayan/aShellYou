@@ -52,6 +52,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -88,6 +89,7 @@ fun PageThree(
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
     var scale by remember { mutableStateOf(Animatable(0f)) }
@@ -280,7 +282,7 @@ fun PageThree(
                         rootCardChecked = hasRoot
 
                         if (!rootCardChecked) {
-                            makeToast(context, context.getString(R.string.no_root_access))
+                            makeToast(context, res.getString(R.string.no_root_access))
                         } else {
                             shellViewModel.runRootCommand()
                         }

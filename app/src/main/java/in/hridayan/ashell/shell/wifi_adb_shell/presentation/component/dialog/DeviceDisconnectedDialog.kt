@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -38,9 +39,6 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
-import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
-import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 
 @Composable
@@ -50,6 +48,7 @@ fun DeviceDisconnectedDialog(
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
     val lastConnectedDevice by viewModel.lastConnectedDevice.collectAsState()
     val deviceName = lastConnectedDevice?.deviceName ?: "unknown_device"
@@ -118,12 +117,12 @@ fun DeviceDisconnectedDialog(
                             if (!context.isConnectedToWifi()) {
                                 Toast.makeText(
                                     context,
-                                    context.getString(R.string.no_wifi_connection),
+                                    res.getString(R.string.no_wifi_connection),
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 return@withHaptic
                             }
-                            
+
                             lastConnectedDevice?.let { device ->
                                 isReconnecting = true
                                 viewModel.reconnectToDeviceWithCallback(
@@ -132,7 +131,7 @@ fun DeviceDisconnectedDialog(
                                         isReconnecting = false
                                         Toast.makeText(
                                             context,
-                                            context.getString(R.string.reconnect_success),
+                                            res.getString(R.string.reconnect_success),
                                             Toast.LENGTH_SHORT
                                         ).show()
                                         onDismiss()
@@ -140,9 +139,9 @@ fun DeviceDisconnectedDialog(
                                     onFailure = { requiresPairing ->
                                         isReconnecting = false
                                         val message = if (requiresPairing) {
-                                            context.getString(R.string.reconnect_failed_requires_pairing)
+                                            res.getString(R.string.reconnect_failed_requires_pairing)
                                         } else {
-                                            context.getString(R.string.reconnect_failed)
+                                            res.getString(R.string.reconnect_failed)
                                         }
                                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                                     }

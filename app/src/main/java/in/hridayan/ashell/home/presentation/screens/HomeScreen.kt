@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -82,6 +83,7 @@ fun HomeScreen(
     wifiAdbViewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val scope = rememberCoroutineScope()
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
@@ -105,9 +107,9 @@ fun HomeScreen(
             }
 
             if (!hasRoot) {
-                makeToast(context, context.getString(R.string.no_root_access))
+                makeToast(context, res.getString(R.string.no_root_access))
             } else {
-                makeToast(context, context.getString(R.string.root_access_granted))
+                makeToast(context, res.getString(R.string.root_access_granted))
                 dialogManager.show(DialogKey.Home.RebootOptions)
             }
         }
@@ -146,7 +148,7 @@ fun HomeScreen(
                 WirelessDebuggingCard(
                     onStartClick = {
                         if (savedDevices.count() == 0) {
-                            showToast(context, context.getString(R.string.pair_a_device_first))
+                            showToast(context, res.getString(R.string.pair_a_device_first))
                             return@WirelessDebuggingCard
                         }
 

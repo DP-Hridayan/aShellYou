@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -44,6 +45,7 @@ fun WifiAdbScreen(
     wifiAdbViewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showDeviceDisconnectedDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -52,9 +54,9 @@ fun WifiAdbScreen(
 
     val isConnected = wifiAdbState is WifiAdbState.ConnectSuccess
     val connectedDeviceName = if (isConnected) {
-        currentDevice?.deviceName ?: context.getString(R.string.none)
+        currentDevice?.deviceName ?: res.getString(R.string.none)
     } else {
-        context.getString(R.string.none)
+        res.getString(R.string.none)
     }
     val lastConnectedDevice by wifiAdbViewModel.lastConnectedDevice.collectAsState()
 
@@ -117,7 +119,7 @@ fun WifiAdbScreen(
                         if (!context.isConnectedToWifi()) {
                             showToast(
                                 context,
-                                context.getString(R.string.no_wifi_connection)
+                                res.getString(R.string.no_wifi_connection)
                             )
                             return@withHaptic
                         }
@@ -125,7 +127,7 @@ fun WifiAdbScreen(
                         if (lastConnectedDevice == null) {
                             showToast(
                                 context,
-                                context.getString(R.string.error)
+                                res.getString(R.string.error)
                             )
                             return@withHaptic
                         }
@@ -138,15 +140,15 @@ fun WifiAdbScreen(
                                     isReconnecting = false
                                     showToast(
                                         context,
-                                        context.getString(R.string.reconnect_success),
+                                        res.getString(R.string.reconnect_success),
                                     )
                                 },
                                 onFailure = { requiresPairing ->
                                     isReconnecting = false
                                     val message = if (requiresPairing) {
-                                        context.getString(R.string.reconnect_failed_requires_pairing)
+                                        res.getString(R.string.reconnect_failed_requires_pairing)
                                     } else {
-                                        context.getString(R.string.reconnect_failed)
+                                        res.getString(R.string.reconnect_failed)
                                     }
                                     showToast(context, message)
                                 }

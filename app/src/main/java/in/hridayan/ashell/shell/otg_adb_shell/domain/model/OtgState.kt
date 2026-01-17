@@ -8,5 +8,6 @@ sealed class OtgState {
     object PermissionDenied : OtgState()
     object Connecting : OtgState()
     object Disconnected : OtgState()
+    object UsbManagerUnavailable : OtgState()
     data class Error(val message: String) : OtgState()
 }

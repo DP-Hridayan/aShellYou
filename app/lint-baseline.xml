@@ -224,50 +224,6 @@
     <issue
         id="LocalContextGetResourceValueCall"
         message="Querying resource values using LocalContext.current"
-        errorLine1="            message = context.getString(R.string.item_deleted),"
-        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/card/CommandExampleCard.kt"
-            line="137"
-            column="23"/>
-    </issue>
-
-    <issue
-        id="LocalContextGetResourceValueCall"
-        message="Querying resource values using LocalContext.current"
-        errorLine1="            actionText = context.getString(R.string.undo),"
-        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/card/CommandExampleCard.kt"
-            line="138"
-            column="26"/>
-    </issue>
-
-    <issue
-        id="LocalContextGetResourceValueCall"
-        message="Querying resource values using LocalContext.current"
-        errorLine1="                    showToast(context, context.getString(R.string.copied_to_clipboard))"
-        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/card/CommandExampleCard.kt"
-            line="446"
-            column="40"/>
-    </issue>
-
-    <issue
-        id="LocalContextGetResourceValueCall"
-        message="Querying resource values using LocalContext.current"
-        errorLine1="                    showToast(context, context.getString(R.string.command_not_found))"
-        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/commandexamples/presentation/component/card/CommandExampleCard.kt"
-            line="448"
-            column="40"/>
-    </issue>
-
-    <issue
-        id="LocalContextGetResourceValueCall"
-        message="Querying resource values using LocalContext.current"
         errorLine1="                                    context.getString(R.string.no_wifi_connection),"
         errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -395,39 +351,6 @@
             file="src/main/java/in/hridayan/ashell/shell/wifi_adb_shell/presentation/component/dialog/ForgetDeviceConfirmationDialog.kt"
             line="42"
             column="19"/>
-    </issue>
-
-    <issue
-        id="LocalContextGetResourceValueCall"
-        message="Querying resource values using LocalContext.current"
-        errorLine1="                makeToast(context, context.getString(R.string.no_root_access))"
-        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/home/presentation/screens/HomeScreen.kt"
-            line="108"
-            column="36"/>
-    </issue>
-
-    <issue
-        id="LocalContextGetResourceValueCall"
-        message="Querying resource values using LocalContext.current"
-        errorLine1="                makeToast(context, context.getString(R.string.root_access_granted))"
-        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/home/presentation/screens/HomeScreen.kt"
-            line="110"
-            column="36"/>
-    </issue>
-
-    <issue
-        id="LocalContextGetResourceValueCall"
-        message="Querying resource values using LocalContext.current"
-        errorLine1="                            showToast(context, context.getString(R.string.pair_a_device_first))"
-        errorLine2="                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/home/presentation/screens/HomeScreen.kt"
-            line="149"
-            column="48"/>
     </issue>
 
     <issue
@@ -690,7 +613,7 @@
         errorLine2="                                                                                                                       ~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="484"
+            line="485"
             column="120"/>
     </issue>
 

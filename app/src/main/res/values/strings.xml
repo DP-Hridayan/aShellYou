@@ -422,6 +422,7 @@
     <string name="update_channel">Update channel</string>
     <string name="upload_file">Upload file</string>
     <string name="uploading">Uploading…</string>
+    <string name="usb_manager_unavailable">USB Manager is not available on this device</string>
     <string name="use">Use</string>
     <string name="version">Version</string>
     <string name="version_code">Version code</string>

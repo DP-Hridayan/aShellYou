@@ -57,6 +57,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -98,7 +99,7 @@ fun CommandExampleCard(
     labels: List<String>,
     commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
+    val res = LocalResources.current
     val navController = LocalNavController.current
     val weakHaptic = LocalWeakHaptic.current
     val screenDensity = LocalDensity.current
@@ -134,8 +135,8 @@ fun CommandExampleCard(
     val onDelete: () -> Unit = {
         isDeleted = true
         SnackBarUtils.showSnackBarWithAction(
-            message = context.getString(R.string.item_deleted),
-            actionText = context.getString(R.string.undo),
+            message = res.getString(R.string.item_deleted),
+            actionText = res.getString(R.string.undo),
             durationMillis = 2500,
             onActionClicked = {
                 coroutineScope.launch {
@@ -435,6 +436,7 @@ private fun CopyButton(
     viewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val coroutineScope = rememberCoroutineScope()
 
     IconButton(
@@ -443,9 +445,9 @@ private fun CopyButton(
                 val command = viewModel.getCommandById(id) ?: ""
                 if (command.isNotEmpty()) {
                     ClipboardUtils.copyToClipboard(text = command, context = context)
-                    showToast(context, context.getString(R.string.copied_to_clipboard))
+                    showToast(context, res.getString(R.string.copied_to_clipboard))
                 } else {
-                    showToast(context, context.getString(R.string.command_not_found))
+                    showToast(context, res.getString(R.string.command_not_found))
                 }
             }
         },

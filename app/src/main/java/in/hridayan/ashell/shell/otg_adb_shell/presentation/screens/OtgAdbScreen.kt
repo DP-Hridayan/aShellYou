@@ -17,7 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -40,11 +40,11 @@ fun OtgAdbScreen(
     shellViewModel: ShellViewModel = hiltViewModel(),
     otgViewModel: OtgViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
+    val res = LocalResources.current
     val navController = LocalNavController.current
     var showConnectedDeviceDialog by rememberSaveable { mutableStateOf(false) }
     var showOtgDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
-    var connectedDevice by rememberSaveable { mutableStateOf(context.getString(R.string.none)) }
+    var connectedDevice by rememberSaveable { mutableStateOf(res.getString(R.string.none)) }
     val otgState by otgViewModel.state.collectAsState()
     val modeButtonText = stringResource(R.string.otg)
 
@@ -73,7 +73,7 @@ fun OtgAdbScreen(
             shellViewModel.onCommandTextFieldChange(
                 newValue = TextFieldValue(""),
                 isError = true,
-                errorMessage = context.getString(R.string.waiting_for_device)
+                errorMessage = res.getString(R.string.waiting_for_device)
             )
         }
     }
@@ -82,7 +82,7 @@ fun OtgAdbScreen(
         connectedDevice = when (otgState) {
             is OtgState.DeviceFound -> (otgState as OtgState.DeviceFound).deviceName
             is OtgState.Connected -> (otgState as OtgState.Connected).deviceName
-            else -> context.getString(R.string.none)
+            else -> res.getString(R.string.none)
         }
 
         if (!(otgState is OtgState.Connected || otgState is OtgState.DeviceFound) && !disconnected) {

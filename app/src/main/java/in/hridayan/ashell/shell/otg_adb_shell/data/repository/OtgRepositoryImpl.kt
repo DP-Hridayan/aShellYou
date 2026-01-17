@@ -36,7 +36,7 @@ import javax.inject.Singleton
 @Singleton
 class OtgRepositoryImpl(private val context: Context) : OtgRepository {
 
-    private val usbManager = context.getSystemService(Context.USB_SERVICE) as UsbManager
+    private val usbManager = context.getSystemService(Context.USB_SERVICE) as? UsbManager
 
     private val permissionAction = "in.hridayan.ashell.USB_PERMISSION"
 
@@ -53,7 +53,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             val device = getUsbDeviceFromIntent(intent) ?: return
             val granted = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)
 
-            if (granted && usbManager.hasPermission(device)) {
+            if (granted && usbManager?.hasPermission(device) == true) {
                 connectToDevice(device)
             } else {
                 OtgConnection.updateState(OtgState.PermissionDenied)
@@ -74,9 +74,13 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     }
 
     init {
-        registerReceivers()
-        initAdbCrypto()
-        checkConnectedDevices()
+        if (usbManager == null) {
+            OtgConnection.updateState(OtgState.UsbManagerUnavailable)
+        } else {
+            registerReceivers()
+            initAdbCrypto()
+            checkConnectedDevices()
+        }
     }
 
     private fun registerReceivers() {
@@ -126,9 +130,13 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
 
     private fun handleDeviceAttach(device: UsbDevice) {
         currentDevice = device
+        val manager = usbManager ?: run {
+            OtgConnection.updateState(OtgState.UsbManagerUnavailable)
+            return
+        }
         if (isAdbDevice(device)) {
             val friendlyName = device.productName ?: device.manufacturerName ?: device.deviceName
-            if (usbManager.hasPermission(device)) {
+            if (manager.hasPermission(device)) {
                 connectToDevice(device)
             } else {
                 OtgConnection.updateState(OtgState.DeviceFound(friendlyName))
@@ -151,12 +159,20 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
 
 
     override fun searchDevices() {
+        if (usbManager == null) {
+            OtgConnection.updateState(OtgState.UsbManagerUnavailable)
+            return
+        }
         OtgConnection.updateState(OtgState.Searching)
         checkConnectedDevices()
     }
 
     private fun checkConnectedDevices() {
-        val devices = usbManager.deviceList.values
+        val manager = usbManager ?: run {
+            OtgConnection.updateState(OtgState.UsbManagerUnavailable)
+            return
+        }
+        val devices = manager.deviceList.values
         if (devices.isEmpty()) {
             OtgConnection.updateState(OtgState.Idle)
             return
@@ -168,12 +184,16 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     }
 
     private fun requestPermission(device: UsbDevice) {
-        if (usbManager.hasPermission(device)) return
+        val manager = usbManager ?: run {
+            OtgConnection.updateState(OtgState.UsbManagerUnavailable)
+            return
+        }
+        if (manager.hasPermission(device)) return
 
         val pendingIntent = PendingIntent.getBroadcast(
             context, 0, Intent(permissionAction), PendingIntent.FLAG_IMMUTABLE
         )
-        usbManager.requestPermission(device, pendingIntent)
+        manager.requestPermission(device, pendingIntent)
     }
 
     private fun connectToDevice(device: UsbDevice) {
@@ -186,7 +206,12 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
                     return@launch
                 }
 
-                val connection = usbManager.openDevice(device) ?: run {
+                val manager = usbManager ?: run {
+                    OtgConnection.updateState(OtgState.UsbManagerUnavailable)
+                    return@launch
+                }
+
+                val connection = manager.openDevice(device) ?: run {
                     OtgConnection.updateState(OtgState.Error("Failed to open USB connection"))
                     return@launch
                 }

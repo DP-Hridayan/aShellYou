@@ -49,6 +49,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -324,7 +325,9 @@ fun PairingOtherDeviceScreen(
                 it.dismiss()
                 WifiAdbConnection.updateState(WifiAdbState.None)
                 if (!isWifiConnected) return@ReconnectFailedDialog
-                if (pagerState.currentPage == PairingTab.QrPair.ordinal) viewModel.startQrPairDiscovery(pairingCode)
+                if (pagerState.currentPage == PairingTab.QrPair.ordinal) viewModel.startQrPairDiscovery(
+                    pairingCode
+                )
                 if (pagerState.currentPage == PairingTab.CodePair.ordinal) viewModel.startCodePairingDiscovery()
             }
         )
@@ -355,6 +358,7 @@ fun SavedDevicesTab(
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
 
     if (savedDevices.isEmpty()) {
         Column(
@@ -415,7 +419,7 @@ fun SavedDevicesTab(
                             if (!isWifiConnected) {
                                 showToast(
                                     context,
-                                    context.getString(R.string.connect_to_wifi_network)
+                                    res.getString(R.string.connect_to_wifi_network)
                                 )
                                 return@SavedDeviceItem
                             }

@@ -32,6 +32,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -59,6 +60,7 @@ fun UtilityButtonGroup(
     showHistoryMenu: () -> Unit = {},
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val focusManager = LocalFocusManager.current
     val navController = LocalNavController.current
     val screenDensity = LocalDensity.current
@@ -79,7 +81,7 @@ fun UtilityButtonGroup(
                     .fillMaxWidth()
                     .padding(horizontal = 15.dp, vertical = 16.dp),
                 value = states.search.textFieldValue,
-                onValueChange = { it -> shellViewModel.onSearchQueryChange(it) },
+                onValueChange = { shellViewModel.onSearchQueryChange(it) },
                 hint = stringResource(R.string.search_commands_here),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                 trailingIcon = {
@@ -133,7 +135,7 @@ fun UtilityButtonGroup(
             IconButton(
                 onClick = withHaptic {
                     if (states.output.isEmpty()) {
-                        showToast(context, context.getString(R.string.nothing_to_search))
+                        showToast(context, res.getString(R.string.nothing_to_search))
                     } else {
                         shellViewModel.toggleSearchBar()
                     }
@@ -206,12 +208,12 @@ fun UtilityButtonGroup(
             IconButton(
                 onClick = withHaptic {
                     if (states.output.isEmpty()) {
-                        showToast(context, context.getString(R.string.nothing_to_clear))
+                        showToast(context, res.getString(R.string.nothing_to_clear))
                         return@withHaptic
                     }
 
                     if (states.shellState == ShellState.Busy) {
-                        showToast(context, context.getString(R.string.abort_command))
+                        showToast(context, res.getString(R.string.abort_command))
                         return@withHaptic
                     }
 

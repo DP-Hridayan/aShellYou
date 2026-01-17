@@ -11,6 +11,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -45,6 +46,7 @@ fun LocalAdbScreen(
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
 
@@ -92,13 +94,13 @@ fun LocalAdbScreen(
                                     withContext(Dispatchers.Main) {
                                         makeToast(
                                             context,
-                                            context.getString(R.string.no_root_access)
+                                            res.getString(R.string.no_root_access)
                                         )
                                         shellViewModel.onCommandTextFieldChange(
                                             newValue =
                                                 TextFieldValue(""),
                                             isError = true,
-                                            errorMessage = context.getString(R.string.no_root_access)
+                                            errorMessage = res.getString(R.string.no_root_access)
                                         )
                                     }
                                 } else {
@@ -115,7 +117,7 @@ fun LocalAdbScreen(
     val modeButtonOnClick: () -> Unit = remember(states.shellState) {
         {
             if (states.shellState == ShellState.Busy) {
-                showToast(context, context.getString(R.string.abort_command))
+                showToast(context, res.getString(R.string.abort_command))
             } else {
                 showConnectedDeviceDialog = true
             }

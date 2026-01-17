@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -60,6 +61,7 @@ fun BackupAndRestoreScreen(
     backupAndRestoreViewModel: BackupAndRestoreViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val settings = settingsViewModel.backupPageList
     val dialogManager = LocalDialogManager.current
     val backupTime by backupAndRestoreViewModel.backupTime.collectAsState()
@@ -84,7 +86,7 @@ fun BackupAndRestoreScreen(
                 backupAndRestoreViewModel.loadBackupTime(it)
                 dialogManager.show(DialogKey.Settings.RestoreBackup)
             } else {
-                showToast(context, context.getString(R.string.pick_ashellyou_extension))
+                showToast(context, res.getString(R.string.pick_ashellyou_extension))
             }
         }
     }

@@ -101,6 +101,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -171,6 +172,7 @@ fun BaseShellScreen(
     extraContent: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val navController = LocalNavController.current
     val coroutineScope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
@@ -234,14 +236,14 @@ fun BaseShellScreen(
     val handleBookmarkButtonClick: () -> Unit = {
         if (bookmarkCount.value == 0) showToast(
             context,
-            context.getString(R.string.no_bookmarks)
+            res.getString(R.string.no_bookmarks)
         ) else dialogManager.show(DialogKey.Shell.Bookmark)
     }
 
     val handleHistoryButtonClick: () -> Unit = {
         if (states.cmdHistory.isEmpty()) showToast(
             context,
-            context.getString(R.string.no_history)
+            res.getString(R.string.no_history)
         ) else historyMenuExpanded = true
     }
 
@@ -276,7 +278,7 @@ fun BaseShellScreen(
                 Intent.createChooser(intent, "Open text file")
             )
         } catch (e: Exception) {
-            showToast(context, context.getString(R.string.file_not_found))
+            showToast(context, res.getString(R.string.file_not_found))
         }
     }
 
@@ -516,7 +518,7 @@ fun BaseShellScreen(
                                                             hideKeyboard(context)
                                                             coroutineScope.launch {
                                                                 snackBarHostState.showSnackbar(
-                                                                    message = context.getString(R.string.bookmark_limit_reached),
+                                                                    message = res.getString(R.string.bookmark_limit_reached),
                                                                     duration = SnackbarDuration.Short
                                                                 )
                                                             }
@@ -1360,6 +1362,7 @@ private fun ShareFAB(
     shellViewModel: ShellViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val activity = context.findActivity()
     val states by shellViewModel.states.collectAsState()
 
@@ -1400,7 +1403,7 @@ private fun ShareFAB(
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                showToast(context, context.getString(R.string.failed))
+                showToast(context, res.getString(R.string.failed))
             }
         }
     }
@@ -1425,6 +1428,7 @@ private fun BottomExtendedFAB(
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val activity = context.findActivity()
     val states by shellViewModel.states.collectAsState()
     val savePath = LocalSettings.current.outputSaveDirectory.toUri()
@@ -1471,7 +1475,7 @@ private fun BottomExtendedFAB(
     val pasteAction: () -> Unit = {
         val textInClipboard = ClipboardUtils.readFromClipboard(context) ?: ""
         if (textInClipboard.trim().isEmpty()) {
-            showToast(context, context.getString(R.string.clipboard_empty))
+            showToast(context, res.getString(R.string.clipboard_empty))
         } else {
             shellViewModel.onCommandTextFieldChange(TextFieldValue(textInClipboard))
             shellViewModel.updateTextFieldSelection()

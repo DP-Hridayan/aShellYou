@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -56,6 +57,7 @@ fun SavedDevicesBottomSheet(
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 ) {
     val context = LocalContext.current
+    val res = LocalResources.current
     val savedDevices by viewModel.savedDevices.collectAsState()
     val currentDevice by viewModel.currentDevice.collectAsState()
     val wifiAdbState by viewModel.state.collectAsState()
@@ -159,7 +161,7 @@ fun SavedDevicesBottomSheet(
                                 if (!isWifiConnected) {
                                     showToast(
                                         context,
-                                        context.getString(R.string.connect_to_wifi_network)
+                                        res.getString(R.string.connect_to_wifi_network)
                                     )
                                     return@SavedDeviceItem
                                 }
@@ -180,7 +182,7 @@ fun SavedDevicesBottomSheet(
                                 if (isConnected) {
                                     onGoToTerminal()
                                 } else {
-                                    showToast(context, context.getString(R.string.reconnect_the_device))
+                                    showToast(context, res.getString(R.string.reconnect_the_device))
                                 }
                             },
                             modifier = Modifier.fillMaxWidth()

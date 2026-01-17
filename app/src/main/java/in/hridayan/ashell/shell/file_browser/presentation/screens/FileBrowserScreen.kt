@@ -89,6 +89,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -131,6 +132,7 @@ fun FileBrowserScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val res = LocalResources.current
     val navController = LocalNavController.current
     val weakHaptic = LocalWeakHaptic.current
 
@@ -173,9 +175,9 @@ fun FileBrowserScreen(
             when (event) {
                 is FileBrowserEvent.ShowToast -> {
                     val message = if (event.formatArgs.isEmpty()) {
-                        context.getString(event.messageResId)
+                        res.getString(event.messageResId)
                     } else {
-                        context.getString(event.messageResId, *event.formatArgs.toTypedArray())
+                        res.getString(event.messageResId, *event.formatArgs.toTypedArray())
                     }
                     showToast(context, message)
                 }
@@ -271,7 +273,7 @@ fun FileBrowserScreen(
                                         state.files.find { it.path == selectedPaths.first() }
                                     showToast(
                                         context,
-                                        context.getString(R.string.copied_items, selectedPaths.size)
+                                        res.getString(R.string.copied_items, selectedPaths.size)
                                     )
                                     viewModel.exitSelectionMode()
                                 }
@@ -288,7 +290,7 @@ fun FileBrowserScreen(
                                         state.files.find { it.path == selectedPaths.first() }
                                     showToast(
                                         context,
-                                        context.getString(R.string.cut_items, selectedPaths.size)
+                                        res.getString(R.string.cut_items, selectedPaths.size)
                                     )
                                     viewModel.exitSelectionMode()
                                 }
@@ -452,7 +454,7 @@ fun FileBrowserScreen(
                                                     if (isDisabledForPaste) {
                                                         showToast(
                                                             context,
-                                                            context.getString(R.string.fb_cannot_paste_into_selected)
+                                                            res.getString(R.string.fb_cannot_paste_into_selected)
                                                         )
                                                     } else if (state.isSelectionMode) {
                                                         viewModel.toggleFileSelection(file)
@@ -484,7 +486,7 @@ fun FileBrowserScreen(
                                                     clipboardOperation = "copy"
                                                     showToast(
                                                         context,
-                                                        context.getString(R.string.copy) + ": " + file.name
+                                                        res.getString(R.string.copy) + ": " + file.name
                                                     )
                                                 },
                                                 onMove = {
@@ -492,7 +494,7 @@ fun FileBrowserScreen(
                                                     clipboardOperation = "move"
                                                     showToast(
                                                         context,
-                                                        context.getString(R.string.cut_to_clipboard) + ": " + file.name
+                                                        res.getString(R.string.cut_to_clipboard) + ": " + file.name
                                                     )
                                                 },
                                                 onInfo = {
