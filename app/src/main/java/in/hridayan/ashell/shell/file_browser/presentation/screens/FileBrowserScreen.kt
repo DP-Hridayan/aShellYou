@@ -109,6 +109,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.shell.file_browser.domain.model.ClipboardOperation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.ConnectionMode
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.presentation.component.FileListItem
@@ -146,7 +147,7 @@ fun FileBrowserScreen(
     var showInfoDialog by remember { mutableStateOf(false) }
     var fileForInfo by remember { mutableStateOf<RemoteFile?>(null) }
     var clipboardFile by remember { mutableStateOf<RemoteFile?>(null) }
-    var clipboardOperation by remember { mutableStateOf<String?>(null) }
+    var clipboardOperation by remember { mutableStateOf<ClipboardOperation?>(null) }
     var clipboardPaths by remember { mutableStateOf<List<String>>(emptyList()) }
 
     val filePickerLauncher = rememberLauncherForActivityResult(
@@ -268,7 +269,7 @@ fun FileBrowserScreen(
                                 val selectedPaths = viewModel.getSelectedFilePaths()
                                 if (selectedPaths.isNotEmpty()) {
                                     clipboardPaths = selectedPaths
-                                    clipboardOperation = "copy_batch"
+                                    clipboardOperation = ClipboardOperation.COPY_BATCH
                                     clipboardFile =
                                         state.files.find { it.path == selectedPaths.first() }
                                     showToast(
@@ -285,7 +286,7 @@ fun FileBrowserScreen(
                                 val selectedPaths = viewModel.getSelectedFilePaths()
                                 if (selectedPaths.isNotEmpty()) {
                                     clipboardPaths = selectedPaths
-                                    clipboardOperation = "move_batch"
+                                    clipboardOperation = ClipboardOperation.MOVE_BATCH
                                     clipboardFile =
                                         state.files.find { it.path == selectedPaths.first() }
                                     showToast(
@@ -441,7 +442,7 @@ fun FileBrowserScreen(
                                                 file.path
                                             ) {
                                                 file.isDirectory &&
-                                                        (clipboardOperation == "move" || clipboardOperation == "move_batch") &&
+                                                        clipboardOperation?.isMove == true &&
                                                         (clipboardPaths.contains(file.path) || (clipboardFile?.path == file.path))
                                             }
 
@@ -483,7 +484,7 @@ fun FileBrowserScreen(
                                                 },
                                                 onCopy = {
                                                     clipboardFile = file
-                                                    clipboardOperation = "copy"
+                                                    clipboardOperation = ClipboardOperation.COPY
                                                     showToast(
                                                         context,
                                                         res.getString(R.string.copy) + ": " + file.name
@@ -491,7 +492,7 @@ fun FileBrowserScreen(
                                                 },
                                                 onMove = {
                                                     clipboardFile = file
-                                                    clipboardOperation = "move"
+                                                    clipboardOperation = ClipboardOperation.MOVE
                                                     showToast(
                                                         context,
                                                         res.getString(R.string.cut_to_clipboard) + ": " + file.name
@@ -693,12 +694,12 @@ fun FileBrowserScreen(
                     }
 
                     // Status text
-                    val operationText = when (clipboardOperation) {
-                        "copy", "copy_batch" -> stringResource(
+                    val operationText = when {
+                        clipboardOperation?.isCopy == true -> stringResource(
                             R.string.copying_items,
                             clipboardPaths.size.takeIf { it > 0 } ?: 1)
 
-                        "move", "move_batch" -> stringResource(
+                        clipboardOperation?.isMove == true -> stringResource(
                             R.string.moving_items,
                             clipboardPaths.size.takeIf { it > 0 } ?: 1)
 
@@ -713,35 +714,24 @@ fun FileBrowserScreen(
                     // Paste button
                     IconButton(
                         onClick = withHaptic(HapticFeedbackType.VirtualKey) {
-                            when (clipboardOperation) {
-                                "copy" -> {
-                                    // Route single file through batch for conflict handling
-                                    clipboardFile?.let { file ->
-                                        viewModel.copyFileBatch(
-                                            listOf(file.path),
-                                            state.currentPath
-                                        )
+                            val paths = if (clipboardOperation?.isBatch == true) {
+                                clipboardPaths
+                            } else {
+                                clipboardFile?.let { listOf(it.path) } ?: emptyList()
+                            }
+
+                            if (paths.isNotEmpty()) {
+                                when {
+                                    clipboardOperation?.isCopy == true -> {
+                                        viewModel.copyFileBatch(paths, state.currentPath)
                                     }
-                                }
 
-                                "move" -> {
-                                    // Route single file through batch for conflict handling
-                                    clipboardFile?.let { file ->
-                                        viewModel.moveFileBatch(
-                                            listOf(file.path),
-                                            state.currentPath
-                                        )
+                                    clipboardOperation?.isMove == true -> {
+                                        viewModel.moveFileBatch(paths, state.currentPath)
                                     }
-                                }
-
-                                "copy_batch" -> {
-                                    viewModel.copyFileBatch(clipboardPaths, state.currentPath)
-                                }
-
-                                "move_batch" -> {
-                                    viewModel.moveFileBatch(clipboardPaths, state.currentPath)
                                 }
                             }
+
                             clipboardFile = null
                             clipboardOperation = null
                             clipboardPaths = emptyList()
