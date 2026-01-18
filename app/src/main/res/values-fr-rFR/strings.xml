@@ -416,6 +416,7 @@
     <string name="update_channel">Mettre à jour le canal</string>
     <string name="upload_file">Charger un fichier</string>
     <string name="uploading">Envoi de…</string>
+    <string name="usb_manager_unavailable">Le gestionnaire USB n\'est pas disponible sur ce périphérique</string>
     <string name="use">Utiliser</string>
     <string name="version">Version</string>
     <string name="version_code">Code de la version</string>

@@ -416,6 +416,7 @@
     <string name="update_channel">チャンネルをアップデート</string>
     <string name="upload_file">ファイルをアップロード</string>
     <string name="uploading">Uploading…</string>
+    <string name="usb_manager_unavailable">このデバイスではUSBマネージャーは利用できません</string>
     <string name="use">利用</string>
     <string name="version">バージョン</string>
     <string name="version_code">バージョンコード</string>
