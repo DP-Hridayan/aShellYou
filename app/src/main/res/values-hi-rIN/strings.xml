@@ -416,6 +416,7 @@
     <string name="update_channel">अपडेट चैनल</string>
     <string name="upload_file">फ़ाइल अपलोड करें</string>
     <string name="uploading">अपलोड हो रहा है…</string>
+    <string name="usb_manager_unavailable">USB Manager is not available on this device</string>
     <string name="use">उपयोग करें</string>
     <string name="version">संस्करण</string>
     <string name="version_code">संस्करण कोड</string>
