@@ -82,6 +82,7 @@ import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbEvent
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.DiscoveredDeviceCard
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ConnectionSuccessDialog
@@ -125,10 +126,14 @@ fun PairingOtherDeviceScreen(
     var wasReconnectCancelled by remember { mutableStateOf(false) }
     var lastReconnectingDeviceId by remember { mutableStateOf<String?>(null) }
     val pairingCode = remember { String.format("%06d", generatePairingCode()) }
+    
+    // Track if already connected event was received
+    var showAlreadyConnected by remember { mutableStateOf(false) }
 
+    // Handle persistent states
     LaunchedEffect(wifiAdbState) {
         when (val state = wifiAdbState) {
-            is WifiAdbState.ConnectSuccess -> {
+            is WifiAdbState.Connected -> {
                 wasReconnectCancelled = false
                 if (pagerState.currentPage != PairingTab.SavedDevices.ordinal) {
                     dialogManager.show(DialogKey.Pair.ConnectionSuccess)
@@ -136,31 +141,51 @@ fun PairingOtherDeviceScreen(
             }
 
             is WifiAdbState.Reconnecting -> {
-                lastReconnectingDeviceId = state.device
+                lastReconnectingDeviceId = state.deviceId
                 wasReconnectCancelled = false
-            }
-
-            is WifiAdbState.ConnectFailed -> {
-                if (!wasReconnectCancelled) {
-                    val failedDevice = savedDevices.find { it.id == state.device }
-                    val showDevOptions = failedDevice?.isOwnDevice == true
-                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = showDevOptions))
-                }
-                wasReconnectCancelled = false
-            }
-
-            is WifiAdbState.WirelessDebuggingOff -> {
-                if (!wasReconnectCancelled) {
-                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
-                }
-                wasReconnectCancelled = false
-            }
-
-            is WifiAdbState.PairConnectFailed -> {
-                dialogManager.show(DialogKey.Pair.PairConnectFailed)
             }
 
             else -> {}
+        }
+    }
+
+    // Collect one-shot events for dialogs
+    LaunchedEffect(Unit) {
+        WifiAdbConnection.events.collect { event ->
+            when (event) {
+                is WifiAdbEvent.ConnectSuccess -> {
+                    wasReconnectCancelled = false
+                    if (pagerState.currentPage != PairingTab.SavedDevices.ordinal) {
+                        dialogManager.show(DialogKey.Pair.ConnectionSuccess)
+                    }
+                }
+
+                is WifiAdbEvent.ReconnectFailed -> {
+                    if (!wasReconnectCancelled) {
+                        val failedDevice = savedDevices.find { it.id == event.deviceId }
+                        val showDevOptions = failedDevice?.isOwnDevice == true || event.requiresPairing
+                        dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = showDevOptions))
+                    }
+                    wasReconnectCancelled = false
+                }
+
+                is WifiAdbEvent.WirelessDebuggingOff -> {
+                    if (!wasReconnectCancelled) {
+                        dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
+                    }
+                    wasReconnectCancelled = false
+                }
+
+                is WifiAdbEvent.PairConnectFailed -> {
+                    dialogManager.show(DialogKey.Pair.PairConnectFailed)
+                }
+
+                is WifiAdbEvent.AlreadyConnected -> {
+                    showAlreadyConnected = true
+                }
+
+                else -> {}
+            }
         }
     }
 
@@ -176,11 +201,10 @@ fun PairingOtherDeviceScreen(
 
     DisposableEffect(Unit) {
         onDispose {
-            if (
-                wifiAdbState is WifiAdbState.WirelessDebuggingOff ||
-                wifiAdbState is WifiAdbState.ConnectFailed
-            ) {
-                WifiAdbConnection.updateState(WifiAdbState.None)
+            // Reset state when leaving screen
+            val currentState = wifiAdbState
+            if (currentState is WifiAdbState.Disconnected || currentState is WifiAdbState.Idle) {
+                WifiAdbConnection.updateState(WifiAdbState.Idle)
             }
         }
     }
@@ -296,7 +320,11 @@ fun PairingOtherDeviceScreen(
                         pairingCode = pairingCode
                     )
 
-                    PairingTab.CodePair -> CodePairTab(isWifiConnected = isWifiConnected)
+                    PairingTab.CodePair -> CodePairTab(
+                        isWifiConnected = isWifiConnected,
+                        showAlreadyConnected = showAlreadyConnected,
+                        onAlreadyConnectedShown = { showAlreadyConnected = false }
+                    )
                 }
             }
         }
@@ -323,7 +351,7 @@ fun PairingOtherDeviceScreen(
             onConfirm = { openDeveloperOptions(context) },
             onDismiss = {
                 it.dismiss()
-                WifiAdbConnection.updateState(WifiAdbState.None)
+                WifiAdbConnection.updateState(WifiAdbState.Idle)
                 if (!isWifiConnected) return@ReconnectFailedDialog
                 if (pagerState.currentPage == PairingTab.QrPair.ordinal) viewModel.startQrPairDiscovery(
                     pairingCode
@@ -337,7 +365,7 @@ fun PairingOtherDeviceScreen(
         PairConnectFailedDialog(
             onDismiss = {
                 it.dismiss()
-                WifiAdbConnection.updateState(WifiAdbState.None)
+                WifiAdbConnection.updateState(WifiAdbState.Idle)
             }
         )
     }
@@ -399,10 +427,10 @@ fun SavedDevicesTab(
 
             items(savedDevices, key = { it.id }) { device ->
                 val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting &&
-                        wifiAdbState.device == device.id
+                        (wifiAdbState as WifiAdbState.Reconnecting).deviceId == device.id
 
                 val isConnected = currentDevice?.id == device.id &&
-                        (wifiAdbState is WifiAdbState.ConnectSuccess || viewModel.isConnected())
+                        (wifiAdbState is WifiAdbState.Connected || viewModel.isConnected())
 
                 Column(
                     modifier = Modifier
@@ -561,6 +589,8 @@ fun QRPairTab(
 fun CodePairTab(
     modifier: Modifier = Modifier,
     isWifiConnected: Boolean,
+    showAlreadyConnected: Boolean = false,
+    onAlreadyConnectedShown: () -> Unit = {},
     viewModel: WifiAdbViewModel = hiltViewModel()
 ) {
     val wifiAdbState by viewModel.state.collectAsStateWithLifecycle()
@@ -639,14 +669,14 @@ fun CodePairTab(
                     .fillMaxWidth()
                     .animateItem(),
                 service = service,
-                isPairing = wifiAdbState is WifiAdbState.PairingStarted,
+                isPairing = wifiAdbState is WifiAdbState.Pairing,
                 onPair = { pairingCode ->
                     viewModel.pairWithCode(service, pairingCode)
                 }
             )
         }
 
-        if (wifiAdbState is WifiAdbState.ConnectStarted) {
+        if (wifiAdbState is WifiAdbState.Connecting) {
             item {
                 Text(
                     text = stringResource(R.string.connecting),
@@ -657,7 +687,7 @@ fun CodePairTab(
             }
         }
 
-        if (wifiAdbState is WifiAdbState.AlreadyConnected) {
+        if (showAlreadyConnected) {
             item {
                 Text(
                     text = stringResource(R.string.already_connected),
@@ -665,6 +695,10 @@ fun CodePairTab(
                     color = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier.padding(top = 8.dp)
                 )
+                // Reset the flag after showing
+                LaunchedEffect(Unit) {
+                    onAlreadyConnectedShown()
+                }
             }
         }
 

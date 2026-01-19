@@ -1,32 +1,126 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model
 
 /**
- * Represents the connection state of WifiAdb.
- * States that are device-specific include a deviceId parameter.
+ * Represents the persistent connection state of WiFi ADB.
+ * 
+ * These are **persistent conditions** that represent the current status of the connection.
+ * Unlike [WifiAdbEvent] which are one-shot occurrences, states persist until changed.
+ * 
+ * ## State Flow:
+ * ```
+ * Idle ──► Connecting ──► Connected
+ *   │           │              │
+ *   │           ▼              ▼
+ *   │      (ConnectFailed) Disconnected
+ *   │           │              │
+ *   ▼           │              ▼
+ * Pairing ◄─────┴────── Reconnecting
+ * ```
+ * 
+ * ## Usage:
+ * Observe via `StateFlow` for persistent UI updates (connection indicator, loading states).
  */
-sealed class WifiAdbState(val message: String, open val deviceId: String? = null) {
-    object None : WifiAdbState("none")
-    
-    // Device-specific connection states
-    data class Reconnecting(val device: String) : WifiAdbState(device, device)
-    data class Disconnected(val device: String? = null, val info: String = "Disconnected") : WifiAdbState(info, device)
-    data class ConnectStarted(val info: String = "Connecting...", val device: String? = null) : WifiAdbState(info, device)
-    data class ConnectSuccess(val info: String, val device: String? = null) : WifiAdbState(info, device)
-    data class ConnectFailed(val error: String, val device: String? = null) : WifiAdbState(error, device)
-    data class WirelessDebuggingOff(val device: String? = null, val info: String = "Enable wireless debugging") : WifiAdbState(info, device)
-    
-    // Session-based states (not device-specific)
-    data class PairingStarted(val info: String = "Pairing started") : WifiAdbState(info)
-    data class PairingSuccess(val info: String) : WifiAdbState(info)
-    data class PairingFailed(val error: String) : WifiAdbState(error)
-    data class DiscoveryStarted(val info: String) : WifiAdbState(message = info)
-    data class DiscoveryFound(val info: String) : WifiAdbState(info)
-    data class DiscoverySessionMatched(val info: String = "Session matched") : WifiAdbState(info)
-    data class DiscoveryFailed(val info: String) : WifiAdbState(message = info)
-    
-    // Pairing flow connection failure (distinct from reconnect failure)
-    data class PairConnectFailed(val error: String) : WifiAdbState(error)
-    
-    // Device is already connected
-    data class AlreadyConnected(val device: String) : WifiAdbState("Already connected to $device", device)
+sealed class WifiAdbState {
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // IDLE STATES
+    // ══════════════════════════════════════════════════════════════════════════════
+
+    /**
+     * No active connection or operation in progress.
+     * This is the initial state.
+     */
+    data object Idle : WifiAdbState()
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // CONNECTION STATES
+    // ══════════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Attempting to connect to a device.
+     * @param deviceId Device ID if reconnecting to a saved device, null for new connections
+     * @param address The IP:port being connected to (for UI display)
+     */
+    data class Connecting(
+        val deviceId: String? = null,
+        val address: String? = null
+    ) : WifiAdbState()
+
+    /**
+     * Successfully connected to a device.
+     * @param deviceId Unique identifier for the connected device
+     * @param address The IP:port address of the connection
+     */
+    data class Connected(
+        val deviceId: String,
+        val address: String
+    ) : WifiAdbState()
+
+    /**
+     * Disconnected from a device.
+     * @param deviceId The device that was disconnected, null if no recent connection
+     */
+    data class Disconnected(
+        val deviceId: String? = null
+    ) : WifiAdbState()
+
+    /**
+     * Attempting to reconnect to a previously saved device.
+     * @param deviceId The device being reconnected to
+     */
+    data class Reconnecting(
+        val deviceId: String
+    ) : WifiAdbState()
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // PAIRING STATES
+    // ══════════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Pairing operation is in progress.
+     * @param info Status message for UI display
+     */
+    data class Pairing(
+        val info: String = "Pairing..."
+    ) : WifiAdbState()
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // DISCOVERY STATES
+    // ══════════════════════════════════════════════════════════════════════════════
+
+    /**
+     * mDNS discovery is in progress.
+     * @param info Status message for UI display
+     */
+    data class Discovering(
+        val info: String = "Discovering..."
+    ) : WifiAdbState()
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // HELPER PROPERTIES
+    // ══════════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Returns true if currently connected to a device.
+     */
+    val isConnected: Boolean
+        get() = this is Connected
+
+    /**
+     * Returns true if an operation is in progress (connecting, pairing, etc.)
+     */
+    val isLoading: Boolean
+        get() = this is Connecting || this is Reconnecting || this is Pairing || this is Discovering
+
+    /**
+     * Returns the device ID if this state is device-specific, null otherwise.
+     */
+    open val currentDeviceId: String?
+        get() = when (this) {
+            is Connected -> this.deviceId
+            is Connecting -> this.deviceId
+            is Disconnected -> this.deviceId
+            is Reconnecting -> this.deviceId
+            else -> null
+        }
 }

@@ -81,6 +81,7 @@ import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbEvent
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.GrantNotificationAccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
@@ -132,9 +133,18 @@ fun PairingOwnDeviceScreen(
         )
     }
 
-    LaunchedEffect(wifiAdbState) {
-        if (wifiAdbState is WifiAdbState.WirelessDebuggingOff) {
-            dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
+    // Collect one-shot events for showing dialogs
+    LaunchedEffect(Unit) {
+        WifiAdbConnection.events.collect { event ->
+            when (event) {
+                is WifiAdbEvent.WirelessDebuggingOff -> {
+                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
+                }
+                is WifiAdbEvent.ReconnectFailed -> {
+                    dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
+                }
+                else -> {}
+            }
         }
     }
 
@@ -146,11 +156,10 @@ fun PairingOwnDeviceScreen(
 
     DisposableEffect(Unit) {
         onDispose {
-            if (
-                wifiAdbState is WifiAdbState.WirelessDebuggingOff ||
-                wifiAdbState is WifiAdbState.ConnectFailed
-            ) {
-                WifiAdbConnection.updateState(WifiAdbState.None)
+            // Reset state when leaving screen
+            val currentState = wifiAdbState
+            if (currentState is WifiAdbState.Disconnected || currentState is WifiAdbState.Idle) {
+                WifiAdbConnection.updateState(WifiAdbState.Idle)
             }
         }
     }
@@ -232,9 +241,9 @@ fun PairingOwnDeviceScreen(
                 ownDevice?.let {
                     val isCurrentDevice = currentDevice?.id == it.id
                     val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting &&
-                            (wifiAdbState as WifiAdbState.Reconnecting).device == it.id
+                            (wifiAdbState as WifiAdbState.Reconnecting).deviceId == it.id
                     val isConnected =
-                        isCurrentDevice && (wifiAdbState is WifiAdbState.ConnectSuccess || viewModel.isConnected()) && isWifiConnected
+                        isCurrentDevice && (wifiAdbState is WifiAdbState.Connected || viewModel.isConnected()) && isWifiConnected
 
                     Column(
                         modifier = Modifier
@@ -265,7 +274,7 @@ fun PairingOwnDeviceScreen(
                                 if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context)) {
                                     WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
                                         context = context,
-                                        reconnect = { viewModel.reconnectToDevice(device = ownDevice) }
+                                        reconnect = { viewModel.reconnectToDevice(it) }
                                     )
 
                                     return@SavedDeviceItem
@@ -360,7 +369,7 @@ fun PairingOwnDeviceScreen(
             showDevOptionsButton = dialogKey?.showDevOptionsButton ?: true,
             onDismiss = {
                 it.dismiss()
-                WifiAdbConnection.updateState(WifiAdbState.None)
+                WifiAdbConnection.updateState(WifiAdbState.Idle)
             },
             onConfirm = {
                 if (!isWifiConnected) {

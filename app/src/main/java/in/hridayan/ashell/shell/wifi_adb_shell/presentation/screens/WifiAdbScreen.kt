@@ -52,7 +52,7 @@ fun WifiAdbScreen(
     val wifiAdbState by wifiAdbViewModel.state.collectAsState()
     val currentDevice by wifiAdbViewModel.currentDevice.collectAsState()
 
-    val isConnected = wifiAdbState is WifiAdbState.ConnectSuccess
+    val isConnected = wifiAdbState is WifiAdbState.Connected
     val connectedDeviceName = if (isConnected) {
         currentDevice?.deviceName ?: res.getString(R.string.none)
     } else {
@@ -66,7 +66,7 @@ fun WifiAdbScreen(
                 showDeviceDisconnectedDialog = true
             }
 
-            is WifiAdbState.ConnectSuccess -> {}
+            is WifiAdbState.Connected -> {}
 
             else -> {}
         }
@@ -189,7 +189,7 @@ fun WifiAdbScreen(
         DeviceDisconnectedDialog(
             onDismiss = {
                 showDeviceDisconnectedDialog = false
-                WifiAdbConnection.updateState(WifiAdbState.None)
+                WifiAdbConnection.updateState(WifiAdbState.Idle)
             }
         )
     }

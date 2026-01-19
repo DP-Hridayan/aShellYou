@@ -19,6 +19,7 @@ import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbEvent
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.notification.SelfPairingNotificationHelper
@@ -307,7 +308,7 @@ class SelfPairingService : Service() {
         notificationHelper.showPairingInProgressNotification()
 
         mainScope.launch {
-            WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
+            WifiAdbConnection.updateState(WifiAdbState.Pairing())
         }
 
         // Use repository for pairing
@@ -316,7 +317,7 @@ class SelfPairingService : Service() {
                 Log.d(TAG, "Pairing succeeded!")
                 isPairingDone = true
                 mainScope.launch {
-                    WifiAdbConnection.updateState(WifiAdbState.PairingSuccess(ip))
+                    WifiAdbConnection.tryEmitEvent(WifiAdbEvent.PairingSuccess(ip))
                 }
 
                 // Check if we already have a connect port from earlier discovery
@@ -347,7 +348,8 @@ class SelfPairingService : Service() {
                 Log.e(TAG, "Pairing failed - wrong code")
                 isProcessing = false
                 mainScope.launch {
-                    WifiAdbConnection.updateState(WifiAdbState.PairingFailed("Pairing failed"))
+                    WifiAdbConnection.updateState(WifiAdbState.Idle)
+                    WifiAdbConnection.tryEmitEvent(WifiAdbEvent.PairingFailed("Pairing failed"))
                 }
                 // Show error and let user try again
                 notificationHelper.showFailureNotification(getString(R.string.self_pair_wrong_code))
@@ -435,8 +437,9 @@ class SelfPairingService : Service() {
             mainScope.launch {
                 // Set current device in WifiAdbConnection for cross-component state sharing
                 WifiAdbConnection.setCurrentDevice(ownDevice)
-                // Emit ConnectSuccess with device ID for proper UI state matching
-                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(ownDevice.id, ownDevice.id))
+                // Set Connected state and emit ConnectSuccess event
+                WifiAdbConnection.setDeviceConnected(ownDevice.id, "$ip:$port")
+                WifiAdbConnection.tryEmitEvent(WifiAdbEvent.ConnectSuccess(ownDevice.id, "$ip:$port"))
             }
 
             // Grant WRITE_SECURE_SETTINGS permission for future wireless debugging control

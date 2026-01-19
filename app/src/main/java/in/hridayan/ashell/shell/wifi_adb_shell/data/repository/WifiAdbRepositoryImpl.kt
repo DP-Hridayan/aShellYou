@@ -18,6 +18,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.mapper.toEntity
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbEvent
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import `in`.hridayan.ashell.shell.wifi_adb_shell.service.AdbConnectionService
@@ -151,9 +152,7 @@ class WifiAdbRepositoryImpl(
 
                                         mainScope.launch {
                                             WifiAdbConnection.updateState(
-                                                WifiAdbState.ConnectStarted(
-                                                    "$ip:$cachedPort"
-                                                )
+                                                WifiAdbState.Connecting(address = "$ip:$cachedPort")
                                             )
                                         }
 
@@ -186,6 +185,9 @@ class WifiAdbRepositoryImpl(
                                                     WifiAdbConnection.setDeviceConnected(
                                                         connectedDevice.id, "$ip:$cachedPort"
                                                     )
+                                                    WifiAdbConnection.tryEmitEvent(
+                                                        WifiAdbEvent.ConnectSuccess(connectedDevice.id, "$ip:$cachedPort")
+                                                    )
                                                 }
                                                 Log.d(
                                                     TAG,
@@ -215,7 +217,7 @@ class WifiAdbRepositoryImpl(
                                         executor.schedule({
                                             mainScope.launch {
                                                 WifiAdbConnection.updateState(
-                                                    WifiAdbState.DiscoveryStarted("connect service discovery started")
+                                                    WifiAdbState.Discovering("connect service discovery started")
                                                 )
                                             }
                                             discoverConnectService(callback, ip)
@@ -229,6 +231,11 @@ class WifiAdbRepositoryImpl(
                                     stopParallelConnectDiscovery()
                                     clearCachedConnectPorts()
                                     Log.d(TAG, "Pairing failed for $key!")
+                                    mainScope.launch {
+                                        WifiAdbConnection.tryEmitEvent(
+                                            WifiAdbEvent.PairingFailed("Pairing failed for $key")
+                                        )
+                                    }
                                     callback?.onPairingFailed(ip, port)
                                 }
                             })
@@ -377,7 +384,7 @@ class WifiAdbRepositoryImpl(
 
                             Log.d(TAG, "Trying direct connect to $targetIp:$port...")
                             mainScope.launch {
-                                WifiAdbConnection.updateState(WifiAdbState.ConnectStarted("$targetIp:$port (direct)"))
+                                WifiAdbConnection.updateState(WifiAdbState.Connecting(address = "$targetIp:$port (direct)"))
                             }
 
                             try {
@@ -408,6 +415,9 @@ class WifiAdbRepositoryImpl(
                                         WifiAdbConnection.setDeviceConnected(
                                             connectedDevice.id, "$targetIp:$port"
                                         )
+                                        WifiAdbConnection.tryEmitEvent(
+                                            WifiAdbEvent.ConnectSuccess(connectedDevice.id, "$targetIp:$port")
+                                        )
                                     }
                                     Log.d(TAG, "Direct connection to $targetIp:$port succeeded!")
                                     callback?.onPairingSuccess(targetIp, port)
@@ -421,16 +431,18 @@ class WifiAdbRepositoryImpl(
                         if (!connected) {
                             Log.e(TAG, "All direct connection attempts failed for $targetIp")
                             mainScope.launch {
-                                WifiAdbConnection.updateState(
-                                    WifiAdbState.PairConnectFailed("Paired but connect failed - try Manual Pair with correct port")
+                                WifiAdbConnection.updateState(WifiAdbState.Disconnected())
+                                WifiAdbConnection.tryEmitEvent(
+                                    WifiAdbEvent.PairConnectFailed("Paired but connect failed - try Manual Pair with correct port")
                                 )
                             }
                             callback?.onPairingFailed(targetIp, 0)
                         }
                     } else {
                         mainScope.launch {
-                            WifiAdbConnection.updateState(
-                                WifiAdbState.PairConnectFailed("No target IP for connect discovery")
+                            WifiAdbConnection.updateState(WifiAdbState.Idle)
+                            WifiAdbConnection.tryEmitEvent(
+                                WifiAdbEvent.PairConnectFailed("No target IP for connect discovery")
                             )
                         }
                     }
@@ -447,8 +459,9 @@ class WifiAdbRepositoryImpl(
                             connectionHandled = true
                             discoveryTimeout.cancel(false)
                             mainScope.launch {
-                                WifiAdbConnection.updateState(
-                                    WifiAdbState.PairConnectFailed("Discovery failed (error $errorCode)")
+                                WifiAdbConnection.updateState(WifiAdbState.Idle)
+                                WifiAdbConnection.tryEmitEvent(
+                                    WifiAdbEvent.PairConnectFailed("Discovery failed (error $errorCode)")
                                 )
                             }
                         }
@@ -499,7 +512,7 @@ class WifiAdbRepositoryImpl(
                                 }
 
                                 mainScope.launch {
-                                    WifiAdbConnection.updateState(WifiAdbState.ConnectStarted(key))
+                                    WifiAdbConnection.updateState(WifiAdbState.Connecting(address = key))
                                 }
 
                                 connect(ip, port, object : ConnectionListener {
@@ -526,6 +539,9 @@ class WifiAdbRepositoryImpl(
                                             WifiAdbConnection.setDeviceConnected(
                                                 connectedDevice.id, key
                                             )
+                                            WifiAdbConnection.tryEmitEvent(
+                                                WifiAdbEvent.ConnectSuccess(connectedDevice.id, key)
+                                            )
                                         }
                                         Log.d(TAG, "Connected successfully to $ip:$port")
                                         callback?.onPairingSuccess(ip, port)
@@ -533,10 +549,9 @@ class WifiAdbRepositoryImpl(
 
                                     override fun onConnectionFailed() {
                                         mainScope.launch {
-                                            WifiAdbConnection.updateState(
-                                                WifiAdbState.PairConnectFailed(
-                                                    key
-                                                )
+                                            WifiAdbConnection.updateState(WifiAdbState.Disconnected())
+                                            WifiAdbConnection.tryEmitEvent(
+                                                WifiAdbEvent.PairConnectFailed(key)
                                             )
                                         }
                                         Log.e(TAG, "Failed to connect to $ip:$port")
@@ -561,8 +576,9 @@ class WifiAdbRepositoryImpl(
             } catch (e: Exception) {
                 Log.e(TAG, "Error in NSD connect discovery", e)
                 mainScope.launch {
-                    WifiAdbConnection.updateState(
-                        WifiAdbState.PairConnectFailed("Discovery error: ${e.message}")
+                    WifiAdbConnection.updateState(WifiAdbState.Idle)
+                    WifiAdbConnection.tryEmitEvent(
+                        WifiAdbEvent.PairConnectFailed("Discovery error: ${e.message}")
                     )
                 }
             }
@@ -829,8 +845,8 @@ class WifiAdbRepositoryImpl(
             // Only reset state if not currently connected - preserve existing connection
             mainScope.launch {
                 val currentState = WifiAdbConnection.currentState
-                if (currentState !is WifiAdbState.ConnectSuccess) {
-                    WifiAdbConnection.updateState(WifiAdbState.None)
+                if (!currentState.isConnected) {
+                    WifiAdbConnection.updateState(WifiAdbState.Idle)
                 }
             }
         } catch (e: Exception) {
@@ -893,8 +909,8 @@ class WifiAdbRepositoryImpl(
         // Only reset state if not currently connected - preserve existing connection
         mainScope.launch {
             val currentState = WifiAdbConnection.currentState
-            if (currentState !is WifiAdbState.ConnectSuccess) {
-                WifiAdbConnection.updateState(WifiAdbState.None)
+            if (!currentState.isConnected) {
+                WifiAdbConnection.updateState(WifiAdbState.Idle)
             }
         }
     }
@@ -981,10 +997,11 @@ class WifiAdbRepositoryImpl(
                         ioScope.launch { deviceDao.updateDevice(currentDevice!!.toEntity()) }
                         WifiAdbConnection.setCurrentDevice(currentDevice)
                         mainScope.launch {
-                            WifiAdbConnection.updateState(
-                                WifiAdbState.ConnectSuccess(
-                                    device.id, device.id
-                                )
+                            WifiAdbConnection.setDeviceConnected(
+                                device.id, "$targetIp:${device.port}"
+                            )
+                            WifiAdbConnection.tryEmitEvent(
+                                WifiAdbEvent.ReconnectSuccess(device.id)
                             )
                         }
                         listener?.onReconnectSuccess()
@@ -996,10 +1013,9 @@ class WifiAdbRepositoryImpl(
                     // Device needs re-pairing - public key not saved on target
                     Log.d(TAG, "Device requires re-pairing: ${device.id}")
                     mainScope.launch {
-                        WifiAdbConnection.updateState(
-                            WifiAdbState.ConnectFailed(
-                                "Requires re-pairing", device.id
-                            )
+                        WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                        WifiAdbConnection.tryEmitEvent(
+                            WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = true)
                         )
                     }
                     listener?.onReconnectFailed(requiresPairing = true)
@@ -1015,10 +1031,9 @@ class WifiAdbRepositoryImpl(
             } catch (e: Throwable) {
                 Log.e(TAG, "reconnect() failed", e)
                 mainScope.launch {
-                    WifiAdbConnection.updateState(
-                        WifiAdbState.ConnectFailed(
-                            e.message ?: "Unknown error", device.id
-                        )
+                    WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                    WifiAdbConnection.tryEmitEvent(
+                        WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
                     )
                 }
                 listener?.onReconnectFailed(requiresPairing = false)
@@ -1086,7 +1101,8 @@ class WifiAdbRepositoryImpl(
                 if (device.isOwnDevice) {
                     currentReconnectingDeviceId = null
                     mainScope.launch {
-                        WifiAdbConnection.updateState(WifiAdbState.WirelessDebuggingOff(device.id))
+                        WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                        WifiAdbConnection.tryEmitEvent(WifiAdbEvent.WirelessDebuggingOff(device.id))
                     }
                     listener?.onReconnectFailed(requiresPairing = false)
                 } else if (!device.serialNumber.isNullOrBlank()) {
@@ -1097,10 +1113,9 @@ class WifiAdbRepositoryImpl(
                 } else {
                     currentReconnectingDeviceId = null
                     mainScope.launch {
-                        WifiAdbConnection.updateState(
-                            WifiAdbState.ConnectFailed(
-                                "Discovery timeout", device.id
-                            )
+                        WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                        WifiAdbConnection.tryEmitEvent(
+                            WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
                         )
                     }
                     listener?.onReconnectFailed(requiresPairing = false)
@@ -1190,9 +1205,7 @@ class WifiAdbRepositoryImpl(
                                 val key = "$ip:$port"
                                 mainScope.launch {
                                     WifiAdbConnection.updateState(
-                                        WifiAdbState.ConnectStarted(
-                                            key, device.id
-                                        )
+                                        WifiAdbState.Connecting(address = key, deviceId = device.id)
                                     )
                                 }
 
@@ -1209,10 +1222,9 @@ class WifiAdbRepositoryImpl(
                                         ioScope.launch { deviceDao.updateDevice(currentDevice!!.toEntity()) }
                                         WifiAdbConnection.setCurrentDevice(currentDevice)
                                         mainScope.launch {
-                                            WifiAdbConnection.updateState(
-                                                WifiAdbState.ConnectSuccess(
-                                                    key, device.id
-                                                )
+                                            WifiAdbConnection.setDeviceConnected(device.id, key)
+                                            WifiAdbConnection.tryEmitEvent(
+                                                WifiAdbEvent.ReconnectSuccess(device.id)
                                             )
                                         }
                                         listener?.onReconnectSuccess()
@@ -1230,10 +1242,9 @@ class WifiAdbRepositoryImpl(
                                             // No serial available, emit failure
                                             currentReconnectingDeviceId = null
                                             mainScope.launch {
-                                                WifiAdbConnection.updateState(
-                                                    WifiAdbState.ConnectFailed(
-                                                        key, device.id
-                                                    )
+                                                WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                                                WifiAdbConnection.tryEmitEvent(
+                                                    WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
                                                 )
                                             }
                                             // Only call listener if still relevant
@@ -1262,10 +1273,9 @@ class WifiAdbRepositoryImpl(
             Log.e(TAG, "Error discovering connect service for reconnect", e)
             currentReconnectingDeviceId = null
             mainScope.launch {
-                WifiAdbConnection.updateState(
-                    WifiAdbState.ConnectFailed(
-                        e.message ?: "Discovery error", device.id
-                    )
+                WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                WifiAdbConnection.tryEmitEvent(
+                    WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
                 )
             }
             listener?.onReconnectFailed(requiresPairing = false)
@@ -1291,8 +1301,9 @@ class WifiAdbRepositoryImpl(
             Log.d(TAG, "Serial matching skipped - no saved serial for ${device.id}")
             currentReconnectingDeviceId = null
             mainScope.launch {
-                WifiAdbConnection.updateState(
-                    WifiAdbState.ConnectFailed("No serial for matching", device.id)
+                WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                WifiAdbConnection.tryEmitEvent(
+                    WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
                 )
             }
             listener?.onReconnectFailed(requiresPairing = false)
@@ -1327,8 +1338,9 @@ class WifiAdbRepositoryImpl(
 
                 currentReconnectingDeviceId = null
                 mainScope.launch {
-                    WifiAdbConnection.updateState(
-                        WifiAdbState.ConnectFailed("Device not broadcasting", device.id)
+                    WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                    WifiAdbConnection.tryEmitEvent(
+                        WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
                     )
                 }
                 listener?.onReconnectFailed(requiresPairing = false)
@@ -1345,8 +1357,9 @@ class WifiAdbRepositoryImpl(
                 discoveryTimeout.cancel(false)
                 currentReconnectingDeviceId = null
                 mainScope.launch {
-                    WifiAdbConnection.updateState(
-                        WifiAdbState.ConnectFailed("Discovery failed", device.id)
+                    WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                    WifiAdbConnection.tryEmitEvent(
+                        WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
                     )
                 }
                 listener?.onReconnectFailed(requiresPairing = false)
@@ -1434,8 +1447,9 @@ class WifiAdbRepositoryImpl(
 
                                         currentReconnectingDeviceId = null
                                         mainScope.launch {
-                                            WifiAdbConnection.updateState(
-                                                WifiAdbState.ConnectSuccess("$ip:$port", device.id)
+                                            WifiAdbConnection.setDeviceConnected(device.id, "$ip:$port")
+                                            WifiAdbConnection.tryEmitEvent(
+                                                WifiAdbEvent.ReconnectSuccess(device.id)
                                             )
                                         }
                                         listener?.onReconnectSuccess()
@@ -1446,11 +1460,9 @@ class WifiAdbRepositoryImpl(
                                         )
                                         currentReconnectingDeviceId = null
                                         mainScope.launch {
-                                            WifiAdbConnection.updateState(
-                                                WifiAdbState.ConnectFailed(
-                                                    "Connection failed",
-                                                    device.id
-                                                )
+                                            WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                                            WifiAdbConnection.tryEmitEvent(
+                                                WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
                                             )
                                         }
                                         listener?.onReconnectFailed(requiresPairing = false)
@@ -1459,11 +1471,9 @@ class WifiAdbRepositoryImpl(
                                     Log.e(TAG, "Serial matching: Device requires re-pairing")
                                     currentReconnectingDeviceId = null
                                     mainScope.launch {
-                                        WifiAdbConnection.updateState(
-                                            WifiAdbState.ConnectFailed(
-                                                "Requires re-pairing",
-                                                device.id
-                                            )
+                                        WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                                        WifiAdbConnection.tryEmitEvent(
+                                            WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = true)
                                         )
                                     }
                                     listener?.onReconnectFailed(requiresPairing = true)
@@ -1471,11 +1481,9 @@ class WifiAdbRepositoryImpl(
                                     Log.e(TAG, "Serial matching: Connection error", e)
                                     currentReconnectingDeviceId = null
                                     mainScope.launch {
-                                        WifiAdbConnection.updateState(
-                                            WifiAdbState.ConnectFailed(
-                                                "Error: ${e.message}",
-                                                device.id
-                                            )
+                                        WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                                        WifiAdbConnection.tryEmitEvent(
+                                            WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
                                         )
                                     }
                                     listener?.onReconnectFailed(requiresPairing = false)
@@ -1842,7 +1850,7 @@ class WifiAdbRepositoryImpl(
             if (currentDev != null && currentDev.ip == ip && isConnected()) {
                 Log.d(TAG, "Device $ip is already connected")
                 mainScope.launch {
-                    WifiAdbConnection.updateState(WifiAdbState.AlreadyConnected(ip))
+                    WifiAdbConnection.tryEmitEvent(WifiAdbEvent.AlreadyConnected(currentDev.id))
                 }
                 return@submit
             }
@@ -1858,7 +1866,7 @@ class WifiAdbRepositoryImpl(
                         Log.d(TAG, "Using cached connect port $connectPort for $ip")
 
                         mainScope.launch {
-                            WifiAdbConnection.updateState(WifiAdbState.ConnectStarted("$ip:$connectPort"))
+                            WifiAdbConnection.updateState(WifiAdbState.Connecting(address = "$ip:$connectPort"))
                         }
 
                         connect(ip, connectPort, object : ConnectionListener {
@@ -1883,6 +1891,9 @@ class WifiAdbRepositoryImpl(
                                     WifiAdbConnection.setDeviceConnected(
                                         connectedDevice.id, "$ip:$connectPort"
                                     )
+                                    WifiAdbConnection.tryEmitEvent(
+                                        WifiAdbEvent.ConnectSuccess(connectedDevice.id, "$ip:$connectPort")
+                                    )
                                 }
                                 Log.d(TAG, "Connection successful to $ip:$connectPort")
                                 clearCachedConnectPorts()
@@ -1893,7 +1904,10 @@ class WifiAdbRepositoryImpl(
                                 Log.e(TAG, "Connection failed to $ip:$connectPort")
                                 clearCachedConnectPorts()
                                 mainScope.launch {
-                                    WifiAdbConnection.updateState(WifiAdbState.PairConnectFailed("Connection failed"))
+                                    WifiAdbConnection.updateState(WifiAdbState.Disconnected())
+                                    WifiAdbConnection.tryEmitEvent(
+                                        WifiAdbEvent.PairConnectFailed("Connection failed")
+                                    )
                                 }
                                 callback?.onPairingFailed(ip, connectPort)
                             }
@@ -1909,7 +1923,10 @@ class WifiAdbRepositoryImpl(
                     Log.e(TAG, "Pairing failed for $ip:$pairingPort")
                     clearCachedConnectPorts()
                     mainScope.launch {
-                        WifiAdbConnection.updateState(WifiAdbState.PairingFailed("Pairing failed"))
+                        WifiAdbConnection.updateState(WifiAdbState.Idle)
+                        WifiAdbConnection.tryEmitEvent(
+                            WifiAdbEvent.PairingFailed("Pairing failed")
+                        )
                     }
                     callback?.onPairingFailed(ip, pairingPort)
                 }

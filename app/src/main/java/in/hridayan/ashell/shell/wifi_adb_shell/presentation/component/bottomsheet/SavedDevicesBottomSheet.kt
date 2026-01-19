@@ -44,6 +44,7 @@ import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbEvent
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
@@ -84,36 +85,51 @@ fun SavedDevicesBottomSheet(
         }
     }
 
+    // Handle persistent states
     LaunchedEffect(wifiAdbState) {
         when (val state = wifiAdbState) {
             is WifiAdbState.Reconnecting -> {
-                lastReconnectingDeviceId = state.device
+                lastReconnectingDeviceId = state.deviceId
                 wasReconnectCancelled = false
             }
 
-            is WifiAdbState.ConnectSuccess -> {
+            is WifiAdbState.Connected -> {
                 wasReconnectCancelled = false
                 showReconnectFailedDialog = false
             }
 
-            is WifiAdbState.ConnectFailed -> {
-                if (!wasReconnectCancelled) {
-                    val failedDevice = savedDevices.find { it.id == state.device }
-                    showDevOptionsButton = failedDevice?.isOwnDevice == true
-                    showReconnectFailedDialog = true
-                }
-                wasReconnectCancelled = false
-            }
-
-            is WifiAdbState.WirelessDebuggingOff -> {
-                if (!wasReconnectCancelled) {
-                    showDevOptionsButton = true
-                    showReconnectFailedDialog = true
-                }
-                wasReconnectCancelled = false
-            }
-
             else -> {}
+        }
+    }
+
+    // Collect one-shot events for dialogs
+    LaunchedEffect(Unit) {
+        WifiAdbConnection.events.collect { event ->
+            when (event) {
+                is WifiAdbEvent.ReconnectFailed -> {
+                    if (!wasReconnectCancelled) {
+                        val failedDevice = savedDevices.find { it.id == event.deviceId }
+                        showDevOptionsButton = failedDevice?.isOwnDevice == true || event.requiresPairing
+                        showReconnectFailedDialog = true
+                    }
+                    wasReconnectCancelled = false
+                }
+
+                is WifiAdbEvent.WirelessDebuggingOff -> {
+                    if (!wasReconnectCancelled) {
+                        showDevOptionsButton = true
+                        showReconnectFailedDialog = true
+                    }
+                    wasReconnectCancelled = false
+                }
+
+                is WifiAdbEvent.ReconnectSuccess -> {
+                    wasReconnectCancelled = false
+                    showReconnectFailedDialog = false
+                }
+
+                else -> {}
+            }
         }
     }
 
@@ -142,9 +158,9 @@ fun SavedDevicesBottomSheet(
             ) {
                 items(savedDevices, key = { it.id }) { device ->
                     val isThisDeviceReconnecting = isReconnecting &&
-                            (wifiAdbState as? WifiAdbState.Reconnecting)?.device == device.id
+                            (wifiAdbState as? WifiAdbState.Reconnecting)?.deviceId == device.id
                     val isConnected = currentDevice?.id == device.id &&
-                            (wifiAdbState is WifiAdbState.ConnectSuccess || viewModel.isConnected())
+                            (wifiAdbState is WifiAdbState.Connected || viewModel.isConnected())
 
                     Column(
                         modifier = Modifier
@@ -167,7 +183,7 @@ fun SavedDevicesBottomSheet(
                                 }
 
                                 // Reset state before new reconnect attempt
-                                WifiAdbConnection.updateState(WifiAdbState.None)
+                                WifiAdbConnection.updateState(WifiAdbState.Idle)
                                 showReconnectFailedDialog = false
 
                                 // If already reconnecting to a different device, mark as cancelled
@@ -215,13 +231,13 @@ fun SavedDevicesBottomSheet(
             showDevOptionsButton = showDevOptionsButton,
             onConfirm = {
                 showReconnectFailedDialog = false
-                WifiAdbConnection.updateState(WifiAdbState.None)
+                WifiAdbConnection.updateState(WifiAdbState.Idle)
                 openDeveloperOptions(context)
             },
             onDismiss = {
                 showReconnectFailedDialog = false
                 // Reset state to allow retry
-                WifiAdbConnection.updateState(WifiAdbState.None)
+                WifiAdbConnection.updateState(WifiAdbState.Idle)
             }
         )
     }

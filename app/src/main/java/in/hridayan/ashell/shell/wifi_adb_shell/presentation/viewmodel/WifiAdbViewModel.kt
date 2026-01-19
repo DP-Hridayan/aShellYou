@@ -9,6 +9,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbReposito
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbEvent
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.repository.WifiAdbRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -70,13 +71,12 @@ class WifiAdbViewModel @Inject constructor(
         viewModelScope.launch {
             WifiAdbConnection.state.collect { state ->
                 when (state) {
-                    is WifiAdbState.ConnectSuccess -> {
+                    is WifiAdbState.Connected -> {
                         wifiAdbRepository.startHeartbeat()
                     }
 
                     is WifiAdbState.Disconnected,
-                    is WifiAdbState.ConnectFailed,
-                    is WifiAdbState.None -> {
+                    is WifiAdbState.Idle -> {
                         wifiAdbRepository.stopHeartbeat()
                     }
 
@@ -93,7 +93,7 @@ class WifiAdbViewModel @Inject constructor(
             override fun onReconnectSuccess() {
                 WifiAdbConnection.setCurrentDevice(device)
                 _lastConnectedDevice.value = currentDevice.value
-                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id, device.id))
+                // State is already set by repository
             }
 
             override fun onReconnectFailed(requiresPairing: Boolean) {
@@ -111,7 +111,7 @@ class WifiAdbViewModel @Inject constructor(
             override fun onReconnectSuccess() {
                 WifiAdbConnection.setCurrentDevice(device)
                 _lastConnectedDevice.value = currentDevice.value
-                WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(device.id, device.id))
+                // State is already set by repository
                 // Ensure callback runs on main thread for Toast
                 viewModelScope.launch {
                     onSuccess()
@@ -166,16 +166,16 @@ class WifiAdbViewModel @Inject constructor(
             callback = object :
                 WifiAdbRepositoryImpl.MdnsDiscoveryCallback {
                 override fun onServiceFound(name: String, ip: String, port: Int) {
-                    WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
+                    WifiAdbConnection.updateState(WifiAdbState.Pairing())
                 }
 
                 override fun onPairingSuccess(ip: String, port: Int) {
-                    // State is already set to ConnectSuccess by the repository
+                    // State is already set to Connected by the repository
                     // Do not overwrite it here - this was causing the success dialog to not appear
                 }
 
                 override fun onPairingFailed(ip: String, port: Int) {
-                    WifiAdbConnection.updateState(WifiAdbState.PairingFailed(ip))
+                    // Event is emitted by repository
                 }
 
                 override fun onServiceLost(name: String) {
@@ -233,7 +233,7 @@ class WifiAdbViewModel @Inject constructor(
     fun pairWithCode(service: DiscoveredPairingService, pairingCode: String) {
         if (pairingCode.length != 6) return
 
-        WifiAdbConnection.updateState(WifiAdbState.PairingStarted())
+        WifiAdbConnection.updateState(WifiAdbState.Pairing())
 
         disconnect()
 
@@ -243,7 +243,7 @@ class WifiAdbViewModel @Inject constructor(
             pairingCode = pairingCode,
             callback = object : WifiAdbRepositoryImpl.MdnsDiscoveryCallback {
                 override fun onPairingSuccess(ip: String, port: Int) {
-                    WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess("$ip:$port"))
+                    // State is already set by repository
                 }
 
                 override fun onPairingFailed(ip: String, port: Int) {

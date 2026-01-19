@@ -133,7 +133,13 @@ object WirelessDebuggingUtils {
         // WAIT for user/system result
         waitForWirelessDebuggingState(context) { enabled ->
             if (enabled) {
-                reconnect()
+                // Add delay to allow Android to:
+                // 1. Fully start the ADB daemon on the new port
+                // 2. Broadcast fresh mDNS records
+                // Without this delay, reconnect may use stale cached port info
+                Handler(Looper.getMainLooper()).postDelayed({
+                    reconnect()
+                }, 1500)
             } else {
                 Log.d("WirelessDebugging", "User did not enable wireless debugging")
             }

@@ -35,7 +35,7 @@ fun QRImage(
     modifier: Modifier = Modifier,
     qrBitmap: Bitmap,
     isWifiConnected: Boolean = false,
-    wifiAdbState: WifiAdbState = WifiAdbState.None
+    wifiAdbState: WifiAdbState = WifiAdbState.Idle
 ) {
     val qrImage = qrBitmap.asImageBitmap()
 
@@ -70,7 +70,7 @@ fun QRImage(
             return@Box
         }
 
-        if (wifiAdbState is WifiAdbState.PairingStarted) {
+        if (wifiAdbState is WifiAdbState.Pairing) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -84,7 +84,7 @@ fun QRImage(
             }
         }
 
-        if (wifiAdbState is WifiAdbState.ConnectStarted || wifiAdbState is WifiAdbState.DiscoveryFound || wifiAdbState is WifiAdbState.DiscoveryStarted) {
+        if (wifiAdbState is WifiAdbState.Connecting || wifiAdbState is WifiAdbState.Discovering) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
