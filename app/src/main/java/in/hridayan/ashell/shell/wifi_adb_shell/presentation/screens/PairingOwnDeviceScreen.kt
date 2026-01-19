@@ -70,11 +70,12 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.utils.WirelessDebuggingUtils
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
-import `in`.hridayan.ashell.core.utils.openDeveloperOptions
+import `in`.hridayan.ashell.core.utils.openWirelessDebuggingSettings
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
@@ -179,10 +180,13 @@ fun PairingOwnDeviceScreen(
             return@withHaptic
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            SelfPairingService.start(context)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+       return@withHaptic
         }
-        openDeveloperOptions(context)
+
+        SelfPairingService.start(context)
+
+        openWirelessDebuggingSettings(context)
     }
 
     Scaffold(
@@ -247,10 +251,23 @@ fun PairingOwnDeviceScreen(
                             isConnected = isConnected,
                             isReconnecting = isReconnecting,
                             onReconnect = {
+                                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                                    return@SavedDeviceItem
+                                }
+
                                 if (!isWifiConnected) {
                                     showToast(
                                         context,
                                         res.getString(R.string.connect_to_wifi_network)
+                                    )
+                                    return@SavedDeviceItem
+                                }
+
+                                if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context)) {
+                                    dialogManager.show(
+                                        DialogKey.Pair.ReconnectFailed(
+                                            showDevOptionsButton = true
+                                        )
                                     )
                                     return@SavedDeviceItem
                                 }
@@ -346,7 +363,7 @@ fun PairingOwnDeviceScreen(
                 it.dismiss()
                 WifiAdbConnection.updateState(WifiAdbState.None)
             },
-            onConfirm = { openDeveloperOptions(context) })
+            onConfirm = { openWirelessDebuggingSettings(context) })
     }
 }
 

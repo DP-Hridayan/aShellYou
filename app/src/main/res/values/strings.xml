@@ -162,6 +162,7 @@
     <string name="enable_direct_download">Enable direct apk download</string>
     <string name="enable_wifi">Enable wifi</string>
     <string name="enable_wireless_debugging">Please enable Wireless Debugging in Developer Options</string>
+    <string name="enable_wireless_debugging_button">Enable</string>
     <string name="enter">Enter</string>
     <string name="enter_pairing_code">Enter the 6-digit pairing code</string>
     <string name="error">Error</string>
@@ -219,6 +220,7 @@
     <string name="found_connect_service">Found connect service</string>
     <string name="github" translatable="false">Github</string>
     <string name="go_home">Go Home</string>
+    <string name="wireless_debugging" translatable="false">Wireless debugging</string>
     <string name="go_to_terminal">Go to terminal</string>
     <string name="gpl_3_0" translatable="false">GPL-3.0</string>
     <string name="grant">Grant</string>

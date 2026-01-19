@@ -31,6 +31,14 @@
         tools:ignore="RequestInstallPackagesPolicy" />
 
     <!--
+        WRITE_SECURE_SETTINGS: Used to enable wireless debugging programmatically
+        for own device reconnection. Can only be granted via ADB after first pairing.
+    -->
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!--
         QUERY_ALL_PACKAGES: Used to provide auto-complete suggestions for package names
         when user types ADB commands like "pm grant <package>"
     -->

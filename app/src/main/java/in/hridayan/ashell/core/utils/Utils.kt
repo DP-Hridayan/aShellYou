@@ -50,12 +50,10 @@ fun Context.launchApp(packageName: String) {
     }
 }
 
-fun openDeveloperOptions(context: Context) {
-    val intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS).apply {
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        putExtra(":settings:fragment_args_key", "toggle_adb_wireless")
-    }
-
+fun openDeveloperOptions(
+    context: Context,
+    intent: Intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
+) {
     try {
         context.startActivity(intent)
     } catch (e: ActivityNotFoundException) {

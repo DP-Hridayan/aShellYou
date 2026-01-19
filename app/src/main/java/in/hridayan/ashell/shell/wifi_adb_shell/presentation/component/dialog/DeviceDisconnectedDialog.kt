@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog
 
+import android.os.Build
 import android.widget.Toast
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -39,6 +40,8 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
+import `in`.hridayan.ashell.core.utils.WirelessDebuggingUtils
+import `in`.hridayan.ashell.core.utils.openWirelessDebuggingSettings
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 
 @Composable
@@ -49,9 +52,10 @@ fun DeviceDisconnectedDialog(
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
-    val interactionSources = remember { List(2) { MutableInteractionSource() } }
+    val interactionSources = remember { List(3) { MutableInteractionSource() } }
     val lastConnectedDevice by viewModel.lastConnectedDevice.collectAsState()
     val deviceName = lastConnectedDevice?.deviceName ?: "unknown_device"
+    val isOwnDevice = lastConnectedDevice?.isOwnDevice == true
     var isReconnecting by remember { mutableStateOf(false) }
 
     Dialog(
@@ -113,6 +117,9 @@ fun DeviceDisconnectedDialog(
 
                     Button(
                         onClick = withHaptic(HapticFeedbackType.Confirm) {
+                            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.R){
+                                return@withHaptic
+                            }
                             // Check WiFi connectivity first
                             if (!context.isConnectedToWifi()) {
                                 Toast.makeText(
@@ -120,6 +127,11 @@ fun DeviceDisconnectedDialog(
                                     res.getString(R.string.no_wifi_connection),
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                return@withHaptic
+                            }
+
+                            if(!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context) && isOwnDevice){
+                                openWirelessDebuggingSettings(context)
                                 return@withHaptic
                             }
 

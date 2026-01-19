@@ -102,7 +102,7 @@ fun ReconnectFailedDialog(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         AutoResizeableText(
-                            text = stringResource(R.string.developer_options),
+                            text = stringResource(R.string.wireless_debugging),
                         )
                     }
 

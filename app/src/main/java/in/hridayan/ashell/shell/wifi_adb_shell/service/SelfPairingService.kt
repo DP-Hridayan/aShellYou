@@ -14,6 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.utils.WirelessDebuggingUtils
 import `in`.hridayan.ashell.shell.common.data.adb.AdbConnectionManager
 import `in`.hridayan.ashell.shell.wifi_adb_shell.data.repository.WifiAdbRepositoryImpl
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
@@ -436,6 +437,15 @@ class SelfPairingService : Service() {
                 WifiAdbConnection.setCurrentDevice(ownDevice)
                 // Emit ConnectSuccess with device ID for proper UI state matching
                 WifiAdbConnection.updateState(WifiAdbState.ConnectSuccess(ownDevice.id, ownDevice.id))
+            }
+
+            // Grant WRITE_SECURE_SETTINGS permission for future wireless debugging control
+            // This allows the app to enable wireless debugging programmatically on reconnects
+            try {
+                val granted = WirelessDebuggingUtils.grantWriteSecureSettingsViaAdb(this, adbManager)
+                Log.d(TAG, "WRITE_SECURE_SETTINGS permission grant: $granted")
+            } catch (e: Exception) {
+                Log.w(TAG, "Failed to grant WRITE_SECURE_SETTINGS, will use fallback for reconnects", e)
             }
 
             notificationHelper.showSuccessNotification()
