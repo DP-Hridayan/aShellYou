@@ -39,9 +39,9 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.Dimens
-import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.WirelessDebuggingUtils
-import `in`.hridayan.ashell.core.utils.openWirelessDebuggingSettings
+import `in`.hridayan.ashell.core.utils.isConnectedToWifi
+import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 
 @Composable
@@ -117,7 +117,7 @@ fun DeviceDisconnectedDialog(
 
                     Button(
                         onClick = withHaptic(HapticFeedbackType.Confirm) {
-                            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.R){
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
                                 return@withHaptic
                             }
                             // Check WiFi connectivity first
@@ -130,8 +130,11 @@ fun DeviceDisconnectedDialog(
                                 return@withHaptic
                             }
 
-                            if(!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context) && isOwnDevice){
-                                openWirelessDebuggingSettings(context)
+                            if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context) && isOwnDevice) {
+                                WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
+                                    context = context,
+                                    reconnect = { viewModel.reconnectToDevice(lastConnectedDevice as WifiAdbDevice) }
+                                )
                                 return@withHaptic
                             }
 

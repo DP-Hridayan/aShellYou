@@ -7,6 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -113,6 +115,56 @@ object WirelessDebuggingUtils {
             e.printStackTrace()
             false
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    fun ensureWirelessDebuggingAndReconnect(
+        context: Context,
+        reconnect: () -> Unit
+    ) {
+        //  Try programmatic enable
+        val requested = enableWirelessDebugging(context)
+
+        // If we cannot even request it, open settings and wait
+        if (!requested) {
+            openWirelessDebuggingSettings(context)
+        }
+
+        // WAIT for user/system result
+        waitForWirelessDebuggingState(context) { enabled ->
+            if (enabled) {
+                reconnect()
+            } else {
+                Log.d("WirelessDebugging", "User did not enable wireless debugging")
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun waitForWirelessDebuggingState(
+        context: Context,
+        timeoutMs: Long = 10_000,
+        pollIntervalMs: Long = 300,
+        onResult: (Boolean) -> Unit
+    ) {
+        val startTime = System.currentTimeMillis()
+        val handler = Handler(Looper.getMainLooper())
+
+        fun poll() {
+            if (isWirelessDebuggingEnabled(context)) {
+                onResult(true)
+                return
+            }
+
+            if (System.currentTimeMillis() - startTime >= timeoutMs) {
+                onResult(false)
+                return
+            }
+
+            handler.postDelayed({ poll() }, pollIntervalMs)
+        }
+
+        poll()
     }
 
     /**
