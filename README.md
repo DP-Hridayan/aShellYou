@@ -154,7 +154,10 @@
   </a>
   &nbsp;&nbsp;
   <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell">
-    <img src="assets/izzy.png" width="130" alt="F-Droid" />
+    <img src="assets/izzy.png" width="130" alt="Izzy-Droid" />
+  </a>
+  <a href="https://f-droid.org/en/packages/in.hridayan.ashell">
+    <img src="assets/fdroid.png" width="130" alt="F-Droid" />
   </a>
   <br/><br/>
   <a href="https://t.me/aShellYou">
