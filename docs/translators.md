@@ -51,11 +51,18 @@ Thanks to these translators and proofreaders, this project exists:
     </tr>
     <tr>
       <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/ru-tei"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17196264/medium/0fc56e447148eb14a35b45b787149aaf.png" />
+          <br />
+          <sub><b>るーてい (ru-tei)</b></sub></a>
+        <br />
+        <sub><b>509 words</b></sub>
+      </td>
+      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/alex211952i"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16749463/medium/a5c4e3624bfd368750b8b82116a2dafb.png" />
           <br />
           <sub><b>AlexeiCrystal (alex211952i)</b></sub></a>
         <br />
-        <sub><b>405 words</b></sub>
+        <sub><b>448 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/UTAC99645"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16611103/medium/b064b3319dfbfe4c16dfe8690c363ec5.png" />
@@ -85,15 +92,15 @@ Thanks to these translators and proofreaders, this project exists:
         <br />
         <sub><b>90 words</b></sub>
       </td>
-      <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/ru-tei"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17196264/medium/0fc56e447148eb14a35b45b787149aaf.png" />
-          <br />
-          <sub><b>るーてい (ru-tei)</b></sub></a>
-        <br />
-        <sub><b>41 words</b></sub>
-      </td>
     </tr>
     <tr>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/Vertuhai"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a5f5587b6c6dcf9bfdb018870030c70.jpg" />
+          <br />
+          <sub><b>Aleksandr (Vertuhai)</b></sub></a>
+        <br />
+        <sub><b>72 words</b></sub>
+      </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/jinzhouhuang2005"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16841547/medium/bd42d1aca4eb35db38aeb6d1d937aeba_default.png" />
           <br />
