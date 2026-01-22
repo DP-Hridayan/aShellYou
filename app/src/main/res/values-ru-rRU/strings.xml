@@ -116,11 +116,11 @@
     <string name="des_hridayan">Просто парень который любит приложения и дизайн</string>
     <string name="des_look_and_feel">Динамические цвета, Темная тема, Язык</string>
     <string name="des_override_bookmarks">При добавлении большого количества закладок может возникнуть задержка! На устройствах с низкой производительностью эта опция должна быть отключена</string>
-    <string name="des_pair_another_device">Присоединить другое целевое устройство</string>
+    <string name="des_pair_another_device">Сопрячь другое целевое устройство</string>
     <string name="des_report_issue">Сообщите о любой проблеме, с которой вы столкнулись при использовании приложения</string>
     <string name="des_reset_app_settings">Сбросить настройки приложения до значений по умолчанию</string>
     <string name="des_restore_app_data">Восстановите данные приложения из сохраненного файла резервной копии.\nСохраненная база данных перезапишет текущую базу данных</string>
-    <string name="des_save_whole_output">Enable this option to save output of the whole shell session.\nIf disabled only the last command output will be saved.</string>
+    <string name="des_save_whole_output">Включите эту опцию, чтобы сохранить вывод всей сессии оболочки.\nЕсли отключен, будет сохранен только вывод последней команды.</string>
     <string name="des_smooth_scroll">Обеспечивает плавную прокрутку в выводе оболочки при нажатии на верхнюю или нижнюю стрелку</string>
     <string name="description">Описание</string>
     <string name="deselect_all">Отменить выбор</string>
@@ -138,7 +138,7 @@
     <string name="disclaimer_1_title">Используйте на свой страх и риск</string>
     <string name="disclaimer_2_description">Хотя root доступ не является обязательным, для некоторых команд могут потребоваться повышенные разрешения.\nНевыполнение команд ADB может привести к потере данных, сбоям приложения или неожиданному поведению системы.</string>
     <string name="disclaimer_2_title">Root не является обязательным, но необходима осторожность</string>
-    <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app.\nProceed with caution and ensure you understand the commands you execute.</string>
+    <string name="disclaimer_3_description">Разработчик(и) этого приложения не несут ответственности за какие-либо повреждения, потерю данных или непредвиденные последствия, возникшие в результате использования этого приложения.\nДействуйте осторожно и убедитесь, что вы понимаете выполняемые команды.</string>
     <string name="disclaimer_3_title">Мы не несём ответственности</string>
     <string name="disclaimer_4_description">Это приложение предназначено для пользователей, имеющих базовое понимание команд ADB.\nЕсли вы не уверены в эффекте команды, изучите его перед его выполнением.</string>
     <string name="disclaimer_4_title">Предназначен для продвинутых пользователей</string>
@@ -212,8 +212,8 @@
     <string name="folder_picker">Выбор папки</string>
     <string name="forget">Забыть</string>
     <string name="forget_device">Забыть устройство</string>
-    <string name="forget_device_confirmation">Are you sure you want to forget %1$s? You will need to pair again to connect.</string>
-    <string name="forks">Forks</string>
+    <string name="forget_device_confirmation">Вы уверены, что хотите забыть %1$s? Вам нужно будет повторно выполнить сопряжение для подключения.</string>
+    <string name="forks">Форки</string>
     <string name="found_connect_service">Найдена служба подключения</string>
     <string name="go_home">Домой</string>
     <string name="go_to_terminal">Перейти в терминал</string>
@@ -240,7 +240,7 @@
     <string name="lead_developer">Ведущий разработчик</string>
     <string name="least_used">Редко используемые</string>
     <string name="license">Лицензия</string>
-    <string name="load_predefined_commands">Загрузить предопределенные команды</string>
+    <string name="load_predefined_commands">Загрузить предустановленные команды</string>
     <string name="loading">Загрузка</string>
     <string name="local_adb">Локальный ADB</string>
     <string name="local_adb_shell">Локальная оболочка ADB</string>
@@ -268,7 +268,7 @@
     <string name="no_adb_interface_found">Ад-интерфейс не найден</string>
     <string name="no_bookmarks">Закладки не найдены</string>
     <string name="no_changelog_found">Список изменений не найден для этой версии</string>
-    <string name="no_crashes">О каких-либо сбоях не сообщалось. aShell Вы плавно работаете.</string>
+    <string name="no_crashes">О каких-либо сбоях не сообщалось. aShell You плавно работает.</string>
     <string name="no_files_download">Файлы не выбраны (папки не могут быть загружены)</string>
     <string name="no_history">Нет истории команд</string>
     <string name="no_operations">Операции не выполняются</string>
@@ -294,17 +294,17 @@
     <string name="override_bookmarks_limit">Отмена ограничения на максимальное количество закладок</string>
     <string name="pair">Сопряжение</string>
     <string name="pair_a_device_first">Сначала привяжите устройство</string>
-    <string name="pair_another_device">Присоединить другое устройство</string>
+    <string name="pair_another_device">Сопрячь другое устройство</string>
     <string name="pair_connect_failed_message">\nНе удалось подключиться к сопряженному устройству\nУстройство может не находиться в той же сети\nПопробуйте соединиться снова</string>
     <string name="pair_device_to_start">Присоедините устройство с помощью QR или кода сопряжения, чтобы увидеть его здесь</string>
     <string name="pair_manually">Привязать вручную</string>
-    <string name="pair_this_device">Соединить это устройство</string>
+    <string name="pair_this_device">Сопрячь это устройство</string>
     <string name="pair_using_code">Соединить с помощью кода</string>
     <string name="pair_using_qr">Пара с помощью QR</string>
     <string name="paired">Сопряжено</string>
     <string name="pairing">Сопряжение</string>
     <string name="pairing_code">Код сопряжения</string>
-    <string name="pairing_notification_hint">Вы получите уведомление от aShell, которое поможет вам с сопряжением</string>
+    <string name="pairing_notification_hint">Вы получите уведомление от aShell You, которое поможет вам с сопряжением</string>
     <string name="paste">Вставить</string>
     <string name="path">Путь</string>
     <string name="permission_denied">Отказано в доступе</string>
@@ -315,7 +315,7 @@
     <string name="pre_release">Предварительный</string>
     <string name="pre_release_warning">Предварительные сборки могут быть нестабильными</string>
     <string name="pre_release_warning_description">Эти версии всё ещё находятся в тестировании и могут содержать незавершенные функции или неожиданные ошибки. Если вы решите обновиться до предварительной версии, имейте в виду, что вещи могут нарушить или вести себя странно.\nЕсли вы столкнетесь с проблемами, ошибками или странным поведением, пожалуйста, сообщите о них, чтобы мы могли исправить и улучшить aShellYou до стабильного выпуска.\nСпасибо за помощь в построении лучше!</string>
-    <string name="qr_pair">QR Pair</string>
+    <string name="qr_pair">Сопряжение через QR-код</string>
     <string name="qr_pair_hint">Чтобы связать Android 11+ устройство, отсканируйте этот QR с целевого устройства</string>
     <string name="qr_scanner_location_hint">QR-сканер доступен в:\nОпции разработчика &gt; Отладка беспроводной связи &gt; Пара с помощью QR-кода</string>
     <string name="quick_tools">Быстрые инструменты</string>
@@ -388,7 +388,7 @@
     <string name="sort">Сортировать</string>
     <string name="stable">Стабильный</string>
     <string name="stack_trace">Трассировка стека</string>
-    <string name="stargazers">Stargazers</string>
+    <string name="stargazers">Звёзды</string>
     <string name="start">Запустить</string>
     <string name="success">Успешно</string>
     <string name="successful_connection_message">Устройство подключено успешно. Теперь вы можете запускать команды на целевом устройстве.</string>
@@ -397,7 +397,7 @@
     <string name="system">Как в системе</string>
     <string name="system_font">Системный Шрифт</string>
     <string name="system_settings">Системные настройки</string>
-    <string name="telegram">Телеграмма</string>
+    <string name="telegram">Телеграм</string>
     <string name="terminal">Терминал</string>
     <string name="terminal_font_style">Стиль шрифта терминала</string>
     <string name="this_device">Это устройство</string>
@@ -416,6 +416,7 @@
     <string name="update_channel">Канал обновлений</string>
     <string name="upload_file">Загрузить файл</string>
     <string name="uploading">Загрузка…</string>
+    <string name="usb_manager_unavailable">USB-менеджер не доступен на этом устройстве</string>
     <string name="use">Использовать</string>
     <string name="version">Версия</string>
     <string name="version_code">Код версии</string>
@@ -459,7 +460,7 @@
     <string name="changelog_v3_8_2">\nПриложение использует более свежую цветовую палитру для материала, в котором вы темы\nИсправлены мелкие ошибки</string>
     <string name="changelog_v3_8_1">\nИсправлены некоторые аварии, которые были введены в версии 3.8.0</string>
     <string name="changelog_v3_8_0">\nДобавлена черная (amoled) тема\nДобавлена кнопка отмены для отмены вставки\nДобавлена опция отключения мягкой клавиатуры\nИсправленные кнопки, вытянутые в некоторых размерах экрана\nИсправлена кнопка закладок, не появляющаяся после открытия приложения\nПереименованный Примеры секции для команд\nИсправлена опция не появлялась для каждой команды шаблона\nПриложение теперь использует системный шрифт везде, где\nУлучшен интерфейс обработки\nОбновленные переводы</string>
-    <string name="changelog_v3_7_0">\nТеперь вы можете делиться текстом из любого места на устройстве в aShell You и выполнять команды напрямую\nТеперь вы можете делиться выводом оболочки без сохранения\nМного оптимизаций и улучшений интерфейса\nДобавлены китайские переводы\nОбновлены переводы</string>
+    <string name="changelog_v3_7_0">\nТеперь вы можете делиться текстом из любого места на устройстве в aShell You и выполнять команды напрямую\nТеперь вы можете делиться выводом оболочки без сохранения\nМного оптимизаций и улучшений интерфейса\nДобавлены китайские переводы\nОбновлены переводы.</string>
     <string name="changelog_v3_6_0">\nДобавлена опция очистить поле ввода команды после ошибки\nИсправлена ошибка, которая приводила к сбою приложения при вставке из буфера обмена при определенных условиях\nОптимизации кода</string>
     <string name="changelog_v3_5_1">\nИсправлены некоторые проблемы с нижней навигацией.</string>
     <string name="changelog_v3_5_0">\nИзменен раздел О приложении.\nДобавлены ярлыки запуска приложения.\nИсправленное меню навигации не отображается в навигации по кнопкам.\nУлучшена видимость нижнего меню навигации при прокрутке.\nДобавлена поддержка каждого приложения для языка aShell You (переводы еще не завершены).\nМножество кодовых оптимизаций.</string>

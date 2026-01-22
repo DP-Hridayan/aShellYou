@@ -416,6 +416,7 @@
     <string name="update_channel">更新渠道</string>
     <string name="upload_file">上传文件</string>
     <string name="uploading">正在上传…</string>
+    <string name="usb_manager_unavailable">USB 管理器在此设备上不可用</string>
     <string name="use">使用</string>
     <string name="version">版本</string>
     <string name="version_code">版本代码</string>

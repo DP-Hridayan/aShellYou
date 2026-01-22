@@ -417,6 +417,7 @@
     <string name="update_channel">قناة التحديث</string>
     <string name="upload_file">تحميل ملف</string>
     <string name="uploading">تحميل…</string>
+    <string name="usb_manager_unavailable">مدير USB غير متوفر على هذا الجهاز</string>
     <string name="use">استخدام</string>
     <string name="version">الإصدار</string>
     <string name="version_code">رمز الإصدار</string>

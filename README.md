@@ -154,7 +154,10 @@
   </a>
   &nbsp;&nbsp;
   <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell">
-    <img src="assets/izzy.png" width="130" alt="F-Droid" />
+    <img src="assets/izzy.png" width="130" alt="Izzy-Droid" />
+  </a>
+  <a href="https://f-droid.org/en/packages/in.hridayan.ashell">
+    <img src="assets/fdroid.png" width="130" alt="F-Droid" />
   </a>
   <br/><br/>
   <a href="https://t.me/aShellYou">
@@ -171,8 +174,8 @@
 
 <p align="start">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/translations-dark.svg?ts=1768577579">
-    <source media="(prefers-color-scheme: light)" srcset="docs/translations-light.svg?ts=1768577579">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/translations-dark.svg?ts=1768958048">
+    <source media="(prefers-color-scheme: light)" srcset="docs/translations-light.svg?ts=1768958048">
     <img src="translations-light.svg" alt="Translation Progress" />
   </picture>
 </p>
