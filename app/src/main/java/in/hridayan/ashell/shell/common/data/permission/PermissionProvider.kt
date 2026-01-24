@@ -25,7 +25,6 @@ object PermissionProvider {
         "android.permission.READ_CALL_LOG",
         "android.permission.WRITE_CALL_LOG",
         "android.permission.ANSWER_PHONE_CALLS",
-        "android.permission.PROCESS_OUTGOING_CALLS",
 
         // SMS
         "android.permission.SEND_SMS",

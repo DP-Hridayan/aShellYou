@@ -19,8 +19,6 @@ import android.sun.security.x509.SubjectKeyIdentifierExtension
 import android.sun.security.x509.X500Name
 import android.sun.security.x509.X509CertImpl
 import android.sun.security.x509.X509CertInfo
-import `in`.hridayan.ashell.App
-import `in`.hridayan.ashell.R
 import io.github.muntashirakon.adb.AbsAdbConnectionManager
 import java.io.File
 import java.io.FileInputStream
@@ -46,6 +44,7 @@ class AdbConnectionManager private constructor(context: Context) : AbsAdbConnect
 
     private var mPrivateKey: PrivateKey?
     private var mCertificate: Certificate?
+    val deviceName = "aShellYou"
 
     init {
         api = Build.VERSION.SDK_INT
@@ -81,7 +80,7 @@ class AdbConnectionManager private constructor(context: Context) : AbsAdbConnect
                 set("version", CertificateVersion(2))
                 set(
                     "serialNumber",
-                    CertificateSerialNumber(Random().nextInt() and Int.Companion.MAX_VALUE)
+                    CertificateSerialNumber(Random().nextInt() and Int.MAX_VALUE)
                 )
                 set("algorithmID", CertificateAlgorithmId(AlgorithmId.get(algorithmName)))
                 set("subject", CertificateSubjectName(x500Name))
@@ -109,7 +108,7 @@ class AdbConnectionManager private constructor(context: Context) : AbsAdbConnect
     }
 
     override fun getDeviceName(): String {
-        return "aShellYou"
+        return deviceName
     }
 
     companion object {
@@ -150,8 +149,8 @@ class AdbConnectionManager private constructor(context: Context) : AbsAdbConnect
             val privateKeyFile = File(context.filesDir, "private.key")
             if (!privateKeyFile.exists()) return null
             val privKeyBytes = ByteArray(privateKeyFile.length().toInt())
-            FileInputStream(privateKeyFile).use { `is` ->
-                `is`.read(privKeyBytes)
+            FileInputStream(privateKeyFile).use { stream ->
+                stream.read(privKeyBytes)
             }
             val keyFactory = KeyFactory.getInstance("RSA")
             val privateKeySpec: EncodedKeySpec = PKCS8EncodedKeySpec(privKeyBytes)
