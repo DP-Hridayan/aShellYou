@@ -29,11 +29,6 @@ import kotlinx.coroutines.flow.asStateFlow
  * ```
  */
 object WifiAdbConnection {
-
-    // ══════════════════════════════════════════════════════════════════════════════
-    // STATE MANAGEMENT
-    // ══════════════════════════════════════════════════════════════════════════════
-
     private val _state = MutableStateFlow<WifiAdbState>(WifiAdbState.Idle)
     
     /**
@@ -48,10 +43,6 @@ object WifiAdbConnection {
     val currentState: WifiAdbState
         get() = _state.value
 
-    // ══════════════════════════════════════════════════════════════════════════════
-    // EVENT MANAGEMENT
-    // ══════════════════════════════════════════════════════════════════════════════
-
     private val _events = MutableSharedFlow<WifiAdbEvent>(
         replay = 0,           // Don't replay to new collectors
         extraBufferCapacity = 10  // Buffer to prevent suspension during rapid events
@@ -63,10 +54,6 @@ object WifiAdbConnection {
      * Events are consumed once and not replayed.
      */
     val events = _events.asSharedFlow()
-
-    // ══════════════════════════════════════════════════════════════════════════════
-    // DEVICE TRACKING
-    // ══════════════════════════════════════════════════════════════════════════════
 
     private val _currentDevice = MutableStateFlow<WifiAdbDevice?>(null)
     
@@ -83,10 +70,6 @@ object WifiAdbConnection {
      */
     val deviceStates = _deviceStates.asStateFlow()
 
-    // ══════════════════════════════════════════════════════════════════════════════
-    // STATE UPDATES
-    // ══════════════════════════════════════════════════════════════════════════════
-
     /**
      * Update the global connection state.
      * Also updates per-device state if the state has a deviceId.
@@ -95,7 +78,7 @@ object WifiAdbConnection {
         _state.value = newState
         // Also update per-device map if state has deviceId
         newState.currentDeviceId?.let { deviceId ->
-            _deviceStates.value = _deviceStates.value + (deviceId to newState)
+            _deviceStates.value += (deviceId to newState)
         }
     }
 
@@ -115,9 +98,6 @@ object WifiAdbConnection {
         return _events.tryEmit(event)
     }
 
-    // ══════════════════════════════════════════════════════════════════════════════
-    // DEVICE STATE HELPERS
-    // ══════════════════════════════════════════════════════════════════════════════
 
     /**
      * Set the currently connected device.
@@ -138,7 +118,7 @@ object WifiAdbConnection {
      */
     fun setDeviceConnected(deviceId: String, address: String) {
         val newState = WifiAdbState.Connected(deviceId = deviceId, address = address)
-        _deviceStates.value = _deviceStates.value + (deviceId to newState)
+        _deviceStates.value += (deviceId to newState)
         _state.value = newState
     }
 
@@ -147,7 +127,7 @@ object WifiAdbConnection {
      */
     fun setDeviceDisconnected(deviceId: String) {
         val newState = WifiAdbState.Disconnected(deviceId = deviceId)
-        _deviceStates.value = _deviceStates.value + (deviceId to newState)
+        _deviceStates.value += (deviceId to newState)
         // Update global state if this was the connected device
         if (_state.value.currentDeviceId == deviceId) {
             _state.value = newState
@@ -158,7 +138,7 @@ object WifiAdbConnection {
      * Clear the state for a specific device.
      */
     fun clearDeviceState(deviceId: String) {
-        _deviceStates.value = _deviceStates.value - deviceId
+        _deviceStates.value -= deviceId
     }
 
     /**

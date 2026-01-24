@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.bottomsheet
 
+import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -39,7 +40,6 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
-import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
@@ -49,6 +49,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
+import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
 
 @Composable
 fun SavedDevicesBottomSheet(
@@ -63,18 +64,14 @@ fun SavedDevicesBottomSheet(
     val currentDevice by viewModel.currentDevice.collectAsState()
     val wifiAdbState by viewModel.state.collectAsState()
 
-    // WiFi connectivity state
     var isWifiConnected by remember { mutableStateOf(context.isConnectedToWifi()) }
 
-    // Track if reconnect was manually cancelled (to avoid showing dialog on cancel)
     var wasReconnectCancelled by remember { mutableStateOf(false) }
     var lastReconnectingDeviceId by remember { mutableStateOf<String?>(null) }
 
-    // Track dialog visibility with state instead of DialogManager
     var showReconnectFailedDialog by remember { mutableStateOf(false) }
     var showDevOptionsButton by remember { mutableStateOf(false) }
 
-    // Register network callback for WiFi state changes
     DisposableEffect(Unit) {
         val callback = registerNetworkCallback(context) { isConnected ->
             isWifiConnected = isConnected
@@ -85,7 +82,6 @@ fun SavedDevicesBottomSheet(
         }
     }
 
-    // Handle persistent states
     LaunchedEffect(wifiAdbState) {
         when (val state = wifiAdbState) {
             is WifiAdbState.Reconnecting -> {
@@ -102,14 +98,14 @@ fun SavedDevicesBottomSheet(
         }
     }
 
-    // Collect one-shot events for dialogs
     LaunchedEffect(Unit) {
         WifiAdbConnection.events.collect { event ->
             when (event) {
                 is WifiAdbEvent.ReconnectFailed -> {
                     if (!wasReconnectCancelled) {
                         val failedDevice = savedDevices.find { it.id == event.deviceId }
-                        showDevOptionsButton = failedDevice?.isOwnDevice == true || event.requiresPairing
+                        showDevOptionsButton =
+                            failedDevice?.isOwnDevice == true || event.requiresPairing
                         showReconnectFailedDialog = true
                     }
                     wasReconnectCancelled = false
@@ -225,18 +221,21 @@ fun SavedDevicesBottomSheet(
         }
     }
 
-    // Reconnect Failed Dialog - using state-driven visibility
     if (showReconnectFailedDialog) {
         ReconnectFailedDialog(
             showDevOptionsButton = showDevOptionsButton,
             onConfirm = {
-                showReconnectFailedDialog = false
+
                 WifiAdbConnection.updateState(WifiAdbState.Idle)
-                openDeveloperOptions(context)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(context, onSuccess = {
+                        showReconnectFailedDialog = false
+                    },
+                        onFailed = {})
+                }
             },
             onDismiss = {
                 showReconnectFailedDialog = false
-                // Reset state to allow retry
                 WifiAdbConnection.updateState(WifiAdbState.Idle)
             }
         )

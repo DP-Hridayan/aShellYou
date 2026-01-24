@@ -82,6 +82,7 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
@@ -163,7 +164,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                             value = states.search.textFieldValue,
                             onValueChange = { it -> viewModel.onSearchQueryChange(it) },
                             hint = stringResource(R.string.search_commands_here),
-                            keyboardOptions =  KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
+                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                             trailingIcon = {
                                 if (states.search.textFieldValue.text.isNotEmpty()) {
                                     Icon(
@@ -174,8 +175,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                                                 enabled = true,
                                                 indication = null,
                                                 interactionSource = remember { MutableInteractionSource() },
-                                                onClick = {
-                                                    weakHaptic()
+                                                onClick = withHaptic {
                                                     viewModel.onSearchQueryChange(TextFieldValue(""))
                                                     focusManager.clearFocus()
                                                 }
@@ -189,8 +189,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                                             enabled = true,
                                             indication = null,
                                             interactionSource = remember { MutableInteractionSource() },
-                                            onClick = {
-                                                weakHaptic()
+                                            onClick = withHaptic {
                                                 showFilterCommandBottomSheet = true
                                             }
                                         )
@@ -203,8 +202,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                                                 enabled = true,
                                                 indication = null,
                                                 interactionSource = remember { MutableInteractionSource() },
-                                                onClick = {
-                                                    weakHaptic()
+                                                onClick = withHaptic {
                                                     dialogManager.show(DialogKey.CommandExamples.SortCommands)
                                                 }
                                             )

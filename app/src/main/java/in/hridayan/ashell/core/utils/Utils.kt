@@ -50,18 +50,6 @@ fun Context.launchApp(packageName: String) {
     }
 }
 
-fun openDeveloperOptions(
-    context: Context,
-    intent: Intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
-) {
-    try {
-        context.startActivity(intent)
-    } catch (e: ActivityNotFoundException) {
-        showToast(context, context.getString(R.string.developer_options_not_available))
-    }
-}
-
-
 fun showToast(context: Context, message: String) {
     ToastUtils.makeToast(context, message)
 }

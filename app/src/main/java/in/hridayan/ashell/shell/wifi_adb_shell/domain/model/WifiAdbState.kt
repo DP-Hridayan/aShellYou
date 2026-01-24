@@ -21,20 +21,11 @@ package `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model
  * Observe via `StateFlow` for persistent UI updates (connection indicator, loading states).
  */
 sealed class WifiAdbState {
-
-    // ══════════════════════════════════════════════════════════════════════════════
-    // IDLE STATES
-    // ══════════════════════════════════════════════════════════════════════════════
-
     /**
      * No active connection or operation in progress.
      * This is the initial state.
      */
     data object Idle : WifiAdbState()
-
-    // ══════════════════════════════════════════════════════════════════════════════
-    // CONNECTION STATES
-    // ══════════════════════════════════════════════════════════════════════════════
 
     /**
      * Attempting to connect to a device.
@@ -72,10 +63,6 @@ sealed class WifiAdbState {
         val deviceId: String
     ) : WifiAdbState()
 
-    // ══════════════════════════════════════════════════════════════════════════════
-    // PAIRING STATES
-    // ══════════════════════════════════════════════════════════════════════════════
-
     /**
      * Pairing operation is in progress.
      * @param info Status message for UI display
@@ -84,10 +71,6 @@ sealed class WifiAdbState {
         val info: String = "Pairing..."
     ) : WifiAdbState()
 
-    // ══════════════════════════════════════════════════════════════════════════════
-    // DISCOVERY STATES
-    // ══════════════════════════════════════════════════════════════════════════════
-
     /**
      * mDNS discovery is in progress.
      * @param info Status message for UI display
@@ -95,10 +78,6 @@ sealed class WifiAdbState {
     data class Discovering(
         val info: String = "Discovering..."
     ) : WifiAdbState()
-
-    // ══════════════════════════════════════════════════════════════════════════════
-    // HELPER PROPERTIES
-    // ══════════════════════════════════════════════════════════════════════════════
 
     /**
      * Returns true if currently connected to a device.

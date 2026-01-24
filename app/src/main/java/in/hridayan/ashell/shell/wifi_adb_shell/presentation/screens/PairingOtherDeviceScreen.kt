@@ -3,6 +3,7 @@
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens
 
 import android.annotation.SuppressLint
+import android.os.Build
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
@@ -74,7 +75,6 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
-import `in`.hridayan.ashell.core.utils.openDeveloperOptions
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
@@ -91,6 +91,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.R
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
+import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.security.SecureRandom
@@ -126,11 +127,9 @@ fun PairingOtherDeviceScreen(
     var wasReconnectCancelled by remember { mutableStateOf(false) }
     var lastReconnectingDeviceId by remember { mutableStateOf<String?>(null) }
     val pairingCode = remember { String.format("%06d", generatePairingCode()) }
-    
-    // Track if already connected event was received
+
     var showAlreadyConnected by remember { mutableStateOf(false) }
 
-    // Handle persistent states
     LaunchedEffect(wifiAdbState) {
         when (val state = wifiAdbState) {
             is WifiAdbState.Connected -> {
@@ -149,7 +148,6 @@ fun PairingOtherDeviceScreen(
         }
     }
 
-    // Collect one-shot events for dialogs
     LaunchedEffect(Unit) {
         WifiAdbConnection.events.collect { event ->
             when (event) {
@@ -163,7 +161,8 @@ fun PairingOtherDeviceScreen(
                 is WifiAdbEvent.ReconnectFailed -> {
                     if (!wasReconnectCancelled) {
                         val failedDevice = savedDevices.find { it.id == event.deviceId }
-                        val showDevOptions = failedDevice?.isOwnDevice == true || event.requiresPairing
+                        val showDevOptions =
+                            failedDevice?.isOwnDevice == true || event.requiresPairing
                         dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = showDevOptions))
                     }
                     wasReconnectCancelled = false
@@ -348,7 +347,14 @@ fun PairingOtherDeviceScreen(
         val dialogKey = (it.activeDialog as? DialogKey.Pair.ReconnectFailed)
         ReconnectFailedDialog(
             showDevOptionsButton = dialogKey?.showDevOptionsButton ?: false,
-            onConfirm = { openDeveloperOptions(context) },
+            onConfirm = {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
+                        context = context,
+                        onSuccess = { viewModel.reconnectToDevice(currentDevice as WifiAdbDevice) },
+                        onFailed = {})
+                }
+            },
             onDismiss = {
                 it.dismiss()
                 WifiAdbConnection.updateState(WifiAdbState.Idle)
@@ -427,7 +433,7 @@ fun SavedDevicesTab(
 
             items(savedDevices, key = { it.id }) { device ->
                 val isReconnecting = wifiAdbState is WifiAdbState.Reconnecting &&
-                        (wifiAdbState as WifiAdbState.Reconnecting).deviceId == device.id
+                        wifiAdbState.deviceId == device.id
 
                 val isConnected = currentDevice?.id == device.id &&
                         (wifiAdbState is WifiAdbState.Connected || viewModel.isConnected())

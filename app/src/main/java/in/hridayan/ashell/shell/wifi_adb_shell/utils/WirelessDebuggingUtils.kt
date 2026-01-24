@@ -1,6 +1,7 @@
-package `in`.hridayan.ashell.core.utils
+package `in`.hridayan.ashell.shell.wifi_adb_shell.utils
 
 import android.Manifest
+import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.ContentValues
 import android.content.Context
@@ -12,11 +13,14 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import `in`.hridayan.ashell.core.utils.WirelessDebuggingUtils.grantWriteSecureSettingsViaAdb
+import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils.grantWriteSecureSettingsViaAdb
 import io.github.muntashirakon.adb.AbsAdbConnectionManager
 import java.io.BufferedReader
+import java.io.IOException
 import java.io.InputStreamReader
 
 /**
@@ -71,6 +75,17 @@ object WirelessDebuggingUtils {
         }
     }
 
+    fun openDeveloperOptions(
+        context: Context,
+        intent: Intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
+    ) {
+        try {
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            showToast(context, context.getString(R.string.developer_options_not_available))
+        }
+    }
+
     /**
      * Enables wireless debugging programmatically using WRITE_SECURE_SETTINGS permission.
      *
@@ -83,12 +98,10 @@ object WirelessDebuggingUtils {
         }
 
         return try {
-            // Check if already enabled
             if (isWirelessDebuggingEnabled(context)) {
                 return true
             }
 
-            // Enable developer options if not enabled
             val devSettingsEnabled = Settings.Global.getInt(
                 context.contentResolver,
                 Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
@@ -103,7 +116,6 @@ object WirelessDebuggingUtils {
                 context.contentResolver.insert(SETTINGS_GLOBAL_URI.toUri(), devValues)
             }
 
-            // Enable wireless debugging
             val wifiAdbValues = ContentValues(2).apply {
                 put("name", ADB_WIFI_ENABLED)
                 put("value", 1)
@@ -120,17 +132,15 @@ object WirelessDebuggingUtils {
     @RequiresApi(Build.VERSION_CODES.R)
     fun ensureWirelessDebuggingAndReconnect(
         context: Context,
-        reconnect: () -> Unit
+        onSuccess: () -> Unit,
+        onFailed: () -> Unit
     ) {
-        //  Try programmatic enable
         val requested = enableWirelessDebugging(context)
 
-        // If we cannot even request it, open settings and wait
         if (!requested) {
             openWirelessDebuggingSettings(context)
         }
 
-        // WAIT for user/system result
         waitForWirelessDebuggingState(context) { enabled ->
             if (enabled) {
                 // Add delay to allow Android to:
@@ -138,10 +148,11 @@ object WirelessDebuggingUtils {
                 // 2. Broadcast fresh mDNS records
                 // Without this delay, reconnect may use stale cached port info
                 Handler(Looper.getMainLooper()).postDelayed({
-                    reconnect()
+                    onSuccess()
                 }, 1500)
             } else {
                 Log.d("WirelessDebugging", "User did not enable wireless debugging")
+                onFailed()
             }
         }
     }
@@ -193,8 +204,6 @@ object WirelessDebuggingUtils {
             val command = getGrantPermissionCommand(context, PERM_WRITE_SECURE_SETTINGS)
             val stream = adbConnectionManager.openStream("shell:$command")
 
-            // pm grant produces no output on success - stream closes immediately
-            // Just try to read any output (error messages) but don't fail if stream closes
             val output = StringBuilder()
             try {
                 val input = stream.openInputStream()
@@ -204,8 +213,7 @@ object WirelessDebuggingUtils {
                     output.appendLine(line)
                 }
                 reader.close()
-            } catch (e: java.io.IOException) {
-                // Stream closed immediately = command completed (success or already granted)
+            } catch (e: IOException) {
                 Log.d(TAG, "Stream closed - command completed")
             }
 
@@ -214,10 +222,8 @@ object WirelessDebuggingUtils {
             } catch (_: Exception) {
             }
 
-            // Give system a moment to process permission grant
             Thread.sleep(100)
 
-            // Check if permission is now granted
             val granted = hasWriteSecureSettingsPermission(context)
             val outputStr = output.toString().trim()
             Log.d(
@@ -248,7 +254,7 @@ object WirelessDebuggingUtils {
      * Checks if WRITE_SECURE_SETTINGS permission is granted.
      */
     fun hasWriteSecureSettingsPermission(context: Context): Boolean {
-        return checkSelfPermission(
+        return ContextCompat.checkSelfPermission(
             context,
             Manifest.permission.WRITE_SECURE_SETTINGS
         ) == PackageManager.PERMISSION_GRANTED

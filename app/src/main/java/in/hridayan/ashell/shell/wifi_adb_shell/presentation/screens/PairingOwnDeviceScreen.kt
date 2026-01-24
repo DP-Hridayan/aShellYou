@@ -70,7 +70,7 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.utils.WirelessDebuggingUtils
+import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
@@ -274,7 +274,8 @@ fun PairingOwnDeviceScreen(
                                 if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context)) {
                                     WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
                                         context = context,
-                                        reconnect = { viewModel.reconnectToDevice(it) }
+                                        onSuccess = { viewModel.reconnectToDevice(it) },
+                                        onFailed = {}
                                     )
 
                                     return@SavedDeviceItem
@@ -380,7 +381,8 @@ fun PairingOwnDeviceScreen(
                 if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context) && ownDevice != null) {
                     WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
                         context = context,
-                        reconnect = { viewModel.reconnectToDevice(device = ownDevice) }
+                        onSuccess = { viewModel.reconnectToDevice(device = ownDevice) },
+                        onFailed = {}
                     )
                 }
             })

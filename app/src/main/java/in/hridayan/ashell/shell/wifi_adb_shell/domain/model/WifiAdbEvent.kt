@@ -21,11 +21,6 @@ package `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model
  * ```
  */
 sealed class WifiAdbEvent {
-
-    // ══════════════════════════════════════════════════════════════════════════════
-    // CONNECTION EVENTS
-    // ══════════════════════════════════════════════════════════════════════════════
-
     /**
      * Connection to a device succeeded.
      * @param deviceId Unique identifier for the device (typically serial number)
@@ -54,10 +49,6 @@ sealed class WifiAdbEvent {
         val deviceId: String
     ) : WifiAdbEvent()
 
-    // ══════════════════════════════════════════════════════════════════════════════
-    // RECONNECTION EVENTS
-    // ══════════════════════════════════════════════════════════════════════════════
-
     /**
      * Reconnection to a saved device succeeded.
      * @param deviceId The reconnected device ID
@@ -76,9 +67,6 @@ sealed class WifiAdbEvent {
         val requiresPairing: Boolean = false
     ) : WifiAdbEvent()
 
-    // ══════════════════════════════════════════════════════════════════════════════
-    // PAIRING EVENTS
-    // ══════════════════════════════════════════════════════════════════════════════
 
     /**
      * Pairing with a device succeeded.
@@ -104,10 +92,6 @@ sealed class WifiAdbEvent {
         val error: String
     ) : WifiAdbEvent()
 
-    // ══════════════════════════════════════════════════════════════════════════════
-    // WIRELESS DEBUGGING EVENTS
-    // ══════════════════════════════════════════════════════════════════════════════
-
     /**
      * Wireless debugging is disabled on the target device.
      * @param deviceId The device ID if known (for own device reconnects)
@@ -120,10 +104,6 @@ sealed class WifiAdbEvent {
      * Wireless debugging was successfully enabled programmatically.
      */
     data object WirelessDebuggingEnabled : WifiAdbEvent()
-
-    // ══════════════════════════════════════════════════════════════════════════════
-    // DISCOVERY EVENTS
-    // ══════════════════════════════════════════════════════════════════════════════
 
     /**
      * mDNS discovery found a pairing or connect service.

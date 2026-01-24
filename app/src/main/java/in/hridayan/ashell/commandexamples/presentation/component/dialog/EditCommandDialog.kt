@@ -175,7 +175,7 @@ private fun LabelInputField(
 }
 
 @Composable
-fun UpdateButton(
+private fun UpdateButton(
     modifier: Modifier = Modifier,
     id: Int,
     onSuccess: () -> Unit,
