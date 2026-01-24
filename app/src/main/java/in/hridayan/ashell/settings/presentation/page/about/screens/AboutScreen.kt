@@ -2,13 +2,12 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.about.screens
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -148,9 +147,13 @@ fun AboutScreen(
                             )
                         )
 
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(15.dp)
+                        FlowRow(
+                            itemVerticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(
+                                space = 15.dp,
+                                alignment = Alignment.CenterHorizontally
+                            ),
+                            verticalArrangement = Arrangement.spacedBy(15.dp)
                         ) {
                             AppHandlesChip(
                                 icon = painterResource(R.drawable.ic_telegram),
@@ -177,12 +180,7 @@ fun AboutScreen(
                                     )
                                 }
                             )
-                        }
 
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(15.dp)
-                        ) {
                             AppHandlesChip(
                                 icon = painterResource(R.drawable.ic_version_tag),
                                 title = BuildConfig.VERSION_NAME,
@@ -210,22 +208,21 @@ fun AboutScreen(
                                     )
                                 }
                             )
+
+                            AppHandlesChip(
+                                icon = painterResource(R.drawable.ic_translate),
+                                title = stringResource(R.string.crowdin),
+                                description = stringResource(R.string.translations),
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                onClick = {
+                                    openUrl(
+                                        url = UrlConst.URL_CROWDIN_PROJECT,
+                                        context = context
+                                    )
+                                }
+                            )
                         }
-
-                        AppHandlesChip(
-                            icon = painterResource(R.drawable.ic_translate),
-                            title = stringResource(R.string.crowdin),
-                            description = stringResource(R.string.translations),
-                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            onClick = {
-                                openUrl(
-                                    url = UrlConst.URL_CROWDIN_PROJECT,
-                                    context = context
-                                )
-                            }
-                        )
-
                     }
                 }
 
@@ -283,7 +280,7 @@ fun AboutScreen(
                     }
                 }
 
-                itemsIndexed(settings) { index, group ->
+                itemsIndexed(settings) { _, group ->
                     when (group) {
                         is PreferenceGroup.Category -> {
                             Text(
@@ -377,17 +374,4 @@ private fun AppHandlesChip(
             )
         }
     }
-}
-
-@SuppressLint("DefaultLocale")
-private fun Long.toCompactFormat(): String {
-    return when {
-        this < 1_000 -> this.toString()
-        this < 1_000_000 -> String.format("%.1fK", this / 1_000f)
-        this < 1_000_000_000 -> String.format("%.1fM", this / 1_000_000f)
-        else -> String.format("%.1fB", this / 1_000_000_000f)
-    }
-        .replace(".0K", "K")
-        .replace(".0M", "M")
-        .replace(".0B", "B")
 }
