@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -47,10 +46,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
@@ -73,6 +71,7 @@ import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.launchApp
+import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
@@ -92,8 +91,10 @@ fun PageThree(
     val res = LocalResources.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
-    var scale by remember { mutableStateOf(Animatable(0f)) }
-    var scaleMainShape by remember { mutableStateOf(Animatable(0.75f)) }
+    val scale = remember { Animatable(0f) }
+    val scaleMainShape = remember { Animatable(0.75f) }
+    val semiCircleShape = MaterialShapes.SemiCircle.toShape()
+
     var rootCardChecked by rememberSaveable { mutableStateOf(false) }
     val hasShizukuPermission by shellViewModel.shizukuPermissionState.collectAsState()
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
@@ -105,24 +106,21 @@ fun PageThree(
         )
     }
 
-    LaunchedEffect(pagerState.currentPage == 2) {
-        scale.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(
-                durationMillis = 1500,
-                easing = FastOutSlowInEasing
-            )
-        )
-    }
-
-    LaunchedEffect(pagerState.currentPage == 2) {
-        scaleMainShape.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(
-                durationMillis = 1500,
-                easing = FastOutSlowInEasing
-            )
-        )
+    LaunchedEffect(pagerState.currentPage) {
+        if (pagerState.currentPage == 2) {
+            launch {
+                scale.animateTo(
+                    1f,
+                    tween(1500, easing = FastOutSlowInEasing)
+                )
+            }
+            launch {
+                scaleMainShape.animateTo(
+                    1f,
+                    tween(1500, easing = FastOutSlowInEasing)
+                )
+            }
+        }
     }
 
     LaunchedEffect(lifecycleOwner) {
@@ -161,69 +159,62 @@ fun PageThree(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        Box(
-            modifier = Modifier
-                .size(250.dp)
-                .rotate(15f)
-                .align(Alignment.Center)
-                .scale(scale.value)
-                .clip(MaterialShapes.Clover8Leaf.toShape())
-                .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f))
+        DecorativeShape(
+            size = 250,
+            shape = MaterialShapes.Clover8Leaf.toShape(),
+            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f),
+            scale = scale.value,
+            modifier = Modifier.align(Alignment.Center)
         )
 
-        Box(
+        DecorativeShape(
+            size = 65,
+            shape = MaterialShapes.Puffy.toShape(),
+            color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f),
+            scale = scale.value,
             modifier = Modifier
-                .size(65.dp)
-                .rotate(15f)
                 .align(Alignment.BottomCenter)
-                .offset(y = (-120).dp, x = (30).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Puffy.toShape())
-                .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f))
+                .offset(y = (-120).dp, x = 30.dp)
         )
 
-        Box(
+        DecorativeShape(
+            size = 70,
+            shape = MaterialShapes.Fan.toShape(),
+            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
+            scale = scale.value,
             modifier = Modifier
-                .size(70.dp)
-                .rotate(15f)
                 .align(Alignment.BottomStart)
-                .offset(y = (-100).dp, x = (10).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Fan.toShape())
-                .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f))
+                .offset(y = (-100).dp, x = 10.dp)
         )
 
-        Box(
+        DecorativeShape(
+            size = 80,
+            shape = MaterialShapes.Flower.toShape(),
+            color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f),
+            scale = scale.value,
             modifier = Modifier
-                .size(80.dp)
-                .rotate(15f)
                 .align(Alignment.CenterStart)
                 .offset(y = (-180).dp, x = (-20).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Flower.toShape())
-                .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f))
         )
 
-        Box(
+        DecorativeShape(
+            size = 120,
+            shape = MaterialShapes.Arch.toShape(),
+            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f),
+            scale = scale.value,
             modifier = Modifier
-                .size(120.dp)
-                .rotate(15f)
                 .align(Alignment.TopCenter)
                 .offset(y = (-10).dp, x = (-20).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Arch.toShape())
-                .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f))
         )
 
-        Box(
+        DecorativeShape(
+            size = 100,
+            shape = MaterialShapes.Ghostish.toShape(),
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+            scale = scale.value,
             modifier = Modifier
-                .size(100.dp)
-                .rotate(15f)
                 .align(Alignment.CenterEnd)
                 .offset(y = (-160).dp, x = (-50).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Ghostish.toShape())
-                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.15f))
         )
 
         Column(
@@ -238,8 +229,12 @@ fun PageThree(
                 modifier = Modifier
                     .padding(top = 65.dp, start = 20.dp, end = 20.dp)
                     .align(Alignment.CenterHorizontally)
-                    .scale(scaleMainShape.value)
-                    .clip(MaterialShapes.SemiCircle.toShape())
+                    .graphicsLayer {
+                        scaleX = scaleMainShape.value
+                        scaleY = scaleMainShape.value
+                        shape = semiCircleShape
+                        clip = true
+                    }
                     .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.95f)),
                 contentAlignment = Alignment.BottomCenter
             ) {

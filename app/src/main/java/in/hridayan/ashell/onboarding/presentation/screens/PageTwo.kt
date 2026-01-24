@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -28,17 +27,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.onboarding.presentation.component.item.DisclaimerItemLayout
+import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
+import kotlinx.coroutines.launch
 
 @Composable
 fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
@@ -46,6 +45,7 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
 
     val scale = remember { Animatable(0f) }
     val scaleMainShape = remember { Animatable(0.75f) }
+    val clanShellShape = MaterialShapes.ClamShell.toShape()
 
     val disclaimerList = listOf(
         stringResource(R.string.disclaimer_1_title) to stringResource(R.string.disclaimer_1_description),
@@ -55,92 +55,82 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
         stringResource(R.string.disclaimer_5_title) to stringResource(R.string.disclaimer_5_description),
     )
 
-    LaunchedEffect(pagerState.currentPage == 1) {
-        scale.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(
-                durationMillis = 1500,
-                easing = FastOutSlowInEasing
-            )
-        )
-    }
-
-    LaunchedEffect(pagerState.currentPage == 1) {
-        scaleMainShape.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(
-                durationMillis = 1500,
-                easing = FastOutSlowInEasing
-            )
-        )
+    LaunchedEffect(pagerState.currentPage) {
+        if (pagerState.currentPage == 1) {
+            launch {
+                scale.animateTo(
+                    1f,
+                    tween(1500, easing = FastOutSlowInEasing)
+                )
+            }
+            launch {
+                scaleMainShape.animateTo(
+                    1f,
+                    tween(1500, easing = FastOutSlowInEasing)
+                )
+            }
+        }
     }
 
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        Box(
-            modifier = Modifier
-                .size(250.dp)
-                .rotate(15f)
-                .align(Alignment.Center)
-                .scale(scale.value)
-                .clip(MaterialShapes.Cookie12Sided.toShape())
-                .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f))
+        DecorativeShape(
+            size = 250,
+            shape = MaterialShapes.Cookie12Sided.toShape(),
+            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f),
+            scale = scale.value,
+            modifier = Modifier.align(Alignment.Center)
         )
 
-        Box(
+        DecorativeShape(
+            size = 65,
+            shape = MaterialShapes.SoftBoom.toShape(),
+            color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f),
+            scale = scale.value,
             modifier = Modifier
-                .size(65.dp)
-                .rotate(15f)
                 .align(Alignment.BottomCenter)
-                .offset(y = (-120).dp, x = (30).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.SoftBoom.toShape())
-                .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f))
+                .offset(y = (-120).dp, x = 30.dp)
         )
 
-        Box(
+        DecorativeShape(
+            size = 70,
+            shape = MaterialShapes.PuffyDiamond.toShape(),
+            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
+            scale = scale.value,
             modifier = Modifier
-                .size(70.dp)
-                .rotate(15f)
                 .align(Alignment.BottomStart)
-                .offset(y = (-100).dp, x = (10).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.PuffyDiamond.toShape())
-                .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f))
+                .offset(y = (-100).dp, x = 10.dp)
         )
 
-        Box(
+        DecorativeShape(
+            size = 80,
+            shape = MaterialShapes.Pentagon.toShape(),
+            color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f),
+            scale = scale.value,
             modifier = Modifier
-                .size(80.dp)
-                .rotate(15f)
                 .align(Alignment.CenterStart)
                 .offset(y = (-180).dp, x = (-20).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Pentagon.toShape())
-                .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f))
         )
 
-        Box(
+        DecorativeShape(
+            size = 120,
+            shape = MaterialShapes.Bun.toShape(),
+            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f),
+            scale = scale.value,
             modifier = Modifier
-                .size(120.dp)
-                .rotate(15f)
                 .align(Alignment.TopCenter)
                 .offset(y = (-10).dp, x = (-20).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Bun.toShape())
-                .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f))
         )
 
-        Box(
+        DecorativeShape(
+            size = 100,
+            shape = MaterialShapes.SemiCircle.toShape(),
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+            scale = scale.value,
             modifier = Modifier
-                .size(100.dp)
-                .rotate(15f)
                 .align(Alignment.CenterEnd)
                 .offset(y = (-160).dp, x = (-50).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.SemiCircle.toShape())
-                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.15f))
         )
 
         LazyColumn(
@@ -158,8 +148,12 @@ fun PageTwo(modifier: Modifier = Modifier, pagerState: PagerState) {
                     Box(
                         modifier = Modifier
                             .padding(top = 65.dp, start = 20.dp, end = 20.dp)
-                            .scale(scaleMainShape.value)
-                            .clip(MaterialShapes.ClamShell.toShape())
+                            .graphicsLayer {
+                                scaleX = scaleMainShape.value
+                                scaleY = scaleMainShape.value
+                                shape = clanShellShape
+                                clip = true
+                            }
                             .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.95f)),
                         contentAlignment = Alignment.Center
                     ) {

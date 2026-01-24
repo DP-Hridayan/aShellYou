@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialShapes
@@ -25,9 +24,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -35,99 +32,91 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawPhoneLady
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.onboarding.presentation.component.shape.DecorativeShape
+import kotlinx.coroutines.launch
 
 @Composable
 fun PageOne(modifier: Modifier = Modifier, pagerState: PagerState) {
     val scale = remember { Animatable(0f) }
     val scaleMainShape = remember { Animatable(0.75f) }
+    val ovalShape = MaterialShapes.Oval.toShape()
 
-    LaunchedEffect(pagerState.currentPage == 0) {
-        scale.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(
-                durationMillis = 1500,
-                easing = FastOutSlowInEasing
-            )
-        )
-    }
-
-    LaunchedEffect(pagerState.currentPage == 0) {
-        scaleMainShape.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(
-                durationMillis = 1500,
-                easing = FastOutSlowInEasing
-            )
-        )
+    LaunchedEffect(pagerState.currentPage) {
+        if (pagerState.currentPage == 0) {
+            launch {
+                scale.animateTo(
+                    1f,
+                    tween(1500, easing = FastOutSlowInEasing)
+                )
+            }
+            launch {
+                scaleMainShape.animateTo(
+                    1f,
+                    tween(1500, easing = FastOutSlowInEasing)
+                )
+            }
+        }
     }
 
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
-        Box(
-            modifier = Modifier
-                .size(250.dp)
-                .rotate(15f)
-                .align(Alignment.Center)
-                .scale(scale.value)
-                .clip(MaterialShapes.Puffy.toShape())
-                .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f))
+        DecorativeShape(
+            size = 250,
+            shape = MaterialShapes.Puffy.toShape(),
+            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f),
+            scale = scale.value,
+            modifier = Modifier.align(Alignment.Center)
         )
 
-        Box(
+        DecorativeShape(
+            size = 65,
+            shape = MaterialShapes.Puffy.toShape(),
+            color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f),
+            scale = scale.value,
             modifier = Modifier
-                .size(65.dp)
-                .rotate(15f)
                 .align(Alignment.BottomCenter)
-                .offset(y = (-120).dp, x = (30).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Puffy.toShape())
-                .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f))
+                .offset(y = (-120).dp, x = 30.dp)
         )
 
-        Box(
+        DecorativeShape(
+            size = 70,
+            shape = MaterialShapes.Arrow.toShape(),
+            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
+            scale = scale.value,
             modifier = Modifier
-                .size(70.dp)
-                .rotate(15f)
                 .align(Alignment.BottomStart)
-                .offset(y = (-40).dp, x = (10).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Arrow.toShape())
-                .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f))
+                .offset(y = (-40).dp, x = 10.dp)
         )
 
-
-        Box(
+        DecorativeShape(
+            size = 160,
+            shape = MaterialShapes.Cookie7Sided.toShape(),
+            color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f),
+            scale = scale.value,
             modifier = Modifier
-                .size(160.dp)
-                .rotate(15f)
                 .align(Alignment.CenterStart)
                 .offset(y = (-100).dp, x = (-100).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Cookie7Sided.toShape())
-                .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f))
         )
 
-        Box(
+        DecorativeShape(
+            size = 140,
+            shape = MaterialShapes.Pill.toShape(),
+            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f),
+            scale = scale.value,
             modifier = Modifier
-                .size(140.dp)
-                .rotate(15f)
                 .align(Alignment.TopCenter)
                 .offset(y = (-20).dp, x = (-20).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Pill.toShape())
-                .background(MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f))
         )
 
-        Box(
+        DecorativeShape(
+            size = 100,
+            shape = MaterialShapes.Cookie4Sided.toShape(),
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+            scale = scale.value,
             modifier = Modifier
-                .size(100.dp)
-                .rotate(15f)
                 .align(Alignment.CenterEnd)
                 .offset(y = (-145).dp, x = (-50).dp)
-                .scale(scale.value)
-                .clip(MaterialShapes.Cookie4Sided.toShape())
-                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.15f))
         )
 
         Box(
@@ -146,8 +135,12 @@ fun PageOne(modifier: Modifier = Modifier, pagerState: PagerState) {
             modifier = Modifier
                 .padding(top = 65.dp)
                 .align(Alignment.TopCenter)
-                .scale(scaleMainShape.value)
-                .clip(MaterialShapes.Oval.toShape())
+                .graphicsLayer {
+                    scaleX = scaleMainShape.value
+                    scaleY = scaleMainShape.value
+                    shape = ovalShape
+                    clip = true
+                }
                 .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.95f)),
             contentAlignment = Alignment.Center
         ) {
