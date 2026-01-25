@@ -160,6 +160,7 @@
     <string name="enable_direct_download">Direkten apk-Download aktivieren</string>
     <string name="enable_wifi">WLAN aktivieren</string>
     <string name="enable_wireless_debugging">Bitte aktivieren Sie drahtlose Debugging in Entwickleroptionen</string>
+    <string name="enable_wireless_debugging_button">Aktivieren</string>
     <string name="enter">Eingeben</string>
     <string name="enter_pairing_code">Geben Sie den 6-stelligen Paarungscode ein</string>
     <string name="error">Fehler</string>

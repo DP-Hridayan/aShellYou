@@ -160,6 +160,7 @@
     <string name="enable_direct_download">فعال کردن دانلود مستقیم APK</string>
     <string name="enable_wifi">فعال کردن وای‌فای</string>
     <string name="enable_wireless_debugging">لطفاً اشکال‌زدایی بی‌سیم را در گزینه‌های توسعه‌دهنده فعال کنید</string>
+    <string name="enable_wireless_debugging_button">Enable</string>
     <string name="enter">ورود</string>
     <string name="enter_pairing_code">کد جفت‌سازی ۶ رقمی را وارد کنید</string>
     <string name="error">خطا</string>

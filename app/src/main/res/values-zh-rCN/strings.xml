@@ -160,6 +160,7 @@
     <string name="enable_direct_download">启用直接下载安装包</string>
     <string name="enable_wifi">启用WiFi</string>
     <string name="enable_wireless_debugging">请在开发者选项中启用无线调试</string>
+    <string name="enable_wireless_debugging_button">启用</string>
     <string name="enter">输入</string>
     <string name="enter_pairing_code">输入6位数字配对代码</string>
     <string name="error">错误</string>
