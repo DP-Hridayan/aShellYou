@@ -160,6 +160,7 @@
     <string name="enable_direct_download">सीधा एपीके डाउनलोड सक्षम करें</string>
     <string name="enable_wifi">वाई-फाई चालू करें</string>
     <string name="enable_wireless_debugging">कृपया डेवलपर विकल्पों में वायरलेस डिबगिंग सक्षम करें</string>
+    <string name="enable_wireless_debugging_button">Enable</string>
     <string name="enter">एंटर</string>
     <string name="enter_pairing_code">6 अंकों का पेयरिंग कोड दर्ज करें</string>
     <string name="error">त्रुटि</string>
