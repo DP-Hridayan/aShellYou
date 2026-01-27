@@ -30,14 +30,14 @@
 <text x="460" y="205" text-anchor="start">91%</text>
 <text x="140" y="235" text-anchor="end"><![CDATA[Russian]]></text>
 <rect x="150" y="221" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="221" width="297" height="14" fill="#106a0f" rx="8" ry="8" />
-<text x="460" y="235" text-anchor="start">99%</text>
+<rect x="150" y="221" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="235" text-anchor="start">100%</text>
 <text x="140" y="265" text-anchor="end"><![CDATA[Turkish]]></text>
 <rect x="150" y="251" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
 <rect x="150" y="251" width="249" height="14" fill="#2a5f11" rx="8" ry="8" />
 <text x="460" y="265" text-anchor="start">83%</text>
 <text x="140" y="295" text-anchor="end"><![CDATA[Chinese Simplified]]></text>
 <rect x="150" y="281" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="281" width="288" height="14" fill="#15680f" rx="8" ry="8" />
-<text x="460" y="295" text-anchor="start">96%</text>
+<rect x="150" y="281" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="295" text-anchor="start">100%</text>
 </svg>
