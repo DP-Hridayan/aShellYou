@@ -161,6 +161,7 @@
     <string name="enable_direct_download">تمكين التنزيل المباشر</string>
     <string name="enable_wifi">تفعيل Wi-Fi</string>
     <string name="enable_wireless_debugging">الرجاء تمكين تصحيح الأخطاء اللاسلكية في خيارات المطور</string>
+    <string name="enable_wireless_debugging_button">تمكين</string>
     <string name="enter">أدخل</string>
     <string name="enter_pairing_code">أدخل رمز الاقتران المكون من 6 أرقام</string>
     <string name="error">خطأ</string>

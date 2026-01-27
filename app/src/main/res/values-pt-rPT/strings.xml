@@ -160,6 +160,7 @@
     <string name="enable_direct_download">Ativar download direto do apk</string>
     <string name="enable_wifi">Habilitar WiFi</string>
     <string name="enable_wireless_debugging">Por favor, habilite a Depuração sem fio em opções de desenvolvedor</string>
+    <string name="enable_wireless_debugging_button">Habilitado</string>
     <string name="enter">Entrar</string>
     <string name="enter_pairing_code">Insira o código de pareamento de 6 dígitos</string>
     <string name="error">ERRO</string>

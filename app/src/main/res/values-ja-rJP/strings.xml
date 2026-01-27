@@ -160,6 +160,7 @@
     <string name="enable_direct_download">APKの直接ダウンロードを有効にする</string>
     <string name="enable_wifi">Wi-Fiを有効にする</string>
     <string name="enable_wireless_debugging">開発者向けオプションでワイヤレスデバッグを有効にしてください</string>
+    <string name="enable_wireless_debugging_button">有効にする</string>
     <string name="enter">Enter</string>
     <string name="enter_pairing_code">6桁のペアリングコードを入力してください</string>
     <string name="error">エラー</string>

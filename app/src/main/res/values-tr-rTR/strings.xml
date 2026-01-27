@@ -160,6 +160,7 @@
     <string name="enable_direct_download">Doğrudan apk indirmeyi etkinleştir</string>
     <string name="enable_wifi">Wi-Fi\'yi etkinleştir</string>
     <string name="enable_wireless_debugging">Lütfen Geliştirici Seçenekleri\'nde Kablosuz Hata Ayıklamayı etkinleştirin</string>
+    <string name="enable_wireless_debugging_button">Enable</string>
     <string name="enter">Giriş</string>
     <string name="enter_pairing_code">6 haneli eşleştirme kodunu girin</string>
     <string name="error">Hata</string>

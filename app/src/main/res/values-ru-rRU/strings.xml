@@ -160,6 +160,7 @@
     <string name="enable_direct_download">Включить загрузку apk напрямую</string>
     <string name="enable_wifi">Включить Wi-Fi</string>
     <string name="enable_wireless_debugging">Пожалуйста, включите отладку беспроводного доступа в настройках разработчика</string>
+    <string name="enable_wireless_debugging_button">Включить</string>
     <string name="enter">Вход</string>
     <string name="enter_pairing_code">Введите 6-значный код подключения</string>
     <string name="error">Ошибка</string>
@@ -248,7 +249,7 @@
     <string name="look_and_feel">Оформление</string>
     <string name="manual_pair">Ручная пара</string>
     <string name="merge">Объединить</string>
-    <string name="minimize">Minimize</string>
+    <string name="minimize">Свернуть</string>
     <string name="mode">Режим</string>
     <string name="mode_one_desc">Используйте права root для выполнения команд. Команды с правами root могут быть выполнены.</string>
     <string name="mode_two_desc">Используйте shizuku для выполнения команд. Команды, требующие root, не будут выполняться.</string>
@@ -323,7 +324,7 @@
     <string name="reboot_options">Параметры перезагрузки</string>
     <string name="reconnect">Переподключить</string>
     <string name="reconnect_failed">Переподключение не удалось</string>
-    <string name="reconnect_failed_message">\nWireless Debugging might not be enabled\nPairing info might be lost. Pair manually again!</string>
+    <string name="reconnect_failed_message">\nВозможно, беспроводная настройка не включена\nИнформация о соединении может быть потеряна. Соедините устройство еще раз!</string>
     <string name="reconnect_failed_requires_pairing">Сбой повторного подключения. Требуется повторное восстановление.</string>
     <string name="reconnect_success">Переподключено успешно</string>
     <string name="reconnect_the_device">Переподключить устройство</string>

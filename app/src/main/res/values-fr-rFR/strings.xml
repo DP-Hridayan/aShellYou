@@ -160,6 +160,7 @@
     <string name="enable_direct_download">Activer le téléchargement direct de l\'apk</string>
     <string name="enable_wifi">Activer le wifi</string>
     <string name="enable_wireless_debugging">Veuillez activer le débogage sans fil dans les options développeur</string>
+    <string name="enable_wireless_debugging_button">Activer</string>
     <string name="enter">Entrer</string>
     <string name="enter_pairing_code">Entrez le code d\'appairage à 6 chiffres</string>
     <string name="error">Erreur</string>
