@@ -57,10 +57,10 @@ class WifiAdbRepositoryImpl(
 ) : WifiAdbRepository {
     companion object {
         private const val TAG = "WifiAdbRepositoryImpl"
+        private const val TLS_CONNECT = "_adb-tls-connect._tcp"
+        private const val TLS_PAIRING = "_adb-tls-pairing._tcp"
     }
 
-    private val tlsConnect = "_adb-tls-connect._tcp"
-    private val tlsPairing = "_adb-tls-pairing._tcp"
     private var adbShellStream: AdbStream? = null
     private val executor = Executors.newScheduledThreadPool(1)
     private var jmDns: JmDNS? = null
@@ -86,6 +86,14 @@ class WifiAdbRepositoryImpl(
     private var pairingNsdManager: NsdManager? = null
     private var pairingNsdDiscoveryListener: NsdManager.DiscoveryListener? = null
 
+    private fun acquireMdnsLock() {
+        val wifi =
+            context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val lock = wifi.createMulticastLock("adb_mdns_lock")
+        lock.setReferenceCounted(true)
+        lock.acquire()
+    }
+
     // region QR/Code Pairing Flow
 
     override fun pairingWithQr(
@@ -95,11 +103,7 @@ class WifiAdbRepositoryImpl(
             try {
                 jmDns?.close()
 
-                val wifi =
-                    context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-                val lock = wifi.createMulticastLock("adb_mdns_lock")
-                lock.setReferenceCounted(true)
-                lock.acquire()
+                acquireMdnsLock()
 
                 val addr = getHostIpAddress(context)
                 jmDns = JmDNS.create(InetAddress.getByName(addr))
@@ -186,7 +190,10 @@ class WifiAdbRepositoryImpl(
                                                         connectedDevice.id, "$ip:$cachedPort"
                                                     )
                                                     WifiAdbConnection.tryEmitEvent(
-                                                        WifiAdbEvent.ConnectSuccess(connectedDevice.id, "$ip:$cachedPort")
+                                                        WifiAdbEvent.ConnectSuccess(
+                                                            connectedDevice.id,
+                                                            "$ip:$cachedPort"
+                                                        )
                                                     )
                                                 }
                                                 Log.d(
@@ -313,7 +320,7 @@ class WifiAdbRepositoryImpl(
             }
 
             pairingNsdManager?.discoverServices(
-                tlsConnect, NsdManager.PROTOCOL_DNS_SD, pairingNsdDiscoveryListener
+                TLS_CONNECT, NsdManager.PROTOCOL_DNS_SD, pairingNsdDiscoveryListener
             )
         } catch (e: Exception) {
             Log.e(TAG, "Error starting parallel connect discovery", e)
@@ -416,7 +423,10 @@ class WifiAdbRepositoryImpl(
                                             connectedDevice.id, "$targetIp:$port"
                                         )
                                         WifiAdbConnection.tryEmitEvent(
-                                            WifiAdbEvent.ConnectSuccess(connectedDevice.id, "$targetIp:$port")
+                                            WifiAdbEvent.ConnectSuccess(
+                                                connectedDevice.id,
+                                                "$targetIp:$port"
+                                            )
                                         )
                                     }
                                     Log.d(TAG, "Direct connection to $targetIp:$port succeeded!")
@@ -568,7 +578,7 @@ class WifiAdbRepositoryImpl(
                 }
 
                 nsdManager.discoverServices(
-                    tlsConnect,
+                    TLS_CONNECT,
                     NsdManager.PROTOCOL_DNS_SD,
                     pairConnectDiscoveryListener
                 )
@@ -1242,9 +1252,16 @@ class WifiAdbRepositoryImpl(
                                             // No serial available, emit failure
                                             currentReconnectingDeviceId = null
                                             mainScope.launch {
-                                                WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                                                WifiAdbConnection.updateState(
+                                                    WifiAdbState.Disconnected(
+                                                        device.id
+                                                    )
+                                                )
                                                 WifiAdbConnection.tryEmitEvent(
-                                                    WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
+                                                    WifiAdbEvent.ReconnectFailed(
+                                                        device.id,
+                                                        requiresPairing = false
+                                                    )
                                                 )
                                             }
                                             // Only call listener if still relevant
@@ -1265,7 +1282,7 @@ class WifiAdbRepositoryImpl(
 
             activeNsdManager = nsdManager
             nsdManager.discoverServices(
-                tlsConnect, NsdManager.PROTOCOL_DNS_SD, activeDiscoveryListener
+                TLS_CONNECT, NsdManager.PROTOCOL_DNS_SD, activeDiscoveryListener
             )
             Log.d(TAG, "Started NsdManager discovery for reconnect to $targetIp")
 
@@ -1447,7 +1464,10 @@ class WifiAdbRepositoryImpl(
 
                                         currentReconnectingDeviceId = null
                                         mainScope.launch {
-                                            WifiAdbConnection.setDeviceConnected(device.id, "$ip:$port")
+                                            WifiAdbConnection.setDeviceConnected(
+                                                device.id,
+                                                "$ip:$port"
+                                            )
                                             WifiAdbConnection.tryEmitEvent(
                                                 WifiAdbEvent.ReconnectSuccess(device.id)
                                             )
@@ -1460,9 +1480,16 @@ class WifiAdbRepositoryImpl(
                                         )
                                         currentReconnectingDeviceId = null
                                         mainScope.launch {
-                                            WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                                            WifiAdbConnection.updateState(
+                                                WifiAdbState.Disconnected(
+                                                    device.id
+                                                )
+                                            )
                                             WifiAdbConnection.tryEmitEvent(
-                                                WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
+                                                WifiAdbEvent.ReconnectFailed(
+                                                    device.id,
+                                                    requiresPairing = false
+                                                )
                                             )
                                         }
                                         listener?.onReconnectFailed(requiresPairing = false)
@@ -1471,9 +1498,16 @@ class WifiAdbRepositoryImpl(
                                     Log.e(TAG, "Serial matching: Device requires re-pairing")
                                     currentReconnectingDeviceId = null
                                     mainScope.launch {
-                                        WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                                        WifiAdbConnection.updateState(
+                                            WifiAdbState.Disconnected(
+                                                device.id
+                                            )
+                                        )
                                         WifiAdbConnection.tryEmitEvent(
-                                            WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = true)
+                                            WifiAdbEvent.ReconnectFailed(
+                                                device.id,
+                                                requiresPairing = true
+                                            )
                                         )
                                     }
                                     listener?.onReconnectFailed(requiresPairing = true)
@@ -1481,9 +1515,16 @@ class WifiAdbRepositoryImpl(
                                     Log.e(TAG, "Serial matching: Connection error", e)
                                     currentReconnectingDeviceId = null
                                     mainScope.launch {
-                                        WifiAdbConnection.updateState(WifiAdbState.Disconnected(device.id))
+                                        WifiAdbConnection.updateState(
+                                            WifiAdbState.Disconnected(
+                                                device.id
+                                            )
+                                        )
                                         WifiAdbConnection.tryEmitEvent(
-                                            WifiAdbEvent.ReconnectFailed(device.id, requiresPairing = false)
+                                            WifiAdbEvent.ReconnectFailed(
+                                                device.id,
+                                                requiresPairing = false
+                                            )
                                         )
                                     }
                                     listener?.onReconnectFailed(requiresPairing = false)
@@ -1501,7 +1542,7 @@ class WifiAdbRepositoryImpl(
 
         activeNsdManager = nsdManager
         nsdManager.discoverServices(
-            tlsConnect, NsdManager.PROTOCOL_DNS_SD, activeDiscoveryListener
+            TLS_CONNECT, NsdManager.PROTOCOL_DNS_SD, activeDiscoveryListener
         )
         Log.d(TAG, "Started serial matching discovery for ${device.id}")
     }
@@ -1816,7 +1857,7 @@ class WifiAdbRepositoryImpl(
 
         try {
             codePairingNsdManager?.discoverServices(
-                tlsPairing, NsdManager.PROTOCOL_DNS_SD, codePairingDiscoveryListener
+                TLS_PAIRING, NsdManager.PROTOCOL_DNS_SD, codePairingDiscoveryListener
             )
         } catch (e: Exception) {
             Log.e(TAG, "Error starting code pairing discovery", e)
@@ -1892,7 +1933,10 @@ class WifiAdbRepositoryImpl(
                                         connectedDevice.id, "$ip:$connectPort"
                                     )
                                     WifiAdbConnection.tryEmitEvent(
-                                        WifiAdbEvent.ConnectSuccess(connectedDevice.id, "$ip:$connectPort")
+                                        WifiAdbEvent.ConnectSuccess(
+                                            connectedDevice.id,
+                                            "$ip:$connectPort"
+                                        )
                                     )
                                 }
                                 Log.d(TAG, "Connection successful to $ip:$connectPort")

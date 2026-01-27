@@ -82,7 +82,7 @@ fun UtilityButtonGroup(
                     .padding(horizontal = 15.dp, vertical = 16.dp),
                 value = states.search.textFieldValue,
                 onValueChange = { shellViewModel.onSearchQueryChange(it) },
-                hint = stringResource(R.string.search_commands_here),
+                hint = stringResource(R.string.search_output),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
                 trailingIcon = {
                     if (states.search.textFieldValue.text.isNotEmpty()) {

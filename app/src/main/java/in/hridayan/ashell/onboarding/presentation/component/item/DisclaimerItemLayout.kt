@@ -33,6 +33,7 @@ fun DisclaimerItemLayout(
         Text(
             text = disclaimerItem.first,
             style = MaterialTheme.typography.titleLargeEmphasized,
+            color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.SemiBold
         )
 

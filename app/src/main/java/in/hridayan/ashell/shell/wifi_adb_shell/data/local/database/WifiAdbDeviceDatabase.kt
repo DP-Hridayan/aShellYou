@@ -7,7 +7,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.data.local.model.WifiAdbDeviceE
 @Database(
     entities = [WifiAdbDeviceEntity::class],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 abstract class WifiAdbDeviceDatabase : RoomDatabase() {
     abstract fun wifiAdbDeviceDao(): WifiAdbDeviceDao

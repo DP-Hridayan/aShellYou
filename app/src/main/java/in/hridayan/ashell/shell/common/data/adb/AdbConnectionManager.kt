@@ -44,7 +44,7 @@ class AdbConnectionManager private constructor(context: Context) : AbsAdbConnect
 
     private var mPrivateKey: PrivateKey?
     private var mCertificate: Certificate?
-    val deviceName = "aShellYou"
+    val mDeviceName = "aShellYou"
 
     init {
         api = Build.VERSION.SDK_INT
@@ -108,7 +108,7 @@ class AdbConnectionManager private constructor(context: Context) : AbsAdbConnect
     }
 
     override fun getDeviceName(): String {
-        return deviceName
+        return mDeviceName
     }
 
     companion object {
