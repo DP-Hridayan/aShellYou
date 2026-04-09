@@ -23,5 +23,6 @@ data class SettingsState(
     val isFirstLaunch: Boolean,
     val bookmarkSortType: Int,
     val commandsSortType: Int,
-    val terminalFontStyle: Int
+    val terminalFontStyle: Int,
+    val isNewCommandsAvailable: Boolean
 )

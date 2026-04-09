@@ -32,6 +32,7 @@ val LocalSettings = compositionLocalOf {
         lastSavedFileUri = "",
         isFirstLaunch = true,
         bookmarkSortType = SortType.AZ,
-        commandsSortType = SortType.AZ
+        commandsSortType = SortType.AZ,
+        isNewCommandsAvailable = true
     )
 }

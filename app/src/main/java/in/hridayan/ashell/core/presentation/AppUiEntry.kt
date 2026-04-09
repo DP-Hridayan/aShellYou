@@ -64,6 +64,12 @@ fun AppUiEntry(
         showChangelogSheet = savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow
     }
 
+    LaunchedEffect(savedVersionCode, firstLaunchFlow) {
+        if (savedVersionCode < BuildConfig.VERSION_CODE && !firstLaunchFlow) {
+            settingsViewModel.setBoolean(SettingsKeys.NEW_COMMANDS_AVAILABLE, true)
+        }
+    }
+
     LaunchedEffect(Unit) {
         OtgConnection.state.collectLatest { otgState ->
             if (otgState is OtgState.UsbManagerUnavailable) {

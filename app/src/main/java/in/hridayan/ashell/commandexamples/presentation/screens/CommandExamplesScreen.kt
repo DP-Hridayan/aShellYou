@@ -21,12 +21,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButtonMenu
@@ -81,6 +85,7 @@ import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.appbar.TopAppBarLarge
+import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
@@ -88,11 +93,16 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
+import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @SuppressLint("RememberInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel()) {
+fun CommandExamplesScreen(
+    viewModel: CommandExamplesViewModel = hiltViewModel(),
+    settingsViewModel: SettingsViewModel = hiltViewModel()
+) {
     val weakHaptic = LocalWeakHaptic.current
     val focusManager = LocalFocusManager.current
     val scrollBehavior =
@@ -108,6 +118,7 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
     val filteredLabels by viewModel.filteredLabels.collectAsState()
     val states by viewModel.states.collectAsState()
     val isKeyboardVisible = isKeyboardVisible()
+    val isNewCommandsAvailable = LocalSettings.current.isNewCommandsAvailable
 
     var showFilterCommandBottomSheet by rememberSaveable { mutableStateOf(false) }
 
@@ -156,6 +167,24 @@ fun CommandExamplesScreen(viewModel: CommandExamplesViewModel = hiltViewModel())
                     state = listState,
                     contentPadding = innerPadding,
                 ) {
+                    if (isNewCommandsAvailable) {
+                        item {
+                            NewCommandsAvailableCard(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 15.dp, end = 15.dp, bottom = 10.dp),
+                                onClickLoadButton = {
+                                    dialogManager.show(DialogKey.CommandExamples.LoadDefaultCommands)
+                                    viewModel.loadDefaultCommands()
+                                    settingsViewModel.setBoolean(
+                                        SettingsKeys.NEW_COMMANDS_AVAILABLE,
+                                        false
+                                    )
+                                }
+                            )
+                        }
+                    }
+
                     item {
                         CustomSearchBar(
                             modifier = Modifier
@@ -360,4 +389,43 @@ private fun NoSearchResultUi(modifier: Modifier = Modifier) {
                 .padding(top = 20.dp)
         )
     }
+}
+
+
+@Composable
+private fun NewCommandsAvailableCard(
+    modifier: Modifier = Modifier,
+    onClickLoadButton: () -> Unit = {}
+) {
+    IconWithTextCard(
+        modifier = modifier,
+        text = stringResource(R.string.new_commands_available_msg),
+        icon = painterResource(R.drawable.ic_help),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
+        content = {
+            Button(
+                shapes = ButtonDefaults.shapes(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.tertiaryContainer
+                ),
+                onClick = withHaptic {
+                    onClickLoadButton()
+                }
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_refresh),
+                    contentDescription = null,
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                AutoResizeableText(
+                    text = stringResource(R.string.load),
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            }
+        },
+    )
 }

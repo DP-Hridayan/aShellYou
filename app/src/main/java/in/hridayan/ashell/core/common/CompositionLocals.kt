@@ -9,7 +9,6 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -106,6 +105,8 @@ fun CompositionLocals(
 
     val terminalFontStyle by settingsViewModel.intState(SettingsKeys.TERMINAL_FONT_STYLE)
 
+    val isNewCommandsAvailable by settingsViewModel.booleanState(SettingsKeys.NEW_COMMANDS_AVAILABLE)
+
     val state =
         remember(
             autoUpdate,
@@ -128,7 +129,8 @@ fun CompositionLocals(
             isFirstLaunch,
             bookmarkSortType,
             commandSortType,
-            terminalFontStyle
+            terminalFontStyle,
+            isNewCommandsAvailable
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
@@ -151,7 +153,8 @@ fun CompositionLocals(
                 isFirstLaunch = isFirstLaunch,
                 bookmarkSortType = bookmarkSortType,
                 commandsSortType = commandSortType,
-                terminalFontStyle = terminalFontStyle
+                terminalFontStyle = terminalFontStyle,
+                isNewCommandsAvailable = isNewCommandsAvailable
             )
         }
 
