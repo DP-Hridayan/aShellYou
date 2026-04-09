@@ -68,47 +68,91 @@
     </issue>
 
     <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose.animation:animation than 1.10.0 is available: 1.10.1"
-        errorLine1="composeAnimation = &quot;1.10.0&quot;"
-        errorLine2="                   ~~~~~~~~">
+        id="NewerVersionAvailable"
+        message="A newer version of com.google.dagger.hilt.android than 2.58 is available: 2.59"
+        errorLine1="hilt = &quot;2.58&quot;"
+        errorLine2="       ~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="7"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose:compose-bom than 2025.12.01 is available: 2026.01.00"
-        errorLine1="composeBom = &quot;2025.12.01&quot;"
-        errorLine2="             ~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="8"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose.material3:material3 than 1.5.0-alpha11 is available: 1.5.0-alpha12"
-        errorLine1="material3 = &quot;1.5.0-alpha11&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="26"
-            column="13"/>
+            line="15"
+            column="8"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of org.jmdns:jmdns than 3.6.2 is available: 3.6.3"
-        errorLine1="jmdns = &quot;3.6.2&quot;"
-        errorLine2="        ~~~~~~~">
+        message="A newer version of com.google.dagger:hilt-android than 2.58 is available: 2.59"
+        errorLine1="hilt = &quot;2.58&quot;"
+        errorLine2="       ~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="17"
-            column="9"/>
+            line="15"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.google.dagger:hilt-android-compiler than 2.58 is available: 2.59"
+        errorLine1="hilt = &quot;2.58&quot;"
+        errorLine2="       ~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="15"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of io.ktor:ktor-client-cio than 3.3.3 is available: 3.4.0"
+        errorLine1="ktor = &quot;3.3.3&quot;"
+        errorLine2="       ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="21"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of io.ktor:ktor-client-content-negotiation than 3.3.3 is available: 3.4.0"
+        errorLine1="ktor = &quot;3.3.3&quot;"
+        errorLine2="       ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="21"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of io.ktor:ktor-client-core than 3.3.3 is available: 3.4.0"
+        errorLine1="ktor = &quot;3.3.3&quot;"
+        errorLine2="       ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="21"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of io.ktor:ktor-serialization-kotlinx-json than 3.3.3 is available: 3.4.0"
+        errorLine1="ktor = &quot;3.3.3&quot;"
+        errorLine2="       ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="21"
+            column="8"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.9.0 is available: 1.10.0"
+        errorLine1="serialization = &quot;1.9.0&quot;"
+        errorLine2="                ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="32"
+            column="17"/>
     </issue>
 
     <issue
@@ -151,7 +195,7 @@
         errorLine2="                                                                                                                       ~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="485"
+            line="487"
             column="120"/>
     </issue>
 
@@ -228,7 +272,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="177"
+            line="178"
             column="5"/>
     </issue>
 
@@ -239,7 +283,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="188"
+            line="189"
             column="5"/>
     </issue>
 
@@ -250,7 +294,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="189"
+            line="190"
             column="5"/>
     </issue>
 
@@ -261,7 +305,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="190"
+            line="191"
             column="5"/>
     </issue>
 
@@ -272,7 +316,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="265"
+            line="267"
             column="5"/>
     </issue>
 
@@ -280,14 +324,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/652daaca518ddedc439d3bc6f410bd1c/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/045fdfad909d8dc9b428c14bdb77717f/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/652daaca518ddedc439d3bc6f410bd1c/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/045fdfad909d8dc9b428c14bdb77717f/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
@@ -1001,11 +1045,22 @@
     <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="    &lt;string name=&quot;connecting&quot;>接続しています...&lt;/string>"
+        errorLine2="                              ~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ja-rJP/strings.xml"
+            line="69"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="    &lt;string name=&quot;loading&quot;>Carregando...&lt;/string>"
         errorLine2="                           ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-pt-rPT/strings.xml"
-            line="244"
+            line="245"
             column="28"/>
     </issue>
 

@@ -257,15 +257,15 @@ class ShellViewModel @Inject constructor(
         return getSaveOutputFileNameUseCase(saveWholeOutput, lastCommand)
     }
 
-    fun runBasicCommand() = runCommand { shellRepository.executeBasicCommand(it) }
+    fun runBasicCommand() = runCommand { shellRepository.executeBasicCommand(it.removeAdbShellPrefix()) }
 
-    fun runRootCommand() = runCommand { shellRepository.executeRootCommand(it) }
+    fun runRootCommand() = runCommand { shellRepository.executeRootCommand(it.removeAdbShellPrefix()) }
 
-    fun runShizukuCommand() = runCommand { shellRepository.executeShizukuCommand(it) }
+    fun runShizukuCommand() = runCommand { shellRepository.executeShizukuCommand(it.removeAdbShellPrefix()) }
 
-    fun runOtgCommand() = runCommand { otgRepository.runOtgCommand(it) }
+    fun runOtgCommand() = runCommand { otgRepository.runOtgCommand(it.removeAdbShellPrefix()) }
 
-    fun runWifiAdbCommand() = runCommand { wifiAdbRepository.execute(it) }
+    fun runWifiAdbCommand() = runCommand { wifiAdbRepository.execute(it.removeAdbShellPrefix()) }
 
     private fun runCommand(executor: suspend (String) -> Flow<OutputLine>) = with(_states.value) {
         if (this.shellState is ShellState.Busy) return@with
@@ -318,6 +318,10 @@ class ShellViewModel @Inject constructor(
 
             _states.update { it.copy(shellState = ShellState.Free) }
         }
+    }
+
+    private fun String.removeAdbShellPrefix() : String{
+        return this.removePrefix("adb shell")
     }
 
     private fun filterDuplicateHistoryEntries(
