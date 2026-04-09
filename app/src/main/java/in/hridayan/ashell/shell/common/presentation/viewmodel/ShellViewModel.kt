@@ -246,8 +246,6 @@ class ShellViewModel @Inject constructor(
         updateTextFieldSelection()
     }
 
-    fun clearOutput() = _states.update { it.copy(output = emptyList()) }
-
     fun getLastCommandOutput(rawOutput: String): String {
         return extractLastCommandOutputUseCase(rawOutput)
     }
@@ -257,11 +255,14 @@ class ShellViewModel @Inject constructor(
         return getSaveOutputFileNameUseCase(saveWholeOutput, lastCommand)
     }
 
-    fun runBasicCommand() = runCommand { shellRepository.executeBasicCommand(it.removeAdbShellPrefix()) }
+    fun runBasicCommand() =
+        runCommand { shellRepository.executeBasicCommand(it.removeAdbShellPrefix()) }
 
-    fun runRootCommand() = runCommand { shellRepository.executeRootCommand(it.removeAdbShellPrefix()) }
+    fun runRootCommand() =
+        runCommand { shellRepository.executeRootCommand(it.removeAdbShellPrefix()) }
 
-    fun runShizukuCommand() = runCommand { shellRepository.executeShizukuCommand(it.removeAdbShellPrefix()) }
+    fun runShizukuCommand() =
+        runCommand { shellRepository.executeShizukuCommand(it.removeAdbShellPrefix()) }
 
     fun runOtgCommand() = runCommand { otgRepository.runOtgCommand(it.removeAdbShellPrefix()) }
 
@@ -271,6 +272,7 @@ class ShellViewModel @Inject constructor(
         if (this.shellState is ShellState.Busy) return@with
 
         val commandText = this.commandField.fieldValue.text.trim()
+
         if (commandText.isBlank()) {
             _states.update {
                 it.copy(
@@ -279,6 +281,14 @@ class ShellViewModel @Inject constructor(
                         errorMessage = appContext.getString(R.string.field_cannot_be_blank)
                     )
                 )
+            }
+            return@with
+        }
+
+        if (commandText == "clear") {
+            clearOutput()
+            _states.update {
+                it.copy(commandField = it.commandField.copy(fieldValue = TextFieldValue("")))
             }
             return@with
         }
@@ -320,7 +330,7 @@ class ShellViewModel @Inject constructor(
         }
     }
 
-    private fun String.removeAdbShellPrefix() : String{
+    private fun String.removeAdbShellPrefix(): String {
         return this.removePrefix("adb shell")
     }
 
@@ -337,6 +347,8 @@ class ShellViewModel @Inject constructor(
             Runtime.getRuntime().exec(cmdArray)
         }
     }
+
+    fun clearOutput() = _states.update { it.copy(output = emptyList()) }
 
     fun stopCommand() {
         shellRepository.stopCommand()
@@ -411,7 +423,8 @@ class ShellViewModel @Inject constructor(
                 when (progress) {
                     is SaveProgress.Success -> onComplete(true, progress.uri)
                     is SaveProgress.Error -> onComplete(false, null)
-                    else -> { /* Saving in progress */ }
+                    else -> { /* Saving in progress */
+                    }
                 }
             }
         }
