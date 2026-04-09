@@ -45,8 +45,11 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.presentation.components.dialog.BackupDestinationDialog
+import `in`.hridayan.ashell.settings.presentation.components.dialog.CloudOperationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ResetSettingsDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreBackupDialog
+import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreSourceDialog
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
@@ -67,6 +70,18 @@ fun BackupAndRestoreScreen(
     val backupTime by backupAndRestoreViewModel.backupTime.collectAsState()
     val lastBackupTime by settingsViewModel.getString(SettingsKeys.LAST_BACKUP_TIME)
         .collectAsState(initial = "")
+
+    // Google Sign-In state
+    val isSignedIn by backupAndRestoreViewModel.isSignedIn.collectAsState()
+    val userEmail by backupAndRestoreViewModel.userEmail.collectAsState()
+    val userName by backupAndRestoreViewModel.userName.collectAsState()
+    val userPhotoUrl by backupAndRestoreViewModel.userPhotoUrl.collectAsState()
+    val isSigningIn by backupAndRestoreViewModel.isSigningIn.collectAsState()
+    val cloudOperationMessage by backupAndRestoreViewModel.cloudOperationMessage.collectAsState()
+
+    // Cloud restore confirm state
+    val showCloudRestoreConfirm by backupAndRestoreViewModel.showCloudRestoreConfirm.collectAsState()
+    val cloudBackupTime by backupAndRestoreViewModel.cloudBackupTime.collectAsState()
 
     var restoreFileUri by rememberSaveable { mutableStateOf("".toUri()) }
 
@@ -105,6 +120,18 @@ fun BackupAndRestoreScreen(
 
                 is SettingsUiEvent.RequestDocumentUriForRestore -> {
                     launcherRestore.launch(arrayOf("application/octet-stream"))
+                }
+
+                is SettingsUiEvent.RequestGoogleDriveBackup -> {
+                    backupAndRestoreViewModel.backupToGoogleDrive(event.backupOption)
+                }
+
+                is SettingsUiEvent.RequestGoogleDriveRestore -> {
+                    backupAndRestoreViewModel.downloadFromGoogleDrive()
+                }
+
+                is SettingsUiEvent.RequestGoogleSignIn -> {
+                    backupAndRestoreViewModel.signInWithGoogle(context)
                 }
 
                 else -> {}
@@ -178,9 +205,29 @@ fun BackupAndRestoreScreen(
                         }
 
                         is PreferenceGroup.CustomComposable -> {
-                            LastBackupTimeCard(
-                                lastBackupTime = lastBackupTime
-                            )
+                            when (group.label) {
+                                "google_sign_in" -> {
+                                    GoogleSignInCard(
+                                        isSignedIn = isSignedIn,
+                                        userEmail = userEmail,
+                                        userName = userName,
+                                        userPhotoUrl = userPhotoUrl,
+                                        isLoading = isSigningIn || cloudOperationMessage != null,
+                                        onSignInClick = {
+                                            backupAndRestoreViewModel.signInWithGoogle(context)
+                                        },
+                                        onSignOutClick = {
+                                            backupAndRestoreViewModel.signOut()
+                                        }
+                                    )
+                                }
+
+                                "last_backup_time" -> {
+                                    LastBackupTimeCard(
+                                        lastBackupTime = lastBackupTime
+                                    )
+                                }
+                            }
                         }
 
                         else -> {}
@@ -208,6 +255,56 @@ fun BackupAndRestoreScreen(
             onDismiss = { it.dismiss() },
             onConfirm = { backupAndRestoreViewModel.performRestore(restoreFileUri) },
             backupTime = backupTime
+        )
+    }
+
+    // Backup destination dialog (Local vs Google Drive)
+    DialogKey.Settings.BackupDestination(
+        backupOption = backupAndRestoreViewModel.run {
+            // Default option — the actual option comes from the dialog key
+            `in`.hridayan.ashell.settings.domain.model.BackupOption.SETTINGS_AND_DATABASE
+        }
+    ).createDialog { dialogViewModel ->
+        val activeKey = dialogManager.activeDialog
+        val backupOption = (activeKey as? DialogKey.Settings.BackupDestination)?.backupOption
+            ?: `in`.hridayan.ashell.settings.domain.model.BackupOption.SETTINGS_AND_DATABASE
+
+        BackupDestinationDialog(
+            onDismiss = { dialogViewModel.dismiss() },
+            onLocalBackup = {
+                backupAndRestoreViewModel.initiateBackup(backupOption)
+                launcherBackup.launch("backup_${System.currentTimeMillis()}.ashellyou")
+            },
+            onGoogleDriveBackup = {
+                backupAndRestoreViewModel.backupToGoogleDrive(backupOption)
+            }
+        )
+    }
+
+    // Restore source dialog (Local vs Google Drive)
+    DialogKey.Settings.RestoreSource.createDialog { dialogViewModel ->
+        RestoreSourceDialog(
+            onDismiss = { dialogViewModel.dismiss() },
+            onLocalRestore = {
+                launcherRestore.launch(arrayOf("application/octet-stream"))
+            },
+            onGoogleDriveRestore = {
+                backupAndRestoreViewModel.downloadFromGoogleDrive()
+            }
+        )
+    }
+
+    // Cloud operation loading dialog
+    cloudOperationMessage?.let { message ->
+        CloudOperationDialog(message = message)
+    }
+
+    // Cloud restore confirm dialog (after download, before apply)
+    if (showCloudRestoreConfirm) {
+        RestoreBackupDialog(
+            onDismiss = { backupAndRestoreViewModel.cancelCloudRestore() },
+            onConfirm = { backupAndRestoreViewModel.confirmCloudRestore() },
+            backupTime = cloudBackupTime
         )
     }
 }

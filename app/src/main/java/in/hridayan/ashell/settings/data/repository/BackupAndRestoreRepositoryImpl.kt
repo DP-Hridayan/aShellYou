@@ -149,4 +149,47 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun generateBackupBytes(option: BackupOption): ByteArray? =
+        withContext(Dispatchers.IO) {
+            try {
+                val backupData = getBackupData(option)
+                val jsonData = json.encodeToString(BackupData.serializer(), backupData)
+                val encryptedBytes = EncryptionHelper.encrypt(jsonData.toByteArray())
+
+                settingsRepository.setString(SettingsKeys.LAST_BACKUP_TIME, backupData.backupTime)
+
+                encryptedBytes
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
+
+    override suspend fun restoreFromBytes(encryptedBytes: ByteArray): Boolean =
+        withContext(Dispatchers.IO) {
+            try {
+                val decryptedBytes = EncryptionHelper.decrypt(encryptedBytes)
+                val jsonString = decryptedBytes.toString(Charsets.UTF_8)
+                val restoredData = json.decodeFromString(BackupData.serializer(), jsonString)
+                saveRestoredData(restoredData)
+                true
+            } catch (e: Exception) {
+                e.printStackTrace()
+                false
+            }
+        }
+
+    override suspend fun getBackupTimeFromBytes(encryptedBytes: ByteArray): String? =
+        withContext(Dispatchers.IO) {
+            try {
+                val decryptedBytes = EncryptionHelper.decrypt(encryptedBytes)
+                val jsonString = decryptedBytes.toString(Charsets.UTF_8)
+                val restoredData = json.decodeFromString(BackupData.serializer(), jsonString)
+                restoredData.backupTime
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
 }

@@ -17,6 +17,7 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.BackupOption
+import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
@@ -36,6 +37,7 @@ class SettingsViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val settingsRepository: SettingsRepository,
     private val toggleSettingUseCase: ToggleSettingUseCase,
+    private val googleAuthRepository: GoogleAuthRepository,
 ) : ViewModel() {
     var isFirstLaunch by mutableStateOf<Boolean?>(null)
         private set
@@ -199,21 +201,59 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.ResetSettings)
                 )
 
-                SettingsKeys.BACKUP_APP_SETTINGS -> _uiEvent.emit(
-                    SettingsUiEvent.RequestDocumentUriForBackup(BackupOption.SETTINGS_ONLY)
-                )
+                // Backup options: show destination dialog if signed in, else go straight to local
+                SettingsKeys.BACKUP_APP_SETTINGS -> {
+                    if (googleAuthRepository.isSignedIn.value) {
+                        _uiEvent.emit(
+                            SettingsUiEvent.ShowDialog(
+                                DialogKey.Settings.BackupDestination(BackupOption.SETTINGS_ONLY)
+                            )
+                        )
+                    } else {
+                        _uiEvent.emit(
+                            SettingsUiEvent.RequestDocumentUriForBackup(BackupOption.SETTINGS_ONLY)
+                        )
+                    }
+                }
 
-                SettingsKeys.BACKUP_APP_DATABASE -> _uiEvent.emit(
-                    SettingsUiEvent.RequestDocumentUriForBackup(BackupOption.DATABASE_ONLY)
-                )
+                SettingsKeys.BACKUP_APP_DATABASE -> {
+                    if (googleAuthRepository.isSignedIn.value) {
+                        _uiEvent.emit(
+                            SettingsUiEvent.ShowDialog(
+                                DialogKey.Settings.BackupDestination(BackupOption.DATABASE_ONLY)
+                            )
+                        )
+                    } else {
+                        _uiEvent.emit(
+                            SettingsUiEvent.RequestDocumentUriForBackup(BackupOption.DATABASE_ONLY)
+                        )
+                    }
+                }
 
-                SettingsKeys.BACKUP_APP_DATA -> _uiEvent.emit(
-                    SettingsUiEvent.RequestDocumentUriForBackup(BackupOption.SETTINGS_AND_DATABASE)
-                )
+                SettingsKeys.BACKUP_APP_DATA -> {
+                    if (googleAuthRepository.isSignedIn.value) {
+                        _uiEvent.emit(
+                            SettingsUiEvent.ShowDialog(
+                                DialogKey.Settings.BackupDestination(BackupOption.SETTINGS_AND_DATABASE)
+                            )
+                        )
+                    } else {
+                        _uiEvent.emit(
+                            SettingsUiEvent.RequestDocumentUriForBackup(BackupOption.SETTINGS_AND_DATABASE)
+                        )
+                    }
+                }
 
-                SettingsKeys.RESTORE_APP_DATA -> _uiEvent.emit(
-                    SettingsUiEvent.RequestDocumentUriForRestore
-                )
+                // Restore: show source dialog if signed in, else go straight to local
+                SettingsKeys.RESTORE_APP_DATA -> {
+                    if (googleAuthRepository.isSignedIn.value) {
+                        _uiEvent.emit(
+                            SettingsUiEvent.ShowDialog(DialogKey.Settings.RestoreSource)
+                        )
+                    } else {
+                        _uiEvent.emit(SettingsUiEvent.RequestDocumentUriForRestore)
+                    }
+                }
 
                 SettingsKeys.OUTPUT_SAVE_DIRECTORY -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.ConfigureSaveDir)

@@ -243,6 +243,8 @@ object SettingsProvider {
     )
 
     val backupPageList: List<PreferenceGroup> = listOf(
+        customComposable("google_sign_in"),
+
         categorizedItems(
             categoryNameResId = R.string.backup,
             nullPreferenceItem(

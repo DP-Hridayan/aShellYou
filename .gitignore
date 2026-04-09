@@ -12,3 +12,4 @@
 local.properties
 .androidide/
 signing-foss.properties
+app/src/main/res/values/google_config.xml

@@ -14,4 +14,9 @@ sealed class SettingsUiEvent {
 
     data class RequestDocumentUriForBackup(val backupOption: BackupOption) : SettingsUiEvent()
     object RequestDocumentUriForRestore : SettingsUiEvent()
+
+    // Google Drive events
+    object RequestGoogleSignIn : SettingsUiEvent()
+    data class RequestGoogleDriveBackup(val backupOption: BackupOption) : SettingsUiEvent()
+    object RequestGoogleDriveRestore : SettingsUiEvent()
 }

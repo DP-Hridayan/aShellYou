@@ -57,5 +57,8 @@ enum class SettingsKeys(val default: Any?) {
     FIRST_LAUNCH(true),
     BOOKMARK_SORT_TYPE(SortType.AZ),
     COMMAND_SORT_TYPE(SortType.AZ),
-    NEW_COMMANDS_AVAILABLE(true)
+    NEW_COMMANDS_AVAILABLE(true),
+    GOOGLE_ACCOUNT_EMAIL(""),
+    GOOGLE_ACCOUNT_PHOTO_URL(""),
+    LAST_CLOUD_BACKUP_TIME("")
 }

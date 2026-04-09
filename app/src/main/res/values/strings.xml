@@ -447,6 +447,35 @@
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A" translatable="false">Z → A</string>
 
+    <!-- Google Sign-In -->
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="des_sign_in_with_google">Optionally link your Google account for cloud backups</string>
+    <string name="sign_out_google">Sign out</string>
+    <string name="signed_in_as">Signed in as %1$s</string>
+    <string name="sign_in_failed">Google sign-in failed</string>
+    <string name="signed_out">Signed out</string>
+
+    <!-- Backup/Restore destination dialogs -->
+    <string name="choose_backup_destination">Backup destination</string>
+    <string name="choose_restore_source">Restore from</string>
+    <string name="local_file">Local file</string>
+    <string name="google_drive">Google Drive</string>
+    <string name="des_local_backup">Save encrypted backup to your device</string>
+    <string name="des_drive_backup">Upload encrypted backup to your Google Drive</string>
+    <string name="des_local_restore">Pick a backup file from your device</string>
+    <string name="des_drive_restore">Download your latest backup from Google Drive</string>
+
+    <!-- Cloud operations -->
+    <string name="cloud_backup_successful">Backup uploaded to Google Drive</string>
+    <string name="cloud_backup_failed">Failed to upload backup to Google Drive</string>
+    <string name="cloud_restore_successful">Restored from Google Drive</string>
+    <string name="cloud_restore_failed">Failed to restore from Google Drive</string>
+    <string name="no_cloud_backup_found">No backup found on Google Drive</string>
+    <string name="last_cloud_backup_time">Last cloud backup</string>
+    <string name="uploading_backup">Uploading backup to Google Drive…</string>
+    <string name="downloading_backup">Downloading backup from Google Drive…</string>
+    <string name="restoring_backup">Restoring backup…</string>
+
     /**
     * Changelogs
     * Created by DP-Hridayan

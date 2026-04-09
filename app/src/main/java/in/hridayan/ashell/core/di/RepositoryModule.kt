@@ -13,7 +13,11 @@ import `in`.hridayan.ashell.shell.common.domain.repository.PackageRepository
 import `in`.hridayan.ashell.crashreporter.data.repository.CrashRepositoryImpl
 import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
 import `in`.hridayan.ashell.settings.data.repository.BackupAndRestoreRepositoryImpl
+import `in`.hridayan.ashell.settings.data.repository.GoogleAuthRepositoryImpl
+import `in`.hridayan.ashell.settings.data.repository.GoogleDriveRepositoryImpl
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
+import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
+import `in`.hridayan.ashell.settings.domain.repository.GoogleDriveRepository
 import javax.inject.Singleton
 
 @Module
@@ -48,4 +52,16 @@ abstract class RepositoryModule {
     abstract fun bindPackageRepository(
         packageRepositoryImpl: PackageRepositoryImpl
     ): PackageRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindGoogleAuthRepository(
+        googleAuthRepositoryImpl: GoogleAuthRepositoryImpl
+    ): GoogleAuthRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindGoogleDriveRepository(
+        googleDriveRepositoryImpl: GoogleDriveRepositoryImpl
+    ): GoogleDriveRepository
 }

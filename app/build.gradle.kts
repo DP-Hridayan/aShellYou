@@ -99,6 +99,14 @@ android {
         jniLibs {
             useLegacyPackaging = true
         }
+        resources {
+            excludes += setOf(
+                "META-INF/INDEX.LIST",
+                "META-INF/DEPENDENCIES",
+                "META-INF/LICENSE.md",
+                "META-INF/NOTICE.md"
+            )
+        }
     }
 
     dependenciesInfo {
@@ -154,6 +162,14 @@ dependencies {
     implementation(libs.slf4j.android)
 
     implementation(libs.androidx.security.crypto)
+
+    implementation(libs.play.services.auth)
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.google.id)
+    implementation(libs.google.api.client.android)
+    implementation(libs.google.api.services.drive)
+    implementation(libs.google.http.client.gson)
 
     implementation(libs.shizuku.api)
     implementation(libs.shizuku.provider)

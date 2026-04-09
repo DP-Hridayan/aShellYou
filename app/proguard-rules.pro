@@ -49,3 +49,13 @@
 -keepclassmembers class * {
     @androidx.annotation.Keep *;
 }
+
+# Google API Client (Drive REST API)
+-keep class com.google.api.** { *; }
+-keep class com.google.http.** { *; }
+-keep class com.google.api.client.** { *; }
+-keep class com.google.api.services.drive.** { *; }
+-dontwarn com.google.api.**
+-dontwarn com.google.http.**
+-dontwarn org.apache.http.**
+-dontwarn com.google.api.client.http.apache.**
