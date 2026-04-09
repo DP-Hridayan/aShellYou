@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.core.utils
 
 import android.Manifest
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -26,6 +27,16 @@ fun createAppNotificationSettingsIntent(context: Context): Intent {
     return Intent().apply {
         action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
         putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    }
+}
+
+fun createMiUiNotificationStylesSettingsIntent(context: Context): Intent {
+    return Intent().apply {
+        component = ComponentName(
+            "com.miui.notification",
+            "miui.notification.management.activity.NotificationDisplaySettingsActivity"
+        )
         flags = Intent.FLAG_ACTIVITY_NEW_TASK
     }
 }

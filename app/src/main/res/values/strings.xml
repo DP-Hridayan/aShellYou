@@ -18,6 +18,8 @@
     <string name="already_latest_version">You are using the latest version</string>
     <string name="app">App</string>
     <string name="load">Load</string>
+    <string name="notification_styles">Notification styles</string>
+    <string name="intent_not_found">Intent not found</string>
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
     <string name="app_crashed">App has crashed</string>
     <string name="app_name" translatable="false">aShell You</string>

@@ -70,9 +70,10 @@ import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
+import `in`.hridayan.ashell.core.utils.MiUiCheck
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
+import `in`.hridayan.ashell.core.utils.createMiUiNotificationStylesSettingsIntent
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.core.utils.registerNetworkCallback
@@ -88,6 +89,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.R
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.service.SelfPairingService
+import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
 
 @Composable
 fun PairingOwnDeviceScreen(
@@ -140,9 +142,11 @@ fun PairingOwnDeviceScreen(
                 is WifiAdbEvent.WirelessDebuggingOff -> {
                     dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
                 }
+
                 is WifiAdbEvent.ReconnectFailed -> {
                     dialogManager.show(DialogKey.Pair.ReconnectFailed(showDevOptionsButton = true))
                 }
+
                 else -> {}
             }
         }
@@ -165,9 +169,17 @@ fun PairingOwnDeviceScreen(
     }
 
     val notificationSettingsIntent = createAppNotificationSettingsIntent(context)
-
     val onClickNotificationButton: () -> Unit = withHaptic {
         context.startActivity(notificationSettingsIntent)
+    }
+
+    val miUiNotificationStylesSettingsIntent = createMiUiNotificationStylesSettingsIntent(context)
+    val onClickNotificationStylesButton: () -> Unit = withHaptic {
+        try {
+            context.startActivity(miUiNotificationStylesSettingsIntent)
+        } catch (e: Exception) {
+            showToast(context, res.getString(R.string.intent_not_found))
+        }
     }
 
     val onClickWifiEnableButton: () -> Unit = withHaptic {
@@ -339,7 +351,12 @@ fun PairingOwnDeviceScreen(
                     NotificationPairingHintCard(modifier = Modifier.animateItem())
                 }
 
-            item { NotificationStyleIconWithTextCard(modifier = Modifier.animateItem()) }
+            item {
+                NotificationStylesHintCard(
+                    modifier = Modifier.animateItem(),
+                    onClickButton = onClickNotificationStylesButton
+                )
+            }
 
             item {
                 Instructions(
@@ -441,11 +458,40 @@ fun NotificationPairingHintCard(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun NotificationStyleIconWithTextCard(modifier: Modifier = Modifier) {
+fun NotificationStylesHintCard(
+    modifier: Modifier = Modifier,
+    onClickButton: () -> Unit = {}
+) {
     IconWithTextCard(
         modifier = modifier,
         icon = painterResource(R.drawable.ic_warning),
-        text = stringResource(R.string.notification_style_error)
+        text = stringResource(R.string.notification_style_error),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
+        content = {
+            if (MiUiCheck.isMiui(excludeHyperOS = false)) {
+                Button(
+                    shapes = ButtonDefaults.shapes(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.tertiaryContainer
+                    ),
+                    onClick = { onClickButton() }
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_open_in_new),
+                        contentDescription = null,
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    AutoResizeableText(
+                        text = stringResource(R.string.notification_styles),
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                }
+            }
+        }
     )
 }
 
