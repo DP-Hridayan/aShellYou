@@ -117,6 +117,7 @@ private fun CommandInputField(
         label = { Text(label) },
         isError = state.isError,
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Ascii),
+        singleLine = true,
         modifier = modifier.fillMaxWidth()
     )
 }
@@ -135,6 +136,7 @@ private fun DescriptionInputField(
         onValueChange = { viewModel.onDescriptionFieldTextChange(it) },
         label = { Text(label) },
         isError = state.isError,
+        singleLine = true,
         modifier = modifier.fillMaxWidth(),
     )
 }
@@ -170,7 +172,8 @@ private fun LabelInputField(
                 )
             }
         },
-        label = { Text(label) }
+        label = { Text(label) },
+        singleLine = true
     )
 }
 
