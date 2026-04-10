@@ -1,9 +1,9 @@
 package `in`.hridayan.ashell.settings.data.repository
 
-import android.net.Uri
-
 import android.content.Context
+import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 class GoogleAuthRepositoryImpl @Inject constructor(
@@ -53,13 +54,14 @@ class GoogleAuthRepositoryImpl @Inject constructor(
         // Restore sign-in state from persisted data — no API calls made here
         scope.launch {
             val savedEmail = settingsRepository.getString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL).first()
-            val savedPhotoUrl = settingsRepository.getString(SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL).first()
+            val savedPhotoUrl =
+                settingsRepository.getString(SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL).first()
             Log.d(TAG, "init: restored email='$savedEmail', photoUrl='$savedPhotoUrl'")
             if (savedEmail.isNotEmpty()) {
                 _userEmail.value = savedEmail
                 _isSignedIn.value = true
                 if (savedPhotoUrl.isNotEmpty()) {
-                    _userPhotoUrl.value = Uri.parse(savedPhotoUrl)
+                    _userPhotoUrl.value = savedPhotoUrl.toUri()
                 }
             }
         }
@@ -90,12 +92,16 @@ class GoogleAuthRepositoryImpl @Inject constructor(
                 credential is CustomCredential &&
                         credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL -> {
 
-                    val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+                    val googleIdTokenCredential =
+                        GoogleIdTokenCredential.createFrom(credential.data)
                     val email = googleIdTokenCredential.id // email
                     val displayName = googleIdTokenCredential.displayName
                     val photoUri = googleIdTokenCredential.profilePictureUri
 
-                    Log.d(TAG, "signIn: SUCCESS — email=$email, displayName=$displayName, photo=$photoUri")
+                    Log.d(
+                        TAG,
+                        "signIn: SUCCESS — email=$email, displayName=$displayName, photo=$photoUri"
+                    )
 
                     _userEmail.value = email
                     _userName.value = displayName
@@ -133,7 +139,7 @@ class GoogleAuthRepositoryImpl @Inject constructor(
         settingsRepository.setString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL, "")
         settingsRepository.setString(SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL, "")
         // Delete cached profile image
-        val cachedFile = java.io.File(context.filesDir, "google_profile.jpg")
+        val cachedFile = File(context.filesDir, "google_profile.jpg")
         if (cachedFile.exists()) cachedFile.delete()
     }
 

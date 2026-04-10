@@ -25,9 +25,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Logout
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -55,6 +55,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.net.URL
 
 @Composable
@@ -149,10 +150,7 @@ fun GoogleSignInCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (isLoading) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(24.dp),
-                            strokeWidth = 2.dp
-                        )
+                        LoadingIndicator(modifier = Modifier.size(24.dp))
                     } else {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_google),
@@ -194,7 +192,7 @@ private fun ProfileAvatar(
     // Load profile picture: try disk cache first, then network → save to cache
     LaunchedEffect(photoUrl) {
         profileBitmap = withContext(Dispatchers.IO) {
-            val cacheFile = java.io.File(context.filesDir, "google_profile.jpg")
+            val cacheFile = File(context.filesDir, "google_profile.jpg")
 
             // 1. Try loading from disk cache
             if (cacheFile.exists()) {

@@ -106,6 +106,26 @@ fun BackupAndRestoreScreen(
         }
     }
 
+    // Consent launcher for Drive scope authorization
+    val consentLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartIntentSenderForResult()
+    ) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK) {
+            backupAndRestoreViewModel.onConsentGranted()
+        } else {
+            backupAndRestoreViewModel.onConsentDenied()
+        }
+    }
+
+    // Observe consent requests from Drive repo and launch consent UI
+    LaunchedEffect(Unit) {
+        backupAndRestoreViewModel.consentIntentSender.collect { intentSender ->
+            consentLauncher.launch(
+                androidx.activity.result.IntentSenderRequest.Builder(intentSender).build()
+            )
+        }
+    }
+
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
             when (event) {

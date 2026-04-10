@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel
 
 import android.content.Context
+import android.content.IntentSender
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -67,6 +68,27 @@ class BackupAndRestoreViewModel @Inject constructor(
     private val _showCloudRestoreConfirm = MutableStateFlow(false)
     val showCloudRestoreConfirm: StateFlow<Boolean> = _showCloudRestoreConfirm.asStateFlow()
 
+    // Consent flow: emits IntentSender when Drive scope consent is needed
+    private val _consentIntentSender = MutableSharedFlow<IntentSender>()
+    val consentIntentSender = _consentIntentSender.asSharedFlow()
+
+    // Tracks what operation to retry after consent is granted
+    private sealed class PendingOperation {
+        data class Backup(val option: BackupOption) : PendingOperation()
+        data object Restore : PendingOperation()
+    }
+    private var pendingOperation: PendingOperation? = null
+
+    init {
+        // Forward consent requests from Drive repo to UI
+        viewModelScope.launch {
+            googleDriveRepository.consentRequired.collect { intentSender ->
+                Log.d(TAG, "consent required — forwarding to UI")
+                _consentIntentSender.emit(intentSender)
+            }
+        }
+    }
+
     fun initiateBackup(option: BackupOption) {
         currentBackupOption = option
     }
@@ -128,6 +150,10 @@ class BackupAndRestoreViewModel @Inject constructor(
                     _uiEvent.emit(SettingsUiEvent.ShowToast(
                         context.getString(R.string.signed_in_as, email)
                     ))
+
+                    // Immediately request Drive scope so consent appears right after sign-in
+                    Log.d(TAG, "signInWithGoogle: pre-authorizing Drive scope...")
+                    googleDriveRepository.ensureAuthorized()
                 },
                 onFailure = { error ->
                     Log.e(TAG, "signInWithGoogle: failed — ${error.message}")
@@ -146,17 +172,50 @@ class BackupAndRestoreViewModel @Inject constructor(
         }
     }
 
+    // --- Consent handling ---
+
+    /** Called by the Screen after user grants Drive scope consent. Retries pending operation. */
+    fun onConsentGranted() {
+        Log.d(TAG, "onConsentGranted: retrying pending operation=$pendingOperation")
+        googleDriveRepository.onConsentGranted()
+
+        when (val op = pendingOperation) {
+            is PendingOperation.Backup -> {
+                pendingOperation = null
+                backupToGoogleDrive(op.option)
+            }
+            is PendingOperation.Restore -> {
+                pendingOperation = null
+                downloadFromGoogleDrive()
+            }
+            null -> {
+                Log.d(TAG, "onConsentGranted: no pending operation to retry")
+            }
+        }
+    }
+
+    fun onConsentDenied() {
+        Log.d(TAG, "onConsentDenied")
+        pendingOperation = null
+        _cloudOperationMessage.value = null
+        viewModelScope.launch {
+            _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.sign_in_failed)))
+        }
+    }
+
     // --- Google Drive Backup ---
 
     fun backupToGoogleDrive(option: BackupOption) {
         viewModelScope.launch {
             Log.d(TAG, "backupToGoogleDrive: option=$option")
+            pendingOperation = PendingOperation.Backup(option)
             _cloudOperationMessage.value = context.getString(R.string.uploading_backup)
 
             val bytes = backupAndRestoreRepository.generateBackupBytes(option)
             if (bytes == null) {
                 Log.e(TAG, "backupToGoogleDrive: generateBackupBytes returned null")
                 _cloudOperationMessage.value = null
+                pendingOperation = null
                 _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.cloud_backup_failed)))
                 return@launch
             }
@@ -165,12 +224,20 @@ class BackupAndRestoreViewModel @Inject constructor(
             val fileName = "backup_${System.currentTimeMillis()}.ashellyou"
             val success = googleDriveRepository.uploadBackup(bytes, fileName)
 
+            // If consent was needed, the consent flow will retry this operation
+            if (!success && googleDriveRepository.isConsentPending) {
+                Log.d(TAG, "backupToGoogleDrive: consent needed — waiting for user")
+                return@launch
+            }
+
             _cloudOperationMessage.value = null
+            pendingOperation = null
 
             if (success) {
                 Log.d(TAG, "backupToGoogleDrive: upload SUCCESS")
                 val formatter = java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
                 val backupTime = java.time.LocalDateTime.now().format(formatter)
+                settingsRepository.setString(SettingsKeys.LAST_BACKUP_TIME, backupTime)
                 settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TIME, backupTime)
                 _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.cloud_backup_successful)))
             } else {
@@ -186,10 +253,20 @@ class BackupAndRestoreViewModel @Inject constructor(
     fun downloadFromGoogleDrive() {
         viewModelScope.launch {
             Log.d(TAG, "downloadFromGoogleDrive: starting...")
+            pendingOperation = PendingOperation.Restore
             _cloudOperationMessage.value = context.getString(R.string.downloading_backup)
 
             val result = googleDriveRepository.downloadBackup()
+
+            // If consent was needed, the consent flow will retry this operation
+            if (result == null && googleDriveRepository.isConsentPending) {
+                Log.d(TAG, "downloadFromGoogleDrive: consent needed — waiting for user")
+                _cloudOperationMessage.value = null
+                return@launch
+            }
+
             _cloudOperationMessage.value = null
+            pendingOperation = null
 
             if (result == null) {
                 Log.e(TAG, "downloadFromGoogleDrive: no backup found on Drive")

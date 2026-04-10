@@ -155,11 +155,7 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
             try {
                 val backupData = getBackupData(option)
                 val jsonData = json.encodeToString(BackupData.serializer(), backupData)
-                val encryptedBytes = EncryptionHelper.encrypt(jsonData.toByteArray())
-
-                settingsRepository.setString(SettingsKeys.LAST_BACKUP_TIME, backupData.backupTime)
-
-                encryptedBytes
+                EncryptionHelper.encrypt(jsonData.toByteArray())
             } catch (e: Exception) {
                 e.printStackTrace()
                 null

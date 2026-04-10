@@ -1,6 +1,15 @@
 package `in`.hridayan.ashell.settings.domain.repository
 
+import android.content.IntentSender
+import kotlinx.coroutines.flow.SharedFlow
+
 interface GoogleDriveRepository {
+    /** Emits an IntentSender when user consent is needed for the Drive scope. */
+    val consentRequired: SharedFlow<IntentSender>
+
+    /** True when a consent dialog was just triggered and we're waiting for the user to respond. */
+    val isConsentPending: Boolean
+
     /** Upload encrypted backup bytes to appDataFolder, overwriting any existing backup. */
     suspend fun uploadBackup(data: ByteArray, fileName: String): Boolean
 
@@ -9,4 +18,10 @@ interface GoogleDriveRepository {
 
     /** Delete all backups from appDataFolder. */
     suspend fun deleteAllBackups(): Boolean
+
+    /** Pre-authorize the Drive scope. If consent is needed, emits via consentRequired. Returns true if already authorized. */
+    suspend fun ensureAuthorized(): Boolean
+
+    /** Called after the user grants consent. Caches the authorized result for retry. */
+    fun onConsentGranted()
 }
