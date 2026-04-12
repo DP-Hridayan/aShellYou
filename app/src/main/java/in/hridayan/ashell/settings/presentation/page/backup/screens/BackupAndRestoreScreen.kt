@@ -58,6 +58,7 @@ import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.presentation.components.dialog.BackupDestinationDialog
@@ -81,6 +82,7 @@ fun BackupAndRestoreScreen(
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
+    val navController = LocalNavController.current
     val settings = settingsViewModel.backupPageList
     val dialogManager = LocalDialogManager.current
     val localBackupTime by backupAndRestoreViewModel.localBackupTime.collectAsState()
@@ -172,6 +174,8 @@ fun BackupAndRestoreScreen(
                 is SettingsUiEvent.RequestGoogleSignIn -> {
                     backupAndRestoreViewModel.signInWithGoogle()
                 }
+
+                is SettingsUiEvent.Navigate -> navController.navigate(event.route)
 
                 else -> {}
             }

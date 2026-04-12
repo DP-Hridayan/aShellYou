@@ -264,6 +264,12 @@ object SettingsProvider {
                 titleResId = R.string.backup_all_data,
                 descriptionResId = R.string.des_backup_all_data,
                 iconResId = R.drawable.ic_upload_file
+            ),
+            nullPreferenceItem(
+                key = SettingsKeys.BACKUP_SCHEDULER,
+                titleResId = R.string.backup_scheduler,
+                descriptionResId = R.string.des_backup_scheduler,
+                iconResId = R.drawable.ic_schedule
             )
         ),
 
@@ -287,5 +293,9 @@ object SettingsProvider {
                 iconResId = R.drawable.ic_reset_settings
             )
         )
+    )
+
+    val backupSchedulerPageList: List<PreferenceGroup> = listOf(
+
     )
 }

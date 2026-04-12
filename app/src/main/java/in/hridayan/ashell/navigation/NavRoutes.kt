@@ -14,6 +14,9 @@ sealed class NavRoutes {
     object BackupAndRestoreScreen : NavRoutes()
 
     @Serializable
+    object BackupSchedulerScreen : NavRoutes()
+
+    @Serializable
     object BehaviorScreen : NavRoutes()
 
     @Serializable

@@ -63,6 +63,9 @@ class SettingsViewModel @Inject constructor(
     var backupPageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
         private set
 
+    var backupSchedulerPageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
+        private set
+
     fun loadSettings() {
         viewModelScope.launch {
             val settings = SettingsProvider.settingsPageList
@@ -71,6 +74,7 @@ class SettingsViewModel @Inject constructor(
             val behavior = SettingsProvider.behaviorPageList
             val autoUpdate = SettingsProvider.autoUpdatePageList
             val backup = SettingsProvider.backupPageList
+            val backupScheduler = SettingsProvider.backupSchedulerPageList
             val about = SettingsProvider.aboutPageList
 
             settingsPageList = settings
@@ -79,6 +83,7 @@ class SettingsViewModel @Inject constructor(
             behaviorPageList = behavior
             autoUpdatePageList = autoUpdate
             backupPageList = backup
+            backupSchedulerPageList = backupScheduler
             aboutPageList = about
         }
     }
@@ -243,6 +248,10 @@ class SettingsViewModel @Inject constructor(
                         )
                     }
                 }
+
+                SettingsKeys.BACKUP_SCHEDULER -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.BackupSchedulerScreen)
+                )
 
                 // Restore: show source dialog if signed in, else go straight to local
                 SettingsKeys.RESTORE_APP_DATA -> {

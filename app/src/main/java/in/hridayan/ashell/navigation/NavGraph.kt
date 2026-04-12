@@ -27,6 +27,7 @@ import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
 import `in`.hridayan.ashell.settings.presentation.page.about.screens.AboutScreen
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens.AutoUpdateScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupAndRestoreScreen
+import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupSchedulerScreen
 import `in`.hridayan.ashell.settings.presentation.page.behavior.screens.BehaviorScreen
 import `in`.hridayan.ashell.settings.presentation.page.changelog.screens.ChangelogScreen
 import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.CrashDetailsScreen
@@ -157,6 +158,13 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 popExitTransition = { slideFadeOutToRight() }
             ) {
                 BackupAndRestoreScreen()
+            }
+
+            composable<NavRoutes.BackupSchedulerScreen>(
+                enterTransition = { slideFadeInFromRight() },
+                popExitTransition = { slideFadeOutToRight() }
+            ) {
+                BackupSchedulerScreen()
             }
 
             composable<NavRoutes.LocalAdbScreen>(

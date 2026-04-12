@@ -38,6 +38,7 @@ enum class SettingsKeys(val default: Any?) {
     BACKUP_APP_DATA(null),
     RESTORE_APP_DATA(null),
     RESET_APP_SETTINGS(null),
+    BACKUP_SCHEDULER(null),
     LAST_LOCAL_BACKUP_TIME(""),
     CLEAR_OUTPUT_CONFIRMATION(true),
     OUTPUT_SAVE_DIRECTORY(

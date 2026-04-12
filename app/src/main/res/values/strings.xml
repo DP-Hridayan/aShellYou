@@ -27,6 +27,8 @@
     <string name="back">Back</string>
     <string name="back_button">Back button</string>
     <string name="backup">Backup</string>
+    <string name="backup_scheduler">Backup scheduler</string>
+    <string name="des_backup_scheduler">Automatically schedule backups at selected intervals</string>
     <string name="backup_all_data">Backup all data</string>
     <string name="backup_and_restore">Backup &amp; restore</string>
     <string name="backup_app_database">Backup app database</string>
