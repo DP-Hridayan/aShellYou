@@ -69,6 +69,7 @@ fun RestoreSourceDialog(
                         .padding(bottom = 2.dp),
                     onClick = withHaptic {
                         onLocalRestore()
+                        onDismiss()
                     },
                     containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                     contentColor = MaterialTheme.colorScheme.onTertiaryContainer
@@ -101,6 +102,7 @@ fun RestoreSourceDialog(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = withHaptic {
                         onGoogleDriveRestore()
+                        onDismiss()
                     },
                     containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                     contentColor = MaterialTheme.colorScheme.onTertiaryContainer

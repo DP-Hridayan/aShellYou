@@ -4,6 +4,8 @@ package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,14 +27,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -46,6 +52,7 @@ import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
@@ -78,6 +85,7 @@ fun BackupAndRestoreScreen(
     val lastLocalBackupTime = LocalSettings.current.lastLocalBackupTime
     val lastCloudBackupTime = LocalSettings.current.lastCloudBackupTime
     val isFetchingCloudBackupTime by backupAndRestoreViewModel.isFetchingCloudBackupTime.collectAsState()
+    var isLastBackupDetailsCardExpanded by rememberSaveable { mutableStateOf(false) }
 
     val googleUserState by backupAndRestoreViewModel.googleUserState.collectAsState()
     val isSigningIn by backupAndRestoreViewModel.isSigningIn.collectAsState()
@@ -250,11 +258,16 @@ fun BackupAndRestoreScreen(
                                     LastBackupTimeCard(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(top = 20.dp),
+                                            .padding(top = 10.dp),
                                         lastLocalBackupTime = lastLocalBackupTime,
                                         lastCloudBackupTime = lastCloudBackupTime,
                                         userState = googleUserState,
                                         isFetching = isFetchingCloudBackupTime,
+                                        isExpanded = isLastBackupDetailsCardExpanded,
+                                        onClick = withHaptic {
+                                            isLastBackupDetailsCardExpanded =
+                                                !isLastBackupDetailsCardExpanded
+                                        }
                                     )
                                 }
                             }
@@ -340,8 +353,15 @@ private fun LastBackupTimeCard(
     lastLocalBackupTime: String,
     lastCloudBackupTime: String,
     userState: GoogleUserState,
-    isFetching: Boolean
+    isFetching: Boolean,
+    isExpanded: Boolean = false,
+    onClick: () -> Unit = {}
 ) {
+    var cardHeight by remember { mutableStateOf(0.dp) }
+    val screenDensity = LocalDensity.current
+    val roundedCornerShape =
+        if (isExpanded) CardCornerShape.FIRST_CARD else RoundedCornerShape(cardHeight / 2)
+
     val perUserLastCloudBackupTime = when {
         !userState.isSignedIn -> stringResource(R.string.not_signed_in)
 
@@ -353,6 +373,7 @@ private fun LastBackupTimeCard(
                 val time = parts.getOrNull(1).orEmpty()
                 "$date | $time"
             }
+
         else -> stringResource(R.string.none)
     }
 
@@ -363,37 +384,63 @@ private fun LastBackupTimeCard(
             "$date | $time"
         }
 
-    Column(modifier = modifier) {
+    Column(modifier = modifier.animateContentSize()) {
         RoundedCornerCard(
-            modifier = Modifier.fillMaxWidth(),
-            roundedCornerShape = CardCornerShape.FIRST_CARD
+            modifier = Modifier
+                .fillMaxWidth()
+                .onGloballyPositioned { coordinates ->
+                    cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
+                },
+            onClick = onClick,
+            roundedCornerShape = roundedCornerShape
         ) {
-            Text(
-                modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
-                text = stringResource(R.string.last_backup_details),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .animateContentSize()
+                    .padding(horizontal = 25.dp, vertical = 15.dp),
+                horizontalArrangement = Arrangement.spacedBy(25.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.last_backup_details),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                )
+
+                val rotateAngle by animateFloatAsState(if (isExpanded) 180f else 0f)
+
+                Icon(
+                    painter = painterResource(R.drawable.ic_expand),
+                    contentDescription = "Expand",
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .rotate(rotateAngle)
+                )
+            }
         }
 
-        TimeCard(
-            modifier = Modifier.fillMaxWidth(),
-            roundedCornerShape = CardCornerShape.MIDDLE_CARD,
-            icon = painterResource(R.drawable.ic_mobile),
-            title = stringResource(R.string.device_backup_local),
-            timeDescription = formattedLastLocalBackupTime
-        )
+        if (isExpanded) {
+            TimeCard(
+                modifier = Modifier.fillMaxWidth(),
+                roundedCornerShape = CardCornerShape.MIDDLE_CARD,
+                icon = painterResource(R.drawable.ic_mobile),
+                title = stringResource(R.string.device_backup_local),
+                timeDescription = formattedLastLocalBackupTime
+            )
 
-        TimeCard(
-            modifier = Modifier.fillMaxWidth(),
-            roundedCornerShape = CardCornerShape.LAST_CARD,
-            icon = painterResource(R.drawable.ic_cloud_done),
-            title = stringResource(R.string.cloud_backup_google_drive),
-            timeDescription = perUserLastCloudBackupTime
-        )
+            TimeCard(
+                modifier = Modifier.fillMaxWidth(),
+                roundedCornerShape = CardCornerShape.LAST_CARD,
+                icon = painterResource(R.drawable.ic_cloud_done),
+                title = stringResource(R.string.cloud_backup_google_drive),
+                timeDescription = perUserLastCloudBackupTime
+            )
+        }
     }
 }
-
 
 @Composable
 private fun TimeCard(
@@ -405,7 +452,8 @@ private fun TimeCard(
 ) {
     RoundedCornerCard(
         modifier = modifier,
-        roundedCornerShape = roundedCornerShape
+        roundedCornerShape = roundedCornerShape,
+        onClick = withHaptic { }
     ) {
         Row(
             modifier = Modifier

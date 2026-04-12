@@ -69,6 +69,7 @@ fun BackupDestinationDialog(
                         .padding(bottom = 2.dp),
                     onClick = withHaptic {
                         onLocalBackup()
+                        onDismiss()
                     },
                     containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                     contentColor = MaterialTheme.colorScheme.onTertiaryContainer
@@ -101,6 +102,7 @@ fun BackupDestinationDialog(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = withHaptic {
                         onGoogleDriveBackup()
+                        onDismiss()
                     },
                     containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                     contentColor = MaterialTheme.colorScheme.onTertiaryContainer
