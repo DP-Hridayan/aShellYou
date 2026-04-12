@@ -95,6 +95,7 @@
     <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>
     <string name="delete">Delete</string>
+    <string name="sign_out_confirmation_msg">Signing out will pause all automatic cloud backups!\nDo you still want to sign out?</string>
     <string name="delete_all">Delete all</string>
     <string name="delete_file">Delete file</string>
     <string name="delete_folder">Delete folder</string>
@@ -418,7 +419,7 @@
     <string name="shizuku_unavailable_message">Shizuku is not installed or properly configured on your device</string>
     <string name="sign_in_failed">Google sign-in failed</string>
     <string name="sign_in_with_google">Sign in with Google</string>
-    <string name="sign_out_google">Sign out</string>
+    <string name="sign_out">Sign out</string>
     <string name="signed_in_as">Signed in as %1$s</string>
     <string name="signed_out">Signed out</string>
     <string name="size">Size</string>

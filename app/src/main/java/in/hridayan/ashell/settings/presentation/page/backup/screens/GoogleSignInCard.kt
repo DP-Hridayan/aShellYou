@@ -11,6 +11,7 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -94,7 +95,6 @@ fun GoogleSignInCard(
                         .padding(horizontal = 20.dp, vertical = 16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Profile picture or initial avatar
                     ProfileAvatar(
                         photoUrl = userPhotoUrl,
                         displayName = userName ?: userEmail,
@@ -114,9 +114,12 @@ fun GoogleSignInCard(
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onTertiaryContainer,
                             maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.basicMarquee()
                         )
                     }
+
+                    Spacer(modifier = Modifier.width(14.dp))
 
                     OutlinedButton(
                         onClick = withHaptic(HapticFeedbackType.Reject) { onSignOutClick() },
@@ -136,7 +139,7 @@ fun GoogleSignInCard(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = stringResource(R.string.sign_out_google),
+                            text = stringResource(R.string.sign_out),
                             style = MaterialTheme.typography.labelMedium
                         )
                     }

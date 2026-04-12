@@ -61,6 +61,7 @@ import `in`.hridayan.ashell.settings.domain.model.BackupOption
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.presentation.components.dialog.BackupDestinationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.CloudOperationDialog
+import `in`.hridayan.ashell.settings.presentation.components.dialog.GoogleSignOutConfirmationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ResetSettingsDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreBackupDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreSourceDialog
@@ -249,7 +250,7 @@ fun BackupAndRestoreScreen(
                                             backupAndRestoreViewModel.signInWithGoogle()
                                         },
                                         onSignOutClick = {
-                                            backupAndRestoreViewModel.signOut()
+                                            dialogManager.show(DialogKey.Settings.ConfirmGoogleSignOut)
                                         }
                                     )
                                 }
@@ -331,6 +332,13 @@ fun BackupAndRestoreScreen(
             onGoogleDriveRestore = {
                 backupAndRestoreViewModel.downloadFromGoogleDrive()
             }
+        )
+    }
+
+    DialogKey.Settings.ConfirmGoogleSignOut.createDialog { dialogViewModel ->
+        GoogleSignOutConfirmationDialog(
+            onDismiss = { dialogViewModel.dismiss() },
+            onConfirm = { backupAndRestoreViewModel.signOut() }
         )
     }
 
