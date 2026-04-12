@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.domain.event.DriveAuthEvent
 import `in`.hridayan.ashell.settings.domain.model.BackupOption
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
@@ -64,7 +65,6 @@ class BackupAndRestoreViewModel @Inject constructor(
     private val _cloudBackupTime = MutableStateFlow<String?>(null)
     val cloudBackupTime: StateFlow<String?> = _cloudBackupTime.asStateFlow()
 
-    // Flag indicating cloud restore confirm dialog should show
     private val _showCloudRestoreConfirm = MutableStateFlow(false)
     val showCloudRestoreConfirm: StateFlow<Boolean> = _showCloudRestoreConfirm.asStateFlow()
 
@@ -77,14 +77,19 @@ class BackupAndRestoreViewModel @Inject constructor(
         data class Backup(val option: BackupOption) : PendingOperation()
         data object Restore : PendingOperation()
     }
+
     private var pendingOperation: PendingOperation? = null
 
     init {
         // Forward consent requests from Drive repo to UI
         viewModelScope.launch {
-            googleDriveRepository.consentRequired.collect { intentSender ->
-                Log.d(TAG, "consent required — forwarding to UI")
-                _consentIntentSender.emit(intentSender)
+            googleDriveRepository.authEvents.collect { authEvent ->
+                when (authEvent) {
+                    is DriveAuthEvent.ConsentRequired -> {
+                        Log.d(TAG, "consent required — forwarding to UI")
+                        _consentIntentSender.emit(authEvent.intentSender)
+                    }
+                }
             }
         }
     }
@@ -133,23 +138,23 @@ class BackupAndRestoreViewModel @Inject constructor(
         }
     }
 
-    // --- Google Sign-In (Credential Manager — modern bottom sheet) ---
-
-    fun signInWithGoogle(context: Context) {
+    fun signInWithGoogle() {
         viewModelScope.launch {
             Log.d(TAG, "signInWithGoogle: starting...")
             _isSigningIn.value = true
 
-            val result = googleAuthRepository.signIn(context)
+            val result = googleAuthRepository.signIn()
 
             _isSigningIn.value = false
 
             result.fold(
                 onSuccess = { email ->
                     Log.d(TAG, "signInWithGoogle: success — email=$email")
-                    _uiEvent.emit(SettingsUiEvent.ShowToast(
-                        context.getString(R.string.signed_in_as, email)
-                    ))
+                    _uiEvent.emit(
+                        SettingsUiEvent.ShowToast(
+                            context.getString(R.string.signed_in_as, email)
+                        )
+                    )
 
                     // Immediately request Drive scope so consent appears right after sign-in
                     Log.d(TAG, "signInWithGoogle: pre-authorizing Drive scope...")
@@ -157,9 +162,11 @@ class BackupAndRestoreViewModel @Inject constructor(
                 },
                 onFailure = { error ->
                     Log.e(TAG, "signInWithGoogle: failed — ${error.message}")
-                    _uiEvent.emit(SettingsUiEvent.ShowToast(
-                        context.getString(R.string.sign_in_failed)
-                    ))
+                    _uiEvent.emit(
+                        SettingsUiEvent.ShowToast(
+                            context.getString(R.string.sign_in_failed)
+                        )
+                    )
                 }
             )
         }
@@ -172,8 +179,6 @@ class BackupAndRestoreViewModel @Inject constructor(
         }
     }
 
-    // --- Consent handling ---
-
     /** Called by the Screen after user grants Drive scope consent. Retries pending operation. */
     fun onConsentGranted() {
         Log.d(TAG, "onConsentGranted: retrying pending operation=$pendingOperation")
@@ -184,10 +189,12 @@ class BackupAndRestoreViewModel @Inject constructor(
                 pendingOperation = null
                 backupToGoogleDrive(op.option)
             }
+
             is PendingOperation.Restore -> {
                 pendingOperation = null
                 downloadFromGoogleDrive()
             }
+
             null -> {
                 Log.d(TAG, "onConsentGranted: no pending operation to retry")
             }
@@ -202,8 +209,6 @@ class BackupAndRestoreViewModel @Inject constructor(
             _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.sign_in_failed)))
         }
     }
-
-    // --- Google Drive Backup ---
 
     fun backupToGoogleDrive(option: BackupOption) {
         viewModelScope.launch {
@@ -246,8 +251,6 @@ class BackupAndRestoreViewModel @Inject constructor(
             }
         }
     }
-
-    // --- Google Drive Restore (two-step: download → confirm → apply) ---
 
     /** Step 1: Download backup from Drive and show confirmation dialog */
     fun downloadFromGoogleDrive() {

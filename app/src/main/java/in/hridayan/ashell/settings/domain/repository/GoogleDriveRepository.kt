@@ -1,11 +1,11 @@
 package `in`.hridayan.ashell.settings.domain.repository
 
-import android.content.IntentSender
+import `in`.hridayan.ashell.settings.domain.event.DriveAuthEvent
 import kotlinx.coroutines.flow.SharedFlow
 
 interface GoogleDriveRepository {
     /** Emits an IntentSender when user consent is needed for the Drive scope. */
-    val consentRequired: SharedFlow<IntentSender>
+    val authEvents: SharedFlow<DriveAuthEvent>
 
     /** True when a consent dialog was just triggered and we're waiting for the user to respond. */
     val isConsentPending: Boolean

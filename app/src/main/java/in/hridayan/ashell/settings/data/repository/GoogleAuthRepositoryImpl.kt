@@ -12,7 +12,6 @@ import androidx.credentials.exceptions.GetCredentialException
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
@@ -34,6 +33,8 @@ class GoogleAuthRepositoryImpl @Inject constructor(
 
     companion object {
         private const val TAG = "GoogleAuth"
+        private const val WEB_CLIENT_ID =
+            "881968854575-28tp1junqrp9ta8qma5kl8ittgclmrji.apps.googleusercontent.com"
     }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -51,7 +52,7 @@ class GoogleAuthRepositoryImpl @Inject constructor(
     override val userPhotoUrl: StateFlow<Uri?> = _userPhotoUrl.asStateFlow()
 
     init {
-        // Restore sign-in state from persisted data — no API calls made here
+        // Restore sign-in state from persisted data
         scope.launch {
             val savedEmail = settingsRepository.getString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL).first()
             val savedPhotoUrl =
@@ -67,16 +68,15 @@ class GoogleAuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun signIn(context: Context): Result<String> {
+    override suspend fun signIn(): Result<String> {
         return try {
-            val webClientId = context.getString(R.string.google_web_client_id)
-            Log.d(TAG, "signIn: using webClientId = $webClientId")
+            Log.d(TAG, "signIn: using webClientId = $WEB_CLIENT_ID")
 
             val credentialManager = CredentialManager.create(context)
 
             val googleIdOption = GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
-                .setServerClientId(webClientId)
+                .setServerClientId(WEB_CLIENT_ID)
                 .build()
 
             val request = GetCredentialRequest.Builder()
@@ -94,7 +94,7 @@ class GoogleAuthRepositoryImpl @Inject constructor(
 
                     val googleIdTokenCredential =
                         GoogleIdTokenCredential.createFrom(credential.data)
-                    val email = googleIdTokenCredential.id // email
+                    val email = googleIdTokenCredential.id
                     val displayName = googleIdTokenCredential.displayName
                     val photoUri = googleIdTokenCredential.profilePictureUri
 

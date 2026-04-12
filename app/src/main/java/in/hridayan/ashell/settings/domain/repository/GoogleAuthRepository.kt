@@ -14,7 +14,7 @@ interface GoogleAuthRepository {
      * Launch sign-in via Credential Manager (modern bottom sheet) and request Drive scope.
      * Returns Result.success(email) or Result.failure(exception).
      */
-    suspend fun signIn(context: Context): Result<String>
+    suspend fun signIn(): Result<String>
 
     /** Sign out and clear stored credential. */
     suspend fun signOut()

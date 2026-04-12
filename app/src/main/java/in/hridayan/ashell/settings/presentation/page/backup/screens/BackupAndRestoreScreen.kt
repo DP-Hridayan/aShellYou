@@ -151,7 +151,7 @@ fun BackupAndRestoreScreen(
                 }
 
                 is SettingsUiEvent.RequestGoogleSignIn -> {
-                    backupAndRestoreViewModel.signInWithGoogle(context)
+                    backupAndRestoreViewModel.signInWithGoogle()
                 }
 
                 else -> {}
@@ -234,7 +234,7 @@ fun BackupAndRestoreScreen(
                                         userPhotoUrl = userPhotoUrl,
                                         isLoading = isSigningIn || cloudOperationMessage != null,
                                         onSignInClick = {
-                                            backupAndRestoreViewModel.signInWithGoogle(context)
+                                            backupAndRestoreViewModel.signInWithGoogle()
                                         },
                                         onSignOutClick = {
                                             backupAndRestoreViewModel.signOut()
