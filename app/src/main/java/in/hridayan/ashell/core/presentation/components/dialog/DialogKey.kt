@@ -3,7 +3,7 @@ package `in`.hridayan.ashell.core.presentation.components.dialog
 import androidx.compose.runtime.Composable
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
-import `in`.hridayan.ashell.settings.domain.model.BackupOption
+import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 
 sealed class DialogKey {
@@ -36,7 +36,7 @@ sealed class DialogKey {
         object LatestVersion : DialogKey()
         object ResetSettings : DialogKey()
         object RestoreBackup : DialogKey()
-        data class BackupDestination(val backupOption: BackupOption) : DialogKey()
+        data class BackupDestination(val backupType: BackupType) : DialogKey()
         object RestoreSource : DialogKey()
         object ConfirmGoogleSignOut : DialogKey()
     }

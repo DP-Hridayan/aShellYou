@@ -26,5 +26,7 @@ data class SettingsState(
     val terminalFontStyle: Int,
     val isNewCommandsAvailable: Boolean,
     val lastLocalBackupTime: String,
-    val lastCloudBackupTime: String
+    val lastCloudBackupTime: String,
+    val lastLocalBackupType: String,
+    val lastCloudBackupType: String
 )

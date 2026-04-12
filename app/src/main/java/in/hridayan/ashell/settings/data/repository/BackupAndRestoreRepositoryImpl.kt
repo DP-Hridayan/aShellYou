@@ -8,7 +8,8 @@ import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.utils.EncryptionHelper
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.BackupData
-import `in`.hridayan.ashell.settings.domain.model.BackupOption
+import `in`.hridayan.ashell.settings.domain.model.BackupMode
+import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.shell.common.domain.repository.BookmarkRepository
@@ -27,10 +28,13 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
     @param:ApplicationContext private val context: Context
 ) : BackupAndRestoreRepository {
 
-    override suspend fun backupToDevice(uri: Uri, option: BackupOption): Boolean =
+    override suspend fun backupToDevice(uri: Uri, type: BackupType): Boolean =
         withContext(Dispatchers.IO) {
             try {
-                val backupData = getBackupData(option)
+                val backupData = getBackupData(
+                    type = type,
+                    backupMode = BackupMode.LOCAL_DEVICE
+                )
                 val jsonData = json.encodeToString(BackupData.serializer(), backupData)
                 val encryptedBytes = EncryptionHelper.encrypt(jsonData.toByteArray())
 
@@ -41,6 +45,11 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
                 settingsRepository.setString(
                     SettingsKeys.LAST_LOCAL_BACKUP_TIME,
                     backupData.backupTime
+                )
+
+                settingsRepository.setString(
+                    SettingsKeys.LAST_LOCAL_BACKUP_TYPE,
+                    backupData.backupType
                 )
 
                 true
@@ -67,17 +76,20 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun getBackupData(option: BackupOption): BackupData {
+    private suspend fun getBackupData(
+        type: BackupType,
+        backupMode: BackupMode
+    ): BackupData {
         val settings =
-            if (option == BackupOption.SETTINGS_ONLY || option == BackupOption.SETTINGS_AND_DATABASE)
+            if (type == BackupType.SETTINGS_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
                 getSettingsMap() else null
 
         val commands =
-            if (option == BackupOption.DATABASE_ONLY || option == BackupOption.SETTINGS_AND_DATABASE)
+            if (type == BackupType.DATABASE_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
                 commandRepository.getAllCommandsOnce() else null
 
         val bookmarks =
-            if (option == BackupOption.DATABASE_ONLY || option == BackupOption.SETTINGS_AND_DATABASE)
+            if (type == BackupType.DATABASE_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
                 bookmarkRepository.getBookmarksSorted(SortType.AZ) else null
 
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
@@ -88,7 +100,9 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
             settings = settings,
             commands = commands,
             bookmarks = bookmarks,
-            backupTime = backupTime
+            backupTime = backupTime,
+            backupType = type.name,
+            backupMode = backupMode.name
         )
     }
 
@@ -106,6 +120,22 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
             null
         }
     }
+
+    override suspend fun getBackupTypeFromFile(uri: Uri): String? = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val inputStream =
+                context.contentResolver.openInputStream(uri) ?: return@withContext null
+            val encryptedBytes = inputStream.readBytes()
+            val decryptedBytes = EncryptionHelper.decrypt(encryptedBytes)
+            val jsonString = decryptedBytes.toString(Charsets.UTF_8)
+            val data = json.decodeFromString(BackupData.serializer(), jsonString)
+            data.backupType
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
 
     private suspend fun getSettingsMap(): Map<String, String?> {
         val prefs = settingsRepository.getCurrentSettings()
@@ -153,10 +183,13 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun generateBackupBytes(option: BackupOption): ByteArray? =
+    override suspend fun generateCloudBackupBytes(type: BackupType): ByteArray? =
         withContext(Dispatchers.IO) {
             try {
-                val backupData = getBackupData(option)
+                val backupData = getBackupData(
+                    type = type,
+                    backupMode = BackupMode.GOOGLE_DRIVE
+                )
                 val jsonData = json.encodeToString(BackupData.serializer(), backupData)
                 EncryptionHelper.encrypt(jsonData.toByteArray())
             } catch (e: Exception) {
@@ -186,6 +219,19 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
                 val jsonString = decryptedBytes.toString(Charsets.UTF_8)
                 val restoredData = json.decodeFromString(BackupData.serializer(), jsonString)
                 restoredData.backupTime
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
+
+    override suspend fun getBackupTypeFromBytes(encryptedBytes: ByteArray): String? =
+        withContext(Dispatchers.IO) {
+            try {
+                val decryptedBytes = EncryptionHelper.decrypt(encryptedBytes)
+                val jsonString = decryptedBytes.toString(Charsets.UTF_8)
+                val restoredData = json.decodeFromString(BackupData.serializer(), jsonString)
+                restoredData.backupType
             } catch (e: Exception) {
                 e.printStackTrace()
                 null

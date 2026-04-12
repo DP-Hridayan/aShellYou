@@ -34,7 +34,9 @@ val LocalSettings = compositionLocalOf {
         bookmarkSortType = SortType.AZ,
         commandsSortType = SortType.AZ,
         isNewCommandsAvailable = true,
-        lastLocalBackupTime ="",
-        lastCloudBackupTime = ""
+        lastLocalBackupTime = "",
+        lastCloudBackupTime = "",
+        lastCloudBackupType = "None",
+        lastLocalBackupType = "None"
     )
 }

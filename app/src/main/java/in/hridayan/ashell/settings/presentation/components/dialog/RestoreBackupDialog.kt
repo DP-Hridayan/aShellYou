@@ -27,21 +27,29 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.settings.domain.model.BackupType
 
 @Composable
 fun RestoreBackupDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
-    backupTime: String? = ""
+    backupTime: String? = "",
+    backupType: String? = ""
 ) {
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
 
     val (date, time) = (backupTime ?: "").split(" ").let {
         Pair(it.getOrNull(0) ?: "", it.getOrNull(1) ?: "")
+    }
+
+    val backupTypeText = when (backupType) {
+        BackupType.SETTINGS_ONLY.name -> stringResource(R.string.settings_only)
+        BackupType.DATABASE_ONLY.name -> stringResource(R.string.databases_only)
+        BackupType.SETTINGS_AND_DATABASE.name -> stringResource(R.string.all_data)
+        else -> stringResource(R.string.none)
     }
 
     Dialog(
@@ -88,12 +96,21 @@ fun RestoreBackupDialog(
                     color = MaterialTheme.colorScheme.primary
                 )
 
+                Spacer(modifier = Modifier.height(10.dp))
+
+                AutoResizeableText(
+                    text = stringResource(R.string.backup_type) + " : " + backupTypeText,
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+
                 Spacer(modifier = Modifier.height(24.dp))
 
                 @Suppress("DEPRECATION")
                 ButtonGroup(modifier = Modifier.fillMaxWidth()) {
                     OutlinedButton(
-                        onClick = withHaptic(HapticFeedbackType.Reject){
+                        onClick = withHaptic(HapticFeedbackType.Reject) {
                             onDismiss()
                         },
                         shapes = ButtonDefaults.shapes(),
@@ -109,7 +126,7 @@ fun RestoreBackupDialog(
                     }
 
                     Button(
-                        onClick = withHaptic(HapticFeedbackType.Confirm){
+                        onClick = withHaptic(HapticFeedbackType.Confirm) {
                             onConfirm()
                             onDismiss()
                         },
@@ -131,5 +148,4 @@ fun RestoreBackupDialog(
             }
         }
     }
-
 }

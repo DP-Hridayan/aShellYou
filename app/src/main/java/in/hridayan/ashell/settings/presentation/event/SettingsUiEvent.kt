@@ -2,7 +2,7 @@ package `in`.hridayan.ashell.settings.presentation.event
 
 import android.content.Intent
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
-import `in`.hridayan.ashell.settings.domain.model.BackupOption
+import `in`.hridayan.ashell.settings.domain.model.BackupType
 
 sealed class SettingsUiEvent {
     data class ShowToast(val message: String) : SettingsUiEvent()
@@ -12,11 +12,11 @@ sealed class SettingsUiEvent {
     data class LaunchIntent(val intent: Intent) : SettingsUiEvent()
     data class RequestPermission(val permission: String) : SettingsUiEvent()
 
-    data class RequestDocumentUriForBackup(val backupOption: BackupOption) : SettingsUiEvent()
+    data class RequestDocumentUriForBackup(val backupType: BackupType) : SettingsUiEvent()
     object RequestDocumentUriForRestore : SettingsUiEvent()
 
     // Google Drive events
     object RequestGoogleSignIn : SettingsUiEvent()
-    data class RequestGoogleDriveBackup(val backupOption: BackupOption) : SettingsUiEvent()
+    data class RequestGoogleDriveBackup(val backupType: BackupType) : SettingsUiEvent()
     object RequestGoogleDriveRestore : SettingsUiEvent()
 }

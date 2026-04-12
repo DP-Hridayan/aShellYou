@@ -60,5 +60,7 @@ enum class SettingsKeys(val default: Any?) {
     NEW_COMMANDS_AVAILABLE(true),
     GOOGLE_ACCOUNT_EMAIL(""),
     GOOGLE_ACCOUNT_PHOTO_URL(""),
-    LAST_CLOUD_BACKUP_TIME("")
+    LAST_CLOUD_BACKUP_TIME(""),
+    LAST_CLOUD_BACKUP_TYPE("None"),
+    LAST_LOCAL_BACKUP_TYPE("None")
 }

@@ -9,5 +9,7 @@ data class BackupData(
     val settings: Map<String, String?>? = null,
     val commands: List<CommandEntity>? = null,
     val bookmarks: List<BookmarkEntity>? = null,
-    val backupTime: String
+    val backupTime: String,
+    val backupType: String,
+    val backupMode: String
 )

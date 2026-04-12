@@ -10,7 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.settings.data.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.model.BackupOption
+import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
@@ -44,10 +44,13 @@ class BackupAndRestoreViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    private var currentBackupOption: BackupOption = BackupOption.SETTINGS_AND_DATABASE
+    private var currentBackupType: BackupType = BackupType.SETTINGS_AND_DATABASE
 
-    private val _backupTime = MutableStateFlow<String?>(null)
-    val backupTime: StateFlow<String?> = _backupTime
+    private val _localBackupTime = MutableStateFlow<String?>(null)
+    val localBackupTime: StateFlow<String?> = _localBackupTime
+
+    private val _localBackupType = MutableStateFlow<String?>(null)
+    val localBackupType: StateFlow<String?> = _localBackupType
 
     val googleUserState: StateFlow<GoogleUserState> = googleAuthRepository.googleUserState
 
@@ -64,6 +67,9 @@ class BackupAndRestoreViewModel @Inject constructor(
     private val _cloudBackupTime = MutableStateFlow<String?>(null)
     val cloudBackupTime: StateFlow<String?> = _cloudBackupTime.asStateFlow()
 
+    private val _cloudBackupType = MutableStateFlow<String?>(null)
+    val cloudBackupType: StateFlow<String?> = _cloudBackupType.asStateFlow()
+
     private val _isFetchingCloudBackupTime = MutableStateFlow(false)
     val isFetchingCloudBackupTime: StateFlow<Boolean> = _isFetchingCloudBackupTime.asStateFlow()
 
@@ -76,7 +82,7 @@ class BackupAndRestoreViewModel @Inject constructor(
 
     // Tracks what operation to retry after consent is granted
     private sealed class PendingOperation {
-        data class Backup(val option: BackupOption) : PendingOperation()
+        data class Backup(val type: BackupType) : PendingOperation()
         data object Restore : PendingOperation()
     }
 
@@ -96,13 +102,13 @@ class BackupAndRestoreViewModel @Inject constructor(
         }
     }
 
-    fun initiateBackup(option: BackupOption) {
-        currentBackupOption = option
+    fun initiateBackup(type: BackupType) {
+        currentBackupType = type
     }
 
     fun performLocalBackup(uri: Uri) {
         viewModelScope.launch {
-            val success = backupAndRestoreRepository.backupToDevice(uri, currentBackupOption)
+            val success = backupAndRestoreRepository.backupToDevice(uri, currentBackupType)
 
             val message =
                 if (success) context.getString(R.string.backup_successful) else context.getString(R.string.backup_failed)
@@ -136,7 +142,10 @@ class BackupAndRestoreViewModel @Inject constructor(
     fun loadBackupTime(uri: Uri) {
         viewModelScope.launch {
             val time = backupAndRestoreRepository.getBackupTimeFromFile(uri)
-            _backupTime.value = time
+            _localBackupTime.value = time
+
+            val type = backupAndRestoreRepository.getBackupTypeFromFile(uri)
+            _localBackupType.value = type
         }
     }
 
@@ -194,7 +203,7 @@ class BackupAndRestoreViewModel @Inject constructor(
         when (val op = pendingOperation) {
             is PendingOperation.Backup -> {
                 pendingOperation = null
-                backupToGoogleDrive(op.option)
+                backupToGoogleDrive(op.type)
             }
 
             is PendingOperation.Restore -> {
@@ -218,13 +227,13 @@ class BackupAndRestoreViewModel @Inject constructor(
         }
     }
 
-    fun backupToGoogleDrive(option: BackupOption) {
+    fun backupToGoogleDrive(type: BackupType) {
         viewModelScope.launch {
-            Log.d(TAG, "backupToGoogleDrive: option=$option")
-            pendingOperation = PendingOperation.Backup(option)
+            Log.d(TAG, "backupToGoogleDrive: option=$type")
+            pendingOperation = PendingOperation.Backup(type)
             _cloudOperationMessage.value = context.getString(R.string.uploading_backup)
 
-            val bytes = backupAndRestoreRepository.generateBackupBytes(option)
+            val bytes = backupAndRestoreRepository.generateCloudBackupBytes(type)
             if (bytes == null) {
                 Log.e(TAG, "backupToGoogleDrive: generateBackupBytes returned null")
                 _cloudOperationMessage.value = null
@@ -251,6 +260,7 @@ class BackupAndRestoreViewModel @Inject constructor(
                 val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
                 val backupTime = LocalDateTime.now().format(formatter)
                 settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TIME, backupTime)
+                settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TYPE, type.name)
                 _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.cloud_backup_successful)))
             } else {
                 Log.e(TAG, "backupToGoogleDrive: upload FAILED")
@@ -289,8 +299,13 @@ class BackupAndRestoreViewModel @Inject constructor(
 
             // Store pending bytes and extract backup time
             pendingCloudRestoreBytes = bytes
+
             val time = backupAndRestoreRepository.getBackupTimeFromBytes(bytes)
             _cloudBackupTime.value = time
+
+            val type = backupAndRestoreRepository.getBackupTypeFromBytes(bytes)
+            _cloudBackupType.value = type
+
             _showCloudRestoreConfirm.value = true
         }
     }
@@ -369,5 +384,6 @@ class BackupAndRestoreViewModel @Inject constructor(
         _showCloudRestoreConfirm.value = false
         pendingCloudRestoreBytes = null
         _cloudBackupTime.value = null
+        _cloudBackupType.value = null
     }
 }

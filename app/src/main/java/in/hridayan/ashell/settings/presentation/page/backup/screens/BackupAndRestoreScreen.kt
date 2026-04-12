@@ -3,6 +3,7 @@
 package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
@@ -57,7 +58,7 @@ import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.settings.domain.model.BackupOption
+import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.presentation.components.dialog.BackupDestinationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.CloudOperationDialog
@@ -82,9 +83,16 @@ fun BackupAndRestoreScreen(
     val res = LocalResources.current
     val settings = settingsViewModel.backupPageList
     val dialogManager = LocalDialogManager.current
-    val backupTime by backupAndRestoreViewModel.backupTime.collectAsState()
+    val localBackupTime by backupAndRestoreViewModel.localBackupTime.collectAsState()
+    val localBackupType by backupAndRestoreViewModel.localBackupType.collectAsState()
     val lastLocalBackupTime = LocalSettings.current.lastLocalBackupTime
+    val lastLocalBackupType = LocalSettings.current.lastLocalBackupType
+
+    val cloudBackupTime by backupAndRestoreViewModel.cloudBackupTime.collectAsState()
+    val cloudBackupType by backupAndRestoreViewModel.cloudBackupType.collectAsState()
     val lastCloudBackupTime = LocalSettings.current.lastCloudBackupTime
+    val lastCloudBackupType = LocalSettings.current.lastCloudBackupType
+
     val isFetchingCloudBackupTime by backupAndRestoreViewModel.isFetchingCloudBackupTime.collectAsState()
     var isLastBackupDetailsCardExpanded by rememberSaveable { mutableStateOf(false) }
 
@@ -92,9 +100,7 @@ fun BackupAndRestoreScreen(
     val isSigningIn by backupAndRestoreViewModel.isSigningIn.collectAsState()
     val cloudOperationMessage by backupAndRestoreViewModel.cloudOperationMessage.collectAsState()
 
-    // Cloud restore confirm state
     val showCloudRestoreConfirm by backupAndRestoreViewModel.showCloudRestoreConfirm.collectAsState()
-    val cloudBackupTime by backupAndRestoreViewModel.cloudBackupTime.collectAsState()
 
     var restoreFileUri by rememberSaveable { mutableStateOf("".toUri()) }
 
@@ -134,7 +140,7 @@ fun BackupAndRestoreScreen(
     LaunchedEffect(Unit) {
         backupAndRestoreViewModel.consentIntentSender.collect { intentSender ->
             consentLauncher.launch(
-                androidx.activity.result.IntentSenderRequest.Builder(intentSender).build()
+                IntentSenderRequest.Builder(intentSender).build()
             )
         }
     }
@@ -147,7 +153,7 @@ fun BackupAndRestoreScreen(
                 }
 
                 is SettingsUiEvent.RequestDocumentUriForBackup -> {
-                    backupAndRestoreViewModel.initiateBackup(event.backupOption)
+                    backupAndRestoreViewModel.initiateBackup(event.backupType)
                     launcherBackup.launch("backup_${System.currentTimeMillis()}.ashellyou")
                 }
 
@@ -156,7 +162,7 @@ fun BackupAndRestoreScreen(
                 }
 
                 is SettingsUiEvent.RequestGoogleDriveBackup -> {
-                    backupAndRestoreViewModel.backupToGoogleDrive(event.backupOption)
+                    backupAndRestoreViewModel.backupToGoogleDrive(event.backupType)
                 }
 
                 is SettingsUiEvent.RequestGoogleDriveRestore -> {
@@ -261,7 +267,9 @@ fun BackupAndRestoreScreen(
                                             .fillMaxWidth()
                                             .padding(top = 10.dp),
                                         lastLocalBackupTime = lastLocalBackupTime,
+                                        lastLocalBackupType = lastLocalBackupType,
                                         lastCloudBackupTime = lastCloudBackupTime,
+                                        lastCloudBackupType = lastCloudBackupType,
                                         userState = googleUserState,
                                         isFetching = isFetchingCloudBackupTime,
                                         isExpanded = isLastBackupDetailsCardExpanded,
@@ -298,27 +306,28 @@ fun BackupAndRestoreScreen(
         RestoreBackupDialog(
             onDismiss = { it.dismiss() },
             onConfirm = { backupAndRestoreViewModel.performRestore(restoreFileUri) },
-            backupTime = backupTime
+            backupTime = localBackupTime,
+            backupType = localBackupType
         )
     }
 
     DialogKey.Settings.BackupDestination(
-        backupOption = backupAndRestoreViewModel.run {
-            BackupOption.SETTINGS_AND_DATABASE
+        backupType = backupAndRestoreViewModel.run {
+            BackupType.SETTINGS_AND_DATABASE
         }
     ).createDialog { dialogViewModel ->
         val activeKey = dialogManager.activeDialog
-        val backupOption = (activeKey as? DialogKey.Settings.BackupDestination)?.backupOption
-            ?: BackupOption.SETTINGS_AND_DATABASE
+        val backupType = (activeKey as? DialogKey.Settings.BackupDestination)?.backupType
+            ?: BackupType.SETTINGS_AND_DATABASE
 
         BackupDestinationDialog(
             onDismiss = { dialogViewModel.dismiss() },
             onLocalBackup = {
-                backupAndRestoreViewModel.initiateBackup(backupOption)
+                backupAndRestoreViewModel.initiateBackup(backupType)
                 launcherBackup.launch("backup_${System.currentTimeMillis()}.ashellyou")
             },
             onGoogleDriveBackup = {
-                backupAndRestoreViewModel.backupToGoogleDrive(backupOption)
+                backupAndRestoreViewModel.backupToGoogleDrive(backupType)
             }
         )
     }
@@ -350,7 +359,8 @@ fun BackupAndRestoreScreen(
         RestoreBackupDialog(
             onDismiss = { backupAndRestoreViewModel.cancelCloudRestore() },
             onConfirm = { backupAndRestoreViewModel.confirmCloudRestore() },
-            backupTime = cloudBackupTime
+            backupTime = cloudBackupTime,
+            backupType = cloudBackupType
         )
     }
 }
@@ -359,7 +369,9 @@ fun BackupAndRestoreScreen(
 private fun LastBackupTimeCard(
     modifier: Modifier = Modifier,
     lastLocalBackupTime: String,
+    lastLocalBackupType: String,
     lastCloudBackupTime: String,
+    lastCloudBackupType: String,
     userState: GoogleUserState,
     isFetching: Boolean,
     isExpanded: Boolean = false,
@@ -436,6 +448,7 @@ private fun LastBackupTimeCard(
                 roundedCornerShape = CardCornerShape.MIDDLE_CARD,
                 icon = painterResource(R.drawable.ic_mobile),
                 title = stringResource(R.string.device_backup_local),
+                backupType = lastLocalBackupType,
                 timeDescription = formattedLastLocalBackupTime
             )
 
@@ -444,6 +457,7 @@ private fun LastBackupTimeCard(
                 roundedCornerShape = CardCornerShape.LAST_CARD,
                 icon = painterResource(R.drawable.ic_cloud_done),
                 title = stringResource(R.string.cloud_backup_google_drive),
+                backupType = lastCloudBackupType,
                 timeDescription = perUserLastCloudBackupTime
             )
         }
@@ -456,10 +470,18 @@ private fun TimeCard(
     roundedCornerShape: RoundedCornerShape,
     icon: Painter,
     title: String,
+    backupType: String,
     timeDescription: String
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
+
+    val backupTypeText = when (backupType) {
+        BackupType.SETTINGS_ONLY.name -> stringResource(R.string.settings_only)
+        BackupType.DATABASE_ONLY.name -> stringResource(R.string.databases_only)
+        BackupType.SETTINGS_AND_DATABASE.name -> stringResource(R.string.all_data)
+        else -> stringResource(R.string.none)
+    }
 
     RoundedCornerCard(
         modifier = modifier,
@@ -487,6 +509,12 @@ private fun TimeCard(
                     text = title,
                     fontWeight = FontWeight.SemiBold,
                     style = MaterialTheme.typography.titleMediumEmphasized,
+                )
+
+                Text(
+                    text = stringResource(R.string.backup_type) + " : " + backupTypeText,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.alpha(0.9f)
                 )
 
                 Text(

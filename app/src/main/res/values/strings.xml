@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+    <string name="not_signed_in">Not signed in</string>
     <string name="A_Z" translatable="false">A → Z</string>
     <string name="abort_command">Abort command first</string>
     <string name="about">About</string>
@@ -14,6 +15,7 @@
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
     <string name="additional_settings">Additional settings</string>
+    <string name="all_data">All data</string>
     <string name="already_connected">Already connected</string>
     <string name="already_latest_version">You are using the latest version</string>
     <string name="app">App</string>
@@ -35,6 +37,7 @@
     <string name="backup_settings">Backup app settings</string>
     <string name="backup_successful">Backup successful</string>
     <string name="backup_time">Backup time</string>
+    <string name="backup_type">Backup type</string>
     <string name="basic_shell">Basic shell</string>
     <string name="behavior">Behavior</string>
     <string name="bookmark_limit_reached">Maximum bookmark limit reached! Delete some bookmarks to add new ones</string>
@@ -92,10 +95,10 @@
     <string name="cut_items">Cut %1$d items</string>
     <string name="cut_to_clipboard">Cut to clipboard</string>
     <string name="dark_theme">Dark theme</string>
+    <string name="databases_only">Databases only</string>
     <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>
     <string name="delete">Delete</string>
-    <string name="sign_out_confirmation_msg">Signing out will pause all automatic cloud backups!\nDo you still want to sign out?</string>
     <string name="delete_all">Delete all</string>
     <string name="delete_file">Delete file</string>
     <string name="delete_folder">Delete folder</string>
@@ -210,6 +213,7 @@
     <string name="fb_uploaded_successfully">File uploaded successfully</string>
     <string name="fb_uploading">Uploading %1$s</string>
     <string name="feature_request">Feature request</string>
+    <string name="fetching_backup_time">Fetching backup time …</string>
     <string name="field_cannot_be_blank">Field cannot be blank</string>
     <string name="file">File</string>
     <string name="file_actions">File actions</string>
@@ -241,6 +245,7 @@
     <string name="grant_permission">Grant permission</string>
     <string name="great_news">Great news!</string>
     <string name="haptics_and_vibration">Haptics &amp; Vibration</string>
+    <string name="have_a_nice_day">Have a nice day!</string>
     <string name="high_contrast_dark_mode">High contrast dark mode</string>
     <string name="hint">Hint</string>
     <string name="history">History</string>
@@ -304,9 +309,6 @@
     <string name="no_search_results_found">No search results found</string>
     <string name="no_wifi_connection">No WiFi connection</string>
     <string name="none">None</string>
-    <string name="have_a_nice_day">Have a nice day!</string>
-    <string name ="not_signed_in">Not signed in</string>
-    <string name="fetching_backup_time">Fetching backup time …</string>
     <string name="nothing_to_clear">Nothing to clear</string>
     <string name="nothing_to_search">Nothing to search</string>
     <string name="notification_access_not_granted">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
@@ -411,6 +413,7 @@
     <string name="self_pair_timeout">Timeout - open pairing dialog in Wireless Debugging</string>
     <string name="self_pair_wrong_code">Wrong code - open pairing dialog again</string>
     <string name="settings">Settings</string>
+    <string name="settings_only">Settings only</string>
     <string name="shell_output_saved_message">The output of last command is exported to \'%s\'</string>
     <string name="shell_output_saved_whole_message">The shell output is exported to \'%s\'</string>
     <string name="shizuku" translatable="false">Shizuku</string>
@@ -420,6 +423,7 @@
     <string name="sign_in_failed">Google sign-in failed</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_out">Sign out</string>
+    <string name="sign_out_confirmation_msg">Signing out will pause all automatic cloud backups!\nDo you still want to sign out?</string>
     <string name="signed_in_as">Signed in as %1$s</string>
     <string name="signed_out">Signed out</string>
     <string name="size">Size</string>

@@ -129,6 +129,8 @@ class SettingsDataStore @Inject constructor(
             SettingsKeys.FIRST_LAUNCH.name,
             SettingsKeys.LAST_LOCAL_BACKUP_TIME.name,
             SettingsKeys.LAST_CLOUD_BACKUP_TIME.name,
+            SettingsKeys.LAST_LOCAL_BACKUP_TYPE.name,
+            SettingsKeys.LAST_CLOUD_BACKUP_TYPE.name,
             SettingsKeys.SAVED_VERSION_CODE.name,
             SettingsKeys.GOOGLE_ACCOUNT_EMAIL.name,
             SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL.name,

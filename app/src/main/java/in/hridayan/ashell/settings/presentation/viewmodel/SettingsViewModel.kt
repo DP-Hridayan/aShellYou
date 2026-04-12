@@ -16,7 +16,7 @@ import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.model.BackupOption
+import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
@@ -206,12 +206,12 @@ class SettingsViewModel @Inject constructor(
                     if (googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
-                                DialogKey.Settings.BackupDestination(BackupOption.SETTINGS_ONLY)
+                                DialogKey.Settings.BackupDestination(BackupType.SETTINGS_ONLY)
                             )
                         )
                     } else {
                         _uiEvent.emit(
-                            SettingsUiEvent.RequestDocumentUriForBackup(BackupOption.SETTINGS_ONLY)
+                            SettingsUiEvent.RequestDocumentUriForBackup(BackupType.SETTINGS_ONLY)
                         )
                     }
                 }
@@ -220,12 +220,12 @@ class SettingsViewModel @Inject constructor(
                     if (googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
-                                DialogKey.Settings.BackupDestination(BackupOption.DATABASE_ONLY)
+                                DialogKey.Settings.BackupDestination(BackupType.DATABASE_ONLY)
                             )
                         )
                     } else {
                         _uiEvent.emit(
-                            SettingsUiEvent.RequestDocumentUriForBackup(BackupOption.DATABASE_ONLY)
+                            SettingsUiEvent.RequestDocumentUriForBackup(BackupType.DATABASE_ONLY)
                         )
                     }
                 }
@@ -234,12 +234,12 @@ class SettingsViewModel @Inject constructor(
                     if (googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
-                                DialogKey.Settings.BackupDestination(BackupOption.SETTINGS_AND_DATABASE)
+                                DialogKey.Settings.BackupDestination(BackupType.SETTINGS_AND_DATABASE)
                             )
                         )
                     } else {
                         _uiEvent.emit(
-                            SettingsUiEvent.RequestDocumentUriForBackup(BackupOption.SETTINGS_AND_DATABASE)
+                            SettingsUiEvent.RequestDocumentUriForBackup(BackupType.SETTINGS_AND_DATABASE)
                         )
                     }
                 }
