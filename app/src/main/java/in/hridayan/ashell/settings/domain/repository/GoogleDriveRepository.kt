@@ -1,6 +1,6 @@
 package `in`.hridayan.ashell.settings.domain.repository
 
-import `in`.hridayan.ashell.settings.domain.event.DriveAuthEvent
+import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent
 import kotlinx.coroutines.flow.SharedFlow
 
 interface GoogleDriveRepository {

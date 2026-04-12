@@ -71,11 +71,7 @@ fun BackupAndRestoreScreen(
     val lastBackupTime by settingsViewModel.getString(SettingsKeys.LAST_BACKUP_TIME)
         .collectAsState(initial = "")
 
-    // Google Sign-In state
-    val isSignedIn by backupAndRestoreViewModel.isSignedIn.collectAsState()
-    val userEmail by backupAndRestoreViewModel.userEmail.collectAsState()
-    val userName by backupAndRestoreViewModel.userName.collectAsState()
-    val userPhotoUrl by backupAndRestoreViewModel.userPhotoUrl.collectAsState()
+    val googleUserState by backupAndRestoreViewModel.googleUserState.collectAsState()
     val isSigningIn by backupAndRestoreViewModel.isSigningIn.collectAsState()
     val cloudOperationMessage by backupAndRestoreViewModel.cloudOperationMessage.collectAsState()
 
@@ -228,10 +224,10 @@ fun BackupAndRestoreScreen(
                             when (group.label) {
                                 "google_sign_in" -> {
                                     GoogleSignInCard(
-                                        isSignedIn = isSignedIn,
-                                        userEmail = userEmail,
-                                        userName = userName,
-                                        userPhotoUrl = userPhotoUrl,
+                                        isSignedIn = googleUserState.isSignedIn,
+                                        userEmail = googleUserState.email,
+                                        userName = googleUserState.name,
+                                        userPhotoUrl = googleUserState.photoUrl,
                                         isLoading = isSigningIn || cloudOperationMessage != null,
                                         onSignInClick = {
                                             backupAndRestoreViewModel.signInWithGoogle()

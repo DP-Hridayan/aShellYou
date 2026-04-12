@@ -15,7 +15,7 @@ import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.DriveScopes
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.settings.domain.event.DriveAuthEvent
+import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent
 import `in`.hridayan.ashell.settings.domain.model.DriveOperationResult
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleDriveRepository

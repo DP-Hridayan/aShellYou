@@ -203,7 +203,7 @@ class SettingsViewModel @Inject constructor(
 
                 // Backup options: show destination dialog if signed in, else go straight to local
                 SettingsKeys.BACKUP_APP_SETTINGS -> {
-                    if (googleAuthRepository.isSignedIn.value) {
+                    if (googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
                                 DialogKey.Settings.BackupDestination(BackupOption.SETTINGS_ONLY)
@@ -217,7 +217,7 @@ class SettingsViewModel @Inject constructor(
                 }
 
                 SettingsKeys.BACKUP_APP_DATABASE -> {
-                    if (googleAuthRepository.isSignedIn.value) {
+                    if (googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
                                 DialogKey.Settings.BackupDestination(BackupOption.DATABASE_ONLY)
@@ -231,7 +231,7 @@ class SettingsViewModel @Inject constructor(
                 }
 
                 SettingsKeys.BACKUP_APP_DATA -> {
-                    if (googleAuthRepository.isSignedIn.value) {
+                    if (googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
                                 DialogKey.Settings.BackupDestination(BackupOption.SETTINGS_AND_DATABASE)
@@ -246,7 +246,7 @@ class SettingsViewModel @Inject constructor(
 
                 // Restore: show source dialog if signed in, else go straight to local
                 SettingsKeys.RESTORE_APP_DATA -> {
-                    if (googleAuthRepository.isSignedIn.value) {
+                    if (googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(DialogKey.Settings.RestoreSource)
                         )

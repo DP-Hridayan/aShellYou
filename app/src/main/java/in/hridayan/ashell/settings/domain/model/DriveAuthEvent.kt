@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.domain.event
+package `in`.hridayan.ashell.settings.domain.model
 
 import android.content.IntentSender
 

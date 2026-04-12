@@ -10,8 +10,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.settings.data.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.event.DriveAuthEvent
 import `in`.hridayan.ashell.settings.domain.model.BackupOption
+import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent
+import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleDriveRepository
@@ -46,11 +47,7 @@ class BackupAndRestoreViewModel @Inject constructor(
     private val _backupTime = MutableStateFlow<String?>(null)
     val backupTime: StateFlow<String?> = _backupTime
 
-    // Google Sign-In state
-    val isSignedIn: StateFlow<Boolean> = googleAuthRepository.isSignedIn
-    val userEmail: StateFlow<String?> = googleAuthRepository.userEmail
-    val userName: StateFlow<String?> = googleAuthRepository.userName
-    val userPhotoUrl = googleAuthRepository.userPhotoUrl
+    val googleUserState: StateFlow<GoogleUserState> = googleAuthRepository.googleUserState
 
     // Cloud operation loading dialog
     private val _cloudOperationMessage = MutableStateFlow<String?>(null)

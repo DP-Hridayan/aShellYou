@@ -2,13 +2,11 @@ package `in`.hridayan.ashell.settings.domain.repository
 
 import android.content.Context
 import android.net.Uri
+import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import kotlinx.coroutines.flow.StateFlow
 
 interface GoogleAuthRepository {
-    val isSignedIn: StateFlow<Boolean>
-    val userEmail: StateFlow<String?>
-    val userName: StateFlow<String?>
-    val userPhotoUrl: StateFlow<Uri?>
+    val googleUserState: StateFlow<GoogleUserState>
 
     /**
      * Launch sign-in via Credential Manager (modern bottom sheet) and request Drive scope.

@@ -1,7 +1,6 @@
 package `in`.hridayan.ashell.settings.data.repository
 
 import android.content.Context
-import android.net.Uri
 import android.util.Log
 import androidx.core.net.toUri
 import androidx.credentials.CredentialManager
@@ -13,6 +12,7 @@ import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
@@ -39,39 +40,44 @@ class GoogleAuthRepositoryImpl @Inject constructor(
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    private val _isSignedIn = MutableStateFlow(false)
-    override val isSignedIn: StateFlow<Boolean> = _isSignedIn.asStateFlow()
+    private val _googleUserState = MutableStateFlow(GoogleUserState())
 
-    private val _userEmail = MutableStateFlow<String?>(null)
-    override val userEmail: StateFlow<String?> = _userEmail.asStateFlow()
-
-    private val _userName = MutableStateFlow<String?>(null)
-    override val userName: StateFlow<String?> = _userName.asStateFlow()
-
-    private val _userPhotoUrl = MutableStateFlow<Uri?>(null)
-    override val userPhotoUrl: StateFlow<Uri?> = _userPhotoUrl.asStateFlow()
+    override val googleUserState: StateFlow<GoogleUserState> =
+        _googleUserState.asStateFlow()
 
     init {
-        // Restore sign-in state from persisted data
+        restoreState()
+    }
+
+    private fun restoreState() {
         scope.launch {
-            val savedEmail = settingsRepository.getString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL).first()
-            val savedPhotoUrl =
-                settingsRepository.getString(SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL).first()
-            Log.d(TAG, "init: restored email='$savedEmail', photoUrl='$savedPhotoUrl'")
-            if (savedEmail.isNotEmpty()) {
-                _userEmail.value = savedEmail
-                _isSignedIn.value = true
-                if (savedPhotoUrl.isNotEmpty()) {
-                    _userPhotoUrl.value = savedPhotoUrl.toUri()
+            try {
+                val savedEmail = settingsRepository
+                    .getString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL)
+                    .first()
+
+                val savedPhotoUrl = settingsRepository
+                    .getString(SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL)
+                    .first()
+
+                if (savedEmail.isNotEmpty()) {
+                    _googleUserState.value = GoogleUserState(
+                        isSignedIn = true,
+                        email = savedEmail,
+                        photoUrl = savedPhotoUrl.takeIf { it.isNotEmpty() }?.toUri()
+                    )
                 }
+
+                Log.d(TAG, "restoreState: done")
+
+            } catch (e: Exception) {
+                Log.e(TAG, "restoreState: FAILED", e)
             }
         }
     }
 
-    override suspend fun signIn(): Result<String> {
-        return try {
-            Log.d(TAG, "signIn: using webClientId = $WEB_CLIENT_ID")
-
+    override suspend fun signIn(): Result<String> = withContext(Dispatchers.IO) {
+        try {
             val credentialManager = CredentialManager.create(context)
 
             val googleIdOption = GetGoogleIdOption.Builder()
@@ -83,65 +89,64 @@ class GoogleAuthRepositoryImpl @Inject constructor(
                 .addCredentialOption(googleIdOption)
                 .build()
 
-            Log.d(TAG, "signIn: launching CredentialManager.getCredential()...")
-            val result: GetCredentialResponse = credentialManager.getCredential(context, request)
-            Log.d(TAG, "signIn: got credential response, type = ${result.credential.type}")
+            val result: GetCredentialResponse =
+                credentialManager.getCredential(context, request)
 
             val credential = result.credential
-            when {
+
+            if (
                 credential is CustomCredential &&
-                        credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL -> {
+                credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+            ) {
+                val googleCredential =
+                    GoogleIdTokenCredential.createFrom(credential.data)
 
-                    val googleIdTokenCredential =
-                        GoogleIdTokenCredential.createFrom(credential.data)
-                    val email = googleIdTokenCredential.id
-                    val displayName = googleIdTokenCredential.displayName
-                    val photoUri = googleIdTokenCredential.profilePictureUri
+                val email = googleCredential.id
+                val name = googleCredential.displayName
+                val photo = googleCredential.profilePictureUri
 
-                    Log.d(
-                        TAG,
-                        "signIn: SUCCESS — email=$email, displayName=$displayName, photo=$photoUri"
-                    )
+                _googleUserState.value = GoogleUserState(
+                    isSignedIn = true,
+                    email = email,
+                    name = name,
+                    photoUrl = photo
+                )
 
-                    _userEmail.value = email
-                    _userName.value = displayName
-                    _userPhotoUrl.value = photoUri
-                    _isSignedIn.value = true
-                    settingsRepository.setString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL, email)
-                    settingsRepository.setString(
-                        SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL,
-                        photoUri?.toString() ?: ""
-                    )
+                settingsRepository.setString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL, email)
+                settingsRepository.setString(
+                    SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL,
+                    photo?.toString() ?: ""
+                )
 
-                    Result.success(email)
-                }
+                Log.d(TAG, "signIn: SUCCESS $email")
+                Result.success(email)
 
-                else -> {
-                    Log.e(TAG, "signIn: unexpected credential type: ${credential.type}")
-                    Result.failure(Exception("Unexpected credential type: ${credential.type}"))
-                }
+            } else {
+                val error = Exception("Unexpected credential type: ${credential.type}")
+                Log.e(TAG, "signIn: $error")
+                Result.failure(error)
             }
+
         } catch (e: GetCredentialException) {
-            Log.e(TAG, "signIn: GetCredentialException — type=${e.type}, message=${e.message}", e)
+            Log.e(TAG, "signIn: Credential error", e)
             Result.failure(e)
         } catch (e: Exception) {
-            Log.e(TAG, "signIn: unexpected exception", e)
+            Log.e(TAG, "signIn: Unexpected error", e)
             Result.failure(e)
         }
     }
 
     override suspend fun signOut() {
-        Log.d(TAG, "signOut: clearing state")
-        _isSignedIn.value = false
-        _userEmail.value = null
-        _userName.value = null
-        _userPhotoUrl.value = null
+        _googleUserState.value = GoogleUserState()
+
         settingsRepository.setString(SettingsKeys.GOOGLE_ACCOUNT_EMAIL, "")
         settingsRepository.setString(SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL, "")
-        // Delete cached profile image
+
         val cachedFile = File(context.filesDir, "google_profile.jpg")
         if (cachedFile.exists()) cachedFile.delete()
+
+        Log.d(TAG, "signOut: done")
     }
 
-    override fun getAccountEmail(): String? = _userEmail.value
+    override fun getAccountEmail(): String? = _googleUserState.value.email
 }
