@@ -115,10 +115,10 @@
     <string name="des_crash_history">View all crashes that have occurred in the app</string>
     <string name="des_default_language">Choose the default language for the app</string>
     <string name="des_disable_softkey">Useful when you want to use an external keyboard</string>
-    <string name="des_drive_backup">Upload encrypted backup to your Google Drive</string>
+    <string name="des_drive_backup">Upload encrypted backup to your Google Drive.\nThis action will overwrite any existing cloud backups.</string>
     <string name="des_drive_restore">Download your latest backup from Google Drive</string>
     <string name="des_dynamic_colors">Automatically set the app theme according to the device wallpaper</string>
-    <string name="des_enable_direct_download">When turned on, updates will be downloaded directly from Github inside the app. Turn off to visit the Github releases page for manual download instead.</string>
+    <string name="des_enable_direct_download">When turned on, updates will be downloaded directly from GitHub inside the app. Turn off to visit the Github releases page for manual download instead.</string>
     <string name="des_examples">Collection of some command templates</string>
     <string name="des_feature_request">If you have any ideas or suggestions for the app, let us know</string>
     <string name="des_haptics_and_vibration">Interactive haptics for touch feedback</string>
@@ -127,7 +127,7 @@
     <string name="des_local_backup">Save encrypted backup to your device</string>
     <string name="des_local_restore">Pick a backup file from your device</string>
     <string name="des_look_and_feel">Dynamic colors, Dark theme, Language</string>
-    <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low end devices should keep this option turned off</string>
+    <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low-end devices should keep this option turned off</string>
     <string name="des_pair_another_device">Pair another target device</string>
     <string name="des_report_issue">Report any issue or bug you have encountered while using the app</string>
     <string name="des_reset_app_settings">Reset app settings to default values</string>
@@ -303,6 +303,7 @@
     <string name="no_search_results_found">No search results found</string>
     <string name="no_wifi_connection">No WiFi connection</string>
     <string name="none">None</string>
+    <string name="have_a_nice_day">Have a nice day!</string>
     <string name ="not_signed_in">Not signed in</string>
     <string name="fetching_backup_time">Fetching backup time …</string>
     <string name="nothing_to_clear">Nothing to clear</string>

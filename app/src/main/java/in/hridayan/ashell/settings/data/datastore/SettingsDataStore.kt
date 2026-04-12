@@ -126,13 +126,13 @@ class SettingsDataStore @Inject constructor(
 
     suspend fun resetAndRestoreDefaults(): Boolean {
         val preserveKeys = setOf(
+            SettingsKeys.FIRST_LAUNCH.name,
             SettingsKeys.LAST_LOCAL_BACKUP_TIME.name,
             SettingsKeys.LAST_CLOUD_BACKUP_TIME.name,
             SettingsKeys.SAVED_VERSION_CODE.name,
             SettingsKeys.GOOGLE_ACCOUNT_EMAIL.name,
             SettingsKeys.GOOGLE_ACCOUNT_PHOTO_URL.name,
             SettingsKeys.NEW_COMMANDS_AVAILABLE.name,
-            SettingsKeys.FIRST_LAUNCH.name
         )
 
         val currentPrefs = ds.data.first()

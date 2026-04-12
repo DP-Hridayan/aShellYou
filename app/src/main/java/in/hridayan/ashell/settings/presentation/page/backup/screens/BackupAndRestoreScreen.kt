@@ -448,12 +448,15 @@ private fun TimeCard(
     roundedCornerShape: RoundedCornerShape,
     icon: Painter,
     title: String,
-    timeDescription: String,
+    timeDescription: String
 ) {
+    val context = LocalContext.current
+    val res = LocalResources.current
+
     RoundedCornerCard(
         modifier = modifier,
         roundedCornerShape = roundedCornerShape,
-        onClick = withHaptic { }
+        onClick = withHaptic { showToast(context, res.getString(R.string.have_a_nice_day)) }
     ) {
         Row(
             modifier = Modifier
