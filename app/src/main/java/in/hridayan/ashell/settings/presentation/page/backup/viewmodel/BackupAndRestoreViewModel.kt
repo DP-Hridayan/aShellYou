@@ -70,8 +70,8 @@ class BackupAndRestoreViewModel @Inject constructor(
     private val _cloudBackupType = MutableStateFlow<String?>(null)
     val cloudBackupType: StateFlow<String?> = _cloudBackupType.asStateFlow()
 
-    private val _isFetchingCloudBackupTime = MutableStateFlow(false)
-    val isFetchingCloudBackupTime: StateFlow<Boolean> = _isFetchingCloudBackupTime.asStateFlow()
+    private val _isFetchingCloudBackup = MutableStateFlow(false)
+    val isFetchingCloudBackup: StateFlow<Boolean> = _isFetchingCloudBackup.asStateFlow()
 
     private val _showCloudRestoreConfirm = MutableStateFlow(false)
     val showCloudRestoreConfirm: StateFlow<Boolean> = _showCloudRestoreConfirm.asStateFlow()
@@ -173,7 +173,7 @@ class BackupAndRestoreViewModel @Inject constructor(
 
                     if (authorized) {
                         // This is done to show correct last backup time per Google account
-                        syncCloudBackupTimeSilently()
+                        syncCloudBackupDetailsOnSignIn()
                     }
                 },
                 onFailure = { error ->
@@ -192,6 +192,7 @@ class BackupAndRestoreViewModel @Inject constructor(
         viewModelScope.launch {
             googleAuthRepository.signOut()
             _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.signed_out)))
+            settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TIME, "")
         }
     }
 
@@ -213,7 +214,7 @@ class BackupAndRestoreViewModel @Inject constructor(
 
             null -> {
                 Log.d(TAG, "onConsentGranted: no pending operation to retry")
-                syncCloudBackupTimeSilently()
+                syncCloudBackupDetailsOnSignIn()
             }
         }
     }
@@ -310,24 +311,25 @@ class BackupAndRestoreViewModel @Inject constructor(
         }
     }
 
-    private fun syncCloudBackupTimeSilently() {
+    private fun syncCloudBackupDetailsOnSignIn() {
         viewModelScope.launch {
             Log.d(TAG, "syncCloudBackupTimeSilently: starting...")
 
-            _isFetchingCloudBackupTime.value = true
+            _isFetchingCloudBackup.value = true
 
             val result = googleDriveRepository.downloadBackup()
 
             if (result == null) {
                 if (googleDriveRepository.isConsentPending) {
                     Log.d(TAG, "syncCloudBackupTimeSilently: consent required, skipping for now")
-                    _isFetchingCloudBackupTime.value = false
+                    _isFetchingCloudBackup.value = false
                     return@launch
                 }
 
                 Log.d(TAG, "syncCloudBackupTimeSilently: no backup found")
                 settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TIME, "")
-                _isFetchingCloudBackupTime.value = false
+                settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TYPE, "")
+                _isFetchingCloudBackup.value = false
                 return@launch
             }
 
@@ -346,7 +348,20 @@ class BackupAndRestoreViewModel @Inject constructor(
                 Log.e(TAG, "syncCloudBackupTimeSilently: failed to extract time")
             }
 
-            _isFetchingCloudBackupTime.value = false
+            val type = backupAndRestoreRepository.getBackupTypeFromBytes(bytes)
+
+            if (type != null) {
+                Log.d(TAG, "syncCloudBackupTypeSilently: extracted type=$type")
+
+                settingsRepository.setString(
+                    SettingsKeys.LAST_CLOUD_BACKUP_TYPE,
+                    type
+                )
+            } else {
+                Log.e(TAG, "syncCloudBackupTypeSilently: failed to extract type")
+            }
+
+            _isFetchingCloudBackup.value = false
         }
     }
 

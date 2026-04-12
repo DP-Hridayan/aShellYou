@@ -28,6 +28,7 @@
     <string name="back_button">Back button</string>
     <string name="backup">Backup</string>
     <string name="backup_scheduler">Backup scheduler</string>
+    <string name="fetching_backup_type">Fetching backup type…</string>
     <string name="des_backup_scheduler">Automatically schedule backups at selected intervals</string>
     <string name="backup_all_data">Backup all data</string>
     <string name="backup_and_restore">Backup &amp; restore</string>

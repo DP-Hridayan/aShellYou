@@ -95,7 +95,7 @@ fun BackupAndRestoreScreen(
     val lastCloudBackupTime = LocalSettings.current.lastCloudBackupTime
     val lastCloudBackupType = LocalSettings.current.lastCloudBackupType
 
-    val isFetchingCloudBackupTime by backupAndRestoreViewModel.isFetchingCloudBackupTime.collectAsState()
+    val isFetchingCloudBackupTime by backupAndRestoreViewModel.isFetchingCloudBackup.collectAsState()
     var isLastBackupDetailsCardExpanded by rememberSaveable { mutableStateOf(false) }
 
     val googleUserState by backupAndRestoreViewModel.googleUserState.collectAsState()
@@ -387,8 +387,6 @@ private fun LastBackupTimeCard(
         if (isExpanded) CardCornerShape.FIRST_CARD else RoundedCornerShape(cardHeight / 2)
 
     val perUserLastCloudBackupTime = when {
-        !userState.isSignedIn -> stringResource(R.string.not_signed_in)
-
         isFetching -> stringResource(R.string.fetching_backup_time)
 
         lastCloudBackupTime.isNotEmpty() ->
@@ -398,17 +396,26 @@ private fun LastBackupTimeCard(
                 "$date | $time"
             }
 
+        else -> ""
+    }
+
+    val perUserLastCloudBackupType = when {
+        !userState.isSignedIn -> stringResource(R.string.not_signed_in)
+
+        isFetching -> stringResource(R.string.fetching_backup_type)
+
+        lastCloudBackupType.isNotEmpty() -> lastCloudBackupType
+
         else -> stringResource(R.string.none)
     }
 
     val formattedLastLocalBackupTime =
-        if (lastLocalBackupTime.isEmpty()) stringResource(R.string.none)
+        if (lastLocalBackupTime.isEmpty()) "-- -- -- | --:--"
         else lastLocalBackupTime.split(" ").let { parts ->
             val date = parts.getOrNull(0).orEmpty()
             val time = parts.getOrNull(1).orEmpty()
             "$date | $time"
         }
-
 
     Column(modifier = modifier.animateContentSize()) {
         RoundedCornerCard(
@@ -454,7 +461,7 @@ private fun LastBackupTimeCard(
                 roundedCornerShape = CardCornerShape.MIDDLE_CARD,
                 icon = painterResource(R.drawable.ic_mobile),
                 title = stringResource(R.string.device_backup_local),
-                backupType = lastLocalBackupType,
+                backupType = lastLocalBackupType.ifEmpty { stringResource(R.string.none) },
                 timeDescription = formattedLastLocalBackupTime
             )
 
@@ -463,7 +470,7 @@ private fun LastBackupTimeCard(
                 roundedCornerShape = CardCornerShape.LAST_CARD,
                 icon = painterResource(R.drawable.ic_cloud_done),
                 title = stringResource(R.string.cloud_backup_google_drive),
-                backupType = lastCloudBackupType,
+                backupType = perUserLastCloudBackupType,
                 timeDescription = perUserLastCloudBackupTime
             )
         }
@@ -486,7 +493,7 @@ private fun TimeCard(
         BackupType.SETTINGS_ONLY.name -> stringResource(R.string.settings_only)
         BackupType.DATABASE_ONLY.name -> stringResource(R.string.databases_only)
         BackupType.SETTINGS_AND_DATABASE.name -> stringResource(R.string.all_data)
-        else -> stringResource(R.string.none)
+        else -> backupType
     }
 
     RoundedCornerCard(
@@ -523,11 +530,13 @@ private fun TimeCard(
                     modifier = Modifier.alpha(0.9f)
                 )
 
-                Text(
-                    text = timeDescription,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.alpha(0.9f)
-                )
+                if (timeDescription.isNotEmpty()) {
+                    Text(
+                        text = timeDescription,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.alpha(0.9f)
+                    )
+                }
             }
         }
     }
