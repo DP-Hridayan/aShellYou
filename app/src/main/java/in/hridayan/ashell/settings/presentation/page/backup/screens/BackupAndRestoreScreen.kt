@@ -4,9 +4,9 @@ package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,10 +14,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,24 +27,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
+import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
-import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.domain.model.BackupOption
 import `in`.hridayan.ashell.settings.presentation.components.dialog.BackupDestinationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.CloudOperationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ResetSettingsDialog
@@ -68,8 +74,8 @@ fun BackupAndRestoreScreen(
     val settings = settingsViewModel.backupPageList
     val dialogManager = LocalDialogManager.current
     val backupTime by backupAndRestoreViewModel.backupTime.collectAsState()
-    val lastBackupTime by settingsViewModel.getString(SettingsKeys.LAST_BACKUP_TIME)
-        .collectAsState(initial = "")
+    val lastLocalBackupTime = LocalSettings.current.lastLocalBackupTime
+    val lastCloudBackupTime = LocalSettings.current.lastCloudBackupTime
 
     val googleUserState by backupAndRestoreViewModel.googleUserState.collectAsState()
     val isSigningIn by backupAndRestoreViewModel.isSigningIn.collectAsState()
@@ -84,7 +90,7 @@ fun BackupAndRestoreScreen(
     val launcherBackup = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("application/octet-stream")
     ) { uri ->
-        uri?.let { backupAndRestoreViewModel.performBackup(it) }
+        uri?.let { backupAndRestoreViewModel.performLocalBackup(it) }
     }
 
     val launcherRestore = rememberLauncherForActivityResult(
@@ -240,7 +246,11 @@ fun BackupAndRestoreScreen(
 
                                 "last_backup_time" -> {
                                     LastBackupTimeCard(
-                                        lastBackupTime = lastBackupTime
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(top = 20.dp),
+                                        lastLocalBackupTime = lastLocalBackupTime,
+                                        lastCloudBackupTime = lastCloudBackupTime
                                     )
                                 }
                             }
@@ -274,16 +284,14 @@ fun BackupAndRestoreScreen(
         )
     }
 
-    // Backup destination dialog (Local vs Google Drive)
     DialogKey.Settings.BackupDestination(
         backupOption = backupAndRestoreViewModel.run {
-            // Default option — the actual option comes from the dialog key
-            `in`.hridayan.ashell.settings.domain.model.BackupOption.SETTINGS_AND_DATABASE
+            BackupOption.SETTINGS_AND_DATABASE
         }
     ).createDialog { dialogViewModel ->
         val activeKey = dialogManager.activeDialog
         val backupOption = (activeKey as? DialogKey.Settings.BackupDestination)?.backupOption
-            ?: `in`.hridayan.ashell.settings.domain.model.BackupOption.SETTINGS_AND_DATABASE
+            ?: BackupOption.SETTINGS_AND_DATABASE
 
         BackupDestinationDialog(
             onDismiss = { dialogViewModel.dismiss() },
@@ -326,53 +334,92 @@ fun BackupAndRestoreScreen(
 }
 
 @Composable
-private fun LastBackupTimeCard(modifier: Modifier = Modifier, lastBackupTime: String) {
+private fun LastBackupTimeCard(
+    modifier: Modifier = Modifier,
+    lastLocalBackupTime: String,
+    lastCloudBackupTime: String
+) {
+    Column(modifier = modifier) {
+        RoundedCornerCard(
+            modifier = Modifier.fillMaxWidth(),
+            roundedCornerShape = CardCornerShape.FIRST_CARD
+        ) {
+            Text(
+                modifier = Modifier.padding(horizontal = 25.dp, vertical = 10.dp),
+                text = stringResource(R.string.last_backup_details),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
 
-    val (date, time) = (lastBackupTime).split(" ").let {
+        TimeCard(
+            modifier = Modifier.fillMaxWidth(),
+            roundedCornerShape = CardCornerShape.MIDDLE_CARD,
+            icon = painterResource(R.drawable.ic_mobile),
+            title = stringResource(R.string.device_backup_local),
+            timeDescription = lastLocalBackupTime
+        )
+
+        TimeCard(
+            modifier = Modifier.fillMaxWidth(),
+            roundedCornerShape = CardCornerShape.LAST_CARD,
+            icon = painterResource(R.drawable.ic_cloud_done),
+            title = stringResource(R.string.cloud_backup_google_drive),
+            timeDescription = lastCloudBackupTime
+        )
+    }
+}
+
+
+@Composable
+private fun TimeCard(
+    modifier: Modifier = Modifier,
+    roundedCornerShape: RoundedCornerShape,
+    icon: Painter,
+    title: String,
+    timeDescription: String
+) {
+
+    val (date, time) = (timeDescription).split(" ").let {
         Pair(
             it.getOrNull(0) ?: "",
             it.getOrNull(1) ?: ""
         )
     }
 
-    AnimatedVisibility(
-        visible = date.isNotEmpty() && time.isNotEmpty(),
-        enter = scaleIn(
-            animationSpec = MaterialTheme.motionScheme.slowEffectsSpec(),
-        ),
-        exit = scaleOut(animationSpec = MaterialTheme.motionScheme.slowEffectsSpec())
+    RoundedCornerCard(
+        modifier = modifier,
+        roundedCornerShape = roundedCornerShape
     ) {
-        Card(
-            modifier = modifier
+        Row(
+            modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp, top = 15.dp, bottom = 20.dp)
-                .clip(
-                    MaterialTheme.shapes.large
-                ),
-            shape = MaterialTheme.shapes.large,
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface,
-                contentColor = MaterialTheme.colorScheme.onSurface
-            ),
-            border = CardDefaults.outlinedCardBorder()
+                .padding(horizontal = 20.dp, vertical = 17.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            AutoResizeableText(
-                text = stringResource(R.string.last_backup_time) + " : " + time,
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(horizontal = 25.dp, vertical = 15.dp)
+            Icon(
+                painter = icon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
             )
 
-            AutoResizeableText(
-                text = stringResource(R.string.last_backup_date) + " : " + date,
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(
-                    start = 25.dp,
-                    end = 25.dp,
-                    bottom = 20.dp
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(7.dp)
+            ) {
+                Text(
+                    text = title,
+                    fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.titleMediumEmphasized,
                 )
-            )
+
+                Text(
+                    text = if (timeDescription.isEmpty()) stringResource(R.string.none) else "$date | $time",
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.alpha(0.9f)
+                )
+            }
         }
     }
 }

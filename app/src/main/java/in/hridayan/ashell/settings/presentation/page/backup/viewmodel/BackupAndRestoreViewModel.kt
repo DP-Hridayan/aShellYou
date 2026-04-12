@@ -24,6 +24,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -95,9 +97,9 @@ class BackupAndRestoreViewModel @Inject constructor(
         currentBackupOption = option
     }
 
-    fun performBackup(uri: Uri) {
+    fun performLocalBackup(uri: Uri) {
         viewModelScope.launch {
-            val success = backupAndRestoreRepository.backupDataToFile(uri, currentBackupOption)
+            val success = backupAndRestoreRepository.backupToDevice(uri, currentBackupOption)
 
             val message =
                 if (success) context.getString(R.string.backup_successful) else context.getString(R.string.backup_failed)
@@ -237,9 +239,8 @@ class BackupAndRestoreViewModel @Inject constructor(
 
             if (success) {
                 Log.d(TAG, "backupToGoogleDrive: upload SUCCESS")
-                val formatter = java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
-                val backupTime = java.time.LocalDateTime.now().format(formatter)
-                settingsRepository.setString(SettingsKeys.LAST_BACKUP_TIME, backupTime)
+                val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
+                val backupTime = LocalDateTime.now().format(formatter)
                 settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TIME, backupTime)
                 _uiEvent.emit(SettingsUiEvent.ShowToast(context.getString(R.string.cloud_backup_successful)))
             } else {

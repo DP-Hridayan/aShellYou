@@ -24,5 +24,7 @@ data class SettingsState(
     val bookmarkSortType: Int,
     val commandsSortType: Int,
     val terminalFontStyle: Int,
-    val isNewCommandsAvailable: Boolean
+    val isNewCommandsAvailable: Boolean,
+    val lastLocalBackupTime: String,
+    val lastCloudBackupTime: String
 )

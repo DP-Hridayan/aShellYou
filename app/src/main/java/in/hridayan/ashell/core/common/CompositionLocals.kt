@@ -107,6 +107,10 @@ fun CompositionLocals(
 
     val isNewCommandsAvailable by settingsViewModel.booleanState(SettingsKeys.NEW_COMMANDS_AVAILABLE)
 
+    val lastLocalBackupTime by settingsViewModel.stringState(SettingsKeys.LAST_LOCAL_BACKUP_TIME)
+
+    val lastCloudBackupTime by settingsViewModel.stringState(SettingsKeys.LAST_CLOUD_BACKUP_TIME)
+
     val state =
         remember(
             autoUpdate,
@@ -130,7 +134,9 @@ fun CompositionLocals(
             bookmarkSortType,
             commandSortType,
             terminalFontStyle,
-            isNewCommandsAvailable
+            isNewCommandsAvailable,
+            lastLocalBackupTime,
+            lastCloudBackupTime
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
@@ -154,7 +160,9 @@ fun CompositionLocals(
                 bookmarkSortType = bookmarkSortType,
                 commandsSortType = commandSortType,
                 terminalFontStyle = terminalFontStyle,
-                isNewCommandsAvailable = isNewCommandsAvailable
+                isNewCommandsAvailable = isNewCommandsAvailable,
+                lastLocalBackupTime = lastLocalBackupTime,
+                lastCloudBackupTime = lastCloudBackupTime
             )
         }
 

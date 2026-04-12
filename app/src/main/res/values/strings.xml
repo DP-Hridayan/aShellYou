@@ -20,6 +20,8 @@
     <string name="load">Load</string>
     <string name="notification_styles">Notification styles</string>
     <string name="intent_not_found">Intent not found</string>
+    <string name="device_backup_local">Device backup (Local)</string>
+    <string name="cloud_backup_google_drive">Cloud backup (Google Drive)</string>
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
     <string name="app_crashed">App has crashed</string>
     <string name="app_name" translatable="false">aShell You</string>
@@ -45,6 +47,7 @@
     <string name="bootloader">Bootloader</string>
     <string name="btn_continue">Continue</string>
     <string name="cancel">Cancel</string>
+    <string name="last_backup_details">Last backup details</string>
     <string name="cancel_all">Cancel all</string>
     <string name="changelogs">Changelogs</string>
     <string name="check_updates">Check updates</string>

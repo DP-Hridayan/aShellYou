@@ -27,7 +27,7 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
     @param:ApplicationContext private val context: Context
 ) : BackupAndRestoreRepository {
 
-    override suspend fun backupDataToFile(uri: Uri, option: BackupOption): Boolean =
+    override suspend fun backupToDevice(uri: Uri, option: BackupOption): Boolean =
         withContext(Dispatchers.IO) {
             try {
                 val backupData = getBackupData(option)
@@ -38,7 +38,10 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
                     outputStream.write(encryptedBytes)
                 }
 
-                settingsRepository.setString(SettingsKeys.LAST_BACKUP_TIME, backupData.backupTime)
+                settingsRepository.setString(
+                    SettingsKeys.LAST_LOCAL_BACKUP_TIME,
+                    backupData.backupTime
+                )
 
                 true
             } catch (e: Exception) {
