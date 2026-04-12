@@ -2,6 +2,17 @@
 <issues format="6" by="lint 8.13.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.13.2)" variant="all" version="8.13.2">
 
     <issue
+        id="CredentialManagerMisuse"
+        message="Call to `CredentialManager.getCredential` without use of `NoCredentialException`"
+        errorLine1="                credentialManager.getCredential(context, request)"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/settings/data/repository/GoogleAuthRepositoryImpl.kt"
+            line="93"
+            column="17"/>
+    </issue>
+
+    <issue
         id="DefaultUncaughtExceptionDelegation"
         message="Must call `getDefaultUncaughtExceptionHandler()` to get the existing handler, and call `existingHandler.uncaughtException(thread, throwable)` from your new handler"
         errorLine1="        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->"
@@ -36,7 +47,7 @@
 
     <issue
         id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.application than 8.13.2 is available: 9.0.0"
+        message="A newer version of com.android.application than 8.13.2 is available: 9.1.0"
         errorLine1="agp = &quot;8.13.2&quot;"
         errorLine2="      ~~~~~~~~">
         <location
@@ -47,7 +58,7 @@
 
     <issue
         id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.library than 8.13.2 is available: 9.0.0"
+        message="A newer version of com.android.library than 8.13.2 is available: 9.1.0"
         errorLine1="agp = &quot;8.13.2&quot;"
         errorLine2="      ~~~~~~~~">
         <location
@@ -58,7 +69,7 @@
 
     <issue
         id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.tools.build:gradle than 8.13.2 is available: 9.0.0"
+        message="A newer version of com.android.tools.build:gradle than 8.13.2 is available: 9.1.0"
         errorLine1="agp = &quot;8.13.2&quot;"
         errorLine2="      ~~~~~~~~">
         <location
@@ -68,90 +79,277 @@
     </issue>
 
     <issue
+        id="GradleDependency"
+        message="A newer version of androidx.activity:activity-compose than 1.12.2 is available: 1.13.0"
+        errorLine1="activityCompose = &quot;1.12.2&quot;"
+        errorLine2="                  ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="2"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.annotation:annotation than 1.9.1 is available: 1.10.0"
+        errorLine1="annotation = &quot;1.9.1&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="5"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose.animation:animation than 1.10.1 is available: 1.10.6"
+        errorLine1="composeAnimation = &quot;1.10.1&quot;"
+        errorLine2="                   ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="7"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose:compose-bom than 2026.01.00 is available: 2026.03.01"
+        errorLine1="composeBom = &quot;2026.01.00&quot;"
+        errorLine2="             ~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="8"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.credentials:credentials than 1.6.0-rc02 is available: 1.6.0"
+        errorLine1="credentials = &quot;1.6.0-rc02&quot;"
+        errorLine2="              ~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="9"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.credentials:credentials-play-services-auth than 1.6.0-rc02 is available: 1.6.0"
+        errorLine1="credentials = &quot;1.6.0-rc02&quot;"
+        errorLine2="              ~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="9"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.core:core-ktx than 1.17.0 is available: 1.18.0"
+        errorLine1="coreKtx = &quot;1.17.0&quot;"
+        errorLine2="          ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="10"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.datastore:datastore-preferences than 1.2.0 is available: 1.2.1"
+        errorLine1="datastore = &quot;1.2.0&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="11"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.compose.material3:material3 than 1.5.0-alpha12 is available: 1.5.0-alpha17"
+        errorLine1="material3 = &quot;1.5.0-alpha12&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-compose than 2.9.6 is available: 2.9.7"
+        errorLine1="navigation = &quot;2.9.6&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="33"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.gms:play-services-auth than 21.5.0 is available: 21.5.1"
+        errorLine1="playServicesAuth = &quot;21.5.0&quot;"
+        errorLine2="                   ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="35"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.work:work-runtime-ktx than 2.11.0 is available: 2.11.2"
+        errorLine1="work = &quot;2.11.0&quot;"
+        errorLine2="       ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="44"
+            column="8"/>
+    </issue>
+
+    <issue
         id="NewerVersionAvailable"
-        message="A newer version of com.google.dagger.hilt.android than 2.58 is available: 2.59"
+        message="A newer version of com.google.api-client:google-api-client-android than 2.7.2 is available: 2.9.0"
+        errorLine1="googleApiClient = &quot;2.7.2&quot;"
+        errorLine2="                  ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="14"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.google.http-client:google-http-client-gson than 1.46.3 is available: 2.1.0"
+        errorLine1="googleHttpClientGson = &quot;1.46.3&quot;"
+        errorLine2="                       ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="16"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.google.dagger.hilt.android than 2.58 is available: 2.59.2"
         errorLine1="hilt = &quot;2.58&quot;"
         errorLine2="       ~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="15"
+            line="20"
             column="8"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of com.google.dagger:hilt-android than 2.58 is available: 2.59"
+        message="A newer version of com.google.dagger:hilt-android than 2.58 is available: 2.59.2"
         errorLine1="hilt = &quot;2.58&quot;"
         errorLine2="       ~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="15"
+            line="20"
             column="8"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of com.google.dagger:hilt-android-compiler than 2.58 is available: 2.59"
+        message="A newer version of com.google.dagger:hilt-android-compiler than 2.58 is available: 2.59.2"
         errorLine1="hilt = &quot;2.58&quot;"
         errorLine2="       ~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="15"
+            line="20"
             column="8"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-cio than 3.3.3 is available: 3.4.0"
+        message="A newer version of org.jetbrains.kotlin.android than 2.3.0 is available: 2.3.20"
+        errorLine1="kotlin = &quot;2.3.0&quot;"
+        errorLine2="         ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="24"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlin.plugin.compose than 2.3.0 is available: 2.3.20"
+        errorLine1="kotlin = &quot;2.3.0&quot;"
+        errorLine2="         ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="24"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlin.plugin.serialization than 2.3.0 is available: 2.3.20"
+        errorLine1="kotlin = &quot;2.3.0&quot;"
+        errorLine2="         ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="24"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of io.ktor:ktor-client-cio than 3.3.3 is available: 3.4.2"
         errorLine1="ktor = &quot;3.3.3&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="21"
+            line="26"
             column="8"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-content-negotiation than 3.3.3 is available: 3.4.0"
+        message="A newer version of io.ktor:ktor-client-content-negotiation than 3.3.3 is available: 3.4.2"
         errorLine1="ktor = &quot;3.3.3&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="21"
+            line="26"
             column="8"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-core than 3.3.3 is available: 3.4.0"
+        message="A newer version of io.ktor:ktor-client-core than 3.3.3 is available: 3.4.2"
         errorLine1="ktor = &quot;3.3.3&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="21"
+            line="26"
             column="8"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-serialization-kotlinx-json than 3.3.3 is available: 3.4.0"
+        message="A newer version of io.ktor:ktor-serialization-kotlinx-json than 3.3.3 is available: 3.4.2"
         errorLine1="ktor = &quot;3.3.3&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="21"
+            line="26"
             column="8"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.9.0 is available: 1.10.0"
+        message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.9.0 is available: 1.11.0"
         errorLine1="serialization = &quot;1.9.0&quot;"
         errorLine2="                ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="32"
+            line="38"
             column="17"/>
     </issue>
 
@@ -162,7 +360,7 @@
         errorLine2="          ~~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="33"
+            line="39"
             column="11"/>
     </issue>
 
@@ -173,7 +371,7 @@
         errorLine2="          ~~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="33"
+            line="39"
             column="11"/>
     </issue>
 
@@ -184,7 +382,7 @@
         errorLine2="              ~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/core/presentation/components/dialog/DialogKey.kt"
-            line="50"
+            line="54"
             column="15"/>
     </issue>
 
@@ -195,7 +393,7 @@
         errorLine2="                                                                                                                       ~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="487"
+            line="527"
             column="120"/>
     </issue>
 
@@ -206,7 +404,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="23"
+            line="25"
             column="5"/>
     </issue>
 
@@ -217,7 +415,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="75"
+            line="86"
             column="5"/>
     </issue>
 
@@ -228,7 +426,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="79"
+            line="90"
             column="5"/>
     </issue>
 
@@ -239,7 +437,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="86"
+            line="97"
             column="5"/>
     </issue>
 
@@ -250,7 +448,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="95"
+            line="107"
             column="5"/>
     </issue>
 
@@ -261,7 +459,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="96"
+            line="108"
             column="5"/>
     </issue>
 
@@ -272,7 +470,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="178"
+            line="197"
             column="5"/>
     </issue>
 
@@ -283,7 +481,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="189"
+            line="208"
             column="5"/>
     </issue>
 
@@ -294,7 +492,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="190"
+            line="209"
             column="5"/>
     </issue>
 
@@ -305,7 +503,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="191"
+            line="210"
             column="5"/>
     </issue>
 
@@ -316,7 +514,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="267"
+            line="293"
             column="5"/>
     </issue>
 
@@ -324,14 +522,28 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/045fdfad909d8dc9b428c14bdb77717f/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/0f006afeaa13696d998ce763995e33fe/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/045fdfad909d8dc9b428c14bdb77717f/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/0f006afeaa13696d998ce763995e33fe/transformed/out/jars/classes.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.46.3/486ca37492048ddd230f5fef65c9411d7b65fb67/google-http-client-1.46.3.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.46.3/486ca37492048ddd230f5fef65c9411d7b65fb67/google-http-client-1.46.3.jar"/>
     </issue>
 
     <issue

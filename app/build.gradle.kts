@@ -1,4 +1,13 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.inputStream().use {
+        keystoreProperties.load(it)
+    }
+}
 
 plugins {
     alias(libs.plugins.android.application)
@@ -34,23 +43,34 @@ android {
 
     signingConfigs {
         create("release") {
-            if (System.getenv("CI")?.toBoolean() == true) {
-                val keystorePath = System.getenv("KEYSTORE_PATH")
-                val keystorePassword = System.getenv("KEYSTORE_PASSWORD")
-                val keyAlias = System.getenv("KEY_ALIAS")
-                val keyPassword = System.getenv("KEY_PASSWORD") ?: keystorePassword
-
-                if (
-                    !keystorePath.isNullOrBlank() &&
-                    !keystorePassword.isNullOrBlank() &&
-                    !keyAlias.isNullOrBlank() &&
-                    !keyPassword.isNullOrBlank()
-                ) {
-                    storeFile = file(keystorePath)
-                    storePassword = keystorePassword
-                    this.keyAlias = keyAlias
-                    this.keyPassword = keyPassword
+            when {
+                keystorePropertiesFile.exists() -> {
+                    storeFile = file(keystoreProperties.getProperty("storeFile"))
+                    storePassword = keystoreProperties.getProperty("storePassword")
+                    keyAlias = keystoreProperties.getProperty("keyAlias")
+                    keyPassword = keystoreProperties.getProperty("keyPassword")
                 }
+
+                System.getenv("CI")?.toBoolean() == true -> {
+                    val keystorePath = System.getenv("KEYSTORE_PATH")
+                    val keystorePassword = System.getenv("KEYSTORE_PASSWORD")
+                    val keyAlias = System.getenv("KEY_ALIAS")
+                    val keyPassword = System.getenv("KEY_PASSWORD") ?: keystorePassword
+
+                    if (
+                        !keystorePath.isNullOrBlank() &&
+                        !keystorePassword.isNullOrBlank() &&
+                        !keyAlias.isNullOrBlank() &&
+                        !keyPassword.isNullOrBlank()
+                    ) {
+                        storeFile = file(keystorePath)
+                        storePassword = keystorePassword
+                        this.keyAlias = keyAlias
+                        this.keyPassword = keyPassword
+                    }
+                }
+
+                else -> {}
             }
         }
     }
@@ -68,10 +88,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = if (System.getenv("CI")?.toBoolean() == true)
-                signingConfigs.getByName("release")
-            else
-                signingConfigs.getByName("debug")
+            signingConfig =
+                if (System.getenv("CI")?.toBoolean() == true || keystorePropertiesFile.exists())
+                    signingConfigs.getByName("release")
+                else
+                    signingConfigs.getByName("debug")
         }
     }
     compileOptions {
