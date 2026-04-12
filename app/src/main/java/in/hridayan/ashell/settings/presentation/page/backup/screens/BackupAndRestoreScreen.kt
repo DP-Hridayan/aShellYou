@@ -402,11 +402,13 @@ private fun LastBackupTimeCard(
     }
 
     val formattedLastLocalBackupTime =
-        lastLocalBackupTime.split(" ").let { parts ->
+        if (lastLocalBackupTime.isEmpty()) stringResource(R.string.none)
+        else lastLocalBackupTime.split(" ").let { parts ->
             val date = parts.getOrNull(0).orEmpty()
             val time = parts.getOrNull(1).orEmpty()
             "$date | $time"
         }
+
 
     Column(modifier = modifier.animateContentSize()) {
         RoundedCornerCard(

@@ -75,7 +75,7 @@ fun GoogleSignInCard(
             .fillMaxWidth()
             .padding(start = 15.dp, end = 15.dp, top = 15.dp, bottom = 5.dp),
         clickable = !isSignedIn && !isLoading,
-        onClick = onSignInClick,
+        onClick = withHaptic { onSignInClick() },
         colors = CardDefaults.cardColors(
             containerColor = if (isSignedIn) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.surface,
             contentColor = if (isSignedIn) MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onSurface
