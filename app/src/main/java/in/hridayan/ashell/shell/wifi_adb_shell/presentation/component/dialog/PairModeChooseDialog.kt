@@ -55,7 +55,10 @@ fun PairModeChooseDialog(
                     text = stringResource(R.string.which_device_to_pair),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally)
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))

@@ -305,7 +305,6 @@ fun BackupAndRestoreScreen(
         )
     }
 
-    // Restore source dialog (Local vs Google Drive)
     DialogKey.Settings.RestoreSource.createDialog { dialogViewModel ->
         RestoreSourceDialog(
             onDismiss = { dialogViewModel.dismiss() },
@@ -318,12 +317,10 @@ fun BackupAndRestoreScreen(
         )
     }
 
-    // Cloud operation loading dialog
     cloudOperationMessage?.let { message ->
         CloudOperationDialog(message = message)
     }
 
-    // Cloud restore confirm dialog (after download, before apply)
     if (showCloudRestoreConfirm) {
         RestoreBackupDialog(
             onDismiss = { backupAndRestoreViewModel.cancelCloudRestore() },

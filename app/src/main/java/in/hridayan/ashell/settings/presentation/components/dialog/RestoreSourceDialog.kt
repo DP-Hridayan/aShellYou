@@ -2,18 +2,14 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CloudDownload
-import androidx.compose.material.icons.rounded.FolderOpen
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,13 +18,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.card.BottomCornerRoundedCard
+import `in`.hridayan.ashell.core.presentation.components.card.TopCornerRoundedCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
@@ -53,79 +51,81 @@ fun RestoreSourceDialog(
                     .padding(24.dp)
                     .widthIn(min = 280.dp)
             ) {
-                AutoResizeableText(
-                    text = stringResource(R.string.choose_restore_source),
+                Text(
+                    text = stringResource(R.string.restore_from),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
-                )
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-                // Local file option
-                Row(
+                    textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(MaterialTheme.shapes.medium)
-                        .clickable(
-                            onClick = withHaptic(HapticFeedbackType.Confirm) {
-                                onLocalRestore()
-                                onDismiss()
-                            }
-                        )
-                        .padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                        .align(Alignment.CenterHorizontally)
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                TopCornerRoundedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 2.dp),
+                    onClick = withHaptic {
+                        onLocalRestore()
+                    },
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
                 ) {
-                    Icon(
-                        imageVector = Icons.Rounded.FolderOpen,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Column(modifier = Modifier.padding(start = 16.dp)) {
-                        Text(
-                            text = stringResource(R.string.local_file),
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurface
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 15.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(15.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_directory),
+                            contentDescription = null,
                         )
-                        Text(
-                            text = stringResource(R.string.des_local_restore),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                            AutoResizeableText(
+                                text = stringResource(R.string.local_file),
+                                style = MaterialTheme.typography.titleMediumEmphasized
+                            )
+                            Text(
+                                text = stringResource(R.string.des_local_restore),
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
                     }
                 }
 
-                // Google Drive option
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(MaterialTheme.shapes.medium)
-                        .clickable(
-                            onClick = withHaptic(HapticFeedbackType.Confirm) {
-                                onGoogleDriveRestore()
-                                onDismiss()
-                            }
-                        )
-                        .padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                BottomCornerRoundedCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = withHaptic {
+                        onGoogleDriveRestore()
+                    },
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
                 ) {
-                    Icon(
-                        imageVector = Icons.Rounded.CloudDownload,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Column(modifier = Modifier.padding(start = 16.dp)) {
-                        Text(
-                            text = stringResource(R.string.google_drive),
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurface
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 15.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(15.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_cloud_download),
+                            contentDescription = null,
                         )
-                        Text(
-                            text = stringResource(R.string.des_drive_restore),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                            AutoResizeableText(
+                                text = stringResource(R.string.google_drive),
+                                style = MaterialTheme.typography.titleMediumEmphasized
+                            )
+                            Text(
+                                text = stringResource(R.string.des_drive_restore),
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
                     }
                 }
             }

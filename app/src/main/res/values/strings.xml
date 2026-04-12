@@ -17,12 +17,6 @@
     <string name="already_connected">Already connected</string>
     <string name="already_latest_version">You are using the latest version</string>
     <string name="app">App</string>
-    <string name="load">Load</string>
-    <string name="notification_styles">Notification styles</string>
-    <string name="intent_not_found">Intent not found</string>
-    <string name="device_backup_local">Device backup (Local)</string>
-    <string name="cloud_backup_google_drive">Cloud backup (Google Drive)</string>
-    <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
     <string name="app_crashed">App has crashed</string>
     <string name="app_name" translatable="false">aShell You</string>
     <string name="app_tagline">ADB at your fingertips</string>
@@ -35,6 +29,7 @@
     <string name="backup_and_restore">Backup &amp; restore</string>
     <string name="backup_app_database">Backup app database</string>
     <string name="backup_date">Backup date</string>
+    <string name="backup_destination">Backup destination</string>
     <string name="backup_failed">Backup failed</string>
     <string name="backup_found">Backup found</string>
     <string name="backup_settings">Backup app settings</string>
@@ -47,7 +42,6 @@
     <string name="bootloader">Bootloader</string>
     <string name="btn_continue">Continue</string>
     <string name="cancel">Cancel</string>
-    <string name="last_backup_details">Last backup details</string>
     <string name="cancel_all">Cancel all</string>
     <string name="changelogs">Changelogs</string>
     <string name="check_updates">Check updates</string>
@@ -58,6 +52,11 @@
     <string name="clear_output_confirmation">Clear output confirmation</string>
     <string name="clipboard_empty">Clipboard doesn\'t contain text</string>
     <string name="close">Close</string>
+    <string name="cloud_backup_failed">Failed to upload backup to Google Drive</string>
+    <string name="cloud_backup_google_drive">Cloud backup (Google Drive)</string>
+    <string name="cloud_backup_successful">Backup uploaded to Google Drive</string>
+    <string name="cloud_restore_failed">Failed to restore from Google Drive</string>
+    <string name="cloud_restore_successful">Restored from Google Drive</string>
     <string name="code_pair_instruction">Open \"Wireless debugging\" on the target device and tap \"Pair device with pairing code\"</string>
     <string name="command">Command</string>
     <string name="command_not_found">Command not found!</string>
@@ -116,6 +115,8 @@
     <string name="des_crash_history">View all crashes that have occurred in the app</string>
     <string name="des_default_language">Choose the default language for the app</string>
     <string name="des_disable_softkey">Useful when you want to use an external keyboard</string>
+    <string name="des_drive_backup">Upload encrypted backup to your Google Drive</string>
+    <string name="des_drive_restore">Download your latest backup from Google Drive</string>
     <string name="des_dynamic_colors">Automatically set the app theme according to the device wallpaper</string>
     <string name="des_enable_direct_download">When turned on, updates will be downloaded directly from Github inside the app. Turn off to visit the Github releases page for manual download instead.</string>
     <string name="des_examples">Collection of some command templates</string>
@@ -123,6 +124,8 @@
     <string name="des_haptics_and_vibration">Interactive haptics for touch feedback</string>
     <string name="des_high_contrast_dark_mode">Pitch black dark theme for devices with OLED display</string>
     <string name="des_hridayan">Just a guy who loves apps and design</string>
+    <string name="des_local_backup">Save encrypted backup to your device</string>
+    <string name="des_local_restore">Pick a backup file from your device</string>
     <string name="des_look_and_feel">Dynamic colors, Dark theme, Language</string>
     <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low end devices should keep this option turned off</string>
     <string name="des_pair_another_device">Pair another target device</string>
@@ -130,11 +133,13 @@
     <string name="des_reset_app_settings">Reset app settings to default values</string>
     <string name="des_restore_app_data">Restore app data from the saved backup file.\nThe saved database will overwrite the current database</string>
     <string name="des_save_whole_output">Enable this option to save output of the whole shell session.\nIf disabled only the last command output will be saved.</string>
+    <string name="des_sign_in_with_google">Optionally link your Google account for cloud backups</string>
     <string name="des_smooth_scroll">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
     <string name="description">Description</string>
     <string name="deselect_all">Deselect all</string>
     <string name="developer_options">Developer options</string>
     <string name="developer_options_not_available">Developer options not available!</string>
+    <string name="device_backup_local">Device backup (Local)</string>
     <string name="device_connected">Device connected!</string>
     <string name="device_disconnected">Device Disconnected</string>
     <string name="device_disconnected_message">The WiFi ADB connection was lost.</string>
@@ -161,6 +166,7 @@
     <string name="download">Download</string>
     <string name="download_failed">Download failed</string>
     <string name="downloading">Downloading…</string>
+    <string name="downloading_backup">Downloading backup from Google Drive…</string>
     <string name="downloads">Downloads</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="edit_command">Edit command</string>
@@ -227,8 +233,8 @@
     <string name="found_connect_service">Found connect service</string>
     <string name="github" translatable="false">Github</string>
     <string name="go_home">Go Home</string>
-    <string name="wireless_debugging" translatable="false">Wireless debugging</string>
     <string name="go_to_terminal">Go to terminal</string>
+    <string name="google_drive">Google Drive</string>
     <string name="gpl_3_0" translatable="false">GPL-3.0</string>
     <string name="grant">Grant</string>
     <string name="grant_permission">Grant permission</string>
@@ -240,6 +246,7 @@
     <string name="home">Home</string>
     <string name="info">Info</string>
     <string name="instructions">Instructions</string>
+    <string name="intent_not_found">Intent not found</string>
     <string name="internal_storage">Internal Storage</string>
     <string name="invalid_folder_name">Folder name cannot contain /</string>
     <string name="ip_address">IP address</string>
@@ -248,16 +255,20 @@
     <string name="keep_both">Keep Both</string>
     <string name="label">Label</string>
     <string name="last_backup_date">Last backup date</string>
+    <string name="last_backup_details">Last backup details</string>
     <string name="last_backup_time">Last backup time</string>
+    <string name="last_cloud_backup_time">Last cloud backup</string>
     <string name="latest_version">Latest version</string>
     <string name="lead_developer">Lead developer</string>
     <string name="least_used">Least used</string>
     <string name="license">License</string>
+    <string name="load">Load</string>
     <string name="load_predefined_commands">Load predefined commands</string>
     <string name="loading">Loading</string>
     <string name="local_adb">Local ADB</string>
     <string name="local_adb_shell">Local ADB shell</string>
     <string name="local_adb_summary">Execute ADB commands directly on your device using Shizuku or root.</string>
+    <string name="local_file">Local file</string>
     <string name="look_and_feel">Look &amp; Feel</string>
     <string name="manual_pair">Manual Pair</string>
     <string name="merge">Merge</string>
@@ -274,6 +285,7 @@
     <string name="moving_items">Moving %1$d item(s)</string>
     <string name="name">Name</string>
     <string name="network_error">Network error</string>
+    <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
     <string name="new_folder">New folder</string>
     <string name="new_name">New name</string>
     <string name="newest">Newest</string>
@@ -281,6 +293,7 @@
     <string name="no_adb_interface_found">No adb interface found</string>
     <string name="no_bookmarks">No bookmarks found</string>
     <string name="no_changelog_found">No changelog found for this version</string>
+    <string name="no_cloud_backup_found">No backup found on Google Drive</string>
     <string name="no_crashes">No crashes have been reported. aShell You is running smoothly.</string>
     <string name="no_files_download">No files selected (folders cannot be downloaded)</string>
     <string name="no_history">No command history</string>
@@ -295,6 +308,7 @@
     <string name="notification_access_not_granted">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
     <string name="notification_settings">Notification settings</string>
     <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
+    <string name="notification_styles">Notification styles</string>
     <string name="off">Off</string>
     <string name="oldest">Oldest</string>
     <string name="on">On</string>
@@ -357,7 +371,9 @@
     <string name="restore_app_data">Restore app data</string>
     <string name="restore_dialog_message">The data in the saved file will override the current data.</string>
     <string name="restore_failed">Restore failed</string>
+    <string name="restore_from">Restore from</string>
     <string name="restore_successful">Restore successful</string>
+    <string name="restoring_backup">Restoring backup…</string>
     <string name="retry">Retry</string>
     <string name="root" translatable="false">Root</string>
     <string name="root_access_granted">Root access granted!</string>
@@ -397,6 +413,11 @@
     <string name="shizuku_not_installed">Shizuku is not installed</string>
     <string name="shizuku_unavailable">Shizuku is unavailable</string>
     <string name="shizuku_unavailable_message">Shizuku is not installed or properly configured on your device</string>
+    <string name="sign_in_failed">Google sign-in failed</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_out_google">Sign out</string>
+    <string name="signed_in_as">Signed in as %1$s</string>
+    <string name="signed_out">Signed out</string>
     <string name="size">Size</string>
     <string name="skip">Skip</string>
     <string name="smooth_scrolling">Smooth scrolling</string>
@@ -431,6 +452,7 @@
     <string name="update_channel">Update channel</string>
     <string name="upload_file">Upload file</string>
     <string name="uploading">Uploading…</string>
+    <string name="uploading_backup">Uploading backup to Google Drive…</string>
     <string name="usb_manager_unavailable">USB Manager is not available on this device</string>
     <string name="use">Use</string>
     <string name="version">Version</string>
@@ -444,40 +466,12 @@
     <string name="which_device_to_pair">Which device would you like to pair?</string>
     <string name="wifi_adb">WiFi ADB</string>
     <string name="wifi_connection_required">To use the Wireless Debugging feature, your device must be connected to a Wi-Fi network. If your Wi-Fi connection has no Internet access then turn off mobile data for a solid Wi-Fi connection.</string>
+    <string name="wireless_debugging" translatable="false">Wireless debugging</string>
     <string name="wireless_debugging_guide_1">Go to Developer options &gt; Wireless Debugging. Tap on Pair device with Pairing Code.</string>
     <string name="wireless_debugging_guide_2">Enter the six digit Pairing Code into the notification sent by aShell You.</string>
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A" translatable="false">Z → A</string>
-
-    <!-- Google Sign-In -->
-    <string name="sign_in_with_google">Sign in with Google</string>
-    <string name="des_sign_in_with_google">Optionally link your Google account for cloud backups</string>
-    <string name="sign_out_google">Sign out</string>
-    <string name="signed_in_as">Signed in as %1$s</string>
-    <string name="sign_in_failed">Google sign-in failed</string>
-    <string name="signed_out">Signed out</string>
-
-    <!-- Backup/Restore destination dialogs -->
-    <string name="choose_backup_destination">Backup destination</string>
-    <string name="choose_restore_source">Restore from</string>
-    <string name="local_file">Local file</string>
-    <string name="google_drive">Google Drive</string>
-    <string name="des_local_backup">Save encrypted backup to your device</string>
-    <string name="des_drive_backup">Upload encrypted backup to your Google Drive</string>
-    <string name="des_local_restore">Pick a backup file from your device</string>
-    <string name="des_drive_restore">Download your latest backup from Google Drive</string>
-
-    <!-- Cloud operations -->
-    <string name="cloud_backup_successful">Backup uploaded to Google Drive</string>
-    <string name="cloud_backup_failed">Failed to upload backup to Google Drive</string>
-    <string name="cloud_restore_successful">Restored from Google Drive</string>
-    <string name="cloud_restore_failed">Failed to restore from Google Drive</string>
-    <string name="no_cloud_backup_found">No backup found on Google Drive</string>
-    <string name="last_cloud_backup_time">Last cloud backup</string>
-    <string name="uploading_backup">Uploading backup to Google Drive…</string>
-    <string name="downloading_backup">Downloading backup from Google Drive…</string>
-    <string name="restoring_backup">Restoring backup…</string>
 
     /**
     * Changelogs
