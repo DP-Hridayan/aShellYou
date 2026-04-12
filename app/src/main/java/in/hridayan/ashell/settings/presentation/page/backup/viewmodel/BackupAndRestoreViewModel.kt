@@ -64,6 +64,9 @@ class BackupAndRestoreViewModel @Inject constructor(
     private val _cloudBackupTime = MutableStateFlow<String?>(null)
     val cloudBackupTime: StateFlow<String?> = _cloudBackupTime.asStateFlow()
 
+    private val _isFetchingCloudBackupTime = MutableStateFlow(false)
+    val isFetchingCloudBackupTime: StateFlow<Boolean> = _isFetchingCloudBackupTime.asStateFlow()
+
     private val _showCloudRestoreConfirm = MutableStateFlow(false)
     val showCloudRestoreConfirm: StateFlow<Boolean> = _showCloudRestoreConfirm.asStateFlow()
 
@@ -157,7 +160,12 @@ class BackupAndRestoreViewModel @Inject constructor(
 
                     // Immediately request Drive scope so consent appears right after sign-in
                     Log.d(TAG, "signInWithGoogle: pre-authorizing Drive scope...")
-                    googleDriveRepository.ensureAuthorized()
+                    val authorized = googleDriveRepository.ensureAuthorized()
+
+                    if (authorized) {
+                        // This is done to show correct last backup time per Google account
+                        syncCloudBackupTimeSilently()
+                    }
                 },
                 onFailure = { error ->
                     Log.e(TAG, "signInWithGoogle: failed — ${error.message}")
@@ -196,6 +204,7 @@ class BackupAndRestoreViewModel @Inject constructor(
 
             null -> {
                 Log.d(TAG, "onConsentGranted: no pending operation to retry")
+                syncCloudBackupTimeSilently()
             }
         }
     }
@@ -283,6 +292,46 @@ class BackupAndRestoreViewModel @Inject constructor(
             val time = backupAndRestoreRepository.getBackupTimeFromBytes(bytes)
             _cloudBackupTime.value = time
             _showCloudRestoreConfirm.value = true
+        }
+    }
+
+    private fun syncCloudBackupTimeSilently() {
+        viewModelScope.launch {
+            Log.d(TAG, "syncCloudBackupTimeSilently: starting...")
+
+            _isFetchingCloudBackupTime.value = true
+
+            val result = googleDriveRepository.downloadBackup()
+
+            if (result == null) {
+                if (googleDriveRepository.isConsentPending) {
+                    Log.d(TAG, "syncCloudBackupTimeSilently: consent required, skipping for now")
+                    _isFetchingCloudBackupTime.value = false
+                    return@launch
+                }
+
+                Log.d(TAG, "syncCloudBackupTimeSilently: no backup found")
+                settingsRepository.setString(SettingsKeys.LAST_CLOUD_BACKUP_TIME, "")
+                _isFetchingCloudBackupTime.value = false
+                return@launch
+            }
+
+            val (bytes, _) = result
+
+            val time = backupAndRestoreRepository.getBackupTimeFromBytes(bytes)
+
+            if (time != null) {
+                Log.d(TAG, "syncCloudBackupTimeSilently: extracted time=$time")
+
+                settingsRepository.setString(
+                    SettingsKeys.LAST_CLOUD_BACKUP_TIME,
+                    time
+                )
+            } else {
+                Log.e(TAG, "syncCloudBackupTimeSilently: failed to extract time")
+            }
+
+            _isFetchingCloudBackupTime.value = false
         }
     }
 

@@ -51,6 +51,7 @@ import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.g
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.settings.domain.model.BackupOption
+import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.presentation.components.dialog.BackupDestinationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.CloudOperationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ResetSettingsDialog
@@ -76,6 +77,7 @@ fun BackupAndRestoreScreen(
     val backupTime by backupAndRestoreViewModel.backupTime.collectAsState()
     val lastLocalBackupTime = LocalSettings.current.lastLocalBackupTime
     val lastCloudBackupTime = LocalSettings.current.lastCloudBackupTime
+    val isFetchingCloudBackupTime by backupAndRestoreViewModel.isFetchingCloudBackupTime.collectAsState()
 
     val googleUserState by backupAndRestoreViewModel.googleUserState.collectAsState()
     val isSigningIn by backupAndRestoreViewModel.isSigningIn.collectAsState()
@@ -250,7 +252,9 @@ fun BackupAndRestoreScreen(
                                             .fillMaxWidth()
                                             .padding(top = 20.dp),
                                         lastLocalBackupTime = lastLocalBackupTime,
-                                        lastCloudBackupTime = lastCloudBackupTime
+                                        lastCloudBackupTime = lastCloudBackupTime,
+                                        userState = googleUserState,
+                                        isFetching = isFetchingCloudBackupTime,
                                     )
                                 }
                             }
@@ -334,8 +338,31 @@ fun BackupAndRestoreScreen(
 private fun LastBackupTimeCard(
     modifier: Modifier = Modifier,
     lastLocalBackupTime: String,
-    lastCloudBackupTime: String
+    lastCloudBackupTime: String,
+    userState: GoogleUserState,
+    isFetching: Boolean
 ) {
+    val perUserLastCloudBackupTime = when {
+        !userState.isSignedIn -> stringResource(R.string.not_signed_in)
+
+        isFetching -> stringResource(R.string.fetching_backup_time)
+
+        lastCloudBackupTime.isNotEmpty() ->
+            lastCloudBackupTime.split(" ").let { parts ->
+                val date = parts.getOrNull(0).orEmpty()
+                val time = parts.getOrNull(1).orEmpty()
+                "$date | $time"
+            }
+        else -> stringResource(R.string.none)
+    }
+
+    val formattedLastLocalBackupTime =
+        lastLocalBackupTime.split(" ").let { parts ->
+            val date = parts.getOrNull(0).orEmpty()
+            val time = parts.getOrNull(1).orEmpty()
+            "$date | $time"
+        }
+
     Column(modifier = modifier) {
         RoundedCornerCard(
             modifier = Modifier.fillMaxWidth(),
@@ -354,7 +381,7 @@ private fun LastBackupTimeCard(
             roundedCornerShape = CardCornerShape.MIDDLE_CARD,
             icon = painterResource(R.drawable.ic_mobile),
             title = stringResource(R.string.device_backup_local),
-            timeDescription = lastLocalBackupTime
+            timeDescription = formattedLastLocalBackupTime
         )
 
         TimeCard(
@@ -362,7 +389,7 @@ private fun LastBackupTimeCard(
             roundedCornerShape = CardCornerShape.LAST_CARD,
             icon = painterResource(R.drawable.ic_cloud_done),
             title = stringResource(R.string.cloud_backup_google_drive),
-            timeDescription = lastCloudBackupTime
+            timeDescription = perUserLastCloudBackupTime
         )
     }
 }
@@ -374,16 +401,8 @@ private fun TimeCard(
     roundedCornerShape: RoundedCornerShape,
     icon: Painter,
     title: String,
-    timeDescription: String
+    timeDescription: String,
 ) {
-
-    val (date, time) = (timeDescription).split(" ").let {
-        Pair(
-            it.getOrNull(0) ?: "",
-            it.getOrNull(1) ?: ""
-        )
-    }
-
     RoundedCornerCard(
         modifier = modifier,
         roundedCornerShape = roundedCornerShape
@@ -412,7 +431,7 @@ private fun TimeCard(
                 )
 
                 Text(
-                    text = if (timeDescription.isEmpty()) stringResource(R.string.none) else "$date | $time",
+                    text = timeDescription,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.alpha(0.9f)
                 )

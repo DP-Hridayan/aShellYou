@@ -303,6 +303,8 @@
     <string name="no_search_results_found">No search results found</string>
     <string name="no_wifi_connection">No WiFi connection</string>
     <string name="none">None</string>
+    <string name ="not_signed_in">Not signed in</string>
+    <string name="fetching_backup_time">Fetching backup time …</string>
     <string name="nothing_to_clear">Nothing to clear</string>
     <string name="nothing_to_search">Nothing to search</string>
     <string name="notification_access_not_granted">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
