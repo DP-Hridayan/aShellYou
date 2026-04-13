@@ -155,6 +155,8 @@ fun Navigation(isFirstLaunch: Boolean = false) {
 
             composable<NavRoutes.BackupAndRestoreScreen>(
                 enterTransition = { slideFadeInFromRight() },
+                exitTransition = { slideFadeOutToLeft() },
+                popEnterTransition = { slideFadeInFromLeft() },
                 popExitTransition = { slideFadeOutToRight() }
             ) {
                 BackupAndRestoreScreen()

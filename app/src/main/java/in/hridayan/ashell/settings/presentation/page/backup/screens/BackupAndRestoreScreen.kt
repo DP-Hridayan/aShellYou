@@ -49,7 +49,6 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
@@ -61,6 +60,7 @@ import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
+import `in`.hridayan.ashell.settings.domain.model.LastBackupData
 import `in`.hridayan.ashell.settings.presentation.components.dialog.BackupDestinationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.CloudOperationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.GoogleSignOutConfirmationDialog
@@ -87,15 +87,12 @@ fun BackupAndRestoreScreen(
     val dialogManager = LocalDialogManager.current
     val localBackupTime by backupAndRestoreViewModel.localBackupTime.collectAsState()
     val localBackupType by backupAndRestoreViewModel.localBackupType.collectAsState()
-    val lastLocalBackupTime = LocalSettings.current.lastLocalBackupTime
-    val lastLocalBackupType = LocalSettings.current.lastLocalBackupType
 
     val cloudBackupTime by backupAndRestoreViewModel.cloudBackupTime.collectAsState()
     val cloudBackupType by backupAndRestoreViewModel.cloudBackupType.collectAsState()
-    val lastCloudBackupTime = LocalSettings.current.lastCloudBackupTime
-    val lastCloudBackupType = LocalSettings.current.lastCloudBackupType
 
-    val isFetchingCloudBackupTime by backupAndRestoreViewModel.isFetchingCloudBackup.collectAsState()
+    val lastBackupData by backupAndRestoreViewModel.lastBackupData.collectAsState()
+
     var isLastBackupDetailsCardExpanded by rememberSaveable { mutableStateOf(false) }
 
     val googleUserState by backupAndRestoreViewModel.googleUserState.collectAsState()
@@ -270,12 +267,8 @@ fun BackupAndRestoreScreen(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .padding(top = 10.dp),
-                                        lastLocalBackupTime = lastLocalBackupTime,
-                                        lastLocalBackupType = lastLocalBackupType,
-                                        lastCloudBackupTime = lastCloudBackupTime,
-                                        lastCloudBackupType = lastCloudBackupType,
                                         userState = googleUserState,
-                                        isFetching = isFetchingCloudBackupTime,
+                                        lastBackupData = lastBackupData,
                                         isExpanded = isLastBackupDetailsCardExpanded,
                                         onClick = withHaptic {
                                             isLastBackupDetailsCardExpanded =
@@ -372,12 +365,8 @@ fun BackupAndRestoreScreen(
 @Composable
 private fun LastBackupTimeCard(
     modifier: Modifier = Modifier,
-    lastLocalBackupTime: String,
-    lastLocalBackupType: String,
-    lastCloudBackupTime: String,
-    lastCloudBackupType: String,
+    lastBackupData: LastBackupData,
     userState: GoogleUserState,
-    isFetching: Boolean,
     isExpanded: Boolean = false,
     onClick: () -> Unit = {}
 ) {
@@ -386,36 +375,8 @@ private fun LastBackupTimeCard(
     val roundedCornerShape =
         if (isExpanded) CardCornerShape.FIRST_CARD else RoundedCornerShape(cardHeight / 2)
 
-    val perUserLastCloudBackupTime = when {
-        isFetching -> stringResource(R.string.fetching_backup_time)
-
-        lastCloudBackupTime.isNotEmpty() ->
-            lastCloudBackupTime.split(" ").let { parts ->
-                val date = parts.getOrNull(0).orEmpty()
-                val time = parts.getOrNull(1).orEmpty()
-                "$date | $time"
-            }
-
-        else -> ""
-    }
-
-    val perUserLastCloudBackupType = when {
-        !userState.isSignedIn -> stringResource(R.string.not_signed_in)
-
-        isFetching -> stringResource(R.string.fetching_backup_type)
-
-        lastCloudBackupType.isNotEmpty() -> lastCloudBackupType
-
-        else -> stringResource(R.string.none)
-    }
-
-    val formattedLastLocalBackupTime =
-        if (lastLocalBackupTime.isEmpty()) "-- -- -- | --:--"
-        else lastLocalBackupTime.split(" ").let { parts ->
-            val date = parts.getOrNull(0).orEmpty()
-            val time = parts.getOrNull(1).orEmpty()
-            "$date | $time"
-        }
+    val cloudCardIcon =
+        if (userState.isSignedIn) painterResource(R.drawable.ic_cloud_done) else painterResource(R.drawable.ic_cloud_off)
 
     Column(modifier = modifier.animateContentSize()) {
         RoundedCornerCard(
@@ -461,17 +422,17 @@ private fun LastBackupTimeCard(
                 roundedCornerShape = CardCornerShape.MIDDLE_CARD,
                 icon = painterResource(R.drawable.ic_mobile),
                 title = stringResource(R.string.device_backup_local),
-                backupType = lastLocalBackupType.ifEmpty { stringResource(R.string.none) },
-                timeDescription = formattedLastLocalBackupTime
+                backupType = lastBackupData.localType,
+                dateTime = lastBackupData.localTime
             )
 
             TimeCard(
                 modifier = Modifier.fillMaxWidth(),
                 roundedCornerShape = CardCornerShape.LAST_CARD,
-                icon = painterResource(R.drawable.ic_cloud_done),
+                icon = cloudCardIcon,
                 title = stringResource(R.string.cloud_backup_google_drive),
-                backupType = perUserLastCloudBackupType,
-                timeDescription = perUserLastCloudBackupTime
+                backupType = lastBackupData.cloudType,
+                dateTime = lastBackupData.cloudTime
             )
         }
     }
@@ -484,7 +445,7 @@ private fun TimeCard(
     icon: Painter,
     title: String,
     backupType: String,
-    timeDescription: String
+    dateTime: String
 ) {
     val context = LocalContext.current
     val res = LocalResources.current
@@ -530,9 +491,9 @@ private fun TimeCard(
                     modifier = Modifier.alpha(0.9f)
                 )
 
-                if (timeDescription.isNotEmpty()) {
+                if (dateTime.isNotEmpty()) {
                     Text(
-                        text = timeDescription,
+                        text = dateTime,
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.alpha(0.9f)
                     )

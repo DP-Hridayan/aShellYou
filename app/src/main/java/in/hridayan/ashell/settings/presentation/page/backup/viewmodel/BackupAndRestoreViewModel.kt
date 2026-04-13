@@ -13,6 +13,7 @@ import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
+import `in`.hridayan.ashell.settings.domain.model.LastBackupData
 import `in`.hridayan.ashell.settings.domain.repository.BackupAndRestoreRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.GoogleDriveRepository
@@ -20,10 +21,14 @@ import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -45,6 +50,11 @@ class BackupAndRestoreViewModel @Inject constructor(
     val uiEvent = _uiEvent.asSharedFlow()
 
     private var currentBackupType: BackupType = BackupType.SETTINGS_AND_DATABASE
+
+    val lastLocalBackupTime = settingsRepository.getString(SettingsKeys.LAST_LOCAL_BACKUP_TIME)
+    val lastLocalBackupType = settingsRepository.getString(SettingsKeys.LAST_LOCAL_BACKUP_TYPE)
+    val lastCloudBackupTime = settingsRepository.getString(SettingsKeys.LAST_CLOUD_BACKUP_TIME)
+    val lastCloudBackupType = settingsRepository.getString(SettingsKeys.LAST_CLOUD_BACKUP_TYPE)
 
     private val _localBackupTime = MutableStateFlow<String?>(null)
     val localBackupTime: StateFlow<String?> = _localBackupTime
@@ -79,6 +89,49 @@ class BackupAndRestoreViewModel @Inject constructor(
     // Consent flow: emits IntentSender when Drive scope consent is needed
     private val _consentIntentSender = MutableSharedFlow<IntentSender>()
     val consentIntentSender = _consentIntentSender.asSharedFlow()
+
+    val lastBackupData: StateFlow<LastBackupData> =
+        combine(
+            listOf(
+                lastLocalBackupTime,
+                lastLocalBackupType,
+                lastCloudBackupTime,
+                lastCloudBackupType,
+                googleUserState,
+                isFetchingCloudBackup
+            )
+        ) { values ->
+
+            val localTimeRaw = values[0] as String
+            val localTypeRaw = values[1] as String
+            val cloudTimeRaw = values[2] as String
+            val cloudTypeRaw = values[3] as String
+            val userState = values[4] as GoogleUserState
+            val isFetching = values[5] as Boolean
+
+            LastBackupData(
+                localTime = formatLocalBackupTime(localTimeRaw),
+                localType = localTypeRaw.ifEmpty {
+                    context.getString(R.string.none)
+                },
+                cloudTime = formatCloudBackupTime(cloudTimeRaw, isFetching),
+                cloudType = formatCloudBackupType(
+                    cloudTypeRaw,
+                    userState.isSignedIn,
+                    isFetching
+                )
+            )
+        }
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                LastBackupData(
+                    localTime = "",
+                    localType = context.getString(R.string.none),
+                    cloudTime = "",
+                    cloudType = context.getString(R.string.not_signed_in)
+                )
+            )
 
     // Tracks what operation to retry after consent is granted
     private sealed class PendingOperation {
@@ -400,5 +453,68 @@ class BackupAndRestoreViewModel @Inject constructor(
         pendingCloudRestoreBytes = null
         _cloudBackupTime.value = null
         _cloudBackupType.value = null
+    }
+
+
+    private fun formatLocalBackupTime(raw: String?): String {
+        if (raw.isNullOrEmpty()) return ""
+
+        return raw.split(" ").let { parts ->
+            val rawDate = parts.getOrNull(0).orEmpty()
+            val time = parts.getOrNull(1).orEmpty()
+
+            val formattedDate = try {
+                val inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+                val outputFormatter = DateTimeFormatter.ofPattern("d MMMM, yyyy")
+
+                val parsedDate = LocalDate.parse(rawDate, inputFormatter)
+                parsedDate.format(outputFormatter)
+            } catch (e: Exception) {
+                rawDate
+            }
+
+            "$formattedDate | $time"
+        }
+    }
+
+    private fun formatCloudBackupTime(
+        rawTime: String?,
+        isFetching: Boolean
+    ): String {
+        return when {
+            isFetching -> context.getString(R.string.fetching_backup_time)
+
+            !rawTime.isNullOrEmpty() -> rawTime.split(" ").let { parts ->
+                val rawDate = parts.getOrNull(0).orEmpty()
+                val time = parts.getOrNull(1).orEmpty()
+
+                val formattedDate = try {
+                    val inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+                    val outputFormatter = DateTimeFormatter.ofPattern("d MMMM, yyyy")
+
+                    val parsedDate = LocalDate.parse(rawDate, inputFormatter)
+                    parsedDate.format(outputFormatter)
+                } catch (e: Exception) {
+                    rawDate
+                }
+
+                "$formattedDate | $time"
+            }
+
+            else -> ""
+        }
+    }
+
+    private fun formatCloudBackupType(
+        rawType: String?,
+        isSignedIn: Boolean,
+        isFetching: Boolean
+    ): String {
+        return when {
+            !isSignedIn -> context.getString(R.string.not_signed_in)
+            isFetching -> context.getString(R.string.fetching_backup_type)
+            !rawType.isNullOrEmpty() -> rawType
+            else -> context.getString(R.string.none)
+        }
     }
 }
