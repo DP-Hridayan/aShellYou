@@ -1,4 +1,9 @@
 package `in`.hridayan.ashell.qstiles.service.tiles
 
-class Tile06Service {
+import dagger.hilt.android.AndroidEntryPoint
+import `in`.hridayan.ashell.qstiles.service.BaseTileService
+
+@AndroidEntryPoint
+class Tile06Service : BaseTileService() {
+    override val tileId = 5
 }

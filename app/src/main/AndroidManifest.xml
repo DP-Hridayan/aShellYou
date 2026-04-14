@@ -114,6 +114,176 @@
             android:exported="false"
             android:foregroundServiceType="connectedDevice" />
 
+        <service
+            android:name=".qstiles.service.tiles.Tile01Service"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_LABEL"
+                android:value="aShellYou Tile 1" />
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_ICON"
+                android:resource="@drawable/ic_adb2" />
+        </service>
+
+        <service
+            android:name=".qstiles.service.tiles.Tile02Service"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_LABEL"
+                android:value="aShellYou Tile 2" />
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_ICON"
+                android:resource="@drawable/ic_adb2" />
+        </service>
+
+        <service
+            android:name=".qstiles.service.tiles.Tile03Service"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_LABEL"
+                android:value="aShellYou Tile 3" />
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_ICON"
+                android:resource="@drawable/ic_adb2" />
+        </service>
+
+        <service
+            android:name=".qstiles.service.tiles.Tile04Service"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_LABEL"
+                android:value="aShellYou Tile 4" />
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_ICON"
+                android:resource="@drawable/ic_adb2" />
+        </service>
+
+        <service
+            android:name=".qstiles.service.tiles.Tile05Service"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_LABEL"
+                android:value="aShellYou Tile 5" />
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_ICON"
+                android:resource="@drawable/ic_adb2" />
+        </service>
+
+        <service
+            android:name=".qstiles.service.tiles.Tile06Service"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_LABEL"
+                android:value="aShellYou Tile 6" />
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_ICON"
+                android:resource="@drawable/ic_adb2" />
+        </service>
+
+        <service
+            android:name=".qstiles.service.tiles.Tile07Service"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_LABEL"
+                android:value="aShellYou Tile 7" />
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_ICON"
+                android:resource="@drawable/ic_adb2" />
+        </service>
+
+        <service
+            android:name=".qstiles.service.tiles.Tile08Service"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_LABEL"
+                android:value="aShellYou Tile 8" />
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_ICON"
+                android:resource="@drawable/ic_adb2" />
+        </service>
+
+        <service
+            android:name=".qstiles.service.tiles.Tile09Service"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_LABEL"
+                android:value="aShellYou Tile 9" />
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_ICON"
+                android:resource="@drawable/ic_adb2" />
+        </service>
+
+        <service
+            android:name=".qstiles.service.tiles.Tile10Service"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_LABEL"
+                android:value="aShellYou Tile 10" />
+
+            <meta-data
+                android:name="android.service.quicksettings.TILE_ICON"
+                android:resource="@drawable/ic_adb2" />
+        </service>
+
     </application>
 
 </manifest>

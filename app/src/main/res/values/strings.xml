@@ -14,6 +14,9 @@
     <string name="add">Add</string>
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
+    <string name="adb_command">ADB command</string>
+    <string name="execution_method">Execution method</string>
+    <string name="generate_tile">Generate tile</string>
     <string name="additional_settings">Additional settings</string>
     <string name="all_data">All data</string>
     <string name="already_connected">Already connected</string>
@@ -27,6 +30,8 @@
     <string name="back">Back</string>
     <string name="back_button">Back button</string>
     <string name="backup">Backup</string>
+    <string name="tile_name">Tile name</string>
+    <string name="choose_icon">Choose icon</string>
     <string name="backup_scheduler">Backup scheduler</string>
     <string name="fetching_backup_type">Fetching backup type…</string>
     <string name="des_backup_scheduler">Automatically schedule backups at selected intervals</string>

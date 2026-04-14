@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.qstiles.data.datastore
+package `in`.hridayan.ashell.qstiles.data.provider
 
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
