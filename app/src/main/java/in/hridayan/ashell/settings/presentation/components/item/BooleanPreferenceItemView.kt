@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -20,11 +21,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.settings.presentation.components.switch.SettingsSwitch
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
@@ -62,12 +63,16 @@ fun BooleanPreferenceItemView(
     }
 
     if (item.type == SettingsType.SwitchBanner) {
-        PillShapedCard(
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 0.dp),
-            clickable = enabled,
-            onClick = onClick,
+                .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 0.dp)
+                .clip(RoundedCornerShape(50))
+                .clickable(
+                    enabled = enabled,
+                    onClick = onClick
+                ),
+            shape = RoundedCornerShape(50),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer

@@ -13,6 +13,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,9 +23,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Logout
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -51,7 +54,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import kotlinx.coroutines.Dispatchers
@@ -70,16 +72,19 @@ fun GoogleSignInCard(
     onSignInClick: () -> Unit,
     onSignOutClick: () -> Unit
 ) {
-    PillShapedCard(
+    Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 15.dp, end = 15.dp, top = 15.dp, bottom = 5.dp),
-        clickable = !isSignedIn && !isLoading,
-        onClick = withHaptic { onSignInClick() },
+            .padding(start = 15.dp, end = 15.dp, top = 15.dp, bottom = 5.dp)
+            .clip(RoundedCornerShape(50))
+            .clickable(
+                enabled = !isSignedIn && !isLoading,
+                onClick = withHaptic { onSignInClick() }),
         colors = CardDefaults.cardColors(
             containerColor = if (isSignedIn) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.surface,
             contentColor = if (isSignedIn) MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onSurface
         ),
+        shape = RoundedCornerShape(50),
         border = if (!isSignedIn) CardDefaults.outlinedCardBorder() else null
     ) {
         AnimatedContent(

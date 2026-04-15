@@ -54,7 +54,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -134,8 +133,9 @@ fun TileDashBoardScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 25.dp)
                     ) {
-                        PillShapedCard(
+                        Card(
                             modifier = Modifier.align(Alignment.CenterEnd),
+                            shape = RoundedCornerShape(50),
                             colors = CardDefaults.cardColors(
                                 containerColor = if (uiState.activeCount > 0) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer,
                                 contentColor = if (uiState.activeCount > 0) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface

@@ -43,7 +43,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
@@ -93,10 +92,11 @@ fun CreateTileScreen(
                 }
 
                 item {
-                    PillShapedCard(
+                    Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 20.dp)
+                            .padding(horizontal = 20.dp),
+                        shape = RoundedCornerShape(50)
                     ) {
                         BasicTextField(
                             modifier = Modifier

@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -31,7 +33,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -77,12 +78,13 @@ fun LatestVersionDialog(onDismiss: () -> Unit) {
                 .padding(top = 24.dp, bottom = 20.dp)
         )
 
-        PillShapedCard(
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(50),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-            ),
-            modifier = Modifier.fillMaxWidth()
+            )
         ) {
             Column(
                 modifier = Modifier
