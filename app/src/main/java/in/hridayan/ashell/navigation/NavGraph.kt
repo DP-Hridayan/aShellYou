@@ -24,6 +24,9 @@ import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.domain.model.SharedTextHolder
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
+import `in`.hridayan.ashell.qstiles.presentation.screen.CreateTileScreen
+import `in`.hridayan.ashell.qstiles.presentation.screen.TileDashBoardScreen
+import `in`.hridayan.ashell.qstiles.presentation.screen.TileLogsScreen
 import `in`.hridayan.ashell.settings.presentation.page.about.screens.AboutScreen
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens.AutoUpdateScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupAndRestoreScreen
@@ -227,6 +230,34 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                     isOwnDevice = route.isOwnDevice
                 )
             }
+
+            composable<NavRoutes.TileDashboardScreen>(
+                enterTransition = { slideFadeInFromRight() },
+                exitTransition = { slideFadeOutToLeft() },
+                popEnterTransition = { slideFadeInFromLeft() },
+                popExitTransition = { slideFadeOutToRight() }
+            ) {
+                TileDashBoardScreen()
+            }
+
+            composable<NavRoutes.TileLogsScreen>(
+                enterTransition = { slideFadeInFromRight() },
+                exitTransition = { slideFadeOutToLeft() },
+                popEnterTransition = { slideFadeInFromLeft() },
+                popExitTransition = { slideFadeOutToRight() }
+            ) {
+                TileLogsScreen()
+            }
+
+            composable<NavRoutes.CreateTileScreen>(
+                enterTransition = { slideFadeInFromRight() },
+                exitTransition = { slideFadeOutToLeft() },
+                popEnterTransition = { slideFadeInFromLeft() },
+                popExitTransition = { slideFadeOutToRight() }
+            ) {
+                CreateTileScreen(  )
+            }
+
         }
     }
 }

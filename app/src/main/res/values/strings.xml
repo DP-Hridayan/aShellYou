@@ -17,6 +17,15 @@
     <string name="adb_command">ADB command</string>
     <string name="execution_method">Execution method</string>
     <string name="generate_tile">Generate tile</string>
+    <string name="qs_tiles">Quick settings tiles</string>
+    <string name="active">Active</string>
+    <string name="create_new_tile">Create new tile</string>
+    <string name="disabled">Disabled</string>
+    <string name="des_qs_tiles">Create quick settings tiles for executing adb commands</string>
+    <string name="edit_tile">Edit tile</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="active_tiles">Active tiles</string>
     <string name="additional_settings">Additional settings</string>
     <string name="all_data">All data</string>
     <string name="already_connected">Already connected</string>

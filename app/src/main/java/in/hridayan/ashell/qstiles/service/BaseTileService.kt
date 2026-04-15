@@ -1,8 +1,10 @@
 package `in`.hridayan.ashell.qstiles.service
 
+import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import dagger.hilt.android.AndroidEntryPoint
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
@@ -30,6 +32,7 @@ abstract class BaseTileService : TileService() {
             }
         }
     }
+
     override fun onStartListening() {
         super.onStartListening()
 
@@ -39,17 +42,27 @@ abstract class BaseTileService : TileService() {
                 val tile = qsTile ?: return@collect
 
                 tile.apply {
-                    label = config?.label ?: "Empty"
+                    label = config?.name ?: "Empty"
 
-                    icon = android.graphics.drawable.Icon.createWithResource(
-                        this@BaseTileService,
-                     R.drawable.ts_add
-                    )
+                    val iconFromProvider = TileIconProvider.iconById[config?.iconId]
+                    if (iconFromProvider != null) {
+                        icon = android.graphics.drawable.Icon.createWithResource(
+                            this@BaseTileService,
+                            iconFromProvider.resId
+                        )
+                    } else {
+                        icon = android.graphics.drawable.Icon.createWithResource(
+                            this@BaseTileService,
+                            R.drawable.ts_add
+                        )
+                    }
+
+
 
                     state = if (config != null) {
-                        android.service.quicksettings.Tile.STATE_ACTIVE
+                        Tile.STATE_ACTIVE
                     } else {
-                        android.service.quicksettings.Tile.STATE_INACTIVE
+                       Tile.STATE_INACTIVE
                     }
 
                     updateTile()

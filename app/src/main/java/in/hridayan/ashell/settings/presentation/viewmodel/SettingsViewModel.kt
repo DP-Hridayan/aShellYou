@@ -152,6 +152,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.BehaviorScreen)
                 )
 
+                SettingsKeys.QUICK_SETTINGS_TILES -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.TileDashboardScreen)
+                )
+
                 SettingsKeys.BACKUP_AND_RESTORE -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.BackupAndRestoreScreen)
                 )

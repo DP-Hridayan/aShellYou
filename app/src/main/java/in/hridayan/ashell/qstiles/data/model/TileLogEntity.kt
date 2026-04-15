@@ -1,0 +1,15 @@
+package `in`.hridayan.ashell.qstiles.data.model
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "tile_logs")
+data class TileLogEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val tileId: Int,
+    val command: String,
+    val output: String,
+    val isSuccess: Boolean,
+    val executionMode: Int,
+    val timestamp: Long
+)

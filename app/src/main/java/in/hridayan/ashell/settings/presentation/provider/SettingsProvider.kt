@@ -47,6 +47,12 @@ object SettingsProvider {
                 iconVector = Icons.Rounded.SentimentNeutral
             ),
             nullPreferenceItem(
+                key = SettingsKeys.QUICK_SETTINGS_TILES,
+                titleResId = R.string.qs_tiles,
+                descriptionResId = R.string.des_qs_tiles,
+                iconResId = R.drawable.ic_dashboard
+            ),
+            nullPreferenceItem(
                 key = SettingsKeys.AUTO_UPDATE,
                 titleResId = R.string.auto_update,
                 descriptionResId = R.string.des_auto_update,

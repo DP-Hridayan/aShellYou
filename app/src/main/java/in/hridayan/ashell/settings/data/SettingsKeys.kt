@@ -63,5 +63,6 @@ enum class SettingsKeys(val default: Any?) {
     GOOGLE_ACCOUNT_PHOTO_URL(""),
     LAST_CLOUD_BACKUP_TIME(""),
     LAST_CLOUD_BACKUP_TYPE("None"),
-    LAST_LOCAL_BACKUP_TYPE("None")
+    LAST_LOCAL_BACKUP_TYPE("None"),
+    QUICK_SETTINGS_TILES(null),
 }

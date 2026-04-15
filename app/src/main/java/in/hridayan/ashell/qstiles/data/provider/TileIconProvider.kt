@@ -104,8 +104,9 @@ object TileIconProvider {
         TileIcon("tune", R.drawable.ts_tune, listOf("tune", "adjust", "settings")),
         TileIcon("video", R.drawable.ts_videocam, listOf("video", "record", "screenrecord")),
         TileIcon("wifi", R.drawable.ts_wifi, listOf("wifi", "network", "internet")),
-        TileIcon("wifi_off", R.drawable.ts_wifi_off, listOf("wifi", "network", "disconnect", "off"))
-
+        TileIcon("wifi_off", R.drawable.ts_wifi_off, listOf("wifi", "network", "disconnect", "off")),
+        TileIcon("wifi_tethering_on", R.drawable.ts_wifi_tethering, listOf("wifi", "network","tether", "connect", "on")),
+        TileIcon("wifi_tethering_off", R.drawable.ts_portable_wifi_off, listOf("wifi", "network","tether", "disconnect", "off")),
     )
 
     val iconById: Map<String, TileIcon> =

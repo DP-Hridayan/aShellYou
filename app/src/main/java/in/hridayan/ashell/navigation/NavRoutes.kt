@@ -68,4 +68,12 @@ sealed class NavRoutes {
         val isOwnDevice: Boolean = false
     ) : NavRoutes()
 
+    @Serializable
+    object TileDashboardScreen : NavRoutes()
+
+    @Serializable
+    object TileLogsScreen : NavRoutes()
+
+    @Serializable
+    object CreateTileScreen : NavRoutes()
 }
