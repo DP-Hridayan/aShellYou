@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +32,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -74,17 +76,35 @@ fun TileDashBoardScreen(
         listState = listState,
         topBarTitle = stringResource(R.string.qs_tiles),
         fabContent = {
-            FloatingActionButton(
-                onClick = onCreateNewTile,
-                modifier = Modifier.padding(bottom = 20.dp)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 25.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_add),
-                    contentDescription = null
+                FloatingNavPill(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .padding(start = 50.dp)
                 )
+
+                FloatingActionButton(
+                    onClick = onCreateNewTile,
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_add),
+                        contentDescription = null
+                    )
+                }
+
+
             }
+
         },
         content = { innerPadding, topBarScrollBehavior ->
+
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -114,7 +134,10 @@ fun TileDashBoardScreen(
                             )
                         ) {
                             AutoResizeableText(
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 3.dp),
+                                modifier = Modifier.padding(
+                                    horizontal = 10.dp,
+                                    vertical = 3.dp
+                                ),
                                 style = MaterialTheme.typography.labelMedium,
                                 text = "${uiState.activeCount} " + stringResource(R.string.active_tiles)
                             )
@@ -132,6 +155,9 @@ fun TileDashBoardScreen(
                         iconResId = tileIcon?.resId,
                         tileName = config.name,
                         isActive = config.isActive,
+                        onEditTile = withHaptic {
+                            //TODO
+                        },
                         toggleTileState = withHaptic {
                             tileDashboardViewModel.toggleTile(config)
                         }
@@ -147,6 +173,7 @@ private fun TileDetailsCard(
     iconResId: Int? = null,
     tileName: String = stringResource(R.string.tile_name),
     isActive: Boolean = true,
+    onEditTile: () -> Unit = {},
     toggleTileState: () -> Unit = {}
 ) {
     val tileStatus =
@@ -155,8 +182,6 @@ private fun TileDetailsCard(
         if (isActive) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceContainer
     val tileContentColor =
         if (isActive) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurface
-
-    val onClickEdit: () -> Unit = {}
 
     val toggleButtonText =
         if (isActive) stringResource(R.string.disable) else stringResource(R.string.enable)
@@ -221,7 +246,7 @@ private fun TileDetailsCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 OutlinedButton(
-                    onClick = onClickEdit,
+                    onClick = onEditTile,
                     colors = ButtonDefaults.outlinedButtonColors(
                         containerColor = tileContainerColor,
                         contentColor = tileContentColor
@@ -244,6 +269,60 @@ private fun TileDetailsCard(
                     shapes = ButtonDefaults.shapes()
                 ) {
                     AutoResizeableText(text = toggleButtonText)
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+private fun FloatingNavPill(modifier: Modifier = Modifier) {
+    val navItems = listOf(
+        stringResource(R.string.dashboard),
+        stringResource(R.string.logs)
+    )
+
+    var selectedIndex by remember { mutableIntStateOf(0) }
+
+    PillShapedCard(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 6.dp
+        )
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            navItems.forEachIndexed { index, item ->
+                PillShapedCard(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .padding(
+                            start = if (index == 0) 8.dp else 0.dp,
+                            end = if (index == 1) 8.dp else 0.dp,
+                            top = 8.dp,
+                            bottom = 8.dp
+                        ),
+                    onClick = withHaptic { selectedIndex = index },
+                    clickable = true,
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (index == selectedIndex) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer,
+                        contentColor = if (index == selectedIndex) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
+                    )
+                ) {
+                    AutoResizeableText(
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .padding(10.dp),
+                        text = item,
+                        style = MaterialTheme.typography.titleMediumEmphasized,
+                        fontWeight = FontWeight.SemiBold
+                    )
                 }
             }
         }

@@ -20,6 +20,8 @@
     <string name="qs_tiles">Quick settings tiles</string>
     <string name="active">Active</string>
     <string name="create_new_tile">Create new tile</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="logs">Logs</string>
     <string name="disabled">Disabled</string>
     <string name="des_qs_tiles">Create quick settings tiles for executing adb commands</string>
     <string name="edit_tile">Edit tile</string>
