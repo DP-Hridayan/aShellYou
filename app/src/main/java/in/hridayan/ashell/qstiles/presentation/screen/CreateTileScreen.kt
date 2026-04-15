@@ -36,9 +36,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -49,7 +51,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -60,6 +61,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
+import `in`.hridayan.ashell.qstiles.presentation.components.IconChooserDialog
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.provider.ButtonGroupOptionsProvider
@@ -73,12 +75,15 @@ fun CreateTileScreen(
     val navController = LocalNavController.current
 
     val uiState by createTileViewModel.state.collectAsState()
+    val iconsList by createTileViewModel.iconsList.collectAsState()
 
     val tileNameHint = "Reboot"
 
     val adbCommandHint = "adb reboot"
 
     val executionMethodOptions = ButtonGroupOptionsProvider.tileServiceAdbExecutionMethod
+
+    var showIconChooserDialog by rememberSaveable { mutableStateOf(false) }
 
     val listState = rememberLazyListState()
 
@@ -317,7 +322,7 @@ fun CreateTileScreen(
                             )
                             .clickable(
                                 enabled = true,
-                                onClick = withHaptic { }),
+                                onClick = withHaptic { showIconChooserDialog = true }),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(20.dp)
                     ) {
@@ -425,6 +430,20 @@ fun CreateTileScreen(
                 }
             }
         })
+
+    if (showIconChooserDialog) {
+        IconChooserDialog(
+            onDismiss = { showIconChooserDialog = false },
+            icons = iconsList,
+            searchQuery = uiState.iconSearchQuery,
+            onQueryChange = {
+                createTileViewModel.onIconQueryChange(it)
+            },
+            onIconSelected = {
+                createTileViewModel.onIconSelected(it)
+                showIconChooserDialog = false
+            })
+    }
 }
 
 @Composable
@@ -515,15 +534,5 @@ private fun ModernTile(
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PreviewScreen() {
-    CompositionLocalProvider(
-        LocalWeakHaptic provides {}
-    ) {
-        CreateTileScreen()
     }
 }

@@ -1,8 +1,10 @@
 package `in`.hridayan.ashell.qstiles.presentation.viewmodel
 
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.qstiles.data.model.TileIcon
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.processor.TileCommandKeywordProcessor
@@ -24,6 +26,9 @@ class CreateTileViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(CreateTileState())
     val state: StateFlow<CreateTileState> = _state.asStateFlow()
+
+    private val _iconsList = MutableStateFlow(TileIconProvider.icons)
+    val iconsList: StateFlow<List<TileIcon>> = _iconsList.asStateFlow()
 
     init {
         observeSlots()
@@ -60,6 +65,16 @@ class CreateTileViewModel @Inject constructor(
 
     fun onIconSelected(iconId: String) {
         _state.update { it.copy(selectedIconId = iconId) }
+    }
+
+    fun onIconQueryChange(query: TextFieldValue) {
+        _state.update { it.copy(iconSearchQuery = query) }
+
+        _iconsList.update {
+            TileIconProvider.icons.filter { icon ->
+                icon.keywords.any { it.contains(query.text, ignoreCase = true) }
+            }
+        }
     }
 
     private fun suggestIcons(command: String) {

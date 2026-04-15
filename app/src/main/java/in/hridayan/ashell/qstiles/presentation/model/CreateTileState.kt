@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.qstiles.presentation.model
 
+import androidx.compose.ui.text.input.TextFieldValue
 import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
 
 data class CreateTileState(
@@ -9,5 +10,6 @@ data class CreateTileState(
     val selectedIconId: String = "terminal",
     val suggestedIcons: List<String> = emptyList(),
     val availableSlots: Int = 0,
-    val isFull: Boolean = false
+    val isFull: Boolean = false,
+    val iconSearchQuery : TextFieldValue = TextFieldValue("")
 )
