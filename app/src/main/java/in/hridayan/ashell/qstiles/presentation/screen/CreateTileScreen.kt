@@ -42,12 +42,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
@@ -55,12 +50,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -532,29 +527,3 @@ private fun PreviewScreen() {
         CreateTileScreen()
     }
 }
-
-fun Modifier.dashedBorder(
-    color: Color,
-    strokeWidth: Dp = 1.dp,
-    cornerRadius: Dp = 0.dp,
-    dashLength: Dp = 6.dp,
-    gapLength: Dp = 6.dp
-) = this.then(
-    Modifier.drawBehind {
-        val stroke = strokeWidth.toPx()
-        val dash = dashLength.toPx()
-        val gap = gapLength.toPx()
-
-        drawRoundRect(
-            color = color,
-            size = size,
-            cornerRadius = CornerRadius(cornerRadius.toPx()),
-            style = Stroke(
-                width = stroke,
-                pathEffect = PathEffect.dashPathEffect(
-                    floatArrayOf(dash, gap)
-                )
-            )
-        )
-    }
-)
