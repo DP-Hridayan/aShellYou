@@ -5,6 +5,7 @@ package `in`.hridayan.ashell.commandexamples.presentation.screens
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -121,6 +122,9 @@ fun CommandExamplesScreen(
     val isNewCommandsAvailable = LocalSettings.current.isNewCommandsAvailable
 
     var showFilterCommandBottomSheet by rememberSaveable { mutableStateOf(false) }
+    val showNoResultsUi =
+        (states.search.textFieldValue.text.isNotEmpty() || filteredLabels.isNotEmpty()) && commands.isEmpty()
+    val showLoadNewCommandsUi = states.search.textFieldValue.text.isEmpty() && isNewCommandsAvailable
 
     val addOptions = listOf(
         stringResource(R.string.load_predefined_commands) to {
@@ -167,8 +171,10 @@ fun CommandExamplesScreen(
                     state = listState,
                     contentPadding = innerPadding,
                 ) {
-                    if (isNewCommandsAvailable) {
-                        item {
+                    item {
+                        AnimatedVisibility(
+                            visible = showLoadNewCommandsUi
+                        ) {
                             NewCommandsAvailableCard(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -261,7 +267,7 @@ fun CommandExamplesScreen(
                     }
                 }
 
-                if ((states.search.textFieldValue.text.isNotEmpty() || filteredLabels.isNotEmpty()) && commands.isEmpty()) {
+                if (showNoResultsUi) {
                     NoSearchResultUi(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -409,8 +415,8 @@ private fun NewCommandsAvailableCard(
             Button(
                 shapes = ButtonDefaults.shapes(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.tertiaryContainer
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary
                 ),
                 onClick = withHaptic {
                     onClickLoadButton()

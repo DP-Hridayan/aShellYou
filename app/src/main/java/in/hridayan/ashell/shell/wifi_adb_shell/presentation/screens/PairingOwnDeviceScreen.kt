@@ -419,8 +419,8 @@ fun NotificationAccessRequestCard(
             Button(
                 shapes = ButtonDefaults.shapes(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onErrorContainer,
-                    contentColor = MaterialTheme.colorScheme.errorContainer
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = MaterialTheme.colorScheme.onError
                 ),
                 onClick = { onClickButton() }
             ) {
@@ -475,8 +475,8 @@ fun NotificationStylesHintCard(
                 Button(
                     shapes = ButtonDefaults.shapes(),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.tertiaryContainer
+                        containerColor = MaterialTheme.colorScheme.tertiary,
+                        contentColor = MaterialTheme.colorScheme.onTertiary
                     ),
                     onClick = { onClickButton() }
                 ) {
@@ -505,8 +505,8 @@ fun WifiEnableCard(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
             Button(
                 shapes = ButtonDefaults.shapes(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onErrorContainer,
-                    contentColor = MaterialTheme.colorScheme.errorContainer
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = MaterialTheme.colorScheme.onError
                 ),
                 onClick = { onClickButton() }
             ) {
