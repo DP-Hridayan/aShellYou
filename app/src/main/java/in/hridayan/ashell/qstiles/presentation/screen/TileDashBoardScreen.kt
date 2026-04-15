@@ -2,17 +2,25 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -285,44 +293,64 @@ private fun FloatingNavPill(modifier: Modifier = Modifier) {
 
     var selectedIndex by remember { mutableIntStateOf(0) }
 
-    PillShapedCard(
-        modifier = modifier,
+    Card(
+        modifier = modifier
+            .height(56.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(50),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
+            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
         ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        )
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
+        BoxWithConstraints(
+            modifier = Modifier.fillMaxSize()
         ) {
-            navItems.forEachIndexed { index, item ->
-                PillShapedCard(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .padding(
-                            start = if (index == 0) 8.dp else 0.dp,
-                            end = if (index == 1) 8.dp else 0.dp,
-                            top = 8.dp,
-                            bottom = 8.dp
-                        ),
-                    onClick = withHaptic { selectedIndex = index },
-                    clickable = true,
-                    colors = CardDefaults.cardColors(
-                        containerColor = if (index == selectedIndex) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer,
-                        contentColor = if (index == selectedIndex) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
-                    )
-                ) {
-                    AutoResizeableText(
+            val itemWidth = maxWidth / navItems.size
+
+            val offsetX by animateDpAsState(
+                targetValue = itemWidth * selectedIndex,
+                label = "pill_offset"
+            )
+
+            Box(
+                modifier = Modifier
+                    .offset(x = offsetX)
+                    .width(itemWidth)
+                    .fillMaxHeight()
+                    .padding(6.dp)
+                    .clip(RoundedCornerShape(50))
+                    .background(MaterialTheme.colorScheme.primaryContainer)
+            )
+
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                navItems.forEachIndexed { index, item ->
+                    Box(
                         modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
-                            .padding(10.dp),
-                        text = item,
-                        style = MaterialTheme.typography.titleMediumEmphasized,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                            .weight(1f)
+                            .fillMaxHeight()
+                            .clickable(
+                                enabled = true,
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null,
+                                onClick = withHaptic {
+                                    selectedIndex = index
+                                }),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        AutoResizeableText(
+                            text = item,
+                            style = MaterialTheme.typography.titleMediumEmphasized,
+                            fontWeight = FontWeight.SemiBold,
+                            color = if (index == selectedIndex)
+                                MaterialTheme.colorScheme.onPrimaryContainer
+                            else
+                                MaterialTheme.colorScheme.onSurface
+                        )
+                    }
                 }
             }
         }
