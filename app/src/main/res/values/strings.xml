@@ -22,6 +22,10 @@
     <string name="create_new_tile">Create new tile</string>
     <string name="dashboard">Dashboard</string>
     <string name="logs">Logs</string>
+    <string name="untitled">Untitled</string>
+    <string name="preview">Preview</string>
+    <string name="suggested_icons">Suggested icons</string>
+    <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
     <string name="disabled">Disabled</string>
     <string name="des_qs_tiles">Create quick settings tiles for executing adb commands</string>
     <string name="edit_tile">Edit tile</string>

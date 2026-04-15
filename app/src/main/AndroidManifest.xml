@@ -124,7 +124,7 @@
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_LABEL"
-                android:value="aShellYou Tile 1" />
+                android:value="1" />
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_ICON"
@@ -141,7 +141,7 @@
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_LABEL"
-                android:value="aShellYou Tile 2" />
+                android:value="2" />
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_ICON"
@@ -158,7 +158,7 @@
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_LABEL"
-                android:value="aShellYou Tile 3" />
+                android:value="3" />
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_ICON"
@@ -175,7 +175,7 @@
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_LABEL"
-                android:value="aShellYou Tile 4" />
+                android:value="4" />
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_ICON"
@@ -192,7 +192,7 @@
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_LABEL"
-                android:value="aShellYou Tile 5" />
+                android:value="5" />
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_ICON"
@@ -209,7 +209,7 @@
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_LABEL"
-                android:value="aShellYou Tile 6" />
+                android:value="6" />
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_ICON"
@@ -226,7 +226,7 @@
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_LABEL"
-                android:value="aShellYou Tile 7" />
+                android:value="7" />
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_ICON"
@@ -243,7 +243,7 @@
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_LABEL"
-                android:value="aShellYou Tile 8" />
+                android:value="8" />
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_ICON"
@@ -260,7 +260,7 @@
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_LABEL"
-                android:value="aShellYou Tile 9" />
+                android:value="9" />
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_ICON"
@@ -277,7 +277,7 @@
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_LABEL"
-                android:value="aShellYou Tile 10" />
+                android:value="10" />
 
             <meta-data
                 android:name="android.service.quicksettings.TILE_ICON"

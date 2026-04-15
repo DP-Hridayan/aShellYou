@@ -54,6 +54,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -105,8 +106,6 @@ fun TileDashBoardScreen(
                         contentDescription = null
                     )
                 }
-
-
             }
 
         },
@@ -169,6 +168,14 @@ fun TileDashBoardScreen(
                         toggleTileState = withHaptic {
                             tileDashboardViewModel.toggleTile(config)
                         }
+                    )
+                }
+
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(140.dp)
                     )
                 }
             }
@@ -286,6 +293,8 @@ private fun TileDetailsCard(
 
 @Composable
 private fun FloatingNavPill(modifier: Modifier = Modifier) {
+    val isDarkMode = LocalDarkMode.current
+
     val navItems = listOf(
         stringResource(R.string.dashboard),
         stringResource(R.string.logs)
@@ -299,9 +308,11 @@ private fun FloatingNavPill(modifier: Modifier = Modifier) {
             .fillMaxWidth(),
         shape = RoundedCornerShape(50),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+            containerColor = if (isDarkMode) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.surfaceContainerLowest
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 8.dp,
+        )
     ) {
         BoxWithConstraints(
             modifier = Modifier.fillMaxSize()
