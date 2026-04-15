@@ -2,6 +2,8 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,29 +31,37 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
+import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
+import `in`.hridayan.ashell.qstiles.presentation.viewmodel.TileDashboardViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 
 @Composable
-fun TileDashBoardScreen(modifier: Modifier = Modifier) {
+fun TileDashBoardScreen(
+    modifier: Modifier = Modifier,
+    tileDashboardViewModel: TileDashboardViewModel = hiltViewModel()
+) {
     val navController = LocalNavController.current
+    val uiState by tileDashboardViewModel.state.collectAsState()
+
     val tileIcon = painterResource(R.drawable.ts_wifi_tethering)
-    val activeTileCount = 3
 
     val onCreateNewTile: () -> Unit = withHaptic {
         navController.navigate(NavRoutes.CreateTileScreen)
@@ -98,18 +109,33 @@ fun TileDashBoardScreen(modifier: Modifier = Modifier) {
                         PillShapedCard(
                             modifier = Modifier.align(Alignment.CenterEnd),
                             colors = CardDefaults.cardColors(
-                                containerColor = if (activeTileCount > 0) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer,
-                                contentColor = if (activeTileCount > 0) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
+                                containerColor = if (uiState.activeCount > 0) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer,
+                                contentColor = if (uiState.activeCount > 0) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
                             )
                         ) {
                             AutoResizeableText(
                                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 3.dp),
                                 style = MaterialTheme.typography.labelMedium,
-                                text = "$activeTileCount " + stringResource(R.string.active_tiles)
+                                text = "${uiState.activeCount} " + stringResource(R.string.active_tiles)
                             )
                         }
                     }
+                }
 
+                itemsIndexed(uiState.tiles) { _, config ->
+                    val tileIcon = TileIconProvider.iconById[config.iconId]
+
+                    TileDetailsCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 6.dp),
+                        iconResId = tileIcon?.resId,
+                        tileName = config.name,
+                        isActive = config.isActive,
+                        toggleTileState = withHaptic {
+                            tileDashboardViewModel.toggleTile(config)
+                        }
+                    )
                 }
             }
         })
@@ -117,24 +143,23 @@ fun TileDashBoardScreen(modifier: Modifier = Modifier) {
 
 @Composable
 private fun TileDetailsCard(
-    modifier: Modifier = Modifier.fillMaxWidth(),
-    icon: Painter = painterResource(R.drawable.ts_wifi_tethering),
+    modifier: Modifier = Modifier,
+    iconResId: Int? = null,
     tileName: String = stringResource(R.string.tile_name),
-    isActive: Boolean = true
+    isActive: Boolean = true,
+    toggleTileState: () -> Unit = {}
 ) {
     val tileStatus =
         if (isActive) stringResource(R.string.active) else stringResource(R.string.disabled)
     val tileContainerColor =
-        if (isActive) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondaryContainer
+        if (isActive) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceContainer
     val tileContentColor =
-        if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSecondaryContainer
+        if (isActive) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurface
 
     val onClickEdit: () -> Unit = {}
 
     val toggleButtonText =
         if (isActive) stringResource(R.string.disable) else stringResource(R.string.enable)
-
-    val toggleTileStatus: () -> Unit = {}
 
     Card(
         modifier = modifier.clip(RoundedCornerShape(24.dp)),
@@ -162,28 +187,30 @@ private fun TileDetailsCard(
                         .background(MaterialTheme.colorScheme.primary),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        modifier = Modifier.size(24.dp),
-                        painter = icon,
-                        tint = MaterialTheme.colorScheme.onPrimary,
-                        contentDescription = null,
-                    )
+                    iconResId?.let {
+                        Icon(
+                            modifier = Modifier.size(24.dp),
+                            painter = painterResource(it),
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            contentDescription = null,
+                        )
+                    }
                 }
 
                 Column(
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    AutoResizeableText(
-                        text = tileStatus,
-                        style = MaterialTheme.typography.labelLarge,
-                        color = tileContentColor.copy(alpha = if (isActive) 1f else 0.7f)
-                    )
-
                     Text(
                         text = tileName,
                         style = MaterialTheme.typography.titleLargeEmphasized,
                         fontWeight = FontWeight.SemiBold,
                         color = tileContentColor
+                    )
+
+                    AutoResizeableText(
+                        text = tileStatus,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = tileContentColor.copy(alpha = if (isActive) 1f else 0.7f)
                     )
                 }
             }
@@ -198,17 +225,23 @@ private fun TileDetailsCard(
                     colors = ButtonDefaults.outlinedButtonColors(
                         containerColor = tileContainerColor,
                         contentColor = tileContentColor
-                    )
+                    ),
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = tileContentColor.copy(0.5f)
+                    ),
+                    shapes = ButtonDefaults.shapes()
                 ) {
                     AutoResizeableText(text = stringResource(R.string.edit_tile))
                 }
 
                 Button(
-                    onClick = toggleTileStatus,
+                    onClick = toggleTileState,
                     colors = ButtonDefaults.outlinedButtonColors(
                         containerColor = if (isActive) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary,
                         contentColor = if (isActive) MaterialTheme.colorScheme.onError else MaterialTheme.colorScheme.onPrimary
-                    )
+                    ),
+                    shapes = ButtonDefaults.shapes()
                 ) {
                     AutoResizeableText(text = toggleButtonText)
                 }

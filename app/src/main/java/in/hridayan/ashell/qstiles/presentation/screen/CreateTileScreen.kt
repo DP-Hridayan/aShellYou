@@ -4,9 +4,9 @@ package `in`.hridayan.ashell.qstiles.presentation.screen
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -29,11 +29,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -43,28 +40,30 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.PillShapedCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.provider.ButtonGroupOptionsProvider
 
 @Composable
-fun CreateTileScreen(modifier: Modifier = Modifier) {
+fun CreateTileScreen(
+    modifier: Modifier = Modifier,
+    createTileViewModel: CreateTileViewModel = hiltViewModel()
+) {
     val weakHaptic = LocalWeakHaptic.current
 
-    var tileName by rememberSaveable { mutableStateOf("") }
+    val uiState by createTileViewModel.state.collectAsState()
+
     val tileNameHint = "Reboot"
 
-    var adbCommand by rememberSaveable { mutableStateOf("") }
     val adbCommandHint = "adb reboot"
 
     val executionMethodOptions = ButtonGroupOptionsProvider.tileServiceAdbExecutionMethod
-    var selectedExecutionMethod by remember { mutableStateOf(executionMethodOptions[0]) }
-    val onSelectedMethodChange: (Int) -> Unit = {
-        selectedExecutionMethod = executionMethodOptions[it]
-    }
 
     val listState = rememberLazyListState()
 
@@ -103,14 +102,29 @@ fun CreateTileScreen(modifier: Modifier = Modifier) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(all = 16.dp),
-                            value = tileName.ifEmpty { tileNameHint },
-                            onValueChange = { tileName = it },
+                            value = uiState.name,
+                            onValueChange = { createTileViewModel.onNameChange(it) },
                             textStyle = LocalTextStyle.current.copy(
                                 fontSize = 16.sp,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = if (tileName.isEmpty()) 0.6f else 1f)
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
                             ),
                             singleLine = true,
-                            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary)
+                            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                            decorationBox = { innerTextField ->
+
+                                Box {
+                                    if (uiState.name.isEmpty()) {
+                                        Text(
+                                            text = tileNameHint,
+                                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                                alpha = 0.6f
+                                            )
+                                        )
+                                    }
+
+                                    innerTextField()
+                                }
+                            }
                         )
                     }
                 }
@@ -140,15 +154,30 @@ fun CreateTileScreen(modifier: Modifier = Modifier) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(all = 16.dp),
-                            value = adbCommand.ifEmpty { adbCommandHint },
-                            onValueChange = { adbCommand = it },
+                            value = uiState.command,
+                            onValueChange = { createTileViewModel.onCommandChange(it) },
                             textStyle = MaterialTheme.typography.bodyLarge.copy(
                                 fontFamily = FontFamily.Monospace,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = if (adbCommand.isEmpty()) 0.6f else 1f)
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
 
                             ),
                             minLines = 3,
-                            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary)
+                            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                            decorationBox = { innerTextField ->
+
+                                Box {
+                                    if (uiState.command.isEmpty()) {
+                                        Text(
+                                            text = adbCommandHint,
+                                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
+                                                alpha = 0.6f
+                                            )
+                                        )
+                                    }
+
+                                    innerTextField()
+                                }
+                            }
                         )
                     }
                 }
@@ -173,9 +202,9 @@ fun CreateTileScreen(modifier: Modifier = Modifier) {
                     ) {
                         executionMethodOptions.forEachIndexed { index, option ->
                             ToggleButton(
-                                checked = option.value == selectedExecutionMethod.value,
+                                checked = option.value == uiState.executionMode,
                                 onCheckedChange = {
-                                    onSelectedMethodChange(option.value)
+                                    createTileViewModel.onExecutionModeChange(option.value)
                                     weakHaptic()
                                 },
                                 modifier = Modifier.weight(1f),
@@ -199,8 +228,8 @@ fun CreateTileScreen(modifier: Modifier = Modifier) {
                             .heightIn(70.dp)
                             .fillMaxWidth()
                             .padding(horizontal = 40.dp, vertical = 25.dp),
-                        onClick = {
-
+                        onClick = withHaptic {
+                            createTileViewModel.createTile()
                         },
                         shapes = ButtonDefaults.shapes(),
                     ) {
