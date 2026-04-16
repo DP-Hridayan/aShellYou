@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.qstiles.presentation.components
+package `in`.hridayan.ashell.qstiles.presentation.components.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

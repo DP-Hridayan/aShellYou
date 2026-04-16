@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -50,11 +52,13 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.core.presentation.components.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -70,8 +74,6 @@ fun TileDashBoardScreen(
 ) {
     val navController = LocalNavController.current
     val uiState by tileDashboardViewModel.state.collectAsState()
-
-    val tileIcon = painterResource(R.drawable.ts_wifi_tethering)
 
     val onCreateNewTile: () -> Unit = withHaptic {
         navController.navigate(NavRoutes.CreateTileScreen)
@@ -114,7 +116,8 @@ fun TileDashBoardScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+                    .animateContentSize(),
                 state = listState,
                 contentPadding = innerPadding
             ) {
@@ -127,28 +130,25 @@ fun TileDashBoardScreen(
                 }
 
                 item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 25.dp)
-                    ) {
-                        Card(
-                            modifier = Modifier.align(Alignment.CenterEnd),
-                            shape = RoundedCornerShape(50),
-                            colors = CardDefaults.cardColors(
-                                containerColor = if (uiState.activeCount > 0) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer,
-                                contentColor = if (uiState.activeCount > 0) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
-                            )
-                        ) {
-                            AutoResizeableText(
-                                modifier = Modifier.padding(
-                                    horizontal = 10.dp,
-                                    vertical = 3.dp
-                                ),
-                                style = MaterialTheme.typography.labelMedium,
-                                text = "${uiState.activeCount} " + stringResource(R.string.active_tiles)
-                            )
-                        }
+                    if (uiState.tiles.isEmpty()) {
+                        NoTilesUi(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp)
+                                .heightIn(min = 200.dp),
+                            onClick = onCreateNewTile
+                        )
+                    }
+                }
+
+                item {
+                    if (uiState.tiles.isNotEmpty()) {
+                        ActiveTilesCountPill(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 25.dp),
+                            activeCount = uiState.activeCount
+                        )
                     }
                 }
 
@@ -290,6 +290,76 @@ private fun TileDetailsCard(
     }
 }
 
+@Composable
+private fun NoTilesUi(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+    cornerRadius: Dp = 24.dp,
+) {
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(cornerRadius))
+            .background(MaterialTheme.colorScheme.surfaceContainerLowest)
+            .dashedBorder(
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                strokeWidth = 2.dp,
+                cornerRadius = cornerRadius
+            )
+            .clickable(
+                enabled = true,
+                onClick = onClick
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        Box(
+            modifier = Modifier
+                .size(32.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surfaceContainer),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_add),
+                tint = MaterialTheme.colorScheme.onSurface,
+                contentDescription = null
+            )
+        }
+
+        Text(
+            text = stringResource(R.string.create_new_tile_description),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Composable
+private fun ActiveTilesCountPill(
+    modifier: Modifier = Modifier,
+    activeCount: Int
+) {
+    Box(modifier = modifier) {
+        Card(
+            modifier = Modifier.align(Alignment.CenterEnd),
+            shape = RoundedCornerShape(50),
+            colors = CardDefaults.cardColors(
+                containerColor = if (activeCount > 0) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer,
+                contentColor = if (activeCount > 0) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
+            )
+        ) {
+            AutoResizeableText(
+                modifier = Modifier.padding(
+                    horizontal = 10.dp,
+                    vertical = 3.dp
+                ),
+                style = MaterialTheme.typography.labelMedium,
+                text = "$activeCount " + stringResource(R.string.active_tiles)
+            )
+        }
+    }
+}
 
 @Composable
 private fun FloatingNavPill(modifier: Modifier = Modifier) {
@@ -366,18 +436,4 @@ private fun FloatingNavPill(modifier: Modifier = Modifier) {
             }
         }
     }
-}
-
-@Preview(
-    showBackground = true
-)
-@Composable
-private fun PreviewTileDetailsCard() {
-    TileDetailsCard()
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PreviewQSTileDashboard() {
-    TileDashBoardScreen()
 }

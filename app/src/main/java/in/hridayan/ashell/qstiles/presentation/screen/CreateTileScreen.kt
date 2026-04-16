@@ -53,6 +53,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -64,7 +65,7 @@ import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
-import `in`.hridayan.ashell.qstiles.presentation.components.IconChooserDialog
+import `in`.hridayan.ashell.qstiles.presentation.components.dialog.IconChooserDialog
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.provider.ButtonGroupOptionsProvider
@@ -314,47 +315,13 @@ fun CreateTileScreen(
                 }
 
                 item {
-                    Column(
+                    ChooseIconHintBox(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 60.dp)
-                            .padding(start = 25.dp, end = 25.dp, top = 15.dp)
-                            .clip(RoundedCornerShape(24.dp))
-                            .background(MaterialTheme.colorScheme.surfaceContainerLowest)
-                            .dashedBorder(
-                                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
-                                strokeWidth = 2.dp,
-                                cornerRadius = 24.dp
-                            )
-                            .clickable(
-                                enabled = true,
-                                onClick = withHaptic { showIconChooserDialog = true }),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(20.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .padding(top = 25.dp)
-                                .size(32.dp)
-                                .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.surfaceContainer),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_add),
-                                tint = MaterialTheme.colorScheme.onSurface,
-                                contentDescription = null
-                            )
-                        }
-
-                        Text(
-                            modifier = Modifier.padding(bottom = 25.dp),
-                            text = stringResource(R.string.des_choose_icon),
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                            textAlign = TextAlign.Center
-                        )
-                    }
+                            .heightIn(min = 160.dp)
+                            .padding(start = 25.dp, end = 25.dp, top = 15.dp),
+                        onClick = withHaptic { showIconChooserDialog = true }
+                    )
                 }
 
                 item {
@@ -541,5 +508,50 @@ private fun ModernTile(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ChooseIconHintBox(
+    modifier: Modifier = Modifier,
+    cornerRadius: Dp = 24.dp,
+    onClick: () -> Unit = {}
+) {
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(cornerRadius))
+            .background(MaterialTheme.colorScheme.surfaceContainerLowest)
+            .dashedBorder(
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                strokeWidth = 2.dp,
+                cornerRadius = cornerRadius
+            )
+            .clickable(
+                enabled = true,
+                onClick = onClick
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        Box(
+            modifier = Modifier
+                .size(32.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surfaceContainer),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_add),
+                tint = MaterialTheme.colorScheme.onSurface,
+                contentDescription = null
+            )
+        }
+
+        Text(
+            text = stringResource(R.string.des_choose_icon),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+            textAlign = TextAlign.Center
+        )
     }
 }
