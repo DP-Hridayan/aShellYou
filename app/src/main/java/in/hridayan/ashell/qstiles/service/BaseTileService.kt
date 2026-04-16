@@ -88,6 +88,7 @@ abstract class BaseTileService : TileService() {
                 }
 
             config ?: return@launch  // No tile mapped to this slot — ignore
+            if (!config.isActive) return@launch // Mapped but deactivated — ignore
 
             executionManager.execute(config)
         }

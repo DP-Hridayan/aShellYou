@@ -121,7 +121,6 @@ class TileRepositoryImpl @Inject constructor(
     override fun getTileBySlot(slotIndex: Int): Flow<TileConfig?> {
         val targetId = slotIndex + 1
         return datastore.getTile(targetId)
-            .map { tile -> if (tile?.isActive == true) tile else null }
             .distinctUntilChanged()
     }
 }

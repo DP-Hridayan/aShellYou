@@ -8,6 +8,8 @@ import `in`.hridayan.ashell.qstiles.service.tiles.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
+import kotlinx.coroutines.delay
+
 @Singleton
 class TileComponentManager @Inject constructor(
     @param:ApplicationContext private val context: Context
@@ -52,14 +54,12 @@ class TileComponentManager @Inject constructor(
      * Performs a Disable-then-Enable cycle to force the system to remove
      * the tile from the active QS panel and move it to the tray.
      * 
-     * If the system remembers the position, re-enabling it might put it 
-     * back in some Android versions, but it's the standard way to 'kick'
-     * it out of the active panel state.
+     * We use a 500ms delay to ensure the system processes the 'DISABLED' 
+     * state before we re-enable it for tray visibility.
      */
-    fun kickComponent(slotIndex: Int) {
+    suspend fun kickComponent(slotIndex: Int) {
         setComponentEnabled(slotIndex, false)
-        // A very short delay isn't possible here synchronously without blocking, 
-        // but PackageManager operations are generally processed sequentially by the system.
+        delay(500)
         setComponentEnabled(slotIndex, true)
     }
     
