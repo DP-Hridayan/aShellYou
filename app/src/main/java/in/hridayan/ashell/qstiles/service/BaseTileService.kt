@@ -106,7 +106,7 @@ abstract class BaseTileService : TileService() {
                     this@BaseTileService,
                     R.drawable.ic_adb
                 )
-                state = Tile.STATE_INACTIVE
+                state = Tile.STATE_UNAVAILABLE
             } else {
                 label = if (isRunning) "Running..." else config.name
 
@@ -116,7 +116,12 @@ abstract class BaseTileService : TileService() {
                     iconRes?.resId ?: R.drawable.ic_adb
                 )
 
-                state = if (isRunning) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
+                // If mapped but inactive (moved to tray), show as INACTIVE to keep branding
+                state = if (config.isActive) {
+                    if (isRunning) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
+                } else {
+                    Tile.STATE_INACTIVE
+                }
             }
 
             updateTile()

@@ -122,4 +122,8 @@ object TileIconProvider {
                 valueTransform = { it.second }
             )
 
+    fun getIconRes(id: String): Int {
+        return iconById[id]?.resId ?: R.drawable.ic_adb
+    }
 }
+

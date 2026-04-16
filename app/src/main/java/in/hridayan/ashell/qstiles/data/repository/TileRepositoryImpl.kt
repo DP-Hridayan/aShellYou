@@ -13,6 +13,8 @@ import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 import javax.inject.Singleton
 
+import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
+
 @Singleton
 class TileRepositoryImpl @Inject constructor(
     private val datastore: TileDatastore,
@@ -37,6 +39,13 @@ class TileRepositoryImpl @Inject constructor(
 
         // Ensure component is enabled so it shows up in panel
         tileComponentManager.setComponentEnabled(tileWithId.slotIndex!!, true)
+        
+        // PROMPT: (Android 13+) Ask user to add to active panel
+        tileComponentManager.promptAddTile(
+            tileWithId.slotIndex!!,
+            tileWithId.name,
+            TileIconProvider.getIconRes(tileWithId.iconId)
+        )
 
         nextId
     }
@@ -92,10 +101,18 @@ class TileRepositoryImpl @Inject constructor(
             // Kick to tray
             tileComponentManager.kickComponent(slot)
         } else {
-            // Enable in panel
+            // Enable in panel (if system remembers) or just stay enabled
             tileComponentManager.setComponentEnabled(slot, true)
+            
+            // PROMPT: (Android 13+) Helper to move it back to active panel
+            tileComponentManager.promptAddTile(
+                slot,
+                tile.name,
+                TileIconProvider.getIconRes(tile.iconId)
+            )
         }
     }
+
 
     /**
      * Returns the active tile bound to its fixed [slotIndex] (0–9).

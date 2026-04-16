@@ -118,6 +118,7 @@
             android:name=".qstiles.service.tiles.Tile01Service"
             android:enabled="true"
             android:exported="true"
+            android:icon="@drawable/ic_adb"
             android:label="Tile 1"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -137,6 +138,7 @@
             android:name=".qstiles.service.tiles.Tile02Service"
             android:enabled="true"
             android:exported="true"
+            android:icon="@drawable/ic_adb"
             android:label="Tile 2"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -156,6 +158,7 @@
             android:name=".qstiles.service.tiles.Tile03Service"
             android:enabled="true"
             android:exported="true"
+            android:icon="@drawable/ic_adb"
             android:label="Tile 3"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -175,6 +178,7 @@
             android:name=".qstiles.service.tiles.Tile04Service"
             android:enabled="true"
             android:exported="true"
+            android:icon="@drawable/ic_adb"
             android:label="Tile 4"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -194,6 +198,7 @@
             android:name=".qstiles.service.tiles.Tile05Service"
             android:enabled="true"
             android:exported="true"
+            android:icon="@drawable/ic_adb"
             android:label="Tile 5"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -213,6 +218,7 @@
             android:name=".qstiles.service.tiles.Tile06Service"
             android:enabled="true"
             android:exported="true"
+            android:icon="@drawable/ic_adb"
             android:label="Tile 6"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -232,6 +238,7 @@
             android:name=".qstiles.service.tiles.Tile07Service"
             android:enabled="true"
             android:exported="true"
+            android:icon="@drawable/ic_adb"
             android:label="Tile 7"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -251,6 +258,7 @@
             android:name=".qstiles.service.tiles.Tile08Service"
             android:enabled="true"
             android:exported="true"
+            android:icon="@drawable/ic_adb"
             android:label="Tile 8"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -270,6 +278,7 @@
             android:name=".qstiles.service.tiles.Tile09Service"
             android:enabled="true"
             android:exported="true"
+            android:icon="@drawable/ic_adb"
             android:label="Tile 9"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -289,6 +298,7 @@
             android:name=".qstiles.service.tiles.Tile10Service"
             android:enabled="true"
             android:exported="true"
+            android:icon="@drawable/ic_adb"
             android:label="Tile 10"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
