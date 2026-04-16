@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -48,6 +49,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -130,45 +132,38 @@ fun TileDashBoardScreen(
                 }
 
                 item {
-                    if (uiState.tiles.isEmpty()) {
-                        NoTilesUi(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 20.dp)
-                                .heightIn(min = 200.dp),
-                            onClick = onCreateNewTile
-                        )
-                    }
-                }
-
-                item {
-                    if (uiState.tiles.isNotEmpty()) {
-                        ActiveTilesCountPill(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 25.dp),
-                            activeCount = uiState.activeCount
-                        )
-                    }
-                }
-
-                itemsIndexed(uiState.tiles) { _, config ->
-                    val tileIcon = TileIconProvider.iconById[config.iconId]
-
-                    TileDetailsCard(
+                    FlowRow(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 20.dp, vertical = 6.dp),
-                        iconResId = tileIcon?.resId,
-                        tileName = config.name,
-                        isActive = config.isActive,
-                        onEditTile = withHaptic {
-                            //TODO
-                        },
-                        toggleTileState = withHaptic {
-                            tileDashboardViewModel.toggleTile(config)
+                            .padding(horizontal = 20.dp),
+                        horizontalArrangement = Arrangement.spacedBy(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(20.dp),
+                        maxItemsInEachRow = 2
+                    ) {
+                        (1..10).forEach { id ->
+                            val config = uiState.tiles.find { it.id == id }
+                            if (config == null) {
+                                EmptyTileBox(
+                                    modifier = Modifier.weight(1f),
+                                    tileId = id - 1, // EmptyTileBox expects 0-indexed for display
+                                    onClick = {
+                                        navController.navigate(NavRoutes.CreateTileScreen(tileId = id))
+                                    }
+                                )
+                            } else {
+                                val tileIcon = TileIconProvider.iconById[config.iconId]
+                                ModernTile(
+                                    modifier = Modifier.weight(1f),
+                                    icon = if (tileIcon != null) painterResource(tileIcon.resId) else painterResource(R.drawable.ic_adb),
+                                    title = config.name,
+                                    isActive = config.isActive,
+                                    onClick = {
+                                        navController.navigate(NavRoutes.CreateTileScreen(tileId = id))
+                                    }
+                                )
+                            }
                         }
-                    )
+                    }
                 }
 
                 item {
@@ -180,6 +175,52 @@ fun TileDashBoardScreen(
                 }
             }
         })
+}
+
+@Composable
+private fun EmptyTileBox(
+    modifier: Modifier = Modifier,
+    tileId: Int,
+    cornerRadius: Dp = 24.dp,
+    onClick: () -> Unit = {}
+) {
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(cornerRadius))
+            .background(MaterialTheme.colorScheme.surfaceContainerLowest)
+            .dashedBorder(
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                strokeWidth = 2.dp,
+                cornerRadius = cornerRadius
+            )
+            .clickable(
+                enabled = true,
+                onClick = onClick
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        Box(
+            modifier = Modifier
+                .size(32.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surfaceContainer),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_add),
+                tint = MaterialTheme.colorScheme.onSurface,
+                contentDescription = null
+            )
+        }
+
+        Text(
+            text = stringResource(R.string.tile) + " ${tileId + 1}",
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+            textAlign = TextAlign.Center
+        )
+    }
 }
 
 @Composable
@@ -434,6 +475,65 @@ private fun FloatingNavPill(modifier: Modifier = Modifier) {
                                 MaterialTheme.colorScheme.onSurface
                         )
                     }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ModernTile(
+    modifier: Modifier = Modifier,
+    icon: Painter,
+    title: String,
+    isActive: Boolean = true,
+    onClick: () -> Unit = {}
+) {
+    Box(modifier = modifier) {
+        Card(
+            modifier = Modifier
+                .padding(20.dp)
+                .clickable(onClick = onClick),
+            shape = RoundedCornerShape(32.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                contentColor = MaterialTheme.colorScheme.onSurface
+            ),
+        ) {
+            Row(
+                modifier = Modifier.padding(25.dp),
+                horizontalArrangement = Arrangement.spacedBy(15.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = icon,
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        contentDescription = null
+                    )
+                }
+
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                ) {
+                    AutoResizeableText(
+                        text = title.ifEmpty { stringResource(R.string.untitled) },
+                        style = MaterialTheme.typography.titleMediumEmphasized,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    AutoResizeableText(
+                        text = if (isActive) stringResource(R.string.on) else stringResource(R.string.off),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                    )
                 }
             }
         }

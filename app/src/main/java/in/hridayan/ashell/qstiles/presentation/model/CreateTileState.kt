@@ -9,7 +9,7 @@ data class CreateTileState(
     val executionMode: Int = TileExecutionMode.SHIZUKU,
     val selectedIconId: String = "terminal",
     val suggestedIcons: List<String> = emptyList(),
-    val availableSlots: Int = 0,
-    val isFull: Boolean = false,
-    val iconSearchQuery : TextFieldValue = TextFieldValue("")
+    val iconSearchQuery : TextFieldValue = TextFieldValue(""),
+    val tileId: Int = 0,
+    val isUpdateMode: Boolean = false
 )

@@ -30,6 +30,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -73,6 +74,7 @@ import `in`.hridayan.ashell.settings.presentation.provider.ButtonGroupOptionsPro
 @Composable
 fun CreateTileScreen(
     modifier: Modifier = Modifier,
+    tileId: Int,
     createTileViewModel: CreateTileViewModel = hiltViewModel()
 ) {
     val weakHaptic = LocalWeakHaptic.current
@@ -96,7 +98,24 @@ fun CreateTileScreen(
     SettingsScaffold(
         modifier = modifier,
         listState = listState,
-        topBarTitle = stringResource(R.string.create_new_tile),
+        topBarTitle = if (uiState.isUpdateMode) stringResource(R.string.edit_tile) else stringResource(R.string.create_new_tile),
+        fabContent = { _ ->
+            if (uiState.isUpdateMode) {
+                FloatingActionButton(
+                    onClick = withHaptic {
+                        createTileViewModel.deleteTile()
+                        navController.popBackStack()
+                    },
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                    contentColor = MaterialTheme.colorScheme.onErrorContainer
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_delete),
+                        contentDescription = "Delete Tile"
+                    )
+                }
+            }
+        },
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(
                 modifier = Modifier
@@ -387,10 +406,9 @@ fun CreateTileScreen(
                             createTileViewModel.createTile()
                             navController.popBackStack()
                         },
-                        shapes = ButtonDefaults.shapes(),
-                    ) {
+                        ) {
                         AutoResizeableText(
-                            text = stringResource(R.string.generate_tile),
+                            text = if (uiState.isUpdateMode) stringResource(R.string.update) else stringResource(R.string.generate_tile),
                             style = MaterialTheme.typography.titleLargeEmphasized
                         )
                         Spacer(modifier = Modifier.width(20.dp))

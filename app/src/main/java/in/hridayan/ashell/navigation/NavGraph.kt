@@ -254,8 +254,9 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 exitTransition = { slideFadeOutToLeft() },
                 popEnterTransition = { slideFadeInFromLeft() },
                 popExitTransition = { slideFadeOutToRight() }
-            ) {
-                CreateTileScreen(  )
+            ) { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.CreateTileScreen>()
+                CreateTileScreen(tileId = route.tileId)
             }
 
         }

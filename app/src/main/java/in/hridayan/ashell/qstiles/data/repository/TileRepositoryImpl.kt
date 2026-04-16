@@ -26,47 +26,21 @@ class TileRepositoryImpl @Inject constructor(
      */
     private val slotMutex = Mutex()
 
-    override suspend fun createTile(config: TileConfig): Int? = slotMutex.withLock {
-        // Find lowest free ID in range 1..10
-        val nextId = (1..10).firstOrNull { datastore.getTileOnce(it) == null } ?: return@withLock null
+    override fun getTiles(): Flow<List<TileConfig>> {
+        return datastore.getAllTiles().distinctUntilChanged()
+    }
 
-        val tileWithId = config.copy(
-            id = nextId,
-            slotIndex = nextId - 1,
-            isActive = true // Map and Enable immediately
-        )
-        datastore.saveTile(tileWithId)
-
-        // Ensure component is enabled so it shows up in panel
-        tileComponentManager.setComponentEnabled(tileWithId.slotIndex!!, true)
-        
-        // PROMPT: (Android 13+) Ask user to add to active panel
-        tileComponentManager.promptAddTile(
-            tileWithId.slotIndex!!,
-            tileWithId.name,
-            TileIconProvider.getIconRes(tileWithId.iconId)
-        )
-
-        nextId
+    override suspend fun createTile(config: TileConfig): Int? {
+        datastore.saveTile(config)
+        return config.id
     }
 
     override suspend fun updateTile(config: TileConfig) {
         datastore.saveTile(config)
     }
 
-    override suspend fun deleteTile(id: Int) = slotMutex.withLock {
-        val tile = datastore.getTileOnce(id)
-        val slot = tile?.slotIndex
+    override suspend fun deleteTile(id: Int) {
         datastore.clearTile(id)
-        
-        // Reset slot identity by kicking it to the tray (PackageManager toggle)
-        if (slot != null) {
-            tileComponentManager.kickComponent(slot)
-        }
-    }
-
-    override fun getTiles(): Flow<List<TileConfig>> {
-        return datastore.getAllTiles().distinctUntilChanged()
     }
 
     override fun getTile(id: Int): Flow<TileConfig?> {
@@ -87,30 +61,12 @@ class TileRepositoryImpl @Inject constructor(
 
     /**
      * Toggles the active state of a tile.
-     * Maps to panel highlight and tray visibility.
      */
-    override suspend fun toggleTile(id: Int) = slotMutex.withLock {
-        val tile = datastore.getTileOnce(id) ?: return@withLock
+    override suspend fun toggleTile(id: Int) {
+        val tile = datastore.getTileOnce(id) ?: return
         val newState = !tile.isActive
         val updated = tile.copy(isActive = newState)
         datastore.saveTile(updated)
-
-        // Slot is always id - 1
-        val slot = id - 1
-        if (!newState) {
-            // Kick to tray
-            tileComponentManager.kickComponent(slot)
-        } else {
-            // Enable in panel (if system remembers) or just stay enabled
-            tileComponentManager.setComponentEnabled(slot, true)
-            
-            // PROMPT: (Android 13+) Helper to move it back to active panel
-            tileComponentManager.promptAddTile(
-                slot,
-                tile.name,
-                TileIconProvider.getIconRes(tile.iconId)
-            )
-        }
     }
 
 
