@@ -364,6 +364,7 @@ private fun ActiveTilesCountPill(
 @Composable
 private fun FloatingNavPill(modifier: Modifier = Modifier) {
     val isDarkMode = LocalDarkMode.current
+    val motion = MaterialTheme.motionScheme
 
     val navItems = listOf(
         stringResource(R.string.dashboard),
@@ -381,7 +382,7 @@ private fun FloatingNavPill(modifier: Modifier = Modifier) {
             containerColor = if (isDarkMode) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.surfaceContainerLowest
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 8.dp,
+            defaultElevation = 6.dp,
         )
     ) {
         BoxWithConstraints(
@@ -391,6 +392,7 @@ private fun FloatingNavPill(modifier: Modifier = Modifier) {
 
             val offsetX by animateDpAsState(
                 targetValue = itemWidth * selectedIndex,
+                animationSpec = motion.fastSpatialSpec(),
                 label = "pill_offset"
             )
 
