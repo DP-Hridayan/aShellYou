@@ -49,6 +49,7 @@
     <string name="back_button">Back button</string>
     <string name="backup">Backup</string>
     <string name="tile_name">Tile name</string>
+    <string name="tile_n">Tile %1$d</string>
     <string name="choose_icon">Choose icon</string>
     <string name="backup_scheduler">Backup scheduler</string>
     <string name="fetching_backup_type">Fetching backup type…</string>

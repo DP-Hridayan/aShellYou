@@ -60,29 +60,11 @@ class TileDashboardViewModel @Inject constructor(
 
     /**
      * Toggles a tile on or off.
-     *
-     * Activation: assigns the lowest free slot (0–9) atomically.
-     *             Shows a Toast if all 10 slots are occupied.
-     *
-     * Deactivation: frees its slot. The corresponding QS tile
-     *               will transition to STATE_UNAVAILABLE automatically.
+     * Maps to panel highlight and tray visibility.
      */
     fun toggleTile(tile: TileConfig) {
         viewModelScope.launch {
-            if (tile.isActive) {
-                // Deactivate — always allowed
-                repositoryImpl.deactivateTile(tile)
-            } else {
-                // Activate — subject to slot availability
-                val updated = repositoryImpl.activateTile(tile)
-                if (updated == null) {
-                    Toast.makeText(
-                        context,
-                        "Maximum 10 active tiles allowed. Deactivate another tile first.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
+            repository.toggleTile(tile.id)
         }
     }
 }

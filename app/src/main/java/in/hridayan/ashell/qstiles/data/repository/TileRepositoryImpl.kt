@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.qstiles.data.repository
 
 import `in`.hridayan.ashell.qstiles.data.datastore.TileDatastore
+import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +15,8 @@ import javax.inject.Singleton
 
 @Singleton
 class TileRepositoryImpl @Inject constructor(
-    private val datastore: TileDatastore
+    private val datastore: TileDatastore,
+    private val tileComponentManager: TileComponentManager
 ) : TileRepository {
 
     /**
@@ -22,16 +24,36 @@ class TileRepositoryImpl @Inject constructor(
      */
     private val slotMutex = Mutex()
 
-    override suspend fun createTile(config: TileConfig) {
-        datastore.saveTile(config)
+    override suspend fun createTile(config: TileConfig): Int? = slotMutex.withLock {
+        // Find lowest free ID in range 1..10
+        val nextId = (1..10).firstOrNull { datastore.getTileOnce(it) == null } ?: return@withLock null
+
+        val tileWithId = config.copy(
+            id = nextId,
+            slotIndex = nextId - 1,
+            isActive = true // Map and Enable immediately
+        )
+        datastore.saveTile(tileWithId)
+
+        // Ensure component is enabled so it shows up in panel
+        tileComponentManager.setComponentEnabled(tileWithId.slotIndex!!, true)
+
+        nextId
     }
 
     override suspend fun updateTile(config: TileConfig) {
         datastore.saveTile(config)
     }
 
-    override suspend fun deleteTile(id: Int) {
+    override suspend fun deleteTile(id: Int) = slotMutex.withLock {
+        val tile = datastore.getTileOnce(id)
+        val slot = tile?.slotIndex
         datastore.clearTile(id)
+        
+        // Reset slot identity by kicking it to the tray (PackageManager toggle)
+        if (slot != null) {
+            tileComponentManager.kickComponent(slot)
+        }
     }
 
     override fun getTiles(): Flow<List<TileConfig>> {
@@ -55,60 +77,34 @@ class TileRepositoryImpl @Inject constructor(
     }
 
     /**
-     * Returns the active tile bound to [slotIndex] (0–9), or null if no tile
-     * is active with that slot. TileService uses this on every tick.
+     * Toggles the active state of a tile.
+     * Maps to panel highlight and tray visibility.
+     */
+    override suspend fun toggleTile(id: Int) = slotMutex.withLock {
+        val tile = datastore.getTileOnce(id) ?: return@withLock
+        val newState = !tile.isActive
+        val updated = tile.copy(isActive = newState)
+        datastore.saveTile(updated)
+
+        // Slot is always id - 1
+        val slot = id - 1
+        if (!newState) {
+            // Kick to tray
+            tileComponentManager.kickComponent(slot)
+        } else {
+            // Enable in panel
+            tileComponentManager.setComponentEnabled(slot, true)
+        }
+    }
+
+    /**
+     * Returns the active tile bound to its fixed [slotIndex] (0–9).
+     * Tile ID is always slotIndex + 1.
      */
     override fun getTileBySlot(slotIndex: Int): Flow<TileConfig?> {
-        return datastore.getAllTiles()
-            .map { tiles -> tiles.firstOrNull { it.isActive && it.slotIndex == slotIndex } }
+        val targetId = slotIndex + 1
+        return datastore.getTile(targetId)
+            .map { tile -> if (tile?.isActive == true) tile else null }
             .distinctUntilChanged()
-    }
-
-    /**
-     * Finds first available tile ID (not yet used in DataStore).
-     * IDs start at 1 and are unbounded for storage.
-     */
-    override suspend fun getFirstAvailableTileId(): Int? {
-        val usedIds = datastore.getAllTiles().first().map { it.id }.toSet()
-        return generateSequence(1) { it + 1 }.firstOrNull { it !in usedIds }
-    }
-
-    override suspend fun isTileSlotAvailable(id: Int): Boolean {
-        return datastore.getTileOnce(id) == null
-    }
-
-    /**
-     * Activates [tile] by assigning the lowest free slot (0–9).
-     * Returns the updated [TileConfig] with [slotIndex] set, or null if all
-     * 10 slots are already occupied.
-     *
-     * The entire read-evaluate-write sequence is enclosed in [slotMutex] to
-     * prevent race conditions when multiple tiles are toggled concurrently.
-     */
-    suspend fun activateTile(tile: TileConfig): TileConfig? = slotMutex.withLock {
-        // Tile is already active — no reassignment
-        if (tile.isActive && tile.slotIndex != null) return@withLock tile
-
-        val activeTiles = datastore.getAllTiles().first().filter { it.isActive }
-
-        // Enforce 10-tile cap
-        if (activeTiles.size >= TileDatastore.MAX_ACTIVE_TILES) return@withLock null
-
-        val usedSlots = activeTiles.mapNotNull { it.slotIndex }.toSet()
-        val freeSlot = (0 until TileDatastore.MAX_ACTIVE_TILES).firstOrNull { it !in usedSlots }
-            ?: return@withLock null  // Should not happen given the cap above
-
-        val updated = tile.copy(isActive = true, slotIndex = freeSlot)
-        datastore.saveTile(updated)
-        updated
-    }
-
-    /**
-     * Deactivates [tile] by clearing its slot assignment.
-     * The QS panel tile corresponding to [tile.slotIndex] will then show STATE_UNAVAILABLE.
-     */
-    suspend fun deactivateTile(tile: TileConfig): Unit = slotMutex.withLock {
-        val updated = tile.copy(isActive = false, slotIndex = null)
-        datastore.saveTile(updated)
     }
 }

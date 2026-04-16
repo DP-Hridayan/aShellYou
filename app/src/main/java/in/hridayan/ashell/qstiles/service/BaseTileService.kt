@@ -100,23 +100,23 @@ abstract class BaseTileService : TileService() {
 
         tile.apply {
             if (config == null) {
-                // No tile assigned to this slot — show as unavailable
-                label = "Empty"
-                state = Tile.STATE_UNAVAILABLE
+                // No tile assigned to this slot — show default identity
+                label = getString(R.string.tile_n, slotIndex + 1)
                 icon = android.graphics.drawable.Icon.createWithResource(
                     this@BaseTileService,
-                    R.drawable.ic_adb2
+                    R.drawable.ic_adb
                 )
+                state = Tile.STATE_INACTIVE
             } else {
                 label = if (isRunning) "Running..." else config.name
 
                 val iconRes = TileIconProvider.iconById[config.iconId]
                 icon = android.graphics.drawable.Icon.createWithResource(
                     this@BaseTileService,
-                    iconRes?.resId ?: R.drawable.ic_adb2
+                    iconRes?.resId ?: R.drawable.ic_adb
                 )
 
-                state = if (isRunning) Tile.STATE_ACTIVE else Tile.STATE_ACTIVE
+                state = if (isRunning) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
             }
 
             updateTile()

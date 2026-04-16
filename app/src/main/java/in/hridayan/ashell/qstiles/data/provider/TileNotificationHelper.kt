@@ -73,7 +73,7 @@ class TileNotificationHelper @Inject constructor(
         )
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_adb2)
+            .setSmallIcon(R.drawable.ic_adb)
             .setContentTitle("Tile \"$tileName\" failed")
             .setContentText(reason)
             .setStyle(NotificationCompat.BigTextStyle().bigText(reason))
@@ -89,7 +89,7 @@ class TileNotificationHelper @Inject constructor(
 
     private fun postGroupSummary() {
         val summary = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_adb2)
+            .setSmallIcon(R.drawable.ic_adb)
             .setContentTitle("Tile execution errors")
             .setGroup(GROUP_KEY)
             .setGroupSummary(true)

@@ -22,8 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateTileViewModel @Inject constructor(
     private val repository: TileRepository,
-    private val repositoryImpl: TileRepositoryImpl,
-    private val keywordProcessor: TileCommandKeywordProcessor
+    private val keywordProcessor: TileCommandKeywordProcessor,
+    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(CreateTileState())
@@ -39,11 +39,11 @@ class CreateTileViewModel @Inject constructor(
     private fun observeSlots() {
         viewModelScope.launch {
             repository.getTiles().collect { tiles ->
-                val activeCount = tiles.count { it.isActive }
+                val count = tiles.size
                 _state.update {
                     it.copy(
-                        availableSlots = 10 - activeCount,
-                        isFull = activeCount >= 10
+                        availableSlots = 10 - count,
+                        isFull = count >= 10
                     )
                 }
             }
@@ -94,27 +94,33 @@ class CreateTileViewModel @Inject constructor(
     fun createTile() {
         viewModelScope.launch {
             val allTiles = repository.getTiles().first()
-            // ID is unconstrained — use next integer above all existing IDs
-            val nextId = (allTiles.maxOfOrNull { it.id } ?: 0) + 1
+            if (allTiles.size >= 10) {
+                android.widget.Toast.makeText(
+                    context,
+                    "Maximum 10 tiles reached. Delete an existing tile first.",
+                    android.widget.Toast.LENGTH_LONG
+                ).show()
+                return@launch
+            }
 
             val s = _state.value
 
             val tile = TileConfig(
-                id = nextId,
-                name = s.name.ifBlank { "Tile $nextId" },
+                id = 0, // Assigned by repository
+                name = s.name.ifBlank { "Untitled" },
                 command = s.command,
                 executionMode = s.executionMode,
                 iconId = s.selectedIconId,
-                isActive = false,  // Slot assignment handles activation
+                isActive = true,
                 isCustom = true,
                 slotIndex = null,
-                timeoutMs = null   // No timeout by default
+                timeoutMs = null
             )
 
-            // Persist then activate (assigns the first free slot atomically)
+            // Persist and auto-assign slot
             repository.createTile(tile)
-            repositoryImpl.activateTile(tile)
         }
     }
 }
+
 

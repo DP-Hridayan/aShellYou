@@ -28,10 +28,15 @@ class App : Application() {
         contextReference = WeakReference(applicationContext)
         PRNGFixes.apply()
 
-        val crashRepo = EntryPointAccessors.fromApplication(
+        val entryPoint = EntryPointAccessors.fromApplication(
             this,
             AppEntryPoint::class.java
-        ).crashRepository()
+        )
+        val crashRepo = entryPoint.crashRepository()
+        val tileComponentManager = entryPoint.tileComponentManager()
+
+        // Sync QS tile components
+        tileComponentManager.ensureAllEnabled()
 
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
             handleUncaughtException( throwable, crashRepo)

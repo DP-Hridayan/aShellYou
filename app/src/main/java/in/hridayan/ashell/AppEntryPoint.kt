@@ -9,4 +9,5 @@ import `in`.hridayan.ashell.crashreporter.domain.repository.CrashRepository
 @InstallIn(SingletonComponent::class)
 interface AppEntryPoint {
     fun crashRepository(): CrashRepository
-}
+    fun tileComponentManager(): `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
+}
