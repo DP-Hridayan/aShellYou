@@ -232,7 +232,7 @@ fun CreateTileScreen(
 
                 item {
                     Row(
-                        modifier = modifier.padding(horizontal = 20.dp),
+                        modifier = modifier.padding(start = 20.dp, end = 20.dp, bottom = 25.dp),
                         horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)
                     ) {
                         executionMethodOptions.forEachIndexed { index, option ->
@@ -264,8 +264,8 @@ fun CreateTileScreen(
                             style = MaterialTheme.typography.labelLarge,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(
-                                top = 25.dp,
                                 start = 25.dp,
+                                end = 25.dp,
                                 bottom = 10.dp
                             )
                         )
@@ -276,7 +276,7 @@ fun CreateTileScreen(
                     FlowRow(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 20.dp)
+                            .padding(start = 20.dp, end = 20.dp, bottom = 15.dp)
                             .clip(RoundedCornerShape(24.dp))
                             .background(MaterialTheme.colorScheme.surfaceContainerLow),
                         horizontalArrangement = Arrangement.SpaceAround,
@@ -319,7 +319,7 @@ fun CreateTileScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 160.dp)
-                            .padding(start = 25.dp, end = 25.dp, top = 15.dp),
+                            .padding(horizontal = 20.dp),
                         onClick = withHaptic { showIconChooserDialog = true }
                     )
                 }
