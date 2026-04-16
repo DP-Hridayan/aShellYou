@@ -47,6 +47,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -59,6 +61,7 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.presentation.components.IconChooserDialog
@@ -73,6 +76,8 @@ fun CreateTileScreen(
 ) {
     val weakHaptic = LocalWeakHaptic.current
     val navController = LocalNavController.current
+    val context = LocalContext.current
+    val res = LocalResources.current
 
     val uiState by createTileViewModel.state.collectAsState()
     val iconsList by createTileViewModel.iconsList.collectAsState()
@@ -281,6 +286,7 @@ fun CreateTileScreen(
 
                             val icon = TileIconProvider.iconById[icon]
                             val iconResId = icon?.resId
+                            val isIconSelected = icon?.id == uiState.selectedIconId
 
                             iconResId?.let {
                                 Box(
@@ -288,7 +294,7 @@ fun CreateTileScreen(
                                         .padding(16.dp)
                                         .size(48.dp)
                                         .clip(CircleShape)
-                                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                                        .background(if (isIconSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant)
                                         .clickable(
                                             enabled = true,
                                             onClick = withHaptic {
@@ -298,7 +304,7 @@ fun CreateTileScreen(
                                 ) {
                                     Icon(
                                         painter = painterResource(it),
-                                        tint = MaterialTheme.colorScheme.onSurface,
+                                        tint = if (isIconSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
                                         contentDescription = null
                                     )
                                 }
@@ -442,6 +448,7 @@ fun CreateTileScreen(
             onIconSelected = {
                 createTileViewModel.onIconSelected(it)
                 showIconChooserDialog = false
+                showToast(context, res.getString(R.string.icon_selected))
             })
     }
 }
