@@ -7,7 +7,8 @@ import `in`.hridayan.ashell.qstiles.data.model.TileLogEntity
 
 @Database(
     entities = [TileLogEntity::class],
-    version = 1
+    version = 2,
+    exportSchema = false
 )
 abstract class TileLogDatabase : RoomDatabase() {
     abstract fun dao(): TileLogDao

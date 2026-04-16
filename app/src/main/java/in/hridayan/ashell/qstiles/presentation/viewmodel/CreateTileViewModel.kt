@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.qstiles.data.model.TileIcon
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
+import `in`.hridayan.ashell.qstiles.data.repository.TileRepositoryImpl
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.processor.TileCommandKeywordProcessor
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
@@ -21,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateTileViewModel @Inject constructor(
     private val repository: TileRepository,
+    private val repositoryImpl: TileRepositoryImpl,
     private val keywordProcessor: TileCommandKeywordProcessor
 ) : ViewModel() {
 
@@ -37,13 +39,11 @@ class CreateTileViewModel @Inject constructor(
     private fun observeSlots() {
         viewModelScope.launch {
             repository.getTiles().collect { tiles ->
-                val usedIds = tiles.map { it.id }
-                val available = (1..10).filterNot { it in usedIds }
-
+                val activeCount = tiles.count { it.isActive }
                 _state.update {
                     it.copy(
-                        availableSlots = available.size,
-                        isFull = available.isEmpty()
+                        availableSlots = 10 - activeCount,
+                        isFull = activeCount >= 10
                     )
                 }
             }
@@ -69,7 +69,6 @@ class CreateTileViewModel @Inject constructor(
 
     fun onIconQueryChange(query: TextFieldValue) {
         _state.update { it.copy(iconSearchQuery = query) }
-
         _iconsList.update {
             TileIconProvider.icons.filter { icon ->
                 icon.keywords.any { it.contains(query.text, ignoreCase = true) }
@@ -79,32 +78,24 @@ class CreateTileViewModel @Inject constructor(
 
     private fun suggestIcons(command: String) {
         val keywords = keywordProcessor.extractKeywords(command)
-
         val scored = mutableMapOf<String, Int>()
-
         keywords.forEach { keyword ->
             TileIconProvider.iconsByKeyword[keyword]?.forEach { icon ->
                 scored[icon.id] = (scored[icon.id] ?: 0) + 1
             }
         }
-
-        val topIcons = scored
-            .toList()
+        val topIcons = scored.toList()
             .sortedByDescending { it.second }
             .take(3)
             .map { it.first }
-
-        _state.update {
-            it.copy(suggestedIcons = topIcons)
-        }
+        _state.update { it.copy(suggestedIcons = topIcons) }
     }
 
     fun createTile() {
         viewModelScope.launch {
-            val current = repository.getTiles().first()
-            val usedIds = current.map { it.id }
-
-            val nextId = (1..10).firstOrNull { it !in usedIds } ?: return@launch
+            val allTiles = repository.getTiles().first()
+            // ID is unconstrained — use next integer above all existing IDs
+            val nextId = (allTiles.maxOfOrNull { it.id } ?: 0) + 1
 
             val s = _state.value
 
@@ -114,11 +105,16 @@ class CreateTileViewModel @Inject constructor(
                 command = s.command,
                 executionMode = s.executionMode,
                 iconId = s.selectedIconId,
-                isActive = true,
-                isCustom = true
+                isActive = false,  // Slot assignment handles activation
+                isCustom = true,
+                slotIndex = null,
+                timeoutMs = null   // No timeout by default
             )
 
+            // Persist then activate (assigns the first free slot atomically)
             repository.createTile(tile)
+            repositoryImpl.activateTile(tile)
         }
     }
 }
+

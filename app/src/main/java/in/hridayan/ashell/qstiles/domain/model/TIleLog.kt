@@ -7,5 +7,7 @@ data class TileLog(
     val output: String,
     val isSuccess: Boolean,
     val executionMode: Int,
-    val timestamp: Long
+    val timestamp: Long,
+    val durationMs: Long = 0L,
+    val errorType: Int = 0
 )

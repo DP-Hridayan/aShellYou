@@ -21,4 +21,14 @@ interface TileRepository {
     suspend fun getFirstAvailableTileId(): Int?
 
     suspend fun isTileSlotAvailable(id: Int): Boolean
+
+    /**
+     * Returns the active tile mapped to [slotIndex] (0–9), or null if no tile is assigned.
+     */
+    fun getTileBySlot(slotIndex: Int): Flow<TileConfig?>
+
+    /**
+     * Returns a one-shot snapshot of all currently active tiles.
+     */
+    suspend fun getActiveTiles(): List<TileConfig>
 }

@@ -21,7 +21,9 @@ class TileLogRepositoryImpl @Inject constructor(
                 output = log.output,
                 isSuccess = log.isSuccess,
                 executionMode = log.executionMode,
-                timestamp = log.timestamp
+                timestamp = log.timestamp,
+                durationMs = log.durationMs,
+                errorType = log.errorType
             )
         )
     }

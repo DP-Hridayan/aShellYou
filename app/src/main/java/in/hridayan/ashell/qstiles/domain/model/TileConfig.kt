@@ -7,5 +7,7 @@ data class TileConfig(
     val executionMode: Int,
     val iconId: String,
     val isActive: Boolean,
-    val isCustom: Boolean
+    val isCustom: Boolean,
+    val slotIndex: Int? = null,
+    val timeoutMs: Long? = null
 )

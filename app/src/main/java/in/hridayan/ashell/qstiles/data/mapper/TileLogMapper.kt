@@ -11,6 +11,8 @@ fun TileLogEntity.toDomain(): TileLog {
         output = output,
         isSuccess = isSuccess,
         executionMode = executionMode,
-        timestamp = timestamp
+        timestamp = timestamp,
+        durationMs = durationMs,
+        errorType = errorType
     )
 }

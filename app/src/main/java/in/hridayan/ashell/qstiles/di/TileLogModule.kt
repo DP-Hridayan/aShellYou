@@ -24,7 +24,9 @@ object TileLogModule {
             context,
             TileLogDatabase::class.java,
             "tile_logs_db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration(true)
+            .build()
     }
 
     @Provides
