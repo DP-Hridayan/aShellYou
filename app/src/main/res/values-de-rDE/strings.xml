@@ -280,7 +280,7 @@
     <string name="none">Keine</string>
     <string name="nothing_to_clear">Nichts zu löschen</string>
     <string name="nothing_to_search">Nichts zu suchen</string>
-    <string name="notification_access_not_granted">Um den Kopplungsvorgang abzuschließen, musst du mit einer Benachrichtigung von aShell You interagieren. Bitte erlaube den Benachrichtigungszugriff für aShell You.</string>
+    <string name="pairing_process_notification_access_message">Um den Kopplungsvorgang abzuschließen, musst du mit einer Benachrichtigung von aShell You interagieren. Bitte erlaube den Benachrichtigungszugriff für aShell You.</string>
     <string name="notification_settings">Benachrichtigungseinstellungen</string>
     <string name="notification_style_error">Wenn du den Kopplungscode nicht aus der Benachrichtigung eingeben kannst, musst du möglicherweise den Benachrichtigungstil auf Android ändern. Gehe zu Benachrichtigungseinstellungen &gt; Benachrichtigungsstil, um den Stil zu ändern. Andernfalls kannst du den Kopplungscode möglicherweise nicht aus der Benachrichtigung eingeben</string>
     <string name="off">Aus</string>

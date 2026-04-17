@@ -280,7 +280,7 @@
     <string name="none">कोई भी नहीं</string>
     <string name="nothing_to_clear">साफ़ करने के लिए कुछ नहीं</string>
     <string name="nothing_to_search">खोजने के लिए कुछ भी नहीं</string>
-    <string name="notification_access_not_granted">युग्मन प्रक्रिया को पूरा करने के लिए आपको aShell You से एक अधिसूचना के साथ बातचीत करने की आवश्यकता होगी। कृपया aShell You को अधिसूचना एक्सेस की अनुमति दें।</string>
+    <string name="pairing_process_notification_access_message">युग्मन प्रक्रिया को पूरा करने के लिए आपको aShell You से एक अधिसूचना के साथ बातचीत करने की आवश्यकता होगी। कृपया aShell You को अधिसूचना एक्सेस की अनुमति दें।</string>
     <string name="notification_settings">नोटिफिकेशन सेटिंग</string>
     <string name="notification_style_error">यदि आप नोटिफ़िकेशन से पेयरिंग कोड दर्ज नहीं कर सकते हैं, तो आपको नोटिफ़िकेशन शेड को Android में बदलने की आवश्यकता हो सकती है। नोटिफ़िकेशन स्टाइल बदलने के लिए नोटिफ़िकेशन सेटिंग ~ नोटिफ़िकेशन स्टाइल पर जाएँ। अन्यथा आप नोटिफ़िकेशन से पेयरिंग कोड दर्ज नहीं कर पाएँगे।</string>
     <string name="off">बंद</string>

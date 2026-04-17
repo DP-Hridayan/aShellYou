@@ -280,7 +280,7 @@
     <string name="none">无</string>
     <string name="nothing_to_clear">没什么可清的</string>
     <string name="nothing_to_search">无可检索项</string>
-    <string name="notification_access_not_granted">要完成配对流程，你必须允许aShell You推送通知实现将配对码通过通知发送给aShell You。请授予通知权限</string>
+    <string name="pairing_process_notification_access_message">要完成配对流程，你必须允许aShell You推送通知实现将配对码通过通知发送给aShell You。请授予通知权限</string>
     <string name="notification_settings">通知设置</string>
     <string name="notification_style_error">看这里！\n如果你使用的手机运行的是MIUI/HyperOS，你可能需要事先前往 设置=&gt;通知与状态栏=&gt;通知样式设置 将其设置为“原生样式”\n\n否则在输入配对码这一步会出问题——打不开输入框</string>
     <string name="off">关</string>

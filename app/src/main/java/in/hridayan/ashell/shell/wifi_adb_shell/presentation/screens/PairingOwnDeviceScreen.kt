@@ -407,14 +407,14 @@ fun PairingOwnDeviceScreen(
 }
 
 @Composable
-fun NotificationAccessRequestCard(
+private fun NotificationAccessRequestCard(
     modifier: Modifier = Modifier,
     onClickButton: () -> Unit = {}
 ) {
     IconWithTextCard(
         modifier = modifier,
         icon = painterResource(R.drawable.ic_notification_error),
-        text = stringResource(R.string.notification_access_not_granted),
+        text = stringResource(R.string.pairing_process_notification_access_message),
         content = {
             Button(
                 shapes = ButtonDefaults.shapes(),
@@ -439,7 +439,7 @@ fun NotificationAccessRequestCard(
 }
 
 @Composable
-fun NotificationPairingHintCard(modifier: Modifier = Modifier) {
+private fun NotificationPairingHintCard(modifier: Modifier = Modifier) {
     var cardHeight by remember { mutableStateOf(0.dp) }
     val screenDensity = LocalDensity.current
 
@@ -458,7 +458,7 @@ fun NotificationPairingHintCard(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun NotificationStylesHintCard(
+private fun NotificationStylesHintCard(
     modifier: Modifier = Modifier,
     onClickButton: () -> Unit = {}
 ) {
@@ -525,7 +525,7 @@ fun WifiEnableCard(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
 }
 
 @Composable
-fun Instructions(modifier: Modifier = Modifier, onClickDevOptionsButton: () -> Unit) {
+private fun Instructions(modifier: Modifier = Modifier, onClickDevOptionsButton: () -> Unit) {
     Column(
         modifier = modifier,
     ) {

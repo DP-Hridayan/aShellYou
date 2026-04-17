@@ -280,7 +280,7 @@
     <string name="none">Aucun</string>
     <string name="nothing_to_clear">Rien à effacer</string>
     <string name="nothing_to_search">Rien à rechercher</string>
-    <string name="notification_access_not_granted">Pour terminer le processus de couplage, vous devrez interagir avec une notification de aShell You. Veuillez autoriser l\'accès aux notifications pour aShell You.</string>
+    <string name="pairing_process_notification_access_message">Pour terminer le processus de couplage, vous devrez interagir avec une notification de aShell You. Veuillez autoriser l\'accès aux notifications pour aShell You.</string>
     <string name="notification_settings">Paramètres de notification</string>
     <string name="notification_style_error">Si vous ne pouvez pas entrer le code de couplage depuis la notification, vous devrez peut-être changer le style de notification en Android. Allez dans Paramètres de notification ~ Style de notification pour changer le style de notification. Sinon, vous ne pourrez peut-être pas entrer le code de couplage depuis la notification.</string>
     <string name="off">Désactivé</string>

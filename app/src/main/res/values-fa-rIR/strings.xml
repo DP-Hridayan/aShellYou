@@ -280,7 +280,7 @@
     <string name="none">هیچ</string>
     <string name="nothing_to_clear">چیزی برای پاک کردن نیست</string>
     <string name="nothing_to_search">چیزی برای جستجو نیست</string>
-    <string name="notification_access_not_granted">برای تکمیل فرآیند جفت‌سازی باید با اعلان aShell You تعامل کنید. لطفاً دسترسی اعلان را به aShell You بدهید.</string>
+    <string name="pairing_process_notification_access_message">برای تکمیل فرآیند جفت‌سازی باید با اعلان aShell You تعامل کنید. لطفاً دسترسی اعلان را به aShell You بدهید.</string>
     <string name="notification_settings">تنظیمات اعلان</string>
     <string name="notification_style_error">اگر نمی‌توانید کد جفت‌سازی را از اعلان وارد کنید، ممکن است نیاز باشد سبک اعلان را به اندروید تغییر دهید. به تنظیمات اعلان ~ سبک اعلان بروید. در غیر این صورت ممکن است نتوانید کد جفت‌سازی را از اعلان وارد کنید.</string>
     <string name="off">خاموش</string>

@@ -281,7 +281,7 @@
     <string name="none">لا شيء</string>
     <string name="nothing_to_clear">لا يوجد شيء لمسحه</string>
     <string name="nothing_to_search">لا يوجد شيء للبحث عنه</string>
-    <string name="notification_access_not_granted">لإكمال عملية الاقتران، ستحتاج إلى التفاعل مع إشعار من aShell You. يرجى السماح بالوصول إلى الإشعارات لـ aShell You.</string>
+    <string name="pairing_process_notification_access_message">لإكمال عملية الاقتران، ستحتاج إلى التفاعل مع إشعار من aShell You. يرجى السماح بالوصول إلى الإشعارات لـ aShell You.</string>
     <string name="notification_settings">إعدادات الإشعارات</string>
     <string name="notification_style_error">إذا لم تتمكن من إدخال رمز الاقتران من الإشعار، فقد تحتاج إلى تغيير نمط الإشعار إلى Android. انتقل إلى إعدادات الإشعارات ~ نمط الإشعار لتغيير نمط الإشعار. خلاف ذلك، قد لا تتمكن من إدخال رمز الاقتران من الإشعار.</string>
     <string name="off">إيقاف</string>

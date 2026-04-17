@@ -13,6 +13,7 @@
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
     <string name="confirm_tile_delete_message">Are you sure you want to delete this tile?</string>
+    <string name="tile_dashboard_notification_access_message">Turn on notifications to get notified whenever a tile execution fails</string>
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
     <string name="adb_command">ADB command</string>
@@ -340,7 +341,7 @@
     <string name="none">None</string>
     <string name="nothing_to_clear">Nothing to clear</string>
     <string name="nothing_to_search">Nothing to search</string>
-    <string name="notification_access_not_granted">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
+    <string name="pairing_process_notification_access_message">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
     <string name="notification_settings">Notification settings</string>
     <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="notification_styles">Notification styles</string>

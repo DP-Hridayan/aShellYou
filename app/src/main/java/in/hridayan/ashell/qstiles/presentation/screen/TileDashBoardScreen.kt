@@ -25,6 +25,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,9 +35,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -43,17 +47,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
+import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
@@ -65,9 +76,27 @@ fun TileDashBoardScreen(
     modifier: Modifier = Modifier,
     tileDashboardViewModel: TileDashboardViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     val navController = LocalNavController.current
     val uiState by tileDashboardViewModel.state.collectAsState()
     val listState = rememberLazyListState()
+
+    var hasNotificationAccess by remember { mutableStateOf(isNotificationPermissionGranted(context)) }
+    val notificationSettingsIntent = createAppNotificationSettingsIntent(context)
+    val onClickNotificationButton: () -> Unit = withHaptic {
+        context.startActivity(notificationSettingsIntent)
+    }
+
+    LaunchedEffect(lifecycleOwner) {
+        lifecycleOwner.lifecycle.addObserver(
+            LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_RESUME) {
+                    hasNotificationAccess = isNotificationPermissionGranted(context)
+                }
+            }
+        )
+    }
 
     SettingsScaffold(
         modifier = modifier,
@@ -90,6 +119,19 @@ fun TileDashBoardScreen(
                                 .fillMaxWidth()
                                 .height(25.dp)
                         )
+                    }
+
+                    item {
+                        if (!hasNotificationAccess) {
+                            NotificationAccessRequestCard(
+                                modifier = Modifier.padding(
+                                    start = 20.dp,
+                                    end = 20.dp,
+                                    bottom = 25.dp
+                                ),
+                                onClickButton = onClickNotificationButton
+                            )
+                        }
                     }
 
                     item {
@@ -347,4 +389,40 @@ private fun FloatingNavPill(modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+@Composable
+private fun NotificationAccessRequestCard(
+    modifier: Modifier = Modifier,
+    onClickButton: () -> Unit = {},
+) {
+    IconWithTextCard(
+        modifier = modifier,
+        icon = painterResource(R.drawable.ic_notification),
+        text = stringResource(R.string.tile_dashboard_notification_access_message),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
+        content = {
+            Button(
+                shapes = ButtonDefaults.shapes(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary
+                ),
+                onClick = { onClickButton() }
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_open_in_new),
+                    contentDescription = null,
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                AutoResizeableText(
+                    text = stringResource(R.string.notification_settings),
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            }
+        }
+    )
 }

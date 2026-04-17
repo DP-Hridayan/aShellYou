@@ -60,7 +60,7 @@ fun GrantNotificationAccessDialog(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = stringResource(R.string.notification_access_not_granted),
+                    text = stringResource(R.string.pairing_process_notification_access_message),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

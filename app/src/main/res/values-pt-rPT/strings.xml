@@ -280,7 +280,7 @@
     <string name="none">Nenhuma</string>
     <string name="nothing_to_clear">Nada para limpar</string>
     <string name="nothing_to_search">Nada para pesquisar</string>
-    <string name="notification_access_not_granted">Para completar o processo de emparelhamento, você precisará interagir com uma notificação da aShell You. Por favor, permita o acesso às notificações à aShell You.</string>
+    <string name="pairing_process_notification_access_message">Para completar o processo de emparelhamento, você precisará interagir com uma notificação da aShell You. Por favor, permita o acesso às notificações à aShell You.</string>
     <string name="notification_settings">Configurações de notificação</string>
     <string name="notification_style_error">Se você não consegue inserir o Código de Emparelhamento a partir da notificação, então pode ser necessário alterar a Lista de Notificações para Android. Vá para Configurações de Notificação ~ Estilo de Notificação para alterar o estilo de notificação. Caso contrário, você não será capaz de inserir o código de pareamento da notificação.</string>
     <string name="off">Desligado</string>

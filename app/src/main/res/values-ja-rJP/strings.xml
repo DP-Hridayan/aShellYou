@@ -280,7 +280,7 @@
     <string name="none">無し</string>
     <string name="nothing_to_clear">消去するものはありません</string>
     <string name="nothing_to_search">検索するものがありません</string>
-    <string name="notification_access_not_granted">ペアリングプロセスを完了するには、aShell Youからの通知を許可する必要があります。aShell Youからの通知を許可してください。</string>
+    <string name="pairing_process_notification_access_message">ペアリングプロセスを完了するには、aShell Youからの通知を許可する必要があります。aShell Youからの通知を許可してください。</string>
     <string name="notification_settings">通知設定</string>
     <string name="notification_style_error">通知からペアリングコードを入力できない場合は、通知シェードを Android に変更する必要がある場合があります。 通知設定~通知スタイルを変更するには、通知スタイルを選択します。 そうしないと、通知からペアリングコードを入力できない場合があります。</string>
     <string name="off">OFF</string>
