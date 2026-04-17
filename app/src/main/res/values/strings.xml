@@ -553,7 +553,7 @@
     <string name="changelog_v3_4_0">\nAdded a Paste button so that you can copy and paste commands quickly.\nAdded Error indicators in the text input field.\nImproved Navigation Bar visibility logic.\nFixed an issue where switches misbehaves under certain situations.\nFixed add bookmark icon visibility in various contrast levels.\nA lot of code optimisation. App now opens a lot faster than before.\nApp will stay in background and won\'t restart every time you close the app by just pressing the back button or gesture.</string>
     <string name="changelog_v3_3_0">\nAdded bookmarks , history and command suggestions to OTG\nAdded maximum bookmarks limit.\nAdded option to override maximum bookmarks limit.\nA lot of bug fixes.\nImproved some UI handling.\nA lot of code optimisation.</string>
     <string name="changelog_v3_2_0">\nA lot of UI related improvements.\nAdded chips that indicate current ADB working mode.\nA lot of code optimisation.</string>
-    <string name="changelog_v3_1_0">\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accomodate the new otg feature.</string>
+    <string name="changelog_v3_1_0">\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accommodate the new otg feature.</string>
     <string name="changelog_v3_0_0">\nAdded ADB THROUGH OTG support.\n\n*** You will be able to run ADB commands on other devices using aShellYou by connecting the other device using an OTG cable ***</string>
     <string name="changelog_v2_0_2">\nRemoved unnecessary code and resources.\nMinor UI changes.</string>
     <string name="changelog_v2_0_1">\nRemoved unnecessary code and resources.\nMinor UI changes.</string>
