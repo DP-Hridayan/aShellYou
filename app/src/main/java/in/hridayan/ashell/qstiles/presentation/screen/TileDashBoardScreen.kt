@@ -5,13 +5,13 @@ package `in`.hridayan.ashell.qstiles.presentation.screen
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -24,7 +24,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -48,7 +47,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -126,37 +124,58 @@ fun TileDashBoardScreen(
                 }
 
                 item {
-                    FlowRow(
+                    val items = (1..10).toList()
+
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp),
-                        horizontalArrangement = Arrangement.spacedBy(20.dp),
                         verticalArrangement = Arrangement.spacedBy(20.dp),
-                        maxItemsInEachRow = 2
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        (1..10).forEach { id ->
-                            val config = uiState.tiles.find { it.id == id }
-                            if (config == null) {
-                                EmptyTileBox(
-                                    modifier = Modifier.weight(1f),
-                                    tileId = id - 1, // EmptyTileBox expects 0-indexed for display
-                                    onClick = {
-                                        navController.navigate(NavRoutes.CreateTileScreen(tileId = id))
+                        items.chunked(2).forEach { rowItems ->
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(20.dp)
+                            ) {
+                                rowItems.forEach { id ->
+                                    val tileConfig = uiState.tiles.find { it.id == id }
+
+                                    if (tileConfig == null) {
+                                        EmptyTileBox(
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(80.dp),
+                                            tileId = id - 1,
+                                            onClick = withHaptic {
+                                                navController.navigate(
+                                                    NavRoutes.CreateTileScreen(
+                                                        tileId = id
+                                                    )
+                                                )
+                                            }
+                                        )
+                                    } else {
+                                        val tileIcon = TileIconProvider.iconById[tileConfig.iconId]
+                                        ModernTile(
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(80.dp),
+                                            icon = if (tileIcon != null) painterResource(tileIcon.resId) else painterResource(
+                                                R.drawable.ic_adb
+                                            ),
+                                            title = tileConfig.name,
+                                            isActive = tileConfig.isActive,
+                                            onClick = withHaptic {
+                                                navController.navigate(
+                                                    NavRoutes.CreateTileScreen(
+                                                        tileId = id
+                                                    )
+                                                )
+                                            }
+                                        )
                                     }
-                                )
-                            } else {
-                                val tileIcon = TileIconProvider.iconById[config.iconId]
-                                ModernTile(
-                                    modifier = Modifier.weight(1f),
-                                    icon = if (tileIcon != null) painterResource(tileIcon.resId) else painterResource(
-                                        R.drawable.ic_adb
-                                    ),
-                                    title = config.name,
-                                    isActive = config.isActive,
-                                    onClick = {
-                                        navController.navigate(NavRoutes.CreateTileScreen(tileId = id))
-                                    }
-                                )
+                                }
                             }
                         }
                     }
@@ -180,7 +199,7 @@ private fun EmptyTileBox(
     cornerRadius: Dp = 24.dp,
     onClick: () -> Unit = {}
 ) {
-    Column(
+    Row(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
             .background(MaterialTheme.colorScheme.surfaceContainerLowest)
@@ -193,28 +212,27 @@ private fun EmptyTileBox(
                 enabled = true,
                 onClick = onClick
             ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        Box(
+        Icon(
             modifier = Modifier
-                .size(32.dp)
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.surfaceContainer),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_add),
-                tint = MaterialTheme.colorScheme.onSurface,
-                contentDescription = null
-            )
-        }
+                .size(48.dp)
+                .padding(start = 20.dp),
+            painter = painterResource(R.drawable.ic_add),
+            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
+            contentDescription = null
+        )
 
         Text(
+            modifier = Modifier
+                .weight(1f)
+                .basicMarquee()
+                .padding(end = 20.dp),
             text = stringResource(R.string.tile) + " ${tileId + 1}",
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-            textAlign = TextAlign.Center
+            style = MaterialTheme.typography.titleMediumEmphasized,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
+            maxLines = 1
         )
     }
 }
@@ -227,52 +245,46 @@ private fun ModernTile(
     isActive: Boolean = true,
     onClick: () -> Unit = {}
 ) {
-    Box(modifier = modifier) {
-        Card(
-            modifier = Modifier
-                .padding(20.dp)
-                .clickable(onClick = onClick),
-            shape = RoundedCornerShape(32.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainer,
-                contentColor = MaterialTheme.colorScheme.onSurface
-            ),
+    Card(
+        modifier = modifier
+            .clip(RoundedCornerShape(24.dp))
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        ),
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier.padding(25.dp),
-                horizontalArrangement = Arrangement.spacedBy(15.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primaryContainer),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        painter = icon,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        contentDescription = null
-                    )
-                }
+            Icon(
+                modifier = Modifier.size(32.dp),
+                painter = icon,
+                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                contentDescription = null
+            )
 
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                ) {
-                    AutoResizeableText(
-                        text = title.ifEmpty { stringResource(R.string.untitled) },
-                        style = MaterialTheme.typography.titleMediumEmphasized,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    AutoResizeableText(
-                        text = if (isActive) stringResource(R.string.on) else stringResource(R.string.off),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                    )
-                }
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    modifier = Modifier.basicMarquee(),
+                    text = title.ifEmpty { stringResource(R.string.untitled) },
+                    style = MaterialTheme.typography.titleMediumEmphasized,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 1
+                )
+
+                AutoResizeableText(
+                    text = if (isActive) stringResource(R.string.on) else stringResource(R.string.off),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f)
+                )
             }
         }
     }
