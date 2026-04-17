@@ -397,6 +397,7 @@ fun CreateTileScreen(
                     ) {
                         ClassicTile(
                             modifier = Modifier
+                                .weight(1f)
                                 .padding(horizontal = 20.dp)
                                 .animateContentSize(),
                             icon = icon,
@@ -405,8 +406,8 @@ fun CreateTileScreen(
 
                         ModernTile(
                             modifier = Modifier
+                                .weight(2f)
                                 .widthIn(min = 120.dp)
-                                .padding(horizontal = 20.dp)
                                 .animateContentSize(), icon = icon, title = uiState.name
                         )
                     }

@@ -285,7 +285,7 @@ private fun ModernTile(
             Icon(
                 modifier = Modifier.size(32.dp),
                 painter = icon,
-                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                tint = MaterialTheme.colorScheme.primary,
                 contentDescription = null
             )
 
