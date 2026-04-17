@@ -58,7 +58,7 @@
     <string name="configure_save_directory">सेव डायरेक्टरी कॉन्फ़िगर करें</string>
     <string name="confirm">पुष्टि करें</string>
     <string name="confirm_delete">मिटाने की पुष्टि करें</string>
-    <string name="confirm_delete_message">चेतावनी! यह क्रिया अपरिवर्तनीय है\nक्या आप वाकई सभी बुकमार्क हटाना चाहते हैं?</string>
+    <string name="confirm_bookmark_delete_message">चेतावनी! यह क्रिया अपरिवर्तनीय है\nक्या आप वाकई सभी बुकमार्क हटाना चाहते हैं?</string>
     <string name="conflict_message">\"%1$s\" इस स्थान पर पहले से मौजूद है।</string>
     <string name="conflict_title">आइटम पहले से मौजूद है</string>
     <string name="connect">कनेक्ट करें</string>

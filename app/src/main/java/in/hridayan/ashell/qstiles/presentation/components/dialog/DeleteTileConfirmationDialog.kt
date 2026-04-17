@@ -1,10 +1,12 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.common.presentation.components.dialog
+package `in`.hridayan.ashell.qstiles.presentation.components.dialog
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
@@ -28,10 +30,10 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 
 @Composable
-fun DeleteBookmarksDialog(
+fun DeleteTileConfirmationDialog(
     modifier: Modifier = Modifier,
-    onDismiss: () -> Unit,
-    onDelete: () -> Unit,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
 ) {
     val interactionSources = remember { List(2) { MutableInteractionSource() } }
 
@@ -55,42 +57,53 @@ fun DeleteBookmarksDialog(
                     color = MaterialTheme.colorScheme.onSurface,
                 )
 
+                Spacer(modifier = Modifier.height(16.dp))
+
                 Text(
-                    text = stringResource(R.string.confirm_bookmark_delete_message),
+                    text = stringResource(R.string.confirm_tile_delete_message),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(vertical = 24.dp)
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+
+                Spacer(modifier = Modifier.height(24.dp))
 
                 @Suppress("DEPRECATION")
                 ButtonGroup(modifier = Modifier.fillMaxWidth()) {
                     OutlinedButton(
+                        onClick = withHaptic(HapticFeedbackType.Reject) {
+                            onDismiss()
+                        },
+                        shapes = ButtonDefaults.shapes(),
                         modifier = Modifier
                             .weight(1f)
                             .animateWidth(interactionSources[0]),
-                        shapes = ButtonDefaults.shapes(),
                         interactionSource = interactionSources[0],
-                        onClick = withHaptic(HapticFeedbackType.Reject){
-                            onDismiss()
-                        },
-                        content = { AutoResizeableText(text = stringResource(R.string.cancel)) }
-                    )
+                    ) {
+                        AutoResizeableText(
+                            text = stringResource(R.string.cancel),
+                            style = MaterialTheme.typography.labelLarge
+                        )
+                    }
 
                     Button(
-                        modifier = Modifier
-                            .weight(1f)
-                            .animateWidth(interactionSources[1]),
-                        shapes = ButtonDefaults.shapes(),
+                        onClick = withHaptic(HapticFeedbackType.Confirm) {
+                            onConfirm()
+                            onDismiss()
+                        },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.error,
                             contentColor = MaterialTheme.colorScheme.onError
                         ),
+                        modifier = Modifier
+                            .weight(1f)
+                            .animateWidth(interactionSources[1]),
                         interactionSource = interactionSources[1],
-                        onClick = withHaptic(HapticFeedbackType.Confirm){
-                            onDelete()
-                        },
-                        content = { AutoResizeableText(text = stringResource(R.string.delete_all)) }
-                    )
+                        shapes = ButtonDefaults.shapes(),
+                    ) {
+                        AutoResizeableText(
+                            text = stringResource(R.string.delete),
+                        )
+                    }
                 }
             }
         }

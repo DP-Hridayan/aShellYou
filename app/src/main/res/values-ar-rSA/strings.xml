@@ -58,7 +58,7 @@
     <string name="configure_save_directory">تكوين دليل الحفظ</string>
     <string name="confirm">تأكيد</string>
     <string name="confirm_delete">تأكيد الحذف</string>
-    <string name="confirm_delete_message">تحذير! هذا الإجراء لا رجعة فيه\nهل أنت متيقِّن أنك تريد حذف جميع الإشارات المرجعية؟</string>
+    <string name="confirm_bookmark_delete_message">تحذير! هذا الإجراء لا رجعة فيه\nهل أنت متيقِّن أنك تريد حذف جميع الإشارات المرجعية؟</string>
     <string name="conflict_message">\"%1$s\" موجود بالفعل في هذا الموقع.</string>
     <string name="conflict_title">العنصر موجود مسبقاً</string>
     <string name="connect">اتصال</string>

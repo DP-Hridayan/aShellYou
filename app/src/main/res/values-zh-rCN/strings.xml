@@ -58,7 +58,7 @@
     <string name="configure_save_directory">配置输出保存目录</string>
     <string name="confirm">确认</string>
     <string name="confirm_delete">确认删除</string>
-    <string name="confirm_delete_message">三思而后行！这个操作不可逆，确认清除所有书签？</string>
+    <string name="confirm_bookmark_delete_message">三思而后行！这个操作不可逆，确认清除所有书签？</string>
     <string name="conflict_message">\"%1$s\" 已经存在于这个位置。</string>
     <string name="conflict_title">项目已存在</string>
     <string name="connect">连接</string>

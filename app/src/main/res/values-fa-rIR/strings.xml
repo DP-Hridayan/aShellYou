@@ -58,7 +58,7 @@
     <string name="configure_save_directory">پیکربندی پوشه ذخیره‌سازی</string>
     <string name="confirm">تأیید</string>
     <string name="confirm_delete">تأیید حذف</string>
-    <string name="confirm_delete_message">هشدار! این عمل برگشت‌ناپذیر است\nآیا مطمئن هستید که می‌خواهید همه نشانک‌ها را حذف کنید؟</string>
+    <string name="confirm_bookmark_delete_message">هشدار! این عمل برگشت‌ناپذیر است\nآیا مطمئن هستید که می‌خواهید همه نشانک‌ها را حذف کنید؟</string>
     <string name="conflict_message">\"%1$s\" از قبل در این مکان وجود دارد.</string>
     <string name="conflict_title">مورد از قبل وجود دارد</string>
     <string name="connect">اتصال</string>

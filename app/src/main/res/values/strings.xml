@@ -12,6 +12,7 @@
     <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
+    <string name="confirm_tile_delete_message">Are you sure you want to delete this tile?</string>
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
     <string name="adb_command">ADB command</string>
@@ -96,7 +97,7 @@
     <string name="configure_save_directory">Configure save directory</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_delete">Confirm delete</string>
-    <string name="confirm_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
+    <string name="confirm_bookmark_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="conflict_message">\"%1$s\" already exists in this location.</string>
     <string name="conflict_title">Item already exists</string>
     <string name="connect">Connect</string>

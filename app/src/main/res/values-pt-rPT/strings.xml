@@ -58,7 +58,7 @@
     <string name="configure_save_directory">Configurar diretório para salvar</string>
     <string name="confirm">Confirmar</string>
     <string name="confirm_delete">Confirmar exclusão</string>
-    <string name="confirm_delete_message">Advertência! Essa ação é irreversível\nTem certeza de que deseja excluir todos os favoritos?</string>
+    <string name="confirm_bookmark_delete_message">Advertência! Essa ação é irreversível\nTem certeza de que deseja excluir todos os favoritos?</string>
     <string name="conflict_message">\"%1$s\" já existe neste local.</string>
     <string name="conflict_title">Item já existe</string>
     <string name="connect">Conectar</string>

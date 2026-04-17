@@ -58,7 +58,7 @@
     <string name="configure_save_directory">Kaydetme dizinini yapılandır</string>
     <string name="confirm">Onayla</string>
     <string name="confirm_delete">Silmeyi onayla</string>
-    <string name="confirm_delete_message">Uyarı! Bu işlem geri alınamaz\nTüm yer imlerini silmek istediğinizden emin misiniz?</string>
+    <string name="confirm_bookmark_delete_message">Uyarı! Bu işlem geri alınamaz\nTüm yer imlerini silmek istediğinizden emin misiniz?</string>
     <string name="conflict_message">\"%1$s\" already exists in this location.</string>
     <string name="conflict_title">Item already exists</string>
     <string name="connect">Bağlan</string>

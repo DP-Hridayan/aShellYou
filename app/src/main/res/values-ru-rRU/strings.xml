@@ -58,7 +58,7 @@
     <string name="configure_save_directory">Настройка директории сохранения</string>
     <string name="confirm">Выбрать</string>
     <string name="confirm_delete">Подтвердите удаление</string>
-    <string name="confirm_delete_message">Внимание! Это действие необратимо Вы уверены, что хотите удалить все закладки?</string>
+    <string name="confirm_bookmark_delete_message">Внимание! Это действие необратимо Вы уверены, что хотите удалить все закладки?</string>
     <string name="conflict_message">\"%1$s\" уже существует в этом месте.</string>
     <string name="conflict_title">Элемент уже существует</string>
     <string name="connect">Подключить</string>

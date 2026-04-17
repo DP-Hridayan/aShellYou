@@ -58,7 +58,7 @@
     <string name="configure_save_directory">Speicherverzeichnis konfigurieren</string>
     <string name="confirm">Bestätigen</string>
     <string name="confirm_delete">Löschen bestätigen</string>
-    <string name="confirm_delete_message">Warnung ! Diese Aktion ist unwiderruflich\nBist du sicher, dass du alle Lesezeichen löschen möchtest?</string>
+    <string name="confirm_bookmark_delete_message">Warnung ! Diese Aktion ist unwiderruflich\nBist du sicher, dass du alle Lesezeichen löschen möchtest?</string>
     <string name="conflict_message">\"%1$s\" existiert bereits an diesem Ort.</string>
     <string name="conflict_title">Element existiert bereits</string>
     <string name="connect">Verbinden</string>

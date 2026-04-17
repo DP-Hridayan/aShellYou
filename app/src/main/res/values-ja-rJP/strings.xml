@@ -58,7 +58,7 @@
     <string name="configure_save_directory">保存ディレクトリの設定</string>
     <string name="confirm">確認する</string>
     <string name="confirm_delete">削除の確認</string>
-    <string name="confirm_delete_message">警告 ！この操作は元に戻せません。\n本当にすべてのブックマークを削除しますか？</string>
+    <string name="confirm_bookmark_delete_message">警告 ！この操作は元に戻せません。\n本当にすべてのブックマークを削除しますか？</string>
     <string name="conflict_message">\"%1$s\" は既にこの場所に存在します。</string>
     <string name="conflict_title">アイテムは既に存在します</string>
     <string name="connect">接続する</string>
