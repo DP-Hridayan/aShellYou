@@ -1,11 +1,16 @@
 package `in`.hridayan.ashell.qstiles.presentation.viewmodel
 
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.qstiles.data.model.TileIcon
+import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
+import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider.getIconRes
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.processor.TileCommandKeywordProcessor
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
@@ -16,19 +21,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.toRoute
-import `in`.hridayan.ashell.navigation.NavRoutes
-import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
-import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider.getIconRes
 
 @HiltViewModel
 class CreateTileViewModel @Inject constructor(
     private val repository: TileRepository,
     private val keywordProcessor: TileCommandKeywordProcessor,
     private val tileComponentManager: TileComponentManager,
-    savedStateHandle: SavedStateHandle,
-    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val route = savedStateHandle.toRoute<NavRoutes.CreateTileScreen>()
@@ -136,4 +135,4 @@ class CreateTileViewModel @Inject constructor(
     }
 }
 
-
+

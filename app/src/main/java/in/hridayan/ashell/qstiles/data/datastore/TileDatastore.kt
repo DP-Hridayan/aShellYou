@@ -22,14 +22,12 @@ class TileDatastore @Inject constructor(
     private val ds = context.tileDataStore
 
     companion object {
-        const val MAX_ACTIVE_TILES = 10
         private val TILE_IDS = stringSetPreferencesKey("tile_ids")
     }
 
     private fun key(id: Int, field: String) = stringPreferencesKey("tile_${id}_$field")
     private fun keyInt(id: Int, field: String) = intPreferencesKey("tile_${id}_$field")
     private fun keyBool(id: Int, field: String) = booleanPreferencesKey("tile_${id}_$field")
-    private fun keyLong(id: Int, field: String) = longPreferencesKey("tile_${id}_$field")
     private fun keySlot(id: Int) = intPreferencesKey("tile_${id}_slot")
     private fun keyTimeout(id: Int) = longPreferencesKey("tile_${id}_timeout")
 

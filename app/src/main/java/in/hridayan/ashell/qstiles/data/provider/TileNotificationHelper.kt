@@ -59,7 +59,7 @@ class TileNotificationHelper @Inject constructor(
             TileErrorType.TIMEOUT -> "Command timed out."
             TileErrorType.EXECUTION_FAILED -> "Command failed: $errorMessage"
             TileErrorType.UNKNOWN -> "An unknown error occurred."
-            TileErrorType.NONE -> return // No failure — do nothing
+            TileErrorType.NONE -> return
         }
 
         val openIntent = Intent(context, MainActivity::class.java).apply {

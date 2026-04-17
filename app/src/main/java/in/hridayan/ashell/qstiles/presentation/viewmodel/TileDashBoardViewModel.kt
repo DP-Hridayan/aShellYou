@@ -11,6 +11,7 @@ import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
 import `in`.hridayan.ashell.qstiles.domain.model.RunningTileState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
+import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -20,26 +21,19 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class TileDashboardState(
-    val tiles: List<TileConfig> = emptyList(),
-    val activeCount: Int = 0,
-    val runningTiles: Map<Int, RunningTileState> = emptyMap()
-)
 
 @HiltViewModel
 class TileDashboardViewModel @Inject constructor(
     private val repository: TileRepository,
-    private val repositoryImpl: TileRepositoryImpl,
-    private val executionManager: TileExecutionManager,
-    @ApplicationContext private val context: Context
+    private val executionManager: TileExecutionManager
 ) : ViewModel() {
 
-    val state: StateFlow<TileDashboardState> =
+    val state: StateFlow<TileDashBoardState> =
         combine(
             repository.getTiles().distinctUntilChanged(),
             executionManager.runningTileStates
         ) { tiles, running ->
-            TileDashboardState(
+            TileDashBoardState(
                 tiles = tiles.filter { it.isCustom },
                 activeCount = tiles.count { it.isActive },
                 runningTiles = running
@@ -48,7 +42,7 @@ class TileDashboardViewModel @Inject constructor(
             .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(5000),
-                TileDashboardState()
+                TileDashBoardState()
             )
 
     /**

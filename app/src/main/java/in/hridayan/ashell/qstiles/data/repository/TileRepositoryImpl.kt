@@ -1,30 +1,18 @@
 package `in`.hridayan.ashell.qstiles.data.repository
 
 import `in`.hridayan.ashell.qstiles.data.datastore.TileDatastore
-import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 import javax.inject.Singleton
 
-import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
-
 @Singleton
 class TileRepositoryImpl @Inject constructor(
-    private val datastore: TileDatastore,
-    private val tileComponentManager: TileComponentManager
+    private val datastore: TileDatastore
 ) : TileRepository {
-
-    /**
-     * Mutex guards ALL slot assignment / deactivation logic to prevent race conditions.
-     */
-    private val slotMutex = Mutex()
 
     override fun getTiles(): Flow<List<TileConfig>> {
         return datastore.getAllTiles().distinctUntilChanged()

@@ -1,14 +1,24 @@
 package `in`.hridayan.ashell.qstiles.data.provider
 
+import android.app.StatusBarManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.drawable.Icon
+import android.os.Build
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.qstiles.service.tiles.*
+import `in`.hridayan.ashell.qstiles.service.tiles.Tile01Service
+import `in`.hridayan.ashell.qstiles.service.tiles.Tile02Service
+import `in`.hridayan.ashell.qstiles.service.tiles.Tile03Service
+import `in`.hridayan.ashell.qstiles.service.tiles.Tile04Service
+import `in`.hridayan.ashell.qstiles.service.tiles.Tile05Service
+import `in`.hridayan.ashell.qstiles.service.tiles.Tile06Service
+import `in`.hridayan.ashell.qstiles.service.tiles.Tile07Service
+import `in`.hridayan.ashell.qstiles.service.tiles.Tile08Service
+import `in`.hridayan.ashell.qstiles.service.tiles.Tile09Service
+import `in`.hridayan.ashell.qstiles.service.tiles.Tile10Service
 import javax.inject.Inject
 import javax.inject.Singleton
-
-import kotlinx.coroutines.delay
 
 @Singleton
 class TileComponentManager @Inject constructor(
@@ -35,7 +45,7 @@ class TileComponentManager @Inject constructor(
      */
     fun setComponentEnabled(slotIndex: Int, enabled: Boolean) {
         if (slotIndex !in tileServices.indices) return
-        
+
         val componentName = ComponentName(packageName, tileServices[slotIndex].qualifiedName!!)
         val newState = if (enabled) {
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED
@@ -51,28 +61,17 @@ class TileComponentManager @Inject constructor(
     }
 
     /**
-     * Performs a Disable-then-Enable cycle to force the system to remove
-     * the tile from the active QS panel and move it to the tray.
-     * 
-     * We use a 500ms delay to ensure the system processes the 'DISABLED' 
-     * state before we re-enable it for tray visibility.
-     */
-    suspend fun kickComponent(slotIndex: Int) {
-        setComponentEnabled(slotIndex, false)
-        delay(500)
-        setComponentEnabled(slotIndex, true)
-    }
-    
-    /**
      * Prompts the user to add the tile to their active panel (Android 13+).
      * This fulfills the 'automatically reappear' requirement by showing a system dialog.
      */
     fun promptAddTile(slotIndex: Int, label: String, iconResId: Int) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             try {
-                val statusBarManager = context.getSystemService(android.app.StatusBarManager::class.java)
-                val componentName = ComponentName(packageName, tileServices[slotIndex].qualifiedName!!)
-                val icon = android.graphics.drawable.Icon.createWithResource(context, iconResId)
+                val statusBarManager =
+                    context.getSystemService(StatusBarManager::class.java)
+                val componentName =
+                    ComponentName(packageName, tileServices[slotIndex].qualifiedName!!)
+                val icon = Icon.createWithResource(context, iconResId)
 
                 statusBarManager?.requestAddTileService(
                     componentName,

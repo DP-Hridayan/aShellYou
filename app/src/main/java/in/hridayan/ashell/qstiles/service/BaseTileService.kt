@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.qstiles.service
 
+import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import dagger.hilt.android.AndroidEntryPoint
@@ -10,7 +11,6 @@ import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collectLatest
@@ -45,8 +45,6 @@ abstract class BaseTileService : TileService() {
      */
     private lateinit var serviceScope: CoroutineScope
 
-    // ─── Lifecycle ────────────────────────────────────────────────────────────
-
     override fun onCreate() {
         super.onCreate()
         serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -56,8 +54,6 @@ abstract class BaseTileService : TileService() {
         serviceScope.cancel()
         super.onDestroy()
     }
-
-    // ─── Listening ────────────────────────────────────────────────────────────
 
     override fun onStartListening() {
         super.onStartListening()
@@ -72,38 +68,31 @@ abstract class BaseTileService : TileService() {
         }
     }
 
-    // ─── Click ────────────────────────────────────────────────────────────────
-
     override fun onClick() {
         super.onClick()
         serviceScope.launch(Dispatchers.IO) {
-            // Single one-shot read — avoids a long-lived collector on the UI thread
             val config = repository.getTileBySlot(slotIndex)
                 .let {
-                    // Collect first value non-blocking
                     var result: TileConfig? = null
                     val job = launch { it.collect { v -> result = v; cancel() } }
                     job.join()
                     result
                 }
 
-            config ?: return@launch  // No tile mapped to this slot — ignore
-            if (!config.isActive) return@launch // Mapped but deactivated — ignore
+            config ?: return@launch
+            if (!config.isActive) return@launch
 
             executionManager.execute(config)
         }
     }
-
-    // ─── QS Panel Update ─────────────────────────────────────────────────────
 
     private fun updateQsTile(config: TileConfig?, isRunning: Boolean) {
         val tile = qsTile ?: return
 
         tile.apply {
             if (config == null) {
-                // No tile assigned to this slot — show default identity
                 label = getString(R.string.tile_n, slotIndex + 1)
-                icon = android.graphics.drawable.Icon.createWithResource(
+                icon = Icon.createWithResource(
                     this@BaseTileService,
                     R.drawable.ic_adb
                 )
@@ -112,7 +101,7 @@ abstract class BaseTileService : TileService() {
                 label = if (isRunning) "Running..." else config.name
 
                 val iconRes = TileIconProvider.iconById[config.iconId]
-                icon = android.graphics.drawable.Icon.createWithResource(
+                icon = Icon.createWithResource(
                     this@BaseTileService,
                     iconRes?.resId ?: R.drawable.ic_adb
                 )
