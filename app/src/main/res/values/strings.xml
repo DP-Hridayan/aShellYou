@@ -1,8 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <string name="not_signed_in">Not signed in</string>
     <string name="A_Z" translatable="false">A → Z</string>
     <string name="abort_command">Abort command first</string>
     <string name="about">About</string>
+    <string name="active">Active</string>
+    <string name="active_tiles">Active tiles</string>
+    <string name="adb_command">ADB command</string>
     <string name="adb_connection_active">ADB Connection Active</string>
     <string name="adb_connection_channel_description">Shows when ADB connection is active</string>
     <string name="adb_connection_channel_name">ADB Connection</string>
@@ -12,32 +14,8 @@
     <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
-    <string name="confirm_tile_delete_message">Are you sure you want to delete this tile?</string>
-    <string name="tile_dashboard_notification_access_message">Turn on notifications to get notified whenever a tile execution fails</string>
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
-    <string name="adb_command">ADB command</string>
-    <string name="execution_method">Execution method</string>
-    <string name="generate_tile">Generate tile</string>
-    <string name="qs_tiles">Quick settings tiles</string>
-    <string name="active">Active</string>
-    <string name="create_new_tile">Create new tile</string>
-    <string name="dashboard">Dashboard</string>
-    <string name="logs">Logs</string>
-    <string name="tile">Tile</string>
-    <string name="create_new_tile_description">Create a custom Quick Settings tile for fast execution of ADB commands</string>
-    <string name="icon_selected">Icon selected</string>
-    <string name="search_icons_here">Search icons here</string>
-    <string name="untitled">Untitled</string>
-    <string name="preview">Preview</string>
-    <string name="suggested_icons">Suggested icons</string>
-    <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
-    <string name="disabled">Disabled</string>
-    <string name="des_qs_tiles">Create quick settings tiles for executing adb commands</string>
-    <string name="edit_tile">Edit tile</string>
-    <string name="enable">Enable</string>
-    <string name="disable">Disable</string>
-    <string name="active_tiles">Active tiles</string>
     <string name="additional_settings">Additional settings</string>
     <string name="all_data">All data</string>
     <string name="already_connected">Already connected</string>
@@ -51,12 +29,6 @@
     <string name="back">Back</string>
     <string name="back_button">Back button</string>
     <string name="backup">Backup</string>
-    <string name="tile_name">Tile name</string>
-    <string name="tile_n">Tile %1$d</string>
-    <string name="choose_icon">Choose icon</string>
-    <string name="backup_scheduler">Backup scheduler</string>
-    <string name="fetching_backup_type">Fetching backup type…</string>
-    <string name="des_backup_scheduler">Automatically schedule backups at selected intervals</string>
     <string name="backup_all_data">Backup all data</string>
     <string name="backup_and_restore">Backup &amp; restore</string>
     <string name="backup_app_database">Backup app database</string>
@@ -64,6 +36,7 @@
     <string name="backup_destination">Backup destination</string>
     <string name="backup_failed">Backup failed</string>
     <string name="backup_found">Backup found</string>
+    <string name="backup_scheduler">Backup scheduler</string>
     <string name="backup_settings">Backup app settings</string>
     <string name="backup_successful">Backup successful</string>
     <string name="backup_time">Backup time</string>
@@ -79,6 +52,7 @@
     <string name="changelogs">Changelogs</string>
     <string name="check_updates">Check updates</string>
     <string name="choose_a_device">Choose a device</string>
+    <string name="choose_icon">Choose icon</string>
     <string name="clear">Clear</string>
     <string name="clear_all_message">Are you sure you want to clear everything on this screen?</string>
     <string name="clear_everything">Clear everything</string>
@@ -97,8 +71,9 @@
     <string name="commands">Commands</string>
     <string name="configure_save_directory">Configure save directory</string>
     <string name="confirm">Confirm</string>
-    <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_bookmark_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
+    <string name="confirm_delete">Confirm delete</string>
+    <string name="confirm_tile_delete_message">Are you sure you want to delete this tile?</string>
     <string name="conflict_message">\"%1$s\" already exists in this location.</string>
     <string name="conflict_title">Item already exists</string>
     <string name="connect">Connect</string>
@@ -120,11 +95,14 @@
     <string name="crash_history">Crash history</string>
     <string name="create">Create</string>
     <string name="create_folder">Create folder</string>
+    <string name="create_new_tile">Create new tile</string>
+    <string name="create_new_tile_description">Create a custom Quick Settings tile for fast execution of ADB commands</string>
     <string name="crowdin" translatable="false">Crowdin</string>
     <string name="current_version">Current version</string>
     <string name="cut_items">Cut %1$d items</string>
     <string name="cut_to_clipboard">Cut to clipboard</string>
     <string name="dark_theme">Dark theme</string>
+    <string name="dashboard">Dashboard</string>
     <string name="databases_only">Databases only</string>
     <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>
@@ -141,9 +119,11 @@
     <string name="des_backup_all_data">Backup all data of the app</string>
     <string name="des_backup_and_restore">Backup and restore app settings and other data</string>
     <string name="des_backup_app_database">Backup app database which includes the command examples &amp; bookmarks</string>
+    <string name="des_backup_scheduler">Automatically schedule backups at selected intervals</string>
     <string name="des_backup_settings">Backup app settings preferences only</string>
     <string name="des_behavior">Modify certain behavior of the app</string>
     <string name="des_changelogs">History of all the changes made to the app</string>
+    <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
     <string name="des_clear_output_confirmation">Ask for confirmation before clearing the shell output</string>
     <string name="des_configure_save_directory">Choose a directory to save the shell output</string>
     <string name="des_crash_history">View all crashes that have occurred in the app</string>
@@ -163,6 +143,7 @@
     <string name="des_look_and_feel">Dynamic colors, Dark theme, Language</string>
     <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low-end devices should keep this option turned off</string>
     <string name="des_pair_another_device">Pair another target device</string>
+    <string name="des_qs_tiles">Create quick settings tiles for executing adb commands</string>
     <string name="des_report_issue">Report any issue or bug you have encountered while using the app</string>
     <string name="des_reset_app_settings">Reset app settings to default values</string>
     <string name="des_restore_app_data">Restore app data from the saved backup file.\nThe saved database will overwrite the current database</string>
@@ -180,7 +161,9 @@
     <string name="device_disconnected_message_with_name">"%s" has disconnected.</string>
     <string name="device_found">Device found!</string>
     <string name="device_info">Device info</string>
+    <string name="disable">Disable</string>
     <string name="disable_softkey">Disable soft keyboard</string>
+    <string name="disabled">Disabled</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="disclaimer_1_description">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability.\nYou are solely responsible for any changes made using this app.</string>
     <string name="disclaimer_1_title">Use at Your Own Risk</string>
@@ -204,7 +187,9 @@
     <string name="downloads">Downloads</string>
     <string name="dynamic_colors">Dynamic colors</string>
     <string name="edit_command">Edit command</string>
+    <string name="edit_tile">Edit tile</string>
     <string name="empty_folder">This folder is empty</string>
+    <string name="enable">Enable</string>
     <string name="enable_auto_update">Enable auto update</string>
     <string name="enable_direct_download">Enable direct apk download</string>
     <string name="enable_wifi">Enable wifi</string>
@@ -214,6 +199,7 @@
     <string name="enter_pairing_code">Enter the 6-digit pairing code</string>
     <string name="error">Error</string>
     <string name="error_labels_limit_reached">Maximum labels limit reached</string>
+    <string name="execution_method">Execution method</string>
     <string name="failed">Failed</string>
     <string name="failed_to_claim_interface">Failed to claim interface</string>
     <string name="failed_to_open_usb_connection">Failed to open USB connection. Is USB debugging enabled?</string>
@@ -244,6 +230,7 @@
     <string name="fb_uploading">Uploading %1$s</string>
     <string name="feature_request">Feature request</string>
     <string name="fetching_backup_time">Fetching backup time …</string>
+    <string name="fetching_backup_type">Fetching backup type…</string>
     <string name="field_cannot_be_blank">Field cannot be blank</string>
     <string name="file">File</string>
     <string name="file_actions">File actions</string>
@@ -266,6 +253,7 @@
     <string name="forget_device_confirmation">Are you sure you want to forget %1$s? You will need to pair again to connect.</string>
     <string name="forks">Forks</string>
     <string name="found_connect_service">Found connect service</string>
+    <string name="generate_tile">Generate tile</string>
     <string name="github" translatable="false">Github</string>
     <string name="go_home">Go Home</string>
     <string name="go_to_terminal">Go to terminal</string>
@@ -280,6 +268,7 @@
     <string name="hint">Hint</string>
     <string name="history">History</string>
     <string name="home">Home</string>
+    <string name="icon_selected">Icon selected</string>
     <string name="info">Info</string>
     <string name="instructions">Instructions</string>
     <string name="intent_not_found">Intent not found</string>
@@ -305,6 +294,7 @@
     <string name="local_adb_shell">Local ADB shell</string>
     <string name="local_adb_summary">Execute ADB commands directly on your device using Shizuku or root.</string>
     <string name="local_file">Local file</string>
+    <string name="logs">Logs</string>
     <string name="look_and_feel">Look &amp; Feel</string>
     <string name="manual_pair">Manual Pair</string>
     <string name="merge">Merge</string>
@@ -339,9 +329,9 @@
     <string name="no_search_results_found">No search results found</string>
     <string name="no_wifi_connection">No WiFi connection</string>
     <string name="none">None</string>
+    <string name="not_signed_in">Not signed in</string>
     <string name="nothing_to_clear">Nothing to clear</string>
     <string name="nothing_to_search">Nothing to search</string>
-    <string name="pairing_process_notification_access_message">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
     <string name="notification_settings">Notification settings</string>
     <string name="notification_style_error">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="notification_styles">Notification styles</string>
@@ -368,6 +358,7 @@
     <string name="pairing">Pairing</string>
     <string name="pairing_code">Pairing code</string>
     <string name="pairing_notification_hint">You will receive a notification from aShell You to help you with pairing</string>
+    <string name="pairing_process_notification_access_message">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
     <string name="paste">Paste</string>
     <string name="path">Path</string>
     <string name="permission_denied">Permission denied</string>
@@ -378,9 +369,11 @@
     <string name="pre_release">Pre-release</string>
     <string name="pre_release_warning">Pre-release builds may be unstable</string>
     <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
+    <string name="preview">Preview</string>
     <string name="qr_pair">QR Pair</string>
     <string name="qr_pair_hint">To pair an Android 11+ device, scan this QR from the target device</string>
     <string name="qr_scanner_location_hint">QR scanner available at:\nDeveloper Options > Wireless Debugging > Pair using QR Code</string>
+    <string name="qs_tiles">Quick settings tiles</string>
     <string name="quick_tools">Quick tools</string>
     <string name="ready_to_paste">Ready to paste</string>
     <string name="reboot_options">Reboot options</string>
@@ -420,6 +413,7 @@
     <string name="saving_output">Exporting output to file…</string>
     <string name="search">Search</string>
     <string name="search_commands_here">Search commands here</string>
+    <string name="search_icons_here">Search icons here</string>
     <string name="search_labels_here">Search labels here</string>
     <string name="search_output">Search output here</string>
     <string name="searching_connect_service">Searching connect service</string>
@@ -466,6 +460,7 @@
     <string name="start">Start</string>
     <string name="success">Success</string>
     <string name="successful_connection_message">Device is connected successfully. You can now start running commands on the target device.</string>
+    <string name="suggested_icons">Suggested icons</string>
     <string name="support_bmc">Like what I do?\nConsider buying me a coffee</string>
     <string name="switch_mode">Switch mode</string>
     <string name="system">System</string>
@@ -475,6 +470,10 @@
     <string name="terminal">Terminal</string>
     <string name="terminal_font_style">Terminal font style</string>
     <string name="this_device">This Device</string>
+    <string name="tile">Tile</string>
+    <string name="tile_dashboard_notification_access_message">Turn on notifications to get notified whenever a tile execution fails</string>
+    <string name="tile_n">Tile %1$d</string>
+    <string name="tile_name">Tile name</string>
     <string name="translations">Translations</string>
     <string name="troubleshoot">Troubleshoot</string>
     <string name="troubleshoot_reconnect">Refresh wireless debugging connection by toggling it off-on</string>
@@ -485,6 +484,7 @@
     <string name="unknown">Unknown</string>
     <string name="unknown_error">Unknown error occurred</string>
     <string name="unknown_sources_install_permission_not_granted">Permission not granted. Please allow app installation from unknown sources.</string>
+    <string name="untitled">Untitled</string>
     <string name="update">Update</string>
     <string name="update_available">Update available !</string>
     <string name="update_channel">Update channel</string>
@@ -510,6 +510,7 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A" translatable="false">Z → A</string>
+
 
     /**
     * Changelogs
