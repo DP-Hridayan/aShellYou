@@ -29,7 +29,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -68,126 +67,107 @@ fun TileDashBoardScreen(
 ) {
     val navController = LocalNavController.current
     val uiState by tileDashboardViewModel.state.collectAsState()
-
-    val onCreateNewTile: () -> Unit = withHaptic {
-        navController.navigate(NavRoutes.CreateTileScreen)
-    }
-
     val listState = rememberLazyListState()
 
     SettingsScaffold(
         modifier = modifier,
         listState = listState,
         topBarTitle = stringResource(R.string.qs_tiles),
-        fabContent = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 25.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                FloatingNavPill(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .padding(start = 50.dp)
-                )
-
-                FloatingActionButton(
-                    onClick = onCreateNewTile,
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_add),
-                        contentDescription = null
-                    )
-                }
-            }
-
-        },
         content = { innerPadding, topBarScrollBehavior ->
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
-                    .animateContentSize(),
-                state = listState,
-                contentPadding = innerPadding
-            ) {
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(25.dp)
-                    )
-                }
+            Box(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+                        .animateContentSize(),
+                    state = listState,
+                    contentPadding = innerPadding
+                ) {
+                    item {
+                        Spacer(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(25.dp)
+                        )
+                    }
 
-                item {
-                    val items = (1..10).toList()
+                    item {
+                        val items = (1..10).toList()
 
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
-                        verticalArrangement = Arrangement.spacedBy(20.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        items.chunked(2).forEach { rowItems ->
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(20.dp)
-                            ) {
-                                rowItems.forEach { id ->
-                                    val tileConfig = uiState.tiles.find { it.id == id }
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp),
+                            verticalArrangement = Arrangement.spacedBy(20.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            items.chunked(2).forEach { rowItems ->
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(20.dp)
+                                ) {
+                                    rowItems.forEach { id ->
+                                        val tileConfig = uiState.tiles.find { it.id == id }
 
-                                    if (tileConfig == null) {
-                                        EmptyTileBox(
-                                            modifier = Modifier
-                                                .weight(1f)
-                                                .height(80.dp),
-                                            tileId = id - 1,
-                                            onClick = withHaptic {
-                                                navController.navigate(
-                                                    NavRoutes.CreateTileScreen(
-                                                        tileId = id
+                                        if (tileConfig == null) {
+                                            EmptyTileBox(
+                                                modifier = Modifier
+                                                    .weight(1f)
+                                                    .height(80.dp),
+                                                tileId = id - 1,
+                                                onClick = withHaptic {
+                                                    navController.navigate(
+                                                        NavRoutes.CreateTileScreen(
+                                                            tileId = id
+                                                        )
                                                     )
-                                                )
-                                            }
-                                        )
-                                    } else {
-                                        val tileIcon = TileIconProvider.iconById[tileConfig.iconId]
-                                        ModernTile(
-                                            modifier = Modifier
-                                                .weight(1f)
-                                                .height(80.dp),
-                                            icon = if (tileIcon != null) painterResource(tileIcon.resId) else painterResource(
-                                                R.drawable.ic_adb
-                                            ),
-                                            title = tileConfig.name,
-                                            isActive = tileConfig.isActive,
-                                            onClick = withHaptic {
-                                                navController.navigate(
-                                                    NavRoutes.CreateTileScreen(
-                                                        tileId = id
+                                                }
+                                            )
+                                        } else {
+                                            val tileIcon =
+                                                TileIconProvider.iconById[tileConfig.iconId]
+                                            ModernTile(
+                                                modifier = Modifier
+                                                    .weight(1f)
+                                                    .height(80.dp),
+                                                icon = if (tileIcon != null) painterResource(
+                                                    tileIcon.resId
+                                                ) else painterResource(
+                                                    R.drawable.ic_adb
+                                                ),
+                                                title = tileConfig.name,
+                                                isActive = tileConfig.isActive,
+                                                onClick = withHaptic {
+                                                    navController.navigate(
+                                                        NavRoutes.CreateTileScreen(
+                                                            tileId = id
+                                                        )
                                                     )
-                                                )
-                                            }
-                                        )
+                                                }
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+
+                    item {
+                        Spacer(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(140.dp)
+                        )
+                    }
                 }
 
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(140.dp)
-                    )
-                }
+                FloatingNavPill(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter)
+                        .padding(50.dp)
+                )
             }
         })
 }
