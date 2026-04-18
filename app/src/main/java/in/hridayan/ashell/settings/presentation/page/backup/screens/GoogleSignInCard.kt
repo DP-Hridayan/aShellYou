@@ -173,13 +173,13 @@ fun GoogleSignInCard(
                     Column {
                         AutoResizeableText(
                             text = stringResource(R.string.sign_in_with_google),
-                            style = MaterialTheme.typography.bodyLarge,
+                            style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         AutoResizeableText(
                             text = stringResource(R.string.des_sign_in_with_google),
                             style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                         )
                     }
                 }

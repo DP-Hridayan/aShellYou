@@ -140,7 +140,7 @@ fun BooleanPreferenceItemView(
                         Text(
                             text = descriptionText,
                             style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.alpha(0.9f)
+                            modifier = Modifier.alpha(0.7f)
                         )
                     }
                 }

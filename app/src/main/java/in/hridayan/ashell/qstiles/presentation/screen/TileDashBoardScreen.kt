@@ -310,7 +310,7 @@ private fun ModernTile(
                         color = if (isActive)
                             MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.75f)
                         else
-                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                         maxLines = 1
                     )
                 }

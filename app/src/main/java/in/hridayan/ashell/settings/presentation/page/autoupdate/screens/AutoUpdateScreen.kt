@@ -209,7 +209,7 @@ fun AutoUpdateScreen(
                             Text(
                                 text = stringResource(R.string.pre_release_warning_description),
                                 style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.error
+                                color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
                             )
 
                             Spacer(

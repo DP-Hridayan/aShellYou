@@ -488,14 +488,14 @@ private fun TimeCard(
                 Text(
                     text = stringResource(R.string.backup_type) + " : " + backupTypeText,
                     style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.alpha(0.9f)
+                    modifier = Modifier.alpha(0.7f)
                 )
 
                 if (dateTime.isNotEmpty()) {
                     Text(
                         text = dateTime,
                         style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.alpha(0.9f)
+                        modifier = Modifier.alpha(0.7f)
                     )
                 }
             }
