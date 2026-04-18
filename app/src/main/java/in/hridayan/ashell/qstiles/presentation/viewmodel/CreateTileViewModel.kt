@@ -19,10 +19,14 @@ import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.processor.TileCommandKeywordProcessor
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import `in`.hridayan.ashell.qstiles.presentation.model.CreateNewTileScreenUiState
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -43,6 +47,11 @@ class CreateTileViewModel @Inject constructor(
 
     private val _iconsList = MutableStateFlow(TileIconProvider.icons)
     val iconsList: StateFlow<List<TileIcon>> = _iconsList.asStateFlow()
+
+    private val tilesFlow = repository.getTiles()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    private var nameValidationJob: Job? = null
 
     init {
         loadExistingTile()
@@ -71,15 +80,30 @@ class CreateTileViewModel @Inject constructor(
     }
 
     fun onNameChange(fieldValue: TextFieldValue) {
-        viewModelScope.launch {
-            val tiles = repository.getTiles().first()
+        _state.update {
+            it.copy(
+                nameField = fieldValue,
+                nameError = null
+            )
+        }
+
+        nameValidationJob?.cancel()
+
+        nameValidationJob = viewModelScope.launch {
+            delay(250)
+
+            val tiles = tilesFlow.first { it.isNotEmpty() }
+
             val isDuplicate = tiles.any {
-                it.name.equals(fieldValue.text, ignoreCase = true) && it.id != route.tileId
+                it.name.equals(fieldValue.text, ignoreCase = true) &&
+                        it.id != route.tileId
             }
+
             _state.update {
                 it.copy(
-                    nameField = fieldValue,
-                    nameError = if (isDuplicate) context.getString(R.string.duplicate_tile_name_error_msg) else null
+                    nameError = if (isDuplicate)
+                        context.getString(R.string.duplicate_tile_name_error_msg)
+                    else null
                 )
             }
         }
