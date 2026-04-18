@@ -250,7 +250,7 @@ private fun EmptyTileBox(
                 .basicMarquee()
                 .padding(end = 20.dp),
             text = stringResource(R.string.tile) + " ${tileId + 1}",
-            style = MaterialTheme.typography.titleMediumEmphasized,
+            style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
             maxLines = 1
         )
@@ -298,7 +298,7 @@ private fun ModernTile(
                 Text(
                     modifier = Modifier.basicMarquee(),
                     text = title.ifEmpty { stringResource(R.string.untitled) },
-                    style = MaterialTheme.typography.titleMediumEmphasized,
+                    style = MaterialTheme.typography.titleMedium,
                     maxLines = 1
                 )
 

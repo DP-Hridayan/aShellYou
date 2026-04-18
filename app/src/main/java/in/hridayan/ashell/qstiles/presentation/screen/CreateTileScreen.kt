@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -203,8 +204,7 @@ fun CreateTileScreen(
                             createTileViewModel.onToggleableChange(it)
                             weakHaptic()
                         },
-                        roundedCornerShape = if (uiState.isToggleable) RoundedCornerShape(24.dp)
-                        else RoundedCornerShape(
+                        roundedCornerShape = RoundedCornerShape(
                             topStart = 24.dp,
                             topEnd = 24.dp,
                             bottomStart = 4.dp,
@@ -214,32 +214,26 @@ fun CreateTileScreen(
                 }
 
                 item {
-                    AnimatedVisibility(
-                        visible = !uiState.isToggleable,
-                        enter = fadeIn() + expandVertically(),
-                        exit = fadeOut() + shrinkVertically(),
-                    ) {
-                        BehaviorSwitchRow(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 20.dp, end = 20.dp, top = 2.dp),
-                            title = stringResource(R.string.initial_state),
-                            description = stringResource(R.string.des_initial_state),
-                            checked = uiState.isActive,
-                            onCheckedChange = {
-                                createTileViewModel.onActiveStateChange(it)
-                                weakHaptic()
-                            },
-                            checkedLabel = stringResource(R.string.on_state),
-                            uncheckedLabel = stringResource(R.string.off_state),
-                            roundedCornerShape = RoundedCornerShape(
-                                topStart = 4.dp,
-                                topEnd = 4.dp,
-                                bottomStart = 24.dp,
-                                bottomEnd = 24.dp
-                            )
+                    BehaviorSwitchRow(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 20.dp, top = 2.dp),
+                        title = stringResource(R.string.initial_state),
+                        description = stringResource(R.string.des_initial_state),
+                        checked = uiState.isActive,
+                        onCheckedChange = {
+                            createTileViewModel.onActiveStateChange(it)
+                            weakHaptic()
+                        },
+                        checkedLabel = stringResource(R.string.on_state),
+                        uncheckedLabel = stringResource(R.string.off_state),
+                        roundedCornerShape = RoundedCornerShape(
+                            topStart = 4.dp,
+                            topEnd = 4.dp,
+                            bottomStart = 24.dp,
+                            bottomEnd = 24.dp
                         )
-                    }
+                    )
                 }
 
                 item {
@@ -483,6 +477,7 @@ fun CreateTileScreen(
                         ModernTilePreview(
                             modifier = Modifier
                                 .weight(2f)
+                                .height(120.dp)
                                 .widthIn(min = 120.dp)
                                 .animateContentSize(),
                             icon = icon,
@@ -724,7 +719,7 @@ private fun ClassicTile(
         Text(
             modifier = Modifier.basicMarquee(),
             text = title.ifEmpty { stringResource(R.string.untitled) },
-            style = MaterialTheme.typography.labelLargeEmphasized,
+            style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface,
             maxLines = 1
         )
@@ -738,11 +733,23 @@ private fun ModernTilePreview(
     title: String,
     subtitle: String = "",
     isActive: Boolean = false,
+    onClick: () -> Unit = {}
 ) {
-    Box(modifier = modifier) {
+    val interactionSource = remember { MutableInteractionSource() }
+
+    Box(
+        modifier = modifier.clickable(
+            enabled = true,
+            interactionSource = interactionSource,
+            indication = null,
+            onClick = onClick
+        )
+    ) {
         Card(
-            modifier = Modifier.padding(20.dp),
-            shape = RoundedCornerShape(32.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp),
+            shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(
                 containerColor = if (isActive)
                     MaterialTheme.colorScheme.primaryContainer
@@ -752,31 +759,19 @@ private fun ModernTilePreview(
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
         ) {
             Row(
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 18.dp),
-                horizontalArrangement = Arrangement.spacedBy(15.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 20.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(44.dp)
-                        .clip(CircleShape)
-                        .background(
-                            if (isActive)
-                                MaterialTheme.colorScheme.primary
-                            else
-                                MaterialTheme.colorScheme.primaryContainer
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        painter = icon,
-                        tint = if (isActive)
-                            MaterialTheme.colorScheme.onPrimary
-                        else
-                            MaterialTheme.colorScheme.onPrimaryContainer,
-                        contentDescription = null
-                    )
-                }
+
+                Icon(
+                    modifier = Modifier.size(28.dp),
+                    painter = icon,
+                    tint = if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary,
+                    contentDescription = null
+                )
 
                 Column(
                     modifier = Modifier
@@ -786,7 +781,7 @@ private fun ModernTilePreview(
                     Text(
                         modifier = Modifier.basicMarquee(),
                         text = title.ifEmpty { stringResource(R.string.untitled) },
-                        style = MaterialTheme.typography.titleSmall,
+                        style = MaterialTheme.typography.titleMedium,
                         color = if (isActive)
                             MaterialTheme.colorScheme.onPrimaryContainer
                         else
