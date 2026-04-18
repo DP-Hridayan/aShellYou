@@ -14,6 +14,7 @@
     <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
+    <string name="tiles">Tiles</string>
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
     <string name="additional_settings">Additional settings</string>

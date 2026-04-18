@@ -44,7 +44,6 @@ import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
 import androidx.compose.runtime.Composable
@@ -85,6 +84,7 @@ import `in`.hridayan.ashell.qstiles.presentation.components.dialog.DeleteTileCon
 import `in`.hridayan.ashell.qstiles.presentation.components.dialog.IconChooserDialog
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import `in`.hridayan.ashell.settings.presentation.components.switch.SettingsSwitch
 import `in`.hridayan.ashell.settings.presentation.provider.ButtonGroupOptionsProvider
 
 @Composable
@@ -107,6 +107,16 @@ fun CreateTileScreen(
 
     val listState = rememberLazyListState()
     val interactionSource = remember { MutableInteractionSource() }
+
+    val isValid = uiState.name.isNotBlank() &&
+            uiState.activeCommand.isNotBlank() &&
+            (!uiState.isToggleable || uiState.inactiveCommand.isNotBlank()) &&
+            uiState.nameError == null
+
+    val floatingToolbarContainerColor =
+        FloatingToolbarDefaults.vibrantFloatingToolbarColors().toolbarContainerColor
+    val floatingToolbarContentColor =
+        FloatingToolbarDefaults.vibrantFloatingToolbarColors().toolbarContentColor
 
     SettingsScaffold(
         modifier = modifier,
@@ -136,7 +146,7 @@ fun CreateTileScreen(
                         Row(
                             modifier = Modifier
                                 .clickable(
-                                    enabled = true,
+                                    enabled = isValid,
                                     interactionSource = interactionSource,
                                     indication = null,
                                     onClick = withHaptic {
@@ -147,11 +157,15 @@ fun CreateTileScreen(
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            AutoResizeableText(text = stringResource(R.string.update))
+                            AutoResizeableText(
+                                text = stringResource(R.string.update),
+                                color = floatingToolbarContentColor.copy(alpha = if (isValid) 1f else 0.38f)
+                            )
                             Icon(
                                 modifier = Modifier.size(24.dp),
                                 painter = painterResource(R.drawable.ic_help),
-                                contentDescription = null
+                                contentDescription = null,
+                                tint = floatingToolbarContentColor.copy(alpha = if (isValid) 1f else 0.38f)
                             )
                         }
                     })
@@ -502,7 +516,7 @@ fun CreateTileScreen(
                                 .heightIn(ButtonDefaults.ExtraLargeContainerHeight)
                                 .fillMaxWidth()
                                 .padding(horizontal = 60.dp, vertical = 30.dp),
-                            enabled = uiState.name.isNotEmpty() && uiState.activeCommand.isNotEmpty(),
+                            enabled = isValid,
                             onClick = withHaptic {
                                 createTileViewModel.createTile()
                                 navController.popBackStack()
@@ -703,7 +717,10 @@ private fun BehaviorSwitchRow(
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                 )
             }
-            Switch(checked = checked, onCheckedChange = onCheckedChange)
+            SettingsSwitch(
+                checked = checked,
+                onCheckedChange = onCheckedChange
+            )
         }
     }
 }

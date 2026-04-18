@@ -68,7 +68,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -137,7 +136,6 @@ fun TileDashBoardScreen(
                     }
 
                     if (uiState.currentTab == 0) {
-                        // ── Dashboard Tab ────────────────────────────────────
                         item {
                             if (!hasNotificationAccess) {
                                 NotificationAccessRequestCard(
@@ -208,7 +206,6 @@ fun TileDashBoardScreen(
                             }
                         }
                     } else {
-                        // ── Logs Tab ─────────────────────────────────────────
                         item {
                             LogStatsRow(
                                 modifier = Modifier.padding(horizontal = 20.dp),
@@ -265,8 +262,6 @@ fun TileDashBoardScreen(
             }
         })
 }
-
-// ── Dashboard Components ──────────────────────────────────────────────────────
 
 @Composable
 private fun EmptyTileBox(
@@ -371,8 +366,6 @@ private fun ModernTile(
         }
     }
 }
-
-// ── Logs Components ──────────────────────────────────────────────────────────
 
 @Composable
 private fun LogStatsRow(
@@ -529,8 +522,10 @@ private fun TileLogCard(
     tileName: String,
     iconId: String
 ) {
-    val weakHaptic = LocalWeakHaptic.current
     val tileIcon = TileIconProvider.iconById[iconId]
+
+    val badgeColor =
+        if (log.isSuccess) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
 
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -547,7 +542,7 @@ private fun TileLogCard(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surfaceContainerHigh),
+                        .background(badgeColor.copy(alpha = 0.15f)),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -556,18 +551,19 @@ private fun TileLogCard(
                             R.drawable.ic_adb
                         ),
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = badgeColor
                     )
                 }
 
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = tileName,
-                        style = MaterialTheme.typography.titleSmall,
+                        style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
                     val modeLabel =
-                        if (log.executionMode == TileExecutionMode.SHIZUKU) "SHIZUKU" else "ROOT"
+                        if (log.executionMode == TileExecutionMode.SHIZUKU) stringResource(R.string.shizuku)
+                        else stringResource(R.string.root)
                     Text(
                         text = "$modeLabel • ${DateTimeUtils.getRelativeTime(log.timestamp)}",
                         style = MaterialTheme.typography.labelSmall,
@@ -575,8 +571,6 @@ private fun TileLogCard(
                     )
                 }
 
-                val badgeColor =
-                    if (log.isSuccess) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(50))
@@ -584,7 +578,8 @@ private fun TileLogCard(
                         .padding(horizontal = 10.dp, vertical = 4.dp)
                 ) {
                     Text(
-                        text = if (log.isSuccess) "SUCCESS" else "FAILURE",
+                        text = if (log.isSuccess) stringResource(R.string.success)
+                        else stringResource(R.string.failed),
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
                         color = badgeColor
@@ -612,7 +607,7 @@ private fun TileLogCard(
             if (!log.isSuccess && log.output.isNotBlank()) {
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = "Error: ${log.output}",
+                    text = stringResource(R.string.error) + ": ${log.output}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.error.copy(alpha = 0.8f)
                 )
@@ -620,8 +615,6 @@ private fun TileLogCard(
         }
     }
 }
-
-// ── Shared Components ─────────────────────────────────────────────────────────
 
 @Composable
 private fun FloatingNavPill(
@@ -632,7 +625,7 @@ private fun FloatingNavPill(
     val isDarkMode = LocalDarkMode.current
     val motion = MaterialTheme.motionScheme
 
-    val navItems = listOf("Tiles", "Logs")
+    val navItems = listOf(stringResource(R.string.tiles), stringResource(R.string.logs))
 
     Card(
         modifier = modifier
@@ -640,7 +633,7 @@ private fun FloatingNavPill(
             .fillMaxWidth(),
         shape = RoundedCornerShape(50),
         colors = CardDefaults.cardColors(
-            containerColor = if (isDarkMode) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.surfaceContainerLowest
+            containerColor = if (isDarkMode) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLowest
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
