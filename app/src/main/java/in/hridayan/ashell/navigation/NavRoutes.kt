@@ -72,8 +72,5 @@ sealed class NavRoutes {
     object TileDashboardScreen : NavRoutes()
 
     @Serializable
-    object TileLogsScreen : NavRoutes()
-
-    @Serializable
     data class CreateTileScreen(val tileId: Int) : NavRoutes()
 }

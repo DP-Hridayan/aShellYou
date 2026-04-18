@@ -26,7 +26,6 @@ import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.CreateTileScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.TileDashBoardScreen
-import `in`.hridayan.ashell.qstiles.presentation.screen.TileLogsScreen
 import `in`.hridayan.ashell.settings.presentation.page.about.screens.AboutScreen
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens.AutoUpdateScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupAndRestoreScreen
@@ -155,10 +154,6 @@ fun Navigation(isFirstLaunch: Boolean = false) {
 
             composable<NavRoutes.TileDashboardScreen> {
                 TileDashBoardScreen()
-            }
-
-            composable<NavRoutes.TileLogsScreen> {
-                TileLogsScreen()
             }
 
             composable<NavRoutes.CreateTileScreen> { backStackEntry ->
