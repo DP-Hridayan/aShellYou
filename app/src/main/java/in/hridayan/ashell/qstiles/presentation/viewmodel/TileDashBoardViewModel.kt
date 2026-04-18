@@ -1,17 +1,12 @@
 package `in`.hridayan.ashell.qstiles.presentation.viewmodel
 
-import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.qstiles.data.repository.TileRepositoryImpl
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
-import `in`.hridayan.ashell.qstiles.domain.model.RunningTileState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
-import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardState
+import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -28,12 +23,12 @@ class TileDashboardViewModel @Inject constructor(
     private val executionManager: TileExecutionManager
 ) : ViewModel() {
 
-    val state: StateFlow<TileDashBoardState> =
+    val state: StateFlow<TileDashBoardScreenUiState> =
         combine(
             repository.getTiles().distinctUntilChanged(),
             executionManager.runningTileStates
         ) { tiles, running ->
-            TileDashBoardState(
+            TileDashBoardScreenUiState(
                 tiles = tiles.filter { it.isCustom },
                 activeCount = tiles.count { it.isActive },
                 runningTiles = running
@@ -42,7 +37,7 @@ class TileDashboardViewModel @Inject constructor(
             .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(5000),
-                TileDashBoardState()
+                TileDashBoardScreenUiState()
             )
 
     /**

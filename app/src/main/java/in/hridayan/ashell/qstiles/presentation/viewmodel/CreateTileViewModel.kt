@@ -14,7 +14,7 @@ import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider.getIconRes
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.processor.TileCommandKeywordProcessor
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
-import `in`.hridayan.ashell.qstiles.presentation.model.CreateTileState
+import `in`.hridayan.ashell.qstiles.presentation.model.CreateNewTileScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,8 +32,8 @@ class CreateTileViewModel @Inject constructor(
 
     private val route = savedStateHandle.toRoute<NavRoutes.CreateTileScreen>()
 
-    private val _state = MutableStateFlow(CreateTileState(tileId = route.tileId))
-    val state: StateFlow<CreateTileState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(CreateNewTileScreenUiState(tileId = route.tileId))
+    val state: StateFlow<CreateNewTileScreenUiState> = _state.asStateFlow()
 
     private val _iconsList = MutableStateFlow(TileIconProvider.icons)
     val iconsList: StateFlow<List<TileIcon>> = _iconsList.asStateFlow()

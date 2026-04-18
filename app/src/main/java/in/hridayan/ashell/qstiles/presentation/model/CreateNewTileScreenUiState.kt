@@ -3,7 +3,7 @@ package `in`.hridayan.ashell.qstiles.presentation.model
 import androidx.compose.ui.text.input.TextFieldValue
 import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
 
-data class CreateTileState(
+data class CreateNewTileScreenUiState(
     val name: String = "",
     val command: String = "",
     val executionMode: Int = TileExecutionMode.SHIZUKU,
