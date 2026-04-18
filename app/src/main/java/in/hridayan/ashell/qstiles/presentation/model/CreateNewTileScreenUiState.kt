@@ -12,7 +12,7 @@ import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
  */
 data class CreateNewTileScreenUiState(
     val tileId: Int = 0,
-    val name: String = "",
+    val nameField: TextFieldValue = TextFieldValue(""),
     val executionMode: Int = TileExecutionMode.SHIZUKU,
     val selectedIconId: String = "terminal",
     val isUpdateMode: Boolean = false,
@@ -26,11 +26,11 @@ data class CreateNewTileScreenUiState(
     /** Static / initial active state – for static tiles this is fixed; for toggleable it's the starting state. */
     val isActive: Boolean = false,
     /** Command executed when turning the tile ON (or on every click for static tiles). */
-    val activeCommand: String = "",
+    val activeCommand: TextFieldValue = TextFieldValue(""),
     /** Command executed when turning the tile OFF. Shown only when [isToggleable] = true. */
-    val inactiveCommand: String = "",
+    val inactiveCommand: TextFieldValue = TextFieldValue(""),
     /** Subtitle shown when the tile is ON. */
-    val activeSubtitle: String = "On",
+    val activeSubtitle:TextFieldValue = TextFieldValue("On"),
     /** Subtitle shown when the tile is OFF. Shown only when [isToggleable] = true. */
-    val inactiveSubtitle: String = "Off",
+    val inactiveSubtitle:TextFieldValue = TextFieldValue("Off"),
 )

@@ -1,11 +1,14 @@
 package `in`.hridayan.ashell.qstiles.presentation.viewmodel
 
+import android.content.Context
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.qstiles.data.model.TileIcon
 import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
@@ -29,6 +32,7 @@ class CreateTileViewModel @Inject constructor(
     private val repository: TileRepository,
     private val keywordProcessor: TileCommandKeywordProcessor,
     private val tileComponentManager: TileComponentManager,
+    @param:ApplicationContext private val context: Context,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -49,7 +53,7 @@ class CreateTileViewModel @Inject constructor(
             repository.getTileOnce(route.tileId)?.let { config ->
                 _state.update {
                     it.copy(
-                        name = config.name,
+                        nameField = TextFieldValue(text = config.name),
                         executionMode = config.executionMode,
                         selectedIconId = config.iconId,
                         isUpdateMode = true,
@@ -61,32 +65,32 @@ class CreateTileViewModel @Inject constructor(
                         inactiveSubtitle = config.activeState.inactiveTileSubtitle,
                     )
                 }
-                suggestIcons(config.activeState.activeCommand)
+                suggestIcons(config.activeState.activeCommand.text)
             }
         }
     }
 
-    fun onNameChange(name: String) {
+    fun onNameChange(fieldValue: TextFieldValue) {
         viewModelScope.launch {
             val tiles = repository.getTiles().first()
             val isDuplicate = tiles.any {
-                it.name.equals(name, ignoreCase = true) && it.id != route.tileId
+                it.name.equals(fieldValue.text, ignoreCase = true) && it.id != route.tileId
             }
             _state.update {
                 it.copy(
-                    name = name,
-                    nameError = if (isDuplicate) "A tile with this name already exists" else null
+                    nameField = fieldValue,
+                    nameError = if (isDuplicate) context.getString(R.string.duplicate_tile_name_error_msg) else null
                 )
             }
         }
     }
 
-    fun onActiveCommandChange(command: String) {
-        _state.update { it.copy(activeCommand = command) }
-        suggestIcons(command)
+    fun onActiveCommandChange(commandField: TextFieldValue) {
+        _state.update { it.copy(activeCommand = commandField) }
+        suggestIcons(commandField.text)
     }
 
-    fun onInactiveCommandChange(command: String) =
+    fun onInactiveCommandChange(command: TextFieldValue) =
         _state.update { it.copy(inactiveCommand = command) }
 
     fun onExecutionModeChange(mode: Int) =
@@ -110,10 +114,10 @@ class CreateTileViewModel @Inject constructor(
     fun onActiveStateChange(isActive: Boolean) =
         _state.update { it.copy(isActive = isActive) }
 
-    fun onActiveSubtitleChange(subtitle: String) =
+    fun onActiveSubtitleChange(subtitle: TextFieldValue) =
         _state.update { it.copy(activeSubtitle = subtitle) }
 
-    fun onInactiveSubtitleChange(subtitle: String) =
+    fun onInactiveSubtitleChange(subtitle: TextFieldValue) =
         _state.update { it.copy(inactiveSubtitle = subtitle) }
 
     private fun suggestIcons(command: String) {
@@ -136,7 +140,7 @@ class CreateTileViewModel @Inject constructor(
         isToggleable = isToggleable,
         isActive = isActive,
         activeCommand = activeCommand,
-        inactiveCommand = if (isToggleable) inactiveCommand else "",
+        inactiveCommand = if (isToggleable) inactiveCommand else TextFieldValue(""),
         activeTileSubtitle = activeSubtitle,
         inactiveTileSubtitle = if (isToggleable) inactiveSubtitle else activeSubtitle,
     )
@@ -147,7 +151,7 @@ class CreateTileViewModel @Inject constructor(
 
             val tile = TileConfig(
                 id = s.tileId,
-                name = s.name.ifBlank { "Untitled" },
+                name = s.nameField.text.ifBlank { "Untitled" },
                 executionMode = s.executionMode,
                 iconId = s.selectedIconId,
                 isCustom = true,

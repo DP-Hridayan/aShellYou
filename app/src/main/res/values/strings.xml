@@ -20,6 +20,7 @@
     <string name="success_rate">Success rate</string>
     <string name="no_logs_yet">No logs yet!</string>
     <string name="tile_logs">Tile logs</string>
+    <string name="duplicate_tile_name_error_msg">A tile with this name already exists</string>
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
     <string name="search_tile">Search tile…</string>
     <string name="add_command">Add command</string>

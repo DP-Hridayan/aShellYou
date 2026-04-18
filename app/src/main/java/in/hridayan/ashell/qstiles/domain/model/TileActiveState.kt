@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.qstiles.domain.model
 
+import androidx.compose.ui.text.input.TextFieldValue
+
 /**
  * Encapsulates the "active-state" behaviour of a Quick Settings tile.
  *
@@ -20,19 +22,19 @@ data class TileActiveState(
     /** Current runtime state (ON = true, OFF = false). For static tiles this is the fixed state. */
     val isActive: Boolean = false,
     /** Subtitle shown in the QS panel when the tile is in the ON state. */
-    val activeTileSubtitle: String = "On",
+    val activeTileSubtitle: TextFieldValue = TextFieldValue("On"),
     /** Subtitle shown in the QS panel when the tile is in the OFF state. Ignored for static tiles. */
-    val inactiveTileSubtitle: String = "Off",
+    val inactiveTileSubtitle: TextFieldValue = TextFieldValue("Off"),
     /** ADB command executed when turning the tile ON (or on every click for static tiles). */
-    val activeCommand: String = "",
+    val activeCommand: TextFieldValue = TextFieldValue(""),
     /** ADB command executed when turning the tile OFF. Only used when [isToggleable] = true. */
-    val inactiveCommand: String = "",
+    val inactiveCommand: TextFieldValue = TextFieldValue(""),
 ) {
     /** Returns the subtitle that should currently be displayed based on [isActive]. */
     val currentSubtitle: String
-        get() = if (isActive) activeTileSubtitle else inactiveTileSubtitle
+        get() = if (isActive) activeTileSubtitle.text else inactiveTileSubtitle.text
 
     /** Returns the command that should be executed for the current state transition. */
     val commandToExecute: String
-        get() = if (!isToggleable || isActive) activeCommand else inactiveCommand
+        get() = if (!isToggleable || isActive) activeCommand.text else inactiveCommand.text
 }

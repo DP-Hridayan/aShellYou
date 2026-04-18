@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.qstiles.data.datastore
 
 import android.content.Context
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -39,30 +41,33 @@ class TileDatastore @Inject constructor(
 
     private fun buildActiveState(
         id: Int,
-        prefs: androidx.datastore.preferences.core.Preferences,
+        prefs: Preferences,
     ): TileActiveState = TileActiveState(
-        isToggleable        = prefs[keyBool(id, "as_toggleable")]    ?: false,
-        isActive            = prefs[keyBool(id, "as_active")]         ?: false,
-        activeTileSubtitle  = prefs[keyStr(id,  "as_on_subtitle")]   ?: "On",
-        inactiveTileSubtitle= prefs[keyStr(id,  "as_off_subtitle")]  ?: "Off",
-        activeCommand       = prefs[keyStr(id,  "as_on_cmd")]        ?: "",
-        inactiveCommand     = prefs[keyStr(id,  "as_off_cmd")]       ?: "",
+        isToggleable = prefs[keyBool(id, "as_toggleable")] ?: false,
+        isActive = prefs[keyBool(id, "as_active")] ?: false,
+        activeTileSubtitle = TextFieldValue(prefs[keyStr(id, "as_on_subtitle")] ?: "On"),
+        inactiveTileSubtitle = TextFieldValue(prefs[keyStr(id, "as_off_subtitle")] ?: "Off"),
+        activeCommand = TextFieldValue(prefs[keyStr(id, "as_on_cmd")] ?: ""),
+        inactiveCommand = TextFieldValue(prefs[keyStr(id, "as_off_cmd")] ?: ""),
     )
 
     private fun buildTileConfig(
         id: Int,
-        prefs: androidx.datastore.preferences.core.Preferences,
+        prefs: Preferences,
     ): TileConfig? {
         val name = prefs[keyStr(id, "name")] ?: return null
         return TileConfig(
-            id            = id,
-            name          = name,
-            iconId        = prefs[keyStr(id,  "icon")]          ?: "terminal",
-            executionMode = prefs[keyInt(id,  "mode")]          ?: 0,
-            isCustom      = prefs[keyBool(id, "custom")]        ?: false,
-            slotIndex     = prefs[keyInt(id,  "slot")].let { if (it == null || it == -1) null else it },
-            timeoutMs     = prefs[keyLong(id, "timeout")].let  { if (it == null || it == -1L) null else it },
-            activeState   = buildActiveState(id, prefs),
+            id = id,
+            name = name,
+            iconId = prefs[keyStr(id, "icon")] ?: "terminal",
+            executionMode = prefs[keyInt(id, "mode")] ?: 0,
+            isCustom = prefs[keyBool(id, "custom")] ?: false,
+            slotIndex = prefs[keyInt(id, "slot")].let { if (it == null || it == -1) null else it },
+            timeoutMs = prefs[keyLong(
+                id,
+                "timeout"
+            )].let { if (it == null || it == -1L) null else it },
+            activeState = buildActiveState(id, prefs),
         )
     }
 
@@ -83,21 +88,21 @@ class TileDatastore @Inject constructor(
             prefs[TILE_IDS] = (prefs[TILE_IDS] ?: emptySet()) + config.id.toString()
 
             // Core fields
-            prefs[keyStr(config.id,  "name")]    = config.name
-            prefs[keyInt(config.id,  "mode")]    = config.executionMode
-            prefs[keyStr(config.id,  "icon")]    = config.iconId
-            prefs[keyBool(config.id, "custom")]  = config.isCustom
-            prefs[keyInt(config.id,  "slot")]    = config.slotIndex  ?: -1
+            prefs[keyStr(config.id, "name")] = config.name
+            prefs[keyInt(config.id, "mode")] = config.executionMode
+            prefs[keyStr(config.id, "icon")] = config.iconId
+            prefs[keyBool(config.id, "custom")] = config.isCustom
+            prefs[keyInt(config.id, "slot")] = config.slotIndex ?: -1
             prefs[keyLong(config.id, "timeout")] = config.timeoutMs ?: -1L
 
             // TileActiveState fields
             with(config.activeState) {
-                prefs[keyBool(config.id, "as_toggleable")]  = isToggleable
-                prefs[keyBool(config.id, "as_active")]      = isActive
-                prefs[keyStr(config.id,  "as_on_subtitle")] = activeTileSubtitle
-                prefs[keyStr(config.id,  "as_off_subtitle")]= inactiveTileSubtitle
-                prefs[keyStr(config.id,  "as_on_cmd")]      = activeCommand
-                prefs[keyStr(config.id,  "as_off_cmd")]     = inactiveCommand
+                prefs[keyBool(config.id, "as_toggleable")] = isToggleable
+                prefs[keyBool(config.id, "as_active")] = isActive
+                prefs[keyStr(config.id, "as_on_subtitle")] = activeTileSubtitle.text
+                prefs[keyStr(config.id, "as_off_subtitle")] = inactiveTileSubtitle.text
+                prefs[keyStr(config.id, "as_on_cmd")] = activeCommand.text
+                prefs[keyStr(config.id, "as_off_cmd")] = inactiveCommand.text
             }
         }
     }
@@ -106,19 +111,19 @@ class TileDatastore @Inject constructor(
         ds.edit { prefs ->
             prefs[TILE_IDS] = (prefs[TILE_IDS] ?: emptySet()) - tileId.toString()
 
-            prefs.remove(keyStr(tileId,  "name"))
-            prefs.remove(keyInt(tileId,  "mode"))
-            prefs.remove(keyStr(tileId,  "icon"))
+            prefs.remove(keyStr(tileId, "name"))
+            prefs.remove(keyInt(tileId, "mode"))
+            prefs.remove(keyStr(tileId, "icon"))
             prefs.remove(keyBool(tileId, "custom"))
-            prefs.remove(keyInt(tileId,  "slot"))
+            prefs.remove(keyInt(tileId, "slot"))
             prefs.remove(keyLong(tileId, "timeout"))
             // TileActiveState
             prefs.remove(keyBool(tileId, "as_toggleable"))
             prefs.remove(keyBool(tileId, "as_active"))
-            prefs.remove(keyStr(tileId,  "as_on_subtitle"))
-            prefs.remove(keyStr(tileId,  "as_off_subtitle"))
-            prefs.remove(keyStr(tileId,  "as_on_cmd"))
-            prefs.remove(keyStr(tileId,  "as_off_cmd"))
+            prefs.remove(keyStr(tileId, "as_on_subtitle"))
+            prefs.remove(keyStr(tileId, "as_off_subtitle"))
+            prefs.remove(keyStr(tileId, "as_on_cmd"))
+            prefs.remove(keyStr(tileId, "as_off_cmd"))
         }
     }
 

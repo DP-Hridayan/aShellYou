@@ -6,9 +6,11 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
@@ -18,6 +20,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -29,6 +32,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
@@ -44,6 +48,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,6 +63,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -71,6 +77,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.navigation.NavController
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
@@ -83,9 +90,14 @@ import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
+import `in`.hridayan.ashell.navigation.slideFadeInFromLeft
+import `in`.hridayan.ashell.navigation.slideFadeInFromRight
+import `in`.hridayan.ashell.navigation.slideFadeOutToLeft
+import `in`.hridayan.ashell.navigation.slideFadeOutToRight
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
+import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiState
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.TileDashboardViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import java.util.Locale
@@ -133,135 +145,43 @@ fun TileDashBoardScreen(
         content = { innerPadding, topBarScrollBehavior ->
 
             Box(modifier = Modifier.fillMaxSize()) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
-                        .animateContentSize(),
-                    state = listState,
-                    contentPadding = innerPadding
-                ) {
-                    item {
-                        Spacer(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(25.dp)
-                        )
-                    }
+                val tilesListState = rememberLazyListState()
+                val logsListState = rememberLazyListState()
 
-                    if (uiState.currentTab == TileScreenTabs.TILES) {
-                        item {
-                            if (!hasNotificationAccess) {
-                                NotificationAccessRequestCard(
-                                    modifier = Modifier.padding(
-                                        start = 20.dp,
-                                        end = 20.dp,
-                                        bottom = 25.dp
-                                    ),
-                                    onClickButton = onClickNotificationButton
-                                )
-                            }
+                AnimatedContent(
+                    targetState = uiState.currentTab,
+                    transitionSpec = {
+                        if (targetState > initialState) {
+                            slideFadeInFromRight() togetherWith slideFadeOutToLeft()
+                        } else {
+                            slideFadeInFromLeft() togetherWith slideFadeOutToRight()
                         }
+                    },
+                    label = "tile_tabs"
+                ) { tab ->
 
-                        item {
-                            val items = (1..10).toList()
-
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 20.dp),
-                                verticalArrangement = Arrangement.spacedBy(20.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                items.chunked(2).forEach { rowItems ->
-                                    Row(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.spacedBy(20.dp)
-                                    ) {
-                                        rowItems.forEach { id ->
-                                            val tileConfig = uiState.tiles.find { it.id == id }
-
-                                            if (tileConfig == null) {
-                                                EmptyTileBox(
-                                                    modifier = Modifier
-                                                        .weight(1f)
-                                                        .height(80.dp),
-                                                    tileId = id - 1,
-                                                    onClick = withHaptic {
-                                                        navController.navigate(
-                                                            NavRoutes.CreateTileScreen(tileId = id)
-                                                        )
-                                                    }
-                                                )
-                                            } else {
-                                                val tileIcon =
-                                                    TileIconProvider.iconById[tileConfig.iconId]
-                                                ModernTile(
-                                                    modifier = Modifier
-                                                        .weight(1f)
-                                                        .height(80.dp),
-                                                    icon = if (tileIcon != null)
-                                                        painterResource(tileIcon.resId)
-                                                    else
-                                                        painterResource(R.drawable.ic_adb),
-                                                    title = tileConfig.name,
-                                                    subtitle = tileConfig.activeState.currentSubtitle,
-                                                    isActive = tileConfig.activeState.isActive,
-                                                    onClick = withHaptic {
-                                                        navController.navigate(
-                                                            NavRoutes.CreateTileScreen(tileId = id)
-                                                        )
-                                                    }
-                                                )
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    } else if (uiState.logs.isNotEmpty()) {
-                        item {
-                            LogStatsRow(
-                                modifier = Modifier.padding(horizontal = 20.dp),
-                                totalExecutions = uiState.totalExecutions,
-                                successRate = uiState.successRate
+                    when (tab) {
+                        TileScreenTabs.TILES -> {
+                            TilesContent(
+                                listState = tilesListState,
+                                innerPadding = innerPadding,
+                                topBarScrollBehavior = topBarScrollBehavior,
+                                uiState = uiState,
+                                hasNotificationAccess = hasNotificationAccess,
+                                onClickNotificationButton = onClickNotificationButton,
+                                navController = navController
                             )
                         }
 
-                        item {
-                            RecentActivityHeader(
-                                modifier = Modifier.padding(
-                                    top = 30.dp,
-                                    start = 20.dp,
-                                    end = 20.dp,
-                                    bottom = 15.dp
-                                ),
-                                searchQuery = uiState.logsSearchQuery,
-                                onSearchQueryChange = {
-                                    tileDashboardViewModel.onLogsSearchQueryChange(
-                                        it
-                                    )
-                                }
+                        TileScreenTabs.LOGS -> {
+                            LogsContent(
+                                listState = logsListState,
+                                innerPadding = innerPadding,
+                                topBarScrollBehavior = topBarScrollBehavior,
+                                uiState = uiState,
+                                viewModel = tileDashboardViewModel
                             )
                         }
-
-                        items(uiState.logs, key = { it.id }) { log ->
-                            val tile = uiState.tiles.find { it.id == log.tileId }
-                            TileLogCard(
-                                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
-                                log = log,
-                                tileName = tile?.name ?: "Deleted Tile",
-                                iconId = tile?.iconId ?: "terminal"
-                            )
-                        }
-                    }
-
-                    item {
-                        Spacer(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(140.dp)
-                        )
                     }
                 }
 
@@ -279,6 +199,146 @@ fun TileDashBoardScreen(
                 )
             }
         })
+}
+
+@Composable
+private fun TilesContent(
+    listState: LazyListState,
+    innerPadding: PaddingValues,
+    topBarScrollBehavior: TopAppBarScrollBehavior,
+    uiState: TileDashBoardScreenUiState,
+    hasNotificationAccess: Boolean,
+    onClickNotificationButton: () -> Unit,
+    navController: NavController
+) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+        state = listState,
+        contentPadding = innerPadding
+    ) {
+
+        item { Spacer(Modifier.height(25.dp)) }
+
+        if (!hasNotificationAccess) {
+            item {
+                NotificationAccessRequestCard(
+                    modifier = Modifier.padding(20.dp),
+                    onClickButton = onClickNotificationButton
+                )
+            }
+        }
+
+        item {
+            val items = (1..10).toList()
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                items.chunked(2).forEach { rowItems ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(20.dp)
+                    ) {
+                        rowItems.forEach { id ->
+                            val tileConfig = uiState.tiles.find { it.id == id }
+
+                            if (tileConfig == null) {
+                                EmptyTileBox(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(80.dp),
+                                    tileId = id - 1,
+                                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                        navController.navigate(
+                                            NavRoutes.CreateTileScreen(tileId = id)
+                                        )
+                                    }
+                                )
+                            } else {
+                                val tileIcon = TileIconProvider.iconById[tileConfig.iconId]
+
+                                ModernTile(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(80.dp),
+                                    icon = painterResource(
+                                        tileIcon?.resId ?: R.drawable.ic_adb
+                                    ),
+                                    title = tileConfig.name,
+                                    subtitle = tileConfig.activeState.currentSubtitle,
+                                    isActive = tileConfig.activeState.isActive,
+                                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                        navController.navigate(
+                                            NavRoutes.CreateTileScreen(tileId = id)
+                                        )
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        item { Spacer(Modifier.height(140.dp)) }
+    }
+}
+
+@Composable
+private fun LogsContent(
+    listState: LazyListState,
+    innerPadding: PaddingValues,
+    topBarScrollBehavior: TopAppBarScrollBehavior,
+    uiState: TileDashBoardScreenUiState,
+    viewModel: TileDashboardViewModel
+) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+        state = listState,
+        contentPadding = innerPadding
+    ) {
+
+        item { Spacer(Modifier.height(25.dp)) }
+
+        if (uiState.logs.isNotEmpty()) {
+
+            item {
+                LogStatsRow(
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    totalExecutions = uiState.totalExecutions,
+                    successRate = uiState.successRate
+                )
+            }
+
+            item {
+                RecentActivityHeader(
+                    modifier = Modifier.padding(20.dp),
+                    searchQuery = uiState.logsSearchQuery,
+                    onSearchQueryChange = viewModel::onLogsSearchQueryChange
+                )
+            }
+
+            items(uiState.logs, key = { it.id }) { log ->
+                val tile = uiState.tiles.find { it.id == log.tileId }
+
+                TileLogCard(
+                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
+                    log = log,
+                    tileName = tile?.name ?: "Deleted Tile",
+                    iconId = tile?.iconId ?: "terminal"
+                )
+            }
+        }
+
+        item { Spacer(Modifier.height(140.dp)) }
+    }
 }
 
 @Composable

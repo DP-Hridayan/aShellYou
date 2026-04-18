@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -67,12 +68,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -108,9 +111,9 @@ fun CreateTileScreen(
     val listState = rememberLazyListState()
     val interactionSource = remember { MutableInteractionSource() }
 
-    val isValid = uiState.name.isNotBlank() &&
-            uiState.activeCommand.isNotBlank() &&
-            (!uiState.isToggleable || uiState.inactiveCommand.isNotBlank()) &&
+    val isValid = uiState.nameField.text.isNotBlank() &&
+            uiState.activeCommand.text.isNotBlank() &&
+            (!uiState.isToggleable || uiState.inactiveCommand.text.isNotBlank()) &&
             uiState.nameError == null
 
     val floatingToolbarContainerColor =
@@ -191,7 +194,7 @@ fun CreateTileScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp),
-                        value = uiState.name,
+                        value = uiState.nameField,
                         onValueChange = { createTileViewModel.onNameChange(it) },
                         hint = "Reboot",
                         shape = RoundedCornerShape(50),
@@ -463,9 +466,9 @@ fun CreateTileScreen(
                         painterResource(R.drawable.ic_add)
 
                     val previewSubtitle = if (uiState.isToggleable)
-                        "${uiState.activeSubtitle} / ${uiState.inactiveSubtitle}"
+                        "${uiState.activeSubtitle.text} / ${uiState.inactiveSubtitle.text}"
                     else
-                        uiState.activeSubtitle
+                        uiState.activeSubtitle.text
 
                     Row(
                         modifier = Modifier
@@ -484,10 +487,10 @@ fun CreateTileScreen(
                         ClassicTile(
                             modifier = Modifier
                                 .weight(1f)
-                                .padding(horizontal = 20.dp)
+                                .height(120.dp)
                                 .animateContentSize(),
                             icon = icon,
-                            title = uiState.name
+                            isActive = uiState.isActive
                         )
                         ModernTilePreview(
                             modifier = Modifier
@@ -496,7 +499,7 @@ fun CreateTileScreen(
                                 .widthIn(min = 120.dp)
                                 .animateContentSize(),
                             icon = icon,
-                            title = uiState.name,
+                            title = uiState.nameField.text,
                             subtitle = previewSubtitle,
                             isActive = uiState.isActive,
                         )
@@ -579,8 +582,8 @@ private fun SectionLabel(
 @Composable
 private fun TileTextField(
     modifier: Modifier = Modifier,
-    value: String,
-    onValueChange: (String) -> Unit,
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
     hint: String,
     shape: RoundedCornerShape = RoundedCornerShape(28.dp),
     singleLine: Boolean = true,
@@ -602,7 +605,7 @@ private fun TileTextField(
                     .fillMaxWidth()
                     .padding(16.dp),
                 value = value,
-                onValueChange = onValueChange,
+                onValueChange = { onValueChange(it) },
                 textStyle = LocalTextStyle.current.copy(
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -617,7 +620,7 @@ private fun TileTextField(
                 ),
                 decorationBox = { innerTextField ->
                     Box {
-                        if (value.isEmpty()) {
+                        if (value.text.isEmpty()) {
                             Text(
                                 text = hint,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
@@ -729,33 +732,42 @@ private fun BehaviorSwitchRow(
 private fun ClassicTile(
     modifier: Modifier = Modifier,
     icon: Painter,
-    title: String,
+    isActive: Boolean
 ) {
-    Column(
+    val darkMode = LocalDarkMode.current
+
+    val containerColor =
+        if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else if (darkMode) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
+    val contentColor =
+        if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
+
+    Box(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        contentAlignment = Alignment.Center
     ) {
-        Box(
+        Card(
             modifier = Modifier
-                .size(48.dp)
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primaryContainer),
+                .padding(20.dp)
+                .size(64.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = containerColor,
+                contentColor = contentColor
+            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+            shape = CircleShape
+        ) {}
+
+        Box(
+            modifier = modifier.fillMaxHeight(),
             contentAlignment = Alignment.Center
         ) {
             Icon(
+                modifier = Modifier.size(28.dp),
                 painter = icon,
-                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                tint = contentColor,
                 contentDescription = null
             )
         }
-        Text(
-            modifier = Modifier.basicMarquee(),
-            text = title.ifEmpty { stringResource(R.string.untitled) },
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurface,
-            maxLines = 1
-        )
     }
 }
 
@@ -768,6 +780,11 @@ private fun ModernTilePreview(
     isActive: Boolean = false,
     onClick: () -> Unit = {}
 ) {
+    val darkMode = LocalDarkMode.current
+
+    val containerColor =
+        if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else if (darkMode) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
+
     val interactionSource = remember { MutableInteractionSource() }
 
     Box(
@@ -784,10 +801,7 @@ private fun ModernTilePreview(
                 .padding(20.dp),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(
-                containerColor = if (isActive)
-                    MaterialTheme.colorScheme.primaryContainer
-                else
-                    MaterialTheme.colorScheme.surfaceContainerLow,
+                containerColor = containerColor,
             ),
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
         ) {

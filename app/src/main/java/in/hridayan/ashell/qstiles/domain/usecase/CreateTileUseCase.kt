@@ -25,7 +25,7 @@ class CreateTileUseCase(
         val nextId = (1..10).firstOrNull { id -> existing.none { it.id == id } }
             ?: return Result.failure(Exception("Max tiles reached"))
 
-        val iconId = matcher.suggestIcons(activeState.activeCommand).firstOrNull() ?: "terminal"
+        val iconId = matcher.suggestIcons(activeState.activeCommand.text).firstOrNull() ?: "terminal"
 
         val tile = TileConfig(
             id = nextId,
