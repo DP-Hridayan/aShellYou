@@ -6,6 +6,7 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
+import android.content.pm.PackageManager
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
@@ -51,11 +52,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -81,13 +84,18 @@ import androidx.navigation.NavController
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
+import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.DateTimeUtils
+import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
+import `in`.hridayan.ashell.core.utils.isAppInstalled
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
+import `in`.hridayan.ashell.core.utils.launchApp
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.navigation.slideFadeInFromLeft
@@ -100,6 +108,7 @@ import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiState
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.TileDashboardViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import rikka.shizuku.Shizuku
 import java.util.Locale
 
 data object TileScreenTabs {
@@ -211,10 +220,45 @@ private fun TilesContent(
     onClickNotificationButton: () -> Unit,
     navController: NavController
 ) {
+    val context = LocalContext.current
+
+    var isShizukuInstalled by rememberSaveable {
+        mutableStateOf(
+            context.isAppInstalled(
+                SHIZUKU_PACKAGE_NAME
+            )
+        )
+    }
+
+    val showShizukuUnavailableCard =
+        !Shizuku.pingBinder() && uiState.tiles.any { it.executionMode == TileExecutionMode.SHIZUKU }
+
+    val shizukuPermissionGranted = remember {
+        mutableStateOf(
+            if (Shizuku.pingBinder()) {
+                Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
+            } else false
+        )
+    }
+
+    DisposableEffect(Unit) {
+        val listener = Shizuku.OnRequestPermissionResultListener { _, grantResult ->
+            shizukuPermissionGranted.value =
+                grantResult == PackageManager.PERMISSION_GRANTED
+        }
+
+        Shizuku.addRequestPermissionResultListener(listener)
+
+        onDispose {
+            Shizuku.removeRequestPermissionResultListener(listener)
+        }
+    }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
-            .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+            .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+            .animateContentSize(),
         state = listState,
         contentPadding = innerPadding
     ) {
@@ -224,9 +268,43 @@ private fun TilesContent(
         if (!hasNotificationAccess) {
             item {
                 NotificationAccessRequestCard(
-                    modifier = Modifier.padding(20.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, end = 20.dp, bottom = 10.dp),
                     onClickButton = onClickNotificationButton
                 )
+            }
+        }
+
+        if (showShizukuUnavailableCard) {
+            item {
+                ShizukuUnavailableCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
+                    onClickButton = withHaptic {
+                        if (isShizukuInstalled) context.launchApp(SHIZUKU_PACKAGE_NAME)
+                        else UrlUtils.openUrl(
+                            url = UrlConst.URL_SHIZUKU_SITE,
+                            context = context
+                        )
+                    }
+                )
+            }
+        }
+
+        if (Shizuku.pingBinder()) {
+            if (!shizukuPermissionGranted.value) {
+                item {
+                    ShizukuPermissionRequestCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
+                        onClickButton = withHaptic {
+                            Shizuku.requestPermission(0)
+                        }
+                    )
+                }
             }
         }
 
@@ -783,6 +861,73 @@ private fun FloatingNavPill(
             }
         }
     }
+}
+
+@Composable
+private fun ShizukuUnavailableCard(
+    modifier: Modifier = Modifier,
+    onClickButton: () -> Unit = {},
+) {
+    IconWithTextCard(
+        modifier = modifier,
+        icon = painterResource(R.drawable.ic_shizuku),
+        text = stringResource(R.string.shizuku_unavailable_message),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+            contentColor = MaterialTheme.colorScheme.onErrorContainer
+        ),
+        content = {
+            Button(
+                shapes = ButtonDefaults.shapes(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = MaterialTheme.colorScheme.onError
+                ),
+                onClick = { onClickButton() }
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_open_in_new),
+                    contentDescription = null,
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                AutoResizeableText(
+                    text = stringResource(R.string.shizuku),
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            }
+        }
+    )
+}
+
+@Composable
+private fun ShizukuPermissionRequestCard(
+    modifier: Modifier = Modifier,
+    onClickButton: () -> Unit = {},
+) {
+    IconWithTextCard(
+        modifier = modifier,
+        icon = painterResource(R.drawable.ic_shizuku),
+        text = stringResource(R.string.grant_shizuku_permission_for_tiles),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
+        content = {
+            Button(
+                shapes = ButtonDefaults.shapes(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary
+                ),
+                onClick = { onClickButton() }
+            ) {
+                AutoResizeableText(
+                    text = stringResource(R.string.grant_permission),
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            }
+        }
+    )
 }
 
 @Composable
