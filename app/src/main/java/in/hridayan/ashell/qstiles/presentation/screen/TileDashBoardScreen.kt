@@ -173,18 +173,16 @@ fun TileDashBoardScreen(
                                                 modifier = Modifier
                                                     .weight(1f)
                                                     .height(80.dp),
-                                                icon = if (tileIcon != null) painterResource(
-                                                    tileIcon.resId
-                                                ) else painterResource(
-                                                    R.drawable.ic_adb
-                                                ),
+                                                icon = if (tileIcon != null)
+                                                    painterResource(tileIcon.resId)
+                                                else
+                                                    painterResource(R.drawable.ic_adb),
                                                 title = tileConfig.name,
-                                                isActive = tileConfig.isActive,
+                                                subtitle = tileConfig.activeState.currentSubtitle,
+                                                isActive = tileConfig.activeState.isActive,
                                                 onClick = withHaptic {
                                                     navController.navigate(
-                                                        NavRoutes.CreateTileScreen(
-                                                            tileId = id
-                                                        )
+                                                        NavRoutes.CreateTileScreen(tileId = id)
                                                     )
                                                 }
                                             )
@@ -264,6 +262,7 @@ private fun ModernTile(
     modifier: Modifier = Modifier,
     icon: Painter,
     title: String,
+    subtitle: String = "",
     isActive: Boolean = true,
     onClick: () -> Unit = {}
 ) {
@@ -273,19 +272,21 @@ private fun ModernTile(
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-            contentColor = MaterialTheme.colorScheme.onSurface
+            containerColor = if (isActive) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
         ),
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 20.dp, vertical = 12.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                modifier = Modifier.size(32.dp),
+                modifier = Modifier.size(28.dp),
                 painter = icon,
-                tint = MaterialTheme.colorScheme.primary,
+                tint = if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary,
                 contentDescription = null
             )
 
@@ -298,15 +299,21 @@ private fun ModernTile(
                     modifier = Modifier.basicMarquee(),
                     text = title.ifEmpty { stringResource(R.string.untitled) },
                     style = MaterialTheme.typography.titleMediumEmphasized,
-                    color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1
                 )
 
-                AutoResizeableText(
-                    text = if (isActive) stringResource(R.string.on) else stringResource(R.string.off),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f)
-                )
+                if (subtitle.isNotEmpty()) {
+                    Text(
+                        modifier = Modifier.basicMarquee(),
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = if (isActive)
+                            MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.75f)
+                        else
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                        maxLines = 1
+                    )
+                }
             }
         }
     }

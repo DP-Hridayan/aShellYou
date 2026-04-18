@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.qstiles.domain.executor
 
 import `in`.hridayan.ashell.qstiles.data.provider.TileNotificationHelper
 import `in`.hridayan.ashell.qstiles.domain.model.RunningTileState
+import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.model.TileErrorType
 import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
@@ -54,7 +55,7 @@ class TileExecutionManager @Inject constructor(
     fun isTileRunning(tileId: Int): Boolean = runningJobs.containsKey(tileId)
 
     /**
-     * Triggers execution of [TileConfig.command] in a new coroutine.
+     * Triggers execution of [TileActiveState.commandToExecute] in a new coroutine.
      *
      * Lifecycle:
      * 1. Check if already running → ignore.
@@ -90,7 +91,7 @@ class TileExecutionManager @Inject constructor(
                 TileLog(
                     id = 0,
                     tileId = tile.id,
-                    command = tile.command,
+                    command = tile.activeState.commandToExecute,
                     output = finalResult.output,
                     isSuccess = finalResult.isSuccess,
                     executionMode = tile.executionMode,
@@ -133,7 +134,7 @@ class TileExecutionManager @Inject constructor(
             )
         }
         return try {
-            executor.execute(tile.command)
+            executor.execute(tile.activeState.commandToExecute)
         } catch (e: Exception) {
             CommandResult(
                 output = "Unexpected error: ${e.message}",

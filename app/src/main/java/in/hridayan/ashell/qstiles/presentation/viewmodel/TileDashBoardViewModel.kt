@@ -30,7 +30,7 @@ class TileDashboardViewModel @Inject constructor(
         ) { tiles, running ->
             TileDashBoardScreenUiState(
                 tiles = tiles.filter { it.isCustom },
-                activeCount = tiles.count { it.isActive },
+                activeCount = tiles.count { it.activeState.isActive },
                 runningTiles = running
             )
         }

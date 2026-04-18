@@ -22,7 +22,7 @@ class ExecuteTileUseCase @Inject constructor(
         val log = TileLog(
             id = 0,
             tileId = tile.id,
-            command = tile.command,
+            command = tile.activeState.commandToExecute,
             output = result.output,
             isSuccess = result.isSuccess,
             executionMode = tile.executionMode,

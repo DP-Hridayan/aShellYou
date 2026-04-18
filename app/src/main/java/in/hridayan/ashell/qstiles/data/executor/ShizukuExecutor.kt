@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 class ShizukuExecutor @Inject constructor() : CommandExecutor {
 
+    @Suppress("DEPRECATION")
     override suspend fun execute(command: String): CommandResult = withContext(Dispatchers.IO) {
         val start = System.currentTimeMillis()
 

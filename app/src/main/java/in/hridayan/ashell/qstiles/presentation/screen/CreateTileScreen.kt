@@ -4,6 +4,10 @@ package `in`.hridayan.ashell.qstiles.presentation.screen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
@@ -39,6 +43,7 @@ import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleButton
 import androidx.compose.runtime.Composable
@@ -95,9 +100,6 @@ fun CreateTileScreen(
     val uiState by createTileViewModel.state.collectAsState()
     val iconsList by createTileViewModel.iconsList.collectAsState()
 
-    val tileNameHint = "Reboot"
-    val adbCommandHint = "adb reboot"
-
     val executionMethodOptions = ButtonGroupOptionsProvider.tileServiceAdbExecutionMethod
     var showIconChooserDialog by rememberSaveable { mutableStateOf(false) }
     var showDeleteTileConfirmationDialog by rememberSaveable { mutableStateOf(false) }
@@ -108,10 +110,9 @@ fun CreateTileScreen(
     SettingsScaffold(
         modifier = modifier,
         listState = listState,
-        topBarTitle = if (uiState.isUpdateMode) stringResource(R.string.edit_tile) else stringResource(
-            R.string.create_new_tile
-        ),
-        fabContent = { expanded ->
+        topBarTitle = if (uiState.isUpdateMode) stringResource(R.string.edit_tile)
+        else stringResource(R.string.create_new_tile),
+        fabContent = { _ ->
             if (uiState.isUpdateMode) {
                 HorizontalFloatingToolbar(
                     expanded = true,
@@ -145,10 +146,7 @@ fun CreateTileScreen(
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            AutoResizeableText(
-                                text = stringResource(R.string.update)
-                            )
-
+                            AutoResizeableText(text = stringResource(R.string.update))
                             Icon(
                                 modifier = Modifier.size(24.dp),
                                 painter = painterResource(R.drawable.ic_help),
@@ -167,143 +165,216 @@ fun CreateTileScreen(
                 contentPadding = innerPadding
             ) {
                 item {
-                    AutoResizeableText(
+                    SectionLabel(
                         text = stringResource(R.string.tile_name),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(
-                            top = 25.dp, start = 25.dp, bottom = 10.dp
-                        )
+                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
                     )
                 }
 
                 item {
-                    Card(
+                    TileTextField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-                            contentColor = MaterialTheme.colorScheme.onSurface
-                        ),
-                        shape = RoundedCornerShape(50)
-                    ) {
-                        BasicTextField(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(all = 16.dp),
-                            value = uiState.name,
-                            onValueChange = { createTileViewModel.onNameChange(it) },
-                            textStyle = LocalTextStyle.current.copy(
-                                fontSize = 16.sp,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer
-                            ),
-                            singleLine = true,
-                            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-                            keyboardOptions = KeyboardOptions.Default.copy(
-                                keyboardType = KeyboardType.Ascii,
-                                imeAction = ImeAction.Send
-                            ),
-                            decorationBox = { innerTextField ->
-
-                                Box {
-                                    if (uiState.name.isEmpty()) {
-                                        Text(
-                                            text = tileNameHint,
-                                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
-                                                alpha = 0.6f
-                                            )
-                                        )
-                                    }
-
-                                    innerTextField()
-                                }
-                            })
-                    }
+                        value = uiState.name,
+                        onValueChange = { createTileViewModel.onNameChange(it) },
+                        hint = "Reboot",
+                        shape = RoundedCornerShape(50),
+                        singleLine = true,
+                    )
                 }
 
                 item {
-                    AutoResizeableText(
-                        text = stringResource(R.string.adb_command),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(
-                            top = 25.dp, start = 25.dp, bottom = 10.dp
+                    SectionLabel(
+                        text = stringResource(R.string.tile_behavior),
+                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                    )
+                }
+
+                item {
+                    BehaviorSwitchRow(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp),
+                        title = stringResource(R.string.toggleable),
+                        description = stringResource(R.string.des_toggleable),
+                        checked = uiState.isToggleable,
+                        onCheckedChange = {
+                            createTileViewModel.onToggleableChange(it)
+                            weakHaptic()
+                        },
+                        roundedCornerShape = if (uiState.isToggleable) RoundedCornerShape(24.dp)
+                        else RoundedCornerShape(
+                            topStart = 24.dp,
+                            topEnd = 24.dp,
+                            bottomStart = 4.dp,
+                            bottomEnd = 4.dp
                         )
                     )
                 }
 
                 item {
-                    Card(
+                    AnimatedVisibility(
+                        visible = !uiState.isToggleable,
+                        enter = fadeIn() + expandVertically(),
+                        exit = fadeOut() + shrinkVertically(),
+                    ) {
+                        BehaviorSwitchRow(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 20.dp, end = 20.dp, top = 2.dp),
+                            title = stringResource(R.string.initial_state),
+                            description = stringResource(R.string.des_initial_state),
+                            checked = uiState.isActive,
+                            onCheckedChange = {
+                                createTileViewModel.onActiveStateChange(it)
+                                weakHaptic()
+                            },
+                            checkedLabel = stringResource(R.string.on_state),
+                            uncheckedLabel = stringResource(R.string.off_state),
+                            roundedCornerShape = RoundedCornerShape(
+                                topStart = 4.dp,
+                                topEnd = 4.dp,
+                                bottomStart = 24.dp,
+                                bottomEnd = 24.dp
+                            )
+                        )
+                    }
+                }
+
+                item {
+                    val label = if (uiState.isToggleable)
+                        stringResource(R.string.adb_command_on_state)
+                    else
+                        stringResource(R.string.adb_command)
+                    SectionLabel(
+                        text = label,
+                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                    )
+                }
+
+                item {
+                    TileTextField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp)
-                            .animateContentSize(), colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-                            contentColor = MaterialTheme.colorScheme.onSurface
-                        ), shape = RoundedCornerShape(28.dp)
-                    ) {
-                        BasicTextField(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(all = 16.dp),
-                            value = uiState.command,
-                            onValueChange = { createTileViewModel.onCommandChange(it) },
-                            textStyle = MaterialTheme.typography.bodyLarge.copy(
-                                fontFamily = FontFamily.Monospace,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer
-
-                            ),
-                            minLines = 3,
-                            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-                            decorationBox = { innerTextField ->
-
-                                Box {
-                                    if (uiState.command.isEmpty()) {
-                                        Text(
-                                            text = adbCommandHint,
-                                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(
-                                                alpha = 0.6f
-                                            )
-                                        )
-                                    }
-
-                                    innerTextField()
-                                }
-                            })
-                    }
-                }
-
-                item {
-                    AutoResizeableText(
-                        text = stringResource(R.string.execution_method),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(
-                            top = 25.dp, start = 25.dp, bottom = 10.dp
-                        )
+                            .animateContentSize(),
+                        value = uiState.activeCommand,
+                        onValueChange = { createTileViewModel.onActiveCommandChange(it) },
+                        hint = stringResource(R.string.adb_command_hint),
+                        shape = RoundedCornerShape(28.dp),
+                        singleLine = false,
+                        minLines = 3,
+                        fontFamily = FontFamily.Monospace,
                     )
                 }
 
                 item {
+                    AnimatedVisibility(
+                        visible = uiState.isToggleable,
+                        enter = fadeIn() + expandVertically(),
+                        exit = fadeOut() + shrinkVertically(),
+                    ) {
+                        Column {
+                            SectionLabel(
+                                text = stringResource(R.string.adb_command_off_state),
+                                modifier = Modifier.padding(
+                                    top = 20.dp, start = 25.dp, bottom = 10.dp
+                                )
+                            )
+                            TileTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 20.dp)
+                                    .animateContentSize(),
+                                value = uiState.inactiveCommand,
+                                onValueChange = { createTileViewModel.onInactiveCommandChange(it) },
+                                hint = stringResource(R.string.adb_command_hint),
+                                shape = RoundedCornerShape(28.dp),
+                                singleLine = false,
+                                minLines = 3,
+                                fontFamily = FontFamily.Monospace,
+                            )
+                        }
+                    }
+                }
+
+                item {
+                    val label = if (uiState.isToggleable)
+                        stringResource(R.string.subtitle_on_state)
+                    else
+                        stringResource(R.string.subtitle)
+                    SectionLabel(
+                        text = label,
+                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                    )
+                }
+                item {
+                    TileTextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp),
+                        value = uiState.activeSubtitle,
+                        onValueChange = { createTileViewModel.onActiveSubtitleChange(it) },
+                        hint = stringResource(R.string.on_state),
+                        shape = RoundedCornerShape(50),
+                        singleLine = true,
+                    )
+                }
+
+                item {
+                    AnimatedVisibility(
+                        visible = uiState.isToggleable,
+                        enter = fadeIn() + expandVertically(),
+                        exit = fadeOut() + shrinkVertically(),
+                    ) {
+                        Column {
+                            SectionLabel(
+                                text = stringResource(R.string.subtitle_off_state),
+                                modifier = Modifier.padding(
+                                    top = 20.dp, start = 25.dp, bottom = 10.dp
+                                )
+                            )
+                            TileTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 20.dp),
+                                value = uiState.inactiveSubtitle,
+                                onValueChange = { createTileViewModel.onInactiveSubtitleChange(it) },
+                                hint = stringResource(R.string.off_state),
+                                shape = RoundedCornerShape(50),
+                                singleLine = true,
+                            )
+                        }
+                    }
+                }
+
+                item {
+                    SectionLabel(
+                        text = stringResource(R.string.execution_method),
+                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                    )
+                }
+                item {
                     Row(
-                        modifier = modifier.padding(start = 20.dp, end = 20.dp, bottom = 25.dp),
+                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 10.dp),
                         horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)
                     ) {
                         executionMethodOptions.forEachIndexed { index, option ->
                             ToggleButton(
-                                checked = option.value == uiState.executionMode, onCheckedChange = {
+                                checked = option.value == uiState.executionMode,
+                                onCheckedChange = {
                                     createTileViewModel.onExecutionModeChange(option.value)
                                     weakHaptic()
-                                }, modifier = Modifier.weight(1f), shapes = when (index) {
+                                },
+                                modifier = Modifier.weight(1f),
+                                shapes = when (index) {
                                     0 -> ButtonGroupDefaults.connectedLeadingButtonShapes()
                                     executionMethodOptions.lastIndex -> ButtonGroupDefaults.connectedTrailingButtonShapes()
                                     else -> ButtonGroupDefaults.connectedMiddleButtonShapes()
                                 }
                             ) {
-                                option.labelResId?.let {
-                                    Text(stringResource(it))
-                                }
+                                option.labelResId?.let { Text(stringResource(it)) }
                             }
                         }
                     }
@@ -311,13 +382,9 @@ fun CreateTileScreen(
 
                 item {
                     AnimatedVisibility(uiState.suggestedIcons.isNotEmpty()) {
-                        AutoResizeableText(
+                        SectionLabel(
                             text = stringResource(R.string.suggested_icons),
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.padding(
-                                start = 25.dp, end = 25.dp, bottom = 10.dp
-                            )
+                            modifier = Modifier.padding(start = 25.dp, end = 25.dp, bottom = 10.dp)
                         )
                     }
                 }
@@ -333,27 +400,29 @@ fun CreateTileScreen(
                         verticalArrangement = Arrangement.spacedBy(20.dp),
                         maxItemsInEachRow = 5
                     ) {
-                        uiState.suggestedIcons.forEachIndexed { _, icon ->
-
-                            val icon = TileIconProvider.iconById[icon]
-                            val iconResId = icon?.resId
-                            val isIconSelected = icon?.id == uiState.selectedIconId
-
+                        uiState.suggestedIcons.forEach { iconKey ->
+                            val tileIcon = TileIconProvider.iconById[iconKey]
+                            val iconResId = tileIcon?.resId
+                            val isIconSelected = tileIcon?.id == uiState.selectedIconId
                             iconResId?.let {
                                 Box(
                                     modifier = Modifier
                                         .padding(16.dp)
                                         .size(48.dp)
                                         .clip(CircleShape)
-                                        .background(if (isIconSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant)
-                                        .clickable(
-                                            enabled = true, onClick = withHaptic {
-                                                createTileViewModel.onIconSelected(icon.id)
-                                            }), contentAlignment = Alignment.Center
+                                        .background(
+                                            if (isIconSelected) MaterialTheme.colorScheme.primary
+                                            else MaterialTheme.colorScheme.surfaceVariant
+                                        )
+                                        .clickable(onClick = withHaptic {
+                                            createTileViewModel.onIconSelected(tileIcon.id)
+                                        }),
+                                    contentAlignment = Alignment.Center
                                 ) {
                                     Icon(
                                         painter = painterResource(it),
-                                        tint = if (isIconSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
+                                        tint = if (isIconSelected) MaterialTheme.colorScheme.onPrimary
+                                        else MaterialTheme.colorScheme.onSurface,
                                         contentDescription = null
                                     )
                                 }
@@ -366,27 +435,28 @@ fun CreateTileScreen(
                     ChooseIconHintBox(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 160.dp)
+                            .heightIn(min = 140.dp)
                             .padding(horizontal = 20.dp),
                         onClick = withHaptic { showIconChooserDialog = true })
                 }
 
                 item {
-                    AutoResizeableText(
+                    SectionLabel(
                         text = stringResource(R.string.preview),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(
-                            top = 25.dp, start = 25.dp, bottom = 10.dp
-                        )
+                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
                     )
                 }
-
                 item {
                     val selectedIcon = TileIconProvider.iconById[uiState.selectedIconId]
-                    val iconResId = selectedIcon?.resId
-                    val icon =
-                        if (iconResId != null) painterResource(iconResId) else painterResource(R.drawable.ic_add)
+                    val icon: Painter = if (selectedIcon?.resId != null)
+                        painterResource(selectedIcon.resId)
+                    else
+                        painterResource(R.drawable.ic_add)
+
+                    val previewSubtitle = if (uiState.isToggleable)
+                        "${uiState.activeSubtitle} / ${uiState.inactiveSubtitle}"
+                    else
+                        uiState.activeSubtitle
 
                     Row(
                         modifier = Modifier
@@ -410,12 +480,15 @@ fun CreateTileScreen(
                             icon = icon,
                             title = uiState.name
                         )
-
-                        ModernTile(
+                        ModernTilePreview(
                             modifier = Modifier
                                 .weight(2f)
                                 .widthIn(min = 120.dp)
-                                .animateContentSize(), icon = icon, title = uiState.name
+                                .animateContentSize(),
+                            icon = icon,
+                            title = uiState.name,
+                            subtitle = previewSubtitle,
+                            isActive = uiState.isActive,
                         )
                     }
                 }
@@ -433,7 +506,7 @@ fun CreateTileScreen(
                                 .heightIn(ButtonDefaults.ExtraLargeContainerHeight)
                                 .fillMaxWidth()
                                 .padding(horizontal = 60.dp, vertical = 30.dp),
-                            enabled = uiState.name.isNotEmpty() && uiState.command.isNotEmpty(),
+                            enabled = uiState.name.isNotEmpty() && uiState.activeCommand.isNotEmpty(),
                             onClick = withHaptic {
                                 createTileViewModel.createTile()
                                 navController.popBackStack()
@@ -460,9 +533,7 @@ fun CreateTileScreen(
             onDismiss = { showIconChooserDialog = false },
             icons = iconsList,
             searchQuery = uiState.iconSearchQuery,
-            onQueryChange = {
-                createTileViewModel.onIconQueryChange(it)
-            },
+            onQueryChange = { createTileViewModel.onIconQueryChange(it) },
             onIconSelected = {
                 createTileViewModel.onIconSelected(it)
                 showIconChooserDialog = false
@@ -480,9 +551,157 @@ fun CreateTileScreen(
     }
 }
 
+/** Consistent section header label. */
+@Composable
+private fun SectionLabel(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    AutoResizeableText(
+        text = text,
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = modifier,
+    )
+}
+
+/** Reusable text field card used throughout the screen. */
+@Composable
+private fun TileTextField(
+    modifier: Modifier = Modifier,
+    value: String,
+    onValueChange: (String) -> Unit,
+    hint: String,
+    shape: RoundedCornerShape = RoundedCornerShape(28.dp),
+    singleLine: Boolean = true,
+    minLines: Int = 1,
+    fontFamily: FontFamily? = null,
+) {
+    Card(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = MaterialTheme.colorScheme.onSurface,
+        ),
+        shape = shape,
+    ) {
+        BasicTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            value = value,
+            onValueChange = onValueChange,
+            textStyle = LocalTextStyle.current.copy(
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                fontFamily = fontFamily,
+            ),
+            singleLine = singleLine,
+            minLines = if (singleLine) 1 else minLines,
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Ascii,
+                imeAction = if (singleLine) ImeAction.Done else ImeAction.Default,
+            ),
+            decorationBox = { innerTextField ->
+                Box {
+                    if (value.isEmpty()) {
+                        Text(
+                            text = hint,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
+                            fontSize = 16.sp,
+                            fontFamily = fontFamily,
+                        )
+                    }
+                    innerTextField()
+                }
+            },
+        )
+    }
+}
+
+/**
+ * A labeled switch row used for the "Toggleable" and "Initial State" options.
+ * Optionally shows a small badge text for the current checked state.
+ */
+@Composable
+private fun BehaviorSwitchRow(
+    title: String,
+    description: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    checkedLabel: String? = null,
+    uncheckedLabel: String? = null,
+    roundedCornerShape: RoundedCornerShape = RoundedCornerShape(24.dp)
+) {
+    Card(
+        modifier = modifier,
+        shape = roundedCornerShape,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        ),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = { onCheckedChange(!checked) },
+                )
+                .padding(horizontal = 20.dp, vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.titleMediumEmphasized,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                    // State badge
+                    if (checkedLabel != null && uncheckedLabel != null) {
+                        val badge = if (checked) checkedLabel else uncheckedLabel
+                        val badgeColor = if (checked)
+                            MaterialTheme.colorScheme.primary
+                        else
+                            MaterialTheme.colorScheme.outline
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(50))
+                                .background(badgeColor.copy(alpha = 0.15f))
+                                .padding(horizontal = 8.dp, vertical = 2.dp)
+                        ) {
+                            Text(
+                                text = badge,
+                                style = MaterialTheme.typography.labelSmall,
+                                color = badgeColor,
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                )
+            }
+            Switch(checked = checked, onCheckedChange = onCheckedChange)
+        }
+    }
+}
+
 @Composable
 private fun ClassicTile(
-    modifier: Modifier = Modifier, icon: Painter, title: String
+    modifier: Modifier = Modifier,
+    icon: Painter,
+    title: String,
 ) {
     Column(
         modifier = modifier,
@@ -513,36 +732,48 @@ private fun ClassicTile(
 }
 
 @Composable
-private fun ModernTile(
-    modifier: Modifier = Modifier, icon: Painter, title: String, isActive: Boolean = true
+private fun ModernTilePreview(
+    modifier: Modifier = Modifier,
+    icon: Painter,
+    title: String,
+    subtitle: String = "",
+    isActive: Boolean = false,
 ) {
     Box(modifier = modifier) {
         Card(
             modifier = Modifier.padding(20.dp),
             shape = RoundedCornerShape(32.dp),
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                contentColor = MaterialTheme.colorScheme.onSurface
+                containerColor = if (isActive)
+                    MaterialTheme.colorScheme.primaryContainer
+                else
+                    MaterialTheme.colorScheme.surfaceContainerLow,
             ),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 6.dp
-            )
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
         ) {
             Row(
-                modifier = Modifier.padding(25.dp),
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 18.dp),
                 horizontalArrangement = Arrangement.spacedBy(15.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(
                     modifier = Modifier
-                        .size(48.dp)
+                        .size(44.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primaryContainer),
+                        .background(
+                            if (isActive)
+                                MaterialTheme.colorScheme.primary
+                            else
+                                MaterialTheme.colorScheme.primaryContainer
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         painter = icon,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        tint = if (isActive)
+                            MaterialTheme.colorScheme.onPrimary
+                        else
+                            MaterialTheme.colorScheme.onPrimaryContainer,
                         contentDescription = null
                     )
                 }
@@ -555,17 +786,25 @@ private fun ModernTile(
                     Text(
                         modifier = Modifier.basicMarquee(),
                         text = title.ifEmpty { stringResource(R.string.untitled) },
-                        style = MaterialTheme.typography.titleMediumEmphasized,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.titleSmall,
+                        color = if (isActive)
+                            MaterialTheme.colorScheme.onPrimaryContainer
+                        else
+                            MaterialTheme.colorScheme.onSurface,
                         maxLines = 1
                     )
-                    Text(
-                        modifier = Modifier.basicMarquee(),
-                        text = if (isActive) stringResource(R.string.on) else stringResource(R.string.off),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                        maxLines = 1
-                    )
+                    if (subtitle.isNotEmpty()) {
+                        Text(
+                            modifier = Modifier.basicMarquee(),
+                            text = subtitle,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = if (isActive)
+                                MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                            else
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                            maxLines = 1
+                        )
+                    }
                 }
             }
         }
@@ -574,7 +813,9 @@ private fun ModernTile(
 
 @Composable
 private fun ChooseIconHintBox(
-    modifier: Modifier = Modifier, cornerRadius: Dp = 24.dp, onClick: () -> Unit = {}
+    modifier: Modifier = Modifier,
+    cornerRadius: Dp = 24.dp,
+    onClick: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -585,9 +826,7 @@ private fun ChooseIconHintBox(
                 strokeWidth = 2.dp,
                 cornerRadius = cornerRadius
             )
-            .clickable(
-                enabled = true, onClick = onClick
-            ),
+            .clickable(enabled = true, onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {

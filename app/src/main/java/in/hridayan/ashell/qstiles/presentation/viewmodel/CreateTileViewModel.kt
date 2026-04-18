@@ -11,6 +11,7 @@ import `in`.hridayan.ashell.qstiles.data.model.TileIcon
 import `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider.getIconRes
+import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.processor.TileCommandKeywordProcessor
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
@@ -27,7 +28,7 @@ class CreateTileViewModel @Inject constructor(
     private val repository: TileRepository,
     private val keywordProcessor: TileCommandKeywordProcessor,
     private val tileComponentManager: TileComponentManager,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val route = savedStateHandle.toRoute<NavRoutes.CreateTileScreen>()
@@ -48,33 +49,38 @@ class CreateTileViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         name = config.name,
-                        command = config.command,
                         executionMode = config.executionMode,
                         selectedIconId = config.iconId,
-                        isUpdateMode = true
+                        isUpdateMode = true,
+                        isToggleable = config.activeState.isToggleable,
+                        isActive = config.activeState.isActive,
+                        activeCommand = config.activeState.activeCommand,
+                        inactiveCommand = config.activeState.inactiveCommand,
+                        activeSubtitle = config.activeState.activeTileSubtitle,
+                        inactiveSubtitle = config.activeState.inactiveTileSubtitle,
                     )
                 }
-                suggestIcons(config.command)
+                suggestIcons(config.activeState.activeCommand)
             }
         }
     }
 
-    fun onNameChange(name: String) {
+    fun onNameChange(name: String) =
         _state.update { it.copy(name = name) }
-    }
 
-    fun onCommandChange(command: String) {
-        _state.update { it.copy(command = command) }
+    fun onActiveCommandChange(command: String) {
+        _state.update { it.copy(activeCommand = command) }
         suggestIcons(command)
     }
 
-    fun onExecutionModeChange(mode: Int) {
-        _state.update { it.copy(executionMode = mode) }
-    }
+    fun onInactiveCommandChange(command: String) =
+        _state.update { it.copy(inactiveCommand = command) }
 
-    fun onIconSelected(iconId: String) {
+    fun onExecutionModeChange(mode: Int) =
+        _state.update { it.copy(executionMode = mode) }
+
+    fun onIconSelected(iconId: String) =
         _state.update { it.copy(selectedIconId = iconId) }
-    }
 
     fun onIconQueryChange(query: TextFieldValue) {
         _state.update { it.copy(iconSearchQuery = query) }
@@ -84,6 +90,18 @@ class CreateTileViewModel @Inject constructor(
             }
         }
     }
+
+    fun onToggleableChange(isToggleable: Boolean) =
+        _state.update { it.copy(isToggleable = isToggleable) }
+
+    fun onActiveStateChange(isActive: Boolean) =
+        _state.update { it.copy(isActive = isActive) }
+
+    fun onActiveSubtitleChange(subtitle: String) =
+        _state.update { it.copy(activeSubtitle = subtitle) }
+
+    fun onInactiveSubtitleChange(subtitle: String) =
+        _state.update { it.copy(inactiveSubtitle = subtitle) }
 
     private fun suggestIcons(command: String) {
         val keywords = keywordProcessor.extractKeywords(command)
@@ -100,6 +118,16 @@ class CreateTileViewModel @Inject constructor(
         _state.update { it.copy(suggestedIcons = topIcons) }
     }
 
+    /** Builds a [TileActiveState] from the current UI state snapshot. */
+    private fun CreateNewTileScreenUiState.toActiveState() = TileActiveState(
+        isToggleable = isToggleable,
+        isActive = isActive,
+        activeCommand = activeCommand,
+        inactiveCommand = if (isToggleable) inactiveCommand else "",
+        activeTileSubtitle = activeSubtitle,
+        inactiveTileSubtitle = if (isToggleable) inactiveSubtitle else activeSubtitle,
+    )
+
     fun createTile() {
         viewModelScope.launch {
             val s = _state.value
@@ -107,23 +135,20 @@ class CreateTileViewModel @Inject constructor(
             val tile = TileConfig(
                 id = s.tileId,
                 name = s.name.ifBlank { "Untitled" },
-                command = s.command,
                 executionMode = s.executionMode,
                 iconId = s.selectedIconId,
-                isActive = true,
                 isCustom = true,
                 slotIndex = s.tileId - 1,
-                timeoutMs = null
+                timeoutMs = null,
+                activeState = s.toActiveState(),
             )
 
-            // Persist to specific slot
             repository.createTile(tile)
 
-            // AUTO-PROMPT: Ask user to add/update in panel
             tileComponentManager.promptAddTile(
                 tile.slotIndex!!,
                 tile.name,
-                getIconRes(tile.iconId)
+                getIconRes(tile.iconId),
             )
         }
     }
@@ -134,5 +159,3 @@ class CreateTileViewModel @Inject constructor(
         }
     }
 }
-
-
