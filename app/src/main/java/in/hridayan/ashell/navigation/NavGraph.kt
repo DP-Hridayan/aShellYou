@@ -61,87 +61,50 @@ fun Navigation(isFirstLaunch: Boolean = false) {
 
         NavHost(
             navController = navController,
-            startDestination = if (isFirstLaunch) NavRoutes.OnboardingScreen else NavRoutes.HomeScreen
+            startDestination = if (isFirstLaunch) NavRoutes.OnboardingScreen else NavRoutes.HomeScreen,
+            enterTransition = { slideFadeInFromRight() },
+            exitTransition = { slideFadeOutToLeft() },
+            popEnterTransition = { slideFadeInFromLeft() },
+            popExitTransition = { slideFadeOutToRight() }
         ) {
-            composable<NavRoutes.OnboardingScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.OnboardingScreen> {
                 OnboardingScreen()
             }
 
-            composable<NavRoutes.HomeScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() }
-            ) {
+            composable<NavRoutes.HomeScreen> {
                 HomeScreen()
             }
 
-            composable<NavRoutes.SettingsScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.SettingsScreen> {
                 SettingsScreen()
             }
 
-            composable<NavRoutes.LookAndFeelScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.LookAndFeelScreen> {
                 LookAndFeelScreen()
             }
 
-            composable<NavRoutes.DarkThemeScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.DarkThemeScreen> {
                 DarkThemeScreen()
             }
 
-            composable<NavRoutes.BehaviorScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.BehaviorScreen> {
                 BehaviorScreen()
             }
 
-            composable<NavRoutes.AboutScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.AboutScreen> {
                 AboutScreen()
             }
 
-            composable<NavRoutes.CommandExamplesScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.CommandExamplesScreen> {
                 CommandExamplesScreen()
             }
 
 
-            composable<NavRoutes.ChangelogScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.ChangelogScreen> {
                 ChangelogScreen()
             }
 
-            animatedComposable<NavRoutes.CrashHistoryScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            animatedComposable<NavRoutes.CrashHistoryScreen> {
                 CrashHistoryScreen()
             }
 
@@ -149,80 +112,39 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 CrashDetailsScreen()
             }
 
-            composable<NavRoutes.AutoUpdateScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.AutoUpdateScreen> {
                 AutoUpdateScreen()
             }
 
-            composable<NavRoutes.BackupAndRestoreScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.BackupAndRestoreScreen> {
                 BackupAndRestoreScreen()
             }
 
-            composable<NavRoutes.BackupSchedulerScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.BackupSchedulerScreen> {
                 BackupSchedulerScreen()
             }
 
-            composable<NavRoutes.LocalAdbScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.LocalAdbScreen> {
                 LocalAdbScreen()
             }
 
-            composable<NavRoutes.OtgAdbScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.OtgAdbScreen> {
                 OtgAdbScreen()
             }
 
-            composable<NavRoutes.PairingOwnDeviceScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.PairingOwnDeviceScreen> {
                 PairingOwnDeviceScreen()
             }
 
-            composable<NavRoutes.PairingOtherDeviceScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.PairingOtherDeviceScreen> {
                 PairingOtherDeviceScreen()
             }
 
-            composable<NavRoutes.WifiAdbScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.WifiAdbScreen> {
                 WifiAdbScreen()
             }
 
-            composable<NavRoutes.FileBrowserScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) { backStackEntry ->
+            composable<NavRoutes.FileBrowserScreen> { backStackEntry ->
                 val route = backStackEntry.toRoute<NavRoutes.FileBrowserScreen>()
                 FileBrowserScreen(
                     deviceAddress = route.deviceAddress,
@@ -231,30 +153,15 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 )
             }
 
-            composable<NavRoutes.TileDashboardScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.TileDashboardScreen> {
                 TileDashBoardScreen()
             }
 
-            composable<NavRoutes.TileLogsScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) {
+            composable<NavRoutes.TileLogsScreen> {
                 TileLogsScreen()
             }
 
-            composable<NavRoutes.CreateTileScreen>(
-                enterTransition = { slideFadeInFromRight() },
-                exitTransition = { slideFadeOutToLeft() },
-                popEnterTransition = { slideFadeInFromLeft() },
-                popExitTransition = { slideFadeOutToRight() }
-            ) { backStackEntry ->
+            composable<NavRoutes.CreateTileScreen> { backStackEntry ->
                 val route = backStackEntry.toRoute<NavRoutes.CreateTileScreen>()
                 CreateTileScreen(tileId = route.tileId)
             }
