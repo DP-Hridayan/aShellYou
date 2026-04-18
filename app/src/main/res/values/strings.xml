@@ -15,6 +15,13 @@
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
     <string name="tiles">Tiles</string>
+    <string name="recent_activity">Recent activity</string>
+    <string name="total_executions">Total executions</string>
+    <string name="success_rate">Success rate</string>
+    <string name="no_logs_yet">No logs yet!</string>
+    <string name="tile_logs">Tile logs</string>
+    <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
+    <string name="search_tile">Search tile…</string>
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
     <string name="additional_settings">Additional settings</string>

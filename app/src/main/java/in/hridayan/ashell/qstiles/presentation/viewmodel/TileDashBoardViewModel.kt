@@ -10,6 +10,7 @@ import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.domain.repository.TileLogRepository
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiState
+import `in`.hridayan.ashell.qstiles.presentation.screen.TileScreenTabs
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -27,7 +28,7 @@ class TileDashboardViewModel @Inject constructor(
     private val logRepository: TileLogRepository
 ) : ViewModel() {
 
-    private val _currentTab = MutableStateFlow(0)
+    private val _currentTab = MutableStateFlow(TileScreenTabs.TILES)
     private val _logsSearchQuery = MutableStateFlow("")
 
     val state: StateFlow<TileDashBoardScreenUiState> =
@@ -89,15 +90,6 @@ class TileDashboardViewModel @Inject constructor(
 
     fun onLogsSearchQueryChange(query: String) {
         _logsSearchQuery.value = query
-    }
-
-    /**
-     * Toggles a tile on or off.
-     */
-    fun toggleTile(tile: TileConfig) {
-        viewModelScope.launch {
-            repository.toggleTile(tile.id)
-        }
     }
 
     private data class DataBundle(

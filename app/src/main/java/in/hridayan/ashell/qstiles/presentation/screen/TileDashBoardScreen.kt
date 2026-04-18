@@ -6,6 +6,7 @@
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
@@ -40,8 +41,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -52,6 +55,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -60,6 +64,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -68,6 +73,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
@@ -82,6 +88,12 @@ import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.TileDashboardViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
+import java.util.Locale
+
+data object TileScreenTabs {
+    const val TILES: Int = 0
+    const val LOGS: Int = 1
+}
 
 @Composable
 fun TileDashBoardScreen(
@@ -110,7 +122,9 @@ fun TileDashBoardScreen(
         )
     }
 
-    val title = if (uiState.currentTab == 0) stringResource(R.string.qs_tiles) else "Tile logs"
+    val title =
+        if (uiState.currentTab == TileScreenTabs.TILES) stringResource(R.string.qs_tiles)
+        else stringResource(R.string.tile_logs)
 
     SettingsScaffold(
         modifier = modifier,
@@ -135,7 +149,7 @@ fun TileDashBoardScreen(
                         )
                     }
 
-                    if (uiState.currentTab == 0) {
+                    if (uiState.currentTab == TileScreenTabs.TILES) {
                         item {
                             if (!hasNotificationAccess) {
                                 NotificationAccessRequestCard(
@@ -205,7 +219,7 @@ fun TileDashBoardScreen(
                                 }
                             }
                         }
-                    } else {
+                    } else if (uiState.logs.isNotEmpty()) {
                         item {
                             LogStatsRow(
                                 modifier = Modifier.padding(horizontal = 20.dp),
@@ -249,6 +263,10 @@ fun TileDashBoardScreen(
                                 .height(140.dp)
                         )
                     }
+                }
+
+                if (uiState.logs.isEmpty() && uiState.currentTab == TileScreenTabs.LOGS) {
+                    NoLogsUi(modifier = Modifier.align(Alignment.Center))
                 }
 
                 FloatingNavPill(
@@ -379,17 +397,17 @@ private fun LogStatsRow(
     ) {
         StatCard(
             modifier = Modifier.weight(1.2f),
-            label = "TOTAL EXECUTIONS",
+            label = stringResource(R.string.total_executions).uppercase(Locale.getDefault()),
             value = totalExecutions.toString(),
-            icon = painterResource(R.drawable.ic_terminal),
+            icon = painterResource(R.drawable.ic_analytics_filled),
             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
         )
         StatCard(
             modifier = Modifier.weight(1f),
-            label = "SUCCESS RATE",
+            label = stringResource(R.string.success_rate).uppercase(Locale.getDefault()),
             value = successRate,
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary
         )
     }
 }
@@ -400,8 +418,8 @@ private fun StatCard(
     label: String,
     value: String,
     icon: Painter? = null,
-    containerColor: androidx.compose.ui.graphics.Color,
-    contentColor: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurface
+    containerColor: Color = MaterialTheme.colorScheme.surfaceContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onSurface
 ) {
     Card(
         modifier = modifier.height(110.dp),
@@ -417,7 +435,7 @@ private fun StatCard(
                 .padding(16.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
+            AutoResizeableText(
                 text = label,
                 style = MaterialTheme.typography.labelSmall,
                 fontWeight = FontWeight.Bold,
@@ -428,17 +446,17 @@ private fun StatCard(
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
+                AutoResizeableText(
                     text = value,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.Black
                 )
                 if (icon != null) {
                     Icon(
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(64.dp),
                         painter = icon,
                         contentDescription = null,
-                        tint = contentColor.copy(alpha = 0.4f)
+                        tint = contentColor.copy(alpha = 0.15f)
                     )
                 }
             }
@@ -453,13 +471,16 @@ private fun RecentActivityHeader(
     onSearchQueryChange: (String) -> Unit
 ) {
     var isSearchExpanded by remember { mutableStateOf(false) }
+    val weakHaptic = LocalWeakHaptic.current
 
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .animateContentSize(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        androidx.compose.animation.Crossfade(targetState = isSearchExpanded) { expanded ->
+        Crossfade(targetState = isSearchExpanded) { expanded ->
             if (expanded) {
                 BasicTextField(
                     modifier = Modifier
@@ -473,8 +494,8 @@ private fun RecentActivityHeader(
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     decorationBox = { innerTextField ->
                         if (searchQuery.isEmpty()) {
-                            Text(
-                                "Search tile...",
+                            AutoResizeableText(
+                                text = stringResource(R.string.search_tile),
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                             )
                         }
@@ -483,8 +504,8 @@ private fun RecentActivityHeader(
                 )
             } else {
                 Text(
-                    text = "Recent Activity",
-                    style = MaterialTheme.typography.titleLargeEmphasized,
+                    text = stringResource(R.string.recent_activity),
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -493,7 +514,10 @@ private fun RecentActivityHeader(
         Row(
             modifier = Modifier
                 .clip(CircleShape)
-                .clickable { isSearchExpanded = !isSearchExpanded }
+                .clickable {
+                    isSearchExpanded = !isSearchExpanded
+                    weakHaptic()
+                }
                 .padding(horizontal = 12.dp, vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -506,7 +530,7 @@ private fun RecentActivityHeader(
             )
             if (!isSearchExpanded) {
                 Text(
-                    text = "Filter",
+                    text = stringResource(R.string.filter),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -522,6 +546,7 @@ private fun TileLogCard(
     tileName: String,
     iconId: String
 ) {
+    val darkMode = LocalDarkMode.current
     val tileIcon = TileIconProvider.iconById[iconId]
 
     val badgeColor =
@@ -530,7 +555,7 @@ private fun TileLogCard(
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)
+        colors = CardDefaults.cardColors(containerColor = if (darkMode) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.surfaceContainer)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -592,21 +617,34 @@ private fun TileLogCard(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(MaterialTheme.colorScheme.surfaceContainerLowest)
-                    .padding(12.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(badgeColor.copy(alpha = 0.15f))
             ) {
-                Text(
-                    text = log.command,
-                    style = MaterialTheme.typography.bodySmall,
-                    fontFamily = FontFamily.Monospace,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 4.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(MaterialTheme.colorScheme.surfaceContainerLowest)
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 25.dp, vertical = 15.dp)
+                            .basicMarquee(),
+                        text = log.command,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontFamily = FontFamily.Monospace,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                        maxLines = 1
+                    )
+                }
             }
 
             if (!log.isSuccess && log.output.isNotBlank()) {
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
+                    modifier = Modifier.padding(horizontal = 15.dp),
                     text = stringResource(R.string.error) + ": ${log.output}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.error.copy(alpha = 0.8f)
@@ -721,4 +759,42 @@ private fun NotificationAccessRequestCard(
             }
         }
     )
+}
+
+@Composable
+fun NoLogsUi(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 25.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = Modifier
+                .size(160.dp)
+                .clip(MaterialShapes.Cookie9Sided.toShape())
+                .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                modifier = Modifier.size(80.dp),
+                painter = painterResource(R.drawable.ic_sentiment_dissatisfied),
+                tint = MaterialTheme.colorScheme.primary,
+                contentDescription = null
+            )
+        }
+
+        AutoResizeableText(
+            text = stringResource(R.string.no_logs_yet),
+            style = MaterialTheme.typography.titleLargeEmphasized,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 50.dp, bottom = 15.dp)
+        )
+
+        Text(
+            text = stringResource(R.string.no_logs_yet_msg),
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center
+        )
+    }
 }
