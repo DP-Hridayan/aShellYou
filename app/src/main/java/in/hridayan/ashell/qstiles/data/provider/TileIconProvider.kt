@@ -65,6 +65,7 @@ object TileIconProvider {
             R.drawable.ts_display_settings,
             listOf("display", "settings", "screen")
         ),
+        TileIcon("dns", R.drawable.ts_dns, listOf("dns", "hostname", "dns_mode")),
         TileIcon("folder", R.drawable.ts_folder, listOf("folder", "directory")),
         TileIcon("folder_open", R.drawable.ts_folder_open, listOf("folder", "open", "directory")),
         TileIcon("gamepad", R.drawable.ts_gamepad, listOf("game", "input", "controller")),
@@ -104,9 +105,21 @@ object TileIconProvider {
         TileIcon("tune", R.drawable.ts_tune, listOf("tune", "adjust", "settings")),
         TileIcon("video", R.drawable.ts_videocam, listOf("video", "record", "screenrecord")),
         TileIcon("wifi", R.drawable.ts_wifi, listOf("wifi", "network", "internet")),
-        TileIcon("wifi_off", R.drawable.ts_wifi_off, listOf("wifi", "network", "disconnect", "off")),
-        TileIcon("wifi_tethering_on", R.drawable.ts_wifi_tethering, listOf("wifi", "network","tether", "connect", "on")),
-        TileIcon("wifi_tethering_off", R.drawable.ts_portable_wifi_off, listOf("wifi", "network","tether", "disconnect", "off")),
+        TileIcon(
+            "wifi_off",
+            R.drawable.ts_wifi_off,
+            listOf("wifi", "network", "disconnect", "off")
+        ),
+        TileIcon(
+            "wifi_tethering_on",
+            R.drawable.ts_wifi_tethering,
+            listOf("wifi", "network", "tether", "connect", "on")
+        ),
+        TileIcon(
+            "wifi_tethering_off",
+            R.drawable.ts_portable_wifi_off,
+            listOf("wifi", "network", "tether", "disconnect", "off")
+        ),
     )
 
     val iconById: Map<String, TileIcon> =
@@ -126,4 +139,4 @@ object TileIconProvider {
         return iconById[id]?.resId ?: R.drawable.ic_adb
     }
 }
-
+

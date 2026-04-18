@@ -8,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
+import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
 import kotlinx.coroutines.CoroutineScope
@@ -39,6 +40,7 @@ abstract class BaseTileService : TileService() {
 
     @Inject
     lateinit var repository: TileRepository
+
     @Inject
     lateinit var executionManager: TileExecutionManager
 
@@ -75,13 +77,20 @@ abstract class BaseTileService : TileService() {
         serviceScope.launch(Dispatchers.IO) {
             val config = repository.getTileBySlot(slotIndex).firstValue() ?: return@launch
 
-            // For toggleable tiles: toggle state first, then execute the appropriate command.
-            // For static tiles:     execute the single command unchanged.
-            if (config.activeState.isToggleable) {
-                repository.toggleTile(config.id)
+            // For toggleable tiles, we determine the intended "next" state for execution.
+            // We pass this intended state to the executor, and only if it succeeds, do we
+            // persist the toggle in the repository.
+            val intendedConfig = if (config.activeState.isToggleable) {
+                config.copy(activeState = config.activeState.copy(isActive = !config.activeState.isActive))
+            } else {
+                config
             }
 
-            executionManager.execute(config)
+            val success = executionManager.execute(config)
+
+            if (success && config.activeState.isToggleable) {
+                repository.toggleTile(config.id)
+            }
         }
     }
 

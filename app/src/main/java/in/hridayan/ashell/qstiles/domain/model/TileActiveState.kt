@@ -7,8 +7,8 @@ import androidx.compose.ui.text.input.TextFieldValue
  *
  * **Toggleable tile** (`isToggleable = true`):
  *  - The tile alternates between ON and OFF on every click.
- *  - [activeCommand]   → executed when the tile is being turned ON.
- *  - [inactiveCommand] → executed when the tile is being turned OFF.
+ *  - [activeCommand]   → executed when the tile is ALREADY ON (to turn it OFF).
+ *  - [inactiveCommand] → executed when the tile is ALREADY OFF (to turn it ON).
  *  - [activeTileSubtitle]   / [inactiveTileSubtitle] drive the QS panel subtitle.
  *
  * **Static tile** (`isToggleable = false`):
@@ -25,9 +25,9 @@ data class TileActiveState(
     val activeTileSubtitle: TextFieldValue = TextFieldValue("On"),
     /** Subtitle shown in the QS panel when the tile is in the OFF state. Ignored for static tiles. */
     val inactiveTileSubtitle: TextFieldValue = TextFieldValue("Off"),
-    /** ADB command executed when turning the tile ON (or on every click for static tiles). */
+    /** ADB command executed when the tile is ALREADY ON (to turn it OFF). */
     val activeCommand: TextFieldValue = TextFieldValue(""),
-    /** ADB command executed when turning the tile OFF. Only used when [isToggleable] = true. */
+    /** ADB command executed when the tile is ALREADY OFF (to turn it ON). Only used when [isToggleable] = true. */
     val inactiveCommand: TextFieldValue = TextFieldValue(""),
 ) {
     /** Returns the subtitle that should currently be displayed based on [isActive]. */

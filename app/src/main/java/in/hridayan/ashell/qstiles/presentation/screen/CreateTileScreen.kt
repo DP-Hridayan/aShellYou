@@ -737,7 +737,7 @@ private fun ClassicTile(
     val darkMode = LocalDarkMode.current
 
     val containerColor =
-        if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else if (darkMode) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
+        if (isActive) MaterialTheme.colorScheme.primaryContainer else if (darkMode) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
     val contentColor =
         if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
 
@@ -783,7 +783,7 @@ private fun ModernTilePreview(
     val darkMode = LocalDarkMode.current
 
     val containerColor =
-        if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else if (darkMode) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
+        if (isActive) MaterialTheme.colorScheme.primaryContainer else if (darkMode) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
 
     val interactionSource = remember { MutableInteractionSource() }
 

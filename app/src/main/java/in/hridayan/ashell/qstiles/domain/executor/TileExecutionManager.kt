@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.qstiles.domain.executor
 
 import `in`.hridayan.ashell.qstiles.data.provider.TileNotificationHelper
+import kotlinx.coroutines.async
 import `in`.hridayan.ashell.qstiles.domain.model.RunningTileState
 import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
@@ -55,20 +56,18 @@ class TileExecutionManager @Inject constructor(
     fun isTileRunning(tileId: Int): Boolean = runningJobs.containsKey(tileId)
 
     /**
-     * Triggers execution of [TileActiveState.commandToExecute] in a new coroutine.
+     * Executes the [TileConfig]'s command and returns whether it succeeded.
      *
      * Lifecycle:
-     * 1. Check if already running → ignore.
-     * 2. Add to running state.
-     * 3. Execute via the appropriate executor.
-     * 4. Log the result.
-     * 5. Notify on failure.
-     * 6. Cleanup from running state.
+     * 1. Check if already running -> return false.
+     * 2. Run execution logic in the manager's singleton [scope].
+     * 3. Log and notify on failure (internal).
+     * 4. Return success status to caller.
      */
-    fun execute(tile: TileConfig) {
-        if (isTileRunning(tile.id)) return
+    suspend fun execute(tile: TileConfig): Boolean {
+        if (isTileRunning(tile.id)) return false
 
-        val job = scope.launch {
+        val deferred = scope.async {
             val startTime = System.currentTimeMillis()
             _runningTileStates.update { it + (tile.id to RunningTileState(tile.id, startTime)) }
 
@@ -110,13 +109,15 @@ class TileExecutionManager @Inject constructor(
                 )
             }
 
-            runningJobs.remove(tile.id)
             _runningTileStates.update { it - tile.id }
+            finalResult.isSuccess
         }
 
-        runningJobs[tile.id] = job
+        runningJobs[tile.id] = deferred
 
-        job.invokeOnCompletion {
+        return try {
+            deferred.await()
+        } finally {
             runningJobs.remove(tile.id)
             _runningTileStates.update { it - tile.id }
         }
