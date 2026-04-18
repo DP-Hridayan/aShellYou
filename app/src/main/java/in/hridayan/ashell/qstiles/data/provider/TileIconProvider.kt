@@ -120,6 +120,16 @@ object TileIconProvider {
             R.drawable.ts_portable_wifi_off,
             listOf("wifi", "network", "tether", "disconnect", "off")
         ),
+        TileIcon(
+            "5g",
+            R.drawable.ts_5g,
+            listOf("5g", "network", "NR", "internet", "cellular")
+        ),
+        TileIcon(
+            "4g",
+            R.drawable.ts_4g_mobiledata,
+            listOf("4g", "network", "LTE", "internet", "cellular")
+        ),
     )
 
     val iconById: Map<String, TileIcon> =
