@@ -182,6 +182,7 @@ fun CreateTileScreen(
                         hint = "Reboot",
                         shape = RoundedCornerShape(50),
                         singleLine = true,
+                        errorMessage = uiState.nameError
                     )
                 }
 
@@ -571,47 +572,62 @@ private fun TileTextField(
     singleLine: Boolean = true,
     minLines: Int = 1,
     fontFamily: FontFamily? = null,
+    errorMessage: String? = null,
 ) {
-    Card(
-        modifier = modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-            contentColor = MaterialTheme.colorScheme.onSurface,
-        ),
-        shape = shape,
-    ) {
-        BasicTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            value = value,
-            onValueChange = onValueChange,
-            textStyle = LocalTextStyle.current.copy(
-                fontSize = 16.sp,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                fontFamily = fontFamily,
+    Column(modifier = modifier) {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                contentColor = MaterialTheme.colorScheme.onSurface,
             ),
-            singleLine = singleLine,
-            minLines = if (singleLine) 1 else minLines,
-            cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Ascii,
-                imeAction = if (singleLine) ImeAction.Done else ImeAction.Default,
-            ),
-            decorationBox = { innerTextField ->
-                Box {
-                    if (value.isEmpty()) {
-                        Text(
-                            text = hint,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
-                            fontSize = 16.sp,
-                            fontFamily = fontFamily,
-                        )
+            shape = shape,
+        ) {
+            BasicTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                value = value,
+                onValueChange = onValueChange,
+                textStyle = LocalTextStyle.current.copy(
+                    fontSize = 16.sp,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontFamily = fontFamily,
+                ),
+                singleLine = singleLine,
+                minLines = if (singleLine) 1 else minLines,
+                cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Ascii,
+                    imeAction = if (singleLine) ImeAction.Done else ImeAction.Default,
+                ),
+                decorationBox = { innerTextField ->
+                    Box {
+                        if (value.isEmpty()) {
+                            Text(
+                                text = hint,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),
+                                fontSize = 16.sp,
+                                fontFamily = fontFamily,
+                            )
+                        }
+                        innerTextField()
                     }
-                    innerTextField()
-                }
-            },
-        )
+                },
+            )
+        }
+        AnimatedVisibility(
+            visible = errorMessage != null,
+            enter = fadeIn() + expandVertically(),
+            exit = fadeOut() + shrinkVertically()
+        ) {
+            Text(
+                text = errorMessage ?: "",
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+            )
+        }
     }
 }
 

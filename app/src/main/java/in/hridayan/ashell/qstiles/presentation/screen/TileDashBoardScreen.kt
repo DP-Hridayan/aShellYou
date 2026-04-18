@@ -1,4 +1,8 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
+@file:OptIn(
+    ExperimentalMaterial3ExpressiveApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalLayoutApi::class
+)
 
 package `in`.hridayan.ashell.qstiles.presentation.screen
 
@@ -12,6 +16,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -23,8 +28,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -38,18 +46,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -59,15 +68,19 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
+import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.utils.DateTimeUtils
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
+import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
+import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.TileDashboardViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 
@@ -98,10 +111,12 @@ fun TileDashBoardScreen(
         )
     }
 
+    val title = if (uiState.currentTab == 0) stringResource(R.string.qs_tiles) else "Tile logs"
+
     SettingsScaffold(
         modifier = modifier,
         listState = listState,
-        topBarTitle = stringResource(R.string.qs_tiles),
+        topBarTitle = title,
         content = { innerPadding, topBarScrollBehavior ->
 
             Box(modifier = Modifier.fillMaxSize()) {
@@ -121,75 +136,112 @@ fun TileDashBoardScreen(
                         )
                     }
 
-                    item {
-                        if (!hasNotificationAccess) {
-                            NotificationAccessRequestCard(
-                                modifier = Modifier.padding(
-                                    start = 20.dp,
-                                    end = 20.dp,
-                                    bottom = 25.dp
-                                ),
-                                onClickButton = onClickNotificationButton
-                            )
+                    if (uiState.currentTab == 0) {
+                        // ── Dashboard Tab ────────────────────────────────────
+                        item {
+                            if (!hasNotificationAccess) {
+                                NotificationAccessRequestCard(
+                                    modifier = Modifier.padding(
+                                        start = 20.dp,
+                                        end = 20.dp,
+                                        bottom = 25.dp
+                                    ),
+                                    onClickButton = onClickNotificationButton
+                                )
+                            }
                         }
-                    }
 
-                    item {
-                        val items = (1..10).toList()
+                        item {
+                            val items = (1..10).toList()
 
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 20.dp),
-                            verticalArrangement = Arrangement.spacedBy(20.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            items.chunked(2).forEach { rowItems ->
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(20.dp)
-                                ) {
-                                    rowItems.forEach { id ->
-                                        val tileConfig = uiState.tiles.find { it.id == id }
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 20.dp),
+                                verticalArrangement = Arrangement.spacedBy(20.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                items.chunked(2).forEach { rowItems ->
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.spacedBy(20.dp)
+                                    ) {
+                                        rowItems.forEach { id ->
+                                            val tileConfig = uiState.tiles.find { it.id == id }
 
-                                        if (tileConfig == null) {
-                                            EmptyTileBox(
-                                                modifier = Modifier
-                                                    .weight(1f)
-                                                    .height(80.dp),
-                                                tileId = id - 1,
-                                                onClick = withHaptic {
-                                                    navController.navigate(
-                                                        NavRoutes.CreateTileScreen(
-                                                            tileId = id
+                                            if (tileConfig == null) {
+                                                EmptyTileBox(
+                                                    modifier = Modifier
+                                                        .weight(1f)
+                                                        .height(80.dp),
+                                                    tileId = id - 1,
+                                                    onClick = withHaptic {
+                                                        navController.navigate(
+                                                            NavRoutes.CreateTileScreen(tileId = id)
                                                         )
-                                                    )
-                                                }
-                                            )
-                                        } else {
-                                            val tileIcon =
-                                                TileIconProvider.iconById[tileConfig.iconId]
-                                            ModernTile(
-                                                modifier = Modifier
-                                                    .weight(1f)
-                                                    .height(80.dp),
-                                                icon = if (tileIcon != null)
-                                                    painterResource(tileIcon.resId)
-                                                else
-                                                    painterResource(R.drawable.ic_adb),
-                                                title = tileConfig.name,
-                                                subtitle = tileConfig.activeState.currentSubtitle,
-                                                isActive = tileConfig.activeState.isActive,
-                                                onClick = withHaptic {
-                                                    navController.navigate(
-                                                        NavRoutes.CreateTileScreen(tileId = id)
-                                                    )
-                                                }
-                                            )
+                                                    }
+                                                )
+                                            } else {
+                                                val tileIcon =
+                                                    TileIconProvider.iconById[tileConfig.iconId]
+                                                ModernTile(
+                                                    modifier = Modifier
+                                                        .weight(1f)
+                                                        .height(80.dp),
+                                                    icon = if (tileIcon != null)
+                                                        painterResource(tileIcon.resId)
+                                                    else
+                                                        painterResource(R.drawable.ic_adb),
+                                                    title = tileConfig.name,
+                                                    subtitle = tileConfig.activeState.currentSubtitle,
+                                                    isActive = tileConfig.activeState.isActive,
+                                                    onClick = withHaptic {
+                                                        navController.navigate(
+                                                            NavRoutes.CreateTileScreen(tileId = id)
+                                                        )
+                                                    }
+                                                )
+                                            }
                                         }
                                     }
                                 }
                             }
+                        }
+                    } else {
+                        // ── Logs Tab ─────────────────────────────────────────
+                        item {
+                            LogStatsRow(
+                                modifier = Modifier.padding(horizontal = 20.dp),
+                                totalExecutions = uiState.totalExecutions,
+                                successRate = uiState.successRate
+                            )
+                        }
+
+                        item {
+                            RecentActivityHeader(
+                                modifier = Modifier.padding(
+                                    top = 30.dp,
+                                    start = 20.dp,
+                                    end = 20.dp,
+                                    bottom = 15.dp
+                                ),
+                                searchQuery = uiState.logsSearchQuery,
+                                onSearchQueryChange = {
+                                    tileDashboardViewModel.onLogsSearchQueryChange(
+                                        it
+                                    )
+                                }
+                            )
+                        }
+
+                        items(uiState.logs, key = { it.id }) { log ->
+                            val tile = uiState.tiles.find { it.id == log.tileId }
+                            TileLogCard(
+                                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
+                                log = log,
+                                tileName = tile?.name ?: "Deleted Tile",
+                                iconId = tile?.iconId ?: "terminal"
+                            )
                         }
                     }
 
@@ -206,11 +258,15 @@ fun TileDashBoardScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.BottomCenter)
-                        .padding(50.dp)
+                        .padding(50.dp),
+                    selectedIndex = uiState.currentTab,
+                    onSelectionChange = { tileDashboardViewModel.onTabChange(it) }
                 )
             }
         })
 }
+
+// ── Dashboard Components ──────────────────────────────────────────────────────
 
 @Composable
 private fun EmptyTileBox(
@@ -228,10 +284,7 @@ private fun EmptyTileBox(
                 strokeWidth = 2.dp,
                 cornerRadius = cornerRadius
             )
-            .clickable(
-                enabled = true,
-                onClick = onClick
-            ),
+            .clickable(enabled = true, onClick = onClick),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
@@ -298,7 +351,7 @@ private fun ModernTile(
                 Text(
                     modifier = Modifier.basicMarquee(),
                     text = title.ifEmpty { stringResource(R.string.untitled) },
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleMediumEmphasized,
                     maxLines = 1
                 )
 
@@ -319,17 +372,267 @@ private fun ModernTile(
     }
 }
 
+// ── Logs Components ──────────────────────────────────────────────────────────
+
 @Composable
-private fun FloatingNavPill(modifier: Modifier = Modifier) {
+private fun LogStatsRow(
+    modifier: Modifier = Modifier,
+    totalExecutions: Int,
+    successRate: String
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(15.dp)
+    ) {
+        StatCard(
+            modifier = Modifier.weight(1.2f),
+            label = "TOTAL EXECUTIONS",
+            value = totalExecutions.toString(),
+            icon = painterResource(R.drawable.ic_terminal),
+            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+        )
+        StatCard(
+            modifier = Modifier.weight(1f),
+            label = "SUCCESS RATE",
+            value = successRate,
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+    }
+}
+
+@Composable
+private fun StatCard(
+    modifier: Modifier = Modifier,
+    label: String,
+    value: String,
+    icon: Painter? = null,
+    containerColor: androidx.compose.ui.graphics.Color,
+    contentColor: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurface
+) {
+    Card(
+        modifier = modifier.height(110.dp),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = containerColor,
+            contentColor = contentColor
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.Bold,
+                color = contentColor.copy(alpha = 0.7f)
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Black
+                )
+                if (icon != null) {
+                    Icon(
+                        modifier = Modifier.size(24.dp),
+                        painter = icon,
+                        contentDescription = null,
+                        tint = contentColor.copy(alpha = 0.4f)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun RecentActivityHeader(
+    modifier: Modifier = Modifier,
+    searchQuery: String,
+    onSearchQueryChange: (String) -> Unit
+) {
+    var isSearchExpanded by remember { mutableStateOf(false) }
+
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        androidx.compose.animation.Crossfade(targetState = isSearchExpanded) { expanded ->
+            if (expanded) {
+                BasicTextField(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 10.dp)
+                        .background(MaterialTheme.colorScheme.surfaceContainer, CircleShape)
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    value = searchQuery,
+                    onValueChange = onSearchQueryChange,
+                    textStyle = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurface),
+                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                    decorationBox = { innerTextField ->
+                        if (searchQuery.isEmpty()) {
+                            Text(
+                                "Search tile...",
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                            )
+                        }
+                        innerTextField()
+                    }
+                )
+            } else {
+                Text(
+                    text = "Recent Activity",
+                    style = MaterialTheme.typography.titleLargeEmphasized,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .clip(CircleShape)
+                .clickable { isSearchExpanded = !isSearchExpanded }
+                .padding(horizontal = 12.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Icon(
+                modifier = Modifier.size(18.dp),
+                painter = painterResource(if (isSearchExpanded) R.drawable.ts_close else R.drawable.ic_filter_alt),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
+            )
+            if (!isSearchExpanded) {
+                Text(
+                    text = "Filter",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun TileLogCard(
+    modifier: Modifier = Modifier,
+    log: TileLog,
+    tileName: String,
+    iconId: String
+) {
+    val weakHaptic = LocalWeakHaptic.current
+    val tileIcon = TileIconProvider.iconById[iconId]
+
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surfaceContainerHigh),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        modifier = Modifier.size(20.dp),
+                        painter = if (tileIcon != null) painterResource(tileIcon.resId) else painterResource(
+                            R.drawable.ic_adb
+                        ),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = tileName,
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold
+                    )
+                    val modeLabel =
+                        if (log.executionMode == TileExecutionMode.SHIZUKU) "SHIZUKU" else "ROOT"
+                    Text(
+                        text = "$modeLabel • ${DateTimeUtils.getRelativeTime(log.timestamp)}",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                    )
+                }
+
+                val badgeColor =
+                    if (log.isSuccess) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(50))
+                        .background(badgeColor.copy(alpha = 0.15f))
+                        .padding(horizontal = 10.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        text = if (log.isSuccess) "SUCCESS" else "FAILURE",
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = badgeColor
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(15.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(MaterialTheme.colorScheme.surfaceContainerLowest)
+                    .padding(12.dp)
+            ) {
+                Text(
+                    text = log.command,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontFamily = FontFamily.Monospace,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+                )
+            }
+
+            if (!log.isSuccess && log.output.isNotBlank()) {
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "Error: ${log.output}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error.copy(alpha = 0.8f)
+                )
+            }
+        }
+    }
+}
+
+// ── Shared Components ─────────────────────────────────────────────────────────
+
+@Composable
+private fun FloatingNavPill(
+    modifier: Modifier = Modifier,
+    selectedIndex: Int,
+    onSelectionChange: (Int) -> Unit
+) {
     val isDarkMode = LocalDarkMode.current
     val motion = MaterialTheme.motionScheme
 
-    val navItems = listOf(
-        stringResource(R.string.dashboard),
-        stringResource(R.string.logs)
-    )
-
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    val navItems = listOf("Tiles", "Logs")
 
     Card(
         modifier = modifier
@@ -339,15 +642,10 @@ private fun FloatingNavPill(modifier: Modifier = Modifier) {
         colors = CardDefaults.cardColors(
             containerColor = if (isDarkMode) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.surfaceContainerLowest
         ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp,
-        )
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
-        BoxWithConstraints(
-            modifier = Modifier.fillMaxSize()
-        ) {
+        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
             val itemWidth = maxWidth / navItems.size
-
             val offsetX by animateDpAsState(
                 targetValue = itemWidth * selectedIndex,
                 animationSpec = motion.fastSpatialSpec(),
@@ -374,12 +672,10 @@ private fun FloatingNavPill(modifier: Modifier = Modifier) {
                             .weight(1f)
                             .fillMaxHeight()
                             .clickable(
-                                enabled = true,
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = null,
-                                onClick = withHaptic {
-                                    selectedIndex = index
-                                }),
+                                onClick = withHaptic { onSelectionChange(index) }
+                            ),
                         contentAlignment = Alignment.Center
                     ) {
                         AutoResizeableText(

@@ -16,6 +16,7 @@ data class CreateNewTileScreenUiState(
     val executionMode: Int = TileExecutionMode.SHIZUKU,
     val selectedIconId: String = "terminal",
     val isUpdateMode: Boolean = false,
+    val nameError: String? = null,
 
     val suggestedIcons: List<String> = emptyList(),
     val iconSearchQuery: TextFieldValue = TextFieldValue(""),

@@ -19,6 +19,7 @@ import `in`.hridayan.ashell.qstiles.presentation.model.CreateNewTileScreenUiStat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -65,8 +66,20 @@ class CreateTileViewModel @Inject constructor(
         }
     }
 
-    fun onNameChange(name: String) =
-        _state.update { it.copy(name = name) }
+    fun onNameChange(name: String) {
+        viewModelScope.launch {
+            val tiles = repository.getTiles().first()
+            val isDuplicate = tiles.any {
+                it.name.equals(name, ignoreCase = true) && it.id != route.tileId
+            }
+            _state.update {
+                it.copy(
+                    name = name,
+                    nameError = if (isDuplicate) "A tile with this name already exists" else null
+                )
+            }
+        }
+    }
 
     fun onActiveCommandChange(command: String) {
         _state.update { it.copy(activeCommand = command) }
