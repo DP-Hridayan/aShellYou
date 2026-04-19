@@ -2,8 +2,6 @@
     <string name="A_Z" translatable="false">A → Z</string>
     <string name="abort_command">Abort command first</string>
     <string name="about">About</string>
-    <string name="active">Active</string>
-    <string name="active_tiles">Active tiles</string>
     <string name="adb_command">ADB command</string>
     <string name="adb_command_hint">adb reboot</string>
     <string name="adb_command_off_state">ADB command (OFF state)</string>
@@ -165,9 +163,7 @@
     <string name="device_disconnected_message_with_name">"%s" has disconnected.</string>
     <string name="device_found">Device found!</string>
     <string name="device_info">Device info</string>
-    <string name="disable">Disable</string>
     <string name="disable_softkey">Disable soft keyboard</string>
-    <string name="disabled">Disabled</string>
     <string name="disclaimer">Disclaimer</string>
     <string name="disclaimer_1_description">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability.\nYou are solely responsible for any changes made using this app.</string>
     <string name="disclaimer_1_title">Use at Your Own Risk</string>
@@ -194,7 +190,6 @@
     <string name="edit_command">Edit command</string>
     <string name="edit_tile">Edit tile</string>
     <string name="empty_folder">This folder is empty</string>
-    <string name="enable">Enable</string>
     <string name="enable_auto_update">Enable auto update</string>
     <string name="enable_direct_download">Enable direct apk download</string>
     <string name="enable_wifi">Enable wifi</string>
@@ -289,7 +284,6 @@
     <string name="last_backup_date">Last backup date</string>
     <string name="last_backup_details">Last backup details</string>
     <string name="last_backup_time">Last backup time</string>
-    <string name="last_cloud_backup_time">Last cloud backup</string>
     <string name="latest_version">Latest version</string>
     <string name="lead_developer">Lead developer</string>
     <string name="least_used">Least used</string>
@@ -428,7 +422,6 @@
     <string name="search_icons_here">Search icons here</string>
     <string name="search_labels_here">Search labels here</string>
     <string name="search_output">Search output here</string>
-    <string name="search_tile">Search tile…</string>
     <string name="searching_connect_service">Searching connect service</string>
     <string name="searching_for_devices">Searching for devices…</string>
     <string name="select_all">Select all</string>
