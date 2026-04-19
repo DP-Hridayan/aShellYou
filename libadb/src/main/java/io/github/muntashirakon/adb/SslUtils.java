@@ -103,7 +103,7 @@ final class SslUtils {
         };
     }
 
-    @SuppressLint("TrustAllX509TrustManager") // Accept all certificates
+    @SuppressLint({"TrustAllX509TrustManager", "CustomX509TrustManager"}) // Accept all certificates
     @NonNull
     private static X509TrustManager getAllAcceptingTrustManager() {
         return new X509TrustManager() {

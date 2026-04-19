@@ -190,7 +190,7 @@ fun CreateTileScreen(
                 }
 
                 item {
-                    TileTextField(
+                    TextField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp),
@@ -199,7 +199,10 @@ fun CreateTileScreen(
                         hint = "Reboot",
                         shape = RoundedCornerShape(50),
                         singleLine = true,
-                        errorMessage = uiState.nameError
+                        errorMessage = uiState.nameError,
+                        keyboardOptions = KeyboardOptions.Default.copy(
+                            imeAction = ImeAction.Done,
+                        )
                     )
                 }
 
@@ -264,7 +267,7 @@ fun CreateTileScreen(
                     )
                 }
                 item {
-                    TileTextField(
+                    TextField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp),
@@ -276,6 +279,9 @@ fun CreateTileScreen(
                         hint = stringResource(R.string.on_state),
                         shape = RoundedCornerShape(50),
                         singleLine = true,
+                        keyboardOptions = KeyboardOptions.Default.copy(
+                            imeAction = ImeAction.Done,
+                        )
                     )
                 }
 
@@ -292,7 +298,7 @@ fun CreateTileScreen(
                                     top = 20.dp, start = 25.dp, bottom = 10.dp
                                 )
                             )
-                            TileTextField(
+                            TextField(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(horizontal = 20.dp),
@@ -301,6 +307,9 @@ fun CreateTileScreen(
                                 hint = stringResource(R.string.off_state),
                                 shape = RoundedCornerShape(50),
                                 singleLine = true,
+                                keyboardOptions = KeyboardOptions.Default.copy(
+                                    imeAction = ImeAction.Done,
+                                )
                             )
                         }
                     }
@@ -318,7 +327,7 @@ fun CreateTileScreen(
                 }
 
                 item {
-                    TileTextField(
+                    TextField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp)
@@ -330,6 +339,10 @@ fun CreateTileScreen(
                         singleLine = false,
                         minLines = 3,
                         fontFamily = FontFamily.Monospace,
+                        keyboardOptions = KeyboardOptions.Default.copy(
+                            keyboardType = KeyboardType.Ascii,
+                            imeAction = ImeAction.Default,
+                        )
                     )
                 }
 
@@ -346,7 +359,7 @@ fun CreateTileScreen(
                                     top = 20.dp, start = 25.dp, bottom = 10.dp
                                 )
                             )
-                            TileTextField(
+                            TextField(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(horizontal = 20.dp)
@@ -358,6 +371,10 @@ fun CreateTileScreen(
                                 singleLine = false,
                                 minLines = 3,
                                 fontFamily = FontFamily.Monospace,
+                                keyboardOptions = KeyboardOptions.Default.copy(
+                                    keyboardType = KeyboardType.Ascii,
+                                    imeAction = ImeAction.Default,
+                                )
                             )
                         }
                     }
@@ -581,7 +598,7 @@ private fun SectionLabel(
 
 /** Reusable text field card used throughout the screen. */
 @Composable
-private fun TileTextField(
+private fun TextField(
     modifier: Modifier = Modifier,
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
@@ -591,6 +608,7 @@ private fun TileTextField(
     minLines: Int = 1,
     fontFamily: FontFamily? = null,
     errorMessage: String? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
     Column(modifier = modifier) {
         Card(
@@ -613,12 +631,9 @@ private fun TileTextField(
                     fontFamily = fontFamily,
                 ),
                 singleLine = singleLine,
-                minLines = if (singleLine) 1 else minLines,
+                minLines = minLines,
                 cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Ascii,
-                    imeAction = if (singleLine) ImeAction.Done else ImeAction.Default,
-                ),
+                keyboardOptions = keyboardOptions,
                 decorationBox = { innerTextField ->
                     Box {
                         if (value.text.isEmpty()) {
