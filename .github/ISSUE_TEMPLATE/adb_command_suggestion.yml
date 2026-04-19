@@ -1,0 +1,114 @@
+name: "ADB Command Suggestion"
+description: Suggest a useful ADB command to be added to aShellYou
+title: "[ADB]: <short command name>"
+labels: ["adb-command"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📌 Suggest an ADB Command
+        Help improve aShellYou by suggesting useful ADB commands.
+
+        Please fill out the details clearly so it can be reviewed and possibly added.
+
+  - type: input
+    id: command_name
+    attributes:
+      label: Command Name
+      description: Short name for the command (e.g., Toggle WiFi, Open Developer Options)
+      placeholder: Toggle Mobile Data
+    validations:
+      required: true
+
+  - type: textarea
+    id: adb_command
+    attributes:
+      label: ADB Command
+      description: Provide the exact ADB command(s)
+      placeholder: adb shell svc data enable
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What does this command do?
+      description: Explain clearly what the command does
+      placeholder: Enables mobile data on the device
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Select the most relevant category
+      options:
+        - Connectivity (WiFi, Data, Bluetooth)
+        - System Settings
+        - UI / Navigation
+        - Developer Options
+        - Performance
+        - Battery
+        - Apps / Package Manager
+        - Debugging
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: root_required
+    attributes:
+      label: Requires Root?
+      options:
+        - No
+        - Yes
+        - Not Sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: android_version
+    attributes:
+      label: Tested Android Version(s)
+      description: Mention where it works
+      options:
+        - Android 10
+        - Android 11
+        - Android 12
+        - Android 13
+        - Android 14
+        - Android 15
+        - Not Tested
+        - Other (mention below)
+
+  - type: textarea
+    id: device_info
+    attributes:
+      label: Device / ROM (if tested)
+      placeholder: Poco F5, HyperOS
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risks / Side Effects
+      description: Mention if it can break something or has limitations
+      placeholder: May not work on non-rooted devices
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Anything else (alternatives, variations, etc.)
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have tested this command (or clearly marked it as untested)
+          required: true
+        - label: This command is safe or I have mentioned risks
+          required: true
