@@ -105,6 +105,7 @@
     <string name="cut_items">Cut %1$d items</string>
     <string name="cut_to_clipboard">Cut to clipboard</string>
     <string name="dark_theme">Dark theme</string>
+    <string name="dashboard">Dashboard</string>
     <string name="databases_only">Databases only</string>
     <string name="default_folder">Default folder</string>
     <string name="default_language">Default language</string>
