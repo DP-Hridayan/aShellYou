@@ -10,25 +10,20 @@ import android.content.pm.PackageManager
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -89,6 +84,9 @@ import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPill
+import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillDefaults
+import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillItem
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.DateTimeUtils
 import `in`.hridayan.ashell.core.utils.UrlUtils
@@ -121,6 +119,8 @@ fun TileDashBoardScreen(
     modifier: Modifier = Modifier,
     tileDashboardViewModel: TileDashboardViewModel = hiltViewModel()
 ) {
+    val isDarkMode = LocalDarkMode.current
+    val weakHaptic = LocalWeakHaptic.current
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val navController = LocalNavController.current
@@ -132,6 +132,11 @@ fun TileDashBoardScreen(
     val onClickNotificationButton: () -> Unit = withHaptic {
         context.startActivity(notificationSettingsIntent)
     }
+
+    val navigationItems = listOf(
+        FloatingNavPillItem(text = stringResource(R.string.tile)),
+        FloatingNavPillItem(text = stringResource(R.string.logs))
+    )
 
     LaunchedEffect(lifecycleOwner) {
         lifecycleOwner.lifecycle.addObserver(
@@ -200,11 +205,21 @@ fun TileDashBoardScreen(
 
                 FloatingNavPill(
                     modifier = Modifier
-                        .fillMaxWidth()
                         .align(Alignment.BottomCenter)
-                        .padding(50.dp),
+                        .padding(50.dp)
+                        .fillMaxWidth()
+                        .height(56.dp),
                     selectedIndex = uiState.currentTab,
-                    onSelectionChange = { tileDashboardViewModel.onTabChange(it) }
+                    onSelectionChange = {
+                        tileDashboardViewModel.onTabChange(it)
+                        weakHaptic()
+                    },
+                    items = navigationItems,
+                    colors = FloatingNavPillDefaults.colors(
+                        floatingContainerColor = MaterialTheme.colorScheme.run {
+                            if (isDarkMode) surfaceContainerHigh else surfaceContainerLowest
+                        }
+                    )
                 )
             }
         })
@@ -793,77 +808,6 @@ private fun TileLogCard(
 }
 
 @Composable
-private fun FloatingNavPill(
-    modifier: Modifier = Modifier,
-    selectedIndex: Int,
-    onSelectionChange: (Int) -> Unit
-) {
-    val isDarkMode = LocalDarkMode.current
-    val motion = MaterialTheme.motionScheme
-
-    val navItems = listOf(stringResource(R.string.tiles), stringResource(R.string.logs))
-
-    Card(
-        modifier = modifier
-            .height(56.dp)
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(50),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isDarkMode) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLowest
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
-    ) {
-        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
-            val itemWidth = maxWidth / navItems.size
-            val offsetX by animateDpAsState(
-                targetValue = itemWidth * selectedIndex,
-                animationSpec = motion.fastSpatialSpec(),
-                label = "pill_offset"
-            )
-
-            Box(
-                modifier = Modifier
-                    .offset(x = offsetX)
-                    .width(itemWidth)
-                    .fillMaxHeight()
-                    .padding(6.dp)
-                    .clip(RoundedCornerShape(50))
-                    .background(MaterialTheme.colorScheme.primaryContainer)
-            )
-
-            Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                navItems.forEachIndexed { index, item ->
-                    Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxHeight()
-                            .clickable(
-                                interactionSource = remember { MutableInteractionSource() },
-                                indication = null,
-                                onClick = withHaptic { onSelectionChange(index) }
-                            ),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        AutoResizeableText(
-                            text = item,
-                            style = MaterialTheme.typography.titleMediumEmphasized,
-                            fontWeight = FontWeight.SemiBold,
-                            color = if (index == selectedIndex)
-                                MaterialTheme.colorScheme.onPrimaryContainer
-                            else
-                                MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
 private fun ShizukuUnavailableCard(
     modifier: Modifier = Modifier,
     onClickButton: () -> Unit = {},
@@ -967,7 +911,7 @@ private fun NotificationAccessRequestCard(
 }
 
 @Composable
-fun NoLogsUi(modifier: Modifier = Modifier) {
+private fun NoLogsUi(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
