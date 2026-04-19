@@ -46,15 +46,15 @@ body:
       label: Category
       description: Select the most relevant category
       options:
-        - Connectivity (WiFi, Data, Bluetooth)
-        - System Settings
-        - UI / Navigation
-        - Developer Options
-        - Performance
-        - Battery
-        - Apps / Package Manager
-        - Debugging
-        - Other
+        - "Connectivity (WiFi, Data, Bluetooth)"
+        - "System Settings"
+        - "UI / Navigation"
+        - "Developer Options"
+        - "Performance"
+        - "Battery"
+        - "Apps / Package Manager"
+        - "Debugging"
+        - "Other"
     validations:
       required: true
 
@@ -63,9 +63,9 @@ body:
     attributes:
       label: Requires Root?
       options:
-        - No
-        - Yes
-        - Not Sure
+        - "No"
+        - "Yes"
+        - "Not Sure"
     validations:
       required: true
 
@@ -75,14 +75,14 @@ body:
       label: Tested Android Version(s)
       description: Mention where it works
       options:
-        - Android 10
-        - Android 11
-        - Android 12
-        - Android 13
-        - Android 14
-        - Android 15
-        - Not Tested
-        - Other (mention below)
+        - "Android 10"
+        - "Android 11"
+        - "Android 12"
+        - "Android 13"
+        - "Android 14"
+        - "Android 15"
+        - "Not Tested"
+        - "Other (mention below)"
 
   - type: textarea
     id: device_info
