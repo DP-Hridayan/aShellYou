@@ -82,7 +82,7 @@ import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
-import `in`.hridayan.ashell.core.presentation.components.dashedBorder
+import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPill
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillDefaults

@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.core.presentation.components
+package `in`.hridayan.ashell.core.presentation.components.modifier
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
