@@ -466,7 +466,7 @@ fun CreateTileScreen(
 
                     val previewSubtitle = uiState.run {
                         if (isToggleable) "${activeSubtitle.text} / ${inactiveSubtitle.text}"
-                        else activeSubtitle.text
+                        else if (isActive) activeSubtitle.text else inactiveSubtitle.text
                     }
 
                     Row(
