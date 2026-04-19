@@ -8,8 +8,13 @@ package `in`.hridayan.ashell.qstiles.presentation.screen
 
 import android.content.pm.PackageManager
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -33,11 +38,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -59,7 +65,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -77,13 +82,14 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.commandexamples.presentation.component.chip.LabelChip
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
-import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPill
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillDefaults
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillItem
@@ -101,6 +107,7 @@ import `in`.hridayan.ashell.navigation.slideFadeInFromRight
 import `in`.hridayan.ashell.navigation.slideFadeOutToLeft
 import `in`.hridayan.ashell.navigation.slideFadeOutToRight
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
+import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.model.TileExecutionMode
 import `in`.hridayan.ashell.qstiles.domain.model.TileLog
 import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiState
@@ -277,11 +284,14 @@ private fun TilesContent(
         state = listState,
         contentPadding = innerPadding
     ) {
-
         item { Spacer(Modifier.height(25.dp)) }
 
-        if (!hasNotificationAccess) {
-            item {
+        item {
+            AnimatedVisibility(
+                visible = !hasNotificationAccess,
+                enter = fadeIn() + expandVertically(),
+                exit = fadeOut() + shrinkVertically(),
+            ) {
                 NotificationAccessRequestCard(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -291,8 +301,12 @@ private fun TilesContent(
             }
         }
 
-        if (showShizukuUnavailableCard) {
-            item {
+        item {
+            AnimatedVisibility(
+                visible = showShizukuUnavailableCard,
+                enter = fadeIn() + expandVertically(),
+                exit = fadeOut() + shrinkVertically(),
+            ) {
                 ShizukuUnavailableCard(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -308,9 +322,13 @@ private fun TilesContent(
             }
         }
 
-        if (Shizuku.pingBinder()) {
-            if (!shizukuPermissionGranted.value) {
-                item {
+        item {
+            if (Shizuku.pingBinder()) {
+                AnimatedVisibility(
+                    visible = !shizukuPermissionGranted.value,
+                    enter = fadeIn() + expandVertically(),
+                    exit = fadeOut() + shrinkVertically(),
+                ) {
                     ShizukuPermissionRequestCard(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -413,8 +431,9 @@ private fun LogsContent(
             item {
                 RecentActivityHeader(
                     modifier = Modifier.padding(20.dp),
-                    searchQuery = uiState.logsSearchQuery,
-                    onSearchQueryChange = viewModel::onLogsSearchQueryChange
+                    selectedTileId = uiState.selectedTileIdFilter,
+                    tilesWithLogs = uiState.tilesWithLogs,
+                    onFilterChange = viewModel::onFilterChange
                 )
             }
 
@@ -620,11 +639,15 @@ private fun StatCard(
 @Composable
 private fun RecentActivityHeader(
     modifier: Modifier = Modifier,
-    searchQuery: String,
-    onSearchQueryChange: (String) -> Unit
+    selectedTileId: Int?,
+    tilesWithLogs: List<TileConfig>,
+    onFilterChange: (Int?) -> Unit
 ) {
-    var isSearchExpanded by remember { mutableStateOf(false) }
+    var isMenuExpanded by remember { mutableStateOf(false) }
     val weakHaptic = LocalWeakHaptic.current
+    val selectedTile = remember(selectedTileId, tilesWithLogs) {
+        tilesWithLogs.find { it.id == selectedTileId }
+    }
 
     Row(
         modifier = modifier
@@ -633,26 +656,13 @@ private fun RecentActivityHeader(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Crossfade(targetState = isSearchExpanded) { expanded ->
-            if (expanded) {
-                BasicTextField(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(end = 10.dp)
-                        .background(MaterialTheme.colorScheme.surfaceContainer, CircleShape)
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
-                    value = searchQuery,
-                    onValueChange = onSearchQueryChange,
-                    textStyle = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurface),
-                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-                    decorationBox = { innerTextField ->
-                        if (searchQuery.isEmpty()) {
-                            AutoResizeableText(
-                                text = stringResource(R.string.search_tile),
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                            )
-                        }
-                        innerTextField()
+        Crossfade(targetState = selectedTile) { tile ->
+            if (tile != null) {
+                LabelChip(
+                    label = tile.name,
+                    showCrossIcon = true,
+                    crossIconOnClick = {
+                        onFilterChange(null)
                     }
                 )
             } else {
@@ -664,29 +674,70 @@ private fun RecentActivityHeader(
             }
         }
 
-        Row(
-            modifier = Modifier
-                .clip(CircleShape)
-                .clickable {
-                    isSearchExpanded = !isSearchExpanded
-                    weakHaptic()
-                }
-                .padding(horizontal = 12.dp, vertical = 6.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            Icon(
-                modifier = Modifier.size(18.dp),
-                painter = painterResource(if (isSearchExpanded) R.drawable.ts_close else R.drawable.ic_filter_alt),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary
-            )
-            if (!isSearchExpanded) {
+        Box {
+            Row(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .clickable {
+                        isMenuExpanded = !isMenuExpanded
+                        weakHaptic()
+                    }
+                    .padding(horizontal = 12.dp, vertical = 6.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                Icon(
+                    modifier = Modifier.size(18.dp),
+                    painter = painterResource(R.drawable.ic_filter_alt),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
                 Text(
                     text = stringResource(R.string.filter),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
+            }
+
+            DropdownMenu(
+                expanded = isMenuExpanded,
+                onDismissRequest = { isMenuExpanded = false },
+                modifier = Modifier.background(MaterialTheme.colorScheme.surfaceContainerHigh)
+            ) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.all)) },
+                    onClick = {
+                        onFilterChange(null)
+                        isMenuExpanded = false
+                        weakHaptic()
+                    }
+                )
+                tilesWithLogs.forEach { tile ->
+                    DropdownMenuItem(
+                        text = {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                val tileIcon = TileIconProvider.iconById[tile.iconId]
+                                Icon(
+                                    modifier = Modifier.size(18.dp),
+                                    painter = painterResource(
+                                        tileIcon?.resId ?: R.drawable.ic_adb
+                                    ),
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                                Text(tile.name)
+                            }
+                        },
+                        onClick = {
+                            onFilterChange(tile.id)
+                            isMenuExpanded = false
+                            weakHaptic()
+                        }
+                    )
+                }
             }
         }
     }

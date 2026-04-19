@@ -29,7 +29,7 @@ class TileDashboardViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _currentTab = MutableStateFlow(TileScreenTabs.TILES)
-    private val _logsSearchQuery = MutableStateFlow("")
+    private val _selectedTileIdFilter = MutableStateFlow<Int?>(null)
 
     val state: StateFlow<TileDashBoardScreenUiState> =
         combine(
@@ -40,9 +40,9 @@ class TileDashboardViewModel @Inject constructor(
                 logRepository.getTotalExecutions().distinctUntilChanged(),
                 logRepository.getSuccessCount().distinctUntilChanged(),
                 _currentTab,
-                _logsSearchQuery
-            ) { logs, total, success, tab, query ->
-                DataBundle(logs, total, success, tab, query)
+                _selectedTileIdFilter
+            ) { logs, total, success, tab, filterId ->
+                DataBundle(logs, total, success, tab, filterId)
             }
         ) { tiles, running, bundle ->
             
@@ -50,15 +50,14 @@ class TileDashboardViewModel @Inject constructor(
             val total = bundle.total
             val success = bundle.success
             val tab = bundle.tab
-            val query = bundle.query
+            val filterId = bundle.filterId
+            val logTileIds = logs.map { it.tileId }.toSet()
+            val tilesWithLogs = tiles.filter { it.id in logTileIds }
 
-            val filteredLogs = if (query.isBlank()) {
+            val filteredLogs = if (filterId == null) {
                 logs
             } else {
-                logs.filter { log ->
-                    val tileName = tiles.find { it.id == log.tileId }?.name ?: "Unknown"
-                    tileName.contains(query, ignoreCase = true)
-                }
+                logs.filter { it.tileId == filterId }
             }
 
             val successRateStr = if (total > 0) {
@@ -75,7 +74,8 @@ class TileDashboardViewModel @Inject constructor(
                 logs = filteredLogs,
                 totalExecutions = total,
                 successRate = successRateStr,
-                logsSearchQuery = query
+                selectedTileIdFilter = filterId,
+                tilesWithLogs = tilesWithLogs
             )
         }
             .stateIn(
@@ -88,8 +88,8 @@ class TileDashboardViewModel @Inject constructor(
         _currentTab.value = index
     }
 
-    fun onLogsSearchQueryChange(query: String) {
-        _logsSearchQuery.value = query
+    fun onFilterChange(tileId: Int?) {
+        _selectedTileIdFilter.value = tileId
     }
 
     private data class DataBundle(
@@ -97,6 +97,6 @@ class TileDashboardViewModel @Inject constructor(
         val total: Int,
         val success: Int,
         val tab: Int,
-        val query: String
+        val filterId: Int?
     )
 }

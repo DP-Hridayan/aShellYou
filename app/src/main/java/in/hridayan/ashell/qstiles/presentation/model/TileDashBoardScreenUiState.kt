@@ -13,5 +13,6 @@ data class TileDashBoardScreenUiState(
     val logs: List<TileLog> = emptyList(),
     val totalExecutions: Int = 0,
     val successRate: String = "0.0%",
-    val logsSearchQuery: String = ""
+    val selectedTileIdFilter: Int? = null,
+    val tilesWithLogs: List<TileConfig> = emptyList()
 )
