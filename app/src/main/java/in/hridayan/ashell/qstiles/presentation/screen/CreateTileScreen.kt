@@ -111,10 +111,10 @@ fun CreateTileScreen(
     val listState = rememberLazyListState()
     val interactionSource = remember { MutableInteractionSource() }
 
-    val isValid = uiState.nameField.text.isNotBlank() &&
-            uiState.activeCommand.text.isNotBlank() &&
-            (!uiState.isToggleable || uiState.inactiveCommand.text.isNotBlank()) &&
-            uiState.nameError == null
+    val isValid = uiState.run {
+        nameField.text.isNotBlank() && activeCommand.text.isNotBlank() &&
+                (!isToggleable || inactiveCommand.text.isNotBlank()) && nameError == null
+    }
 
     val floatingToolbarContainerColor =
         FloatingToolbarDefaults.vibrantFloatingToolbarColors().toolbarContainerColor
@@ -326,7 +326,7 @@ fun CreateTileScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp),
-                        value = uiState.activeSubtitle,
+                        value = uiState.run { if (isActive) activeSubtitle else inactiveSubtitle },
                         onValueChange = { createTileViewModel.onActiveSubtitleChange(it) },
                         hint = stringResource(R.string.on_state),
                         shape = RoundedCornerShape(50),
@@ -423,8 +423,7 @@ fun CreateTileScreen(
                                         .size(48.dp)
                                         .clip(CircleShape)
                                         .background(
-                                            if (isIconSelected) MaterialTheme.colorScheme.primary
-                                            else MaterialTheme.colorScheme.surfaceVariant
+                                            MaterialTheme.colorScheme.run { if (isIconSelected) primary else surfaceVariant }
                                         )
                                         .clickable(onClick = withHaptic {
                                             createTileViewModel.onIconSelected(tileIcon.id)
@@ -465,10 +464,10 @@ fun CreateTileScreen(
                     else
                         painterResource(R.drawable.ic_add)
 
-                    val previewSubtitle = if (uiState.isToggleable)
-                        "${uiState.activeSubtitle.text} / ${uiState.inactiveSubtitle.text}"
-                    else
-                        uiState.activeSubtitle.text
+                    val previewSubtitle = uiState.run {
+                        if (isToggleable) "${activeSubtitle.text} / ${inactiveSubtitle.text}"
+                        else activeSubtitle.text
+                    }
 
                     Row(
                         modifier = Modifier
@@ -736,10 +735,12 @@ private fun ClassicTile(
 ) {
     val darkMode = LocalDarkMode.current
 
-    val containerColor =
-        if (isActive) MaterialTheme.colorScheme.primaryContainer else if (darkMode) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
-    val contentColor =
-        if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
+    val containerColor = MaterialTheme.colorScheme.run {
+        if (isActive) primaryContainer else if (darkMode) surfaceContainerHigh else surfaceContainerLow
+    }
+    val contentColor = MaterialTheme.colorScheme.run {
+        if (isActive) onPrimaryContainer else onSurface
+    }
 
     Box(
         modifier = modifier,
@@ -782,9 +783,9 @@ private fun ModernTilePreview(
 ) {
     val darkMode = LocalDarkMode.current
 
-    val containerColor =
-        if (isActive) MaterialTheme.colorScheme.primaryContainer else if (darkMode) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
-
+    val containerColor = MaterialTheme.colorScheme.run {
+        if (isActive) primaryContainer else if (darkMode) surfaceContainerHigh else surfaceContainerLow
+    }
     val interactionSource = remember { MutableInteractionSource() }
 
     Box(
@@ -816,7 +817,7 @@ private fun ModernTilePreview(
                 Icon(
                     modifier = Modifier.size(28.dp),
                     painter = icon,
-                    tint = if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary,
+                    tint = MaterialTheme.colorScheme.run { if (isActive) onPrimaryContainer else primary },
                     contentDescription = null
                 )
 
@@ -829,10 +830,7 @@ private fun ModernTilePreview(
                         modifier = Modifier.basicMarquee(),
                         text = title.ifEmpty { stringResource(R.string.untitled) },
                         style = MaterialTheme.typography.titleMedium,
-                        color = if (isActive)
-                            MaterialTheme.colorScheme.onPrimaryContainer
-                        else
-                            MaterialTheme.colorScheme.onSurface,
+                        color = MaterialTheme.colorScheme.run { if (isActive) onPrimaryContainer else onSurface },
                         maxLines = 1
                     )
                     if (subtitle.isNotEmpty()) {
@@ -840,10 +838,10 @@ private fun ModernTilePreview(
                             modifier = Modifier.basicMarquee(),
                             text = subtitle,
                             style = MaterialTheme.typography.bodySmall,
-                            color = if (isActive)
-                                MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-                            else
-                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                            color = MaterialTheme.colorScheme.run {
+                                if (isActive) onPrimaryContainer.copy(alpha = 0.7f)
+                                else onSurface.copy(alpha = 0.5f)
+                            },
                             maxLines = 1
                         )
                     }
