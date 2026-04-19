@@ -12,6 +12,7 @@ import javax.inject.Inject
 class RootExecutor @Inject constructor() : CommandExecutor {
 
     override suspend fun execute(command: String): CommandResult = withContext(Dispatchers.IO) {
+        val filteredCommand = filterCommand(command)
         val start = System.currentTimeMillis()
 
         val rootGranted = try {
@@ -30,7 +31,7 @@ class RootExecutor @Inject constructor() : CommandExecutor {
         }
 
         try {
-            val result = Shell.cmd(command).exec()
+            val result = Shell.cmd(filteredCommand).exec()
 
             val output = buildString {
                 if (result.out.isNotEmpty()) append(result.out.joinToString("\n"))
@@ -59,4 +60,10 @@ class RootExecutor @Inject constructor() : CommandExecutor {
     }
 
     private fun elapsed(start: Long) = System.currentTimeMillis() - start
+
+    private fun filterCommand(command: String): String {
+        return command.trim().removePrefix("adb ").removePrefix("shell ")
+    }
 }
+
+

@@ -14,6 +14,7 @@ class ShizukuExecutor @Inject constructor() : CommandExecutor {
 
     @Suppress("DEPRECATION")
     override suspend fun execute(command: String): CommandResult = withContext(Dispatchers.IO) {
+        val filteredCommand = filterCommand(command)
         val start = System.currentTimeMillis()
 
         if (!Shizuku.pingBinder()) {
@@ -36,7 +37,7 @@ class ShizukuExecutor @Inject constructor() : CommandExecutor {
 
         var process: Process? = null
         try {
-            process = Shizuku.newProcess(arrayOf("sh", "-c", command), null, null)
+            process = Shizuku.newProcess(arrayOf("sh", "-c", filteredCommand), null, null)
 
             val output = StringBuilder()
             val errorOutput = StringBuilder()
@@ -82,4 +83,8 @@ class ShizukuExecutor @Inject constructor() : CommandExecutor {
     }
 
     private fun elapsed(start: Long) = System.currentTimeMillis() - start
+
+    private fun filterCommand(command: String): String {
+        return command.trim().removePrefix("adb ").removePrefix("shell ")
+    }
 }
