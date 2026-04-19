@@ -124,6 +124,28 @@
 
     <issue
         id="GradleDependency"
+        message="A newer version of androidx.credentials:credentials than 1.6.0-rc02 is available: 1.6.0"
+        errorLine1="credentials = &quot;1.6.0-rc02&quot;"
+        errorLine2="              ~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="9"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.credentials:credentials-play-services-auth than 1.6.0-rc02 is available: 1.6.0"
+        errorLine1="credentials = &quot;1.6.0-rc02&quot;"
+        errorLine2="              ~~~~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="9"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
         message="A newer version of androidx.core:core-ktx than 1.17.0 is available: 1.18.0"
         errorLine1="coreKtx = &quot;1.17.0&quot;"
         errorLine2="          ~~~~~~~~">
@@ -349,7 +371,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="27"
+            line="37"
             column="5"/>
     </issue>
 
@@ -360,7 +382,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="89"
+            line="99"
             column="5"/>
     </issue>
 
@@ -371,7 +393,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="93"
+            line="103"
             column="5"/>
     </issue>
 
@@ -382,7 +404,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="102"
+            line="112"
             column="5"/>
     </issue>
 
@@ -393,7 +415,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="113"
+            line="123"
             column="5"/>
     </issue>
 
@@ -404,7 +426,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="114"
+            line="124"
             column="5"/>
     </issue>
 
@@ -415,7 +437,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="211"
+            line="221"
             column="5"/>
     </issue>
 
@@ -426,7 +448,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="222"
+            line="232"
             column="5"/>
     </issue>
 
@@ -437,7 +459,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="223"
+            line="233"
             column="5"/>
     </issue>
 
@@ -448,7 +470,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="224"
+            line="234"
             column="5"/>
     </issue>
 
@@ -459,7 +481,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="311"
+            line="321"
             column="5"/>
     </issue>
 
@@ -992,17 +1014,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_shizuku` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_shizuku.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_star` appears to be unused"
         errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
         errorLine2="^">
@@ -1183,8 +1194,8 @@
         errorLine1="                    .offset(x = offsetX)"
         errorLine2="                     ~~~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/qstiles/presentation/screen/TileDashBoardScreen.kt"
-            line="352"
+            file="src/main/java/in/hridayan/ashell/core/presentation/components/navigation/FloatingNavPill.kt"
+            line="65"
             column="22"/>
     </issue>
 

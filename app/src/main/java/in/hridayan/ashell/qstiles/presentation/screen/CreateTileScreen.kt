@@ -77,8 +77,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -253,6 +253,58 @@ fun CreateTileScreen(
                         )
                     )
                 }
+                item {
+                    val label = if (uiState.isToggleable)
+                        stringResource(R.string.subtitle_on_state)
+                    else
+                        stringResource(R.string.subtitle)
+                    SectionLabel(
+                        text = label,
+                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
+                    )
+                }
+                item {
+                    TileTextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp),
+                        value = uiState.run { if (isActive) activeSubtitle else inactiveSubtitle },
+                        onValueChange = {
+                            if (uiState.isActive) createTileViewModel.onActiveSubtitleChange(it)
+                            else createTileViewModel.onInactiveSubtitleChange(it)
+                        },
+                        hint = stringResource(R.string.on_state),
+                        shape = RoundedCornerShape(50),
+                        singleLine = true,
+                    )
+                }
+
+                item {
+                    AnimatedVisibility(
+                        visible = uiState.isToggleable,
+                        enter = fadeIn() + expandVertically(),
+                        exit = fadeOut() + shrinkVertically(),
+                    ) {
+                        Column {
+                            SectionLabel(
+                                text = stringResource(R.string.subtitle_off_state),
+                                modifier = Modifier.padding(
+                                    top = 20.dp, start = 25.dp, bottom = 10.dp
+                                )
+                            )
+                            TileTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 20.dp),
+                                value = uiState.inactiveSubtitle,
+                                onValueChange = { createTileViewModel.onInactiveSubtitleChange(it) },
+                                hint = stringResource(R.string.off_state),
+                                shape = RoundedCornerShape(50),
+                                singleLine = true,
+                            )
+                        }
+                    }
+                }
 
                 item {
                     val label = if (uiState.isToggleable)
@@ -306,56 +358,6 @@ fun CreateTileScreen(
                                 singleLine = false,
                                 minLines = 3,
                                 fontFamily = FontFamily.Monospace,
-                            )
-                        }
-                    }
-                }
-
-                item {
-                    val label = if (uiState.isToggleable)
-                        stringResource(R.string.subtitle_on_state)
-                    else
-                        stringResource(R.string.subtitle)
-                    SectionLabel(
-                        text = label,
-                        modifier = Modifier.padding(top = 25.dp, start = 25.dp, bottom = 10.dp)
-                    )
-                }
-                item {
-                    TileTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
-                        value = uiState.run { if (isActive) activeSubtitle else inactiveSubtitle },
-                        onValueChange = { createTileViewModel.onActiveSubtitleChange(it) },
-                        hint = stringResource(R.string.on_state),
-                        shape = RoundedCornerShape(50),
-                        singleLine = true,
-                    )
-                }
-
-                item {
-                    AnimatedVisibility(
-                        visible = uiState.isToggleable,
-                        enter = fadeIn() + expandVertically(),
-                        exit = fadeOut() + shrinkVertically(),
-                    ) {
-                        Column {
-                            SectionLabel(
-                                text = stringResource(R.string.subtitle_off_state),
-                                modifier = Modifier.padding(
-                                    top = 20.dp, start = 25.dp, bottom = 10.dp
-                                )
-                            )
-                            TileTextField(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 20.dp),
-                                value = uiState.inactiveSubtitle,
-                                onValueChange = { createTileViewModel.onInactiveSubtitleChange(it) },
-                                hint = stringResource(R.string.off_state),
-                                shape = RoundedCornerShape(50),
-                                singleLine = true,
                             )
                         }
                     }
