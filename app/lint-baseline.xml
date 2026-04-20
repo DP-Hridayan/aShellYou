@@ -24,6 +24,28 @@
     </issue>
 
     <issue
+        id="NonObservableLocale"
+        message="Reading locale in a non-observable way in a composable function"
+        errorLine1="            label = stringResource(R.string.total_executions).uppercase(Locale.getDefault()),"
+        errorLine2="                                                                        ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/qstiles/presentation/screen/TileDashBoardScreen.kt"
+            line="572"
+            column="73"/>
+    </issue>
+
+    <issue
+        id="NonObservableLocale"
+        message="Reading locale in a non-observable way in a composable function"
+        errorLine1="            label = stringResource(R.string.success_rate).uppercase(Locale.getDefault()),"
+        errorLine2="                                                                    ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/qstiles/presentation/screen/TileDashBoardScreen.kt"
+            line="579"
+            column="69"/>
+    </issue>
+
+    <issue
         id="VectorRaster"
         message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more"
         errorLine1="    android:width=&quot;884dp&quot;"
@@ -163,17 +185,6 @@
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
             line="11"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose.material3:material3 than 1.5.0-alpha12 is available: 1.5.0-alpha17"
-        errorLine1="material3 = &quot;1.5.0-alpha12&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="31"
             column="13"/>
     </issue>
 
