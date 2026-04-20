@@ -141,7 +141,7 @@ fun TileDashBoardScreen(
     }
 
     val navigationItems = listOf(
-        FloatingNavPillItem(text = stringResource(R.string.tile)),
+        FloatingNavPillItem(text = stringResource(R.string.tiles)),
         FloatingNavPillItem(text = stringResource(R.string.logs))
     )
 
