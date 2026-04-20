@@ -1,6 +1,6 @@
 [versions]
 activityCompose = "1.13.0"
-agp = "8.13.2"
+agp = "9.1.1"
 androidxJunit = "1.3.0"
 annotation = "1.10.0"
 bcprovJdk15to18 = "1.84"
@@ -17,12 +17,12 @@ googleHttpClientGson = "1.46.3"
 googleId = "1.2.0"
 gson = "2.13.2"
 hiddenapibypassVersion = "6.1"
-hilt = "2.58"
+hilt = "2.59.2"
 hiltExt = "1.3.0"
 jmdns = "3.6.3"
 junit = "4.13.2"
 kotlin = "2.3.20"
-ksp = "2.2.20-2.0.3"
+ksp = "2.3.6"
 ktor = "3.4.2"
 libsu = "6.0.0"
 lifecycle = "2.10.0"
@@ -48,7 +48,6 @@ shapeindicators = "2.1.0"
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

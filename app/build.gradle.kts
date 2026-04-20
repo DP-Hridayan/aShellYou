@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.Properties
 
 val keystoreProperties = Properties()
@@ -9,9 +10,10 @@ if (keystorePropertiesFile.exists()) {
     }
 }
 
+val isCI = System.getenv("CI")?.toBoolean() == true
+
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
@@ -21,7 +23,10 @@ plugins {
 
 android {
     namespace = "in.hridayan.ashell"
-    compileSdk = 36
+
+    compileSdk {
+        version = release(36)
+    }
 
     defaultConfig {
         applicationId = "in.hridayan.ashell"
@@ -37,40 +42,29 @@ android {
         baseline = file("lint-baseline.xml")
     }
 
-    ksp {
-        arg("room.schemaLocation", "$projectDir/schemas")
-    }
-
     signingConfigs {
         create("release") {
             when {
                 keystorePropertiesFile.exists() -> {
-                    storeFile = file(keystoreProperties.getProperty("storeFile"))
-                    storePassword = keystoreProperties.getProperty("storePassword")
-                    keyAlias = keystoreProperties.getProperty("keyAlias")
-                    keyPassword = keystoreProperties.getProperty("keyPassword")
+                    storeFile = file(keystoreProperties["storeFile"] as String)
+                    storePassword = keystoreProperties["storePassword"] as String
+                    keyAlias = keystoreProperties["keyAlias"] as String
+                    keyPassword = keystoreProperties["keyPassword"] as String
                 }
 
-                System.getenv("CI")?.toBoolean() == true -> {
-                    val keystorePath = System.getenv("KEYSTORE_PATH")
-                    val keystorePassword = System.getenv("KEYSTORE_PASSWORD")
-                    val keyAlias = System.getenv("KEY_ALIAS")
-                    val keyPassword = System.getenv("KEY_PASSWORD") ?: keystorePassword
+                isCI -> {
+                    val path = System.getenv("KEYSTORE_PATH")
+                    val password = System.getenv("KEYSTORE_PASSWORD")
+                    val alias = System.getenv("KEY_ALIAS")
+                    val keyPass = System.getenv("KEY_PASSWORD") ?: password
 
-                    if (
-                        !keystorePath.isNullOrBlank() &&
-                        !keystorePassword.isNullOrBlank() &&
-                        !keyAlias.isNullOrBlank() &&
-                        !keyPassword.isNullOrBlank()
-                    ) {
-                        storeFile = file(keystorePath)
-                        storePassword = keystorePassword
-                        this.keyAlias = keyAlias
-                        this.keyPassword = keyPassword
+                    if (!path.isNullOrBlank() && !password.isNullOrBlank() && !alias.isNullOrBlank()) {
+                        storeFile = file(path)
+                        storePassword = password
+                        keyAlias = alias
+                        keyPassword = keyPass
                     }
                 }
-
-                else -> {}
             }
         }
     }
@@ -88,22 +82,14 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig =
-                if (System.getenv("CI")?.toBoolean() == true || keystorePropertiesFile.exists())
-                    signingConfigs.getByName("release")
-                else
-                    signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.findByName("release")
+                ?: signingConfigs.getByName("debug")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
     }
 
     buildFeatures {
@@ -117,15 +103,10 @@ android {
     }
 
     packaging {
-        jniLibs {
-            useLegacyPackaging = true
-        }
         resources {
             excludes += setOf(
-                "META-INF/INDEX.LIST",
-                "META-INF/DEPENDENCIES",
-                "META-INF/LICENSE.md",
-                "META-INF/NOTICE.md"
+                "/META-INF/*",
+                "/META-INF/versions/**"
             )
         }
     }
@@ -133,6 +114,16 @@ android {
     dependenciesInfo {
         includeInApk = false
         includeInBundle = false
+    }
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
+
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 
@@ -151,7 +142,7 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.material)
     implementation(libs.material3)
     implementation(libs.material.icons.extended)
