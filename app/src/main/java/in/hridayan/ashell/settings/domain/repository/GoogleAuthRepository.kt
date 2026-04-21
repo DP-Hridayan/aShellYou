@@ -6,6 +6,9 @@ import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import kotlinx.coroutines.flow.StateFlow
 
 interface GoogleAuthRepository {
+    /** Whether Google auth is available in this build flavor. */
+    val isAvailable: Boolean
+
     val googleUserState: StateFlow<GoogleUserState>
 
     /**

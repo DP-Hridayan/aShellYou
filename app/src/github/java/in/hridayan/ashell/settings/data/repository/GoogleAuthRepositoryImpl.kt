@@ -38,6 +38,8 @@ class GoogleAuthRepositoryImpl @Inject constructor(
             "881968854575-28tp1junqrp9ta8qma5kl8ittgclmrji.apps.googleusercontent.com"
     }
 
+    override val isAvailable: Boolean = true
+
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     private val _googleUserState = MutableStateFlow(GoogleUserState())

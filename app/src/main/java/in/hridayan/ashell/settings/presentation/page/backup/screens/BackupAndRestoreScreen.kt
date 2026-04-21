@@ -28,7 +28,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,9 +36,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -100,6 +97,7 @@ fun BackupAndRestoreScreen(
     val cloudOperationMessage by backupAndRestoreViewModel.cloudOperationMessage.collectAsState()
 
     val showCloudRestoreConfirm by backupAndRestoreViewModel.showCloudRestoreConfirm.collectAsState()
+    val isCloudBackupAvailable = backupAndRestoreViewModel.isCloudBackupAvailable
 
     var restoreFileUri by rememberSaveable { mutableStateOf("".toUri()) }
 
@@ -124,7 +122,7 @@ fun BackupAndRestoreScreen(
         }
     }
 
-    // Consent launcher for Drive scope authorization
+    // Consent launcher for Drive scope authorization (GitHub flavor only)
     val consentLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartIntentSenderForResult()
     ) { result ->
@@ -136,11 +134,13 @@ fun BackupAndRestoreScreen(
     }
 
     // Observe consent requests from Drive repo and launch consent UI
-    LaunchedEffect(Unit) {
-        backupAndRestoreViewModel.consentIntentSender.collect { intentSender ->
-            consentLauncher.launch(
-                IntentSenderRequest.Builder(intentSender).build()
-            )
+    if (isCloudBackupAvailable) {
+        LaunchedEffect(Unit) {
+            backupAndRestoreViewModel.consentIntentSender.collect { intentSender ->
+                consentLauncher.launch(
+                    IntentSenderRequest.Builder(intentSender).build()
+                )
+            }
         }
     }
 
@@ -247,19 +247,21 @@ fun BackupAndRestoreScreen(
                         is PreferenceGroup.CustomComposable -> {
                             when (group.label) {
                                 "google_sign_in" -> {
-                                    GoogleSignInCard(
-                                        isSignedIn = googleUserState.isSignedIn,
-                                        userEmail = googleUserState.email,
-                                        userName = googleUserState.name,
-                                        userPhotoUrl = googleUserState.photoUrl,
-                                        isLoading = isSigningIn || cloudOperationMessage != null,
-                                        onSignInClick = {
-                                            backupAndRestoreViewModel.signInWithGoogle()
-                                        },
-                                        onSignOutClick = {
-                                            dialogManager.show(DialogKey.Settings.ConfirmGoogleSignOut)
-                                        }
-                                    )
+                                    if (isCloudBackupAvailable) {
+                                        GoogleSignInCard(
+                                            isSignedIn = googleUserState.isSignedIn,
+                                            userEmail = googleUserState.email,
+                                            userName = googleUserState.name,
+                                            userPhotoUrl = googleUserState.photoUrl,
+                                            isLoading = isSigningIn || cloudOperationMessage != null,
+                                            onSignInClick = {
+                                                backupAndRestoreViewModel.signInWithGoogle()
+                                            },
+                                            onSignOutClick = {
+                                                dialogManager.show(DialogKey.Settings.ConfirmGoogleSignOut)
+                                            }
+                                        )
+                                    }
                                 }
 
                                 "last_backup_time" -> {
@@ -267,6 +269,7 @@ fun BackupAndRestoreScreen(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .padding(top = 10.dp),
+                                        isCloudBackupAvailable = isCloudBackupAvailable,
                                         userState = googleUserState,
                                         lastBackupData = lastBackupData,
                                         isExpanded = isLastBackupDetailsCardExpanded,
@@ -308,83 +311,82 @@ fun BackupAndRestoreScreen(
         )
     }
 
-    DialogKey.Settings.BackupDestination(
-        backupType = backupAndRestoreViewModel.run {
-            BackupType.SETTINGS_AND_DATABASE
+    if (isCloudBackupAvailable) {
+        DialogKey.Settings.BackupDestination(
+            backupType = backupAndRestoreViewModel.run {
+                BackupType.SETTINGS_AND_DATABASE
+            }
+        ).createDialog { dialogViewModel ->
+            val activeKey = dialogManager.activeDialog
+            val backupType = (activeKey as? DialogKey.Settings.BackupDestination)?.backupType
+                ?: BackupType.SETTINGS_AND_DATABASE
+
+            BackupDestinationDialog(
+                onDismiss = { dialogViewModel.dismiss() },
+                onLocalBackup = {
+                    backupAndRestoreViewModel.initiateBackup(backupType)
+                    launcherBackup.launch("backup_${System.currentTimeMillis()}.ashellyou")
+                },
+                onGoogleDriveBackup = {
+                    backupAndRestoreViewModel.backupToGoogleDrive(backupType)
+                }
+            )
         }
-    ).createDialog { dialogViewModel ->
-        val activeKey = dialogManager.activeDialog
-        val backupType = (activeKey as? DialogKey.Settings.BackupDestination)?.backupType
-            ?: BackupType.SETTINGS_AND_DATABASE
 
-        BackupDestinationDialog(
-            onDismiss = { dialogViewModel.dismiss() },
-            onLocalBackup = {
-                backupAndRestoreViewModel.initiateBackup(backupType)
-                launcherBackup.launch("backup_${System.currentTimeMillis()}.ashellyou")
-            },
-            onGoogleDriveBackup = {
-                backupAndRestoreViewModel.backupToGoogleDrive(backupType)
-            }
-        )
+        DialogKey.Settings.RestoreSource.createDialog { dialogViewModel ->
+            RestoreSourceDialog(
+                onDismiss = { dialogViewModel.dismiss() },
+                onLocalRestore = {
+                    launcherRestore.launch(arrayOf("application/octet-stream"))
+                },
+                onGoogleDriveRestore = {
+                    backupAndRestoreViewModel.downloadFromGoogleDrive()
+                }
+            )
+        }
+
+        DialogKey.Settings.ConfirmGoogleSignOut.createDialog { dialogViewModel ->
+            GoogleSignOutConfirmationDialog(
+                onDismiss = { dialogViewModel.dismiss() },
+                onConfirm = { backupAndRestoreViewModel.signOut() }
+            )
+        }
     }
 
-    DialogKey.Settings.RestoreSource.createDialog { dialogViewModel ->
-        RestoreSourceDialog(
-            onDismiss = { dialogViewModel.dismiss() },
-            onLocalRestore = {
-                launcherRestore.launch(arrayOf("application/octet-stream"))
-            },
-            onGoogleDriveRestore = {
-                backupAndRestoreViewModel.downloadFromGoogleDrive()
-            }
-        )
-    }
+    if (isCloudBackupAvailable) {
+        cloudOperationMessage?.let { message ->
+            CloudOperationDialog(message = message)
+        }
 
-    DialogKey.Settings.ConfirmGoogleSignOut.createDialog { dialogViewModel ->
-        GoogleSignOutConfirmationDialog(
-            onDismiss = { dialogViewModel.dismiss() },
-            onConfirm = { backupAndRestoreViewModel.signOut() }
-        )
-    }
-
-    cloudOperationMessage?.let { message ->
-        CloudOperationDialog(message = message)
-    }
-
-    if (showCloudRestoreConfirm) {
-        RestoreBackupDialog(
-            onDismiss = { backupAndRestoreViewModel.cancelCloudRestore() },
-            onConfirm = { backupAndRestoreViewModel.confirmCloudRestore() },
-            backupTime = cloudBackupTime,
-            backupType = cloudBackupType
-        )
+        if (showCloudRestoreConfirm) {
+            RestoreBackupDialog(
+                onDismiss = { backupAndRestoreViewModel.cancelCloudRestore() },
+                onConfirm = { backupAndRestoreViewModel.confirmCloudRestore() },
+                backupTime = cloudBackupTime,
+                backupType = cloudBackupType
+            )
+        }
     }
 }
 
 @Composable
 private fun LastBackupTimeCard(
     modifier: Modifier = Modifier,
+    isCloudBackupAvailable: Boolean = false,
     lastBackupData: LastBackupData,
     userState: GoogleUserState,
     isExpanded: Boolean = false,
     onClick: () -> Unit = {}
 ) {
-    var cardHeight by remember { mutableStateOf(0.dp) }
-    val screenDensity = LocalDensity.current
     val roundedCornerShape =
-        if (isExpanded) CardCornerShape.FIRST_CARD else RoundedCornerShape(cardHeight / 2)
+        if (isExpanded) CardCornerShape.FIRST_CARD else RoundedCornerShape(50)
 
     val cloudCardIcon =
         if (userState.isSignedIn) painterResource(R.drawable.ic_cloud_done) else painterResource(R.drawable.ic_cloud_off)
 
     Column(modifier = modifier.animateContentSize()) {
         RoundedCornerCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .onGloballyPositioned { coordinates ->
-                    cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
-                },
+            modifier = Modifier.fillMaxWidth(),
             onClick = onClick,
             roundedCornerShape = roundedCornerShape
         ) {
@@ -419,21 +421,23 @@ private fun LastBackupTimeCard(
         if (isExpanded) {
             TimeCard(
                 modifier = Modifier.fillMaxWidth(),
-                roundedCornerShape = CardCornerShape.MIDDLE_CARD,
+                roundedCornerShape = CardCornerShape.run { if (isCloudBackupAvailable) MIDDLE_CARD else LAST_CARD },
                 icon = painterResource(R.drawable.ic_mobile),
                 title = stringResource(R.string.device_backup_local),
                 backupType = lastBackupData.localType,
                 dateTime = lastBackupData.localTime
             )
 
-            TimeCard(
-                modifier = Modifier.fillMaxWidth(),
-                roundedCornerShape = CardCornerShape.LAST_CARD,
-                icon = cloudCardIcon,
-                title = stringResource(R.string.cloud_backup_google_drive),
-                backupType = lastBackupData.cloudType,
-                dateTime = lastBackupData.cloudTime
-            )
+            if (isCloudBackupAvailable) {
+                TimeCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    roundedCornerShape = CardCornerShape.LAST_CARD,
+                    icon = cloudCardIcon,
+                    title = stringResource(R.string.cloud_backup_google_drive),
+                    backupType = lastBackupData.cloudType,
+                    dateTime = lastBackupData.cloudTime
+                )
+            }
         }
     }
 }

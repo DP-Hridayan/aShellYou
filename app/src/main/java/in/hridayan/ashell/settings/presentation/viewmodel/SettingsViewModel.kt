@@ -210,9 +210,9 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.ResetSettings)
                 )
 
-                // Backup options: show destination dialog if signed in, else go straight to local
+                // Backup options: show destination dialog if signed-in AND cloud is available
                 SettingsKeys.BACKUP_APP_SETTINGS -> {
-                    if (googleAuthRepository.googleUserState.value.isSignedIn) {
+                    if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
                                 DialogKey.Settings.BackupDestination(BackupType.SETTINGS_ONLY)
@@ -226,7 +226,7 @@ class SettingsViewModel @Inject constructor(
                 }
 
                 SettingsKeys.BACKUP_APP_DATABASE -> {
-                    if (googleAuthRepository.googleUserState.value.isSignedIn) {
+                    if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
                                 DialogKey.Settings.BackupDestination(BackupType.DATABASE_ONLY)
@@ -240,7 +240,7 @@ class SettingsViewModel @Inject constructor(
                 }
 
                 SettingsKeys.BACKUP_APP_DATA -> {
-                    if (googleAuthRepository.googleUserState.value.isSignedIn) {
+                    if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(
                                 DialogKey.Settings.BackupDestination(BackupType.SETTINGS_AND_DATABASE)
@@ -257,9 +257,9 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.BackupSchedulerScreen)
                 )
 
-                // Restore: show source dialog if signed in, else go straight to local
+                // Restore: show source dialog if signed in AND cloud is available
                 SettingsKeys.RESTORE_APP_DATA -> {
-                    if (googleAuthRepository.googleUserState.value.isSignedIn) {
+                    if (googleAuthRepository.isAvailable && googleAuthRepository.googleUserState.value.isSignedIn) {
                         _uiEvent.emit(
                             SettingsUiEvent.ShowDialog(DialogKey.Settings.RestoreSource)
                         )

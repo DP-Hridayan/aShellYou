@@ -87,6 +87,17 @@ android {
         }
     }
 
+    flavorDimensions.add("distribution")
+
+    productFlavors {
+        create("github") {
+            dimension = "distribution"
+        }
+        create("fdroid") {
+            dimension = "distribution"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -175,13 +186,13 @@ dependencies {
 
     implementation(libs.androidx.security.crypto)
 
-    implementation(libs.play.services.auth)
-    implementation(libs.credentials)
-    implementation(libs.credentials.play.services.auth)
-    implementation(libs.google.id)
-    implementation(libs.google.api.client.android)
-    implementation(libs.google.api.services.drive)
-    implementation(libs.google.http.client.gson)
+    "githubImplementation"(libs.play.services.auth)
+    "githubImplementation"(libs.credentials)
+    "githubImplementation"(libs.credentials.play.services.auth)
+    "githubImplementation"(libs.google.id)
+    "githubImplementation"(libs.google.api.client.android)
+    "githubImplementation"(libs.google.api.services.drive)
+    "githubImplementation"(libs.google.http.client.gson)
 
     implementation(libs.shizuku.api)
     implementation(libs.shizuku.provider)

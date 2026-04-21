@@ -64,6 +64,9 @@ class BackupAndRestoreViewModel @Inject constructor(
 
     val googleUserState: StateFlow<GoogleUserState> = googleAuthRepository.googleUserState
 
+    /** True only in the github flavor — false in fdroid, hiding all Cloud Backup UI. */
+    val isCloudBackupAvailable: Boolean = googleAuthRepository.isAvailable
+
     // Cloud operation loading dialog
     private val _cloudOperationMessage = MutableStateFlow<String?>(null)
     val cloudOperationMessage: StateFlow<String?> = _cloudOperationMessage.asStateFlow()

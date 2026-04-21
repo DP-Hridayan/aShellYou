@@ -42,6 +42,8 @@ class GoogleDriveRepositoryImpl @Inject constructor(
         private const val APP_NAME = "aShellYou"
     }
 
+    override val isAvailable: Boolean = true
+
     private val _authEvents = MutableSharedFlow<DriveAuthEvent>()
     override val authEvents: SharedFlow<DriveAuthEvent> = _authEvents.asSharedFlow()
 

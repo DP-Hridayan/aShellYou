@@ -4,6 +4,9 @@ import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent
 import kotlinx.coroutines.flow.SharedFlow
 
 interface GoogleDriveRepository {
+    /** Whether Google Drive backup is available in this build flavor. */
+    val isAvailable: Boolean
+
     /** Emits an IntentSender when user consent is needed for the Drive scope. */
     val authEvents: SharedFlow<DriveAuthEvent>
 
