@@ -186,14 +186,6 @@ dependencies {
 
     implementation(libs.androidx.security.crypto)
 
-    "githubImplementation"(libs.play.services.auth)
-    "githubImplementation"(libs.credentials)
-    "githubImplementation"(libs.credentials.play.services.auth)
-    "githubImplementation"(libs.google.id)
-    "githubImplementation"(libs.google.api.client.android)
-    "githubImplementation"(libs.google.api.services.drive)
-    "githubImplementation"(libs.google.http.client.gson)
-
     implementation(libs.shizuku.api)
     implementation(libs.shizuku.provider)
     implementation(libs.libsu.core)
@@ -204,6 +196,16 @@ dependencies {
     implementation(libs.lsposed.hiddenapibypass)
 
     implementation(libs.shapeindicators)
+
+    githubImplementations(
+        libs.play.services.auth,
+        libs.credentials,
+        libs.credentials.play.services.auth,
+        libs.google.id,
+        libs.google.api.client.android,
+        libs.google.api.services.drive,
+        libs.google.http.client.gson
+    )
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
