@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.qstiles.domain.model
 
 import androidx.compose.ui.text.input.TextFieldValue
+import `in`.hridayan.ashell.core.common.serializers.TextFieldValueSerializer
+import kotlinx.serialization.Serializable
 
 /**
  * Encapsulates the "active-state" behaviour of a Quick Settings tile.
@@ -16,18 +18,23 @@ import androidx.compose.ui.text.input.TextFieldValue
  *  - Only [activeCommand] is used (it is executed on every click).
  *  - Only [activeTileSubtitle] is shown as the subtitle.
  */
+@Serializable
 data class TileActiveState(
     /** Whether the tile alternates its ON/OFF state on each click. */
     val isToggleable: Boolean = false,
     /** Current runtime state (ON = true, OFF = false). For static tiles this is the fixed state. */
     val isActive: Boolean = false,
     /** Subtitle shown in the QS panel when the tile is in the ON state. */
+    @Serializable(with = TextFieldValueSerializer::class)
     val activeTileSubtitle: TextFieldValue = TextFieldValue("On"),
     /** Subtitle shown in the QS panel when the tile is in the OFF state. Ignored for static tiles. */
+    @Serializable(with = TextFieldValueSerializer::class)
     val inactiveTileSubtitle: TextFieldValue = TextFieldValue("Off"),
     /** ADB command executed when the tile is ALREADY ON (to turn it OFF). */
+    @Serializable(with = TextFieldValueSerializer::class)
     val activeCommand: TextFieldValue = TextFieldValue(""),
     /** ADB command executed when the tile is ALREADY OFF (to turn it ON). Only used when [isToggleable] = true. */
+    @Serializable(with = TextFieldValueSerializer::class)
     val inactiveCommand: TextFieldValue = TextFieldValue(""),
 ) {
     /** Returns the subtitle that should currently be displayed based on [isActive]. */

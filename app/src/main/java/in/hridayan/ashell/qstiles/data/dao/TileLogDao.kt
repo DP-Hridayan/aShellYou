@@ -23,4 +23,13 @@ interface TileLogDao {
 
     @Query("SELECT COUNT(*) FROM tile_logs WHERE isSuccess = 1")
     fun getSuccessCount(): Flow<Int>
+
+    @Query("SELECT * FROM tile_logs ORDER BY timestamp DESC")
+    suspend fun getAllLogsOnce(): List<TileLogEntity>
+
+    @Query("DELETE FROM tile_logs")
+    suspend fun deleteAllLogs()
+
+    @Insert
+    suspend fun insertAll(logs: List<TileLogEntity>)
 }

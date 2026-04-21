@@ -6,6 +6,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.utils.EncryptionHelper
+import `in`.hridayan.ashell.qstiles.data.database.TileLogDatabase
+import `in`.hridayan.ashell.qstiles.data.datastore.TileDatastore
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.BackupData
 import `in`.hridayan.ashell.settings.domain.model.BackupMode
@@ -25,6 +27,8 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
     private val commandRepository: CommandRepository,
     private val bookmarkRepository: BookmarkRepository,
     private val settingsRepository: SettingsRepository,
+    private val tileDatastore: TileDatastore,
+    private val tileLogDatabase: TileLogDatabase,
     @param:ApplicationContext private val context: Context
 ) : BackupAndRestoreRepository {
 
@@ -92,6 +96,14 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
             if (type == BackupType.DATABASE_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
                 bookmarkRepository.getBookmarksSorted(SortType.AZ) else null
 
+        val tiles =
+            if (type == BackupType.DATABASE_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
+                tileDatastore.getAllTilesOnce() else null
+
+        val tileLogs =
+            if (type == BackupType.DATABASE_ONLY || type == BackupType.SETTINGS_AND_DATABASE)
+                tileLogDatabase.dao().getAllLogsOnce() else null
+
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
 
         val backupTime = LocalDateTime.now().format(formatter)
@@ -100,6 +112,8 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
             settings = settings,
             commands = commands,
             bookmarks = bookmarks,
+            tiles = tiles,
+            tileLogs = tileLogs,
             backupTime = backupTime,
             backupType = type.name,
             backupMode = backupMode.name
@@ -150,6 +164,14 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
         data.bookmarks?.let {
             bookmarkRepository.deleteAllBookmarks()
             bookmarkRepository.insertAllBookmarks(it)
+        }
+        data.tiles?.let {
+            tileDatastore.deleteAllTiles()
+            tileDatastore.saveAllTiles(it)
+        }
+        data.tileLogs?.let {
+            tileLogDatabase.dao().deleteAllLogs()
+            tileLogDatabase.dao().insertAll(it)
         }
         data.settings?.let { restoreSettings(it) }
     }

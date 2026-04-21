@@ -2,7 +2,9 @@ package `in`.hridayan.ashell.qstiles.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "tile_logs")
 data class TileLogEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,

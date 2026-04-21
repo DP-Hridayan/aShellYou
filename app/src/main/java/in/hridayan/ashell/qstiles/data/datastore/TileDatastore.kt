@@ -132,4 +132,34 @@ class TileDatastore @Inject constructor(
         val ids = prefs[TILE_IDS]?.mapNotNull { it.toIntOrNull() } ?: emptyList()
         ids.count { prefs[keyBool(it, "as_active")] == true }
     }
+
+    suspend fun getAllTilesOnce(): List<TileConfig> = ds.data.map { prefs ->
+        val ids = prefs[TILE_IDS]?.mapNotNull { it.toIntOrNull() } ?: emptyList()
+        ids.mapNotNull { buildTileConfig(it, prefs) }
+    }.first()
+
+    suspend fun deleteAllTiles() {
+        ds.edit { prefs ->
+            val ids = prefs[TILE_IDS]?.mapNotNull { it.toIntOrNull() } ?: emptyList()
+            ids.forEach { id ->
+                prefs.remove(keyStr(id, "name"))
+                prefs.remove(keyInt(id, "mode"))
+                prefs.remove(keyStr(id, "icon"))
+                prefs.remove(keyBool(id, "custom"))
+                prefs.remove(keyInt(id, "slot"))
+                prefs.remove(keyLong(id, "timeout"))
+                prefs.remove(keyBool(id, "as_toggleable"))
+                prefs.remove(keyBool(id, "as_active"))
+                prefs.remove(keyStr(id, "as_on_subtitle"))
+                prefs.remove(keyStr(id, "as_off_subtitle"))
+                prefs.remove(keyStr(id, "as_on_cmd"))
+                prefs.remove(keyStr(id, "as_off_cmd"))
+            }
+            prefs.remove(TILE_IDS)
+        }
+    }
+
+    suspend fun saveAllTiles(tiles: List<TileConfig>) {
+        tiles.forEach { saveTile(it) }
+    }
 }
