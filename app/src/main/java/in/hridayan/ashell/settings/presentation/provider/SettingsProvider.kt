@@ -38,13 +38,13 @@ object SettingsProvider {
                 key = SettingsKeys.LOOK_AND_FEEL,
                 titleResId = R.string.look_and_feel,
                 descriptionResId = R.string.des_look_and_feel,
-                iconVector = Icons.Outlined.Palette
+                iconResId = R.drawable.ic_pallete
             ),
             nullPreferenceItem(
                 key = SettingsKeys.BEHAVIOR,
                 titleResId = R.string.behavior,
                 descriptionResId = R.string.des_behavior,
-                iconVector = Icons.Rounded.SentimentNeutral
+                iconResId = R.drawable.ic_sentiment_neutral
             ),
             nullPreferenceItem(
                 key = SettingsKeys.QUICK_SETTINGS_TILES,
@@ -56,13 +56,13 @@ object SettingsProvider {
                 key = SettingsKeys.AUTO_UPDATE,
                 titleResId = R.string.auto_update,
                 descriptionResId = R.string.des_auto_update,
-                iconVector = Icons.Rounded.Update
+                iconResId = R.drawable.ic_auto_update
             ),
             nullPreferenceItem(
                 key = SettingsKeys.BACKUP_AND_RESTORE,
                 titleResId = R.string.backup_and_restore,
                 descriptionResId = R.string.des_backup_and_restore,
-                iconVector = Icons.Rounded.SettingsBackupRestore
+               iconResId = R.drawable.ic_settings_backup_restore
             ),
             nullPreferenceItem(
                 key = SettingsKeys.ABOUT,
@@ -87,7 +87,7 @@ object SettingsProvider {
                 key = SettingsKeys.HIGH_CONTRAST_DARK_MODE,
                 titleResId = R.string.high_contrast_dark_mode,
                 descriptionResId = R.string.des_high_contrast_dark_mode,
-                iconVector = Icons.Rounded.Contrast,
+                iconResId = R.drawable.ic_amoled_theme,
             )
         )
     )
@@ -98,7 +98,7 @@ object SettingsProvider {
                 key = SettingsKeys.DYNAMIC_COLORS,
                 titleResId = R.string.dynamic_colors,
                 descriptionResId = R.string.des_dynamic_colors,
-                iconVector = Icons.Rounded.Colorize,
+                iconResId = R.drawable.ic_dynamic_color,
                 isLayoutVisible = !isSdkLowerThan31
             )
         ),
@@ -114,14 +114,14 @@ object SettingsProvider {
                 key = SettingsKeys.HAPTICS_AND_VIBRATION,
                 titleResId = R.string.haptics_and_vibration,
                 descriptionResId = R.string.des_haptics_and_vibration,
-                iconVector = Icons.Rounded.Vibration,
+                iconResId = R.drawable.ic_vibration,
             ),
             nullPreferenceItem(
                 key = SettingsKeys.LANGUAGE,
                 isLayoutVisible = !isMiUi && !isSdkLowerThan33,
                 titleResId = R.string.default_language,
                 descriptionResId = R.string.des_default_language,
-                iconVector = Icons.Rounded.Language,
+                iconResId = R.drawable.ic_language,
             )
         )
     )
@@ -161,7 +161,7 @@ object SettingsProvider {
                 key = SettingsKeys.CHANGELOGS,
                 titleResId = R.string.changelogs,
                 descriptionResId = R.string.des_changelogs,
-                iconVector = Icons.Rounded.ChangeHistory,
+                iconResId = R.drawable.ic_changelog,
             ),
             nullPreferenceItem(
                 key = SettingsKeys.CRASH_HISTORY,
@@ -237,7 +237,7 @@ object SettingsProvider {
                 key = SettingsKeys.OUTPUT_SAVE_DIRECTORY,
                 titleResId = R.string.configure_save_directory,
                 descriptionResId = R.string.des_configure_save_directory,
-                iconVector = Icons.Rounded.FolderOpen
+                iconResId = R.drawable.ic_directory
             ),
             boolPreferenceItem(
                 key = SettingsKeys.SAVE_WHOLE_OUTPUT,
@@ -304,4 +304,31 @@ object SettingsProvider {
     val backupSchedulerPageList: List<PreferenceGroup> = listOf(
 
     )
+}
+
+fun List<PreferenceGroup>.extractIconResIds(): List<Int> {
+    return this
+        .flatMap { group ->
+            when (group) {
+                is PreferenceGroup.Items -> group.items
+                is PreferenceGroup.Category -> group.items
+                else -> emptyList()
+            }
+        }
+        .mapNotNull { it.iconResId }
+        .distinct()
+}
+
+fun getAllSettingsIcons(): List<Int> {
+    return listOf(
+        SettingsProvider.settingsPageList,
+        SettingsProvider.darkThemePageList,
+        SettingsProvider.lookAndFeelPageList,
+        SettingsProvider.autoUpdatePageList,
+        SettingsProvider.aboutPageList,
+        SettingsProvider.behaviorPageList,
+        SettingsProvider.backupPageList
+    )
+        .flatten()
+        .extractIconResIds()
 }
