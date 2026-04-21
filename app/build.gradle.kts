@@ -2,16 +2,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.Properties
 
-val keystoreProperties = Properties()
-val keystorePropertiesFile = rootProject.file("keystore.properties")
-if (keystorePropertiesFile.exists()) {
-    keystorePropertiesFile.inputStream().use {
-        keystoreProperties.load(it)
-    }
-}
-
-val isCI = System.getenv("CI")?.toBoolean() == true
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -44,8 +34,16 @@ android {
 
     signingConfigs {
         create("release") {
+            val keystoreProperties = Properties()
+            val keystorePropertiesFile = rootProject.file("keystore.properties")
+            val isCI = System.getenv("CI")?.toBoolean() == true
+
             when {
                 keystorePropertiesFile.exists() -> {
+                    keystorePropertiesFile.inputStream().use {
+                        keystoreProperties.load(it)
+                    }
+
                     storeFile = file(keystoreProperties["storeFile"] as String)
                     storePassword = keystoreProperties["storePassword"] as String
                     keyAlias = keystoreProperties["keyAlias"] as String
