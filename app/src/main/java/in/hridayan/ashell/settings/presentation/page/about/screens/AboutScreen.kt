@@ -141,7 +141,6 @@ fun AboutScreen(
                         AutoResizeableText(
                             text = stringResource(R.string.app_name),
                             fontWeight = FontWeight.Black,
-                            fontStyle = FontStyle.Italic,
                             style = MaterialTheme.typography.displayLargeEmphasized.copy(
                                 letterSpacing = 0.025.em,
                             )
