@@ -110,25 +110,26 @@ fun highContrastDarkColorSchemeFromSeed(): ColorScheme {
         background = Color.Black,
         surface = Color.Black,
         surfaceContainerLowest = Color.Black,
-        surfaceContainerLow = 6.n1,
-        surfaceContainer = 10.n1,
-        surfaceContainerHigh = 12.n1,
-        surfaceContainerHighest = 17.n1,
+        surfaceContainerLow = 6.n2,
+        surfaceContainer = 10.n2,
+        surfaceContainerHigh = 12.n2,
+        surfaceContainerHighest = 17.n2,
     )
 }
 
 @RequiresApi(Build.VERSION_CODES.S)
-fun highContrastDynamicDarkColorScheme(context: Context): ColorScheme {
-    return dynamicDarkColorScheme(context = context).copy(
-        background = Color.Black,
-        surface = Color.Black,
-        surfaceContainerLowest = Color.Black,
-        surfaceContainerLow = dynamicDarkColorScheme(context).surfaceContainerLowest,
-        surfaceContainer = dynamicDarkColorScheme(context).surfaceContainerLow,
-        surfaceContainerHigh = dynamicDarkColorScheme(context).surfaceContainer,
-        surfaceContainerHighest = dynamicDarkColorScheme(context).surfaceContainerHigh,
-    )
-}
+fun highContrastDynamicDarkColorScheme(context: Context): ColorScheme =
+    with(dynamicDarkColorScheme(context)) {
+        return this.copy(
+            background = Color.Black,
+            surface = Color.Black,
+            surfaceContainerLowest = Color.Black,
+            surfaceContainerLow = surfaceContainerLowest,
+            surfaceContainer = surfaceContainerLow,
+            surfaceContainerHigh = surfaceContainer,
+            surfaceContainerHighest = surfaceContainerHigh,
+        )
+    }
 
 @Composable
 fun Color.harmonizeWithPrimary(
