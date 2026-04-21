@@ -75,16 +75,6 @@ object WirelessDebuggingUtils {
         }
     }
 
-    fun openDeveloperOptions(
-        context: Context,
-        intent: Intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
-    ) {
-        try {
-            context.startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            showToast(context, context.getString(R.string.developer_options_not_available))
-        }
-    }
 
     /**
      * Enables wireless debugging programmatically using WRITE_SECURE_SETTINGS permission.
@@ -253,7 +243,7 @@ object WirelessDebuggingUtils {
     /**
      * Checks if WRITE_SECURE_SETTINGS permission is granted.
      */
-    fun hasWriteSecureSettingsPermission(context: Context): Boolean {
+    private fun hasWriteSecureSettingsPermission(context: Context): Boolean {
         return ContextCompat.checkSelfPermission(
             context,
             Manifest.permission.WRITE_SECURE_SETTINGS
@@ -263,7 +253,18 @@ object WirelessDebuggingUtils {
     /**
      * Returns the ADB command to grant WRITE_SECURE_SETTINGS permission to this app.
      */
-    fun getGrantPermissionCommand(context: Context, permission: String): String {
+    private fun getGrantPermissionCommand(context: Context, permission: String): String {
         return "pm grant ${context.packageName} $permission"
+    }
+
+    private fun openDeveloperOptions(
+        context: Context,
+        intent: Intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
+    ) {
+        try {
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            showToast(context, context.getString(R.string.developer_options_not_available))
+        }
     }
 }
