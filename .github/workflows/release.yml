@@ -41,11 +41,11 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build APK
-        run: ./gradlew assembleRelease --stacktrace
+        run: ./gradlew assembleGithubRelease --stacktrace
 
       - name: Find Release APK
         run: |
-          APK_PATH=$(find app/build/outputs/apk/release -name '*.apk' -print -quit)
+          APK_PATH=$(find app/build/outputs/apk/github/release -name '*.apk' -print -quit)
           if [[ -z "$APK_PATH" ]]; then
             echo "No APK found!"
             exit 1
