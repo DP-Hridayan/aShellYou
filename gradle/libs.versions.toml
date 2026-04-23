@@ -1,6 +1,6 @@
 [versions]
 activityCompose = "1.13.0"
-agp = "9.1.1"
+agp = "9.2.0"
 androidxJunit = "1.3.0"
 annotation = "1.10.0"
 bcprovJdk15to18 = "1.84"
