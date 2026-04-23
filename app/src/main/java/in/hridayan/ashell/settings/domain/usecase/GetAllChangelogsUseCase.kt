@@ -1,30 +1,23 @@
 package `in`.hridayan.ashell.settings.domain.usecase
 
-import android.annotation.SuppressLint
 import android.content.Context
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.settings.data.source.VersionToChangelogs
+import `in`.hridayan.ashell.settings.data.source.versionToChangelogsMap
 import `in`.hridayan.ashell.settings.domain.model.ChangelogItem
-import `in`.hridayan.ashell.settings.data.source.versionList
 
 class GetAllChangelogsUseCase(
     private val context: Context,
-    private val versions: List<String> = versionList
+    private val versionToChangelogs: List<VersionToChangelogs> = versionToChangelogsMap
 ) {
-    @SuppressLint("DiscouragedApi")
     operator fun invoke(): List<ChangelogItem> {
-        val res = context.resources
-        val pkg = context.packageName
-
-        return versions.map { version ->
-            val resourceName = "changelog_" + version.replace('.', '_')
-
-            val resId = res.getIdentifier(resourceName, "string", pkg)
+        return versionToChangelogs.map { item ->
 
             val text = context.getString(
-                if (resId != 0) resId else R.string.no_changelog_found
+                if (item.resId != 0) item.resId else R.string.no_changelog_found
             )
 
-            ChangelogItem(versionName = version, changelog = text)
+            ChangelogItem(versionName = item.version, changelog = text)
         }
     }
 }
