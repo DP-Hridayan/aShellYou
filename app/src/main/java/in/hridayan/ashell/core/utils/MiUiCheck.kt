@@ -19,16 +19,16 @@ object MiUiCheck {
     fun isMiui(excludeHyperOS: Boolean): Boolean {
         // Check if the device is manufactured by Xiaomi, Redmi, or POCO.
         val brand = Build.BRAND.lowercase(Locale.getDefault())
-        val validBrands: MutableSet<String?> =
-            HashSet<String?>(mutableListOf<String?>("xiaomi", "redmi", "poco"))
+        val validBrands =
+            HashSet(mutableListOf<String?>("xiaomi", "redmi", "poco"))
         if (!validBrands.contains(brand)) return false
 
         // This property is present in both MIUI and HyperOS.
         val miuiVersion = getProperty("ro.miui.ui.version.name")
-        val isMiui = miuiVersion != null && !miuiVersion.isBlank()
+        val isMiui = !miuiVersion.isNullOrBlank()
         // This property is exclusive to HyperOS only and isn't present in MIUI.
         val hyperOSVersion = getProperty("ro.mi.os.version.name")
-        val isHyperOS = hyperOSVersion != null && !hyperOSVersion.isBlank()
+        val isHyperOS = !hyperOSVersion.isNullOrBlank()
         return isMiui && (!excludeHyperOS || !isHyperOS)
     }
 

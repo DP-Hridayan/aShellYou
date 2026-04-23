@@ -69,6 +69,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -94,6 +95,7 @@ import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavP
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillDefaults
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillItem
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.blend
 import `in`.hridayan.ashell.core.utils.DateTimeUtils
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
@@ -114,7 +116,6 @@ import `in`.hridayan.ashell.qstiles.presentation.model.TileDashBoardScreenUiStat
 import `in`.hridayan.ashell.qstiles.presentation.viewmodel.TileDashboardViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import rikka.shizuku.Shizuku
-import java.util.Locale
 
 data object TileScreenTabs {
     const val TILES: Int = 0
@@ -563,20 +564,22 @@ private fun LogStatsRow(
     totalExecutions: Int,
     successRate: String
 ) {
+    val locale = LocalLocale.current
+
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         StatCard(
             modifier = Modifier.weight(1.2f),
-            label = stringResource(R.string.total_executions).uppercase(Locale.getDefault()),
+            label = stringResource(R.string.total_executions).uppercase(locale.platformLocale),
             value = totalExecutions.toString(),
             icon = painterResource(R.drawable.ic_analytics_filled),
             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
         )
         StatCard(
             modifier = Modifier.weight(1f),
-            label = stringResource(R.string.success_rate).uppercase(Locale.getDefault()),
+            label = stringResource(R.string.success_rate).uppercase(locale.platformLocale),
             value = successRate,
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary
@@ -753,13 +756,25 @@ private fun TileLogCard(
     val darkMode = LocalDarkMode.current
     val tileIcon = TileIconProvider.iconById[iconId]
 
-    val badgeColor =
-        if (log.isSuccess) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+    val badgeColor = MaterialTheme.colorScheme.run {
+        if (log.isSuccess) primary else error
+    }
+
+    val containerColor = MaterialTheme.colorScheme.run {
+        if (darkMode) {
+            if (log.isSuccess) surfaceContainerLow else surfaceContainerLow.blend(
+                errorContainer,
+                0.3f
+            )
+        } else {
+            if (log.isSuccess) surfaceContainer else surfaceContainer.blend(errorContainer, 0.6f)
+        }
+    }
 
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = if (darkMode) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.surfaceContainer)
+        colors = CardDefaults.cardColors(containerColor = containerColor)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
