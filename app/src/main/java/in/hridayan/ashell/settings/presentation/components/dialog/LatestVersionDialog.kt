@@ -2,8 +2,13 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +27,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -78,30 +85,45 @@ fun LatestVersionDialog(onDismiss: () -> Unit) {
                 .padding(top = 24.dp, bottom = 20.dp)
         )
 
-        Card(
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(50),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-            )
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp, vertical = 10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(5.dp)
-            ) {
-                AutoResizeableText(
-                    text = appVersionName,
-                    style = MaterialTheme.typography.bodySmallEmphasized,
-                )
-                AutoResizeableText(
-                    text = appVersionCode,
-                    style = MaterialTheme.typography.bodySmallEmphasized,
-                )
-            }
+            AnimatedInfoCard(appVersionName)
+            AnimatedInfoCard(appVersionCode)
         }
+    }
+}
+
+@Composable
+private fun AnimatedInfoCard(text: String) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+
+    val roundedCornerPercentage by animateIntAsState(
+        targetValue = if (isPressed) 10 else 50,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioHighBouncy,
+            stiffness = Spring.StiffnessMediumLow
+        ),
+        label = "corner_anim"
+    )
+
+    Card(
+        modifier = Modifier
+            .clip(RoundedCornerShape(roundedCornerPercentage.coerceIn(0, 100)))
+            .clickable(interactionSource = interactionSource) {},
+        shape = RoundedCornerShape(roundedCornerPercentage.coerceIn(0, 100)),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        )
+    ) {
+        AutoResizeableText(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+            text = text,
+            style = MaterialTheme.typography.bodySmallEmphasized,
+        )
     }
 }
