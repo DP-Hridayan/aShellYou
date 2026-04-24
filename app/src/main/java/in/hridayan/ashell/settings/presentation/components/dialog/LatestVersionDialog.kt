@@ -43,6 +43,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 
 @Composable
@@ -102,19 +103,19 @@ private fun AnimatedInfoCard(text: String) {
     val isPressed by interactionSource.collectIsPressedAsState()
 
     val roundedCornerPercentage by animateIntAsState(
-        targetValue = if (isPressed) 10 else 50,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioHighBouncy,
-            stiffness = Spring.StiffnessMediumLow
-        ),
+        targetValue = if (isPressed) 15 else 50,
+        animationSpec = AshellYouAnimationSpecs.springInt,
         label = "corner_anim"
     )
 
+    val animatedRoundedCornerShape =
+        RoundedCornerShape(roundedCornerPercentage.coerceIn(0, 100))
+
     Card(
         modifier = Modifier
-            .clip(RoundedCornerShape(roundedCornerPercentage.coerceIn(0, 100)))
+            .clip(animatedRoundedCornerShape)
             .clickable(interactionSource = interactionSource) {},
-        shape = RoundedCornerShape(roundedCornerPercentage.coerceIn(0, 100)),
+        shape = animatedRoundedCornerShape,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
             contentColor = MaterialTheme.colorScheme.onTertiaryContainer

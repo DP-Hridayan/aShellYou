@@ -2,7 +2,11 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.item
 
+import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -27,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.settings.presentation.components.switch.SettingsSwitch
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.model.SettingsType
@@ -63,16 +69,30 @@ fun BooleanPreferenceItemView(
     }
 
     if (item.type == SettingsType.SwitchBanner) {
+        val interactionSource = remember { MutableInteractionSource() }
+        val isPressed by interactionSource.collectIsPressedAsState()
+
+        val roundedCornerPercentage by animateIntAsState(
+            targetValue = if (isPressed) 15 else 50,
+            animationSpec = AshellYouAnimationSpecs.springInt,
+            label = "corner_anim"
+        )
+
+        val animatedRoundedCornerShape =
+            RoundedCornerShape(roundedCornerPercentage.coerceIn(0, 100))
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 0.dp)
-                .clip(RoundedCornerShape(50))
-                .clickable(
+                .clip(animatedRoundedCornerShape)
+                .combinedClickable(
                     enabled = enabled,
-                    onClick = onClick
+                    onClick = onClick,
+                    onLongClick = {},
+                    interactionSource = interactionSource,
                 ),
-            shape = RoundedCornerShape(50),
+            shape = animatedRoundedCornerShape,
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
