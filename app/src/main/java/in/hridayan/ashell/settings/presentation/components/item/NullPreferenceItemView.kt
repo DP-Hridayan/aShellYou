@@ -2,13 +2,12 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.item
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -20,8 +19,9 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedDescription
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedIcon
@@ -32,7 +32,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 fun NullPreferenceItemView(
     modifier: Modifier = Modifier,
     item: PreferenceItem,
-    roundedShape: RoundedCornerShape,
+    shape: CustomCardShape,
     contentDescription: String = "",
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -42,18 +42,17 @@ fun NullPreferenceItemView(
     val titleText = item.getResolvedTitle()
     val descriptionText = item.getResolvedDescription()
 
-    RoundedCornerCard(
-        modifier = Modifier.fillMaxWidth(),
-        roundedCornerShape = roundedShape
+    CustomCard(
+        modifier = modifier,
+        shape = shape,
+        onClick = withHaptic {
+            settingsViewModel.onItemClicked(item.key)
+        }
     )
     {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
-                .clickable(
-                    onClick = withHaptic {
-                        settingsViewModel.onItemClicked(item.key)
-                    })
                 .padding(horizontal = 20.dp, vertical = 17.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(15.dp)

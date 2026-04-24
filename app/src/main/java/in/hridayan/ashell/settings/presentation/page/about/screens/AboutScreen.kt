@@ -302,8 +302,11 @@ fun AboutScreen(
 
                                 PreferenceItemView(
                                     item = item,
-                                    modifier = Modifier.animateItem(),
-                                    roundedShape = shape
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 15.dp, vertical = 1.dp)
+                                        .animateItem(),
+                                    shape = shape
                                 )
                             }
                         }
@@ -316,8 +319,11 @@ fun AboutScreen(
 
                                 PreferenceItemView(
                                     item = item,
-                                    modifier = Modifier.animateItem(),
-                                    roundedShape = shape
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 15.dp, vertical = 1.dp)
+                                        .animateItem(),
+                                    shape = shape
                                 )
                             }
                         }

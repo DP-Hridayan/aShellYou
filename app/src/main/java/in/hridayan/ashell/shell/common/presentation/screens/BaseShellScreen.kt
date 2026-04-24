@@ -690,7 +690,7 @@ fun Suggestions(
                     .fillMaxWidth()
                     .animateItem(),
                 suggestion = suggestions[index],
-                roundedCornerShape = shape
+                shape = shape
             )
         }
 

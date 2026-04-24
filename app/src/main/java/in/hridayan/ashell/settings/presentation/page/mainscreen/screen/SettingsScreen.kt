@@ -153,7 +153,13 @@ fun SettingsScreen(modifier: Modifier = Modifier, viewModel: SettingsViewModel =
                         )
 
                         group.items.forEach { item ->
-                            PreferenceItemView(item = item, modifier = modifier.animateItem())
+                            PreferenceItemView(
+                                item = item,
+                                modifier = modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 15.dp, vertical = 1.dp)
+                                    .animateItem()
+                            )
                         }
                     }
 
@@ -165,8 +171,11 @@ fun SettingsScreen(modifier: Modifier = Modifier, viewModel: SettingsViewModel =
 
                             PreferenceItemView(
                                 item = item,
-                                modifier = Modifier.animateItem(),
-                                roundedShape = shape
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 15.dp, vertical = 1.dp)
+                                    .animateItem(),
+                                shape = shape
                             )
                         }
                     }

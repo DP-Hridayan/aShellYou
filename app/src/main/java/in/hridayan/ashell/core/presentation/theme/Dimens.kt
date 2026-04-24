@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.core.presentation.theme
 
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 object Dimens {
@@ -15,4 +16,9 @@ object Dimens {
     val iconSizeMedium = 20.dp
     val iconSizeLarge = 24.dp
     val iconSizeExtraLarge = 36.dp
+}
+
+sealed interface CornerSize {
+    data class Absolute(val dp: Dp) : CornerSize
+    data class Percentage(val percent: Float) : CornerSize
 }

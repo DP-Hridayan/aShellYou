@@ -44,6 +44,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.shell.otg_adb_shell.domain.model.OtgState
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.viewmodel.OtgViewModel
 
@@ -55,8 +56,6 @@ fun OtgDeviceWaitingDialog(
     otgViewModel: OtgViewModel = hiltViewModel()
 ) {
     val otgState by otgViewModel.state.collectAsState()
-    var cardHeight by remember { mutableStateOf(0.dp) }
-    val screenDensity = LocalDensity.current
 
     val device = when (otgState) {
         is OtgState.DeviceFound -> (otgState as OtgState.DeviceFound).deviceName
@@ -113,11 +112,7 @@ fun OtgDeviceWaitingDialog(
                     IconWithTextCard(
                         icon = painterResource(R.drawable.ic_otg),
                         text = device,
-                        modifier = Modifier
-                            .onGloballyPositioned { coordinates ->
-                                cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
-                            },
-                        shape = RoundedCornerShape(cardHeight / 2),
+                        shape = CustomCardShape(50),
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.primaryContainer,
                             contentColor = MaterialTheme.colorScheme.onPrimaryContainer

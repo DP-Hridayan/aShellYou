@@ -2,19 +2,14 @@
 
 package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
@@ -44,10 +39,11 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.provider.RadioGroupOptionsProvider
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -106,25 +102,17 @@ fun BookmarksSortDialog(
                         contentColor = MaterialTheme.colorScheme.onSurface
                     )
 
-                    val animatedCorner by animateDpAsState(
-                        targetValue = if (selected) 32.dp else 4.dp,
-                        animationSpec = tween(
-                            durationMillis = 500,
-                            easing = FastOutSlowInEasing
-                        ),
-                        label = "cornerAnimation"
-                    )
-
                     val finalShape = if (selected) {
-                        RoundedCornerShape(animatedCorner)
+                        CustomCardShape(50)
                     } else {
                         shape
                     }
 
-                    RoundedCornerCard(
-                        modifier = Modifier.fillMaxWidth(),
-                        roundedCornerShape = finalShape,
-                        paddingValues = PaddingValues(vertical = 1.dp),
+                    CustomCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(1.dp),
+                        shape = finalShape,
                         colors = cardColors
                     )
                     {

@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -46,12 +45,13 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.getFileNameFromUri
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -224,8 +224,11 @@ fun BackupAndRestoreScreen(
 
                                 PreferenceItemView(
                                     item = item,
-                                    modifier = Modifier.animateItem(),
-                                    roundedShape = shape
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 15.dp, vertical = 1.dp)
+                                        .animateItem(),
+                                    shape = shape
                                 )
                             }
                         }
@@ -238,8 +241,11 @@ fun BackupAndRestoreScreen(
 
                                 PreferenceItemView(
                                     item = item,
-                                    modifier = Modifier.animateItem(),
-                                    roundedShape = shape
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 15.dp, vertical = 1.dp)
+                                        .animateItem(),
+                                    shape = shape
                                 )
                             }
                         }
@@ -379,16 +385,16 @@ private fun LastBackupTimeCard(
     onClick: () -> Unit = {}
 ) {
     val roundedCornerShape =
-        if (isExpanded) CardCornerShape.FIRST_CARD else RoundedCornerShape(50)
+        if (isExpanded) CardCornerShape.FIRST_CARD else CustomCardShape(50)
 
     val cloudCardIcon =
         if (userState.isSignedIn) painterResource(R.drawable.ic_cloud_done) else painterResource(R.drawable.ic_cloud_off)
 
     Column(modifier = modifier.animateContentSize()) {
-        RoundedCornerCard(
+        CustomCard(
             modifier = Modifier.fillMaxWidth(),
             onClick = onClick,
-            roundedCornerShape = roundedCornerShape
+            shape = roundedCornerShape
         ) {
             Row(
                 modifier = Modifier
@@ -421,7 +427,7 @@ private fun LastBackupTimeCard(
         if (isExpanded) {
             TimeCard(
                 modifier = Modifier.fillMaxWidth(),
-                roundedCornerShape = CardCornerShape.run { if (isCloudBackupAvailable) MIDDLE_CARD else LAST_CARD },
+                shape = CardCornerShape.run { if (isCloudBackupAvailable) MIDDLE_CARD else LAST_CARD },
                 icon = painterResource(R.drawable.ic_mobile),
                 title = stringResource(R.string.device_backup_local),
                 backupType = lastBackupData.localType,
@@ -431,7 +437,7 @@ private fun LastBackupTimeCard(
             if (isCloudBackupAvailable) {
                 TimeCard(
                     modifier = Modifier.fillMaxWidth(),
-                    roundedCornerShape = CardCornerShape.LAST_CARD,
+                    shape = CardCornerShape.LAST_CARD,
                     icon = cloudCardIcon,
                     title = stringResource(R.string.cloud_backup_google_drive),
                     backupType = lastBackupData.cloudType,
@@ -445,7 +451,7 @@ private fun LastBackupTimeCard(
 @Composable
 private fun TimeCard(
     modifier: Modifier = Modifier,
-    roundedCornerShape: RoundedCornerShape,
+    shape: CustomCardShape,
     icon: Painter,
     title: String,
     backupType: String,
@@ -461,9 +467,9 @@ private fun TimeCard(
         else -> backupType
     }
 
-    RoundedCornerCard(
+    CustomCard(
         modifier = modifier,
-        roundedCornerShape = roundedCornerShape,
+        shape = shape,
         onClick = withHaptic { showToast(context, res.getString(R.string.have_a_nice_day)) }
     ) {
         Row(

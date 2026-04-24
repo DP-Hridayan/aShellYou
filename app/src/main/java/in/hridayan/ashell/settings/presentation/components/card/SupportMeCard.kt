@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,7 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.constants.UrlConst
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
@@ -55,10 +54,9 @@ fun SupportMeCard(modifier: Modifier = Modifier) {
 private fun ContactHandles(modifier: Modifier = Modifier) {
     val context = LocalContext.current
 
-    RoundedCornerCard(
+    CustomCard(
         modifier = modifier,
-        roundedCornerShape = CardCornerShape.FIRST_CARD,
-        paddingValues = PaddingValues(0.dp),
+        shape = CardCornerShape.FIRST_CARD,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer,
             contentColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -141,10 +139,9 @@ private fun BuyMeACoffee(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    RoundedCornerCard(
+    CustomCard(
         modifier = modifier,
-        roundedCornerShape = CardCornerShape.LAST_CARD,
-        paddingValues = PaddingValues(0.dp),
+        shape = CardCornerShape.LAST_CARD,
         onClick = withHaptic { onClick() },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer,

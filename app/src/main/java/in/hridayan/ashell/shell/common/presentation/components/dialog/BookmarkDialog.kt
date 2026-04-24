@@ -4,7 +4,6 @@ package `in`.hridayan.ashell.shell.common.presentation.components.dialog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -32,7 +31,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -86,13 +85,14 @@ fun BookmarkDialog(
                         )
                         val bookmark = bookmarks[index]
 
-                        RoundedCornerCard(
-                            roundedCornerShape = roundedShape,
-                            modifier = Modifier.fillMaxWidth(),
+                        CustomCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 1.dp),
                             onClick = withHaptic {
                                 onBookmarkClicked(bookmark.command)
                             },
-                            paddingValues = PaddingValues(vertical = 1.dp),
+                            shape = roundedShape,
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
                                 contentColor = MaterialTheme.colorScheme.onSurface

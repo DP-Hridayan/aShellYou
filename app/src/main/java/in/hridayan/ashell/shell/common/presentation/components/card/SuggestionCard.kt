@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
@@ -17,8 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.commandexamples.presentation.component.chip.LabelChip
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionLabel
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionType
@@ -28,7 +28,7 @@ import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 fun SuggestionCard(
     modifier: Modifier = Modifier,
     suggestion: Suggestion,
-    roundedCornerShape: RoundedCornerShape,
+    shape: CustomCardShape,
     viewModel: ShellViewModel = hiltViewModel()
 ) {
     val containerColor = when (suggestion.type) {
@@ -42,10 +42,10 @@ fun SuggestionCard(
         SuggestionType.PERMISSION -> MaterialTheme.colorScheme.onTertiaryContainer
     }
 
-    RoundedCornerCard(
+    CustomCard(
         modifier = modifier,
         onClick = withHaptic { viewModel.applySuggestion(suggestion) },
-        roundedCornerShape = roundedCornerShape,
+        shape = shape,
         colors = CardDefaults.cardColors(
             containerColor = containerColor,
             contentColor = contentColor

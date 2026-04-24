@@ -2,18 +2,11 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.item
 
-import androidx.compose.animation.core.animateIntAsState
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
@@ -22,17 +15,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
-import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.settings.presentation.components.switch.SettingsSwitch
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.model.SettingsType
@@ -45,7 +36,7 @@ import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 fun BooleanPreferenceItemView(
     modifier: Modifier = Modifier,
     item: PreferenceItem,
-    roundedShape: RoundedCornerShape,
+    shape: CustomCardShape,
     contentDescription: String = "",
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -69,34 +60,17 @@ fun BooleanPreferenceItemView(
     }
 
     if (item.type == SettingsType.SwitchBanner) {
-        val interactionSource = remember { MutableInteractionSource() }
-        val isPressed by interactionSource.collectIsPressedAsState()
-
-        val roundedCornerPercentage by animateIntAsState(
-            targetValue = if (isPressed) 15 else 50,
-            animationSpec = AshellYouAnimationSpecs.springInt,
-            label = "corner_anim"
-        )
-
-        val animatedRoundedCornerShape =
-            RoundedCornerShape(roundedCornerPercentage.coerceIn(0, 100))
-
-        Card(
+        CustomCard(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 0.dp)
-                .clip(animatedRoundedCornerShape)
-                .combinedClickable(
-                    enabled = enabled,
-                    onClick = onClick,
-                    onLongClick = {},
-                    interactionSource = interactionSource,
-                ),
-            shape = animatedRoundedCornerShape,
+                .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 0.dp),
+            shape = CustomCardShape(50),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-            )
+            ),
+            clickable = enabled,
+            onClick = onClick
         ) {
             Row(
                 modifier = Modifier
@@ -120,18 +94,16 @@ fun BooleanPreferenceItemView(
     }
 
     if (item.type == SettingsType.Switch) {
-        RoundedCornerCard(
-            modifier = Modifier.fillMaxWidth(),
-            roundedCornerShape = roundedShape
+        CustomCard(
+            modifier = modifier,
+            shape = shape,
+            clickable = enabled,
+            onClick = onClick
         )
         {
             Row(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
-                    .clickable(
-                        enabled = enabled,
-                        onClick = onClick
-                    )
                     .padding(horizontal = 20.dp, vertical = 17.dp)
                     .alpha(if (enabled) 1f else 0.5f),
                 verticalAlignment = Alignment.CenterVertically,

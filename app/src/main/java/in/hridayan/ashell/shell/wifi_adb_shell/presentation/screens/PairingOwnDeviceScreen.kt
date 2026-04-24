@@ -6,7 +6,6 @@ import android.os.Build
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -18,7 +17,6 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
@@ -44,9 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -63,13 +59,14 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.MiUiCheck
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent
@@ -440,21 +437,16 @@ private fun NotificationAccessRequestCard(
 
 @Composable
 private fun NotificationPairingHintCard(modifier: Modifier = Modifier) {
-    var cardHeight by remember { mutableStateOf(0.dp) }
-    val screenDensity = LocalDensity.current
-
     IconWithTextCard(
-        modifier = modifier.onGloballyPositioned { coordinates ->
-            cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
-        },
-        shape = RoundedCornerShape(cardHeight / 2),
+        modifier = modifier,
+        shape = CustomCardShape(50),
         icon = painterResource(R.drawable.ic_notification),
         text = stringResource(R.string.pairing_notification_hint),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-        ),
-        content = {})
+        )
+    )
 }
 
 @Composable
@@ -536,9 +528,11 @@ private fun Instructions(modifier: Modifier = Modifier, onClickDevOptionsButton:
             color = MaterialTheme.colorScheme.primary
         )
 
-        RoundedCornerCard(
-            roundedCornerShape = getRoundedShape(index = 0, size = 3),
-            paddingValues = PaddingValues(horizontal = 0.dp, vertical = 1.dp)
+        CustomCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 1.dp),
+            shape = getRoundedShape(index = 0, size = 3),
         ) {
             Row(
                 modifier = Modifier.padding(15.dp),
@@ -570,9 +564,11 @@ private fun Instructions(modifier: Modifier = Modifier, onClickDevOptionsButton:
             }
         }
 
-        RoundedCornerCard(
-            roundedCornerShape = getRoundedShape(index = 1, size = 3),
-            paddingValues = PaddingValues(horizontal = 0.dp, vertical = 1.dp)
+        CustomCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 1.dp),
+            shape = getRoundedShape(index = 1, size = 3),
         ) {
             Row(
                 modifier = Modifier.padding(15.dp),
@@ -590,9 +586,11 @@ private fun Instructions(modifier: Modifier = Modifier, onClickDevOptionsButton:
             }
         }
 
-        RoundedCornerCard(
-            roundedCornerShape = getRoundedShape(index = 2, size = 3),
-            paddingValues = PaddingValues(horizontal = 0.dp, vertical = 1.dp)
+        CustomCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 1.dp),
+            shape = getRoundedShape(index = 2, size = 3),
         ) {
             Row(
                 modifier = Modifier.padding(15.dp),

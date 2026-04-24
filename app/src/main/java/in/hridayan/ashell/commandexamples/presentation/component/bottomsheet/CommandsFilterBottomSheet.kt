@@ -2,14 +2,10 @@
 
 package `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -30,14 +26,10 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -46,11 +38,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.commandexamples.presentation.component.row.Labels
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 
 @Composable
 fun CommandsFilterBottomSheet(
@@ -63,8 +56,6 @@ fun CommandsFilterBottomSheet(
     val states by commandExamplesViewModel.states.collectAsState()
     val searchedLabels by commandExamplesViewModel.searchedLabels.collectAsState()
     val filteredLabels by commandExamplesViewModel.filteredLabels.collectAsState()
-    var cardHeight by remember { mutableStateOf(0.dp) }
-    val screenDensity = LocalDensity.current
 
     ModalBottomSheet(
         modifier = modifier,
@@ -129,17 +120,8 @@ fun CommandsFilterBottomSheet(
 
                     val selected = label in filteredLabels
 
-                    val animatedCorner by animateDpAsState(
-                        targetValue = if (selected) cardHeight / 2 else 4.dp,
-                        animationSpec = tween(
-                            durationMillis = 500,
-                            easing = FastOutSlowInEasing
-                        ),
-                        label = "cornerAnimation"
-                    )
-
                     val finalShape = if (selected) {
-                        RoundedCornerShape(animatedCorner)
+                        CustomCardShape(50)
                     } else {
                         shape
                     }
@@ -150,14 +132,11 @@ fun CommandsFilterBottomSheet(
                     val contentColor =
                         if (selected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
 
-                    RoundedCornerCard(
+                    CustomCard(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .onGloballyPositioned { coordinates ->
-                                cardHeight = with(screenDensity) { coordinates.size.height.toDp() }
-                            },
-                        paddingValues = PaddingValues(horizontal = 0.dp, vertical = 1.dp),
-                        roundedCornerShape = finalShape,
+                            .padding( vertical = 1.dp),
+                        shape = finalShape,
                         colors = CardDefaults.cardColors(
                             containerColor = containerColor,
                             contentColor = contentColor

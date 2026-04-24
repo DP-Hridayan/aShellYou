@@ -1,36 +1,21 @@
 package `in`.hridayan.ashell.core.presentation.components.shape
 
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 
 object CardCornerShape {
-    val SINGLE_CARD = RoundedCornerShape(16.dp)
+    val SINGLE_CARD = CustomCardShape(16.dp)
 
-    val FIRST_CARD = RoundedCornerShape(
-        topStart = 16.dp,
-        topEnd = 16.dp,
-        bottomStart = 4.dp,
-        bottomEnd = 4.dp
-    )
+    val FIRST_CARD = CustomCardShape(top = 16.dp, bottom = 4.dp)
 
-    val MIDDLE_CARD = RoundedCornerShape(
-        topStart = 4.dp,
-        topEnd = 4.dp,
-        bottomStart = 4.dp,
-        bottomEnd = 4.dp
-    )
+    val MIDDLE_CARD = CustomCardShape(all = 4.dp)
 
-    val LAST_CARD = RoundedCornerShape(
-        topStart = 4.dp,
-        topEnd = 4.dp,
-        bottomStart = 16.dp,
-        bottomEnd = 16.dp
-    )
+    val LAST_CARD = CustomCardShape(top = 4.dp, bottom = 16.dp)
 
     fun getRoundedShape(
         index: Int,
         size: Int,
-    ): RoundedCornerShape {
+    ): CustomCardShape {
         return when {
             size == 1 -> SINGLE_CARD
 

@@ -23,8 +23,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -50,10 +48,11 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalAnimatedContentScope
 import `in`.hridayan.ashell.core.common.LocalSharedTransitionScope
-import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.crashreporter.domain.model.CrashReport
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -111,7 +110,7 @@ fun CrashHistoryScreen(
                                     .fillMaxWidth()
                                     .padding(horizontal = 15.dp, vertical = 1.dp),
                                 crashReport = crash,
-                                roundedShape = shape,
+                                shape = shape,
                                 index = index,
                                 animatedVisibilityScope = animatedContentScope
                             )
@@ -172,7 +171,7 @@ fun NoCrashLogsUi(modifier: Modifier = Modifier) {
 fun SharedTransitionScope.CrashCard(
     modifier: Modifier = Modifier,
     crashReport: CrashReport,
-    roundedShape: RoundedCornerShape,
+    shape: CustomCardShape,
     animatedVisibilityScope: AnimatedVisibilityScope,
     index: Int,
     crashViewModel: CrashViewModel = hiltViewModel()
@@ -182,17 +181,17 @@ fun SharedTransitionScope.CrashCard(
     val crashTitle = getCrashTitle(crashReport.stackTrace)
     val sharedElementKey = "crashCardToCrashDetails$index"
 
-    Card(
+    CustomCard(
         modifier = modifier.sharedElement(
             sharedContentState = rememberSharedContentState(key = sharedElementKey),
             animatedVisibilityScope = animatedVisibilityScope
         ),
-        shape = roundedShape,
+        shape = shape,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
-        onClick = withHaptic{
+        onClick = withHaptic {
             crashViewModel.setSharedElementKey(sharedElementKey)
             crashViewModel.setViewingCrash(crashReport)
             navController.navigate(NavRoutes.CrashDetailsScreen)

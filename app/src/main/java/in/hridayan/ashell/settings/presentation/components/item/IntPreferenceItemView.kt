@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.item
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,7 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
-import `in`.hridayan.ashell.core.presentation.components.card.RoundedCornerCard
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
@@ -60,18 +59,20 @@ fun IntPreferenceItemView(
             intItems.radioOptions.forEachIndexed { index, option ->
                 val shape = getRoundedShape(index, intItems.radioOptions.size)
 
-                RoundedCornerCard(
-                    modifier = Modifier.fillMaxWidth(),
-                    roundedCornerShape = shape
+                CustomCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 1.dp),
+                    shape = shape,
+                    onClick = withHaptic(HapticFeedbackType.ToggleOn) {
+                        onSelectedChange(option.value)
+                    }
                 )
                 {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable(onClick = withHaptic(HapticFeedbackType.ToggleOn) {
-                                onSelectedChange(option.value)
-                            })
                             .padding(vertical = 8.dp, horizontal = 20.dp)
                     ) {
                         Text(
@@ -98,7 +99,7 @@ fun IntPreferenceItemView(
         val options = item.buttonGroupOptions
 
         Row(
-            modifier = modifier.padding(horizontal = 15.dp),
+            modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween)
         ) {
             options.forEachIndexed { index, option ->
