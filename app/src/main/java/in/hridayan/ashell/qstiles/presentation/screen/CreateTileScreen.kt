@@ -77,9 +77,11 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalWeakHaptic
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider
@@ -225,7 +227,7 @@ fun CreateTileScreen(
                             createTileViewModel.onToggleableChange(it)
                             weakHaptic()
                         },
-                        roundedCornerShape = RoundedCornerShape(
+                        shape = CustomCardShape(
                             topStart = 24.dp,
                             topEnd = 24.dp,
                             bottomStart = 4.dp,
@@ -248,7 +250,7 @@ fun CreateTileScreen(
                         },
                         checkedLabel = stringResource(R.string.on_state),
                         uncheckedLabel = stringResource(R.string.off_state),
-                        roundedCornerShape = RoundedCornerShape(
+                        shape = CustomCardShape(
                             topStart = 4.dp,
                             topEnd = 4.dp,
                             bottomStart = 24.dp,
@@ -677,14 +679,11 @@ private fun BehaviorSwitchRow(
     modifier: Modifier = Modifier,
     checkedLabel: String? = null,
     uncheckedLabel: String? = null,
-    roundedCornerShape: RoundedCornerShape = RoundedCornerShape(24.dp)
+    shape: CustomCardShape = CustomCardShape(24.dp)
 ) {
-    Card(
+    CustomCard(
         modifier = modifier,
-        shape = roundedCornerShape,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-        ),
+        shape = shape
     ) {
         Row(
             modifier = Modifier
@@ -763,7 +762,7 @@ private fun ClassicTile(
         modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
-        Card(
+        CustomCard(
             modifier = Modifier
                 .padding(20.dp)
                 .size(64.dp),
@@ -772,8 +771,8 @@ private fun ClassicTile(
                 contentColor = contentColor
             ),
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-            shape = CircleShape
-        ) {}
+            shape = CustomCardShape(100)
+        )
 
         Box(
             modifier = modifier.fillMaxHeight(),

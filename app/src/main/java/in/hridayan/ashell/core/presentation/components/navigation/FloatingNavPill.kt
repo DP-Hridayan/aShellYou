@@ -31,7 +31,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 
 @Composable
 fun FloatingNavPill(
@@ -43,9 +45,9 @@ fun FloatingNavPill(
     elevation: CardElevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
     animationSpec: AnimationSpec<Dp> = MaterialTheme.motionScheme.fastSpatialSpec()
 ) {
-    Card(
+    CustomCard(
         modifier = modifier,
-        shape = RoundedCornerShape(50),
+        shape = CustomCardShape(50),
         colors = CardDefaults.cardColors(
             containerColor = colors.floatingContainerColor,
             contentColor = colors.floatingContentColor

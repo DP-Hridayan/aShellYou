@@ -11,10 +11,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -30,6 +28,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 
 /**
  * A customizable search bar composable that allows users to input and filter text with optional
@@ -71,7 +71,9 @@ fun CustomSearchBar(
     trailingIcon: @Composable RowScope.() -> Unit = {},
     hint: String = "Search...",
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    shape: RoundedCornerShape = RoundedCornerShape(50),
+    shape: CustomCardShape = CustomCardShape(
+        50
+    ),
     colors: CardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
         contentColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -79,7 +81,7 @@ fun CustomSearchBar(
 ) {
     val isHintVisible = value.text.isEmpty()
 
-    Card(
+    CustomCard(
         modifier = modifier,
         shape = shape,
         colors = colors

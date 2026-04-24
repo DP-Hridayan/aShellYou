@@ -43,8 +43,10 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.crashreporter.presentation.viewmodel.CrashViewModel
 
@@ -124,7 +126,7 @@ fun CrashReportScreen(
                     modifier = Modifier.padding(15.dp)
                 )
 
-                Card(
+                CustomCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 15.dp),
@@ -158,11 +160,11 @@ fun CrashReportScreen(
                     }
                 }
 
-                Card(
+                CustomCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 15.dp, end = 15.dp, top = 5.dp, bottom = 15.dp),
-                    shape = RoundedCornerShape(50),
+                    shape = CustomCardShape(50),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                         contentColor = MaterialTheme.colorScheme.onTertiaryContainer
@@ -206,7 +208,7 @@ fun CrashReportScreen(
                 )
 
                 stacktrace?.let {
-                    Card(
+                    CustomCard(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(15.dp),

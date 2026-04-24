@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,10 +19,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
@@ -49,11 +49,13 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.constants.UrlConst
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
 import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -353,30 +355,34 @@ private fun AppHandlesChip(
     contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     onClick: () -> Unit = {}
 ) {
-    FilledTonalButton(
+    CustomCard(
         modifier = modifier,
-        shapes = ButtonDefaults.shapes(),
-        colors = ButtonDefaults.filledTonalButtonColors(containerColor, contentColor),
+        shape = CustomCardShape(50),
+        colors = CardDefaults.cardColors(containerColor, contentColor),
         onClick = withHaptic(HapticFeedbackType.VirtualKey) { onClick() }
     ) {
-        Icon(
-            painter = icon,
-            contentDescription = null,
-            tint = contentColor
-        )
-
-        Spacer(modifier = Modifier.width(10.dp))
-
-        Column {
-            AutoResizeableText(
-                text = title,
-                style = MaterialTheme.typography.titleMediumEmphasized,
+        Row(
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Icon(
+                painter = icon,
+                contentDescription = null,
+                tint = contentColor
             )
-            AutoResizeableText(
-                text = description,
-                style = MaterialTheme.typography.bodySmallEmphasized,
-                color = contentColor.copy(alpha = 0.85f)
-            )
+
+            Column {
+                AutoResizeableText(
+                    text = title,
+                    style = MaterialTheme.typography.titleMediumEmphasized,
+                )
+                AutoResizeableText(
+                    text = description,
+                    style = MaterialTheme.typography.bodySmallEmphasized,
+                    color = contentColor.copy(alpha = 0.85f)
+                )
+            }
         }
     }
 }

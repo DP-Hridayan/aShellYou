@@ -274,7 +274,7 @@ fun BackupAndRestoreScreen(
                                     LastBackupTimeCard(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(top = 10.dp),
+                                            .padding(top = 10.dp, start = 15.dp, end = 15.dp),
                                         isCloudBackupAvailable = isCloudBackupAvailable,
                                         userState = googleUserState,
                                         lastBackupData = lastBackupData,
@@ -425,6 +425,10 @@ private fun LastBackupTimeCard(
         }
 
         if (isExpanded) {
+            Spacer(modifier = Modifier
+                .fillMaxWidth()
+                .height(2.dp))
+
             TimeCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = CardCornerShape.run { if (isCloudBackupAvailable) MIDDLE_CARD else LAST_CARD },
@@ -435,6 +439,10 @@ private fun LastBackupTimeCard(
             )
 
             if (isCloudBackupAvailable) {
+                Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp))
+
                 TimeCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = CardCornerShape.LAST_CARD,

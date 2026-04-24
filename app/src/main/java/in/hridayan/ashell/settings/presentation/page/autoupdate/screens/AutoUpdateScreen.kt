@@ -122,6 +122,14 @@ fun AutoUpdateScreen(
                 state = listState,
                 contentPadding = innerPadding
             ) {
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(15.dp)
+                    )
+                }
+
                 itemsIndexed(settings) { index, group ->
                     when (group) {
                         is PreferenceGroup.Category -> {

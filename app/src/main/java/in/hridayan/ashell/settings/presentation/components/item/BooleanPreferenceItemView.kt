@@ -61,9 +61,7 @@ fun BooleanPreferenceItemView(
 
     if (item.type == SettingsType.SwitchBanner) {
         CustomCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 0.dp),
+            modifier = modifier,
             shape = CustomCardShape(50),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,

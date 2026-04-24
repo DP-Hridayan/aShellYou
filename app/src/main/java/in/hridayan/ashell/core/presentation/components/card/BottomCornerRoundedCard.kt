@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import `in`.hridayan.ashell.core.presentation.components.shape.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.Shape
 
 @Composable
@@ -20,17 +21,14 @@ fun BottomCornerRoundedCard(
     contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
     content: @Composable () -> Unit
 ) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .clip(Shape.cardBottomCornersRounded)
-            .clickable { onClick() },
+    CustomCard(
+        modifier = modifier,
         colors = CardDefaults.cardColors(
             containerColor = containerColor,
             contentColor = contentColor
         ),
-        shape = Shape.cardBottomCornersRounded
+        shape = CardCornerShape.LAST_CARD,
+        onClick = onClick
     ) {
         content()
     }
