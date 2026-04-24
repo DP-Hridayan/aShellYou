@@ -138,7 +138,9 @@ fun HomeScreen(
             }
 
             LocalAdbCard(
-                modifier = Modifier.padding(top = 10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
                 onClick = {
                     navController.navigate(NavRoutes.LocalAdbScreen)
                 }
@@ -146,6 +148,7 @@ fun HomeScreen(
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 WirelessDebuggingCard(
+                    modifier = Modifier.fillMaxWidth(),
                     onStartClick = {
                         if (savedDevices.count() == 0) {
                             showToast(context, res.getString(R.string.pair_a_device_first))
@@ -158,6 +161,7 @@ fun HomeScreen(
             }
 
             OtgAdbCard(
+                modifier = Modifier.fillMaxWidth(),
                 onClickOtgAdbCard = onClickOtgAdbCard,
                 otgState = otgState
             )
