@@ -252,7 +252,7 @@ fun AboutScreen(
                         )
 
                         ProfilePic(
-                            painter = painterResource(R.mipmap.dp_hridayan),
+                            model = R.mipmap.dp_hridayan,
                             size = 150.dp,
                         )
 

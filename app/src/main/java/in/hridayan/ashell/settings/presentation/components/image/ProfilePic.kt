@@ -2,7 +2,6 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.image
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -12,20 +11,20 @@ import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 
 @Composable
 fun ProfilePic(
     modifier: Modifier = Modifier,
-    painter: Painter,
+    model: Any?,
     size: Dp,
     borderWidth: Dp = 1.dp
 ) {
-    Image(
-        painter = painter,
+    AsyncImage(
+        model = model,
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = modifier

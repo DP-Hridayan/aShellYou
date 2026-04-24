@@ -194,6 +194,8 @@ dependencies {
     implementation(libs.lsposed.hiddenapibypass)
 
     implementation(libs.shapeindicators)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     githubImplementations(
         libs.play.services.auth,

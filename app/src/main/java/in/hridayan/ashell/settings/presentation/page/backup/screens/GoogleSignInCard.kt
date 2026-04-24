@@ -2,14 +2,12 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.backup.screens
 
-import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.border
@@ -18,6 +16,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -36,30 +35,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil3.compose.SubcomposeAsyncImage
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.io.File
-import java.net.URL
 
 @Composable
 fun GoogleSignInCard(
@@ -194,42 +182,6 @@ private fun ProfileAvatar(
     photoUrl: Uri?,
     displayName: String?
 ) {
-    val context = LocalContext.current
-    var profileBitmap by remember { mutableStateOf<ImageBitmap?>(null) }
-
-    // Load profile picture: try disk cache first, then network → save to cache
-    LaunchedEffect(photoUrl) {
-        profileBitmap = withContext(Dispatchers.IO) {
-            val cacheFile = File(context.filesDir, "google_profile.jpg")
-
-            // 1. Try loading from disk cache
-            if (cacheFile.exists()) {
-                try {
-                    val bitmap = BitmapFactory.decodeFile(cacheFile.absolutePath)
-                    if (bitmap != null) return@withContext bitmap.asImageBitmap()
-                } catch (_: Exception) {
-                }
-            }
-
-            // 2. Fall back to network
-            if (photoUrl != null) {
-                try {
-                    val stream = URL(photoUrl.toString()).openStream()
-                    val bytes = stream.readBytes()
-                    stream.close()
-
-                    // Save to disk cache
-                    cacheFile.writeBytes(bytes)
-
-                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                    bitmap?.asImageBitmap()
-                } catch (_: Exception) {
-                    null
-                }
-            } else null
-        }
-    }
-
     Box(
         modifier = modifier
             .clip(CircleShape)
@@ -237,30 +189,39 @@ private fun ProfileAvatar(
                 width = 1.dp,
                 shape = CircleShape,
                 color = MaterialTheme.colorScheme.onTertiaryContainer
-            )
+            ),
+        contentAlignment = Alignment.Center
     ) {
-        if (profileBitmap != null) {
-            Image(
-                bitmap = profileBitmap!!,
+        if (photoUrl != null) {
+            SubcomposeAsyncImage(
+                model = photoUrl,
                 contentDescription = null,
-                modifier = modifier.clip(CircleShape),
-                contentScale = ContentScale.Crop
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop,
+                loading = { InitialsAvatar(displayName, Modifier.fillMaxSize()) },
+                error = { InitialsAvatar(displayName, Modifier.fillMaxSize()) }
             )
         } else {
-            // Fallback: colored circle with initial
-            val initial = displayName?.firstOrNull()?.uppercaseChar() ?: '?'
-            Box(
-                modifier = modifier
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primaryContainer),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = initial.toString(),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            }
+            InitialsAvatar(displayName, Modifier.fillMaxSize())
         }
+    }
+}
+
+@Composable
+private fun InitialsAvatar(
+    displayName: String?,
+    modifier: Modifier = Modifier
+) {
+    val initial = displayName?.firstOrNull()?.uppercaseChar() ?: '?'
+    Box(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.primaryContainer),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = initial.toString(),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onPrimaryContainer
+        )
     }
 }
