@@ -683,16 +683,12 @@ private fun BehaviorSwitchRow(
 ) {
     CustomCard(
         modifier = modifier,
-        shape = shape
+        shape = shape,
+        onClick = { onCheckedChange(!checked) }
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = { onCheckedChange(!checked) },
-                )
                 .padding(horizontal = 20.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
