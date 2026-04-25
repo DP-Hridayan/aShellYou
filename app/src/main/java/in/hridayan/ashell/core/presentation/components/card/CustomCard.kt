@@ -1,10 +1,13 @@
 package `in`.hridayan.ashell.core.presentation.components.card
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -22,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
@@ -36,6 +40,7 @@ fun CustomCard(
     modifier: Modifier = Modifier,
     shape: CustomCardShape = CustomCardDefaults.shape(),
     pressedCornerRadius: Dp = CustomCardDefaults.pressedCornerRadius,
+    pressedScale: Float = CustomCardDefaults.pressedScale,
     colors: CardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         contentColor = MaterialTheme.colorScheme.onSurface
@@ -52,6 +57,9 @@ fun CustomCard(
 
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
+    val isHovered by interactionSource.collectIsHoveredAsState()
+
+    val doCardInteractions = isPressed || isHovered
 
     val resolvedTopStart = shape.topStart.toDp(heightPx, density)
     val resolvedTopEnd = shape.topEnd.toDp(heightPx, density)
@@ -59,25 +67,25 @@ fun CustomCard(
     val resolvedBottomEnd = shape.bottomEnd.toDp(heightPx, density)
 
     val topStart by animateDpAsState(
-        targetValue = if (isPressed) pressedCornerRadius else resolvedTopStart,
+        targetValue = if (doCardInteractions) pressedCornerRadius else resolvedTopStart,
         animationSpec = AshellYouAnimationSpecs.springDp,
         label = "corner_anim"
     )
 
     val topEnd by animateDpAsState(
-        targetValue = if (isPressed) pressedCornerRadius else resolvedTopEnd,
+        targetValue = if (doCardInteractions) pressedCornerRadius else resolvedTopEnd,
         animationSpec = AshellYouAnimationSpecs.springDp,
         label = "corner_anim"
     )
 
     val bottomStart by animateDpAsState(
-        targetValue = if (isPressed) pressedCornerRadius else resolvedBottomStart,
+        targetValue = if (doCardInteractions) pressedCornerRadius else resolvedBottomStart,
         animationSpec = AshellYouAnimationSpecs.springDp,
         label = "corner_anim"
     )
 
     val bottomEnd by animateDpAsState(
-        targetValue = if (isPressed) pressedCornerRadius else resolvedBottomEnd,
+        targetValue = if (doCardInteractions) pressedCornerRadius else resolvedBottomEnd,
         animationSpec = AshellYouAnimationSpecs.springDp,
         label = "corner_anim"
     )
@@ -89,10 +97,18 @@ fun CustomCard(
         bottomEnd = bottomEnd.coerceIn(0.dp, 100.dp)
     )
 
+    val animatedScale by animateFloatAsState(
+        targetValue = if (doCardInteractions) pressedScale else 1f,
+        animationSpec = AshellYouAnimationSpecs.springFloat
+    )
+
     Card(
-        modifier = modifier.onGloballyPositioned {
-            heightPx = it.size.height.toFloat()
-        },
+        modifier = modifier
+            .hoverable(interactionSource)
+            .scale(animatedScale)
+            .onGloballyPositioned {
+                heightPx = it.size.height.toFloat()
+            },
         colors = colors,
         elevation = elevation,
         border = border,
@@ -137,4 +153,5 @@ object CustomCardDefaults {
     fun shape(percent: Int) = CustomCardShape(percent)
 
     val pressedCornerRadius = 12.dp
+    val pressedScale = 0.97f
 }
