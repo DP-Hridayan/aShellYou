@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
@@ -257,11 +258,11 @@ fun WirelessDebuggingCard(
     val dialogManager = LocalDialogManager.current
 
     NavigationCard(
+        modifier = modifier,
         title = stringResource(R.string.adb_via_wireless_debugging),
         description = stringResource(R.string.adb_via_wireless_debugging_summary),
         icon = painterResource(R.drawable.ic_wireless),
-        showNavigationArrowIcon = false,
-        modifier = modifier
+        showNavigationArrowIcon = false
     ) {
         IconWithTextButton(
             modifier = Modifier.padding(top = 35.dp),
