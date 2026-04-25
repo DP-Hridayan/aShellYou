@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -47,6 +48,7 @@ fun ColorTabs(
                     val isDynamicColor = LocalSettings.current.isDynamicColor
 
                     PaletteWheel(
+                        modifier = Modifier.size(70.dp),
                         seedColor = palette.colors,
                         onClick = {
                             lookAndFeelViewModel.setSeedColor(palette.colors)

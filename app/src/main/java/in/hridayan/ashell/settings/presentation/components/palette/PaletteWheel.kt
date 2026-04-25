@@ -2,14 +2,9 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.palette
 
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,32 +12,29 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 
 @Composable
 fun PaletteWheel(
     modifier: Modifier = Modifier,
-    size: Dp = 50.dp,
     seedColor: SeedColor = SeedColorProvider.seed,
     isChecked: Boolean = false,
     onClick: () -> Unit
@@ -57,38 +49,18 @@ fun PaletteWheel(
     val secondaryColor = modifyColorForDisplay(Color(seedColor.secondary), toneFactor = 1.4f)
     val tertiaryColor = modifyColorForDisplay(Color(seedColor.tertiary), toneFactor = 0.7f)
 
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-
-    val roundedCornerPercentage by animateDpAsState(
-        targetValue = if (isPressed) 8.dp else 12.dp,
-        animationSpec = AshellYouAnimationSpecs.springDp,
-        label = "corner_anim"
-    )
-
-    val animatedRoundedCornerShape =
-        RoundedCornerShape(roundedCornerPercentage.coerceIn(0.dp, 100.dp))
-
-    Box(
-        modifier = Modifier
-            .clip(animatedRoundedCornerShape)
-            .border(
-                width = 1.dp,
-                shape = animatedRoundedCornerShape,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-            )
-            .combinedClickable(
-                enabled = true,
-                interactionSource = interactionSource,
-                onClick = withHaptic {
-                    onClick()
-                },
-                onLongClick = {})
+    CustomCard(
+        modifier = modifier,
+        onClick = withHaptic { onClick() },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        ),
+        border = CardDefaults.outlinedCardBorder()
     ) {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .padding(10.dp)
-                .size(size)
                 .clip(CircleShape)
         ) {
             Column(
