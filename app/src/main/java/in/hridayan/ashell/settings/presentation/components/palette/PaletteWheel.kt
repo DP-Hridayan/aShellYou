@@ -3,7 +3,6 @@
 package `in`.hridayan.ashell.settings.presentation.components.palette
 
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,6 +30,7 @@ import `in`.hridayan.ashell.core.data.local.provider.SeedColor
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 
 @Composable
 fun PaletteWheel(
@@ -39,9 +39,9 @@ fun PaletteWheel(
     isChecked: Boolean = false,
     onClick: () -> Unit
 ) {
-    val scale by animateFloatAsState(
+    val checkedIconScale by animateFloatAsState(
         targetValue = if (isChecked) 1f else 0f,
-        animationSpec = tween(durationMillis = 300),
+        animationSpec = AshellYouAnimationSpecs.springFloat,
         label = "Check Scale Animation"
     )
 
@@ -97,7 +97,7 @@ fun PaletteWheel(
                 modifier = Modifier
                     .size(20.dp)
                     .align(Alignment.Center)
-                    .scale(scale)
+                    .scale(checkedIconScale)
                     .clip(CircleShape)
                     .background(color = MaterialTheme.colorScheme.primaryContainer)
             ) {
