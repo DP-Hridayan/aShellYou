@@ -37,8 +37,8 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.provider.RadioGroupOptionsProvider
@@ -97,14 +97,16 @@ fun CommandsSortDialog(
                     .fillMaxWidth()
                     .padding(vertical = 1.dp),
                 shape = finalShape,
-                colors = cardColors
+                colors = cardColors,
+                onClick = withHaptic(HapticFeedbackType.ToggleOn) {
+                    tempSelected = option.value
+                }
             )
             {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable(onClick = withHaptic { tempSelected = option.value })
                         .padding(vertical = 8.dp, horizontal = 20.dp)
                 ) {
                     Text(
