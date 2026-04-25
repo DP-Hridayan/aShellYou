@@ -93,6 +93,7 @@ import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -124,7 +125,8 @@ fun CommandExamplesScreen(
     var showFilterCommandBottomSheet by rememberSaveable { mutableStateOf(false) }
     val showNoResultsUi =
         (states.search.textFieldValue.text.isNotEmpty() || filteredLabels.isNotEmpty()) && commands.isEmpty()
-    val showLoadNewCommandsUi = states.search.textFieldValue.text.isEmpty() && isNewCommandsAvailable
+    val showLoadNewCommandsUi =
+        states.search.textFieldValue.text.isEmpty() && isNewCommandsAvailable
 
     val addOptions = listOf(
         stringResource(R.string.load_predefined_commands) to {
@@ -308,7 +310,8 @@ fun CommandExamplesScreen(
                         }
                         .animateFloatingActionButton(
                             visible = !isKeyboardVisible.value,
-                            alignment = Alignment.BottomEnd
+                            alignment = Alignment.BottomEnd,
+                            scaleAnimationSpec = AshellYouAnimationSpecs.springFloat
                         )
                         .focusRequester(focusRequester),
                     checked = fabMenuExpanded,
@@ -342,6 +345,7 @@ fun CommandExamplesScreen(
             }
         ) {
             addOptions.forEachIndexed { i, option ->
+
                 FloatingActionButtonMenuItem(
                     onClick = {
                         weakHaptic()
