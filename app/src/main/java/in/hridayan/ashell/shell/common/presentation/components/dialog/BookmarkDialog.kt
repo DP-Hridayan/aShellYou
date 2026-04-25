@@ -33,8 +33,8 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
 
 @Composable
@@ -101,7 +101,9 @@ fun BookmarkDialog(
                             Text(
                                 text = bookmark.command,
                                 style = MaterialTheme.typography.bodyLarge,
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 12.dp)
                             )
                         }
                     }
