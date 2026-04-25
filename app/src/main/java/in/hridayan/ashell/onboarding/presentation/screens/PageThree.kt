@@ -7,8 +7,6 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,7 +27,6 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
@@ -45,7 +42,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -63,6 +59,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.constants.SHIZUKU_PACKAGE_NAME
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.undrawSelectChoice
@@ -339,20 +336,18 @@ private fun PermissionCard(
     title: String,
     description: String
 ) {
-    OutlinedCard(
+    CustomCard(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 40.dp)
-            .clip(MaterialTheme.shapes.large)
-            .border(CardDefaults.outlinedCardBorder())
-            .clickable(onClick = withHaptic {
-                onClick()
-            }),
-        shape = MaterialTheme.shapes.large,
-        colors = CardDefaults.outlinedCardColors(
-            containerColor = if (isChecked) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer,
-            contentColor = if (isChecked) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
-        )
+            .padding(horizontal = 40.dp),
+        onClick = withHaptic { onClick() },
+        border = CardDefaults.outlinedCardBorder(),
+        colors = MaterialTheme.colorScheme.run {
+            CardDefaults.outlinedCardColors(
+                containerColor = if (isChecked) primaryContainer else surfaceContainer,
+                contentColor = if (isChecked) onPrimaryContainer else onSurface
+            )
+        }
     ) {
         Row(
             modifier = Modifier
@@ -364,10 +359,11 @@ private fun PermissionCard(
             Icon(
                 imageVector = if (isChecked) Icons.Rounded.CheckCircle else Icons.Rounded.CheckCircleOutline,
                 contentDescription = null,
-                tint = if (isChecked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(
-                    alpha = 0.5f
-                ),
+                tint = MaterialTheme.colorScheme.run {
+                    if (isChecked) primary else onSurface.copy(alpha = 0.5f)
+                },
             )
+
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
