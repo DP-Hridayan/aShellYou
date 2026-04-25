@@ -26,7 +26,6 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.theme.CornerSize
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
@@ -106,8 +105,8 @@ fun CustomCard(
                     enabled = clickable,
                     interactionSource = interactionSource,
                     indication = null,
-                    onClick = withHaptic { onClick() },
-                    onLongClick = withHaptic { onLongClick() }
+                    onClick = onClick,
+                    onLongClick = onLongClick
                 )
                 .indication(
                     interactionSource = interactionSource,
