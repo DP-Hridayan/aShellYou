@@ -96,7 +96,8 @@ private fun AnimatedInfoCard(text: String) {
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
             contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-        )
+        ),
+        pressedCornerRadius = 8.dp
     ) {
         AutoResizeableText(
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
