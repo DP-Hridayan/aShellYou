@@ -125,10 +125,10 @@ import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrollbar
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
@@ -975,20 +975,25 @@ private fun OutputLineItem(
 
     val isCommandLine = text?.startsWith("$ ")
 
-    val lineColor =
-        if (isCommandLine == true) MaterialTheme.colorScheme.primary else {
-            if (line.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
-        }
+    val lineColor = MaterialTheme.colorScheme.run {
+        if (isCommandLine == true) primary
+        else if (line.isError) error
+        else onSurface
+    }
 
     val textStyle = if (isCommandLine == true) commandTextStyle else bodyTextStyle
 
     text?.let {
         val annotatedText =
             if (states.search.isVisible && !states.search.textFieldValue.text.isBlank()) {
-                val highlightBgColor =
-                    if (line.isError) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer
-                val highlightTextColor =
-                    if (line.isError) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onPrimaryContainer
+
+                val highlightBgColor = MaterialTheme.colorScheme.run {
+                    if (line.isError) errorContainer else primaryContainer
+                }
+
+                val highlightTextColor = MaterialTheme.colorScheme.run {
+                    if (line.isError) onErrorContainer else onPrimaryContainer
+                }
 
                 highlightQueryText(
                     text = text,
@@ -1029,18 +1034,23 @@ private fun FullscreenOutputOverlay(
         rememberLazyListState(initialFirstVisibleItemIndex = initialScrollIndex)
 
     val commandTextStyle =
-        if (terminalFontStyle == TerminalFontStyle.MONOSPACE) MaterialTheme.typography.titleSmallEmphasized.copy(
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.SemiBold
-        )
-        else MaterialTheme.typography.titleSmallEmphasized.copy(
-            fontWeight = FontWeight.SemiBold
-        )
+        MaterialTheme.typography.titleSmallEmphasized.run {
+            if (terminalFontStyle == TerminalFontStyle.MONOSPACE) this.copy(
+                fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.SemiBold
+            )
+            else this.copy(fontWeight = FontWeight.SemiBold)
+        }
+
 
     val bodyTextStyle =
-        if (terminalFontStyle == TerminalFontStyle.MONOSPACE) MaterialTheme.typography.bodySmallEmphasized.copy(
-            fontFamily = FontFamily.Monospace
-        ) else MaterialTheme.typography.bodySmallEmphasized
+        MaterialTheme.typography.bodySmallEmphasized.run {
+            if (terminalFontStyle == TerminalFontStyle.MONOSPACE) this.copy(
+                fontFamily = FontFamily.Monospace
+            )
+            else this
+        }
+
 
     val states by shellViewModel.states.collectAsState()
     val results by shellViewModel.filteredOutput.collectAsState()
