@@ -93,9 +93,18 @@ jobs:
 
       - name: Publish Release using gh CLI
         run: |
+          APK_FILES=$(find artifacts -name "*.apk")
+
+          if [ -z "$APK_FILES" ]; then
+            echo "❌ No APKs found!"
+            exit 1
+          fi
+
+          echo "✅ Found APKs:"
+          echo "$APK_FILES"
+
           gh release create "${{ github.ref_name }}" \
-            artifacts/app/build/outputs/apk/github/release/*.apk \
-            artifacts/app/build/outputs/apk/fdroid/release/*.apk \
+            $APK_FILES \
             --title "aShell You ${{ github.ref_name }}" \
             --notes-file changelog.txt
         env:
