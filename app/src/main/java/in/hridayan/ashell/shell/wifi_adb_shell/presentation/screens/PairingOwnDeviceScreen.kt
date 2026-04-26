@@ -280,7 +280,7 @@ fun PairingOwnDeviceScreen(
                                     return@SavedDeviceItem
                                 }
 
-                                if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context)) {
+                               /* if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context)) {
                                     WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
                                         context = context,
                                         onSuccess = { viewModel.reconnectToDevice(it) },
@@ -288,7 +288,7 @@ fun PairingOwnDeviceScreen(
                                     )
 
                                     return@SavedDeviceItem
-                                }
+                                }*/
 
                                 viewModel.reconnectToDevice(it)
                             },

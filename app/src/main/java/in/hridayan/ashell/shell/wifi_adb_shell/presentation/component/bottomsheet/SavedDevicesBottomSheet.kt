@@ -225,13 +225,10 @@ fun SavedDevicesBottomSheet(
         ReconnectFailedDialog(
             showDevOptionsButton = showDevOptionsButton,
             onConfirm = {
-
+                showReconnectFailedDialog = false
                 WifiAdbConnection.updateState(WifiAdbState.Idle)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(context, onSuccess = {
-                        showReconnectFailedDialog = false
-                    },
-                        onFailed = {})
+                    WirelessDebuggingUtils.openWirelessDebuggingSettings(context)
                 }
             },
             onDismiss = {

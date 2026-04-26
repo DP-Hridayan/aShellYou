@@ -442,14 +442,16 @@ class SelfPairingService : Service() {
                 WifiAdbConnection.tryEmitEvent(WifiAdbEvent.ConnectSuccess(ownDevice.id, "$ip:$port"))
             }
 
-            // Grant WRITE_SECURE_SETTINGS permission for future wireless debugging control
+         /* ------WIll do it later-----
+
+           // Grant WRITE_SECURE_SETTINGS permission for future wireless debugging control
             // This allows the app to enable wireless debugging programmatically on reconnects
             try {
                 val granted = WirelessDebuggingUtils.grantWriteSecureSettingsViaAdb(this, adbManager)
                 Log.d(TAG, "WRITE_SECURE_SETTINGS permission grant: $granted")
             } catch (e: Exception) {
                 Log.w(TAG, "Failed to grant WRITE_SECURE_SETTINGS, will use fallback for reconnects", e)
-            }
+            }*/
 
             notificationHelper.showSuccessNotification()
             stopSelfDelayed()

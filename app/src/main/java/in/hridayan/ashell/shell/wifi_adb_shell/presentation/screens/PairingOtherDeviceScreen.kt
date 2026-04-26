@@ -22,7 +22,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -350,10 +349,7 @@ fun PairingOtherDeviceScreen(
             showDevOptionsButton = dialogKey?.showDevOptionsButton ?: false,
             onConfirm = {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
-                        context = context,
-                        onSuccess = { viewModel.reconnectToDevice(currentDevice as WifiAdbDevice) },
-                        onFailed = {})
+                    WirelessDebuggingUtils.openWirelessDebuggingSettings(context)
                 }
             },
             onDismiss = {
