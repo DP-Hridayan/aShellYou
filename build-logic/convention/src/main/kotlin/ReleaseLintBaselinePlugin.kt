@@ -7,38 +7,49 @@ class ReleaseLintBaselinePlugin : Plugin<Project> {
 
         project.plugins.withId("com.android.application") {
 
-            val updateBaseline =
-                project.tasks.register("updateLintReleaseBaseline") {
-                    group = "lint"
-                    description = "Update lint baseline for release builds"
+            val updateBaseline = project.tasks.register("updateLintReleaseBaseline") {
+                group = "lint"
+                description = "Update lint baseline for all release variants"
 
-                    doFirst {
-                        println("\n========================================")
-                        println("🔄 Updating lint baseline for release...")
-                        println("========================================\n")
-                    }
-
-                    doLast {
-                        println("\n========================================")
-                        println("✅ Lint baseline updated successfully!")
-                        println("========================================\n")
-                    }
+                doFirst {
+                    println("\n========================================")
+                    println("🔄 Updating lint baseline for release variants...")
+                    println("========================================\n")
                 }
 
+                doLast {
+                    println("\n========================================")
+                    println("✅ Lint baseline updated successfully!")
+                    println("========================================\n")
+                }
+            }
+
             project.afterEvaluate {
-                project.tasks.matching { it.name == "lintRelease" }.configureEach {
-                    outputs.upToDateWhen { false }
+
+                val baselineTasks = project.tasks.matching {
+                    it.name.startsWith("updateLintBaseline") &&
+                            it.name.contains("Release")
                 }
 
                 updateBaseline.configure {
-                    dependsOn("updateLintBaselineRelease")
+                    dependsOn(baselineTasks)
                 }
 
-                project.tasks.matching { it.name == "assembleRelease" }.configureEach {
+                project.tasks.matching {
+                    it.name.startsWith("lint") && it.name.contains("Release")
+                }.configureEach {
+                    outputs.upToDateWhen { false }
+                }
+
+                project.tasks.matching {
+                    it.name.startsWith("assemble") && it.name.endsWith("Release")
+                }.configureEach {
                     dependsOn(updateBaseline)
                 }
 
-                project.tasks.matching { it.name == "bundleRelease" }.configureEach {
+                project.tasks.matching {
+                    it.name.startsWith("bundle") && it.name.endsWith("Release")
+                }.configureEach {
                     dependsOn(updateBaseline)
                 }
             }

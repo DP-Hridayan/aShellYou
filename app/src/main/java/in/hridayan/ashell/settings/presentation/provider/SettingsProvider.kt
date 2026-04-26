@@ -271,12 +271,12 @@ object SettingsProvider {
                 descriptionResId = R.string.des_backup_all_data,
                 iconResId = R.drawable.ic_upload_file
             ),
-            nullPreferenceItem(
+           /* nullPreferenceItem(
                 key = SettingsKeys.BACKUP_SCHEDULER,
                 titleResId = R.string.backup_scheduler,
                 descriptionResId = R.string.des_backup_scheduler,
                 iconResId = R.drawable.ic_schedule
-            )
+            )*/
         ),
 
         customComposable("last_backup_time"),

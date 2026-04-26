@@ -162,7 +162,7 @@ fun GoogleSignInCard(
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onSurface
                         )
-                        AutoResizeableText(
+                        Text(
                             text = stringResource(R.string.des_sign_in_with_google),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)

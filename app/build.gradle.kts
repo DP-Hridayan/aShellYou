@@ -125,6 +125,23 @@ android {
     }
 }
 
+androidComponents {
+    onVariants { variant ->
+        if (variant.buildType == "release") {
+            variant.outputs.forEach { output ->
+
+                val flavor = variant.flavorName ?: "noflavor"
+                val version = android.defaultConfig.versionName ?: "unknown"
+
+                @Suppress("UnstableApiUsage")
+                output.outputFileName.set(
+                    "aShellYou-${version}-${flavor}-release.apk"
+                )
+            }
+        }
+    }
+}
+
 tasks.withType<KotlinCompile>().configureEach {
     ksp {
         arg("room.schemaLocation", "$projectDir/schemas")

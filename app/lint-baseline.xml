@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.13.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.13.2)" variant="all" version="8.13.2">
+<issues format="6" by="lint 9.2.0" type="baseline" client="gradle" dependencies="false" name="AGP (9.2.0)" variant="all" version="9.2.0">
 
     <issue
-        id="CredentialManagerMisuse"
-        message="Call to `CredentialManager.getCredential` without use of `NoCredentialException`"
-        errorLine1="                credentialManager.getCredential(context, request)"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        id="OldTargetApi"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details."
+        errorLine1="        targetSdk = 36"
+        errorLine2="        ~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/settings/data/repository/GoogleAuthRepositoryImpl.kt"
-            line="93"
-            column="17"/>
+            file="build.gradle.kts"
+            line="24"
+            column="9"/>
     </issue>
 
     <issue
@@ -21,28 +21,6 @@
             file="src/main/java/in/hridayan/ashell/App.kt"
             line="41"
             column="9"/>
-    </issue>
-
-    <issue
-        id="NonObservableLocale"
-        message="Reading locale in a non-observable way in a composable function"
-        errorLine1="            label = stringResource(R.string.total_executions).uppercase(Locale.getDefault()),"
-        errorLine2="                                                                        ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/qstiles/presentation/screen/TileDashBoardScreen.kt"
-            line="572"
-            column="73"/>
-    </issue>
-
-    <issue
-        id="NonObservableLocale"
-        message="Reading locale in a non-observable way in a composable function"
-        errorLine1="            label = stringResource(R.string.success_rate).uppercase(Locale.getDefault()),"
-        errorLine2="                                                                    ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/qstiles/presentation/screen/TileDashBoardScreen.kt"
-            line="579"
-            column="69"/>
     </issue>
 
     <issue
@@ -68,167 +46,13 @@
     </issue>
 
     <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.application than 8.13.2 is available: 9.1.1"
-        errorLine1="agp = &quot;8.13.2&quot;"
-        errorLine2="      ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.library than 8.13.2 is available: 9.1.1"
-        errorLine1="agp = &quot;8.13.2&quot;"
-        errorLine2="      ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.tools.build:gradle than 8.13.2 is available: 9.1.1"
-        errorLine1="agp = &quot;8.13.2&quot;"
-        errorLine2="      ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
         id="GradleDependency"
-        message="A newer version of androidx.activity:activity-compose than 1.12.2 is available: 1.13.0"
-        errorLine1="activityCompose = &quot;1.12.2&quot;"
-        errorLine2="                  ~~~~~~~~">
+        message="A newer version of `compileSdk` than 36 is available: 37"
+        errorLine1="        version = release(36)"
+        errorLine2="                  ~~~~~~~~~~~">
         <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="2"
-            column="19"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.annotation:annotation than 1.9.1 is available: 1.10.0"
-        errorLine1="annotation = &quot;1.9.1&quot;"
-        errorLine2="             ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="5"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose.animation:animation than 1.10.1 is available: 1.10.6"
-        errorLine1="composeAnimation = &quot;1.10.1&quot;"
-        errorLine2="                   ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="7"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose:compose-bom than 2026.01.00 is available: 2026.03.01"
-        errorLine1="composeBom = &quot;2026.01.00&quot;"
-        errorLine2="             ~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="8"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.credentials:credentials than 1.6.0-rc02 is available: 1.6.0"
-        errorLine1="credentials = &quot;1.6.0-rc02&quot;"
-        errorLine2="              ~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="9"
-            column="15"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.credentials:credentials-play-services-auth than 1.6.0-rc02 is available: 1.6.0"
-        errorLine1="credentials = &quot;1.6.0-rc02&quot;"
-        errorLine2="              ~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="9"
-            column="15"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.core:core-ktx than 1.17.0 is available: 1.18.0"
-        errorLine1="coreKtx = &quot;1.17.0&quot;"
-        errorLine2="          ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="10"
-            column="11"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.datastore:datastore-preferences than 1.2.0 is available: 1.2.1"
-        errorLine1="datastore = &quot;1.2.0&quot;"
-        errorLine2="            ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="11"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.navigation:navigation-compose than 2.9.6 is available: 2.9.7"
-        errorLine1="navigation = &quot;2.9.6&quot;"
-        errorLine2="             ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="33"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of com.google.android.gms:play-services-auth than 21.5.0 is available: 21.5.1"
-        errorLine1="playServicesAuth = &quot;21.5.0&quot;"
-        errorLine2="                   ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="35"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.work:work-runtime-ktx than 2.11.0 is available: 2.11.2"
-        errorLine1="work = &quot;2.11.0&quot;"
-        errorLine2="       ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="44"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of org.bouncycastle:bcprov-jdk15to18 than 1.83 is available: 1.84"
-        errorLine1="bcprovJdk15to18 = &quot;1.83&quot;"
-        errorLine2="                  ~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="6"
+            file="build.gradle.kts"
+            line="18"
             column="19"/>
     </issue>
 
@@ -256,20 +80,20 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of com.google.dagger:hilt-android-compiler than 2.58 is available: 2.59.2"
-        errorLine1="hilt = &quot;2.58&quot;"
-        errorLine2="       ~~~~~~">
+        message="A newer version of com.google.code.gson:gson than 2.13.2 is available: 2.14.0"
+        errorLine1="gson = &quot;2.13.2&quot;"
+        errorLine2="       ~~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="20"
+            line="18"
             column="8"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlin.android than 2.3.0 is available: 2.3.20"
-        errorLine1="kotlin = &quot;2.3.0&quot;"
-        errorLine2="         ~~~~~~~">
+        message="A newer version of org.jetbrains.kotlin.plugin.compose than 2.3.20 is available: 2.3.21"
+        errorLine1="kotlin = &quot;2.3.20&quot;"
+        errorLine2="         ~~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
             line="24"
@@ -278,9 +102,9 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlin.plugin.compose than 2.3.0 is available: 2.3.20"
-        errorLine1="kotlin = &quot;2.3.0&quot;"
-        errorLine2="         ~~~~~~~">
+        message="A newer version of org.jetbrains.kotlin.plugin.serialization than 2.3.20 is available: 2.3.21"
+        errorLine1="kotlin = &quot;2.3.20&quot;"
+        errorLine2="         ~~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
             line="24"
@@ -289,19 +113,8 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlin.plugin.serialization than 2.3.0 is available: 2.3.20"
-        errorLine1="kotlin = &quot;2.3.0&quot;"
-        errorLine2="         ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="24"
-            column="10"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-cio than 3.3.3 is available: 3.4.2"
-        errorLine1="ktor = &quot;3.3.3&quot;"
+        message="A newer version of io.ktor:ktor-client-cio than 3.4.2 is available: 3.4.3"
+        errorLine1="ktor = &quot;3.4.2&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
@@ -311,8 +124,8 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-content-negotiation than 3.3.3 is available: 3.4.2"
-        errorLine1="ktor = &quot;3.3.3&quot;"
+        message="A newer version of io.ktor:ktor-client-content-negotiation than 3.4.2 is available: 3.4.3"
+        errorLine1="ktor = &quot;3.4.2&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
@@ -322,8 +135,8 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-core than 3.3.3 is available: 3.4.2"
-        errorLine1="ktor = &quot;3.3.3&quot;"
+        message="A newer version of io.ktor:ktor-client-core than 3.4.2 is available: 3.4.3"
+        errorLine1="ktor = &quot;3.4.2&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
@@ -333,29 +146,29 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-serialization-kotlinx-json than 3.3.3 is available: 3.4.2"
-        errorLine1="ktor = &quot;3.3.3&quot;"
+        message="A newer version of io.ktor:ktor-serialization-kotlinx-json than 3.4.2 is available: 3.4.3"
+        errorLine1="ktor = &quot;3.4.2&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
             line="26"
             column="8"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.9.0 is available: 1.11.0"
-        errorLine1="serialization = &quot;1.9.0&quot;"
-        errorLine2="                ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="38"
-            column="17"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
         message="A newer version of dev.rikka.shizuku:api than 13.1.0 is available: 13.1.5"
+        errorLine1="shizuku = &quot;13.1.0&quot;"
+        errorLine2="          ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="39"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of dev.rikka.shizuku:provider than 13.1.0 is available: 13.1.5"
         errorLine1="shizuku = &quot;13.1.0&quot;"
         errorLine2="          ~~~~~~~~">
         <location
@@ -388,6 +201,18 @@
 
     <issue
         id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;copied_items&quot;>Copied %1$d items&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="91"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="ForuralsCandidate"
         message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
         errorLine1="    &lt;string name=&quot;copied_items&quot;>Copied %1$d items&lt;/string>"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -500,14 +325,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/0ed70face172088ccfb7b820f393b1f3/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.4.1/transforms/32a81debb4323c0bfda5b8df1a440e9f/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/0ed70face172088ccfb7b820f393b1f3/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.4.1/transforms/32a81debb4323c0bfda5b8df1a440e9f/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
@@ -673,33 +498,11 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_amoled_theme` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_amoled_theme.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_arrow` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_arrow.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_auto_update` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_auto_update.xml"
             line="1"
             column="1"/>
     </issue>
@@ -722,17 +525,6 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_cards.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_changelog` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_changelog.xml"
             line="1"
             column="1"/>
     </issue>
@@ -788,17 +580,6 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_download.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_dynamic_color` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_dynamic_color.xml"
             line="1"
             column="1"/>
     </issue>
@@ -871,17 +652,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_language` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_language.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_mode` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -926,17 +696,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_pallete` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_pallete.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_pin` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -975,6 +734,17 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_reset.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_schedule` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_schedule.xml"
             line="1"
             column="1"/>
     </issue>
@@ -1113,17 +883,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_vibration` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_vibration.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_x` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -1190,6 +949,556 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.string.conflict_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;conflict_title&quot;>Item already exists&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="80"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.connect` appears to be unused"
+        errorLine1="    &lt;string name=&quot;connect&quot;>Connect&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="81"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.connection_lost` appears to be unused"
+        errorLine1="    &lt;string name=&quot;connection_lost&quot;>Connection Lost&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="89"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.connection_lost_back_message` appears to be unused"
+        errorLine1="    &lt;string name=&quot;connection_lost_back_message&quot;>The wireless debugging connection was lost. What would you like to do?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="90"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.create` appears to be unused"
+        errorLine1="    &lt;string name=&quot;create&quot;>Create&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="98"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.delete_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;delete_title&quot;>Delete %1$s?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="116"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.des_backup_scheduler` appears to be unused"
+        errorLine1="    &lt;string name=&quot;des_backup_scheduler&quot;>Automatically schedule backups at selected intervals&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="122"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.des_examples` appears to be unused"
+        errorLine1="    &lt;string name=&quot;des_examples&quot;>Collection of some command templates&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="136"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.deselect_all` appears to be unused"
+        errorLine1="    &lt;string name=&quot;deselect_all&quot;>Deselect all&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="156"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.downloading` appears to be unused"
+        errorLine1="    &lt;string name=&quot;downloading&quot;>Downloading…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="185"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.downloads` appears to be unused"
+        errorLine1="    &lt;string name=&quot;downloads&quot;>Downloads&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="187"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.enable_wireless_debugging` appears to be unused"
+        errorLine1="    &lt;string name=&quot;enable_wireless_debugging&quot;>Please enable Wireless Debugging in Developer Options&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="196"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.enable_wireless_debugging_button` appears to be unused"
+        errorLine1="    &lt;string name=&quot;enable_wireless_debugging_button&quot;>Enable&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="197"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.failed_to_claim_interface` appears to be unused"
+        errorLine1="    &lt;string name=&quot;failed_to_claim_interface&quot;>Failed to claim interface&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="204"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.failed_to_open_usb_connection` appears to be unused"
+        errorLine1="    &lt;string name=&quot;failed_to_open_usb_connection&quot;>Failed to open USB connection. Is USB debugging enabled?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="205"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.fb_downloading` appears to be unused"
+        errorLine1="    &lt;string name=&quot;fb_downloading&quot;>Downloading %1$s&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="214"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.fb_otg_transfers_not_supported` appears to be unused"
+        errorLine1="    &lt;string name=&quot;fb_otg_transfers_not_supported&quot;>File transfers not supported in OTG mode&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="221"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.fb_uploading` appears to be unused"
+        errorLine1="    &lt;string name=&quot;fb_uploading&quot;>Uploading %1$s&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="230"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.file_already_exists` appears to be unused"
+        errorLine1="    &lt;string name=&quot;file_already_exists&quot;>File Already Exists&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="237"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.file_exists_message` appears to be unused"
+        errorLine1="    &lt;string name=&quot;file_exists_message&quot;>&quot;%1$s&quot; already exists in this location.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="240"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.forks` appears to be unused"
+        errorLine1="    &lt;string name=&quot;forks&quot;>Forks&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="254"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.found_connect_service` appears to be unused"
+        errorLine1="    &lt;string name=&quot;found_connect_service&quot;>Found connect service&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="255"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.go_home` appears to be unused"
+        errorLine1="    &lt;string name=&quot;go_home&quot;>Go Home&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="258"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.home` appears to be unused"
+        errorLine1="    &lt;string name=&quot;home&quot;>Home&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="271"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.internal_storage` appears to be unused"
+        errorLine1="    &lt;string name=&quot;internal_storage&quot;>Internal Storage&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="277"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.ip_address` appears to be unused"
+        errorLine1="    &lt;string name=&quot;ip_address&quot;>IP address&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="279"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.last_backup_date` appears to be unused"
+        errorLine1="    &lt;string name=&quot;last_backup_date&quot;>Last backup date&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="284"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.last_backup_time` appears to be unused"
+        errorLine1="    &lt;string name=&quot;last_backup_time&quot;>Last backup time&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="286"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.manual_pair` appears to be unused"
+        errorLine1="    &lt;string name=&quot;manual_pair&quot;>Manual Pair&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="300"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.more` appears to be unused"
+        errorLine1="    &lt;string name=&quot;more&quot;>More&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="308"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.no_adb_interface_found` appears to be unused"
+        errorLine1="    &lt;string name=&quot;no_adb_interface_found&quot;>No adb interface found&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="320"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.no_operations` appears to be unused"
+        errorLine1="    &lt;string name=&quot;no_operations&quot;>No operations in progress&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="329"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.open_issues` appears to be unused"
+        errorLine1="    &lt;string name=&quot;open_issues&quot;>Open issues&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="347"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.or` appears to be unused"
+        errorLine1="    &lt;string name=&quot;or&quot;>OR&lt;/string>"
+        errorLine2="            ~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="349"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pair_manually` appears to be unused"
+        errorLine1="    &lt;string name=&quot;pair_manually&quot;>Pair manually&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="358"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.paired` appears to be unused"
+        errorLine1="    &lt;string name=&quot;paired&quot;>Paired&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="362"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.pairing_code` appears to be unused"
+        errorLine1="    &lt;string name=&quot;pairing_code&quot;>Pairing code&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="364"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.port` appears to be unused"
+        errorLine1="    &lt;string name=&quot;port&quot;>Port&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="372"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.qr_pair` appears to be unused"
+        errorLine1="    &lt;string name=&quot;qr_pair&quot;>QR Pair&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="378"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.refresh` appears to be unused"
+        errorLine1="    &lt;string name=&quot;refresh&quot;>Refresh&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="393"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.rename_title` appears to be unused"
+        errorLine1="    &lt;string name=&quot;rename_title&quot;>Rename %1$s&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="395"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.searching_connect_service` appears to be unused"
+        errorLine1="    &lt;string name=&quot;searching_connect_service&quot;>Searching connect service&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="425"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.select_all` appears to be unused"
+        errorLine1="    &lt;string name=&quot;select_all&quot;>Select all&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="427"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.self_pair_error_no_ip` appears to be unused"
+        errorLine1="    &lt;string name=&quot;self_pair_error_no_ip&quot;>Could not determine IP address&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="432"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.stargazers` appears to be unused"
+        errorLine1="    &lt;string name=&quot;stargazers&quot;>Stargazers&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="465"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.unknown` appears to be unused"
+        errorLine1="    &lt;string name=&quot;unknown&quot;>Unknown&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="499"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.uploading` appears to be unused"
+        errorLine1="    &lt;string name=&quot;uploading&quot;>Uploading…&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="507"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v1_0_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v1_0_0&quot;>\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="580"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v0_9_1` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v0_9_1&quot;>\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="581"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.changelog_v0_9_0` appears to be unused"
+        errorLine1="    &lt;string name=&quot;changelog_v0_9_0&quot;>\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="582"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.drawable.thumb_drawable` appears to be unused"
         errorLine1="&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
         errorLine2="^">
@@ -1206,7 +1515,7 @@
         errorLine2="                     ~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/core/presentation/components/navigation/FloatingNavPill.kt"
-            line="65"
+            line="67"
             column="22"/>
     </issue>
 
@@ -1217,7 +1526,7 @@
         errorLine2="                              ~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="69"
+            line="85"
             column="31"/>
     </issue>
 
@@ -1228,7 +1537,7 @@
         errorLine2="                           ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-pt-rPT/strings.xml"
-            line="245"
+            line="289"
             column="28"/>
     </issue>
 

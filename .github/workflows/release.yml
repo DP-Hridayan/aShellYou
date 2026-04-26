@@ -40,24 +40,16 @@ jobs:
       - name: Grant Execute Permission to Gradle
         run: chmod +x gradlew
 
-      - name: Build APK
-        run: ./gradlew assembleGithubRelease --stacktrace
+      - name: Build APK and Update Lint Baseline
+        run: ./gradlew assembleGithubRelease assembleFdroidRelease --stacktrace
 
-      - name: Find Release APK
-        run: |
-          APK_PATH=$(find app/build/outputs/apk/github/release -name '*.apk' -print -quit)
-          if [[ -z "$APK_PATH" ]]; then
-            echo "No APK found!"
-            exit 1
-          fi
-          echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
-          echo "Found APK at: $APK_PATH"
-
-      - name: Upload APK as Artifact
+      - name: Upload APKs as Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Signed-APK
-          path: ${{ env.APK_PATH }}
+          name: Signed-APKs
+          path: |
+            app/build/outputs/apk/github/release/*.apk
+            app/build/outputs/apk/fdroid/release/*.apk
 
   release:
     name: Create GitHub Release
@@ -72,22 +64,8 @@ jobs:
       - name: Download Signed APK
         uses: actions/download-artifact@v4
         with:
-          name: Signed-APK
+          name: Signed-APKs
           path: artifacts/
-
-      - name: Find Downloaded APK
-        run: |
-          APK_PATH=$(find artifacts -name '*.apk' -print -quit)
-          if [[ -z "$APK_PATH" ]]; then
-            echo "No downloaded APK found!"
-            exit 1
-          fi
-          echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
-          echo "Downloaded APK at: $APK_PATH"
-
-      - name: Rename APK
-        run: |
-          mv "${{ env.APK_PATH }}" "aShellYou-${{ github.ref_name }}-release.apk"
 
       - name: Install xmllint
         run: sudo apt-get install -y libxml2-utils
@@ -116,7 +94,7 @@ jobs:
       - name: Publish Release using gh CLI
         run: |
           gh release create "${{ github.ref_name }}" \
-            "aShellYou-${{ github.ref_name }}-release.apk" \
+            artifacts/*.apk \
             --title "aShell You ${{ github.ref_name }}" \
             --notes-file changelog.txt
         env:
