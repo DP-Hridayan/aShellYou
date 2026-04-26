@@ -39,6 +39,7 @@ sealed class DialogKey {
         data class BackupDestination(val backupType: BackupType) : DialogKey()
         object RestoreSource : DialogKey()
         object ConfirmGoogleSignOut : DialogKey()
+        object NoGoogleAccount : DialogKey()
     }
 
     sealed class Pair {

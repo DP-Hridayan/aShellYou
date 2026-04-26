@@ -526,6 +526,10 @@
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A" translatable="false">Z → A</string>
 
+    <string name="no_google_account_title">No Google Account</string>
+    <string name="no_google_account_message">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
+    <string name="add_account">Add account</string>
+
     /**
     * Changelogs
     * Created by DP-Hridayan

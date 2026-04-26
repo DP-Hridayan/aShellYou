@@ -9,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException
 import `in`.hridayan.ashell.settings.domain.model.BackupType
 import `in`.hridayan.ashell.settings.domain.model.DriveAuthEvent
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
@@ -234,11 +236,19 @@ class BackupAndRestoreViewModel @Inject constructor(
                 },
                 onFailure = { error ->
                     Log.e(TAG, "signInWithGoogle: failed — ${error.message}")
-                    _uiEvent.emit(
-                        SettingsUiEvent.ShowToast(
-                            context.getString(R.string.sign_in_failed)
-                        )
-                    )
+                    if (error is NoGoogleAccountException) {
+                        viewModelScope.launch {
+                            _uiEvent.emit(SettingsUiEvent.ShowDialog(DialogKey.Settings.NoGoogleAccount))
+                        }
+                    } else {
+                        viewModelScope.launch {
+                            _uiEvent.emit(
+                                SettingsUiEvent.ShowToast(
+                                    context.getString(R.string.sign_in_failed)
+                                )
+                            )
+                        }
+                    }
                 }
             )
         }

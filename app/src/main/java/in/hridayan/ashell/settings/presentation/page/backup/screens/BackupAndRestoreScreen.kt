@@ -42,6 +42,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import android.provider.Settings
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
@@ -61,6 +62,7 @@ import `in`.hridayan.ashell.settings.domain.model.LastBackupData
 import `in`.hridayan.ashell.settings.presentation.components.dialog.BackupDestinationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.CloudOperationDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.GoogleSignOutConfirmationDialog
+import `in`.hridayan.ashell.settings.presentation.components.dialog.NoGoogleAccountDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ResetSettingsDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreBackupDialog
 import `in`.hridayan.ashell.settings.presentation.components.dialog.RestoreSourceDialog
@@ -183,6 +185,8 @@ fun BackupAndRestoreScreen(
         backupAndRestoreViewModel.uiEvent.collect { event ->
             when (event) {
                 is SettingsUiEvent.ShowToast -> showToast(context, event.message)
+                is SettingsUiEvent.ShowDialog -> dialogManager.show(event.key)
+                is SettingsUiEvent.Navigate -> navController.navigate(event.route)
                 else -> {}
             }
         }
@@ -372,6 +376,18 @@ fun BackupAndRestoreScreen(
                 backupType = cloudBackupType
             )
         }
+    }
+
+    DialogKey.Settings.NoGoogleAccount.createDialog { dialogViewModel ->
+        NoGoogleAccountDialog(
+            onDismiss = { dialogViewModel.dismiss() },
+            onAddAccount = {
+                val intent = android.content.Intent(Settings.ACTION_ADD_ACCOUNT).apply {
+                    putExtra(Settings.EXTRA_ACCOUNT_TYPES, arrayOf("com.google"))
+                }
+                context.startActivity(intent)
+            }
+        )
     }
 }
 
