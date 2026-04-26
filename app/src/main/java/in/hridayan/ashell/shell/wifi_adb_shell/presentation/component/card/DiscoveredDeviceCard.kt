@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component
+package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.card
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,9 +28,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.inputfield.DigitBoxInputField
 
 /**
  * Card displayed for each discovered pairing service.
@@ -44,8 +46,8 @@ fun DiscoveredDeviceCard(
     onPair: (pairingCode: String) -> Unit
 ) {
     var pairingCode by remember { mutableStateOf("") }
-    
-    Card(
+
+    CustomCard(
         modifier = modifier,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -88,8 +90,8 @@ fun DiscoveredDeviceCard(
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            
-            OtpInputField(
+
+            DigitBoxInputField(
                 value = pairingCode,
                 onValueChange = { pairingCode = it },
                 modifier = Modifier.fillMaxWidth()

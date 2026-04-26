@@ -85,7 +85,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbConnection
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbDevice
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbEvent
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.WifiAdbState
-import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.DiscoveredDeviceCard
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.card.DiscoveredDeviceCard
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ConnectionSuccessDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairConnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
@@ -625,13 +625,14 @@ fun CodePairTab(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
-            Card(
+            CustomCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp)
                     .animateItem(),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
                 )
             ) {
                 Row(
@@ -644,7 +645,6 @@ fun CodePairTab(
                     Icon(
                         painter = painterResource(R.drawable.ic_pair),
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
                     )
 
                     Text(

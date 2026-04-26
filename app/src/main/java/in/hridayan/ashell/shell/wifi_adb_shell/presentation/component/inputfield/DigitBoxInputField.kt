@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component
+package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.inputfield
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
  * Each digit gets its own box.
  */
 @Composable
-fun OtpInputField(
+fun DigitBoxInputField(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
@@ -56,7 +56,7 @@ fun OtpInputField(
                     val char = value.getOrNull(index)?.toString() ?: ""
                     val isFocused = value.length == index
 
-                    OtpDigitBox(
+                    DigitBox(
                         digit = char,
                         isFocused = isFocused
                     )
@@ -67,7 +67,7 @@ fun OtpInputField(
 }
 
 @Composable
-private fun OtpDigitBox(
+private fun DigitBox(
     digit: String,
     isFocused: Boolean
 ) {
