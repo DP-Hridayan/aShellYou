@@ -13,17 +13,6 @@
     </issue>
 
     <issue
-        id="CredentialManagerMisuse"
-        message="Call to `CredentialManager.getCredential` without use of `NoCredentialException`"
-        errorLine1="                credentialManager.getCredential(context, request)"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/github/java/in/hridayan/ashell/settings/data/repository/GoogleAuthRepositoryImpl.kt"
-            line="95"
-            column="17"/>
-    </issue>
-
-    <issue
         id="DefaultUncaughtExceptionDelegation"
         message="Must call `getDefaultUncaughtExceptionHandler()` to get the existing handler, and call `existingHandler.uncaughtException(thread, throwable)` from your new handler"
         errorLine1="        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->"
@@ -195,7 +184,7 @@
         errorLine2="              ~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/core/presentation/components/dialog/DialogKey.kt"
-            line="54"
+            line="55"
             column="15"/>
     </issue>
 
@@ -332,20 +321,6 @@
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
             file="$GRADLE_USER_HOME/caches/9.4.1/transforms/32a81debb4323c0bfda5b8df1a440e9f/transformed/out/jars/classes.jar"/>
-    </issue>
-
-    <issue
-        id="TrustAllX509TrustManager"
-        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.46.3/486ca37492048ddd230f5fef65c9411d7b65fb67/google-http-client-1.46.3.jar"/>
-    </issue>
-
-    <issue
-        id="TrustAllX509TrustManager"
-        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.46.3/486ca37492048ddd230f5fef65c9411d7b65fb67/google-http-client-1.46.3.jar"/>
     </issue>
 
     <issue
@@ -1470,7 +1445,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="580"
+            line="584"
             column="13"/>
     </issue>
 
@@ -1481,7 +1456,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="581"
+            line="585"
             column="13"/>
     </issue>
 
@@ -1492,7 +1467,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="582"
+            line="586"
             column="13"/>
     </issue>
 

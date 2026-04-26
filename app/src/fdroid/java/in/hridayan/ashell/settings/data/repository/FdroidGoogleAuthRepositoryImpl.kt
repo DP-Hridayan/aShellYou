@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.settings.data.repository
 
+import android.content.Context
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,7 @@ class FdroidGoogleAuthRepositoryImpl @Inject constructor() : GoogleAuthRepositor
     private val _googleUserState = MutableStateFlow(GoogleUserState())
     override val googleUserState: StateFlow<GoogleUserState> = _googleUserState.asStateFlow()
 
-    override suspend fun signIn(): Result<String> =
+    override suspend fun signIn(context: Context): Result<String> =
         Result.failure(UnsupportedOperationException("Google Sign-In is not available in this build."))
 
     override suspend fun signOut() {
