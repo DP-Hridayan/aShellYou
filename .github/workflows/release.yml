@@ -94,7 +94,8 @@ jobs:
       - name: Publish Release using gh CLI
         run: |
           gh release create "${{ github.ref_name }}" \
-            artifacts/*.apk \
+            artifacts/app/build/outputs/apk/github/release/*.apk \
+            artifacts/app/build/outputs/apk/fdroid/release/*.apk \
             --title "aShell You ${{ github.ref_name }}" \
             --notes-file changelog.txt
         env:
