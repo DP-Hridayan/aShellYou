@@ -171,7 +171,7 @@ fun BackupAndRestoreScreen(
                 }
 
                 is SettingsUiEvent.RequestGoogleSignIn -> {
-                    backupAndRestoreViewModel.signInWithGoogle()
+                    backupAndRestoreViewModel.signInWithGoogle(context)
                 }
 
                 is SettingsUiEvent.Navigate -> navController.navigate(event.route)
@@ -265,7 +265,7 @@ fun BackupAndRestoreScreen(
                                             userPhotoUrl = googleUserState.photoUrl,
                                             isLoading = isSigningIn || cloudOperationMessage != null,
                                             onSignInClick = {
-                                                backupAndRestoreViewModel.signInWithGoogle()
+                                                backupAndRestoreViewModel.signInWithGoogle(context)
                                             },
                                             onSignOutClick = {
                                                 dialogManager.show(DialogKey.Settings.ConfirmGoogleSignOut)

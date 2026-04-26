@@ -12,6 +12,7 @@ import androidx.credentials.exceptions.NoCredentialException
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
@@ -80,9 +81,10 @@ class GoogleAuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun signIn(): Result<String> = withContext(Dispatchers.IO) {
+    override suspend fun signIn(context: Context): Result<String> = withContext(Dispatchers.IO) {
         try {
-            val credentialManager = CredentialManager.create(context)
+            val activity = context.findActivity()
+            val credentialManager = CredentialManager.create(activity ?: context)
 
             val googleIdOption = GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
@@ -94,7 +96,7 @@ class GoogleAuthRepositoryImpl @Inject constructor(
                 .build()
 
             val result: GetCredentialResponse =
-                credentialManager.getCredential(context, request)
+                credentialManager.getCredential(activity ?: context, request)
 
             val credential = result.credential
 

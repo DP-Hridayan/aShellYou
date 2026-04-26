@@ -54,7 +54,6 @@ fun NoGoogleAccountDialog(
                 Text(
                     text = stringResource(R.string.no_google_account_title),
                     style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.primary,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()

@@ -207,12 +207,12 @@ class BackupAndRestoreViewModel @Inject constructor(
         }
     }
 
-    fun signInWithGoogle() {
+    fun signInWithGoogle(context: Context) {
         viewModelScope.launch {
             Log.d(TAG, "signInWithGoogle: starting...")
             _isSigningIn.value = true
 
-            val result = googleAuthRepository.signIn()
+            val result = googleAuthRepository.signIn(context)
 
             _isSigningIn.value = false
 
@@ -242,9 +242,10 @@ class BackupAndRestoreViewModel @Inject constructor(
                         }
                     } else {
                         viewModelScope.launch {
+                            val errorMessage = error.message ?: context.getString(R.string.unknown_error)
                             _uiEvent.emit(
                                 SettingsUiEvent.ShowToast(
-                                    context.getString(R.string.sign_in_failed)
+                                    context.getString(R.string.sign_in_failed) + ": $errorMessage"
                                 )
                             )
                         }
