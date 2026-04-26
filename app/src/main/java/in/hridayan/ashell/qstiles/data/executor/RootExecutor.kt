@@ -15,23 +15,18 @@ class RootExecutor @Inject constructor() : CommandExecutor {
         val filteredCommand = filterCommand(command)
         val start = System.currentTimeMillis()
 
-        val rootGranted = try {
-            Shell.isAppGrantedRoot()
-        } catch (e: Exception) {
-            false
-        }
-
-        if (rootGranted != true) {
-            return@withContext CommandResult(
-                output = "Root access is not available or was denied.",
-                isSuccess = false,
-                errorType = TileErrorType.PERMISSION_DENIED,
-                durationMs = elapsed(start)
-            )
-        }
-
         try {
-            val result = Shell.cmd(filteredCommand).exec()
+            val shell = Shell.getShell()
+            if (!shell.isRoot) {
+                return@withContext CommandResult(
+                    output = "Root access is not available or was denied.",
+                    isSuccess = false,
+                    errorType = TileErrorType.PERMISSION_DENIED,
+                    durationMs = elapsed(start)
+                )
+            }
+
+            val result = shell.newJob().add(filteredCommand).exec()
 
             val output = buildString {
                 if (result.out.isNotEmpty()) append(result.out.joinToString("\n"))
