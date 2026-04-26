@@ -128,6 +128,7 @@ import `in`.hridayan.ashell.core.presentation.components.scrollbar.VerticalScrol
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.utils.disableKeyboard
 import `in`.hridayan.ashell.core.presentation.utils.hideKeyboard
@@ -289,7 +290,7 @@ fun BaseShellScreen(
             // Hide FABs in fullscreen mode
             AnimatedVisibility(
                 visible = !isOutputFullscreen,
-                enter = scaleIn(),
+                enter = scaleIn(animationSpec = AshellYouAnimationSpecs.springFloat),
                 exit = scaleOut()
             ) {
                 // Scroll button visibility with 3-second hide delay
@@ -328,21 +329,10 @@ fun BaseShellScreen(
                     verticalArrangement = Arrangement.spacedBy(15.dp),
                     modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)
                 ) {
-                    // Scroll up/down button (separate from share)
                     AnimatedVisibility(
                         visible = showScrollButton,
-                        enter = scaleIn(
-                            animationSpec = spring(
-                                dampingRatio = Spring.DampingRatioMediumBouncy,
-                                stiffness = Spring.StiffnessLow
-                            )
-                        ),
-                        exit = scaleOut(
-                            animationSpec = spring(
-                                dampingRatio = Spring.DampingRatioMediumBouncy,
-                                stiffness = Spring.StiffnessLow
-                            )
-                        )
+                        enter = scaleIn(animationSpec = AshellYouAnimationSpecs.springFloat),
+                        exit = scaleOut()
                     ) {
                         ScrollFAB(
                             modifier = Modifier,
@@ -351,7 +341,6 @@ fun BaseShellScreen(
                         )
                     }
 
-                    // Share button (always visible when output exists, like save button)
                     ShareFAB()
 
                     BottomExtendedFAB(
@@ -568,15 +557,11 @@ fun BaseShellScreen(
                                 FloatingActionButton(
                                     modifier = Modifier.padding(top = 10.dp),
                                     onClick = actionFabOnClick,
-                                    containerColor = if (states.shellState is ShellState.Busy) {
-                                        MaterialTheme.colorScheme.errorContainer
-                                    } else {
-                                        MaterialTheme.colorScheme.primaryContainer
+                                    containerColor = MaterialTheme.colorScheme.run {
+                                        if (states.shellState is ShellState.Busy) errorContainer else primaryContainer
                                     },
-                                    contentColor = if (states.shellState is ShellState.Busy) {
-                                        MaterialTheme.colorScheme.onErrorContainer
-                                    } else {
-                                        MaterialTheme.colorScheme.onPrimaryContainer
+                                    contentColor = MaterialTheme.colorScheme.run {
+                                        if (states.shellState is ShellState.Busy) onErrorContainer else onPrimaryContainer
                                     },
                                     content = actionFabIcon
                                 )
@@ -866,13 +851,13 @@ private fun OutputCard(
         }
     }
 
-    val cardContainerColor = if (isDarkMode)
-        MaterialTheme.colorScheme.surfaceContainerLowest
-    else MaterialTheme.colorScheme.surfaceVariant
+    val cardContainerColor = MaterialTheme.colorScheme.run {
+        if (isDarkMode) surfaceContainerLowest else surfaceVariant
+    }
 
-    val headerColor = if (isDarkMode)
-        MaterialTheme.colorScheme.surfaceContainerLow
-    else MaterialTheme.colorScheme.surfaceContainer
+    val headerColor = MaterialTheme.colorScheme.run {
+        if (isDarkMode) surfaceContainerLow else surfaceContainer
+    }
 
     // Only render the card when not in fullscreen
     if (!isFullscreen) {
