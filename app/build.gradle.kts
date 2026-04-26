@@ -117,6 +117,10 @@ android {
                 "/META-INF/versions/**"
             )
         }
+
+        jniLibs {
+            useLegacyPackaging = false
+        }
     }
 
     dependenciesInfo {
@@ -150,6 +154,11 @@ tasks.withType<KotlinCompile>().configureEach {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_17
     }
+}
+
+tasks.withType<Zip>().configureEach {
+    isPreserveFileTimestamps = false
+    isReproducibleFileOrder = true
 }
 
 dependencies {
