@@ -13,6 +13,17 @@
     </issue>
 
     <issue
+        id="CredentialManagerMisuse"
+        message="Call to `CredentialManager.getCredential` without use of `NoCredentialException`"
+        errorLine1="                credentialManager.getCredential(context, request)"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/github/java/in/hridayan/ashell/settings/data/repository/GoogleAuthRepositoryImpl.kt"
+            line="95"
+            column="17"/>
+    </issue>
+
+    <issue
         id="DefaultUncaughtExceptionDelegation"
         message="Must call `getDefaultUncaughtExceptionHandler()` to get the existing handler, and call `existingHandler.uncaughtException(thread, throwable)` from your new handler"
         errorLine1="        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->"
@@ -201,18 +212,6 @@
 
     <issue
         id="PluralsCandidate"
-        message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;copied_items&quot;>Copied %1$d items&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="91"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="PluralsCandidate"
-        message="ForuralsCandidate"
         message="Formatting %d followed by words (&quot;items&quot;): This should probably be a plural rather than a string"
         errorLine1="    &lt;string name=&quot;copied_items&quot;>Copied %1$d items&lt;/string>"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
