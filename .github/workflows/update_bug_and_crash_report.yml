@@ -1,4 +1,4 @@
-name: Update crash report yml
+name: Update bug & crash report yml
 
 on:
   push:
@@ -12,6 +12,7 @@ on:
 jobs:
   sync_dropdown:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -48,10 +49,15 @@ jobs:
 
       - name: Modify bug report template using Python
         run: |
+          python3 .github/scripts/update_bug_report_template.py
+
+      - name: Modify crash report template using Python
+        run: |
           python3 .github/scripts/update_crash_report_template.py
 
-      - name: Commit and Push
+      - name: Commit and Push changes
         run: |
+          git add .github/ISSUE_TEMPLATE/bug_report.yml
           git add .github/ISSUE_TEMPLATE/crash_report.yml
           git commit -m "Sync version dropdown: $VERSION" || echo "No changes to commit"
           git push origin master
