@@ -25,8 +25,8 @@ android {
         applicationId = "in.hridayan.ashell"
         minSdk = 28
         targetSdk = 36
-        versionCode = 59
-        versionName = "v7.2.0"
+        versionCode = 60
+        versionName = "v7.2.1"
 
         buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
         buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
@@ -126,6 +126,7 @@ android {
 
         jniLibs {
             useLegacyPackaging = false
+            keepDebugSymbols.add("**/*.so")
         }
     }
 
