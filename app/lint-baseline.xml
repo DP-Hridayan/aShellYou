@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.13.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.13.2)" variant="all" version="8.13.2">
+<issues format="6" by="lint 9.2.0" type="baseline" client="gradle" dependencies="false" name="AGP (9.2.0)" variant="all" version="9.2.0">
 
     <issue
-        id="CredentialManagerMisuse"
-        message="Call to `CredentialManager.getCredential` without use of `NoCredentialException`"
-        errorLine1="                credentialManager.getCredential(context, request)"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        id="OldTargetApi"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details."
+        errorLine1="        targetSdk = 36"
+        errorLine2="        ~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/in/hridayan/ashell/settings/data/repository/GoogleAuthRepositoryImpl.kt"
-            line="93"
-            column="17"/>
+            file="build.gradle.kts"
+            line="27"
+            column="9"/>
     </issue>
 
     <issue
@@ -21,28 +21,6 @@
             file="src/main/java/in/hridayan/ashell/App.kt"
             line="41"
             column="9"/>
-    </issue>
-
-    <issue
-        id="NonObservableLocale"
-        message="Reading locale in a non-observable way in a composable function"
-        errorLine1="            label = stringResource(R.string.total_executions).uppercase(Locale.getDefault()),"
-        errorLine2="                                                                        ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/qstiles/presentation/screen/TileDashBoardScreen.kt"
-            line="572"
-            column="73"/>
-    </issue>
-
-    <issue
-        id="NonObservableLocale"
-        message="Reading locale in a non-observable way in a composable function"
-        errorLine1="            label = stringResource(R.string.success_rate).uppercase(Locale.getDefault()),"
-        errorLine2="                                                                    ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/in/hridayan/ashell/qstiles/presentation/screen/TileDashBoardScreen.kt"
-            line="579"
-            column="69"/>
     </issue>
 
     <issue
@@ -68,167 +46,13 @@
     </issue>
 
     <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.application than 8.13.2 is available: 9.1.1"
-        errorLine1="agp = &quot;8.13.2&quot;"
-        errorLine2="      ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.library than 8.13.2 is available: 9.1.1"
-        errorLine1="agp = &quot;8.13.2&quot;"
-        errorLine2="      ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.tools.build:gradle than 8.13.2 is available: 9.1.1"
-        errorLine1="agp = &quot;8.13.2&quot;"
-        errorLine2="      ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
         id="GradleDependency"
-        message="A newer version of androidx.activity:activity-compose than 1.12.2 is available: 1.13.0"
-        errorLine1="activityCompose = &quot;1.12.2&quot;"
-        errorLine2="                  ~~~~~~~~">
+        message="A newer version of `compileSdk` than 36 is available: 37"
+        errorLine1="        version = release(36)"
+        errorLine2="                  ~~~~~~~~~~~">
         <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="2"
-            column="19"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.annotation:annotation than 1.9.1 is available: 1.10.0"
-        errorLine1="annotation = &quot;1.9.1&quot;"
-        errorLine2="             ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="5"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose.animation:animation than 1.10.1 is available: 1.10.6"
-        errorLine1="composeAnimation = &quot;1.10.1&quot;"
-        errorLine2="                   ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="7"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose:compose-bom than 2026.01.00 is available: 2026.03.01"
-        errorLine1="composeBom = &quot;2026.01.00&quot;"
-        errorLine2="             ~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="8"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.credentials:credentials than 1.6.0-rc02 is available: 1.6.0"
-        errorLine1="credentials = &quot;1.6.0-rc02&quot;"
-        errorLine2="              ~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="9"
-            column="15"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.credentials:credentials-play-services-auth than 1.6.0-rc02 is available: 1.6.0"
-        errorLine1="credentials = &quot;1.6.0-rc02&quot;"
-        errorLine2="              ~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="9"
-            column="15"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.core:core-ktx than 1.17.0 is available: 1.18.0"
-        errorLine1="coreKtx = &quot;1.17.0&quot;"
-        errorLine2="          ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="10"
-            column="11"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.datastore:datastore-preferences than 1.2.0 is available: 1.2.1"
-        errorLine1="datastore = &quot;1.2.0&quot;"
-        errorLine2="            ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="11"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.navigation:navigation-compose than 2.9.6 is available: 2.9.7"
-        errorLine1="navigation = &quot;2.9.6&quot;"
-        errorLine2="             ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="33"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of com.google.android.gms:play-services-auth than 21.5.0 is available: 21.5.1"
-        errorLine1="playServicesAuth = &quot;21.5.0&quot;"
-        errorLine2="                   ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="35"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.work:work-runtime-ktx than 2.11.0 is available: 2.11.2"
-        errorLine1="work = &quot;2.11.0&quot;"
-        errorLine2="       ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="44"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of org.bouncycastle:bcprov-jdk15to18 than 1.83 is available: 1.84"
-        errorLine1="bcprovJdk15to18 = &quot;1.83&quot;"
-        errorLine2="                  ~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="6"
+            file="build.gradle.kts"
+            line="18"
             column="19"/>
     </issue>
 
@@ -256,20 +80,20 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of com.google.dagger:hilt-android-compiler than 2.58 is available: 2.59.2"
-        errorLine1="hilt = &quot;2.58&quot;"
-        errorLine2="       ~~~~~~">
+        message="A newer version of com.google.code.gson:gson than 2.13.2 is available: 2.14.0"
+        errorLine1="gson = &quot;2.13.2&quot;"
+        errorLine2="       ~~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="20"
+            line="18"
             column="8"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlin.android than 2.3.0 is available: 2.3.20"
-        errorLine1="kotlin = &quot;2.3.0&quot;"
-        errorLine2="         ~~~~~~~">
+        message="A newer version of org.jetbrains.kotlin.plugin.compose than 2.3.20 is available: 2.3.21"
+        errorLine1="kotlin = &quot;2.3.20&quot;"
+        errorLine2="         ~~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
             line="24"
@@ -278,9 +102,9 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlin.plugin.compose than 2.3.0 is available: 2.3.20"
-        errorLine1="kotlin = &quot;2.3.0&quot;"
-        errorLine2="         ~~~~~~~">
+        message="A newer version of org.jetbrains.kotlin.plugin.serialization than 2.3.20 is available: 2.3.21"
+        errorLine1="kotlin = &quot;2.3.20&quot;"
+        errorLine2="         ~~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
             line="24"
@@ -289,19 +113,8 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlin.plugin.serialization than 2.3.0 is available: 2.3.20"
-        errorLine1="kotlin = &quot;2.3.0&quot;"
-        errorLine2="         ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="24"
-            column="10"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-cio than 3.3.3 is available: 3.4.2"
-        errorLine1="ktor = &quot;3.3.3&quot;"
+        message="A newer version of io.ktor:ktor-client-cio than 3.4.2 is available: 3.4.3"
+        errorLine1="ktor = &quot;3.4.2&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
@@ -311,8 +124,8 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-content-negotiation than 3.3.3 is available: 3.4.2"
-        errorLine1="ktor = &quot;3.3.3&quot;"
+        message="A newer version of io.ktor:ktor-client-content-negotiation than 3.4.2 is available: 3.4.3"
+        errorLine1="ktor = &quot;3.4.2&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
@@ -322,8 +135,8 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-core than 3.3.3 is available: 3.4.2"
-        errorLine1="ktor = &quot;3.3.3&quot;"
+        message="A newer version of io.ktor:ktor-client-core than 3.4.2 is available: 3.4.3"
+        errorLine1="ktor = &quot;3.4.2&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
@@ -333,29 +146,29 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-serialization-kotlinx-json than 3.3.3 is available: 3.4.2"
-        errorLine1="ktor = &quot;3.3.3&quot;"
+        message="A newer version of io.ktor:ktor-serialization-kotlinx-json than 3.4.2 is available: 3.4.3"
+        errorLine1="ktor = &quot;3.4.2&quot;"
         errorLine2="       ~~~~~~~">
         <location
             file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
             line="26"
             column="8"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.9.0 is available: 1.11.0"
-        errorLine1="serialization = &quot;1.9.0&quot;"
-        errorLine2="                ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="38"
-            column="17"/>
     </issue>
 
     <issue
         id="NewerVersionAvailable"
         message="A newer version of dev.rikka.shizuku:api than 13.1.0 is available: 13.1.5"
+        errorLine1="shizuku = &quot;13.1.0&quot;"
+        errorLine2="          ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
+            line="39"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of dev.rikka.shizuku:provider than 13.1.0 is available: 13.1.5"
         errorLine1="shizuku = &quot;13.1.0&quot;"
         errorLine2="          ~~~~~~~~">
         <location
@@ -371,8 +184,250 @@
         errorLine2="              ~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/core/presentation/components/dialog/DialogKey.kt"
-            line="54"
+            line="55"
             column="15"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>Vorabversion&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de-rDE/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>پیش‌انتشار&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fa-rIR/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>Pré-version&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr-rFR/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>प्री-रिलीज़&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-hi-rIN/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>プレリリース&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ja-rJP/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>Pré-lançamento&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>Предварительный релиз&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru-rRU/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>Yayın öncesi (Pre-release)&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-tr-rTR/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>Перед-реліз&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-uk-rUA/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>预发布版&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh-rCN/strings.xml"
+            line="370"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;pre_release&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>إصدار تجريبي&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar-rSA/strings.xml"
+            line="371"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>Stabil&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-de-rDE/strings.xml"
+            line="457"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>پایدار&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fa-rIR/strings.xml"
+            line="457"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>Stable&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr-rFR/strings.xml"
+            line="457"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>स्थिर&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-hi-rIN/strings.xml"
+            line="457"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>安定版&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ja-rJP/strings.xml"
+            line="457"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>Estável&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="457"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>Стабильный&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ru-rRU/strings.xml"
+            line="457"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>Kararlı (Stable)&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-tr-rTR/strings.xml"
+            line="457"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>Стабільний&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-uk-rUA/strings.xml"
+            line="457"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>稳定版&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh-rCN/strings.xml"
+            line="457"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;stable&quot; is translated here but not found in default locale"
+        errorLine1="    &lt;string name=&quot;stable&quot;>مستقر&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar-rSA/strings.xml"
+            line="458"
+            column="13"/>
     </issue>
 
     <issue
@@ -500,28 +555,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/0ed70face172088ccfb7b820f393b1f3/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.4.1/transforms/32a81debb4323c0bfda5b8df1a440e9f/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.0.0/transforms/0ed70face172088ccfb7b820f393b1f3/transformed/out/jars/classes.jar"/>
-    </issue>
-
-    <issue
-        id="TrustAllX509TrustManager"
-        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.46.3/486ca37492048ddd230f5fef65c9411d7b65fb67/google-http-client-1.46.3.jar"/>
-    </issue>
-
-    <issue
-        id="TrustAllX509TrustManager"
-        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
-        <location
-            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.46.3/486ca37492048ddd230f5fef65c9411d7b65fb67/google-http-client-1.46.3.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.4.1/transforms/32a81debb4323c0bfda5b8df1a440e9f/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
@@ -673,33 +714,11 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_amoled_theme` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_amoled_theme.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_arrow` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_arrow.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_auto_update` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_auto_update.xml"
             line="1"
             column="1"/>
     </issue>
@@ -722,17 +741,6 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_cards.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_changelog` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_changelog.xml"
             line="1"
             column="1"/>
     </issue>
@@ -788,17 +796,6 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_download.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_dynamic_color` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_dynamic_color.xml"
             line="1"
             column="1"/>
     </issue>
@@ -871,17 +868,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_language` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_language.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_mode` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -926,17 +912,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_pallete` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_pallete.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_pin` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -975,6 +950,17 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_reset.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_schedule` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_schedule.xml"
             line="1"
             column="1"/>
     </issue>
@@ -1113,17 +1099,6 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_vibration` appears to be unused"
-        errorLine1="&lt;vector"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_vibration.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.drawable.ic_x` appears to be unused"
         errorLine1="&lt;vector"
         errorLine2="^">
@@ -1190,6 +1165,28 @@
 
     <issue
         id="UnusedResources"
+        message="The resource `R.string.pre_release` appears to be unused"
+        errorLine1="    &lt;string name=&quot;pre_release&quot;>إصدار تجريبي&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar-rSA/strings.xml"
+            line="371"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.stable` appears to be unused"
+        errorLine1="    &lt;string name=&quot;stable&quot;>مستقر&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar-rSA/strings.xml"
+            line="458"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
         message="The resource `R.drawable.thumb_drawable` appears to be unused"
         errorLine1="&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
         errorLine2="^">
@@ -1206,7 +1203,7 @@
         errorLine2="                     ~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/core/presentation/components/navigation/FloatingNavPill.kt"
-            line="65"
+            line="67"
             column="22"/>
     </issue>
 
@@ -1217,7 +1214,7 @@
         errorLine2="                              ~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="69"
+            line="85"
             column="31"/>
     </issue>
 
@@ -1228,7 +1225,7 @@
         errorLine2="                           ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-pt-rPT/strings.xml"
-            line="245"
+            line="289"
             column="28"/>
     </issue>
 

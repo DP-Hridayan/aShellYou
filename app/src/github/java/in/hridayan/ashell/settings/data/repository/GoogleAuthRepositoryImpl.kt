@@ -8,10 +8,13 @@ import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
 import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.exceptions.NoCredentialException
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.domain.exception.NoGoogleAccountException
 import `in`.hridayan.ashell.settings.domain.model.GoogleUserState
 import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
@@ -78,9 +81,10 @@ class GoogleAuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun signIn(): Result<String> = withContext(Dispatchers.IO) {
+    override suspend fun signIn(context: Context): Result<String> = withContext(Dispatchers.IO) {
         try {
-            val credentialManager = CredentialManager.create(context)
+            val activity = context.findActivity()
+            val credentialManager = CredentialManager.create(activity ?: context)
 
             val googleIdOption = GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
@@ -92,7 +96,7 @@ class GoogleAuthRepositoryImpl @Inject constructor(
                 .build()
 
             val result: GetCredentialResponse =
-                credentialManager.getCredential(context, request)
+                credentialManager.getCredential(activity ?: context, request)
 
             val credential = result.credential
 
@@ -129,6 +133,9 @@ class GoogleAuthRepositoryImpl @Inject constructor(
                 Result.failure(error)
             }
 
+        } catch (e: NoCredentialException) {
+            Log.e(TAG, "signIn: No Google accounts found on device")
+            Result.failure(NoGoogleAccountException())
         } catch (e: GetCredentialException) {
             Log.e(TAG, "signIn: Credential error", e)
             Result.failure(e)

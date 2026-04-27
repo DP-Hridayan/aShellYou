@@ -273,9 +273,12 @@ fun CreateTileScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp),
-                        value = uiState.run { if (isActive) activeSubtitle else inactiveSubtitle },
+                        value = uiState.run {
+                            if (isToggleable || isActive) activeSubtitle else inactiveSubtitle
+                        },
                         onValueChange = {
-                            if (uiState.isActive) createTileViewModel.onActiveSubtitleChange(it)
+                            if (uiState.isActive || uiState.isToggleable)
+                                createTileViewModel.onActiveSubtitleChange(it)
                             else createTileViewModel.onInactiveSubtitleChange(it)
                         },
                         hint = stringResource(R.string.on_state),

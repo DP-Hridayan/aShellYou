@@ -18,12 +18,18 @@ android {
         version = release(36)
     }
 
+    val flavorGitHub = "github"
+    val flavorFDroid = "fdroid"
+
     defaultConfig {
         applicationId = "in.hridayan.ashell"
         minSdk = 28
         targetSdk = 36
-        versionCode = 59
-        versionName = "v7.2.0"
+        versionCode = 60
+        versionName = "v7.2.1"
+
+        buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
+        buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -81,17 +87,16 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.findByName("release")
-                ?: signingConfigs.getByName("debug")
         }
     }
 
     flavorDimensions.add("distribution")
 
     productFlavors {
-        create("github") {
+        create(flavorGitHub) {
             dimension = "distribution"
         }
-        create("fdroid") {
+        create(flavorFDroid) {
             dimension = "distribution"
         }
     }
@@ -118,11 +123,33 @@ android {
                 "/META-INF/versions/**"
             )
         }
+
+        jniLibs {
+            useLegacyPackaging = false
+            keepDebugSymbols.add("**/*.so")
+        }
     }
 
     dependenciesInfo {
         includeInApk = false
         includeInBundle = false
+    }
+}
+
+androidComponents {
+    onVariants { variant ->
+        if (variant.buildType == "release") {
+            variant.outputs.forEach { output ->
+
+                val flavor = variant.flavorName ?: "noflavor"
+                val version = android.defaultConfig.versionName ?: "unknown"
+
+                @Suppress("UnstableApiUsage")
+                output.outputFileName.set(
+                    "aShellYou-${version}-${flavor}-release.apk"
+                )
+            }
+        }
     }
 }
 
@@ -134,6 +161,11 @@ tasks.withType<KotlinCompile>().configureEach {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_17
     }
+}
+
+tasks.withType<Zip>().configureEach {
+    isPreserveFileTimestamps = false
+    isReproducibleFileOrder = true
 }
 
 dependencies {

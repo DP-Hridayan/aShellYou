@@ -44,14 +44,9 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             val autoUpdateEnabled = settingsViewModel.getBoolean(SettingsKeys.AUTO_UPDATE).first()
-            val includePrerelease =
-                settingsViewModel.getInt(SettingsKeys.GITHUB_RELEASE_TYPE)
-                    .first() == GithubReleaseType.PRE_RELEASE
 
             if (autoUpdateEnabled) {
-                autoUpdateViewModel.checkForUpdates(
-                    includePrerelease = includePrerelease
-                )
+                autoUpdateViewModel.checkForUpdates()
             }
         }
 

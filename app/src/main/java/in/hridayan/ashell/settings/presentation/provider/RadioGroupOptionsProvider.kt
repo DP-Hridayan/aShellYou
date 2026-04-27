@@ -26,12 +26,16 @@ class RadioGroupOptionsProvider {
 
         val updateChannelOptions: List<RadioButtonOptions> = listOf(
             RadioButtonOptions(
-                value = GithubReleaseType.STABLE,
-                labelResId = R.string.stable
+                value = GithubReleaseType.STABLE_FDROID,
+                labelResId = R.string.stable_fdroid
             ),
             RadioButtonOptions(
-                value = GithubReleaseType.PRE_RELEASE,
-                labelResId = R.string.pre_release
+                value = GithubReleaseType.STABLE_GITHUB,
+                labelResId = R.string.stable_github
+            ),
+            RadioButtonOptions(
+                value = GithubReleaseType.PRE_RELEASE_GITHUB,
+                labelResId = R.string.pre_release_github
             ),
         )
 

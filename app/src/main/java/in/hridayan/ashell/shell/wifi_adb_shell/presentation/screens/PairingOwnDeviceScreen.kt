@@ -64,8 +64,8 @@ import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.MiUiCheck
 import `in`.hridayan.ashell.core.utils.askUserToEnableWifi
@@ -280,15 +280,15 @@ fun PairingOwnDeviceScreen(
                                     return@SavedDeviceItem
                                 }
 
-                               /* if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context)) {
-                                    WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
-                                        context = context,
-                                        onSuccess = { viewModel.reconnectToDevice(it) },
-                                        onFailed = {}
-                                    )
+                                /* if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context)) {
+                                     WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
+                                         context = context,
+                                         onSuccess = { viewModel.reconnectToDevice(it) },
+                                         onFailed = {}
+                                     )
 
-                                    return@SavedDeviceItem
-                                }*/
+                                     return@SavedDeviceItem
+                                 }*/
 
                                 viewModel.reconnectToDevice(it)
                             },
@@ -393,11 +393,7 @@ fun PairingOwnDeviceScreen(
                 }
 
                 if (!WirelessDebuggingUtils.isWirelessDebuggingEnabled(context) && ownDevice != null) {
-                    WirelessDebuggingUtils.ensureWirelessDebuggingAndReconnect(
-                        context = context,
-                        onSuccess = { viewModel.reconnectToDevice(device = ownDevice) },
-                        onFailed = {}
-                    )
+                    WirelessDebuggingUtils.openWirelessDebuggingSettings(context)
                 }
             })
     }
