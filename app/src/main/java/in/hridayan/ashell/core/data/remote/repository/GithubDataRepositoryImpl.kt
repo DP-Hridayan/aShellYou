@@ -28,10 +28,10 @@ class GithubDataRepositoryImpl @Inject constructor(
 ) : GithubDataRepository {
     private val repoKey = "DP-Hridayan/aShellYou"
 
-    override suspend fun fetchLatestRelease(includePrerelease: Boolean): UpdateResult {
+    override suspend fun fetchLatestRelease(includePrerelease: Boolean, releaseType: Int): UpdateResult {
         return try {
             Log.d("GithubDataRepository", "Fetching latest release from Github")
-            val response = api.fetchLatestRelease(includePrerelease).toDomain()
+            val response = api.fetchLatestRelease(includePrerelease).toDomain(releaseType)
             UpdateResult.Success(response, response.tagName.isNotEmpty())
         } catch (e: SocketTimeoutException) {
             Log.e("GithubDataRepository", "Timeout", e)

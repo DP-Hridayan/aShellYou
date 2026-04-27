@@ -29,7 +29,7 @@ enum class SettingsKeys(val default: Any?) {
     FEATURE_REQUEST(null),
     GITHUB(null),
     LICENSE(null),
-    GITHUB_RELEASE_TYPE(GithubReleaseType.STABLE),
+    GITHUB_RELEASE_TYPE(GithubReleaseType.STABLE_GITHUB),
     SAVED_VERSION_CODE(0),
     ENABLE_DIRECT_DOWNLOAD(true),
     BACKUP_AND_RESTORE(null),

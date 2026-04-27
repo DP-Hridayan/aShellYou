@@ -18,12 +18,18 @@ android {
         version = release(36)
     }
 
+    val flavorGitHub = "github"
+    val flavorFDroid = "fdroid"
+
     defaultConfig {
         applicationId = "in.hridayan.ashell"
         minSdk = 28
         targetSdk = 36
         versionCode = 59
         versionName = "v7.2.0"
+
+        buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
+        buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -87,10 +93,10 @@ android {
     flavorDimensions.add("distribution")
 
     productFlavors {
-        create("github") {
+        create(flavorGitHub) {
             dimension = "distribution"
         }
-        create("fdroid") {
+        create(flavorFDroid) {
             dimension = "distribution"
         }
     }

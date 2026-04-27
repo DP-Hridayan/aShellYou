@@ -8,6 +8,7 @@ import `in`.hridayan.ashell.core.domain.model.DownloadState
 import `in`.hridayan.ashell.core.domain.usecase.DownloadApkUseCase
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
+import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.CheckUpdateUseCase
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,9 +29,11 @@ class AutoUpdateViewModel @Inject constructor(
     private val _updateEvents = MutableSharedFlow<UpdateResult>()
     val updateEvents = _updateEvents.asSharedFlow()
 
-    fun checkForUpdates(includePrerelease: Boolean) {
+    fun checkForUpdates() {
         viewModelScope.launch {
-            val result = checkUpdateUseCase(BuildConfig.VERSION_NAME, includePrerelease)
+            val releaseType = settingsRepository.getInt(SettingsKeys.GITHUB_RELEASE_TYPE).first()
+            val includePrerelease = releaseType == GithubReleaseType.PRE_RELEASE_GITHUB
+            val result = checkUpdateUseCase(BuildConfig.VERSION_NAME, includePrerelease, releaseType)
             _updateEvents.emit(result)
         }
     }

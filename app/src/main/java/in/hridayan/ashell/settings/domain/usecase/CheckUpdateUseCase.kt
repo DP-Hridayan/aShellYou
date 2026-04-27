@@ -7,8 +7,8 @@ import javax.inject.Inject
 class CheckUpdateUseCase @Inject constructor(
     private val repository: GithubDataRepository
 ) {
-    suspend operator fun invoke(currentVersion: String, includePrerelease: Boolean): UpdateResult {
-        return when (val result = repository.fetchLatestRelease(includePrerelease)) {
+    suspend operator fun invoke(currentVersion: String, includePrerelease: Boolean, releaseType: Int): UpdateResult {
+        return when (val result = repository.fetchLatestRelease(includePrerelease, releaseType)) {
             is UpdateResult.Success -> {
                 val isNewer = isNewerVersion(result.release.tagName, currentVersion)
                 UpdateResult.Success(result.release, isNewer)

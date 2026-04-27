@@ -73,7 +73,6 @@ fun AutoUpdateScreen(
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
     var apkUrl by rememberSaveable { mutableStateOf("") }
-    val includePrerelease = LocalSettings.current.githubReleaseType == GithubReleaseType.PRE_RELEASE
     val networkError = stringResource(R.string.network_error)
     val requestTimeout = stringResource(R.string.request_timeout)
     val unKnownError = stringResource(R.string.unknown_error)
@@ -240,9 +239,7 @@ fun AutoUpdateScreen(
                 showLoading = showLoading,
                 expanded = expanded,
                 onClick = withHaptic {
-                    autoUpdateViewModel.checkForUpdates(
-                        includePrerelease = includePrerelease
-                    )
+                    autoUpdateViewModel.checkForUpdates()
                     showLoading = true
                 })
         })

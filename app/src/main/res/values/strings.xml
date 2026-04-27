@@ -371,7 +371,7 @@
     <string name="pick_ashellyou_extension">Please pick a file with .ashellyou extension</string>
     <string name="port">Port</string>
     <string name="possible_reasons">Possible reasons</string>
-    <string name="pre_release">Pre-release</string>
+    <string name="pre_release_github">Pre-release (GitHub)</string>
     <string name="pre_release_warning">Pre-release builds may be unstable</string>
     <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
     <string name="preview">Preview</string>
@@ -460,7 +460,8 @@
     <string name="skip">Skip</string>
     <string name="smooth_scrolling">Smooth scrolling</string>
     <string name="sort">Sort</string>
-    <string name="stable">Stable</string>
+    <string name="stable_fdroid">Stable (Fdroid)</string>
+    <string name="stable_github">Stable (GitHub)</string>
     <string name="stack_trace">Stack trace</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">Start</string>
