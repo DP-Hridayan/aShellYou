@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Önce komutu iptal et</string>
     <string name="about">Hakkında</string>
     <string name="adb_command">ADB command</string>
@@ -367,7 +367,7 @@
     <string name="pick_ashellyou_extension">Lütfen .ashellyou uzantılı bir dosya seçin</string>
     <string name="port">Port</string>
     <string name="possible_reasons">Olası nedenler</string>
-    <string name="pre_release">Yayın öncesi (Pre-release)</string>
+    <string name="pre_release_github">Pre-release (GitHub)</string>
     <string name="pre_release_warning">Yayın öncesi sürümler kararsız olabilir</string>
     <string name="pre_release_warning_description">Bu sürümler hala test aşamasındadır ve tamamlanmamış özellikler veya beklenmeyen hatalar içerebilir. Yayın öncesi sürüme güncellemeyi seçerseniz, lütfen bazı şeylerin kırılabileceği veya tuhaf davranabileceği ihtimalinin farkında olun.\nHerhangi bir sorun, çökme veya garip bir davranışla karşılaşırsanız, lütfen bunları bildirin ki kararlı sürümden önce düzeltebilelim ve aShellYou\'yu geliştirebilelim.\nDaha iyisini inşa etmemize yardımcı olduğunuz için teşekkürler!</string>
     <string name="preview">Önizleme</string>
@@ -454,7 +454,8 @@
     <string name="skip">Atla</string>
     <string name="smooth_scrolling">Yumuşak kaydırma</string>
     <string name="sort">Sırala</string>
-    <string name="stable">Kararlı (Stable)</string>
+    <string name="stable_fdroid">Stable (Fdroid)</string>
+    <string name="stable_github">Stable (GitHub)</string>
     <string name="stack_trace">Yığın İzleme (Stack trace)</string>
     <string name="stargazers">Yıldız Verenler (Stargazers)</string>
     <string name="start">Başlat</string>
@@ -517,6 +518,10 @@
     <string name="wireless_debugging_guide_2">Altı haneli Eşleştirme Kodunu aShell You tarafından gönderilen bildirime girin.</string>
     <string name="wireless_debugging_guide_3">Uygulamaya geri dönün ve ana ekrandaki \"Başlat\" düğmesine tıklayın.</string>
     <string name="wireless_debugging_important_notice">Lütfen Kablosuz Hata Ayıklama seçeneğinin sol kısmının tıklanabilir olduğuna dikkat edin. Üzerine dokunulduğunda Kablosuz Hata Ayıklama Eşleştirme menüsü açılır.</string>
+    <string name="no_google_account_title">No Google Account</string>
+    <string name="no_google_account_message">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
+    <string name="add_account">Add account</string>
+    <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nKullanıcının uygulama için İngilizce dışında bir dil belirlediği durumlarda, komut girişinde İngilizce klavyenin görünmemesi sorunu düzeltildi\nPosta simgesinin düzgün gösterilmemesi sorunu düzeltildi\nDevasa dosya çıktılarını kaydetmeye çalışırken uygulamanın çökmesine neden olan bir sorun düzeltildi\nGereksiz izinler kaldırıldı\nHakkında bölümündeki kullanıcı arayüzü iyileştirildi</string>
     <string name="changelog_v7_0_1">\nFastlane düzeltmesi</string>

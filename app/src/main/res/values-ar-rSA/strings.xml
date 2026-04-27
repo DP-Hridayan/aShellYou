@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">أولاً أوقف الأمر</string>
     <string name="about">حول</string>
     <string name="adb_command">أمر ADB</string>
@@ -368,7 +368,7 @@
     <string name="pick_ashellyou_extension">الرجاء اختيار ملف مع ملحق .ashellyou</string>
     <string name="port">المنفذ</string>
     <string name="possible_reasons">الأسباب المحتملة</string>
-    <string name="pre_release">إصدار تجريبي</string>
+    <string name="pre_release_github">الإفراج المسبق (GitHub)</string>
     <string name="pre_release_warning">الإصدارات التجريبية قد تكون غير مستقرة</string>
     <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
     <string name="preview">معاينة</string>
@@ -455,7 +455,8 @@
     <string name="skip">تخطي</string>
     <string name="smooth_scrolling">تمرير سلس</string>
     <string name="sort">ترتيب</string>
-    <string name="stable">مستقر</string>
+    <string name="stable_fdroid">مستقر (Fdroid)</string>
+    <string name="stable_github">مستقر (GitHub)</string>
     <string name="stack_trace">أثر المكدس</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">ابدأ</string>
@@ -518,6 +519,10 @@
     <string name="wireless_debugging_guide_2">أدخل رمز الاقتران المكون من ست أرقام في الإشعار المرسل من aShell You.</string>
     <string name="wireless_debugging_guide_3">عد إلى التطبيق وانقر على زر \"ابدأ\" في الشاشة الرئيسية.</string>
     <string name="wireless_debugging_important_notice">يرجى ملاحظة أن الجزء الأيسر من خيار التصحيح اللاسلكي قابل للنقر. النقر عليه سيفتح قائمة اقتران التصحيح اللاسلكي.</string>
+    <string name="no_google_account_title">لا يوجد حساب جوجل</string>
+    <string name="no_google_account_message">لم يتم العثور على حساب جوجل على هذا الجهاز. هل ترغب في إضافة حساب لاستخدام النسخ الاحتياطية السحابية؟</string>
+    <string name="add_account">إضافة حساب</string>
+    <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nتم إضافة خيار لتشغيل أوامر adb من إعدادات سريعة عن طريق إضافة بلاطات مخصصة.\nتم إضافة خيار للنسخ الاحتياطي إلى Cloud (Google Drive). هذه الميزة موجودة فقط في بنايات GitHub.\nتحسين نظام الألوان و واجهة المستخدم و UX في العديد من المجالات.\nأضيفت المزيد من أمثلة أوامر ADB.</string>
     <string name="changelog_v7_1_0">\nتم إصلاح مشكلة عدم ظهور لوحة المفاتيح الإنجليزية في إدخال الأوامر عندما يضبط المستخدم لغة غير الإنجليزية للتطبيق\nتم إصلاح مشكلة عدم ظهور أيقونة البريد بشكل صحيح\nتم إصلاح مشكلة تعطل التطبيق عند محاولة حفظ مخرجات ملفات كبيرة\nتم إزالة الأذونات الزائدة\nتم تحسين واجهة المستخدم في قسم حول</string>
     <string name="changelog_v7_0_1">\nإصلاح Fastlane</string>

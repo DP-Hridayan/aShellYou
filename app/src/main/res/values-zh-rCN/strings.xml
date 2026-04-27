@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">先中止命令</string>
     <string name="about">关于</string>
     <string name="adb_command">ADB 命令</string>
@@ -367,7 +367,7 @@
     <string name="pick_ashellyou_extension">请选择一个 .ashellyou 扩展名的文件</string>
     <string name="port">端口</string>
     <string name="possible_reasons">可能的原因</string>
-    <string name="pre_release">预发布版</string>
+    <string name="pre_release_github">预释放(GitHub)</string>
     <string name="pre_release_warning">预发布版本可能不稳定</string>
     <string name="pre_release_warning_description">这些版本仍在测试中，可能包含未完成的功能或未预料的故障。如果选择更新到预发行版本，请意识到应用可能出问题或表现怪异。\n如遇任何问题、崩溃或奇怪行为，请报告它们。以便我们在稳定版发布前修复和改进 sShellYou。\n感谢帮助我们让 aShell 变得更好！</string>
     <string name="preview">预览</string>
@@ -454,7 +454,8 @@
     <string name="skip">跳过</string>
     <string name="smooth_scrolling">平滑滚动</string>
     <string name="sort">排序</string>
-    <string name="stable">稳定版</string>
+    <string name="stable_fdroid">稳定(Fdroid)</string>
+    <string name="stable_github">稳定(GitHub)</string>
     <string name="stack_trace">堆栈跟踪</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">开始</string>
@@ -517,6 +518,10 @@
     <string name="wireless_debugging_guide_2">在aShell You发送的通知中输入配对码</string>
     <string name="wireless_debugging_guide_3">返回aShell You的主页点击无线ADB板块的“开始”即可</string>
     <string name="wireless_debugging_important_notice">注意无线调试选项左侧是可以点的。点击会打开无线调试配对菜单</string>
+    <string name="no_google_account_title">无Google账户</string>
+    <string name="no_google_account_message">在此设备上找不到谷歌帐户。您想要添加一个帐户来使用云备份吗？</string>
+    <string name="add_account">添加帐户</string>
+    <string name="changelog_v7_2_1">\n维护更新！</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\n修复了一个问题，在用户为应用程序设置一个除英文以外的区域位置时，英文键盘可能无法在命令输入中显示。\n修复了一个邮件图标没有正确显示\n修复了一个问题，这个问题在试图保存大量文件输出时导致应用程序崩溃。\n删除了多余的权限\n关于部分改进了UI</string>
     <string name="changelog_v7_0_1">\nFastlane 修复</string>

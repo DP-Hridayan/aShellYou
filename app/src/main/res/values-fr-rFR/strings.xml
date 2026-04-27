@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Annuler la commande en cours</string>
     <string name="about">À propos</string>
     <string name="adb_command">Commande ADB</string>
@@ -367,7 +367,7 @@
     <string name="pick_ashellyou_extension">Veuillez choisir un fichier avec l\'extension .ashellyou</string>
     <string name="port">Port</string>
     <string name="possible_reasons">Raisons possibles</string>
-    <string name="pre_release">Pré-version</string>
+    <string name="pre_release_github">Pré-version (GitHub)</string>
     <string name="pre_release_warning">Les pré-versions peuvent être instables</string>
     <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
     <string name="preview">Aperçu</string>
@@ -454,7 +454,8 @@
     <string name="skip">Ignorer</string>
     <string name="smooth_scrolling">Défilement fluide</string>
     <string name="sort">Trier</string>
-    <string name="stable">Stable</string>
+    <string name="stable_fdroid">Écurie (Droïde)</string>
+    <string name="stable_github">Écurie (GitHub)</string>
     <string name="stack_trace">Trace de pile</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">Démarrer</string>
@@ -517,6 +518,10 @@
     <string name="wireless_debugging_guide_2">Entrez le code de couplage à six chiffres dans la notification envoyée par aShell You.</string>
     <string name="wireless_debugging_guide_3">Revenez à l\'application et cliquez sur le bouton \"Démarrer\" dans l\'écran d\'accueil.</string>
     <string name="wireless_debugging_important_notice">Veuillez noter que la partie gauche de l\'option Débogage sans fil est cliquable. Appuyer dessus ouvrira le menu de couplage du débogage sans fil.</string>
+    <string name="no_google_account_title">Aucun compte Google</string>
+    <string name="no_google_account_message">Aucun compte Google n\'a été trouvé sur cet appareil. Voulez-vous en ajouter un pour utiliser les sauvegardes cloud ?</string>
+    <string name="add_account">Ajouter un compte</string>
+    <string name="changelog_v7_2_1">\nMise à jour de la maintenance !</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
     <string name="changelog_v7_0_1">\nCorrection de Fastlane</string>

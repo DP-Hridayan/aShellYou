@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Befehl zuerst abbrechen</string>
     <string name="about">Über</string>
     <string name="adb_command">ADB-Befehl</string>
@@ -367,7 +367,7 @@
     <string name="pick_ashellyou_extension">Bitte wählen Sie eine Datei mit .ashellyou Endung</string>
     <string name="port">Port</string>
     <string name="possible_reasons">Mögliche Gründe</string>
-    <string name="pre_release">Vorabversion</string>
+    <string name="pre_release_github">Pre-Release (GitHub)</string>
     <string name="pre_release_warning">Vorabrelease-Builds können instabil sein</string>
     <string name="pre_release_warning_description">Diese Versionen befinden sich noch in Testing und können unfertige Funktionen oder unerwartete Fehler enthalten. Wenn Sie sich dafür entscheiden, auf eine Vorversion zu aktualisieren, beachten Sie bitte, dass die Dinge kaputt gehen oder sich seltsam verhalten.\nWenn du auf irgendwelche Probleme triffst, melde sie bitte an, damit wir aShellYou vor dem stabilen Release beheben und verbessern können.\nDanke, dass du uns geholfen hast, besser zu bauen!</string>
     <string name="preview">Vorschau</string>
@@ -454,7 +454,8 @@
     <string name="skip">Überspringen</string>
     <string name="smooth_scrolling">Sanfter Bildlauf</string>
     <string name="sort">Sortieren</string>
-    <string name="stable">Stabil</string>
+    <string name="stable_fdroid">Stabil (Droid)</string>
+    <string name="stable_github">Stabil (GitHub)</string>
     <string name="stack_trace">Stapelverfolgung</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">Start</string>
@@ -517,6 +518,10 @@
     <string name="wireless_debugging_guide_2">Gib den sechsstelligen Kopplungscode in die von aShell You gesendete Benachrichtigung ein.</string>
     <string name="wireless_debugging_guide_3">Kehre zur App zurück und tippe auf den „Start“-Button auf dem Startbildschirm.</string>
     <string name="wireless_debugging_important_notice">Bitte beachte, dass der linke Bereich der WLAN-Debugging-Option anklickbar ist. Durch Anklicken öffnet sich das Kopplungsmenü für WLAN-Debugging</string>
+    <string name="no_google_account_title">Kein Google-Konto</string>
+    <string name="no_google_account_message">Es wurde kein Google-Konto auf diesem Gerät gefunden. Möchten Sie eines hinzufügen, um Cloud-Backups zu verwenden?</string>
+    <string name="add_account">Konto hinzufügen</string>
+    <string name="changelog_v7_2_1">\nWartungsaktualisierung!</string>
     <string name="changelog_v7_2_0">\nOption hinzugefügt, um Adb Befehle von Schnelleinstellungen Kacheln auszuführen, indem benutzerdefinierte Kacheln hinzugefügt werden.\nOption hinzugefügt, um in der Cloud zu sichern (Google Drive). Diese Funktion ist nur in GitHub Builds vorhanden.\nVerbessertes Farbschema und UI und UX in vielen Bereichen.\nWeitere ADB-Befehlsbeispiele hinzugefügt.</string>
     <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>
     <string name="changelog_v7_0_1">\nSchnell-Fix</string>

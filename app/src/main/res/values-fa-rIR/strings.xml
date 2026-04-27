@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">ابتدا دستور را لغو کنید</string>
     <string name="about">درباره</string>
     <string name="adb_command">ADB command</string>
@@ -367,7 +367,7 @@
     <string name="pick_ashellyou_extension">لطفاً فایلی با پسوند .ashellyou انتخاب کنید</string>
     <string name="port">پورت</string>
     <string name="possible_reasons">دلایل احتمالی</string>
-    <string name="pre_release">پیش‌انتشار</string>
+    <string name="pre_release_github">Pre-release (GitHub)</string>
     <string name="pre_release_warning">نسخه‌های پیش‌انتشار ممکن است ناپایدار باشند</string>
     <string name="pre_release_warning_description">این نسخه‌ها هنوز در حال آزمایش هستند و ممکن است شامل ویژگی‌های ناتمام یا باگ‌های غیرمنتظره باشند. اگر به پیش‌انتشار بروزرسانی کنید، توجه داشته باشید که ممکن است مشکلاتی پیش بیاید.\nاگر با مشکل، خرابی یا رفتار عجیبی مواجه شدید، لطفاً گزارش دهید تا قبل از انتشار پایدار بتوانیم آن را رفع کنیم.\nممنون که کمک می‌کنید!</string>
     <string name="preview">Preview</string>
@@ -454,7 +454,8 @@
     <string name="skip">رد شدن</string>
     <string name="smooth_scrolling">اسکرول نرم</string>
     <string name="sort">مرتب‌سازی</string>
-    <string name="stable">پایدار</string>
+    <string name="stable_fdroid">Stable (Fdroid)</string>
+    <string name="stable_github">Stable (GitHub)</string>
     <string name="stack_trace">ردیابی پشته</string>
     <string name="stargazers">ستاره‌دهندگان</string>
     <string name="start">شروع</string>
@@ -517,6 +518,10 @@
     <string name="wireless_debugging_guide_2">کد شش رقمی را در اعلان ارسال شده توسط aShell You وارد کنید.</string>
     <string name="wireless_debugging_guide_3">به برنامه برگردید و روی دکمه \"شروع\" در صفحه اصلی کلیک کنید.</string>
     <string name="wireless_debugging_important_notice">توجه داشته باشید که قسمت چپ گزینه اشکال‌زدایی بی‌سیم قابل کلیک است. ضربه زدن روی آن منوی جفت‌سازی را باز می‌کند.</string>
+    <string name="no_google_account_title">No Google Account</string>
+    <string name="no_google_account_message">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
+    <string name="add_account">Add account</string>
+    <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nرفع مشکلی که کیبورد انگلیسی در ورودی دستور نمایش داده نمی‌شد وقتی کاربر زبان غیر انگلیسی انتخاب می‌کرد\nرفع مشکل نمایش آیکون ایمیل\nرفع مشکل خرابی برنامه هنگام ذخیره خروجی‌های بزرگ\nحذف مجوزهای اضافی\nبهبود رابط کاربری در بخش درباره</string>
     <string name="changelog_v7_0_1">\nرفع Fastlane</string>

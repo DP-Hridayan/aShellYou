@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Спочатку скасуйте команду</string>
     <string name="about">Про програму</string>
     <string name="adb_command">Команда ADB</string>
@@ -367,7 +367,7 @@
     <string name="pick_ashellyou_extension">Будь ласка, виберіть файл із розширенням \".ashellyou\"</string>
     <string name="port">Порт</string>
     <string name="possible_reasons">Можливі причини</string>
-    <string name="pre_release">Перед-реліз</string>
+    <string name="pre_release_github">Попередній випуск (GitHub)</string>
     <string name="pre_release_warning">Перед-реліз збірки можуть бути нестабільними</string>
     <string name="pre_release_warning_description">Ці версії все ще перебувають на стадії тестування та можуть містити недопрацьовані функції або неочікувані помилки. Якщо ви вирішите оновити систему до перед-реліз версії, майте на увазі, що деякі елементи можуть працювати не так або працювати дивно.\nЯкщо у вас виникнуть будь-які проблеми, збої або дивна поведінка, будь ласка, повідомте про них, щоб ми могли виправити та покращити aShellYou до стабільного релізу.\nДякуємо, що допомагаєте нам будувати краще!</string>
     <string name="preview">Прев\'ю</string>
@@ -454,7 +454,8 @@
     <string name="skip">Пропустити</string>
     <string name="smooth_scrolling">Плавне прокручування</string>
     <string name="sort">Сортувати</string>
-    <string name="stable">Стабільний</string>
+    <string name="stable_fdroid">Стабільний (дроїд)</string>
+    <string name="stable_github">Стабільний (GitHub)</string>
     <string name="stack_trace">Трасування стеку</string>
     <string name="stargazers">Зірки</string>
     <string name="start">Запустити</string>
@@ -517,6 +518,10 @@
     <string name="wireless_debugging_guide_2">Введіть шестизначний код сполучення в повідомлення, надіслане aShell You.</string>
     <string name="wireless_debugging_guide_3">Поверніться до програми та натисніть кнопку \"Запустити\" на головному екрані.</string>
     <string name="wireless_debugging_important_notice">Зверніть увагу, що ліва частина опції бездротового налагодження є активною. При натисканні на неї відкриється меню сполучення для бездротового налагодження.</string>
+    <string name="no_google_account_title">Немає облікового запису Google</string>
+    <string name="no_google_account_message">Немає облікового запису Google на цьому пристрої. Ви хотіли б додати його в хмарні копії?</string>
+    <string name="add_account">Додати обліковий запис</string>
+    <string name="changelog_v7_2_1">\nОновлення супроводу !</string>
     <string name="changelog_v7_2_0">\nДодано опцію запуску команд adb з Плиток Швидких Налаштувань шляхом додавання власних плиток.\nДодано опцію резервного копіювання в хмару (Google Drive). Ця функція присутня лише у збірках GitHub.\nПокращено колірну схему, інтерфейс користувача та UX у багатьох областях.\nДодано набагато більше прикладів команд ADB.</string>
     <string name="changelog_v7_1_0">\nВиправлена ​​проблема, коли англійська клавіатура могла не з\'являтися при введенні команд, якщо користувач встановив мову програми відмінну від англійської\nВиправлено проблему з неправильним відображенням іконки пошти\nВиправлено проблему, що викликала збій при збереженні великих файлів\nВидалено надлишкові дозволи\nПокращено інтерфейс розділу Про програму</string>
     <string name="changelog_v7_0_1">\nВиправлення Fastlane</string>
