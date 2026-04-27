@@ -25,8 +25,8 @@ android {
         applicationId = "in.hridayan.ashell"
         minSdk = 28
         targetSdk = 36
-        versionCode = 60
-        versionName = "v7.2.1"
+        versionCode = 61
+        versionName = "v7.3.0"
 
         buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
         buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
