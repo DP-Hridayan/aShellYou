@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">実行中のコマンドを終了してください</string>
     <string name="about">このアプリについて</string>
     <string name="adb_command">ADB コマンド</string>
@@ -367,7 +367,7 @@
     <string name="pick_ashellyou_extension">拡張子が .ashellyou のファイルを選択してください</string>
     <string name="port">ポート</string>
     <string name="possible_reasons">考えられる理由</string>
-    <string name="pre_release">プレリリース</string>
+    <string name="pre_release_github">プレリリース(GitHub)</string>
     <string name="pre_release_warning">プレリリースビルドは不安定になる可能性があります</string>
     <string name="pre_release_warning_description">これらのバージョンはまだテスト段階であり、未完成の機能や予期せぬバグが含まれている可能性があります。プレリリース版にアップデートすると、不具合が発生したり、動作が不安定になったりする可能性があることにご注意ください。\n問題、クラッシュ、または奇妙な動作に遭遇した場合は、安定版リリース前にaShellYouを修正して改善できるように報告してください。\nアプリをより良くするために協力してくれてありがとうございます！</string>
     <string name="preview">プレビュー</string>
@@ -454,7 +454,8 @@
     <string name="skip">スキップ</string>
     <string name="smooth_scrolling">スムーズなスクロール</string>
     <string name="sort">並び替え</string>
-    <string name="stable">安定版</string>
+    <string name="stable_fdroid">安定版 (フドロイド)</string>
+    <string name="stable_github">安定版 (GitHub)</string>
     <string name="stack_trace">スタックトレース</string>
     <string name="stargazers">Starを付けたユーザ</string>
     <string name="start">スタート</string>
@@ -517,6 +518,10 @@
     <string name="wireless_debugging_guide_2">aShell Youから送信された通知に6桁のペアリングコードを入力します。</string>
     <string name="wireless_debugging_guide_3">アプリに戻って、ホーム画面の「スタート」ボタンをクリックしてください。</string>
     <string name="wireless_debugging_important_notice">「ワイヤレスデバッグ」オプションの左側がクリック可能であることに注意してください。このオプションをタップすると、「ワイヤレスデバッグペアリング」メニューが開きます。</string>
+    <string name="no_google_account_title">Google アカウントがありません</string>
+    <string name="no_google_account_message">このデバイスにGoogleアカウントが見つかりませんでした。クラウドバックアップを使用するアカウントを追加しますか？</string>
+    <string name="add_account">アカウントを追加</string>
+    <string name="changelog_v7_2_1">\nメンテナンスのアップデート！</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nユーザーが英語以外のロケールを設定した場合に英語キーボードが表示されない問題を修正\nメールアイコンが正しく表示されない問題を修正\n大きなファイル出力を保存しようとするとアプリがクラッシュする問題を修正\n冗長な権限を削除\nAboutセクションのUIを改善</string>
     <string name="changelog_v7_0_1">\nFastlane修正</string>

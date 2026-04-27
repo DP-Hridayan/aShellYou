@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">पहले आदेश निरस्त करें</string>
     <string name="about">इसके बारे में</string>
     <string name="adb_command">ADB command</string>
@@ -367,7 +367,7 @@
     <string name="pick_ashellyou_extension">कृपया .ashellyou एक्सटेंशन वाली फ़ाइल चुनें</string>
     <string name="port">पोर्ट</string>
     <string name="possible_reasons">संभावित कारण</string>
-    <string name="pre_release">प्री-रिलीज़</string>
+    <string name="pre_release_github">Pre-release (GitHub)</string>
     <string name="pre_release_warning">प्री-रिलीज़ बिल्ड अस्थिर हो सकते हैं</string>
     <string name="pre_release_warning_description">ये संस्करण अभी परीक्षण में हैं और अधूरी सुविधाएं या अप्रत्याशित बग हो सकते हैं।</string>
     <string name="preview">Preview</string>
@@ -454,7 +454,8 @@
     <string name="skip">छोड़ें</string>
     <string name="smooth_scrolling">मुलायम स्क्रोलिंग</string>
     <string name="sort">क्रमबद्ध</string>
-    <string name="stable">स्थिर</string>
+    <string name="stable_fdroid">Stable (Fdroid)</string>
+    <string name="stable_github">Stable (GitHub)</string>
     <string name="stack_trace">स्टैक ट्रेस</string>
     <string name="stargazers">स्टारगेज़र्स</string>
     <string name="start">शुरू करें</string>
@@ -517,6 +518,10 @@
     <string name="wireless_debugging_guide_2">aShell द्वारा भेजी गई सूचना में छह अंकों का युग्मन कोड दर्ज करें।</string>
     <string name="wireless_debugging_guide_3">ऐप पर वापस आएं और होम स्क्रीन में \"स्टार्ट\" बटन पर क्लिक करें।</string>
     <string name="wireless_debugging_important_notice">कृपया ध्यान दें कि वायरलेस डिबगिंग विकल्प का बायाँ भाग क्लिक करने योग्य है। इस पर टैप करने से वायरलेस डिबगिंग पेयरिंग मेनू खुल जाएगा।</string>
+    <string name="no_google_account_title">No Google Account</string>
+    <string name="no_google_account_message">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
+    <string name="add_account">Add account</string>
+    <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nउस समस्या को ठीक किया जहां अंग्रेजी कीबोर्ड कमांड इनपुट में नहीं दिखता था जब उपयोगकर्ता अंग्रेजी के अलावा कोई भाषा सेट करता था\nमेल आइकन ठीक से न दिखने की समस्या ठीक की\nबड़ी फाइल आउटपुट सहेजते समय ऐप क्रैश होने की समस्या ठीक की\nअनावश्यक अनुमतियां हटाईं\nAbout सेक्शन में UI सुधार</string>
     <string name="changelog_v7_0_1">\nFastlane फिक्स</string>
