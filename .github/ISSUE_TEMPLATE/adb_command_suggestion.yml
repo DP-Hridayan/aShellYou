@@ -2,7 +2,7 @@ name: "ADB Command Suggestion"
 description: Suggest a useful ADB command to be added to aShellYou
 title: "[ADB]: "
 labels:
-  - adb-command
+  - command examples
 
 body:
   - type: markdown
