@@ -291,7 +291,7 @@
     <string name="local_adb_shell">Локальна ADB оболонка</string>
     <string name="local_adb_summary">Виконуйте ADB команди безпосередньо на своєму пристрої за допомогою Shizuku або root.</string>
     <string name="local_file">Локальний файл</string>
-    <string name="logs">Логи</string>
+    <string name="logs">Журнали</string>
     <string name="look_and_feel">Оформлення</string>
     <string name="manual_pair">Ручне сполучення</string>
     <string name="merge">Об’єднати</string>
@@ -321,7 +321,7 @@
     <string name="no_files_download">Файли не вибрані (Неможливо завантажити теки)</string>
     <string name="no_history">Немає історії команд</string>
     <string name="no_logs_yet">Журнали відсутні!</string>
-    <string name="no_logs_yet_msg">Записи відсутні. Виконайте кілька плиток, щоб показати журнали.</string>
+    <string name="no_logs_yet_msg">Жодних журналів ще не записано. Виконайте кілька дій, щоб показати журнали.</string>
     <string name="no_operations">Операції не виконуються</string>
     <string name="no_root_access">Немає root доступу</string>
     <string name="no_saved_devices">Немає збережених пристроїв</string>
@@ -331,7 +331,7 @@
     <string name="not_signed_in">Вхід не виконано</string>
     <string name="nothing_to_clear">Немає нічого для очищення</string>
     <string name="nothing_to_search">Немає чого шукати</string>
-    <string name="notification_settings">Notification settings</string>
+    <string name="notification_settings">Налаштування сповіщень</string>
     <string name="notification_style_error">Якщо ви не можете ввести код сполучення зі сповіщення, можливо, вам потрібно буде змінити панель сповіщень на Android. Щоб змінити стиль сповіщень, перейдіть до Налаштувань сповіщень ~ Стиль сповіщень. В іншому випадку ви можете не ввести код сполучення з повідомлення.</string>
     <string name="notification_styles">Стилі сповіщень</string>
     <string name="off">Вимкнено</string>
@@ -367,7 +367,7 @@
     <string name="pick_ashellyou_extension">Будь ласка, виберіть файл із розширенням \".ashellyou\"</string>
     <string name="port">Порт</string>
     <string name="possible_reasons">Можливі причини</string>
-    <string name="pre_release_github">Попередній випуск (GitHub)</string>
+    <string name="pre_release_github">Перед реліз (GitHub)</string>
     <string name="pre_release_warning">Перед-реліз збірки можуть бути нестабільними</string>
     <string name="pre_release_warning_description">Ці версії все ще перебувають на стадії тестування та можуть містити недопрацьовані функції або неочікувані помилки. Якщо ви вирішите оновити систему до перед-реліз версії, майте на увазі, що деякі елементи можуть працювати не так або працювати дивно.\nЯкщо у вас виникнуть будь-які проблеми, збої або дивна поведінка, будь ласка, повідомте про них, щоб ми могли виправити та покращити aShellYou до стабільного релізу.\nДякуємо, що допомагаєте нам будувати краще!</string>
     <string name="preview">Прев\'ю</string>
@@ -454,7 +454,7 @@
     <string name="skip">Пропустити</string>
     <string name="smooth_scrolling">Плавне прокручування</string>
     <string name="sort">Сортувати</string>
-    <string name="stable_fdroid">Стабільний (дроїд)</string>
+    <string name="stable_fdroid">Стабільний (Fdroid)</string>
     <string name="stable_github">Стабільний (GitHub)</string>
     <string name="stack_trace">Трасування стеку</string>
     <string name="stargazers">Зірки</string>
@@ -518,10 +518,10 @@
     <string name="wireless_debugging_guide_2">Введіть шестизначний код сполучення в повідомлення, надіслане aShell You.</string>
     <string name="wireless_debugging_guide_3">Поверніться до програми та натисніть кнопку \"Запустити\" на головному екрані.</string>
     <string name="wireless_debugging_important_notice">Зверніть увагу, що ліва частина опції бездротового налагодження є активною. При натисканні на неї відкриється меню сполучення для бездротового налагодження.</string>
-    <string name="no_google_account_title">Немає облікового запису Google</string>
-    <string name="no_google_account_message">Немає облікового запису Google на цьому пристрої. Ви хотіли б додати його в хмарні копії?</string>
+    <string name="no_google_account_title">Немає Облікового запису Google</string>
+    <string name="no_google_account_message">На цьому пристрої не знайдено облікового запису Google. Ви хочете додати один для використання хмарного резервного копіювання?</string>
     <string name="add_account">Додати обліковий запис</string>
-    <string name="changelog_v7_2_1">\nОновлення супроводу !</string>
+    <string name="changelog_v7_2_1">\nОновлення технічного обслуговування!</string>
     <string name="changelog_v7_2_0">\nДодано опцію запуску команд adb з Плиток Швидких Налаштувань шляхом додавання власних плиток.\nДодано опцію резервного копіювання в хмару (Google Drive). Ця функція присутня лише у збірках GitHub.\nПокращено колірну схему, інтерфейс користувача та UX у багатьох областях.\nДодано набагато більше прикладів команд ADB.</string>
     <string name="changelog_v7_1_0">\nВиправлена ​​проблема, коли англійська клавіатура могла не з\'являтися при введенні команд, якщо користувач встановив мову програми відмінну від англійської\nВиправлено проблему з неправильним відображенням іконки пошти\nВиправлено проблему, що викликала збій при збереженні великих файлів\nВидалено надлишкові дозволи\nПокращено інтерфейс розділу Про програму</string>
     <string name="changelog_v7_0_1">\nВиправлення Fastlane</string>
