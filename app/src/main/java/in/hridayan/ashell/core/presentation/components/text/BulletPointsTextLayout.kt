@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 fun BulletPointsTextLayout(
     modifier: Modifier = Modifier,
     textLines: List<String>,
+    textColor: Color = MaterialTheme.colorScheme.onSurface,
     textStyle: TextStyle = MaterialTheme.typography.bodySmall,
     bulletColor: Color = MaterialTheme.colorScheme.primary,
     verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(25.dp)
@@ -44,7 +45,7 @@ fun BulletPointsTextLayout(
                 Text(
                     text = item,
                     style = textStyle,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = textColor,
                     modifier = Modifier.alignBy(FirstBaseline)
                 )
             }
