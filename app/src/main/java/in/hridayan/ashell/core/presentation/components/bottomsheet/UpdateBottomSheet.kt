@@ -11,14 +11,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
@@ -63,11 +59,13 @@ import `in`.hridayan.ashell.core.domain.model.DownloadState
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.installApk
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.core.utils.splitStringToLines
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import java.io.File
 
@@ -252,19 +250,14 @@ fun UpdateBottomSheet(
                 shape = CardCornerShape.LAST_CARD,
                 pressedScale = 1f
             ) {
-                Column(
+                BulletPointsTextLayout(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 10.dp, vertical = 8.dp)
-                        .heightIn(max = 250.dp)
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    Text(
-                        text = latestChangelogText,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+                        .padding(10.dp),
+                    textLines = splitStringToLines(latestChangelogText),
+                    textColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    bulletColor = MaterialTheme.colorScheme.primary
+                )
             }
         }
 
@@ -370,19 +363,6 @@ fun UpdateBottomSheet(
     }
 }
 
-private fun parseChangelog(body: String?, context: Context): String {
-    if (body == null) return context.resources.getString(R.string.no_changelog_found)
-
-    val changelogRegex =
-        Regex("""(?s)### Changelog\s*\n+(.*?)(?=\n+## |\n+\*\*Full Changelog\*\*|$)""")
-
-    val changelogMatch = changelogRegex.find(body)
-    val changelogText = changelogMatch?.groups?.get(1)?.value?.trim() ?: ""
-
-
-    return changelogText
-}
-
 @Composable
 private fun InfoChip(
     modifier: Modifier = Modifier,
@@ -413,4 +393,37 @@ private fun InfoChip(
             style = textStyle,
         )
     }
+}
+
+private fun parseChangelog(body: String?, context: Context): String {
+    if (body.isNullOrBlank()) return ""
+
+    val lines = body.lines()
+    val changelogPoints = mutableListOf<String>()
+    var insideChangelog = false
+
+    for (line in lines) {
+        val trimmed = line.trim()
+        if (trimmed.contains("### Changelog", ignoreCase = true)) {
+            insideChangelog = true
+            continue
+        }
+
+        if (insideChangelog) {
+            // Stop if we hit another header or the Full Changelog link
+            if (trimmed.startsWith("##") || trimmed.startsWith(
+                    "**Full Changelog**",
+                    ignoreCase = true
+                )
+            ) {
+                break
+            }
+
+            if (trimmed.startsWith("*")) {
+                changelogPoints.add(trimmed.removePrefix("*").trim())
+            }
+        }
+    }
+
+    return changelogPoints.joinToString("\n")
 }
