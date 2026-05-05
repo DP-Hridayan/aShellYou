@@ -42,8 +42,15 @@ import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 fun LatestVersionDialog(onDismiss: () -> Unit) {
     val (angle, scale) = syncedRotationAndScale()
     val appVersionName = stringResource(R.string.version_name) + ": " + BuildConfig.VERSION_NAME
-    val appVersionCode =
-        stringResource(R.string.version_code) + ": " + BuildConfig.VERSION_CODE.toString()
+
+    @Suppress("KotlinConstantConditions")
+    val flavorDisplay = when (BuildConfig.FLAVOR) {
+        BuildConfig.DIST_FLAVOR_GITHUB -> "GitHub"
+        BuildConfig.DIST_FLAVOR_FDROID -> "F-Droid"
+        else -> stringResource(R.string.unknown)
+    }
+
+    val appVersionCode = stringResource(R.string.flavor) + ": " + flavorDisplay
 
     DialogContainer(onDismiss = onDismiss) {
         Box(
@@ -83,14 +90,14 @@ fun LatestVersionDialog(onDismiss: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            AnimatedInfoCard(appVersionName)
-            AnimatedInfoCard(appVersionCode)
+            InfoChip(appVersionName)
+            InfoChip(appVersionCode)
         }
     }
 }
 
 @Composable
-private fun AnimatedInfoCard(text: String) {
+private fun InfoChip(text: String) {
     CustomCard(
         shape = CustomCardShape(50),
         colors = CardDefaults.cardColors(

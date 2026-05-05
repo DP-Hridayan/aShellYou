@@ -496,6 +496,7 @@
     <string name="turn_off_mobile_data">Turn off Mobile Data if the Wifi connection has NO INTERNET</string>
     <string name="tweak_your_experience">Tweak your experience</string>
     <string name="type">Type</string>
+    <string name="flavor">Flavor</string>
     <string name="undo">Undo</string>
     <string name="unknown">Unknown</string>
     <string name="unknown_error">Unknown error occurred</string>
