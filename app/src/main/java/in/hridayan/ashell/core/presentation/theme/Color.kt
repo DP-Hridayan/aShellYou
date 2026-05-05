@@ -19,6 +19,7 @@ import androidx.core.graphics.ColorUtils
 import `in`.hridayan.ashell.core.presentation.utils.a1
 import `in`.hridayan.ashell.core.presentation.utils.a2
 import `in`.hridayan.ashell.core.presentation.utils.a3
+import `in`.hridayan.ashell.core.presentation.utils.error
 import `in`.hridayan.ashell.core.presentation.utils.n1
 import `in`.hridayan.ashell.core.presentation.utils.n2
 
@@ -40,6 +41,11 @@ fun lightColorSchemeFromSeed(): ColorScheme {
         tertiaryContainer = 90.a3,
         onTertiary = 100.a3,
         onTertiaryContainer = 10.a3,
+
+        error = 40.error,
+        errorContainer = 90.error,
+        onError = 100.error,
+        onErrorContainer = 10.error,
 
         background = 98.n1,
         onBackground = 10.n1,
@@ -81,6 +87,11 @@ fun darkColorSchemeFromSeed(): ColorScheme {
         tertiaryContainer = 30.a3,
         onTertiary = 20.a3,
         onTertiaryContainer = 90.a3,
+
+        error = 80.error,
+        errorContainer = 30.error,
+        onError = 20.error,
+        onErrorContainer = 90.error,
 
         background = 6.n1,
         onBackground = 90.n1,
