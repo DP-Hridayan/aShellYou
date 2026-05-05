@@ -3,7 +3,6 @@
 package `in`.hridayan.ashell.core.presentation.components.bottomsheet
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -167,7 +166,7 @@ fun UpdateBottomSheet(
         animationSpec = androidx.compose.animation.core.tween(durationMillis = 300)
     )
 
-    val latestChangelogText = remember(body) { parseChangelog(body, context) }
+    val latestChangelogText = remember(body) { parseChangelog(body) }
     val versionRange = BuildConfig.VERSION_NAME.removeSuffix("-debug") + "..." + latestVersion
     val fullChangelogUrl = UrlConst.URL_GITHUB_REPO + "/compare/" + versionRange
 
@@ -395,7 +394,7 @@ private fun InfoChip(
     }
 }
 
-private fun parseChangelog(body: String?, context: Context): String {
+private fun parseChangelog(body: String?): String {
     if (body.isNullOrBlank()) return ""
 
     val lines = body.lines()
