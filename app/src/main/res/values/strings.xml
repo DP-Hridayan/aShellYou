@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="A_Z" translatable="false">A → Z</string>
     <string name="abort_command">Abort command first</string>
     <string name="about">About</string>
@@ -15,6 +15,7 @@
     <string name="adb_via_wireless_debugging">ADB via Wireless Debugging</string>
     <string name="adb_via_wireless_debugging_summary">Connect devices (Android 11+) over Wi-Fi using wireless debugging and execute ADB commands remotely.</string>
     <string name="add">Add</string>
+    <string name="add_account">Add account</string>
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
     <string name="additional_settings">Additional settings</string>
@@ -51,8 +52,8 @@
     <string name="btn_continue">Continue</string>
     <string name="cancel">Cancel</string>
     <string name="cancel_all">Cancel all</string>
-    <string name="changelogs">Changelogs</string>
     <string name="changelog">Changelog</string>
+    <string name="changelogs">Changelogs</string>
     <string name="check_updates">Check updates</string>
     <string name="choose_a_device">Choose a device</string>
     <string name="choose_icon">Choose icon</string>
@@ -324,6 +325,8 @@
     <string name="no_cloud_backup_found">No backup found on Google Drive</string>
     <string name="no_crashes">No crashes have been reported. aShell You is running smoothly.</string>
     <string name="no_files_download">No files selected (folders cannot be downloaded)</string>
+    <string name="no_google_account_message">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
+    <string name="no_google_account_title">No Google Account</string>
     <string name="no_history">No command history</string>
     <string name="no_logs_yet">No logs yet!</string>
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
@@ -497,7 +500,6 @@
     <string name="turn_off_mobile_data">Turn off Mobile Data if the Wifi connection has NO INTERNET</string>
     <string name="tweak_your_experience">Tweak your experience</string>
     <string name="type">Type</string>
-    <string name="variant">Variant</string>
     <string name="undo">Undo</string>
     <string name="unknown">Unknown</string>
     <string name="unknown_error">Unknown error occurred</string>
@@ -511,6 +513,7 @@
     <string name="uploading_backup">Uploading backup to Google Drive…</string>
     <string name="usb_manager_unavailable">USB Manager is not available on this device</string>
     <string name="use">Use</string>
+    <string name="variant">Variant</string>
     <string name="version">Version</string>
     <string name="version_code">Version code</string>
     <string name="version_name">Version name</string>
@@ -528,10 +531,6 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A" translatable="false">Z → A</string>
-
-    <string name="no_google_account_title">No Google Account</string>
-    <string name="no_google_account_message">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
-    <string name="add_account">Add account</string>
 
     /**
     * Changelogs

@@ -6,7 +6,6 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListState
@@ -19,15 +18,13 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
@@ -42,55 +39,76 @@ fun DraggableScrollThumb(
     modifier: Modifier = Modifier,
     thumbSize: Int = 48
 ) {
-    val canScroll by remember {
-        derivedStateOf {
-            val info = listState.layoutInfo
-            info.totalItemsCount > 0 && info.visibleItemsInfo.size < info.totalItemsCount
-        }
-    }
-
-    if (!canScroll) return
-
     val thumbSizeDp = thumbSize.dp
-    val thumbSizePx = with(LocalDensity.current) { thumbSizeDp.toPx() }
+    val density = LocalDensity.current
+    val thumbSizePx = with(density) { thumbSizeDp.toPx() }
 
-    // Scroll progress from list state (0..1)
+    var isDragging by remember { mutableStateOf(false) }
+    var trackHeightPx by remember { mutableFloatStateOf(0f) }
+    var showThumb by remember { mutableStateOf(false) }
+    var capturedScrollableRange by remember { mutableFloatStateOf(0f) }
+
+    // Improved scroll progress calculation for LazyList
     val scrollProgress by remember {
         derivedStateOf {
             val info = listState.layoutInfo
-            if (info.totalItemsCount <= 1 || info.visibleItemsInfo.isEmpty()) 0f
+            if (info.totalItemsCount == 0 || info.visibleItemsInfo.isEmpty()) 0f
             else {
-                val first = info.visibleItemsInfo.first()
-                val maxIndex = info.totalItemsCount - 1
-                val frac = if (first.size > 0) -first.offset.toFloat() / first.size else 0f
-                ((first.index + frac) / maxIndex).coerceIn(0f, 1f)
+                val firstVisibleItem = info.visibleItemsInfo.first()
+                val lastVisibleItem = info.visibleItemsInfo.last()
+                val totalItemsCount = info.totalItemsCount
+
+                val firstIndex = firstVisibleItem.index
+                val lastIndex = lastVisibleItem.index
+                val visibleCount = lastIndex - firstIndex + 1
+
+                val offset = -firstVisibleItem.offset.toFloat()
+                val size = firstVisibleItem.size.toFloat()
+                val fraction = if (size > 0) offset / size else 0f
+
+                val progress =
+                    (firstIndex + fraction) / (totalItemsCount - visibleCount + 1).coerceAtLeast(1)
+                progress.coerceIn(0f, 1f)
             }
         }
     }
 
-    var isDragging by remember { mutableStateOf(false) }
     var dragProgress by remember { mutableFloatStateOf(0f) }
-    var showThumb by remember { mutableStateOf(false) }
-    var trackHeightPx by remember { mutableFloatStateOf(0f) }
-    var lastDragY by remember { mutableFloatStateOf(0f) }
-
-    // Keep dragProgress synced when not dragging
     LaunchedEffect(scrollProgress, isDragging) {
-        if (!isDragging) dragProgress = scrollProgress
+        if (!isDragging) {
+            dragProgress = scrollProgress
+        }
     }
 
     val animatedProgress by animateFloatAsState(
-        targetValue = scrollProgress,
+        targetValue = dragProgress,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioNoBouncy,
-            stiffness = Spring.StiffnessMediumLow
+            stiffness = Spring.StiffnessLow
         ),
-        label = "scrollProgress"
+        label = "thumbProgress"
     )
 
-    // During drag: thumb follows finger directly. Otherwise: follows scroll with animation.
-    val effectiveProgress = if (isDragging) dragProgress else animatedProgress
-    val thumbOffsetY = (effectiveProgress * (trackHeightPx - thumbSizePx)).coerceAtLeast(0f)
+    val thumbOffsetY = remember(animatedProgress, trackHeightPx) {
+        (animatedProgress * (trackHeightPx - thumbSizePx)).coerceIn(
+            0f,
+            (trackHeightPx - thumbSizePx).coerceAtLeast(0f)
+        )
+    }
+
+    // Horizontal slide animation
+    val thumbOffsetX by animateFloatAsState(
+        targetValue = if (showThumb || isDragging) 0f else thumbSizePx,
+        animationSpec = spring(stiffness = Spring.StiffnessLow),
+        label = "thumbOffsetX"
+    )
+
+    // Scale animation on drag
+    val thumbScale by animateFloatAsState(
+        targetValue = if (isDragging) 0.8f else 1f,
+        animationSpec = spring(stiffness = Spring.StiffnessMedium),
+        label = "thumbScale"
+    )
 
     val thumbAlpha by animateFloatAsState(
         targetValue = if (showThumb || isDragging) 1f else 0f,
@@ -112,59 +130,69 @@ fun DraggableScrollThumb(
             .fillMaxHeight()
             .width(thumbSizeDp)
             .onSizeChanged { trackHeightPx = it.height.toFloat() }
-            .pointerInput(Unit) {
-                detectVerticalDragGestures(
-                    onDragStart = { offset ->
-                        isDragging = true
-                        lastDragY = offset.y
-                        dragProgress = ((offset.y - thumbSizePx / 2) /
-                                (trackHeightPx - thumbSizePx)).coerceIn(0f, 1f)
-                    },
-                    onDragEnd = { isDragging = false },
-                    onDragCancel = { isDragging = false },
-                    onVerticalDrag = { change, _ ->
-                        change.consume()
-                        val y = change.position.y
-                        val deltaY = y - lastDragY
-                        lastDragY = y
-
-                        // Update thumb position directly from finger
-                        dragProgress = ((y - thumbSizePx / 2) /
-                                (trackHeightPx - thumbSizePx)).coerceIn(0f, 1f)
-
-                        // Synchronous scroll — no coroutine, no jitter
-                        val info = listState.layoutInfo
-                        val vis = info.visibleItemsInfo
-                        if (vis.isNotEmpty() && deltaY != 0f) {
-                            val avgSize = vis.sumOf { it.size }.toFloat() / vis.size
-                            val totalContent = avgSize * info.totalItemsCount
-                            val vpHeight =
-                                (info.viewportEndOffset - info.viewportStartOffset).toFloat()
-                            val scrollRange = (totalContent - vpHeight).coerceAtLeast(1f)
-                            val trackRange = (trackHeightPx - thumbSizePx).coerceAtLeast(1f)
-                            val scrollDelta = deltaY * (scrollRange / trackRange)
-
-                            listState.dispatchRawDelta(scrollDelta)
-                        }
-                    }
-                )
-            }
     ) {
         val thumbColor = MaterialTheme.colorScheme.primary
 
         Box(
             modifier = Modifier
                 .size(thumbSizeDp)
-                .align(Alignment.TopStart)
-                .offset { IntOffset(0, thumbOffsetY.toInt()) }
+                .graphicsLayer {
+                    translationX = thumbOffsetX
+                    translationY = thumbOffsetY
+                    scaleX = thumbScale
+                    scaleY = thumbScale
+                    alpha = thumbAlpha
+                }
+                .pointerInput(trackHeightPx) {
+                    detectVerticalDragGestures(
+                        onDragStart = {
+                            isDragging = true
+                            // Lock the scroll range at start of drag to prevent jumping
+                            val info = listState.layoutInfo
+                            val vis = info.visibleItemsInfo
+                            if (vis.isNotEmpty()) {
+                                val avgSize = vis.map { it.size }.average().toFloat()
+                                val totalContentHeight = avgSize * info.totalItemsCount
+                                val viewportHeight =
+                                    (info.viewportEndOffset - info.viewportStartOffset).toFloat()
+                                capturedScrollableRange =
+                                    (totalContentHeight - viewportHeight).coerceAtLeast(1f)
+                            }
+                        },
+                        onDragEnd = { isDragging = false },
+                        onDragCancel = { isDragging = false },
+                        onVerticalDrag = { change, dragAmount ->
+                            change.consume()
+
+                            val trackRange = (trackHeightPx - thumbSizePx).coerceAtLeast(1f)
+                            val newProgress =
+                                (dragProgress + dragAmount / trackRange).coerceIn(0f, 1f)
+                            dragProgress = newProgress
+
+                            // Map track movement to scroll movement using the locked range
+                            if (capturedScrollableRange > 0) {
+                                val scrollDelta =
+                                    dragAmount * (capturedScrollableRange / trackRange)
+                                listState.dispatchRawDelta(scrollDelta)
+                            }
+                        }
+                    )
+                }
                 .drawWithContent {
                     val strokeWidth = 10.dp.toPx()
-                    val radius = size.minDimension / 2
+                    val outerRadius = (size.minDimension / 2) - (strokeWidth / 2)
 
                     drawCircle(
-                        color = thumbColor.copy(alpha = thumbAlpha),
-                        radius = radius,
+                        color = thumbColor,
+                        radius = outerRadius,
                         style = Stroke(width = strokeWidth)
+                    )
+
+                    val gap = 2.dp.toPx()
+                    val innerRadius = (outerRadius - strokeWidth / 2 - gap).coerceAtLeast(0f)
+                    drawCircle(
+                        color = thumbColor,
+                        radius = innerRadius
                     )
                 }
         )

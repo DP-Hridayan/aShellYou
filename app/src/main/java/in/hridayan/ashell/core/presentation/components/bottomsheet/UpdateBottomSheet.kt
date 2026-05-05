@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -275,7 +276,8 @@ fun UpdateBottomSheet(
                                 .padding(10.dp),
                             textLines = splitStringToLines(latestChangelogText),
                             textColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            bulletColor = MaterialTheme.colorScheme.primary
+                            bulletColor = MaterialTheme.colorScheme.primary,
+                            verticalArrangement = Arrangement.spacedBy(15.dp)
                         )
                     }
 

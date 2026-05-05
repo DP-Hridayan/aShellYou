@@ -134,11 +134,11 @@ fun ChangelogScreen(
 
                 DraggableScrollThumb(
                     listState = listState,
-                    thumbSize = 48,
+                    thumbSize = 42,
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .padding(innerPadding)
-                        .padding(15.dp)
+                        .padding(end = 15.dp)
                 )
             }
         })

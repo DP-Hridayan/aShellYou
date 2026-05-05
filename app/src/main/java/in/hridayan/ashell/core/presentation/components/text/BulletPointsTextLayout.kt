@@ -24,7 +24,7 @@ fun BulletPointsTextLayout(
     textColor: Color = MaterialTheme.colorScheme.onSurface,
     textStyle: TextStyle = MaterialTheme.typography.bodySmall,
     bulletColor: Color = MaterialTheme.colorScheme.primary,
-    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(25.dp)
+    verticalArrangement: Arrangement.Vertical = Arrangement.spacedBy(20.dp)
 ) {
     Column(
         modifier = modifier,
