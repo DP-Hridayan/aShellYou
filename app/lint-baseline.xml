@@ -247,14 +247,28 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/685e69f775ffd85e1dd7a6757751e0c9/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/8e1d5edde7dd1e5761ee9f0f31eb4b89/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/685e69f775ffd85e1dd7a6757751e0c9/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/8e1d5edde7dd1e5761ee9f0f31eb4b89/transformed/out/jars/classes.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
     </issue>
 
     <issue

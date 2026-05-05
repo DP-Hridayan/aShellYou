@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.scaffold
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +25,6 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 
-
 @Composable
 fun SettingsScaffold(
     modifier: Modifier = Modifier,
@@ -33,15 +33,55 @@ fun SettingsScaffold(
     content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
     fabContent: @Composable (expanded: Boolean) -> Unit = {}
 ) {
-    val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-
     val expanded by remember {
         derivedStateOf {
             listState.firstVisibleItemIndex == 0 &&
                     listState.firstVisibleItemScrollOffset < 10
         }
     }
+
+    SettingsScaffoldImpl(
+        modifier = modifier,
+        topBarTitle = topBarTitle,
+        expanded = expanded,
+        content = content,
+        fabContent = fabContent
+    )
+}
+
+@Composable
+fun SettingsScaffold(
+    modifier: Modifier = Modifier,
+    topBarTitle: String,
+    scrollState: ScrollState,
+    content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
+    fabContent: @Composable (expanded: Boolean) -> Unit = {}
+) {
+    val expanded by remember {
+        derivedStateOf {
+            scrollState.value < 10
+        }
+    }
+
+    SettingsScaffoldImpl(
+        modifier = modifier,
+        topBarTitle = topBarTitle,
+        expanded = expanded,
+        content = content,
+        fabContent = fabContent
+    )
+}
+
+@Composable
+private fun SettingsScaffoldImpl(
+    modifier: Modifier = Modifier,
+    topBarTitle: String,
+    expanded: Boolean,
+    content: @Composable (innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior) -> Unit,
+    fabContent: @Composable (expanded: Boolean) -> Unit = {}
+) {
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -54,7 +94,7 @@ fun SettingsScaffold(
 
                     val fontSize = lerp(expandedFontSize, collapsedFontSize, collapsedFraction)
                     Text(
-                        modifier = modifier.basicMarquee(),
+                        modifier = Modifier.basicMarquee(),
                         text = topBarTitle,
                         maxLines = 1,
                         fontSize = fontSize,
@@ -69,6 +109,7 @@ fun SettingsScaffold(
         floatingActionButton = {
             fabContent(expanded)
         }) { innerPadding ->
+        // Pass the SAME scrollBehavior used in LargeTopAppBar to the content
         content(innerPadding, scrollBehavior)
     }
 }

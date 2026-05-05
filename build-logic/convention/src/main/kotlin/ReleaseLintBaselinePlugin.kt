@@ -27,8 +27,7 @@ class ReleaseLintBaselinePlugin : Plugin<Project> {
             project.afterEvaluate {
 
                 val baselineTasks = project.tasks.matching {
-                    it.name.startsWith("updateLintBaseline") &&
-                            it.name.contains("Release")
+                    it.name.startsWith("updateLintBaseline") && it.name.endsWith("Release")
                 }
 
                 updateBaseline.configure {
@@ -36,7 +35,7 @@ class ReleaseLintBaselinePlugin : Plugin<Project> {
                 }
 
                 project.tasks.matching {
-                    it.name.startsWith("lint") && it.name.contains("Release")
+                    it.name.startsWith("lint") && it.name.endsWith("Release")
                 }.configureEach {
                     outputs.upToDateWhen { false }
                 }

@@ -13,9 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material3.Card
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -204,29 +202,43 @@ fun CrashReportScreen(
                         start = 20.dp,
                         end = 20.dp,
                         top = 25.dp,
+                        bottom = 10.dp
                     )
                 )
+            }
 
-                stacktrace?.let {
+            stacktrace?.let { trace ->
+                val lines = trace.split("\n")
+                items(lines.size) { index ->
+                    val line = lines[index]
+
+                    val cardShape = when (index) {
+                        0 -> CustomCardShape(top = 24.dp, bottom = 0.dp)
+                        lines.lastIndex -> CustomCardShape(top = 0.dp, bottom = 24.dp)
+                        else -> CustomCardShape(0.dp)
+                    }
+
                     CustomCard(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(15.dp),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
+                        shape = cardShape,
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.surfaceContainer,
                             contentColor = MaterialTheme.colorScheme.onSurface
                         )
                     ) {
-                        SelectionContainer {
-                            Text(
-                                text = it,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 20.dp, vertical = 15.dp),
-                                style = MaterialTheme.typography.bodySmallEmphasized,
-                                fontFamily = FontFamily.Monospace,
-                            )
-                        }
+                        Text(
+                            text = line,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    start = 20.dp,
+                                    end = 20.dp,
+                                    top = if (index == 0) 20.dp else 2.dp,
+                                    bottom = if (index == lines.lastIndex) 20.dp else 2.dp
+                                ),
+                            style = MaterialTheme.typography.bodySmallEmphasized,
+                            fontFamily = FontFamily.Monospace,
+                        )
                     }
                 }
             }
