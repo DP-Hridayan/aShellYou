@@ -9,5 +9,8 @@ data class GithubReleaseDto(
     val tagName: String,
 
     @SerialName("assets")
-    val assets: List<GithubAssetDto> = emptyList()
+    val assets: List<GithubAssetDto> = emptyList(),
+
+    @SerialName("body")
+    val body: String? = null
 )

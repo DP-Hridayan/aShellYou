@@ -73,6 +73,7 @@ fun AutoUpdateScreen(
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
     var apkUrl by rememberSaveable { mutableStateOf("") }
+    var changelog by rememberSaveable { mutableStateOf("") }
     val networkError = stringResource(R.string.network_error)
     val requestTimeout = stringResource(R.string.request_timeout)
     val unKnownError = stringResource(R.string.unknown_error)
@@ -86,6 +87,7 @@ fun AutoUpdateScreen(
                     if (result.isUpdateAvailable) {
                         tagName = result.release.tagName
                         apkUrl = result.release.apkUrl.toString()
+                        changelog = result.release.body.toString()
                         showUpdateSheet = true
                     } else {
                         dialogManager.show(DialogKey.Settings.LatestVersion)
@@ -248,7 +250,8 @@ fun AutoUpdateScreen(
         UpdateBottomSheet(
             onDismiss = { showUpdateSheet = false },
             latestVersion = tagName,
-            apkUrl = apkUrl
+            apkUrl = apkUrl,
+            body = changelog
         )
     }
 

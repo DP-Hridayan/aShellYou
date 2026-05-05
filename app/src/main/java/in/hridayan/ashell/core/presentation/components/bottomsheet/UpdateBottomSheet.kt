@@ -3,6 +3,7 @@
 package `in`.hridayan.ashell.core.presentation.components.bottomsheet
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -10,12 +11,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LinearWavyProgressIndicator
@@ -23,6 +31,7 @@ import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -39,16 +48,23 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.domain.model.DownloadState
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.installApk
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.core.utils.showToast
@@ -61,9 +77,16 @@ fun UpdateBottomSheet(
     onDismiss: () -> Unit,
     latestVersion: String = "",
     apkUrl: String = "",
+    body: String = "",
     viewModel: AutoUpdateViewModel = hiltViewModel()
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true,
+        confirmValueChange = { newValue ->
+            // Block swipe-to-dismiss
+            newValue != SheetValue.Hidden
+        }
+    )
     val context = LocalContext.current
     val res = LocalResources.current
     val activity = context as? Activity
@@ -146,6 +169,10 @@ fun UpdateBottomSheet(
         animationSpec = androidx.compose.animation.core.tween(durationMillis = 300)
     )
 
+    val latestChangelogText = remember(body) { parseChangelog(body, context) }
+    val versionRange = BuildConfig.VERSION_NAME.removeSuffix("-debug") + "..." + latestVersion
+    val fullChangelogUrl = UrlConst.URL_GITHUB_REPO + "/compare/" + versionRange
+
     ModalBottomSheet(
         modifier = modifier,
         sheetState = sheetState,
@@ -162,17 +189,97 @@ fun UpdateBottomSheet(
             fontWeight = FontWeight.Bold
         )
 
-        Text(
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
-            text = stringResource(R.string.latest_version) + " : $latestVersion",
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.primary
+        InfoChip(
+            modifier = Modifier.padding(horizontal = 20.dp),
+            text = stringResource(R.string.latest_version) + " : $latestVersion"
         )
 
-        Text(
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(5.dp)
+        )
+
+        InfoChip(
             modifier = Modifier.padding(horizontal = 20.dp),
             text = stringResource(R.string.current_version) + " : ${BuildConfig.VERSION_NAME}",
-            style = MaterialTheme.typography.labelLarge,
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                contentColor = MaterialTheme.colorScheme.onSurface
+            )
+        )
+
+        if (latestChangelogText.isNotEmpty()) {
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp)
+            )
+
+            CustomCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                ),
+                shape = CardCornerShape.FIRST_CARD,
+                pressedScale = 1f
+            ) {
+                AutoResizeableText(
+                    modifier = Modifier.padding(10.dp),
+                    text = stringResource(R.string.changelog),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+            )
+
+            CustomCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                ),
+                shape = CardCornerShape.LAST_CARD,
+                pressedScale = 1f
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp, vertical = 8.dp)
+                        .heightIn(max = 250.dp)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    Text(
+                        text = latestChangelogText,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        }
+
+        InfoChip(
+            modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
+            text = versionRange,
+            fontWeight = FontWeight.SemiBold,
+            textDecoration = TextDecoration.Underline,
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                contentColor = MaterialTheme.colorScheme.onSurface
+            ),
+            onClick = withHaptic {
+                openUrl(url = fullChangelogUrl, context = context)
+            },
         )
 
         Box(
@@ -260,5 +367,50 @@ fun UpdateBottomSheet(
                     Text(text = stringResource(R.string.download))
                 }
         }
+    }
+}
+
+private fun parseChangelog(body: String?, context: Context): String {
+    if (body == null) return context.resources.getString(R.string.no_changelog_found)
+
+    val changelogRegex =
+        Regex("""(?s)### Changelog\s*\n+(.*?)(?=\n+## |\n+\*\*Full Changelog\*\*|$)""")
+
+    val changelogMatch = changelogRegex.find(body)
+    val changelogText = changelogMatch?.groups?.get(1)?.value?.trim() ?: ""
+
+
+    return changelogText
+}
+
+@Composable
+private fun InfoChip(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+    text: String,
+    textStyle: TextStyle = MaterialTheme.typography.labelLargeEmphasized,
+    fontStyle: FontStyle? = null,
+    fontWeight: FontWeight? = null,
+    textDecoration: TextDecoration? = null,
+    colors: CardColors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+    )
+) {
+    CustomCard(
+        modifier = modifier,
+        shape = CustomCardShape(50),
+        colors = colors,
+        pressedCornerRadius = 8.dp,
+        onClick = onClick
+    ) {
+        AutoResizeableText(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+            text = text,
+            fontStyle = fontStyle,
+            fontWeight = fontWeight,
+            textDecoration = textDecoration,
+            style = textStyle,
+        )
     }
 }

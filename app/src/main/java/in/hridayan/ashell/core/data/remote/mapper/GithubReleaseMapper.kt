@@ -17,6 +17,7 @@ fun GithubReleaseDto.toDomain(releaseType: Int): GithubRelease {
 
     return GithubRelease(
         tagName = tagName,
-        apkUrl = apkAsset?.browserDownloadUrl
+        apkUrl = apkAsset?.browserDownloadUrl,
+        body = body
     )
 }

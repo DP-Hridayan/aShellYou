@@ -52,6 +52,7 @@
     <string name="cancel">Cancel</string>
     <string name="cancel_all">Cancel all</string>
     <string name="changelogs">Changelogs</string>
+    <string name="changelog">Changelog</string>
     <string name="check_updates">Check updates</string>
     <string name="choose_a_device">Choose a device</string>
     <string name="choose_icon">Choose icon</string>
