@@ -8,12 +8,17 @@ import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroup
@@ -26,7 +31,6 @@ import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -39,14 +43,19 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -77,13 +86,6 @@ fun UpdateBottomSheet(
     body: String = "",
     viewModel: AutoUpdateViewModel = hiltViewModel()
 ) {
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        confirmValueChange = { newValue ->
-            // Block swipe-to-dismiss
-            newValue != SheetValue.Hidden
-        }
-    )
     val context = LocalContext.current
     val res = LocalResources.current
     val activity = context as? Activity
@@ -107,6 +109,12 @@ fun UpdateBottomSheet(
             pendingInstall = false
         }
     }
+
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true,
+    )
+
+    val changelogsVerticalScrollState = rememberScrollState()
 
     LaunchedEffect(downloadState) {
         when (val state = downloadState) {
@@ -173,6 +181,7 @@ fun UpdateBottomSheet(
     ModalBottomSheet(
         modifier = modifier,
         sheetState = sheetState,
+        sheetGesturesEnabled = false,
         dragHandle = null,
         onDismissRequest = {
             onDismiss()
@@ -225,7 +234,9 @@ fun UpdateBottomSheet(
                 pressedScale = 1f
             ) {
                 AutoResizeableText(
-                    modifier = Modifier.padding(10.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
                     text = stringResource(R.string.changelog),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
@@ -249,14 +260,67 @@ fun UpdateBottomSheet(
                 shape = CardCornerShape.LAST_CARD,
                 pressedScale = 1f
             ) {
-                BulletPointsTextLayout(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    textLines = splitStringToLines(latestChangelogText),
-                    textColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    bulletColor = MaterialTheme.colorScheme.primary
-                )
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(max = responsiveHeight())
+                            .verticalScroll(changelogsVerticalScrollState)
+                    ) {
+                        BulletPointsTextLayout(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(10.dp),
+                            textLines = splitStringToLines(latestChangelogText),
+                            textColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            bulletColor = MaterialTheme.colorScheme.primary
+                        )
+                    }
+
+                    androidx.compose.animation.AnimatedVisibility(
+                        visible = changelogsVerticalScrollState.canScrollBackward,
+                        enter = androidx.compose.animation.fadeIn(),
+                        exit = androidx.compose.animation.fadeOut(),
+                        modifier = Modifier.align(Alignment.TopCenter)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(40.dp)
+                                .background(
+                                    Brush.verticalGradient(
+                                        colors = listOf(
+                                            MaterialTheme.colorScheme.surfaceContainerHigh,
+                                            Color.Transparent
+                                        )
+                                    )
+                                )
+                        )
+                    }
+
+                    androidx.compose.animation.AnimatedVisibility(
+                        visible = changelogsVerticalScrollState.canScrollForward,
+                        enter = androidx.compose.animation.fadeIn(),
+                        exit = androidx.compose.animation.fadeOut(),
+                        modifier = Modifier.align(Alignment.BottomCenter)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(60.dp)
+                                .background(
+                                    Brush.verticalGradient(
+                                        colors = listOf(
+                                            Color.Transparent,
+                                            MaterialTheme.colorScheme.surfaceContainerHigh
+                                        )
+                                    )
+                                )
+                        )
+                    }
+                }
             }
         }
 
@@ -346,7 +410,7 @@ fun UpdateBottomSheet(
                         } else {
                             openUrl(
                                 context = context,
-                                url = "https://github.com/dp-hridayan/ashellyou/releases/tag/$latestVersion"
+                                url = UrlConst.URL_GITHUB_REPO + "/releases/tag/$latestVersion"
                             )
                         }
                     },
@@ -425,4 +489,20 @@ private fun parseChangelog(body: String?): String {
     }
 
     return changelogPoints.joinToString("\n")
+}
+
+@Composable
+private fun responsiveHeight(): Dp {
+    val windowInfo = LocalWindowInfo.current
+    val density = LocalDensity.current
+
+    val screenHeightDp = with(density) {
+        windowInfo.containerSize.height.toDp()
+    }
+
+    return when {
+        screenHeightDp < 640.dp -> 60.dp   // small
+        screenHeightDp < 840.dp -> 160.dp   // medium
+        else -> 300.dp                      // large
+    }
 }

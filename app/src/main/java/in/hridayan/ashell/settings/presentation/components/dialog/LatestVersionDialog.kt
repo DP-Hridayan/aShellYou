@@ -50,7 +50,7 @@ fun LatestVersionDialog(onDismiss: () -> Unit) {
         else -> stringResource(R.string.unknown)
     }
 
-    val appVersionCode = stringResource(R.string.flavor) + ": " + flavorDisplay
+    val appVersionCode = stringResource(R.string.variant) + ": " + flavorDisplay
 
     DialogContainer(onDismiss = onDismiss) {
         Box(
