@@ -37,6 +37,7 @@ import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.Cras
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
+import `in`.hridayan.ashell.settings.presentation.page.translators.screens.TranslatorsScreen
 import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserScreen
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScreen
@@ -98,6 +99,9 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 CommandExamplesScreen()
             }
 
+            composable<NavRoutes.TranslatorsScreen> {
+                TranslatorsScreen()
+            }
 
             composable<NavRoutes.ChangelogScreen> {
                 ChangelogScreen()

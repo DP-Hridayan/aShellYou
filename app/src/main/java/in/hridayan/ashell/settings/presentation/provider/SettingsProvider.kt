@@ -3,18 +3,8 @@ package `in`.hridayan.ashell.settings.presentation.provider
 import android.os.Build
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
-import androidx.compose.material.icons.outlined.Palette
-import androidx.compose.material.icons.rounded.ChangeHistory
-import androidx.compose.material.icons.rounded.Colorize
-import androidx.compose.material.icons.rounded.Contrast
 import androidx.compose.material.icons.rounded.Downloading
-import androidx.compose.material.icons.rounded.FolderOpen
-import androidx.compose.material.icons.rounded.Language
-import androidx.compose.material.icons.rounded.SentimentNeutral
-import androidx.compose.material.icons.rounded.SettingsBackupRestore
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
-import androidx.compose.material.icons.rounded.Update
-import androidx.compose.material.icons.rounded.Vibration
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.utils.MiUiCheck
 import `in`.hridayan.ashell.settings.data.SettingsKeys
@@ -62,7 +52,7 @@ object SettingsProvider {
                 key = SettingsKeys.BACKUP_AND_RESTORE,
                 titleResId = R.string.backup_and_restore,
                 descriptionResId = R.string.des_backup_and_restore,
-               iconResId = R.drawable.ic_settings_backup_restore
+                iconResId = R.drawable.ic_settings_backup_restore
             ),
             nullPreferenceItem(
                 key = SettingsKeys.ABOUT,
@@ -155,6 +145,15 @@ object SettingsProvider {
     )
 
     val aboutPageList: List<PreferenceGroup> = listOf(
+        categorizedItems(
+            categoryNameResId = R.string.contributors,
+            nullPreferenceItem(
+                key = SettingsKeys.TRANSLATORS,
+                titleResId = R.string.translators,
+                descriptionResId = R.string.des_translators,
+                iconResId = R.drawable.ic_translate
+            )
+        ),
         categorizedItems(
             categoryNameResId = R.string.app,
             nullPreferenceItem(
@@ -271,12 +270,12 @@ object SettingsProvider {
                 descriptionResId = R.string.des_backup_all_data,
                 iconResId = R.drawable.ic_upload_file
             ),
-           /* nullPreferenceItem(
-                key = SettingsKeys.BACKUP_SCHEDULER,
-                titleResId = R.string.backup_scheduler,
-                descriptionResId = R.string.des_backup_scheduler,
-                iconResId = R.drawable.ic_schedule
-            )*/
+            /* nullPreferenceItem(
+                 key = SettingsKeys.BACKUP_SCHEDULER,
+                 titleResId = R.string.backup_scheduler,
+                 descriptionResId = R.string.des_backup_scheduler,
+                 iconResId = R.drawable.ic_schedule
+             )*/
         ),
 
         customComposable("last_backup_time"),

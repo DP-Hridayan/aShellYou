@@ -65,4 +65,5 @@ enum class SettingsKeys(val default: Any?) {
     LAST_CLOUD_BACKUP_TYPE("None"),
     LAST_LOCAL_BACKUP_TYPE("None"),
     QUICK_SETTINGS_TILES(null),
+    TRANSLATORS(null)
 }

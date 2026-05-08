@@ -20,6 +20,9 @@ sealed class NavRoutes {
     object BehaviorScreen : NavRoutes()
 
     @Serializable
+    object TranslatorsScreen : NavRoutes()
+
+    @Serializable
     object ChangelogScreen : NavRoutes()
 
     @Serializable

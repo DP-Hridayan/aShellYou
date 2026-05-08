@@ -531,6 +531,9 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A" translatable="false">Z → A</string>
+    <string name="contributors">Contributors</string>
+    <string name="translators">Translators</string>
+    <string name="des_translators">People who helped translate aShellYou</string>
 
     /**
     * Changelogs
