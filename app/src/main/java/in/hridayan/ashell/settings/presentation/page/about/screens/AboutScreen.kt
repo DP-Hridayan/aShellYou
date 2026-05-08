@@ -379,7 +379,7 @@ private fun AppHandlesChip(
                 AutoResizeableText(
                     text = description,
                     style = MaterialTheme.typography.bodySmallEmphasized,
-                    color = contentColor.copy(alpha = 0.85f)
+                    color = contentColor.copy(alpha = 0.7f)
                 )
             }
         }
