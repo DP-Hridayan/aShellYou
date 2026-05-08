@@ -534,6 +534,8 @@
     <string name="contributors">Contributors</string>
     <string name="translators">Translators</string>
     <string name="des_translators">People who helped translate aShellYou</string>
+    <string name="want_to_contribute_too">Want to contribute too?</string>
+    <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
 
     /**
     * Changelogs
