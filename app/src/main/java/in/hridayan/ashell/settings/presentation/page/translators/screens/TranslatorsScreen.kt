@@ -31,7 +31,7 @@ fun TranslatorsScreen(
     modifier: Modifier = Modifier,
     contributorsViewModel: ContributorsViewModel = hiltViewModel()
 ) {
-    val translators = contributorsViewModel.translators
+    val translators = contributorsViewModel.translators.sortedBy { it.name }
 
     val listState = rememberLazyListState()
 
