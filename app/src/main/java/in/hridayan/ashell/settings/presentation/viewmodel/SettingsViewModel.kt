@@ -21,13 +21,12 @@ import `in`.hridayan.ashell.settings.domain.repository.GoogleAuthRepository
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -42,66 +41,27 @@ class SettingsViewModel @Inject constructor(
     var isFirstLaunch by mutableStateOf<Boolean?>(null)
         private set
 
-    var settingsPageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
-        private set
-
-    var lookAndFeelPageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
-        private set
-
-    var darkThemePageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
-        private set
-
-    var aboutPageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
-        private set
-
-    var autoUpdatePageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
-        private set
-
-    var behaviorPageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
-        private set
-
-    var backupPageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
-        private set
-
-    var backupSchedulerPageList by mutableStateOf<List<PreferenceGroup>>(emptyList())
-        private set
-
-    fun loadSettings() {
-        viewModelScope.launch {
-            val settings = SettingsProvider.settingsPageList
-            val lookAndFeel = SettingsProvider.lookAndFeelPageList
-            val darkTheme = SettingsProvider.darkThemePageList
-            val behavior = SettingsProvider.behaviorPageList
-            val autoUpdate = SettingsProvider.autoUpdatePageList
-            val backup = SettingsProvider.backupPageList
-            val backupScheduler = SettingsProvider.backupSchedulerPageList
-            val about = SettingsProvider.aboutPageList
-
-            settingsPageList = settings
-            lookAndFeelPageList = lookAndFeel
-            darkThemePageList = darkTheme
-            behaviorPageList = behavior
-            autoUpdatePageList = autoUpdate
-            backupPageList = backup
-            backupSchedulerPageList = backupScheduler
-            aboutPageList = about
-        }
-    }
+    val settingsPageList = SettingsProvider.settingsPageList
+    val lookAndFeelPageList = SettingsProvider.lookAndFeelPageList
+    val darkThemePageList = SettingsProvider.darkThemePageList
+    val behaviorPageList = SettingsProvider.behaviorPageList
+    val autoUpdatePageList = SettingsProvider.autoUpdatePageList
+    val backupPageList = SettingsProvider.backupPageList
+    val backupSchedulerPageList = SettingsProvider.backupSchedulerPageList
+    val aboutPageList = SettingsProvider.aboutPageList
 
     private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
     init {
         viewModelScope.launch {
-            loadSettings()
-            isFirstLaunch = getBoolean(SettingsKeys.FIRST_LAUNCH).first()
+            isFirstLaunch = getBoolean(SettingsKeys.FIRST_LAUNCH).firstOrNull()
         }
     }
 
     fun onToggle(key: SettingsKeys) {
         viewModelScope.launch(Dispatchers.IO) {
             toggleSettingUseCase(key)
-            loadSettings()
         }
     }
 
