@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
@@ -30,9 +32,9 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.bmcLogo
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.utils.openUrl
 
 @Composable
@@ -40,9 +42,9 @@ fun SupportMeCard(modifier: Modifier = Modifier) {
     val context = LocalContext.current
 
     Column(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
     ) {
-        ContactHandles()
+        ContactHandles(modifier = Modifier.fillMaxWidth())
         BuyMeACoffee(
             onClick = { openUrl(UrlConst.URL_DEV_BM_COFFEE, context) },
             modifier = Modifier.padding(top = 2.dp)
@@ -51,16 +53,19 @@ fun SupportMeCard(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun ContactHandles(modifier: Modifier = Modifier) {
+private fun ContactHandles(
+    modifier: Modifier = Modifier,
+    colors: CardColors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+        contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+    )
+) {
     val context = LocalContext.current
 
     CustomCard(
         modifier = modifier,
         shape = CardCornerShape.FIRST_CARD,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-        )
+        colors = colors
     ) {
         Row(
             modifier = Modifier
@@ -104,49 +109,19 @@ private fun ContactHandles(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun ContactBox(
-    modifier: Modifier = Modifier,
-    painter: Painter,
-    text: String,
-    onClick: () -> Unit = {}
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(5.dp),
-        modifier = modifier
-            .clip(MaterialTheme.shapes.extraLarge)
-            .clickable(onClick = withHaptic {
-                onClick()
-            })
-            .padding(vertical = 5.dp),
-    ) {
-        Image(
-            modifier = Modifier.size(24.dp),
-            painter = painter,
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSecondaryContainer),
-            contentDescription = null,
-        )
-        Text(
-            text = text,
-            style = MaterialTheme.typography.bodySmall,
-            fontWeight = FontWeight.Bold
-        )
-    }
-}
-
-@Composable
 private fun BuyMeACoffee(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    colors: CardColors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+    )
 ) {
     CustomCard(
         modifier = modifier,
         shape = CardCornerShape.LAST_CARD,
         onClick = withHaptic { onClick() },
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-        )
+        colors = colors
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(20.dp),
@@ -167,5 +142,37 @@ private fun BuyMeACoffee(
                 modifier = Modifier.weight(6f)
             )
         }
+    }
+}
+
+@Composable
+private fun ContactBox(
+    modifier: Modifier = Modifier,
+    painter: Painter,
+    text: String,
+    tint: Color = MaterialTheme.colorScheme.onTertiaryContainer,
+    onClick: () -> Unit = {}
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(5.dp),
+        modifier = modifier
+            .clip(MaterialTheme.shapes.extraLarge)
+            .clickable(onClick = withHaptic {
+                onClick()
+            })
+            .padding(vertical = 5.dp),
+    ) {
+        Image(
+            modifier = Modifier.size(24.dp),
+            painter = painter,
+            colorFilter = ColorFilter.tint(tint),
+            contentDescription = null,
+        )
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodySmall,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
