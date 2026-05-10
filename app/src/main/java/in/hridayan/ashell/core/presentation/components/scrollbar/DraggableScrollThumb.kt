@@ -29,6 +29,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.common.LocalWeakHaptic
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -54,11 +55,12 @@ fun DraggableScrollThumb(
 
                 val visibleItems = info.visibleItemsInfo
                 val currentAvg = visibleItems.map { it.size }.average().toFloat()
-                
+
                 if (stableAvgSize == 0f) stableAvgSize = currentAvg
-                
+
                 val estimatedTotalHeight = stableAvgSize * totalItemsCount
-                val currentScrollOffset = (firstVisibleItem.index * stableAvgSize) - firstVisibleItem.offset
+                val currentScrollOffset =
+                    (firstVisibleItem.index * stableAvgSize) - firstVisibleItem.offset
                 val totalScrollableRange = (estimatedTotalHeight - viewportHeight).coerceAtLeast(1f)
                 (currentScrollOffset / totalScrollableRange).coerceIn(0f, 1f)
             }
@@ -70,7 +72,8 @@ fun DraggableScrollThumb(
             val info = listState.layoutInfo
             if (info.visibleItemsInfo.isNotEmpty()) {
                 val currentAvg = info.visibleItemsInfo.map { it.size }.average().toFloat()
-                stableAvgSize = if (stableAvgSize == 0f) currentAvg else stableAvgSize * 0.95f + currentAvg * 0.05f
+                stableAvgSize =
+                    if (stableAvgSize == 0f) currentAvg else stableAvgSize * 0.95f + currentAvg * 0.05f
             }
         }
     }
@@ -86,7 +89,7 @@ fun DraggableScrollThumb(
                 val totalContentHeight = avgSize * info.totalItemsCount
                 val viewportHeight = (info.viewportEndOffset - info.viewportStartOffset).toFloat()
                 val scrollableRange = (totalContentHeight - viewportHeight).coerceAtLeast(1f)
-                
+
                 val scrollDelta = deltaPx * (scrollableRange / trackRange)
                 listState.dispatchRawDelta(scrollDelta)
             }
@@ -138,6 +141,7 @@ private fun DraggableScrollThumbImpl(
     modifier: Modifier = Modifier,
     thumbSize: Int = 48
 ) {
+    val weakHaptic = LocalWeakHaptic.current
     val thumbSizeDp = thumbSize.dp
     val density = LocalDensity.current
     val thumbSizePx = with(density) { thumbSizeDp.toPx() }
@@ -218,14 +222,21 @@ private fun DraggableScrollThumbImpl(
                 }
                 .pointerInput(trackHeightPx) {
                     detectVerticalDragGestures(
-                        onDragStart = { isDragging = true },
-                        onDragEnd = { isDragging = false },
+                        onDragStart = {
+                            isDragging = true
+                            weakHaptic()
+                        },
+                        onDragEnd = {
+                            isDragging = false
+                            weakHaptic()
+                        },
                         onDragCancel = { isDragging = false },
                         onVerticalDrag = { change, dragAmount ->
                             change.consume()
 
                             val trackRange = (trackHeightPx - thumbSizePx).coerceAtLeast(1f)
-                            val newProgress = (dragProgress + dragAmount / trackRange).coerceIn(0f, 1f)
+                            val newProgress =
+                                (dragProgress + dragAmount / trackRange).coerceIn(0f, 1f)
                             dragProgress = newProgress
 
                             onDrag(dragAmount, trackRange)
