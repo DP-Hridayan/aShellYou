@@ -187,7 +187,7 @@ private fun CrowdinContributeCard(modifier: Modifier = Modifier) {
                     .height(15.dp))
 
                 IconWithTextButton(
-                    icon = painterResource(R.drawable.ic_open_in_new),
+                    icon = painterResource(R.drawable.ic_crowdin),
                     text = stringResource(R.string.crowdin),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.tertiary,

@@ -52,7 +52,7 @@ fun IconWithTextButton(
             painter = icon,
             contentDescription = contentDescription,
         )
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(8.dp))
         Text(
             text,
             style = MaterialTheme.typography.labelLarge,

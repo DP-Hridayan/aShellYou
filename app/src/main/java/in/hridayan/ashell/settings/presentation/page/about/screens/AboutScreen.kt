@@ -210,7 +210,7 @@ fun AboutScreen(
                             )
 
                             AppHandlesChip(
-                                icon = painterResource(R.drawable.ic_translate),
+                                icon = painterResource(R.drawable.ic_crowdin),
                                 title = stringResource(R.string.crowdin),
                                 description = stringResource(R.string.translations),
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
