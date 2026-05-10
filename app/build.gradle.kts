@@ -15,7 +15,7 @@ android {
     namespace = "in.hridayan.ashell"
 
     compileSdk {
-        version = release(36)
+        version = release(37)
     }
 
     val flavorGitHub = "github"
