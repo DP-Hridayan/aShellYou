@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Befehl zuerst abbrechen</string>
     <string name="about">Über</string>
@@ -15,6 +15,7 @@
     <string name="adb_via_wireless_debugging">ADB über WLAN-Debugging</string>
     <string name="adb_via_wireless_debugging_summary">Verbinde Geräte (Android 11+) über WLAN mithilfe von WLAN-Debugging und führe ADB-Befehle drahtlos aus.</string>
     <string name="add">Hinzufügen</string>
+    <string name="add_account">Konto hinzufügen</string>
     <string name="add_command">Befehl hinzufügen</string>
     <string name="add_new_item">Neues Element hinzufügen</string>
     <string name="additional_settings">Weitere Einstellungen</string>
@@ -50,6 +51,7 @@
     <string name="btn_continue">Fortfahren</string>
     <string name="cancel">Abbrechen</string>
     <string name="cancel_all">Alle abbrechen</string>
+    <string name="changelog">Changelog</string>
     <string name="changelogs">Änderungsprotokolle</string>
     <string name="check_updates">Nach Updates suchen</string>
     <string name="choose_a_device">Gerät auswählen</string>
@@ -319,6 +321,8 @@
     <string name="no_cloud_backup_found">Keine Sicherung auf Google Drive gefunden</string>
     <string name="no_crashes">Es wurden keine Abstürze gemeldet. aShell Du läuft reibungslos.</string>
     <string name="no_files_download">Keine Dateien ausgewählt (Ordner können nicht heruntergeladen werden)</string>
+    <string name="no_google_account_message">Es wurde kein Google-Konto auf diesem Gerät gefunden. Möchten Sie eines hinzufügen, um Cloud-Backups zu verwenden?</string>
+    <string name="no_google_account_title">Kein Google-Konto</string>
     <string name="no_history">Kein Befehlsverlauf vorhanden</string>
     <string name="no_logs_yet">Noch keine Logs!</string>
     <string name="no_logs_yet_msg">Es wurden noch keine Protokolle aufgezeichnet. Führen Sie einige Kacheln aus, um Logs hier anzuzeigen.</string>
@@ -503,6 +507,7 @@
     <string name="uploading_backup">Sicherung wird auf Google Drive… hochgeladen</string>
     <string name="usb_manager_unavailable">USB-Manager ist auf diesem Gerät nicht verfügbar</string>
     <string name="use">Verwenden</string>
+    <string name="variant">Variante</string>
     <string name="version">Version</string>
     <string name="version_code">Versionscode</string>
     <string name="version_name">Versionsname</string>
@@ -518,9 +523,12 @@
     <string name="wireless_debugging_guide_2">Gib den sechsstelligen Kopplungscode in die von aShell You gesendete Benachrichtigung ein.</string>
     <string name="wireless_debugging_guide_3">Kehre zur App zurück und tippe auf den „Start“-Button auf dem Startbildschirm.</string>
     <string name="wireless_debugging_important_notice">Bitte beachte, dass der linke Bereich der WLAN-Debugging-Option anklickbar ist. Durch Anklicken öffnet sich das Kopplungsmenü für WLAN-Debugging</string>
-    <string name="no_google_account_title">Kein Google-Konto</string>
-    <string name="no_google_account_message">Es wurde kein Google-Konto auf diesem Gerät gefunden. Möchten Sie eines hinzufügen, um Cloud-Backups zu verwenden?</string>
-    <string name="add_account">Konto hinzufügen</string>
+    <string name="contributors">Mitwirkende</string>
+    <string name="translators">Übersetzer</string>
+    <string name="des_translators">Leute, die geholfen haben, aShellYou zu übersetzen</string>
+    <string name="want_to_contribute_too">Möchtest du auch mitmachen?</string>
+    <string name="crowdin_contribution_msg">Besuche unsere Crowdin-Übersetzungsplattform, um beizutragen</string>
+    <string name="changelog_v7_3_0">\nVerbesserte Benutzeroberfläche im Änderungsprotokoll</string>
     <string name="changelog_v7_2_1">\nWartungsaktualisierung!</string>
     <string name="changelog_v7_2_0">\nOption hinzugefügt, um Adb Befehle von Schnelleinstellungen Kacheln auszuführen, indem benutzerdefinierte Kacheln hinzugefügt werden.\nOption hinzugefügt, um in der Cloud zu sichern (Google Drive). Diese Funktion ist nur in GitHub Builds vorhanden.\nVerbessertes Farbschema und UI und UX in vielen Bereichen.\nWeitere ADB-Befehlsbeispiele hinzugefügt.</string>
     <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>

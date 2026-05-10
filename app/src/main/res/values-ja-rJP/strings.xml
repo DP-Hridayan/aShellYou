@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">実行中のコマンドを終了してください</string>
     <string name="about">このアプリについて</string>
@@ -15,6 +15,7 @@
     <string name="adb_via_wireless_debugging">ワイヤレスデバッグ経由のADB</string>
     <string name="adb_via_wireless_debugging_summary">ワイヤレスデバッグを使用してWi-Fi経由でデバイス(Android 11 以降)を接続し、ADBコマンドをリモートで実行します。</string>
     <string name="add">追加</string>
+    <string name="add_account">アカウントを追加</string>
     <string name="add_command">コマンドを追加</string>
     <string name="add_new_item">新しいアイテムを追加</string>
     <string name="additional_settings">詳細設定</string>
@@ -50,6 +51,7 @@
     <string name="btn_continue">続行</string>
     <string name="cancel">キャンセル</string>
     <string name="cancel_all">すべてキャンセル</string>
+    <string name="changelog">更新履歴</string>
     <string name="changelogs">更新履歴</string>
     <string name="check_updates">アップデートを確認</string>
     <string name="choose_a_device">デバイスを選択</string>
@@ -319,6 +321,8 @@
     <string name="no_cloud_backup_found">Google ドライブにバックアップが見つかりません</string>
     <string name="no_crashes">クラッシュは報告されていません。aShell スムーズに実行されています。</string>
     <string name="no_files_download">ファイルが選択されていません（フォルダをダウンロードできません）</string>
+    <string name="no_google_account_message">このデバイスにGoogleアカウントが見つかりませんでした。クラウドバックアップを使用するアカウントを追加しますか？</string>
+    <string name="no_google_account_title">Google アカウントがありません</string>
     <string name="no_history">コマンド履歴はありません</string>
     <string name="no_logs_yet">ログはまだありません！</string>
     <string name="no_logs_yet_msg">ログはまだ記録されていません。ここにログを表示するタイルを実行してください。</string>
@@ -503,6 +507,7 @@
     <string name="uploading_backup">Uploading backup to Google Drive…</string>
     <string name="usb_manager_unavailable">このデバイスではUSBマネージャーは利用できません</string>
     <string name="use">利用</string>
+    <string name="variant">バリアント型</string>
     <string name="version">バージョン</string>
     <string name="version_code">バージョンコード</string>
     <string name="version_name">バージョン名</string>
@@ -518,9 +523,12 @@
     <string name="wireless_debugging_guide_2">aShell Youから送信された通知に6桁のペアリングコードを入力します。</string>
     <string name="wireless_debugging_guide_3">アプリに戻って、ホーム画面の「スタート」ボタンをクリックしてください。</string>
     <string name="wireless_debugging_important_notice">「ワイヤレスデバッグ」オプションの左側がクリック可能であることに注意してください。このオプションをタップすると、「ワイヤレスデバッグペアリング」メニューが開きます。</string>
-    <string name="no_google_account_title">Google アカウントがありません</string>
-    <string name="no_google_account_message">このデバイスにGoogleアカウントが見つかりませんでした。クラウドバックアップを使用するアカウントを追加しますか？</string>
-    <string name="add_account">アカウントを追加</string>
+    <string name="contributors">貢献者</string>
+    <string name="translators">翻訳</string>
+    <string name="des_translators">aShellYou の翻訳を手伝った人</string>
+    <string name="want_to_contribute_too">貢献したいですか?</string>
+    <string name="crowdin_contribution_msg">クラウドイン翻訳プラットフォームにアクセスして貢献してください</string>
+    <string name="changelog_v7_3_0">\n更新履歴画面のUIを改善</string>
     <string name="changelog_v7_2_1">\nメンテナンスのアップデート！</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nユーザーが英語以外のロケールを設定した場合に英語キーボードが表示されない問題を修正\nメールアイコンが正しく表示されない問題を修正\n大きなファイル出力を保存しようとするとアプリがクラッシュする問題を修正\n冗長な権限を削除\nAboutセクションのUIを改善</string>

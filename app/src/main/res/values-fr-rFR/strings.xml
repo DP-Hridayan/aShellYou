@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Annuler la commande en cours</string>
     <string name="about">À propos</string>
@@ -15,6 +15,7 @@
     <string name="adb_via_wireless_debugging">ADB via débogage sans fil</string>
     <string name="adb_via_wireless_debugging_summary">Connectez les appareils (Android 11+) via Wi-Fi en utilisant le débogage sans fil et exécutez des commandes ADB à distance.</string>
     <string name="add">Ajouter</string>
+    <string name="add_account">Ajouter un compte</string>
     <string name="add_command">Ajouter une commande</string>
     <string name="add_new_item">Ajouter un nouvel élément</string>
     <string name="additional_settings">Paramètres supplémentaires</string>
@@ -50,6 +51,7 @@
     <string name="btn_continue">Continuer</string>
     <string name="cancel">Annuler</string>
     <string name="cancel_all">Annuler tout</string>
+    <string name="changelog">Historique des modifications</string>
     <string name="changelogs">Journaux des modifications</string>
     <string name="check_updates">Vérifiez les mises à jour</string>
     <string name="choose_a_device">Choisissez un appareil</string>
@@ -319,6 +321,8 @@
     <string name="no_cloud_backup_found">Aucune sauvegarde trouvée sur Google Drive</string>
     <string name="no_crashes">Aucun plantage n\'a été signalé. AShell Vous fonctionne correctement.</string>
     <string name="no_files_download">Aucun fichier sélectionné (les dossiers ne peuvent pas être téléchargés)</string>
+    <string name="no_google_account_message">Aucun compte Google n\'a été trouvé sur cet appareil. Voulez-vous en ajouter un pour utiliser les sauvegardes cloud ?</string>
+    <string name="no_google_account_title">Aucun compte Google</string>
     <string name="no_history">Aucun historique de commande</string>
     <string name="no_logs_yet">Pas encore de logs !</string>
     <string name="no_logs_yet_msg">Aucun journal n\'a encore été enregistré. Exécutez quelques tuiles pour afficher les logs ici.</string>
@@ -503,6 +507,7 @@
     <string name="uploading_backup">Téléchargement de la sauvegarde sur Google Drive…</string>
     <string name="usb_manager_unavailable">Le gestionnaire USB n\'est pas disponible sur ce périphérique</string>
     <string name="use">Utiliser</string>
+    <string name="variant">Variante</string>
     <string name="version">Version</string>
     <string name="version_code">Code de la version</string>
     <string name="version_name">Nom de la version</string>
@@ -518,9 +523,12 @@
     <string name="wireless_debugging_guide_2">Entrez le code de couplage à six chiffres dans la notification envoyée par aShell You.</string>
     <string name="wireless_debugging_guide_3">Revenez à l\'application et cliquez sur le bouton \"Démarrer\" dans l\'écran d\'accueil.</string>
     <string name="wireless_debugging_important_notice">Veuillez noter que la partie gauche de l\'option Débogage sans fil est cliquable. Appuyer dessus ouvrira le menu de couplage du débogage sans fil.</string>
-    <string name="no_google_account_title">Aucun compte Google</string>
-    <string name="no_google_account_message">Aucun compte Google n\'a été trouvé sur cet appareil. Voulez-vous en ajouter un pour utiliser les sauvegardes cloud ?</string>
-    <string name="add_account">Ajouter un compte</string>
+    <string name="contributors">Contributeurs</string>
+    <string name="translators">Traducteurs</string>
+    <string name="des_translators">Personnes qui ont aidé à traduire aShellYou</string>
+    <string name="want_to_contribute_too">Vous voulez également contribuer ?</string>
+    <string name="crowdin_contribution_msg">Visitez notre plateforme de traduction crowdin pour contribuer</string>
+    <string name="changelog_v7_3_0">\nAmélioration de l\'interface utilisateur dans l\'écran du changelog</string>
     <string name="changelog_v7_2_1">\nMise à jour de la maintenance !</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nFixed an issue where English keyboard might not show up in command input in case user sets a locale other than English for the app\nFixed an issue with Mail icon not showing properly\nFixed an issue which caused app to crash while trying to save huge file outputs\nRemoved redundant permissions\nImproved UI in About section</string>

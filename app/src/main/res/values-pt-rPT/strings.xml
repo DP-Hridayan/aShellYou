@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Abortar comando primeiro</string>
     <string name="about">Sobre</string>
@@ -15,6 +15,7 @@
     <string name="adb_via_wireless_debugging">ADB via Depuração por Wi-Fi</string>
     <string name="adb_via_wireless_debugging_summary">Conecte dispositivos (Android 11+) por Wi-Fi usando a Depuração por Wi-Fi e execute comandos ADB remotamente.</string>
     <string name="add">Adicionar</string>
+    <string name="add_account">Adicionar conta</string>
     <string name="add_command">Adicionar comando</string>
     <string name="add_new_item">Adicionar novo item</string>
     <string name="additional_settings">Configurações adicionais</string>
@@ -50,6 +51,7 @@
     <string name="btn_continue">Continuar</string>
     <string name="cancel">Cancelar</string>
     <string name="cancel_all">Cancelar todos</string>
+    <string name="changelog">Mudanças</string>
     <string name="changelogs">Lista de alterações</string>
     <string name="check_updates">Verificar atualizações</string>
     <string name="choose_a_device">Escolha um dispositivo</string>
@@ -319,6 +321,8 @@
     <string name="no_cloud_backup_found">Nenhum backup encontrado no Google Drive</string>
     <string name="no_crashes">Nenhuma falha foi relatada. aShell Você está rodando sem problemas.</string>
     <string name="no_files_download">Nenhum arquivo selecionado (pastas não podem ser baixadas)</string>
+    <string name="no_google_account_message">Nenhuma conta do Google foi encontrada neste dispositivo. Você gostaria de adicionar uma para usar backups na nuvem?</string>
+    <string name="no_google_account_title">Nenhuma conta do Google</string>
     <string name="no_history">Sem histórico de comandos</string>
     <string name="no_logs_yet">Ainda não há registros!</string>
     <string name="no_logs_yet_msg">Nenhum registro foi gravado ainda. Execute alguns blocos para exibir os registros aqui.</string>
@@ -503,6 +507,7 @@
     <string name="uploading_backup">Enviando backup para o Google Drive…</string>
     <string name="usb_manager_unavailable">O Gerenciador de USB não está disponível neste dispositivo</string>
     <string name="use">Usar</string>
+    <string name="variant">Variante</string>
     <string name="version">Versão</string>
     <string name="version_code">Código da versão</string>
     <string name="version_name">Nome da versão</string>
@@ -518,9 +523,12 @@
     <string name="wireless_debugging_guide_2">Digite o código de 6 dígitos na notificação enviada pelo aShell You.</string>
     <string name="wireless_debugging_guide_3">Volte para o aplicativo e clique no botão \"Iniciar\" na tela inicial.</string>
     <string name="wireless_debugging_important_notice">Por favor, note que a parte esquerda da opção de depuração por Wi-Fi é clicável. Tocando nele abrirá o menu de depuração por Wi-Fi.</string>
-    <string name="no_google_account_title">Nenhuma conta do Google</string>
-    <string name="no_google_account_message">Nenhuma conta do Google foi encontrada neste dispositivo. Você gostaria de adicionar uma para usar backups na nuvem?</string>
-    <string name="add_account">Adicionar conta</string>
+    <string name="contributors">Colaboradores</string>
+    <string name="translators">Tradutores</string>
+    <string name="des_translators">Pessoas que ajudaram a traduzir aShellYou</string>
+    <string name="want_to_contribute_too">Quer contribuir também?</string>
+    <string name="crowdin_contribution_msg">Visite nossa plataforma de tradução do Crowdin para contribuir</string>
+    <string name="changelog_v7_3_0">U\nMelhorada a interface do usuário na tela de mudanças</string>
     <string name="changelog_v7_2_1">\nAtualização da manutenção!</string>
     <string name="changelog_v7_2_0">\nAdicionado opção para executar comandos de adb em Configurações Rápidas adicionando blocos personalizados.\nAdicionado opção de backup na nuvem (Google Drive). Este recurso só está presente nas versões do GitHub.\nEsquema de Cores e UI e UX melhorados em muitas áreas.\nAdicionou muito mais exemplos de comandos de ADB.</string>
     <string name="changelog_v7_1_0">\nCorrigido um problema onde o teclado em inglês poderia não aparecer na entrada de comando caso o utilizador defina um idioma diferente do inglês para a aplicação\nCorrigido um problema com o ícone de email não aparecendo corretamente\nCorrigido um problema que causava o travamento da aplicação ao tentar salvar saídas de arquivos muito grandes\nPermissões redundantes removidas\nMelhorias na interface na seção Sobre</string>

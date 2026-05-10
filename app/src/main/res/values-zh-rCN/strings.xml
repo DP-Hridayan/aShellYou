@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">先中止命令</string>
     <string name="about">关于</string>
@@ -15,6 +15,7 @@
     <string name="adb_via_wireless_debugging">无线ADB</string>
     <string name="adb_via_wireless_debugging_summary">通过“无线调试”功能（安卓11及以上）实现远程执行ADB命令。</string>
     <string name="add">添加</string>
+    <string name="add_account">添加帐户</string>
     <string name="add_command">添加命令</string>
     <string name="add_new_item">添加新项目</string>
     <string name="additional_settings">额外设置</string>
@@ -50,6 +51,7 @@
     <string name="btn_continue">继续</string>
     <string name="cancel">取消</string>
     <string name="cancel_all">全部取消</string>
+    <string name="changelog">更新日志</string>
     <string name="changelogs">更新日志</string>
     <string name="check_updates">检查更新</string>
     <string name="choose_a_device">选择设备</string>
@@ -319,6 +321,8 @@
     <string name="no_cloud_backup_found">未在Google Drive上找到备份</string>
     <string name="no_crashes">没有报告崩溃。你正在顺利运行。</string>
     <string name="no_files_download">未选择文件(文件夹无法下载)</string>
+    <string name="no_google_account_message">在此设备上找不到谷歌帐户。您想要添加一个帐户来使用云备份吗？</string>
+    <string name="no_google_account_title">无Google账户</string>
     <string name="no_history">无历史命令</string>
     <string name="no_logs_yet">还没有日志！</string>
     <string name="no_logs_yet_msg">尚未记录日志。执行一些瓷块以显示日志。</string>
@@ -503,6 +507,7 @@
     <string name="uploading_backup">将备份上传到Google Drive…</string>
     <string name="usb_manager_unavailable">USB 管理器在此设备上不可用</string>
     <string name="use">使用</string>
+    <string name="variant">变体</string>
     <string name="version">版本</string>
     <string name="version_code">版本代码</string>
     <string name="version_name">版本名称</string>
@@ -518,9 +523,12 @@
     <string name="wireless_debugging_guide_2">在aShell You发送的通知中输入配对码</string>
     <string name="wireless_debugging_guide_3">返回aShell You的主页点击无线ADB板块的“开始”即可</string>
     <string name="wireless_debugging_important_notice">注意无线调试选项左侧是可以点的。点击会打开无线调试配对菜单</string>
-    <string name="no_google_account_title">无Google账户</string>
-    <string name="no_google_account_message">在此设备上找不到谷歌帐户。您想要添加一个帐户来使用云备份吗？</string>
-    <string name="add_account">添加帐户</string>
+    <string name="contributors">贡献列表</string>
+    <string name="translators">翻译者</string>
+    <string name="des_translators">帮助翻译 aShellYou 的人</string>
+    <string name="want_to_contribute_too">想要也做贡献吗？</string>
+    <string name="crowdin_contribution_msg">访问我们的crowdin 翻译平台来贡献</string>
+    <string name="changelog_v7_3_0">\n更新后的界面界面</string>
     <string name="changelog_v7_2_1">\n维护更新！</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\n修复了一个问题，在用户为应用程序设置一个除英文以外的区域位置时，英文键盘可能无法在命令输入中显示。\n修复了一个邮件图标没有正确显示\n修复了一个问题，这个问题在试图保存大量文件输出时导致应用程序崩溃。\n删除了多余的权限\n关于部分改进了UI</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">ابتدا دستور را لغو کنید</string>
     <string name="about">درباره</string>
@@ -15,6 +15,7 @@
     <string name="adb_via_wireless_debugging">ADB از طریق اشکال‌زدایی بی‌سیم</string>
     <string name="adb_via_wireless_debugging_summary">دستگاه‌ها (اندروید ۱۱+) را از طریق Wi-Fi با استفاده از اشکال‌زدایی بی‌سیم متصل کرده و دستورات ADB را از راه دور اجرا کنید.</string>
     <string name="add">افزودن</string>
+    <string name="add_account">Add account</string>
     <string name="add_command">افزودن دستور</string>
     <string name="add_new_item">افزودن مورد جدید</string>
     <string name="additional_settings">تنظیمات اضافی</string>
@@ -50,6 +51,7 @@
     <string name="btn_continue">ادامه</string>
     <string name="cancel">لغو</string>
     <string name="cancel_all">لغو همه</string>
+    <string name="changelog">Changelog</string>
     <string name="changelogs">تغییرات</string>
     <string name="check_updates">بررسی بروزرسانی‌ها</string>
     <string name="choose_a_device">یک دستگاه انتخاب کنید</string>
@@ -319,6 +321,8 @@
     <string name="no_cloud_backup_found">No backup found on Google Drive</string>
     <string name="no_crashes">هیچ خرابی گزارش نشده است. aShell You به خوبی کار می‌کند.</string>
     <string name="no_files_download">فایلی انتخاب نشده (پوشه‌ها قابل دانلود نیستند)</string>
+    <string name="no_google_account_message">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
+    <string name="no_google_account_title">No Google Account</string>
     <string name="no_history">تاریخچه دستوری وجود ندارد</string>
     <string name="no_logs_yet">No logs yet!</string>
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
@@ -503,6 +507,7 @@
     <string name="uploading_backup">Uploading backup to Google Drive…</string>
     <string name="usb_manager_unavailable">USB Manager is not available on this device</string>
     <string name="use">استفاده</string>
+    <string name="variant">Variant</string>
     <string name="version">نسخه</string>
     <string name="version_code">کد نسخه</string>
     <string name="version_name">نام نسخه</string>
@@ -518,9 +523,12 @@
     <string name="wireless_debugging_guide_2">کد شش رقمی را در اعلان ارسال شده توسط aShell You وارد کنید.</string>
     <string name="wireless_debugging_guide_3">به برنامه برگردید و روی دکمه \"شروع\" در صفحه اصلی کلیک کنید.</string>
     <string name="wireless_debugging_important_notice">توجه داشته باشید که قسمت چپ گزینه اشکال‌زدایی بی‌سیم قابل کلیک است. ضربه زدن روی آن منوی جفت‌سازی را باز می‌کند.</string>
-    <string name="no_google_account_title">No Google Account</string>
-    <string name="no_google_account_message">No Google account was found on this device. Would you like to add one to use cloud backups?</string>
-    <string name="add_account">Add account</string>
+    <string name="contributors">Contributors</string>
+    <string name="translators">Translators</string>
+    <string name="des_translators">People who helped translate aShellYou</string>
+    <string name="want_to_contribute_too">Want to contribute too?</string>
+    <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
+    <string name="changelog_v7_3_0">\nImproved UI in changelog screen</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nرفع مشکلی که کیبورد انگلیسی در ورودی دستور نمایش داده نمی‌شد وقتی کاربر زبان غیر انگلیسی انتخاب می‌کرد\nرفع مشکل نمایش آیکون ایمیل\nرفع مشکل خرابی برنامه هنگام ذخیره خروجی‌های بزرگ\nحذف مجوزهای اضافی\nبهبود رابط کاربری در بخش درباره</string>
