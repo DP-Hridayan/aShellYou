@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Сначала остановите команду</string>
     <string name="about">О программе</string>
@@ -15,6 +15,7 @@
     <string name="adb_via_wireless_debugging">ADB через Беспроводную Отладку</string>
     <string name="adb_via_wireless_debugging_summary">Подключайте устройства (Android 11+) по Wi-Fi с помощью беспроводной отладки и выполняйте команды ADB удалённо.</string>
     <string name="add">Добавить</string>
+    <string name="add_account">Добавить аккаунт</string>
     <string name="add_command">Добавить команду</string>
     <string name="add_new_item">Добавить новый элемент</string>
     <string name="additional_settings">Дополнительные настройки</string>
@@ -50,6 +51,7 @@
     <string name="btn_continue">Продолжить</string>
     <string name="cancel">Отмена</string>
     <string name="cancel_all">Отменить все</string>
+    <string name="changelog">Список изменений</string>
     <string name="changelogs">Журналы изменений</string>
     <string name="check_updates">Проверить обновления</string>
     <string name="choose_a_device">Выберите устройство</string>
@@ -61,7 +63,7 @@
     <string name="clipboard_empty">Буфер обмена не содержит текст</string>
     <string name="close">Закрыть</string>
     <string name="cloud_backup_failed">Не удалось загрузить резервную копию на Google Drive</string>
-    <string name="cloud_backup_google_drive">Облачное резервное копирование (Google Drive)</string>
+    <string name="cloud_backup_google_drive">Резервное копирование в облако (Google Диск)</string>
     <string name="cloud_backup_successful">Резервное копирование загружено на Google Drive</string>
     <string name="cloud_restore_failed">Не удалось восстановить из Google Drive</string>
     <string name="cloud_restore_successful">Восстановлено с Google Drive</string>
@@ -149,7 +151,7 @@
     <string name="des_save_whole_output">Включите эту опцию, чтобы сохранить вывод всей сессии оболочки.\nЕсли отключен, будет сохранен только вывод последней команды.</string>
     <string name="des_sign_in_with_google">При необходимости привязать ваш аккаунт Google к облачным резервным копиям</string>
     <string name="des_smooth_scroll">Включает плавную прокрутку в выводе оболочки, при нажатии на верхнюю или нижнюю стрелку</string>
-    <string name="des_toggleable">Когда включено, переключатель плиток между состояниями ВКЛ и ВЫКЛ при каждом касании, выполняется отдельная команда для каждого состояния</string>
+    <string name="des_toggleable">Когда включено, плитка переключается между состояниями ВКЛ и ВЫКЛ при каждом нажатии, выполняя разные команды для каждого состояния</string>
     <string name="description">Описание</string>
     <string name="deselect_all">Снять выбор всех</string>
     <string name="developer_options">Параметры разработчика</string>
@@ -254,7 +256,7 @@
     <string name="generate_tile">Генерировать плитку</string>
     <string name="go_home">На Главную</string>
     <string name="go_to_terminal">Перейти в терминал</string>
-    <string name="google_drive">Google диск</string>
+    <string name="google_drive">Google Диск</string>
     <string name="grant">Предоставить</string>
     <string name="grant_permission">Предоставить разрешение</string>
     <string name="grant_shizuku_permission_for_tiles">Разрешение Shizuku не предоставлено!\naShell You требуется разрешение Shizuku для выполнения команд плиток.</string>
@@ -291,7 +293,7 @@
     <string name="local_adb_shell">Локальная ADB оболочка</string>
     <string name="local_adb_summary">Выполняйте ADB команды непосредственно на своем устройстве с помощью Shizuku или root.</string>
     <string name="local_file">Локальный файл</string>
-    <string name="logs">Логи</string>
+    <string name="logs">Журналы</string>
     <string name="look_and_feel">Оформление</string>
     <string name="manual_pair">Ручное сопряжение</string>
     <string name="merge">Объединить</string>
@@ -319,9 +321,11 @@
     <string name="no_cloud_backup_found">Резервная копия не найдена на Google Drive</string>
     <string name="no_crashes">Сообщений о сбоях не поступало. aShell You работает гладко.</string>
     <string name="no_files_download">Файлы не выбраны (Папки невозможно загрузить)</string>
+    <string name="no_google_account_message">На этом устройстве не найден аккаунт Google. Вы хотите добавить один для использования облачного резервного копирования?</string>
+    <string name="no_google_account_title">Нет Аккаунта Google</string>
     <string name="no_history">Нет истории команд</string>
     <string name="no_logs_yet">Пока нет журналов!</string>
-    <string name="no_logs_yet_msg">Журналы пока не зарегистрированы. Выполните несколько клеток, чтобы показать здесь журналы.</string>
+    <string name="no_logs_yet_msg">Никакие журналы еще не записаны. Выполните несколько действий, чтобы показать журналы.</string>
     <string name="no_operations">Операции не выполняются</string>
     <string name="no_root_access">Нет root доступа</string>
     <string name="no_saved_devices">Нет сохраненных устройств</string>
@@ -367,7 +371,7 @@
     <string name="pick_ashellyou_extension">Пожалуйста, выберите файл с расширением \".ashellyou\"</string>
     <string name="port">Порт</string>
     <string name="possible_reasons">Возможные причины</string>
-    <string name="pre_release_github">Предрелиз (GitHub)</string>
+    <string name="pre_release_github">Пред релиз (GitHub)</string>
     <string name="pre_release_warning">Предварительные сборки могут быть нестабильными</string>
     <string name="pre_release_warning_description">Эти версии всё ещё находятся в тестировании и могут содержать незавершенные функции или неожиданные ошибки. Если вы решите обновиться до предварительной версии, имейте в виду, что вещи могут нарушить или вести себя странно.\nЕсли у вас возникнут проблемы, сбои или странное поведение, пожалуйста, сообщите о них, чтобы мы могли исправить и улучшить aShellYou до стабильного релиза.\nСпасибо, что помогаете нам строить лучше!</string>
     <string name="preview">Предпросмотр</string>
@@ -478,7 +482,7 @@
     <string name="tile">Плитка</string>
     <string name="tile_behavior">Поведение тайлов</string>
     <string name="tile_dashboard_notification_access_message">Включите уведомления, чтобы получать уведомления при сбое исполнения плиток</string>
-    <string name="tile_logs">Логи тайлов</string>
+    <string name="tile_logs">Журналы плиток</string>
     <string name="tile_n">Плитка %1$d</string>
     <string name="tile_name">Название плитки</string>
     <string name="tiles">Плитки</string>
@@ -503,6 +507,7 @@
     <string name="uploading_backup">Загрузка резервной копии на Google Drive…</string>
     <string name="usb_manager_unavailable">USB-менеджер не доступен на этом устройстве</string>
     <string name="use">Использовать</string>
+    <string name="variant">Вариант</string>
     <string name="version">Версия</string>
     <string name="version_code">Код версии</string>
     <string name="version_name">Название версии</string>
@@ -518,9 +523,12 @@
     <string name="wireless_debugging_guide_2">Введите шестизначный код сопряжения в уведомление, отправленное aShell You.</string>
     <string name="wireless_debugging_guide_3">Вернитесь в приложение и нажмите кнопку \"Запустить\" на главном экране.</string>
     <string name="wireless_debugging_important_notice">Обратите внимание, что левая часть опции Беспроводная отладка является кликабельной. При нажатии на неё откроется меню сопряжения для беспроводной отладки.</string>
-    <string name="no_google_account_title">Нет аккаунта Google</string>
-    <string name="no_google_account_message">Не найден аккаунт Google на этом устройстве. Хотите добавить его для использования резервных копий в облаке?</string>
-    <string name="add_account">Добавить аккаунт</string>
+    <string name="contributors">Участники проекта</string>
+    <string name="translators">Переводчики</string>
+    <string name="des_translators">Люди, которые помогли перевести aShellYou</string>
+    <string name="want_to_contribute_too">Хотите также внести свой вклад?</string>
+    <string name="crowdin_contribution_msg">Посетите нашу платформу переводов crowdin, чтобы внести свой вклад</string>
+    <string name="changelog_v7_3_0">\nУлучшен интерфейс в окне списка изменений</string>
     <string name="changelog_v7_2_1">\nОбновление технического обслуживания!</string>
     <string name="changelog_v7_2_0">\nДобавлена ​​опция запуска команд adb из Плиток Быстрых Настроек путем добавления собственных плиток.\nДобавлена ​​опция резервного копирования в облако (Google Drive). Эта функция присутствует только в сборниках GitHub.\nУлучшена цветовая схема, пользовательский интерфейс и UX во многих областях.\nДобавлено гораздо больше примеров команд ADB.</string>
     <string name="changelog_v7_1_0">\nИсправлена проблема, когда английская клавиатура могла не появляться при вводе команд, если пользователь установил язык приложения отличный от английского\nИсправлена проблема с неправильным отображением иконки почты\nИсправлена проблема, вызывавшая сбой при сохранении больших файлов\nУдалены избыточные разрешения\nУлучшен интерфейс раздела О приложении</string>
