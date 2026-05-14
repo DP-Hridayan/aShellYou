@@ -230,6 +230,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 
+    implementation(libs.aboutlibraries.core)
+
     githubImplementations(
         libs.play.services.auth,
         libs.credentials,
@@ -246,7 +248,4 @@ dependencies {
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
-
-    // AboutLibraries: backend-only for automatic dependency license metadata
-    implementation(libs.aboutlibraries.core)
 }
