@@ -154,6 +154,21 @@ androidComponents {
     }
 }
 
+aboutLibraries {
+    offlineMode = false
+
+    collect {
+        includePlatform = true
+        fetchRemoteLicense = false
+        fetchRemoteFunding = false
+    }
+
+    library {
+        duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
+        duplicationRule = com.mikepenz.aboutlibraries.plugin.DuplicateRule.SIMPLE
+    }
+}
+
 tasks.withType<KotlinCompile>().configureEach {
     ksp {
         arg("room.schemaLocation", "$projectDir/schemas")

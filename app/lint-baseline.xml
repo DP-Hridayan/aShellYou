@@ -8,7 +8,7 @@
         errorLine2="        ~~~~~~~~~~~~~~">
         <location
             file="build.gradle.kts"
-            line="27"
+            line="28"
             column="9"/>
     </issue>
 
@@ -107,7 +107,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="93"
+            line="96"
             column="5"/>
     </issue>
 
@@ -118,7 +118,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="97"
+            line="100"
             column="5"/>
     </issue>
 
@@ -129,7 +129,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="105"
+            line="109"
             column="5"/>
     </issue>
 
@@ -140,7 +140,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="115"
+            line="119"
             column="5"/>
     </issue>
 
@@ -151,7 +151,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="116"
+            line="120"
             column="5"/>
     </issue>
 
@@ -162,7 +162,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="213"
+            line="221"
             column="5"/>
     </issue>
 
@@ -173,7 +173,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="224"
+            line="232"
             column="5"/>
     </issue>
 
@@ -184,7 +184,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="225"
+            line="233"
             column="5"/>
     </issue>
 
@@ -195,7 +195,18 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="226"
+            line="234"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;libraries&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;library_count&quot;>%1$d libraries detected&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="302"
             column="5"/>
     </issue>
 
@@ -206,7 +217,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="316"
+            line="328"
             column="5"/>
     </issue>
 
@@ -214,14 +225,28 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/ea489fcf7c341f9689e70eca78b09d17/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/2c8b6fcbe17ad4fb6471d7863d10de43/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/ea489fcf7c341f9689e70eca78b09d17/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/2c8b6fcbe17ad4fb6471d7863d10de43/transformed/out/jars/classes.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
     </issue>
 
     <issue
@@ -851,7 +876,7 @@
         errorLine2="                              ~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="87"
+            line="89"
             column="31"/>
     </issue>
 
@@ -862,7 +887,7 @@
         errorLine2="                           ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-pt-rPT/strings.xml"
-            line="291"
+            line="304"
             column="28"/>
     </issue>
 
