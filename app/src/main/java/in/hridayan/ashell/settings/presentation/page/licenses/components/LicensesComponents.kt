@@ -64,9 +64,9 @@ import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.settings.domain.model.LibraryItem
 
 /**
- * Prominent card shown at the top of the screen displaying the app's own license (GPLv3).
+ * Prominent card shown at the top of the screen displaying the app's own licenses (GPLv3).
  *
- * Includes the license name, a short description, a clickable URL to the full text,
+ * Includes the licenses name, a short description, a clickable URL to the full text,
  * and a button to open a full-text dialog.
  */
 @Composable
@@ -323,7 +323,7 @@ fun LibraryListItem(
                         }
                     }
 
-                    // View license text button (only if content is available)
+                    // View licenses text button (only if content is available)
                     if (!library.licenseContent.isNullOrBlank() || library.licenseUrl != null) {
                         TextButton(
                             onClick = withHaptic(HapticFeedbackType.VirtualKey) {

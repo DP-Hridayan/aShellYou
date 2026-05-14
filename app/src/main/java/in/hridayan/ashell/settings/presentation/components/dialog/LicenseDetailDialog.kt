@@ -40,8 +40,8 @@ import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.settings.domain.model.LibraryItem
 
 /**
- * Full-screen-ish dialog that renders the complete license text for [library].
- * Falls back to showing the license URL if no content is available.
+ * Full-screen-ish dialog that renders the complete licenses text for [library].
+ * Falls back to showing the licenses URL if no content is available.
  */
 @Composable
 fun LicenseDetailDialog(

@@ -68,7 +68,7 @@ fun LicensesScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
 
-    // Track whether the app-license dialog is open independently of the ViewModel
+    // Track whether the app-licenses dialog is open independently of the ViewModel
     var showAppLicenseDialog by rememberSaveable { mutableStateOf(false) }
 
     SettingsScaffold(
@@ -88,7 +88,7 @@ fun LicensesScreen(
         },
     )
 
-    // App license full-text dialog
+    // App licenses full-text dialog
     if (showAppLicenseDialog) {
         AppLicenseDetailDialog(onDismiss = { showAppLicenseDialog = false })
     }

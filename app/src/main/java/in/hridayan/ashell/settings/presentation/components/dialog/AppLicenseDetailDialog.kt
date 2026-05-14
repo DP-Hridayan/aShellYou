@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,6 +22,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -38,7 +40,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.utils.openUrl
 
 /**
- * Dialog that displays the GPLv3 preamble / summary for the app's own license.
+ * Dialog that displays the GPLv3 preamble / summary for the app's own licenses.
  * The full text links to the GitHub repo.
  */
 @Composable
@@ -86,7 +88,7 @@ fun AppLicenseDetailDialog(onDismiss: () -> Unit) {
                         .verticalScroll(scrollState)
                 ) {
                     Text(
-                        text = stringResource(R.string.gpl_3_0_preamble),
+                        text = rememberLicenseText("gpl_3_0.txt"),
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontFamily = FontFamily.Monospace,
                         ),
@@ -132,4 +134,17 @@ private fun responsiveHeight(): Dp {
     return with(LocalDensity.current) {
         LocalWindowInfo.current.containerSize.height.toDp() * 0.75f
     }
+}
+
+@Composable
+private fun rememberLicenseText(fileName: String): String {
+    val context = LocalContext.current
+
+    return remember(fileName) {
+        context.readAssetFile("licenses/$fileName")
+    }
+}
+
+private fun Context.readAssetFile(path: String): String {
+    return assets.open(path).bufferedReader().use { it.readText() }
 }
