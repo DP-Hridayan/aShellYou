@@ -144,8 +144,8 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_ISSUE_FEATURE_REQUEST)
                 )
 
-                SettingsKeys.LICENSE -> _uiEvent.emit(
-                    SettingsUiEvent.OpenUrl(UrlConst.URL_GITHUB_REPO_LICENSE)
+                SettingsKeys.LICENSES -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.LicensesScreen)
                 )
 
                 SettingsKeys.GITHUB -> _uiEvent.emit(

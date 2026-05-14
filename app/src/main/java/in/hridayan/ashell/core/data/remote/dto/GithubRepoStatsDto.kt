@@ -14,6 +14,6 @@ data class GithubRepoStatsDto(
     @SerialName("open_issues_count")
     val openIssues: Int,
 
-    @SerialName("license")
+    @SerialName("licenses")
     val license: LicenseDto?
 )

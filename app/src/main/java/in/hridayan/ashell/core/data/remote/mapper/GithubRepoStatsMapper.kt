@@ -22,7 +22,7 @@ fun mapToRepoStats(
         license = repoInfo.license?.spdxId
             ?.takeIf { it != "NOASSERTION" }
             ?: repoInfo.license?.name
-            ?: "No license",
+            ?: "No licenses",
         latestVersion = latestRelease?.tagName ?: "N/A"
     )
 }

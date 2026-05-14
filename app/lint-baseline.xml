@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 9.2.0" type="baseline" client="gradle" dependencies="false" name="AGP (9.2.0)" variant="all" version="9.2.0">
+<issues format="6" by="lint 9.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (9.2.1)" variant="all" version="9.2.1">
 
     <issue
         id="OldTargetApi"
@@ -47,79 +47,13 @@
 
     <issue
         id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.application than 9.2.0 is available: 9.2.1"
-        errorLine1="agp = &quot;9.2.0&quot;"
-        errorLine2="      ~~~~~~~">
+        message="A newer version of Gradle than 9.5.0 is available: 9.5.1"
+        errorLine1="distributionUrl=https\://services.gradle.org/distributions/gradle-9.5.0-bin.zip"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.library than 9.2.0 is available: 9.2.1"
-        errorLine1="agp = &quot;9.2.0&quot;"
-        errorLine2="      ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.tools.build:gradle than 9.2.0 is available: 9.2.1"
-        errorLine1="agp = &quot;9.2.0&quot;"
-        errorLine2="      ~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="3"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of `compileSdk` than 36 is available: 37"
-        errorLine1="        version = release(36)"
-        errorLine2="                  ~~~~~~~~~~~">
-        <location
-            file="build.gradle.kts"
-            line="18"
-            column="19"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose.animation:animation than 1.11.0 is available: 1.11.1"
-        errorLine1="composeAnimation = &quot;1.11.0&quot;"
-        errorLine2="                   ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="7"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose:compose-bom than 2026.04.01 is available: 2026.05.00"
-        errorLine1="composeBom = &quot;2026.04.01&quot;"
-        errorLine2="             ~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="8"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose.material3:material3 than 1.5.0-alpha18 is available: 1.5.0-alpha19"
-        errorLine1="material3 = &quot;1.5.0-alpha18&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="31"
-            column="13"/>
+            file="$HOME/StudioProjects/aShellYou/gradle/wrapper/gradle-wrapper.properties"
+            line="4"
+            column="17"/>
     </issue>
 
     <issue
@@ -272,7 +206,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="314"
+            line="316"
             column="5"/>
     </issue>
 
@@ -280,14 +214,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/8e1d5edde7dd1e5761ee9f0f31eb4b89/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/ea489fcf7c341f9689e70eca78b09d17/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/8e1d5edde7dd1e5761ee9f0f31eb4b89/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/ea489fcf7c341f9689e70eca78b09d17/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
@@ -917,7 +851,7 @@
         errorLine2="                              ~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="85"
+            line="87"
             column="31"/>
     </issue>
 
@@ -928,7 +862,7 @@
         errorLine2="                           ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-pt-rPT/strings.xml"
-            line="289"
+            line="291"
             column="28"/>
     </issue>
 
