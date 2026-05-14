@@ -547,7 +547,7 @@
     <string name="wireless_debugging_guide_2">Digite o código de 6 dígitos na notificação enviada pelo aShell You.</string>
     <string name="wireless_debugging_guide_3">Volte para o aplicativo e clique no botão \"Iniciar\" na tela inicial.</string>
     <string name="wireless_debugging_important_notice">Por favor, note que a parte esquerda da opção de depuração por Wi-Fi é clicável. Tocando nele abrirá o menu de depuração por Wi-Fi.</string>
-    <string name="changelog_v7_3_0">U\nMelhorada a interface do usuário na tela de mudanças</string>
+    <string name="changelog_v7_3_0">\nInterface de usuário melhorada no ecrã de mudanças\nContribuidores adicionados na seção\nTela de Licenças Adicionadas que mostra informações detalhadas de licença sobre o aplicativo e outras bibliotecas usadas pelo aplicativo</string>
     <string name="changelog_v7_2_1">\nAtualização da manutenção!</string>
     <string name="changelog_v7_2_0">\nAdicionado opção para executar comandos de adb em Configurações Rápidas adicionando blocos personalizados.\nAdicionado opção de backup na nuvem (Google Drive). Este recurso só está presente nas versões do GitHub.\nEsquema de Cores e UI e UX melhorados em muitas áreas.\nAdicionou muito mais exemplos de comandos de ADB.</string>
     <string name="changelog_v7_1_0">\nCorrigido um problema onde o teclado em inglês poderia não aparecer na entrada de comando caso o utilizador defina um idioma diferente do inglês para a aplicação\nCorrigido um problema com o ícone de email não aparecendo corretamente\nCorrigido um problema que causava o travamento da aplicação ao tentar salvar saídas de arquivos muito grandes\nPermissões redundantes removidas\nMelhorias na interface na seção Sobre</string>

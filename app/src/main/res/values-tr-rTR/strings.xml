@@ -547,7 +547,7 @@
     <string name="wireless_debugging_guide_2">Altı haneli Eşleştirme Kodunu aShell You tarafından gönderilen bildirime girin.</string>
     <string name="wireless_debugging_guide_3">Uygulamaya geri dönün ve ana ekrandaki \"Başlat\" düğmesine tıklayın.</string>
     <string name="wireless_debugging_important_notice">Lütfen Kablosuz Hata Ayıklama seçeneğinin sol kısmının tıklanabilir olduğuna dikkat edin. Üzerine dokunulduğunda Kablosuz Hata Ayıklama Eşleştirme menüsü açılır.</string>
-    <string name="changelog_v7_3_0">\nImproved UI in changelog screen</string>
+    <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nKullanıcının uygulama için İngilizce dışında bir dil belirlediği durumlarda, komut girişinde İngilizce klavyenin görünmemesi sorunu düzeltildi\nPosta simgesinin düzgün gösterilmemesi sorunu düzeltildi\nDevasa dosya çıktılarını kaydetmeye çalışırken uygulamanın çökmesine neden olan bir sorun düzeltildi\nGereksiz izinler kaldırıldı\nHakkında bölümündeki kullanıcı arayüzü iyileştirildi</string>
