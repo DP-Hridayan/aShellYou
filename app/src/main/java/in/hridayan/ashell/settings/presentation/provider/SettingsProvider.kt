@@ -163,6 +163,12 @@ object SettingsProvider {
                 iconResId = R.drawable.ic_changelog,
             ),
             nullPreferenceItem(
+                key = SettingsKeys.LICENSES,
+                titleResId = R.string.licenses,
+                descriptionResId = R.string.des_licenses,
+                iconResId = R.drawable.ic_license
+            ),
+            nullPreferenceItem(
                 key = SettingsKeys.CRASH_HISTORY,
                 titleResId = R.string.crash_history,
                 descriptionResId = R.string.des_crash_history,

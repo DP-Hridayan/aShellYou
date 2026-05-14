@@ -3,7 +3,9 @@ package `in`.hridayan.ashell.navigation
 import `in`.hridayan.ashell.shell.file_browser.domain.model.ConnectionMode
 import kotlinx.serialization.Serializable
 
-sealed class NavRoutes {
+sealed class
+
+NavRoutes {
     @Serializable
     object AboutScreen : NavRoutes()
 
@@ -24,6 +26,9 @@ sealed class NavRoutes {
 
     @Serializable
     object ChangelogScreen : NavRoutes()
+
+    @Serializable
+    object LicensesScreen : NavRoutes()
 
     @Serializable
     object CommandExamplesScreen : NavRoutes()

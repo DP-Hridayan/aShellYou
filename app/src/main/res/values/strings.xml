@@ -290,6 +290,8 @@
     <string name="lead_developer">Lead developer</string>
     <string name="least_used">Least used</string>
     <string name="license">License</string>
+    <string name="licenses">Licenses</string>
+    <string name="des_licenses">View the licenses that the app and libraries are using</string>
     <string name="load">Load</string>
     <string name="load_predefined_commands">Load predefined commands</string>
     <string name="loading">Loading</string>
