@@ -3,6 +3,7 @@
 package `in`.hridayan.ashell.settings.presentation.page.licenses.screens
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,6 +46,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.settings.domain.model.LibraryItem
 import `in`.hridayan.ashell.settings.domain.model.LicensesUiState
 import `in`.hridayan.ashell.settings.presentation.components.dialog.AppLicenseDetailDialog
@@ -165,21 +167,29 @@ private fun LicensesLoadedState(
     onLibrarySelected: (LibraryItem) -> Unit,
     onShowAppLicenseDetail: () -> Unit,
 ) {
+    val isKeyboardVisible = isKeyboardVisible().value
+
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         state = listState,
         contentPadding = innerPadding,
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
-        item(key = "app_license_card") {
-            AppLicenseCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp)
-                    .padding(top = 16.dp, bottom = 8.dp)
-                    .animateItem(),
-                onReadFullText = onShowAppLicenseDetail,
-            )
+        if (!isKeyboardVisible) {
+            item(key = "app_license_card") {
+                AppLicenseCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp)
+                        .padding(top = 16.dp, bottom = 8.dp)
+                        .animateItem(
+                            fadeInSpec = tween(durationMillis = 300),
+                            fadeOutSpec = tween(durationMillis = 200),
+                            placementSpec = tween(durationMillis = 300),
+                        ),
+                    onReadFullText = onShowAppLicenseDetail,
+                )
+            }
         }
 
         item(key = "third_party_header") {
