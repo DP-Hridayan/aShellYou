@@ -160,12 +160,20 @@ fun AppLicenseCard(
                         modifier = Modifier
                             .size(16.dp)
                             .padding(end = 2.dp),
+                        tint = MaterialTheme.colorScheme.onTertiaryContainer
                     )
-                    Text(stringResource(R.string.view_on_github))
+
+                    Text(
+                        text = stringResource(R.string.view_on_github),
+                        color = MaterialTheme.colorScheme.onTertiaryContainer
+                    )
                 }
 
                 TextButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) { onReadFullText() }) {
-                    Text(stringResource(R.string.full_license_text))
+                    Text(
+                        text = stringResource(R.string.full_license_text),
+                        color = MaterialTheme.colorScheme.onTertiaryContainer
+                    )
                 }
             }
         }
