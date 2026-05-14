@@ -539,6 +539,65 @@
     <string name="want_to_contribute_too">Want to contribute too?</string>
     <string name="crowdin_contribution_msg">Visit our crowdin translation platform to contribute</string>
 
+    <!-- Licenses screen strings -->
+    <string name="this_application">This application</string>
+    <string name="gpl_3_0_description">aShell You is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</string>
+    <string name="view_on_github">View on GitHub</string>
+    <string name="full_license_text">Full license text</string>
+    <string name="third_party_libraries">Third-party libraries</string>
+    <string name="library_count">%1$d libraries detected</string>
+    <string name="search_libraries">Search libraries, authors, licenses…</string>
+    <string name="loading_licenses">Loading license information…</string>
+    <string name="no_libraries_found">No libraries found</string>
+    <string name="try_different_search">Try a different search term</string>
+    <string name="artifact_id">Artifact ID</string>
+    <string name="developer">Developer</string>
+    <string name="license_label">License</string>
+    <string name="expand">Expand</string>
+    <string name="collapse">Collapse</string>
+    <string name="open_url">Open URL</string>
+    <string name="no_license_content_available">No license content available. Tap \'Open URL\' to view the license online.</string>
+    <string name="gpl_3_0_preamble" translatable="false">
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
+
+Copyright (C) 2007 Free Software Foundation, Inc. &lt;https://fsf.org/&gt;
+
+Everyone is permitted to copy and distribute verbatim copies of this
+license document, but changing it is not allowed.
+
+PREAMBLE
+
+The GNU General Public License is a free, copyleft license for
+software and other kinds of works.
+
+When we speak of free software, we are referring to freedom, not
+price. Our General Public Licenses are designed to make sure that you
+have the freedom to distribute copies of free software (and charge for
+them if you wish), that you receive source code or can get it if you
+want it, that you can change the software or use pieces of it in new
+free programs, and that you know you can do these things.
+
+To protect your rights, we need to prevent others from denying you
+these rights or asking you to surrender the rights. Therefore, you
+have certain responsibilities if you distribute copies of the software,
+or if you modify it: responsibilities to respect the freedom of others.
+
+For example, if you distribute copies of such a program, whether
+gratis or for a fee, you must pass on to the recipients the same
+freedoms that you received. You must make sure that they, too, receive
+or can get the source code. And you must show them these terms so they
+know their rights.
+
+Developers that use the GNU GPL protect your rights with two steps:
+(1) assert copyright on the software, and (2) offer you this License
+giving you legal permission to copy, distribute and/or modify it.
+
+This is the preamble of the GNU GPL v3.0.
+For the full license text, please visit:
+https://www.gnu.org/licenses/gpl-3.0.html
+    </string>
+
     /**
     * Changelogs
     * Created by DP-Hridayan

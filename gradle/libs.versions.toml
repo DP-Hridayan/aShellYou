@@ -44,6 +44,7 @@ sunSecurityAndroid = "1.1"
 work = "2.11.2"
 shapeindicators = "2.1.0"
 coil = "3.4.0"
+aboutlibraries = "14.2.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -53,6 +54,7 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 release-lint-baseline = { id = "release.lint.baseline" }
+aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutlibraries" }
 
 [libraries]
 agp-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -117,3 +119,4 @@ sun-security-android = { module = "com.github.MuntashirAkon:sun-security-android
 shapeindicators = { group = "io.github.dp-hridayan", name = "shapeindicators", version.ref = "shapeindicators" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
+aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }

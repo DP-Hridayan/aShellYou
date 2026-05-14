@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.release.lint.baseline)
+    alias(libs.plugins.aboutlibraries)
 }
 
 android {
@@ -245,4 +246,7 @@ dependencies {
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
+
+    // AboutLibraries: backend-only for automatic dependency license metadata
+    implementation(libs.aboutlibraries.core)
 }

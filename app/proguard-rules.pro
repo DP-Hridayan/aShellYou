@@ -59,3 +59,12 @@
 -dontwarn com.google.http.**
 -dontwarn org.apache.http.**
 -dontwarn com.google.api.client.http.apache.**
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AboutLibraries – keep runtime model so R8 doesn't strip the parsed objects
+# ─────────────────────────────────────────────────────────────────────────────
+-keep class com.mikepenz.aboutlibraries.entity.** { *; }
+-keep class com.mikepenz.aboutlibraries.Libs { *; }
+-keep class com.mikepenz.aboutlibraries.Libs$Builder { *; }
+-keep class com.mikepenz.aboutlibraries.LibsBuilder { *; }
+-dontwarn com.mikepenz.aboutlibraries.**
