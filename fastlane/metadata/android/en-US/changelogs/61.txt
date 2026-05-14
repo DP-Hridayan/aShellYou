@@ -1,0 +1,3 @@
+* Improved UI in changelog screen
+* Added translation contributors in about section
+* Added Licenses screen that shows detailed license information about the app and other libraries used by the app
