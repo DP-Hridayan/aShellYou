@@ -29,11 +29,13 @@ import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.presentation.search.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
 fun BehaviorScreen(
     modifier: Modifier = Modifier,
+    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val settings = settingsViewModel.behaviorPageList
@@ -52,6 +54,12 @@ fun BehaviorScreen(
     }
 
     val listState = rememberLazyListState()
+    val highlightedKey = rememberHighlightState(
+        highlightKeyName = highlightKey,
+        settings = settings,
+        listState = listState,
+        headerItemCount = 0,
+    )
 
     SettingsScaffold(
         modifier = modifier,
@@ -62,6 +70,7 @@ fun BehaviorScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                state = listState,
                 contentPadding = innerPadding
             ) {
                 itemsIndexed(settings) { index, group ->
@@ -91,7 +100,8 @@ fun BehaviorScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }
@@ -108,7 +118,8 @@ fun BehaviorScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }

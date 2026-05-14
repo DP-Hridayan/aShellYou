@@ -59,11 +59,13 @@ import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
+import `in`.hridayan.ashell.settings.presentation.search.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
 fun AutoUpdateScreen(
     modifier: Modifier = Modifier,
+    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel()
 ) {
@@ -110,6 +112,12 @@ fun AutoUpdateScreen(
     }
 
     val listState = rememberLazyListState()
+    val highlightedKey = rememberHighlightState(
+        highlightKeyName = highlightKey,
+        settings = settings,
+        listState = listState,
+        headerItemCount = 1,
+    )
 
     SettingsScaffold(
         modifier = modifier,
@@ -158,7 +166,8 @@ fun AutoUpdateScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }
@@ -175,7 +184,8 @@ fun AutoUpdateScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }

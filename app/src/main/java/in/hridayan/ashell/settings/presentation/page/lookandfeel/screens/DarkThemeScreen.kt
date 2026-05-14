@@ -23,16 +23,24 @@ import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedSh
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.presentation.search.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
 fun DarkThemeScreen(
     modifier: Modifier = Modifier,
+    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val settings = settingsViewModel.darkThemePageList
 
     val listState = rememberLazyListState()
+    val highlightedKey = rememberHighlightState(
+        highlightKeyName = highlightKey,
+        settings = settings,
+        listState = listState,
+        headerItemCount = 0,
+    )
 
     SettingsScaffold(
         modifier = modifier,
@@ -44,6 +52,7 @@ fun DarkThemeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                state = listState,
                 contentPadding = innerPadding
             ) {
                 itemsIndexed(settings) { index, group ->
@@ -73,7 +82,8 @@ fun DarkThemeScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }
@@ -90,7 +100,8 @@ fun DarkThemeScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }

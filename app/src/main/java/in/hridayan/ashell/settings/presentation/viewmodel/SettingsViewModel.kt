@@ -101,15 +101,15 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             when (key) {
                 SettingsKeys.LOOK_AND_FEEL -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.LookAndFeelScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.LookAndFeelScreen())
                 )
 
                 SettingsKeys.AUTO_UPDATE -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.AutoUpdateScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.AutoUpdateScreen())
                 )
 
                 SettingsKeys.BEHAVIOR -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.BehaviorScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.BehaviorScreen())
                 )
 
                 SettingsKeys.QUICK_SETTINGS_TILES -> _uiEvent.emit(
@@ -117,11 +117,11 @@ class SettingsViewModel @Inject constructor(
                 )
 
                 SettingsKeys.BACKUP_AND_RESTORE -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.BackupAndRestoreScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.BackupAndRestoreScreen())
                 )
 
                 SettingsKeys.ABOUT -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.AboutScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.AboutScreen())
                 )
 
                 SettingsKeys.CHANGELOGS -> _uiEvent.emit(
@@ -167,7 +167,7 @@ class SettingsViewModel @Inject constructor(
                 }
 
                 SettingsKeys.DARK_THEME -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen())
                 )
 
                 SettingsKeys.RESET_APP_SETTINGS -> _uiEvent.emit(

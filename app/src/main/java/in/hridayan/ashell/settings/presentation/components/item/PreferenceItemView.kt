@@ -11,13 +11,15 @@ import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 fun PreferenceItemView(
     item: PreferenceItem,
     modifier: Modifier = Modifier,
-    shape: CustomCardShape = CustomCardShape(16.dp)
+    shape: CustomCardShape = CustomCardShape(16.dp),
+    isHighlighted: Boolean = false,
 ) {
     when (item) {
         is PreferenceItem.BoolPreferenceItem -> BooleanPreferenceItemView(
             item = item,
             modifier = modifier,
-            shape = shape
+            shape = shape,
+            isHighlighted = isHighlighted,
         )
 
         is PreferenceItem.IntPreferenceItem -> IntPreferenceItemView(
@@ -31,7 +33,8 @@ fun PreferenceItemView(
         is PreferenceItem.NullPreferenceItem -> NullPreferenceItemView(
             item = item,
             modifier = modifier,
-            shape = shape
+            shape = shape,
+            isHighlighted = isHighlighted,
         )
 
         else -> {}

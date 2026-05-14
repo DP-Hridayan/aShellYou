@@ -26,6 +26,7 @@ import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedDescription
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedIcon
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedTitle
+import `in`.hridayan.ashell.settings.presentation.search.highlightCardColors
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
@@ -33,6 +34,7 @@ fun NullPreferenceItemView(
     modifier: Modifier = Modifier,
     item: PreferenceItem,
     shape: CustomCardShape,
+    isHighlighted: Boolean = false,
     contentDescription: String = "",
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -45,6 +47,7 @@ fun NullPreferenceItemView(
     CustomCard(
         modifier = modifier,
         shape = shape,
+        colors = highlightCardColors(isHighlighted),
         onClick = withHaptic {
             settingsViewModel.onItemClicked(item.key)
         }
