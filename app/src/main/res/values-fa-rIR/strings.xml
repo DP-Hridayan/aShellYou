@@ -547,7 +547,7 @@
     <string name="wireless_debugging_guide_2">کد شش رقمی را در اعلان ارسال شده توسط aShell You وارد کنید.</string>
     <string name="wireless_debugging_guide_3">به برنامه برگردید و روی دکمه \"شروع\" در صفحه اصلی کلیک کنید.</string>
     <string name="wireless_debugging_important_notice">توجه داشته باشید که قسمت چپ گزینه اشکال‌زدایی بی‌سیم قابل کلیک است. ضربه زدن روی آن منوی جفت‌سازی را باز می‌کند.</string>
-    <string name="changelog_v7_3_0">\nImproved UI in changelog screen</string>
+    <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nرفع مشکلی که کیبورد انگلیسی در ورودی دستور نمایش داده نمی‌شد وقتی کاربر زبان غیر انگلیسی انتخاب می‌کرد\nرفع مشکل نمایش آیکون ایمیل\nرفع مشکل خرابی برنامه هنگام ذخیره خروجی‌های بزرگ\nحذف مجوزهای اضافی\nبهبود رابط کاربری در بخش درباره</string>

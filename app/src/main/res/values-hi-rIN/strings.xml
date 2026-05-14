@@ -547,7 +547,7 @@
     <string name="wireless_debugging_guide_2">aShell द्वारा भेजी गई सूचना में छह अंकों का युग्मन कोड दर्ज करें।</string>
     <string name="wireless_debugging_guide_3">ऐप पर वापस आएं और होम स्क्रीन में \"स्टार्ट\" बटन पर क्लिक करें।</string>
     <string name="wireless_debugging_important_notice">कृपया ध्यान दें कि वायरलेस डिबगिंग विकल्प का बायाँ भाग क्लिक करने योग्य है। इस पर टैप करने से वायरलेस डिबगिंग पेयरिंग मेनू खुल जाएगा।</string>
-    <string name="changelog_v7_3_0">\nImproved UI in changelog screen</string>
+    <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
     <string name="changelog_v7_1_0">\nउस समस्या को ठीक किया जहां अंग्रेजी कीबोर्ड कमांड इनपुट में नहीं दिखता था जब उपयोगकर्ता अंग्रेजी के अलावा कोई भाषा सेट करता था\nमेल आइकन ठीक से न दिखने की समस्या ठीक की\nबड़ी फाइल आउटपुट सहेजते समय ऐप क्रैश होने की समस्या ठीक की\nअनावश्यक अनुमतियां हटाईं\nAbout सेक्शन में UI सुधार</string>

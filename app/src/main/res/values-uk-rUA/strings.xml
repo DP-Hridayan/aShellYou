@@ -547,7 +547,7 @@
     <string name="wireless_debugging_guide_2">Введіть шестизначний код сполучення в повідомлення, надіслане aShell You.</string>
     <string name="wireless_debugging_guide_3">Поверніться до програми та натисніть кнопку \"Запустити\" на головному екрані.</string>
     <string name="wireless_debugging_important_notice">Зверніть увагу, що ліва частина опції бездротового налагодження є активною. При натисканні на неї відкриється меню сполучення для бездротового налагодження.</string>
-    <string name="changelog_v7_3_0">\nПокращений інтерфейс користувача на екрані змін</string>
+    <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nОновлення технічного обслуговування!</string>
     <string name="changelog_v7_2_0">\nДодано опцію запуску команд adb з Плиток Швидких Налаштувань шляхом додавання власних плиток.\nДодано опцію резервного копіювання в хмару (Google Drive). Ця функція присутня лише у збірках GitHub.\nПокращено колірну схему, інтерфейс користувача та UX у багатьох областях.\nДодано набагато більше прикладів команд ADB.</string>
     <string name="changelog_v7_1_0">\nВиправлена ​​проблема, коли англійська клавіатура могла не з\'являтися при введенні команд, якщо користувач встановив мову програми відмінну від англійської\nВиправлено проблему з неправильним відображенням іконки пошти\nВиправлено проблему, що викликала збій при збереженні великих файлів\nВидалено надлишкові дозволи\nПокращено інтерфейс розділу Про програму</string>
