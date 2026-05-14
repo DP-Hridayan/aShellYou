@@ -27,6 +27,7 @@
     <string name="app_crashed">التطبيق توقف</string>
     <string name="app_tagline">ADB في متناول يدك</string>
     <string name="apply_to_all">تطبيق على الجميع ( متبقي%1$d)</string>
+    <string name="artifact_id">معرف الأداة</string>
     <string name="auto_update">تحديث تلقائي</string>
     <string name="back">رجوع</string>
     <string name="back_button">عودة</string>
@@ -68,6 +69,7 @@
     <string name="cloud_restore_failed">فشل الاستعادة من Google Drive</string>
     <string name="cloud_restore_successful">استعادة من Google Drive</string>
     <string name="code_pair_instruction">افتح \"التصحيح اللاسلكي\" على الجهاز المستهدف وانقر على \"جهاز مزدوج مع رمز الاقتران\"</string>
+    <string name="collapse">تصغير</string>
     <string name="command">أمر</string>
     <string name="command_not_found">لم يتم العثور على أمر!</string>
     <string name="command_title">إدخال أمر ADB</string>
@@ -89,6 +91,7 @@
     <string name="connection_failed">فشل الاتصال</string>
     <string name="connection_lost">فقدان الاتصال</string>
     <string name="connection_lost_back_message">تم فقدان اتصال التصحيح اللاسلكي. ماذا تريد أن تفعل؟</string>
+    <string name="contributors">المساهمون</string>
     <string name="copied_items">تم نسخ العناصر %1$d</string>
     <string name="copied_to_clipboard">تم النسخ إلى الحافظة!</string>
     <string name="copy">نسخ</string>
@@ -99,6 +102,7 @@
     <string name="create">إنشاء</string>
     <string name="create_folder">إنشاء مجلد</string>
     <string name="create_new_tile">إنشاء بلاط جديد</string>
+    <string name="crowdin_contribution_msg">قم بزيارة منصة ترجمة crowdin الخاصة بنا للمساهمة</string>
     <string name="current_version">الإصدار الحالي</string>
     <string name="cut_items">قطع العناصر %1$d</string>
     <string name="cut_to_clipboard">قطع إلى الحافظة</string>
@@ -139,6 +143,7 @@
     <string name="des_high_contrast_dark_mode">سمة سوداء خالصة لأجهزة OLED</string>
     <string name="des_hridayan">مجرد شخص يحب التطبيقات والتصميم</string>
     <string name="des_initial_state">الحالة البصرية الثابتة للبلاط عندما تظهر في لوحة الإعدادات السريعة</string>
+    <string name="des_licenses">عرض التراخيص التي يستخدمها التطبيق والمكتبات</string>
     <string name="des_local_backup">حفظ النسخ الاحتياطي المشفر إلى جهازك</string>
     <string name="des_local_restore">اختر ملف النسخ الاحتياطي من جهازك</string>
     <string name="des_look_and_feel">الألوان الديناميكية، السمة الداكنة، اللغة</string>
@@ -153,8 +158,10 @@
     <string name="des_sign_in_with_google">اختياريا ربط حسابك في جوجل للنسخ الاحتياطية السحابية</string>
     <string name="des_smooth_scroll">يمكن التمرير السلس في ناتج واجهة سطر الأوامر عند النقر على السهم العلوي أو السفلي</string>
     <string name="des_toggleable">عند التمكين، تبديل البلاط بين تشغيل و إيقاف التشغيل على كل نقرة، تشغيل أمر مختلف لكل ولاية</string>
+    <string name="des_translators">الأشخاص الذين ساعدوا في ترجمة AShellu</string>
     <string name="description">الوصف</string>
     <string name="deselect_all">إلغاء تحديد الكل</string>
+    <string name="developer">المطور</string>
     <string name="developer_options">خيارات المطور</string>
     <string name="developer_options_not_available">خيارات المطور غير متاحة!</string>
     <string name="device_backup_local">النسخ الاحتياطي للجهاز (محلي)</string>
@@ -201,6 +208,7 @@
     <string name="error">خطأ</string>
     <string name="error_labels_limit_reached">تم بلوغ الحد الأقصى للمسميات</string>
     <string name="execution_method">طريقة التنفيذ</string>
+    <string name="expand">توسيع</string>
     <string name="failed">فشل</string>
     <string name="failed_to_claim_interface">فشل في المطالبة بالواجهة</string>
     <string name="failed_to_open_usb_connection">فشل في فتح اتصال USB. هل تم تمكين تصحيح أخطاء USB؟</string>
@@ -254,10 +262,12 @@
     <string name="forget_device_confirmation">هل أنت متأكد من أنك تريد أن تنسى %1$s؟ سوف تحتاج إلى الإقران مرة أخرى للاتصال.</string>
     <string name="forks">Forks</string>
     <string name="found_connect_service">تم العثور على خدمة اتصال</string>
+    <string name="full_license_text">نص الترخيص الكامل</string>
     <string name="generate_tile">توليد البلاط</string>
     <string name="go_home">الذهاب إلى المنزل</string>
     <string name="go_to_terminal">الذهاب إلى المحطة الطرفية</string>
     <string name="google_drive">محرك جوجل</string>
+    <string name="gpl_3_0_description">AShell أنت برنامج مجاني: يمكنك إعادة توزيعه و/أو تعديله وفقا لشروط رخصة GNU العامة كما نشرتها مؤسسة البرمجيات الحرة، إما الإصدار 3 من الترخيص، أو (في الخيار الخاص بك) أي إصدار لاحق.</string>
     <string name="grant">منح</string>
     <string name="grant_permission">منح الإذن</string>
     <string name="grant_shizuku_permission_for_tiles">Shizuku permission is not granted!\naShell You needs Shizuku permission to execute the tile commands.</string>
@@ -286,10 +296,14 @@
     <string name="latest_version">أحدث إصدار</string>
     <string name="lead_developer">المطور الرئيسي</string>
     <string name="least_used">الأقل استخدامًا</string>
+    <string name="library_count">اكتشف %1$d مكتبات</string>
     <string name="license">رخصة</string>
+    <string name="license_label">الترخيص</string>
+    <string name="licenses">التراخيص</string>
     <string name="load">تحميل</string>
     <string name="load_predefined_commands">تحميل أوامر محددة مسبقاً</string>
     <string name="loading">جاري التحميل</string>
+    <string name="loading_licenses">تحميل معلومات الترخيص…</string>
     <string name="local_adb">ADB المحلي</string>
     <string name="local_adb_shell">قذيفة ADB المحلية</string>
     <string name="local_adb_summary">تنفيذ أوامر ADB مباشرة على جهازك باستخدام Shizuku أو الجذر.</string>
@@ -325,6 +339,8 @@
     <string name="no_google_account_message">لم يتم العثور على حساب جوجل على هذا الجهاز. هل ترغب في إضافة حساب لاستخدام النسخ الاحتياطية السحابية؟</string>
     <string name="no_google_account_title">لا يوجد حساب جوجل</string>
     <string name="no_history">لا يوجد تاريخ للأوامر</string>
+    <string name="no_libraries_found">لم يتم العثور على مكتبات</string>
+    <string name="no_license_content_available">لا يوجد محتوى ترخيص متوفر. انقر فوق \'فتح URL\' لعرض الترخيص على الإنترنت.</string>
     <string name="no_logs_yet">لا توجد سجلات بعد!</string>
     <string name="no_logs_yet_msg">لم يتم تسجيل أي سجلات حتى الآن. قم بتنفيذ بعض البلاطات لإظهار السجلات هنا.</string>
     <string name="no_operations">لا توجد عمليات قيد التنفيذ</string>
@@ -346,6 +362,7 @@
     <string name="on_state">تشغيل</string>
     <string name="open">فتح</string>
     <string name="open_issues">مشاكل مفتوحة</string>
+    <string name="open_url">فتح عنوان URL</string>
     <string name="operations">العمليات</string>
     <string name="or">أو</string>
     <string name="otg">OTG</string>
@@ -421,6 +438,7 @@
     <string name="search_commands_here">ابحث عن أوامر هنا</string>
     <string name="search_icons_here">ابحث في الأيقونات هنا</string>
     <string name="search_labels_here">البحث عن التسميات هنا</string>
+    <string name="search_libraries">البحث عن المكتبات، المؤلفين، التراخيص…</string>
     <string name="search_output">ابحث في الناتج هنا</string>
     <string name="searching_connect_service">البحث عن خدمة الاتصال</string>
     <string name="searching_for_devices">البحث عن الأجهزة…</string>
@@ -479,6 +497,8 @@
     <string name="telegram">تيليجرام</string>
     <string name="terminal">المحطة</string>
     <string name="terminal_font_style">نمط الخط الطرفي</string>
+    <string name="third_party_libraries">مكتبات الطرف الثالث</string>
+    <string name="this_application">هذا التطبيق</string>
     <string name="this_device">هذا الجهاز</string>
     <string name="tile">البلاط</string>
     <string name="tile_behavior">سلوك البلاط</string>
@@ -490,8 +510,10 @@
     <string name="toggleable">تبديل</string>
     <string name="total_executions">مجموع حالات الإعدام</string>
     <string name="translations">الترجمات</string>
+    <string name="translators">المترجمون</string>
     <string name="troubleshoot">استكشاف الأخطاء</string>
     <string name="troubleshoot_reconnect">تحديث اتصال التصحيح اللاسلكي عن طريق إيقاف تشغيله</string>
+    <string name="try_different_search">جرب مصطلح بحث مختلف</string>
     <string name="turn_off_mobile_data">قم بإيقاف تشغيل بيانات الجوال إذا كان اتصال الواي فاي ليس لديه إنترنت</string>
     <string name="tweak_your_experience">خصص تجربتك</string>
     <string name="type">نوع</string>
@@ -512,9 +534,11 @@
     <string name="version">الإصدار</string>
     <string name="version_code">رمز الإصدار</string>
     <string name="version_name">اسم الإصدار</string>
+    <string name="view_on_github">عرض على GitHub</string>
     <string name="visit_repo_to_download">انقر على زر التحميل للحصول على أحدث إصدار من AShellYou من مستودع github.</string>
     <string name="waiting_for_device">في انتظار الجهاز</string>
     <string name="waiting_for_devices">في انتظار الأجهزة…</string>
+    <string name="want_to_contribute_too">هل ترغب في المساهمة أيضا؟</string>
     <string name="what_to_do">ماذا تريد أن تفعل أثناء %1$s؟</string>
     <string name="whats_new">ما الجديد!</string>
     <string name="which_device_to_pair">ما هو الجهاز الذي ترغب في الإقران؟</string>
@@ -524,11 +548,6 @@
     <string name="wireless_debugging_guide_2">أدخل رمز الاقتران المكون من ست أرقام في الإشعار المرسل من aShell You.</string>
     <string name="wireless_debugging_guide_3">عد إلى التطبيق وانقر على زر \"ابدأ\" في الشاشة الرئيسية.</string>
     <string name="wireless_debugging_important_notice">يرجى ملاحظة أن الجزء الأيسر من خيار التصحيح اللاسلكي قابل للنقر. النقر عليه سيفتح قائمة اقتران التصحيح اللاسلكي.</string>
-    <string name="contributors">المساهمون</string>
-    <string name="translators">المترجمون</string>
-    <string name="des_translators">الأشخاص الذين ساعدوا في ترجمة AShellu</string>
-    <string name="want_to_contribute_too">هل ترغب في المساهمة أيضا؟</string>
-    <string name="crowdin_contribution_msg">قم بزيارة منصة ترجمة crowdin الخاصة بنا للمساهمة</string>
     <string name="changelog_v7_3_0">\nواجهة مستخدم محسنة في شاشة سجل التغيير</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nتم إضافة خيار لتشغيل أوامر adb من إعدادات سريعة عن طريق إضافة بلاطات مخصصة.\nتم إضافة خيار للنسخ الاحتياطي إلى Cloud (Google Drive). هذه الميزة موجودة فقط في بنايات GitHub.\nتحسين نظام الألوان و واجهة المستخدم و UX في العديد من المجالات.\nأضيفت المزيد من أمثلة أوامر ADB.</string>
