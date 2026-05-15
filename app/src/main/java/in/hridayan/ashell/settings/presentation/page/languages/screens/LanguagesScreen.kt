@@ -97,6 +97,7 @@ fun LanguagesScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 15.dp, vertical = 15.dp),
+                            shape = CustomCardShape(50),
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                                 contentColor = MaterialTheme.colorScheme.onSurface,
@@ -137,10 +138,8 @@ fun LanguagesScreen(
                     key = { _, locale -> "locale_${locale.tag}" }) { index, locale ->
                     val isSelected = locale.tag == currentTag
 
-                    val shape = if (isSelected) CustomCardShape(50) else getRoundedShape(
-                        index,
-                        allLocales.size
-                    )
+                    val shape = if (isSelected) CustomCardShape(50)
+                    else getRoundedShape(index, allLocales.size)
 
                     LocaleCard(
                         locale = locale,
