@@ -1,14 +1,15 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package `in`.hridayan.ashell.settings.presentation.page.search.screens
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,38 +19,38 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.domain.model.SearchableSettingsEntry
-import `in`.hridayan.ashell.settings.domain.model.SettingsScreenId
 import `in`.hridayan.ashell.settings.presentation.page.search.viewmodel.SettingsSearchViewModel
 
 @Composable
@@ -63,60 +64,77 @@ fun SettingsSearchScreen(
     val recentEntries by viewModel.recentEntries.collectAsStateWithLifecycle()
     val focusRequester = remember { FocusRequester() }
 
+    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+
+    LaunchedEffect(query) {
+        if (textFieldValue.text != query) {
+            textFieldValue = TextFieldValue(query, TextRange(query.length))
+        }
+    }
+
     LaunchedEffect(Unit) { focusRequester.requestFocus() }
 
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopAppBar(
-                title = {
-                    SearchBar(
-                        inputField = {
-                            SearchBarDefaults.InputField(
-                                query = query,
-                                onQueryChange = viewModel::onQueryChanged,
-                                onSearch = {},
-                                expanded = false,
-                                onExpandedChange = {},
-                                placeholder = { Text(stringResource(R.string.search_settings)) },
-                                leadingIcon = {
-                                    Icon(Icons.Rounded.Search, contentDescription = null)
-                                },
-                                trailingIcon = {
-                                    if (query.isNotEmpty()) {
-                                        IconButton(onClick = { viewModel.onQueryChanged("") }) {
-                                            Icon(Icons.Rounded.Close, contentDescription = null)
-                                        }
-                                    }
-                                },
-                                modifier = Modifier.focusRequester(focusRequester),
-                            )
-                        },
-                        expanded = false,
-                        onExpandedChange = {},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = 8.dp),
-                        content = {},
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = withHaptic { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = null)
-                    }
-                },
-            )
-        },
-    ) { innerPadding ->
+    Scaffold(modifier = modifier) { innerPadding ->
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(
-                top = innerPadding.calculateTopPadding(),
+                top = innerPadding.calculateTopPadding() + 16.dp,
                 bottom = innerPadding.calculateBottomPadding() + 24.dp,
             ),
         ) {
+            item {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(10.dp)
+                )
+            }
+
+            item(key = "search_bar") {
+                CustomSearchBar(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp)
+                        .focusRequester(focusRequester),
+                    value = textFieldValue,
+                    onValueChange = { newValue ->
+                        textFieldValue = newValue
+                        viewModel.onQueryChanged(newValue.text)
+                    },
+                    hint = stringResource(R.string.search_settings),
+                    leadingIcon = {
+                        Icon(
+                            modifier = Modifier.clickable(
+                                enabled = true,
+                                indication = null,
+                                interactionSource = remember { MutableInteractionSource() },
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    navController.popBackStack()
+                                }),
+                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
+                            contentDescription = null,
+                        )
+                    },
+                    trailingIcon = {
+                        if (query.isNotEmpty()) {
+                            Icon(
+                                modifier = Modifier.clickable(
+                                    enabled = true,
+                                    indication = null,
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                        textFieldValue = TextFieldValue("")
+                                        viewModel.onQueryChanged("")
+                                    }),
+                                imageVector = Icons.Rounded.Close,
+                                contentDescription = null
+                            )
+                        }
+                    },
+                )
+            }
+
             if (query.isBlank()) {
-                // Show recent searches
                 if (recentEntries.isNotEmpty()) {
                     item(key = "recent_header") {
                         Row(
@@ -229,7 +247,6 @@ private fun SearchResultRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        // Icon: history icon for recent, setting icon otherwise
         val icon = if (isRecent) {
             Icons.Rounded.History
         } else {
