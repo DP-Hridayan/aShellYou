@@ -29,7 +29,7 @@ import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
-import `in`.hridayan.ashell.settings.presentation.search.rememberHighlightState
+import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable

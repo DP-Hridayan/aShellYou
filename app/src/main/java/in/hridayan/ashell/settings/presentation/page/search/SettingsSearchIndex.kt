@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.search
+package `in`.hridayan.ashell.settings.presentation.page.search
 
 import android.content.Context
 import `in`.hridayan.ashell.R

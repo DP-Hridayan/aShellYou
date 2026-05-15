@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -26,7 +25,7 @@ import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedDescription
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedIcon
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedTitle
-import `in`.hridayan.ashell.settings.presentation.search.highlightCardColors
+import `in`.hridayan.ashell.settings.presentation.page.search.highlightCardColors
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable

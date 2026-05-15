@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.search.viewmodel
+package `in`.hridayan.ashell.settings.presentation.page.search.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.SearchableSettingsEntry
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
-import `in`.hridayan.ashell.settings.presentation.search.SettingsSearchIndex
+import `in`.hridayan.ashell.settings.presentation.page.search.SettingsSearchIndex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

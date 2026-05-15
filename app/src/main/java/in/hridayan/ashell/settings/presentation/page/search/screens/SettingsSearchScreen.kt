@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package `in`.hridayan.ashell.settings.presentation.search.screens
+package `in`.hridayan.ashell.settings.presentation.page.search.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -50,7 +50,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.domain.model.SearchableSettingsEntry
 import `in`.hridayan.ashell.settings.domain.model.SettingsScreenId
-import `in`.hridayan.ashell.settings.presentation.search.viewmodel.SettingsSearchViewModel
+import `in`.hridayan.ashell.settings.presentation.page.search.viewmodel.SettingsSearchViewModel
 
 @Composable
 fun SettingsSearchScreen(
@@ -137,7 +137,9 @@ fun SettingsSearchScreen(
                         }
                     }
 
-                    items(recentEntries, key = { "recent_${it.screenId}_${it.settingsKey.name}" }) { entry ->
+                    items(
+                        recentEntries,
+                        key = { "recent_${it.screenId}_${it.settingsKey.name}" }) { entry ->
                         SearchResultRow(
                             entry = entry,
                             isRecent = true,
@@ -192,7 +194,9 @@ fun SettingsSearchScreen(
                         )
                     }
 
-                    items(entries, key = { "result_${it.screenId}_${it.settingsKey.name}" }) { entry ->
+                    items(
+                        entries,
+                        key = { "result_${it.screenId}_${it.settingsKey.name}" }) { entry ->
                         SearchResultRow(
                             entry = entry,
                             isRecent = false,
@@ -254,16 +258,6 @@ private fun SearchResultRow(
                     modifier = Modifier.alpha(0.6f),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                )
-            }
-
-            // Show breadcrumb for non-Settings-main items
-            if (entry.screenId != SettingsScreenId.SETTINGS_MAIN && !isRecent) {
-                Text(
-                    text = entry.parentScreenTitle,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.alpha(0.7f),
                 )
             }
         }

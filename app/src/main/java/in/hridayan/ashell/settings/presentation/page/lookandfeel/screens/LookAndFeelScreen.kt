@@ -31,7 +31,7 @@ import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsSc
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
-import `in`.hridayan.ashell.settings.presentation.search.rememberHighlightState
+import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable

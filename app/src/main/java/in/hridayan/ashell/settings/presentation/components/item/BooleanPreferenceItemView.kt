@@ -30,7 +30,7 @@ import `in`.hridayan.ashell.settings.presentation.model.SettingsType
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedDescription
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedIcon
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedTitle
-import `in`.hridayan.ashell.settings.presentation.search.highlightCardColors
+import `in`.hridayan.ashell.settings.presentation.page.search.highlightCardColors
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable

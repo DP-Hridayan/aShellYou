@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.search
+package `in`.hridayan.ashell.settings.presentation.page.search
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
