@@ -108,7 +108,7 @@ object SettingsProvider {
             ),
             nullPreferenceItem(
                 key = SettingsKeys.LANGUAGE,
-                isLayoutVisible = !isMiUi && !isSdkLowerThan33,
+                isLayoutVisible = true,
                 titleResId = R.string.default_language,
                 descriptionResId = R.string.des_default_language,
                 iconResId = R.drawable.ic_language,

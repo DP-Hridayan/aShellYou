@@ -1,13 +1,9 @@
 package `in`.hridayan.ashell.settings.presentation.viewmodel
 
 import android.content.Context
-import android.content.Intent
-import android.os.Build
-import android.provider.Settings
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -156,15 +152,9 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.OpenUrl(UrlConst.URL_TELEGRAM_CHANNEL)
                 )
 
-                SettingsKeys.LANGUAGE -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    _uiEvent.emit(
-                        SettingsUiEvent.LaunchIntent(
-                            intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS).apply {
-                                data = "package:${context.packageName}".toUri()
-                            }
-                        )
-                    )
-                }
+                SettingsKeys.LANGUAGE -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.LanguagesScreen)
+                )
 
                 SettingsKeys.DARK_THEME -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen())

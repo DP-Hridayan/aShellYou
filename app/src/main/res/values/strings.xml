@@ -617,4 +617,9 @@
     <string name="search_settings">Search settings</string>
     <string name="recent_searches">Recent searches</string>
     <string name="no_results_found">No results found</string>
+
+    <!-- Languages -->
+    <string name="languages">Languages</string>
+    <string name="system_default">System default</string>
+    <string name="open_app_language_settings">Open app language settings</string>
 </resources>

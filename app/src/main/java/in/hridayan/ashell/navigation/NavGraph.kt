@@ -34,6 +34,7 @@ import `in`.hridayan.ashell.settings.presentation.page.behavior.screens.Behavior
 import `in`.hridayan.ashell.settings.presentation.page.changelog.screens.ChangelogScreen
 import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.CrashDetailsScreen
 import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.CrashHistoryScreen
+import `in`.hridayan.ashell.settings.presentation.page.languages.screens.LanguagesScreen
 import `in`.hridayan.ashell.settings.presentation.page.licenses.screens.LicensesScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
@@ -115,6 +116,10 @@ fun Navigation(isFirstLaunch: Boolean = false) {
 
             composable<NavRoutes.SettingsSearchScreen> {
                 SettingsSearchScreen()
+            }
+
+            composable<NavRoutes.LanguagesScreen> {
+                LanguagesScreen()
             }
 
             composable<NavRoutes.LicensesScreen> {

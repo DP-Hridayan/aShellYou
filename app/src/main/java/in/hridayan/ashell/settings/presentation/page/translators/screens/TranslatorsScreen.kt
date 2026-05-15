@@ -27,14 +27,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.common.constants.UrlConst
-import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
+import `in`.hridayan.ashell.core.presentation.components.card.CrowdinContributeCard
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
-import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
-import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.settings.domain.model.Translator
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.page.translators.viewmodel.ContributorsViewModel
@@ -136,70 +133,6 @@ private fun TranslatorCard(
                 text = translator.languages.joinToString(separator = ", "),
                 style = MaterialTheme.typography.bodySmall,
             )
-        }
-    }
-}
-
-@Composable
-private fun CrowdinContributeCard(modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-
-    CustomCard(
-        modifier = modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_translate),
-                contentDescription = null
-            )
-
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = stringResource(R.string.want_to_contribute_too),
-                    style = MaterialTheme.typography.titleMediumEmphasized
-                )
-
-                Spacer(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(5.dp))
-
-                Text(
-                    text = stringResource(R.string.crowdin_contribution_msg),
-                    style = MaterialTheme.typography.bodySmall
-                )
-
-                Spacer(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(15.dp))
-
-                IconWithTextButton(
-                    icon = painterResource(R.drawable.ic_crowdin),
-                    text = stringResource(R.string.crowdin),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.tertiary,
-                        contentColor = MaterialTheme.colorScheme.onTertiary
-                    ),
-                    onClick = withHaptic {
-                        UrlUtils.openUrl(
-                            context = context,
-                            url = UrlConst.URL_CROWDIN_PROJECT
-                        )
-                    })
-            }
         }
     }
 }
