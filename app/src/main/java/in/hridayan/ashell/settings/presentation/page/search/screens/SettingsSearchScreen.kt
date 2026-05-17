@@ -1,8 +1,10 @@
 package `in`.hridayan.ashell.settings.presentation.page.search.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -42,6 +44,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -49,6 +52,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
+import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
+import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.domain.model.SearchableSettingsEntry
 import `in`.hridayan.ashell.settings.presentation.page.search.viewmodel.SettingsSearchViewModel
@@ -134,8 +140,73 @@ fun SettingsSearchScreen(
                 )
             }
 
-            if (query.isBlank()) {
-                if (recentEntries.isNotEmpty()) {
+            if (query.isNotBlank()) {
+                // Group results by parent screen
+                val grouped = results.groupBy { it.parentScreenTitle }
+
+                if (results.isEmpty()) {
+                    item(key = "empty") {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            SearchSomethingUi(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(40.dp),
+                                text = stringResource(R.string.no_search_results_found)
+                            )
+                        }
+                    }
+                }
+
+                grouped.forEach { (screenTitle, entries) ->
+                    item(key = "header_$screenTitle") {
+                        Text(
+                            text = screenTitle,
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(
+                                start = 20.dp, end = 20.dp,
+                                top = 16.dp, bottom = 4.dp,
+                            ),
+                        )
+                    }
+
+                    items(
+                        entries,
+                        key = { "result_${it.screenId}_${it.settingsKey.name}" }) { entry ->
+                        SearchResultRow(
+                            entry = entry,
+                            isRecent = false,
+                            onClick = {
+                                viewModel.onResultClicked(entry)
+                                navController.navigate(
+                                    entry.screenId.toNavRoute(entry.settingsKey.name)
+                                )
+                            },
+                        )
+                    }
+                }
+            } else {
+                if (recentEntries.isEmpty()) {
+                    item {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            SearchSomethingUi(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(40.dp),
+                                text = buildString {
+                                    append(stringResource(R.string.search_something))
+                                    append("...")
+                                }
+                            )
+                        }
+                    }
+                } else {
                     item(key = "recent_header") {
                         Row(
                             modifier = Modifier
@@ -161,63 +232,6 @@ fun SettingsSearchScreen(
                         SearchResultRow(
                             entry = entry,
                             isRecent = true,
-                            onClick = {
-                                viewModel.onResultClicked(entry)
-                                navController.navigate(
-                                    entry.screenId.toNavRoute(entry.settingsKey.name)
-                                )
-                            },
-                        )
-                    }
-                }
-            } else {
-                // Group results by parent screen
-                val grouped = results.groupBy { it.parentScreenTitle }
-
-                if (results.isEmpty()) {
-                    item(key = "empty") {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 80.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
-                        ) {
-                            Icon(
-                                Icons.Rounded.Search,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.size(40.dp),
-                            )
-                            Text(
-                                text = stringResource(R.string.no_results_found),
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontWeight = FontWeight.Medium,
-                                color = MaterialTheme.colorScheme.onSurface,
-                            )
-                        }
-                    }
-                }
-
-                grouped.forEach { (screenTitle, entries) ->
-                    item(key = "header_$screenTitle") {
-                        Text(
-                            text = screenTitle,
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.padding(
-                                start = 20.dp, end = 20.dp,
-                                top = 16.dp, bottom = 4.dp,
-                            ),
-                        )
-                    }
-
-                    items(
-                        entries,
-                        key = { "result_${it.screenId}_${it.settingsKey.name}" }) { entry ->
-                        SearchResultRow(
-                            entry = entry,
-                            isRecent = false,
                             onClick = {
                                 viewModel.onResultClicked(entry)
                                 navController.navigate(
@@ -278,5 +292,27 @@ private fun SearchResultRow(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun SearchSomethingUi(
+    modifier: Modifier = Modifier,
+    text: String
+) {
+    Column(modifier = modifier) {
+        Image(
+            imageVector = DynamicColorImageVectors.noSearchResult(),
+            contentDescription = null,
+        )
+
+        AutoResizeableText(
+            text = text,
+            style = MaterialTheme.typography.bodyMediumEmphasized,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp)
+        )
     }
 }

@@ -544,6 +544,7 @@
     <string name="variant">Variant</string>
     <string name="version">Version</string>
     <string name="version_code">Version code</string>
+    <string name="search_something">Search something</string>
     <string name="version_name">Version name</string>
     <string name="view_on_github">View on GitHub</string>
     <string name="visit_repo_to_download">Click on the download button to get the latest version of aShellYou from the github repository.</string>
