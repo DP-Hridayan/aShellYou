@@ -289,6 +289,7 @@
     <string name="item_deleted">आइटम सफलतापूर्वक हटाया गया</string>
     <string name="keep_both">दोनों रखें</string>
     <string name="label">लेबल</string>
+    <string name="languages">Languages</string>
     <string name="last_backup_date">अंतिम बैकअप तारीख</string>
     <string name="last_backup_details">Last backup details</string>
     <string name="last_backup_time">अंतिम बैकअप समय</string>
@@ -343,6 +344,7 @@
     <string name="no_logs_yet">No logs yet!</string>
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
     <string name="no_operations">कोई ऑपरेशन प्रगति में नहीं</string>
+    <string name="no_results_found">No results found</string>
     <string name="no_root_access">कोई रूट एक्सेस नहीं</string>
     <string name="no_saved_devices">कोई सहेजे गए डिवाइस नहीं</string>
     <string name="no_search_results_found">कोई खोज परिणाम नहीं मिला</string>
@@ -360,6 +362,7 @@
     <string name="on">चालू</string>
     <string name="on_state">On</string>
     <string name="open">खोलें</string>
+    <string name="open_app_language_settings">Open app language settings</string>
     <string name="open_issues">Open issues</string>
     <string name="open_url">Open URL</string>
     <string name="operations">Operations</string>
@@ -400,6 +403,7 @@
     <string name="ready_to_paste">पेस्ट करने के लिए तैयार</string>
     <string name="reboot_options">रीबूट विकल्प</string>
     <string name="recent_activity">Recent activity</string>
+    <string name="recent_searches">Recent searches</string>
     <string name="reconnect">पुनः कनेक्ट करें</string>
     <string name="reconnect_failed">पुनः कनेक्शन विफल</string>
     <string name="reconnect_failed_message">\nवायरलेस डिबगिंग सक्षम नहीं हो सकती\nपेयरिंग जानकारी खो सकती है। मैन्युअल पेयर करें!</string>
@@ -439,6 +443,7 @@
     <string name="search_labels_here">यहां लेबल खोजें</string>
     <string name="search_libraries">Search libraries, authors, licenses…</string>
     <string name="search_output">कमांड के परिणाम खोजें</string>
+    <string name="search_settings">Search settings</string>
     <string name="searching_connect_service">कनेक्ट सर्विस खोज रहे हैं</string>
     <string name="searching_for_devices">डिवाइस खोज रहे हैं…</string>
     <string name="select_all">सभी चुनें</string>
@@ -491,6 +496,7 @@
     <string name="support_bmc">जो मैं करता हूं पसंद है?\nमुझे एक कॉफी लेने पर विचार करें</string>
     <string name="switch_mode">मोड स्विच करें</string>
     <string name="system">सिस्टम</string>
+    <string name="system_default">System default</string>
     <string name="system_font">सिस्टम फ़ॉन्ट</string>
     <string name="system_settings">सिस्टम सेटिंग्स</string>
     <string name="telegram">टेलीग्राम</string>
@@ -547,6 +553,7 @@
     <string name="wireless_debugging_guide_2">aShell द्वारा भेजी गई सूचना में छह अंकों का युग्मन कोड दर्ज करें।</string>
     <string name="wireless_debugging_guide_3">ऐप पर वापस आएं और होम स्क्रीन में \"स्टार्ट\" बटन पर क्लिक करें।</string>
     <string name="wireless_debugging_important_notice">कृपया ध्यान दें कि वायरलेस डिबगिंग विकल्प का बायाँ भाग क्लिक करने योग्य है। इस पर टैप करने से वायरलेस डिबगिंग पेयरिंग मेनू खुल जाएगा।</string>
+    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
@@ -596,12 +603,4 @@
     <string name="changelog_v1_0_0">\nऔर कमांड उदाहरण जोड़े\nमामूली UI बदलाव\nपैकेज नाम बदला</string>
     <string name="changelog_v0_9_1">\nऐप में चेंजलॉग जोड़ा\nहाइलाइटेड शेल आउटपुट जोड़ा\nमामूली UI बदलाव</string>
     <string name="changelog_v0_9_0">\nडायनामिक मटीरियल थीमिंग जोड़ी\nताज़ा लुक के लिए पूरा UI नया बनाया</string>
-    <!-- Settings search -->
-    <string name="search_settings">Search settings</string>
-    <string name="recent_searches">Recent searches</string>
-    <string name="no_results_found">No results found</string>
-    <!-- Languages -->
-    <string name="languages">Languages</string>
-    <string name="system_default">System default</string>
-    <string name="open_app_language_settings">Open app language settings</string>
 </resources>
