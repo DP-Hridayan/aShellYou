@@ -596,4 +596,12 @@
     <string name="changelog_v1_0_0">\n添加了更多命令示例\n用户界面小改动\n更改了包名以避免与原始应用程序混淆</string>
     <string name="changelog_v0_9_1">\n在应用程序中添加了更新日志\n添加了高亮显示的 shell 输出\n用户界面小改动</string>
     <string name="changelog_v0_9_0">\n添加了动态 Material 主题\n重新设计了整个用户界面以呈现全新外观</string>
+    <!-- Settings search -->
+    <string name="search_settings">搜索设置</string>
+    <string name="recent_searches">最近搜索</string>
+    <string name="no_results_found">未找到结果</string>
+    <!-- Languages -->
+    <string name="languages">语文</string>
+    <string name="system_default">系统默认</string>
+    <string name="open_app_language_settings">打开应用语言设置</string>
 </resources>

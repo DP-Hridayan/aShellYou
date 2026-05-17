@@ -26,7 +26,7 @@
     <string name="app">Application</string>
     <string name="app_crashed">L\'application a planté</string>
     <string name="app_tagline">ADB à portée de main</string>
-    <string name="apply_to_all">Apply to all (%1$d remaining)</string>
+    <string name="apply_to_all">Appliquer à tous (%1$d restants)</string>
     <string name="artifact_id">ID de l\'artefact</string>
     <string name="auto_update">Mise à jour automatique</string>
     <string name="back">Retour</string>
@@ -92,11 +92,11 @@
     <string name="connection_lost">Connexion perdue</string>
     <string name="connection_lost_back_message">La connexion de débogage sans fil a été perdue. Que voulez-vous faire ?</string>
     <string name="contributors">Contributeurs</string>
-    <string name="copied_items">Copied %1$d items</string>
+    <string name="copied_items">%1$d éléments copiés</string>
     <string name="copied_to_clipboard">Copié dans le presse-papiers !</string>
     <string name="copy">Copier</string>
     <string name="copying">Copie de…</string>
-    <string name="copying_items">Copying %1$d item(s)</string>
+    <string name="copying_items">Copie d\'élément(s) %1$d</string>
     <string name="crash_details">Détails du plantage</string>
     <string name="crash_history">Historique des plantages</string>
     <string name="create">Créer</string>
@@ -114,7 +114,7 @@
     <string name="delete_all">Tout supprimer</string>
     <string name="delete_file">Supprimer le fichier</string>
     <string name="delete_folder">Supprimer le dossier</string>
-    <string name="delete_items_message">Are you sure you want to delete %1$d selected items?</string>
+    <string name="delete_items_message">Êtes-vous sûr de vouloir supprimer les éléments sélectionnés %1$d?</string>
     <string name="delete_items_title">Supprimer les éléments %1$d?</string>
     <string name="delete_message">Êtes-vous sûr de vouloir supprimer \"%1$s \" ?</string>
     <string name="delete_title">Supprimer %1$s?</string>
@@ -172,9 +172,9 @@
     <string name="device_info">Infos sur l\'appareil</string>
     <string name="disable_softkey">Désactiver le clavier virtuel</string>
     <string name="disclaimer">Clause de non-responsabilité</string>
-    <string name="disclaimer_1_description">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability.\nYou are solely responsible for any changes made using this app.</string>
+    <string name="disclaimer_1_description">L\'exécution de commandes ADB peut modifier les paramètres système, gérer les fichiers et effectuer des opérations pouvant affecter la stabilité de votre appareil.\n Vous êtes seul responsable des modifications apportées en utilisant cette application.</string>
     <string name="disclaimer_1_title">Utilisez à vos propres risques</string>
-    <string name="disclaimer_2_description">While root access is not mandatory, certain commands may require elevated permissions.\nMisuse of ADB commands can lead to data loss, app crashes, or unexpected system behavior.</string>
+    <string name="disclaimer_2_description">Bien que les droits root ne soient pas obligatoires, certaines commandes peuvent nécessiter des permissions élevées.\nUne mauvaise utilisation des commandes ADB peut entraîner une perte de données, un plantage de l\'application ou un comportement inattendu du système.</string>
     <string name="disclaimer_2_title">Le root n\'est pas obligatoire, mais la prudence est nécessaire</string>
     <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app.\nProceed with caution and ensure you understand the commands you execute.</string>
     <string name="disclaimer_3_title">Nous ne sommes pas responsables</string>
@@ -596,4 +596,12 @@
     <string name="changelog_v1_0_0">\nAjout d\'autres exemples de commandes.\nMineur UI change.\nChangé le nom du paquet pour éviter la confusion de version avec l\'application originale.</string>
     <string name="changelog_v0_9_1">\nAjout de changelogs dans l\'application.\nAjout d\'une sortie shell surlignée.\nModification mineure de l\'interface utilisateur.</string>
     <string name="changelog_v0_9_0">\nAjout d\'un thème de matière dynamique.\nRevamped toute l\'interface utilisateur pour donner un nouveau look.</string>
+    <!-- Settings search -->
+    <string name="search_settings">Paramètres de recherche</string>
+    <string name="recent_searches">Recherches récentes</string>
+    <string name="no_results_found">Aucun résultat trouvé</string>
+    <!-- Languages -->
+    <string name="languages">Langues</string>
+    <string name="system_default">Par défaut du système</string>
+    <string name="open_app_language_settings">Ouvrir les paramètres de langue de l\'application</string>
 </resources>

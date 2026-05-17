@@ -596,4 +596,12 @@
     <string name="changelog_v1_0_0">\nافزودن نمونه دستورات بیشتر\nتغییرات جزئی رابط کاربری\nتغییر نام بسته</string>
     <string name="changelog_v0_9_1">\nافزودن تغییرات به برنامه\nافزودن خروجی شل برجسته\nتغییرات جزئی رابط کاربری</string>
     <string name="changelog_v0_9_0">\nافزودن تم پویای متریال\nبازطراحی کامل رابط کاربری</string>
+    <!-- Settings search -->
+    <string name="search_settings">Search settings</string>
+    <string name="recent_searches">Recent searches</string>
+    <string name="no_results_found">No results found</string>
+    <!-- Languages -->
+    <string name="languages">Languages</string>
+    <string name="system_default">System default</string>
+    <string name="open_app_language_settings">Open app language settings</string>
 </resources>
