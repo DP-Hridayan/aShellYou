@@ -157,7 +157,6 @@ private fun TranslatorCard(
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 15.dp, end = 15.dp, bottom = 10.dp)
                             .alpha(0.7f),
                         text = translator.languages.joinToString(separator = ", "),
                         style = MaterialTheme.typography.bodySmall,
