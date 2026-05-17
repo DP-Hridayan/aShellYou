@@ -59,7 +59,7 @@ jobs:
             curl -L "$AVATAR_URL" -o temp_avatar.png
 
             # Convert avatar to optimized webp
-            convert temp_avatar.png \
+            magick temp_avatar.png \
               -resize 128x128 \
               -strip \
               -quality 85 \
