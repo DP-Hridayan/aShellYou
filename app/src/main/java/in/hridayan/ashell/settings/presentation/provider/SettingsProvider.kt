@@ -6,7 +6,6 @@ import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.utils.MiUiCheck
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.model.SettingsType
@@ -17,8 +16,6 @@ import `in`.hridayan.ashell.settings.presentation.util.intPreferenceItem
 import `in`.hridayan.ashell.settings.presentation.util.nullPreferenceItem
 import `in`.hridayan.ashell.settings.presentation.util.uncategorizedItems
 
-private val isMiUi = MiUiCheck.isMiui
-private val isSdkLowerThan33 = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
 private val isSdkLowerThan31 = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
 
 object SettingsProvider {
