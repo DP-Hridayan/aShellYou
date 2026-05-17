@@ -25,6 +25,9 @@ NavRoutes {
     object TranslatorsScreen : NavRoutes()
 
     @Serializable
+    object ContributorsScreen : NavRoutes()
+
+    @Serializable
     object ChangelogScreen : NavRoutes()
 
     @Serializable

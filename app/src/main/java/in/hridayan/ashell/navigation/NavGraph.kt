@@ -32,6 +32,8 @@ import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupAndR
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupSchedulerScreen
 import `in`.hridayan.ashell.settings.presentation.page.behavior.screens.BehaviorScreen
 import `in`.hridayan.ashell.settings.presentation.page.changelog.screens.ChangelogScreen
+import `in`.hridayan.ashell.settings.presentation.page.contributors.screens.ContributorsScreen
+import `in`.hridayan.ashell.settings.presentation.page.contributors.screens.TranslatorsScreen
 import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.CrashDetailsScreen
 import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.CrashHistoryScreen
 import `in`.hridayan.ashell.settings.presentation.page.languages.screens.LanguagesScreen
@@ -39,7 +41,6 @@ import `in`.hridayan.ashell.settings.presentation.page.licenses.screens.Licenses
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
-import `in`.hridayan.ashell.settings.presentation.page.translators.screens.TranslatorsScreen
 import `in`.hridayan.ashell.settings.presentation.page.search.screens.SettingsSearchScreen
 import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserScreen
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
@@ -108,6 +109,10 @@ fun Navigation(isFirstLaunch: Boolean = false) {
 
             composable<NavRoutes.TranslatorsScreen> {
                 TranslatorsScreen()
+            }
+
+            composable<NavRoutes.ContributorsScreen> {
+                ContributorsScreen()
             }
 
             composable<NavRoutes.ChangelogScreen> {
