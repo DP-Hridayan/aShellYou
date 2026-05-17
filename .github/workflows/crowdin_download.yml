@@ -28,7 +28,7 @@ jobs:
 
       - name: Generate translators table
         id: translators
-        uses: andrii-bodnar/action-crowdin-contributors@v2
+        uses: andrii-bodnar/action-crowdin-contributors@v3.2.0
         with:
           contributors_per_line: 6
           max_contributors: 500
