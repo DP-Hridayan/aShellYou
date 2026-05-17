@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.page.translators.viewmodel
+package `in`.hridayan.ashell.settings.presentation.page.contributors.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

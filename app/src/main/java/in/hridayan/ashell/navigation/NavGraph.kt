@@ -39,7 +39,7 @@ import `in`.hridayan.ashell.settings.presentation.page.licenses.screens.Licenses
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
-import `in`.hridayan.ashell.settings.presentation.page.translators.screens.TranslatorsScreen
+import `in`.hridayan.ashell.settings.presentation.page.contributors.screens.TranslatorsScreen
 import `in`.hridayan.ashell.settings.presentation.page.search.screens.SettingsSearchScreen
 import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserScreen
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
