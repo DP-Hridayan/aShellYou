@@ -6,9 +6,7 @@
     "editorCode": "ar",
     "locale": "ar-SA",
     "translationProgress": 100,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 0
   },
   {
     "languageId": "de",
@@ -17,9 +15,7 @@
     "editorCode": "de",
     "locale": "de-DE",
     "translationProgress": 85,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 0
   },
   {
     "languageId": "es-ES",
@@ -27,10 +23,8 @@
     "androidCode": "es-rES",
     "editorCode": "es",
     "locale": "es-ES",
-    "translationProgress": 16,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "translationProgress": 17,
+    "approvalProgress": 0
   },
   {
     "languageId": "fa",
@@ -39,9 +33,7 @@
     "editorCode": "fa",
     "locale": "fa-IR",
     "translationProgress": 80,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 0
   },
   {
     "languageId": "fr",
@@ -50,9 +42,7 @@
     "editorCode": "fr",
     "locale": "fr-FR",
     "translationProgress": 76,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 0
   },
   {
     "languageId": "hi",
@@ -61,9 +51,7 @@
     "editorCode": "hi",
     "locale": "hi-IN",
     "translationProgress": 79,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 0
   },
   {
     "languageId": "ja",
@@ -72,9 +60,7 @@
     "editorCode": "ja",
     "locale": "ja-JP",
     "translationProgress": 96,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 0
   },
   {
     "languageId": "pt-PT",
@@ -83,9 +69,7 @@
     "editorCode": "pt",
     "locale": "pt-PT",
     "translationProgress": 91,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 0
   },
   {
     "languageId": "ru",
@@ -94,9 +78,7 @@
     "editorCode": "ru",
     "locale": "ru-RU",
     "translationProgress": 100,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 0
   },
   {
     "languageId": "tr",
@@ -105,9 +87,7 @@
     "editorCode": "tr",
     "locale": "tr-TR",
     "translationProgress": 82,
-    "approvalProgress": 81,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 81
   },
   {
     "languageId": "uk",
@@ -116,9 +96,7 @@
     "editorCode": "uk",
     "locale": "uk-UA",
     "translationProgress": 100,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 0
   },
   {
     "languageId": "zh-CN",
@@ -127,8 +105,6 @@
     "editorCode": "zhcn",
     "locale": "zh-CN",
     "translationProgress": 97,
-    "approvalProgress": 0,
-    "translated": null,
-    "approved": null
+    "approvalProgress": 0
   }
 ]
