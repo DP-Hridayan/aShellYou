@@ -10,5 +10,6 @@ data class TranslatorDto(
     val translated: Int,
     val approved: Int,
     val picture: String,
-    val languages: List<LanguageDto>
+    val languages: List<LanguageDto>,
+    val avatar: String
 )
