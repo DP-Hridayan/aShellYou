@@ -33,6 +33,11 @@ jobs:
             https://api.github.com/repos/DP-Hridayan/aShellYou/contributors \
             -o contributors_raw.json
 
+      - name: Install ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
       - name: Generate contributors JSON and download avatars
         run: |
           JSON_FILE="app/src/main/assets/github/contributors.json"
