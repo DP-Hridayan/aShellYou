@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update-contributors:
@@ -95,17 +96,12 @@ jobs:
 
           echo "]" >> "$JSON_FILE"
 
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-          git add app/src/main/assets/github/contributors.json
-          git add app/src/main/assets/github/contributors_pfp/
-
-          if git diff --cached --quiet; then
-            echo "No contributor changes detected."
-          else
-            git commit -m "[skip ci] Update contributors"
-            git push
-          fi
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "[skip ci] Update contributors"
+          title: "Update GitHub contributors"
+          body: |
+            Automated update of GitHub contributors and profile pictures.
+          branch: automated/update-contributors
+          delete-branch: true
