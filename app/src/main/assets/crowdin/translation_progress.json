@@ -1,0 +1,134 @@
+[
+  {
+    "languageId": "ar",
+    "languageName": "Arabic",
+    "androidCode": "ar-rSA",
+    "editorCode": "ar",
+    "locale": "ar-SA",
+    "translationProgress": 100,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "de",
+    "languageName": "German",
+    "androidCode": "de-rDE",
+    "editorCode": "de",
+    "locale": "de-DE",
+    "translationProgress": 85,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "es-ES",
+    "languageName": "Spanish",
+    "androidCode": "es-rES",
+    "editorCode": "es",
+    "locale": "es-ES",
+    "translationProgress": 16,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "fa",
+    "languageName": "Persian",
+    "androidCode": "fa-rIR",
+    "editorCode": "fa",
+    "locale": "fa-IR",
+    "translationProgress": 80,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "fr",
+    "languageName": "French",
+    "androidCode": "fr-rFR",
+    "editorCode": "fr",
+    "locale": "fr-FR",
+    "translationProgress": 76,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "hi",
+    "languageName": "Hindi",
+    "androidCode": "hi-rIN",
+    "editorCode": "hi",
+    "locale": "hi-IN",
+    "translationProgress": 79,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "ja",
+    "languageName": "Japanese",
+    "androidCode": "ja-rJP",
+    "editorCode": "ja",
+    "locale": "ja-JP",
+    "translationProgress": 96,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "pt-PT",
+    "languageName": "Portuguese",
+    "androidCode": "pt-rPT",
+    "editorCode": "pt",
+    "locale": "pt-PT",
+    "translationProgress": 91,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "ru",
+    "languageName": "Russian",
+    "androidCode": "ru-rRU",
+    "editorCode": "ru",
+    "locale": "ru-RU",
+    "translationProgress": 100,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "tr",
+    "languageName": "Turkish",
+    "androidCode": "tr-rTR",
+    "editorCode": "tr",
+    "locale": "tr-TR",
+    "translationProgress": 82,
+    "approvalProgress": 81,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "uk",
+    "languageName": "Ukrainian",
+    "androidCode": "uk-rUA",
+    "editorCode": "uk",
+    "locale": "uk-UA",
+    "translationProgress": 100,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  },
+  {
+    "languageId": "zh-CN",
+    "languageName": "Chinese Simplified",
+    "androidCode": "zh-rCN",
+    "editorCode": "zhcn",
+    "locale": "zh-CN",
+    "translationProgress": 97,
+    "approvalProgress": 0,
+    "translated": null,
+    "approved": null
+  }
+]

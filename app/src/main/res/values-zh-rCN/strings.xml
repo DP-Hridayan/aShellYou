@@ -289,6 +289,7 @@
     <string name="item_deleted">项目已成功删除</string>
     <string name="keep_both">同时保留</string>
     <string name="label">标签</string>
+    <string name="languages">语文</string>
     <string name="last_backup_date">上次备份日期</string>
     <string name="last_backup_details">最后备份详情</string>
     <string name="last_backup_time">上次备份时间</string>
@@ -343,6 +344,7 @@
     <string name="no_logs_yet">还没有日志！</string>
     <string name="no_logs_yet_msg">尚未记录日志。执行一些瓷块以显示日志。</string>
     <string name="no_operations">没有正在进行的操作</string>
+    <string name="no_results_found">未找到结果</string>
     <string name="no_root_access">无root权限</string>
     <string name="no_saved_devices">没有保存的设备</string>
     <string name="no_search_results_found">未找到搜索结果</string>
@@ -360,6 +362,7 @@
     <string name="on">开</string>
     <string name="on_state">开启</string>
     <string name="open">打开</string>
+    <string name="open_app_language_settings">打开应用语言设置</string>
     <string name="open_issues">未决问题</string>
     <string name="open_url">Open URL</string>
     <string name="operations">业务活动</string>
@@ -400,6 +403,7 @@
     <string name="ready_to_paste">准备粘贴</string>
     <string name="reboot_options">重启选项</string>
     <string name="recent_activity">最近活动</string>
+    <string name="recent_searches">最近搜索</string>
     <string name="reconnect">重新连接</string>
     <string name="reconnect_failed">重新连接失败</string>
     <string name="reconnect_failed_message">\n无线调试可能无法启用\n配对信息可能丢失。再次手动配对！</string>
@@ -439,6 +443,7 @@
     <string name="search_labels_here">在此搜索标签</string>
     <string name="search_libraries">搜索库，作者，许可证，…</string>
     <string name="search_output">在此处搜索输出内容</string>
+    <string name="search_settings">搜索设置</string>
     <string name="searching_connect_service">搜索连接服务</string>
     <string name="searching_for_devices">正在搜索设备…</string>
     <string name="select_all">全选</string>
@@ -491,6 +496,7 @@
     <string name="support_bmc">觉得我做的好？\n考虑请我一杯咖啡吧</string>
     <string name="switch_mode">切换模式</string>
     <string name="system">跟随系统</string>
+    <string name="system_default">系统默认</string>
     <string name="system_font">系统字体</string>
     <string name="system_settings">系统设置</string>
     <string name="telegram">Telegram</string>
@@ -547,6 +553,7 @@
     <string name="wireless_debugging_guide_2">在aShell You发送的通知中输入配对码</string>
     <string name="wireless_debugging_guide_3">返回aShell You的主页点击无线ADB板块的“开始”即可</string>
     <string name="wireless_debugging_important_notice">注意无线调试选项左侧是可以点的。点击会打开无线调试配对菜单</string>
+    <string name="des_contributors">帮助开发你的 aShell 贡献者列表</string>
     <string name="changelog_v7_3_0">\n在更新日志屏幕上改进了UI。\n添加了翻译贡献者，在\n添加了许可证屏幕，显示有关应用程序和其他库的详细许可信息</string>
     <string name="changelog_v7_2_1">\n维护更新！</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
@@ -596,12 +603,4 @@
     <string name="changelog_v1_0_0">\n添加了更多命令示例\n用户界面小改动\n更改了包名以避免与原始应用程序混淆</string>
     <string name="changelog_v0_9_1">\n在应用程序中添加了更新日志\n添加了高亮显示的 shell 输出\n用户界面小改动</string>
     <string name="changelog_v0_9_0">\n添加了动态 Material 主题\n重新设计了整个用户界面以呈现全新外观</string>
-    <!-- Settings search -->
-    <string name="search_settings">搜索设置</string>
-    <string name="recent_searches">最近搜索</string>
-    <string name="no_results_found">未找到结果</string>
-    <!-- Languages -->
-    <string name="languages">语文</string>
-    <string name="system_default">系统默认</string>
-    <string name="open_app_language_settings">打开应用语言设置</string>
 </resources>

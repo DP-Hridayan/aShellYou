@@ -289,6 +289,7 @@
     <string name="item_deleted">Item deletado com sucesso</string>
     <string name="keep_both">Manter ambos</string>
     <string name="label">Descrição</string>
+    <string name="languages">Idiomas</string>
     <string name="last_backup_date">Data do último backup</string>
     <string name="last_backup_details">Últimos detalhes do backup</string>
     <string name="last_backup_time">Último tempo de backup</string>
@@ -343,6 +344,7 @@
     <string name="no_logs_yet">Ainda não há registros!</string>
     <string name="no_logs_yet_msg">Nenhum registro foi gravado ainda. Execute alguns blocos para exibir os registros aqui.</string>
     <string name="no_operations">Nenhuma operação em andamento</string>
+    <string name="no_results_found">Nenhum resultado encontrado</string>
     <string name="no_root_access">Sem acesso root</string>
     <string name="no_saved_devices">Nenhum dispositivo salvo</string>
     <string name="no_search_results_found">Nenhum resultado de pesquisa encontrado</string>
@@ -360,6 +362,7 @@
     <string name="on">Ligado</string>
     <string name="on_state">Ligado</string>
     <string name="open">Abrir</string>
+    <string name="open_app_language_settings">Abrir configurações de idioma do aplicativo</string>
     <string name="open_issues">Problemas em aberto</string>
     <string name="open_url">Abrir URL</string>
     <string name="operations">Operações</string>
@@ -400,6 +403,7 @@
     <string name="ready_to_paste">Pronto para colar</string>
     <string name="reboot_options">Opções de reinicialização</string>
     <string name="recent_activity">Atividade recente</string>
+    <string name="recent_searches">Pesquisas Recentes</string>
     <string name="reconnect">Reconectar</string>
     <string name="reconnect_failed">Reconexão falhou</string>
     <string name="reconnect_failed_message">\nA depuração sem fio pode não ser ativada\nInformações de pareamento podem ser perdidas. Pareie manualmente novamente!</string>
@@ -439,6 +443,7 @@
     <string name="search_labels_here">Pesquise os rótulos aqui</string>
     <string name="search_libraries">Pesquisar bibliotecas, autores, licenças…</string>
     <string name="search_output">Saída da busca aqui</string>
+    <string name="search_settings">Configurações de pesquisa</string>
     <string name="searching_connect_service">Procurando serviço de conexão</string>
     <string name="searching_for_devices">Procurando dispositivos…</string>
     <string name="select_all">Selecionar todos</string>
@@ -491,6 +496,7 @@
     <string name="support_bmc">Like what I do?\nConsider buying me a coffee</string>
     <string name="switch_mode">Trocar modo</string>
     <string name="system">Sistema</string>
+    <string name="system_default">Padrão do sistema</string>
     <string name="system_font">Fonte do sistema</string>
     <string name="system_settings">Configurações do sistema</string>
     <string name="telegram">Telegram</string>
@@ -547,6 +553,7 @@
     <string name="wireless_debugging_guide_2">Digite o código de 6 dígitos na notificação enviada pelo aShell You.</string>
     <string name="wireless_debugging_guide_3">Volte para o aplicativo e clique no botão \"Iniciar\" na tela inicial.</string>
     <string name="wireless_debugging_important_notice">Por favor, note que a parte esquerda da opção de depuração por Wi-Fi é clicável. Tocando nele abrirá o menu de depuração por Wi-Fi.</string>
+    <string name="des_contributors">Lista de colaboradores que ajudaram no desenvolvimento da aShell</string>
     <string name="changelog_v7_3_0">\nInterface de usuário melhorada no ecrã de mudanças\nContribuidores adicionados na seção\nTela de Licenças Adicionadas que mostra informações detalhadas de licença sobre o aplicativo e outras bibliotecas usadas pelo aplicativo</string>
     <string name="changelog_v7_2_1">\nAtualização da manutenção!</string>
     <string name="changelog_v7_2_0">\nAdicionado opção para executar comandos de adb em Configurações Rápidas adicionando blocos personalizados.\nAdicionado opção de backup na nuvem (Google Drive). Este recurso só está presente nas versões do GitHub.\nEsquema de Cores e UI e UX melhorados em muitas áreas.\nAdicionou muito mais exemplos de comandos de ADB.</string>
@@ -596,12 +603,4 @@
     <string name="changelog_v1_0_0">\nAdicionamos mais alguns exemplos de comandos.\nmudanças de interface secundária.\nNome do pacote alterado para evitar confusão de versão com o aplicativo original.</string>
     <string name="changelog_v0_9_1">\nAdicionado changelogs no aplicativo.\nAdicionado a saída do shell destacada.\nPequenas alterações no UI.</string>
     <string name="changelog_v0_9_0">\nAdicionado material dinâmico.\nA interface de usuário inteira foi restaurada para dar um visual renovado.</string>
-    <!-- Settings search -->
-    <string name="search_settings">Configurações de pesquisa</string>
-    <string name="recent_searches">Pesquisas Recentes</string>
-    <string name="no_results_found">Nenhum resultado encontrado</string>
-    <!-- Languages -->
-    <string name="languages">Idiomas</string>
-    <string name="system_default">Padrão do sistema</string>
-    <string name="open_app_language_settings">Abrir configurações de idioma do aplicativo</string>
 </resources>
