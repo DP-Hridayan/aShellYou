@@ -3,6 +3,7 @@ name: Crowdin Download
 on:
   schedule:
     - cron: '0 0 * * 0'
+
   workflow_dispatch:
 
 permissions:
@@ -15,13 +16,18 @@ jobs:
     name: Download translations from Crowdin
     if: github.repository_owner == 'DP-Hridayan'
     runs-on: ubuntu-latest
+
     steps:
 
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Prepare asset directories
+        run: |
+          mkdir -p app/src/main/assets/crowdin
+
       - name: Generate translators table
-        id: "translators"
+        id: translators
         uses: andrii-bodnar/action-crowdin-contributors@v2
         with:
           contributors_per_line: 6
@@ -35,8 +41,37 @@ jobs:
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
 
       - name: Save translators in assets
-        run:
-          printf '%s\n' '${{ steps.translators.outputs.json_report }}' > ./app/src/main/assets/crowdin/translators.json
+        run: |
+          printf '%s\n' '${{ steps.translators.outputs.json_report }}' \
+            > ./app/src/main/assets/crowdin/translators.json
+
+      - name: Fetch translation progress
+        run: |
+          curl -s \
+            -H "Authorization: Bearer ${{ secrets.CROWDIN_PERSONAL_TOKEN }}" \
+            "https://api.crowdin.com/api/v2/projects/${{ secrets.CROWDIN_PROJECT_ID }}/languages/progress?limit=500" \
+            -o crowdin_progress_raw.json
+
+      - name: Generate translation progress JSON
+        run: |
+          OUTPUT_FILE="./app/src/main/assets/crowdin/translation_progress.json"
+
+          jq '
+            [
+              .data[] |
+              {
+                languageId: .data.languageId,
+                languageName: .data.language.name,
+                androidCode: .data.language.androidCode,
+                editorCode: .data.language.editorCode,
+                locale: .data.language.locale,
+                translationProgress: .data.translationProgress,
+                approvalProgress: .data.approvalProgress,
+                translated: .data.translated,
+                approved: .data.approved
+              }
+            ]
+          ' crowdin_progress_raw.json > "$OUTPUT_FILE"
 
       - name: Download translations
         uses: crowdin/github-action@v2
