@@ -596,4 +596,12 @@
     <string name="changelog_v1_0_0">\nいくつかのコマンド例を追加\n軽微なUI変更\nパッケージ名を変更</string>
     <string name="changelog_v0_9_1">\nアプリにチェンジログを追加\nハイライトされたシェル出力を追加\n軽微なUI変更</string>
     <string name="changelog_v0_9_0">\n動的なマテリアルテーマを追加\nUI全体を刷新</string>
+    <!-- Settings search -->
+    <string name="search_settings">検索設定</string>
+    <string name="recent_searches">最近の検索</string>
+    <string name="no_results_found">結果が見つかりませんでした</string>
+    <!-- Languages -->
+    <string name="languages">言語</string>
+    <string name="system_default">システムのデフォルト</string>
+    <string name="open_app_language_settings">アプリの言語設定を開く</string>
 </resources>

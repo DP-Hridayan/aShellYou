@@ -596,4 +596,12 @@
     <string name="changelog_v1_0_0">\nऔर कमांड उदाहरण जोड़े\nमामूली UI बदलाव\nपैकेज नाम बदला</string>
     <string name="changelog_v0_9_1">\nऐप में चेंजलॉग जोड़ा\nहाइलाइटेड शेल आउटपुट जोड़ा\nमामूली UI बदलाव</string>
     <string name="changelog_v0_9_0">\nडायनामिक मटीरियल थीमिंग जोड़ी\nताज़ा लुक के लिए पूरा UI नया बनाया</string>
+    <!-- Settings search -->
+    <string name="search_settings">Search settings</string>
+    <string name="recent_searches">Recent searches</string>
+    <string name="no_results_found">No results found</string>
+    <!-- Languages -->
+    <string name="languages">Languages</string>
+    <string name="system_default">System default</string>
+    <string name="open_app_language_settings">Open app language settings</string>
 </resources>

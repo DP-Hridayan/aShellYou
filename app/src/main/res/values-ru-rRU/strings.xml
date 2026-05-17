@@ -27,7 +27,7 @@
     <string name="app_crashed">Сбой в приложении</string>
     <string name="app_tagline">ADB у вас под рукой</string>
     <string name="apply_to_all">Применить ко всем (%1$d осталось)</string>
-    <string name="artifact_id">ID артефакта</string>
+    <string name="artifact_id">Артефакт ID</string>
     <string name="auto_update">Автоматическое обновление</string>
     <string name="back">Назад</string>
     <string name="back_button">Кнопка \"Назад\"</string>
@@ -143,7 +143,7 @@
     <string name="des_high_contrast_dark_mode">Черная темная тема для устройств с OLED дисплеем</string>
     <string name="des_hridayan">Просто парень, который любит приложения и дизайн</string>
     <string name="des_initial_state">Фиксированное визуальное состояние плитки, когда оно отображается на панели быстрых настроек</string>
-    <string name="des_licenses">Просмотреть лицензии на использование приложения и библиотек</string>
+    <string name="des_licenses">Просмотрите лицензии, используемые приложением и библиотеками</string>
     <string name="des_local_backup">Сохранить зашифрованную резервную копию на вашем устройстве</string>
     <string name="des_local_restore">Выберите файл резервной копии с вашего устройства</string>
     <string name="des_look_and_feel">Динамические цвета, Темная тема, Язык</string>
@@ -266,7 +266,7 @@
     <string name="go_home">На Главную</string>
     <string name="go_to_terminal">Перейти в терминал</string>
     <string name="google_drive">Google Диск</string>
-    <string name="gpl_3_0_description">aShell является свободным программным обеспечением: вы можете распространять его и/или модифицировать в соответствии с условиями лицензии GNU General Public License, опубликованной Free Software Foundation, либо версии 3 Лицензии, либо (по вашему выбору) любой более поздней версии.</string>
+    <string name="gpl_3_0_description">aShell You это свободное программное обеспечение: вы можете распространять его и/или изменять в соответствии с условиями Общей Публичной Лицензии GNU, опубликованной Фондом Свободного Программного Обеспечения, или версии 3 Лицензии, или (по вашему выбору) любой позднейшей версии.</string>
     <string name="grant">Предоставить</string>
     <string name="grant_permission">Предоставить разрешение</string>
     <string name="grant_shizuku_permission_for_tiles">Разрешение Shizuku не предоставлено!\naShell You требуется разрешение Shizuku для выполнения команд плиток.</string>
@@ -339,7 +339,7 @@
     <string name="no_google_account_title">Нет Аккаунта Google</string>
     <string name="no_history">Нет истории команд</string>
     <string name="no_libraries_found">Библиотеки не найдены</string>
-    <string name="no_license_content_available">Нет доступного лицензионного контента. Нажмите «Открыть URL» для просмотра лицензии онлайн.</string>
+    <string name="no_license_content_available">Лицензионный контент недоступен. Нажмите \'Открыть URL\', чтобы просмотреть онлайн лицензию.</string>
     <string name="no_logs_yet">Пока нет журналов!</string>
     <string name="no_logs_yet_msg">Никакие журналы еще не записаны. Выполните несколько действий, чтобы показать журналы.</string>
     <string name="no_operations">Операции не выполняются</string>
@@ -496,7 +496,7 @@
     <string name="telegram">Телеграм</string>
     <string name="terminal">Терминал</string>
     <string name="terminal_font_style">Стиль шрифта терминала</string>
-    <string name="third_party_libraries">Сторонние библиотеки</string>
+    <string name="third_party_libraries">Посторонние библиотеки</string>
     <string name="this_application">Это приложение</string>
     <string name="this_device">Это устройство</string>
     <string name="tile">Плитка</string>
@@ -512,7 +512,7 @@
     <string name="translators">Переводчики</string>
     <string name="troubleshoot">Устранение неполадок</string>
     <string name="troubleshoot_reconnect">Обновите беспроводное отладочное соединение, переключив его \"вкл./выкл\"</string>
-    <string name="try_different_search">Попробуйте другое слово для поиска</string>
+    <string name="try_different_search">Попробуйте другой поисковый термин</string>
     <string name="turn_off_mobile_data">Отключите мобильную передачу данных, если Wi-Fi-соединение не подключено к Интернету</string>
     <string name="tweak_your_experience">Улучшите свой опыт использования</string>
     <string name="type">Тип</string>
@@ -547,7 +547,7 @@
     <string name="wireless_debugging_guide_2">Введите шестизначный код сопряжения в уведомление, отправленное aShell You.</string>
     <string name="wireless_debugging_guide_3">Вернитесь в приложение и нажмите кнопку \"Запустить\" на главном экране.</string>
     <string name="wireless_debugging_important_notice">Обратите внимание, что левая часть опции Беспроводная отладка является кликабельной. При нажатии на неё откроется меню сопряжения для беспроводной отладки.</string>
-    <string name="changelog_v7_3_0">\nУлучшен пользовательский интерфейс в окне журнала изменений\nДобавлены переводчики по разделу\nДобавлены лицензии, отображающие подробную информацию о лицензии приложения и других библиотеках, используемых приложением</string>
+    <string name="changelog_v7_3_0">\nУлучшен пользовательский интерфейс в журнале изменений\nДобавлены переводчики в раздел О программе.\nДобавлен экран лицензий, показывающий подробную информацию о лицензии приложения и других библиотек, использующих приложение</string>
     <string name="changelog_v7_2_1">\nОбновление технического обслуживания!</string>
     <string name="changelog_v7_2_0">\nДобавлена ​​опция запуска команд adb из Плиток Быстрых Настроек путем добавления собственных плиток.\nДобавлена ​​опция резервного копирования в облако (Google Drive). Эта функция присутствует только в сборниках GitHub.\nУлучшена цветовая схема, пользовательский интерфейс и UX во многих областях.\nДобавлено гораздо больше примеров команд ADB.</string>
     <string name="changelog_v7_1_0">\nИсправлена проблема, когда английская клавиатура могла не появляться при вводе команд, если пользователь установил язык приложения отличный от английского\nИсправлена проблема с неправильным отображением иконки почты\nИсправлена проблема, вызывавшая сбой при сохранении больших файлов\nУдалены избыточные разрешения\nУлучшен интерфейс раздела О приложении</string>
@@ -596,4 +596,12 @@
     <string name="changelog_v1_0_0">\nДобавлено несколько примеров команд.\nMinor UI изменений.\nИзменённое имя пакета, чтобы избежать путаницы с оригинальным приложением.</string>
     <string name="changelog_v0_9_1">\nДобавлены журналы изменений в приложение.\nДобавлены выделенные выходные данные оболочки.\nНезначительные изменения пользовательского интерфейса.</string>
     <string name="changelog_v0_9_0">\nДобавлены темы динамического материала.\nОбновлен весь пользовательский интерфейс, чтобы придать ему свежий вид.</string>
+    <!-- Settings search -->
+    <string name="search_settings">Настройки поиска</string>
+    <string name="recent_searches">Недавние поиски</string>
+    <string name="no_results_found">Результаты не найдены</string>
+    <!-- Languages -->
+    <string name="languages">Языки</string>
+    <string name="system_default">Системные по умолчанию</string>
+    <string name="open_app_language_settings">Открыть настройки языка приложения</string>
 </resources>

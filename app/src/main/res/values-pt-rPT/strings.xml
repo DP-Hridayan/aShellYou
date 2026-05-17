@@ -596,4 +596,12 @@
     <string name="changelog_v1_0_0">\nAdicionamos mais alguns exemplos de comandos.\nmudanças de interface secundária.\nNome do pacote alterado para evitar confusão de versão com o aplicativo original.</string>
     <string name="changelog_v0_9_1">\nAdicionado changelogs no aplicativo.\nAdicionado a saída do shell destacada.\nPequenas alterações no UI.</string>
     <string name="changelog_v0_9_0">\nAdicionado material dinâmico.\nA interface de usuário inteira foi restaurada para dar um visual renovado.</string>
+    <!-- Settings search -->
+    <string name="search_settings">Configurações de pesquisa</string>
+    <string name="recent_searches">Pesquisas Recentes</string>
+    <string name="no_results_found">Nenhum resultado encontrado</string>
+    <!-- Languages -->
+    <string name="languages">Idiomas</string>
+    <string name="system_default">Padrão do sistema</string>
+    <string name="open_app_language_settings">Abrir configurações de idioma do aplicativo</string>
 </resources>
