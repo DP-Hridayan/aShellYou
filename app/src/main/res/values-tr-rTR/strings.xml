@@ -289,6 +289,7 @@
     <string name="item_deleted">Öge başarıyla silindi</string>
     <string name="keep_both">Her İkisini de Tut</string>
     <string name="label">Etiket</string>
+    <string name="languages">Languages</string>
     <string name="last_backup_date">Son yedekleme tarihi</string>
     <string name="last_backup_details">Last backup details</string>
     <string name="last_backup_time">Son yedekleme saati</string>
@@ -343,6 +344,7 @@
     <string name="no_logs_yet">No logs yet!</string>
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
     <string name="no_operations">Devam eden işlem yok</string>
+    <string name="no_results_found">No results found</string>
     <string name="no_root_access">Root erişimi yok</string>
     <string name="no_saved_devices">Kayıtlı cihaz yok</string>
     <string name="no_search_results_found">Arama sonucu bulunamadı</string>
@@ -360,6 +362,7 @@
     <string name="on">Açık</string>
     <string name="on_state">Aç</string>
     <string name="open">Aç</string>
+    <string name="open_app_language_settings">Open app language settings</string>
     <string name="open_issues">Açık sorunlar (Issues)</string>
     <string name="open_url">Open URL</string>
     <string name="operations">İşlemler</string>
@@ -400,6 +403,7 @@
     <string name="ready_to_paste">Yapıştırmaya hazır</string>
     <string name="reboot_options">Yeniden başlatma (Reboot) seçenekleri</string>
     <string name="recent_activity">Recent activity</string>
+    <string name="recent_searches">Recent searches</string>
     <string name="reconnect">Yeniden Bağlan</string>
     <string name="reconnect_failed">Yeniden bağlantı başarısız</string>
     <string name="reconnect_failed_message">\nKablosuz Hata Ayıklama etkinleştirilmemiş olabilir\nEşleştirme bilgileri kaybolmuş olabilir. Tekrar manuel olarak eşleştirin!</string>
@@ -439,6 +443,7 @@
     <string name="search_labels_here">Etiketleri burada arayın</string>
     <string name="search_libraries">Search libraries, authors, licenses…</string>
     <string name="search_output">Çıktıyı burada arayın</string>
+    <string name="search_settings">Search settings</string>
     <string name="searching_connect_service">Bağlantı servisi aranıyor</string>
     <string name="searching_for_devices">Cihazlar aranıyor…</string>
     <string name="select_all">Tümünü seç</string>
@@ -491,6 +496,7 @@
     <string name="support_bmc">Yaptığım işi beğendiniz mi?\nBana bir kahve ısmarlamayı düşünebilirsiniz</string>
     <string name="switch_mode">Mod değiştir</string>
     <string name="system">Sistem</string>
+    <string name="system_default">System default</string>
     <string name="system_font">Sistem yazı tipi</string>
     <string name="system_settings">Sistem ayarları</string>
     <string name="telegram">Telegram</string>
@@ -547,6 +553,7 @@
     <string name="wireless_debugging_guide_2">Altı haneli Eşleştirme Kodunu aShell You tarafından gönderilen bildirime girin.</string>
     <string name="wireless_debugging_guide_3">Uygulamaya geri dönün ve ana ekrandaki \"Başlat\" düğmesine tıklayın.</string>
     <string name="wireless_debugging_important_notice">Lütfen Kablosuz Hata Ayıklama seçeneğinin sol kısmının tıklanabilir olduğuna dikkat edin. Üzerine dokunulduğunda Kablosuz Hata Ayıklama Eşleştirme menüsü açılır.</string>
+    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
@@ -596,12 +603,4 @@
     <string name="changelog_v1_0_0">\nBirkaç komut örneği daha eklendi.\nKüçük kullanıcı arayüzü (UI) değişiklikleri yapıldı.\nOrijinal uygulamayla sürüm karışıklığını önlemek için paket adı değiştirildi.</string>
     <string name="changelog_v0_9_1">\nUygulama içine değişiklik günlükleri (changelogs) eklendi.\nVurgulu shell çıktısı eklendi.\nKüçük kullanıcı arayüzü (UI) değişiklikleri yapıldı.</string>
     <string name="changelog_v0_9_0">\nDinamik material temalandırma eklendi.\nYeni ve taze bir görünüm kazandırmak için tüm Kullanıcı Arayüzü (UI) yenilendi.</string>
-    <!-- Settings search -->
-    <string name="search_settings">Search settings</string>
-    <string name="recent_searches">Recent searches</string>
-    <string name="no_results_found">No results found</string>
-    <!-- Languages -->
-    <string name="languages">Languages</string>
-    <string name="system_default">System default</string>
-    <string name="open_app_language_settings">Open app language settings</string>
 </resources>

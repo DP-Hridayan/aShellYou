@@ -289,6 +289,7 @@
     <string name="item_deleted">L\'élément a été supprimé avec succès</string>
     <string name="keep_both">Garder les deux</string>
     <string name="label">Étiquette</string>
+    <string name="languages">Langues</string>
     <string name="last_backup_date">Date de dernière sauvegarde</string>
     <string name="last_backup_details">Détails de la dernière sauvegarde</string>
     <string name="last_backup_time">Heure de la dernière sauvegarde</string>
@@ -343,6 +344,7 @@
     <string name="no_logs_yet">Pas encore de logs !</string>
     <string name="no_logs_yet_msg">Aucun journal n\'a encore été enregistré. Exécutez quelques tuiles pour afficher les logs ici.</string>
     <string name="no_operations">Aucune opération en cours</string>
+    <string name="no_results_found">Aucun résultat trouvé</string>
     <string name="no_root_access">Aucun accès root</string>
     <string name="no_saved_devices">Aucun appareil enregistré</string>
     <string name="no_search_results_found">Aucun résultat de recherche trouvé</string>
@@ -360,6 +362,7 @@
     <string name="on">Activé</string>
     <string name="on_state">Activé</string>
     <string name="open">Ouvrir</string>
+    <string name="open_app_language_settings">Ouvrir les paramètres de langue de l\'application</string>
     <string name="open_issues">Demandes ouvertes</string>
     <string name="open_url">Ouvrir l\'URL</string>
     <string name="operations">Opérations</string>
@@ -400,6 +403,7 @@
     <string name="ready_to_paste">Prêt à coller</string>
     <string name="reboot_options">Options de redémarrage</string>
     <string name="recent_activity">Activité récente</string>
+    <string name="recent_searches">Recherches récentes</string>
     <string name="reconnect">Reconnecter</string>
     <string name="reconnect_failed">La reconnexion a échoué</string>
     <string name="reconnect_failed_message">\nWireless Debugging might not be enabled\nPairing info might be lost. Pair manually again!</string>
@@ -439,6 +443,7 @@
     <string name="search_labels_here">Rechercher des étiquettes ici</string>
     <string name="search_libraries">Rechercher dans les bibliothèques, auteurs, licences…</string>
     <string name="search_output">Rechercher dans les sorties ici</string>
+    <string name="search_settings">Paramètres de recherche</string>
     <string name="searching_connect_service">Recherche du service de connexion</string>
     <string name="searching_for_devices">Recherche d\'appareils…</string>
     <string name="select_all">Tout sélectionner</string>
@@ -491,6 +496,7 @@
     <string name="support_bmc">Vous aimez ce que je fais ?\nEnvisagez de m\'offrir un café</string>
     <string name="switch_mode">Changer de mode</string>
     <string name="system">Système</string>
+    <string name="system_default">Par défaut du système</string>
     <string name="system_font">Police du système</string>
     <string name="system_settings">Paramètres du système</string>
     <string name="telegram">Telegram</string>
@@ -547,6 +553,7 @@
     <string name="wireless_debugging_guide_2">Entrez le code de couplage à six chiffres dans la notification envoyée par aShell You.</string>
     <string name="wireless_debugging_guide_3">Revenez à l\'application et cliquez sur le bouton \"Démarrer\" dans l\'écran d\'accueil.</string>
     <string name="wireless_debugging_important_notice">Veuillez noter que la partie gauche de l\'option Débogage sans fil est cliquable. Appuyer dessus ouvrira le menu de couplage du débogage sans fil.</string>
+    <string name="des_contributors">Liste des contributeurs qui ont contribué au développement de aShell You</string>
     <string name="changelog_v7_3_0">\nAmélioration de l\'interface utilisateur dans l\'écran de changelog\nAjout de contributeurs de traduction dans la section\nAjout d\'un écran de licences qui affiche des informations détaillées sur l\'application et les autres bibliothèques utilisées par l\'application</string>
     <string name="changelog_v7_2_1">\nMise à jour de la maintenance !</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
@@ -596,12 +603,4 @@
     <string name="changelog_v1_0_0">\nAjout d\'autres exemples de commandes.\nMineur UI change.\nChangé le nom du paquet pour éviter la confusion de version avec l\'application originale.</string>
     <string name="changelog_v0_9_1">\nAjout de changelogs dans l\'application.\nAjout d\'une sortie shell surlignée.\nModification mineure de l\'interface utilisateur.</string>
     <string name="changelog_v0_9_0">\nAjout d\'un thème de matière dynamique.\nRevamped toute l\'interface utilisateur pour donner un nouveau look.</string>
-    <!-- Settings search -->
-    <string name="search_settings">Paramètres de recherche</string>
-    <string name="recent_searches">Recherches récentes</string>
-    <string name="no_results_found">Aucun résultat trouvé</string>
-    <!-- Languages -->
-    <string name="languages">Langues</string>
-    <string name="system_default">Par défaut du système</string>
-    <string name="open_app_language_settings">Ouvrir les paramètres de langue de l\'application</string>
 </resources>

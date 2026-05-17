@@ -289,6 +289,7 @@
     <string name="item_deleted">アイテムは正常に削除されました</string>
     <string name="keep_both">両方を保持</string>
     <string name="label">ラベル</string>
+    <string name="languages">言語</string>
     <string name="last_backup_date">最終バックアップ日</string>
     <string name="last_backup_details">最後のバックアップの詳細</string>
     <string name="last_backup_time">前回のバックアップ時間</string>
@@ -343,6 +344,7 @@
     <string name="no_logs_yet">ログはまだありません！</string>
     <string name="no_logs_yet_msg">ログはまだ記録されていません。ここにログを表示するタイルを実行してください。</string>
     <string name="no_operations">進行中の操作はありません</string>
+    <string name="no_results_found">結果が見つかりませんでした</string>
     <string name="no_root_access">ルートアクセスがありません</string>
     <string name="no_saved_devices">保存されたデバイスはありません</string>
     <string name="no_search_results_found">検索結果が見つかりません</string>
@@ -360,6 +362,7 @@
     <string name="on">ON</string>
     <string name="on_state">オン</string>
     <string name="open">開く</string>
+    <string name="open_app_language_settings">アプリの言語設定を開く</string>
     <string name="open_issues">未解決の課題</string>
     <string name="open_url">URLを開く</string>
     <string name="operations">操作</string>
@@ -400,6 +403,7 @@
     <string name="ready_to_paste">ペーストする準備ができました</string>
     <string name="reboot_options">再起動オプション</string>
     <string name="recent_activity">最近のアクティビティ</string>
+    <string name="recent_searches">最近の検索</string>
     <string name="reconnect">再接続</string>
     <string name="reconnect_failed">再接続に失敗しました</string>
     <string name="reconnect_failed_message">\nワイヤレスデバッグが有効になっていない可能性があります\nペアリング情報が失われている可能性があります。手動で再度ペアリングしてください。</string>
@@ -439,6 +443,7 @@
     <string name="search_labels_here">ここにラベルを検索</string>
     <string name="search_libraries">Search libraries, authors, licenses…</string>
     <string name="search_output">ここで出力を検索</string>
+    <string name="search_settings">検索設定</string>
     <string name="searching_connect_service">接続サービスを検索中</string>
     <string name="searching_for_devices">デバイスを検索中…</string>
     <string name="select_all">すべて選択</string>
@@ -491,6 +496,7 @@
     <string name="support_bmc">気に入っていただけましたか？\nよろしければコーヒーをください</string>
     <string name="switch_mode">モードを切り替える</string>
     <string name="system">システム</string>
+    <string name="system_default">システムのデフォルト</string>
     <string name="system_font">システムフォント</string>
     <string name="system_settings">システム設定</string>
     <string name="telegram">Telegram</string>
@@ -547,6 +553,7 @@
     <string name="wireless_debugging_guide_2">aShell Youから送信された通知に6桁のペアリングコードを入力します。</string>
     <string name="wireless_debugging_guide_3">アプリに戻って、ホーム画面の「スタート」ボタンをクリックしてください。</string>
     <string name="wireless_debugging_important_notice">「ワイヤレスデバッグ」オプションの左側がクリック可能であることに注意してください。このオプションをタップすると、「ワイヤレスデバッグペアリング」メニューが開きます。</string>
+    <string name="des_contributors">aShell You の開発に協力した貢献者のリスト</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nメンテナンスのアップデート！</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
@@ -596,12 +603,4 @@
     <string name="changelog_v1_0_0">\nいくつかのコマンド例を追加\n軽微なUI変更\nパッケージ名を変更</string>
     <string name="changelog_v0_9_1">\nアプリにチェンジログを追加\nハイライトされたシェル出力を追加\n軽微なUI変更</string>
     <string name="changelog_v0_9_0">\n動的なマテリアルテーマを追加\nUI全体を刷新</string>
-    <!-- Settings search -->
-    <string name="search_settings">検索設定</string>
-    <string name="recent_searches">最近の検索</string>
-    <string name="no_results_found">結果が見つかりませんでした</string>
-    <!-- Languages -->
-    <string name="languages">言語</string>
-    <string name="system_default">システムのデフォルト</string>
-    <string name="open_app_language_settings">アプリの言語設定を開く</string>
 </resources>

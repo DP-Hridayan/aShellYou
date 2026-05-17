@@ -289,6 +289,7 @@
     <string name="item_deleted">مورد با موفقیت حذف شد</string>
     <string name="keep_both">هر دو را نگه دار</string>
     <string name="label">برچسب</string>
+    <string name="languages">Languages</string>
     <string name="last_backup_date">تاریخ آخرین پشتیبان</string>
     <string name="last_backup_details">Last backup details</string>
     <string name="last_backup_time">زمان آخرین پشتیبان</string>
@@ -343,6 +344,7 @@
     <string name="no_logs_yet">No logs yet!</string>
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
     <string name="no_operations">عملیاتی در حال انجام نیست</string>
+    <string name="no_results_found">No results found</string>
     <string name="no_root_access">دسترسی روت وجود ندارد</string>
     <string name="no_saved_devices">دستگاه ذخیره شده‌ای وجود ندارد</string>
     <string name="no_search_results_found">نتیجه‌ای یافت نشد</string>
@@ -360,6 +362,7 @@
     <string name="on">روشن</string>
     <string name="on_state">On</string>
     <string name="open">باز کردن</string>
+    <string name="open_app_language_settings">Open app language settings</string>
     <string name="open_issues">مسائل باز</string>
     <string name="open_url">Open URL</string>
     <string name="operations">عملیات</string>
@@ -400,6 +403,7 @@
     <string name="ready_to_paste">آماده چسباندن</string>
     <string name="reboot_options">گزینه‌های ری‌بوت</string>
     <string name="recent_activity">Recent activity</string>
+    <string name="recent_searches">Recent searches</string>
     <string name="reconnect">اتصال مجدد</string>
     <string name="reconnect_failed">اتصال مجدد ناموفق</string>
     <string name="reconnect_failed_message">\nممکن است اشکال‌زدایی بی‌سیم فعال نباشد\nاطلاعات جفت‌سازی ممکن است از دست رفته باشد. دوباره جفت کنید!</string>
@@ -439,6 +443,7 @@
     <string name="search_labels_here">جستجوی برچسب‌ها</string>
     <string name="search_libraries">Search libraries, authors, licenses…</string>
     <string name="search_output">جستجو در خروجی</string>
+    <string name="search_settings">Search settings</string>
     <string name="searching_connect_service">جستجوی سرویس اتصال</string>
     <string name="searching_for_devices">جستجوی دستگاه‌ها…</string>
     <string name="select_all">انتخاب همه</string>
@@ -491,6 +496,7 @@
     <string name="support_bmc">کار من را دوست دارید؟\nیک قهوه برایم بخرید</string>
     <string name="switch_mode">تغییر حالت</string>
     <string name="system">سیستم</string>
+    <string name="system_default">System default</string>
     <string name="system_font">فونت سیستم</string>
     <string name="system_settings">تنظیمات سیستم</string>
     <string name="telegram">تلگرام</string>
@@ -547,6 +553,7 @@
     <string name="wireless_debugging_guide_2">کد شش رقمی را در اعلان ارسال شده توسط aShell You وارد کنید.</string>
     <string name="wireless_debugging_guide_3">به برنامه برگردید و روی دکمه \"شروع\" در صفحه اصلی کلیک کنید.</string>
     <string name="wireless_debugging_important_notice">توجه داشته باشید که قسمت چپ گزینه اشکال‌زدایی بی‌سیم قابل کلیک است. ضربه زدن روی آن منوی جفت‌سازی را باز می‌کند.</string>
+    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
@@ -596,12 +603,4 @@
     <string name="changelog_v1_0_0">\nافزودن نمونه دستورات بیشتر\nتغییرات جزئی رابط کاربری\nتغییر نام بسته</string>
     <string name="changelog_v0_9_1">\nافزودن تغییرات به برنامه\nافزودن خروجی شل برجسته\nتغییرات جزئی رابط کاربری</string>
     <string name="changelog_v0_9_0">\nافزودن تم پویای متریال\nبازطراحی کامل رابط کاربری</string>
-    <!-- Settings search -->
-    <string name="search_settings">Search settings</string>
-    <string name="recent_searches">Recent searches</string>
-    <string name="no_results_found">No results found</string>
-    <!-- Languages -->
-    <string name="languages">Languages</string>
-    <string name="system_default">System default</string>
-    <string name="open_app_language_settings">Open app language settings</string>
 </resources>
