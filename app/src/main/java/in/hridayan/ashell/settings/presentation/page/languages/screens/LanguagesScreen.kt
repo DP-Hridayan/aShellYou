@@ -3,17 +3,21 @@ package `in`.hridayan.ashell.settings.presentation.page.languages.screens
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -39,6 +43,7 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.card.CrowdinContributeCard
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.utils.MiUiCheck
@@ -226,12 +231,34 @@ private fun LocaleCard(
                 }
             }
 
-            if (isSelected) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_check),
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                    contentDescription = null
-                )
+            // Translation progress
+            locale.translationProgress?.let { progress ->
+                Box(
+                    modifier = Modifier.size(48.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    val animatedProgress by animateFloatAsState(
+                        targetValue = progress / 100f,
+                        label = "translation_progress"
+                    )
+
+                    CircularProgressIndicator(
+                        progress = { animatedProgress },
+                        color = MaterialTheme.colorScheme.run {
+                            if (isSelected) onPrimaryContainer else primary
+                        },
+                        trackColor = MaterialTheme.colorScheme.run {
+                            if (isSelected) onPrimaryContainer.copy(alpha = 0.2f)
+                            else primary.copy(alpha = 0.15f)
+                        }
+                    )
+
+                    AutoResizeableText(
+                        text = "$progress%",
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.alpha(0.7f),
+                    )
+                }
             }
         }
     }
