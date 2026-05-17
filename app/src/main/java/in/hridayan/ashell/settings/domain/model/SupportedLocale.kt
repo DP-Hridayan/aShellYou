@@ -11,4 +11,5 @@ data class SupportedLocale(
     val tag: String,
     val displayName: String,
     val nativeName: String,
+    val translationProgress: Int? = null,
 )
