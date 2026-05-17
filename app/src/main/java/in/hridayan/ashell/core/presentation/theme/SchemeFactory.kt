@@ -19,6 +19,7 @@ import com.google.android.material.color.utilities.SchemeNeutral
 import com.google.android.material.color.utilities.SchemeRainbow
 import com.google.android.material.color.utilities.SchemeTonalSpot
 import com.google.android.material.color.utilities.SchemeVibrant
+import com.google.android.material.color.utilities.TonalPalette
 import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 
 /**
@@ -60,7 +61,10 @@ fun getPaletteKeyColors(primarySeedArgb: Int, paletteStyle: PaletteStyle): Palet
     val scheme = createDynamicScheme(primarySeedArgb, paletteStyle, isDark = false)
     return PaletteKeyColors(
         primary = modifyColorForDisplay(Color(scheme.primaryPalette.tone(60)), toneFactor = 1f),
-        secondary = modifyColorForDisplay(Color(scheme.secondaryPalette.tone(60)), toneFactor = 1.4f),
+        secondary = modifyColorForDisplay(
+            Color(scheme.secondaryPalette.tone(60)),
+            toneFactor = 1.4f
+        ),
         tertiary = modifyColorForDisplay(Color(scheme.tertiaryPalette.tone(60)), toneFactor = 0.7f),
     )
 }
@@ -90,47 +94,62 @@ fun DynamicScheme.toComposeColorScheme(): ColorScheme {
     val base = if (isDark) darkColorScheme() else lightColorScheme()
 
     return base.copy(
-        primary = Color(primaryPalette.tone(if (isDark) 80 else 40)),
-        onPrimary = Color(primaryPalette.tone(if (isDark) 20 else 100)),
-        primaryContainer = Color(primaryPalette.tone(if (isDark) 30 else 90)),
-        onPrimaryContainer = Color(primaryPalette.tone(if (isDark) 90 else 10)),
-        inversePrimary = Color(primaryPalette.tone(if (isDark) 40 else 80)),
+        primary = primaryPalette.resolve(80, 40, isDark),
+        onPrimary = primaryPalette.resolve(20, 100, isDark),
+        primaryContainer = primaryPalette.resolve(30, 90, isDark),
+        onPrimaryContainer = primaryPalette.resolve(90, 10, isDark),
+        inversePrimary = primaryPalette.resolve(40, 80, isDark),
 
-        secondary = Color(secondaryPalette.tone(if (isDark) 80 else 40)),
-        onSecondary = Color(secondaryPalette.tone(if (isDark) 20 else 100)),
-        secondaryContainer = Color(secondaryPalette.tone(if (isDark) 30 else 90)),
-        onSecondaryContainer = Color(secondaryPalette.tone(if (isDark) 90 else 10)),
+        secondary = secondaryPalette.resolve(80, 40, isDark),
+        onSecondary = secondaryPalette.resolve(20, 100, isDark),
+        secondaryContainer = secondaryPalette.resolve(30, 90, isDark),
+        onSecondaryContainer = secondaryPalette.resolve(90, 10, isDark),
 
-        tertiary = Color(tertiaryPalette.tone(if (isDark) 80 else 40)),
-        onTertiary = Color(tertiaryPalette.tone(if (isDark) 20 else 100)),
-        tertiaryContainer = Color(tertiaryPalette.tone(if (isDark) 30 else 90)),
-        onTertiaryContainer = Color(tertiaryPalette.tone(if (isDark) 90 else 10)),
+        tertiary = tertiaryPalette.resolve(80, 40, isDark),
+        onTertiary = tertiaryPalette.resolve(20, 100, isDark),
+        tertiaryContainer = tertiaryPalette.resolve(30, 90, isDark),
+        onTertiaryContainer = tertiaryPalette.resolve(90, 10, isDark),
 
-        error = Color(errorPalette.tone(if (isDark) 80 else 40)),
-        onError = Color(errorPalette.tone(if (isDark) 20 else 100)),
-        errorContainer = Color(errorPalette.tone(if (isDark) 30 else 90)),
-        onErrorContainer = Color(errorPalette.tone(if (isDark) 90 else 10)),
+        error = errorPalette.resolve(80, 40, isDark),
+        onError = errorPalette.resolve(20, 100, isDark),
+        errorContainer = errorPalette.resolve(30, 90, isDark),
+        onErrorContainer = errorPalette.resolve(90, 10, isDark),
 
-        background = Color(neutralPalette.tone(if (isDark) 6 else 98)),
-        onBackground = Color(neutralPalette.tone(if (isDark) 90 else 10)),
+        background = neutralPalette.resolve(6, 98, isDark),
+        onBackground = neutralPalette.resolve(90, 10, isDark),
 
-        surface = Color(neutralPalette.tone(if (isDark) 6 else 98)),
-        onSurface = Color(neutralPalette.tone(if (isDark) 90 else 10)),
-        surfaceVariant = Color(neutralVariantPalette.tone(if (isDark) 30 else 90)),
-        onSurfaceVariant = Color(neutralVariantPalette.tone(if (isDark) 80 else 30)),
+        surface = neutralPalette.resolve(6, 98, isDark),
+        onSurface = neutralPalette.resolve(90, 10, isDark),
 
-        surfaceDim = Color(neutralPalette.tone(if (isDark) 6 else 87)),
-        surfaceBright = Color(neutralPalette.tone(if (isDark) 24 else 98)),
-        surfaceContainerLowest = Color(neutralVariantPalette.tone(if (isDark) 4 else 100)),
-        surfaceContainerLow = Color(neutralVariantPalette.tone(if (isDark) 10 else 96)),
-        surfaceContainer = Color(neutralVariantPalette.tone(if (isDark) 12 else 94)),
-        surfaceContainerHigh = Color(neutralVariantPalette.tone(if (isDark) 17 else 92)),
-        surfaceContainerHighest = Color(neutralVariantPalette.tone(if (isDark) 22 else 90)),
+        surfaceVariant = neutralVariantPalette.resolve(30, 90, isDark),
+        onSurfaceVariant = neutralVariantPalette.resolve(80, 30, isDark),
 
-        inverseSurface = Color(neutralPalette.tone(if (isDark) 90 else 20)),
-        inverseOnSurface = Color(neutralPalette.tone(if (isDark) 20 else 95)),
+        surfaceDim = neutralPalette.resolve(6, 87, isDark),
+        surfaceBright = neutralPalette.resolve(24, 98, isDark),
 
-        outline = Color(neutralVariantPalette.tone(if (isDark) 60 else 50)),
-        outlineVariant = Color(neutralVariantPalette.tone(if (isDark) 30 else 80)),
+        surfaceContainerLowest = neutralVariantPalette.resolve(4, 100, isDark),
+        surfaceContainerLow = neutralVariantPalette.resolve(10, 96, isDark),
+        surfaceContainer = neutralVariantPalette.resolve(12, 94, isDark),
+        surfaceContainerHigh = neutralVariantPalette.resolve(17, 92, isDark),
+        surfaceContainerHighest = neutralVariantPalette.resolve(22, 90, isDark),
+
+        inverseSurface = neutralPalette.resolve(90, 20, isDark),
+        inverseOnSurface = neutralPalette.resolve(20, 95, isDark),
+
+        outline = neutralVariantPalette.resolve(60, 50, isDark),
+        outlineVariant = neutralVariantPalette.resolve(30, 80, isDark),
+    )
+}
+
+private fun TonalPalette.resolve(
+    darkTone: Int,
+    lightTone: Int,
+    isDark: Boolean
+): Color {
+    return Color(
+        tone(
+            if (isDark) darkTone
+            else lightTone
+        )
     )
 }

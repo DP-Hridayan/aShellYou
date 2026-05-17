@@ -22,7 +22,9 @@ import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 fun lightColorSchemeFromSeed(): ColorScheme {
     val primary = SeedColorProvider.primary
     val paletteStyle = LocalPaletteStyle.current
-    val scheme = createDynamicScheme(primary, paletteStyle, isDark = false)
+    val scheme =
+        createDynamicScheme(primarySeedArgb = primary, paletteStyle = paletteStyle, isDark = false)
+
     return scheme.toComposeColorScheme()
 }
 
@@ -30,7 +32,9 @@ fun lightColorSchemeFromSeed(): ColorScheme {
 fun darkColorSchemeFromSeed(): ColorScheme {
     val primary = SeedColorProvider.primary
     val paletteStyle = LocalPaletteStyle.current
-    val scheme = createDynamicScheme(primary, paletteStyle, isDark = true)
+    val scheme =
+        createDynamicScheme(primarySeedArgb = primary, paletteStyle = paletteStyle, isDark = true)
+
     return scheme.toComposeColorScheme()
 }
 
@@ -39,7 +43,13 @@ fun darkColorSchemeFromSeed(): ColorScheme {
 fun highContrastDarkColorSchemeFromSeed(): ColorScheme {
     val primary = SeedColorProvider.primary
     val paletteStyle = LocalPaletteStyle.current
-    val scheme = createDynamicScheme(primary, paletteStyle, isDark = true, contrastLevel = 1.0)
+    val scheme = createDynamicScheme(
+        primarySeedArgb = primary,
+        paletteStyle = paletteStyle,
+        isDark = true,
+        contrastLevel = 1.0
+    )
+
     return scheme.toComposeColorScheme().copy(
         background = Color.Black,
         surface = Color.Black,
