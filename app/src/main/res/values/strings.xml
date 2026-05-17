@@ -563,6 +563,16 @@
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A" translatable="false">Z → A</string>
     <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">Tonal Spot</string>
+    <string name="palette_expressive">Expressive</string>
+    <string name="palette_vibrant">Vibrant</string>
+    <string name="palette_monochrome">Monochrome</string>
+    <string name="palette_rainbow">Rainbow</string>
+    <string name="palette_fruit_salad">Fruit Salad</string>
+    <string name="palette_neutral">Neutral</string>
+    <string name="palette_fidelity">Fidelity</string>
+    <string name="palette_content">Content</string>
 
     /**
     * Changelogs

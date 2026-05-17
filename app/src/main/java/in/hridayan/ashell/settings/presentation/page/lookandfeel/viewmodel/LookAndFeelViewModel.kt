@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
+import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import kotlinx.coroutines.Dispatchers
@@ -22,8 +23,12 @@ class LookAndFeelViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setInt(SettingsKeys.PRIMARY_SEED, seed.primary)
-            settingsRepository.setInt(SettingsKeys.SECONDARY_SEED, seed.secondary)
-            settingsRepository.setInt(SettingsKeys.TERTIARY_SEED, seed.tertiary)
+        }
+    }
+
+    fun setPaletteStyle(style: PaletteStyle) {
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepository.setInt(SettingsKeys.PALETTE_STYLE, style.ordinal)
         }
     }
 

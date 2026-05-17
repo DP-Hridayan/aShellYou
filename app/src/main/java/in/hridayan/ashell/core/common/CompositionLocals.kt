@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.data.local.provider.AppSeedColors
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
+import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.strongHaptic
 import `in`.hridayan.ashell.core.presentation.utils.HapticUtils.weakHaptic
 import `in`.hridayan.ashell.core.presentation.viewmodel.DialogViewModel
@@ -36,6 +37,7 @@ val LocalSeedColor = staticCompositionLocalOf<SeedColor> {
 val LocalTonalPalette = staticCompositionLocalOf<List<AppSeedColors>> {
     error("No tonal palette provided")
 }
+val LocalPaletteStyle = staticCompositionLocalOf { PaletteStyle.TONAL_SPOT }
 
 val LocalSharedTransitionScope = staticCompositionLocalOf<SharedTransitionScope> {
     error("No shared transition scope provided")
@@ -63,11 +65,12 @@ fun CompositionLocals(
 
     val primarySeed by settingsViewModel.intState(SettingsKeys.PRIMARY_SEED)
 
-    val secondarySeed by settingsViewModel.intState(SettingsKeys.SECONDARY_SEED)
+    val seedColor = SeedColor(primarySeed)
 
-    val tertiarySeed by settingsViewModel.intState(SettingsKeys.TERTIARY_SEED)
-
-    val seedColor = SeedColor(primarySeed, secondarySeed, tertiarySeed)
+    val paletteStyleOrdinal by settingsViewModel.intState(SettingsKeys.PALETTE_STYLE)
+    val paletteStyle = remember(paletteStyleOrdinal) {
+        PaletteStyle.entries.getOrElse(paletteStyleOrdinal) { PaletteStyle.TONAL_SPOT }
+    }
 
     val isDynamicColor by settingsViewModel.booleanState(SettingsKeys.DYNAMIC_COLORS)
 
@@ -120,6 +123,7 @@ fun CompositionLocals(
             autoUpdate,
             themeMode,
             seedColor,
+            paletteStyle,
             isDynamicColor,
             isHighContrastDarkMode,
             isHapticEnabled,
@@ -149,6 +153,7 @@ fun CompositionLocals(
                 themeMode = themeMode,
                 isHighContrastDarkMode = isHighContrastDarkMode,
                 seedColor = seedColor,
+                paletteStyle = paletteStyle,
                 isDynamicColor = isDynamicColor,
                 isHapticEnabled = isHapticEnabled,
                 githubReleaseType = githubReleaseType,
@@ -226,6 +231,7 @@ fun CompositionLocals(
         LocalSeedColor provides seedColor,
         LocalDarkMode provides isDarkTheme,
         LocalTonalPalette provides tonalPalette,
+        LocalPaletteStyle provides paletteStyle,
         LocalDialogManager provides dialogViewModel
     ) {
         content()
@@ -251,4 +257,3 @@ private fun SettingsViewModel.floatState(key: SettingsKeys): State<Float> {
 private fun SettingsViewModel.stringState(key: SettingsKeys): State<String> {
     return getString(key).collectAsState(initial = key.default as String)
 }
-

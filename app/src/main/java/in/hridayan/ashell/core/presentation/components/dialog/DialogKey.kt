@@ -40,6 +40,7 @@ sealed class DialogKey {
         object RestoreSource : DialogKey()
         object ConfirmGoogleSignOut : DialogKey()
         object NoGoogleAccount : DialogKey()
+        object PaletteStyle : DialogKey()
     }
 
     sealed class Pair {

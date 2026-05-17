@@ -87,6 +87,12 @@ object SettingsProvider {
                 descriptionResId = R.string.des_dynamic_colors,
                 iconResId = R.drawable.ic_dynamic_color,
                 isLayoutVisible = !isSdkLowerThan31
+            ),
+            nullPreferenceItem(
+                key = SettingsKeys.PALETTE_STYLE,
+                titleResId = R.string.palette_style,
+                descriptionResId = R.string.palette_tonal_spot,
+                iconResId = R.drawable.ic_pallete,
             )
         ),
         categorizedItems(

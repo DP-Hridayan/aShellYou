@@ -21,18 +21,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
+import `in`.hridayan.ashell.core.presentation.theme.getPaletteKeyColors
 
 @Composable
 fun PaletteWheel(
@@ -50,9 +51,12 @@ fun PaletteWheel(
         label = "Check Scale Animation"
     )
 
-    val primaryColor = modifyColorForDisplay(Color(seedColor.primary), toneFactor = 1f)
-    val secondaryColor = modifyColorForDisplay(Color(seedColor.secondary), toneFactor = 1.4f)
-    val tertiaryColor = modifyColorForDisplay(Color(seedColor.tertiary), toneFactor = 0.7f)
+    // Derive display colors from the primary seed + current palette style.
+    // These are always at tone 40 and independent of light/dark mode.
+    val paletteStyle = LocalPaletteStyle.current
+    val keyColors = remember(seedColor.primary, paletteStyle) {
+        getPaletteKeyColors(seedColor.primary, paletteStyle)
+    }
 
     CustomCard(
         modifier = modifier,
@@ -75,7 +79,7 @@ fun PaletteWheel(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxSize()
-                        .background(color = primaryColor)
+                        .background(color = keyColors.primary)
                 )
 
                 Row(
@@ -87,13 +91,13 @@ fun PaletteWheel(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxSize()
-                            .background(color = secondaryColor)
+                            .background(color = keyColors.secondary)
                     )
                     Box(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxSize()
-                            .background(color = tertiaryColor)
+                            .background(color = keyColors.tertiary)
                     )
                 }
             }
@@ -117,18 +121,4 @@ fun PaletteWheel(
             }
         }
     }
-}
-
-private fun modifyColorForDisplay(
-    color: Color,
-    toneFactor: Float = 1.2f,
-    chromaFactor: Float = 1.15f
-): Color {
-    val hsv = FloatArray(3)
-    android.graphics.Color.colorToHSV(color.toArgb(), hsv)
-
-    hsv[1] = (hsv[1] * chromaFactor).coerceIn(0f, 1f)
-    hsv[2] = (hsv[2] * toneFactor).coerceIn(0f, 1f)
-
-    return Color(android.graphics.Color.HSVToColor(hsv))
 }

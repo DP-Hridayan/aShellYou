@@ -44,7 +44,7 @@ fun ColorTabs(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 groupedPalettes[page].forEach { palette ->
-                    val isChecked = LocalSeedColor.current == palette.colors
+                    val isChecked = LocalSeedColor.current.primary == palette.colors.primary
                     val isDynamicColor = LocalSettings.current.isDynamicColor
 
                     PaletteWheel(

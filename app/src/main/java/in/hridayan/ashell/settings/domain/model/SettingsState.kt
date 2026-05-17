@@ -1,12 +1,14 @@
 package `in`.hridayan.ashell.settings.domain.model
 
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
+import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 
 data class SettingsState(
     val isAutoUpdate: Boolean,
     val themeMode: Int,
     val isHighContrastDarkMode: Boolean,
     val seedColor: SeedColor,
+    val paletteStyle: PaletteStyle,
     val isDynamicColor: Boolean,
     val isHapticEnabled: Boolean,
     val githubReleaseType: Int,

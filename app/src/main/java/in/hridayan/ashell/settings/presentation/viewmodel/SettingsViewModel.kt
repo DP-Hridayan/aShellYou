@@ -160,6 +160,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.LanguagesScreen)
                 )
 
+                SettingsKeys.PALETTE_STYLE -> _uiEvent.emit(
+                    SettingsUiEvent.ShowDialog(DialogKey.Settings.PaletteStyle)
+                )
+
                 SettingsKeys.DARK_THEME -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen())
                 )

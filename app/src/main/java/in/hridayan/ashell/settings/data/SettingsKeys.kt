@@ -4,6 +4,7 @@ import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
+import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
@@ -18,8 +19,7 @@ enum class SettingsKeys(val default: Any?) {
     DARK_THEME(null),
     HIGH_CONTRAST_DARK_MODE(false),
     PRIMARY_SEED(SeedColorProvider.primary),
-    SECONDARY_SEED(SeedColorProvider.secondary),
-    TERTIARY_SEED(SeedColorProvider.tertiary),
+    PALETTE_STYLE(PaletteStyle.TONAL_SPOT.ordinal),
     DYNAMIC_COLORS(true),
     HAPTICS_AND_VIBRATION(true),
     VERSION(null),

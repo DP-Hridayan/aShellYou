@@ -22,15 +22,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.common.LocalPaletteStyle
+import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
+import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.themePicker
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
+import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStyleDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
+import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
 import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
@@ -39,8 +47,10 @@ fun LookAndFeelScreen(
     modifier: Modifier = Modifier,
     highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
+    lookAndFeelViewModel: LookAndFeelViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
+    val dialogManager = LocalDialogManager.current
     val settings = settingsViewModel.lookAndFeelPageList
     val context = LocalContext.current
 
@@ -55,6 +65,10 @@ fun LookAndFeelScreen(
                     navController.navigate(event.route)
                 }
 
+                is SettingsUiEvent.ShowDialog -> {
+                   dialogManager.show(DialogKey.Settings.PaletteStyle)
+                }
+
                 else -> {}
             }
         }
@@ -67,6 +81,9 @@ fun LookAndFeelScreen(
         listState = listState,
         headerItemCount = 2,
     )
+
+    // Read current palette style for dynamic description
+    val currentPaletteStyle = LocalPaletteStyle.current
 
     SettingsScaffold(
         modifier = modifier,
@@ -133,8 +150,16 @@ fun LookAndFeelScreen(
                             visibleItems.forEachIndexed { i, item ->
                                 val shape = getRoundedShape(i, visibleItems.size)
 
+                                // Override the description for PALETTE_STYLE to show current style name
+                                val effectiveItem =
+                                    if (item.key == SettingsKeys.PALETTE_STYLE) {
+                                        (item as PreferenceItem.NullPreferenceItem).copy(
+                                            descriptionResId = currentPaletteStyle.displayNameResId
+                                        )
+                                    } else item
+
                                 PreferenceItemView(
-                                    item = item,
+                                    item = effectiveItem,
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
@@ -158,4 +183,15 @@ fun LookAndFeelScreen(
                 }
             }
         })
+
+    // Palette Style Dialog
+    DialogKey.Settings.PaletteStyle.createDialog { dialogManager ->
+        PaletteStyleDialog(
+            onDismiss = { dialogManager.dismiss() },
+            onConfirm = { style ->
+                lookAndFeelViewModel.setPaletteStyle(style)
+                lookAndFeelViewModel.disableDynamicColors()
+            }
+        )
+    }
 }
