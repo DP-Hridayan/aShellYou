@@ -90,6 +90,28 @@
     </issue>
 
     <issue
+        id="Typos"
+        message="&quot;interface&quot; is a common misspelling; did you mean &quot;interfaz&quot;?"
+        errorLine1="    &lt;string name=&quot;no_adb_interface_found&quot;>No adb interface found&lt;/string>"
+        errorLine2="                                                 ~~~~~~~~~">
+        <location
+            file="src/main/res/values-es-rES/strings.xml"
+            line="333"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;via&quot; is a common misspelling; did you mean &quot;vía&quot;?"
+        errorLine1="    &lt;string name=&quot;changelog_v4_3_1&quot;>\nNow app catches any crashes and provides the option to report them via email&lt;/string>"
+        errorLine2="                                                                                                         ~~~">
+        <location
+            file="src/main/res/values-es-rES/strings.xml"
+            line="573"
+            column="106"/>
+    </issue>
+
+    <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;remaining&quot;): This should probably be a plural rather than a string"
         errorLine1="    &lt;string name=&quot;apply_to_all&quot;>Apply to all (%1$d remaining)&lt;/string>"
@@ -206,7 +228,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="302"
+            line="303"
             column="5"/>
     </issue>
 
@@ -217,7 +239,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="328"
+            line="329"
             column="5"/>
     </issue>
 
@@ -887,7 +909,7 @@
         errorLine2="                           ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-pt-rPT/strings.xml"
-            line="304"
+            line="305"
             column="28"/>
     </issue>
 
