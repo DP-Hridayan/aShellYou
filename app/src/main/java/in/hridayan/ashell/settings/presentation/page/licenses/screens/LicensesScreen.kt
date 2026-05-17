@@ -221,7 +221,7 @@ private fun LicensesLoadedState(
                 Text(
                     text = stringResource(
                         R.string.library_count,
-                        uiState.libraries.size,
+                        uiState.filteredLibraries.size,
                     ),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,

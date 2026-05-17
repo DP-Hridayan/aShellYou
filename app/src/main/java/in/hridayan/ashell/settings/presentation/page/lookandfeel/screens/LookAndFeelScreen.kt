@@ -31,11 +31,13 @@ import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsSc
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
 fun LookAndFeelScreen(
     modifier: Modifier = Modifier,
+    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val navController = LocalNavController.current
@@ -59,6 +61,12 @@ fun LookAndFeelScreen(
     }
 
     val listState = rememberLazyListState()
+    val highlightedKey = rememberHighlightState(
+        highlightKeyName = highlightKey,
+        settings = settings,
+        listState = listState,
+        headerItemCount = 2,
+    )
 
     SettingsScaffold(
         modifier = modifier,
@@ -69,6 +77,7 @@ fun LookAndFeelScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                state = listState,
                 contentPadding = innerPadding
             ) {
                 item {
@@ -112,7 +121,8 @@ fun LookAndFeelScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }
@@ -129,7 +139,8 @@ fun LookAndFeelScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }

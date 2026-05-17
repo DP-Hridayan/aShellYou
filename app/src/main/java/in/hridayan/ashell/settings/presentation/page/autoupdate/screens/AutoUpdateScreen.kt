@@ -41,8 +41,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
@@ -59,11 +57,13 @@ import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
+import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
 fun AutoUpdateScreen(
     modifier: Modifier = Modifier,
+    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel()
 ) {
@@ -110,6 +110,12 @@ fun AutoUpdateScreen(
     }
 
     val listState = rememberLazyListState()
+    val highlightedKey = rememberHighlightState(
+        highlightKeyName = highlightKey,
+        settings = settings,
+        listState = listState,
+        headerItemCount = 1,
+    )
 
     SettingsScaffold(
         modifier = modifier,
@@ -158,7 +164,8 @@ fun AutoUpdateScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }
@@ -175,7 +182,8 @@ fun AutoUpdateScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }

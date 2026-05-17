@@ -7,19 +7,19 @@ sealed class
 
 NavRoutes {
     @Serializable
-    object AboutScreen : NavRoutes()
+    data class AboutScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
-    object AutoUpdateScreen : NavRoutes()
+    data class AutoUpdateScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
-    object BackupAndRestoreScreen : NavRoutes()
+    data class BackupAndRestoreScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
     object BackupSchedulerScreen : NavRoutes()
 
     @Serializable
-    object BehaviorScreen : NavRoutes()
+    data class BehaviorScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
     object TranslatorsScreen : NavRoutes()
@@ -28,7 +28,13 @@ NavRoutes {
     object ChangelogScreen : NavRoutes()
 
     @Serializable
+    object SettingsSearchScreen : NavRoutes()
+
+    @Serializable
     object LicensesScreen : NavRoutes()
+
+    @Serializable
+    object LanguagesScreen : NavRoutes()
 
     @Serializable
     object CommandExamplesScreen : NavRoutes()
@@ -40,7 +46,7 @@ NavRoutes {
     object CrashDetailsScreen : NavRoutes()
 
     @Serializable
-    object DarkThemeScreen : NavRoutes()
+    data class DarkThemeScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
     object HomeScreen : NavRoutes()
@@ -49,7 +55,7 @@ NavRoutes {
     object LocalAdbScreen : NavRoutes()
 
     @Serializable
-    object LookAndFeelScreen : NavRoutes()
+    data class LookAndFeelScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
     object OnboardingScreen : NavRoutes()

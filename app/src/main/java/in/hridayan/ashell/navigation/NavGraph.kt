@@ -34,11 +34,13 @@ import `in`.hridayan.ashell.settings.presentation.page.behavior.screens.Behavior
 import `in`.hridayan.ashell.settings.presentation.page.changelog.screens.ChangelogScreen
 import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.CrashDetailsScreen
 import `in`.hridayan.ashell.settings.presentation.page.crashhistory.screens.CrashHistoryScreen
+import `in`.hridayan.ashell.settings.presentation.page.languages.screens.LanguagesScreen
 import `in`.hridayan.ashell.settings.presentation.page.licenses.screens.LicensesScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
 import `in`.hridayan.ashell.settings.presentation.page.translators.screens.TranslatorsScreen
+import `in`.hridayan.ashell.settings.presentation.page.search.screens.SettingsSearchScreen
 import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserScreen
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.screens.LocalAdbScreen
 import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScreen
@@ -80,20 +82,24 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 SettingsScreen()
             }
 
-            composable<NavRoutes.LookAndFeelScreen> {
-                LookAndFeelScreen()
+            composable<NavRoutes.LookAndFeelScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.LookAndFeelScreen>()
+                LookAndFeelScreen(highlightKey = route.highlightKey)
             }
 
-            composable<NavRoutes.DarkThemeScreen> {
-                DarkThemeScreen()
+            composable<NavRoutes.DarkThemeScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.DarkThemeScreen>()
+                DarkThemeScreen(highlightKey = route.highlightKey)
             }
 
-            composable<NavRoutes.BehaviorScreen> {
-                BehaviorScreen()
+            composable<NavRoutes.BehaviorScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.BehaviorScreen>()
+                BehaviorScreen(highlightKey = route.highlightKey)
             }
 
-            composable<NavRoutes.AboutScreen> {
-                AboutScreen()
+            composable<NavRoutes.AboutScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.AboutScreen>()
+                AboutScreen(highlightKey = route.highlightKey)
             }
 
             composable<NavRoutes.CommandExamplesScreen> {
@@ -108,6 +114,14 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 ChangelogScreen()
             }
 
+            composable<NavRoutes.SettingsSearchScreen> {
+                SettingsSearchScreen()
+            }
+
+            composable<NavRoutes.LanguagesScreen> {
+                LanguagesScreen()
+            }
+
             composable<NavRoutes.LicensesScreen> {
                 LicensesScreen()
             }
@@ -120,12 +134,14 @@ fun Navigation(isFirstLaunch: Boolean = false) {
                 CrashDetailsScreen()
             }
 
-            composable<NavRoutes.AutoUpdateScreen> {
-                AutoUpdateScreen()
+            composable<NavRoutes.AutoUpdateScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.AutoUpdateScreen>()
+                AutoUpdateScreen(highlightKey = route.highlightKey)
             }
 
-            composable<NavRoutes.BackupAndRestoreScreen> {
-                BackupAndRestoreScreen()
+            composable<NavRoutes.BackupAndRestoreScreen> { backStackEntry ->
+                val route = backStackEntry.toRoute<NavRoutes.BackupAndRestoreScreen>()
+                BackupAndRestoreScreen(highlightKey = route.highlightKey)
             }
 
             composable<NavRoutes.BackupSchedulerScreen> {

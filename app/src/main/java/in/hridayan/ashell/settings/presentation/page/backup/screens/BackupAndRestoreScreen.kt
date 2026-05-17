@@ -71,11 +71,13 @@ import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsSc
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
+import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
 fun BackupAndRestoreScreen(
     modifier: Modifier = Modifier,
+    highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     backupAndRestoreViewModel: BackupAndRestoreViewModel = hiltViewModel()
 ) {
@@ -193,6 +195,12 @@ fun BackupAndRestoreScreen(
     }
 
     val listState = rememberLazyListState()
+    val highlightedKey = rememberHighlightState(
+        highlightKeyName = highlightKey,
+        settings = settings,
+        listState = listState,
+        headerItemCount = 0,
+    )
 
     SettingsScaffold(
         modifier = modifier,
@@ -203,6 +211,7 @@ fun BackupAndRestoreScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                state = listState,
                 contentPadding = innerPadding
             ) {
                 itemsIndexed(settings) { index, group ->
@@ -232,7 +241,8 @@ fun BackupAndRestoreScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }
@@ -249,7 +259,8 @@ fun BackupAndRestoreScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 15.dp, vertical = 1.dp)
                                         .animateItem(),
-                                    shape = shape
+                                    shape = shape,
+                                    isHighlighted = item.key == highlightedKey,
                                 )
                             }
                         }

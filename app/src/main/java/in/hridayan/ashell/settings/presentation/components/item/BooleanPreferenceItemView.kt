@@ -30,6 +30,7 @@ import `in`.hridayan.ashell.settings.presentation.model.SettingsType
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedDescription
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedIcon
 import `in`.hridayan.ashell.settings.presentation.util.getResolvedTitle
+import `in`.hridayan.ashell.settings.presentation.page.search.highlightCardColors
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
@@ -37,6 +38,7 @@ fun BooleanPreferenceItemView(
     modifier: Modifier = Modifier,
     item: PreferenceItem,
     shape: CustomCardShape,
+    isHighlighted: Boolean = false,
     contentDescription: String = "",
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -95,6 +97,7 @@ fun BooleanPreferenceItemView(
         CustomCard(
             modifier = modifier,
             shape = shape,
+            colors = highlightCardColors(isHighlighted),
             clickable = enabled,
             onClick = onClick
         )

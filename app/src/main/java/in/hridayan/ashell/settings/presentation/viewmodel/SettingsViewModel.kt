@@ -1,13 +1,9 @@
 package `in`.hridayan.ashell.settings.presentation.viewmodel
 
 import android.content.Context
-import android.content.Intent
-import android.os.Build
-import android.provider.Settings
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -101,15 +97,15 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             when (key) {
                 SettingsKeys.LOOK_AND_FEEL -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.LookAndFeelScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.LookAndFeelScreen())
                 )
 
                 SettingsKeys.AUTO_UPDATE -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.AutoUpdateScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.AutoUpdateScreen())
                 )
 
                 SettingsKeys.BEHAVIOR -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.BehaviorScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.BehaviorScreen())
                 )
 
                 SettingsKeys.QUICK_SETTINGS_TILES -> _uiEvent.emit(
@@ -117,11 +113,11 @@ class SettingsViewModel @Inject constructor(
                 )
 
                 SettingsKeys.BACKUP_AND_RESTORE -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.BackupAndRestoreScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.BackupAndRestoreScreen())
                 )
 
                 SettingsKeys.ABOUT -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.AboutScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.AboutScreen())
                 )
 
                 SettingsKeys.CHANGELOGS -> _uiEvent.emit(
@@ -156,18 +152,12 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.OpenUrl(UrlConst.URL_TELEGRAM_CHANNEL)
                 )
 
-                SettingsKeys.LANGUAGE -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    _uiEvent.emit(
-                        SettingsUiEvent.LaunchIntent(
-                            intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS).apply {
-                                data = "package:${context.packageName}".toUri()
-                            }
-                        )
-                    )
-                }
+                SettingsKeys.LANGUAGE -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.LanguagesScreen)
+                )
 
                 SettingsKeys.DARK_THEME -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen())
                 )
 
                 SettingsKeys.RESET_APP_SETTINGS -> _uiEvent.emit(

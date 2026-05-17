@@ -25,6 +25,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -48,8 +49,10 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
@@ -83,6 +86,16 @@ fun SettingsScreen(modifier: Modifier = Modifier, viewModel: SettingsViewModel =
         TopAppBar(
             title = {},
             navigationIcon = { BackButton() },
+            actions = {
+                IconButton(onClick = withHaptic {
+                    navController.navigate(NavRoutes.SettingsSearchScreen)
+                }) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_search),
+                        contentDescription = stringResource(R.string.search_settings),
+                    )
+                }
+            },
             scrollBehavior = scrollBehavior,
         )
     }) { innerPadding ->
