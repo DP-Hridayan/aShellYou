@@ -67,8 +67,6 @@ jobs:
                 locale: .data.language.locale,
                 translationProgress: .data.translationProgress,
                 approvalProgress: .data.approvalProgress,
-                translated: .data.translated,
-                approved: .data.approved
               }
             ]
           ' crowdin_progress_raw.json > "$OUTPUT_FILE"
