@@ -1,5 +1,12 @@
 package `in`.hridayan.ashell.settings.presentation.components.card
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.StartOffset
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,9 +24,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
@@ -117,18 +130,26 @@ private fun BuyMeACoffee(
         contentColor = MaterialTheme.colorScheme.onPrimaryContainer
     )
 ) {
+    val cardShape = CardCornerShape.LAST_CARD
+
     CustomCard(
         modifier = modifier,
-        shape = CardCornerShape.LAST_CARD,
+        shape = cardShape,
         onClick = withHaptic { onClick() },
         colors = colors
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 25.dp, vertical = 15.dp)
+            modifier = Modifier
+                .premiumShine()
+                .padding(
+                    horizontal = 25.dp,
+                    vertical = 15.dp
+                )
         ) {
             Spacer(modifier = Modifier.weight(0.4f))
+
             Image(
                 imageVector = DynamicColorImageVectors.bmcLogo(),
                 contentDescription = null,
@@ -142,6 +163,61 @@ private fun BuyMeACoffee(
                 modifier = Modifier.weight(6f)
             )
         }
+    }
+}
+
+fun Modifier.premiumShine(
+    durationMillis: Int = 6500,
+    pauseBetween: Int = 3000
+): Modifier = composed {
+
+    val infiniteTransition = rememberInfiniteTransition(
+        label = "shineTransition"
+    )
+
+    val progress by infiniteTransition.animateFloat(
+        initialValue = -1.5f,
+        targetValue = 1.5f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = durationMillis,
+                easing = FastOutSlowInEasing
+            ),
+            repeatMode = RepeatMode.Restart,
+            initialStartOffset = StartOffset(pauseBetween)
+        ),
+        label = "shineProgress"
+    )
+
+    drawWithContent {
+
+        drawContent()
+
+        val width = size.width
+        val height = size.height
+
+        /*
+         * Sharp highlight line
+         */
+        val sharpWidth = width * 0.12f
+
+        val sharpStart = (progress * width * 1.8f)
+        val sharpEnd = sharpStart + sharpWidth
+
+        drawRect(
+            brush = Brush.linearGradient(
+                colors = listOf(
+                    Color.Transparent,
+                    Color.White.copy(alpha = 0.05f),
+                    Color.White.copy(alpha = 0.20f),
+                    Color.White.copy(alpha = 0.05f),
+                    Color.Transparent
+                ),
+                start = Offset(sharpStart, 0f),
+                end = Offset(sharpEnd + 180f, height)
+            ),
+            blendMode = BlendMode.Screen
+        )
     }
 }
 
