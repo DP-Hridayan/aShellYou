@@ -250,13 +250,16 @@ private fun LocaleCard(
                         trackColor = MaterialTheme.colorScheme.run {
                             if (isSelected) onPrimaryContainer.copy(alpha = 0.2f)
                             else primary.copy(alpha = 0.15f)
-                        }
+                        },
+                        strokeWidth = 3.dp
                     )
 
                     AutoResizeableText(
                         text = "$progress%",
                         style = MaterialTheme.typography.labelSmall,
-                        modifier = Modifier.alpha(0.7f),
+                        modifier = Modifier
+                            .alpha(0.7f)
+                            .padding(2.dp),
                     )
                 }
             }
