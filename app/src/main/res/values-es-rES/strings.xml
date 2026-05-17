@@ -215,11 +215,11 @@
     <string name="fb_all_operations_cancelled">Todas las operaciones fueron canceladas</string>
     <string name="fb_cannot_paste_into_selected">No se puede pegar en la carpeta seleccionada</string>
     <string name="fb_create_folder_failed">No se ha podido crear la carpeta: %1$s</string>
-    <string name="fb_delete_failed">Delete failed: %1$s</string>
-    <string name="fb_deleted_items">Deleted %1$d items</string>
-    <string name="fb_download_failed">Download failed: %1$s</string>
-    <string name="fb_downloaded_to">Downloaded to %1$s</string>
-    <string name="fb_downloading">Downloading %1$s</string>
+    <string name="fb_delete_failed">Error al eliminar: %1$s</string>
+    <string name="fb_deleted_items">Se eliminaron %1$d elementos</string>
+    <string name="fb_download_failed">Error al descargar: %1$s</string>
+    <string name="fb_downloaded_to">Descargado en %1$s</string>
+    <string name="fb_downloading">Descargando %1$s</string>
     <string name="fb_empty_folder_skipped">Empty folder skipped</string>
     <string name="fb_error">Error: %1$s</string>
     <string name="fb_file_deleted">File deleted</string>
