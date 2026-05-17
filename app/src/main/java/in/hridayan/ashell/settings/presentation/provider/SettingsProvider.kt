@@ -148,6 +148,12 @@ object SettingsProvider {
         categorizedItems(
             categoryNameResId = R.string.contributors,
             nullPreferenceItem(
+                key = SettingsKeys.CONTRIBUTORS,
+                titleResId = R.string.contributors,
+                descriptionResId = R.string.des_contributors,
+                iconResId = R.drawable.ic_crowdsource
+            ),
+            nullPreferenceItem(
                 key = SettingsKeys.TRANSLATORS,
                 titleResId = R.string.translators,
                 descriptionResId = R.string.des_translators,

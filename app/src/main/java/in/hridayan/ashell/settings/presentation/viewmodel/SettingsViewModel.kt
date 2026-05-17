@@ -128,6 +128,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.TranslatorsScreen)
                 )
 
+                SettingsKeys.CONTRIBUTORS -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.ContributorsScreen)
+                )
+
                 SettingsKeys.CRASH_HISTORY -> _uiEvent.emit(
                     SettingsUiEvent.Navigate(NavRoutes.CrashHistoryScreen)
                 )

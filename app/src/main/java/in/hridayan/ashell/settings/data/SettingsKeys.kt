@@ -66,5 +66,6 @@ enum class SettingsKeys(val default: Any?) {
     LAST_LOCAL_BACKUP_TYPE("None"),
     QUICK_SETTINGS_TILES(null),
     TRANSLATORS(null),
+    CONTRIBUTORS(null),
     RECENT_SEARCH_KEYS("")
 }
