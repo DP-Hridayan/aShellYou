@@ -9,7 +9,7 @@ object TranslatorParser {
     fun loadJson(context: Context): List<TranslatorDto> {
 
         val json = context.assets
-            .open("translators.json")
+            .open("crowdin/translators.json")
             .bufferedReader()
             .use { it.readText() }
 

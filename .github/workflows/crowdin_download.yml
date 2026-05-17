@@ -36,7 +36,7 @@ jobs:
 
       - name: Save translators in assets
         run:
-          printf '%s\n' '${{ steps.translators.outputs.json_report }}' > ./app/src/main/assets/translators.json
+          printf '%s\n' '${{ steps.translators.outputs.json_report }}' > ./app/src/main/assets/crowdin/translators.json
 
       - name: Download translations
         uses: crowdin/github-action@v2
