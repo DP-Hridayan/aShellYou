@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package `in`.hridayan.ashell.core.presentation.theme
+package `in`.hridayan.ashell.core.presentation.theme.color
 
 import android.annotation.SuppressLint
 import android.content.Context

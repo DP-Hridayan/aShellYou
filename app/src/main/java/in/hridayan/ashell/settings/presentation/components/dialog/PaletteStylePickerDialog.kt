@@ -60,11 +60,11 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
-import `in`.hridayan.ashell.core.presentation.theme.getPaletteKeyColors
+import `in`.hridayan.ashell.core.presentation.theme.color.getPaletteKeyColors
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
-fun PaletteStyleDialog(
+fun PaletteStylePickerDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     onConfirm: (PaletteStyle) -> Unit,

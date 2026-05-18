@@ -33,7 +33,7 @@ import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
-import `in`.hridayan.ashell.core.presentation.theme.getPaletteKeyColors
+import `in`.hridayan.ashell.core.presentation.theme.color.getPaletteKeyColors
 
 @Composable
 fun PaletteWheel(

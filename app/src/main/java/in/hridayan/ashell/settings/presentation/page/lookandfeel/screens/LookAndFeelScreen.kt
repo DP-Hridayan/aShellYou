@@ -24,6 +24,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
+import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
@@ -31,8 +33,8 @@ import `in`.hridayan.ashell.core.presentation.components.svg.vectors.themePicker
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStylePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
-import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStyleDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
@@ -49,10 +51,12 @@ fun LookAndFeelScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     lookAndFeelViewModel: LookAndFeelViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val settings = settingsViewModel.lookAndFeelPageList
-    val context = LocalContext.current
+    val currentPaletteStyle = LocalPaletteStyle.current
+    val isDynamicColorsEnabled = LocalSettings.current.isDynamicColor
 
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
@@ -66,7 +70,7 @@ fun LookAndFeelScreen(
                 }
 
                 is SettingsUiEvent.ShowDialog -> {
-                   dialogManager.show(DialogKey.Settings.PaletteStyle)
+                    dialogManager.show(DialogKey.Settings.PaletteStyle)
                 }
 
                 else -> {}
@@ -81,9 +85,6 @@ fun LookAndFeelScreen(
         listState = listState,
         headerItemCount = 2,
     )
-
-    // Read current palette style for dynamic description
-    val currentPaletteStyle = LocalPaletteStyle.current
 
     SettingsScaffold(
         modifier = modifier,
@@ -107,8 +108,14 @@ fun LookAndFeelScreen(
                     )
                 }
 
-                item {
-                    ColorTabs(modifier = Modifier.padding(20.dp))
+                if (currentPaletteStyle != PaletteStyle.MONOCHROME) {
+                    item("color_tabs") {
+                        ColorTabs(
+                            modifier = Modifier
+                                .padding(20.dp)
+                                .animateItem()
+                        )
+                    }
                 }
 
                 itemsIndexed(settings) { index, group ->
@@ -145,10 +152,12 @@ fun LookAndFeelScreen(
                         }
 
                         is PreferenceGroup.Items -> {
-                            val visibleItems = group.items.filter { it.isLayoutVisible }
+                            val visibleItems = group.items.filter {
+                                it.isLayoutVisible &&
+                                        (if (it.key == SettingsKeys.PALETTE_STYLE) !isDynamicColorsEnabled else true)
+                            }
 
                             visibleItems.forEachIndexed { i, item ->
-                                val shape = getRoundedShape(i, visibleItems.size)
 
                                 // Override the description for PALETTE_STYLE to show current style name
                                 val effectiveItem =
@@ -157,6 +166,8 @@ fun LookAndFeelScreen(
                                             descriptionResId = currentPaletteStyle.displayNameResId
                                         )
                                     } else item
+
+                                val shape = getRoundedShape(i, visibleItems.size)
 
                                 PreferenceItemView(
                                     item = effectiveItem,
@@ -186,7 +197,7 @@ fun LookAndFeelScreen(
 
     // Palette Style Dialog
     DialogKey.Settings.PaletteStyle.createDialog { dialogManager ->
-        PaletteStyleDialog(
+        PaletteStylePickerDialog(
             onDismiss = { dialogManager.dismiss() },
             onConfirm = { style ->
                 lookAndFeelViewModel.setPaletteStyle(style)

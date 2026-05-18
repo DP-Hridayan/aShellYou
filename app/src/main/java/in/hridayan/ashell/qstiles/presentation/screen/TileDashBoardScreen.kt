@@ -95,7 +95,7 @@ import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavP
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillDefaults
 import `in`.hridayan.ashell.core.presentation.components.navigation.FloatingNavPillItem
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
-import `in`.hridayan.ashell.core.presentation.theme.blend
+import `in`.hridayan.ashell.core.presentation.theme.color.blend
 import `in`.hridayan.ashell.core.utils.DateTimeUtils
 import `in`.hridayan.ashell.core.utils.UrlUtils
 import `in`.hridayan.ashell.core.utils.createAppNotificationSettingsIntent

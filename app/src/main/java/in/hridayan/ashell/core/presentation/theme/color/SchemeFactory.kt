@@ -1,6 +1,6 @@
 @file:SuppressLint("RestrictedApi")
 
-package `in`.hridayan.ashell.core.presentation.theme
+package `in`.hridayan.ashell.core.presentation.theme.color
 
 import android.annotation.SuppressLint
 import androidx.compose.material3.ColorScheme
@@ -47,7 +47,7 @@ fun createDynamicScheme(
 }
 
 /**
- * Extracts the 3 palette key colors (primary, secondary, tertiary) at tone 40
+ * Extracts the 3 palette key colors (primary, secondary, tertiary) at tone 60
  * for display purposes (e.g. the palette wheel). These are NOT affected by
  * light/dark mode — they are always the same "representative" mid-tone colors.
  */

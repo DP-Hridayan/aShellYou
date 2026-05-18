@@ -85,7 +85,7 @@
         errorLine2="              ~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/core/presentation/components/dialog/DialogKey.kt"
-            line="55"
+            line="56"
             column="15"/>
     </issue>
 
@@ -364,58 +364,9 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.mipmap.dp_drdisagree` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/dp_drdisagree.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.dp_krishna` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/dp_krishna.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.dp_marciozomb13` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/dp_marciozomb13.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.dp_shivam` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/dp_shivam.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.mipmap.dp_shizuku` appears to be unused">
         <location
             file="src/main/res/mipmap-hdpi/dp_shizuku.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.dp_sunilpaulmathew` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/dp_sunilpaulmathew.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.dp_weiguangtwk` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/dp_weiguangtwk.png"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.mipmap.dp_winzort` appears to be unused">
-        <location
-            file="src/main/res/mipmap-hdpi/dp_winzort.png"/>
     </issue>
 
     <issue
