@@ -31,10 +31,10 @@ jobs:
         run: |
           rm -rf app/src/main/assets/crowdin/contributors_pfp/*
 
-      - name: Install ImageMagick
+      - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y imagemagick
+          sudo apt-get install -y imagemagick jq
 
       - name: Generate translators table
         id: translators
@@ -57,9 +57,12 @@ jobs:
 
       - name: Download Crowdin contributor profile pictures
         run: |
-          INPUT_FILE="./app/src/main/assets/crowdin/translators.json"
+          set -e
 
-          jq -c '.[]' "$INPUT_FILE" | while read contributor; do
+          INPUT_FILE="./app/src/main/assets/crowdin/translators.json"
+          TEMP_AVATAR="$RUNNER_TEMP/avatar.jpg"
+
+          jq -c '.[]' "$INPUT_FILE" | while read -r contributor; do
 
             USER_ID=$(echo "$contributor" | jq -r '.id')
             PICTURE_URL=$(echo "$contributor" | jq -r '.picture')
@@ -70,22 +73,20 @@ jobs:
 
             AVATAR_PATH="app/src/main/assets/crowdin/contributors_pfp/contributor_${USER_ID}.webp"
 
-            curl -L "$PICTURE_URL" -o temp_avatar.jpg
+            curl -L -s "$PICTURE_URL" -o "$TEMP_AVATAR"
 
-            convert temp_avatar.jpg \
+            convert "$TEMP_AVATAR" \
               -resize 128x128 \
               -strip \
               -quality 85 \
               "$AVATAR_PATH"
-
-            rm temp_avatar.jpg
 
           done
 
       - name: Inject local avatar paths into translators JSON
         run: |
           INPUT_FILE="./app/src/main/assets/crowdin/translators.json"
-          TEMP_FILE="./app/src/main/assets/crowdin/translators_temp.json"
+          TEMP_FILE="$RUNNER_TEMP/translators_temp.json"
 
           jq '
             map(
@@ -107,7 +108,7 @@ jobs:
           curl -s \
             -H "Authorization: Bearer ${{ secrets.CROWDIN_PERSONAL_TOKEN }}" \
             "https://api.crowdin.com/api/v2/projects/${{ secrets.CROWDIN_PROJECT_ID }}/languages/progress?limit=500" \
-            -o crowdin_progress_raw.json
+            -o "$RUNNER_TEMP/crowdin_progress_raw.json"
 
       - name: Generate translation progress JSON
         run: |
@@ -126,7 +127,7 @@ jobs:
                 approvalProgress: .data.approvalProgress
               }
             ]
-          ' crowdin_progress_raw.json > "$OUTPUT_FILE"
+          ' "$RUNNER_TEMP/crowdin_progress_raw.json" > "$OUTPUT_FILE"
 
       - name: Download translations
         uses: crowdin/github-action@v2
