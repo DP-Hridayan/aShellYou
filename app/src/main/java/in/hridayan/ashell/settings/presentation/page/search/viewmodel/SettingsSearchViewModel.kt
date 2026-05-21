@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
@@ -36,24 +35,7 @@ class SettingsSearchViewModel @Inject constructor(
     /** Full search index — built once at init via the DSL's SettingsSearchEngine. */
     private val engine: SettingsSearchEngine = SettingsSearchEngine.build(
         context = context,
-        screens = listOf(
-            "settings" to SettingsProvider.settingsPage,
-            "look_and_feel" to SettingsProvider.lookAndFeelPage,
-            "dark_theme" to SettingsProvider.darkThemePage,
-            "behavior" to SettingsProvider.behaviorPage,
-            "auto_update" to SettingsProvider.autoUpdatePage,
-            "about" to SettingsProvider.aboutPage,
-            "backup_restore" to SettingsProvider.backupPage,
-        ),
-        screenTitles = mapOf(
-            "settings" to R.string.settings,
-            "look_and_feel" to R.string.look_and_feel,
-            "dark_theme" to R.string.dark_theme,
-            "behavior" to R.string.behavior,
-            "auto_update" to R.string.auto_update,
-            "about" to R.string.about,
-            "backup_restore" to R.string.backup_and_restore,
-        ),
+        pages = SettingsProvider.allSearchablePages,
     )
 
     private val allEntries: List<SearchEntry> = engine.allEntries()

@@ -340,7 +340,7 @@
     <string name="no_google_account_title">Sin cuenta de Google</string>
     <string name="no_history">Sin historial de comandos</string>
     <string name="no_libraries_found">No se encontraron librerías</string>
-    <string name="no_license_content_available">No hay contenido de licencia disponible. Toca \"Abrir URL\" para ver la licencia en línea.</string>
+    <string name="view_license_online_msg">No hay contenido de licencia disponible. Toca \"Abrir URL\" para ver la licencia en línea.</string>
     <string name="no_logs_yet">¡Aún no hay registros!</string>
     <string name="no_logs_yet_msg">Aún no se ha grabado ningún registro. Ejecuta algunos mosaicos para mostrar los registros aquí.</string>
     <string name="no_operations">No hay operaciones en curso</string>

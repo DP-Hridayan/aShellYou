@@ -3,21 +3,23 @@ package `in`.hridayan.settingsdsl.model
 /**
  * A type-safe identifier for a settings entry.
  *
- * Implement this interface in your own enum or sealed class to define
+ * Implement this interface in your own sealed class to define
  * the keys used in your settings pages.
  *
  * Example:
  * ```kotlin
- * enum class AppKey(
+ * sealed class AppKey<out T>(
  *     override val name: String,
- *     override val defaultValue: Any? = null
- * ) : SettingsKey {
- *     DYNAMIC_COLORS("dynamic_colors", true),
- *     DARK_THEME("dark_theme", -1),
+ *     override val defaultValue: T,
+ * ) : SettingsKey<T> {
+ *     data object DynamicColors : AppKey<Boolean>("dynamic_colors", true)
+ *     data object DarkTheme    : AppKey<Int>("dark_theme", -1)
  * }
  * ```
+ *
+ * @param T the type of the default value this key carries.
  */
-interface SettingsKey {
+interface SettingsKey<out T> {
     val name: String
-    val defaultValue: Any?
+    val defaultValue: T
 }

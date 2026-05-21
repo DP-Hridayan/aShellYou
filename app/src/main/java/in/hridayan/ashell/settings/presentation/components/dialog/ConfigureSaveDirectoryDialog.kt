@@ -100,7 +100,7 @@ fun ConfigureSaveDirectoryDialog(
     val onResetDirectory: () -> Unit = withHaptic {
         settingsViewModel.setString(
             SettingsKeys.OUTPUT_SAVE_DIRECTORY,
-            SettingsKeys.OUTPUT_SAVE_DIRECTORY.default as String
+            SettingsKeys.OUTPUT_SAVE_DIRECTORY.default
         )
         rotationAngle -= 360f
     }

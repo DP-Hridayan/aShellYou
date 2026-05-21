@@ -18,12 +18,15 @@ import `in`.hridayan.settingsdsl.dsl.settingsPage
 import `in`.hridayan.settingsdsl.dsl.switchBannerItem
 import `in`.hridayan.settingsdsl.dsl.switchItem
 import `in`.hridayan.settingsdsl.model.ButtonGroupOption
+import `in`.hridayan.settingsdsl.model.SettingsPage
 
 private val isSdkLowerThan31 = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
 
 object SettingsProvider {
 
     val settingsPage = settingsPage(
+        screenTitle = R.string.settings,
+        screenId = "settings",
         group(
             clickableItem(
                 key = SettingsKeys.LOOK_AND_FEEL,
@@ -65,6 +68,8 @@ object SettingsProvider {
     )
 
     val lookAndFeelPage = settingsPage(
+        screenTitle = R.string.look_and_feel,
+        screenId = "look_and_feel",
         group(
             switchItem(
                 key = SettingsKeys.DYNAMIC_COLORS,
@@ -104,6 +109,8 @@ object SettingsProvider {
     )
 
     val darkThemePage = settingsPage(
+        screenTitle = R.string.dark_theme,
+        screenId = "dark_theme",
         group(
             radioGroupItem(
                 key = SettingsKeys.THEME_MODE,
@@ -122,6 +129,8 @@ object SettingsProvider {
     )
 
     val autoUpdatePage = settingsPage(
+        screenTitle = R.string.auto_update,
+        screenId = "auto_update",
         group(
             switchBannerItem(key = SettingsKeys.AUTO_UPDATE, title = R.string.enable_auto_update),
         ),
@@ -144,6 +153,8 @@ object SettingsProvider {
     )
 
     val behaviorPage = settingsPage(
+        screenTitle = R.string.behavior,
+        screenId = "behavior",
         category(
             title = R.string.local_adb_shell,
             radioGroupItem(
@@ -206,6 +217,8 @@ object SettingsProvider {
     )
 
     val aboutPage = settingsPage(
+        screenTitle = R.string.about,
+        screenId = "about",
         category(
             title = R.string.contributors,
             clickableItem(
@@ -257,6 +270,8 @@ object SettingsProvider {
     )
 
     val backupPage = settingsPage(
+        screenTitle = R.string.backup_and_restore,
+        screenId = "backup_restore",
         customSlot(BackupSlots.GoogleSignIn),
         category(
             title = R.string.backup,
@@ -298,6 +313,12 @@ object SettingsProvider {
                 icon = R.drawable.ic_reset_settings
             ),
         ),
+    )
+
+    /** All searchable pages — single source of truth for the search engine. */
+    val allSearchablePages: List<SettingsPage> = listOf(
+        settingsPage, lookAndFeelPage, darkThemePage,
+        behaviorPage, autoUpdatePage, aboutPage, backupPage,
     )
 }
 

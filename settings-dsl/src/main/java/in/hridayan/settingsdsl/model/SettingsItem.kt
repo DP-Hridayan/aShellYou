@@ -15,7 +15,7 @@ import `in`.hridayan.settingsdsl.ui.card.CustomCardShape
  */
 data class SettingsItem(
     /** The key identifying this item. */
-    val key: SettingsKey,
+    val key: SettingsKey<*>,
 
     /** Resolved display title. */
     val title: String,

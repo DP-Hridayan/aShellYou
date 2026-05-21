@@ -3,39 +3,38 @@ package `in`.hridayan.ashell.settings.presentation.state
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
-import `in`.hridayan.settingsdsl.model.SettingsKey
+import `in`.hridayan.settingsdsl.controller.SettingsController
+import `in`.hridayan.settingsdsl.controller.rememberController
 
 /**
- * A snapshot of all settings values, keyed by [SettingsKeys].
+ * App-specific convenience wrapper around the library's [rememberController].
  *
- * Produced by [rememberSettingsState] via a single [collectAsState] call on
- * the ViewModel's pre-warmed [SettingsViewModel.settingsState] — no per-key
- * flow subscriptions inside Compose, so no first-frame lag.
+ * Reads one [Preferences] snapshot (single DataStore flow) and maps
+ * key lookups + actions to the app's ViewModel. No pre-warming needed.
  */
-class SettingsStateSnapshot internal constructor(
-    private val values: Map<SettingsKeys, Any?>,
-) {
-    /** Current Boolean value for [key], or `false` if the key is not Boolean. */
-    fun isChecked(key: SettingsKey): Boolean =
-        values[key as? SettingsKeys] as? Boolean ?: false
-
-    /** Current Int value for [key], or `-1` if the key is not Int. */
-    fun selectedValue(key: SettingsKey): Int =
-        values[key as? SettingsKeys] as? Int ?: -1
-}
-
-/**
- * Returns a [SettingsStateSnapshot] backed by the ViewModel's single pre-warmed
- * [StateFlow][kotlinx.coroutines.flow.StateFlow].
- *
- * This is a **single** [collectAsState] call — all settings values are already
- * in memory by the time any screen opens, because the ViewModel starts streaming
- * them from DataStore immediately on creation.
- */
+@Suppress("UNCHECKED_CAST")
 @Composable
-fun SettingsViewModel.rememberSettingsState(): SettingsStateSnapshot {
-    val values by settingsState.collectAsState()
-    return SettingsStateSnapshot(values)
+fun SettingsViewModel.rememberController(): SettingsController {
+    val prefs by preferences.collectAsState()
+    val vm = this
+
+    return rememberController(
+        isChecked = { key ->
+            val sk = key as? SettingsKeys<*> ?: return@rememberController false
+            if (sk.default !is Boolean) return@rememberController false
+            prefs[booleanPreferencesKey(sk.name)] ?: (sk.default as Boolean)
+        },
+        selectedValue = { key ->
+            val sk = key as? SettingsKeys<*> ?: return@rememberController -1
+            if (sk.default !is Int) return@rememberController -1
+            prefs[intPreferencesKey(sk.name)] ?: (sk.default as Int)
+        },
+        onItemClick = { key -> vm.onItemClicked(key as SettingsKeys<*>) },
+        onBooleanToggle = { key -> vm.onToggle(key as SettingsKeys<Boolean>) },
+        onIntChanged = { key, v -> vm.setInt(key as SettingsKeys<Int>, v) },
+    )
 }

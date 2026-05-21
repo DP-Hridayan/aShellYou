@@ -189,7 +189,7 @@ private fun ExpandedLayoutView(
     val key = SettingsKeys.LOCAL_ADB_WORKING_MODE
 
     val initialSelected =
-        settingsViewModel.getInt(key = key).collectAsState(initial = key.default as Int)
+        settingsViewModel.getInt(key = key).collectAsState(initial = key.default)
     var selected by rememberSaveable { mutableIntStateOf(initialSelected.value) }
 
     LaunchedEffect(initialSelected.value) {

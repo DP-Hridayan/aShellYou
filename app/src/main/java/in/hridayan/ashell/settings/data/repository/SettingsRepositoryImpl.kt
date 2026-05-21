@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.settings.data.repository
 
+import androidx.datastore.preferences.core.Preferences
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.data.datastore.SettingsDataStore
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
@@ -9,20 +10,22 @@ class SettingsRepositoryImpl(
     private val dataStore: SettingsDataStore
 ) : SettingsRepository {
 
-    override fun getBoolean(key: SettingsKeys): Flow<Boolean> = dataStore.booleanFlow(key)
-    override suspend fun setBoolean(key: SettingsKeys, value: Boolean) =
+    override val preferences: Flow<Preferences> = dataStore.preferences
+
+    override fun getBoolean(key: SettingsKeys<Boolean>): Flow<Boolean> = dataStore.booleanFlow(key)
+    override suspend fun setBoolean(key: SettingsKeys<Boolean>, value: Boolean) =
         dataStore.setBoolean(key, value)
 
-    override suspend fun toggleSetting(key: SettingsKeys) = dataStore.toggle(key)
+    override suspend fun toggleSetting(key: SettingsKeys<Boolean>) = dataStore.toggle(key)
 
-    override fun getInt(key: SettingsKeys): Flow<Int> = dataStore.intFlow(key)
-    override suspend fun setInt(key: SettingsKeys, value: Int) = dataStore.setInt(key, value)
+    override fun getInt(key: SettingsKeys<Int>): Flow<Int> = dataStore.intFlow(key)
+    override suspend fun setInt(key: SettingsKeys<Int>, value: Int) = dataStore.setInt(key, value)
 
-    override fun getFloat(key: SettingsKeys): Flow<Float> = dataStore.floatFlow(key)
-    override suspend fun setFloat(key: SettingsKeys, value: Float) = dataStore.setFloat(key, value)
+    override fun getFloat(key: SettingsKeys<Float>): Flow<Float> = dataStore.floatFlow(key)
+    override suspend fun setFloat(key: SettingsKeys<Float>, value: Float) = dataStore.setFloat(key, value)
 
-    override fun getString(key: SettingsKeys): Flow<String> = dataStore.stringFlow(key)
-    override suspend fun setString(key: SettingsKeys, value: String) =
+    override fun getString(key: SettingsKeys<String>): Flow<String> = dataStore.stringFlow(key)
+    override suspend fun setString(key: SettingsKeys<String>, value: String) =
         dataStore.setString(key, value)
 
     override fun getAllDefaultSettings(): Map<String, Any?> {

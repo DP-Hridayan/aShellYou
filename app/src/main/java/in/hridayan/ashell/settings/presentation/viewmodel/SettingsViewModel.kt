@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,15 +23,11 @@ import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -44,34 +42,15 @@ class SettingsViewModel @Inject constructor(
         private set
 
     /**
-     * Pre-warmed map of all Boolean and Int settings values.
-     * Populated in [init] so screens read a ready snapshot via ONE
-     * [collectAsState] call instead of N separate DataStore reads.
+     * Raw DataStore preferences — collected once per screen via [rememberController].
+     * Replaces the old pre-warming pattern (21 coroutines at startup).
      */
-    private val _settingsState = MutableStateFlow<Map<SettingsKeys, Any?>>(emptyMap())
-    val settingsState: StateFlow<Map<SettingsKeys, Any?>> = _settingsState.asStateFlow()
+    val preferences: StateFlow<Preferences> = settingsRepository.preferences
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyPreferences())
 
     init {
         viewModelScope.launch {
             isFirstLaunch = getBoolean(SettingsKeys.FIRST_LAUNCH).firstOrNull()
-        }
-        // Seed immediately with compile-time defaults, then stream live values.
-        val boolKeys = SettingsKeys.entries.filter { it.default is Boolean }
-        val intKeys  = SettingsKeys.entries.filter { it.default is Int }
-        val seed = mutableMapOf<SettingsKeys, Any?>()
-        boolKeys.forEach { seed[it] = it.default }
-        intKeys.forEach  { seed[it] = it.default }
-        _settingsState.value = seed
-
-        boolKeys.forEach { key ->
-            getBoolean(key).onEach { v ->
-                _settingsState.update { it + (key to v) }
-            }.launchIn(viewModelScope)
-        }
-        intKeys.forEach { key ->
-            getInt(key).onEach { v ->
-                _settingsState.update { it + (key to v) }
-            }.launchIn(viewModelScope)
         }
     }
 
@@ -87,45 +66,45 @@ class SettingsViewModel @Inject constructor(
     val uiEvent = _uiEvent.asSharedFlow()
 
 
-    fun onToggle(key: SettingsKeys) {
+    fun onToggle(key: SettingsKeys<Boolean>) {
         viewModelScope.launch(Dispatchers.IO) {
             toggleSettingUseCase(key)
         }
     }
 
-    fun setBoolean(key: SettingsKeys, value: Boolean) {
+    fun setBoolean(key: SettingsKeys<Boolean>, value: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setBoolean(key, value)
         }
     }
 
-    fun getBoolean(key: SettingsKeys): Flow<Boolean> = settingsRepository.getBoolean(key)
+    fun getBoolean(key: SettingsKeys<Boolean>): Flow<Boolean> = settingsRepository.getBoolean(key)
 
-    fun setInt(key: SettingsKeys, value: Int) {
+    fun setInt(key: SettingsKeys<Int>, value: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setInt(key, value)
         }
     }
 
-    fun getInt(key: SettingsKeys): Flow<Int> = settingsRepository.getInt(key)
+    fun getInt(key: SettingsKeys<Int>): Flow<Int> = settingsRepository.getInt(key)
 
-    fun setFloat(key: SettingsKeys, value: Float) {
+    fun setFloat(key: SettingsKeys<Float>, value: Float) {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setFloat(key, value)
         }
     }
 
-    fun getFloat(key: SettingsKeys): Flow<Float> = settingsRepository.getFloat(key)
+    fun getFloat(key: SettingsKeys<Float>): Flow<Float> = settingsRepository.getFloat(key)
 
-    fun setString(key: SettingsKeys, value: String) {
+    fun setString(key: SettingsKeys<String>, value: String) {
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setString(key, value)
         }
     }
 
-    fun getString(key: SettingsKeys): Flow<String> = settingsRepository.getString(key)
+    fun getString(key: SettingsKeys<String>): Flow<String> = settingsRepository.getString(key)
 
-    fun onItemClicked(key: SettingsKeys) {
+    fun onItemClicked(key: SettingsKeys<*>) {
         viewModelScope.launch {
             when (key) {
                 SettingsKeys.LOOK_AND_FEEL -> _uiEvent.emit(
@@ -268,20 +247,6 @@ class SettingsViewModel @Inject constructor(
 
                 else -> {}
             }
-        }
-    }
-
-    fun isItemChecked(key: SettingsKeys): Flow<Boolean> {
-        return getBoolean(key)
-    }
-
-    fun isItemEnabled(key: SettingsKeys): Flow<Boolean> {
-        return flowOf(true)
-    }
-
-    fun onBooleanItemClicked(key: SettingsKeys) {
-        viewModelScope.launch {
-            onToggle(key)
         }
     }
 }

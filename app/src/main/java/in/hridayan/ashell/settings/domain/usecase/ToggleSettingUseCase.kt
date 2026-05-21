@@ -4,5 +4,5 @@ import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 
 class ToggleSettingUseCase(private val repo: SettingsRepository) {
-    suspend operator fun invoke(key: SettingsKeys) = repo.toggleSetting(key)
+    suspend operator fun invoke(key: SettingsKeys<Boolean>) = repo.toggleSetting(key)
 }

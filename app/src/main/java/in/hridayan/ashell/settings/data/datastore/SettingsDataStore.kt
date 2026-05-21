@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.settings.data.datastore
 
 import android.content.Context
 import android.util.Log
+
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
@@ -13,6 +14,7 @@ import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.data.settingsDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -23,31 +25,26 @@ class SettingsDataStore @Inject constructor(
 ) {
     private val ds = context.settingsDataStore
 
-    private fun SettingsKeys.toBooleanKey(): Preferences.Key<Boolean> =
+    /** Raw preferences snapshot — collect once for all key lookups. */
+    val preferences: Flow<Preferences> = ds.data
+
+    private fun SettingsKeys<*>.toBooleanKey(): Preferences.Key<Boolean> =
         booleanPreferencesKey(this.name)
 
-    fun booleanFlow(key: SettingsKeys): Flow<Boolean> {
+    fun booleanFlow(key: SettingsKeys<Boolean>): Flow<Boolean> {
         val preferencesKey = key.toBooleanKey()
-        val default = key.default as? Boolean == true
-
-        return ds.data.map { prefs ->
-            if (!prefs.contains(preferencesKey)) {
-                runCatching {
-                    context.settingsDataStore.edit { it[preferencesKey] = default }
-                }
-            }
-            prefs[preferencesKey] ?: default
-        }
+        val default = key.default
+        return ds.data.map { prefs -> prefs[preferencesKey] ?: default }
     }
 
-    suspend fun setBoolean(key: SettingsKeys, value: Boolean) {
+    suspend fun setBoolean(key: SettingsKeys<Boolean>, value: Boolean) {
         val preferencesKey = key.toBooleanKey()
         ds.edit { prefs ->
             prefs[preferencesKey] = value
         }
     }
 
-    suspend fun toggle(key: SettingsKeys) {
+    suspend fun toggle(key: SettingsKeys<Boolean>) {
         val preferencesKey = key.toBooleanKey()
         ds.edit { prefs ->
             val current = prefs[preferencesKey] == true
@@ -55,51 +52,51 @@ class SettingsDataStore @Inject constructor(
         }
     }
 
-    private fun SettingsKeys.toIntKey(): Preferences.Key<Int> =
+    private fun SettingsKeys<*>.toIntKey(): Preferences.Key<Int> =
         intPreferencesKey(this.name)
 
-    fun intFlow(key: SettingsKeys): Flow<Int> {
+    fun intFlow(key: SettingsKeys<Int>): Flow<Int> {
         val preferencesKey = key.toIntKey()
-        val default = key.default as? Int ?: 0
+        val default = key.default // Already Int — no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
 
-    suspend fun setInt(key: SettingsKeys, value: Int) {
+    suspend fun setInt(key: SettingsKeys<Int>, value: Int) {
         val preferencesKey = key.toIntKey()
         ds.edit { prefs ->
             prefs[preferencesKey] = value
         }
     }
 
-    private fun SettingsKeys.toFloatKey(): Preferences.Key<Float> =
+    private fun SettingsKeys<*>.toFloatKey(): Preferences.Key<Float> =
         floatPreferencesKey(this.name)
 
-    fun floatFlow(key: SettingsKeys): Flow<Float> {
+    fun floatFlow(key: SettingsKeys<Float>): Flow<Float> {
         val preferencesKey = key.toFloatKey()
-        val default = key.default as? Float ?: 0f
+        val default = key.default // Already Float — no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
 
-    suspend fun setFloat(key: SettingsKeys, value: Float) {
+    suspend fun setFloat(key: SettingsKeys<Float>, value: Float) {
         val preferencesKey = key.toFloatKey()
         ds.edit { prefs ->
             prefs[preferencesKey] = value
         }
     }
 
-    private fun SettingsKeys.toStringKey(): Preferences.Key<String> =
+    private fun SettingsKeys<*>.toStringKey(): Preferences.Key<String> =
         stringPreferencesKey(this.name)
 
-    fun stringFlow(key: SettingsKeys): Flow<String> {
+    fun stringFlow(key: SettingsKeys<String>): Flow<String> {
         val preferencesKey = key.toStringKey()
-        val default = key.default as? String ?: ""
+        val default = key.default // Already String — no cast needed!
         return ds.data
             .map { prefs -> prefs[preferencesKey] ?: default }
     }
 
-    suspend fun setString(key: SettingsKeys, value: String) {
+    suspend fun setString(key: SettingsKeys<String>, value: String) {
         val preferencesKey = key.toStringKey()
         ds.edit { prefs ->
             prefs[preferencesKey] = value

@@ -24,7 +24,7 @@ import `in`.hridayan.settingsdsl.model.SettingsPage
  * @param visible Whether this item appears in the list. Defaults to `true`.
  */
 fun switchItem(
-    key: SettingsKey,
+    key: SettingsKey<*>,
     @StringRes title: Int,
     @StringRes description: Int? = null,
     @DrawableRes icon: Int? = null,
@@ -47,7 +47,7 @@ fun switchItem(
  * Creates a full-width switch banner item (e.g. a prominent enable/disable toggle at the top of a page).
  */
 fun switchBannerItem(
-    key: SettingsKey,
+    key: SettingsKey<*>,
     @StringRes title: Int,
     visible: Boolean = true,
 ): SettingsItemSpec = SettingsItemSpec(
@@ -63,7 +63,7 @@ fun switchBannerItem(
  * Creates a tappable settings item that navigates or opens a dialog.
  */
 fun clickableItem(
-    key: SettingsKey,
+    key: SettingsKey<*>,
     @StringRes title: Int,
     @StringRes description: Int? = null,
     @DrawableRes icon: Int? = null,
@@ -86,7 +86,7 @@ fun clickableItem(
  * Creates a settings item that renders a group of mutually exclusive radio options.
  */
 fun radioGroupItem(
-    key: SettingsKey,
+    key: SettingsKey<*>,
     options: List<RadioButtonOption>,
     visible: Boolean = true,
 ): SettingsItemSpec = SettingsItemSpec(
@@ -101,7 +101,7 @@ fun radioGroupItem(
  * Creates a settings item that renders a segmented/button group selector.
  */
 fun buttonGroupItem(
-    key: SettingsKey,
+    key: SettingsKey<*>,
     options: List<ButtonGroupOption>,
     visible: Boolean = true,
 ): SettingsItemSpec = SettingsItemSpec(
@@ -156,3 +156,23 @@ fun settingsPage(vararg groups: SettingsGroup): SettingsPage =
 /** @see settingsPage */
 fun settingsPage(groups: List<SettingsGroup>): SettingsPage =
     SettingsPage(groups.map { it.spec })
+
+/**
+ * Creates a [SettingsPage] with screen metadata for search auto-registration.
+ *
+ * When pages carry their own [screenId] and [screenTitle], the search engine can
+ * build an index directly from the pages — no manual string maps needed.
+ *
+ * @param screenTitle String resource for the screen's display title.
+ * @param screenId    Stable app-defined identifier for this screen (e.g. `"look_and_feel"`).
+ * @param groups      The groups that make up this page.
+ */
+fun settingsPage(
+    @StringRes screenTitle: Int,
+    screenId: String,
+    vararg groups: SettingsGroup,
+): SettingsPage = SettingsPage(
+    groups = groups.map { it.spec },
+    screenId = screenId,
+    screenTitleResId = screenTitle,
+)

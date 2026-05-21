@@ -58,7 +58,7 @@ fun BookmarksSortDialog(
     val sortOptions = RadioGroupOptionsProvider.bookmarkSortOptions
     val selected =
         settingsViewModel.getInt(key = SettingsKeys.BOOKMARK_SORT_TYPE)
-            .collectAsState(initial = SettingsKeys.BOOKMARK_SORT_TYPE.default as Int)
+            .collectAsState(initial = SettingsKeys.BOOKMARK_SORT_TYPE.default)
     var tempSelected by remember { mutableIntStateOf(selected.value) }
 
     LaunchedEffect(selected.value) {

@@ -53,7 +53,7 @@ fun CommandsSortDialog(
     val sortOptions = RadioGroupOptionsProvider.commandSortOptions
     val selected =
         settingsViewModel.getInt(key = SettingsKeys.COMMAND_SORT_TYPE)
-            .collectAsState(initial = SettingsKeys.COMMAND_SORT_TYPE.default as Int)
+            .collectAsState(initial = SettingsKeys.COMMAND_SORT_TYPE.default)
     var tempSelected by remember { mutableIntStateOf(selected.value) }
 
     LaunchedEffect(selected.value) {

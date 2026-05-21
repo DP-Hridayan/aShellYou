@@ -56,6 +56,7 @@ import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.provider.getAllSettingsIcons
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
@@ -63,6 +64,7 @@ import `in`.hridayan.settingsdsl.ui.item.settingsContent
 @Composable
 fun SettingsScreen(modifier: Modifier = Modifier, viewModel: SettingsViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
+    val controller = viewModel.rememberController()
     val floatingIconsResIds = getAllSettingsIcons()
 
     LaunchedEffect(Unit) {
@@ -147,7 +149,7 @@ fun SettingsScreen(modifier: Modifier = Modifier, viewModel: SettingsViewModel =
 
             settingsContent(
                 groups = resolvedGroups,
-                onItemClick = { key -> viewModel.onItemClicked(key as SettingsKeys) },
+                controller = controller,
             )
 
             item {

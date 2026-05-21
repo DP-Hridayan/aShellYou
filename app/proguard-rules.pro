@@ -68,3 +68,9 @@
 -keep class com.mikepenz.aboutlibraries.Libs$Builder { *; }
 -keep class com.mikepenz.aboutlibraries.LibsBuilder { *; }
 -dontwarn com.mikepenz.aboutlibraries.**
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SettingsKeys – keep sealed subclasses for kotlin-reflect auto-discovery
+# ─────────────────────────────────────────────────────────────────────────────
+-keep class in.hridayan.ashell.settings.data.SettingsKeys { *; }
+-keep class in.hridayan.ashell.settings.data.SettingsKeys$* { *; }

@@ -124,24 +124,13 @@
 
     <issue
         id="Typos"
-        message="&quot;interface&quot; is a common misspelling; did you mean &quot;interfaz&quot;?"
-        errorLine1="    &lt;string name=&quot;no_adb_interface_found&quot;>No adb interface found&lt;/string>"
-        errorLine2="                                                 ~~~~~~~~~">
+        message="Repeated word &quot;de&quot; in message: possible typo"
+        errorLine1="    &lt;string name=&quot;changelog_v3_5_0&quot;>\nSe renovó por completo la sección Acerca de de la aplicación.\nSe añadieron accesos directos desde el launcher.\nSe corrigió que el menú de navegación no apareciera con la navegación por botones.\nSe mejoró la visibilidad del menú de navegación inferior al desplazarse.\nSe añadió compatibilidad con idioma por aplicación para aShell You (las traducciones aún no están completas).\nMuchas optimizaciones de código.&lt;/string>"
+        errorLine2="                                                                               ~~~~~">
         <location
             file="src/main/res/values-es-rES/strings.xml"
-            line="333"
-            column="50"/>
-    </issue>
-
-    <issue
-        id="Typos"
-        message="&quot;via&quot; is a common misspelling; did you mean &quot;vía&quot;?"
-        errorLine1="    &lt;string name=&quot;changelog_v4_3_1&quot;>\nNow app catches any crashes and provides the option to report them via email&lt;/string>"
-        errorLine2="                                                                                                         ~~~">
-        <location
-            file="src/main/res/values-es-rES/strings.xml"
-            line="573"
-            column="106"/>
+            line="601"
+            column="80"/>
     </issue>
 
     <issue
@@ -280,14 +269,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/2c8b6fcbe17ad4fb6471d7863d10de43/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/a36a2908daccc9867cfb425e6eff2cbd/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/2c8b6fcbe17ad4fb6471d7863d10de43/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.5.0/transforms/a36a2908daccc9867cfb425e6eff2cbd/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue

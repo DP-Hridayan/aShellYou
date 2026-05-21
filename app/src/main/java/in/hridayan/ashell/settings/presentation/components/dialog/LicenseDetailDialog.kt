@@ -106,7 +106,7 @@ fun LicenseDetailDialog(
                     }
                 } else {
                     Text(
-                        text = stringResource(R.string.no_license_content_available),
+                        text = stringResource(R.string.view_license_online_msg),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )

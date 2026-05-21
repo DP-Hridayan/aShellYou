@@ -185,19 +185,20 @@ class BackupAndRestoreRepositoryImpl @Inject constructor(
             val settingKey = SettingsKeys.entries.find { it.name == key } ?: return@forEach
 
             value?.let {
+                @Suppress("UNCHECKED_CAST")
                 when (settingKey.default) {
                     is Boolean -> settingsRepository.setBoolean(
-                        settingKey,
+                        settingKey as SettingsKeys<Boolean>,
                         it.toBooleanStrictOrNull() ?: return@forEach
                     )
 
                     is Int -> settingsRepository.setInt(
-                        settingKey,
+                        settingKey as SettingsKeys<Int>,
                         it.toIntOrNull() ?: return@forEach
                     )
 
                     is Float -> settingsRepository.setFloat(
-                        settingKey,
+                        settingKey as SettingsKeys<Float>,
                         it.toFloatOrNull() ?: return@forEach
                     )
                 }

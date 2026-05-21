@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
  * Never exposed to screen-level or view-level code directly.
  */
 internal sealed class ItemSpec(
-    val key: SettingsKey,
+    val key: SettingsKey<*>,
     val isVisible: Boolean,
     @param:StringRes val titleResId: Int?,
     val titleString: String,
@@ -20,7 +20,7 @@ internal sealed class ItemSpec(
     val iconVector: ImageVector?,
 ) {
     class SwitchSpec(
-        key: SettingsKey,
+        key: SettingsKey<*>,
         isVisible: Boolean,
         @StringRes titleResId: Int?,
         titleString: String,
@@ -31,14 +31,14 @@ internal sealed class ItemSpec(
     ) : ItemSpec(key, isVisible, titleResId, titleString, descriptionResId, descriptionString, iconResId, iconVector)
 
     class SwitchBannerSpec(
-        key: SettingsKey,
+        key: SettingsKey<*>,
         isVisible: Boolean,
         @StringRes titleResId: Int?,
         titleString: String,
     ) : ItemSpec(key, isVisible, titleResId, titleString, null, "", null, null)
 
     class ClickableSpec(
-        key: SettingsKey,
+        key: SettingsKey<*>,
         isVisible: Boolean,
         @StringRes titleResId: Int?,
         titleString: String,
@@ -49,13 +49,13 @@ internal sealed class ItemSpec(
     ) : ItemSpec(key, isVisible, titleResId, titleString, descriptionResId, descriptionString, iconResId, iconVector)
 
     class RadioGroupSpec(
-        key: SettingsKey,
+        key: SettingsKey<*>,
         isVisible: Boolean,
         val options: List<RadioButtonOption>,
     ) : ItemSpec(key, isVisible, null, "", null, "", null, null)
 
     class ButtonGroupSpec(
-        key: SettingsKey,
+        key: SettingsKey<*>,
         isVisible: Boolean,
         val options: List<ButtonGroupOption>,
     ) : ItemSpec(key, isVisible, null, "", null, "", null, null)

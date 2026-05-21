@@ -340,7 +340,7 @@
     <string name="no_google_account_title">Google アカウントがありません</string>
     <string name="no_history">コマンド履歴はありません</string>
     <string name="no_libraries_found">ライブラリが見つかりません</string>
-    <string name="no_license_content_available">ライセンスコンテンツがありません。「URLを開く」をタップして、ライセンスをオンラインで表示します。</string>
+    <string name="view_license_online_msg">ライセンスコンテンツがありません。「URLを開く」をタップして、ライセンスをオンラインで表示します。</string>
     <string name="no_logs_yet">ログはまだありません！</string>
     <string name="no_logs_yet_msg">ログはまだ記録されていません。ここにログを表示するタイルを実行してください。</string>
     <string name="no_operations">進行中の操作はありません</string>

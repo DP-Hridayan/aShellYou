@@ -183,7 +183,7 @@ fun SettingsSearchScreen(
                             onClick = {
                                 viewModel.onResultClicked(entry)
                                 navController.navigate(
-                                    entry.screenId.toSettingsNavRoute(entry.key.name)
+                                    SettingsNavMapping.resolve(entry.screenId, entry.key.name)
                                 )
                             },
                         )
@@ -236,7 +236,7 @@ fun SettingsSearchScreen(
                             onClick = {
                                 viewModel.onResultClicked(entry)
                                 navController.navigate(
-                                    entry.screenId.toSettingsNavRoute(entry.key.name)
+                                    SettingsNavMapping.resolve(entry.screenId, entry.key.name)
                                 )
                             },
                         )
@@ -318,13 +318,18 @@ private fun SearchSomethingUi(
     }
 }
 
-/** Maps a [SearchEntry.screenId] string back to the appropriate [NavRoutes] destination. */
-private fun String.toSettingsNavRoute(highlightKey: String? = null): NavRoutes = when (this) {
-    "look_and_feel" -> NavRoutes.LookAndFeelScreen(highlightKey)
-    "dark_theme" -> NavRoutes.DarkThemeScreen(highlightKey)
-    "behavior" -> NavRoutes.BehaviorScreen(highlightKey)
-    "auto_update" -> NavRoutes.AutoUpdateScreen(highlightKey)
-    "about" -> NavRoutes.AboutScreen(highlightKey)
-    "backup_restore" -> NavRoutes.BackupAndRestoreScreen(highlightKey)
-    else -> NavRoutes.SettingsScreen
+/** Centralized mapping from [SearchEntry.screenId] to [NavRoutes] destination. */
+object SettingsNavMapping {
+    private val routes: Map<String, (String?) -> NavRoutes> = mapOf(
+        "look_and_feel" to { NavRoutes.LookAndFeelScreen(it) },
+        "dark_theme" to { NavRoutes.DarkThemeScreen(it) },
+        "behavior" to { NavRoutes.BehaviorScreen(it) },
+        "auto_update" to { NavRoutes.AutoUpdateScreen(it) },
+        "about" to { NavRoutes.AboutScreen(it) },
+        "backup_restore" to { NavRoutes.BackupAndRestoreScreen(it) },
+    )
+
+    fun resolve(screenId: String, highlightKey: String? = null): NavRoutes =
+        routes[screenId]?.invoke(highlightKey) ?: NavRoutes.SettingsScreen
 }
+

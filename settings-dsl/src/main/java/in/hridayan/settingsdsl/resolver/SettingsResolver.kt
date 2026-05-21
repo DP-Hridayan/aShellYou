@@ -25,13 +25,13 @@ import `in`.hridayan.settingsdsl.ui.card.cardShapeForPosition
  * [androidx.compose.runtime.CompositionLocal] you reference in your override lambdas.
  * Recomposition is triggered automatically when those states change.
  *
- * @param titleOverrides Map from [SettingsKey] to a `@Composable` lambda that returns a
+ * @param titleOverrides Map from [SettingsKey<*>] to a `@Composable` lambda that returns a
  *   custom title string. Overrides the static title for that item.
- * @param descriptionOverrides Map from [SettingsKey] to a `@Composable` lambda that returns
+ * @param descriptionOverrides Map from [SettingsKey<*>] to a `@Composable` lambda that returns
  *   a dynamic description string. Overrides the static description for that item.
- * @param iconOverrides Map from [SettingsKey] to a `@Composable` lambda that returns a
+ * @param iconOverrides Map from [SettingsKey<*>] to a `@Composable` lambda that returns a
  *   dynamic [ImageVector]. Overrides the static icon for that item.
- * @param visibilityOverrides Map from [SettingsKey] to a `@Composable` lambda that returns
+ * @param visibilityOverrides Map from [SettingsKey<*>] to a `@Composable` lambda that returns
  *   whether the item is visible. Overrides the static [visible] value from the DSL.
  * @param highlightedKey The key of the item to visually highlight (e.g. from search). Null if none.
  *
@@ -39,11 +39,11 @@ import `in`.hridayan.settingsdsl.ui.card.cardShapeForPosition
  */
 @Composable
 fun SettingsPage.resolveAll(
-    titleOverrides: Map<SettingsKey, @Composable () -> String> = emptyMap(),
-    descriptionOverrides: Map<SettingsKey, @Composable () -> String> = emptyMap(),
-    iconOverrides: Map<SettingsKey, @Composable () -> ImageVector?> = emptyMap(),
-    visibilityOverrides: Map<SettingsKey, @Composable () -> Boolean> = emptyMap(),
-    highlightedKey: SettingsKey? = null,
+    titleOverrides: Map<SettingsKey<*>, @Composable () -> String> = emptyMap(),
+    descriptionOverrides: Map<SettingsKey<*>, @Composable () -> String> = emptyMap(),
+    iconOverrides: Map<SettingsKey<*>, @Composable () -> ImageVector?> = emptyMap(),
+    visibilityOverrides: Map<SettingsKey<*>, @Composable () -> Boolean> = emptyMap(),
+    highlightedKey: SettingsKey<*>? = null,
 ): List<ResolvedGroup> {
     return groups.map { group ->
         group.resolve(
@@ -62,7 +62,7 @@ fun SettingsPage.resolveAll(
  * Useful when you need to extract and display a specific setting's current
  * resolved title/description elsewhere in your UI (e.g. a summary row).
  *
- * @param key The [SettingsKey] of the item to resolve.
+ * @param key The [SettingsKey<*>] of the item to resolve.
  * @param titleOverride Optional override for the item's title.
  * @param descriptionOverride Optional override for the item's description.
  * @param iconOverride Optional override for the item's icon.
@@ -70,7 +70,7 @@ fun SettingsPage.resolveAll(
  */
 @Composable
 fun SettingsPage.resolveItem(
-    key: SettingsKey,
+    key: SettingsKey<*>,
     titleOverride: String? = null,
     descriptionOverride: String? = null,
     iconOverride: ImageVector? = null,
@@ -91,11 +91,11 @@ fun SettingsPage.resolveItem(
 
 @Composable
 private fun GroupSpec.resolve(
-    titleOverrides: Map<SettingsKey, @Composable () -> String>,
-    descriptionOverrides: Map<SettingsKey, @Composable () -> String>,
-    iconOverrides: Map<SettingsKey, @Composable () -> ImageVector?>,
-    visibilityOverrides: Map<SettingsKey, @Composable () -> Boolean>,
-    highlightedKey: SettingsKey?,
+    titleOverrides: Map<SettingsKey<*>, @Composable () -> String>,
+    descriptionOverrides: Map<SettingsKey<*>, @Composable () -> String>,
+    iconOverrides: Map<SettingsKey<*>, @Composable () -> ImageVector?>,
+    visibilityOverrides: Map<SettingsKey<*>, @Composable () -> Boolean>,
+    highlightedKey: SettingsKey<*>?,
 ): ResolvedGroup {
     return when (this) {
         is GroupSpec.Items -> {
@@ -145,7 +145,7 @@ private fun ItemSpec.toSettingsItem(
     titleOverride: String?,
     descriptionOverride: String?,
     iconOverride: ImageVector?,
-    highlightedKey: SettingsKey?,
+    highlightedKey: SettingsKey<*>?,
 ): SettingsItem {
     val resolvedTitle = titleOverride
         ?: titleResId?.let { stringResource(it) }

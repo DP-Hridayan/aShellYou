@@ -39,8 +39,8 @@ import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsSc
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
-import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
-import `in`.hridayan.ashell.settings.presentation.state.rememberSettingsState
+import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
@@ -55,7 +55,7 @@ fun LookAndFeelScreen(
     val dialogManager = LocalDialogManager.current
     val navController = LocalNavController.current
     val context = LocalContext.current
-    val state = settingsViewModel.rememberSettingsState()
+    val controller = settingsViewModel.rememberController()
     val currentPaletteStyle = LocalPaletteStyle.current
     val themeMode = LocalSettings.current.themeMode
     val isDarkMode = LocalDarkMode.current
@@ -88,6 +88,7 @@ fun LookAndFeelScreen(
         page = settingsViewModel.lookAndFeelPage,
         listState = listState,
         headerItemCount = 2,
+        keyResolver = { SettingsKeys.valueOfOrNull(it) },
     )
 
     val page = remember { settingsViewModel.lookAndFeelPage }
@@ -140,13 +141,7 @@ fun LookAndFeelScreen(
 
                 settingsContent(
                     groups = resolvedGroups,
-                    isChecked = state::isChecked,
-                    selectedValue = state::selectedValue,
-                    onItemClick = { key -> settingsViewModel.onItemClicked(key as SettingsKeys) },
-                    onBooleanToggle = { key -> settingsViewModel.onToggle(key as SettingsKeys) },
-                    onIntChanged = { key, value ->
-                        settingsViewModel.setInt(key as SettingsKeys, value)
-                    },
+                    controller = controller,
                 )
 
                 item {

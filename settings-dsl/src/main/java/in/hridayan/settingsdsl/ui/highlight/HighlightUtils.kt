@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.settings.presentation.page.search
+package `in`.hridayan.settingsdsl.ui.highlight
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.settingsdsl.model.SettingsKey
 import `in`.hridayan.settingsdsl.model.SettingsPage
 import kotlinx.coroutines.delay
 
@@ -15,13 +15,15 @@ import kotlinx.coroutines.delay
  * Manages scroll-to-item + blink-highlight state for a DSL-based settings sub-screen.
  *
  * Call this once in each sub-screen that supports deep-link highlighting.
- * Returns the currently highlighted [SettingsKeys] (or null) — pass the returned value
- * as `highlightedKey` to [settingsContent] to drive the card color blink.
+ * Returns the currently highlighted [SettingsKey] (or null) — pass the returned value
+ * as `highlightedKey` to [resolveAll] / [settingsContent] to drive the card color blink.
  *
- * @param highlightKeyName The raw enum name string passed in via nav args (nullable).
+ * @param highlightKeyName The raw key name string passed in via nav args (nullable).
  * @param page             The [SettingsPage] to search for the target key index.
  * @param listState        The lazy list state used to animate the scroll.
  * @param headerItemCount  Number of non-group items before the first group in the LazyColumn.
+ * @param keyResolver      Resolves a key name string to a [SettingsKey]. Apps should pass
+ *                         their own lookup function (e.g. `SettingsKeys::valueOfOrNull`).
  */
 @Composable
 fun rememberHighlightState(
@@ -29,13 +31,13 @@ fun rememberHighlightState(
     page: SettingsPage,
     listState: LazyListState,
     headerItemCount: Int = 0,
-): SettingsKeys? {
+    keyResolver: (String) -> SettingsKey<*>? = { null },
+): SettingsKey<*>? {
     var highlightedKey by rememberSaveable { mutableStateOf(highlightKeyName) }
 
     LaunchedEffect(highlightKeyName) {
         if (highlightKeyName == null) return@LaunchedEffect
-        val targetKey = runCatching { SettingsKeys.valueOf(highlightKeyName) }.getOrNull()
-            ?: return@LaunchedEffect
+        val targetKey = keyResolver(highlightKeyName) ?: return@LaunchedEffect
 
         // Uses the public DSL API — does NOT touch internal GroupSpec/ItemSpec
         val groupIndex = page.indexOfGroupContaining(targetKey)
@@ -53,5 +55,5 @@ fun rememberHighlightState(
         }
     }
 
-    return highlightedKey?.let { runCatching { SettingsKeys.valueOf(it) }.getOrNull() }
+    return highlightedKey?.let { keyResolver(it) }
 }

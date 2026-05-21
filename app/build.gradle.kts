@@ -155,7 +155,7 @@ androidComponents {
 }
 
 aboutLibraries {
-    offlineMode = false
+    offlineMode = true
 
     collect {
         includePlatform = true
@@ -188,6 +188,8 @@ dependencies {
     implementation(project(":libadb"))
     implementation(project(":adblib"))
     implementation(project(":settings-dsl"))
+
+    implementation(libs.kotlin.reflect)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

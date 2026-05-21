@@ -57,12 +57,13 @@ import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.utils.syncedRotationAndScale
 import `in`.hridayan.ashell.core.utils.openUrl
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.card.SupportMeCard
 import `in`.hridayan.ashell.settings.presentation.components.image.ProfilePic
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
+import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
@@ -75,6 +76,7 @@ fun AboutScreen(
 ) {
     val navController = LocalNavController.current
     val context = LocalContext.current
+    val controller = settingsViewModel.rememberController()
     val (angle, scale) = syncedRotationAndScale()
 
     LaunchedEffect(Unit) {
@@ -93,6 +95,7 @@ fun AboutScreen(
         page = settingsViewModel.aboutPage,
         listState = listState,
         headerItemCount = 2,
+        keyResolver = { SettingsKeys.valueOfOrNull(it) },
     )
 
     val page = remember { settingsViewModel.aboutPage }
@@ -104,41 +107,92 @@ fun AboutScreen(
         topBarTitle = stringResource(R.string.about),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(
-                modifier = Modifier.fillMaxWidth().nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 state = listState,
                 contentPadding = innerPadding,
             ) {
                 // App info header
                 item {
                     Column(
-                        modifier = Modifier.fillMaxWidth().animateItem().padding(20.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .animateItem()
+                            .padding(20.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(15.dp),
                     ) {
-                        Box(contentAlignment = Alignment.Center, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        ) {
                             Spacer(
-                                modifier = Modifier.requiredSize(120.dp)
+                                modifier = Modifier
+                                    .requiredSize(120.dp)
                                     .graphicsLayer { rotationZ = angle }
                                     .scale(scale)
                                     .clip(MaterialShapes.Cookie9Sided.toShape())
                                     .clickable(onClick = withHaptic {})
                                     .background(MaterialTheme.colorScheme.primaryContainer)
                             )
-                            Icon(painter = painterResource(R.drawable.ic_adb2), contentDescription = null, tint = MaterialTheme.colorScheme.onPrimaryContainer, modifier = Modifier.size(60.dp))
+                            Icon(
+                                painter = painterResource(R.drawable.ic_adb2),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                modifier = Modifier.size(60.dp)
+                            )
                         }
 
-                        AutoResizeableText(text = stringResource(R.string.app_name), fontWeight = FontWeight.Black, style = MaterialTheme.typography.displayLargeEmphasized.copy(letterSpacing = 0.025.em))
+                        AutoResizeableText(
+                            text = stringResource(R.string.app_name),
+                            fontWeight = FontWeight.Black,
+                            style = MaterialTheme.typography.displayLargeEmphasized.copy(
+                                letterSpacing = 0.025.em
+                            )
+                        )
 
                         FlowRow(
                             itemVerticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.CenterHorizontally),
+                            horizontalArrangement = Arrangement.spacedBy(
+                                15.dp,
+                                Alignment.CenterHorizontally
+                            ),
                             verticalArrangement = Arrangement.spacedBy(15.dp),
                         ) {
-                            AppHandlesChip(icon = painterResource(R.drawable.ic_telegram), title = stringResource(R.string.telegram), description = stringResource(R.string.discussions), onClick = { openUrl(UrlConst.URL_TELEGRAM_CHANNEL, context) })
-                            AppHandlesChip(icon = painterResource(R.drawable.ic_github), title = stringResource(R.string.github), description = stringResource(R.string.repository), containerColor = MaterialTheme.colorScheme.tertiaryContainer, contentColor = MaterialTheme.colorScheme.onTertiaryContainer, onClick = { openUrl(UrlConst.URL_GITHUB_REPO, context) })
-                            AppHandlesChip(icon = painterResource(R.drawable.ic_version_tag), title = BuildConfig.VERSION_NAME, description = stringResource(R.string.current_version), containerColor = MaterialTheme.colorScheme.secondaryContainer, contentColor = MaterialTheme.colorScheme.onSecondaryContainer, onClick = { openUrl(UrlConst.URL_GITHUB_RELEASES, context) })
-                            AppHandlesChip(icon = painterResource(R.drawable.ic_license), title = stringResource(R.string.gpl_3_0), description = stringResource(R.string.license), containerColor = MaterialTheme.colorScheme.errorContainer, contentColor = MaterialTheme.colorScheme.onErrorContainer, onClick = { openUrl(UrlConst.URL_GITHUB_REPO_LICENSE, context) })
-                            AppHandlesChip(icon = painterResource(R.drawable.ic_crowdin), title = stringResource(R.string.crowdin), description = stringResource(R.string.translations), containerColor = MaterialTheme.colorScheme.surfaceVariant, contentColor = MaterialTheme.colorScheme.onSurfaceVariant, onClick = { openUrl(UrlConst.URL_CROWDIN_PROJECT, context) })
+                            AppHandlesChip(
+                                icon = painterResource(R.drawable.ic_telegram),
+                                title = stringResource(R.string.telegram),
+                                description = stringResource(R.string.discussions),
+                                onClick = { openUrl(UrlConst.URL_TELEGRAM_CHANNEL, context) })
+                            AppHandlesChip(
+                                icon = painterResource(R.drawable.ic_github),
+                                title = stringResource(R.string.github),
+                                description = stringResource(R.string.repository),
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                                onClick = { openUrl(UrlConst.URL_GITHUB_REPO, context) })
+                            AppHandlesChip(
+                                icon = painterResource(R.drawable.ic_version_tag),
+                                title = BuildConfig.VERSION_NAME,
+                                description = stringResource(R.string.current_version),
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                onClick = { openUrl(UrlConst.URL_GITHUB_RELEASES, context) })
+                            AppHandlesChip(
+                                icon = painterResource(R.drawable.ic_license),
+                                title = stringResource(R.string.gpl_3_0),
+                                description = stringResource(R.string.license),
+                                containerColor = MaterialTheme.colorScheme.errorContainer,
+                                contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                                onClick = { openUrl(UrlConst.URL_GITHUB_REPO_LICENSE, context) })
+                            AppHandlesChip(
+                                icon = painterResource(R.drawable.ic_crowdin),
+                                title = stringResource(R.string.crowdin),
+                                description = stringResource(R.string.translations),
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                onClick = { openUrl(UrlConst.URL_CROWDIN_PROJECT, context) })
                         }
                     }
                 }
@@ -146,25 +200,60 @@ fun AboutScreen(
                 // Lead developer section
                 item {
                     Column(
-                        modifier = Modifier.fillMaxWidth().clip(SineWaveShape(amplitude = 10f, frequency = 5f, edge = WaveEdge.Both)).background(MaterialTheme.colorScheme.surfaceContainerLow).animateItem(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(
+                                SineWaveShape(
+                                    amplitude = 10f,
+                                    frequency = 5f,
+                                    edge = WaveEdge.Both
+                                )
+                            )
+                            .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                            .animateItem(),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(15.dp),
                     ) {
-                        Text(text = stringResource(R.string.lead_developer), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(horizontal = 20.dp, vertical = 25.dp).align(Alignment.Start).animateItem())
+                        Text(
+                            text = stringResource(R.string.lead_developer),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier
+                                .padding(horizontal = 20.dp, vertical = 25.dp)
+                                .align(Alignment.Start)
+                                .animateItem()
+                        )
                         ProfilePic(model = R.mipmap.dp_hridayan, size = 150.dp)
-                        Text(text = "Hridayan", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-                        Text(text = stringResource(R.string.des_hridayan), style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic)
-                        SupportMeCard(modifier = modifier.padding(start = 15.dp, end = 15.dp, bottom = 25.dp))
+                        Text(
+                            text = "Hridayan",
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            text = stringResource(R.string.des_hridayan),
+                            style = MaterialTheme.typography.bodySmall,
+                            fontStyle = FontStyle.Italic
+                        )
+                        SupportMeCard(
+                            modifier = modifier.padding(
+                                start = 15.dp,
+                                end = 15.dp,
+                                bottom = 25.dp
+                            )
+                        )
                     }
                 }
 
                 // DSL-rendered settings items (contributors, app section)
                 settingsContent(
                     groups = resolvedGroups,
-                    onItemClick = { key -> settingsViewModel.onItemClicked(key as SettingsKeys) },
+                    controller = controller,
                 )
 
-                item { Spacer(modifier = Modifier.fillMaxWidth().height(25.dp)) }
+                item { Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(25.dp)) }
             }
         },
     )
@@ -193,8 +282,15 @@ private fun AppHandlesChip(
         ) {
             Icon(painter = icon, contentDescription = null, tint = contentColor)
             Column {
-                AutoResizeableText(text = title, style = MaterialTheme.typography.titleMediumEmphasized)
-                AutoResizeableText(text = description, style = MaterialTheme.typography.bodySmallEmphasized, color = contentColor.copy(alpha = 0.7f))
+                AutoResizeableText(
+                    text = title,
+                    style = MaterialTheme.typography.titleMediumEmphasized
+                )
+                AutoResizeableText(
+                    text = description,
+                    style = MaterialTheme.typography.bodySmallEmphasized,
+                    color = contentColor.copy(alpha = 0.7f)
+                )
             }
         }
     }

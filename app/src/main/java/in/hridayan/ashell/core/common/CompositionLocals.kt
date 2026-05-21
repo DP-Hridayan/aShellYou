@@ -239,21 +239,21 @@ fun CompositionLocals(
 }
 
 @Composable
-private fun SettingsViewModel.booleanState(key: SettingsKeys): State<Boolean> {
-    return getBoolean(key).collectAsState(initial = key.default as Boolean)
+private fun SettingsViewModel.booleanState(key: SettingsKeys<Boolean>): State<Boolean> {
+    return getBoolean(key).collectAsState(initial = key.default)
 }
 
 @Composable
-private fun SettingsViewModel.intState(key: SettingsKeys): State<Int> {
-    return getInt(key).collectAsState(initial = key.default as Int)
+private fun SettingsViewModel.intState(key: SettingsKeys<Int>): State<Int> {
+    return getInt(key).collectAsState(initial = key.default)
 }
 
 @Composable
-private fun SettingsViewModel.floatState(key: SettingsKeys): State<Float> {
-    return getFloat(key).collectAsState(initial = key.default as Float)
+private fun SettingsViewModel.floatState(key: SettingsKeys<Float>): State<Float> {
+    return getFloat(key).collectAsState(initial = key.default)
 }
 
 @Composable
-private fun SettingsViewModel.stringState(key: SettingsKeys): State<String> {
-    return getString(key).collectAsState(initial = key.default as String)
+private fun SettingsViewModel.stringState(key: SettingsKeys<String>): State<String> {
+    return getString(key).collectAsState(initial = key.default)
 }

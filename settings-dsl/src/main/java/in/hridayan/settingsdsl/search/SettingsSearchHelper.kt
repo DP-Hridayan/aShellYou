@@ -20,7 +20,7 @@ import `in`.hridayan.settingsdsl.model.SettingsPage
  * @param screenTitle  Human-readable title of the parent screen (e.g. `"Behavior"`).
  */
 data class SearchEntry(
-    val key: SettingsKey,
+    val key: SettingsKey<*>,
     val title: String,
     val description: String,
     val iconResId: Int?,
@@ -35,29 +35,29 @@ data class SearchEntry(
  * [rememberSettingsSearch] helper. Once built, call [search] as many times as
  * you like — no `Context` required after construction.
  *
- * ### Example
+ * ### Example (recommended — page-based)
  * ```kotlin
- * // In a ViewModel (non-composable):
- * val engine = SettingsSearchEngine.build(
- *     context     = appContext,
- *     screens     = listOf(
- *         "look_and_feel" to SettingsProvider.lookAndFeelPage,
- *         "behavior"      to SettingsProvider.behaviorPage,
- *     ),
- *     screenTitles = mapOf(
- *         "look_and_feel" to R.string.look_and_feel,
- *         "behavior"      to R.string.behavior,
- *     ),
+ * // Pages carry their own screen metadata:
+ * val lookAndFeelPage = settingsPage(
+ *     screenTitle = R.string.look_and_feel,
+ *     screenId = "look_and_feel",
+ *     group(switchItem(...), clickableItem(...)),
  * )
  *
+ * val engine = SettingsSearchEngine.build(
+ *     context = appContext,
+ *     pages = listOf(lookAndFeelPage, behaviorPage, ...),
+ * )
  * val results = engine.search("font")
+ * ```
  *
- * // Or lazily inside a composable:
- * val engine = rememberSettingsSearch(
- *     screens = listOf("look_and_feel" to settingsViewModel.lookAndFeelPage, ...),
+ * ### Example (manual mapping — legacy)
+ * ```kotlin
+ * val engine = SettingsSearchEngine.build(
+ *     context = appContext,
+ *     screens = listOf("look_and_feel" to lookAndFeelPage, ...),
  *     screenTitles = mapOf("look_and_feel" to R.string.look_and_feel, ...),
  * )
- * val results = engine.search(query)
  * ```
  */
 class SettingsSearchEngine private constructor(
@@ -82,6 +82,30 @@ class SettingsSearchEngine private constructor(
     fun allEntries(): List<SearchEntry> = index
 
     companion object {
+        /**
+         * Builds a [SettingsSearchEngine] from pages that carry their own screen metadata.
+         *
+         * Pages without a [SettingsPage.screenId] are silently skipped.
+         * This is the **recommended** API — no manual string maps needed.
+         *
+         * @param context Application context used to resolve string resources.
+         * @param pages   List of [SettingsPage]s to index. Each page should have
+         *                [SettingsPage.screenId] and [SettingsPage.screenTitleResId] set.
+         */
+        fun build(
+            context: Context,
+            pages: List<SettingsPage>,
+        ): SettingsSearchEngine {
+            val screens = pages.mapNotNull { page ->
+                val id = page.screenId ?: return@mapNotNull null
+                id to page
+            }
+            val screenTitles = pages.associate { page ->
+                (page.screenId ?: "") to (page.screenTitleResId ?: 0)
+            }.filterKeys { it.isNotEmpty() }.filterValues { it != 0 }
+            return build(context, screens, screenTitles)
+        }
+
         /**
          * Builds a [SettingsSearchEngine] from the given [screens].
          *
@@ -131,6 +155,25 @@ class SettingsSearchEngine private constructor(
 
         private fun ItemSpec.hasSearchableTitle(): Boolean =
             titleResId != null || titleString.isNotBlank()
+    }
+}
+
+/**
+ * Composable helper that builds and remembers a [SettingsSearchEngine] from pages
+ * that carry their own screen metadata.
+ *
+ * The engine is rebuilt only when [pages] changes (by reference).
+ *
+ * @param pages List of [SettingsPage]s to index.
+ * @return      A stable [SettingsSearchEngine] ready to call [SettingsSearchEngine.search] on.
+ */
+@Composable
+fun rememberSettingsSearch(
+    pages: List<SettingsPage>,
+): SettingsSearchEngine {
+    val context = LocalContext.current
+    return remember(pages) {
+        SettingsSearchEngine.build(context = context, pages = pages)
     }
 }
 

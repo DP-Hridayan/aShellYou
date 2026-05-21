@@ -24,8 +24,8 @@ import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ConfigureSaveDirectoryDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
-import `in`.hridayan.ashell.settings.presentation.state.rememberSettingsState
+import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
@@ -37,7 +37,7 @@ fun BehaviorScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val dialogManager = LocalDialogManager.current
-    val state = settingsViewModel.rememberSettingsState()
+    val controller = settingsViewModel.rememberController()
 
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
@@ -54,6 +54,7 @@ fun BehaviorScreen(
         page = settingsViewModel.behaviorPage,
         listState = listState,
         headerItemCount = 0,
+        keyResolver = { SettingsKeys.valueOfOrNull(it) },
     )
 
     val page = remember { settingsViewModel.behaviorPage }
@@ -71,11 +72,7 @@ fun BehaviorScreen(
             ) {
                 settingsContent(
                     groups = resolvedGroups,
-                    isChecked = state::isChecked,
-                    selectedValue = state::selectedValue,
-                    onItemClick = { key -> settingsViewModel.onItemClicked(key as SettingsKeys) },
-                    onBooleanToggle = { key -> settingsViewModel.onToggle(key as SettingsKeys) },
-                    onIntChanged = { key, value -> settingsViewModel.setInt(key as SettingsKeys, value) },
+                    controller = controller,
                 )
 
                 item { Spacer(modifier = Modifier.fillMaxWidth().height(25.dp)) }
