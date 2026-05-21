@@ -538,6 +538,7 @@
     <string name="variant">变体</string>
     <string name="version">版本</string>
     <string name="version_code">版本代码</string>
+    <string name="search_something">搜索内容</string>
     <string name="version_name">版本名称</string>
     <string name="view_on_github">在 GitHub 上查看</string>
     <string name="visit_repo_to_download">点击下载按钮从github 仓库获取最新版本。</string>
@@ -554,6 +555,16 @@
     <string name="wireless_debugging_guide_3">返回aShell You的主页点击无线ADB板块的“开始”即可</string>
     <string name="wireless_debugging_important_notice">注意无线调试选项左侧是可以点的。点击会打开无线调试配对菜单</string>
     <string name="des_contributors">帮助开发你的 aShell 贡献者列表</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">倾斜点</string>
+    <string name="palette_expressive">表达式</string>
+    <string name="palette_vibrant">振动</string>
+    <string name="palette_monochrome">单色</string>
+    <string name="palette_rainbow">彩虹灯</string>
+    <string name="palette_fruit_salad">水果沙拉德</string>
+    <string name="palette_neutral">中性的</string>
+    <string name="palette_fidelity">幻影性</string>
+    <string name="palette_content">内容</string>
     <string name="changelog_v7_3_0">\n在更新日志屏幕上改进了UI。\n添加了翻译贡献者，在\n添加了许可证屏幕，显示有关应用程序和其他库的详细许可信息</string>
     <string name="changelog_v7_2_1">\n维护更新！</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>

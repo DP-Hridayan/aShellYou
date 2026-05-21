@@ -538,6 +538,7 @@
     <string name="variant">Variante</string>
     <string name="version">Version</string>
     <string name="version_code">Code de la version</string>
+    <string name="search_something">Rechercher quelque chose</string>
     <string name="version_name">Nom de la version</string>
     <string name="view_on_github">Voir sur GitHub</string>
     <string name="visit_repo_to_download">Cliquez sur le bouton de téléchargement pour obtenir la dernière version de aShellYou depuis le dépôt github.</string>
@@ -554,6 +555,16 @@
     <string name="wireless_debugging_guide_3">Revenez à l\'application et cliquez sur le bouton \"Démarrer\" dans l\'écran d\'accueil.</string>
     <string name="wireless_debugging_important_notice">Veuillez noter que la partie gauche de l\'option Débogage sans fil est cliquable. Appuyer dessus ouvrira le menu de couplage du débogage sans fil.</string>
     <string name="des_contributors">Liste des contributeurs qui ont contribué au développement de aShell You</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">Tonal Spot</string>
+    <string name="palette_expressive">Expressif</string>
+    <string name="palette_vibrant">Vibreur</string>
+    <string name="palette_monochrome">Monochrome</string>
+    <string name="palette_rainbow">Arc en Ciel</string>
+    <string name="palette_fruit_salad">Salade de fruits</string>
+    <string name="palette_neutral">Neutre</string>
+    <string name="palette_fidelity">Fidelité</string>
+    <string name="palette_content">Contenus</string>
     <string name="changelog_v7_3_0">\nAmélioration de l\'interface utilisateur dans l\'écran de changelog\nAjout de contributeurs de traduction dans la section\nAjout d\'un écran de licences qui affiche des informations détaillées sur l\'application et les autres bibliothèques utilisées par l\'application</string>
     <string name="changelog_v7_2_1">\nMise à jour de la maintenance !</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
