@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
-    <string name="abort_command">Abortar comando primeiro</string>
+    <string name="abort_command">Aborte o comando primeiro</string>
     <string name="about">Sobre</string>
     <string name="adb_command">Comando ADB</string>
     <string name="adb_command_hint">adb reboot</string>
@@ -76,7 +76,7 @@
     <string name="commands">Comandos</string>
     <string name="configure_save_directory">Configurar diretório para salvar</string>
     <string name="confirm">Confirmar</string>
-    <string name="confirm_bookmark_delete_message">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
+    <string name="confirm_bookmark_delete_message">Advertência! Essa ação é irreversível\nTem certeza de que deseja excluir todos os favoritos?</string>
     <string name="confirm_delete">Confirmar exclusão</string>
     <string name="confirm_tile_delete_message">Tem certeza de que deseja excluir este bloco?</string>
     <string name="conflict_message">\"%1$s\" já existe neste local.</string>
@@ -96,7 +96,7 @@
     <string name="copied_to_clipboard">Copiado para o clipboard!</string>
     <string name="copy">Copiar</string>
     <string name="copying">Copiando…</string>
-    <string name="copying_items">Copying %1$d item(s)</string>
+    <string name="copying_items">Copiando %1$d itens</string>
     <string name="crash_details">Detalhes do erro</string>
     <string name="crash_history">Histórico de falhas</string>
     <string name="create">Crio</string>
@@ -114,7 +114,7 @@
     <string name="delete_all">Apagar todos</string>
     <string name="delete_file">Excluir arquivo</string>
     <string name="delete_folder">Excluir pasta</string>
-    <string name="delete_items_message">Are you sure you want to delete %1$d selected items?</string>
+    <string name="delete_items_message">Tem certeza que deseja excluir %1$d itens selecionados?</string>
     <string name="delete_items_title">Excluir %1$d itens?</string>
     <string name="delete_message">Tem certeza que deseja excluir \"%1$s\"?</string>
     <string name="delete_title">Excluir %1$s?</string>
@@ -122,7 +122,7 @@
     <string name="des_auto_update">Verificar automaticamente por atualizações</string>
     <string name="des_backup_all_data">Fazer backup de todos os dados do app</string>
     <string name="des_backup_and_restore">Fazer backup e restaurar configurações de aplicativos e outros dados</string>
-    <string name="des_backup_app_database">Backup app database which includes the command examples &amp; bookmarks</string>
+    <string name="des_backup_app_database">Fazer backup da base de dados do app, que inclui os exemplos de comandos e favoritos</string>
     <string name="des_backup_scheduler">Agendar backups automaticamente nos intervalos selecionados</string>
     <string name="des_backup_settings">Backup das preferências de configurações apenas</string>
     <string name="des_behavior">Modificar um certo comportamento do aplicativo</string>
@@ -152,7 +152,7 @@
     <string name="des_qs_tiles">Criar blocos de configurações rápidas para executar comandos do Adb</string>
     <string name="des_report_issue">Reporte qualquer problema ou bug que você encontrou ao usar o aplicativo</string>
     <string name="des_reset_app_settings">Redefinir configurações do app para os valores padrão</string>
-    <string name="des_restore_app_data">Restore app data from the saved backup file.\nThe saved database will overwrite the current database</string>
+    <string name="des_restore_app_data">Restaurar dados do app a partir do arquivo de backup salvo. U\nO banco de dados salvo irá substituir o banco de dados atual</string>
     <string name="des_save_whole_output">Ativar esta opção para salvar a saída de toda a sessão shell.\nSe desativado apenas a última saída de comando será salva.</string>
     <string name="des_sign_in_with_google">Opcionalmente, vincule sua conta do Google para backups na nuvem</string>
     <string name="des_smooth_scroll">Permite rolagem suave na saída do shell quando a seta de cima ou de baixo é clicada</string>
@@ -172,15 +172,15 @@
     <string name="device_info">Informações do dispositivo</string>
     <string name="disable_softkey">Desativar teclado macio</string>
     <string name="disclaimer">Isenção de responsabilidade</string>
-    <string name="disclaimer_1_description">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability.\nYou are solely responsible for any changes made using this app.</string>
+    <string name="disclaimer_1_description">A execução de comandos ADB pode alterar as configurações do sistema, gerenciar arquivos e realizar operações que podem afetar a estabilidade do seu dispositivo.\nVocê é o único responsável por quaisquer alterações feitas por meio deste app.</string>
     <string name="disclaimer_1_title">Use a seu próprio risco</string>
     <string name="disclaimer_2_description">Embora o acesso root não seja obrigatório, certos comandos podem exigir permissões elevadas.\nO mau uso de comandos ADB pode levar a perda de dados, falhas nos aplicativos ou comportamento inesperado do sistema.</string>
     <string name="disclaimer_2_title">Root não é obrigatório, mas é preciso muito cuidado</string>
-    <string name="disclaimer_3_description">The developer(s) of this app are not responsible for any damage, data loss, or unintended consequences resulting from the use of this app.\nProceed with caution and ensure you understand the commands you execute.</string>
+    <string name="disclaimer_3_description">Os desenvolvedores deste app não se responsabilizam por quaisquer danos, perda de dados ou consequências indesejadas decorrentes do uso deste app.\nProceda com cautela e certifique-se de compreender os comandos que executar.</string>
     <string name="disclaimer_3_title">Não somos responsáveis</string>
-    <string name="disclaimer_4_description">This app is designed for users who have a basic understanding of ADB commands.\nIf you are unsure about a command’s effect, research it before executing it.</string>
+    <string name="disclaimer_4_description">Este app foi desenvolvido para usuários que possuem conhecimentos básicos sobre comandos ADB.\nSe você não tiver certeza do efeito de um comando, pesquise-o antes de executá-lo.</string>
     <string name="disclaimer_4_title">Destinado a usuários avançados</string>
-    <string name="disclaimer_5_description">This app may require special permissions to function properly.\nIt does not collect or share personal data, but users should be aware of the implications of granting ADB-related permissions.</string>
+    <string name="disclaimer_5_description">Este app pode exigir permissões especiais para funcionar corretamente.\nEle não coleta nem compartilha dados pessoais, mas os usuários devem estar cientes das implicações de conceder permissões relacionadas ao ADB.</string>
     <string name="disclaimer_5_title">Permissões e Segurança</string>
     <string name="disconnect">Desconectar</string>
     <string name="disconnected">Desconectado!</string>
@@ -228,8 +228,8 @@
     <string name="fb_operation_cancelled">Operação cancelada</string>
     <string name="fb_otg_transfers_not_supported">Transferências de arquivos não suportadas no modo OTG</string>
     <string name="fb_paste_completed">Concluído: itens %1$d</string>
-    <string name="fb_paste_completed_with_failed">Completed: %1$d items, %2$d skipped, %3$d failed</string>
-    <string name="fb_paste_completed_with_skipped">Completed: %1$d items, %2$d skipped</string>
+    <string name="fb_paste_completed_with_failed">Completados: %1$d itens, %2$d ignorados, %3$d falharam</string>
+    <string name="fb_paste_completed_with_skipped">Completados: %1$d itens, %2$d ignorados</string>
     <string name="fb_reconnected_successfully">Reconectado com sucesso</string>
     <string name="fb_rename_failed">Falha ao renomear: %1$s</string>
     <string name="fb_renamed_successfully">Renomeado com sucesso</string>
@@ -269,7 +269,7 @@
     <string name="gpl_3_0_description">aShell You é um software livre: você pode redistribuí-lo e/ou modificá-lo sob os termos da GNU General Public License conforme publicado pela Free Software Foundation, ou a versão 3 da Licença, ou (à sua escolha) qualquer versão posterior.</string>
     <string name="grant">Conceder</string>
     <string name="grant_permission">Conceder permissão</string>
-    <string name="grant_shizuku_permission_for_tiles">Shizuku permission is not granted!\naShell You needs Shizuku permission to execute the tile commands.</string>
+    <string name="grant_shizuku_permission_for_tiles">Permissão do Shizuku não autorizada!\nO aShell You precisa de permissão do Shizuku para executar os comandos do bloco.</string>
     <string name="great_news">Boas notícias!</string>
     <string name="haptics_and_vibration">Hápticos &amp; Vibração</string>
     <string name="have_a_nice_day">Tenha um bom dia!</string>
@@ -393,7 +393,7 @@
     <string name="possible_reasons">Possíveis razões</string>
     <string name="pre_release_github">Pré-lançamento (GitHub)</string>
     <string name="pre_release_warning">As compilações de pré-lançamento podem ser instáveis</string>
-    <string name="pre_release_warning_description">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
+    <string name="pre_release_warning_description">Essas versões ainda estão em fase de testes e podem conter recursos incompletos ou erros inesperados. Se você decidir atualizar para uma versão de pré-lançamento, esteja ciente de que podem ocorrer falhas ou comportamentos anormais.\nSe você encontrar algum problema, travamento ou comportamento estranho, por favor, relate-os para que possamos corrigir e melhorar o aShellYou antes do lançamento da versão estável.\nObrigado por nos ajudar a melhorar!</string>
     <string name="preview">Pré-visualizar</string>
     <string name="qr_pair">QR Pair</string>
     <string name="qr_pair_hint">Para parear um dispositivo com Android 11 +, escaneie este QR pelo dispositivo de destino</string>
@@ -474,7 +474,7 @@
     <string name="sign_in_failed">Falha ao entrar no Google</string>
     <string name="sign_in_with_google">Entrar com o Google</string>
     <string name="sign_out">Encerrar sessão</string>
-    <string name="sign_out_confirmation_msg">Signing out will pause all automatic cloud backups!\nDo you still want to sign out?</string>
+    <string name="sign_out_confirmation_msg">Ao sair, todos os backups automáticos na nuvem serão suspensos!\nAinda deseja sair?</string>
     <string name="signed_in_as">Conectado como %1$s</string>
     <string name="signed_out">Encerrado a sessão</string>
     <string name="size">Tamanho</string>
@@ -493,7 +493,7 @@
     <string name="success_rate">Taxa de sucesso</string>
     <string name="successful_connection_message">O dispositivo está conectado com sucesso. Agora você pode iniciar comandos no dispositivo de destino.</string>
     <string name="suggested_icons">Ícones sugeridos</string>
-    <string name="support_bmc">Like what I do?\nConsider buying me a coffee</string>
+    <string name="support_bmc">Gosta do que eu faço?\nQue tal me pagar um café?</string>
     <string name="switch_mode">Trocar modo</string>
     <string name="system">Sistema</string>
     <string name="system_default">Padrão do sistema</string>
@@ -509,7 +509,7 @@
     <string name="tile_behavior">Comportamento dos blocos</string>
     <string name="tile_dashboard_notification_access_message">Ative as notificações para ser notificado quando a execução de um bloco falhar</string>
     <string name="tile_logs">Logs de ladrilho</string>
-    <string name="tile_n">Tile %1$d</string>
+    <string name="tile_n">Bloco %1$d</string>
     <string name="tile_name">Nome do bloco</string>
     <string name="tiles">Botões</string>
     <string name="toggleable">Alternável</string>
@@ -538,6 +538,7 @@
     <string name="variant">Variante</string>
     <string name="version">Versão</string>
     <string name="version_code">Código da versão</string>
+    <string name="search_something">Procurar algo</string>
     <string name="version_name">Nome da versão</string>
     <string name="view_on_github">Ver no GitHub</string>
     <string name="visit_repo_to_download">Clique no botão de download para obter a versão mais recente do aShellYou do repositório do github.</string>
@@ -554,6 +555,16 @@
     <string name="wireless_debugging_guide_3">Volte para o aplicativo e clique no botão \"Iniciar\" na tela inicial.</string>
     <string name="wireless_debugging_important_notice">Por favor, note que a parte esquerda da opção de depuração por Wi-Fi é clicável. Tocando nele abrirá o menu de depuração por Wi-Fi.</string>
     <string name="des_contributors">Lista de colaboradores que ajudaram no desenvolvimento da aShell</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">Ponto Tonal</string>
+    <string name="palette_expressive">Expressivo</string>
+    <string name="palette_vibrant">Vibrante</string>
+    <string name="palette_monochrome">Monocromático</string>
+    <string name="palette_rainbow">Arco-íris</string>
+    <string name="palette_fruit_salad">Salada de frutas</string>
+    <string name="palette_neutral">Neutro</string>
+    <string name="palette_fidelity">Fidelidade</string>
+    <string name="palette_content">Conteúdo</string>
     <string name="changelog_v7_3_0">\nInterface de usuário melhorada no ecrã de mudanças\nContribuidores adicionados na seção\nTela de Licenças Adicionadas que mostra informações detalhadas de licença sobre o aplicativo e outras bibliotecas usadas pelo aplicativo</string>
     <string name="changelog_v7_2_1">\nAtualização da manutenção!</string>
     <string name="changelog_v7_2_0">\nAdicionado opção para executar comandos de adb em Configurações Rápidas adicionando blocos personalizados.\nAdicionado opção de backup na nuvem (Google Drive). Este recurso só está presente nas versões do GitHub.\nEsquema de Cores e UI e UX melhorados em muitas áreas.\nAdicionou muito mais exemplos de comandos de ADB.</string>
@@ -591,7 +602,7 @@
     <string name="changelog_v3_4_0">\nAdicionado um botão Colar para copiar e colar comandos rapidamente\nAdicionados indicadores de erro no campo de entrada de texto\nMelhoria na lógica de visibilidade da Barra de Navegação\nCorrigido um problema onde interruptores se comportavam mal sob certas situações\nCorrigida visibilidade do ícone de adicionar favorito em vários níveis de contraste\nMuita otimização de código. A aplicação agora abre muito mais rápido\nA aplicação permanecerá em segundo plano e não reiniciará ao fechar pressionando o botão voltar ou gesto</string>
     <string name="changelog_v3_3_0">\nAdicionado favoritos, histórico e sugestões de comando ao OTG\nLimite máximo de favoritos adicionado\nOpção adicionada para substituir o limite máximo de favoritos\nMuitas correções de bugs\nMelhorado tratamento de interface\nMuita otimização de código</string>
     <string name="changelog_v3_2_0">\nMuitas melhorias relacionadas à interface\nAdicionados chips que indicam o modo de trabalho ADB atual\nMuita otimização de código</string>
-    <string name="changelog_v3_1_0">\nImprovements to ADB OTG after initial release.\nSome UI and logic adjustments to accommodate the new otg feature.</string>
+    <string name="changelog_v3_1_0">\nMelhorias no ADB OTG após o lançamento inicial.\nAlguns ajustes na interface do usuário e na lógica para acomodar o novo recurso OTG.</string>
     <string name="changelog_v3_0_0">\nSuporte ADB via OTG adicionado\n\n*** Você poderá executar comandos ADB em outros dispositivos usando aShellYou conectando o outro dispositivo usando um cabo OTG ***</string>
     <string name="changelog_v2_0_2">\nCódigo e recursos desnecessários removidos\nPequenas mudanças de interface</string>
     <string name="changelog_v2_0_1">\nCódigo e recursos desnecessários removidos\nPequenas mudanças de interface</string>
