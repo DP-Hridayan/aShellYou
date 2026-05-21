@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.settings.data.SettingsKeys
-import `in`.hridayan.ashell.settings.domain.model.SearchableSettingsEntry
 import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
-import `in`.hridayan.ashell.settings.presentation.page.search.SettingsSearchIndex
+import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
+import `in`.hridayan.settingsdsl.search.SearchEntry
+import `in`.hridayan.settingsdsl.search.SettingsSearchEngine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -31,26 +33,43 @@ class SettingsSearchViewModel @Inject constructor(
         private const val SEPARATOR = ","
     }
 
-    /** Full search index — built once at init. */
-    private val allEntries: List<SearchableSettingsEntry> =
-        SettingsSearchIndex.build(context)
+    /** Full search index — built once at init via the DSL's SettingsSearchEngine. */
+    private val engine: SettingsSearchEngine = SettingsSearchEngine.build(
+        context = context,
+        screens = listOf(
+            "settings" to SettingsProvider.settingsPage,
+            "look_and_feel" to SettingsProvider.lookAndFeelPage,
+            "dark_theme" to SettingsProvider.darkThemePage,
+            "behavior" to SettingsProvider.behaviorPage,
+            "auto_update" to SettingsProvider.autoUpdatePage,
+            "about" to SettingsProvider.aboutPage,
+            "backup_restore" to SettingsProvider.backupPage,
+        ),
+        screenTitles = mapOf(
+            "settings" to R.string.settings,
+            "look_and_feel" to R.string.look_and_feel,
+            "dark_theme" to R.string.dark_theme,
+            "behavior" to R.string.behavior,
+            "auto_update" to R.string.auto_update,
+            "about" to R.string.about,
+            "backup_restore" to R.string.backup_and_restore,
+        ),
+    )
+
+    private val allEntries: List<SearchEntry> = engine.allEntries()
 
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query.asStateFlow()
 
-    /** Filtered results, grouped by parent screen title. */
-    val filteredResults: StateFlow<List<SearchableSettingsEntry>> =
+    /** Filtered results derived from the DSL engine, reactive to [_query]. */
+    val filteredResults: StateFlow<List<SearchEntry>> =
         _query.combine(MutableStateFlow(allEntries)) { q, entries ->
             if (q.isBlank()) emptyList()
-            else entries.filter { entry ->
-                entry.title.contains(q, ignoreCase = true) ||
-                        entry.description.contains(q, ignoreCase = true)
-            }
+            else engine.search(q)
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    /** Recent search entries. */
-    private val _recentEntries = MutableStateFlow<List<SearchableSettingsEntry>>(emptyList())
-    val recentEntries: StateFlow<List<SearchableSettingsEntry>> = _recentEntries.asStateFlow()
+    private val _recentEntries = MutableStateFlow<List<SearchEntry>>(emptyList())
+    val recentEntries: StateFlow<List<SearchEntry>> = _recentEntries.asStateFlow()
 
     init {
         loadRecentSearches()
@@ -60,16 +79,16 @@ class SettingsSearchViewModel @Inject constructor(
         _query.value = newQuery
     }
 
-    /** Called when the user taps a search result — saves to recent searches. */
-    fun onResultClicked(entry: SearchableSettingsEntry) {
+    /** Called when the user taps a search result — persists to recent searches. */
+    fun onResultClicked(entry: SearchEntry) {
         viewModelScope.launch(Dispatchers.IO) {
             val current = loadRecentKeyNames().toMutableList()
-            current.remove(entry.settingsKey.name)
-            current.add(0, entry.settingsKey.name)
+            current.remove(entry.key.name)
+            current.add(0, entry.key.name)
             val trimmed = current.take(MAX_RECENT)
             settingsRepository.setString(
                 SettingsKeys.RECENT_SEARCH_KEYS,
-                trimmed.joinToString(SEPARATOR)
+                trimmed.joinToString(SEPARATOR),
             )
             _recentEntries.value = resolveEntries(trimmed)
         }
@@ -95,9 +114,9 @@ class SettingsSearchViewModel @Inject constructor(
         return raw.split(SEPARATOR).filter { it.isNotBlank() }
     }
 
-    /** Maps key name strings back to SearchableSettingsEntry objects. */
-    private fun resolveEntries(keyNames: List<String>): List<SearchableSettingsEntry> {
-        val entryMap = allEntries.associateBy { it.settingsKey.name }
+    /** Maps key name strings back to [SearchEntry] objects from the engine index. */
+    private fun resolveEntries(keyNames: List<String>): List<SearchEntry> {
+        val entryMap = allEntries.associateBy { it.key.name }
         return keyNames.mapNotNull { entryMap[it] }
     }
 }

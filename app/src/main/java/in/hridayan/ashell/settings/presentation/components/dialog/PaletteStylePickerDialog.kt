@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.dialog
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -51,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.LocalSettings
@@ -60,6 +62,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
+import `in`.hridayan.ashell.core.presentation.theme.color.createDynamicScheme
 import `in`.hridayan.ashell.core.presentation.theme.color.getPaletteKeyColors
 import kotlinx.coroutines.flow.distinctUntilChanged
 
@@ -74,6 +77,7 @@ fun PaletteStylePickerDialog(
     }
 
     val isHapticAllowed = LocalSettings.current.isHapticEnabled
+    val isDarkMode = LocalDarkMode.current
     val haptic = LocalHapticFeedback.current
     val currentStyle = LocalPaletteStyle.current
     val primarySeed = LocalSeedColor.current.primary
@@ -161,17 +165,31 @@ fun PaletteStylePickerDialog(
                             val shape = getRoundedShape(index, styles.size)
                             val selected = style == tempSelected
 
-                            val cardColors = if (selected) {
-                                CardDefaults.cardColors(
-                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                                )
-                            } else {
-                                CardDefaults.cardColors(
-                                    containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-                                    contentColor = MaterialTheme.colorScheme.onSurface
-                                )
+                            // Compute per-style primary container color from this style's own scheme
+                            val styleScheme = remember(primarySeed, style) {
+                                createDynamicScheme(primarySeed, style, isDark = false)
                             }
+                            val stylePrimaryContainer = remember(styleScheme) {
+                                @SuppressLint("RestrictedApi")
+                                Color(styleScheme.primaryPalette.tone(if (isDarkMode) 30 else 90))
+                            }
+                            val styleOnPrimaryContainer = remember(styleScheme) {
+                                @SuppressLint("RestrictedApi")
+                                Color(styleScheme.primaryPalette.tone(if (isDarkMode) 90 else 10))
+                            }
+
+                            val stylePrimary = remember(styleScheme) {
+                                @SuppressLint("RestrictedApi")
+                                Color(styleScheme.primaryPalette.tone(if (isDarkMode) 80 else 40))
+                            }
+
+                            val cardColors = if (selected) CardDefaults.cardColors(
+                                containerColor = stylePrimaryContainer,
+                                contentColor = styleOnPrimaryContainer
+                            ) else CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                                contentColor = MaterialTheme.colorScheme.onSurface
+                            )
 
                             val finalShape = if (selected) {
                                 CustomCardShape(50)
@@ -217,7 +235,7 @@ fun PaletteStylePickerDialog(
                                             tempSelected = style
                                         },
                                         colors = RadioButtonDefaults.colors(
-                                            selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                                            selectedColor = stylePrimary,
                                             unselectedColor = MaterialTheme.colorScheme.onSurface
                                         )
                                     )

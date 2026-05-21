@@ -21,9 +21,15 @@ import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,23 +43,49 @@ class SettingsViewModel @Inject constructor(
     var isFirstLaunch by mutableStateOf<Boolean?>(null)
         private set
 
-    val settingsPageList = SettingsProvider.settingsPageList
-    val lookAndFeelPageList = SettingsProvider.lookAndFeelPageList
-    val darkThemePageList = SettingsProvider.darkThemePageList
-    val behaviorPageList = SettingsProvider.behaviorPageList
-    val autoUpdatePageList = SettingsProvider.autoUpdatePageList
-    val backupPageList = SettingsProvider.backupPageList
-    val backupSchedulerPageList = SettingsProvider.backupSchedulerPageList
-    val aboutPageList = SettingsProvider.aboutPageList
-
-    private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
-    val uiEvent = _uiEvent.asSharedFlow()
+    /**
+     * Pre-warmed map of all Boolean and Int settings values.
+     * Populated in [init] so screens read a ready snapshot via ONE
+     * [collectAsState] call instead of N separate DataStore reads.
+     */
+    private val _settingsState = MutableStateFlow<Map<SettingsKeys, Any?>>(emptyMap())
+    val settingsState: StateFlow<Map<SettingsKeys, Any?>> = _settingsState.asStateFlow()
 
     init {
         viewModelScope.launch {
             isFirstLaunch = getBoolean(SettingsKeys.FIRST_LAUNCH).firstOrNull()
         }
+        // Seed immediately with compile-time defaults, then stream live values.
+        val boolKeys = SettingsKeys.entries.filter { it.default is Boolean }
+        val intKeys  = SettingsKeys.entries.filter { it.default is Int }
+        val seed = mutableMapOf<SettingsKeys, Any?>()
+        boolKeys.forEach { seed[it] = it.default }
+        intKeys.forEach  { seed[it] = it.default }
+        _settingsState.value = seed
+
+        boolKeys.forEach { key ->
+            getBoolean(key).onEach { v ->
+                _settingsState.update { it + (key to v) }
+            }.launchIn(viewModelScope)
+        }
+        intKeys.forEach { key ->
+            getInt(key).onEach { v ->
+                _settingsState.update { it + (key to v) }
+            }.launchIn(viewModelScope)
+        }
     }
+
+    val settingsPage = SettingsProvider.settingsPage
+    val lookAndFeelPage = SettingsProvider.lookAndFeelPage
+    val darkThemePage = SettingsProvider.darkThemePage
+    val autoUpdatePage = SettingsProvider.autoUpdatePage
+    val behaviorPage = SettingsProvider.behaviorPage
+    val aboutPage = SettingsProvider.aboutPage
+    val backupPage = SettingsProvider.backupPage
+
+    private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
+
 
     fun onToggle(key: SettingsKeys) {
         viewModelScope.launch(Dispatchers.IO) {

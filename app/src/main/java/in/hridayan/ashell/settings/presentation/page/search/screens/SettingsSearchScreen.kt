@@ -56,8 +56,9 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.settings.domain.model.SearchableSettingsEntry
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.presentation.page.search.viewmodel.SettingsSearchViewModel
+import `in`.hridayan.settingsdsl.search.SearchEntry
 
 @Composable
 fun SettingsSearchScreen(
@@ -142,7 +143,7 @@ fun SettingsSearchScreen(
 
             if (query.isNotBlank()) {
                 // Group results by parent screen
-                val grouped = results.groupBy { it.parentScreenTitle }
+                val grouped = results.groupBy { it.screenTitle }
 
                 if (results.isEmpty()) {
                     item(key = "empty") {
@@ -175,14 +176,14 @@ fun SettingsSearchScreen(
 
                     items(
                         entries,
-                        key = { "result_${it.screenId}_${it.settingsKey.name}" }) { entry ->
+                        key = { "result_${it.screenId}_${it.key.name}" }) { entry ->
                         SearchResultRow(
                             entry = entry,
                             isRecent = false,
                             onClick = {
                                 viewModel.onResultClicked(entry)
                                 navController.navigate(
-                                    entry.screenId.toNavRoute(entry.settingsKey.name)
+                                    entry.screenId.toSettingsNavRoute(entry.key.name)
                                 )
                             },
                         )
@@ -228,14 +229,14 @@ fun SettingsSearchScreen(
 
                     items(
                         recentEntries,
-                        key = { "recent_${it.screenId}_${it.settingsKey.name}" }) { entry ->
+                        key = { "recent_${it.screenId}_${it.key.name}" }) { entry ->
                         SearchResultRow(
                             entry = entry,
                             isRecent = true,
                             onClick = {
                                 viewModel.onResultClicked(entry)
                                 navController.navigate(
-                                    entry.screenId.toNavRoute(entry.settingsKey.name)
+                                    entry.screenId.toSettingsNavRoute(entry.key.name)
                                 )
                             },
                         )
@@ -248,7 +249,7 @@ fun SettingsSearchScreen(
 
 @Composable
 private fun SearchResultRow(
-    entry: SearchableSettingsEntry,
+    entry: SearchEntry,
     isRecent: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -315,4 +316,15 @@ private fun SearchSomethingUi(
                 .padding(top = 20.dp)
         )
     }
+}
+
+/** Maps a [SearchEntry.screenId] string back to the appropriate [NavRoutes] destination. */
+private fun String.toSettingsNavRoute(highlightKey: String? = null): NavRoutes = when (this) {
+    "look_and_feel" -> NavRoutes.LookAndFeelScreen(highlightKey)
+    "dark_theme" -> NavRoutes.DarkThemeScreen(highlightKey)
+    "behavior" -> NavRoutes.BehaviorScreen(highlightKey)
+    "auto_update" -> NavRoutes.AutoUpdateScreen(highlightKey)
+    "about" -> NavRoutes.AboutScreen(highlightKey)
+    "backup_restore" -> NavRoutes.BackupAndRestoreScreen(highlightKey)
+    else -> NavRoutes.SettingsScreen
 }

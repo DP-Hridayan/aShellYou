@@ -2,19 +2,21 @@
 
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.LightMode
+import androidx.compose.material.icons.twotone.DarkMode
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -22,27 +24,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSettings
-import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.themePicker
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.navigation.LocalNavController
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStylePickerDialog
-import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
-import `in`.hridayan.ashell.settings.presentation.model.PreferenceItem
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
 import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
+import `in`.hridayan.ashell.settings.presentation.state.rememberSettingsState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.settingsdsl.resolver.resolveAll
+import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @Composable
 fun LookAndFeelScreen(
@@ -51,40 +52,67 @@ fun LookAndFeelScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     lookAndFeelViewModel: LookAndFeelViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
-    val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
-    val settings = settingsViewModel.lookAndFeelPageList
+    val navController = LocalNavController.current
+    val context = LocalContext.current
+    val state = settingsViewModel.rememberSettingsState()
     val currentPaletteStyle = LocalPaletteStyle.current
-    val isDynamicColorsEnabled = LocalSettings.current.isDynamicColor
+    val themeMode = LocalSettings.current.themeMode
+    val isDarkMode = LocalDarkMode.current
+    val isDynamicColorEnabled = LocalSettings.current.isDynamicColor
 
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
             when (event) {
-                is SettingsUiEvent.LaunchIntent -> {
-                    context.startActivity(event.intent)
-                }
-
-                is SettingsUiEvent.Navigate -> {
-                    navController.navigate(event.route)
-                }
-
-                is SettingsUiEvent.ShowDialog -> {
-                    dialogManager.show(DialogKey.Settings.PaletteStyle)
-                }
-
+                is SettingsUiEvent.LaunchIntent -> context.startActivity(event.intent)
+                is SettingsUiEvent.Navigate -> navController.navigate(event.route)
+                is SettingsUiEvent.ShowDialog -> dialogManager.show(event.key)
                 else -> {}
             }
         }
     }
 
+    DialogKey.Settings.PaletteStyle.createDialog { dm ->
+        PaletteStylePickerDialog(
+            onDismiss = { dm.dismiss() },
+            onConfirm = { style ->
+                lookAndFeelViewModel.setPaletteStyle(style)
+                lookAndFeelViewModel.disableDynamicColors()
+            }
+        )
+    }
+
     val listState = rememberLazyListState()
     val highlightedKey = rememberHighlightState(
         highlightKeyName = highlightKey,
-        settings = settings,
+        page = settingsViewModel.lookAndFeelPage,
         listState = listState,
         headerItemCount = 2,
     )
+
+    val page = remember { settingsViewModel.lookAndFeelPage }
+
+    val resolvedGroups = page.resolveAll(
+        highlightedKey = highlightedKey,
+        descriptionOverrides = mapOf(
+            SettingsKeys.PALETTE_STYLE to { stringResource(currentPaletteStyle.displayNameResId) },
+            SettingsKeys.DARK_THEME to {
+                when (themeMode) {
+                    AppCompatDelegate.MODE_NIGHT_YES -> stringResource(R.string.on)
+                    AppCompatDelegate.MODE_NIGHT_NO -> stringResource(R.string.off)
+                    AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> stringResource(R.string.system)
+                    else -> ""
+                }
+            }
+        ),
+        iconOverrides = mapOf(
+            SettingsKeys.DARK_THEME to {
+                if (isDarkMode) Icons.TwoTone.DarkMode else Icons.Rounded.LightMode
+            }
+        ),
+        visibilityOverrides = mapOf(
+            SettingsKeys.PALETTE_STYLE to { !isDynamicColorEnabled }
+        ))
 
     SettingsScaffold(
         modifier = modifier,
@@ -96,7 +124,7 @@ fun LookAndFeelScreen(
                     .fillMaxWidth()
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 state = listState,
-                contentPadding = innerPadding
+                contentPadding = innerPadding,
             ) {
                 item {
                     Image(
@@ -104,86 +132,22 @@ fun LookAndFeelScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 100.dp, vertical = 25.dp),
                         imageVector = DynamicColorImageVectors.themePicker(),
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
 
-                if (currentPaletteStyle != PaletteStyle.MONOCHROME) {
-                    item("color_tabs") {
-                        ColorTabs(
-                            modifier = Modifier
-                                .padding(20.dp)
-                                .animateItem()
-                        )
-                    }
-                }
+                item { ColorTabs(modifier = Modifier.padding(20.dp)) }
 
-                itemsIndexed(settings) { index, group ->
-                    when (group) {
-                        is PreferenceGroup.Category -> {
-                            Text(
-                                text = stringResource(group.categoryNameResId),
-                                style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .animateItem()
-                                    .padding(
-                                        start = 20.dp,
-                                        end = 20.dp,
-                                        top = 30.dp,
-                                        bottom = 10.dp
-                                    )
-                            )
-                            val visibleItems = group.items.filter { it.isLayoutVisible }
-
-                            visibleItems.forEachIndexed { i, item ->
-                                val shape = getRoundedShape(i, visibleItems.size)
-
-                                PreferenceItemView(
-                                    item = item,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 15.dp, vertical = 1.dp)
-                                        .animateItem(),
-                                    shape = shape,
-                                    isHighlighted = item.key == highlightedKey,
-                                )
-                            }
-                        }
-
-                        is PreferenceGroup.Items -> {
-                            val visibleItems = group.items.filter {
-                                it.isLayoutVisible &&
-                                        (if (it.key == SettingsKeys.PALETTE_STYLE) !isDynamicColorsEnabled else true)
-                            }
-
-                            visibleItems.forEachIndexed { i, item ->
-
-                                // Override the description for PALETTE_STYLE to show current style name
-                                val effectiveItem =
-                                    if (item.key == SettingsKeys.PALETTE_STYLE) {
-                                        (item as PreferenceItem.NullPreferenceItem).copy(
-                                            descriptionResId = currentPaletteStyle.displayNameResId
-                                        )
-                                    } else item
-
-                                val shape = getRoundedShape(i, visibleItems.size)
-
-                                PreferenceItemView(
-                                    item = effectiveItem,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 15.dp, vertical = 1.dp)
-                                        .animateItem(),
-                                    shape = shape,
-                                    isHighlighted = item.key == highlightedKey,
-                                )
-                            }
-                        }
-
-                        else -> {}
-                    }
-                }
+                settingsContent(
+                    groups = resolvedGroups,
+                    isChecked = state::isChecked,
+                    selectedValue = state::selectedValue,
+                    onItemClick = { key -> settingsViewModel.onItemClicked(key as SettingsKeys) },
+                    onBooleanToggle = { key -> settingsViewModel.onToggle(key as SettingsKeys) },
+                    onIntChanged = { key, value ->
+                        settingsViewModel.setInt(key as SettingsKeys, value)
+                    },
+                )
 
                 item {
                     Spacer(
@@ -193,16 +157,6 @@ fun LookAndFeelScreen(
                     )
                 }
             }
-        })
-
-    // Palette Style Dialog
-    DialogKey.Settings.PaletteStyle.createDialog { dialogManager ->
-        PaletteStylePickerDialog(
-            onDismiss = { dialogManager.dismiss() },
-            onConfirm = { style ->
-                lookAndFeelViewModel.setPaletteStyle(style)
-                lookAndFeelViewModel.disableDynamicColors()
-            }
-        )
-    }
+        },
+    )
 }

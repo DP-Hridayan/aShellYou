@@ -6,343 +6,331 @@ import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.settings.data.SettingsKeys
-import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
-import `in`.hridayan.ashell.settings.presentation.model.SettingsType
-import `in`.hridayan.ashell.settings.presentation.util.boolPreferenceItem
-import `in`.hridayan.ashell.settings.presentation.util.categorizedItems
-import `in`.hridayan.ashell.settings.presentation.util.customComposable
-import `in`.hridayan.ashell.settings.presentation.util.intPreferenceItem
-import `in`.hridayan.ashell.settings.presentation.util.nullPreferenceItem
-import `in`.hridayan.ashell.settings.presentation.util.uncategorizedItems
+import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
+import `in`.hridayan.settingsdsl.dsl.category
+import `in`.hridayan.settingsdsl.dsl.clickableItem
+import `in`.hridayan.settingsdsl.dsl.customSlot
+import `in`.hridayan.settingsdsl.dsl.group
+import `in`.hridayan.settingsdsl.dsl.radioGroupItem
+import `in`.hridayan.settingsdsl.dsl.settingsPage
+import `in`.hridayan.settingsdsl.dsl.switchBannerItem
+import `in`.hridayan.settingsdsl.dsl.switchItem
+import `in`.hridayan.settingsdsl.model.ButtonGroupOption
 
 private val isSdkLowerThan31 = Build.VERSION.SDK_INT < Build.VERSION_CODES.S
 
 object SettingsProvider {
-    val settingsPageList: List<PreferenceGroup> = listOf(
-        uncategorizedItems(
-            nullPreferenceItem(
+
+    val settingsPage = settingsPage(
+        group(
+            clickableItem(
                 key = SettingsKeys.LOOK_AND_FEEL,
-                titleResId = R.string.look_and_feel,
-                descriptionResId = R.string.des_look_and_feel,
-                iconResId = R.drawable.ic_pallete
+                title = R.string.look_and_feel,
+                description = R.string.des_look_and_feel,
+                icon = R.drawable.ic_pallete
             ),
-            nullPreferenceItem(
+            clickableItem(
                 key = SettingsKeys.BEHAVIOR,
-                titleResId = R.string.behavior,
-                descriptionResId = R.string.des_behavior,
-                iconResId = R.drawable.ic_sentiment_neutral
+                title = R.string.behavior,
+                description = R.string.des_behavior,
+                icon = R.drawable.ic_sentiment_neutral
             ),
-            nullPreferenceItem(
+            clickableItem(
                 key = SettingsKeys.QUICK_SETTINGS_TILES,
-                titleResId = R.string.qs_tiles,
-                descriptionResId = R.string.des_qs_tiles,
-                iconResId = R.drawable.ic_dashboard
+                title = R.string.qs_tiles,
+                description = R.string.des_qs_tiles,
+                icon = R.drawable.ic_dashboard
             ),
-            nullPreferenceItem(
+            clickableItem(
                 key = SettingsKeys.AUTO_UPDATE,
-                titleResId = R.string.auto_update,
-                descriptionResId = R.string.des_auto_update,
-                iconResId = R.drawable.ic_auto_update
+                title = R.string.auto_update,
+                description = R.string.des_auto_update,
+                icon = R.drawable.ic_auto_update
             ),
-            nullPreferenceItem(
+            clickableItem(
                 key = SettingsKeys.BACKUP_AND_RESTORE,
-                titleResId = R.string.backup_and_restore,
-                descriptionResId = R.string.des_backup_and_restore,
-                iconResId = R.drawable.ic_settings_backup_restore
+                title = R.string.backup_and_restore,
+                description = R.string.des_backup_and_restore,
+                icon = R.drawable.ic_settings_backup_restore
             ),
-            nullPreferenceItem(
+            clickableItem(
                 key = SettingsKeys.ABOUT,
-                titleResId = R.string.about,
-                descriptionResId = R.string.des_about,
-                iconResId = R.drawable.ic_info
-            )
+                title = R.string.about,
+                description = R.string.des_about,
+                icon = R.drawable.ic_info
+            ),
         )
     )
 
-    val darkThemePageList: List<PreferenceGroup> = listOf(
-        uncategorizedItems(
-            intPreferenceItem(
-                key = SettingsKeys.THEME_MODE,
-                type = SettingsType.RadioGroup,
-                radioOptions = RadioGroupOptionsProvider.darkModeOptions
-            )
-        ),
-        categorizedItems(
-            categoryNameResId = R.string.additional_settings,
-            boolPreferenceItem(
-                key = SettingsKeys.HIGH_CONTRAST_DARK_MODE,
-                titleResId = R.string.high_contrast_dark_mode,
-                descriptionResId = R.string.des_high_contrast_dark_mode,
-                iconResId = R.drawable.ic_amoled_theme,
-            )
-        )
-    )
-
-    val lookAndFeelPageList: List<PreferenceGroup> = listOf(
-        uncategorizedItems(
-            boolPreferenceItem(
+    val lookAndFeelPage = settingsPage(
+        group(
+            switchItem(
                 key = SettingsKeys.DYNAMIC_COLORS,
-                titleResId = R.string.dynamic_colors,
-                descriptionResId = R.string.des_dynamic_colors,
-                iconResId = R.drawable.ic_dynamic_color,
-                isLayoutVisible = !isSdkLowerThan31
+                title = R.string.dynamic_colors,
+                description = R.string.des_dynamic_colors,
+                icon = R.drawable.ic_dynamic_color,
+                visible = !isSdkLowerThan31
             ),
-            nullPreferenceItem(
+            clickableItem(
                 key = SettingsKeys.PALETTE_STYLE,
-                titleResId = R.string.palette_style,
-                descriptionResId = R.string.palette_tonal_spot,
-                iconResId = R.drawable.ic_pallete,
-            )
+                title = R.string.palette_style,
+                description = R.string.palette_tonal_spot,
+                icon = R.drawable.ic_pallete
+            ),
         ),
-        categorizedItems(
-            categoryNameResId = R.string.additional_settings,
-            nullPreferenceItem(
+        category(
+            title = R.string.additional_settings,
+            clickableItem(
                 key = SettingsKeys.DARK_THEME,
-                titleResId = R.string.dark_theme,
-                descriptionResId = R.string.system,
-                iconVector = Icons.Outlined.DarkMode,
+                title = R.string.dark_theme,
+                description = R.string.system,
+                iconVector = Icons.Outlined.DarkMode
             ),
-            boolPreferenceItem(
+            switchItem(
                 key = SettingsKeys.HAPTICS_AND_VIBRATION,
-                titleResId = R.string.haptics_and_vibration,
-                descriptionResId = R.string.des_haptics_and_vibration,
-                iconResId = R.drawable.ic_vibration,
+                title = R.string.haptics_and_vibration,
+                description = R.string.des_haptics_and_vibration,
+                icon = R.drawable.ic_vibration
             ),
-            nullPreferenceItem(
+            clickableItem(
                 key = SettingsKeys.LANGUAGE,
-                isLayoutVisible = true,
-                titleResId = R.string.default_language,
-                descriptionResId = R.string.des_default_language,
-                iconResId = R.drawable.ic_language,
-            )
-        )
+                title = R.string.default_language,
+                description = R.string.des_default_language,
+                icon = R.drawable.ic_language
+            ),
+        ),
     )
 
-    val autoUpdatePageList: List<PreferenceGroup> = listOf(
-        uncategorizedItems(
-            boolPreferenceItem(
-                key = SettingsKeys.AUTO_UPDATE,
-                titleResId = R.string.enable_auto_update,
-                type = SettingsType.SwitchBanner
+    val darkThemePage = settingsPage(
+        group(
+            radioGroupItem(
+                key = SettingsKeys.THEME_MODE,
+                options = RadioGroupOptionsProvider.darkModeOptions
             )
         ),
-        categorizedItems(
-            categoryNameResId = R.string.update_channel,
-            intPreferenceItem(
+        category(
+            title = R.string.additional_settings,
+            switchItem(
+                key = SettingsKeys.HIGH_CONTRAST_DARK_MODE,
+                title = R.string.high_contrast_dark_mode,
+                description = R.string.des_high_contrast_dark_mode,
+                icon = R.drawable.ic_amoled_theme
+            ),
+        ),
+    )
+
+    val autoUpdatePage = settingsPage(
+        group(
+            switchBannerItem(key = SettingsKeys.AUTO_UPDATE, title = R.string.enable_auto_update),
+        ),
+        category(
+            title = R.string.update_channel,
+            radioGroupItem(
                 key = SettingsKeys.GITHUB_RELEASE_TYPE,
-                type = SettingsType.RadioGroup,
-                radioOptions = RadioGroupOptionsProvider.updateChannelOptions
-            )
+                options = RadioGroupOptionsProvider.updateChannelOptions
+            ),
         ),
-
-        categorizedItems(
-            categoryNameResId = R.string.additional_settings,
-            boolPreferenceItem(
+        category(
+            title = R.string.additional_settings,
+            switchItem(
                 key = SettingsKeys.ENABLE_DIRECT_DOWNLOAD,
-                titleResId = R.string.enable_direct_download,
-                descriptionResId = R.string.des_enable_direct_download,
+                title = R.string.enable_direct_download,
+                description = R.string.des_enable_direct_download,
                 iconVector = Icons.Rounded.Downloading
-            )
+            ),
         ),
     )
 
-    val aboutPageList: List<PreferenceGroup> = listOf(
-        categorizedItems(
-            categoryNameResId = R.string.contributors,
-            nullPreferenceItem(
-                key = SettingsKeys.CONTRIBUTORS,
-                titleResId = R.string.contributors,
-                descriptionResId = R.string.des_contributors,
-                iconResId = R.drawable.ic_crowdsource
-            ),
-            nullPreferenceItem(
-                key = SettingsKeys.TRANSLATORS,
-                titleResId = R.string.translators,
-                descriptionResId = R.string.des_translators,
-                iconResId = R.drawable.ic_translate
-            )
-        ),
-        categorizedItems(
-            categoryNameResId = R.string.app,
-            nullPreferenceItem(
-                key = SettingsKeys.CHANGELOGS,
-                titleResId = R.string.changelogs,
-                descriptionResId = R.string.des_changelogs,
-                iconResId = R.drawable.ic_changelog,
-            ),
-            nullPreferenceItem(
-                key = SettingsKeys.LICENSES,
-                titleResId = R.string.licenses,
-                descriptionResId = R.string.des_licenses,
-                iconResId = R.drawable.ic_license
-            ),
-            nullPreferenceItem(
-                key = SettingsKeys.CRASH_HISTORY,
-                titleResId = R.string.crash_history,
-                descriptionResId = R.string.des_crash_history,
-                iconResId = R.drawable.ic_bug
-            ),
-            nullPreferenceItem(
-                key = SettingsKeys.REPORT,
-                titleResId = R.string.report_issue,
-                descriptionResId = R.string.des_report_issue,
-                iconResId = R.drawable.ic_report
-            ),
-            nullPreferenceItem(
-                key = SettingsKeys.FEATURE_REQUEST,
-                titleResId = R.string.feature_request,
-                descriptionResId = R.string.des_feature_request,
-                iconResId = R.drawable.ic_add_comment
-            )
-        )
-    )
-
-    val behaviorPageList: List<PreferenceGroup> = listOf(
-        categorizedItems(
-            categoryNameResId = R.string.local_adb_shell,
-            intPreferenceItem(
+    val behaviorPage = settingsPage(
+        category(
+            title = R.string.local_adb_shell,
+            radioGroupItem(
                 key = SettingsKeys.LOCAL_ADB_WORKING_MODE,
-                type = SettingsType.RadioGroup,
-                radioOptions = RadioGroupOptionsProvider.localAdbShellModeOptions
-            )
+                options = RadioGroupOptionsProvider.localAdbShellModeOptions
+            ),
         ),
-
-        categorizedItems(
-            categoryNameResId = R.string.terminal,
-            boolPreferenceItem(
+        category(
+            title = R.string.terminal,
+            switchItem(
                 key = SettingsKeys.SMOOTH_SCROLLING,
-                titleResId = R.string.smooth_scrolling,
-                descriptionResId = R.string.des_smooth_scroll,
+                title = R.string.smooth_scrolling,
+                description = R.string.des_smooth_scroll,
                 iconVector = Icons.Rounded.UnfoldMoreDouble
             ),
-            boolPreferenceItem(
+            switchItem(
                 key = SettingsKeys.CLEAR_OUTPUT_CONFIRMATION,
-                titleResId = R.string.clear_output_confirmation,
-                descriptionResId = R.string.des_clear_output_confirmation,
-                iconResId = R.drawable.ic_clear
+                title = R.string.clear_output_confirmation,
+                description = R.string.des_clear_output_confirmation,
+                icon = R.drawable.ic_clear
             ),
-            boolPreferenceItem(
+            switchItem(
                 key = SettingsKeys.OVERRIDE_MAXIMUM_BOOKMARKS_LIMIT,
-                titleResId = R.string.override_bookmarks_limit,
-                descriptionResId = R.string.des_override_bookmarks,
-                iconResId = R.drawable.ic_bookmarks
+                title = R.string.override_bookmarks_limit,
+                description = R.string.des_override_bookmarks,
+                icon = R.drawable.ic_bookmarks
             ),
-            boolPreferenceItem(
+            switchItem(
                 key = SettingsKeys.DISABLE_SOFT_KEYBOARD,
-                titleResId = R.string.disable_softkey,
-                descriptionResId = R.string.des_disable_softkey,
-                iconResId = R.drawable.ic_disable_keyboard
-            )
+                title = R.string.disable_softkey,
+                description = R.string.des_disable_softkey,
+                icon = R.drawable.ic_disable_keyboard
+            ),
         ),
-
-        categorizedItems(
-            categoryNameResId = R.string.terminal_font_style,
-            intPreferenceItem(
-                type = SettingsType.SingleSelectButtonGroups,
-                buttonGroupOptions = ButtonGroupOptionsProvider.terminalFontOptions,
-                key = SettingsKeys.TERMINAL_FONT_STYLE
-            )
+        category(
+            title = R.string.terminal_font_style,
+            buttonGroupItem(
+                key = SettingsKeys.TERMINAL_FONT_STYLE,
+                options = listOf(
+                    ButtonGroupOption(TerminalFontStyle.MONOSPACE, R.string.monospace),
+                    ButtonGroupOption(TerminalFontStyle.SYSTEM_FONT, R.string.system_font),
+                )
+            ),
         ),
-
-        categorizedItems(
-            categoryNameResId = R.string.file_actions,
-            nullPreferenceItem(
+        category(
+            title = R.string.file_actions,
+            clickableItem(
                 key = SettingsKeys.OUTPUT_SAVE_DIRECTORY,
-                titleResId = R.string.configure_save_directory,
-                descriptionResId = R.string.des_configure_save_directory,
-                iconResId = R.drawable.ic_directory
+                title = R.string.configure_save_directory,
+                description = R.string.des_configure_save_directory,
+                icon = R.drawable.ic_directory
             ),
-            boolPreferenceItem(
+            switchItem(
                 key = SettingsKeys.SAVE_WHOLE_OUTPUT,
-                titleResId = R.string.save_whole_output,
-                descriptionResId = R.string.des_save_whole_output,
-                iconResId = R.drawable.ic_save_as
+                title = R.string.save_whole_output,
+                description = R.string.des_save_whole_output,
+                icon = R.drawable.ic_save_as
             ),
-        )
+        ),
     )
 
-    val backupPageList: List<PreferenceGroup> = listOf(
-        customComposable("google_sign_in"),
+    val aboutPage = settingsPage(
+        category(
+            title = R.string.contributors,
+            clickableItem(
+                key = SettingsKeys.CONTRIBUTORS,
+                title = R.string.contributors,
+                description = R.string.des_contributors,
+                icon = R.drawable.ic_crowdsource
+            ),
+            clickableItem(
+                key = SettingsKeys.TRANSLATORS,
+                title = R.string.translators,
+                description = R.string.des_translators,
+                icon = R.drawable.ic_translate
+            ),
+        ),
+        category(
+            title = R.string.app,
+            clickableItem(
+                key = SettingsKeys.CHANGELOGS,
+                title = R.string.changelogs,
+                description = R.string.des_changelogs,
+                icon = R.drawable.ic_changelog
+            ),
+            clickableItem(
+                key = SettingsKeys.LICENSES,
+                title = R.string.licenses,
+                description = R.string.des_licenses,
+                icon = R.drawable.ic_license
+            ),
+            clickableItem(
+                key = SettingsKeys.CRASH_HISTORY,
+                title = R.string.crash_history,
+                description = R.string.des_crash_history,
+                icon = R.drawable.ic_bug
+            ),
+            clickableItem(
+                key = SettingsKeys.REPORT,
+                title = R.string.report_issue,
+                description = R.string.des_report_issue,
+                icon = R.drawable.ic_report
+            ),
+            clickableItem(
+                key = SettingsKeys.FEATURE_REQUEST,
+                title = R.string.feature_request,
+                description = R.string.des_feature_request,
+                icon = R.drawable.ic_add_comment
+            ),
+        ),
+    )
 
-        categorizedItems(
-            categoryNameResId = R.string.backup,
-            nullPreferenceItem(
+    val backupPage = settingsPage(
+        customSlot(BackupSlots.GoogleSignIn),
+        category(
+            title = R.string.backup,
+            clickableItem(
                 key = SettingsKeys.BACKUP_APP_SETTINGS,
-                titleResId = R.string.backup_settings,
-                descriptionResId = R.string.des_backup_settings,
-                iconResId = R.drawable.ic_handyman
+                title = R.string.backup_settings,
+                description = R.string.des_backup_settings,
+                icon = R.drawable.ic_handyman
             ),
-            nullPreferenceItem(
+            clickableItem(
                 key = SettingsKeys.BACKUP_APP_DATABASE,
-                titleResId = R.string.backup_app_database,
-                descriptionResId = R.string.des_backup_app_database,
-                iconResId = R.drawable.ic_database
+                title = R.string.backup_app_database,
+                description = R.string.des_backup_app_database,
+                icon = R.drawable.ic_database
             ),
-            nullPreferenceItem(
+            clickableItem(
                 key = SettingsKeys.BACKUP_APP_DATA,
-                titleResId = R.string.backup_all_data,
-                descriptionResId = R.string.des_backup_all_data,
-                iconResId = R.drawable.ic_upload_file
+                title = R.string.backup_all_data,
+                description = R.string.des_backup_all_data,
+                icon = R.drawable.ic_upload_file
             ),
-            /* nullPreferenceItem(
-                 key = SettingsKeys.BACKUP_SCHEDULER,
-                 titleResId = R.string.backup_scheduler,
-                 descriptionResId = R.string.des_backup_scheduler,
-                 iconResId = R.drawable.ic_schedule
-             )*/
         ),
-
-        customComposable("last_backup_time"),
-
-        categorizedItems(
-            categoryNameResId = R.string.restore,
-            nullPreferenceItem(
+        customSlot(BackupSlots.LastBackupTime),
+        category(
+            title = R.string.restore,
+            clickableItem(
                 key = SettingsKeys.RESTORE_APP_DATA,
-                titleResId = R.string.restore_app_data,
-                descriptionResId = R.string.des_restore_app_data,
-                iconResId = R.drawable.ic_restore_page
-            )
+                title = R.string.restore_app_data,
+                description = R.string.des_restore_app_data,
+                icon = R.drawable.ic_restore_page
+            ),
         ),
-        categorizedItems(
-            categoryNameResId = R.string.reset,
-            nullPreferenceItem(
+        category(
+            title = R.string.reset,
+            clickableItem(
                 key = SettingsKeys.RESET_APP_SETTINGS,
-                titleResId = R.string.reset_app_settings,
-                descriptionResId = R.string.des_reset_app_settings,
-                iconResId = R.drawable.ic_reset_settings
-            )
-        )
-    )
-
-    val backupSchedulerPageList: List<PreferenceGroup> = listOf(
-
+                title = R.string.reset_app_settings,
+                description = R.string.des_reset_app_settings,
+                icon = R.drawable.ic_reset_settings
+            ),
+        ),
     )
 }
 
-fun List<PreferenceGroup>.extractIconResIds(): List<Int> {
-    return this
-        .flatMap { group ->
-            when (group) {
-                is PreferenceGroup.Items -> group.items
-                is PreferenceGroup.Category -> group.items
-                else -> emptyList()
-            }
-        }
-        .mapNotNull { it.iconResId }
-        .distinct()
-}
-
-fun getAllSettingsIcons(): List<Int> {
-    return listOf(
-        SettingsProvider.settingsPageList,
-        SettingsProvider.darkThemePageList,
-        SettingsProvider.lookAndFeelPageList,
-        SettingsProvider.autoUpdatePageList,
-        SettingsProvider.aboutPageList,
-        SettingsProvider.behaviorPageList,
-        SettingsProvider.backupPageList
-    )
-        .flatten()
-        .extractIconResIds()
-}
+/**
+ * Returns all drawable resource IDs used across every settings screen.
+ * Used by [FloatingIconsBackground] on the main settings screen.
+ */
+fun getAllSettingsIcons(): List<Int> = listOf(
+    R.drawable.ic_pallete,
+    R.drawable.ic_sentiment_neutral,
+    R.drawable.ic_dashboard,
+    R.drawable.ic_auto_update,
+    R.drawable.ic_settings_backup_restore,
+    R.drawable.ic_info,
+    R.drawable.ic_dynamic_color,
+    R.drawable.ic_vibration,
+    R.drawable.ic_language,
+    R.drawable.ic_amoled_theme,
+    R.drawable.ic_clear,
+    R.drawable.ic_bookmarks,
+    R.drawable.ic_disable_keyboard,
+    R.drawable.ic_directory,
+    R.drawable.ic_save_as,
+    R.drawable.ic_crowdsource,
+    R.drawable.ic_translate,
+    R.drawable.ic_changelog,
+    R.drawable.ic_license,
+    R.drawable.ic_bug,
+    R.drawable.ic_report,
+    R.drawable.ic_add_comment,
+    R.drawable.ic_handyman,
+    R.drawable.ic_database,
+    R.drawable.ic_upload_file,
+    R.drawable.ic_restore_page,
+    R.drawable.ic_reset_settings,
+)

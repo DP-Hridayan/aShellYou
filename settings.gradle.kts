@@ -22,5 +22,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "aShell You"
 
-include(":app", ":adblib", ":libadb")
+include(":app", ":adblib", ":libadb", ":settings-dsl")
 includeBuild("build-logic")

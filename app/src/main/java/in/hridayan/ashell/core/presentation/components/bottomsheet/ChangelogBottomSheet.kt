@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -96,8 +97,12 @@ fun ChangelogBottomSheet(
                                 .fillMaxWidth()
                                 .padding(15.dp),
                             text = stringResource(R.string.version) + "\t\t${item.versionName}",
-                            style = if (isLatestVersion) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.headlineSmall,
-                            color = if (isLatestVersion) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                            style = MaterialTheme.typography.run {
+                                if (isLatestVersion) headlineMedium else headlineSmall
+                            },
+                            color = MaterialTheme.colorScheme.run {
+                                if (isLatestVersion) primary else onSurface
+                            },
                             fontWeight = FontWeight.Bold
                         )
                     }
@@ -144,7 +149,7 @@ fun ChangelogBottomSheet(
                         Brush.verticalGradient(
                             colors = listOf(
                                 Color.Transparent,
-                                MaterialTheme.colorScheme.background
+                                BottomSheetDefaults.ContainerColor
                             )
                         )
                     )

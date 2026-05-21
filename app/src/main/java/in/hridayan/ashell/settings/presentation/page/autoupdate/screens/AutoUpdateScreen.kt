@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Update
@@ -25,8 +24,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -41,34 +42,38 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.progress.LoadingSpinner
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
 import `in`.hridayan.ashell.core.presentation.components.shape.WaveEdge
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
-import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
-import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
+import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
+import `in`.hridayan.ashell.settings.presentation.state.rememberSettingsState
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.settingsdsl.resolver.resolveAll
+import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @Composable
 fun AutoUpdateScreen(
     modifier: Modifier = Modifier,
     highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
-    autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel()
+    autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
+    val state = settingsViewModel.rememberSettingsState()
     var showLoading by rememberSaveable { mutableStateOf(false) }
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
@@ -77,7 +82,10 @@ fun AutoUpdateScreen(
     val networkError = stringResource(R.string.network_error)
     val requestTimeout = stringResource(R.string.request_timeout)
     val unKnownError = stringResource(R.string.unknown_error)
-    val settings = settingsViewModel.autoUpdatePageList
+
+    val isAutoUpdateEnabled by settingsViewModel.getBoolean(SettingsKeys.AUTO_UPDATE).collectAsState(initial = false)
+    val isDirectDownloadEnabled by settingsViewModel.getBoolean(SettingsKeys.ENABLE_DIRECT_DOWNLOAD).collectAsState(initial = true)
+    val updateChannel by settingsViewModel.getInt(SettingsKeys.GITHUB_RELEASE_TYPE).collectAsState(initial = GithubReleaseType.STABLE_GITHUB)
 
     LaunchedEffect(Unit) {
         autoUpdateViewModel.updateEvents.collect { result ->
@@ -93,18 +101,9 @@ fun AutoUpdateScreen(
                         dialogManager.show(DialogKey.Settings.LatestVersion)
                     }
                 }
-
-                UpdateResult.NetworkError -> {
-                    showToast(context, networkError)
-                }
-
-                UpdateResult.Timeout -> {
-                    showToast(context, requestTimeout)
-                }
-
-                UpdateResult.UnknownError -> {
-                    showToast(context, unKnownError)
-                }
+                UpdateResult.NetworkError -> showToast(context, networkError)
+                UpdateResult.Timeout -> showToast(context, requestTimeout)
+                UpdateResult.UnknownError -> showToast(context, unKnownError)
             }
         }
     }
@@ -112,10 +111,13 @@ fun AutoUpdateScreen(
     val listState = rememberLazyListState()
     val highlightedKey = rememberHighlightState(
         highlightKeyName = highlightKey,
-        settings = settings,
+        page = settingsViewModel.autoUpdatePage,
         listState = listState,
         headerItemCount = 1,
     )
+
+    val page = remember { settingsViewModel.autoUpdatePage }
+    val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
 
     SettingsScaffold(
         modifier = modifier,
@@ -123,144 +125,62 @@ fun AutoUpdateScreen(
         topBarTitle = stringResource(R.string.auto_update),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                modifier = Modifier.fillMaxWidth().nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 state = listState,
-                contentPadding = innerPadding
+                contentPadding = innerPadding,
             ) {
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(15.dp)
-                    )
-                }
+                item { Spacer(modifier = Modifier.fillMaxWidth().height(15.dp)) }
 
-                itemsIndexed(settings) { index, group ->
-                    when (group) {
-                        is PreferenceGroup.Category -> {
-                            Text(
-                                text = stringResource(group.categoryNameResId),
-                                style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .animateItem()
-                                    .padding(
-                                        start = 20.dp,
-                                        end = 20.dp,
-                                        top = 30.dp,
-                                        bottom = 10.dp
-                                    )
-                            )
-                            val visibleItems = group.items.filter { it.isLayoutVisible }
-
-                            visibleItems.forEachIndexed { i, item ->
-                                val shape = getRoundedShape(i, visibleItems.size)
-
-                                PreferenceItemView(
-                                    item = item,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 15.dp, vertical = 1.dp)
-                                        .animateItem(),
-                                    shape = shape,
-                                    isHighlighted = item.key == highlightedKey,
-                                )
-                            }
-                        }
-
-                        is PreferenceGroup.Items -> {
-                            val visibleItems = group.items.filter { it.isLayoutVisible }
-
-                            visibleItems.forEachIndexed { i, item ->
-                                val shape = getRoundedShape(i, visibleItems.size)
-
-                                PreferenceItemView(
-                                    item = item,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 15.dp, vertical = 1.dp)
-                                        .animateItem(),
-                                    shape = shape,
-                                    isHighlighted = item.key == highlightedKey,
-                                )
-                            }
-                        }
-
-                        else -> {}
-                    }
-                }
+                settingsContent(
+                    groups = resolvedGroups,
+                    isChecked = state::isChecked,
+                    selectedValue = state::selectedValue,
+                    onItemClick = { key -> settingsViewModel.onItemClicked(key as SettingsKeys) },
+                    onBooleanToggle = { key -> settingsViewModel.onToggle(key as SettingsKeys) },
+                    onIntChanged = { key, value -> settingsViewModel.setInt(key as SettingsKeys, value) },
+                )
 
                 item {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 30.dp)
-                            .clip(
-                                SineWaveShape(
-                                    amplitude = 15f,
-                                    frequency = 5f,
-                                    edge = WaveEdge.Top
-                                )
-                            )
+                            .clip(SineWaveShape(amplitude = 15f, frequency = 5f, edge = WaveEdge.Top))
                             .background(MaterialTheme.colorScheme.surfaceContainerLow)
                     ) {
                         Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 25.dp, end = 25.dp, top = 35.dp, bottom = 75.dp),
-                            verticalArrangement = Arrangement.spacedBy(15.dp)
+                            modifier = Modifier.fillMaxWidth().padding(start = 25.dp, end = 25.dp, top = 35.dp, bottom = 75.dp),
+                            verticalArrangement = Arrangement.spacedBy(15.dp),
                         ) {
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(20.dp)
+                                horizontalArrangement = Arrangement.spacedBy(20.dp),
                             ) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_info),
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.error,
-                                )
-
-                                Text(
-                                    text = stringResource(R.string.pre_release_warning),
-                                    style = MaterialTheme.typography.titleSmall,
-                                    color = MaterialTheme.colorScheme.error
-                                )
+                                Icon(painter = painterResource(R.drawable.ic_info), contentDescription = null, tint = MaterialTheme.colorScheme.error)
+                                Text(text = stringResource(R.string.pre_release_warning), style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.error)
                             }
-                            Text(
-                                text = stringResource(R.string.pre_release_warning_description),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
-                            )
-
-                            Spacer(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(25.dp)
-                            )
+                            Text(text = stringResource(R.string.pre_release_warning_description), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f))
+                            Spacer(modifier = Modifier.fillMaxWidth().height(25.dp))
                         }
                     }
                 }
             }
-        }, fabContent = { expanded ->
+        },
+        fabContent = { expanded ->
             CheckUpdateButton(
                 showLoading = showLoading,
                 expanded = expanded,
                 onClick = withHaptic {
                     autoUpdateViewModel.checkForUpdates()
                     showLoading = true
-                })
-        })
+                },
+            )
+        },
+    )
 
     if (showUpdateSheet) {
-        UpdateBottomSheet(
-            onDismiss = { showUpdateSheet = false },
-            latestVersion = tagName,
-            apkUrl = apkUrl,
-            body = changelog
-        )
+        UpdateBottomSheet(onDismiss = { showUpdateSheet = false }, latestVersion = tagName, apkUrl = apkUrl, body = changelog)
     }
 
     DialogKey.Settings.LatestVersion.createDialog {
@@ -273,26 +193,16 @@ private fun CheckUpdateButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     expanded: Boolean = true,
-    showLoading: Boolean
+    showLoading: Boolean,
 ) {
     ExtendedFloatingActionButton(
         modifier = modifier.padding(bottom = 10.dp),
         onClick = onClick,
         expanded = expanded,
         icon = {
-            if (showLoading)
-                LoadingSpinner(modifier = Modifier.size(24.dp))
-            else
-                Icon(
-                    imageVector = Icons.Rounded.Update,
-                    contentDescription = null,
-                )
+            if (showLoading) LoadingSpinner(modifier = Modifier.size(24.dp))
+            else Icon(imageVector = Icons.Rounded.Update, contentDescription = null)
         },
-        text = {
-            AutoResizeableText(
-                text = stringResource(R.string.check_updates),
-                style = MaterialTheme.typography.labelLarge,
-            )
-        }
+        text = { AutoResizeableText(text = stringResource(R.string.check_updates), style = MaterialTheme.typography.labelLarge) },
     )
 }

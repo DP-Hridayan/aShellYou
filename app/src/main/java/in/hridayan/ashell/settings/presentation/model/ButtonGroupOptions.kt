@@ -1,7 +1,10 @@
 package `in`.hridayan.ashell.settings.presentation.model
 
-data class ButtonGroupOptions(
-    val value: Int,
-    val iconResId: Int? = null,
-    val labelResId: Int?
+/**
+ * Generic option for button/toggle groups.
+ * Used by non-settings UI such as [CreateTileScreen].
+ */
+data class ButtonGroupOptions<T>(
+    val value: T,
+    val labelResId: Int? = null,
 )

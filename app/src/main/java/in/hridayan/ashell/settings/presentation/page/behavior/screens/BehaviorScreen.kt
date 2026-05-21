@@ -5,15 +5,12 @@ package `in`.hridayan.ashell.settings.presentation.page.behavior.screens
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
@@ -23,14 +20,15 @@ import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
+import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.dialog.ConfigureSaveDirectoryDialog
-import `in`.hridayan.ashell.settings.presentation.components.item.PreferenceItemView
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.model.PreferenceGroup
 import `in`.hridayan.ashell.settings.presentation.page.search.rememberHighlightState
+import `in`.hridayan.ashell.settings.presentation.state.rememberSettingsState
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
+import `in`.hridayan.settingsdsl.resolver.resolveAll
+import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @Composable
 fun BehaviorScreen(
@@ -38,16 +36,13 @@ fun BehaviorScreen(
     highlightKey: String? = null,
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
-    val settings = settingsViewModel.behaviorPageList
     val dialogManager = LocalDialogManager.current
+    val state = settingsViewModel.rememberSettingsState()
 
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
             when (event) {
-                is SettingsUiEvent.ShowDialog -> {
-                    dialogManager.show(event.key)
-                }
-
+                is SettingsUiEvent.ShowDialog -> dialogManager.show(event.key)
                 else -> {}
             }
         }
@@ -56,10 +51,13 @@ fun BehaviorScreen(
     val listState = rememberLazyListState()
     val highlightedKey = rememberHighlightState(
         highlightKeyName = highlightKey,
-        settings = settings,
+        page = settingsViewModel.behaviorPage,
         listState = listState,
         headerItemCount = 0,
     )
+
+    val page = remember { settingsViewModel.behaviorPage }
+    val resolvedGroups = page.resolveAll(highlightedKey = highlightedKey)
 
     SettingsScaffold(
         modifier = modifier,
@@ -67,80 +65,25 @@ fun BehaviorScreen(
         topBarTitle = stringResource(R.string.behavior),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                modifier = Modifier.fillMaxWidth().nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 state = listState,
-                contentPadding = innerPadding
+                contentPadding = innerPadding,
             ) {
-                itemsIndexed(settings) { index, group ->
-                    when (group) {
-                        is PreferenceGroup.Category -> {
-                            Text(
-                                text = stringResource(group.categoryNameResId),
-                                style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .animateItem()
-                                    .padding(
-                                        start = 20.dp,
-                                        end = 20.dp,
-                                        top = 30.dp,
-                                        bottom = 10.dp
-                                    )
-                            )
-                            val visibleItems = group.items.filter { it.isLayoutVisible }
+                settingsContent(
+                    groups = resolvedGroups,
+                    isChecked = state::isChecked,
+                    selectedValue = state::selectedValue,
+                    onItemClick = { key -> settingsViewModel.onItemClicked(key as SettingsKeys) },
+                    onBooleanToggle = { key -> settingsViewModel.onToggle(key as SettingsKeys) },
+                    onIntChanged = { key, value -> settingsViewModel.setInt(key as SettingsKeys, value) },
+                )
 
-                            visibleItems.forEachIndexed { i, item ->
-                                val shape = getRoundedShape(i, visibleItems.size)
-
-                                PreferenceItemView(
-                                    item = item,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 15.dp, vertical = 1.dp)
-                                        .animateItem(),
-                                    shape = shape,
-                                    isHighlighted = item.key == highlightedKey,
-                                )
-                            }
-                        }
-
-                        is PreferenceGroup.Items -> {
-                            val visibleItems = group.items.filter { it.isLayoutVisible }
-
-                            visibleItems.forEachIndexed { i, item ->
-                                val shape = getRoundedShape(i, visibleItems.size)
-
-                                PreferenceItemView(
-                                    item = item,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 15.dp, vertical = 1.dp)
-                                        .animateItem(),
-                                    shape = shape,
-                                    isHighlighted = item.key == highlightedKey,
-                                )
-                            }
-                        }
-
-                        else -> {}
-                    }
-                }
-
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(25.dp)
-                    )
-                }
+                item { Spacer(modifier = Modifier.fillMaxWidth().height(25.dp)) }
             }
-        })
+        },
+    )
 
     DialogKey.Settings.ConfigureSaveDir.createDialog {
-        ConfigureSaveDirectoryDialog(
-            onDismiss = { it.dismiss() },
-        )
+        ConfigureSaveDirectoryDialog(onDismiss = { it.dismiss() })
     }
 }

@@ -8,8 +8,9 @@ import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
+import `in`.hridayan.settingsdsl.model.SettingsKey
 
-enum class SettingsKeys(val default: Any?) {
+enum class SettingsKeys(val default: Any?) : SettingsKey {
     LOOK_AND_FEEL(null),
     AUTO_UPDATE(false),
     ABOUT(null),
@@ -67,5 +68,9 @@ enum class SettingsKeys(val default: Any?) {
     QUICK_SETTINGS_TILES(null),
     TRANSLATORS(null),
     CONTRIBUTORS(null),
-    RECENT_SEARCH_KEYS("")
+    RECENT_SEARCH_KEYS("");
+
+    // SettingsKey interface implementation
+    // `name` is provided by the enum itself; `defaultValue` delegates to `default`
+    override val defaultValue: Any? get() = default
 }

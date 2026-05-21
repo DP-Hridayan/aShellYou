@@ -187,6 +187,7 @@ tasks.withType<Zip>().configureEach {
 dependencies {
     implementation(project(":libadb"))
     implementation(project(":adblib"))
+    implementation(project(":settings-dsl"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
