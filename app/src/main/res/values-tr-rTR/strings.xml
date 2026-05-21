@@ -538,6 +538,7 @@
     <string name="variant">Variant</string>
     <string name="version">Sürüm</string>
     <string name="version_code">Sürüm kodu</string>
+    <string name="search_something">Search something</string>
     <string name="version_name">Sürüm adı</string>
     <string name="view_on_github">View on GitHub</string>
     <string name="visit_repo_to_download">Github deposundan aShellYou\'nun son sürümünü almak için indirme düğmesine tıklayın.</string>
@@ -554,6 +555,16 @@
     <string name="wireless_debugging_guide_3">Uygulamaya geri dönün ve ana ekrandaki \"Başlat\" düğmesine tıklayın.</string>
     <string name="wireless_debugging_important_notice">Lütfen Kablosuz Hata Ayıklama seçeneğinin sol kısmının tıklanabilir olduğuna dikkat edin. Üzerine dokunulduğunda Kablosuz Hata Ayıklama Eşleştirme menüsü açılır.</string>
     <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">Tonal Spot</string>
+    <string name="palette_expressive">Expressive</string>
+    <string name="palette_vibrant">Vibrant</string>
+    <string name="palette_monochrome">Monochrome</string>
+    <string name="palette_rainbow">Rainbow</string>
+    <string name="palette_fruit_salad">Fruit Salad</string>
+    <string name="palette_neutral">Neutral</string>
+    <string name="palette_fidelity">Fidelity</string>
+    <string name="palette_content">Content</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>

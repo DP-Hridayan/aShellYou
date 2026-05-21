@@ -59,6 +59,25 @@
     "avatar": "crowdin/contributors_pfp/contributor_16319000.webp"
   },
   {
+    "id": "15085871",
+    "username": "AY_Translator",
+    "name": "Aleksandr (AY_Translator)",
+    "translated": 6338,
+    "approved": 7610,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/1b59b6ec0871d6f23e9ddd5f4c6f569f.jpg",
+    "languages": [
+      {
+        "id": "ru",
+        "name": "Russian"
+      },
+      {
+        "id": "uk",
+        "name": "Ukrainian"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_15085871.webp"
+  },
+  {
     "id": "15972315",
     "username": "mikropsoft",
     "name": "𝗛𝗼𝗹𝗶 (mikropsoft)",
@@ -74,23 +93,19 @@
     "avatar": "crowdin/contributors_pfp/contributor_15972315.webp"
   },
   {
-    "id": "15085871",
-    "username": "AY_Translator",
-    "name": "Aleksandr (AY_Translator)",
-    "translated": 5125,
+    "id": "17661502",
+    "username": "Guzleon",
+    "name": "Carlos (Guzleon)",
+    "translated": 3663,
     "approved": 0,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/1b59b6ec0871d6f23e9ddd5f4c6f569f.jpg",
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17661502/medium/d827d6dc8ba3d7d16c40e276e8d1b9a8.png",
     "languages": [
       {
-        "id": "ru",
-        "name": "Russian"
-      },
-      {
-        "id": "uk",
-        "name": "Ukrainian"
+        "id": "es-ES",
+        "name": "Spanish"
       }
     ],
-    "avatar": "crowdin/contributors_pfp/contributor_15085871.webp"
+    "avatar": "crowdin/contributors_pfp/contributor_17661502.webp"
   },
   {
     "id": "17262364",
@@ -138,6 +153,21 @@
     "avatar": "crowdin/contributors_pfp/contributor_16098016.webp"
   },
   {
+    "id": "12939368",
+    "username": "solokot",
+    "name": "solokot",
+    "translated": 820,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/12939368/medium/23417b511371f5884018368baa1de8f3.jpg",
+    "languages": [
+      {
+        "id": "ru",
+        "name": "Russian"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_12939368.webp"
+  },
+  {
     "id": "15723517",
     "username": "avlis84",
     "name": "Silva (avlis84)",
@@ -173,7 +203,7 @@
     "name": "AlexeiCrystal (alex211952i)",
     "translated": 448,
     "approved": 0,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/16749463/medium/a5c4e3624bfd368750b8b82116a2dafb.png",
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/16749463/medium/631c1c9c703bd7059f0a1663ad087ba3.jpg",
     "languages": [
       {
         "id": "ru",
@@ -183,19 +213,19 @@
     "avatar": "crowdin/contributors_pfp/contributor_16749463.webp"
   },
   {
-    "id": "17661502",
-    "username": "Guzleon",
-    "name": "Carlos (Guzleon)",
-    "translated": 376,
+    "id": "18094",
+    "username": "marciozomb13",
+    "name": "Marcio Andrade (marciozomb13)",
+    "translated": 440,
     "approved": 0,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17661502/medium/d827d6dc8ba3d7d16c40e276e8d1b9a8.png",
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/18094/medium/0b04f911b3f2747703a948db9985995a.jpg",
     "languages": [
       {
-        "id": "es-ES",
-        "name": "Spanish"
+        "id": "pt-PT",
+        "name": "Portuguese"
       }
     ],
-    "avatar": "crowdin/contributors_pfp/contributor_17661502.webp"
+    "avatar": "crowdin/contributors_pfp/contributor_18094.webp"
   },
   {
     "id": "17708000",
@@ -241,36 +271,6 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_16611103.webp"
-  },
-  {
-    "id": "12939368",
-    "username": "solokot",
-    "name": "solokot",
-    "translated": 194,
-    "approved": 0,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/12939368/medium/23417b511371f5884018368baa1de8f3.jpg",
-    "languages": [
-      {
-        "id": "ru",
-        "name": "Russian"
-      }
-    ],
-    "avatar": "crowdin/contributors_pfp/contributor_12939368.webp"
-  },
-  {
-    "id": "18094",
-    "username": "marciozomb13",
-    "name": "Marcio Andrade (marciozomb13)",
-    "translated": 129,
-    "approved": 0,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/18094/medium/0b04f911b3f2747703a948db9985995a.jpg",
-    "languages": [
-      {
-        "id": "pt-PT",
-        "name": "Portuguese"
-      }
-    ],
-    "avatar": "crowdin/contributors_pfp/contributor_18094.webp"
   },
   {
     "id": "17224270",

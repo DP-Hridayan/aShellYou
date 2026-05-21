@@ -538,6 +538,7 @@
     <string name="variant">Variante</string>
     <string name="version">Version</string>
     <string name="version_code">Versionscode</string>
+    <string name="search_something">Suche etwas</string>
     <string name="version_name">Versionsname</string>
     <string name="view_on_github">Auf GitHub anzeigen</string>
     <string name="visit_repo_to_download">Klicken Sie auf den Download-Button, um die neueste Version von aShellYou aus dem github Repository zu erhalten.</string>
@@ -554,6 +555,16 @@
     <string name="wireless_debugging_guide_3">Kehre zur App zurück und tippe auf den „Start“-Button auf dem Startbildschirm.</string>
     <string name="wireless_debugging_important_notice">Bitte beachte, dass der linke Bereich der WLAN-Debugging-Option anklickbar ist. Durch Anklicken öffnet sich das Kopplungsmenü für WLAN-Debugging</string>
     <string name="des_contributors">Liste der Mitwirkenden, die bei der Entwicklung von aShell You geholfen haben</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">Tonaler Spot</string>
+    <string name="palette_expressive">Ausdrucksvoll</string>
+    <string name="palette_vibrant">Vibriert</string>
+    <string name="palette_monochrome">Monochrom</string>
+    <string name="palette_rainbow">Regenbogen</string>
+    <string name="palette_fruit_salad">Obstsalat</string>
+    <string name="palette_neutral">Neutral</string>
+    <string name="palette_fidelity">Fidelität</string>
+    <string name="palette_content">Inhalt</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nWartungsaktualisierung!</string>
     <string name="changelog_v7_2_0">\nOption hinzugefügt, um Adb Befehle von Schnelleinstellungen Kacheln auszuführen, indem benutzerdefinierte Kacheln hinzugefügt werden.\nOption hinzugefügt, um in der Cloud zu sichern (Google Drive). Diese Funktion ist nur in GitHub Builds vorhanden.\nVerbessertes Farbschema und UI und UX in vielen Bereichen.\nWeitere ADB-Befehlsbeispiele hinzugefügt.</string>

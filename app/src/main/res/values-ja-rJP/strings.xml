@@ -538,6 +538,7 @@
     <string name="variant">バリアント型</string>
     <string name="version">バージョン</string>
     <string name="version_code">バージョンコード</string>
+    <string name="search_something">何かを検索</string>
     <string name="version_name">バージョン名</string>
     <string name="view_on_github">GitHubで見る</string>
     <string name="visit_repo_to_download">ダウンロードボタンをクリックして、githubリポジトリから最新バージョンのaShellYouを取得します。</string>
@@ -554,6 +555,16 @@
     <string name="wireless_debugging_guide_3">アプリに戻って、ホーム画面の「スタート」ボタンをクリックしてください。</string>
     <string name="wireless_debugging_important_notice">「ワイヤレスデバッグ」オプションの左側がクリック可能であることに注意してください。このオプションをタップすると、「ワイヤレスデバッグペアリング」メニューが開きます。</string>
     <string name="des_contributors">aShell You の開発に協力した貢献者のリスト</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">トーナルスポット</string>
+    <string name="palette_expressive">表現的</string>
+    <string name="palette_vibrant">バイブ</string>
+    <string name="palette_monochrome">モノクローム</string>
+    <string name="palette_rainbow">Rainbow</string>
+    <string name="palette_fruit_salad">フルーツサラダ</string>
+    <string name="palette_neutral">ニュートラル</string>
+    <string name="palette_fidelity">忠実度</string>
+    <string name="palette_content">コンテンツ</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nメンテナンスのアップデート！</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>

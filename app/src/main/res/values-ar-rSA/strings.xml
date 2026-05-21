@@ -539,6 +539,7 @@
     <string name="variant">المتغير</string>
     <string name="version">الإصدار</string>
     <string name="version_code">رمز الإصدار</string>
+    <string name="search_something">البحث عن شيء</string>
     <string name="version_name">اسم الإصدار</string>
     <string name="view_on_github">عرض على GitHub</string>
     <string name="visit_repo_to_download">انقر على زر التحميل للحصول على أحدث إصدار من AShellYou من مستودع github.</string>
@@ -555,6 +556,16 @@
     <string name="wireless_debugging_guide_3">عد إلى التطبيق وانقر على زر \"ابدأ\" في الشاشة الرئيسية.</string>
     <string name="wireless_debugging_important_notice">يرجى ملاحظة أن الجزء الأيسر من خيار التصحيح اللاسلكي قابل للنقر. النقر عليه سيفتح قائمة اقتران التصحيح اللاسلكي.</string>
     <string name="des_contributors">قائمة المساهمين الذين ساعدوا في تطوير AShell You</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">بقعة الطون</string>
+    <string name="palette_expressive">تعبيري</string>
+    <string name="palette_vibrant">حيوية</string>
+    <string name="palette_monochrome">أحادية</string>
+    <string name="palette_rainbow">قوس قزح</string>
+    <string name="palette_fruit_salad">صلاد الفاكهة</string>
+    <string name="palette_neutral">محايد</string>
+    <string name="palette_fidelity">التلاعب</string>
+    <string name="palette_content">محتوى</string>
     <string name="changelog_v7_3_0">\nتحسين واجهة المستخدم في شاشة سجل التغييرات\nأضاف المساهمين في الترجمة حول القسم\nشاشة التراخيص المضافة التي تظهر معلومات ترخيص مفصلة حول التطبيق والمكتبات الأخرى المستخدمة من قبل التطبيق</string>
     <string name="changelog_v7_2_1">\nتحديث الصيانة!</string>
     <string name="changelog_v7_2_0">\nتم إضافة خيار لتشغيل أوامر adb من إعدادات سريعة عن طريق إضافة بلاطات مخصصة.\nتم إضافة خيار للنسخ الاحتياطي إلى Cloud (Google Drive). هذه الميزة موجودة فقط في بنايات GitHub.\nتحسين نظام الألوان و واجهة المستخدم و UX في العديد من المجالات.\nأضيفت المزيد من أمثلة أوامر ADB.</string>
