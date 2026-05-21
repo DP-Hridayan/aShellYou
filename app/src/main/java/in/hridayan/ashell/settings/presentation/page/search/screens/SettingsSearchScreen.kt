@@ -56,8 +56,8 @@ import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVe
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.navigation.LocalNavController
-import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.presentation.page.search.viewmodel.SettingsSearchViewModel
+import `in`.hridayan.ashell.settings.presentation.provider.SettingsProvider
 import `in`.hridayan.settingsdsl.search.SearchEntry
 
 @Composable
@@ -183,7 +183,7 @@ fun SettingsSearchScreen(
                             onClick = {
                                 viewModel.onResultClicked(entry)
                                 navController.navigate(
-                                    SettingsNavMapping.resolve(entry.screenId, entry.key.name)
+                                    SettingsProvider.resolveNavRoute(entry.screenId, entry.key.name)
                                 )
                             },
                         )
@@ -236,7 +236,7 @@ fun SettingsSearchScreen(
                             onClick = {
                                 viewModel.onResultClicked(entry)
                                 navController.navigate(
-                                    SettingsNavMapping.resolve(entry.screenId, entry.key.name)
+                                    SettingsProvider.resolveNavRoute(entry.screenId, entry.key.name)
                                 )
                             },
                         )
@@ -316,20 +316,5 @@ private fun SearchSomethingUi(
                 .padding(top = 20.dp)
         )
     }
-}
-
-/** Centralized mapping from [SearchEntry.screenId] to [NavRoutes] destination. */
-object SettingsNavMapping {
-    private val routes: Map<String, (String?) -> NavRoutes> = mapOf(
-        "look_and_feel" to { NavRoutes.LookAndFeelScreen(it) },
-        "dark_theme" to { NavRoutes.DarkThemeScreen(it) },
-        "behavior" to { NavRoutes.BehaviorScreen(it) },
-        "auto_update" to { NavRoutes.AutoUpdateScreen(it) },
-        "about" to { NavRoutes.AboutScreen(it) },
-        "backup_restore" to { NavRoutes.BackupAndRestoreScreen(it) },
-    )
-
-    fun resolve(screenId: String, highlightKey: String? = null): NavRoutes =
-        routes[screenId]?.invoke(highlightKey) ?: NavRoutes.SettingsScreen
 }
 

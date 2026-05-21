@@ -8,6 +8,7 @@ data class VersionToChangelogs(
 )
 
 val versionToChangelogsMap = listOf(
+    VersionToChangelogs("v7.4.0", R.string.changelog_v7_4_0),
     VersionToChangelogs("v7.3.0", R.string.changelog_v7_3_0),
     VersionToChangelogs("v7.2.1", R.string.changelog_v7_2_1),
     VersionToChangelogs("v7.2.0", R.string.changelog_v7_2_0),

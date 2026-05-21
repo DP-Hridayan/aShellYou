@@ -7,6 +7,7 @@ import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
+import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
 import `in`.hridayan.settingsdsl.dsl.category
@@ -320,6 +321,24 @@ object SettingsProvider {
         settingsPage, lookAndFeelPage, darkThemePage,
         behaviorPage, autoUpdatePage, aboutPage, backupPage,
     )
+
+    /**
+     * Maps each page's [SettingsPage.screenId] to its [NavRoutes] factory.
+     * Defined here — next to the pages — so adding a new page automatically
+     * wires up search navigation. No hardcoded strings elsewhere.
+     */
+    private val navRouteMapping: Map<String, (String?) -> NavRoutes> = mapOf(
+        lookAndFeelPage.screenId!! to { NavRoutes.LookAndFeelScreen(it) },
+        darkThemePage.screenId!! to { NavRoutes.DarkThemeScreen(it) },
+        behaviorPage.screenId!! to { NavRoutes.BehaviorScreen(it) },
+        autoUpdatePage.screenId!! to { NavRoutes.AutoUpdateScreen(it) },
+        aboutPage.screenId!! to { NavRoutes.AboutScreen(it) },
+        backupPage.screenId!! to { NavRoutes.BackupAndRestoreScreen(it) },
+    )
+
+    /** Resolves a [screenId] to the correct [NavRoutes] destination. */
+    fun resolveNavRoute(screenId: String, highlightKey: String? = null): NavRoutes =
+        navRouteMapping[screenId]?.invoke(highlightKey) ?: NavRoutes.SettingsScreen
 }
 
 /**
