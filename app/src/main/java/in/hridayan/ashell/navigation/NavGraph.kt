@@ -48,6 +48,7 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScree
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOtherDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwnDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
+import `in`.hridayan.ashell.ai.presentation.ui.modelmanager.AiModelManagerScreen
 import kotlin.reflect.KType
 
 @Composable
@@ -189,6 +190,12 @@ fun Navigation(isFirstLaunch: Boolean = false) {
             composable<NavRoutes.CreateTileScreen> { backStackEntry ->
                 val route = backStackEntry.toRoute<NavRoutes.CreateTileScreen>()
                 CreateTileScreen(tileId = route.tileId)
+            }
+
+            composable<NavRoutes.AiModelManagerScreen> {
+                AiModelManagerScreen(
+                    onNavigateBack = { navController.popBackStack() }
+                )
             }
 
         }

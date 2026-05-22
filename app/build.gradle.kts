@@ -33,6 +33,10 @@ android {
         buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters += setOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+        }
     }
 
     lint {
@@ -115,6 +119,13 @@ android {
     androidResources {
         @Suppress("UnstableApiUsage")
         generateLocaleConfig = true
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
     }
 
     packaging {

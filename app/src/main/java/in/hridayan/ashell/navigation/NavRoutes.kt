@@ -90,4 +90,7 @@ NavRoutes {
 
     @Serializable
     data class CreateTileScreen(val tileId: Int) : NavRoutes()
+
+    @Serializable
+    object AiModelManagerScreen : NavRoutes()
 }

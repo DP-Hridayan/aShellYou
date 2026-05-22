@@ -157,6 +157,10 @@ import `in`.hridayan.ashell.shell.common.presentation.util.highlightQueryText
 import `in`.hridayan.ashell.shell.common.presentation.util.rememberScrollDirection
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
+import `in`.hridayan.ashell.ai.presentation.model.AiAnalysisUiState
+import `in`.hridayan.ashell.ai.presentation.ui.bottomsheet.AiAnalysisBottomSheet
+import `in`.hridayan.ashell.ai.presentation.ui.components.AnalyzeButton
+import `in`.hridayan.ashell.ai.presentation.viewmodel.AiAnalysisViewModel
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch
 import java.io.File
@@ -191,6 +195,19 @@ fun BaseShellScreen(
     var isOutputFullscreen by rememberSaveable { mutableStateOf(false) }
     var restoredScrollIndex by rememberSaveable { mutableIntStateOf(-1) }
     val dialogManager = LocalDialogManager.current
+
+    // ── AI Analysis ─────────────────────────────────────────────────────
+    val aiViewModel: AiAnalysisViewModel = hiltViewModel()
+    val aiUiState by aiViewModel.uiState.collectAsState()
+    val showAiSheet by aiViewModel.showBottomSheet.collectAsState()
+
+    // Connect correction-apply callback to shell text field
+    LaunchedEffect(Unit) {
+        aiViewModel.onApplyCorrection = { correctedCommand ->
+            shellViewModel.onCommandTextFieldChange(TextFieldValue(correctedCommand))
+            shellViewModel.updateTextFieldSelection()
+        }
+    }
 
     LaunchedEffect(disableSoftKeyboard) {
         disableKeyboard(context, disableSoftKeyboard)
@@ -494,30 +511,42 @@ fun BaseShellScreen(
                                             if (states.commandField.fieldValue.text.trim()
                                                     .isNotEmpty()
                                             )
-                                                IconButton(
-                                                    colors = IconButtonDefaults.iconButtonColors(
-                                                        containerColor = Color.Transparent,
-                                                        contentColor = MaterialTheme.colorScheme.primary
-                                                    ),
-                                                    onClick = withHaptic {
-                                                        if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
-                                                            states.commandField.fieldValue.text
-                                                        )
-                                                        else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
-                                                            hideKeyboard(context)
-                                                            coroutineScope.launch {
-                                                                snackBarHostState.showSnackbar(
-                                                                    message = res.getString(R.string.bookmark_limit_reached),
-                                                                    duration = SnackbarDuration.Short
-                                                                )
-                                                            }
-                                                        } else bookmarkViewModel.addBookmark(states.commandField.fieldValue.text)
-                                                    }) {
-                                                    Icon(
-                                                        painter = trailingIcon,
-                                                        contentDescription = null,
-                                                        modifier = Modifier
+                                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                                    // AI Analyze button
+                                                    AnalyzeButton(
+                                                        onClick = {
+                                                            aiViewModel.analyzeCommand(
+                                                                states.commandField.fieldValue.text
+                                                            )
+                                                        },
+                                                        enabled = states.shellState !is ShellState.Busy
                                                     )
+                                                    // Bookmark button
+                                                    IconButton(
+                                                        colors = IconButtonDefaults.iconButtonColors(
+                                                            containerColor = Color.Transparent,
+                                                            contentColor = MaterialTheme.colorScheme.primary
+                                                        ),
+                                                        onClick = withHaptic {
+                                                            if (isBookmarked.value) bookmarkViewModel.deleteBookmark(
+                                                                states.commandField.fieldValue.text
+                                                            )
+                                                            else if (bookmarkCount.value >= 25 && !overrideBookmarksLimit) {
+                                                                hideKeyboard(context)
+                                                                coroutineScope.launch {
+                                                                    snackBarHostState.showSnackbar(
+                                                                        message = res.getString(R.string.bookmark_limit_reached),
+                                                                        duration = SnackbarDuration.Short
+                                                                    )
+                                                                }
+                                                            } else bookmarkViewModel.addBookmark(states.commandField.fieldValue.text)
+                                                        }) {
+                                                        Icon(
+                                                            painter = trailingIcon,
+                                                            contentDescription = null,
+                                                            modifier = Modifier
+                                                        )
+                                                    }
                                                 }
                                         })
 
@@ -641,6 +670,26 @@ fun BaseShellScreen(
         )
 
         else -> dialogManager.dismiss()
+    }
+
+    // ── AI Analysis Bottom Sheet ─────────────────────────────────────────
+    if (showAiSheet) {
+        AiAnalysisBottomSheet(
+            uiState = aiUiState,
+            onDismiss = { aiViewModel.dismiss() },
+            onApplyCorrection = { aiViewModel.applyCorrection(it) },
+            onTryExample = {
+                aiViewModel.dismiss()
+                navController.navigate(NavRoutes.CommandExamplesScreen)
+            },
+            onRetry = {
+                aiViewModel.retry(states.commandField.fieldValue.text)
+            },
+            onDownloadModel = {
+                aiViewModel.dismiss()
+                navController.navigate(NavRoutes.AiModelManagerScreen)
+            }
+        )
     }
 
     extraContent()

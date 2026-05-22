@@ -245,6 +245,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.ConfigureSaveDir)
                 )
 
+                SettingsKeys.AI_MODEL_MANAGER -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.AiModelManagerScreen)
+                )
+
                 else -> {}
             }
         }

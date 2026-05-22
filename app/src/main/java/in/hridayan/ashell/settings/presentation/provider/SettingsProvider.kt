@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.settings.presentation.provider
 import android.os.Build
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import `in`.hridayan.ashell.R
@@ -58,6 +59,12 @@ object SettingsProvider {
                 title = R.string.backup_and_restore,
                 description = R.string.des_backup_and_restore,
                 icon = R.drawable.ic_settings_backup_restore
+            ),
+            clickableItem(
+                key = SettingsKeys.AI_MODEL_MANAGER,
+                title = R.string.ai_models,
+                description = R.string.des_ai_models,
+                iconVector = Icons.Rounded.AutoAwesome
             ),
             clickableItem(
                 key = SettingsKeys.ABOUT,

@@ -54,6 +54,7 @@ sealed class SettingsKeys<out T>(
     data object QUICK_SETTINGS_TILES : SettingsKeys<Nothing?>("QUICK_SETTINGS_TILES", null)
     data object TRANSLATORS : SettingsKeys<Nothing?>("TRANSLATORS", null)
     data object CONTRIBUTORS : SettingsKeys<Nothing?>("CONTRIBUTORS", null)
+    data object AI_MODEL_MANAGER : SettingsKeys<Nothing?>("AI_MODEL_MANAGER", null)
 
     // ── Boolean keys ────────────────────────────────────────────────────────
 
