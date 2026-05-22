@@ -1,33 +1,39 @@
 package `in`.hridayan.ashell.ai.data.repository
 
-import android.app.DownloadManager
 import android.content.Context
-import android.net.Uri
+import android.util.Log
+import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.ai.data.local.model.ModelRegistry
 import `in`.hridayan.ashell.ai.data.local.preferences.AiPreferencesManager
 import `in`.hridayan.ashell.ai.domain.model.AiModel
 import `in`.hridayan.ashell.ai.domain.repository.AiModelRepository
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import java.io.BufferedInputStream
 import java.io.File
+import java.io.FileOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Implementation of [AiModelRepository] using Android's DownloadManager
+ * Implementation of [AiModelRepository] using standard HTTP connections
  * for model downloads and local file system for storage.
  */
 @Singleton
 class AiModelRepositoryImpl @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val preferencesManager: AiPreferencesManager
 ) : AiModelRepository {
 
@@ -38,7 +44,7 @@ class AiModelRepositoryImpl @Inject constructor(
     private val modelsDir: File
         get() = File(context.filesDir, "ai_models").apply { mkdirs() }
 
-    private val activeDownloads = mutableMapOf<String, Long>() // modelId -> downloadId
+    private val activeDownloadJobs = ConcurrentHashMap<String, Job>() // modelId -> Job
 
     override fun getAvailableModels(): List<AiModel> = ModelRegistry.allModels
 
@@ -62,126 +68,101 @@ class AiModelRepositoryImpl @Inject constructor(
     }
 
     override fun downloadModel(modelId: String): Flow<DownloadProgress> = flow {
-        android.util.Log.d(TAG, "downloadModel() called for modelId=$modelId")
+        Log.d(TAG, "downloadModel() called for modelId=$modelId")
 
         val model = ModelRegistry.findById(modelId)
             ?: run {
-                android.util.Log.e(TAG, "Model not found for id=$modelId")
+                Log.e(TAG, "Model not found for id=$modelId")
                 emit(DownloadProgress.Failed("Model not found"))
                 return@flow
             }
 
-        android.util.Log.d(TAG, "Model found: ${model.name}, url=${model.downloadUrl}")
+        Log.d(TAG, "Model found: ${model.name}, url=${model.downloadUrl}")
 
         val targetFile = File(modelsDir, model.fileName)
-        android.util.Log.d(TAG, "Target file: ${targetFile.absolutePath}")
+        Log.d(TAG, "Target file: ${targetFile.absolutePath}")
 
-        // Remove partial download if exists
+        // Remove target file if exists
         if (targetFile.exists()) {
             targetFile.delete()
-            android.util.Log.d(TAG, "Deleted existing target file")
+            Log.d(TAG, "Deleted existing target file")
         }
 
         emit(DownloadProgress.Downloading(0, model.sizeBytes))
 
-        // DownloadManager cannot write to app-private internal storage.
-        // Download to external cache dir first, then move on completion.
-        val externalCache = context.externalCacheDir
-        android.util.Log.d(TAG, "externalCacheDir=$externalCache")
-        val tempDir = File(externalCache ?: context.cacheDir, "ai_downloads").apply { mkdirs() }
-        val tempFile = File(tempDir, model.fileName)
-        android.util.Log.d(TAG, "Temp file: ${tempFile.absolutePath}, tempDir exists=${tempDir.exists()}")
+        val tempFile = File(modelsDir, "${model.fileName}.tmp")
+        Log.d(TAG, "Temp file: ${tempFile.absolutePath}")
         if (tempFile.exists()) tempFile.delete()
 
-        try {
-            val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        // Register the active coroutine job
+        val currentJob = currentCoroutineContext()[Job]
+        if (currentJob != null) {
+            activeDownloadJobs[modelId] = currentJob
+        }
 
-            val request = DownloadManager.Request(Uri.parse(model.downloadUrl)).apply {
-                setTitle("Downloading ${model.name}")
-                setDescription("AI model for command analysis")
-                setDestinationUri(Uri.fromFile(tempFile))
-                setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                setAllowedOverMetered(true)
-                setAllowedOverRoaming(false)
+        try {
+            Log.d(TAG, "Starting HTTP download from URL: ${model.downloadUrl}")
+            val url = URL(model.downloadUrl)
+            val connection = url.openConnection() as HttpURLConnection
+            connection.connectTimeout = 15000
+            connection.readTimeout = 15000
+            connection.instanceFollowRedirects = true
+
+            val responseCode = connection.responseCode
+            if (responseCode !in 200..299) {
+                Log.e(TAG, "Server returned response code $responseCode")
+                emit(DownloadProgress.Failed("Server returned response code $responseCode"))
+                return@flow
             }
 
-            android.util.Log.d(TAG, "Enqueuing download request...")
-            val downloadId = downloadManager.enqueue(request)
-            android.util.Log.d(TAG, "Download enqueued with id=$downloadId")
-            activeDownloads[modelId] = downloadId
+            val contentLength = connection.contentLengthLong
+            Log.d(TAG, "Content length from server: $contentLength")
 
-            // Poll download progress
-            var isComplete = false
-            while (!isComplete) {
-                delay(500)
+            val inputStream = BufferedInputStream(connection.inputStream)
+            val outputStream = FileOutputStream(tempFile)
 
-                val query = DownloadManager.Query().setFilterById(downloadId)
-                val cursor = downloadManager.query(query)
+            val buffer = ByteArray(8192)
+            var bytesRead = 0L
+            var lastProgressUpdate = 0L
 
-                if (cursor == null || !cursor.moveToFirst()) {
-                    cursor?.close()
-                    android.util.Log.e(TAG, "Download query returned null/empty cursor")
-                    emit(DownloadProgress.Failed("Download query failed"))
-                    return@flow
-                }
+            inputStream.use { input ->
+                outputStream.use { output ->
+                    var bytes = input.read(buffer)
+                    while (bytes != -1) {
+                        currentCoroutineContext().ensureActive()
 
-                val statusIdx = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
-                val bytesIdx = cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)
-                val totalIdx = cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)
-                val reasonIdx = cursor.getColumnIndex(DownloadManager.COLUMN_REASON)
+                        output.write(buffer, 0, bytes)
+                        bytesRead += bytes
 
-                val status = if (statusIdx >= 0) cursor.getInt(statusIdx) else -1
-                val bytesDownloaded = if (bytesIdx >= 0) cursor.getLong(bytesIdx) else 0
-                val totalBytes = if (totalIdx >= 0) cursor.getLong(totalIdx) else model.sizeBytes
-                val reason = if (reasonIdx >= 0) cursor.getInt(reasonIdx) else -1
-
-                cursor.close()
-
-                android.util.Log.d(TAG, "Download status=$status, bytes=$bytesDownloaded/$totalBytes, reason=$reason")
-
-                when (status) {
-                    DownloadManager.STATUS_RUNNING -> {
-                        emit(DownloadProgress.Downloading(bytesDownloaded, totalBytes))
-                    }
-
-                    DownloadManager.STATUS_SUCCESSFUL -> {
-                        isComplete = true
-                        android.util.Log.d(TAG, "Download successful, moving file...")
-                        // Move from external cache to internal app storage
-                        try {
-                            tempFile.copyTo(targetFile, overwrite = true)
-                            tempFile.delete()
-                            android.util.Log.d(TAG, "File moved to ${targetFile.absolutePath}, size=${targetFile.length()}")
-                            emit(DownloadProgress.Completed)
-                        } catch (e: Exception) {
-                            android.util.Log.e(TAG, "Failed to move model", e)
-                            emit(DownloadProgress.Failed("Failed to move model: ${e.message}"))
+                        // Throttle progress updates to 100ms to avoid overloading the flow
+                        val now = System.currentTimeMillis()
+                        if (now - lastProgressUpdate > 100) {
+                            val total = if (contentLength > 0) contentLength else model.sizeBytes
+                            emit(DownloadProgress.Downloading(bytesRead, total))
+                            lastProgressUpdate = now
                         }
-                    }
 
-                    DownloadManager.STATUS_FAILED -> {
-                        isComplete = true
-                        android.util.Log.e(TAG, "Download FAILED, reason=$reason")
-                        tempFile.delete()
-                        emit(DownloadProgress.Failed("Download failed (reason=$reason)"))
-                    }
-
-                    DownloadManager.STATUS_PAUSED -> {
-                        android.util.Log.d(TAG, "Download PAUSED, reason=$reason")
-                        emit(DownloadProgress.Downloading(bytesDownloaded, totalBytes))
-                    }
-
-                    DownloadManager.STATUS_PENDING -> {
-                        android.util.Log.d(TAG, "Download PENDING")
-                        emit(DownloadProgress.Downloading(0, totalBytes))
+                        bytes = input.read(buffer)
                     }
                 }
+            }
+
+            currentCoroutineContext().ensureActive()
+
+            Log.d(TAG, "Download finished. Renaming temp file to target file...")
+            if (tempFile.renameTo(targetFile)) {
+                Log.d(TAG, "Rename successful. Model installed.")
+                emit(DownloadProgress.Completed)
+            } else {
+                Log.e(TAG, "Failed to rename temp file to target file")
+                emit(DownloadProgress.Failed("Failed to install model file"))
             }
         } catch (e: Exception) {
-            android.util.Log.e(TAG, "Download exception", e)
-            emit(DownloadProgress.Failed("Download error: ${e.message}"))
+            Log.e(TAG, "HTTP download failed", e)
+            if (tempFile.exists()) tempFile.delete()
+            emit(DownloadProgress.Failed("Download failed: ${e.message}"))
         } finally {
-            activeDownloads.remove(modelId)
+            activeDownloadJobs.remove(modelId)
         }
     }.flowOn(Dispatchers.IO)
 
@@ -222,14 +203,15 @@ class AiModelRepositoryImpl @Inject constructor(
     }
 
     override fun cancelDownload(modelId: String) {
-        val downloadId = activeDownloads[modelId] ?: return
-        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        downloadManager.remove(downloadId)
-        activeDownloads.remove(modelId)
+        Log.d(TAG, "cancelDownload() called for modelId=$modelId")
+        activeDownloadJobs[modelId]?.cancel()
+        activeDownloadJobs.remove(modelId)
 
-        // Clean up partial file
+        // Clean up temp file
         val model = ModelRegistry.findById(modelId) ?: return
-        val file = File(modelsDir, model.fileName)
-        if (file.exists()) file.delete()
+        val tempFile = File(modelsDir, "${model.fileName}.tmp")
+        if (tempFile.exists()) tempFile.delete()
+        val targetFile = File(modelsDir, model.fileName)
+        if (targetFile.exists()) targetFile.delete()
     }
 }
