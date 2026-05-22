@@ -1,5 +1,7 @@
 package `in`.hridayan.settingsdsl.ui.card
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -67,9 +69,6 @@ internal fun CustomCard(
     val resolvedBottomStart = shape.bottomStart.toDp(heightPx, density)
     val resolvedBottomEnd = shape.bottomEnd.toDp(heightPx, density)
 
-    val springDp = spring<Dp>()
-    val springFloat = spring<Float>()
-
     val topStart by animateDpAsState(
         targetValue = if (doCardInteractions) pressedCornerRadius else resolvedTopStart,
         animationSpec = springDp, label = "corner_ts",
@@ -124,3 +123,15 @@ internal fun CustomCard(
         }
     }
 }
+
+private const val DampingRatioMediumHighBouncy = 0.35f
+
+private val springFloat: SpringSpec<Float> = spring(
+    dampingRatio = DampingRatioMediumHighBouncy,
+    stiffness = Spring.StiffnessLow
+)
+
+private val springDp: SpringSpec<Dp> = spring(
+    dampingRatio = DampingRatioMediumHighBouncy,
+    stiffness = Spring.StiffnessLow
+)
