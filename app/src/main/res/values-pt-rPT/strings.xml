@@ -340,7 +340,7 @@
     <string name="no_google_account_title">Nenhuma conta do Google</string>
     <string name="no_history">Sem histórico de comandos</string>
     <string name="no_libraries_found">Nenhuma biblioteca encontrada</string>
-    <string name="view_license_online_msg">Nenhum conteúdo de licença disponível. Toque em \'Abrir URL\' para ver a licença online.</string>
+    <string name="view_license_online_msg">Toque em \'Abrir URL\' para ver a licença online.</string>
     <string name="no_logs_yet">Ainda não há registros!</string>
     <string name="no_logs_yet_msg">Nenhum registro foi gravado ainda. Execute alguns blocos para exibir os registros aqui.</string>
     <string name="no_operations">Nenhuma operação em andamento</string>
@@ -565,6 +565,7 @@
     <string name="palette_neutral">Neutro</string>
     <string name="palette_fidelity">Fidelidade</string>
     <string name="palette_content">Conteúdo</string>
+    <string name="changelog_v7_4_0">\nAgora você pode pesquisar Sub-configurações dentro das telas de Configurações\nAdicionado Palette Styles para esquemas de cores\nAdicionada opção para configurar o idioma do aplicativo diretamente dentro do aplicativo</string>
     <string name="changelog_v7_3_0">\nInterface de usuário melhorada no ecrã de mudanças\nContribuidores adicionados na seção\nTela de Licenças Adicionadas que mostra informações detalhadas de licença sobre o aplicativo e outras bibliotecas usadas pelo aplicativo</string>
     <string name="changelog_v7_2_1">\nAtualização da manutenção!</string>
     <string name="changelog_v7_2_0">\nAdicionado opção para executar comandos de adb em Configurações Rápidas adicionando blocos personalizados.\nAdicionado opção de backup na nuvem (Google Drive). Este recurso só está presente nas versões do GitHub.\nEsquema de Cores e UI e UX melhorados em muitas áreas.\nAdicionou muito mais exemplos de comandos de ADB.</string>

@@ -340,7 +340,7 @@
     <string name="no_google_account_title">无Google账户</string>
     <string name="no_history">无历史命令</string>
     <string name="no_libraries_found">No libraries found</string>
-    <string name="view_license_online_msg">No license content available. Tap \'Open URL\' to view the license online.</string>
+    <string name="view_license_online_msg">点击 \'Open URL\' 在线查看许可协议。</string>
     <string name="no_logs_yet">还没有日志！</string>
     <string name="no_logs_yet_msg">尚未记录日志。执行一些瓷块以显示日志。</string>
     <string name="no_operations">没有正在进行的操作</string>
@@ -565,6 +565,7 @@
     <string name="palette_neutral">中性的</string>
     <string name="palette_fidelity">幻影性</string>
     <string name="palette_content">内容</string>
+    <string name="changelog_v7_4_0">\n您现在可以在设置屏幕中搜索子设置\n添加色板样式用于配色方案\n添加选项以直接在应用中设置应用语言</string>
     <string name="changelog_v7_3_0">\n在更新日志屏幕上改进了UI。\n添加了翻译贡献者，在\n添加了许可证屏幕，显示有关应用程序和其他库的详细许可信息</string>
     <string name="changelog_v7_2_1">\n维护更新！</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>

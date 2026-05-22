@@ -340,7 +340,7 @@
     <string name="no_google_account_title">Немає облікового запису Google</string>
     <string name="no_history">Немає історії команд</string>
     <string name="no_libraries_found">Бібліотек не знайдено</string>
-    <string name="view_license_online_msg">Ліцензійний контент недоступний. Натисніть \'Відкрити URL\', щоб переглянути ліцензію онлайн.</string>
+    <string name="view_license_online_msg">Натисніть \'Відкрити URL\', щоб переглянути ліцензію онлайн.</string>
     <string name="no_logs_yet">Журналів ще нема!</string>
     <string name="no_logs_yet_msg">Жодних журналів ще не записано. Виконайте кілька дій, щоб показати журнали.</string>
     <string name="no_operations">Операції не виконуються</string>
@@ -565,6 +565,7 @@
     <string name="palette_neutral">Нейтральний</string>
     <string name="palette_fidelity">Вірність</string>
     <string name="palette_content">Зміст</string>
+    <string name="changelog_v7_4_0">\nТепер ви можете шукати під налаштування на екранах налаштувань\nДодано стилі палітри для колірних схем\nДодано опцію встановлення мови додатка безпосередньо в додатку</string>
     <string name="changelog_v7_3_0">\nПокращено інтерфейс користувача в екрані журналу змін\nДодано перекладачів у розділ Про програму.\nДодано екран ліцензій, який показує детальну інформацію про ліцензію програми та інших бібліотек, які використовує додаток</string>
     <string name="changelog_v7_2_1">\nОновлення технічного обслуговування!</string>
     <string name="changelog_v7_2_0">\nДодано опцію запуску команд adb з Плиток Швидких Налаштувань шляхом додавання власних плиток.\nДодано опцію резервного копіювання в хмару (Google Drive). Ця функція присутня лише у збірках GitHub.\nПокращено колірну схему, інтерфейс користувача та UX у багатьох областях.\nДодано набагато більше прикладів команд ADB.</string>
