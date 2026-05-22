@@ -341,7 +341,7 @@
     <string name="no_google_account_title">لا يوجد حساب جوجل</string>
     <string name="no_history">لا يوجد تاريخ للأوامر</string>
     <string name="no_libraries_found">لم يتم العثور على مكتبات</string>
-    <string name="view_license_online_msg">لا يوجد محتوى ترخيص متوفر. انقر فوق \'فتح URL\' لعرض الترخيص على الإنترنت.</string>
+    <string name="view_license_online_msg">انقر فوق \'فتح URL\' لعرض الترخيص على الإنترنت.</string>
     <string name="no_logs_yet">لا توجد سجلات بعد!</string>
     <string name="no_logs_yet_msg">لم يتم تسجيل أي سجلات حتى الآن. قم بتنفيذ بعض البلاطات لإظهار السجلات هنا.</string>
     <string name="no_operations">لا توجد عمليات قيد التنفيذ</string>
@@ -566,6 +566,7 @@
     <string name="palette_neutral">محايد</string>
     <string name="palette_fidelity">التلاعب</string>
     <string name="palette_content">محتوى</string>
+    <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nتحسين واجهة المستخدم في شاشة سجل التغييرات\nأضاف المساهمين في الترجمة حول القسم\nشاشة التراخيص المضافة التي تظهر معلومات ترخيص مفصلة حول التطبيق والمكتبات الأخرى المستخدمة من قبل التطبيق</string>
     <string name="changelog_v7_2_1">\nتحديث الصيانة!</string>
     <string name="changelog_v7_2_0">\nتم إضافة خيار لتشغيل أوامر adb من إعدادات سريعة عن طريق إضافة بلاطات مخصصة.\nتم إضافة خيار للنسخ الاحتياطي إلى Cloud (Google Drive). هذه الميزة موجودة فقط في بنايات GitHub.\nتحسين نظام الألوان و واجهة المستخدم و UX في العديد من المجالات.\nأضيفت المزيد من أمثلة أوامر ADB.</string>

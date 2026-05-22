@@ -340,7 +340,7 @@
     <string name="no_google_account_title">Aucun compte Google</string>
     <string name="no_history">Aucun historique de commande</string>
     <string name="no_libraries_found">Aucune librairie trouvée</string>
-    <string name="view_license_online_msg">Aucun contenu de licence disponible. Tapez sur \'Ouvrir URL\' pour voir la licence en ligne.</string>
+    <string name="view_license_online_msg">Appuyez sur \'Ouvrir URL\' pour voir la licence en ligne.</string>
     <string name="no_logs_yet">Pas encore de logs !</string>
     <string name="no_logs_yet_msg">Aucun journal n\'a encore été enregistré. Exécutez quelques tuiles pour afficher les logs ici.</string>
     <string name="no_operations">Aucune opération en cours</string>
@@ -565,6 +565,7 @@
     <string name="palette_neutral">Neutre</string>
     <string name="palette_fidelity">Fidelité</string>
     <string name="palette_content">Contenus</string>
+    <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nAmélioration de l\'interface utilisateur dans l\'écran de changelog\nAjout de contributeurs de traduction dans la section\nAjout d\'un écran de licences qui affiche des informations détaillées sur l\'application et les autres bibliothèques utilisées par l\'application</string>
     <string name="changelog_v7_2_1">\nMise à jour de la maintenance !</string>
     <string name="changelog_v7_2_0">\nAdded option to run adb commands from Quick Settings Tiles by adding custom tiles.\nAdded option to backup to cloud (Google Drive). This feature is only present in GitHub builds.\nImproved color scheme and UI and UX in a lot of areas.\nAdded a lot more ADB command examples.</string>
