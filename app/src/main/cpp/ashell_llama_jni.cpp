@@ -1,21 +1,89 @@
 #include <jni.h>
 #include <string>
 #include <vector>
-#include <android/log.h>
+#include <mutex>
 #include <thread>
 #include <algorithm>
+#include <android/log.h>
 #include "llama.h"
 
 #define TAG "AShellLlama"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
 
-// Global state (single model instance at a time)
+// Global state variables
+static std::mutex g_mutex;
 static llama_model *g_model = nullptr;
 static llama_context *g_ctx = nullptr;
 static int g_n_ctx = 2048;
 
-// Helper: build a ChatML-formatted prompt
+/**
+ * RAII wrapper to safely release GetStringUTFChars strings on destruction.
+ * Prevents native memory leaks on early return paths.
+ */
+class JniString {
+public:
+    JniString(JNIEnv *env, jstring jstr) : m_env(env), m_jstr(jstr) {
+        m_str = jstr ? env->GetStringUTFChars(jstr, nullptr) : nullptr;
+    }
+
+    ~JniString() {
+        if (m_str) {
+            m_env->ReleaseStringUTFChars(m_jstr, m_str);
+        }
+    }
+
+    // Disable copy semantics to guarantee single release
+    JniString(const JniString &) = delete;
+
+    JniString &operator=(const JniString &) = delete;
+
+    // Enable move semantics
+    JniString(JniString &&other) noexcept: m_env(other.m_env), m_jstr(other.m_jstr),
+                                           m_str(other.m_str) {
+        other.m_str = nullptr;
+    }
+
+    JniString &operator=(JniString &&other) noexcept {
+        if (this != &other) {
+            if (m_str) {
+                m_env->ReleaseStringUTFChars(m_jstr, m_str);
+            }
+            m_env = other.m_env;
+            m_jstr = other.m_jstr;
+            m_str = other.m_str;
+            other.m_str = nullptr;
+        }
+        return *this;
+    }
+
+    [[nodiscard]] const char *c_str() const { return m_str; }
+
+    [[nodiscard]] bool valid() const { return m_str != nullptr; }
+
+    [[nodiscard]] std::string to_std_string() const { return m_str ? std::string(m_str) : ""; }
+
+private:
+    JNIEnv *m_env;
+    jstring m_jstr;
+    const char *m_str;
+};
+
+/**
+ * Reusable helper to format a JSON error response string.
+ */
+static jstring make_json_error(JNIEnv *env, const char *status, const char *description) {
+    std::string json = R"({"status":")";
+    json += status;
+    json += R"(","description":")";
+    json += description;
+    json += R"(","dangerLevel":"SAFE"})";
+    return env->NewStringUTF(json.c_str());
+}
+
+/**
+ * Builds a ChatML-formatted prompt from the system and user prompts.
+ */
 static std::string build_chatml_prompt(const std::string &system_prompt,
                                        const std::string &user_prompt) {
     std::string prompt;
@@ -30,7 +98,10 @@ static std::string build_chatml_prompt(const std::string &system_prompt,
     return prompt;
 }
 
-// Helper: recreate the context (replaces the removed llama_kv_cache_clear)
+/**
+ * Recreates the llama context to clear the KV cache.
+ * Optimizes the thread count for the specific mobile device.
+ */
 static bool recreate_context() {
     if (g_ctx) {
         llama_free(g_ctx);
@@ -39,12 +110,12 @@ static bool recreate_context() {
     if (!g_model) return false;
 
     auto ctx_params = llama_context_default_params();
-    ctx_params.n_ctx = g_n_ctx;
+    ctx_params.n_ctx = static_cast<uint32_t>(g_n_ctx);
     ctx_params.n_batch = 512;
 
-    // Optimize CPU threads for mobile devices (cap at 4 threads to avoid little core bottlenecks)
+    // Use 4 threads to target high-performance cores and avoid little-core bottlenecks
     unsigned int hardware_threads = std::thread::hardware_concurrency();
-    int num_threads = (hardware_threads > 0) ? std::min(4, (int) hardware_threads) : 4;
+    int num_threads = (hardware_threads > 0) ? std::min(4, static_cast<int>(hardware_threads)) : 4;
     ctx_params.n_threads = num_threads;
     ctx_params.n_threads_batch = num_threads;
 
@@ -54,13 +125,22 @@ static bool recreate_context() {
     return g_ctx != nullptr;
 }
 
-// JNI: loadModel
+/**
+ * JNI method to load a GGUF model and initialize the context.
+ */
 extern "C" JNIEXPORT jboolean JNICALL
 Java_in_hridayan_ashell_ai_native_LlamaCppBridge_loadModel(
         JNIEnv *env, jobject /* this */,
         jstring model_path, jint context_size) {
 
-    // Unload any previously loaded model
+    std::lock_guard<std::mutex> lock(g_mutex);
+
+    if (context_size <= 0) {
+        LOGE("Invalid context size: %d", context_size);
+        return JNI_FALSE;
+    }
+
+    // Free any currently loaded model and context
     if (g_ctx) {
         llama_free(g_ctx);
         g_ctx = nullptr;
@@ -70,29 +150,25 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_loadModel(
         g_model = nullptr;
     }
 
-    const char *path = env->GetStringUTFChars(model_path, nullptr);
-    if (!path) {
+    JniString path(env, model_path);
+    if (!path.valid()) {
         LOGE("Failed to get model path string");
         return JNI_FALSE;
     }
 
-    LOGI("Loading model from: %s (context size: %d)", path, context_size);
+    LOGI("Loading model from: %s (context size: %d)", path.c_str(), context_size);
 
-    // Initialize llama backend
     llama_backend_init();
 
-    // Load model
     auto model_params = llama_model_default_params();
-    g_model = llama_model_load_from_file(path, model_params);
-    env->ReleaseStringUTFChars(model_path, path);
+    g_model = llama_model_load_from_file(path.c_str(), model_params);
 
     if (!g_model) {
         LOGE("Failed to load model");
         return JNI_FALSE;
     }
 
-    // Create context
-    g_n_ctx = context_size;
+    g_n_ctx = static_cast<int>(context_size);
     if (!recreate_context()) {
         LOGE("Failed to create context");
         llama_model_free(g_model);
@@ -104,111 +180,133 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_loadModel(
     return JNI_TRUE;
 }
 
-// JNI: runInference
+/**
+ * JNI method to execute local llama.cpp model inference.
+ */
 extern "C" JNIEXPORT jstring JNICALL
 Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
         JNIEnv *env, jobject /* this */,
         jstring system_prompt, jstring user_prompt,
         jint max_tokens, jfloat temperature) {
 
+    std::lock_guard<std::mutex> lock(g_mutex);
+
     if (!g_model || !g_ctx) {
         LOGE("Model not loaded");
-        return env->NewStringUTF(
-                R"({"status":"INVALID","description":"Model not loaded","dangerLevel":"SAFE"})");
+        return make_json_error(env, "INVALID", "Model not loaded");
     }
 
-    const char *sys_str = env->GetStringUTFChars(system_prompt, nullptr);
-    const char *user_str = env->GetStringUTFChars(user_prompt, nullptr);
+    if (max_tokens <= 0) {
+        LOGE("Invalid max_tokens: %d", max_tokens);
+        return make_json_error(env, "INVALID", "Invalid max_tokens value");
+    }
 
-    std::string prompt = build_chatml_prompt(
-            std::string(sys_str),
-            std::string(user_str)
-    );
+    JniString sys_str(env, system_prompt);
+    JniString user_str(env, user_prompt);
 
-    env->ReleaseStringUTFChars(system_prompt, sys_str);
-    env->ReleaseStringUTFChars(user_prompt, user_str);
+    if (!sys_str.valid() || !user_str.valid()) {
+        LOGE("Failed to extract prompt strings");
+        return make_json_error(env, "INVALID", "Failed to extract prompt strings");
+    }
 
-    // Tokenize the prompt
+    std::string prompt = build_chatml_prompt(sys_str.to_std_string(), user_str.to_std_string());
+
     const llama_vocab *vocab = llama_model_get_vocab(g_model);
-    const int n_prompt_max = prompt.size() + 128;
-    std::vector<llama_token> tokens(n_prompt_max);
+    if (!vocab) {
+        LOGE("Failed to retrieve model vocabulary");
+        return make_json_error(env, "INVALID", "Failed to retrieve model vocabulary");
+    }
+
+    const size_t n_prompt_max_sz = prompt.size() + 128;
+
+    if (n_prompt_max_sz > INT32_MAX) {
+        LOGE("Prompt too large");
+        return make_json_error(env, "INVALID", "Prompt too large");
+    }
+
+    const auto n_prompt_max =
+            static_cast<int32_t>(n_prompt_max_sz);
+
+    std::vector<llama_token> tokens(static_cast<size_t>(n_prompt_max));
+
+    if (prompt.size() > INT32_MAX) {
+        LOGE("Prompt length exceeds INT32_MAX");
+        return make_json_error(env, "INVALID", "Prompt too large");
+    }
+
+    const auto prompt_len =
+            static_cast<int32_t>(prompt.size());
+
     const int n_tokens = llama_tokenize(
             vocab,
             prompt.c_str(),
-            prompt.size(),
+            prompt_len,
             tokens.data(),
             n_prompt_max,
-            true,   // add_special (BOS)
-            true    // parse_special
+            true,
+            true
     );
 
     if (n_tokens < 0) {
         LOGE("Tokenization failed (n_tokens=%d)", n_tokens);
-        return env->NewStringUTF(
-                R"({"status":"INVALID","description":"Tokenization failed","dangerLevel":"SAFE"})");
+        return make_json_error(env, "INVALID", "Tokenization failed");
     }
-    tokens.resize(n_tokens);
+    tokens.resize(static_cast<size_t>(n_tokens));
 
     LOGI("Prompt tokens: %d, max generation tokens: %d", n_tokens, max_tokens);
 
-    // Check that prompt fits in context
     if (n_tokens + max_tokens > g_n_ctx) {
         LOGE("Prompt + generation exceeds context size (%d + %d > %d)",
              n_tokens, max_tokens, g_n_ctx);
-        return env->NewStringUTF(
-                R"({"status":"INVALID","description":"Input too long for context window","dangerLevel":"SAFE"})");
+        return make_json_error(env, "INVALID", "Input too long for context window");
     }
 
-    // Recreate context to clear KV cache (replaces removed llama_kv_cache_clear)
     if (!recreate_context()) {
         LOGE("Failed to recreate context");
-        return env->NewStringUTF(
-                R"({"status":"INVALID","description":"Context creation failed","dangerLevel":"SAFE"})");
+        return make_json_error(env, "INVALID", "Context recreation failed");
     }
 
-    // Create sampler chain
     auto *smpl = llama_sampler_chain_init(llama_sampler_chain_default_params());
+    if (!smpl) {
+        LOGE("Failed to initialize sampler chain");
+        return make_json_error(env, "INVALID", "Sampler initialization failed");
+    }
+
     llama_sampler_chain_add(smpl, llama_sampler_init_temp(temperature));
     llama_sampler_chain_add(smpl, llama_sampler_init_top_p(0.9f, 1));
     llama_sampler_chain_add(smpl, llama_sampler_init_dist(42));
 
-    // Process prompt in a single batch
     llama_batch batch = llama_batch_get_one(tokens.data(), n_tokens);
     if (llama_decode(g_ctx, batch) != 0) {
         LOGE("Prompt decode failed");
         llama_sampler_free(smpl);
-        return env->NewStringUTF(
-                R"({"status":"INVALID","description":"Inference failed","dangerLevel":"SAFE"})");
+        return make_json_error(env, "INVALID", "Inference failed to decode prompt");
     }
 
-    // Generate tokens
     std::string output;
-    output.reserve(max_tokens * 8);
+    output.reserve(static_cast<size_t>(max_tokens) * 8);
 
     for (int i = 0; i < max_tokens; i++) {
         llama_token new_token = llama_sampler_sample(smpl, g_ctx, -1);
 
-        // Stop at EOS / end-of-generation
         if (llama_vocab_is_eog(vocab, new_token)) {
             break;
         }
 
-        // Convert token to text
         char buf[256];
         int n = llama_token_to_piece(vocab, new_token, buf, sizeof(buf), 0, true);
         if (n > 0) {
-            output.append(buf, n);
+            output.append(buf, static_cast<size_t>(n));
         }
 
-        // Check for ChatML end token
-        if (output.find("<|im_end|>") != std::string::npos) {
-            // Remove the end token from output
-            size_t pos = output.find("<|im_end|>");
+        // Search only the suffix for im_end to achieve O(1) string scanning complexity
+        if (output.size() >= 10 &&
+            output.rfind("<|im_end|>", output.size() - 10) != std::string::npos) {
+            size_t pos = output.rfind("<|im_end|>");
             output = output.substr(0, pos);
             break;
         }
 
-        // Prepare next batch (single token)
         llama_batch next_batch = llama_batch_get_one(&new_token, 1);
         if (llama_decode(g_ctx, next_batch) != 0) {
             LOGE("Decode failed at token %d", i);
@@ -222,11 +320,14 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
     return env->NewStringUTF(output.c_str());
 }
 
-// JNI: unloadModel
+/**
+ * JNI method to unload the active model and free native context resources.
+ */
 extern "C" JNIEXPORT void JNICALL
 Java_in_hridayan_ashell_ai_native_LlamaCppBridge_unloadModel(
         JNIEnv * /* env */, jobject /* this */) {
 
+    std::lock_guard<std::mutex> lock(g_mutex);
     LOGI("Unloading model");
 
     if (g_ctx) {
@@ -243,10 +344,12 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_unloadModel(
     LOGI("Model unloaded");
 }
 
-
-// JNI: isModelLoaded
+/**
+ * JNI method to check if a model is currently loaded.
+ */
 extern "C" JNIEXPORT jboolean JNICALL
 Java_in_hridayan_ashell_ai_native_LlamaCppBridge_isModelLoaded(
         JNIEnv * /* env */, jobject /* this */) {
+    std::lock_guard<std::mutex> lock(g_mutex);
     return (g_model != nullptr && g_ctx != nullptr) ? JNI_TRUE : JNI_FALSE;
 }
