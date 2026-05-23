@@ -82,7 +82,7 @@ object ModelRegistry {
         quantization = "Q4_K_M",
         parameterCount = "1.5B",
         isDefault = false,
-        isRecommended = false
+        isRecommended = true
     )
 
     /** Qwen 2.5 1.5B Instruct — General purpose, more capable */
@@ -140,7 +140,7 @@ object ModelRegistry {
     )
 
     /** Default model ID */
-    val defaultModelId = QWEN_05B_Q4.id
+    val defaultModel= QWEN_05B_Q4
 
     /** Find a model by its ID */
     fun findById(id: String): AiModel? = allModels.find { it.id == id }

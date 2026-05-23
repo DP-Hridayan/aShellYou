@@ -81,6 +81,11 @@ class AiModelManagerViewModel @Inject constructor(
 
     init {
         refreshStorageUsage()
+        viewModelScope.launch {
+            modelRepository.getInstalledModels().collect {
+                refreshStorageUsage()
+            }
+        }
     }
 
     /**

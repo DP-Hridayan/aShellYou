@@ -10,6 +10,9 @@ import `in`.hridayan.ashell.ai.domain.repository.AiModelRepository
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
 import `in`.hridayan.ashell.ai.service.AiModelDownloadService
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.hridayan.ashell.core.utils.isNetworkAvailable
+import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -28,8 +31,13 @@ import kotlinx.coroutines.withContext
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
+import java.net.ConnectException
 import java.net.HttpURLConnection
+import java.net.SocketTimeoutException
 import java.net.URL
+import java.net.UnknownHostException
+import java.nio.channels.UnresolvedAddressException
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -116,6 +124,14 @@ class AiModelRepositoryImpl @Inject constructor(
             return
         }
 
+        // Check network connection first
+        if (!isNetworkAvailable(context)) {
+            val errorMessage = context.getString(R.string.network_error)
+            _downloadErrors.value = _downloadErrors.value + (modelId to errorMessage)
+            showToast(context, errorMessage)
+            return
+        }
+
         // Start foreground service to keep download alive in background
         AiModelDownloadService.start(context)
 
@@ -129,7 +145,20 @@ class AiModelRepositoryImpl @Inject constructor(
                 } else {
                     Log.e(TAG, "Download failed for ${model.id}", e)
                     _downloadProgress.value = _downloadProgress.value - model.id
-                    _downloadErrors.value = _downloadErrors.value + (model.id to (e.message ?: "Download failed"))
+
+                    val errorMessage = when (e) {
+                        is SocketTimeoutException -> context.getString(R.string.request_timeout)
+                        is UnknownHostException,
+                        is ConnectException,
+                        is UnresolvedAddressException -> context.getString(R.string.network_error)
+                        is IOException -> e.message ?: context.getString(R.string.network_error)
+                        else -> e.message ?: context.getString(R.string.unknown_error)
+                    }
+                    _downloadErrors.value = _downloadErrors.value + (model.id to errorMessage)
+
+                    withContext(Dispatchers.Main) {
+                        showToast(context, errorMessage)
+                    }
                 }
             } finally {
                 activeDownloadJobs.remove(model.id)

@@ -333,6 +333,10 @@
     <string name="mode_one_desc">Use root access to run commands. Rooted commands can be executed.</string>
     <string name="mode_two_desc">Use shizuku to run commands. Commands that require root won\'t execute.</string>
     <string name="models">Models</string>
+    <string name="model_category_tiny">Tiny (under 300 MB)</string>
+    <string name="model_category_small">Small (300–500 MB)</string>
+    <string name="model_category_medium">Medium (800 MB–1.1 GB)</string>
+    <string name="model_category_large">Large (1.5–2.5 GB)</string>
     <string name="modified">Modified</string>
     <string name="monospace">Monospace</string>
     <string name="more">More</string>

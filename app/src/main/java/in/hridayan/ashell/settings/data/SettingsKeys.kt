@@ -2,12 +2,15 @@ package `in`.hridayan.ashell.settings.data
 
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
+import `in`.hridayan.ashell.ai.data.local.model.ModelRegistry
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.settings.data.SettingsKeys.Companion.entries
+import `in`.hridayan.ashell.settings.data.SettingsKeys.Companion.valueOf
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import kotlin.reflect.KClass
 
@@ -111,7 +114,8 @@ sealed class SettingsKeys<out T>(
     data object LAST_CLOUD_BACKUP_TYPE : SettingsKeys<String>("LAST_CLOUD_BACKUP_TYPE", "None")
     data object LAST_LOCAL_BACKUP_TYPE : SettingsKeys<String>("LAST_LOCAL_BACKUP_TYPE", "None")
     data object RECENT_SEARCH_KEYS : SettingsKeys<String>("RECENT_SEARCH_KEYS", "")
-    data object SELECTED_MODEL_ID : SettingsKeys<String>("SELECTED_MODEL_ID", "qwen2.5-0.5b-instruct-q4_k_m")
+    data object SELECTED_MODEL_ID :
+        SettingsKeys<String>("SELECTED_MODEL_ID", ModelRegistry.defaultModel.id)
 
     companion object {
         /**
