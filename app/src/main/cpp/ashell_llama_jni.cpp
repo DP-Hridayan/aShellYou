@@ -10,16 +10,12 @@
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Global state (single model instance at a time)
-// ─────────────────────────────────────────────────────────────────────────────
 static llama_model *g_model = nullptr;
 static llama_context *g_ctx = nullptr;
 static int g_n_ctx = 2048;
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Helper: build a ChatML-formatted prompt
-// ─────────────────────────────────────────────────────────────────────────────
 static std::string build_chatml_prompt(const std::string &system_prompt,
                                        const std::string &user_prompt) {
     std::string prompt;
@@ -34,9 +30,7 @@ static std::string build_chatml_prompt(const std::string &system_prompt,
     return prompt;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Helper: recreate the context (replaces the removed llama_kv_cache_clear)
-// ─────────────────────────────────────────────────────────────────────────────
 static bool recreate_context() {
     if (g_ctx) {
         llama_free(g_ctx);
@@ -50,7 +44,7 @@ static bool recreate_context() {
 
     // Optimize CPU threads for mobile devices (cap at 4 threads to avoid little core bottlenecks)
     unsigned int hardware_threads = std::thread::hardware_concurrency();
-    int num_threads = (hardware_threads > 0) ? std::min(4, (int)hardware_threads) : 4;
+    int num_threads = (hardware_threads > 0) ? std::min(4, (int) hardware_threads) : 4;
     ctx_params.n_threads = num_threads;
     ctx_params.n_threads_batch = num_threads;
 
@@ -60,9 +54,7 @@ static bool recreate_context() {
     return g_ctx != nullptr;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // JNI: loadModel
-// ─────────────────────────────────────────────────────────────────────────────
 extern "C" JNIEXPORT jboolean JNICALL
 Java_in_hridayan_ashell_ai_native_LlamaCppBridge_loadModel(
         JNIEnv *env, jobject /* this */,
@@ -112,9 +104,7 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_loadModel(
     return JNI_TRUE;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // JNI: runInference
-// ─────────────────────────────────────────────────────────────────────────────
 extern "C" JNIEXPORT jstring JNICALL
 Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
         JNIEnv *env, jobject /* this */,
@@ -124,7 +114,7 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
     if (!g_model || !g_ctx) {
         LOGE("Model not loaded");
         return env->NewStringUTF(
-                "{\"status\":\"INVALID\",\"description\":\"Model not loaded\",\"dangerLevel\":\"SAFE\"}");
+                R"({"status":"INVALID","description":"Model not loaded","dangerLevel":"SAFE"})");
     }
 
     const char *sys_str = env->GetStringUTFChars(system_prompt, nullptr);
@@ -155,7 +145,7 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
     if (n_tokens < 0) {
         LOGE("Tokenization failed (n_tokens=%d)", n_tokens);
         return env->NewStringUTF(
-                "{\"status\":\"INVALID\",\"description\":\"Tokenization failed\",\"dangerLevel\":\"SAFE\"}");
+                R"({"status":"INVALID","description":"Tokenization failed","dangerLevel":"SAFE"})");
     }
     tokens.resize(n_tokens);
 
@@ -166,14 +156,14 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
         LOGE("Prompt + generation exceeds context size (%d + %d > %d)",
              n_tokens, max_tokens, g_n_ctx);
         return env->NewStringUTF(
-                "{\"status\":\"INVALID\",\"description\":\"Input too long for context window\",\"dangerLevel\":\"SAFE\"}");
+                R"({"status":"INVALID","description":"Input too long for context window","dangerLevel":"SAFE"})");
     }
 
     // Recreate context to clear KV cache (replaces removed llama_kv_cache_clear)
     if (!recreate_context()) {
         LOGE("Failed to recreate context");
         return env->NewStringUTF(
-                "{\"status\":\"INVALID\",\"description\":\"Context creation failed\",\"dangerLevel\":\"SAFE\"}");
+                R"({"status":"INVALID","description":"Context creation failed","dangerLevel":"SAFE"})");
     }
 
     // Create sampler chain
@@ -188,7 +178,7 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
         LOGE("Prompt decode failed");
         llama_sampler_free(smpl);
         return env->NewStringUTF(
-                "{\"status\":\"INVALID\",\"description\":\"Inference failed\",\"dangerLevel\":\"SAFE\"}");
+                R"({"status":"INVALID","description":"Inference failed","dangerLevel":"SAFE"})");
     }
 
     // Generate tokens
@@ -232,9 +222,7 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
     return env->NewStringUTF(output.c_str());
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // JNI: unloadModel
-// ─────────────────────────────────────────────────────────────────────────────
 extern "C" JNIEXPORT void JNICALL
 Java_in_hridayan_ashell_ai_native_LlamaCppBridge_unloadModel(
         JNIEnv * /* env */, jobject /* this */) {
@@ -255,9 +243,8 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_unloadModel(
     LOGI("Model unloaded");
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+
 // JNI: isModelLoaded
-// ─────────────────────────────────────────────────────────────────────────────
 extern "C" JNIEXPORT jboolean JNICALL
 Java_in_hridayan_ashell_ai_native_LlamaCppBridge_isModelLoaded(
         JNIEnv * /* env */, jobject /* this */) {

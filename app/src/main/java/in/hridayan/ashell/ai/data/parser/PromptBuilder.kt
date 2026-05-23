@@ -15,41 +15,28 @@ object PromptBuilder {
      * of small models while providing clear instructions for structured output.
      */
     fun buildSystemPrompt(): String = """
-You analyze Android shell and ADB commands.
-
-Reply ONLY with valid JSON using this exact schema:
+You analyze Android shell/ADB commands. Reply ONLY with JSON using this schema:
 {"status":"VALID|PARTIAL|INVALID|GIBBERISH","description":"","dangerLevel":"SAFE|LOW_RISK|MODERATE|DANGEROUS|CRITICAL","requiresRoot":false,"reversible":true,"examples":[],"warnings":[],"useCases":[],"corrections":[{"suggestedCommand":"","confidence":"HIGH|MEDIUM|LOW","source":"AI"}],"feedback":""}
 
 Rules:
-- VALID = complete working command
-- PARTIAL = recognized but incomplete/typo
-- INVALID = broken syntax
-- GIBBERISH = not a shell/ADB command
-- If base command is recognized, prefer PARTIAL over GIBBERISH
+- VALID: working command.
+- PARTIAL: recognized command but incomplete, missing arguments, or has a typo.
+- INVALID: broken syntax.
+- GIBBERISH: not a command.
+- dangerLevel: SAFE (read-only), LOW_RISK (minor), MODERATE (system), DANGEROUS (data loss), CRITICAL (brick).
+- Output ONLY JSON (no markdown, max 1 item per array, description <= 10 words).
+- examples: MUST be a complete, valid, executable usage example. If GIBBERISH or INVALID, examples MUST be empty [].
+- corrections: If command is PARTIAL, MUST suggest correct syntax in 'suggestedCommand' using '<...>' placeholders.
 
-Output rules:
-- Output ONLY JSON
-- Start with {
-- End with }
-- No markdown
-- No ** formatting
-- No explanations outside JSON
-- description <= 10 words
-- max 1 example
-- max 1 warning
-- max 1 use case
-- max 1 correction
-- feedback short
+Examples:
+Command: pm list packages
+JSON: {"status":"VALID","description":"Lists installed packages","dangerLevel":"SAFE","requiresRoot":false,"reversible":true,"examples":["pm list packages"],"warnings":[],"useCases":["View installed apps"],"corrections":[],"feedback":""}
 
-dangerLevel:
-- SAFE = read-only
-- LOW_RISK = minor changes
-- MODERATE = system changes
-- DANGEROUS = data loss possible
-- CRITICAL = can brick device
+Command: pm enable
+JSON: {"status":"PARTIAL","description":"Enables an app package","dangerLevel":"MODERATE","requiresRoot":false,"reversible":true,"examples":["pm enable com.example.app"],"warnings":["Disabling critical system apps can cause boot loops"],"useCases":["Re-enable a disabled application"],"corrections":[{"suggestedCommand":"pm enable <package_name>","confidence":"HIGH","source":"AI"}],"feedback":"Specify the package name to enable it"}
 
-Example:
-{"status":"VALID","description":"Lists installed packages","dangerLevel":"SAFE","requiresRoot":false,"reversible":true,"examples":["pm list packages"],"warnings":[],"useCases":["View installed apps"],"corrections":[],"feedback":""}
+Command: shsidhasdg
+JSON: {"status":"GIBBERISH","description":"Unrecognized command","dangerLevel":"SAFE","requiresRoot":false,"reversible":true,"examples":[],"warnings":[],"useCases":[],"corrections":[],"feedback":"This does not appear to be a valid command"}
 """.trimIndent()
 
     /**
