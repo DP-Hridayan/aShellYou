@@ -35,6 +35,8 @@
     <string name="ai_cache_days">Cache duration</string>
     <string name="des_ai_cache_days">Number of days to keep cached results</string>
     <string name="n_days">%d days</string>
+    <string name="clear_analysis_cache">Clear analysis cache</string>
+    <string name="cache_size">Cache size: %s</string>
     <string name="app_crashed">App has crashed</string>
     <string name="app_name" translatable="false">aShell You</string>
     <string name="app_tagline">ADB at your fingertips</string>

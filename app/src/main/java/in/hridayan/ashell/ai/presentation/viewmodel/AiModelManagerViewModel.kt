@@ -141,7 +141,7 @@ class AiModelManagerViewModel @Inject constructor(
         }
     }
 
-    private fun refreshCacheSize() {
+    fun refreshCacheSize() {
         viewModelScope.launch {
             _cacheSizeBytes.value = analysisRepository.getCacheSizeBytes()
         }

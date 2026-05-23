@@ -4,12 +4,13 @@ import android.os.Build
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.rounded.AutoAwesome
-import androidx.compose.material.icons.rounded.Downloading
-import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import androidx.compose.material.icons.rounded.Cached
+import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Memory
+import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
+import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
@@ -328,7 +329,8 @@ object SettingsProvider {
     val aiModelsPage = settingsPage(
         screenTitle = R.string.ai_models,
         screenId = "ai_models",
-        group(
+        category(
+            title = R.string.models,
             clickableItem(
                 key = SettingsKeys.AI_MODELS,
                 title = R.string.models,

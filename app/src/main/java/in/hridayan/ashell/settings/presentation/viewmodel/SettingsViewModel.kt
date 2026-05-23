@@ -254,6 +254,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.ModelsScreen)
                 )
 
+                SettingsKeys.AI_CACHE_DAYS -> _uiEvent.emit(
+                    SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheDays)
+                )
+
                 else -> {}
             }
         }
