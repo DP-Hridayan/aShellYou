@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.ai.domain.repository
 import `in`.hridayan.ashell.ai.domain.model.AiModel
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Repository interface for AI model management.
@@ -20,8 +21,14 @@ interface AiModelRepository {
     /** Select a model as the active model for inference */
     suspend fun selectModel(modelId: String)
 
-    /** Download a model, returning a flow of progress updates */
-    fun downloadModel(modelId: String): Flow<DownloadProgress>
+    /** Start downloading a model. Progress is reported via [observeDownloadProgress]. */
+    fun downloadModel(modelId: String)
+
+    /** Observe download progress for all active downloads */
+    fun observeDownloadProgress(): StateFlow<Map<String, DownloadProgress>>
+
+    /** Observe download errors for all models */
+    fun observeDownloadErrors(): StateFlow<Map<String, String>>
 
     /** Delete a downloaded model from disk */
     suspend fun deleteModel(modelId: String)
@@ -40,4 +47,7 @@ interface AiModelRepository {
 
     /** Cancel an ongoing download */
     fun cancelDownload(modelId: String)
+
+    /** Dismiss a download error */
+    fun dismissError(modelId: String)
 }

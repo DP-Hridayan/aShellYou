@@ -11,8 +11,8 @@ import androidx.room.Query
 @Dao
 interface AiCacheDao {
 
-    @Query("SELECT * FROM ai_analysis_cache WHERE commandHash = :hash LIMIT 1")
-    suspend fun getByCommandHash(hash: String): AiCacheEntity?
+    @Query("SELECT * FROM ai_analysis_cache WHERE commandHash = :hash AND modelId = :modelId LIMIT 1")
+    suspend fun getByCommandHashAndModel(hash: String, modelId: String): AiCacheEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: AiCacheEntity)

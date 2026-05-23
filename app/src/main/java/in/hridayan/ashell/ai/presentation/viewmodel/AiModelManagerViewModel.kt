@@ -21,6 +21,8 @@ import javax.inject.Inject
  * ViewModel for the AI Model Manager settings screen.
  *
  * Manages model listing, downloading, selection, deletion, and storage display.
+ * Download state is owned by the Singleton repository and survives ViewModel
+ * recreation, so downloads persist when navigating away from the screen.
  */
 @HiltViewModel
 class AiModelManagerViewModel @Inject constructor(
@@ -36,20 +38,22 @@ class AiModelManagerViewModel @Inject constructor(
         val errorMessage: String? = null
     )
 
-    private val _downloadProgresses = MutableStateFlow<Map<String, DownloadProgress>>(emptyMap())
-    private val _errors = MutableStateFlow<Map<String, String>>(emptyMap())
     private val _storageUsage = MutableStateFlow(0L)
     private val _cacheSizeBytes = MutableStateFlow(0L)
 
     val storageUsage: StateFlow<Long> = _storageUsage.asStateFlow()
     val cacheSizeBytes: StateFlow<Long> = _cacheSizeBytes.asStateFlow()
 
-    /** All models with their current UI state */
+    /**
+     * All models with their current UI state.
+     * Observes download progress and errors from the Singleton repository,
+     * so state is preserved when navigating away and back.
+     */
     val models: StateFlow<List<ModelUiState>> = combine(
         modelRepository.getInstalledModels(),
         modelRepository.getSelectedModel(),
-        _downloadProgresses,
-        _errors
+        modelRepository.observeDownloadProgress(),
+        modelRepository.observeDownloadErrors()
     ) { installed, selected, downloads, errors ->
         val installedIds = installed.map { it.id }.toSet()
         val selectedId = selected?.id
@@ -80,34 +84,12 @@ class AiModelManagerViewModel @Inject constructor(
     }
 
     /**
-     * Download a model.
+     * Download a model. The download runs in the Singleton repository's scope
+     * and survives ViewModel destruction.
      */
     fun downloadModel(modelId: String) {
-        _errors.value = _errors.value - modelId
-
-        viewModelScope.launch {
-            modelRepository.downloadModel(modelId).collect { progress ->
-                _downloadProgresses.value = _downloadProgresses.value + (modelId to progress)
-
-                when (progress) {
-                    is DownloadProgress.Completed -> {
-                        _downloadProgresses.value = _downloadProgresses.value - modelId
-                        refreshStorageUsage()
-                        // Auto-select if it's the first model
-                        val installed = modelRepository.getAvailableModels()
-                            .count { modelRepository.isModelInstalled(it.id) }
-                        if (installed <= 1) {
-                            modelRepository.selectModel(modelId)
-                        }
-                    }
-                    is DownloadProgress.Failed -> {
-                        _downloadProgresses.value = _downloadProgresses.value - modelId
-                        _errors.value = _errors.value + (modelId to progress.error)
-                    }
-                    else -> {}
-                }
-            }
-        }
+        modelRepository.downloadModel(modelId)
+        refreshStorageUsage()
     }
 
     /**
@@ -115,7 +97,6 @@ class AiModelManagerViewModel @Inject constructor(
      */
     fun cancelDownload(modelId: String) {
         modelRepository.cancelDownload(modelId)
-        _downloadProgresses.value = _downloadProgresses.value - modelId
     }
 
     /**
@@ -151,7 +132,7 @@ class AiModelManagerViewModel @Inject constructor(
      * Dismiss an error for a model.
      */
     fun dismissError(modelId: String) {
-        _errors.value = _errors.value - modelId
+        modelRepository.dismissError(modelId)
     }
 
     private fun refreshStorageUsage() {

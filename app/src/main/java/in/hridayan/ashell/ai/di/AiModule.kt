@@ -9,7 +9,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.ai.data.local.database.AiCacheDao
 import `in`.hridayan.ashell.ai.data.local.database.AiCacheDatabase
-import `in`.hridayan.ashell.ai.data.local.preferences.AiPreferencesManager
 import `in`.hridayan.ashell.ai.data.repository.AiAnalysisRepositoryImpl
 import `in`.hridayan.ashell.ai.data.repository.AiModelRepositoryImpl
 import `in`.hridayan.ashell.ai.data.repository.LlamaInferenceEngine
@@ -20,6 +19,7 @@ import `in`.hridayan.ashell.ai.domain.usecase.DetectDangerLevelUseCase
 import `in`.hridayan.ashell.ai.domain.usecase.GenerateCorrectionsUseCase
 import `in`.hridayan.ashell.ai.domain.usecase.GetCachedAnalysisUseCase
 import `in`.hridayan.ashell.commandexamples.domain.repository.CommandRepository
+import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import javax.inject.Singleton
 
 /**
@@ -38,7 +38,7 @@ object AiModule {
             AiCacheDatabase::class.java,
             "ai_cache_database"
         )
-            .fallbackToDestructiveMigration(false)
+            .fallbackToDestructiveMigration(true)
             .build()
     }
 
@@ -52,19 +52,19 @@ object AiModule {
     fun provideAiAnalysisRepository(
         cacheDao: AiCacheDao,
         inferenceEngine: LlamaInferenceEngine,
-        preferencesManager: AiPreferencesManager,
+        settingsRepository: SettingsRepository,
         @ApplicationContext context: Context
     ): AiAnalysisRepository {
-        return AiAnalysisRepositoryImpl(cacheDao, inferenceEngine, preferencesManager, context)
+        return AiAnalysisRepositoryImpl(cacheDao, inferenceEngine, settingsRepository, context)
     }
 
     @Provides
     @Singleton
     fun provideAiModelRepository(
         @ApplicationContext context: Context,
-        preferencesManager: AiPreferencesManager
+        settingsRepository: SettingsRepository
     ): AiModelRepository {
-        return AiModelRepositoryImpl(context, preferencesManager)
+        return AiModelRepositoryImpl(context, settingsRepository)
     }
 
     @Provides

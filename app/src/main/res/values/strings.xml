@@ -26,6 +26,15 @@
     <string name="app">App</string>
     <string name="ai_models">AI &amp; Models</string>
     <string name="des_ai_models">Manage offline AI models for command analysis</string>
+    <string name="models">Models</string>
+    <string name="des_models">No model selected</string>
+    <string name="no_model_selected">No model selected</string>
+    <string name="cache_settings">Cache</string>
+    <string name="ai_cache_enabled">Enable cache</string>
+    <string name="des_ai_cache_enabled">Cache analysis results per model</string>
+    <string name="ai_cache_days">Cache duration</string>
+    <string name="des_ai_cache_days">Number of days to keep cached results</string>
+    <string name="n_days">%d days</string>
     <string name="app_crashed">App has crashed</string>
     <string name="app_name" translatable="false">aShell You</string>
     <string name="app_tagline">ADB at your fingertips</string>

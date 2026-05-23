@@ -30,5 +30,8 @@ data class SettingsState(
     val lastLocalBackupTime: String,
     val lastCloudBackupTime: String,
     val lastLocalBackupType: String,
-    val lastCloudBackupType: String
+    val lastCloudBackupType: String,
+    val selectedModelId: String,
+    val aiCacheEnabled: Boolean,
+    val aiCacheDays: Int
 )

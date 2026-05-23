@@ -687,7 +687,7 @@ fun BaseShellScreen(
             },
             onDownloadModel = {
                 aiViewModel.dismiss()
-                navController.navigate(NavRoutes.AiModelManagerScreen)
+                navController.navigate(NavRoutes.AiModelManagerScreen())
             }
         )
     }

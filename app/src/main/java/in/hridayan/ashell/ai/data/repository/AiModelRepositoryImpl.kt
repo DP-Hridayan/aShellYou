@@ -2,21 +2,28 @@ package `in`.hridayan.ashell.ai.data.repository
 
 import android.content.Context
 import android.util.Log
-import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.ai.data.local.model.ModelRegistry
-import `in`.hridayan.ashell.ai.data.local.preferences.AiPreferencesManager
+import `in`.hridayan.ashell.settings.data.SettingsKeys
+import `in`.hridayan.ashell.settings.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.ai.domain.model.AiModel
 import `in`.hridayan.ashell.ai.domain.repository.AiModelRepository
 import `in`.hridayan.ashell.ai.presentation.model.DownloadProgress
+import `in`.hridayan.ashell.ai.service.AiModelDownloadService
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.BufferedInputStream
 import java.io.File
@@ -30,11 +37,15 @@ import javax.inject.Singleton
 /**
  * Implementation of [AiModelRepository] using standard HTTP connections
  * for model downloads and local file system for storage.
+ *
+ * Downloads run in a Singleton-scoped CoroutineScope that survives ViewModel
+ * destruction, so downloads persist when navigating away from the settings screen.
+ * A foreground service is started to keep the process alive in the background.
  */
 @Singleton
 class AiModelRepositoryImpl @Inject constructor(
-    @param:ApplicationContext private val context: Context,
-    private val preferencesManager: AiPreferencesManager
+    @ApplicationContext private val context: Context,
+    private val settingsRepository: SettingsRepository
 ) : AiModelRepository {
 
     companion object {
@@ -44,7 +55,20 @@ class AiModelRepositoryImpl @Inject constructor(
     private val modelsDir: File
         get() = File(context.filesDir, "ai_models").apply { mkdirs() }
 
-    private val activeDownloadJobs = ConcurrentHashMap<String, Job>() // modelId -> Job
+    /**
+     * Singleton-scoped coroutine scope. Downloads launched here survive
+     * ViewModel recreation (e.g. when user navigates away from the screen).
+     */
+    private val downloadScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    /** Active download jobs keyed by modelId, for cancellation */
+    private val activeDownloadJobs = ConcurrentHashMap<String, kotlinx.coroutines.Job>()
+
+    /** Shared download progress state — survives ViewModel recreation */
+    private val _downloadProgress = MutableStateFlow<Map<String, DownloadProgress>>(emptyMap())
+
+    /** Shared error state — survives ViewModel recreation */
+    private val _downloadErrors = MutableStateFlow<Map<String, String>>(emptyMap())
 
     override fun getAvailableModels(): List<AiModel> = ModelRegistry.allModels
 
@@ -54,54 +78,86 @@ class AiModelRepositoryImpl @Inject constructor(
                 File(modelsDir, model.fileName).exists()
             }
             emit(installed)
-            delay(2000) // Refresh every 2 seconds
+            delay(2000)
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getSelectedModel(): Flow<AiModel?> =
-        preferencesManager.selectedModelId.map { id ->
+        settingsRepository.getString(SettingsKeys.SELECTED_MODEL_ID).map { id ->
             ModelRegistry.findById(id)
         }
 
     override suspend fun selectModel(modelId: String) {
-        preferencesManager.setSelectedModelId(modelId)
+        settingsRepository.setString(SettingsKeys.SELECTED_MODEL_ID, modelId)
     }
 
-    override fun downloadModel(modelId: String): Flow<DownloadProgress> = flow {
+    override fun observeDownloadProgress(): StateFlow<Map<String, DownloadProgress>> =
+        _downloadProgress.asStateFlow()
+
+    override fun observeDownloadErrors(): StateFlow<Map<String, String>> =
+        _downloadErrors.asStateFlow()
+
+    override fun downloadModel(modelId: String) {
         Log.d(TAG, "downloadModel() called for modelId=$modelId")
 
-        val model = ModelRegistry.findById(modelId)
-            ?: run {
-                Log.e(TAG, "Model not found for id=$modelId")
-                emit(DownloadProgress.Failed("Model not found"))
-                return@flow
-            }
+        // Clear any previous error for this model
+        _downloadErrors.value = _downloadErrors.value - modelId
 
-        Log.d(TAG, "Model found: ${model.name}, url=${model.downloadUrl}")
+        // Don't start if already downloading
+        if (activeDownloadJobs.containsKey(modelId)) {
+            Log.w(TAG, "Download already in progress for $modelId")
+            return
+        }
+
+        val model = ModelRegistry.findById(modelId)
+        if (model == null) {
+            Log.e(TAG, "Model not found for id=$modelId")
+            _downloadErrors.value = _downloadErrors.value + (modelId to "Model not found")
+            return
+        }
+
+        // Start foreground service to keep download alive in background
+        AiModelDownloadService.start(context)
+
+        val job = downloadScope.launch {
+            try {
+                executeDownload(model)
+            } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) {
+                    Log.d(TAG, "Download cancelled for ${model.id}")
+                    _downloadProgress.value = _downloadProgress.value - model.id
+                } else {
+                    Log.e(TAG, "Download failed for ${model.id}", e)
+                    _downloadProgress.value = _downloadProgress.value - model.id
+                    _downloadErrors.value = _downloadErrors.value + (model.id to (e.message ?: "Download failed"))
+                }
+            } finally {
+                activeDownloadJobs.remove(model.id)
+                // Stop service if no more active downloads
+                if (activeDownloadJobs.isEmpty()) {
+                    AiModelDownloadService.stop(context)
+                }
+            }
+        }
+
+        activeDownloadJobs[modelId] = job
+    }
+
+    private suspend fun executeDownload(model: AiModel) {
+        Log.d(TAG, "Starting download: ${model.name}, url=${model.downloadUrl}")
 
         val targetFile = File(modelsDir, model.fileName)
-        Log.d(TAG, "Target file: ${targetFile.absolutePath}")
-
-        // Remove target file if exists
         if (targetFile.exists()) {
             targetFile.delete()
             Log.d(TAG, "Deleted existing target file")
         }
 
-        emit(DownloadProgress.Downloading(0, model.sizeBytes))
+        _downloadProgress.value = _downloadProgress.value + (model.id to DownloadProgress.Downloading(0, model.sizeBytes))
 
         val tempFile = File(modelsDir, "${model.fileName}.tmp")
-        Log.d(TAG, "Temp file: ${tempFile.absolutePath}")
         if (tempFile.exists()) tempFile.delete()
 
-        // Register the active coroutine job
-        val currentJob = currentCoroutineContext()[Job]
-        if (currentJob != null) {
-            activeDownloadJobs[modelId] = currentJob
-        }
-
         try {
-            Log.d(TAG, "Starting HTTP download from URL: ${model.downloadUrl}")
             val url = URL(model.downloadUrl)
             val connection = url.openConnection() as HttpURLConnection
             connection.connectTimeout = 15000
@@ -111,12 +167,13 @@ class AiModelRepositoryImpl @Inject constructor(
             val responseCode = connection.responseCode
             if (responseCode !in 200..299) {
                 Log.e(TAG, "Server returned response code $responseCode")
-                emit(DownloadProgress.Failed("Server returned response code $responseCode"))
-                return@flow
+                _downloadProgress.value = _downloadProgress.value - model.id
+                _downloadErrors.value = _downloadErrors.value + (model.id to "Server returned $responseCode")
+                return
             }
 
             val contentLength = connection.contentLengthLong
-            Log.d(TAG, "Content length from server: $contentLength")
+            Log.d(TAG, "Content length: $contentLength")
 
             val inputStream = BufferedInputStream(connection.inputStream)
             val outputStream = FileOutputStream(tempFile)
@@ -129,16 +186,16 @@ class AiModelRepositoryImpl @Inject constructor(
                 outputStream.use { output ->
                     var bytes = input.read(buffer)
                     while (bytes != -1) {
-                        currentCoroutineContext().ensureActive()
+                        coroutineContext.ensureActive()
 
                         output.write(buffer, 0, bytes)
                         bytesRead += bytes
 
-                        // Throttle progress updates to 100ms to avoid overloading the flow
                         val now = System.currentTimeMillis()
                         if (now - lastProgressUpdate > 100) {
                             val total = if (contentLength > 0) contentLength else model.sizeBytes
-                            emit(DownloadProgress.Downloading(bytesRead, total))
+                            _downloadProgress.value = _downloadProgress.value +
+                                (model.id to DownloadProgress.Downloading(bytesRead, total))
                             lastProgressUpdate = now
                         }
 
@@ -147,24 +204,36 @@ class AiModelRepositoryImpl @Inject constructor(
                 }
             }
 
-            currentCoroutineContext().ensureActive()
+            coroutineContext.ensureActive()
 
-            Log.d(TAG, "Download finished. Renaming temp file to target file...")
             if (tempFile.renameTo(targetFile)) {
-                Log.d(TAG, "Rename successful. Model installed.")
-                emit(DownloadProgress.Completed)
+                Log.d(TAG, "Download complete: ${model.name}")
+                _downloadProgress.value = _downloadProgress.value + (model.id to DownloadProgress.Completed)
+
+                // Auto-select if it's the first installed model
+                val installedCount = ModelRegistry.allModels.count { m ->
+                    File(modelsDir, m.fileName).exists()
+                }
+                if (installedCount <= 1) {
+                    selectModel(model.id)
+                }
+
+                // Clear completed status after a short delay
+                delay(2000)
+                _downloadProgress.value = _downloadProgress.value - model.id
             } else {
-                Log.e(TAG, "Failed to rename temp file to target file")
-                emit(DownloadProgress.Failed("Failed to install model file"))
+                Log.e(TAG, "Failed to rename temp file")
+                _downloadProgress.value = _downloadProgress.value - model.id
+                _downloadErrors.value = _downloadErrors.value + (model.id to "Failed to install model file")
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "HTTP download failed", e)
+        } catch (e: kotlinx.coroutines.CancellationException) {
             if (tempFile.exists()) tempFile.delete()
-            emit(DownloadProgress.Failed("Download failed: ${e.message}"))
-        } finally {
-            activeDownloadJobs.remove(modelId)
+            throw e
+        } catch (e: Exception) {
+            if (tempFile.exists()) tempFile.delete()
+            throw e
         }
-    }.flowOn(Dispatchers.IO)
+    }
 
     override suspend fun deleteModel(modelId: String) = withContext(Dispatchers.IO) {
         val model = ModelRegistry.findById(modelId) ?: return@withContext
@@ -184,8 +253,6 @@ class AiModelRepositoryImpl @Inject constructor(
             val model = ModelRegistry.findById(modelId) ?: return@withContext false
             val file = File(modelsDir, model.fileName)
             if (!file.exists()) return@withContext false
-
-            // Basic size check (within 5% tolerance for different quantizations)
             val sizeDiff = kotlin.math.abs(file.length() - model.sizeBytes)
             val tolerance = model.sizeBytes * 0.05
             sizeDiff <= tolerance
@@ -206,12 +273,20 @@ class AiModelRepositoryImpl @Inject constructor(
         Log.d(TAG, "cancelDownload() called for modelId=$modelId")
         activeDownloadJobs[modelId]?.cancel()
         activeDownloadJobs.remove(modelId)
+        _downloadProgress.value = _downloadProgress.value - modelId
 
-        // Clean up temp file
         val model = ModelRegistry.findById(modelId) ?: return
         val tempFile = File(modelsDir, "${model.fileName}.tmp")
         if (tempFile.exists()) tempFile.delete()
         val targetFile = File(modelsDir, model.fileName)
         if (targetFile.exists()) targetFile.delete()
+
+        if (activeDownloadJobs.isEmpty()) {
+            AiModelDownloadService.stop(context)
+        }
+    }
+
+    override fun dismissError(modelId: String) {
+        _downloadErrors.value = _downloadErrors.value - modelId
     }
 }

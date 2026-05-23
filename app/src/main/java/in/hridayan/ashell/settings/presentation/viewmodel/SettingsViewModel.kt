@@ -61,6 +61,7 @@ class SettingsViewModel @Inject constructor(
     val behaviorPage = SettingsProvider.behaviorPage
     val aboutPage = SettingsProvider.aboutPage
     val backupPage = SettingsProvider.backupPage
+    val aiModelsPage = SettingsProvider.aiModelsPage
 
     private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
@@ -246,7 +247,11 @@ class SettingsViewModel @Inject constructor(
                 )
 
                 SettingsKeys.AI_MODEL_MANAGER -> _uiEvent.emit(
-                    SettingsUiEvent.Navigate(NavRoutes.AiModelManagerScreen)
+                    SettingsUiEvent.Navigate(NavRoutes.AiModelManagerScreen())
+                )
+
+                SettingsKeys.AI_MODELS -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.ModelsScreen)
                 )
 
                 else -> {}

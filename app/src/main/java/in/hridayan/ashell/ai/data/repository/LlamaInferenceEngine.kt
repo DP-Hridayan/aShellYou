@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.ai.data.repository
 
+import android.util.Log
 import `in`.hridayan.ashell.ai.native.LlamaCppBridge
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -33,6 +34,7 @@ class LlamaInferenceEngine @Inject constructor() {
     companion object {
         /** Idle timeout before automatically unloading the model */
         private const val IDLE_TIMEOUT_MS = 5L * 60 * 1000 // 5 minutes
+        private const val TAG = "LlamaEngine"
     }
 
     /**
@@ -50,21 +52,29 @@ class LlamaInferenceEngine @Inject constructor() {
 
                 // If same model is already loaded, skip
                 if (currentModelPath == modelPath && LlamaCppBridge.isModelLoaded()) {
+                    Log.d(TAG, "Model already loaded at $modelPath, reusing")
                     resetIdleTimeout()
                     return@withContext true
                 }
 
                 // Unload any existing model
                 if (LlamaCppBridge.isModelLoaded()) {
+                    Log.d(TAG, "Unloading previous model before loading new one")
                     LlamaCppBridge.unloadModel()
                 }
 
+                Log.d(TAG, "Loading model: $modelPath (contextSize=$contextSize)")
+                val startTime = System.currentTimeMillis()
                 val success = LlamaCppBridge.loadModel(modelPath, contextSize)
+                val elapsed = System.currentTimeMillis() - startTime
+
                 if (success) {
                     currentModelPath = modelPath
+                    Log.d(TAG, "Model loaded successfully in ${elapsed}ms")
                     resetIdleTimeout()
                 } else {
                     currentModelPath = null
+                    Log.e(TAG, "Model loading FAILED after ${elapsed}ms")
                 }
                 success
             }
@@ -94,12 +104,20 @@ class LlamaInferenceEngine @Inject constructor() {
                 throw IllegalStateException("No model loaded. Call loadModel() first.")
             }
 
+            Log.d(TAG, "Running inference: maxTokens=$maxTokens, temp=$temperature")
+            Log.d(TAG, "System prompt length: ${systemPrompt.length}, User prompt: '$userPrompt'")
+            val startTime = System.currentTimeMillis()
+
             val result = LlamaCppBridge.runInference(
                 systemPrompt = systemPrompt,
                 userPrompt = userPrompt,
                 maxTokens = maxTokens,
                 temperature = temperature
             )
+
+            val elapsed = System.currentTimeMillis() - startTime
+            Log.d(TAG, "Inference completed in ${elapsed}ms, output length=${result.length} chars")
+            Log.d(TAG, "Inference output preview: ${result.take(200)}")
 
             resetIdleTimeout()
             result
