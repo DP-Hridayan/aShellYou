@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">先中止命令</string>
     <string name="about">关于</string>
+    <string name="active">已启用</string>
     <string name="adb_command">ADB 命令</string>
     <string name="adb_command_hint">adb reboot</string>
     <string name="adb_command_off_state">ADB 命令(OFF 状态)</string>
@@ -19,6 +20,9 @@
     <string name="add_command">添加命令</string>
     <string name="add_new_item">添加新项目</string>
     <string name="additional_settings">额外设置</string>
+    <string name="ai_cache_days">缓存持续时间</string>
+    <string name="ai_cache_enabled">启用缓存</string>
+    <string name="ai_models">AI &amp; Models</string>
     <string name="all">所有的</string>
     <string name="all_data">所有数据</string>
     <string name="already_connected">已连接</string>
@@ -50,6 +54,8 @@
     <string name="bookmarks">书签</string>
     <string name="bootloader">Bootloader</string>
     <string name="btn_continue">继续</string>
+    <string name="cache_settings">缓存</string>
+    <string name="cache_size">缓存大小: %s</string>
     <string name="cancel">取消</string>
     <string name="cancel_all">全部取消</string>
     <string name="changelog">更新日志</string>
@@ -59,6 +65,7 @@
     <string name="choose_icon">选择图标</string>
     <string name="clear">清除</string>
     <string name="clear_all_message">确定清除屏幕上的所有内容？</string>
+    <string name="clear_analysis_cache">清除分析缓存</string>
     <string name="clear_everything">全部清除</string>
     <string name="clear_output_confirmation">清除输出确认</string>
     <string name="clipboard_empty">剪贴板中未找到文本</string>
@@ -119,6 +126,9 @@
     <string name="delete_message">您确定要删除 \"%1$s \"吗？</string>
     <string name="delete_title">删除 %1$s？</string>
     <string name="des_about">贡献者和支持</string>
+    <string name="des_ai_cache_days">保存缓存结果的天数</string>
+    <string name="des_ai_cache_enabled">每个模型缓存分析结果</string>
+    <string name="des_ai_models">管理离线的 AI 模型用于命令分析</string>
     <string name="des_auto_update">自动检测更新</string>
     <string name="des_backup_all_data">备份应用全部数据</string>
     <string name="des_backup_and_restore">备份和恢复应用设置和其他数据</string>
@@ -130,6 +140,7 @@
     <string name="des_choose_icon">点击此处从图标集合中选择一个图标</string>
     <string name="des_clear_output_confirmation">清除终端输出前询问确认</string>
     <string name="des_configure_save_directory">配置目录保存终端输出</string>
+    <string name="des_contributors">帮助开发你的 aShell 贡献者列表</string>
     <string name="des_crash_history">查看应用程序中发生的所有崩溃问题</string>
     <string name="des_default_language">为本软件更改默认语言</string>
     <string name="des_disable_softkey">在使用实体键盘时会有帮助</string>
@@ -147,6 +158,7 @@
     <string name="des_local_backup">保存加密备份到您的设备</string>
     <string name="des_local_restore">从您的设备中选择备份文件</string>
     <string name="des_look_and_feel">莫奈取色，暗色主题以及语言设置</string>
+    <string name="des_models">没有选择模型</string>
     <string name="des_override_bookmarks">如果添加了大量书签，可能会造成延迟！低端设备应保持关闭此选项</string>
     <string name="des_pair_another_device">配对另一个目标设备</string>
     <string name="des_qs_tiles">为执行 adb 命令创建快速设置瓷块</string>
@@ -316,6 +328,11 @@
     <string name="mode">模式</string>
     <string name="mode_one_desc">使用Root执行命令. 依赖Root权限的命令可以被执行</string>
     <string name="mode_two_desc">使用Shizuku执行命令. 依赖Root权限的命令无法被执行</string>
+    <string name="models">模型</string>
+    <string name="model_category_tiny">蒂尼(低于300 MB)</string>
+    <string name="model_category_small">小(300-500 MB)</string>
+    <string name="model_category_medium">中等(800 MB-1.1 GB)</string>
+    <string name="model_category_large">大(1.5-2.5GB)</string>
     <string name="modified">已修改</string>
     <string name="monospace">等宽字体</string>
     <string name="more">更多</string>
@@ -323,6 +340,7 @@
     <string name="move">移动</string>
     <string name="moving">移动中…</string>
     <string name="moving_items">移动 %1$d 项目 (s)</string>
+    <string name="n_days">%d 天</string>
     <string name="name">名称</string>
     <string name="network_error">网络异常</string>
     <string name="new_commands_available_msg">添加了新的命令示例！\n点击下面的按钮加载新命令。</string>
@@ -340,9 +358,9 @@
     <string name="no_google_account_title">无Google账户</string>
     <string name="no_history">无历史命令</string>
     <string name="no_libraries_found">No libraries found</string>
-    <string name="view_license_online_msg">点击 \'Open URL\' 在线查看许可协议。</string>
     <string name="no_logs_yet">还没有日志！</string>
     <string name="no_logs_yet_msg">尚未记录日志。执行一些瓷块以显示日志。</string>
+    <string name="no_model_selected">没有选择模型</string>
     <string name="no_operations">没有正在进行的操作</string>
     <string name="no_results_found">未找到结果</string>
     <string name="no_root_access">无root权限</string>
@@ -384,6 +402,16 @@
     <string name="pairing_code">配对码</string>
     <string name="pairing_notification_hint">提示：你会在通知栏看见一个来自aShell You的通知，在打开无线调试并进入配对界面后请点击这个通知的“提交”按钮即可唤出输入界面</string>
     <string name="pairing_process_notification_access_message">要完成配对过程，您需要与 aShell 您的通知交互。请允许通知访问您。</string>
+    <string name="palette_content">内容</string>
+    <string name="palette_expressive">表达式</string>
+    <string name="palette_fidelity">幻影性</string>
+    <string name="palette_fruit_salad">水果沙拉德</string>
+    <string name="palette_monochrome">单色</string>
+    <string name="palette_neutral">中性的</string>
+    <string name="palette_rainbow">彩虹灯</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">倾斜点</string>
+    <string name="palette_vibrant">振动</string>
     <string name="paste">粘贴</string>
     <string name="path">路径</string>
     <string name="permission_denied">权限被拒绝</string>
@@ -404,6 +432,7 @@
     <string name="reboot_options">重启选项</string>
     <string name="recent_activity">最近活动</string>
     <string name="recent_searches">最近搜索</string>
+    <string name="recommended">推荐的</string>
     <string name="reconnect">重新连接</string>
     <string name="reconnect_failed">重新连接失败</string>
     <string name="reconnect_failed_message">\n无线调试可能无法启用\n配对信息可能丢失。再次手动配对！</string>
@@ -444,8 +473,10 @@
     <string name="search_libraries">搜索库，作者，许可证，…</string>
     <string name="search_output">在此处搜索输出内容</string>
     <string name="search_settings">搜索设置</string>
+    <string name="search_something">搜索内容</string>
     <string name="searching_connect_service">搜索连接服务</string>
     <string name="searching_for_devices">正在搜索设备…</string>
+    <string name="select">选择</string>
     <string name="select_all">全选</string>
     <string name="self">自己的</string>
     <string name="self_pair_connection_failed">连接失败 - 尝试手动连接</string>
@@ -486,6 +517,7 @@
     <string name="stack_trace">堆栈跟踪</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">开始</string>
+    <string name="storage_used_by_ai_models">%.1f MB 被AI 模型使用</string>
     <string name="subtitle">字幕</string>
     <string name="subtitle_off_state">字幕 (OFF 状态)</string>
     <string name="subtitle_on_state">字幕 (N 状态)</string>
@@ -538,8 +570,8 @@
     <string name="variant">变体</string>
     <string name="version">版本</string>
     <string name="version_code">版本代码</string>
-    <string name="search_something">搜索内容</string>
     <string name="version_name">版本名称</string>
+    <string name="view_license_online_msg">点击 \'Open URL\' 在线查看许可协议。</string>
     <string name="view_on_github">在 GitHub 上查看</string>
     <string name="visit_repo_to_download">点击下载按钮从github 仓库获取最新版本。</string>
     <string name="waiting_for_device">等待设备</string>
@@ -554,17 +586,10 @@
     <string name="wireless_debugging_guide_2">在aShell You发送的通知中输入配对码</string>
     <string name="wireless_debugging_guide_3">返回aShell You的主页点击无线ADB板块的“开始”即可</string>
     <string name="wireless_debugging_important_notice">注意无线调试选项左侧是可以点的。点击会打开无线调试配对菜单</string>
-    <string name="des_contributors">帮助开发你的 aShell 贡献者列表</string>
-    <string name="palette_style">Palette style</string>
-    <string name="palette_tonal_spot">倾斜点</string>
-    <string name="palette_expressive">表达式</string>
-    <string name="palette_vibrant">振动</string>
-    <string name="palette_monochrome">单色</string>
-    <string name="palette_rainbow">彩虹灯</string>
-    <string name="palette_fruit_salad">水果沙拉德</string>
-    <string name="palette_neutral">中性的</string>
-    <string name="palette_fidelity">幻影性</string>
-    <string name="palette_content">内容</string>
+    <string name="command_analysis">命令分析</string>
+    <string name="high">高</string>
+    <string name="medium">中</string>
+    <string name="low">低</string>
     <string name="changelog_v7_4_0">\n您现在可以在设置屏幕中搜索子设置\n添加色板样式用于配色方案\n添加选项以直接在应用中设置应用语言</string>
     <string name="changelog_v7_3_0">\n在更新日志屏幕上改进了UI。\n添加了翻译贡献者，在\n添加了许可证屏幕，显示有关应用程序和其他库的详细许可信息</string>
     <string name="changelog_v7_2_1">\n维护更新！</string>

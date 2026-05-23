@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Спочатку скасуйте команду</string>
     <string name="about">Про додаток</string>
+    <string name="active">Активний</string>
     <string name="adb_command">Команда ADB</string>
     <string name="adb_command_hint">перезавантаження adb</string>
     <string name="adb_command_off_state">Команда ADB (стан ВИМК.)</string>
@@ -19,6 +20,9 @@
     <string name="add_command">Додати команду</string>
     <string name="add_new_item">Додати новий елемент</string>
     <string name="additional_settings">Додаткові налаштування</string>
+    <string name="ai_cache_days">Кеш довжини файлу</string>
+    <string name="ai_cache_enabled">Ввімкнути кешування</string>
+    <string name="ai_models">AI &amp; Models</string>
     <string name="all">Всі</string>
     <string name="all_data">Всі дані</string>
     <string name="already_connected">Вже під\'єднано</string>
@@ -50,6 +54,8 @@
     <string name="bookmarks">Закладки</string>
     <string name="bootloader">Завантажувач</string>
     <string name="btn_continue">Продовжити</string>
+    <string name="cache_settings">Кеш</string>
+    <string name="cache_size">Розмір кешу: %s</string>
     <string name="cancel">Скасувати</string>
     <string name="cancel_all">Скасувати все</string>
     <string name="changelog">Список змін</string>
@@ -59,6 +65,7 @@
     <string name="choose_icon">Виберіть іконку</string>
     <string name="clear">Очистити</string>
     <string name="clear_all_message">Ви впевнені, що хочете очистити все на цьому екрані?</string>
+    <string name="clear_analysis_cache">Очистити кеш аналізу</string>
     <string name="clear_everything">Очистити все</string>
     <string name="clear_output_confirmation">Очистити підтвердження виводу</string>
     <string name="clipboard_empty">Буфер обміну не містить текст</string>
@@ -119,6 +126,9 @@
     <string name="delete_message">Ви впевнені, що хочете видалити \"%1$s\"?</string>
     <string name="delete_title">Видалити %1$s?</string>
     <string name="des_about">Співробітники та підтримка</string>
+    <string name="des_ai_cache_days">Кількість днів для збереження кешованих результатів</string>
+    <string name="des_ai_cache_enabled">Результати аналізу кешу на модель</string>
+    <string name="des_ai_models">Керування моделями AI для командного аналізу</string>
     <string name="des_auto_update">Автоперевірка оновлень</string>
     <string name="des_backup_all_data">Резервування всіх даних додатка</string>
     <string name="des_backup_and_restore">Резервування та відновлення налаштувань додатку та інших даних</string>
@@ -130,6 +140,7 @@
     <string name="des_choose_icon">Натисніть тут, щоб вибрати іконку з колекції іконок</string>
     <string name="des_clear_output_confirmation">Запитувати підтвердження перед очищенням виводу оболонки</string>
     <string name="des_configure_save_directory">Виберіть каталог для збереження виводу оболонки</string>
+    <string name="des_contributors">Список учасників, які допомогли у розробці aShell You</string>
     <string name="des_crash_history">Переглянути всі збої, що сталися в додатку</string>
     <string name="des_default_language">Виберіть мову за замовчуванням для додатка</string>
     <string name="des_disable_softkey">Корисно, коли потрібно використовувати зовнішню клавіатуру</string>
@@ -147,6 +158,7 @@
     <string name="des_local_backup">Зберегти зашифровану резервну копію на своєму пристрої</string>
     <string name="des_local_restore">Виберіть файл резервування зі свого пристрою</string>
     <string name="des_look_and_feel">Динамічні кольори, Темна тема, Мова</string>
+    <string name="des_models">Не вибрано жодної моделі</string>
     <string name="des_override_bookmarks">Можлива затримка, якщо додано велику кількість закладок! На недорогих пристроях цю опцію слід вимкнути</string>
     <string name="des_pair_another_device">Сполучити інший цільовий пристрій</string>
     <string name="des_qs_tiles">Створити плитки швидких налаштувань для виконання команд adb</string>
@@ -316,6 +328,11 @@
     <string name="mode">Режим</string>
     <string name="mode_one_desc">Використовуйте root доступ для запуску команд. Rooted команди можуть бути виконані.</string>
     <string name="mode_two_desc">Використовуйте shizuku для виконання команд. Команди, що потребують root-прав, не виконаються.</string>
+    <string name="models">Моделі</string>
+    <string name="model_category_tiny">Маленький (до 300 МБ)</string>
+    <string name="model_category_small">Малий (300–500 МБ)</string>
+    <string name="model_category_medium">Середній (800 Мбайт–1,1 ГБ)</string>
+    <string name="model_category_large">Великий (1,5–2.5 ГБ)</string>
     <string name="modified">Змінено</string>
     <string name="monospace">Моноширинний</string>
     <string name="more">Ще</string>
@@ -323,6 +340,7 @@
     <string name="move">Перемістити</string>
     <string name="moving">Переміщення…</string>
     <string name="moving_items">Переміщення %1$d елементів</string>
+    <string name="n_days">%d days</string>
     <string name="name">Ім\'я</string>
     <string name="network_error">Помилка мережі</string>
     <string name="new_commands_available_msg">Додано нові приклади команд!\nНатисніть кнопку нижче, щоб завантажити нові команди.</string>
@@ -340,9 +358,9 @@
     <string name="no_google_account_title">Немає облікового запису Google</string>
     <string name="no_history">Немає історії команд</string>
     <string name="no_libraries_found">Бібліотек не знайдено</string>
-    <string name="view_license_online_msg">Натисніть \'Відкрити URL\', щоб переглянути ліцензію онлайн.</string>
     <string name="no_logs_yet">Журналів ще нема!</string>
     <string name="no_logs_yet_msg">Жодних журналів ще не записано. Виконайте кілька дій, щоб показати журнали.</string>
+    <string name="no_model_selected">Не вибрано жодної моделі</string>
     <string name="no_operations">Операції не виконуються</string>
     <string name="no_results_found">Результатів не знайдено</string>
     <string name="no_root_access">Немає root доступу</string>
@@ -384,6 +402,16 @@
     <string name="pairing_code">Код сполучення</string>
     <string name="pairing_notification_hint">Ви отримаєте сповіщення від aShell You, яке допоможе вам зі сполученням</string>
     <string name="pairing_process_notification_access_message">Щоб завершити процес сполучення, вам потрібно взаємодіяти з повідомленнями від aShell You. Будь ласка, дозвольте доступ до сповіщень aShell You.</string>
+    <string name="palette_content">Зміст</string>
+    <string name="palette_expressive">Виразний</string>
+    <string name="palette_fidelity">Вірність</string>
+    <string name="palette_fruit_salad">Фруктовий салат</string>
+    <string name="palette_monochrome">Монохромний</string>
+    <string name="palette_neutral">Нейтральний</string>
+    <string name="palette_rainbow">Веселка</string>
+    <string name="palette_style">Стиль палітри</string>
+    <string name="palette_tonal_spot">Тональна цятка</string>
+    <string name="palette_vibrant">Вібрація</string>
     <string name="paste">Вставити</string>
     <string name="path">Шлях</string>
     <string name="permission_denied">Дозвіл відхилено</string>
@@ -404,6 +432,7 @@
     <string name="reboot_options">Параметри перезавантаження</string>
     <string name="recent_activity">Нещодавня активність</string>
     <string name="recent_searches">Нещодавні пошуки</string>
+    <string name="recommended">Рекомендовані</string>
     <string name="reconnect">Перепідключення</string>
     <string name="reconnect_failed">Перепідключення не вдалося</string>
     <string name="reconnect_failed_message">\nМожливо, бездротове налагодження не ввімкнено\nІнформація про сполучення може бути втрачена. Сполучити пристрій вручну ще раз!</string>
@@ -444,8 +473,10 @@
     <string name="search_libraries">Пошук бібліотек, авторів, ліцензій…</string>
     <string name="search_output">Пошук виводу тут</string>
     <string name="search_settings">Налаштування пошуку</string>
+    <string name="search_something">Знайти що-небудь</string>
     <string name="searching_connect_service">Пошук служби підключення</string>
     <string name="searching_for_devices">Пошук пристроїв…</string>
+    <string name="select">Вибрати</string>
     <string name="select_all">Вибрати все</string>
     <string name="self">Своє</string>
     <string name="self_pair_connection_failed">Помилка підключення - спробуйте ручне підключення</string>
@@ -486,6 +517,7 @@
     <string name="stack_trace">Трасування стеку</string>
     <string name="stargazers">Зірки</string>
     <string name="start">Запустити</string>
+    <string name="storage_used_by_ai_models">%.1f МБ, що використовується моделями ШІ</string>
     <string name="subtitle">Субтитри</string>
     <string name="subtitle_off_state">Субтитри (стан ВИМК.)</string>
     <string name="subtitle_on_state">Субтитри (стан УВІМК.)</string>
@@ -538,8 +570,8 @@
     <string name="variant">Варіант</string>
     <string name="version">Версія</string>
     <string name="version_code">Код версії</string>
-    <string name="search_something">Знайти що-небудь</string>
     <string name="version_name">Назва версії</string>
+    <string name="view_license_online_msg">Натисніть \'Відкрити URL\', щоб переглянути ліцензію онлайн.</string>
     <string name="view_on_github">Переглянути на GitHub</string>
     <string name="visit_repo_to_download">Натисніть кнопку завантаження, щоб отримати останню версію aShellYou з репозиторію GitHub.</string>
     <string name="waiting_for_device">Очікування пристрою</string>
@@ -554,17 +586,10 @@
     <string name="wireless_debugging_guide_2">Введіть шестизначний код сполучення в повідомлення, надіслане aShell You.</string>
     <string name="wireless_debugging_guide_3">Поверніться до програми та натисніть кнопку \"Запустити\" на головному екрані.</string>
     <string name="wireless_debugging_important_notice">Зверніть увагу, що ліва частина опції \"Бездротового налагодження\" є активною. При натисканні на неї відкриється меню \"Сполучення\" для \"Бездротового налагодження\".</string>
-    <string name="des_contributors">Список учасників, які допомогли у розробці aShell You</string>
-    <string name="palette_style">Стиль палітри</string>
-    <string name="palette_tonal_spot">Тональна цятка</string>
-    <string name="palette_expressive">Виразний</string>
-    <string name="palette_vibrant">Вібрація</string>
-    <string name="palette_monochrome">Монохромний</string>
-    <string name="palette_rainbow">Веселка</string>
-    <string name="palette_fruit_salad">Фруктовий салат</string>
-    <string name="palette_neutral">Нейтральний</string>
-    <string name="palette_fidelity">Вірність</string>
-    <string name="palette_content">Зміст</string>
+    <string name="command_analysis">Командний аналіз</string>
+    <string name="high">Високий</string>
+    <string name="medium">Медіум</string>
+    <string name="low">Низька</string>
     <string name="changelog_v7_4_0">\nТепер ви можете шукати під налаштування на екранах налаштувань\nДодано стилі палітри для колірних схем\nДодано опцію встановлення мови додатка безпосередньо в додатку</string>
     <string name="changelog_v7_3_0">\nПокращено інтерфейс користувача в екрані журналу змін\nДодано перекладачів у розділ Про програму.\nДодано екран ліцензій, який показує детальну інформацію про ліцензію програми та інших бібліотек, які використовує додаток</string>
     <string name="changelog_v7_2_1">\nОновлення технічного обслуговування!</string>

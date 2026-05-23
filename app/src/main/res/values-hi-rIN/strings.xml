@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">पहले आदेश निरस्त करें</string>
     <string name="about">इसके बारे में</string>
+    <string name="active">Active</string>
     <string name="adb_command">ADB command</string>
     <string name="adb_command_hint">adb reboot</string>
     <string name="adb_command_off_state">ADB command (OFF state)</string>
@@ -19,6 +20,9 @@
     <string name="add_command">कमांड जोड़ें</string>
     <string name="add_new_item">नया आइटम जोड़ें</string>
     <string name="additional_settings">अतिरिक्त सेटिंग्स</string>
+    <string name="ai_cache_days">Cache duration</string>
+    <string name="ai_cache_enabled">Enable cache</string>
+    <string name="ai_models">AI &amp; Models</string>
     <string name="all">All</string>
     <string name="all_data">All data</string>
     <string name="already_connected">पहले से कनेक्ट है</string>
@@ -50,6 +54,8 @@
     <string name="bookmarks">बुकमार्क्स</string>
     <string name="bootloader">बूटलोडर</string>
     <string name="btn_continue">जारी रखें</string>
+    <string name="cache_settings">Cache</string>
+    <string name="cache_size">Cache size: %s</string>
     <string name="cancel">रद्द करें</string>
     <string name="cancel_all">सभी रद्द करें</string>
     <string name="changelog">Changelog</string>
@@ -59,6 +65,7 @@
     <string name="choose_icon">Choose icon</string>
     <string name="clear">साफ़ करें</string>
     <string name="clear_all_message">क्या आप सभी को साफ़ करना चाहते हैं?</string>
+    <string name="clear_analysis_cache">Clear analysis cache</string>
     <string name="clear_everything">सभी साफ़ करें</string>
     <string name="clear_output_confirmation">आउटपुट साफ़ करने की पुष्टि</string>
     <string name="clipboard_empty">क्लिपबोर्ड में कोई पाठ नहीं है</string>
@@ -119,6 +126,9 @@
     <string name="delete_message">क्या आप वाकई \"%1$s\" हटाना चाहते हैं?</string>
     <string name="delete_title">%1$s हटाएं?</string>
     <string name="des_about">योगदानकर्ता और समर्थन</string>
+    <string name="des_ai_cache_days">Number of days to keep cached results</string>
+    <string name="des_ai_cache_enabled">Cache analysis results per model</string>
+    <string name="des_ai_models">Manage offline AI models for command analysis</string>
     <string name="des_auto_update">स्वचालित रूप से अपडेट जांचें</string>
     <string name="des_backup_all_data">ऐप का सभी डेटा बैकअप करें</string>
     <string name="des_backup_and_restore">ऐप सेटिंग्स और अन्य डेटा बैकअप और रिस्टोर करें</string>
@@ -130,6 +140,7 @@
     <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
     <string name="des_clear_output_confirmation">शेल आउटपुट साफ़ करने से पहले पुष्टि मांगें</string>
     <string name="des_configure_save_directory">शेल आउटपुट को सहेजने के लिए एक निर्देशिका चुनें</string>
+    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
     <string name="des_crash_history">ऐप में हुई सभी क्रैश देखें</string>
     <string name="des_default_language">ऐप के लिए डिफ़ॉल्ट भाषा चुनें</string>
     <string name="des_disable_softkey">जब आप बाहरी कीबोर्ड का उपयोग करना चाहते हैं तो उपयोगी होता है</string>
@@ -147,6 +158,7 @@
     <string name="des_local_backup">Save encrypted backup to your device</string>
     <string name="des_local_restore">Pick a backup file from your device</string>
     <string name="des_look_and_feel">गतिशील रंग, डार्क थीम, भाषा</string>
+    <string name="des_models">No model selected</string>
     <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low-end devices should keep this option turned off</string>
     <string name="des_pair_another_device">दूसरा लक्ष्य डिवाइस पेयर करें</string>
     <string name="des_qs_tiles">Create quick settings tiles for executing adb commands</string>
@@ -316,6 +328,11 @@
     <string name="mode">मोड</string>
     <string name="mode_one_desc">कमांड चलाने के लिए root एक्सेस का उपयोग करें। root किए गए कमांड निष्पादित किए जा सकते हैं।</string>
     <string name="mode_two_desc">कमांड चलाने के लिए Shizuku का उपयोग करें। जिन कमांड के लिए रूट की आवश्यकता होती है, वे निष्पादित नहीं होंगे।</string>
+    <string name="models">Models</string>
+    <string name="model_category_tiny">Tiny (under 300 MB)</string>
+    <string name="model_category_small">Small (300–500 MB)</string>
+    <string name="model_category_medium">Medium (800 MB–1.1 GB)</string>
+    <string name="model_category_large">Large (1.5–2.5 GB)</string>
     <string name="modified">संशोधित</string>
     <string name="monospace">मोनोस्पेस</string>
     <string name="more">और</string>
@@ -323,6 +340,7 @@
     <string name="move">स्थानांतरित करें</string>
     <string name="moving">स्थानांतरित हो रहा है…</string>
     <string name="moving_items">%1$d आइटम स्थानांतरित हो रहे हैं</string>
+    <string name="n_days">%d days</string>
     <string name="name">नाम</string>
     <string name="network_error">नेटवर्क त्रुटि</string>
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
@@ -340,9 +358,9 @@
     <string name="no_google_account_title">No Google Account</string>
     <string name="no_history">कोई कमांड इतिहास नहीं</string>
     <string name="no_libraries_found">No libraries found</string>
-    <string name="view_license_online_msg">Tap \'Open URL\' to view the license online.</string>
     <string name="no_logs_yet">No logs yet!</string>
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
+    <string name="no_model_selected">No model selected</string>
     <string name="no_operations">कोई ऑपरेशन प्रगति में नहीं</string>
     <string name="no_results_found">No results found</string>
     <string name="no_root_access">कोई रूट एक्सेस नहीं</string>
@@ -384,6 +402,16 @@
     <string name="pairing_code">पेयरिंग कोड</string>
     <string name="pairing_notification_hint">आपको युग्मन में सहायता के लिए aShell You से एक सूचना प्राप्त होगी</string>
     <string name="pairing_process_notification_access_message">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
+    <string name="palette_content">Content</string>
+    <string name="palette_expressive">Expressive</string>
+    <string name="palette_fidelity">Fidelity</string>
+    <string name="palette_fruit_salad">Fruit Salad</string>
+    <string name="palette_monochrome">Monochrome</string>
+    <string name="palette_neutral">Neutral</string>
+    <string name="palette_rainbow">Rainbow</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">Tonal Spot</string>
+    <string name="palette_vibrant">Vibrant</string>
     <string name="paste">पेस्ट</string>
     <string name="path">पथ</string>
     <string name="permission_denied">अनुमति अस्वीकृत</string>
@@ -404,6 +432,7 @@
     <string name="reboot_options">रीबूट विकल्प</string>
     <string name="recent_activity">Recent activity</string>
     <string name="recent_searches">Recent searches</string>
+    <string name="recommended">Recommended</string>
     <string name="reconnect">पुनः कनेक्ट करें</string>
     <string name="reconnect_failed">पुनः कनेक्शन विफल</string>
     <string name="reconnect_failed_message">\nवायरलेस डिबगिंग सक्षम नहीं हो सकती\nपेयरिंग जानकारी खो सकती है। मैन्युअल पेयर करें!</string>
@@ -444,8 +473,10 @@
     <string name="search_libraries">Search libraries, authors, licenses…</string>
     <string name="search_output">कमांड के परिणाम खोजें</string>
     <string name="search_settings">Search settings</string>
+    <string name="search_something">Search something</string>
     <string name="searching_connect_service">कनेक्ट सर्विस खोज रहे हैं</string>
     <string name="searching_for_devices">डिवाइस खोज रहे हैं…</string>
+    <string name="select">Select</string>
     <string name="select_all">सभी चुनें</string>
     <string name="self">स्वयं</string>
     <string name="self_pair_connection_failed">कनेक्शन विफल - मैन्युअल कनेक्ट करें</string>
@@ -486,6 +517,7 @@
     <string name="stack_trace">स्टैक ट्रेस</string>
     <string name="stargazers">स्टारगेज़र्स</string>
     <string name="start">शुरू करें</string>
+    <string name="storage_used_by_ai_models">%.1f MB used by AI models</string>
     <string name="subtitle">Subtitle</string>
     <string name="subtitle_off_state">Subtitle (OFF state)</string>
     <string name="subtitle_on_state">Subtitle (ON state)</string>
@@ -538,8 +570,8 @@
     <string name="variant">Variant</string>
     <string name="version">संस्करण</string>
     <string name="version_code">संस्करण कोड</string>
-    <string name="search_something">Search something</string>
     <string name="version_name">संस्करण नाम</string>
+    <string name="view_license_online_msg">Tap \'Open URL\' to view the license online.</string>
     <string name="view_on_github">View on GitHub</string>
     <string name="visit_repo_to_download">aShellYou का नवीनतम संस्करण प्राप्त करने के लिए डाउनलोड बटन पर क्लिक करें।</string>
     <string name="waiting_for_device">डिवाइस की प्रतीक्षा हो रही है</string>
@@ -554,17 +586,10 @@
     <string name="wireless_debugging_guide_2">aShell द्वारा भेजी गई सूचना में छह अंकों का युग्मन कोड दर्ज करें।</string>
     <string name="wireless_debugging_guide_3">ऐप पर वापस आएं और होम स्क्रीन में \"स्टार्ट\" बटन पर क्लिक करें।</string>
     <string name="wireless_debugging_important_notice">कृपया ध्यान दें कि वायरलेस डिबगिंग विकल्प का बायाँ भाग क्लिक करने योग्य है। इस पर टैप करने से वायरलेस डिबगिंग पेयरिंग मेनू खुल जाएगा।</string>
-    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
-    <string name="palette_style">Palette style</string>
-    <string name="palette_tonal_spot">Tonal Spot</string>
-    <string name="palette_expressive">Expressive</string>
-    <string name="palette_vibrant">Vibrant</string>
-    <string name="palette_monochrome">Monochrome</string>
-    <string name="palette_rainbow">Rainbow</string>
-    <string name="palette_fruit_salad">Fruit Salad</string>
-    <string name="palette_neutral">Neutral</string>
-    <string name="palette_fidelity">Fidelity</string>
-    <string name="palette_content">Content</string>
+    <string name="command_analysis">Command analysis</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>

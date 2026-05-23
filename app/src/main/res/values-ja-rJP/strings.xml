@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">実行中のコマンドを終了してください</string>
     <string name="about">このアプリについて</string>
+    <string name="active">アクティブ</string>
     <string name="adb_command">ADB コマンド</string>
     <string name="adb_command_hint">adb reboot</string>
     <string name="adb_command_off_state">ADB コマンド (OFF 状態)</string>
@@ -19,6 +20,9 @@
     <string name="add_command">コマンドを追加</string>
     <string name="add_new_item">新しいアイテムを追加</string>
     <string name="additional_settings">詳細設定</string>
+    <string name="ai_cache_days">キャッシュの長さ</string>
+    <string name="ai_cache_enabled">キャッシュを有効にする</string>
+    <string name="ai_models">AI &amp; Models</string>
     <string name="all">すべて</string>
     <string name="all_data">すべてのデータ</string>
     <string name="already_connected">すでに接続しています</string>
@@ -50,6 +54,8 @@
     <string name="bookmarks">ブックマーク</string>
     <string name="bootloader">ブートローダー</string>
     <string name="btn_continue">続行</string>
+    <string name="cache_settings">キャッシュ</string>
+    <string name="cache_size">キャッシュサイズ: %s</string>
     <string name="cancel">キャンセル</string>
     <string name="cancel_all">すべてキャンセル</string>
     <string name="changelog">更新履歴</string>
@@ -59,6 +65,7 @@
     <string name="choose_icon">アイコンを選択</string>
     <string name="clear">クリア</string>
     <string name="clear_all_message">この画面のすべてを消去してもよろしいですか？</string>
+    <string name="clear_analysis_cache">解析キャッシュをクリア</string>
     <string name="clear_everything">すべて消去</string>
     <string name="clear_output_confirmation">出力確認をクリア</string>
     <string name="clipboard_empty">クリップボードにテキストがない</string>
@@ -119,6 +126,9 @@
     <string name="delete_message">「%1$s」を削除してもよろしいですか？</string>
     <string name="delete_title">%1$s を削除しますか？</string>
     <string name="des_about">貢献者とサポート</string>
+    <string name="des_ai_cache_days">キャッシュされた結果を保持する日数</string>
+    <string name="des_ai_cache_enabled">モデルごとのキャッシュ解析結果</string>
+    <string name="des_ai_models">コマンド解析のためのオフラインAIモデルの管理</string>
     <string name="des_auto_update">自動でアップデートを確認する</string>
     <string name="des_backup_all_data">アプリのすべてのデータをバックアップ</string>
     <string name="des_backup_and_restore">アプリの設定やその他のデータのバックアップと復元</string>
@@ -130,6 +140,7 @@
     <string name="des_choose_icon">アイコンコレクションからアイコンを選択するにはここをクリック</string>
     <string name="des_clear_output_confirmation">シェル出力をクリアする前に確認を求める</string>
     <string name="des_configure_save_directory">シェル出力を保存するディレクトリを選択します</string>
+    <string name="des_contributors">aShell You の開発に協力した貢献者のリスト</string>
     <string name="des_crash_history">アプリで発生したすべてのクラッシュを表示</string>
     <string name="des_default_language">アプリのデフォルトの言語を選択する</string>
     <string name="des_disable_softkey">物理キーボードを使用するときに便利です</string>
@@ -147,6 +158,7 @@
     <string name="des_local_backup">暗号化されたバックアップをデバイスに保存する</string>
     <string name="des_local_restore">デバイスからバックアップファイルを選択してください</string>
     <string name="des_look_and_feel">ダイナミックカラー、ダークテーマ、言語</string>
+    <string name="des_models">モデルが選択されていません</string>
     <string name="des_override_bookmarks">ブックマークが多数追加されるとラグを引き起こす可能性があります！ローエンド端末はこのオプションをオフにしておく必要があります。</string>
     <string name="des_pair_another_device">別のターゲットデバイスをペアリングする</string>
     <string name="des_qs_tiles">Adb コマンドを実行するクイック設定タイルを作成します</string>
@@ -316,6 +328,11 @@
     <string name="mode">モード</string>
     <string name="mode_one_desc">Rootアクセスを使用してコマンドを実行します。</string>
     <string name="mode_two_desc">コマンドを実行するにはShizukuを使用します。Rootが必要なコマンドは実行されません。</string>
+    <string name="models">モデル</string>
+    <string name="model_category_tiny">小さい（300 MB未満）</string>
+    <string name="model_category_small">小 (300～500MB)</string>
+    <string name="model_category_medium">Medium (800 MB - 1.1 GB)</string>
+    <string name="model_category_large">大 (1.5-2.5 GB)</string>
     <string name="modified">修正されました</string>
     <string name="monospace">Monospace</string>
     <string name="more">もっと見る</string>
@@ -323,6 +340,7 @@
     <string name="move">移動</string>
     <string name="moving">移動中…</string>
     <string name="moving_items">%1$d アイテムを移動中</string>
+    <string name="n_days">%d 日</string>
     <string name="name">名前</string>
     <string name="network_error">ネットワークエラー</string>
     <string name="new_commands_available_msg">新しいコマンド例が追加されました!\n下のボタンをクリックして新しいコマンドをロードします。</string>
@@ -340,9 +358,9 @@
     <string name="no_google_account_title">Google アカウントがありません</string>
     <string name="no_history">コマンド履歴はありません</string>
     <string name="no_libraries_found">ライブラリが見つかりません</string>
-    <string name="view_license_online_msg">「URLを開く」をタップして、ライセンスをオンラインで表示します。</string>
     <string name="no_logs_yet">ログはまだありません！</string>
     <string name="no_logs_yet_msg">ログはまだ記録されていません。ここにログを表示するタイルを実行してください。</string>
+    <string name="no_model_selected">モデルが選択されていません</string>
     <string name="no_operations">進行中の操作はありません</string>
     <string name="no_results_found">結果が見つかりませんでした</string>
     <string name="no_root_access">ルートアクセスがありません</string>
@@ -384,6 +402,16 @@
     <string name="pairing_code">ペアリングコード</string>
     <string name="pairing_notification_hint">ペアリングを支援するためにaShell Youから通知が届きます</string>
     <string name="pairing_process_notification_access_message">ペアリングプロセスを完了するには、aShell あなたからの通知と対話する必要があります。aShell あなたへの通知アクセスを許可してください。</string>
+    <string name="palette_content">コンテンツ</string>
+    <string name="palette_expressive">表現的</string>
+    <string name="palette_fidelity">忠実度</string>
+    <string name="palette_fruit_salad">フルーツサラダ</string>
+    <string name="palette_monochrome">モノクローム</string>
+    <string name="palette_neutral">ニュートラル</string>
+    <string name="palette_rainbow">Rainbow</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">トーナルスポット</string>
+    <string name="palette_vibrant">バイブ</string>
     <string name="paste">貼り付け</string>
     <string name="path">パス</string>
     <string name="permission_denied">権限がありません</string>
@@ -404,6 +432,7 @@
     <string name="reboot_options">再起動オプション</string>
     <string name="recent_activity">最近のアクティビティ</string>
     <string name="recent_searches">最近の検索</string>
+    <string name="recommended">Recommended</string>
     <string name="reconnect">再接続</string>
     <string name="reconnect_failed">再接続に失敗しました</string>
     <string name="reconnect_failed_message">\nワイヤレスデバッグが有効になっていない可能性があります\nペアリング情報が失われている可能性があります。手動で再度ペアリングしてください。</string>
@@ -444,8 +473,10 @@
     <string name="search_libraries">Search libraries, authors, licenses…</string>
     <string name="search_output">ここで出力を検索</string>
     <string name="search_settings">検索設定</string>
+    <string name="search_something">何かを検索</string>
     <string name="searching_connect_service">接続サービスを検索中</string>
     <string name="searching_for_devices">デバイスを検索中…</string>
+    <string name="select">選択</string>
     <string name="select_all">すべて選択</string>
     <string name="self">自己|自分format@@0</string>
     <string name="self_pair_connection_failed">接続に失敗しました - 手動で接続してみてください</string>
@@ -486,6 +517,7 @@
     <string name="stack_trace">スタックトレース</string>
     <string name="stargazers">Starを付けたユーザ</string>
     <string name="start">スタート</string>
+    <string name="storage_used_by_ai_models">%.1f MB は AI モデルによって使用されています</string>
     <string name="subtitle">サブタイトル</string>
     <string name="subtitle_off_state">字幕（OFF状態）</string>
     <string name="subtitle_on_state">字幕（オン状態）</string>
@@ -538,8 +570,8 @@
     <string name="variant">バリアント型</string>
     <string name="version">バージョン</string>
     <string name="version_code">バージョンコード</string>
-    <string name="search_something">何かを検索</string>
     <string name="version_name">バージョン名</string>
+    <string name="view_license_online_msg">「URLを開く」をタップして、ライセンスをオンラインで表示します。</string>
     <string name="view_on_github">GitHubで見る</string>
     <string name="visit_repo_to_download">ダウンロードボタンをクリックして、githubリポジトリから最新バージョンのaShellYouを取得します。</string>
     <string name="waiting_for_device">デバイスを待っています</string>
@@ -554,17 +586,10 @@
     <string name="wireless_debugging_guide_2">aShell Youから送信された通知に6桁のペアリングコードを入力します。</string>
     <string name="wireless_debugging_guide_3">アプリに戻って、ホーム画面の「スタート」ボタンをクリックしてください。</string>
     <string name="wireless_debugging_important_notice">「ワイヤレスデバッグ」オプションの左側がクリック可能であることに注意してください。このオプションをタップすると、「ワイヤレスデバッグペアリング」メニューが開きます。</string>
-    <string name="des_contributors">aShell You の開発に協力した貢献者のリスト</string>
-    <string name="palette_style">Palette style</string>
-    <string name="palette_tonal_spot">トーナルスポット</string>
-    <string name="palette_expressive">表現的</string>
-    <string name="palette_vibrant">バイブ</string>
-    <string name="palette_monochrome">モノクローム</string>
-    <string name="palette_rainbow">Rainbow</string>
-    <string name="palette_fruit_salad">フルーツサラダ</string>
-    <string name="palette_neutral">ニュートラル</string>
-    <string name="palette_fidelity">忠実度</string>
-    <string name="palette_content">コンテンツ</string>
+    <string name="command_analysis">コマンド分析</string>
+    <string name="high">高い</string>
+    <string name="medium">ミディアム</string>
+    <string name="low">低い</string>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nメンテナンスのアップデート！</string>
