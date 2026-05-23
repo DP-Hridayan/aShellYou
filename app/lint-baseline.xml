@@ -57,39 +57,6 @@
     </issue>
 
     <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose.animation:animation than 1.11.1 is available: 1.11.2"
-        errorLine1="composeAnimation = &quot;1.11.1&quot;"
-        errorLine2="                   ~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="7"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose:compose-bom than 2026.05.00 is available: 2026.05.01"
-        errorLine1="composeBom = &quot;2026.05.00&quot;"
-        errorLine2="             ~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="8"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.compose.material3:material3 than 1.5.0-alpha19 is available: 1.5.0-alpha20"
-        errorLine1="material3 = &quot;1.5.0-alpha19&quot;"
-        errorLine2="            ~~~~~~~~~~~~~~~">
-        <location
-            file="$HOME/StudioProjects/aShellYou/gradle/libs.versions.toml"
-            line="31"
-            column="13"/>
-    </issue>
-
-    <issue
         id="NewerVersionAvailable"
         message="A newer version of dev.rikka.shizuku:api than 13.1.0 is available: 13.1.5"
         errorLine1="shizuku = &quot;13.1.0&quot;"
@@ -118,18 +85,29 @@
         errorLine2="              ~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/core/presentation/components/dialog/DialogKey.kt"
-            line="56"
+            line="57"
             column="15"/>
+    </issue>
+
+    <issue
+        id="ModifierParameter"
+        message="Modifier parameter should be the first optional parameter"
+        errorLine1="    modifier: Modifier = Modifier"
+        errorLine2="    ~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ai/presentation/ui/components/AnalyzeButton.kt"
+            line="22"
+            column="5"/>
     </issue>
 
     <issue
         id="Typos"
         message="Repeated word &quot;de&quot; in message: possible typo"
-        errorLine1="    &lt;string name=&quot;changelog_v3_5_0&quot;>\nSe renovó por completo la sección Acerca de de la aplicación.\nSe añadieron accesos directos desde el launcher.\nSe corrigió que el menú de navegación no apareciera con la navegación por botones.\nSe mejoró la visibilidad del menú de navegación inferior al desplazarse.\nSe añadió compatibilidad con idioma por aplicación para aShell You (las traducciones aún no están completas).\nMuchas optimizaciones de código.&lt;/string>"
+        errorLine1="    &lt;string name=&quot;changelog_v3_5_0&quot;>\nSe renovó por completo la sección Acerca de de la aplicación.\nSe añadieron accesos directos desde el lanzador.\nSe corrigió que el menú de navegación no apareciera con la navegación por botones.\nSe mejoró la visibilidad del menú de navegación inferior al desplazarse.\nSe añadió compatibilidad con idioma por aplicación para aShell You (las traducciones aún no están completas).\nMuchas optimizaciones de código.&lt;/string>"
         errorLine2="                                                                               ~~~~~">
         <location
             file="src/main/res/values-es-rES/strings.xml"
-            line="601"
+            line="602"
             column="80"/>
     </issue>
 
@@ -140,7 +118,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="30"
+            line="34"
             column="5"/>
     </issue>
 
@@ -151,7 +129,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="96"
+            line="103"
             column="5"/>
     </issue>
 
@@ -162,7 +140,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="100"
+            line="107"
             column="5"/>
     </issue>
 
@@ -173,7 +151,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="109"
+            line="116"
             column="5"/>
     </issue>
 
@@ -184,7 +162,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="119"
+            line="126"
             column="5"/>
     </issue>
 
@@ -195,7 +173,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="120"
+            line="127"
             column="5"/>
     </issue>
 
@@ -206,7 +184,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="221"
+            line="233"
             column="5"/>
     </issue>
 
@@ -217,7 +195,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="232"
+            line="244"
             column="5"/>
     </issue>
 
@@ -228,7 +206,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="233"
+            line="245"
             column="5"/>
     </issue>
 
@@ -239,7 +217,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="234"
+            line="246"
             column="5"/>
     </issue>
 
@@ -250,7 +228,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="303"
+            line="315"
             column="5"/>
     </issue>
 
@@ -261,7 +239,18 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="329"
+            line="346"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="PluralsCandidate"
+        message="Formatting %d followed by words (&quot;days&quot;): This should probably be a plural rather than a string"
+        errorLine1="    &lt;string name=&quot;n_days&quot;>%d days&lt;/string>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="347"
             column="5"/>
     </issue>
 
@@ -277,6 +266,42 @@
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
             file="$GRADLE_USER_HOME/caches/9.5.0/transforms/a36a2908daccc9867cfb425e6eff2cbd/transformed/out/jars/classes.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
+    </issue>
+
+    <issue
+        id="TrustAllX509TrustManager"
+        message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/com.google.http-client/google-http-client/2.1.0/f4c08fa160a5199af19f81080fbaa921ae2193c7/google-http-client-2.1.0.jar"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 28"
+        errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ai/service/AiModelDownloadService.kt"
+            line="45"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; `SDK_INT` is always >= 28"
+        errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/ai/service/AiModelDownloadService.kt"
+            line="205"
+            column="13"/>
     </issue>
 
     <issue
@@ -615,17 +640,6 @@
         errorLine2="^">
         <location
             file="src/main/res/drawable/ic_reset.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_schedule` appears to be unused"
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_schedule.xml"
             line="1"
             column="1"/>
     </issue>
