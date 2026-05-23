@@ -17,9 +17,11 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.ai.domain.model.AnalysisStatus
 import `in`.hridayan.ashell.ai.domain.model.CorrectionSuggestion
 import `in`.hridayan.ashell.ai.presentation.model.AiAnalysisUiState
@@ -32,6 +34,7 @@ import `in`.hridayan.ashell.ai.presentation.model.AiAnalysisUiState
  */
 @Composable
 fun AiAnalysisBottomSheet(
+    modifier: Modifier = Modifier,
     uiState: AiAnalysisUiState,
     onDismiss: () -> Unit,
     onApplyCorrection: (CorrectionSuggestion) -> Unit,
@@ -39,7 +42,6 @@ fun AiAnalysisBottomSheet(
     onRetry: () -> Unit,
     onDownloadModel: () -> Unit,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false),
-    modifier: Modifier = Modifier
 ) {
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -49,12 +51,11 @@ fun AiAnalysisBottomSheet(
         contentColor = MaterialTheme.colorScheme.onSurface,
         tonalElevation = 1.dp
     ) {
-        // Header
         Text(
-            text = "Command Analysis",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            modifier = Modifier.padding(20.dp),
+            text = stringResource(R.string.command_analysis),
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold
         )
 
         when (uiState) {
