@@ -15,26 +15,42 @@ object PromptBuilder {
      * of small models while providing clear instructions for structured output.
      */
     fun buildSystemPrompt(): String = """
-You are an Android shell and ADB command analyzer. Analyze commands and respond ONLY with valid JSON.
+You analyze Android shell and ADB commands.
 
-JSON schema:
-{"status":"VALID|PARTIAL|INVALID|GIBBERISH","description":"what the command does","dangerLevel":"SAFE|LOW_RISK|MODERATE|DANGEROUS|CRITICAL","requiresRoot":false,"reversible":true,"examples":["example usage"],"warnings":["warning"],"useCases":["use case"],"corrections":[{"suggestedCommand":"corrected cmd","confidence":"HIGH|MEDIUM|LOW","source":"AI"}],"feedback":""}
-
-Status definitions:
-- VALID: Complete, correct command ready to run. Example: "pm list packages", "ls -la /sdcard"
-- PARTIAL: Recognized command but MISSING required arguments or has typos. Example: "pm disable" (missing package name), "am start" (missing intent), "chmod" (missing mode and file), "grp" (typo for grep)
-- INVALID: Has fundamentally wrong syntax that cannot work. Example: "pm --disable --all !! //"
-- GIBBERISH: Not a shell/ADB command at all. Example: "hello world", "make me a sandwich", random characters
-
-IMPORTANT: Most Android/shell commands with missing arguments are PARTIAL, NOT GIBBERISH. If you recognize the base command (pm, am, dumpsys, ls, cat, grep, chmod, kill, etc.), use PARTIAL and suggest the complete form in corrections.
+Reply ONLY with valid JSON using this exact schema:
+{"status":"VALID|PARTIAL|INVALID|GIBBERISH","description":"","dangerLevel":"SAFE|LOW_RISK|MODERATE|DANGEROUS|CRITICAL","requiresRoot":false,"reversible":true,"examples":[],"warnings":[],"useCases":[],"corrections":[{"suggestedCommand":"","confidence":"HIGH|MEDIUM|LOW","source":"AI"}],"feedback":""}
 
 Rules:
-- For PARTIAL: describe what the command does, explain what's missing, provide corrections with the complete command
-- For GIBBERISH: set description to "Not a recognized shell or ADB command"
-- dangerLevel: SAFE=read-only, LOW_RISK=minor changes, MODERATE=system changes, DANGEROUS=data loss possible, CRITICAL=can brick device
-- Be concise
-- Output ONLY the JSON object, no other text
-    """.trimIndent()
+- VALID = complete working command
+- PARTIAL = recognized but incomplete/typo
+- INVALID = broken syntax
+- GIBBERISH = not a shell/ADB command
+- If base command is recognized, prefer PARTIAL over GIBBERISH
+
+Output rules:
+- Output ONLY JSON
+- Start with {
+- End with }
+- No markdown
+- No ** formatting
+- No explanations outside JSON
+- description <= 10 words
+- max 1 example
+- max 1 warning
+- max 1 use case
+- max 1 correction
+- feedback short
+
+dangerLevel:
+- SAFE = read-only
+- LOW_RISK = minor changes
+- MODERATE = system changes
+- DANGEROUS = data loss possible
+- CRITICAL = can brick device
+
+Example:
+{"status":"VALID","description":"Lists installed packages","dangerLevel":"SAFE","requiresRoot":false,"reversible":true,"examples":["pm list packages"],"warnings":[],"useCases":["View installed apps"],"corrections":[],"feedback":""}
+""".trimIndent()
 
     /**
      * Build the user prompt for a specific command.
@@ -42,6 +58,5 @@ Rules:
      * @param command The shell/ADB command to analyze
      * @return The formatted user prompt
      */
-    fun buildUserPrompt(command: String): String =
-        "Analyze this shell/ADB command: `$command`"
+    fun buildUserPrompt(command: String): String = "Command: $command\nJSON:"
 }

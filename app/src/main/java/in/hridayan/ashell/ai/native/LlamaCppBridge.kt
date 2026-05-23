@@ -1,5 +1,7 @@
 package `in`.hridayan.ashell.ai.native
 
+import `in`.hridayan.ashell.ai.data.repository.LlamaInferenceEngine
+
 /**
  * JNI bridge to the native llama.cpp inference engine.
  *
