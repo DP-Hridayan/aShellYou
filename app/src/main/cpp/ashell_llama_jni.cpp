@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <android/log.h>
+#include <thread>
+#include <algorithm>
 #include "llama.h"
 
 #define TAG "AShellLlama"
@@ -45,6 +47,14 @@ static bool recreate_context() {
     auto ctx_params = llama_context_default_params();
     ctx_params.n_ctx = g_n_ctx;
     ctx_params.n_batch = 512;
+
+    // Optimize CPU threads for mobile devices (cap at 4 threads to avoid little core bottlenecks)
+    unsigned int hardware_threads = std::thread::hardware_concurrency();
+    int num_threads = (hardware_threads > 0) ? std::min(4, (int)hardware_threads) : 4;
+    ctx_params.n_threads = num_threads;
+    ctx_params.n_threads_batch = num_threads;
+
+    LOGI("Recreating context with %d threads", num_threads);
 
     g_ctx = llama_init_from_model(g_model, ctx_params);
     return g_ctx != nullptr;
