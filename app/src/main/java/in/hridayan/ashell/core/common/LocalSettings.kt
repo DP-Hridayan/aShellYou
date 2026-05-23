@@ -40,6 +40,9 @@ val LocalSettings = compositionLocalOf {
         lastLocalBackupTime = "",
         lastCloudBackupTime = "",
         lastCloudBackupType = "None",
-        lastLocalBackupType = "None"
+        lastLocalBackupType = "None",
+        selectedModelId = SettingsKeys.SELECTED_MODEL_ID.default,
+        aiCacheEnabled = SettingsKeys.AI_CACHE_ENABLED.default,
+        aiCacheDays = SettingsKeys.AI_CACHE_DAYS.default
     )
 }

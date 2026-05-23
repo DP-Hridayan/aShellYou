@@ -118,6 +118,12 @@ fun CompositionLocals(
 
     val lastCloudBackupType by settingsViewModel.stringState(SettingsKeys.LAST_CLOUD_BACKUP_TYPE)
 
+    val selectedModelId by settingsViewModel.stringState(SettingsKeys.SELECTED_MODEL_ID)
+
+    val aiCacheEnabled by settingsViewModel.booleanState(SettingsKeys.AI_CACHE_ENABLED)
+
+    val aiCacheDays by settingsViewModel.intState(SettingsKeys.AI_CACHE_DAYS)
+
     val state =
         remember(
             autoUpdate,
@@ -146,7 +152,10 @@ fun CompositionLocals(
             lastLocalBackupTime,
             lastCloudBackupTime,
             lastLocalBackupType,
-            lastCloudBackupType
+            lastCloudBackupType,
+            selectedModelId,
+            aiCacheEnabled,
+            aiCacheDays
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
@@ -175,7 +184,10 @@ fun CompositionLocals(
                 lastLocalBackupTime = lastLocalBackupTime,
                 lastCloudBackupTime = lastCloudBackupTime,
                 lastLocalBackupType = lastLocalBackupType,
-                lastCloudBackupType = lastCloudBackupType
+                lastCloudBackupType = lastCloudBackupType,
+                selectedModelId = selectedModelId,
+                aiCacheEnabled = aiCacheEnabled,
+                aiCacheDays = aiCacheDays
             )
         }
 

@@ -2,12 +2,15 @@ package `in`.hridayan.ashell.settings.data
 
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
+import `in`.hridayan.ashell.ai.data.local.model.ModelRegistry
 import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
 import `in`.hridayan.ashell.core.domain.model.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.domain.model.PaletteStyle
 import `in`.hridayan.ashell.core.domain.model.SortType
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
 import `in`.hridayan.ashell.core.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.settings.data.SettingsKeys.Companion.entries
+import `in`.hridayan.ashell.settings.data.SettingsKeys.Companion.valueOf
 import `in`.hridayan.settingsdsl.model.SettingsKey
 import kotlin.reflect.KClass
 
@@ -54,6 +57,8 @@ sealed class SettingsKeys<out T>(
     data object QUICK_SETTINGS_TILES : SettingsKeys<Nothing?>("QUICK_SETTINGS_TILES", null)
     data object TRANSLATORS : SettingsKeys<Nothing?>("TRANSLATORS", null)
     data object CONTRIBUTORS : SettingsKeys<Nothing?>("CONTRIBUTORS", null)
+    data object AI_MODEL_MANAGER : SettingsKeys<Nothing?>("AI_MODEL_MANAGER", null)
+    data object AI_MODELS : SettingsKeys<Nothing?>("AI_MODELS", null)
 
     // ── Boolean keys ────────────────────────────────────────────────────────
 
@@ -71,6 +76,7 @@ sealed class SettingsKeys<out T>(
     data object SMOOTH_SCROLLING : SettingsKeys<Boolean>("SMOOTH_SCROLLING", true)
     data object FIRST_LAUNCH : SettingsKeys<Boolean>("FIRST_LAUNCH", true)
     data object NEW_COMMANDS_AVAILABLE : SettingsKeys<Boolean>("NEW_COMMANDS_AVAILABLE", true)
+    data object AI_CACHE_ENABLED : SettingsKeys<Boolean>("AI_CACHE_ENABLED", true)
 
     // ── Int keys ────────────────────────────────────────────────────────────
 
@@ -91,6 +97,7 @@ sealed class SettingsKeys<out T>(
 
     data object BOOKMARK_SORT_TYPE : SettingsKeys<Int>("BOOKMARK_SORT_TYPE", SortType.AZ)
     data object COMMAND_SORT_TYPE : SettingsKeys<Int>("COMMAND_SORT_TYPE", SortType.AZ)
+    data object AI_CACHE_DAYS : SettingsKeys<Int>("AI_CACHE_DAYS", 30)
 
     // ── String keys ─────────────────────────────────────────────────────────
 
@@ -107,6 +114,8 @@ sealed class SettingsKeys<out T>(
     data object LAST_CLOUD_BACKUP_TYPE : SettingsKeys<String>("LAST_CLOUD_BACKUP_TYPE", "None")
     data object LAST_LOCAL_BACKUP_TYPE : SettingsKeys<String>("LAST_LOCAL_BACKUP_TYPE", "None")
     data object RECENT_SEARCH_KEYS : SettingsKeys<String>("RECENT_SEARCH_KEYS", "")
+    data object SELECTED_MODEL_ID :
+        SettingsKeys<String>("SELECTED_MODEL_ID", ModelRegistry.defaultModel.id)
 
     companion object {
         /**

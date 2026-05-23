@@ -61,6 +61,7 @@ class SettingsViewModel @Inject constructor(
     val behaviorPage = SettingsProvider.behaviorPage
     val aboutPage = SettingsProvider.aboutPage
     val backupPage = SettingsProvider.backupPage
+    val aiModelsPage = SettingsProvider.aiModelsPage
 
     private val _uiEvent = MutableSharedFlow<SettingsUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
@@ -243,6 +244,18 @@ class SettingsViewModel @Inject constructor(
 
                 SettingsKeys.OUTPUT_SAVE_DIRECTORY -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.ConfigureSaveDir)
+                )
+
+                SettingsKeys.AI_MODEL_MANAGER -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.AiModelManagerScreen())
+                )
+
+                SettingsKeys.AI_MODELS -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.ModelsScreen)
+                )
+
+                SettingsKeys.AI_CACHE_DAYS -> _uiEvent.emit(
+                    SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheDays)
                 )
 
                 else -> {}

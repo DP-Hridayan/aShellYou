@@ -41,6 +41,7 @@ sealed class DialogKey {
         object ConfirmGoogleSignOut : DialogKey()
         object NoGoogleAccount : DialogKey()
         object PaletteStyle : DialogKey()
+        object AiCacheDays : DialogKey()
     }
 
     sealed class Pair {

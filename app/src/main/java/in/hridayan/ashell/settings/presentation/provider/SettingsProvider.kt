@@ -3,10 +3,14 @@ package `in`.hridayan.ashell.settings.presentation.provider
 import android.os.Build
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.rounded.AutoAwesome
+import androidx.compose.material.icons.rounded.Cached
 import androidx.compose.material.icons.rounded.Downloading
+import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.domain.model.TerminalFontStyle
+import `in`.hridayan.ashell.core.presentation.components.floaters.FloatingIconsBackground
 import `in`.hridayan.ashell.navigation.NavRoutes
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.settingsdsl.dsl.buttonGroupItem
@@ -46,6 +50,12 @@ object SettingsProvider {
                 title = R.string.qs_tiles,
                 description = R.string.des_qs_tiles,
                 icon = R.drawable.ic_dashboard
+            ),
+            clickableItem(
+                key = SettingsKeys.AI_MODEL_MANAGER,
+                title = R.string.ai_models,
+                description = R.string.des_ai_models,
+                iconVector = Icons.Rounded.AutoAwesome
             ),
             clickableItem(
                 key = SettingsKeys.AUTO_UPDATE,
@@ -316,10 +326,40 @@ object SettingsProvider {
         ),
     )
 
+    val aiModelsPage = settingsPage(
+        screenTitle = R.string.ai_models,
+        screenId = "ai_models",
+        category(
+            title = R.string.models,
+            clickableItem(
+                key = SettingsKeys.AI_MODELS,
+                title = R.string.models,
+                description = R.string.des_models,
+                iconVector = Icons.Rounded.Memory
+            ),
+        ),
+        category(
+            title = R.string.cache_settings,
+            switchItem(
+                key = SettingsKeys.AI_CACHE_ENABLED,
+                title = R.string.ai_cache_enabled,
+                description = R.string.des_ai_cache_enabled,
+                iconVector = Icons.Rounded.Cached
+            ),
+            clickableItem(
+                key = SettingsKeys.AI_CACHE_DAYS,
+                title = R.string.ai_cache_days,
+                description = R.string.des_ai_cache_days,
+                icon = R.drawable.ic_schedule
+            ),
+        ),
+    )
+
     /** All searchable pages — single source of truth for the search engine. */
     val allSearchablePages: List<SettingsPage> = listOf(
         settingsPage, lookAndFeelPage, darkThemePage,
         behaviorPage, autoUpdatePage, aboutPage, backupPage,
+        aiModelsPage,
     )
 
     /**
@@ -334,6 +374,7 @@ object SettingsProvider {
         autoUpdatePage.screenId!! to { NavRoutes.AutoUpdateScreen(it) },
         aboutPage.screenId!! to { NavRoutes.AboutScreen(it) },
         backupPage.screenId!! to { NavRoutes.BackupAndRestoreScreen(it) },
+        aiModelsPage.screenId!! to { NavRoutes.AiModelManagerScreen(it) },
     )
 
     /** Resolves a [screenId] to the correct [NavRoutes] destination. */

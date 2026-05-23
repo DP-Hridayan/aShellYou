@@ -2,6 +2,7 @@
     <string name="A_Z" translatable="false">A → Z</string>
     <string name="abort_command">Abort command first</string>
     <string name="about">About</string>
+    <string name="active">Active</string>
     <string name="adb_command">ADB command</string>
     <string name="adb_command_hint">adb reboot</string>
     <string name="adb_command_off_state">ADB command (OFF state)</string>
@@ -19,6 +20,9 @@
     <string name="add_command">Add command</string>
     <string name="add_new_item">Add new item</string>
     <string name="additional_settings">Additional settings</string>
+    <string name="ai_cache_days">Cache duration</string>
+    <string name="ai_cache_enabled">Enable cache</string>
+    <string name="ai_models">AI &amp; Models</string>
     <string name="all">All</string>
     <string name="all_data">All data</string>
     <string name="already_connected">Already connected</string>
@@ -51,6 +55,8 @@
     <string name="bookmarks">Bookmarks</string>
     <string name="bootloader">Bootloader</string>
     <string name="btn_continue">Continue</string>
+    <string name="cache_settings">Cache</string>
+    <string name="cache_size">Cache size: %s</string>
     <string name="cancel">Cancel</string>
     <string name="cancel_all">Cancel all</string>
     <string name="changelog">Changelog</string>
@@ -60,6 +66,7 @@
     <string name="choose_icon">Choose icon</string>
     <string name="clear">Clear</string>
     <string name="clear_all_message">Are you sure you want to clear everything on this screen?</string>
+    <string name="clear_analysis_cache">Clear analysis cache</string>
     <string name="clear_everything">Clear everything</string>
     <string name="clear_output_confirmation">Clear output confirmation</string>
     <string name="clipboard_empty">Clipboard doesn\'t contain text</string>
@@ -121,6 +128,9 @@
     <string name="delete_message">Are you sure you want to delete \"%1$s\"?</string>
     <string name="delete_title">Delete %1$s?</string>
     <string name="des_about">Contributors and support</string>
+    <string name="des_ai_cache_days">Number of days to keep cached results</string>
+    <string name="des_ai_cache_enabled">Cache analysis results per model</string>
+    <string name="des_ai_models">Manage offline AI models for command analysis</string>
     <string name="des_auto_update">Check for updates automatically</string>
     <string name="des_backup_all_data">Backup all data of the app</string>
     <string name="des_backup_and_restore">Backup and restore app settings and other data</string>
@@ -132,6 +142,7 @@
     <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
     <string name="des_clear_output_confirmation">Ask for confirmation before clearing the shell output</string>
     <string name="des_configure_save_directory">Choose a directory to save the shell output</string>
+    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
     <string name="des_crash_history">View all crashes that have occurred in the app</string>
     <string name="des_default_language">Choose the default language for the app</string>
     <string name="des_disable_softkey">Useful when you want to use an external keyboard</string>
@@ -149,6 +160,7 @@
     <string name="des_local_backup">Save encrypted backup to your device</string>
     <string name="des_local_restore">Pick a backup file from your device</string>
     <string name="des_look_and_feel">Dynamic colors, Dark theme, Language</string>
+    <string name="des_models">No model selected</string>
     <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low-end devices should keep this option turned off</string>
     <string name="des_pair_another_device">Pair another target device</string>
     <string name="des_qs_tiles">Create quick settings tiles for executing adb commands</string>
@@ -320,6 +332,11 @@
     <string name="mode">Mode</string>
     <string name="mode_one_desc">Use root access to run commands. Rooted commands can be executed.</string>
     <string name="mode_two_desc">Use shizuku to run commands. Commands that require root won\'t execute.</string>
+    <string name="models">Models</string>
+    <string name="model_category_tiny">Tiny (under 300 MB)</string>
+    <string name="model_category_small">Small (300–500 MB)</string>
+    <string name="model_category_medium">Medium (800 MB–1.1 GB)</string>
+    <string name="model_category_large">Large (1.5–2.5 GB)</string>
     <string name="modified">Modified</string>
     <string name="monospace">Monospace</string>
     <string name="more">More</string>
@@ -327,6 +344,7 @@
     <string name="move">Move</string>
     <string name="moving">Moving…</string>
     <string name="moving_items">Moving %1$d item(s)</string>
+    <string name="n_days">%d days</string>
     <string name="name">Name</string>
     <string name="network_error">Network error</string>
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
@@ -344,9 +362,9 @@
     <string name="no_google_account_title">No Google Account</string>
     <string name="no_history">No command history</string>
     <string name="no_libraries_found">No libraries found</string>
-    <string name="view_license_online_msg">Tap \'Open URL\' to view the license online.</string>
     <string name="no_logs_yet">No logs yet!</string>
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
+    <string name="no_model_selected">No model selected</string>
     <string name="no_operations">No operations in progress</string>
     <string name="no_results_found">No results found</string>
     <string name="no_root_access">No root access</string>
@@ -388,6 +406,16 @@
     <string name="pairing_code">Pairing code</string>
     <string name="pairing_notification_hint">You will receive a notification from aShell You to help you with pairing</string>
     <string name="pairing_process_notification_access_message">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
+    <string name="palette_content">Content</string>
+    <string name="palette_expressive">Expressive</string>
+    <string name="palette_fidelity">Fidelity</string>
+    <string name="palette_fruit_salad">Fruit Salad</string>
+    <string name="palette_monochrome">Monochrome</string>
+    <string name="palette_neutral">Neutral</string>
+    <string name="palette_rainbow">Rainbow</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">Tonal Spot</string>
+    <string name="palette_vibrant">Vibrant</string>
     <string name="paste">Paste</string>
     <string name="path">Path</string>
     <string name="permission_denied">Permission denied</string>
@@ -408,6 +436,7 @@
     <string name="reboot_options">Reboot options</string>
     <string name="recent_activity">Recent activity</string>
     <string name="recent_searches">Recent searches</string>
+    <string name="recommended">Recommended</string>
     <string name="reconnect">Reconnect</string>
     <string name="reconnect_failed">Reconnect failed</string>
     <string name="reconnect_failed_message">\nWireless Debugging might not be enabled\nPairing info might be lost. Pair manually again!</string>
@@ -449,8 +478,10 @@
     <string name="search_libraries">Search libraries, authors, licenses…</string>
     <string name="search_output">Search output here</string>
     <string name="search_settings">Search settings</string>
+    <string name="search_something">Search something</string>
     <string name="searching_connect_service">Searching connect service</string>
     <string name="searching_for_devices">Searching for devices…</string>
+    <string name="select">Select</string>
     <string name="select_all">Select all</string>
     <string name="self">Self</string>
     <string name="self_pair_connection_failed">Connection failed - try manual connect</string>
@@ -492,6 +523,7 @@
     <string name="stack_trace">Stack trace</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">Start</string>
+    <string name="storage_used_by_ai_models">%.1f MB used by AI models</string>
     <string name="subtitle">Subtitle</string>
     <string name="subtitle_off_state">Subtitle (OFF state)</string>
     <string name="subtitle_on_state">Subtitle (ON state)</string>
@@ -544,8 +576,8 @@
     <string name="variant">Variant</string>
     <string name="version">Version</string>
     <string name="version_code">Version code</string>
-    <string name="search_something">Search something</string>
     <string name="version_name">Version name</string>
+    <string name="view_license_online_msg">Tap \'Open URL\' to view the license online.</string>
     <string name="view_on_github">View on GitHub</string>
     <string name="visit_repo_to_download">Click on the download button to get the latest version of aShellYou from the github repository.</string>
     <string name="waiting_for_device">Waiting for device</string>
@@ -562,17 +594,10 @@
     <string name="wireless_debugging_guide_3">Come back to the app and click on the \"Start\" button in the home screen.</string>
     <string name="wireless_debugging_important_notice">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="Z_A" translatable="false">Z → A</string>
-    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
-    <string name="palette_style">Palette style</string>
-    <string name="palette_tonal_spot">Tonal Spot</string>
-    <string name="palette_expressive">Expressive</string>
-    <string name="palette_vibrant">Vibrant</string>
-    <string name="palette_monochrome">Monochrome</string>
-    <string name="palette_rainbow">Rainbow</string>
-    <string name="palette_fruit_salad">Fruit Salad</string>
-    <string name="palette_neutral">Neutral</string>
-    <string name="palette_fidelity">Fidelity</string>
-    <string name="palette_content">Content</string>
+    <string name="command_analysis">Command analysis</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
 
     /**
     * Changelogs

@@ -26,13 +26,18 @@ android {
         applicationId = "in.hridayan.ashell"
         minSdk = 28
         targetSdk = 36
-        versionCode = 62
-        versionName = "v7.4.0"
+        versionCode = 63
+        versionName = "v7.5.0"
 
         buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
         buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //noinspection ChromeOsAbiSupport
+            abiFilters += setOf("arm64-v8a", "armeabi-v7a")
+        }
     }
 
     lint {
@@ -115,6 +120,13 @@ android {
     androidResources {
         @Suppress("UnstableApiUsage")
         generateLocaleConfig = true
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
     }
 
     packaging {
