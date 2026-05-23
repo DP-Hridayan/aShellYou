@@ -103,8 +103,8 @@ object ModelRegistry {
     val SMOLLM3_3B_Q4 = AiModel(
         id = "smollm3-3b-q4_k_m",
         name = "SmolLM3 3B",
-        fileName = "SmolLM3-3B-Q4_K_M.gguf",
-        downloadUrl = "https://huggingface.co/bartowski/HuggingFaceTB_SmolLM3-3B-GGUF/resolve/main/SmolLM3-3B-Q4_K_M.gguf",
+        fileName = "HuggingFaceTB-SmolLM3-3B-Q4_K_M.gguf",
+        downloadUrl = "https://huggingface.co/bartowski/HuggingFaceTB_SmolLM3-3B-GGUF/resolve/main/HuggingFaceTB_SmolLM3-3B-Q4_K_M.gguf",
         sizeBytes = 1_920_000_000L,
         description = "Powerful 3B model with excellent reasoning. Best analysis quality for devices with 6+ GB free RAM. Supports 128K context.",
         quantization = "Q4_K_M",
