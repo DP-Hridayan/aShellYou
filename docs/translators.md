@@ -40,7 +40,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(Guzleon)</b></sub></a>
         <br />
-        <sub><b>3746 words</b></sub>
+        <sub><b>3750 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/rahim.0"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17262364/medium/def988bf394394d50abe0836563619b3.png" />

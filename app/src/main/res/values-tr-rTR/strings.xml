@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Önce komutu iptal et</string>
     <string name="about">Hakkında</string>
+    <string name="active">Active</string>
     <string name="adb_command">ADB Komutu</string>
     <string name="adb_command_hint">adb reboot</string>
     <string name="adb_command_off_state">ADB command (OFF state)</string>
@@ -19,6 +20,9 @@
     <string name="add_command">Komut ekle</string>
     <string name="add_new_item">Yeni öge ekle</string>
     <string name="additional_settings">Ek ayarlar</string>
+    <string name="ai_cache_days">Cache duration</string>
+    <string name="ai_cache_enabled">Enable cache</string>
+    <string name="ai_models">AI &amp; Models</string>
     <string name="all">All</string>
     <string name="all_data">All data</string>
     <string name="already_connected">Zaten bağlı</string>
@@ -50,6 +54,8 @@
     <string name="bookmarks">Yer İmleri</string>
     <string name="bootloader">Bootloader</string>
     <string name="btn_continue">Devam et</string>
+    <string name="cache_settings">Cache</string>
+    <string name="cache_size">Cache size: %s</string>
     <string name="cancel">İptal</string>
     <string name="cancel_all">Tümünü iptal et</string>
     <string name="changelog">Changelog</string>
@@ -59,6 +65,7 @@
     <string name="choose_icon">Choose icon</string>
     <string name="clear">Temizle</string>
     <string name="clear_all_message">Bu ekrandaki her şeyi temizlemek istediğinize emin misiniz?</string>
+    <string name="clear_analysis_cache">Clear analysis cache</string>
     <string name="clear_everything">Her şeyi temizle</string>
     <string name="clear_output_confirmation">Çıktı temizleme onayı</string>
     <string name="clipboard_empty">Pano metin içermiyor</string>
@@ -119,6 +126,9 @@
     <string name="delete_message">\"%1$s\" adlı ögeyi silmek istediğinize emin misiniz?</string>
     <string name="delete_title">%1$s silinsin mi?</string>
     <string name="des_about">Katkıda bulunanlar ve destek</string>
+    <string name="des_ai_cache_days">Number of days to keep cached results</string>
+    <string name="des_ai_cache_enabled">Cache analysis results per model</string>
+    <string name="des_ai_models">Manage offline AI models for command analysis</string>
     <string name="des_auto_update">Güncellemeleri otomatik olarak denetle</string>
     <string name="des_backup_all_data">Uygulamanın tüm verilerini yedekle</string>
     <string name="des_backup_and_restore">Uygulama ayarlarını ve diğer verileri yedekle/geri yükle</string>
@@ -130,6 +140,7 @@
     <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
     <string name="des_clear_output_confirmation">Shell çıktısını temizlemeden önce onay iste</string>
     <string name="des_configure_save_directory">Shell çıktısını kaydetmek için bir dizin seçin</string>
+    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
     <string name="des_crash_history">Uygulamada meydana gelen tüm çökmeleri görüntüleyin</string>
     <string name="des_default_language">Uygulama için varsayılan dili seçin</string>
     <string name="des_disable_softkey">Harici bir klavye kullanmak istediğinizde faydalıdır</string>
@@ -147,6 +158,7 @@
     <string name="des_local_backup">Save encrypted backup to your device</string>
     <string name="des_local_restore">Pick a backup file from your device</string>
     <string name="des_look_and_feel">Dinamik renkler, Karanlık tema, Dil</string>
+    <string name="des_models">No model selected</string>
     <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low-end devices should keep this option turned off</string>
     <string name="des_pair_another_device">Başka bir hedef cihazı eşleştirin</string>
     <string name="des_qs_tiles">Create quick settings tiles for executing adb commands</string>
@@ -316,6 +328,11 @@
     <string name="mode">Mod</string>
     <string name="mode_one_desc">Komutları çalıştırmak için root erişimini kullanır. Root gerektiren komutlar çalıştırılabilir.</string>
     <string name="mode_two_desc">Komutları çalıştırmak için Shizuku kullanır. Root gerektiren komutlar çalıştırılamaz.</string>
+    <string name="models">Models</string>
+    <string name="model_category_tiny">Tiny (under 300 MB)</string>
+    <string name="model_category_small">Small (300–500 MB)</string>
+    <string name="model_category_medium">Medium (800 MB–1.1 GB)</string>
+    <string name="model_category_large">Large (1.5–2.5 GB)</string>
     <string name="modified">Değiştirilme tarihi</string>
     <string name="monospace">Eşaralıklı (Monospace)</string>
     <string name="more">Daha Fazla</string>
@@ -323,6 +340,7 @@
     <string name="move">Taşı</string>
     <string name="moving">Taşınıyor…</string>
     <string name="moving_items">%1$d öge taşınıyor</string>
+    <string name="n_days">%d days</string>
     <string name="name">Ad</string>
     <string name="network_error">Ağ hatası</string>
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
@@ -340,9 +358,9 @@
     <string name="no_google_account_title">No Google Account</string>
     <string name="no_history">Komut geçmişi yok</string>
     <string name="no_libraries_found">No libraries found</string>
-    <string name="view_license_online_msg">Tap \'Open URL\' to view the license online.</string>
     <string name="no_logs_yet">No logs yet!</string>
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
+    <string name="no_model_selected">No model selected</string>
     <string name="no_operations">Devam eden işlem yok</string>
     <string name="no_results_found">No results found</string>
     <string name="no_root_access">Root erişimi yok</string>
@@ -384,6 +402,16 @@
     <string name="pairing_code">Eşleştirme kodu</string>
     <string name="pairing_notification_hint">Eşleştirmeye yardımcı olması için aShell You uygulamasından bir bildirim alacaksınız</string>
     <string name="pairing_process_notification_access_message">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
+    <string name="palette_content">Content</string>
+    <string name="palette_expressive">Expressive</string>
+    <string name="palette_fidelity">Fidelity</string>
+    <string name="palette_fruit_salad">Fruit Salad</string>
+    <string name="palette_monochrome">Monochrome</string>
+    <string name="palette_neutral">Neutral</string>
+    <string name="palette_rainbow">Rainbow</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">Tonal Spot</string>
+    <string name="palette_vibrant">Vibrant</string>
     <string name="paste">Yapıştır</string>
     <string name="path">Yol</string>
     <string name="permission_denied">İzin reddedildi</string>
@@ -404,6 +432,7 @@
     <string name="reboot_options">Yeniden başlatma (Reboot) seçenekleri</string>
     <string name="recent_activity">Recent activity</string>
     <string name="recent_searches">Recent searches</string>
+    <string name="recommended">Recommended</string>
     <string name="reconnect">Yeniden Bağlan</string>
     <string name="reconnect_failed">Yeniden bağlantı başarısız</string>
     <string name="reconnect_failed_message">\nKablosuz Hata Ayıklama etkinleştirilmemiş olabilir\nEşleştirme bilgileri kaybolmuş olabilir. Tekrar manuel olarak eşleştirin!</string>
@@ -444,8 +473,10 @@
     <string name="search_libraries">Search libraries, authors, licenses…</string>
     <string name="search_output">Çıktıyı burada arayın</string>
     <string name="search_settings">Search settings</string>
+    <string name="search_something">Search something</string>
     <string name="searching_connect_service">Bağlantı servisi aranıyor</string>
     <string name="searching_for_devices">Cihazlar aranıyor…</string>
+    <string name="select">Seç</string>
     <string name="select_all">Tümünü seç</string>
     <string name="self">Kendi Cihazı</string>
     <string name="self_pair_connection_failed">Bağlantı başarısız - manuel bağlanmayı deneyin</string>
@@ -486,6 +517,7 @@
     <string name="stack_trace">Yığın İzleme (Stack trace)</string>
     <string name="stargazers">Yıldız Verenler (Stargazers)</string>
     <string name="start">Başlat</string>
+    <string name="storage_used_by_ai_models">%.1f MB used by AI models</string>
     <string name="subtitle">Subtitle</string>
     <string name="subtitle_off_state">Subtitle (OFF state)</string>
     <string name="subtitle_on_state">Subtitle (ON state)</string>
@@ -538,8 +570,8 @@
     <string name="variant">Variant</string>
     <string name="version">Sürüm</string>
     <string name="version_code">Sürüm kodu</string>
-    <string name="search_something">Search something</string>
     <string name="version_name">Sürüm adı</string>
+    <string name="view_license_online_msg">Tap \'Open URL\' to view the license online.</string>
     <string name="view_on_github">View on GitHub</string>
     <string name="visit_repo_to_download">Github deposundan aShellYou\'nun son sürümünü almak için indirme düğmesine tıklayın.</string>
     <string name="waiting_for_device">Cihaz bekleniyor</string>
@@ -554,17 +586,10 @@
     <string name="wireless_debugging_guide_2">Altı haneli Eşleştirme Kodunu aShell You tarafından gönderilen bildirime girin.</string>
     <string name="wireless_debugging_guide_3">Uygulamaya geri dönün ve ana ekrandaki \"Başlat\" düğmesine tıklayın.</string>
     <string name="wireless_debugging_important_notice">Lütfen Kablosuz Hata Ayıklama seçeneğinin sol kısmının tıklanabilir olduğuna dikkat edin. Üzerine dokunulduğunda Kablosuz Hata Ayıklama Eşleştirme menüsü açılır.</string>
-    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
-    <string name="palette_style">Palette style</string>
-    <string name="palette_tonal_spot">Tonal Spot</string>
-    <string name="palette_expressive">Expressive</string>
-    <string name="palette_vibrant">Vibrant</string>
-    <string name="palette_monochrome">Monochrome</string>
-    <string name="palette_rainbow">Rainbow</string>
-    <string name="palette_fruit_salad">Fruit Salad</string>
-    <string name="palette_neutral">Neutral</string>
-    <string name="palette_fidelity">Fidelity</string>
-    <string name="palette_content">Content</string>
+    <string name="command_analysis">Command analysis</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>

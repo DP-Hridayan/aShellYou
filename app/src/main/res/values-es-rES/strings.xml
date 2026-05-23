@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Abortar el comando primero</string>
     <string name="about">Acerca de</string>
+    <string name="active">Activo</string>
     <string name="adb_command">Comando ADB</string>
     <string name="adb_command_hint">adb reboot</string>
     <string name="adb_command_off_state">Comando ADB (Estado: DESACTIVADO)</string>
@@ -12,13 +13,16 @@
     <string name="adb_connection_description">La conexión ADB por Wifi se está manteniendo</string>
     <string name="adb_through_otg">ADB a través de OTG</string>
     <string name="adb_through_otg_summary">Usa un cable OTG y la depuración USB para ejecutar comandos ADB en otro dispositivo Android. Debes activar Depuración USB en las opciones de desarrollador del dispositivo objetivo.</string>
-    <string name="adb_via_wireless_debugging">ADB vía Depuración Inalámbrica</string>
+    <string name="adb_via_wireless_debugging">ADB vía Depuración inalámbrica</string>
     <string name="adb_via_wireless_debugging_summary">Conecta dispositivos (Android 11+) por Wifi usando la depuración inalámbrica y ejecuta comandos ADB de forma remota.</string>
     <string name="add">Añadir</string>
     <string name="add_account">Añadir cuenta</string>
     <string name="add_command">Añadir comando</string>
     <string name="add_new_item">Añadir nuevo elemento</string>
     <string name="additional_settings">Ajustes adicionales</string>
+    <string name="ai_cache_days">Duración del caché</string>
+    <string name="ai_cache_enabled">Activar caché</string>
+    <string name="ai_models">AI &amp; Models</string>
     <string name="all">Todo</string>
     <string name="all_data">Todos los datos</string>
     <string name="already_connected">Ya conectado</string>
@@ -50,6 +54,8 @@
     <string name="bookmarks">Marcadores</string>
     <string name="bootloader">Gestor de arranque</string>
     <string name="btn_continue">Continuar</string>
+    <string name="cache_settings">Caché</string>
+    <string name="cache_size">Tamaño de caché: %s</string>
     <string name="cancel">Cancelar</string>
     <string name="cancel_all">Cancelar todo</string>
     <string name="changelog">Registro de cambios</string>
@@ -59,6 +65,7 @@
     <string name="choose_icon">Elige un icono</string>
     <string name="clear">Borrar</string>
     <string name="clear_all_message">¿Estás seguro de que quieres borrar todo en esta pantalla?</string>
+    <string name="clear_analysis_cache">Limpiar caché de análisis</string>
     <string name="clear_everything">Borrar todo</string>
     <string name="clear_output_confirmation">Confirmación de borrado de salida</string>
     <string name="clipboard_empty">El portapapeles no contiene texto</string>
@@ -119,6 +126,9 @@
     <string name="delete_message">¿Seguro que quieres eliminar \"%1$s\"?</string>
     <string name="delete_title">¿Eliminar %1$s?</string>
     <string name="des_about">Colaboradores y soporte</string>
+    <string name="des_ai_cache_days">Número de días para mantener los resultados en caché</string>
+    <string name="des_ai_cache_enabled">Resultados de análisis de caché por modelo</string>
+    <string name="des_ai_models">Administrar modelos de IA sin conexión para el análisis de comandos</string>
     <string name="des_auto_update">Buscar actualizaciones automáticamente</string>
     <string name="des_backup_all_data">Hacer copia de seguridad de todos los datos de la aplicación</string>
     <string name="des_backup_and_restore">Hacer copia de seguridad y restaurar los ajustes de la aplicación y otros datos</string>
@@ -130,6 +140,7 @@
     <string name="des_choose_icon">Haz clic aquí para elegir un icono de la colección de iconos</string>
     <string name="des_clear_output_confirmation">Pedir confirmación antes de borrar la salida de la consola</string>
     <string name="des_configure_save_directory">Elige un directorio para guardar la salida de la consola</string>
+    <string name="des_contributors">Lista de colaboradores que ayudaron en el desarrollo de aShell You</string>
     <string name="des_crash_history">Ver todos los fallos que se han producido en la aplicación</string>
     <string name="des_default_language">Elige el idioma predeterminado de la aplicación</string>
     <string name="des_disable_softkey">Útil cuando quieres usar un teclado externo</string>
@@ -147,6 +158,7 @@
     <string name="des_local_backup">Guardar copia de seguridad cifrada en tu dispositivo</string>
     <string name="des_local_restore">Selecciona un archivo de copia de seguridad desde tu dispositivo</string>
     <string name="des_look_and_feel">Colores dinámicos, Tema oscuro, Idioma</string>
+    <string name="des_models">Ningún modelo seleccionado</string>
     <string name="des_override_bookmarks">Podría causar lentitud si se añaden muchos marcadores. Los dispositivos de gama baja deberían mantener esta opción desactivada</string>
     <string name="des_pair_another_device">Emparejar otro dispositivo de destino</string>
     <string name="des_qs_tiles">Crear mosaicos de Ajustes rápidos para ejecutar comandos ADB</string>
@@ -316,6 +328,11 @@
     <string name="mode">Modo</string>
     <string name="mode_one_desc">Usa el acceso root para ejecutar comandos. Los comandos que requieren root pueden ejecutarse.</string>
     <string name="mode_two_desc">Usa Shizuku para ejecutar comandos. Los comandos que requieren root no se ejecutarán.</string>
+    <string name="models">Modelos</string>
+    <string name="model_category_tiny">Pequeño (menos de 300 MB)</string>
+    <string name="model_category_small">Pequeño (300–500 MB)</string>
+    <string name="model_category_medium">Media (800 MB–1,1 GB)</string>
+    <string name="model_category_large">Grande (1,5–2,5 GB)</string>
     <string name="modified">Modificado</string>
     <string name="monospace">Monoespaciado</string>
     <string name="more">Más</string>
@@ -323,6 +340,7 @@
     <string name="move">Mover</string>
     <string name="moving">Moviendo…</string>
     <string name="moving_items">Moviendo %1$d elemento(s)</string>
+    <string name="n_days">%d días</string>
     <string name="name">Nombre</string>
     <string name="network_error">Error de red</string>
     <string name="new_commands_available_msg">¡Se han añadido nuevos ejemplos de comandos!\nHaz clic en el botón de abajo para cargar los nuevos comandos.</string>
@@ -340,9 +358,9 @@
     <string name="no_google_account_title">Sin cuenta de Google</string>
     <string name="no_history">Sin historial de comandos</string>
     <string name="no_libraries_found">No se encontraron librerías</string>
-    <string name="view_license_online_msg">Pulse \'Abrir URL\' para ver la licencia en línea.</string>
     <string name="no_logs_yet">¡Aún no hay registros!</string>
     <string name="no_logs_yet_msg">Aún no se ha grabado ningún registro. Ejecuta algunos mosaicos para mostrar los registros aquí.</string>
+    <string name="no_model_selected">Ningún modelo seleccionado</string>
     <string name="no_operations">No hay operaciones en curso</string>
     <string name="no_results_found">No se encontraron resultados</string>
     <string name="no_root_access">Sin acceso root</string>
@@ -384,6 +402,16 @@
     <string name="pairing_code">Código de emparejamiento</string>
     <string name="pairing_notification_hint">Recibirás una notificación de aShell You para ayudarte con el emparejamiento</string>
     <string name="pairing_process_notification_access_message">Para completar el proceso de emparejamiento, tendrás que interactuar con una notificación de aShell You. Por favor, concede acceso a las notificaciones para aShell You.</string>
+    <string name="palette_content">Contenido</string>
+    <string name="palette_expressive">Expresivo</string>
+    <string name="palette_fidelity">Fidelidad</string>
+    <string name="palette_fruit_salad">Ensalada de frutas</string>
+    <string name="palette_monochrome">Monocromo</string>
+    <string name="palette_neutral">Neutro</string>
+    <string name="palette_rainbow">Arcoíris</string>
+    <string name="palette_style">Estilo de paleta</string>
+    <string name="palette_tonal_spot">Mancha tonal</string>
+    <string name="palette_vibrant">Vibrante</string>
     <string name="paste">Pegar</string>
     <string name="path">Ruta</string>
     <string name="permission_denied">Permiso denegado</string>
@@ -404,6 +432,7 @@
     <string name="reboot_options">Opciones de reinicio</string>
     <string name="recent_activity">Actividad reciente</string>
     <string name="recent_searches">Búsquedas recientes</string>
+    <string name="recommended">Recomendado</string>
     <string name="reconnect">Volver a conectar</string>
     <string name="reconnect_failed">Error al reconectar</string>
     <string name="reconnect_failed_message">\nEs posible que la Depuración inalámbrica no esté activada.\nLa información de emparejamiento podría haberse perdido. ¡Empareja manualmente de nuevo!</string>
@@ -444,8 +473,10 @@
     <string name="search_libraries">Buscar librerías, autores, licencias…</string>
     <string name="search_output">Buscar salidas aquí</string>
     <string name="search_settings">Buscar ajustes</string>
+    <string name="search_something">Buscar algo</string>
     <string name="searching_connect_service">Buscando el servicio de conexión</string>
     <string name="searching_for_devices">Buscando dispositivos…</string>
+    <string name="select">Seleccionar</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="self">Propio</string>
     <string name="self_pair_connection_failed">La conexión falló - intenta la conexión manual</string>
@@ -486,6 +517,7 @@
     <string name="stack_trace">Traza de pila</string>
     <string name="stargazers">Usuarios que dieron estrella</string>
     <string name="start">Iniciar</string>
+    <string name="storage_used_by_ai_models">%.1f MB usados por modelos IA</string>
     <string name="subtitle">Subtítulo</string>
     <string name="subtitle_off_state">Subtítulos (Estado: DESACTIVADOS)</string>
     <string name="subtitle_on_state">Subtítulos (Estado: ACTIVADOS)</string>
@@ -538,8 +570,8 @@
     <string name="variant">Variante</string>
     <string name="version">Versión</string>
     <string name="version_code">Código de versión</string>
-    <string name="search_something">Buscar algo</string>
     <string name="version_name">Nombre de la versión</string>
+    <string name="view_license_online_msg">Pulse \'Abrir URL\' para ver la licencia en línea.</string>
     <string name="view_on_github">Ver en GitHub</string>
     <string name="visit_repo_to_download">Haz clic en el botón de descarga para obtener la última versión de aShell You desde el repositorio de GitHub.</string>
     <string name="waiting_for_device">Esperando al dispositivo</string>
@@ -554,17 +586,10 @@
     <string name="wireless_debugging_guide_2">Introduce el código de emparejamiento de seis dígitos en la notificación enviada por aShell You.</string>
     <string name="wireless_debugging_guide_3">Vuelve a la aplicación y pulsa el botón \"Iniciar\" en la pantalla principal.</string>
     <string name="wireless_debugging_important_notice">Ten en cuenta que la parte izquierda de la opción Depuración inalámbrica es pulsable. Al tocarla, se abrirá el menú de emparejamiento de Depuración inalámbrica.</string>
-    <string name="des_contributors">Lista de colaboradores que ayudaron en el desarrollo de aShell You</string>
-    <string name="palette_style">Estilo de paleta</string>
-    <string name="palette_tonal_spot">Mancha tonal</string>
-    <string name="palette_expressive">Expresivo</string>
-    <string name="palette_vibrant">Vibrante</string>
-    <string name="palette_monochrome">Monocromo</string>
-    <string name="palette_rainbow">Arcoíris</string>
-    <string name="palette_fruit_salad">Ensalada de frutas</string>
-    <string name="palette_neutral">Neutro</string>
-    <string name="palette_fidelity">Fidelidad</string>
-    <string name="palette_content">Contenido</string>
+    <string name="command_analysis">Análisis de comandos</string>
+    <string name="high">Alta</string>
+    <string name="medium">Medio</string>
+    <string name="low">Baja</string>
     <string name="changelog_v7_4_0">\nAhora puedes buscar subajustes dentro de las pantallas de Ajustes\nSe añadieron estilos de paleta para los esquemas de colores\nSe añadió la opción de establecer el idioma de la aplicación directamente desde la aplicación</string>
     <string name="changelog_v7_3_0">\nMejora de la interfaz en la pantalla de registro de cambios\nAñadidos los colaboradores de traducción en la sección Acerca de\nAñadida la pantalla de Licencias, que muestra información detallada sobre las licencias de la aplicación y de las librerias utilizadas</string>
     <string name="changelog_v7_2_1">\n¡Actualización de mantenimiento!</string>

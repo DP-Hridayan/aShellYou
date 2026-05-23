@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Aborte o comando primeiro</string>
     <string name="about">Sobre</string>
+    <string name="active">ativo</string>
     <string name="adb_command">Comando ADB</string>
     <string name="adb_command_hint">adb reboot</string>
     <string name="adb_command_off_state">Comando ADB (Estado DESLIGAD)</string>
@@ -19,6 +20,9 @@
     <string name="add_command">Adicionar comando</string>
     <string name="add_new_item">Adicionar novo item</string>
     <string name="additional_settings">Configurações adicionais</string>
+    <string name="ai_cache_days">Duração do cache</string>
+    <string name="ai_cache_enabled">Habilitar cache</string>
+    <string name="ai_models">AI &amp; Models</string>
     <string name="all">TODOS</string>
     <string name="all_data">Todos os dados</string>
     <string name="already_connected">Já conectado</string>
@@ -50,6 +54,8 @@
     <string name="bookmarks">Favoritos</string>
     <string name="bootloader">Inicializador</string>
     <string name="btn_continue">Continuar</string>
+    <string name="cache_settings">Cachear</string>
+    <string name="cache_size">Tamanho do cache: %s</string>
     <string name="cancel">Cancelar</string>
     <string name="cancel_all">Cancelar todos</string>
     <string name="changelog">Mudanças</string>
@@ -59,6 +65,7 @@
     <string name="choose_icon">Escolher ícone</string>
     <string name="clear">Limpar</string>
     <string name="clear_all_message">Tem certeza de que deseja limpar tudo nesta tela?</string>
+    <string name="clear_analysis_cache">Limpar cache de análise</string>
     <string name="clear_everything">Limpar tudo</string>
     <string name="clear_output_confirmation">Confirmação de saída clara</string>
     <string name="clipboard_empty">Área de transferência não contém texto</string>
@@ -119,6 +126,9 @@
     <string name="delete_message">Tem certeza que deseja excluir \"%1$s\"?</string>
     <string name="delete_title">Excluir %1$s?</string>
     <string name="des_about">Colaboradores e Suporte</string>
+    <string name="des_ai_cache_days">Número de dias para manter resultados em cache</string>
+    <string name="des_ai_cache_enabled">Resultados da análise de cache por modelo</string>
+    <string name="des_ai_models">Gerenciar modelos de IA off-line para a análise de comandos</string>
     <string name="des_auto_update">Verificar automaticamente por atualizações</string>
     <string name="des_backup_all_data">Fazer backup de todos os dados do app</string>
     <string name="des_backup_and_restore">Fazer backup e restaurar configurações de aplicativos e outros dados</string>
@@ -130,6 +140,7 @@
     <string name="des_choose_icon">Clique aqui para escolher um ícone da coleção de ícones</string>
     <string name="des_clear_output_confirmation">Solicitar confirmação antes de limpar a saída do shell</string>
     <string name="des_configure_save_directory">Escolha um diretório para salvar a saída do shell</string>
+    <string name="des_contributors">Lista de colaboradores que ajudaram no desenvolvimento da aShell</string>
     <string name="des_crash_history">Ver todos os problemas que ocorreram no aplicativo</string>
     <string name="des_default_language">Escolha o idioma padrão para o app</string>
     <string name="des_disable_softkey">Útil quando você quiser usar um teclado externo</string>
@@ -147,6 +158,7 @@
     <string name="des_local_backup">Salvar backup criptografado no seu dispositivo</string>
     <string name="des_local_restore">Escolha um arquivo de backup do seu dispositivo.</string>
     <string name="des_look_and_feel">Cores dinâmicas, Tema escuro, Idioma</string>
+    <string name="des_models">Nenhum modelo selecionado</string>
     <string name="des_override_bookmarks">Pode causar atraso se um grande número de favoritos for adicionado! Dispositivos de baixo limite devem manter esta opção desativada</string>
     <string name="des_pair_another_device">Parear outro dispositivo de destino</string>
     <string name="des_qs_tiles">Criar blocos de configurações rápidas para executar comandos do Adb</string>
@@ -316,6 +328,11 @@
     <string name="mode">Modo</string>
     <string name="mode_one_desc">Use o acesso root para executar comandos. Comandos com root podem ser executados.</string>
     <string name="mode_two_desc">Use shizuku para executar comandos. Comandos que requerem root não serão executados.</string>
+    <string name="models">Modelos</string>
+    <string name="model_category_tiny">Minúsculo (menos de 300 MB)</string>
+    <string name="model_category_small">Pequeno (300-500 MB)</string>
+    <string name="model_category_medium">Médio (800 MB-1,1 GB)</string>
+    <string name="model_category_large">Grande (1.5–2,5 GB)</string>
     <string name="modified">Modificado</string>
     <string name="monospace">Monosespaçada</string>
     <string name="more">MAIS</string>
@@ -323,6 +340,7 @@
     <string name="move">Mover-se</string>
     <string name="moving">Movendo…</string>
     <string name="moving_items">Movendo %1$d item(ns)</string>
+    <string name="n_days">%d days</string>
     <string name="name">Nome:</string>
     <string name="network_error">Erro de rede</string>
     <string name="new_commands_available_msg">Novos exemplos de comandos são adicionados!\nclique no botão abaixo para carregar os novos comandos.</string>
@@ -340,9 +358,9 @@
     <string name="no_google_account_title">Nenhuma conta do Google</string>
     <string name="no_history">Sem histórico de comandos</string>
     <string name="no_libraries_found">Nenhuma biblioteca encontrada</string>
-    <string name="view_license_online_msg">Toque em \'Abrir URL\' para ver a licença online.</string>
     <string name="no_logs_yet">Ainda não há registros!</string>
     <string name="no_logs_yet_msg">Nenhum registro foi gravado ainda. Execute alguns blocos para exibir os registros aqui.</string>
+    <string name="no_model_selected">Nenhum modelo selecionado</string>
     <string name="no_operations">Nenhuma operação em andamento</string>
     <string name="no_results_found">Nenhum resultado encontrado</string>
     <string name="no_root_access">Sem acesso root</string>
@@ -384,6 +402,16 @@
     <string name="pairing_code">Código de pareamento</string>
     <string name="pairing_notification_hint">Você receberá uma notificação do aShell You para ajudá-lo a parear</string>
     <string name="pairing_process_notification_access_message">Para completar o processo de emparelhamento, você precisará interagir com uma notificação da aShell You. Por favor, permita o acesso às notificações à aShell You.</string>
+    <string name="palette_content">Conteúdo</string>
+    <string name="palette_expressive">Expressivo</string>
+    <string name="palette_fidelity">Fidelidade</string>
+    <string name="palette_fruit_salad">Salada de frutas</string>
+    <string name="palette_monochrome">Monocromático</string>
+    <string name="palette_neutral">Neutro</string>
+    <string name="palette_rainbow">Arco-íris</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">Ponto Tonal</string>
+    <string name="palette_vibrant">Vibrante</string>
     <string name="paste">Colar</string>
     <string name="path">Caminho</string>
     <string name="permission_denied">Permissão negada</string>
@@ -404,6 +432,7 @@
     <string name="reboot_options">Opções de reinicialização</string>
     <string name="recent_activity">Atividade recente</string>
     <string name="recent_searches">Pesquisas Recentes</string>
+    <string name="recommended">Recomendados</string>
     <string name="reconnect">Reconectar</string>
     <string name="reconnect_failed">Reconexão falhou</string>
     <string name="reconnect_failed_message">\nA depuração sem fio pode não ser ativada\nInformações de pareamento podem ser perdidas. Pareie manualmente novamente!</string>
@@ -444,8 +473,10 @@
     <string name="search_libraries">Pesquisar bibliotecas, autores, licenças…</string>
     <string name="search_output">Saída da busca aqui</string>
     <string name="search_settings">Configurações de pesquisa</string>
+    <string name="search_something">Procurar algo</string>
     <string name="searching_connect_service">Procurando serviço de conexão</string>
     <string name="searching_for_devices">Procurando dispositivos…</string>
+    <string name="select">Selecionar</string>
     <string name="select_all">Selecionar todos</string>
     <string name="self">Auto</string>
     <string name="self_pair_connection_failed">Falha na conexão - tente conexão manual</string>
@@ -486,6 +517,7 @@
     <string name="stack_trace">Rastreamento de pilha</string>
     <string name="stargazers">Stargazers</string>
     <string name="start">Iniciar</string>
+    <string name="storage_used_by_ai_models">%.1f MB usados pelos modelos de IA</string>
     <string name="subtitle">Legenda</string>
     <string name="subtitle_off_state">Subtítulo (estado DESATIVADO)</string>
     <string name="subtitle_on_state">Subtítulo (Estado Ativo)</string>
@@ -538,8 +570,8 @@
     <string name="variant">Variante</string>
     <string name="version">Versão</string>
     <string name="version_code">Código da versão</string>
-    <string name="search_something">Procurar algo</string>
     <string name="version_name">Nome da versão</string>
+    <string name="view_license_online_msg">Toque em \'Abrir URL\' para ver a licença online.</string>
     <string name="view_on_github">Ver no GitHub</string>
     <string name="visit_repo_to_download">Clique no botão de download para obter a versão mais recente do aShellYou do repositório do github.</string>
     <string name="waiting_for_device">Aguardando dispositivo</string>
@@ -554,17 +586,10 @@
     <string name="wireless_debugging_guide_2">Digite o código de 6 dígitos na notificação enviada pelo aShell You.</string>
     <string name="wireless_debugging_guide_3">Volte para o aplicativo e clique no botão \"Iniciar\" na tela inicial.</string>
     <string name="wireless_debugging_important_notice">Por favor, note que a parte esquerda da opção de depuração por Wi-Fi é clicável. Tocando nele abrirá o menu de depuração por Wi-Fi.</string>
-    <string name="des_contributors">Lista de colaboradores que ajudaram no desenvolvimento da aShell</string>
-    <string name="palette_style">Palette style</string>
-    <string name="palette_tonal_spot">Ponto Tonal</string>
-    <string name="palette_expressive">Expressivo</string>
-    <string name="palette_vibrant">Vibrante</string>
-    <string name="palette_monochrome">Monocromático</string>
-    <string name="palette_rainbow">Arco-íris</string>
-    <string name="palette_fruit_salad">Salada de frutas</string>
-    <string name="palette_neutral">Neutro</string>
-    <string name="palette_fidelity">Fidelidade</string>
-    <string name="palette_content">Conteúdo</string>
+    <string name="command_analysis">Análise de comando</string>
+    <string name="high">alta</string>
+    <string name="medium">Média</string>
+    <string name="low">baixa</string>
     <string name="changelog_v7_4_0">\nAgora você pode pesquisar Sub-configurações dentro das telas de Configurações\nAdicionado Palette Styles para esquemas de cores\nAdicionada opção para configurar o idioma do aplicativo diretamente dentro do aplicativo</string>
     <string name="changelog_v7_3_0">\nInterface de usuário melhorada no ecrã de mudanças\nContribuidores adicionados na seção\nTela de Licenças Adicionadas que mostra informações detalhadas de licença sobre o aplicativo e outras bibliotecas usadas pelo aplicativo</string>
     <string name="changelog_v7_2_1">\nAtualização da manutenção!</string>

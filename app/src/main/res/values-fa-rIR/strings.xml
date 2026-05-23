@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">ابتدا دستور را لغو کنید</string>
     <string name="about">درباره</string>
+    <string name="active">Active</string>
     <string name="adb_command">ADB command</string>
     <string name="adb_command_hint">adb reboot</string>
     <string name="adb_command_off_state">ADB command (OFF state)</string>
@@ -19,6 +20,9 @@
     <string name="add_command">افزودن دستور</string>
     <string name="add_new_item">افزودن مورد جدید</string>
     <string name="additional_settings">تنظیمات اضافی</string>
+    <string name="ai_cache_days">Cache duration</string>
+    <string name="ai_cache_enabled">Enable cache</string>
+    <string name="ai_models">AI &amp; Models</string>
     <string name="all">All</string>
     <string name="all_data">All data</string>
     <string name="already_connected">قبلاً متصل شده</string>
@@ -50,6 +54,8 @@
     <string name="bookmarks">نشانک‌ها</string>
     <string name="bootloader">بوت‌لودر</string>
     <string name="btn_continue">ادامه</string>
+    <string name="cache_settings">Cache</string>
+    <string name="cache_size">Cache size: %s</string>
     <string name="cancel">لغو</string>
     <string name="cancel_all">لغو همه</string>
     <string name="changelog">Changelog</string>
@@ -59,6 +65,7 @@
     <string name="choose_icon">Choose icon</string>
     <string name="clear">پاک کردن</string>
     <string name="clear_all_message">آیا مطمئن هستید که می‌خواهید همه چیز را در این صفحه پاک کنید؟</string>
+    <string name="clear_analysis_cache">Clear analysis cache</string>
     <string name="clear_everything">پاک کردن همه چیز</string>
     <string name="clear_output_confirmation">تأیید پاک کردن خروجی</string>
     <string name="clipboard_empty">کلیپ‌بورد حاوی متن نیست</string>
@@ -119,6 +126,9 @@
     <string name="delete_message">آیا مطمئن هستید که می‌خواهید \"%1$s\" را حذف کنید؟</string>
     <string name="delete_title">حذف %1$s؟</string>
     <string name="des_about">همکاران و پشتیبانی</string>
+    <string name="des_ai_cache_days">Number of days to keep cached results</string>
+    <string name="des_ai_cache_enabled">Cache analysis results per model</string>
+    <string name="des_ai_models">Manage offline AI models for command analysis</string>
     <string name="des_auto_update">بررسی خودکار بروزرسانی‌ها</string>
     <string name="des_backup_all_data">پشتیبان‌گیری از همه داده‌های برنامه</string>
     <string name="des_backup_and_restore">پشتیبان‌گیری و بازیابی تنظیمات برنامه و سایر داده‌ها</string>
@@ -130,6 +140,7 @@
     <string name="des_choose_icon">Click here to choose an icon from the icon collection</string>
     <string name="des_clear_output_confirmation">درخواست تأیید قبل از پاک کردن خروجی شل</string>
     <string name="des_configure_save_directory">انتخاب پوشه برای ذخیره خروجی شل</string>
+    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
     <string name="des_crash_history">مشاهده همه خرابی‌های برنامه</string>
     <string name="des_default_language">انتخاب زبان پیش‌فرض برنامه</string>
     <string name="des_disable_softkey">مفید هنگام استفاده از کیبورد خارجی</string>
@@ -147,6 +158,7 @@
     <string name="des_local_backup">Save encrypted backup to your device</string>
     <string name="des_local_restore">Pick a backup file from your device</string>
     <string name="des_look_and_feel">رنگ‌های پویا، تم تاریک، زبان</string>
+    <string name="des_models">No model selected</string>
     <string name="des_override_bookmarks">Might cause lag if a large number of bookmarks are added! Low-end devices should keep this option turned off</string>
     <string name="des_pair_another_device">جفت کردن دستگاه مقصد دیگر</string>
     <string name="des_qs_tiles">Create quick settings tiles for executing adb commands</string>
@@ -316,6 +328,11 @@
     <string name="mode">حالت</string>
     <string name="mode_one_desc">از دسترسی روت برای اجرای دستورات استفاده کنید. دستورات روت شده قابل اجرا هستند.</string>
     <string name="mode_two_desc">از Shizuku برای اجرای دستورات استفاده کنید. دستوراتی که نیاز به روت دارند اجرا نمی‌شوند.</string>
+    <string name="models">Models</string>
+    <string name="model_category_tiny">Tiny (under 300 MB)</string>
+    <string name="model_category_small">Small (300–500 MB)</string>
+    <string name="model_category_medium">Medium (800 MB–1.1 GB)</string>
+    <string name="model_category_large">Large (1.5–2.5 GB)</string>
     <string name="modified">تغییر یافته</string>
     <string name="monospace">تک‌فاصله</string>
     <string name="more">بیشتر</string>
@@ -323,6 +340,7 @@
     <string name="move">انتقال</string>
     <string name="moving">در حال انتقال…</string>
     <string name="moving_items">در حال انتقال %1$d مورد</string>
+    <string name="n_days">%d days</string>
     <string name="name">نام</string>
     <string name="network_error">خطای شبکه</string>
     <string name="new_commands_available_msg">New command examples are added!\nClick on the button below to load the new commands.</string>
@@ -340,9 +358,9 @@
     <string name="no_google_account_title">No Google Account</string>
     <string name="no_history">تاریخچه دستوری وجود ندارد</string>
     <string name="no_libraries_found">No libraries found</string>
-    <string name="view_license_online_msg">Tap \'Open URL\' to view the license online.</string>
     <string name="no_logs_yet">No logs yet!</string>
     <string name="no_logs_yet_msg">No logs have been recorded yet. Execute some tiles to show logs here.</string>
+    <string name="no_model_selected">No model selected</string>
     <string name="no_operations">عملیاتی در حال انجام نیست</string>
     <string name="no_results_found">No results found</string>
     <string name="no_root_access">دسترسی روت وجود ندارد</string>
@@ -384,6 +402,16 @@
     <string name="pairing_code">کد جفت‌سازی</string>
     <string name="pairing_notification_hint">یک اعلان از aShell You دریافت خواهید کرد تا در جفت‌سازی کمک کند</string>
     <string name="pairing_process_notification_access_message">To complete the pairing process you will need to interact with a notification from aShell You. Please allow notification access to aShell You.</string>
+    <string name="palette_content">Content</string>
+    <string name="palette_expressive">Expressive</string>
+    <string name="palette_fidelity">Fidelity</string>
+    <string name="palette_fruit_salad">Fruit Salad</string>
+    <string name="palette_monochrome">Monochrome</string>
+    <string name="palette_neutral">Neutral</string>
+    <string name="palette_rainbow">Rainbow</string>
+    <string name="palette_style">Palette style</string>
+    <string name="palette_tonal_spot">Tonal Spot</string>
+    <string name="palette_vibrant">Vibrant</string>
     <string name="paste">چسباندن</string>
     <string name="path">مسیر</string>
     <string name="permission_denied">مجوز رد شد</string>
@@ -404,6 +432,7 @@
     <string name="reboot_options">گزینه‌های ری‌بوت</string>
     <string name="recent_activity">Recent activity</string>
     <string name="recent_searches">Recent searches</string>
+    <string name="recommended">Recommended</string>
     <string name="reconnect">اتصال مجدد</string>
     <string name="reconnect_failed">اتصال مجدد ناموفق</string>
     <string name="reconnect_failed_message">\nممکن است اشکال‌زدایی بی‌سیم فعال نباشد\nاطلاعات جفت‌سازی ممکن است از دست رفته باشد. دوباره جفت کنید!</string>
@@ -444,8 +473,10 @@
     <string name="search_libraries">Search libraries, authors, licenses…</string>
     <string name="search_output">جستجو در خروجی</string>
     <string name="search_settings">Search settings</string>
+    <string name="search_something">Search something</string>
     <string name="searching_connect_service">جستجوی سرویس اتصال</string>
     <string name="searching_for_devices">جستجوی دستگاه‌ها…</string>
+    <string name="select">Select</string>
     <string name="select_all">انتخاب همه</string>
     <string name="self">خود</string>
     <string name="self_pair_connection_failed">اتصال ناموفق - اتصال دستی را امتحان کنید</string>
@@ -486,6 +517,7 @@
     <string name="stack_trace">ردیابی پشته</string>
     <string name="stargazers">ستاره‌دهندگان</string>
     <string name="start">شروع</string>
+    <string name="storage_used_by_ai_models">%.1f MB used by AI models</string>
     <string name="subtitle">Subtitle</string>
     <string name="subtitle_off_state">Subtitle (OFF state)</string>
     <string name="subtitle_on_state">Subtitle (ON state)</string>
@@ -538,8 +570,8 @@
     <string name="variant">Variant</string>
     <string name="version">نسخه</string>
     <string name="version_code">کد نسخه</string>
-    <string name="search_something">Search something</string>
     <string name="version_name">نام نسخه</string>
+    <string name="view_license_online_msg">Tap \'Open URL\' to view the license online.</string>
     <string name="view_on_github">View on GitHub</string>
     <string name="visit_repo_to_download">روی دکمه دانلود کلیک کنید تا آخرین نسخه aShellYou را از مخزن گیت‌هاب دریافت کنید.</string>
     <string name="waiting_for_device">در انتظار دستگاه</string>
@@ -554,17 +586,10 @@
     <string name="wireless_debugging_guide_2">کد شش رقمی را در اعلان ارسال شده توسط aShell You وارد کنید.</string>
     <string name="wireless_debugging_guide_3">به برنامه برگردید و روی دکمه \"شروع\" در صفحه اصلی کلیک کنید.</string>
     <string name="wireless_debugging_important_notice">توجه داشته باشید که قسمت چپ گزینه اشکال‌زدایی بی‌سیم قابل کلیک است. ضربه زدن روی آن منوی جفت‌سازی را باز می‌کند.</string>
-    <string name="des_contributors">List of contributors who helped in the development of aShell You</string>
-    <string name="palette_style">Palette style</string>
-    <string name="palette_tonal_spot">Tonal Spot</string>
-    <string name="palette_expressive">Expressive</string>
-    <string name="palette_vibrant">Vibrant</string>
-    <string name="palette_monochrome">Monochrome</string>
-    <string name="palette_rainbow">Rainbow</string>
-    <string name="palette_fruit_salad">Fruit Salad</string>
-    <string name="palette_neutral">Neutral</string>
-    <string name="palette_fidelity">Fidelity</string>
-    <string name="palette_content">Content</string>
+    <string name="command_analysis">Command analysis</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
