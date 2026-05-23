@@ -52,6 +52,12 @@ object SettingsProvider {
                 icon = R.drawable.ic_dashboard
             ),
             clickableItem(
+                key = SettingsKeys.AI_MODEL_MANAGER,
+                title = R.string.ai_models,
+                description = R.string.des_ai_models,
+                iconVector = Icons.Rounded.AutoAwesome
+            ),
+            clickableItem(
                 key = SettingsKeys.AUTO_UPDATE,
                 title = R.string.auto_update,
                 description = R.string.des_auto_update,
@@ -62,12 +68,6 @@ object SettingsProvider {
                 title = R.string.backup_and_restore,
                 description = R.string.des_backup_and_restore,
                 icon = R.drawable.ic_settings_backup_restore
-            ),
-            clickableItem(
-                key = SettingsKeys.AI_MODEL_MANAGER,
-                title = R.string.ai_models,
-                description = R.string.des_ai_models,
-                iconVector = Icons.Rounded.AutoAwesome
             ),
             clickableItem(
                 key = SettingsKeys.ABOUT,

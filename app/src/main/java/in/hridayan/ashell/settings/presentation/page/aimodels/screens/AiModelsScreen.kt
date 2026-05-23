@@ -10,17 +10,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.DeleteSweep
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -38,6 +36,7 @@ import `in`.hridayan.ashell.ai.data.local.model.ModelRegistry
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
+import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.navigation.LocalNavController
@@ -62,7 +61,6 @@ fun AiModelsScreen(
     val dialogManager = LocalDialogManager.current
     val controller = settingsViewModel.rememberController()
     val settings = LocalSettings.current
-    val context = LocalContext.current
 
     val selectedModelName = ModelRegistry.findById(settings.selectedModelId)?.name
     val cacheDays = settings.aiCacheDays
@@ -169,12 +167,7 @@ private fun CacheInfoCard(
         Formatter.formatShortFileSize(context, cacheSizeBytes)
     }
 
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
-        )
-    ) {
+    CustomCard(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -185,7 +178,7 @@ private fun CacheInfoCard(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = stringResource(R.string.clear_analysis_cache),
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.titleMediumEmphasized
                 )
                 Text(
                     text = stringResource(R.string.cache_size, formattedSize),

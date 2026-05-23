@@ -374,9 +374,7 @@ fun UpdateBottomSheet(
                     )
                 }
             }
-
         }
-
 
         @Suppress("DEPRECATION")
         ButtonGroup(

@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.ai.presentation.ui.modelmanager
+package `in`.hridayan.ashell.settings.presentation.page.aimodels.components.modelmanager
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.R
 
 /**
  * Visual storage bar showing AI model storage usage vs available device storage.
@@ -50,7 +52,7 @@ fun StorageUsageBar(
             )
 
             Text(
-                text = "%.1f MB used by AI models".format(usedMb),
+                text = stringResource(R.string.storage_used_by_ai_models, usedMb),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier

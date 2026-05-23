@@ -21,8 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
-import `in`.hridayan.ashell.ai.presentation.ui.modelmanager.ModelCard
-import `in`.hridayan.ashell.ai.presentation.ui.modelmanager.StorageUsageBar
+import `in`.hridayan.ashell.settings.presentation.page.aimodels.components.modelmanager.ModelCard
+import `in`.hridayan.ashell.settings.presentation.page.aimodels.components.modelmanager.StorageUsageBar
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiModelManagerViewModel
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 
