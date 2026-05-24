@@ -13,7 +13,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(DP-Hridayan)</b></sub></a>
         <br />
-        <sub><b>47278 words</b></sub>
+        <sub><b>51149 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/AY_Translator"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg" />
