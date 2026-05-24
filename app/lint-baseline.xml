@@ -107,7 +107,7 @@
         errorLine2="                                                                               ~~~~~">
         <location
             file="src/main/res/values-es-rES/strings.xml"
-            line="602"
+            line="627"
             column="80"/>
     </issue>
 
@@ -865,13 +865,112 @@
     </issue>
 
     <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Petit (300-500 MB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-fr-rFR/strings.xml"
+            line="333"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Pequeno (300-500 MB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="333"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Pequeno (300-500 MB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-pt-rPT/strings.xml"
+            line="333"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>Невеликий (300-500 МБ)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-uk-rUA/strings.xml"
+            line="333"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>小(300-500 MB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh-rCN/strings.xml"
+            line="333"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_small&quot;>صغير (300-500 ميغابايت)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar-rSA/strings.xml"
+            line="334"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_large&quot;>大 (1.5-2.5 GB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ja-rJP/strings.xml"
+            line="335"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_large&quot;>大(1.5-2.5GB)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-zh-rCN/strings.xml"
+            line="335"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="TypographyDashes"
+        message="Replace &quot;-&quot; with an &quot;en dash&quot; character (–, &amp;#8211;) ?"
+        errorLine1="    &lt;string name=&quot;model_category_large&quot;>كبير (1.5-2.5 جنيه استرليني)&lt;/string>"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-ar-rSA/strings.xml"
+            line="336"
+            column="41"/>
+    </issue>
+
+    <issue
         id="TypographyEllipsis"
         message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
         errorLine1="    &lt;string name=&quot;connecting&quot;>接続しています...&lt;/string>"
         errorLine2="                              ~~~~~~~~~~">
         <location
             file="src/main/res/values-ja-rJP/strings.xml"
-            line="89"
+            line="96"
             column="31"/>
     </issue>
 
@@ -881,8 +980,19 @@
         errorLine1="    &lt;string name=&quot;loading&quot;>Carregando...&lt;/string>"
         errorLine2="                           ~~~~~~~~~~~~~">
         <location
+            file="src/main/res/values-pt-rBR/strings.xml"
+            line="317"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="    &lt;string name=&quot;loading&quot;>Carregando...&lt;/string>"
+        errorLine2="                           ~~~~~~~~~~~~~">
+        <location
             file="src/main/res/values-pt-rPT/strings.xml"
-            line="305"
+            line="317"
             column="28"/>
     </issue>
 

@@ -139,7 +139,6 @@ android {
 
         jniLibs {
             useLegacyPackaging = false
-            keepDebugSymbols.add("**/*.so")
         }
     }
 

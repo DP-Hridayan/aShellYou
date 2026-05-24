@@ -6,11 +6,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD 11)
 
-# Optimization flags for release
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
-set(CMAKE_C_FLAGS_RELEASE "-O3 -DNDEBUG")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -DNDEBUG")
+# Enable Link-Time Optimization (ThinLTO) for smaller and faster binaries with Clang
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -flto=thin -DNDEBUG")
+set(CMAKE_C_FLAGS_RELEASE "-O3 -flto=thin -DNDEBUG")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -flto=thin -DNDEBUG")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -flto=thin -DNDEBUG")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -flto=thin")
 
 # llama.cpp configuration — disable features we don't need on Android
 set(LLAMA_NATIVE OFF CACHE BOOL "" FORCE)
