@@ -62,9 +62,9 @@
     "id": "15085871",
     "username": "AY_Translator",
     "name": "Aleksandr (AY_Translator)",
-    "translated": 6398,
-    "approved": 7670,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/1b59b6ec0871d6f23e9ddd5f4c6f569f.jpg",
+    "translated": 6489,
+    "approved": 7810,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg",
     "languages": [
       {
         "id": "ru",
@@ -216,7 +216,7 @@
     "id": "18094",
     "username": "marciozomb13",
     "name": "Marcio Andrade (marciozomb13)",
-    "translated": 440,
+    "translated": 447,
     "approved": 0,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/18094/medium/0b04f911b3f2747703a948db9985995a.jpg",
     "languages": [
