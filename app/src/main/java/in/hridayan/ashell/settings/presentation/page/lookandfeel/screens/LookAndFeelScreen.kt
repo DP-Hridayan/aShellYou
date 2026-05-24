@@ -59,6 +59,7 @@ fun LookAndFeelScreen(
     val currentPaletteStyle = LocalPaletteStyle.current
     val themeMode = LocalSettings.current.themeMode
     val isDarkMode = LocalDarkMode.current
+    val hapticsEnabled = LocalSettings.current.isHapticEnabled
     val isDynamicColorEnabled = LocalSettings.current.isDynamicColor
 
     LaunchedEffect(Unit) {
@@ -142,6 +143,7 @@ fun LookAndFeelScreen(
                 settingsContent(
                     groups = resolvedGroups,
                     controller = controller,
+                    hapticsEnabled = hapticsEnabled
                 )
 
                 item {

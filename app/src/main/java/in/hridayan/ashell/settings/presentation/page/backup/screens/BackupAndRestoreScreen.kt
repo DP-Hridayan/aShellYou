@@ -46,6 +46,7 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
@@ -88,6 +89,7 @@ fun BackupAndRestoreScreen(
     val navController = LocalNavController.current
     val dialogManager = LocalDialogManager.current
     val controller = settingsViewModel.rememberController()
+    val hapticsEnabled = LocalSettings.current.isHapticEnabled
     val localBackupTime by backupAndRestoreViewModel.localBackupTime.collectAsState()
     val localBackupType by backupAndRestoreViewModel.localBackupType.collectAsState()
     val cloudBackupTime by backupAndRestoreViewModel.cloudBackupTime.collectAsState()
@@ -197,6 +199,7 @@ fun BackupAndRestoreScreen(
                 settingsContent(
                     groups = resolvedGroups,
                     onItemClick = controller::onItemClick,
+                    hapticsEnabled = hapticsEnabled,
                     customSlotContent = { slot ->
                         when (slot) {
                             is BackupSlots.GoogleSignIn -> {

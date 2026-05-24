@@ -61,6 +61,7 @@ fun AiModelsScreen(
     val dialogManager = LocalDialogManager.current
     val controller = settingsViewModel.rememberController()
     val settings = LocalSettings.current
+    val hapticsEnabled = settings.isHapticEnabled
 
     val selectedModelName = ModelRegistry.findById(settings.selectedModelId)?.name
     val cacheDays = settings.aiCacheDays
@@ -131,9 +132,9 @@ fun AiModelsScreen(
                 settingsContent(
                     groups = resolvedGroups,
                     controller = controller,
+                    hapticsEnabled = hapticsEnabled
                 )
 
-                // Cache info card
                 item {
                     CacheInfoCard(
                         cacheSizeBytes = cacheSizeBytes,

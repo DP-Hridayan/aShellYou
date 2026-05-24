@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
@@ -31,6 +32,7 @@ fun DarkThemeScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val controller = settingsViewModel.rememberController()
+    val hapticsEnabled = LocalSettings.current.isHapticEnabled
 
     val listState = rememberLazyListState()
     val highlightedKey = rememberHighlightState(
@@ -57,6 +59,7 @@ fun DarkThemeScreen(
                 settingsContent(
                     groups = resolvedGroups,
                     controller = controller,
+                    hapticsEnabled = hapticsEnabled
                 )
 
                 item { Spacer(modifier = Modifier.fillMaxWidth().height(25.dp)) }

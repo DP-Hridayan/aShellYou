@@ -24,7 +24,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,7 +41,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.R
 import `in`.hridayan.ashell.core.common.LocalDialogManager
-import `in`.hridayan.ashell.core.domain.model.GithubReleaseType
+import `in`.hridayan.ashell.core.common.LocalSettings
 import `in`.hridayan.ashell.core.presentation.components.bottomsheet.UpdateBottomSheet
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogKey
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
@@ -56,12 +55,11 @@ import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.UpdateResult
 import `in`.hridayan.ashell.settings.presentation.components.dialog.LatestVersionDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
-import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
-import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
-import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
+import `in`.hridayan.ashell.settings.presentation.state.rememberController
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
+import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
 import `in`.hridayan.settingsdsl.ui.item.settingsContent
 
 @Composable
@@ -73,6 +71,7 @@ fun AutoUpdateScreen(
 ) {
     val context = LocalContext.current
     val dialogManager = LocalDialogManager.current
+    val hapticsEnabled = LocalSettings.current.isHapticEnabled
     val controller = settingsViewModel.rememberController()
     var showLoading by rememberSaveable { mutableStateOf(false) }
     var showUpdateSheet by rememberSaveable { mutableStateOf(false) }
@@ -82,10 +81,6 @@ fun AutoUpdateScreen(
     val networkError = stringResource(R.string.network_error)
     val requestTimeout = stringResource(R.string.request_timeout)
     val unKnownError = stringResource(R.string.unknown_error)
-
-    val isAutoUpdateEnabled by settingsViewModel.getBoolean(SettingsKeys.AUTO_UPDATE).collectAsState(initial = false)
-    val isDirectDownloadEnabled by settingsViewModel.getBoolean(SettingsKeys.ENABLE_DIRECT_DOWNLOAD).collectAsState(initial = true)
-    val updateChannel by settingsViewModel.getInt(SettingsKeys.GITHUB_RELEASE_TYPE).collectAsState(initial = GithubReleaseType.STABLE_GITHUB)
 
     LaunchedEffect(Unit) {
         autoUpdateViewModel.updateEvents.collect { result ->
@@ -101,6 +96,7 @@ fun AutoUpdateScreen(
                         dialogManager.show(DialogKey.Settings.LatestVersion)
                     }
                 }
+
                 UpdateResult.NetworkError -> showToast(context, networkError)
                 UpdateResult.Timeout -> showToast(context, requestTimeout)
                 UpdateResult.UnknownError -> showToast(context, unKnownError)
@@ -126,15 +122,20 @@ fun AutoUpdateScreen(
         topBarTitle = stringResource(R.string.auto_update),
         content = { innerPadding, topBarScrollBehavior ->
             LazyColumn(
-                modifier = Modifier.fillMaxWidth().nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 state = listState,
                 contentPadding = innerPadding,
             ) {
-                item { Spacer(modifier = Modifier.fillMaxWidth().height(15.dp)) }
+                item { Spacer(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(15.dp)) }
 
                 settingsContent(
                     groups = resolvedGroups,
                     controller = controller,
+                    hapticsEnabled = hapticsEnabled
                 )
 
                 item {
@@ -142,11 +143,19 @@ fun AutoUpdateScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 30.dp)
-                            .clip(SineWaveShape(amplitude = 15f, frequency = 5f, edge = WaveEdge.Top))
+                            .clip(
+                                SineWaveShape(
+                                    amplitude = 15f,
+                                    frequency = 5f,
+                                    edge = WaveEdge.Top
+                                )
+                            )
                             .background(MaterialTheme.colorScheme.surfaceContainerLow)
                     ) {
                         Column(
-                            modifier = Modifier.fillMaxWidth().padding(start = 25.dp, end = 25.dp, top = 35.dp, bottom = 75.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 25.dp, end = 25.dp, top = 35.dp, bottom = 75.dp),
                             verticalArrangement = Arrangement.spacedBy(15.dp),
                         ) {
                             Row(
@@ -154,11 +163,25 @@ fun AutoUpdateScreen(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(20.dp),
                             ) {
-                                Icon(painter = painterResource(R.drawable.ic_info), contentDescription = null, tint = MaterialTheme.colorScheme.error)
-                                Text(text = stringResource(R.string.pre_release_warning), style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.error)
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_info),
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.error
+                                )
+                                Text(
+                                    text = stringResource(R.string.pre_release_warning),
+                                    style = MaterialTheme.typography.titleSmall,
+                                    color = MaterialTheme.colorScheme.error
+                                )
                             }
-                            Text(text = stringResource(R.string.pre_release_warning_description), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f))
-                            Spacer(modifier = Modifier.fillMaxWidth().height(25.dp))
+                            Text(
+                                text = stringResource(R.string.pre_release_warning_description),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
+                            )
+                            Spacer(modifier = Modifier
+                                .fillMaxWidth()
+                                .height(25.dp))
                         }
                     }
                 }
@@ -177,7 +200,12 @@ fun AutoUpdateScreen(
     )
 
     if (showUpdateSheet) {
-        UpdateBottomSheet(onDismiss = { showUpdateSheet = false }, latestVersion = tagName, apkUrl = apkUrl, body = changelog)
+        UpdateBottomSheet(
+            onDismiss = { showUpdateSheet = false },
+            latestVersion = tagName,
+            apkUrl = apkUrl,
+            body = changelog
+        )
     }
 
     DialogKey.Settings.LatestVersion.createDialog {
@@ -200,6 +228,11 @@ private fun CheckUpdateButton(
             if (showLoading) LoadingSpinner(modifier = Modifier.size(24.dp))
             else Icon(imageVector = Icons.Rounded.Update, contentDescription = null)
         },
-        text = { AutoResizeableText(text = stringResource(R.string.check_updates), style = MaterialTheme.typography.labelLarge) },
+        text = {
+            AutoResizeableText(
+                text = stringResource(R.string.check_updates),
+                style = MaterialTheme.typography.labelLarge
+            )
+        },
     )
 }
