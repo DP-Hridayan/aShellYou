@@ -4,7 +4,7 @@
     <string name="about">О программе</string>
     <string name="active">Активный</string>
     <string name="adb_command">Команда ADB</string>
-    <string name="adb_command_hint">перезагрузка adb</string>
+    <string name="adb_command_hint" comment="example command in Create Tile Screen">Пример: adb reboot</string>
     <string name="adb_command_off_state">Команда ADB (состояние ВЫКЛ.)</string>
     <string name="adb_command_on_state">Команда ADB (состояние ВКЛ.)</string>
     <string name="adb_connection_active">Подключение ADB активно</string>
@@ -20,9 +20,9 @@
     <string name="add_command">Добавить команду</string>
     <string name="add_new_item">Добавить новый элемент</string>
     <string name="additional_settings">Дополнительные настройки</string>
-    <string name="ai_cache_days">Длительность кэша</string>
-    <string name="ai_cache_enabled">Включить кэш</string>
-    <string name="ai_models">AI &amp; Models</string>
+    <string name="ai_cache_days">Продолжительность кеша</string>
+    <string name="ai_cache_enabled">Включить кэширование</string>
+    <string name="ai_models">AI &amp; Модели</string>
     <string name="all">Все</string>
     <string name="all_data">Все данные</string>
     <string name="already_connected">Уже подключено</string>
@@ -127,8 +127,8 @@
     <string name="delete_title">Удалить %1$s?</string>
     <string name="des_about">Сотрудники и поддержка</string>
     <string name="des_ai_cache_days">Количество дней для хранения кэшированных результатов</string>
-    <string name="des_ai_cache_enabled">Кэшировать результаты анализа по модели</string>
-    <string name="des_ai_models">Управление моделями автономного ИИ для анализа команд</string>
+    <string name="des_ai_cache_enabled">Результаты анализа кэша по модели</string>
+    <string name="des_ai_models">Управление офлайн AI моделями для анализа команд</string>
     <string name="des_auto_update">Авто проверка обновлений</string>
     <string name="des_backup_all_data">Резервирование всех данных приложения</string>
     <string name="des_backup_and_restore">Резервирование и восстановление настроек приложения и других данных</string>
@@ -329,10 +329,10 @@
     <string name="mode_one_desc">Используйте root доступ для запуска команд. Rooted команды могут быть выполнены.</string>
     <string name="mode_two_desc">Используйте shizuku для выполнения команд. Команды, требующие root, не будут выполняться.</string>
     <string name="models">Модели</string>
-    <string name="model_category_tiny">Маленький (менее 300 Мб)</string>
-    <string name="model_category_small">Маленький (300–500 MB)</string>
+    <string name="model_category_tiny">Крошечный (менее 300 МБ)</string>
+    <string name="model_category_small">Небольшой (300–500 МБ)</string>
     <string name="model_category_medium">Средний (800 MB–1,1 GB)</string>
-    <string name="model_category_large">Большой (1.5–2.5 GB)</string>
+    <string name="model_category_large">Большой (1,5–2,5 ГБ)</string>
     <string name="modified">Изменено</string>
     <string name="monospace">Моноширинный</string>
     <string name="more">Ещё</string>
@@ -375,10 +375,10 @@
     <string name="notification_style_error">Если вы не можете ввести код сопряжения из уведомления, возможно, вам нужно будет изменить панель уведомлений на Android. Чтобы изменить стиль уведомлений, перейдите к Настройка уведомлений ~ Стиль уведомлений. В противном случае вы можете не ввести код сопряжения из сообщения.</string>
     <string name="notification_styles">Стили уведомлений</string>
     <string name="off">Выключить</string>
-    <string name="off_state">Выключено</string>
+    <string name="off_state">\"Выкл\"</string>
     <string name="oldest">Найстаріший</string>
     <string name="on">Включить</string>
-    <string name="on_state">Включено</string>
+    <string name="on_state">\"Вкл\"</string>
     <string name="open">Открыть</string>
     <string name="open_app_language_settings">Открыть настройки языка приложения</string>
     <string name="open_issues">Открыть вопросы</string>
@@ -517,7 +517,7 @@
     <string name="stack_trace">Трассировка стека</string>
     <string name="stargazers">Звёзды</string>
     <string name="start">Запустить</string>
-    <string name="storage_used_by_ai_models">%.1f МБ используемое ИИ моделями</string>
+    <string name="storage_used_by_ai_models">%.1f МБ используется AI моделями</string>
     <string name="subtitle">Субтитры</string>
     <string name="subtitle_off_state">Субтитры (состояние ВЫКЛ.)</string>
     <string name="subtitle_on_state">Субтитры (состояние ВКЛ.)</string>

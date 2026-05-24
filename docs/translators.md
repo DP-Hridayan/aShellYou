@@ -16,13 +16,13 @@ Thanks to these translators and proofreaders, this project exists:
         <sub><b>47278 words</b></sub>
       </td>
       <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/AY_Translator"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/1b59b6ec0871d6f23e9ddd5f4c6f569f.jpg" />
+        <a href="https://crowdin.com/profile/AY_Translator"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg" />
           <br />
           <sub><b>Aleksandr</b></sub>
           <br />
           <sub><b>(AY_Translator)</b></sub></a>
         <br />
-        <sub><b>14068 words</b></sub>
+        <sub><b>14299 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/mikropsoft"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15972315/medium/23948a4df1f365f3bd7accc92c87bc4e.jpg" />
@@ -110,7 +110,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(marciozomb13)</b></sub></a>
         <br />
-        <sub><b>440 words</b></sub>
+        <sub><b>447 words</b></sub>
       </td>
     </tr>
     <tr>

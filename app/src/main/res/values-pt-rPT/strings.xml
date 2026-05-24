@@ -2,9 +2,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,UnusedResources">
     <string name="abort_command">Aborte o comando primeiro</string>
     <string name="about">Sobre</string>
-    <string name="active">ativo</string>
+    <string name="active">Ativo</string>
     <string name="adb_command">Comando ADB</string>
-    <string name="adb_command_hint">adb reboot</string>
+    <string name="adb_command_hint" comment="example command in Create Tile Screen">adb reboot</string>
     <string name="adb_command_off_state">Comando ADB (Estado DESLIGAD)</string>
     <string name="adb_command_on_state">Comando ADB (NO estado)</string>
     <string name="adb_connection_active">Conexão ADB ativa</string>
@@ -340,7 +340,7 @@
     <string name="move">Mover-se</string>
     <string name="moving">Movendo…</string>
     <string name="moving_items">Movendo %1$d item(ns)</string>
-    <string name="n_days">%d days</string>
+    <string name="n_days">%d dias</string>
     <string name="name">Nome:</string>
     <string name="network_error">Erro de rede</string>
     <string name="new_commands_available_msg">Novos exemplos de comandos são adicionados!\nclique no botão abaixo para carregar os novos comandos.</string>
@@ -450,7 +450,7 @@
     <string name="request_timeout">Tempo limite do pedido</string>
     <string name="reset">Reset</string>
     <string name="reset_app_settings">Redefinir configurações do aplicativo</string>
-    <string name="reset_settings_failed">Redefinir configurações falhou</string>
+    <string name="reset_settings_failed">Falha ao redefinir configurações</string>
     <string name="reset_settings_successful">Configurações redefinidas com sucesso</string>
     <string name="restore">RESTAURAR</string>
     <string name="restore_app_data">Restaurar dados do aplicativo</string>
@@ -495,7 +495,7 @@
     <string name="self_pair_success_hint">BB shell local está disponível agora</string>
     <string name="self_pair_timeout">Tempo limite - abrir o diálogo de pareamento em depuração sem fio</string>
     <string name="self_pair_wrong_code">Código errado - abrir o diálogo de pareamento novamente</string>
-    <string name="settings">Confirgurações</string>
+    <string name="settings">Configurações</string>
     <string name="settings_only">Apenas configurações</string>
     <string name="shell_output_saved_message">A saída do último comando é exportada para \'%s\'</string>
     <string name="shell_output_saved_whole_message">A saída do shell é exportada para \'%s\'</string>
