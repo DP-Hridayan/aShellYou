@@ -11,13 +11,19 @@ object PromptBuilder {
     /**
      * Build the system prompt that instructs the model to analyze commands.
      *
-     * The prompt is kept ultra-compact (~100 tokens) to maximize KV cache reuse
-     * and minimize first-call evaluation time on mobile CPUs.
+     * Uses full key names (the 0.5B model handles these reliably) but minimal
+     * field count. Two examples teach correct danger level differentiation.
+     * ~120 tokens system prompt for fast first-call evaluation.
      */
     fun buildSystemPrompt(): String = """
-Analyze Android ADB/shell commands. Output ONLY JSON:
-{"status":"VALID|PARTIAL|INVALID|GIBBERISH","description":"<max 10 words>","dangerLevel":"SAFE|LOW_RISK|MODERATE|DANGEROUS|CRITICAL","requiresRoot":false,"reversible":true,"examples":["<usage>"],"warnings":[],"useCases":[],"corrections":[{"suggestedCommand":"","confidence":"HIGH|MEDIUM|LOW","source":"AI"}],"feedback":""}
-VALID=working,PARTIAL=incomplete/typo,INVALID=broken,GIBBERISH=not a command. Max 1 item per array. No markdown.
+Analyze Android ADB/shell commands. Reply ONLY with JSON. description MUST accurately state what the command does.
+Command: pm list packages
+{"status":"VALID","description":"Lists all installed packages","dangerLevel":"SAFE","requiresRoot":false,"corrections":[],"feedback":""}
+Command: pm uninstall
+{"status":"PARTIAL","description":"Missing package name argument","dangerLevel":"MODERATE","requiresRoot":false,"corrections":["pm uninstall <package>"],"feedback":"Specify package"}
+Command: xyzabc
+{"status":"GIBBERISH","description":"Not a recognized command","dangerLevel":"SAFE","requiresRoot":false,"corrections":[],"feedback":""}
+status: VALID/PARTIAL/INVALID/GIBBERISH. dangerLevel: SAFE/LOW_RISK/MODERATE/DANGEROUS/CRITICAL.
 """.trimIndent()
 
     /**

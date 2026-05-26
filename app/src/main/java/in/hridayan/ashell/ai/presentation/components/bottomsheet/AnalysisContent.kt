@@ -16,7 +16,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AdminPanelSettings
-import androidx.compose.material.icons.rounded.Replay
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
@@ -87,15 +86,15 @@ fun AnalysisContent(
             Spacer(Modifier.height(8.dp))
         }
 
-        // ── Root & Reversible badges ──
-        FlowRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            if (result.requiresRoot) {
+        // ── Root badge ──
+        if (result.requiresRoot) {
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 AssistChip(
                     onClick = {},
                     label = { Text("Requires Root") },
@@ -108,19 +107,6 @@ fun AnalysisContent(
                     }
                 )
             }
-            AssistChip(
-                onClick = {},
-                label = {
-                    Text(if (result.reversible) "Reversible" else "Irreversible")
-                },
-                leadingIcon = {
-                    Icon(
-                        Icons.Rounded.Replay,
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp)
-                    )
-                }
-            )
         }
 
         Spacer(Modifier.height(8.dp))

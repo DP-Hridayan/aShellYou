@@ -32,7 +32,33 @@ object AiResponseParser {
     }
 
     /**
-     * Internal raw JSON model matching the LLM output schema.
+     * Abbreviated JSON model matching the compact LLM output schema.
+     * Keys: s=status, d=description, l=dangerLevel, r=requiresRoot, v=reversible, c=corrections, f=feedback
+     */
+    @Serializable
+    private data class AbbreviatedResponse(
+        val s: String = "I",
+        val d: String = "",
+        val l: String = "S",
+        val r: Boolean = false,
+        val v: Boolean = true,
+        val c: List<String> = emptyList(),
+        val f: String = ""
+    )
+
+    /** Maps single-char status codes to full enum names */
+    private val STATUS_MAP = mapOf(
+        "V" to "VALID", "P" to "PARTIAL", "I" to "INVALID", "G" to "GIBBERISH"
+    )
+
+    /** Maps single-char danger codes to full enum names */
+    private val DANGER_MAP = mapOf(
+        "S" to "SAFE", "L" to "LOW_RISK", "M" to "MODERATE", "D" to "DANGEROUS", "C" to "CRITICAL"
+    )
+
+    /**
+     * Internal raw JSON model matching the full (legacy) LLM output schema.
+     * Used for parsing cached results from older prompt versions.
      */
     @Serializable
     private data class RawAnalysisResponse(
@@ -89,20 +115,32 @@ object AiResponseParser {
 
             Log.d(TAG, "Extracted JSON (${jsonString.length} chars): ${jsonString.take(500)}")
 
-            val raw = json.decodeFromString<RawAnalysisResponse>(jsonString)
-            Log.d(TAG, "Deserialized successfully: status=${raw.status}, dangerLevel=${raw.dangerLevel}")
+            // Try full format first (active prompt uses full keys), then abbreviated as fallback
+            val result = tryParseFull(jsonString) ?: tryParseAbbreviated(jsonString)
+            if (result != null) {
+                Log.d(TAG, "Mapped to AnalysisResult: status=${result.status}")
+                return result
+            }
 
-            val result = mapToAnalysisResult(raw)
-            Log.d(TAG, "Mapped to AnalysisResult: status=${result.status}")
-            result
-        } catch (e: Exception) {
-            Log.e(TAG, "JSON parse/decode failed", e)
-            Log.e(TAG, "Raw AI output was: $rawResponse")
+            Log.e(TAG, "JSON parsing failed, trying plain-text fallback")
 
             // Last resort: try to parse as plain-text key-value pairs
             val plainTextResult = parseFromPlainText(rawResponse)
             if (plainTextResult != null) {
-                Log.d(TAG, "Parsed successfully from plain-text fallback after JSON failure")
+                Log.d(TAG, "Parsed successfully from plain-text fallback")
+                return plainTextResult
+            }
+
+            AnalysisResult.gibberish(
+                "Failed to parse AI response. Raw AI output: ${rawResponse.take(300)}"
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "JSON parse/decode failed", e)
+            Log.e(TAG, "Raw AI output was: $rawResponse")
+
+            val plainTextResult = parseFromPlainText(rawResponse)
+            if (plainTextResult != null) {
+                Log.d(TAG, "Parsed successfully from plain-text fallback after exception")
                 return plainTextResult
             }
 
@@ -325,14 +363,20 @@ object AiResponseParser {
     }
 
     /**
-     * Quick check if a string is valid JSON that can be deserialized.
+     * Quick check if a string is valid JSON that can be deserialized
+     * in either abbreviated or full format.
      */
     private fun isValidJson(text: String): Boolean {
         return try {
-            json.decodeFromString<RawAnalysisResponse>(text)
+            json.decodeFromString<AbbreviatedResponse>(text)
             true
         } catch (_: Exception) {
-            false
+            try {
+                json.decodeFromString<RawAnalysisResponse>(text)
+                true
+            } catch (_: Exception) {
+                false
+            }
         }
     }
 
@@ -428,6 +472,79 @@ object AiResponseParser {
     }
 
     /**
+     * Try parsing as abbreviated format (single-char keys/values).
+     *
+     * Handles edge cases where the model puts full words in abbreviated fields
+     * (e.g., s:"List" instead of s:"V"). Detects and swaps misplaced fields.
+     */
+    private fun tryParseAbbreviated(jsonString: String): AnalysisResult? {
+        return try {
+            val abbr = json.decodeFromString<AbbreviatedResponse>(jsonString)
+
+            var statusStr = abbr.s.trim()
+            var descriptionStr = abbr.d.trim()
+
+            // Try mapping abbreviated status code first
+            var statusFull = STATUS_MAP[statusStr.uppercase()]
+
+            if (statusFull == null) {
+                // Model may have put a description word in 's' and status in 'd'
+                // e.g. s:"List", d:"Permissions" — swap if 'd' looks like a status code
+                val dAsStatus = STATUS_MAP[descriptionStr.uppercase()]
+                if (dAsStatus != null) {
+                    // Swap: d had the status code, s had the description
+                    statusFull = dAsStatus
+                    descriptionStr = statusStr
+                } else {
+                    // Try parsing s as a full enum name (e.g. "VALID", "PARTIAL")
+                    statusFull = statusStr.uppercase()
+                }
+            }
+
+            val status = parseEnum(statusFull, AnalysisStatus.entries, AnalysisStatus.VALID)
+
+            val dangerFull = DANGER_MAP[abbr.l.trim().uppercase()] ?: abbr.l
+            val dangerLevel = parseEnum(dangerFull, DangerLevel.entries, DangerLevel.SAFE)
+
+            val corrections = abbr.c.filter { it.isNotBlank() }.map {
+                CorrectionSuggestion(
+                    suggestedCommand = it,
+                    confidence = CorrectionConfidence.MEDIUM,
+                    source = CorrectionSource.AI
+                )
+            }
+
+            Log.d(TAG, "Parsed abbreviated: s=${abbr.s}->$status, l=${abbr.l}->$dangerLevel, d=$descriptionStr")
+            AnalysisResult(
+                status = status,
+                description = descriptionStr,
+                dangerLevel = dangerLevel,
+                requiresRoot = abbr.r,
+                reversible = abbr.v,
+                corrections = corrections,
+                feedback = abbr.f
+            )
+        } catch (e: Exception) {
+            Log.d(TAG, "Abbreviated parse failed: ${e.message}")
+            null
+        }
+    }
+
+    /**
+     * Try parsing as full (legacy) format with verbose keys.
+     */
+    private fun tryParseFull(jsonString: String): AnalysisResult? {
+        return try {
+            val raw = json.decodeFromString<RawAnalysisResponse>(jsonString)
+            Log.d(TAG, "Parsed full format: status=${raw.status}, dangerLevel=${raw.dangerLevel}")
+            mapToAnalysisResult(raw)
+        } catch (e: Exception) {
+            Log.d(TAG, "Full format parse failed: ${e.message}")
+            null
+        }
+    }
+
+    /**
      * Map raw parsed response to domain model with enum validation.
      */
     private fun mapToAnalysisResult(raw: RawAnalysisResponse): AnalysisResult {
@@ -450,7 +567,7 @@ object AiResponseParser {
         return CorrectionSuggestion(
             suggestedCommand = raw.suggestedCommand,
             confidence = parseEnum(raw.confidence, CorrectionConfidence.entries, CorrectionConfidence.LOW),
-            source = CorrectionSource.AI // AI-generated corrections always have AI source
+            source = CorrectionSource.AI
         )
     }
 

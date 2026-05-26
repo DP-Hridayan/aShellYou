@@ -37,7 +37,7 @@ class AiAnalysisRepositoryImpl @Inject constructor(
 
     companion object {
         private const val TAG = "AiAnalysis"
-        private const val MAX_TOKENS = 150
+        private const val MAX_TOKENS = 100
         private const val TEMPERATURE = 0.0f
 
         /**
