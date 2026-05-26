@@ -96,7 +96,13 @@ class AiAnalysisRepositoryImpl @Inject constructor(
             Log.d(TAG, "Cache MISS for command hash=$commandHash, model=$modelId")
         }
 
-        // 2. Ensure model is loaded
+        // 2. Check if engine is busy (previous inference still running)
+        if (inferenceEngine.isBusy()) {
+            Log.w(TAG, "Inference engine is busy, cannot start new analysis")
+            return AnalysisResult.error("Analysis is already in progress. Please wait and try again.")
+        }
+
+        // 3. Ensure model is loaded
         val model = ModelRegistry.findById(modelId)
             ?: return AnalysisResult.error("Selected model not found").also {
                 Log.e(TAG, "Model not found for id=$modelId")

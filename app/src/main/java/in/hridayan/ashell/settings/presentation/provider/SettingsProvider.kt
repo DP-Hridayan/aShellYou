@@ -283,7 +283,7 @@ object SettingsProvider {
     val backupPage = settingsPage(
         screenTitle = R.string.backup_and_restore,
         screenId = "backup_restore",
-        customSlot(BackupSlots.GoogleSignIn),
+        customSlot(BackupScreenCustomSlots.GoogleSignIn),
         category(
             title = R.string.backup,
             clickableItem(
@@ -305,7 +305,7 @@ object SettingsProvider {
                 icon = R.drawable.ic_upload_file
             ),
         ),
-        customSlot(BackupSlots.LastBackupTime),
+        customSlot(BackupScreenCustomSlots.LastBackupTime),
         category(
             title = R.string.restore,
             clickableItem(

@@ -157,9 +157,8 @@ import `in`.hridayan.ashell.shell.common.presentation.util.highlightQueryText
 import `in`.hridayan.ashell.shell.common.presentation.util.rememberScrollDirection
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
-import `in`.hridayan.ashell.ai.presentation.model.AiAnalysisUiState
-import `in`.hridayan.ashell.ai.presentation.ui.bottomsheet.AiAnalysisBottomSheet
-import `in`.hridayan.ashell.ai.presentation.ui.components.AnalyzeButton
+import `in`.hridayan.ashell.ai.presentation.components.bottomsheet.AiAnalysisBottomSheet
+import `in`.hridayan.ashell.ai.presentation.components.button.AnalyzeButton
 import `in`.hridayan.ashell.ai.presentation.viewmodel.AiAnalysisViewModel
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch

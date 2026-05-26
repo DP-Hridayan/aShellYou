@@ -21,8 +21,9 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,8 +42,8 @@ import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExampl
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
-import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 
 @Composable
@@ -51,7 +52,10 @@ fun CommandsFilterBottomSheet(
     onDismiss: () -> Unit,
     commandExamplesViewModel: CommandExamplesViewModel = hiltViewModel()
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState = rememberBottomSheetState(
+        initialValue = SheetValue.Hidden,
+        enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
+    )
     val lazyListState = rememberLazyListState()
     val states by commandExamplesViewModel.states.collectAsState()
     val searchedLabels by commandExamplesViewModel.searchedLabels.collectAsState()
@@ -135,7 +139,7 @@ fun CommandsFilterBottomSheet(
                     CustomCard(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding( vertical = 1.dp),
+                            .padding(vertical = 1.dp),
                         shape = finalShape,
                         colors = CardDefaults.cardColors(
                             containerColor = containerColor,

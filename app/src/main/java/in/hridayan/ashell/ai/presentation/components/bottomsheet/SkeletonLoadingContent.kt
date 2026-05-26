@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.ai.presentation.ui.bottomsheet
+package `in`.hridayan.ashell.ai.presentation.components.bottomsheet
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode

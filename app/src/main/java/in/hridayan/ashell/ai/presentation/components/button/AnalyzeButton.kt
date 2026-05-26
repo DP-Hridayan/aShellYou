@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.ai.presentation.ui.components
+package `in`.hridayan.ashell.ai.presentation.components.button
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons

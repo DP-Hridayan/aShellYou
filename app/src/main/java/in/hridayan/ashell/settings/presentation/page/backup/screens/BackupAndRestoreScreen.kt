@@ -71,7 +71,7 @@ import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsSc
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel.BackupAndRestoreViewModel
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
-import `in`.hridayan.ashell.settings.presentation.provider.BackupSlots
+import `in`.hridayan.ashell.settings.presentation.provider.BackupScreenCustomSlots
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.settingsdsl.resolver.resolveAll
 import `in`.hridayan.ashell.settings.presentation.state.rememberController
@@ -202,7 +202,7 @@ fun BackupAndRestoreScreen(
                     hapticsEnabled = hapticsEnabled,
                     customSlotContent = { slot ->
                         when (slot) {
-                            is BackupSlots.GoogleSignIn -> {
+                            is BackupScreenCustomSlots.GoogleSignIn -> {
                                 if (isCloudBackupAvailable) {
                                     GoogleSignInCard(
                                         isSignedIn = googleUserState.isSignedIn,
@@ -220,7 +220,7 @@ fun BackupAndRestoreScreen(
                                 }
                             }
 
-                            is BackupSlots.LastBackupTime -> {
+                            is BackupScreenCustomSlots.LastBackupTime -> {
                                 LastBackupTimeCard(
                                     modifier = Modifier
                                         .fillMaxWidth()

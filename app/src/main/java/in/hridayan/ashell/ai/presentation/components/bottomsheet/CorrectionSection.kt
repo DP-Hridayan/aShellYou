@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.ai.presentation.ui.bottomsheet
+package `in`.hridayan.ashell.ai.presentation.components.bottomsheet
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +17,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -116,7 +117,7 @@ private fun ConfidenceBadge(confidence: CorrectionConfidence) {
         CorrectionConfidence.LOW -> MaterialTheme.colorScheme.outline to "Low"
     }
 
-    androidx.compose.material3.Surface(
+    Surface(
         shape = MaterialTheme.shapes.extraSmall,
         color = color.copy(alpha = 0.15f),
         contentColor = color
@@ -138,7 +139,7 @@ private fun SourceBadge(source: CorrectionSource) {
         CorrectionSource.AI -> "AI"
     }
 
-    androidx.compose.material3.Surface(
+    Surface(
         shape = MaterialTheme.shapes.extraSmall,
         color = MaterialTheme.colorScheme.surfaceContainerHigh,
         contentColor = MaterialTheme.colorScheme.onSurfaceVariant
