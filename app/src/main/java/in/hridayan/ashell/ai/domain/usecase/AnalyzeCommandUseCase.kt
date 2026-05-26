@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.ai.domain.usecase
 
+import `in`.hridayan.ashell.ai.data.repository.AiAnalysisRepositoryImpl
 import `in`.hridayan.ashell.ai.domain.model.AnalysisResult
 import `in`.hridayan.ashell.ai.domain.model.AnalysisStatus
 import `in`.hridayan.ashell.ai.domain.repository.AiAnalysisRepository
@@ -40,8 +41,17 @@ class AnalyzeCommandUseCase @Inject constructor(
             return AnalysisResult.error("Command is empty")
         }
 
+        // Truncate overly long commands to fit within the model's context window.
+        // We still analyze the truncated portion rather than rejecting outright,
+        // since the beginning of the command is usually the most informative part.
+        val safeCommand = if (trimmedCommand.length > AiAnalysisRepositoryImpl.MAX_COMMAND_LENGTH) {
+            trimmedCommand.take(AiAnalysisRepositoryImpl.MAX_COMMAND_LENGTH)
+        } else {
+            trimmedCommand
+        }
+
         // 1. Check cache
-        val cached = analysisRepository.getCachedAnalysis(trimmedCommand)
+        val cached = analysisRepository.getCachedAnalysis(safeCommand)
         if (cached != null) return cached
 
         // 2. Check if any model is installed
@@ -53,10 +63,10 @@ class AnalyzeCommandUseCase @Inject constructor(
         }
 
         // 3. Run danger heuristics
-        val heuristicDanger = detectDangerLevelUseCase(trimmedCommand)
+        val heuristicDanger = detectDangerLevelUseCase(safeCommand)
 
         // 4. Run AI analysis
-        val aiResult = analysisRepository.analyzeCommand(trimmedCommand)
+        val aiResult = analysisRepository.analyzeCommand(safeCommand)
 
         // 5. Merge: take the higher danger level
         val mergedDanger = if (heuristicDanger.ordinal > aiResult.dangerLevel.ordinal) {
@@ -69,7 +79,7 @@ class AnalyzeCommandUseCase @Inject constructor(
         val corrections = if (aiResult.status == AnalysisStatus.PARTIAL ||
             aiResult.status == AnalysisStatus.INVALID
         ) {
-            generateCorrectionsUseCase(trimmedCommand, aiResult.corrections)
+            generateCorrectionsUseCase(safeCommand, aiResult.corrections)
         } else {
             aiResult.corrections
         }

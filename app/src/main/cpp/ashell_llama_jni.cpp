@@ -4,6 +4,7 @@
 #include <mutex>
 #include <thread>
 #include <algorithm>
+#include <stdexcept>
 #include <android/log.h>
 #include "llama.h"
 
@@ -181,33 +182,15 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_loadModel(
 }
 
 /**
- * JNI method to execute local llama.cpp model inference.
+ * Internal inference implementation.
+ * Separated from the JNI entry point so the caller can wrap it in try-catch.
+ * Implements chunked batch decoding to respect n_batch limits.
  */
-extern "C" JNIEXPORT jstring JNICALL
-Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
-        JNIEnv *env, jobject /* this */,
-        jstring system_prompt, jstring user_prompt,
-        jint max_tokens, jfloat temperature) {
-
-    std::lock_guard<std::mutex> lock(g_mutex);
-
-    if (!g_model || !g_ctx) {
-        LOGE("Model not loaded");
-        return make_json_error(env, "INVALID", "Model not loaded");
-    }
-
-    if (max_tokens <= 0) {
-        LOGE("Invalid max_tokens: %d", max_tokens);
-        return make_json_error(env, "INVALID", "Invalid max_tokens value");
-    }
-
-    JniString sys_str(env, system_prompt);
-    JniString user_str(env, user_prompt);
-
-    if (!sys_str.valid() || !user_str.valid()) {
-        LOGE("Failed to extract prompt strings");
-        return make_json_error(env, "INVALID", "Failed to extract prompt strings");
-    }
+static jstring run_inference_internal(JNIEnv *env,
+                                      const JniString &sys_str,
+                                      const JniString &user_str,
+                                      jint max_tokens,
+                                      jfloat temperature) {
 
     std::string prompt = build_chatml_prompt(sys_str.to_std_string(), user_str.to_std_string());
 
@@ -224,8 +207,7 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
         return make_json_error(env, "INVALID", "Prompt too large");
     }
 
-    const auto n_prompt_max =
-            static_cast<int32_t>(n_prompt_max_sz);
+    const auto n_prompt_max = static_cast<int32_t>(n_prompt_max_sz);
 
     std::vector<llama_token> tokens(static_cast<size_t>(n_prompt_max));
 
@@ -234,8 +216,7 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
         return make_json_error(env, "INVALID", "Prompt too large");
     }
 
-    const auto prompt_len =
-            static_cast<int32_t>(prompt.size());
+    const auto prompt_len = static_cast<int32_t>(prompt.size());
 
     const int n_tokens = llama_tokenize(
             vocab,
@@ -276,11 +257,17 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
     llama_sampler_chain_add(smpl, llama_sampler_init_top_p(0.9f, 1));
     llama_sampler_chain_add(smpl, llama_sampler_init_dist(42));
 
-    llama_batch batch = llama_batch_get_one(tokens.data(), n_tokens);
-    if (llama_decode(g_ctx, batch) != 0) {
-        LOGE("Prompt decode failed");
-        llama_sampler_free(smpl);
-        return make_json_error(env, "INVALID", "Inference failed to decode prompt");
+    // Decode the prompt in chunks respecting n_batch (512) to avoid
+    // excessive memory allocation from processing all tokens at once.
+    const int n_batch = 512;
+    for (int i = 0; i < n_tokens; i += n_batch) {
+        int chunk_size = std::min(n_batch, n_tokens - i);
+        llama_batch batch = llama_batch_get_one(tokens.data() + i, chunk_size);
+        if (llama_decode(g_ctx, batch) != 0) {
+            LOGE("Prompt decode failed at chunk offset %d", i);
+            llama_sampler_free(smpl);
+            return make_json_error(env, "INVALID", "Inference failed to decode prompt");
+        }
     }
 
     std::string output;
@@ -318,6 +305,51 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
 
     LOGI("Generated %zu chars", output.size());
     return env->NewStringUTF(output.c_str());
+}
+
+/**
+ * JNI method to execute local llama.cpp model inference.
+ */
+extern "C" JNIEXPORT jstring JNICALL
+Java_in_hridayan_ashell_ai_native_LlamaCppBridge_runInference(
+        JNIEnv *env, jobject /* this */,
+        jstring system_prompt, jstring user_prompt,
+        jint max_tokens, jfloat temperature) {
+
+    std::lock_guard<std::mutex> lock(g_mutex);
+
+    if (!g_model || !g_ctx) {
+        LOGE("Model not loaded");
+        return make_json_error(env, "INVALID", "Model not loaded");
+    }
+
+    if (max_tokens <= 0) {
+        LOGE("Invalid max_tokens: %d", max_tokens);
+        return make_json_error(env, "INVALID", "Invalid max_tokens value");
+    }
+
+    JniString sys_str(env, system_prompt);
+    JniString user_str(env, user_prompt);
+
+    if (!sys_str.valid() || !user_str.valid()) {
+        LOGE("Failed to extract prompt strings");
+        return make_json_error(env, "INVALID", "Failed to extract prompt strings");
+    }
+
+    // Wrap the entire inference pipeline in try-catch to prevent native crashes
+    // from killing the app process (e.g., OOM in llama_decode, bad alloc, etc.)
+    try {
+        return run_inference_internal(env, sys_str, user_str, max_tokens, temperature);
+    } catch (const std::bad_alloc &e) {
+        LOGE("Out of memory during inference: %s", e.what());
+        return make_json_error(env, "INVALID", "Out of memory during inference");
+    } catch (const std::exception &e) {
+        LOGE("Native exception during inference: %s", e.what());
+        return make_json_error(env, "INVALID", "Native inference error");
+    } catch (...) {
+        LOGE("Unknown native exception during inference");
+        return make_json_error(env, "INVALID", "Unknown native error during inference");
+    }
 }
 
 /**
