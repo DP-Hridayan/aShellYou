@@ -19,6 +19,7 @@ static llama_context *g_ctx = nullptr;
 static int g_n_ctx = 2048;
 static std::vector<llama_token> g_system_tokens;
 static bool g_system_prompt_evaluated = false;
+static std::string g_cached_system_prompt;
 
 /**
  * RAII wrapper to safely release GetStringUTFChars strings on destruction.
@@ -99,7 +100,7 @@ static bool recreate_context() {
 
     auto ctx_params = llama_context_default_params();
     ctx_params.n_ctx = static_cast<uint32_t>(g_n_ctx);
-    ctx_params.n_batch = 512;
+    ctx_params.n_batch = 2048;
 
     // Use 4 threads to target high-performance cores and avoid little-core bottlenecks
     unsigned int hardware_threads = std::thread::hardware_concurrency();
@@ -159,6 +160,7 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_loadModel(
     g_n_ctx = static_cast<int>(context_size);
     g_system_tokens.clear();
     g_system_prompt_evaluated = false;
+    g_cached_system_prompt.clear();
     if (!recreate_context()) {
         LOGE("Failed to create context");
         llama_model_free(g_model);
@@ -200,6 +202,15 @@ static jstring run_inference_internal(JNIEnv *env,
     llama_memory_t mem = llama_get_memory(g_ctx);
 
     // 1. Tokenize system prompt to determine the boundary N
+    // Invalidate cache if the system prompt text has changed
+    if (sys_prompt != g_cached_system_prompt) {
+        if (!g_cached_system_prompt.empty()) {
+            LOGI("System prompt changed, invalidating cache");
+        }
+        g_system_tokens.clear();
+        g_system_prompt_evaluated = false;
+        g_cached_system_prompt = sys_prompt;
+    }
     if (g_system_tokens.empty()) {
         const size_t sys_max_tokens = sys_prompt.size() + 128;
         std::vector<llama_token> sys_temp_tokens(sys_max_tokens);
@@ -266,8 +277,8 @@ static jstring run_inference_internal(JNIEnv *env,
         // WIPE KV Cache completely using llama_memory_seq_rm
         llama_memory_seq_rm(mem, -1, 0, -1);
 
-        // Evaluate system prompt in chunks of n_batch (512)
-        const int n_batch = 512;
+        // Evaluate system prompt in one batch (n_batch=2048 handles full prompt)
+        const int n_batch = 2048;
         for (int i = 0; i < static_cast<int>(N); i += n_batch) {
             int chunk_size = std::min(n_batch, static_cast<int>(N) - i);
             llama_batch batch = llama_batch_get_one(g_system_tokens.data() + i, chunk_size);
@@ -289,18 +300,15 @@ static jstring run_inference_internal(JNIEnv *env,
         llama_memory_seq_rm(mem, -1, static_cast<llama_pos>(N), -1);
     }
 
-    auto *smpl = llama_sampler_chain_init(llama_sampler_chain_default_params());
+    // Use greedy sampler for deterministic, fastest-possible token selection
+    auto *smpl = llama_sampler_init_greedy();
     if (!smpl) {
-        LOGE("Failed to initialize sampler chain");
+        LOGE("Failed to initialize greedy sampler");
         return make_json_error(env, "INVALID", "Sampler initialization failed");
     }
 
-    llama_sampler_chain_add(smpl, llama_sampler_init_temp(temperature));
-    llama_sampler_chain_add(smpl, llama_sampler_init_top_p(0.9f, 1));
-    llama_sampler_chain_add(smpl, llama_sampler_init_dist(42));
-
-    // Decode the user prompt chunk-by-chunk
-    const int n_batch = 512;
+    // Decode the user prompt in one batch (n_batch=2048 handles full prompt)
+    const int n_batch = 2048;
     for (int i = 0; i < user_n_tokens; i += n_batch) {
         int chunk_size = std::min(n_batch, user_n_tokens - i);
         llama_batch batch = llama_batch_get_one(user_tokens.data() + i, chunk_size);
@@ -409,6 +417,7 @@ Java_in_hridayan_ashell_ai_native_LlamaCppBridge_unloadModel(
 
     g_system_tokens.clear();
     g_system_prompt_evaluated = false;
+    g_cached_system_prompt.clear();
 
     if (g_ctx) {
         llama_free(g_ctx);

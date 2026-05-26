@@ -25,7 +25,7 @@ object LlamaCppBridge {
      * @param contextSize Maximum context window size (default: 2048)
      * @return true if the model was loaded successfully
      */
-    external fun loadModel(modelPath: String, contextSize: Int = 1024): Boolean
+    external fun loadModel(modelPath: String, contextSize: Int = 512): Boolean
 
     /**
      * Run inference with the loaded model.
@@ -39,7 +39,7 @@ object LlamaCppBridge {
     external fun runInference(
         systemPrompt: String,
         userPrompt: String,
-        maxTokens: Int = 512,
+        maxTokens: Int = 150,
         temperature: Float = 0.1f
     ): String
 
