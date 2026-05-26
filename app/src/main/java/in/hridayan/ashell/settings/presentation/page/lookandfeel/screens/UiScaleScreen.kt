@@ -156,7 +156,7 @@ private fun ScaleModifyCard(
     val haptic = LocalHapticFeedback.current
     val isHapticEnabled = LocalSettings.current.isHapticEnabled
 
-    var sliderValue by remember { mutableFloatStateOf(value) }
+    var sliderValue by remember(value) { mutableFloatStateOf(value) }
 
     CustomCard(
         modifier = modifier,

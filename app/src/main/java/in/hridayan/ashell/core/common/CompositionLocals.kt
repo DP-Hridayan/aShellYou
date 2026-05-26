@@ -169,7 +169,9 @@ fun CompositionLocals(
             lastCloudBackupType,
             selectedModelId,
             aiCacheEnabled,
-            aiCacheDays
+            aiCacheDays,
+            screenDensityMultiplier,
+            fontSizeMultiplier
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
