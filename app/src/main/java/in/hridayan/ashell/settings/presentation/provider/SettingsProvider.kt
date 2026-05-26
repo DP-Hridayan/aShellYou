@@ -95,15 +95,24 @@ object SettingsProvider {
                 description = R.string.palette_tonal_spot,
                 icon = R.drawable.ic_pallete
             ),
-        ),
-        category(
-            title = R.string.additional_settings,
             clickableItem(
                 key = SettingsKeys.DARK_THEME,
                 title = R.string.dark_theme,
                 description = R.string.system,
                 iconVector = Icons.Outlined.DarkMode
             ),
+        ),
+        category(
+            title = R.string.ui_scale,
+            clickableItem(
+                key = SettingsKeys.UI_SCALE,
+                title = R.string.ui_scale,
+                description = R.string.des_ui_scale,
+                icon = R.drawable.ic_high_density
+            )
+        ),
+        category(
+            title = R.string.additional_settings,
             switchItem(
                 key = SettingsKeys.HAPTICS_AND_VIBRATION,
                 title = R.string.haptics_and_vibration,

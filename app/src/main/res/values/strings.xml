@@ -598,7 +598,12 @@
     <string name="high">High</string>
     <string name="medium">Medium</string>
     <string name="low">Low</string>
-
+    <string name="ui_scale">UI scale</string>
+    <string name="des_ui_scale">Adjust the scale of UI elements and font size</string>
+    <string name="screen_density_multiplier">Screen density multiplier</string>
+    <string name="des_screen_density">Adjust screen density to make UI elements appear larger or smaller</string>
+    <string name="font_size_multiplier">Font size multiplier</string>
+    <string name="des_font_size">Adjust font size to make text in the app appear larger or smaller</string>
     /**
     * Changelogs
     * Created by DP-Hridayan

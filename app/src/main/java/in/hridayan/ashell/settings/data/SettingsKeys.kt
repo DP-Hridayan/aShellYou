@@ -31,13 +31,14 @@ sealed class SettingsKeys<out T>(
     /** Backward-compatible alias for [defaultValue]. */
     val default: T get() = defaultValue
 
-    // ── Action-only keys (navigation/click, no persisted value) ─────────────
+    // Action only keys
 
     data object LOOK_AND_FEEL : SettingsKeys<Nothing?>("LOOK_AND_FEEL", null)
     data object ABOUT : SettingsKeys<Nothing?>("ABOUT", null)
     data object BEHAVIOR : SettingsKeys<Nothing?>("BEHAVIOR", null)
     data object LANGUAGE : SettingsKeys<Nothing?>("LANGUAGE", null)
     data object DARK_THEME : SettingsKeys<Nothing?>("DARK_THEME", null)
+    data object UI_SCALE : SettingsKeys<Nothing?>("UI_SCALE", null)
     data object VERSION : SettingsKeys<Nothing?>("VERSION", null)
     data object CHANGELOGS : SettingsKeys<Nothing?>("CHANGELOGS", null)
     data object CRASH_HISTORY : SettingsKeys<Nothing?>("CRASH_HISTORY", null)
@@ -60,7 +61,7 @@ sealed class SettingsKeys<out T>(
     data object AI_MODEL_MANAGER : SettingsKeys<Nothing?>("AI_MODEL_MANAGER", null)
     data object AI_MODELS : SettingsKeys<Nothing?>("AI_MODELS", null)
 
-    // ── Boolean keys ────────────────────────────────────────────────────────
+    // Boolean Keys
 
     data object AUTO_UPDATE : SettingsKeys<Boolean>("AUTO_UPDATE", false)
     data object HIGH_CONTRAST_DARK_MODE : SettingsKeys<Boolean>("HIGH_CONTRAST_DARK_MODE", false)
@@ -78,7 +79,14 @@ sealed class SettingsKeys<out T>(
     data object NEW_COMMANDS_AVAILABLE : SettingsKeys<Boolean>("NEW_COMMANDS_AVAILABLE", true)
     data object AI_CACHE_ENABLED : SettingsKeys<Boolean>("AI_CACHE_ENABLED", true)
 
-    // ── Int keys ────────────────────────────────────────────────────────────
+
+    // Float keys
+
+    data object SCREEN_DENSITY_MULTIPLIER : SettingsKeys<Float>("SCREEN_DENSITY_MULTIPLIER", 1f)
+    data object FONT_SIZE_MULTIPLIER : SettingsKeys<Float>("FONT_SIZE_MULTIPLIER", 1f)
+
+
+    // Int Keys
 
     data object THEME_MODE :
         SettingsKeys<Int>("THEME_MODE", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -99,7 +107,7 @@ sealed class SettingsKeys<out T>(
     data object COMMAND_SORT_TYPE : SettingsKeys<Int>("COMMAND_SORT_TYPE", SortType.AZ)
     data object AI_CACHE_DAYS : SettingsKeys<Int>("AI_CACHE_DAYS", 30)
 
-    // ── String keys ─────────────────────────────────────────────────────────
+    // String Keys
 
     data object LAST_LOCAL_BACKUP_TIME : SettingsKeys<String>("LAST_LOCAL_BACKUP_TIME", "")
     data object OUTPUT_SAVE_DIRECTORY : SettingsKeys<String>(

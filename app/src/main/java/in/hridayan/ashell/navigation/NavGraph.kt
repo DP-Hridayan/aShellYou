@@ -27,6 +27,8 @@ import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.CreateTileScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.TileDashBoardScreen
 import `in`.hridayan.ashell.settings.presentation.page.about.screens.AboutScreen
+import `in`.hridayan.ashell.settings.presentation.page.aimodels.screens.AiModelsScreen
+import `in`.hridayan.ashell.settings.presentation.page.aimodels.screens.ModelsScreen
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens.AutoUpdateScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupAndRestoreScreen
 import `in`.hridayan.ashell.settings.presentation.page.backup.screens.BackupSchedulerScreen
@@ -40,6 +42,7 @@ import `in`.hridayan.ashell.settings.presentation.page.languages.screens.Languag
 import `in`.hridayan.ashell.settings.presentation.page.licenses.screens.LicensesScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.LookAndFeelScreen
+import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.UiScaleScreen
 import `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen.SettingsScreen
 import `in`.hridayan.ashell.settings.presentation.page.search.screens.SettingsSearchScreen
 import `in`.hridayan.ashell.shell.file_browser.presentation.screens.FileBrowserScreen
@@ -48,8 +51,6 @@ import `in`.hridayan.ashell.shell.otg_adb_shell.presentation.screens.OtgAdbScree
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOtherDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.PairingOwnDeviceScreen
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.screens.WifiAdbScreen
-import `in`.hridayan.ashell.settings.presentation.page.aimodels.screens.AiModelsScreen
-import `in`.hridayan.ashell.settings.presentation.page.aimodels.screens.ModelsScreen
 import kotlin.reflect.KType
 
 @Composable
@@ -93,6 +94,10 @@ fun Navigation(isFirstLaunch: Boolean = false) {
             composable<NavRoutes.DarkThemeScreen> { backStackEntry ->
                 val route = backStackEntry.toRoute<NavRoutes.DarkThemeScreen>()
                 DarkThemeScreen(highlightKey = route.highlightKey)
+            }
+
+            composable<NavRoutes.UiScaleScreen> {
+                UiScaleScreen()
             }
 
             composable<NavRoutes.BehaviorScreen> { backStackEntry ->

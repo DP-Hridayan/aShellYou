@@ -180,6 +180,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.DarkThemeScreen())
                 )
 
+                SettingsKeys.UI_SCALE -> _uiEvent.emit(
+                    SettingsUiEvent.Navigate(NavRoutes.UiScaleScreen)
+                )
+
                 SettingsKeys.RESET_APP_SETTINGS -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.ResetSettings)
                 )

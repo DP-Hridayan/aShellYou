@@ -14,7 +14,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.unit.Density
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.data.local.provider.AppSeedColors
 import `in`.hridayan.ashell.core.data.local.provider.SeedColor
@@ -58,6 +60,7 @@ fun CompositionLocals(
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
+    val baseDensity = LocalDensity.current
 
     val autoUpdate by settingsViewModel.booleanState(SettingsKeys.AUTO_UPDATE)
 
@@ -124,6 +127,17 @@ fun CompositionLocals(
 
     val aiCacheDays by settingsViewModel.intState(SettingsKeys.AI_CACHE_DAYS)
 
+    val screenDensityMultiplier by settingsViewModel.floatState(SettingsKeys.SCREEN_DENSITY_MULTIPLIER)
+
+    val fontSizeMultiplier by settingsViewModel.floatState(SettingsKeys.FONT_SIZE_MULTIPLIER)
+
+    val scaledDensity = remember(screenDensityMultiplier, fontSizeMultiplier, baseDensity) {
+        Density(
+            density = baseDensity.density * screenDensityMultiplier,
+            fontScale = baseDensity.fontScale * screenDensityMultiplier * fontSizeMultiplier
+        )
+    }
+
     val state =
         remember(
             autoUpdate,
@@ -187,7 +201,9 @@ fun CompositionLocals(
                 lastCloudBackupType = lastCloudBackupType,
                 selectedModelId = selectedModelId,
                 aiCacheEnabled = aiCacheEnabled,
-                aiCacheDays = aiCacheDays
+                aiCacheDays = aiCacheDays,
+                screenDensityMultiplier = screenDensityMultiplier,
+                fontSizeMultiplier = fontSizeMultiplier
             )
         }
 
@@ -238,6 +254,7 @@ fun CompositionLocals(
 
     CompositionLocalProvider(
         LocalSettings provides state,
+        LocalDensity provides scaledDensity,
         LocalWeakHaptic provides weakHaptic,
         LocalStrongHaptic provides strongHaptic,
         LocalSeedColor provides seedColor,

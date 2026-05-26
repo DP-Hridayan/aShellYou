@@ -52,6 +52,9 @@ NavRoutes {
     data class DarkThemeScreen(val highlightKey: String? = null) : NavRoutes()
 
     @Serializable
+    object UiScaleScreen : NavRoutes()
+
+    @Serializable
     object HomeScreen : NavRoutes()
 
     @Serializable
