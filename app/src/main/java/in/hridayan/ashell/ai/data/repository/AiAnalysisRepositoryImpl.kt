@@ -37,17 +37,17 @@ class AiAnalysisRepositoryImpl @Inject constructor(
 
     companion object {
         private const val TAG = "AiAnalysis"
-        private const val MAX_TOKENS = 1024
+        private const val MAX_TOKENS = 512
         private const val TEMPERATURE = 0.0f
 
         /**
          * Maximum character length for commands sent to AI analysis.
          *
-         * The context window is 2048 tokens. Budget:
-         * - System prompt: ~400-500 tokens
+         * The context window is 1024 tokens. Budget:
+         * - System prompt: ~200-300 tokens
          * - ChatML wrapping: ~30 tokens
-         * - Generation (MAX_TOKENS): 1024 tokens
-         * - Available for user command: ~500 tokens ≈ 2000 chars
+         * - Generation (MAX_TOKENS): 512 tokens
+         * - Available for user command: ~200 tokens ≈ 1000 chars
          *
          * Commands exceeding this are truncated with a notice to the model.
          */

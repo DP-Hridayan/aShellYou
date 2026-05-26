@@ -59,7 +59,7 @@ class LlamaInferenceEngine @Inject constructor() {
      * @return true if the model was loaded successfully
      * @throws IllegalStateException if the engine is busy with another operation
      */
-    suspend fun loadModel(modelPath: String, contextSize: Int = 2048): Boolean =
+    suspend fun loadModel(modelPath: String, contextSize: Int = 1024): Boolean =
         withContext(Dispatchers.Default) {
             if (!mutex.tryLock()) {
                 throw IllegalStateException("Engine is busy. Please wait and try again.")
