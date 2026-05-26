@@ -1,8 +1,0 @@
-// This file is for fixing legacy update checker v6.1.0 and earlier releases which used a very messy method for checking updates(even I don't know what I was doing back then).
-// Old versions basically downloaded the build.gradle and compared the version code with installed app to check for updates. Yeah, I know it sounds bad already!
-
-// So here we just put some fake values for versionCode and versionName for the old updater to pick on, for those who still (maybe) rely on in-app updater only.
-/*
-versionCode 62
-versionName "v7.4.0"
-*/
