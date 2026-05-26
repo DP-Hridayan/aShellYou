@@ -119,6 +119,7 @@ fun UiScaleScreen(
                         value = fontSizeMultiplier,
                         defaultValue = SettingsKeys.FONT_SIZE_MULTIPLIER.defaultValue,
                         valueRange = 0.5f..2f,
+                        steps = 14,
                         onValueChange = { newValue ->
                             settingsViewModel.setFloat(
                                 key = SettingsKeys.FONT_SIZE_MULTIPLIER,
@@ -149,7 +150,8 @@ private fun ScaleModifyCard(
     value: Float,
     defaultValue: Float = 1f,
     onValueChange: (Float) -> Unit = {},
-    valueRange: ClosedFloatingPointRange<Float> = 0.5f..1.5f
+    valueRange: ClosedFloatingPointRange<Float> = 0.5f..1.5f,
+    steps : Int = 9
 ) {
     val locale = LocalLocale.current
     val weakHaptic = LocalWeakHaptic.current
@@ -245,7 +247,7 @@ private fun ScaleModifyCard(
                         onValueChange(sliderValue)
                     },
                     valueRange = valueRange,
-                    steps = 10
+                    steps = steps
                 )
 
                 IconButton(
