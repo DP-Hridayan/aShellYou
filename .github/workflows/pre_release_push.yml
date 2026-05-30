@@ -86,5 +86,5 @@ jobs:
           gh release create "${{ github.ref_name }}" \
             $APK_FILES \
             --title "aShell You ${{ github.ref_name }}" \
-            --notes "⚠️ Experimental alpha build. May contain bugs." \
+            --notes-file .github/prerelease-notes.md \
             --prerelease
