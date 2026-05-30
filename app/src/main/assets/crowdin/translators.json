@@ -62,8 +62,8 @@
     "id": "15085871",
     "username": "AY_Translator",
     "name": "Aleksandr (AY_Translator)",
-    "translated": 6489,
-    "approved": 7810,
+    "translated": 6559,
+    "approved": 7892,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15085871/medium/3a254014b133e0fc2d376c776aba8dbd.jpg",
     "languages": [
       {
@@ -106,6 +106,25 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17661502.webp"
+  },
+  {
+    "id": "18094",
+    "username": "marciozomb13",
+    "name": "Marcio Andrade (marciozomb13)",
+    "translated": 1948,
+    "approved": 3909,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/18094/medium/0b04f911b3f2747703a948db9985995a.jpg",
+    "languages": [
+      {
+        "id": "pt-PT",
+        "name": "Portuguese"
+      },
+      {
+        "id": "pt-BR",
+        "name": "Portuguese, Brazilian"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_18094.webp"
   },
   {
     "id": "17262364",
@@ -213,21 +232,6 @@
     "avatar": "crowdin/contributors_pfp/contributor_16749463.webp"
   },
   {
-    "id": "18094",
-    "username": "marciozomb13",
-    "name": "Marcio Andrade (marciozomb13)",
-    "translated": 447,
-    "approved": 0,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/18094/medium/0b04f911b3f2747703a948db9985995a.jpg",
-    "languages": [
-      {
-        "id": "pt-PT",
-        "name": "Portuguese"
-      }
-    ],
-    "avatar": "crowdin/contributors_pfp/contributor_18094.webp"
-  },
-  {
     "id": "17708000",
     "username": "Ziednaga",
     "name": "Ziednaga",
@@ -301,6 +305,21 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_16623243.webp"
+  },
+  {
+    "id": "15525979",
+    "username": "AuroraRock",
+    "name": "Aurora (AuroraRock)",
+    "translated": 101,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/15525979/medium/722916fe19562a00720ef8eeb5d2a43f_default.png",
+    "languages": [
+      {
+        "id": "zh-CN",
+        "name": "Chinese Simplified"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_15525979.webp"
   },
   {
     "id": "17101716",
