@@ -14,7 +14,6 @@ import `in`.hridayan.ashell.settings.domain.model.AppFont
  * Builds a [Typography] with every text style (baseline + emphasized)
  * overridden to use the selected [AppFont]'s [FontFamily].
  *
- * Uses [TextStyle.withFont] to avoid 30 repetitive `.copy()` calls.
  * Memoised via [remember] so a new object is created only when
  * [fontFamilyId] actually changes, not on every recomposition.
  */
