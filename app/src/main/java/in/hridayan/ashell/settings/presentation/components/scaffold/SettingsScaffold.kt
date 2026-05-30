@@ -98,7 +98,6 @@ private fun SettingsScaffoldImpl(
                         text = topBarTitle,
                         maxLines = 1,
                         fontSize = fontSize,
-                        fontFamily = FontFamily.SansSerif,
                         letterSpacing = 0.05.em
                     )
                 },
