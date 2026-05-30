@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -30,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -64,7 +64,12 @@ fun FloatingNavPill(
 
             Box(
                 modifier = Modifier
-                    .offset(x = offsetX)
+                    .offset {
+                        IntOffset(
+                            x = offsetX.roundToPx(),
+                            y = 0
+                        )
+                    }
                     .width(itemWidth)
                     .fillMaxHeight()
                     .padding(6.dp)

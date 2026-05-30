@@ -100,6 +100,24 @@ enum class AppFont(val id: Int, val labelResId: Int) {
     },
     ROBOTO_FLEX(31, R.string.font_roboto_flex) {
         override val fontFamily: FontFamily by lazy { FontFamily(Font(R.font.roboto_flex_var)) }
+    },
+    CAVEAT(32, R.string.font_caveat) {
+        override val fontFamily: FontFamily by lazy { FontFamily(Font(R.font.caveat)) }
+    },
+    DANCING_SCRIPT(33, R.string.font_dancing_script) {
+        override val fontFamily: FontFamily by lazy { FontFamily(Font(R.font.dancing_script)) }
+    },
+    PLAYPEN_SANS(34, R.string.font_playpen_sans) {
+        override val fontFamily: FontFamily by lazy { FontFamily(Font(R.font.playpen_sans)) }
+    },
+    PACIFICO(35, R.string.font_pacifico) {
+        override val fontFamily: FontFamily by lazy { FontFamily(Font(R.font.pacifico)) }
+    },
+    SHADOWS_INTO_LIGHT(36, R.string.font_shadows_into_light) {
+        override val fontFamily: FontFamily by lazy { FontFamily(Font(R.font.shadows_into_light)) }
+    },
+    AMATIC_SC(37, R.string.font_amatic_sc) {
+        override val fontFamily: FontFamily by lazy { FontFamily(Font(R.font.amatic_sc)) }
     }
     ;
 

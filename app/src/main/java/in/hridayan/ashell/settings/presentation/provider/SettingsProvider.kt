@@ -371,6 +371,12 @@ object SettingsProvider {
                 description = R.string.des_ai_cache_days,
                 icon = R.drawable.ic_schedule
             ),
+            clickableItem(
+                key = SettingsKeys.AI_CACHE_CLEAR,
+                title = R.string.clear_analysis_cache,
+                description = R.string.cache_size,
+                icon = R.drawable.ic_delete_sweep
+            )
         ),
     )
 

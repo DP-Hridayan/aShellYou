@@ -266,6 +266,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheDays)
                 )
 
+                SettingsKeys.AI_CACHE_CLEAR -> _uiEvent.emit(
+                    SettingsUiEvent.ShowDialog(DialogKey.Settings.AiCacheClearConfirmation)
+                )
+
                 else -> {}
             }
         }

@@ -5,12 +5,16 @@
 
 package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -70,6 +74,7 @@ import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedShape
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
+import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.domain.model.AppFont
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
@@ -117,6 +122,8 @@ fun FontStyleBottomSheet(
         isCheckedMatchCase -> previewText.uppercase()
         else -> previewText.lowercase()
     }
+
+    val isKeyboardVisible by isKeyboardVisible()
 
     LaunchedEffect(selected) {
         tempSelected = selected
@@ -183,6 +190,35 @@ fun FontStyleBottomSheet(
                 hint = stringResource(R.string.search_fonts)
             )
 
+            AnimatedVisibility(
+                visible = filteredFontStyles.isEmpty(),
+                enter = expandVertically(),
+                exit = shrinkVertically()
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_error),
+                        tint = MaterialTheme.colorScheme.error,
+                        contentDescription = null
+                    )
+
+                    Text(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth(),
+                        text = stringResource(R.string.no_search_results_found),
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -197,12 +233,13 @@ fun FontStyleBottomSheet(
 
                     val isSelected = option.value == tempSelected
 
-                    val cardColors = if (isSelected) CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ) else CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-                        contentColor = MaterialTheme.colorScheme.onSurface
+                    val cardColors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.run {
+                            if (isSelected) primaryContainer else surfaceContainerLowest
+                        },
+                        contentColor = MaterialTheme.colorScheme.run {
+                            if (isSelected) onPrimaryContainer else onSurface
+                        }
                     )
 
                     val finalShape = if (isSelected) {
@@ -254,47 +291,53 @@ fun FontStyleBottomSheet(
             }
 
             @Suppress("DEPRECATION")
-            ButtonGroup(
-                modifier = Modifier.fillMaxWidth()
+            AnimatedVisibility(
+                visible = !isKeyboardVisible,
+                enter = expandVertically(),
+                exit = shrinkVertically()
             ) {
-                OutlinedButton(
-                    modifier = Modifier
-                        .weight(1f)
-                        .animateWidth(interactionSources[0]),
-                    shapes = ButtonDefaults.shapes(),
-                    interactionSource = interactionSources[0],
-                    onClick = withHaptic(HapticFeedbackType.Reject) {
-                        onDismiss()
-                    },
-                    content = { Text(text = stringResource(R.string.cancel)) }
-                )
+                ButtonGroup(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    OutlinedButton(
+                        modifier = Modifier
+                            .weight(1f)
+                            .animateWidth(interactionSources[0]),
+                        shapes = ButtonDefaults.shapes(),
+                        interactionSource = interactionSources[0],
+                        onClick = withHaptic(HapticFeedbackType.Reject) {
+                            onDismiss()
+                        },
+                        content = { Text(text = stringResource(R.string.cancel)) }
+                    )
 
-                Button(
-                    modifier = Modifier
-                        .weight(1f)
-                        .animateWidth(interactionSources[1]),
-                    shapes = ButtonDefaults.shapes(),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                    interactionSource = interactionSources[1],
-                    onClick = withHaptic(HapticFeedbackType.Confirm) {
-                        settingsViewModel.setInt(
-                            key = SettingsKeys.FONT_FAMILY,
-                            value = tempSelected
-                        )
-                        onDismiss()
-                    },
-                    content = { Text(text = stringResource(R.string.confirm)) }
-                )
+                    Button(
+                        modifier = Modifier
+                            .weight(1f)
+                            .animateWidth(interactionSources[1]),
+                        shapes = ButtonDefaults.shapes(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        ),
+                        interactionSource = interactionSources[1],
+                        onClick = withHaptic(HapticFeedbackType.Confirm) {
+                            settingsViewModel.setInt(
+                                key = SettingsKeys.FONT_FAMILY,
+                                value = tempSelected
+                            )
+                            onDismiss()
+                        },
+                        content = { Text(text = stringResource(R.string.apply)) }
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-fun TextFormatUtilityRow(
+private fun TextFormatUtilityRow(
     modifier: Modifier = Modifier,
     viewModel: LookAndFeelViewModel = hiltViewModel()
 ) {
