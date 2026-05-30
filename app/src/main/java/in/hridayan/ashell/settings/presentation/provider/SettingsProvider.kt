@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.Cached
+import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Memory
 import androidx.compose.material.icons.rounded.UnfoldMoreDouble
@@ -101,6 +102,15 @@ object SettingsProvider {
                 description = R.string.system,
                 iconVector = Icons.Outlined.DarkMode
             ),
+        ),
+        category(
+            title = R.string.font_family,
+            clickableItem(
+                key = SettingsKeys.FONT_FAMILY,
+                title = R.string.font_family,
+                description = R.string.des_font_family,
+                iconVector = Icons.Rounded.TextFields
+            )
         ),
         category(
             title = R.string.ui_scale,

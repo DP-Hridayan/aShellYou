@@ -131,6 +131,8 @@ fun CompositionLocals(
 
     val fontSizeMultiplier by settingsViewModel.floatState(SettingsKeys.FONT_SIZE_MULTIPLIER)
 
+    val fontFamily by settingsViewModel.intState(SettingsKeys.FONT_FAMILY)
+
     val scaledDensity = remember(screenDensityMultiplier, fontSizeMultiplier, baseDensity) {
         Density(
             density = baseDensity.density * screenDensityMultiplier,
@@ -171,7 +173,8 @@ fun CompositionLocals(
             aiCacheEnabled,
             aiCacheDays,
             screenDensityMultiplier,
-            fontSizeMultiplier
+            fontSizeMultiplier,
+            fontFamily
         ) {
             SettingsState(
                 isAutoUpdate = autoUpdate,
@@ -205,7 +208,8 @@ fun CompositionLocals(
                 aiCacheEnabled = aiCacheEnabled,
                 aiCacheDays = aiCacheDays,
                 screenDensityMultiplier = screenDensityMultiplier,
-                fontSizeMultiplier = fontSizeMultiplier
+                fontSizeMultiplier = fontSizeMultiplier,
+                fontFamily = fontFamily
             )
         }
 

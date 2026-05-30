@@ -16,7 +16,10 @@ import androidx.compose.material.icons.twotone.DarkMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -37,6 +40,7 @@ import `in`.hridayan.ashell.settings.data.SettingsKeys
 import `in`.hridayan.ashell.settings.presentation.components.dialog.PaletteStylePickerDialog
 import `in`.hridayan.ashell.settings.presentation.components.scaffold.SettingsScaffold
 import `in`.hridayan.ashell.settings.presentation.components.tab.ColorTabs
+import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.FontStyleBottomSheet
 import `in`.hridayan.ashell.settings.presentation.event.SettingsUiEvent
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.LookAndFeelViewModel
 import `in`.hridayan.settingsdsl.ui.highlight.rememberHighlightState
@@ -62,12 +66,15 @@ fun LookAndFeelScreen(
     val hapticsEnabled = LocalSettings.current.isHapticEnabled
     val isDynamicColorEnabled = LocalSettings.current.isDynamicColor
 
+    var showFontStyleBottomSheet by remember { mutableStateOf(false) }
+
     LaunchedEffect(Unit) {
         settingsViewModel.uiEvent.collect { event ->
             when (event) {
                 is SettingsUiEvent.LaunchIntent -> context.startActivity(event.intent)
                 is SettingsUiEvent.Navigate -> navController.navigate(event.route)
                 is SettingsUiEvent.ShowDialog -> dialogManager.show(event.key)
+                SettingsUiEvent.ShowFontStylesBottomSheet -> showFontStyleBottomSheet = true
                 else -> {}
             }
         }
@@ -80,6 +87,12 @@ fun LookAndFeelScreen(
                 lookAndFeelViewModel.setPaletteStyle(style)
                 lookAndFeelViewModel.disableDynamicColors()
             }
+        )
+    }
+
+    if (showFontStyleBottomSheet) {
+        FontStyleBottomSheet(
+            onDismiss = { showFontStyleBottomSheet = false }
         )
     }
 

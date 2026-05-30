@@ -184,6 +184,10 @@ class SettingsViewModel @Inject constructor(
                     SettingsUiEvent.Navigate(NavRoutes.UiScaleScreen)
                 )
 
+                SettingsKeys.FONT_FAMILY -> _uiEvent.emit(
+                    SettingsUiEvent.ShowFontStylesBottomSheet
+                )
+
                 SettingsKeys.RESET_APP_SETTINGS -> _uiEvent.emit(
                     SettingsUiEvent.ShowDialog(DialogKey.Settings.ResetSettings)
                 )

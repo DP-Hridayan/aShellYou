@@ -106,6 +106,7 @@ sealed class SettingsKeys<out T>(
     data object BOOKMARK_SORT_TYPE : SettingsKeys<Int>("BOOKMARK_SORT_TYPE", SortType.AZ)
     data object COMMAND_SORT_TYPE : SettingsKeys<Int>("COMMAND_SORT_TYPE", SortType.AZ)
     data object AI_CACHE_DAYS : SettingsKeys<Int>("AI_CACHE_DAYS", 30)
+    data object FONT_FAMILY : SettingsKeys<Int>("FONT_FAMILY", 0)
 
     // String Keys
 

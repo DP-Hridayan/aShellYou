@@ -35,5 +35,6 @@ data class SettingsState(
     val aiCacheEnabled: Boolean,
     val aiCacheDays: Int,
     val screenDensityMultiplier: Float,
-    val fontSizeMultiplier: Float
+    val fontSizeMultiplier: Float,
+    val fontFamily: Int
 )
