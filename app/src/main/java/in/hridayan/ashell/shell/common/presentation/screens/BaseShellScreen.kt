@@ -105,17 +105,22 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.R
+import `in`.hridayan.ashell.ai.presentation.components.bottomsheet.AiAnalysisBottomSheet
+import `in`.hridayan.ashell.ai.presentation.components.button.AnalyzeButton
+import `in`.hridayan.ashell.ai.presentation.viewmodel.AiAnalysisViewModel
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.LocalSettings
@@ -157,10 +162,9 @@ import `in`.hridayan.ashell.shell.common.presentation.util.highlightQueryText
 import `in`.hridayan.ashell.shell.common.presentation.util.rememberScrollDirection
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.BookmarkViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
-import `in`.hridayan.ashell.ai.presentation.components.bottomsheet.AiAnalysisBottomSheet
-import `in`.hridayan.ashell.ai.presentation.components.button.AnalyzeButton
-import `in`.hridayan.ashell.ai.presentation.viewmodel.AiAnalysisViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.android.awaitFrame
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -326,7 +330,7 @@ fun BaseShellScreen(
                 // Hide after 3 seconds of no scrolling
                 LaunchedEffect(listState.isScrollInProgress) {
                     if (!listState.isScrollInProgress && showScrollButton) {
-                        kotlinx.coroutines.delay(3000)
+                        delay(3000)
                         if (!listState.isScrollInProgress) {
                             showScrollButton = false
                         }
@@ -538,7 +542,9 @@ fun BaseShellScreen(
                                                                         duration = SnackbarDuration.Short
                                                                     )
                                                                 }
-                                                            } else bookmarkViewModel.addBookmark(states.commandField.fieldValue.text)
+                                                            } else bookmarkViewModel.addBookmark(
+                                                                states.commandField.fieldValue.text
+                                                            )
                                                         }) {
                                                         Icon(
                                                             painter = trailingIcon,
@@ -820,7 +826,7 @@ private fun OutputCard(
 
     // Smart auto-scroll during live output (ShellState.Busy)
     var userScrolledAway by remember { mutableStateOf(false) }
-    var autoScrollResumeJob by remember { mutableStateOf<kotlinx.coroutines.Job?>(null) }
+    var autoScrollResumeJob by remember { mutableStateOf<Job?>(null) }
     val outputCardScope = rememberCoroutineScope()
 
     // Check if we're near the bottom (within 3 items)
@@ -851,7 +857,7 @@ private fun OutputCard(
                     // Cancel any existing resume job and start new 3s timer
                     autoScrollResumeJob?.cancel()
                     autoScrollResumeJob = outputCardScope.launch {
-                        kotlinx.coroutines.delay(3000)
+                        delay(3000)
                         userScrolledAway = false
                     }
                 }
@@ -878,7 +884,7 @@ private fun OutputCard(
             autoScrollResumeJob?.cancel()
             try {
                 // Delay slightly to let UI settle, then scroll to bottom
-                kotlinx.coroutines.delay(50)
+                delay(50)
                 listState.animateScrollToItem(combinedOutput.value.lastIndex)
             } catch (_: Exception) {
                 // Ignore scroll cancellation
@@ -996,8 +1002,8 @@ private fun OutputCard(
 private fun OutputLineItem(
     line: OutputLine,
     states: ShellScreenState,
-    commandTextStyle: androidx.compose.ui.text.TextStyle,
-    bodyTextStyle: androidx.compose.ui.text.TextStyle
+    commandTextStyle: TextStyle,
+    bodyTextStyle: TextStyle
 ) {
     val text = if (!states.search.isVisible) line.text else line.text.takeIf {
         line.text.contains(
@@ -1114,7 +1120,7 @@ private fun FullscreenOutputOverlay(
     // Track if user has scrolled away from bottom
     var userScrolledAway by remember { mutableStateOf(false) }
     var lastScrollPosition by remember { mutableIntStateOf(0) }
-    var autoScrollJob by remember { mutableStateOf<kotlinx.coroutines.Job?>(null) }
+    var autoScrollJob by remember { mutableStateOf<Job?>(null) }
     val coroutineScope = rememberCoroutineScope()
 
     // Check if we're near the bottom (within 3 items)
@@ -1143,7 +1149,7 @@ private fun FullscreenOutputOverlay(
                     // Cancel any existing resume job and start new 3s timer
                     autoScrollJob?.cancel()
                     autoScrollJob = coroutineScope.launch {
-                        kotlinx.coroutines.delay(3000)
+                        delay(3000)
                         userScrolledAway = false
                     }
                 }
@@ -1311,7 +1317,7 @@ private fun FullscreenOutputOverlay(
                                             style = commandTextStyle,
                                             color = MaterialTheme.colorScheme.primary,
                                             maxLines = 1,
-                                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                                            overflow = TextOverflow.Ellipsis
                                         )
                                     }
                                     HorizontalDivider(
