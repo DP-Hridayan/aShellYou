@@ -3,8 +3,9 @@ name: Build and Release Alpha APK
 on:
   push:
     tags:
-      - "alpha-*"
-  workflow_dispatch:
+      - "v*-debug*"
+      - "v*-alpha*"
+      - "v*-beta*"
 
 jobs:
   build:

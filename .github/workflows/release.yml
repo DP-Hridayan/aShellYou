@@ -4,19 +4,19 @@ on:
   push:
     tags:
       - "v*" # Runs when a tag like "v6.0.1" is pushed
-  workflow_dispatch:
 
 jobs:
   build:
     name: Build and Sign APK
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
         with:
-         submodules: recursive
-         fetch-depth: 0
+          submodules: recursive
+          fetch-depth: 0
 
       - name: Set up JDK
         uses: actions/setup-java@v5
@@ -57,7 +57,7 @@ jobs:
   release:
     name: Create GitHub Release
     needs: build
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
     runs-on: ubuntu-latest
 
     steps:
@@ -86,10 +86,10 @@ jobs:
 
           # Convert \n to newline + bullet
           CHANGELOG=$(echo "$CHANGELOG" | sed 's/\\n/\n* /g')
-  
+          
           # Add heading cleanly
           CHANGELOG="### Changelog\n\n$CHANGELOG"
-  
+          
           # Write to file
           echo -e "$CHANGELOG" > changelog.txt
 
@@ -116,8 +116,8 @@ jobs:
       - name: Notify Telegram of New Release
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          CHAT_ID:         ${{ secrets.CHAT_ID }}
-          THREAD_ID:       ${{ secrets.RELEASE_THREAD_ID }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          THREAD_ID: ${{ secrets.RELEASE_THREAD_ID }}
         run: |
           TAG=${{ github.ref_name }}
           URL="https://github.com/${{ github.repository }}/releases/tag/${TAG}"
