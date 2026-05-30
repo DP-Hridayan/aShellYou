@@ -2,7 +2,6 @@ package `in`.hridayan.ashell.ai.domain.usecase
 
 import `in`.hridayan.ashell.ai.data.repository.AiAnalysisRepositoryImpl
 import `in`.hridayan.ashell.ai.domain.model.AnalysisResult
-import `in`.hridayan.ashell.ai.domain.model.AnalysisStatus
 import `in`.hridayan.ashell.ai.domain.repository.AiAnalysisRepository
 import `in`.hridayan.ashell.ai.domain.repository.AiModelRepository
 import javax.inject.Inject
@@ -13,16 +12,11 @@ import javax.inject.Inject
  * Orchestrates the full analysis pipeline:
  * 1. Cache check
  * 2. Model availability check
- * 3. Danger heuristics
- * 4. AI analysis
- * 5. Correction generation
- * 6. Result merging
+ * 3. AI analysis
  */
 class AnalyzeCommandUseCase @Inject constructor(
     private val analysisRepository: AiAnalysisRepository,
-    private val modelRepository: AiModelRepository,
-    private val detectDangerLevelUseCase: DetectDangerLevelUseCase,
-    private val generateCorrectionsUseCase: GenerateCorrectionsUseCase
+    private val modelRepository: AiModelRepository
 ) {
     /** Exception thrown when no AI model is installed */
     class ModelNotInstalledException : Exception("No AI model installed")
@@ -62,31 +56,7 @@ class AnalyzeCommandUseCase @Inject constructor(
             throw ModelNotInstalledException()
         }
 
-        // 3. Run danger heuristics
-        val heuristicDanger = detectDangerLevelUseCase(safeCommand)
-
-        // 4. Run AI analysis
-        val aiResult = analysisRepository.analyzeCommand(safeCommand)
-
-        // 5. Merge: take the higher danger level
-        val mergedDanger = if (heuristicDanger.ordinal > aiResult.dangerLevel.ordinal) {
-            heuristicDanger
-        } else {
-            aiResult.dangerLevel
-        }
-
-        // 6. Generate corrections for PARTIAL/INVALID commands
-        val corrections = if (aiResult.status == AnalysisStatus.PARTIAL ||
-            aiResult.status == AnalysisStatus.INVALID
-        ) {
-            generateCorrectionsUseCase(safeCommand, aiResult.corrections)
-        } else {
-            aiResult.corrections
-        }
-
-        return aiResult.copy(
-            dangerLevel = mergedDanger,
-            corrections = corrections
-        )
+        // 3. Run AI analysis
+        return analysisRepository.analyzeCommand(safeCommand)
     }
 }

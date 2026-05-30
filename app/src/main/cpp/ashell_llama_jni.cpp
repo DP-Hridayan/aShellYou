@@ -337,6 +337,17 @@ static jstring run_inference_internal(JNIEnv *env,
             output.append(buf, static_cast<size_t>(n));
         }
 
+        // Stop early if the model tries to generate the next few-shot example or a new line
+        if (output.find("\n") != std::string::npos ||
+            output.find("Command:") != std::string::npos ||
+            output.find("Description:") != std::string::npos) {
+            size_t pos = output.find("\n");
+            if (pos != std::string::npos) {
+                output = output.substr(0, pos);
+            }
+            break;
+        }
+
         // Check for ChatML closing tag
         if (output.size() >= 10 &&
             output.rfind("<|im_end|>", output.size() - 10) != std::string::npos) {

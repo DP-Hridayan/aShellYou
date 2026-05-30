@@ -3,27 +3,31 @@ package `in`.hridayan.ashell.ai.data.parser
 /**
  * Builds system and user prompts for AI command analysis.
  *
- * The prompts are designed to work with small instruction-tuned models
- * (0.5B–1.5B parameters) and produce structured JSON responses.
+ * Designed to guide small instruction-tuned models (0.5B) to output
+ * a single accurate sentence using a few-shot structure.
  */
 object PromptBuilder {
 
     /**
-     * Build the system prompt that instructs the model to analyze commands.
-     *
-     * Uses full key names (the 0.5B model handles these reliably) but minimal
-     * field count. Two examples teach correct danger level differentiation.
-     * ~120 tokens system prompt for fast first-call evaluation.
+     * Build the system prompt that instructs the model to describe commands.
+     * Includes few-shot examples to enforce conciseness and prevent rambling.
      */
     fun buildSystemPrompt(): String = """
-Analyze Android ADB/shell commands. Reply ONLY with JSON. description MUST accurately state what the command does.
-Command: pm list packages
-{"status":"VALID","description":"Lists all installed packages","dangerLevel":"SAFE","requiresRoot":false,"corrections":[],"feedback":""}
-Command: pm uninstall
-{"status":"PARTIAL","description":"Missing package name argument","dangerLevel":"MODERATE","requiresRoot":false,"corrections":["pm uninstall <package>"],"feedback":"Specify package"}
-Command: xyzabc
-{"status":"GIBBERISH","description":"Not a recognized command","dangerLevel":"SAFE","requiresRoot":false,"corrections":[],"feedback":""}
-status: VALID/PARTIAL/INVALID/GIBBERISH. dangerLevel: SAFE/LOW_RISK/MODERATE/DANGEROUS/CRITICAL.
+You describe Android ADB/shell commands in one sentence.
+If the command is unrecognized, invalid, or gibberish, reply ONLY with: Not a recognized command.
+
+Examples:
+Command: adb shell pm list packages
+Description: Lists all installed packages on the device.
+
+Command: adb shell ls -la
+Description: Lists all files and directories in the current folder with detailed information.
+
+Command: adb shell sksksksk
+Description: Not a recognized command.
+
+Command: adb shell reboot
+Description: Reboots the Android device.
 """.trimIndent()
 
     /**
@@ -32,5 +36,8 @@ status: VALID/PARTIAL/INVALID/GIBBERISH. dangerLevel: SAFE/LOW_RISK/MODERATE/DAN
      * @param command The shell/ADB command to analyze
      * @return The formatted user prompt
      */
-    fun buildUserPrompt(command: String): String = "Command: $command\nJSON:"
+    fun buildUserPrompt(command: String): String = """
+Command: ${if (command.trim().startsWith("adb")) command.trim() else "adb shell ${command.trim()}"}
+Description:
+""".trimIndent()
 }

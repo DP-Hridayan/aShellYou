@@ -37,7 +37,7 @@ class AiAnalysisRepositoryImpl @Inject constructor(
 
     companion object {
         private const val TAG = "AiAnalysis"
-        private const val MAX_TOKENS = 100
+        private const val MAX_TOKENS = 50
         private const val TEMPERATURE = 0.0f
 
         /**
@@ -149,7 +149,7 @@ class AiAnalysisRepositoryImpl @Inject constructor(
         val result = AiResponseParser.parse(rawResponse)
         Log.d(
             TAG,
-            "Parsed result: status=${result.status}, description=${result.description.take(100)}, dangerLevel=${result.dangerLevel}"
+            "Parsed result: status=${result.status}, description=${result.description.take(100)}"
         )
 
         // 5. Cache result
